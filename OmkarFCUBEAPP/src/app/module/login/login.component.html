@@ -1,0 +1,35 @@
+<!-- WRAPPER -->
+<div id="wrapper">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle auth-main">
+            <div class="auth-box">
+                <div class="top">
+                    <h2 class="text-white">Omkar FCUBE</h2>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <p class="lead">Login to your account</p>
+                    </div>
+                    <div class="body">
+                        <form class="form-auth-small" [formGroup]="formLogin">
+                            <div class="form-group">
+                                <label for="userName" class="control-label sr-only">Email</label>
+                                <input type="text" class="form-control" formControlName="userName" placeholder="Enter username" [ngClass]="{ 'is-invalid': f['userName'].invalid && (f['userName'].dirty || f['userName'].touched) }">
+                            </div>
+                            <div class="form-group">
+                                <label for="userPassword" class="control-label sr-only">Password</label>
+                                <input type="password" class="form-control" formControlName="userPassword" placeholder="Enter Password" [ngClass]="{ 'is-invalid': f['userPassword'].invalid && (f['userPassword'].dirty || f['userPassword'].touched) }">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="submitLoginForm()">LOGIN</button>
+                            <div class="bottom">
+                                <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="">Forgot password?</a></span>
+                                <span>Don't have an account? <a href="">Register</a></span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END WRAPPER -->
