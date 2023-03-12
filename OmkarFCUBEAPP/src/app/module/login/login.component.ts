@@ -13,6 +13,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   loginSubmitted = false;
+  selectedUserDetails = new Usermodel();
 
   constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, private sharedService: SharedService, private route: Router) {
     this.loginModel = new Loginmodel();
@@ -39,12 +40,13 @@ export class LoginComponent implements OnInit {
     this.loginModel.userName = this.formLogin.value.userName;
     this.loginModel.userPassword = this.formLogin.value.userPassword;
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: Usermodel) => {
-      if (res.status) {
-        localStorage.setItem("uid", res.userId);
+      this.selectedUserDetails = res;
+      if (this.selectedUserDetails.status) {
+        localStorage.setItem("uid", this.selectedUserDetails.userId);
         this.route.navigate(['/dashboard']);
       }
       else {
-        console.log(res.message);
+        console.log(this.selectedUserDetails.message);
       }
       this.formLogin.reset();
     })

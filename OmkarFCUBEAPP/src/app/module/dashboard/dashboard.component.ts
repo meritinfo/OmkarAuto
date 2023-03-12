@@ -1,10 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
+  selectedUserID: string = '';
+
+  constructor(private route: Router) {
+  }
+
+  ngOnInit(): void {
+    var userData = localStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.selectedUserID = userData;
+    }
+    if (this.selectedUserID) {
+      console.log(this.selectedUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+  }
 }

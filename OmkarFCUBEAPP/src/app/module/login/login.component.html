@@ -14,15 +14,24 @@
                         <form class="form-auth-small" [formGroup]="formLogin">
                             <div class="form-group">
                                 <label for="userName" class="control-label sr-only">Email</label>
-                                <input type="text" class="form-control" formControlName="userName" placeholder="Enter username" [ngClass]="{ 'is-invalid': f['userName'].invalid && (f['userName'].dirty || f['userName'].touched) }">
+                                <input type="text" class="form-control" formControlName="userName"
+                                    placeholder="Enter username"
+                                    [ngClass]="{ 'is-invalid': loginSubmitted ||( f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)) }">
                             </div>
                             <div class="form-group">
                                 <label for="userPassword" class="control-label sr-only">Password</label>
-                                <input type="password" class="form-control" formControlName="userPassword" placeholder="Enter Password" [ngClass]="{ 'is-invalid': f['userPassword'].invalid && (f['userPassword'].dirty || f['userPassword'].touched) }">
+                                <input type="password" class="form-control" formControlName="userPassword"
+                                    placeholder="Enter Password"
+                                    [ngClass]="{ 'is-invalid': loginSubmitted ||( f['userPassword'].invalid && (f['userPassword'].dirty || f['userPassword'].touched)) }">
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block" (click)="submitLoginForm()">LOGIN</button>
+                            <div class="form-group">
+                                <p class="small text-danger">{{this.selectedUserDetails.message}}</p>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block"
+                                (click)="submitLoginForm()">LOGIN</button>
                             <div class="bottom">
-                                <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="">Forgot password?</a></span>
+                                <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="">Forgot
+                                        password?</a></span>
                                 <span>Don't have an account? <a href="">Register</a></span>
                             </div>
                         </form>
