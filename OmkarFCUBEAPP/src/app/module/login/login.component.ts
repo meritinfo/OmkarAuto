@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       else {
         console.log(this.selectedUserDetails.message);
       }
-      this.formLogin.reset();
-    })
+      this.formLogin.reset(); 
+    });
   }
 }
