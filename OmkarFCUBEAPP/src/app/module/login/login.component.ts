@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
       userName: new FormControl('', [Validators.required]),
       userPassword: new FormControl('', Validators.required)
     });
+    this.sharedService.loggedInStatus = false;
   }
 
   // convenience getter for easy access to contact form fields
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
         localStorage.setItem("uid", this.selectedUserDetails.userId);
+        this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);
       }
       else {

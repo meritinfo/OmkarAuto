@@ -16,6 +16,8 @@ export class SharedService {
     })
   }
 
+  loggedInStatus: boolean = false;
+
   constructor(private httpClient: HttpClient) { }
 
   loginSubmitted(login : Loginmodel): Observable<Usermodel> {

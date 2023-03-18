@@ -8,6 +8,7 @@ import { LoginComponent } from './module/login/login.component';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
+import { LayoutModule } from './module/shared';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { Loginmodel } from './models/loginmodel';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LayoutModule
   ],
   providers: [Loginmodel],
   bootstrap: [AppComponent]
