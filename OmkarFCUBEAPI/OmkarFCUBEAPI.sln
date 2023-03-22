@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlHelper", "SqlHelper\SqlH
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{F7B28F04-9056-4568-9BA6-ED9A29E28258}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreightMasters", "FreightMasters\FreightMasters.csproj", "{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F7B28F04-9056-4568-9BA6-ED9A29E28258}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7B28F04-9056-4568-9BA6-ED9A29E28258}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7B28F04-9056-4568-9BA6-ED9A29E28258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

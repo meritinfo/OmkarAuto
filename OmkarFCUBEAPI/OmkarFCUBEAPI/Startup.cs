@@ -1,3 +1,5 @@
+using FreightMasters.Business;
+using FreightMasters.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,6 +37,8 @@ namespace OmkarFCUBEAPI
             services.Configure<DBModel>(Configuration.GetSection("ConnectionStrings"));
             services.AddScoped<ISharedBusiness, SharedBusiness>();
             services.AddScoped<ISharedRepository, SharedRepository>();
+            services.AddScoped<IFreightMastersBusiness, FreightMastersBusiness>();
+            services.AddScoped<IFreightMastersRepository, FreightMastersRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OmkarFCUBEAPI", Version = "v1" });
