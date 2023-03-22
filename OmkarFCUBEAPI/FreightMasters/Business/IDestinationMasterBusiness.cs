@@ -1,11 +1,11 @@
 ﻿using FreightMasters.Models;
 
-namespace FreightMasters.Repository
+namespace FreightMasters.Business
 {
     /// <summary>
-    /// Freight Master service interface methods
+    /// Business interface methods
     /// </summary>
-    public interface IFreightMastersRepository
+    public interface IDestinationMasterBusiness
     {
         Task<ResponseModel> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel);
     }

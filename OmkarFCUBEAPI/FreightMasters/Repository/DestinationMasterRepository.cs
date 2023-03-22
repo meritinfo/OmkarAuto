@@ -5,11 +5,11 @@ using System.Data.SqlClient;
 
 namespace FreightMasters.Repository
 {
-    public class FreightMastersRepository : IFreightMastersRepository
+    public class DestinationMasterRepository : IDestinationMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public FreightMastersRepository(IOptions<DBModel> _dbconnection)
+        public DestinationMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }

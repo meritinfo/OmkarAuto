@@ -13,8 +13,8 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class FreightMastersController : ControllerBase
     {
-        readonly IFreightMastersBusiness freightMastersBusiness;
-        public FreightMastersController(IFreightMastersBusiness _freightMastersBusiness)
+        readonly IDestinationMasterBusiness freightMastersBusiness;
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness)
         {
             freightMastersBusiness = _freightMastersBusiness;
         }

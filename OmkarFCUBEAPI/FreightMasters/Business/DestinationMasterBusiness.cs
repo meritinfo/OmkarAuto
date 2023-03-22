@@ -6,10 +6,10 @@ namespace FreightMasters.Business
     /// <summary>
     /// Business methods
     /// </summary>
-    public class FreightMastersBusiness : IFreightMastersBusiness
+    public class DestinationMasterBusiness : IDestinationMasterBusiness
     {
-        readonly IFreightMastersRepository freightMastersRepository;
-        public FreightMastersBusiness(IFreightMastersRepository _freightMastersRepository)
+        readonly IDestinationMasterRepository freightMastersRepository;
+        public DestinationMasterBusiness(IDestinationMasterRepository _freightMastersRepository)
         {
             freightMastersRepository = _freightMastersRepository;
         }

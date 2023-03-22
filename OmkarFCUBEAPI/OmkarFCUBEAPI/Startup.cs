@@ -37,8 +37,8 @@ namespace OmkarFCUBEAPI
             services.Configure<DBModel>(Configuration.GetSection("ConnectionStrings"));
             services.AddScoped<ISharedBusiness, SharedBusiness>();
             services.AddScoped<ISharedRepository, SharedRepository>();
-            services.AddScoped<IFreightMastersBusiness, FreightMastersBusiness>();
-            services.AddScoped<IFreightMastersRepository, FreightMastersRepository>();
+            services.AddScoped<IDestinationMasterBusiness, DestinationMasterBusiness>();
+            services.AddScoped<IDestinationMasterRepository, DestinationMasterRepository>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OmkarFCUBEAPI", Version = "v1" });
