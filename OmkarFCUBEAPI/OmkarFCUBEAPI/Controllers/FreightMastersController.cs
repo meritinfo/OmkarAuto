@@ -22,7 +22,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// <summary>
         /// Controller method for login to the application
         /// </summary>
-        /// <param name="loginModel"></param>
+        /// <param name="destinationMasterModel"></param>
         [HttpPost("DestinationMasterDetailsSave")]
         public async Task<IActionResult> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel)
         {
