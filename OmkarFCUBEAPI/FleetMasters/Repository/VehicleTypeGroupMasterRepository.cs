@@ -1,25 +1,23 @@
-﻿
+﻿using FleetMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
-using FreightMasters.Models;
 
-namespace FreightMasters.Repository
-{
-    public class ProductGroupMasterRepository : IProductGroupMasterRepository
+namespace FleetMasters.Repository
+{    public class VehicleTypeGroupMasterRepository : IVehicleTypeGroupMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public ProductGroupMasterRepository(IOptions<DBModel> _dbconnection)
+        public VehicleTypeGroupMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save destination master details
+        /// Service method for save vehicle type group master details
         /// </summary>
-        /// <param name="productGroupMasterModel"></param>
+        /// <param name="vehicleTypeGroupMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)
+        public async Task<ResponseModel> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
         {
             ResponseModel responseModel = new();
             try
@@ -28,13 +26,13 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ProductGroupId", productGroupMasterModel.ProductGroupId),
-                            new SqlParameter("@GroupName", productGroupMasterModel.GroupName),
-                            new SqlParameter("@GstHSN", productGroupMasterModel.GstHSN),
-                             new SqlParameter("@LoggedInUser", productGroupMasterModel.LoggedInUser)
+                            new SqlParameter("@VehicleTypeGroupId", vehicleTypeGroupMasterModel.VehicleTypeGroupId),
+                            new SqlParameter("@VehicleTypeGroupName", vehicleTypeGroupMasterModel.VehicleTypeGroupName),
+                            new SqlParameter("@IsActive", vehicleTypeGroupMasterModel.IsActive),
+                             new SqlParameter("@LoggedInUser", vehicleTypeGroupMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ProductGroupMasterDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleTypeGroupMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -64,6 +62,4 @@ namespace FreightMasters.Repository
             return responseModel;
         }
     }
-
-
 }

@@ -3,7 +3,7 @@
 namespace FreightMasters.Repository
 {
     /// <summary>
-    /// Freight Master service interface methods
+    /// Destination Master service interface methods
     /// </summary>
     public interface IDestinationMasterRepository
     {

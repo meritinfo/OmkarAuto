@@ -1,3 +1,5 @@
+using FleetMasters.Business;
+using FleetMasters.Repository;
 using FreightMasters.Business;
 using FreightMasters.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -41,6 +43,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDestinationMasterRepository, DestinationMasterRepository>();
             services.AddScoped<IProductGroupMasterRepository, ProductGroupMasterRepository>();
             services.AddScoped<IProductGroupMasterBusiness, ProductGroupMasterBusiness>();
+            services.AddScoped<IVehicleTypeGroupMasterRepository, VehicleTypeGroupMasterRepository>();
+            services.AddScoped<IVehicleTypeGroupMasterBusiness, VehicleTypeGroupMasterBusiness>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OmkarFCUBEAPI", Version = "v1" });

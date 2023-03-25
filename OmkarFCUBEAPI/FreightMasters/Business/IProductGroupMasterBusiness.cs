@@ -2,8 +2,11 @@
 
 namespace FreightMasters.Business
 {
+    /// <summary>
+    /// Business interface methods
+    /// </summary>
     public interface IProductGroupMasterBusiness
     {
-        Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel ProductGroupMasterModel);
+        Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel);
     }
 }

@@ -14,7 +14,7 @@ namespace FreightMasters.Business
         /// <summary>
         /// Business method for save destination master details
         /// </summary>
-        /// <param name="ProductGroupMasterModel"></param>
+        /// <param name="productGroupMasterModel"></param>
         public async Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)
         {
             return await productGroupMasterRepository.ProductGroupMasterDetailsSave(productGroupMasterModel);

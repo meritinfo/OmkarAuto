@@ -22,7 +22,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         /// <summary>
-        /// Controller method for login to the application
+        /// Controller method for DESTINATION MASTER
         /// </summary>
         /// <param name="destinationMasterModel"></param>
         [HttpPost("DestinationMasterDetailsSave")]
@@ -44,17 +44,20 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        /// <param name="destinationMasterModel"></param>
+        /// <summary>
+        /// Controller method for PRODUCT GROUP MASTER
+        /// </summary>
+        /// <param name="productGroupMasterModel"></param>
         [HttpPost("ProductGroupMasterDetailsSave")]
-        public async Task<IActionResult> ProductGroupMasterDetailsSave(ProductGroupMasterModel ProductGroupMasterModel)
+        public async Task<IActionResult> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)
         {
-            if (ProductGroupMasterModel == null)
+            if (productGroupMasterModel == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await productGroupMastersBusiness.ProductGroupMasterDetailsSave(ProductGroupMasterModel);
+                var result = await productGroupMastersBusiness.ProductGroupMasterDetailsSave(productGroupMasterModel);
 
                 return Ok(result);
             }
