@@ -39,6 +39,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ISharedRepository, SharedRepository>();
             services.AddScoped<IDestinationMasterBusiness, DestinationMasterBusiness>();
             services.AddScoped<IDestinationMasterRepository, DestinationMasterRepository>();
+            services.AddScoped<IProductGroupMasterRepository, ProductGroupMasterRepository>();
+            services.AddScoped<IProductGroupMasterBusiness, ProductGroupMasterBusiness>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OmkarFCUBEAPI", Version = "v1" });

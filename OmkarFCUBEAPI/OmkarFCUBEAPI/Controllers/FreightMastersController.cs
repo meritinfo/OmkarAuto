@@ -14,9 +14,11 @@ namespace OmkarFCUBEAPI.Controllers
     public class FreightMastersController : ControllerBase
     {
         readonly IDestinationMasterBusiness freightMastersBusiness;
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness)
+        readonly IProductGroupMasterBusiness productGroupMastersBusiness;
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness)
         {
             freightMastersBusiness = _freightMastersBusiness;
+            productGroupMastersBusiness = _productGroupMasterBusiness;
         }
 
         /// <summary>
@@ -33,6 +35,26 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await freightMastersBusiness.DestinationMasterDetailsSave(destinationMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <param name="destinationMasterModel"></param>
+        [HttpPost("ProductGroupMasterDetailsSave")]
+        public async Task<IActionResult> ProductGroupMasterDetailsSave(ProductGroupMasterModel ProductGroupMasterModel)
+        {
+            if (ProductGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await productGroupMastersBusiness.ProductGroupMasterDetailsSave(ProductGroupMasterModel);
 
                 return Ok(result);
             }
