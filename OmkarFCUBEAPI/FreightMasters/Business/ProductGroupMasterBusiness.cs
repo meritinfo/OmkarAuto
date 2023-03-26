@@ -12,7 +12,7 @@ namespace FreightMasters.Business
         }
 
         /// <summary>
-        /// Business method for save destination master details
+        /// Business method for save product group master details
         /// </summary>
         /// <param name="productGroupMasterModel"></param>
         public async Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)

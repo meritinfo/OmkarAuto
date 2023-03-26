@@ -6,20 +6,20 @@ using FreightMasters.Models;
 
 namespace FreightMasters.Repository
 {
-    public class ProductGroupMasterRepository : IProductGroupMasterRepository
+    public class ProductMasterRepository : IProductMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public ProductGroupMasterRepository(IOptions<DBModel> _dbconnection)
+        public ProductMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save product group master details
+        /// Service method for save product master details
         /// </summary>
-        /// <param name="productGroupMasterModel"></param>
+        /// <param name="productMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)
+        public async Task<ResponseModel> ProductMasterSave(ProductMasterModel productMasterModel)
         {
             ResponseModel responseModel = new();
             try
@@ -28,13 +28,14 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ProductGroupId", productGroupMasterModel.ProductGroupId),
-                            new SqlParameter("@GroupName", productGroupMasterModel.GroupName),
-                            new SqlParameter("@GstHSN", productGroupMasterModel.GstHSN),
-                             new SqlParameter("@LoggedInUser", productGroupMasterModel.LoggedInUser)
+                            new SqlParameter("@ProductId", productMasterModel.ProductId),
+                            new SqlParameter("@ProductName", productMasterModel.ProductName),
+                            new SqlParameter("@ProductGroupId", productMasterModel.ProductGroupId),
+                            new SqlParameter("@IsActive", productMasterModel.IsActive),
+                             new SqlParameter("@LoggedInUser", productMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ProductGroupMasterDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ProductMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
