@@ -45,6 +45,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IProductGroupMasterBusiness, ProductGroupMasterBusiness>();
             services.AddScoped<IVehicleTypeGroupMasterRepository, VehicleTypeGroupMasterRepository>();
             services.AddScoped<IVehicleTypeGroupMasterBusiness, VehicleTypeGroupMasterBusiness>();
+            services.AddScoped<IVehicleTypeMasterRepository, VehicleTypeMasterRepository>();
+            services.AddScoped<IVehicleTypeMasterBusiness, VehicleTypeMasterBusiness>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OmkarFCUBEAPI", Version = "v1" });

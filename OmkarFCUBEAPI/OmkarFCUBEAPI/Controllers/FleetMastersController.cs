@@ -1,11 +1,8 @@
-﻿using FleetMasters.Business;
-using FreightMasters.Business;
-using FreightMasters.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using FleetMasters.Models;
+using FleetMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -14,16 +11,18 @@ namespace OmkarFCUBEAPI.Controllers
     public class FleetMastersController : ControllerBase
     {
         readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness)
+        readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
+        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness)
         {
-            vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;            
+            vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
+            vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
         }
-
-        /// <summary>
-        /// Controller method for vehicle type group master
-        /// </summary>
-        /// <param name="vehicleTypeGroupMasterModel"></param>
-        [HttpPost("VehicleTypeGroupMasterSave")]
+        
+    /// <summary>
+    /// Controller method for vehicle type group master
+    /// </summary>
+    /// <param name="vehicleTypeGroupMasterModel"></param>
+    [HttpPost("VehicleTypeGroupMasterSave")]
         public async Task<IActionResult> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
         {
             if (vehicleTypeGroupMasterModel == null)
@@ -41,7 +40,28 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Controller method for vehicle type master
+        /// </summary>
+        /// <param name="vehicleTypeMasterModel"></param>
+        [HttpPost("VehicleTypeMasterSave")]
+        public async Task<IActionResult> VehicleTypeMasterSave(VehicleTypeMasterModel vehicleTypeMasterModel)
+        {
+            if (vehicleTypeMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.VehicleTypeMasterSave(vehicleTypeMasterModel);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 
 }
