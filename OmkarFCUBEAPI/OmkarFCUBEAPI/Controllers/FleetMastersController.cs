@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using System;
 using FleetMasters.Models;
 using FleetMasters.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OmkarFCUBEAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class FleetMastersController : ControllerBase
     {
@@ -17,12 +19,12 @@ namespace OmkarFCUBEAPI.Controllers
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
         }
-        
-    /// <summary>
-    /// Controller method for vehicle type group master
-    /// </summary>
-    /// <param name="vehicleTypeGroupMasterModel"></param>
-    [HttpPost("VehicleTypeGroupMasterSave")]
+
+        /// <summary>
+        /// Controller method for vehicle type group master
+        /// </summary>
+        /// <param name="vehicleTypeGroupMasterModel"></param>
+        [HttpPost("VehicleTypeGroupMasterSave")]
         public async Task<IActionResult> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
         {
             if (vehicleTypeGroupMasterModel == null)

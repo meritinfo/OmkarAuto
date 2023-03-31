@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using System;
 using FreightMasters.Models;
 using FreightMasters.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OmkarFCUBEAPI.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class FreightMastersController : ControllerBase
     {
