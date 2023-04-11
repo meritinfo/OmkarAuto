@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdminMasters\AdminMasters.csproj" />
     <ProjectReference Include="..\FleetMasters\FleetMasters.csproj" />
     <ProjectReference Include="..\FreightMasters\FreightMasters.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />

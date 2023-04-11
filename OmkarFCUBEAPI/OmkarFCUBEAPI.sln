@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreightMasters", "FreightMasters\FreightMasters.csproj", "{C07FCB5B-EB14-46BD-B9BB-E4E7386A7F6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetMasters", "FleetMasters\FleetMasters.csproj", "{B028A382-7AD2-4B38-B852-AB93CD1E2255}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetMasters", "FleetMasters\FleetMasters.csproj", "{B028A382-7AD2-4B38-B852-AB93CD1E2255}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminMasters", "AdminMasters\AdminMasters.csproj", "{8777DB3A-AC20-4387-8854-956377C0A4DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B028A382-7AD2-4B38-B852-AB93CD1E2255}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B028A382-7AD2-4B38-B852-AB93CD1E2255}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B028A382-7AD2-4B38-B852-AB93CD1E2255}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8777DB3A-AC20-4387-8854-956377C0A4DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8777DB3A-AC20-4387-8854-956377C0A4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8777DB3A-AC20-4387-8854-956377C0A4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8777DB3A-AC20-4387-8854-956377C0A4DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

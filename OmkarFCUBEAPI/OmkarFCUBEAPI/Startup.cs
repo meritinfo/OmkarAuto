@@ -1,3 +1,5 @@
+using AdminMasters.Business;
+using AdminMasters.Repository;
 using FleetMasters.Business;
 using FleetMasters.Repository;
 using FreightMasters.Business;
@@ -53,6 +55,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IVehicleTypeMasterBusiness, VehicleTypeMasterBusiness>();
             services.AddScoped<IProductMasterRepository, ProductMasterRepository>();
             services.AddScoped<IProductMasterBusiness, ProductMasterBusiness>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserBusiness, UserBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
