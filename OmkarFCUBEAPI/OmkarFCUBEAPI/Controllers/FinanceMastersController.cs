@@ -1,0 +1,70 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System;
+
+using FinanceMasters.Business;
+using Microsoft.AspNetCore.Authorization;
+using FleetMasters.Business;
+using FleetMasters.Models;
+using FinanceMasters.Model;
+
+namespace OmkarFCUBEAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [Authorize]
+    [ApiController]
+    public class FinanceMastersController : ControllerBase
+    {
+        readonly IFinAccountsMasterBusiness finAccountsMasterBusiness;
+        readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
+
+        public FinanceMastersController(IFinAccountsMasterBusiness _finAccountsMasterBusiness, IFinScheduleMasterBusiness _finScheduleMasterBusiness)
+        {
+            finAccountsMasterBusiness = _finAccountsMasterBusiness;
+            finScheduleMasterBusiness = _finScheduleMasterBusiness;
+
+
+        }
+        /// <summary>
+        
+        /// </summary>
+        /// <param name="FinAccountsMasterModel"></param>
+        [HttpPost("FinAccountsMasterSave")]
+        public async Task<IActionResult> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel)
+        {
+            if (finAccountsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountsMasterSave(finAccountsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FinScheduleMasterSave")]
+        public async Task<IActionResult> FinScheduleMasterSave(FinScheduleMasterModel finScheduleMasterModel)
+        {
+            if (finScheduleMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finScheduleMasterBusiness.FinScheduleMasterSave(finScheduleMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+}
+
