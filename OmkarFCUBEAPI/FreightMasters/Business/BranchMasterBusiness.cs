@@ -15,7 +15,7 @@ namespace FreightMasters.Business
         }
 
         /// <summary>
-        /// Business method for save destination master details
+        /// Business method for save Branch master details
         /// </summary>
         /// <param name="BranchMasterModel"></param>
         public async Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)

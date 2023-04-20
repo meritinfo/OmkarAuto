@@ -17,7 +17,7 @@ namespace FinanceMasters.Repository
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save vehicle type master details
+        /// Service method for save fin schedule master  details
         /// </summary>
         /// <param name="finScheduleMasterModel"></param>
         /// <returns>ResponseModel</returns>
@@ -35,11 +35,10 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@SchDesc", finScheduleMasterModel.SchDesc),
                             new SqlParameter("@SortId", finScheduleMasterModel.SortId),
                               new SqlParameter("@IsActive", finScheduleMasterModel.IsActive),
-                            
                              new SqlParameter("@LoggedInUser", finScheduleMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinAccountsMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinScheduleMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

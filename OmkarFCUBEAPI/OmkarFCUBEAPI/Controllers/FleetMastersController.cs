@@ -14,10 +14,12 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
         readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness)
+        readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
+        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness)
         {
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
+            vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
         }
 
         /// <summary>
@@ -56,6 +58,24 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await vehicleTypeMasterBusiness.VehicleTypeMasterSave(vehicleTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleFltMasterSave")]
+        public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
+        {
+            if (vehicleFltMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
 
                 return Ok(result);
             }
