@@ -1,8 +1,5 @@
-﻿
-
-namespace FinanceMasters.Model
+﻿namespace FinanceMasters.Models
 {
-
     public class FinAccountsMasterModel
     {
         public string? AccountId { get; set; }

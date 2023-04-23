@@ -1,7 +1,9 @@
-﻿using AdminMasters.Models;
-using FinanceMasters.Model;
+﻿using FinanceMasters.Models;
 namespace FinanceMasters.Business
 {
+    /// <summary>
+    /// Finance Account business interface methods
+    /// </summary>
     public interface IFinAccountsMasterBusiness
     {
         Task<ResponseModel> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel);

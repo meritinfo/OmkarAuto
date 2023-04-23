@@ -1,4 +1,4 @@
-﻿namespace AdminMasters.Models
+﻿namespace Consignment.Models
 {
     /// <summary>
     /// Response class model for response

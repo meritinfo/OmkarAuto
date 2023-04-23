@@ -1,8 +1,5 @@
-﻿
-
-namespace FinanceMasters.Model
+﻿namespace FinanceMasters.Models
 {
-
     public class FinScheduleMasterModel
     {
         public string? SchID { get; set; }
@@ -10,7 +7,6 @@ namespace FinanceMasters.Model
         public string? SchDesc { get; set; }
         public string? SortId { get; set; }
         public string? IsActive { get; set; }
-     
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

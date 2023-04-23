@@ -1,7 +1,4 @@
-﻿using AdminMasters.Models;
-
-using FinanceMasters.Model;
-
+﻿using FinanceMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
@@ -34,8 +31,8 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@SchType", finScheduleMasterModel.SchType),
                             new SqlParameter("@SchDesc", finScheduleMasterModel.SchDesc),
                             new SqlParameter("@SortId", finScheduleMasterModel.SortId),
-                              new SqlParameter("@IsActive", finScheduleMasterModel.IsActive),
-                             new SqlParameter("@LoggedInUser", finScheduleMasterModel.LoggedInUser)
+                            new SqlParameter("@IsActive", finScheduleMasterModel.IsActive),
+                            new SqlParameter("@LoggedInUser", finScheduleMasterModel.LoggedInUser)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinScheduleMaster_Insert", param);

@@ -1,5 +1,4 @@
-﻿using AdminMasters.Models;
-using Consignment.Model;
+﻿using Consignment.Models;
 using Consignment.Repository;
 
 namespace Consignment.Business

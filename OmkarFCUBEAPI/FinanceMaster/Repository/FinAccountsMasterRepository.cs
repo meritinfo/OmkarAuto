@@ -1,6 +1,4 @@
-﻿using AdminMasters.Models;
-using FinanceMasters.Model;
-
+﻿using FinanceMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
@@ -33,12 +31,11 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@AccountType", finAccountsMasterModel.AccountType),
                             new SqlParameter("@AccountGroupFlag", finAccountsMasterModel.AccountGroupFlag),
                             new SqlParameter("@AccountGroupNo", finAccountsMasterModel.AccountGroupNo),
-                              new SqlParameter("@AccountLevelNo", finAccountsMasterModel.AccountLevelNo),
-                                new SqlParameter("@AccountIndexNo", finAccountsMasterModel.AccountIndexNo),
-                                  new SqlParameter("@AccountName", finAccountsMasterModel.AccountName),
-                                    new SqlParameter("@SchID", finAccountsMasterModel.SchID),
-                             new SqlParameter("@LoggedInUser", finAccountsMasterModel.LoggedInUser)
-
+                            new SqlParameter("@AccountLevelNo", finAccountsMasterModel.AccountLevelNo),
+                            new SqlParameter("@AccountIndexNo", finAccountsMasterModel.AccountIndexNo),
+                            new SqlParameter("@AccountName", finAccountsMasterModel.AccountName),
+                            new SqlParameter("@SchID", finAccountsMasterModel.SchID),
+                            new SqlParameter("@LoggedInUser", finAccountsMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinAccountsMaster_Insert", param);
 

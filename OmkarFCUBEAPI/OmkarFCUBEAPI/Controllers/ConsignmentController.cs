@@ -1,9 +1,6 @@
-﻿
-
-using Consignment.Business;
+﻿using Consignment.Business;
 using Microsoft.AspNetCore.Authorization;
-
-using Consignment.Model;
+using Consignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
@@ -17,13 +14,9 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IConsignmentBusiness consignmentBusiness;
   
-
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness)
         {
-
             consignmentBusiness = _consignmentBusiness;
-
-
         }
         /// <summary>
 

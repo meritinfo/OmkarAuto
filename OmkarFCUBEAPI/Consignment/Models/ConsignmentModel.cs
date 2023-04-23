@@ -1,8 +1,5 @@
-﻿
-
-namespace Consignment.Model
+﻿namespace Consignment.Models
 {
-
     public class ConsignmentModel
     {
         public string? ConsignmentID { get; set; }

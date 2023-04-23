@@ -1,4 +1,4 @@
-﻿namespace AdminMasters.Models
+﻿namespace FinanceMasters.Models
 {
     /// <summary>
     /// Response class model for response

@@ -1,6 +1,4 @@
-﻿
-using AdminMasters.Models;
-using Consignment.Model;
+﻿using Consignment.Models;
 
 namespace Consignment.Repository
 {
