@@ -6,13 +6,19 @@
     public class BranchMasterModel
     {
         public string? Centreid { get; set; }
+        public string? Code { get; set; }
         public string? CentreName { get; set; }
+        public string? ZoneCode { get; set; }
+        public string? BranchBusinessType { get; set; }
+        public string? AcctYN { get; set; }
         public string? AcctBranch { get; set; }
-        public string? StateCode { get; set; }
-        public string? PinCode { get; set; }
         public string? Address1 { get; set; }
         public string? Address2 { get; set; }
         public string? Address3 { get; set; }
+        public string? City { get; set; }
+        public string? StateCode { get; set; }
+        public string? PinCode { get; set; }
+
         public string? OffPhone1 { get; set; }
         public string? OffPhone2 { get; set; }
         public string? MobileNo { get; set; }

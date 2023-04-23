@@ -1,26 +1,25 @@
-﻿using AdminMasters.Models;
-using FinanceMasters.Model;
-
+﻿
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using AdminMasters.Models;
 
-namespace FinanceMasters.Repository
+namespace AdminMasters.Repository
 {
-    public class FinAccountsMasterRepository : IFinAccountsMasterRepository
+    public class RoleMasterRepository : IRoleMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public FinAccountsMasterRepository(IOptions<DBModel> _dbconnection)
+        public RoleMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save fin accounts master details
+        /// Service method for save role master details
         /// </summary>
-        /// <param name="finAccountsMasterModel"></param>
+        /// <param name="roleMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel)
+        public async Task<ResponseModel> RoleMasterSave(RoleMasterModel roleMasterModel)
         {
             ResponseModel responseModel = new();
             try
@@ -29,18 +28,14 @@ namespace FinanceMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@AccountId", finAccountsMasterModel.AccountId),
-                            new SqlParameter("@AccountType", finAccountsMasterModel.AccountType),
-                            new SqlParameter("@AccountGroupFlag", finAccountsMasterModel.AccountGroupFlag),
-                            new SqlParameter("@AccountGroupNo", finAccountsMasterModel.AccountGroupNo),
-                              new SqlParameter("@AccountLevelNo", finAccountsMasterModel.AccountLevelNo),
-                                new SqlParameter("@AccountIndexNo", finAccountsMasterModel.AccountIndexNo),
-                                  new SqlParameter("@AccountName", finAccountsMasterModel.AccountName),
-                                    new SqlParameter("@SchID", finAccountsMasterModel.SchID),
-                             new SqlParameter("@LoggedInUser", finAccountsMasterModel.LoggedInUser)
+                            new SqlParameter("@RoleId", roleMasterModel.RoleId),
+                            new SqlParameter("@RoleName", roleMasterModel.RoleName),
+                            new SqlParameter("@RoleDesc", roleMasterModel.RoleDesc),
+                            new SqlParameter("@ActiveYN", roleMasterModel.ActiveYN),
+                             new SqlParameter("@LoggedInUser", roleMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinAccountsMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "RoleType_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -70,4 +65,6 @@ namespace FinanceMasters.Repository
             return responseModel;
         }
     }
+
+
 }

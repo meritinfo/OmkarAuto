@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdminMasters\AdminMasters.csproj" />
+    <ProjectReference Include="..\Consignment\Consignment.csproj" />
     <ProjectReference Include="..\FinanceMaster\FinanceMaster.csproj" />
     <ProjectReference Include="..\FleetMasters\FleetMasters.csproj" />
     <ProjectReference Include="..\FreightMasters\FreightMasters.csproj" />

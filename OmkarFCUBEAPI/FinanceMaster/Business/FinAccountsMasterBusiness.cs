@@ -13,7 +13,7 @@ namespace FinanceMasters.Business
         }
 
         /// <summary>
-        /// Business method for save vehicle type group master details
+        /// Business method for save Fin Account Master  details
         /// </summary>
         /// <param name="finAccountsMasterModel"></param>
         public async Task<ResponseModel> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel)
