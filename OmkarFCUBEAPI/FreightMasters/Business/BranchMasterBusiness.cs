@@ -22,5 +22,13 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.BranchMasterDetailsSave(branchMasterModel);
         }
+
+        /// <summary>
+        /// Business method for get brqanch list
+        /// </summary>
+        public async Task<List<BranchListModel>> GetBranchList()
+        {
+            return await freightMastersRepository.GetBranchList();
+        }
     }
 }

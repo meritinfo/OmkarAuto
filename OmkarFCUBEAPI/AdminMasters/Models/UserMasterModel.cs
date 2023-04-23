@@ -23,7 +23,7 @@
         public DateTime? LastLoginDateTime_Fail { get; set; }
         public string? LastLoginIP_Fail { get; set; }
         public string? LoggedInUser { get; set; }
-        public List<UserBranchModel>? Branches { get; set; }
-        public List<UserModuleModel>? Modules { get; set; }
+        public string? BranchList { get; set; }
+        public string? ModuleList { get; set; }
     }
 }

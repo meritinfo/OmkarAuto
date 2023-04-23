@@ -10,5 +10,6 @@ namespace FreightMasters.Repository
     public interface IBranchMasterRepository
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel BranchMasterModel);
+        Task<List<BranchListModel>> GetBranchList();
     }
 }

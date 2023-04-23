@@ -1,6 +1,13 @@
 export class Usermodel {
     userId: string = "";
     userName: string = "";
-    status: boolean = false;
-    message: string = "";
+    userPassword: string = "";
+    userDescription: string = "";
+    userMobile: string = "";
+    userEmail: string = "";
+    userScope: string = "";
+    activeYN: string = "";
+    branchList: string = "";
+    moduleList: string = "";
+    loggedInUser: string = "";
 }

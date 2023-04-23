@@ -8,5 +8,6 @@ namespace AdminMasters.Business
     public interface IUserBusiness
     {
         Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel);
+        Task<List<ModuleListModel>> GetModuleList();
     }
 }

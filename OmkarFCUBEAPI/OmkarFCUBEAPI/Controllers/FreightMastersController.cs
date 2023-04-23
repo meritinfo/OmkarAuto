@@ -111,5 +111,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for Branch List
+        /// </summary>
+        [HttpPost("GetBranchList")]
+        public async Task<IActionResult> GetBranchList()
+        {
+            try
+            {
+                var result = await branchMastersBusiness.GetBranchList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

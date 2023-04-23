@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FreightMasters.Models
+﻿namespace FreightMasters.Models
 {
+    /// <summary>
+    /// Class model for Branch Master Details
+    /// </summary>
     public class BranchMasterModel
     {
         public string? Centreid { get; set; }
@@ -20,7 +17,6 @@ namespace FreightMasters.Models
         public string? OffPhone2 { get; set; }
         public string? MobileNo { get; set; }
         public string? BranchEmail { get; set; }
-
         public string? ManagerName { get; set; }
         public string? ManagerMobileNo { get; set; }
         public string? ManagerPhone { get; set; }

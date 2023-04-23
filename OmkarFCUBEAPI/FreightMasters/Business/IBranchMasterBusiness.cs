@@ -8,5 +8,6 @@ namespace FreightMasters.Business
     public interface IBranchMasterBusiness
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel);
+        Task<List<BranchListModel>> GetBranchList();
     }
 }

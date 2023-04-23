@@ -9,12 +9,15 @@ import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
+import { UserComponent } from './module/user/user.component';
+import { Usermodel } from './models/usermodel';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,7 @@ import { LayoutModule } from './module/shared';
     ReactiveFormsModule,
     LayoutModule
   ],
-  providers: [Loginmodel],
+  providers: [Loginmodel, Usermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

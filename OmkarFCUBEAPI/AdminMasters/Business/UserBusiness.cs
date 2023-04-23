@@ -22,5 +22,13 @@ namespace AdminMasters.Business
         {
             return await userRepository.UserMasterDetailsSave(userMasterModel);
         }
+
+        /// <summary>
+        /// Business method for Module list details
+        /// </summary>
+        public async Task<List<ModuleListModel>> GetModuleList()
+        {
+            return await userRepository.GetModuleList();
+        }
     }
 }

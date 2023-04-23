@@ -6,27 +6,46 @@
   <title>Omkar FCUBE</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <!-- VENDOR CSS -->
-  <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+  <!-- App favicon -->
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-  <!-- MAIN CSS -->
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/color_skins.css">
+  <!-- owl.carousel css -->
+  <link rel="stylesheet" href="assets/libs/owl.carousel/assets/owl.carousel.min.css">
+
+  <link rel="stylesheet" href="assets/libs/owl.carousel/assets/owl.theme.default.min.css">
+
+  <!-- Bootstrap Css -->
+  <link href="assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+  <!-- Icons Css -->
+  <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+  <!-- App Css-->
+  <link href="assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="theme-cyan">
+<body class="auth-body-bg" data-sidebar="dark" data-layout-mode="light">
   <app-root></app-root>
 
-  <!-- Javascript -->
-  <script src="assets/bundles/libscripts.bundle.js"></script>
-  <script src="assets/bundles/vendorscripts.bundle.js"></script>
+  <!-- JAVASCRIPT -->
+  <script src="assets/libs/jquery/jquery.min.js"></script>
+  <script src="assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/metismenu/metisMenu.min.js"></script>
+  <script src="assets/libs/simplebar/simplebar.min.js"></script>
+  <script src="assets/libs/node-waves/waves.min.js"></script>
 
-  <script src="assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
-  <script src="../assets/vendor/toastr/toastr.js"></script>
-
-  <script src="assets/bundles/mainscripts.bundle.js"></script>
-  <script src="assets/js/index.js"></script>
+  <!-- owl.carousel js -->
+  <script src="assets/libs/owl.carousel/owl.carousel.min.js"></script>
+  <!-- auth-2-carousel init -->
+  <script src="assets/js/pages/auth-2-carousel.init.js"></script>
+  <!-- apexcharts -->
+  <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+  <!-- dashboard init -->
+  <script src="assets/js/pages/dashboard.init.js"></script>
+  <!-- App js -->
+  <script>
+    $(document).ready(function () {
+      $('<script/>', { type: 'text/javascript', src: 'assets/js/app.js' }).appendTo('body');
+    }); 
+  </script>
 </body>
 
 </html>

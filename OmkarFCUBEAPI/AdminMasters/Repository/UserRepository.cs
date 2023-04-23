@@ -44,43 +44,16 @@ namespace AdminMasters.Repository
                             new SqlParameter("@LastLoginIP_Success", userMasterModel.LastLoginIP_Success),
                             new SqlParameter("@LastLoginDateTime_Fail", userMasterModel.LastLoginDateTime_Fail),
                             new SqlParameter("@LastLoginIP_Fail", userMasterModel.LastLoginIP_Fail),
+                            new SqlParameter("@BranchList", userMasterModel.BranchList),
+                            new SqlParameter("@ModuleList", userMasterModel.ModuleList),
                             new SqlParameter("@LoggedInUser", userMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserDetails_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
-                        {
-                            string UserID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                            for (int i = 0; i < userMasterModel.Branches.Count(); i++)
-                            {
-                                SqlParameter[] paramBranches =
-                                {
-                                new SqlParameter("@UserId", UserID),
-                                new SqlParameter("@CentreId", userMasterModel.Branches[i].Centreid)
-                                };
-                                var statusBranchData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserBranchDetails_Insert", paramBranches);
-                            }
-
-                            for (int i = 0; i < userMasterModel.Modules.Count(); i++)
-                            {
-                                SqlParameter[] paramModules =
-                                {
-                                new SqlParameter("@UserId", UserID),
-                                new SqlParameter("@ModuleId", userMasterModel.Modules[i].ModuleId)
-                                };
-                                var statusBranchData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserModuleDetails_Insert", paramModules);
-                            }
-
-                            responseModel.Status = true;
-                            responseModel.Message = "User data saved successfully";
-                        }
-                        else
-                        {
-                            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        }
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                     }
                     else
                     {
@@ -103,6 +76,49 @@ namespace AdminMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
+        }
+
+        /// <summary>
+        /// Service method for get module list
+        /// </summary>
+        /// <returns>List<ModuleListModel></returns>
+        public async Task<List<ModuleListModel>> GetModuleList()
+        {
+            List<ModuleListModel> moduleList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ModuleList_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            moduleList.Add(new ModuleListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return moduleList;
         }
     }
 }

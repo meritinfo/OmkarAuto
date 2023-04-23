@@ -8,5 +8,6 @@ namespace AdminMasters.Repository
     public interface IUserRepository
     {
         Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel);
+        Task<List<ModuleListModel>> GetModuleList();
     }
 }

@@ -1,5 +1,91 @@
+<div class="container-fluid p-0">
+    <div class="row g-0">
+
+        <div class="col-xl-9">
+            <div class="auth-full-bg pt-lg-5 p-4">
+                <div class="w-100">
+                    <div class="bg-overlay"></div>
+                    <div class="d-flex h-100 flex-column">
+
+                        <div class="p-4 mt-auto">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-7">
+                                    <div class="text-center">
+                                        <h4 class="mb-3"><i
+                                                class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span
+                                                class="text-primary">5k</span>+ Satisfied clients</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+        <div class="col-xl-3">
+            <div class="auth-full-page-content p-md-5 p-4">
+                <div class="w-100">
+                    <div class="d-flex flex-column h-100">
+                        <div class="mb-4 mb-md-5">
+                            <img src="assets/images/merit-logo.png" alt="" height="60" class="auth-logo-dark">
+                        </div>
+                        <div class="my-auto">
+                            <div>
+                                <h5 class="text-primary">Welcome Back !</h5>
+                                <p class="text-muted">Sign in to continue to FCube</p>
+                            </div>
+
+                            <div class="mt-4">
+                                <form [formGroup]="formLogin">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" formControlName="userName"
+                                            placeholder="Enter username"
+                                            [ngClass]="{ 'is-invalid': loginSubmitted ||( f['userName'].invalid && (f['userName'].dirty || f['userName'].touched)) }">
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="float-end">
+                                            <a href="auth-recoverpw-2.html" class="text-muted">Forgot password?</a>
+                                        </div>
+                                        <label class="form-label">Password</label>
+                                        <div class="input-group auth-pass-inputgroup">
+                                            <input type="password" class="form-control" formControlName="userPassword"
+                                                placeholder="Enter Password"
+                                                [ngClass]="{ 'is-invalid': loginSubmitted ||( f['userPassword'].invalid && (f['userPassword'].dirty || f['userPassword'].touched)) }">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="small text-danger">{{this.selectedUserDetails.message}}</p>
+                                    </div>
+                                    <div class="mt-3 d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light" type="submit"
+                                            (click)="submitLoginForm()">Log
+                                            In</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <img src="assets/images/fcube_logo_light.png" alt="" height="20" class="auth-logo-dark">
+                        </div>
+                        <div class="mt-md-5 text-center">
+                            <p class="mb-0">©MeritInfo</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+<!-- end container-fluid -->
 <!-- WRAPPER -->
-<div id="wrapper">
+<!-- <div id="wrapper">
     <div class="vertical-align-wrap">
         <div class="vertical-align-middle auth-main">
             <div class="auth-box">
@@ -39,5 +125,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- END WRAPPER -->

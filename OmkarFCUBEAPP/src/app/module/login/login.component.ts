@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Loginmodel } from 'src/app/models/loginmodel';
-import { Usermodel } from 'src/app/models/usermodel';
+import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
 import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   loginSubmitted = false;
-  selectedUserDetails = new Usermodel();
+  selectedUserDetails = new LoggedinUsermodel();
 
   constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, private sharedService: SharedService, private route: Router) {
     this.loginModel = new Loginmodel();
@@ -40,10 +40,11 @@ export class LoginComponent implements OnInit {
     }
     this.loginModel.userName = this.formLogin.value.userName;
     this.loginModel.userPassword = this.formLogin.value.userPassword;
-    this.sharedService.loginSubmitted(this.loginModel).subscribe((res: Usermodel) => {
+    this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
         localStorage.setItem("uid", this.selectedUserDetails.userId);
+        localStorage.setItem("token", this.selectedUserDetails.token);
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);
       }

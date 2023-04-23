@@ -1,2 +1,4 @@
-<app-theme *ngIf="sharedService.loggedInStatus"></app-theme>
-<router-outlet></router-outlet>
+<div id="layout-wrapper">
+    <app-theme *ngIf="sharedService.loggedInStatus"></app-theme>
+    <router-outlet></router-outlet>
+</div>

@@ -43,5 +43,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for Module List
+        /// </summary>
+        [HttpPost("GetModuleList")]
+        public async Task<IActionResult> GetModuleList()
+        {
+            try
+            {
+                var result = await userBusiness.GetModuleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
