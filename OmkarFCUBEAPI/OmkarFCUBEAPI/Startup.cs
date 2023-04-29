@@ -6,6 +6,8 @@ using Consignment.Business;
 using Consignment.Repository;
 using FinanceMasters.Business;
 using FinanceMasters.Repository;
+using FinTrans.Business;
+using FinTrans.Repository;
 using FreightMasters.Business;
 using FreightMasters.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,6 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace OmkarFCUBEAPI
 {
@@ -55,6 +58,18 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
             services.AddScoped<IConsignmentBusiness, ConsignmentBusiness>();
             services.AddScoped<IConsignmentRepository, ConsignmentRepository>();
+            services.AddScoped<IDocRenewalMasterBusiness, DocRenewalMasterBusiness>();
+            services.AddScoped<IDocRenewalMasterRepository, DocRenewalMasterRepository>();
+            services.AddScoped<IBrandMasterBusiness, BrandMasterBusiness>();
+            services.AddScoped<IBrandMasterRepository, BrandMasterRepository>();
+            services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
+            services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
+            services.AddScoped<IBankReceiptPaymentsBusiness, BankReceiptPaymentsBusiness>();
+            services.AddScoped<IBankReceiptPaymentsRepository, BankReceiptPaymentsRepository>();
+            services.AddScoped<IBankCashContraBusiness, BankCashContraBusiness>();
+            services.AddScoped<IBankCashContraRepository, BankCashContraRepository>();
+            services.AddScoped<IJournalEntryBusiness, JournalEntryBusiness>();
+            services.AddScoped<IJournalEntryRepository, JournalEntryRepository>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();

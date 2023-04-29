@@ -1,5 +1,5 @@
-﻿using AdminMasters.Models;
-using FinanceMasters.Model;
+﻿
+using FinanceMasters.Models;
 using FinanceMasters.Repository;
 
 namespace FinanceMasters.Business

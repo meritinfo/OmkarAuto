@@ -9,6 +9,7 @@
         public string? Code { get; set; }
         public string? CentreName { get; set; }
         public string? ZoneCode { get; set; }
+        public string? RegionId { get; set; }
         public string? BranchBusinessType { get; set; }
         public string? AcctYN { get; set; }
         public string? AcctBranch { get; set; }

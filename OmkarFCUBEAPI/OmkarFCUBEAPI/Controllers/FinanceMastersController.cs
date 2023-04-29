@@ -6,7 +6,7 @@ using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using FleetMasters.Business;
 using FleetMasters.Models;
-using FinanceMasters.Model;
+using FinanceMasters.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {

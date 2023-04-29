@@ -30,45 +30,42 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Centreid", BranchMasterModel.Centreid),
-                            new SqlParameter("@Code", BranchMasterModel.Code),
                             new SqlParameter("@CentreName", BranchMasterModel.CentreName),
-                            new SqlParameter("@ZoneCode", BranchMasterModel.ZoneCode),
                             new SqlParameter("@BranchBusinessType", BranchMasterModel.BranchBusinessType),
                             new SqlParameter("@AcctYN", BranchMasterModel.AcctYN),
                             new SqlParameter("@AcctBranch", BranchMasterModel.AcctBranch),
                             new SqlParameter("@Address1", BranchMasterModel.Address1),
-                               new SqlParameter("@Address2", BranchMasterModel.Address2),
-                               new SqlParameter("@Address3", BranchMasterModel.Address3),
+                            new SqlParameter("@Address2", BranchMasterModel.Address2),
+                            new SqlParameter("@Address3", BranchMasterModel.Address3),
                             new SqlParameter("@City", BranchMasterModel.City),
                             new SqlParameter("@StateCode", BranchMasterModel.StateCode),
-                                  new SqlParameter("@PinCode", BranchMasterModel.PinCode),
+                            new SqlParameter("@PinCode", BranchMasterModel.PinCode),
                             new SqlParameter("@OffPhone1", BranchMasterModel.OffPhone1),
                             new SqlParameter("@OffPhone2", BranchMasterModel.OffPhone2),
-                                   new SqlParameter("@MobileNo", BranchMasterModel.MobileNo),
+                            new SqlParameter("@MobileNo", BranchMasterModel.MobileNo),
                             new SqlParameter("@BranchEmail", BranchMasterModel.BranchEmail),
                             new SqlParameter("@ManagerName", BranchMasterModel.ManagerName),
-                                       new SqlParameter("@ManagerMobileNo", BranchMasterModel.ManagerMobileNo),
+                            new SqlParameter("@ManagerMobileNo", BranchMasterModel.ManagerMobileNo),
                             new SqlParameter("@ManagerPhone", BranchMasterModel.ManagerPhone),
                             new SqlParameter("@ManagerEmail", BranchMasterModel.ManagerEmail),
-                                          new SqlParameter("@GstNo", BranchMasterModel.GstNo),
+                            new SqlParameter("@GstNo", BranchMasterModel.GstNo),
                             new SqlParameter("@ActiveYN", BranchMasterModel.ActiveYN),
                             new SqlParameter("@BankAcLedger", BranchMasterModel.BankAcLedger),
-                                                 new SqlParameter("@BranchAcLedger", BranchMasterModel.BranchAcLedger),
+                            new SqlParameter("@BranchAcLedger", BranchMasterModel.BranchAcLedger),
                             new SqlParameter("@EntryLockDays", BranchMasterModel.EntryLockDays),
                             new SqlParameter("@BankName", BranchMasterModel.BankName),
-                               new SqlParameter("@BankAdd", BranchMasterModel.BankAdd),
-                                    new SqlParameter("@BankAcNo", BranchMasterModel.BankAcNo),
-                                     new SqlParameter("@BankIfsc", BranchMasterModel.BankIfsc),
+                            new SqlParameter("@BankAdd", BranchMasterModel.BankAdd),
+                            new SqlParameter("@BankAcNo", BranchMasterModel.BankAcNo),
+                            new SqlParameter("@BankIfsc", BranchMasterModel.BankIfsc),
                             new SqlParameter("@EwayBillApiYN", BranchMasterModel.EwayBillApiYN),
                             new SqlParameter("@EwayBillApiGstId", BranchMasterModel.EwayBillApiGstId),
-                              new SqlParameter("@EwayBillApiUid", BranchMasterModel.EwayBillApiUid),
-                                            new SqlParameter("@EwayBillApiPwd", BranchMasterModel.EwayBillApiPwd),
-                                            new SqlParameter("@PanApiCheckYN", BranchMasterModel.PanApiCheckYN),
-                                            new SqlParameter("@BankApiCheckYN", BranchMasterModel.BankApiCheckYN),
-                                              new SqlParameter("@TruckApiCheckYN", BranchMasterModel.TruckApiCheckYN),
+                            new SqlParameter("@EwayBillApiUid", BranchMasterModel.EwayBillApiUid),
+                            new SqlParameter("@EwayBillApiPwd", BranchMasterModel.EwayBillApiPwd),
+                            new SqlParameter("@PanApiCheckYN", BranchMasterModel.PanApiCheckYN),
+                            new SqlParameter("@BankApiCheckYN", BranchMasterModel.BankApiCheckYN),
+                            new SqlParameter("@TruckApiCheckYN", BranchMasterModel.TruckApiCheckYN),
                             new SqlParameter("@IsHO", BranchMasterModel.IsHO),
-                           
-            new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BranchMasterDetails_Insert", param);
 
@@ -86,7 +83,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
+                //Log exception on database
                 //ExceptionModel exceptionModel = new()
                 //{
                 //    ExceptionMessage = Convert.ToString(ex.Message),
