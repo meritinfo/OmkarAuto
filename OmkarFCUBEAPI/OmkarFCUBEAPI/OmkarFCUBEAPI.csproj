@@ -16,6 +16,7 @@
     <ProjectReference Include="..\FinTrans\FinTrans.csproj" />
     <ProjectReference Include="..\FleetMasters\FleetMasters.csproj" />
     <ProjectReference Include="..\FreightMasters\FreightMasters.csproj" />
+    <ProjectReference Include="..\HRMasters\HRMasters.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
