@@ -2,6 +2,8 @@ using AdminMasters.Business;
 using AdminMasters.Repository;
 using FleetMasters.Business;
 using FleetMasters.Repository;
+using FleetTrans.Business;
+using FleetTrans.Repository;
 using Consignment.Business;
 using Consignment.Repository;
 using FinanceMasters.Business;
