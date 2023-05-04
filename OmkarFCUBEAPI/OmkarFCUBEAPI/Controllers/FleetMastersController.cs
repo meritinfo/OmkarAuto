@@ -15,11 +15,15 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
         readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness)
+        readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
+        readonly IBrandMasterBusiness brandMasterBusiness;
+        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness)
         {
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
             vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
+            docRenewalMasterBusiness = _docRenewalMasterBusiness;
+            brandMasterBusiness = _brandMasterBusiness;
         }
 
         /// <summary>
@@ -76,6 +80,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DocRenewalMasterSave")]
+        public async Task<IActionResult> DocRenewalMasterSave(DocRenewalMasterModel docRenewalMasterModel)
+        {
+            if (docRenewalMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalMasterBusiness.DocRenewalMasterSave(docRenewalMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BrandMasterSave")]
+        public async Task<IActionResult> BrandMasterSave(BrandMasterModel brandMasterModel)
+        {
+            if (brandMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brandMasterBusiness.BrandMasterSave(brandMasterModel);
 
                 return Ok(result);
             }

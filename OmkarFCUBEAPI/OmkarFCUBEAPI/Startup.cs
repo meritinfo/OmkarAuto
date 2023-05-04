@@ -2,10 +2,16 @@ using AdminMasters.Business;
 using AdminMasters.Repository;
 using FleetMasters.Business;
 using FleetMasters.Repository;
+using FleetTrans.Business;
+using FleetTrans.Repository;
 using Consignment.Business;
 using Consignment.Repository;
 using FinanceMasters.Business;
 using FinanceMasters.Repository;
+using HRMasters.Business;
+using HRMasters.Repository;
+using FinTrans.Business;
+using FinTrans.Repository;
 using FreightMasters.Business;
 using FreightMasters.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -28,6 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace OmkarFCUBEAPI
 {
@@ -55,10 +62,24 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
             services.AddScoped<IConsignmentBusiness, ConsignmentBusiness>();
             services.AddScoped<IConsignmentRepository, ConsignmentRepository>();
+            services.AddScoped<IDocRenewalMasterBusiness, DocRenewalMasterBusiness>();
+            services.AddScoped<IDocRenewalMasterRepository, DocRenewalMasterRepository>();
+            services.AddScoped<IBrandMasterBusiness, BrandMasterBusiness>();
+            services.AddScoped<IBrandMasterRepository, BrandMasterRepository>();
+            services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
+            services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
+            services.AddScoped<IBankReceiptPaymentsBusiness, BankReceiptPaymentsBusiness>();
+            services.AddScoped<IBankReceiptPaymentsRepository, BankReceiptPaymentsRepository>();
+            services.AddScoped<IBankCashContraBusiness, BankCashContraBusiness>();
+            services.AddScoped<IBankCashContraRepository, BankCashContraRepository>();
+            services.AddScoped<IJournalEntryBusiness, JournalEntryBusiness>();
+            services.AddScoped<IJournalEntryRepository, JournalEntryRepository>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();
             services.AddScoped<IMenuFormTypesRepository, MenuFormTypesRepository>();
+            services.AddScoped<IHRMasterBusiness, HRMasterBusiness>();
+            services.AddScoped<IHRMasterRepository, HRMasterRepository>();
             services.AddScoped<IFinScheduleMasterBusiness, FinScheduleMasterBusiness>();
             services.AddScoped<IFinScheduleMasterRepository, FinScheduleMasterRepository>();
             services.AddScoped<IProductGroupMasterRepository, ProductGroupMasterRepository>();
