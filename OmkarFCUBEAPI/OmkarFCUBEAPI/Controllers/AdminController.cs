@@ -109,5 +109,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for User Master List
+        /// </summary>
+        [HttpPost("GetUserMasterList")]
+        public async Task<IActionResult> GetUserMasterList(UserMasterListRequest request)
+        {
+            try
+            {
+                var result = await userBusiness.GetUserMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

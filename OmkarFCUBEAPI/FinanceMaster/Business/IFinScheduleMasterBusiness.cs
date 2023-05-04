@@ -1,5 +1,4 @@
-﻿using AdminMasters.Models;
-using FinanceMasters.Model;
+﻿using FinanceMasters.Models;
 namespace FinanceMasters.Business
 {
     public interface IFinScheduleMasterBusiness

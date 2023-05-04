@@ -25,9 +25,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/datatables.net/js/jquery.dataTables.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -10,4 +10,5 @@ export class Usermodel {
     branchList: string = "";
     moduleList: string = "";
     loggedInUser: string = "";
+    createdDate: string = "";
 }
