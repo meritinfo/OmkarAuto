@@ -4,21 +4,21 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 
 namespace FleetMasters.Repository
-{    
-    public class VehicleTypeGroupMasterRepository : IVehicleTypeGroupMasterRepository
+{
+    public class TyrePositionMasterRepository : ITyrePositionMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public VehicleTypeGroupMasterRepository(IOptions<DBModel> _dbconnection)
+        public TyrePositionMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
         /// <summary>
-        /// Service method for save vehicle type group master details
+        /// Service method for save vehicle type master details
         /// </summary>
-        /// <param name="vehicleTypeGroupMasterModel"></param>
+        /// <param name="TyrePositionMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
+        public async Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel)
         {
             ResponseModel responseModel = new();
             try
@@ -27,13 +27,14 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleTypeGroupId", vehicleTypeGroupMasterModel.VehicleTypeGroupId),
-                            new SqlParameter("@VehicleTypeGroupName", vehicleTypeGroupMasterModel.VehicleTypeGroupName),
-                            new SqlParameter("@IsActive", vehicleTypeGroupMasterModel.IsActive),
-                             new SqlParameter("@LoggedInUser", vehicleTypeGroupMasterModel.LoggedInUser)
+                            new SqlParameter("@TyrePosID", tyrePositionMasterModel.TyrePosID),
+                            new SqlParameter("@PositionDesc", tyrePositionMasterModel.PositionDesc),
+                            new SqlParameter("@ActiveYN", tyrePositionMasterModel.ActiveYN),
+                            new SqlParameter("@DeleteFlag", tyrePositionMasterModel.DeleteFlag),
+                             new SqlParameter("@LoggedInUser", tyrePositionMasterModel.LoggedInUser)                             
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleTypeGroupMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyrePositionMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

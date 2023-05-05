@@ -1,24 +1,25 @@
-﻿using FleetMasters.Models;
+﻿using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 
-namespace FleetMasters.Repository
-{    
-    public class VehicleTypeGroupMasterRepository : IVehicleTypeGroupMasterRepository
+namespace FreightMasters.Repository
+{
+    public class LR_Bill_SeriesRepository : ILR_Bill_SeriesRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public VehicleTypeGroupMasterRepository(IOptions<DBModel> _dbconnection)
+        public LR_Bill_SeriesRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
+
         /// <summary>
-        /// Service method for save vehicle type group master details
+        /// Service method for save destination master details
         /// </summary>
-        /// <param name="vehicleTypeGroupMasterModel"></param>
+        /// <param name="destinationMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel)
+        public async Task<ResponseModel> LR_Bill_SeriesDetailsSave(LR_Bill_SeriesModel lr_Bill_SeriesModel)
         {
             ResponseModel responseModel = new();
             try
@@ -27,13 +28,14 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleTypeGroupId", vehicleTypeGroupMasterModel.VehicleTypeGroupId),
-                            new SqlParameter("@VehicleTypeGroupName", vehicleTypeGroupMasterModel.VehicleTypeGroupName),
-                            new SqlParameter("@IsActive", vehicleTypeGroupMasterModel.IsActive),
-                             new SqlParameter("@LoggedInUser", vehicleTypeGroupMasterModel.LoggedInUser)
-
+                            new SqlParameter("@SeriesId", lr_Bill_SeriesModel.SeriesId),
+                            new SqlParameter("@SeriesCode", lr_Bill_SeriesModel.SeriesCode),
+                            new SqlParameter("@LR_Bill_type", lr_Bill_SeriesModel.LR_Bill_type),
+                            new SqlParameter("@BranchCode", lr_Bill_SeriesModel.BranchCode),
+                            new SqlParameter("@IsActive", lr_Bill_SeriesModel.IsActive),
+                            new SqlParameter("@LoggedInUser", lr_Bill_SeriesModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleTypeGroupMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "LR_Bill_Series_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

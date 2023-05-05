@@ -17,12 +17,14 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IBranchMasterBusiness branchMastersBusiness;
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness)
+        readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
             productGroupMastersBusiness = _productGroupMasterBusiness;
             productMasterBusiness = _productMasterBusiness;
+            lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
         }
 
         /// <summary>
@@ -65,6 +67,26 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("LR_Bill_SeriesDetailsSave")]
+        public async Task<IActionResult> LR_Bill_SeriesDetailsSave(LR_Bill_SeriesModel lr_Bill_SeriesModel)
+        {
+            if (lr_Bill_SeriesModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lr_Bill_SeriesBusiness.LR_Bill_SeriesDetailsSave(lr_Bill_SeriesModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         /// <summary>

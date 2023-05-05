@@ -17,13 +17,15 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
         readonly IBrandMasterBusiness brandMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness)
+        readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
+        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness)
         {
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
             vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
             docRenewalMasterBusiness = _docRenewalMasterBusiness;
             brandMasterBusiness = _brandMasterBusiness;
+            tyrePositionMasterBusiness = _tyrePositionMasterBusiness;
         }
 
         /// <summary>
@@ -116,6 +118,25 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await brandMasterBusiness.BrandMasterSave(brandMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("TyrePositionMasterSave")]
+        public async Task<IActionResult> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel)
+        {
+            if (tyrePositionMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await  tyrePositionMasterBusiness.TyrePositionMasterSave(tyrePositionMasterModel);
 
                 return Ok(result);
             }
