@@ -9,15 +9,20 @@ import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
-import { UserComponent } from './module/user/user.component';
 import { Usermodel } from './models/usermodel';
+import { DataTablesModule } from 'angular-datatables';
+import { UserlistComponent } from './module/user/userlist/userlist.component';
+import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
+import { UseraddComponent } from './module/user/useradd/useradd.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    UserComponent
+    UseraddComponent,
+    UserlistComponent,
+    UserdetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +30,7 @@ import { Usermodel } from './models/usermodel';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    DataTablesModule,
     LayoutModule
   ],
   providers: [Loginmodel, Usermodel],

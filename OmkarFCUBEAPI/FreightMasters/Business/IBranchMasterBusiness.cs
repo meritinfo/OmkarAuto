@@ -9,5 +9,6 @@ namespace FreightMasters.Business
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel);
         Task<List<BranchListModel>> GetBranchList();
+        Task<List<BranchListModel>> GetStateList();
     }
 }

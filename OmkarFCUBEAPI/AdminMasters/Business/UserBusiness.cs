@@ -30,5 +30,13 @@ namespace AdminMasters.Business
         {
             return await userRepository.GetModuleList();
         }
+
+        /// <summary>
+        /// Business method for Module list details
+        /// </summary>
+        public async Task<UserMasterList> GetUserMasterList(UserMasterListRequest request)
+        {
+            return await userRepository.GetUserMasterList(request);
+        }
     }
 }

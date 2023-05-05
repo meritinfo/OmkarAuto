@@ -25,5 +25,6 @@
         public string? LoggedInUser { get; set; }
         public string? BranchList { get; set; }
         public string? ModuleList { get; set; }
+        public string? CreatedDate { get; set; }
     }
 }

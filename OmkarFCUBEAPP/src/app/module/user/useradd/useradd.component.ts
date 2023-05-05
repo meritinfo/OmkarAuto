@@ -9,11 +9,11 @@ import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  selector: 'app-useradd',
+  templateUrl: './useradd.component.html',
+  styleUrls: ['./useradd.component.css']
 })
-export class UserComponent implements OnInit {
+export class UseraddComponent implements OnInit {
 
   loggedInUserID: string = '';
   formUser!: FormGroup;
@@ -21,6 +21,7 @@ export class UserComponent implements OnInit {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   moduleList: Dropdownmodel[] = [];
+  selectedUserDetails = new Usermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, private userModel: Usermodel, private userService: UserService, private commonService: CommonService) {
     this.userModel = new Usermodel();
@@ -38,22 +39,32 @@ export class UserComponent implements OnInit {
       this.route.navigate(['/']);
     }
 
+    this.getBranchList();
+    this.getModuleList();
+
+    this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
-      username: new FormControl('', [Validators.required]),
-      password: new FormControl('', Validators.required),
-      description: new FormControl('', [Validators.required]),
-      mobile: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required]),
-      scope: new FormControl('BO', Validators.required),
+      userName: new FormControl('', [Validators.required]),
+      userPassword: new FormControl('', Validators.required),
+      userDescription: new FormControl('', [Validators.required]),
+      userMobile: new FormControl('', Validators.required),
+      userEmail: new FormControl('', [Validators.required]),
+      userScope: new FormControl('BO', Validators.required),
       role: new FormControl({ value: '', disabled: true }),
       employee: new FormControl({ value: '', disabled: true }),
       branch: new FormControl({ value: '', disabled: true }),
-      active: new FormControl('Y', [Validators.required]),
-      userBranch: new FormControl('', [Validators.required]),
-      userModule: new FormControl('', [Validators.required]),
+      activeYN: new FormControl('Y', [Validators.required]),
+      userBranch: new FormControl([], [Validators.required]),
+      userModule: new FormControl([], [Validators.required]),
     });
-    this.getBranchList();
-    this.getModuleList();
+
+    if (this.selectedUserDetails.userId != '') {
+      this.formUser.patchValue(this.selectedUserDetails);
+      this.formUser.patchValue({
+        userBranch: this.selectedUserDetails.branchList.split(','),
+        userModule: this.selectedUserDetails.moduleList.split(',')
+      })
+    }
   }
 
   // convenience getter for easy access to contact form fields
@@ -79,13 +90,14 @@ export class UserComponent implements OnInit {
     if (this.formUser.invalid) {
       return;
     }
-    this.userModel.userName = this.formUser.value.username;
-    this.userModel.userPassword = this.formUser.value.password;
-    this.userModel.userDescription = this.formUser.value.description;
-    this.userModel.userMobile = this.formUser.value.mobile;
-    this.userModel.userEmail = this.formUser.value.email;
-    this.userModel.userScope = this.formUser.value.scope;
-    this.userModel.activeYN = this.formUser.value.active;
+    this.userModel.userId = this.selectedUserDetails.userId != '' ? this.selectedUserDetails.userId : '';
+    this.userModel.userName = this.formUser.value.userName;
+    this.userModel.userPassword = this.formUser.value.userPassword;
+    this.userModel.userDescription = this.formUser.value.userDescription;
+    this.userModel.userMobile = this.formUser.value.userMobile;
+    this.userModel.userEmail = this.formUser.value.userEmail;
+    this.userModel.userScope = this.formUser.value.userScope;
+    this.userModel.activeYN = this.formUser.value.activeYN;
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.branchList = this.formUser.value.userBranch.toString();
     this.userModel.moduleList = this.formUser.value.userModule.toString();
@@ -93,8 +105,8 @@ export class UserComponent implements OnInit {
     this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
-      this.formUser.reset(); 
-      window.location.reload();
+      this.formUser.reset();
+      this.route.navigate(['/userlist']);
     });
   }
 }

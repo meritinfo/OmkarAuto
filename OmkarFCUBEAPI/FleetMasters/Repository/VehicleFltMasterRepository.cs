@@ -35,7 +35,7 @@ namespace FleetMasters.Repository
                            new SqlParameter("@ChasisNo", vehicleFltMasterModel.ChasisNo),
                            new SqlParameter("@EngineNo", vehicleFltMasterModel.EngineNo),
                            new SqlParameter("@VehicleTypeID", vehicleFltMasterModel.VehicleTypeID),
-                       
+                           new SqlParameter("@VehicleTypeGroupId", vehicleFltMasterModel.VehicleTypeGroupId),
                            new SqlParameter("@VehMfrId", vehicleFltMasterModel.VehMfrId),
                            new SqlParameter("@MfrModelName", vehicleFltMasterModel.MfrModelName),
                            new SqlParameter("@FuelType", vehicleFltMasterModel.FuelType),
