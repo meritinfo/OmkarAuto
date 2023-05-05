@@ -18,13 +18,15 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness)
+        readonly IRatetypesBusiness ratetypesBusiness;
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
             productGroupMastersBusiness = _productGroupMasterBusiness;
             productMasterBusiness = _productMasterBusiness;
             lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
+            ratetypesBusiness = _ratetypesBusiness;
         }
 
         /// <summary>
@@ -143,6 +145,30 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await branchMastersBusiness.GetBranchList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Controller method for PRODUCT GROUP MASTER
+        /// </summary>
+        /// <param name="ratetypesModel"></param>
+        [HttpPost("RatetypesDetailsSave")]
+        public async Task<IActionResult> RatetypesDetailsSave(RatetypesModel ratetypesModel)
+        {
+            if (ratetypesModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratetypesBusiness.RatetypesDetailsSave(ratetypesModel);
 
                 return Ok(result);
             }

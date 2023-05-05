@@ -100,6 +100,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ILR_Bill_SeriesBusiness, LR_Bill_SeriesBusiness>();
             services.AddScoped<ITyrePositionMasterRepository, TyrePositionMasterRepository>();
             services.AddScoped<ITyrePositionMasterBusiness, TyrePositionMasterBusiness>();
+            services.AddScoped<IRatetypesRepository, RatetypesRepository>();
+            services.AddScoped<IRatetypesBusiness, RatetypesBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
