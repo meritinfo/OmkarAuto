@@ -22,6 +22,10 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.LR_Bill_SeriesDetailsSave(lr_Bill_SeriesModel);
         }
+        public async Task<LRBillSeriesList> LRBillSeriesList(LRBillSeriesListRequest request)
+        {
+            return await freightMastersRepository.LRBillSeriesList(request);
+        }
     }
 }
 

@@ -8,5 +8,7 @@ namespace FreightMasters.Repository
     public interface IProductGroupMasterRepository
     {
         Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel);
+        Task<ProductGroupMasterList> GetProductGroupMasterList(ProductGroupMasterListRequest request);
+     
     }
 }

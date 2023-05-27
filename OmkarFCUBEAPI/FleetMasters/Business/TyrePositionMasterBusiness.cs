@@ -19,5 +19,9 @@ namespace FleetMasters.Business
         {
             return await tyrePositionMasterRepository.TyrePositionMasterSave(tyrePositionMasterModel);
         }
+        public async Task<TyrePositionMasterList> GetTyrePositionMasterList(TyrePositionMasterListRequest request)
+        {
+            return await tyrePositionMasterRepository.GetTyrePositionMasterList(request);
+        }
     }
 }

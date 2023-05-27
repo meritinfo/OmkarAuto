@@ -58,14 +58,30 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ISharedRepository, SharedRepository>();
             services.AddScoped<IDestinationMasterBusiness, DestinationMasterBusiness>();
             services.AddScoped<IDestinationMasterRepository, DestinationMasterRepository>();
-           services.AddScoped<IFinAccountsMasterBusiness, FinAccountsMasterBusiness>();
+            services.AddScoped<IFinAccountsMasterBusiness, FinAccountsMasterBusiness>();
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
             services.AddScoped<IConsignmentBusiness, ConsignmentBusiness>();
             services.AddScoped<IConsignmentRepository, ConsignmentRepository>();
+            services.AddScoped<IChequeAllotmentDtlBusiness, ChequeAllotmentDtlBusiness>();
+            services.AddScoped<IChequeAllotmentDtlRepository, ChequeAllotmentDtlRepository>();
+            services.AddScoped<IChequeAllotmentMstBusiness, ChequeAllotmentMstBusiness>();
+            services.AddScoped<IChequeAllotmentMstRepository, ChequeAllotmentMstRepository>();
             services.AddScoped<IDocRenewalMasterBusiness, DocRenewalMasterBusiness>();
             services.AddScoped<IDocRenewalMasterRepository, DocRenewalMasterRepository>();
             services.AddScoped<IBrandMasterBusiness, BrandMasterBusiness>();
             services.AddScoped<IBrandMasterRepository, BrandMasterRepository>();
+            services.AddScoped<IFreightRatesMstBusiness, FreightRatesMstBusiness>();
+            services.AddScoped<IFreightRatesMstRepository, FreightRatesMstRepository>();
+            services.AddScoped<IFreightRatesDtlBusiness, FreightRatesDtlBusiness>();
+            services.AddScoped<IDriverMasterRepository, DriverMasterRepository>();
+            services.AddScoped<IDriverMasterBusiness, DriverMasterBusiness>();
+            services.AddScoped<IExpensesTypeMasterRepository, ExpensesTypeMasterRepository>();
+            services.AddScoped<IExpensesTypeMasterBusiness, ExpensesTypeMasterBusiness>();
+            services.AddScoped<IDistanceMasterFrtRepository, DistanceMasterFrtRepository>();
+            services.AddScoped<IDistanceMasterFrtBusiness, DistanceMasterFrtBusiness>();
+            services.AddScoped<IDistanceDetailFrtRepository, DistanceDetailFrtRepository>();
+            services.AddScoped<IDistanceDetailFrtBusiness, DistanceDetailFrtBusiness>();
+            services.AddScoped<IFreightRatesDtlRepository, FreightRatesDtlRepository>();
             services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
             services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
             services.AddScoped<IBankReceiptPaymentsBusiness, BankReceiptPaymentsBusiness>();
@@ -100,6 +116,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ILR_Bill_SeriesBusiness, LR_Bill_SeriesBusiness>();
             services.AddScoped<ITyrePositionMasterRepository, TyrePositionMasterRepository>();
             services.AddScoped<ITyrePositionMasterBusiness, TyrePositionMasterBusiness>();
+            services.AddScoped<IRatetypesRepository, RatetypesRepository>();
+            services.AddScoped<IRatetypesBusiness, RatetypesBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

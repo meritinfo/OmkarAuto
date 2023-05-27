@@ -8,5 +8,7 @@ namespace FreightMasters.Repository
     public interface IDestinationMasterRepository
     {
         Task<ResponseModel> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel);
+        Task<List<StateListModel>> GetStateList();
+        Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request);
     }
 }

@@ -19,5 +19,9 @@ namespace FleetMasters.Business
         {
             return await brandMasterRepository.BrandMasterSave(brandMasterModel);
         }
+        public async Task<BrandMasterList> GetBrandMasterList(BrandMasterListRequest request)
+        {
+            return await brandMasterRepository.GetBrandMasterList(request);
+        }
     }
 }

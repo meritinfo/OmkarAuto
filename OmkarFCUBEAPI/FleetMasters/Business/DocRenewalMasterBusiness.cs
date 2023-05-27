@@ -19,5 +19,9 @@ namespace FleetMasters.Business
         {
             return await docRenewalMasterRepository.DocRenewalMasterSave(docRenewalMasterModel);
         }
+        public async Task<DocRenewalMasterList> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
+        {
+            return await docRenewalMasterRepository.GetDocRenewalMasterList(request);
+        }
     }
 }

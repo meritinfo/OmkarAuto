@@ -1,6 +1,7 @@
 ﻿using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace FreightMasters.Repository
@@ -64,5 +65,106 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request)
+        {
+            DestinationMasterList destinationMasterList = new();
+            List<DestinationMasterModel> destinationList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "destinationDetailsList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            destinationList.Add(new DestinationMasterModel
+                            {
+                                Centreid = Convert.ToString(dataSet.Tables[0].Rows[i]["Centreid"]),
+                                CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
+                                AcctBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctBranch"]),
+                                StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+
+                            });
+                        }
+
+                        destinationMasterList.DestinationList = destinationList;
+
+                        destinationMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return destinationMasterList;
+        }
+
+        public async Task<List<StateListModel>> GetStateList()
+        {
+            List<StateListModel> stateList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "StateList_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            stateList.Add(new StateListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return stateList;
+        }
     }
+
 }
+
+

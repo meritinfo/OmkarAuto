@@ -8,5 +8,6 @@ namespace FreightMasters.Business
     public interface IProductGroupMasterBusiness
     {
         Task<ResponseModel> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel);
+        Task<ProductGroupMasterList> GetProductGroupMasterList(ProductGroupMasterListRequest request);
     }
 }

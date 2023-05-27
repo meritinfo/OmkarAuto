@@ -8,5 +8,8 @@ namespace FreightMasters.Business
     public interface IDestinationMasterBusiness
     {
         Task<ResponseModel> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel);
+        Task<List<StateListModel>> GetStateList();
+        Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request);
     }
 }
+

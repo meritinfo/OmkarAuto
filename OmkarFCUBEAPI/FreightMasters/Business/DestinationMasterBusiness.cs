@@ -22,5 +22,14 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.DestinationMasterDetailsSave(destinationMasterModel);
         }
+        public async Task<List<StateListModel>> GetStateList()
+        {
+            return await freightMastersRepository.GetStateList();
+
+        }
+        public async Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request)
+        {
+            return await freightMastersRepository.GetDestinationMasterList(request);
+        }
     }
 }

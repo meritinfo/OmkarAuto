@@ -31,7 +31,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@VehicleTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
                             new SqlParameter("@VehicleTypeGroupId", vehicleTypeMasterModel.VehicleTypeGroupId),
                             new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
-                             new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleTypeMaster_Insert", param);

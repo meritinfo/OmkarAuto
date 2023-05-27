@@ -11,6 +11,6 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel BranchMasterModel);
         Task<List<BranchListModel>> GetBranchList();
-        Task<List<BranchListModel>> GetStateList();
+       
     }
 }

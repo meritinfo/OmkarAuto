@@ -18,7 +18,9 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
         readonly IBrandMasterBusiness brandMasterBusiness;
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness)
+        readonly IDriverMasterBusiness driverMasterBusiness;
+        readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
+        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
         {
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
@@ -26,6 +28,8 @@ namespace OmkarFCUBEAPI.Controllers
             docRenewalMasterBusiness = _docRenewalMasterBusiness;
             brandMasterBusiness = _brandMasterBusiness;
             tyrePositionMasterBusiness = _tyrePositionMasterBusiness;
+            driverMasterBusiness = _driverMasterBusiness;
+            expensestypeMasterBusiness = _expensesTypeMasterBusiness;
         }
 
         /// <summary>
@@ -51,6 +55,28 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         /// <summary>
+        /// Controller method for Driver master
+        /// </summary>
+        /// <param name="vehicleTypeGroupMasterModel"></param>
+        [HttpPost("DriverMasterSave")]
+        public async Task<IActionResult> DriverMasterSave(DriverMasterModel driverMasterModel)
+        {
+            if (driverMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverMasterBusiness.DriverMasterSave(driverMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
         /// Controller method for vehicle type master
         /// </summary>
         /// <param name="vehicleTypeMasterModel"></param>
@@ -64,6 +90,25 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await vehicleTypeMasterBusiness.VehicleTypeMasterSave(vehicleTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <param name="expensesTypeMasterModel"></param>
+        [HttpPost("ExpensesTypeMasterSave")]
+        public async Task<IActionResult> ExpenseTypeMasterSave(ExpensesTypeMasterModel expensesTypeMasterModel)
+        {
+            if (expensesTypeMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await expensestypeMasterBusiness.ExpensesTypeMasterSave(expensesTypeMasterModel);
 
                 return Ok(result);
             }
@@ -126,6 +171,50 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBrandMasterList")]
+        public async Task<IActionResult> GetBrandMasterList(BrandMasterListRequest request)
+        {
+            try
+            {
+                var result = await brandMasterBusiness.GetBrandMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyrePositionMasterList")]
+        public async Task<IActionResult> GetTyrePositionMasterList(TyrePositionMasterListRequest request)
+        {
+            try
+            {
+                var result = await tyrePositionMasterBusiness.GetTyrePositionMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDocRenewalMasterList")]
+        public async Task<IActionResult> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
+        {
+            try
+            {
+                var result = await docRenewalMasterBusiness.GetDocRenewalMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("TyrePositionMasterSave")]
         public async Task<IActionResult> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel)

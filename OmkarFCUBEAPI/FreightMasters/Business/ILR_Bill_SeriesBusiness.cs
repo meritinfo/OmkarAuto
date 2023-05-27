@@ -8,6 +8,7 @@ namespace FreightMasters.Business
     public interface ILR_Bill_SeriesBusiness
     {
         Task<ResponseModel> LR_Bill_SeriesDetailsSave(LR_Bill_SeriesModel lr_Bill_SeriesModel);
+        Task<LRBillSeriesList> LRBillSeriesList(LRBillSeriesListRequest request);
     }
 }
 

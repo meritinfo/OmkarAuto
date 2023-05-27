@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace FreightMasters.Repository
@@ -139,9 +140,9 @@ namespace FreightMasters.Repository
             }
             return branchList;
         }
-        public async Task<List<BranchListModel>> GetStateList()
+        public async Task<List<StateListModel>> GetStateList()
         {
-            List<BranchListModel> branchList = new();
+            List<StateListModel> stateList = new();
             try
             {
                 if (dbconnection != null)
@@ -153,7 +154,7 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            branchList.Add(new BranchListModel
+                            stateList.Add(new StateListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -175,7 +176,8 @@ namespace FreightMasters.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return branchList;
+            return stateList;
         }
     }
+
 }

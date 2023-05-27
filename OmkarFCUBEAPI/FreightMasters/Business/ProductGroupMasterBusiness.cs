@@ -19,5 +19,9 @@ namespace FreightMasters.Business
         {
             return await productGroupMasterRepository.ProductGroupMasterDetailsSave(productGroupMasterModel);
         }
+        public async Task<ProductGroupMasterList> GetProductGroupMasterList(ProductGroupMasterListRequest request)
+        {
+            return await productGroupMasterRepository.GetProductGroupMasterList(request);
+        }
     }
 }
