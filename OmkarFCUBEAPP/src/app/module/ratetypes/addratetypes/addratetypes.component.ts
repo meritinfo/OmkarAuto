@@ -75,8 +75,8 @@ submitRateTypesForm(): void {
     return;
   }
   this.selectedRateTypesDetails.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
-  this.ratetypesmodel.rateDesc= this.formUser.value.brandName;
-  this.ratetypesmodel.rateMethod = this.formUser.value.brandType;
+  this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc;
+  this.ratetypesmodel.rateMethod = this.formUser.value.rateMethod;
 
 
   this.rateTypesService.ratetypeDetailsSubmitted(this.ratetypesmodel).subscribe((res: Responsemodel) => {

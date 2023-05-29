@@ -46,7 +46,7 @@ namespace FleetMasters.Models
         public string? Remarks { get; set; }
         public string? GroupName { get; set; }
         public string? DriverAcct { get; set; }
-        public string? DrPhoto { get; set; }
+        public byte[]? DrPhoto { get; set; }
         public string? AttachDrLic { get; set; }
         public string? AttachDrHazLic { get; set; }
         public string? AttachDrAadhar { get; set; }

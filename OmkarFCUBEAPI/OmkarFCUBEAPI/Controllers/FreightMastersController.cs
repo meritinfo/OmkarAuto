@@ -22,11 +22,14 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IFreightRatesDtlBusiness freightRatesDtlBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
+      
 
-     
+
         readonly IDistanceDetailFrtBusiness distanceDetailFrtBusiness;
+        readonly IDistanceDetailTripBusiness distanceDetailTripBusiness;
 
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness distanceMasterFrtBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness)
+
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness distanceMasterFrtBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -36,6 +39,8 @@ namespace OmkarFCUBEAPI.Controllers
             ratetypesBusiness = _ratetypesBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
             freightRatesDtlBusiness = _freightRatesDtlBusiness;
+            distanceDetailFrtBusiness = _distanceDetailFrtBusiness;
+            distanceDetailTripBusiness = _distanceDetailTripBusiness;
         }
 
         /// <summary>
@@ -181,7 +186,25 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("DistanceDetailTripSave")]
+        public async Task<IActionResult> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel)
+        {
+            if (distanceDetailTripModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceDetailTripBusiness.DistanceDetailTripSave(distanceDetailTripModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("FreightRatesMstSave")]
         public async Task<IActionResult> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel)
         {
