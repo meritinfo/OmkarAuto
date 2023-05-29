@@ -1,0 +1,91 @@
+import { Component } from '@angular/core';
+
+
+import { Router } from '@angular/router';
+import { Filtermodel } from 'src/app/models/filtermodel';
+import { Productmasterlistmodel  } from 'src/app/models/productmasterlistmodel';
+import { Usermodel } from 'src/app/models/usermodel';
+import { Productmastermodel } from 'src/app/models/productmastermodel';
+import { ProductMasterService } from 'src/app/services/productmaster.service';
+
+@Component({
+  selector: 'app-productmasterlist',
+  templateUrl: './productmasterlist.component.html',
+  styleUrls: ['./productmasterlist.component.css']
+})
+export class ProductmasterlistComponent {
+  dtOptions: DataTables.Settings = {};
+  allProductMaster: Productmasterlistmodel = new Productmasterlistmodel();
+  filter: Filtermodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'productname',
+    sortOrder: 'asc',
+    search: ''
+
+
+}
+constructor(private productmasterService: ProductMasterService, private route: Router) {
+}
+
+ngOnInit(): void {
+  this.productmasterService.clearProductMasterDetails();
+  this.dtOptions = {
+    pagingType: 'full_numbers',
+    pageLength: 10,
+    serverSide: true,
+    processing: true,
+    ajax: (dataTablesParameters: any, callback) => {
+      // Filter setting
+      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+      this.filter.pageSize = dataTablesParameters.length;
+      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+      this.filter.sortOrder = dataTablesParameters.order[0].dir;
+      this.filter.search = dataTablesParameters.search.value;
+      this.productmasterService.getProductMasterList(this.filter)
+        .subscribe(resp => {
+         this.allProductMaster = resp;
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
+          });
+        });
+    },
+  // Set column title and data field
+  columns: [
+      
+
+    {
+      title: 'ProductName',
+      data: 'productName',
+    },
+
+   {
+    title: 'ProductHSN',
+    data: 'productHSN',
+  },
+ 
+
+
+  {
+    title: 'Action',
+    data: 'productId',
+  },
+],
+};
+}
+//Open new destination add screen
+addProductmaster(): void {
+this.route.navigate(['/addproductmaster']);
+}
+
+
+//Open user details screen
+getproductMasterDetails(ProductMaster: Productmastermodel): void {
+this.productmasterService.setProductMasterDetails(ProductMaster);
+this.route.navigate(['/productmasteredit']);
+}
+
+}
+

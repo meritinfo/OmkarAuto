@@ -10,10 +10,41 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
+import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
+import { Destinationmodel } from './models/destinationmodel';
+import { Brandmastermodel } from './models/brandmastermodel';
+import { Ratetypesmodel } from './models/ratetypesmodel';
+import { Tyrepositionmastermodel } from './models/tyrepositionmastermodel';
+import { Productgroupmastermodel } from './models/productgroupmastermodel';
+import { Productmastermodel } from './models/productmastermodel';
 import { DataTablesModule } from 'angular-datatables';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
+
+import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
+import { DestinationdetailComponent } from './module/destination/destinationdetail/destinationdetail.component';
+import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
+import { Ratetypeslistmodel } from './models/ratetypeslistmodel';
+import { ProductgroupmasterlistComponent } from './module/productgroupmaster/productgroupmasterlist/productgroupmasterlist.component';
+import { AddproductgroupmasterComponent } from './module/productgroupmaster/addproductgroupmaster/addproductgroupmaster.component';
+import { ProductmasterlistComponent } from './module/productmaster/productmasterlist/productmasterlist.component';
+import { AddproductmasterComponent } from './module/productmaster/addproductmaster/addproductmaster.component';
+import { BrandmasterlistComponent } from './module/brandmaster/brandmasterlist/brandmasterlist.component';
+import { AddbrandmasterComponent } from './module/brandmaster/addbrandmaster/addbrandmaster.component';
+import { TyrepositionmasterlistComponent } from './module/tyrepositionmaster/tyrepositionmasterlist/tyrepositionmasterlist.component';
+import { AddtyrepositionmasterComponent } from './module/tyrepositionmaster/addtyrepositionmaster/addtyrepositionmaster.component';
+import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrenewalmasterlist/docrenewalmasterlist.component';
+import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
+import { Docrenewalmastermodel } from './models/docrenewalmastermodel';
+
+import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
+import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
+import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
+import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -22,7 +53,28 @@ import { UseraddComponent } from './module/user/useradd/useradd.component';
     DashboardComponent,
     UseraddComponent,
     UserlistComponent,
-    UserdetailsComponent
+    UserdetailsComponent,
+    AdddestinationComponent,
+    DestinationdetailComponent,
+    DestinationlistComponent,
+    ProductgroupmasterlistComponent,
+    AddproductgroupmasterComponent,
+    ProductmasterlistComponent,
+    AddproductmasterComponent,
+    BrandmasterlistComponent,
+    AddbrandmasterComponent,
+    TyrepositionmasterlistComponent,
+    AddtyrepositionmasterComponent,
+    DocrenewalmasterlistComponent,
+    AdddocrenewalmasterComponent,
+  
+    RatetypeslistComponent,
+    AddratetypesComponent,
+    LrbillserieslistComponent,
+    AddlrbillseriesComponent,
+    
+
+
   ],
   imports: [
     BrowserModule,
@@ -33,7 +85,7 @@ import { UseraddComponent } from './module/user/useradd/useradd.component';
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

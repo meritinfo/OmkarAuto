@@ -40,4 +40,5 @@ export class UserService {
   getUserMasterList(filter: Filtermodel): Observable<Userlistmodel> {
     return this.httpClient.post<Userlistmodel>(Constants.API_ENDPOINT + 'Admin/GetUserMasterList', filter, this.httpOptions);
   }
+  
 }

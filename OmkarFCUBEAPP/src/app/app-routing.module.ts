@@ -5,6 +5,22 @@ import { LoginComponent } from './module/login/login.component';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
 import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
+import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
+import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
+import { ProductgroupmasterlistComponent } from './module/productgroupmaster/productgroupmasterlist/productgroupmasterlist.component';
+import { AddproductgroupmasterComponent } from './module/productgroupmaster/addproductgroupmaster/addproductgroupmaster.component';
+import { ProductmasterlistComponent } from './module/productmaster/productmasterlist/productmasterlist.component';
+import { AddproductmasterComponent } from './module/productmaster/addproductmaster/addproductmaster.component';
+import { AddbrandmasterComponent } from './module/brandmaster/addbrandmaster/addbrandmaster.component';
+import { BrandmasterlistComponent } from './module/brandmaster/brandmasterlist/brandmasterlist.component';
+import { TyrepositionmasterlistComponent } from './module/tyrepositionmaster/tyrepositionmasterlist/tyrepositionmasterlist.component';
+import { AddtyrepositionmasterComponent } from './module/tyrepositionmaster/addtyrepositionmaster/addtyrepositionmaster.component';
+import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrenewalmasterlist/docrenewalmasterlist.component';
+import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
+import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
+import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
+import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
+import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -12,7 +28,40 @@ const routes: Routes = [
   { path: 'userlist', component: UserlistComponent },
   { path: 'useradd', component: UseraddComponent },
   { path: 'useredit', component: UseraddComponent },
-  { path: 'userdetails', component: UserdetailsComponent }
+  { path: 'userdetails', component: UserdetailsComponent },
+  { path: 'adddestination', component: AdddestinationComponent },
+  { path: 'destinationedit', component: AdddestinationComponent },
+
+  { path: 'destinationlist', component: DestinationlistComponent },
+  { path: 'productgroupmasterlist', component: ProductgroupmasterlistComponent },
+  { path: 'addproductgroupmaster', component: AddproductgroupmasterComponent },
+  { path: 'addproductmaster', component: AddproductmasterComponent },
+  { path: 'productgroupmasteredit', component: AddproductgroupmasterComponent },
+  { path: 'productmasteredit', component: AddproductmasterComponent },
+  { path: 'productmasterlist', component: ProductmasterlistComponent },
+  { path: 'brandmasterlist', component: BrandmasterlistComponent },
+  { path: 'addbrandmaster', component: AddbrandmasterComponent },
+  { path: 'brandmasteredit', component: AddbrandmasterComponent },
+  { path: 'tyrepositionmasterlist', component: TyrepositionmasterlistComponent },
+  { path: 'addtyrepositionmaster', component: AddtyrepositionmasterComponent },
+  { path: 'tyrepositionmasteredit', component: AddtyrepositionmasterComponent  },
+  { path: 'adddocrenewalmaster', component: AdddocrenewalmasterComponent },
+  { path: 'docrenewalmasteredit', component: AdddocrenewalmasterComponent },
+  { path: 'docrenewalmasterlist', component: DocrenewalmasterlistComponent },
+  { path: 'addratetypes', component: AddratetypesComponent },
+  { path: 'ratetypesedit', component: AddratetypesComponent },
+  { path: 'ratetypeslist', component: RatetypeslistComponent },
+  { path: 'addlrbillseries', component: AddlrbillseriesComponent },
+  { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
+  { path: 'lrbillserieslist', component: LrbillserieslistComponent },
+  
+  
+ 
+ 
+
+ 
+
+  
 ];
 
 @NgModule({
