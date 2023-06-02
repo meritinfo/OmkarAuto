@@ -47,8 +47,8 @@ ngOnInit(): void {
 
   this.selectedlrbillSeriesDetails = this.lrbillseriesService.getLrbillSeriesDetails();
   this.formUser = this.formBuilder.group({
-    brandName: new FormControl('',),
-    brandType: new FormControl('',),
+    seriesCode: new FormControl('',),
+    lr_Bill_type: new FormControl('',),
   
 
   });

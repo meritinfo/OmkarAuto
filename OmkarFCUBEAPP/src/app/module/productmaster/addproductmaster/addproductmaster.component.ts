@@ -80,7 +80,7 @@ ngOnInit(): void {
     if (this.formUser.invalid) {
       return;
     }
-
+    this.productMasterModel.productId = this.selectedProductMasterDetails.productId != '' ? this.selectedProductMasterDetails.productId : '';
     this.productMasterModel.productName= this.formUser.value.productName;
     this.productMasterModel.productHSN = this.formUser.value.productHSN;
     this.productMasterModel.productGroupId = this.formUser.value.productGroupId;

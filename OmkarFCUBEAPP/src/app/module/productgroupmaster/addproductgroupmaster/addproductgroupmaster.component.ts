@@ -48,17 +48,11 @@ ngOnInit(): void {
     groupName: new FormControl('',),
     gstHSN: new FormControl('',),
   
-
   });
   if (this.selectedProductGroupMasterDetails.productGroupId != '') {
     this.formUser.patchValue(this.selectedProductGroupMasterDetails);
-    this.formUser.patchValue({
-     
-      
-    })
   }
  
-
 }
 
   
@@ -73,7 +67,7 @@ ngOnInit(): void {
     if (this.formUser.invalid) {
       return;
     }
-    this.selectedProductGroupMasterDetails.productGroupId = this.selectedProductGroupMasterDetails.productGroupId != '' ? this.selectedProductGroupMasterDetails.productGroupId : '';
+    this.productGroupMasterModel.productGroupId = this.selectedProductGroupMasterDetails.productGroupId != '' ? this.selectedProductGroupMasterDetails.productGroupId : '';
     this.productGroupMasterModel.groupName= this.formUser.value.groupName;
     this.productGroupMasterModel.gstHSN = this.formUser.value.gstHSN;
 

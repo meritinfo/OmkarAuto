@@ -19,5 +19,9 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeMasterRepository.VehicleTypeMasterSave(vehicleTypeMasterModel);
         }
+        public async Task<VehicleTypeMasterList> GetVehicleTypeMasterList(VehicleTypeMasterListRequest request)
+        {
+            return await vehicleTypeMasterRepository.GetVehicleTypeMasterList(request);
+        }
     }
 }

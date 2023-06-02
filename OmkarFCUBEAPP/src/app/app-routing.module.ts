@@ -21,6 +21,10 @@ import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetyp
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
+import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
+
+import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -54,6 +58,9 @@ const routes: Routes = [
   { path: 'addlrbillseries', component: AddlrbillseriesComponent },
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },
+  { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
+  { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
+  { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
   
   
  

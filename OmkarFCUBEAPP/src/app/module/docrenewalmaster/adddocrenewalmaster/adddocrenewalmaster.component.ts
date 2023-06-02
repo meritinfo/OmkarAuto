@@ -44,6 +44,9 @@ ngOnInit(): void {
   this.formUser = this.formBuilder.group({
     docCode: new FormControl('',),
     docDescription: new FormControl('',),
+    reminderDays: new FormControl('',),
+    debitType: new FormControl('',),
+    debitAc: new FormControl('',),
   
 
   });
@@ -68,6 +71,9 @@ submitDocRenewalMasterForm(): void {
   this.docRenewalMasterModel.docRenewalID = this.docRenewalMasterModel.docRenewalID != '' ? this.selectedDocRenewalMasterDetails.docRenewalID : '';
   this.docRenewalMasterModel.docCode= this.formUser.value.docCode;
   this.docRenewalMasterModel.docDescription = this.formUser.value.docDescription;
+  this.docRenewalMasterModel.reminderDays = this.formUser.value.reminderDays;
+  this.docRenewalMasterModel.debitAc = this.formUser.value.debitAc;
+  this.docRenewalMasterModel.debitType = this.formUser.value.debitType;
 
 
   this.docrenewalmasterService.docrenewalMasterDetailsSubmitted(this.docRenewalMasterModel).subscribe((res: Responsemodel) => {

@@ -1,4 +1,5 @@
 
+
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -6,12 +7,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Tyre Position Master</h4>
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Type Master</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Product Group Master</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Vehicle Type Master</a></li>
+                                <li class="breadcrumb-item active">Vehicle Type Master </li>
                             </ol>
                         </div>
 
@@ -28,34 +29,34 @@
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
                     <button class="btn btn-primary buttons-html5" type="button"
-                    (click)="addTyrepositionmaster()"><span>New</span></button>
+                    (click)="addVehicleTypeMaster()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Brand Name</th>
+                            <th>Centre Name</th>
                       
-                        
+                            <th>rateMethod </th>
                          
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allTyrepositionMaster.tyrePositionMasterList?.length != 0">
-                        <tr *ngFor="let tyremaster of allTyrepositionMaster.tyrePositionMasterList">
-                          
+                    <tbody *ngIf="allVehicleTypeMasterTypes.vehicleTypeMasterList?.length != 0">
+                        <tr *ngFor="let ratetype of allVehicleTypeMasterTypes.vehicleTypeMasterList">
+                            <td>{{ ratetype.vehicleTypeDesc }}</td>
                     
-                            <td>{{ tyremaster.positionDesc }}</td>
+                            <td>{{ ratetype.vehicleTypeGroupId }}</td>
                          
                             <td>
-                                <a (click)="getTyrepositionMasterDetails(tyremaster)" class="actionicon"><i
+                                <a (click)="getvehicleTypesDetails(ratetype)" class="actionicon"><i
                                     class="bx bx-pencil"></i></a>
                            
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allTyrepositionMaster.tyrePositionMasterList?.length == 0">
+                    <tbody *ngIf="allVehicleTypeMasterTypes.vehicleTypeMasterList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

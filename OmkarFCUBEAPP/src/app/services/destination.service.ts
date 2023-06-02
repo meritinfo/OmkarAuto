@@ -33,7 +33,7 @@ export class DestinationService {
     this.selectedDestination = new Destinationmodel();
   }
   destinationDetailsSubmitted(user: Destinationmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DestinationMasterDetailsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DestinationMasterSave', user, this.httpOptions);
   }
   getDestinationList(filter: Filtermodel): Observable<Destinationlistmodel> {
     return this.httpClient.post<Destinationlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDestinationMasterList', filter, this.httpOptions);

@@ -4,20 +4,19 @@ import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
-import {Tyrepositionmasterlistmodel  } from 'src/app/models/tyrepositionmasterlistmodel';
+import { Vehicletypegroupmasterlistmodel  } from 'src/app/models/vehicletypegroupmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
-import { Tyrepositionmastermodel } from 'src/app/models/tyrepositionmastermodel';
-import { TyrepositionMasterService } from 'src/app/services/tyrepositionmaster.service';
-
+import { Vehicletypegroupmastermodel } from 'src/app/models/vehicletypegroupmastermodel';
+import { VehicleTypeGroupMasterService } from 'src/app/services/vehicletypegroupmaster.service';
 
 @Component({
-  selector: 'app-tyrepositionmasterlist',
-  templateUrl: './tyrepositionmasterlist.component.html',
-  styleUrls: ['./tyrepositionmasterlist.component.css']
+  selector: 'app-vehicletypegroupmasterlist',
+  templateUrl: './vehicletypegroupmasterlist.component.html',
+  styleUrls: ['./vehicletypegroupmasterlist.component.css']
 })
-export class TyrepositionmasterlistComponent {
+export class VehicletypegroupmasterlistComponent {
   dtOptions: DataTables.Settings = {};
-  allTyrepositionMaster: Tyrepositionmasterlistmodel = new Tyrepositionmasterlistmodel();
+  allVehicleTypeGroupMaster: Vehicletypegroupmasterlistmodel = new Vehicletypegroupmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -25,13 +24,12 @@ export class TyrepositionmasterlistComponent {
     sortOrder: 'asc',
     search: ''
 
-
 }
-constructor(private tyrepositionmasterService: TyrepositionMasterService, private route: Router) {
+constructor(private vehicletypemasterService: VehicleTypeGroupMasterService, private route: Router) {
 }
 
 ngOnInit(): void {
-  this.tyrepositionmasterService.clearTyrepositionMasterDetails();
+  this.vehicletypemasterService.clearVehicleTypeGroupMasterDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
@@ -44,9 +42,9 @@ ngOnInit(): void {
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
       this.filter.search = dataTablesParameters.search.value;
-      this.tyrepositionmasterService.getTyrepositionMasterList(this.filter)
+      this.vehicletypemasterService.getVehicleTypeGroupmasterList(this.filter)
         .subscribe(resp => {
-         this.allTyrepositionMaster = resp;
+         this.allVehicleTypeGroupMaster = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,
             recordsFiltered: resp.pageMetaData.totalCount,
@@ -57,30 +55,32 @@ ngOnInit(): void {
     columns: [
       
 
+     
+
      {
-      title: 'Position Desc',
-      data: 'positionDesc',
+      title: 'Brand Type',
+      data: 'vehicleTypeGroupName',
     },
    
   
   
     {
       title: 'Action',
-      data: 'productGroupId',
+      data: 'vehicleTypeGroupId',
     },
   ],
 };
 }
 //Open new destination add screen
-addTyrepositionmaster(): void {
-this.route.navigate(['/addtyrepositionmaster']);
+addVehicleTypemaster(): void {
+this.route.navigate(['/addbrandmaster']);
 }
 
 
 //Open user details screen
-getTyrepositionMasterDetails(Tyrepositionmaster: Tyrepositionmastermodel): void {
-this.tyrepositionmasterService.setTyrepositionMasterDetails(Tyrepositionmaster);
-this.route.navigate(['/tyrepositionmasteredit']);
+getVehicleTypeMasterDetails(Destination: Vehicletypegroupmastermodel): void {
+this.vehicletypemasterService.setVehicleTypeGroupMasterDetails(Destination);
+this.route.navigate(['/vehicletypegroupmasteredit']);
 }
 
 }
