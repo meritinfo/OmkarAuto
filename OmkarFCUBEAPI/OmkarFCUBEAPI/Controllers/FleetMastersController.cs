@@ -200,6 +200,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleTypeGroupMasterList")]
+        public async Task<IActionResult> GetVehicleTypeGroupMasterList(VehicleTypeGroupMasterListRequest request)
+        {
+            try
+            {
+                var result = await vehicleTypeGroupMasterBusiness.GetVehicleTypeGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetDocRenewalMasterList")]
         public async Task<IActionResult> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
         {

@@ -72,13 +72,13 @@ ngOnInit(): void {
 };
 }
 //Open new destination add screen
-addVehicleTypemaster(): void {
+addVehicleTypeGroupmaster(): void {
 this.route.navigate(['/addbrandmaster']);
 }
 
 
 //Open user details screen
-getVehicleTypeMasterDetails(Destination: Vehicletypegroupmastermodel): void {
+getVehicleTypeGroupMasterDetails(Destination: Vehicletypegroupmastermodel): void {
 this.vehicletypemasterService.setVehicleTypeGroupMasterDetails(Destination);
 this.route.navigate(['/vehicletypegroupmasteredit']);
 }

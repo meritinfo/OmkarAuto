@@ -4,5 +4,6 @@ namespace FleetMasters.Business
     public interface IVehicleTypeGroupMasterBusiness
     {
         Task<ResponseModel> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel);
+        Task<VehicleTypeGroupMasterList> GetVehicleTypeGroupMasterList(VehicleTypeGroupMasterListRequest request);
     }
 }
