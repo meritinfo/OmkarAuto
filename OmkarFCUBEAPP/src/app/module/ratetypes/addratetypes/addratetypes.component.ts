@@ -56,6 +56,8 @@ ngOnInit(): void {
   if (this.selectedRateTypesDetails.rateTypeId != '') {
     this.formUser.patchValue(this.selectedRateTypesDetails);
     this.formUser.patchValue({
+      rateMethod: this.selectedRateTypesDetails.rateMethod,
+
      
       
     })

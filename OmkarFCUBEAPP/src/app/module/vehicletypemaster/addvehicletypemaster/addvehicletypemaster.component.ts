@@ -51,7 +51,7 @@ ngOnInit(): void {
   this.selectedVehicleTypeMasterDetails = this.vehicleTypesService.getvehicletypemasterDetails();
   this.formUser = this.formBuilder.group({
     vehicleTypeDesc: new FormControl('',),
-    VehicleTypeGroupId: new FormControl('',)
+    vehicleTypeGroupId: new FormControl('',)
   
 
   });
@@ -59,7 +59,7 @@ ngOnInit(): void {
   if (this.selectedVehicleTypeMasterDetails.vehicleTypeId != '') {
     this.formUser.patchValue(this.selectedVehicleTypeMasterDetails);
     this.formUser.patchValue({
-     
+      
       
     })
   }

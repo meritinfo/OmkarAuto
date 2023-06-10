@@ -52,6 +52,8 @@ ngOnInit(): void {
   });
   if (this.selectedDocRenewalMasterDetails.docRenewalID != '') {
     this.formUser.patchValue(this.selectedDocRenewalMasterDetails);
+    debitType: this.selectedDocRenewalMasterDetails.debitType;
+    debitAc: this.selectedDocRenewalMasterDetails.debitAc;
    
   }
  

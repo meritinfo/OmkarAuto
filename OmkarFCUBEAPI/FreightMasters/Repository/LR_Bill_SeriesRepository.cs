@@ -89,7 +89,7 @@ namespace FreightMasters.Repository
                         {
                             lrbillList.Add(new LR_Bill_SeriesModel
                             {
-                                SeriesId = Convert.ToInt32(dataSet.Tables[0].Rows[i]["SeriesId"]),
+                                SeriesId = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesId"]),
                                 SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
                                 LR_Bill_type = Convert.ToString(dataSet.Tables[0].Rows[i]["LR_Bill_type"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),

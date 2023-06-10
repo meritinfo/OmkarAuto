@@ -24,6 +24,7 @@ import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslis
 import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
+import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 
 
 const routes: Routes = [
@@ -61,6 +62,7 @@ const routes: Routes = [
   { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
   { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
+  { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
   
   
  

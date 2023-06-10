@@ -58,7 +58,7 @@ ngOnInit(): void {
      
 
      {
-      title: 'Brand Type',
+      title: 'vehicleTypeGroupName ',
       data: 'vehicleTypeGroupName',
     },
    
@@ -73,7 +73,7 @@ ngOnInit(): void {
 }
 //Open new destination add screen
 addVehicleTypeGroupmaster(): void {
-this.route.navigate(['/addbrandmaster']);
+this.route.navigate(['/addvehicletypegroupmaster']);
 }
 
 

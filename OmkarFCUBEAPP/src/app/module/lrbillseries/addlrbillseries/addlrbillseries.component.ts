@@ -55,6 +55,7 @@ ngOnInit(): void {
   if (this.selectedlrbillSeriesDetails.seriesId != '') {
     this.formUser.patchValue(this.selectedlrbillSeriesDetails);
     this.formUser.patchValue({
+      lr_Bill_type: this.selectedlrbillSeriesDetails.lr_Bill_type,
      
       
     })

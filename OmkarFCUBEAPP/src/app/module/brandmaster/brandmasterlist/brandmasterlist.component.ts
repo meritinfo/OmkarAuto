@@ -83,7 +83,7 @@ this.route.navigate(['/addbrandmaster']);
 //Open user details screen
 getBrandMasterDetails(Destination: Brandmastermodel): void {
 this.brandmasterService.setBrandMasterDetails(Destination);
-this.route.navigate(['/productgroupmasteredit']);
+this.route.navigate(['/brandmasteredit']);
 }
 
 }
