@@ -10,5 +10,6 @@ namespace AdminMasters.Repository
         Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel);
         Task<List<ModuleListModel>> GetModuleList();
         Task<UserMasterList> GetUserMasterList(UserMasterListRequest request);
+        Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);
     }
 }

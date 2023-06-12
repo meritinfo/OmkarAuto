@@ -127,5 +127,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for User Master List
+        /// </summary>
+        [HttpPost("GetEWayBillDetails")]
+        public async Task<IActionResult> GetEWayBillDetails(EWayBillRequest request)
+        {
+            try
+            {
+                var result = await userBusiness.GetEWayBillDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

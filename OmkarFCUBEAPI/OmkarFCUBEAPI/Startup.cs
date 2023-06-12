@@ -34,7 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using AdminMasters.Models;
 
 namespace OmkarFCUBEAPI
 {
@@ -54,6 +54,7 @@ namespace OmkarFCUBEAPI
             services.AddCors();
             services.AddControllers();
             services.Configure<DBModel>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<GSTConfigurationModel>(Configuration.GetSection("GSTConfiguration"));
             services.AddScoped<ISharedBusiness, SharedBusiness>();
             services.AddScoped<ISharedRepository, SharedRepository>();
             services.AddScoped<IDestinationMasterBusiness, DestinationMasterBusiness>();

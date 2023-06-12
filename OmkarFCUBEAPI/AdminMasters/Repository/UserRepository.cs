@@ -1,17 +1,23 @@
 ﻿using AdminMasters.Models;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SqlHelper.Models;
+using System;
 using System.Data.SqlClient;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace AdminMasters.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly IOptions<DBModel> dbconnection;
+        private readonly IOptions<GSTConfigurationModel> gstConfiguration;
 
-        public UserRepository(IOptions<DBModel> _dbconnection)
+        public UserRepository(IOptions<DBModel> _dbconnection, IOptions<GSTConfigurationModel> _gstConfiguration)
         {
             dbconnection = _dbconnection;
+            gstConfiguration = _gstConfiguration;
         }
         /// <summary>
         /// Service method for save user master details
@@ -191,6 +197,101 @@ namespace AdminMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return userMasterList;
+        }
+
+        /// <summary>
+        /// Service method for get eway bill details
+        /// </summary>
+        /// <returns>EWayBillModel</returns>
+        public async Task<string> GetAccessToken()
+        {
+            string token = "";
+            try
+            {
+                string URL = "https://clientbasic.mastersindia.co/";
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var data = new { username = gstConfiguration.Value.Username, password = gstConfiguration.Value.Password, client_id = gstConfiguration.Value.ClientId, client_secret = gstConfiguration.Value.ClientSecret, grant_type = gstConfiguration.Value.GrantType };
+                HttpResponseMessage response = client.PostAsJsonAsync("oauth/access_token", data).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    GSTAccessTokenModel tokenModel = JsonConvert.DeserializeObject<GSTAccessTokenModel>(responseData);
+                    token = tokenModel.access_token;
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return token;
+        }
+
+        /// <summary>
+        /// Service method for get eway bill details
+        /// </summary>
+        /// <returns>EWayBillModel</returns>
+        public async Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request)
+        {
+            EWayBillModel eWayBill = new();
+            Root root = new();
+            try
+            {
+                string URL = "https://clientbasic.mastersindia.co/getEwayBillData";
+
+                string token = await GetAccessToken();
+
+                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin=05AAABB0639G1Z8&eway_bill_number=" + request.EWayBillNumber;
+
+                HttpClient client = new()
+                {
+                    BaseAddress = new Uri(URL)
+                };
+
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                if (response.IsSuccessStatusCode)
+                {
+                    root = await response.Content.ReadAsAsync<Root>();
+                    eWayBill.result = root.results;
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return eWayBill;
         }
     }
 }

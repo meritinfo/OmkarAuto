@@ -38,5 +38,13 @@ namespace AdminMasters.Business
         {
             return await userRepository.GetUserMasterList(request);
         }
+
+        /// <summary>
+        /// Business method for EBill details
+        /// </summary>
+        public async Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request)
+        {
+            return await userRepository.GetEWayBillDetails(request);
+        }
     }
 }
