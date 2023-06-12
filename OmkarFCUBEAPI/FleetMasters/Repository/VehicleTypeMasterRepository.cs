@@ -27,7 +27,7 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleTypeID", vehicleTypeMasterModel.VehicleTypeId),
+                            new SqlParameter("@VehicleTypeID", vehicleTypeMasterModel.VehicleTypeID),
                             new SqlParameter("@VehicleTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
                             new SqlParameter("@VehicleTypeGroupId", vehicleTypeMasterModel.VehicleTypeGroupId),
                             new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
@@ -88,7 +88,7 @@ namespace FleetMasters.Repository
                         {
                             VehicleList.Add(new VehicleTypeMasterModel
                             {
-                                VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
+                                VehicleTypeID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeID"]),
                                 VehicleTypeDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeDesc"]),
 
                                 VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),

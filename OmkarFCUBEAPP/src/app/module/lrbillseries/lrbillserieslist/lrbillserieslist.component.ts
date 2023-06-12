@@ -62,7 +62,7 @@ ngOnInit(): void {
       },
 
      {
-      title: 'lr_Bill_type',
+      title: 'Lr_Bill_Type',
       data: 'lr_Bill_type',
     },
    

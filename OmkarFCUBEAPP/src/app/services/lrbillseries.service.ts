@@ -33,7 +33,7 @@ export class LRBillSeriesService {
     this.selectedLrbillseries = new Lrbillseriesmodel();
   }
   LrbillseriesDetailsSubmitted(user: Lrbillseriesmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillseriesDetailsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LR_Bill_SeriesDetailsSave', user, this.httpOptions);
   }
   getLrbillseriesList(filter: Filtermodel): Observable<Lrbillserieslistmodel> {
     return this.httpClient.post<Lrbillserieslistmodel>(Constants.API_ENDPOINT + 'FreightMasters/LRBillSeriesList', filter, this.httpOptions);

@@ -6,7 +6,7 @@ namespace FleetMasters.Models
     /// </summary>
     public class VehicleTypeMasterModel
     {
-        public string? VehicleTypeId { get; set; }
+        public string? VehicleTypeID { get; set; }
         public string? VehicleTypeDesc { get; set; }
         public string? VehicleTypeGroupId { get; set; }
         public string? IsActive { get; set; }

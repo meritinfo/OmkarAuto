@@ -45,6 +45,8 @@ import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 import { Vehicletypemastermodel } from './models/vehicletypemastermodel';
+import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermodel';
+
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
@@ -93,7 +95,7 @@ import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

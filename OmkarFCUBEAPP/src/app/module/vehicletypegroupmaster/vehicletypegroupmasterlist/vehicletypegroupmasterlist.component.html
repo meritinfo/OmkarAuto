@@ -42,8 +42,8 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allVehicleTypeGroupMaster.vehicleTypeGroupList?.length != 0">
-                        <tr *ngFor="let brandmaster of allVehicleTypeGroupMaster.vehicleTypeGroupList">
+                    <tbody *ngIf="allVehicleTypeGroupMaster.vehicleTypeGroupMasterList?.length != 0">
+                        <tr *ngFor="let brandmaster of allVehicleTypeGroupMaster.vehicleTypeGroupMasterList">
                             <td>{{ brandmaster.vehicleTypeGroupName }}</td>
                     
                          
@@ -55,7 +55,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allVehicleTypeGroupMaster.vehicleTypeGroupList?.length == 0">
+                    <tbody *ngIf="allVehicleTypeGroupMaster.vehicleTypeGroupMasterList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
