@@ -95,7 +95,7 @@ export class AdddestinationComponent {
       return;
     }
     this.destinationModel.centreid = this.selectedDestinationDetails.centreid != '' ? this.selectedDestinationDetails.centreid : '';
-    this.destinationModel.centreid = this.formUser.value.centreid;
+
     this.destinationModel.centreName = this.formUser.value.centreName;
     this.destinationModel.pinCode = this.formUser.value.pinCode;
     this.destinationModel.acctBranch = this.formUser.value.userBranch.toString();

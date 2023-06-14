@@ -22,6 +22,7 @@ import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratety
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
 import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
+import {AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
@@ -61,7 +62,9 @@ const routes: Routes = [
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },
   { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
+  { path: 'addvehicletypegroupmaster', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
+  { path: 'vehicletypegroupmasteredit', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
   { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
   { path: 'gstdetails', component: GstdetailsComponent },

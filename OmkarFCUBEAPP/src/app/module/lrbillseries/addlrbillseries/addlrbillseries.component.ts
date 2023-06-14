@@ -74,7 +74,7 @@ submitLRBIllSeriesForm(): void {
   if (this.formUser.invalid) {
     return;
   }
-  this.selectedlrbillSeriesDetails.seriesId = this.selectedlrbillSeriesDetails.seriesId != '' ? this.selectedlrbillSeriesDetails.seriesId : '';
+  this.lrbillSeriesModel.seriesId = this.selectedlrbillSeriesDetails.seriesId != '' ? this.selectedlrbillSeriesDetails.seriesId : '';
   this.lrbillSeriesModel.seriesCode= this.formUser.value.seriesCode;
   this.lrbillSeriesModel.lr_Bill_type = this.formUser.value.lr_Bill_type;
 
