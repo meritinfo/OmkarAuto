@@ -63,6 +63,73 @@
         public string? RateType { get; set; }
         public string? PrivateMark { get; set; }
         public string? StaxGstBy { get; set; }
+        public string? RateRs { get; set; }
+        public string? FreightRs { get; set; }
+        public string? FreightNarr { get; set; }
+        public string? StatisticalRs { get; set; }
+        public string? StatisticalNarr { get; set; }
+        public string? AocRs { get; set; }
+        public string? AocNarr { get; set; }
+        public string? FovRs { get; set; }
+        public string? FovNarr { get; set; }
+        public string? HandlingRs { get; set; }
+        public string? HandlingNarr { get; set; }
+        public string? DoorCollRs { get; set; }
+        public string? DoorCollNarr { get; set; }
+        public string? DoorDeliRs { get; set; }
+        public string? DoorDeliNarr { get; set; }
+        public string? WithPassRs { get; set; }
+        public string? WithpassNarr { get; set; }
+        public string? InsuranceRs { get; set; }
+        public string? InsuranceNarr { get; set; }
+        public string? PackingRs { get; set; }
+        public string? PackingNarr { get; set; }
+        public string? DccRs { get; set; }
+        public string? DccNarr { get; set; }
+        public string? LoadingDetnRs { get; set; }
+        public string? LoadingDetnNarr { get; set; }
+        public string? EnrouteRs { get; set; }
+        public string? EnrouteNarr { get; set; }
+        public string? MiscRs { get; set; }
+        public string? MiscNarr { get; set; }
+        public string? ExtrasRS { get; set; }
+        public string? ExtrasNarr { get; set; }
+        public string? UnLoadingRs { get; set; }
+        public string? UnLoadingNarr { get; set; }
+        public string? DetentionRs { get; set; }
+        public string? DetentionNarr { get; set; }
+        public string? StorageRs { get; set; }
+        public string? StorageNarr { get; set; }
+        public string? WarehousingRs { get; set; }
+        public string? WarehousingNarr { get; set; }
+        public string? OthersRs { get; set; }
+        public string? OthersNarr { get; set; }
+        public string? OthersRs1 { get; set; }
+        public string? Others1Narr { get; set; }
+        public string? OthersRs2 { get; set; }
+        public string? Others2Narr { get; set; }
+        public string? OthersRs3 { get; set; }
+        public string? Others3Narr { get; set; }
+        public string? OthersRs4 { get; set; }
+        public string? Others4Narr { get; set; }
+        public string? SubTotalRs { get; set; }
+        public string? GstType { get; set; }
+        public string? GstPct { get; set; }
+        public string? SgstAmt { get; set; }
+        public string? CgstAmt { get; set; }
+        public string? IgstAmt { get; set; }
+        public string? NonGstAmt1 { get; set; }
+        public string? NonGstAmt1Desc { get; set; }
+        public string? NonGstAmt2 { get; set; }
+        public string? NonGstAmt2Desc { get; set; }
+        public string? GtotalRs { get; set; }
+        public string? AdvanceRs { get; set; }
+        public string? AmountRecd { get; set; }
+        public string? TdsDeducted { get; set; }
+        public string? OthDeductions { get; set; }
+        public string? Extras { get; set; }
+        public string? RecoverableRs { get; set; }
+        public string? RecoveredRS { get; set; }
         public string? DeclaredValue { get; set; }
         public string? DeliveredYN { get; set; }
         public string? LdReportingDateTime { get; set; }
@@ -83,6 +150,7 @@
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? DeleteFlag { get; set; }
+   
         public string? LoggedInUser { get; set; }
     }
 }
