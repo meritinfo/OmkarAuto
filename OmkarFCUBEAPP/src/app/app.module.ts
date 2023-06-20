@@ -45,11 +45,15 @@ import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 import { Vehicletypemastermodel } from './models/vehicletypemastermodel';
+
 import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermodel';
 
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
+
+import { AddvehiclefltmasterComponent } from './module/vehiclefltmaster/addvehiclefltmaster/addvehiclefltmaster.component';
+import { VehiclefltmasterlistComponent } from './module/vehiclefltmaster/vehiclefltmasterlist/vehiclefltmasterlist.component';
 
 
 @NgModule({
@@ -84,6 +88,9 @@ import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
+ 
+    AddvehiclefltmasterComponent,
+    VehiclefltmasterlistComponent,
 
   ],
   imports: [

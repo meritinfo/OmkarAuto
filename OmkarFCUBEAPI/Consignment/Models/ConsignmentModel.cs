@@ -23,35 +23,26 @@
         public string? CneeCode { get; set; }
         public string? CnorInvNo { get; set; }
         public string? CnorInvDate { get; set; }
-        public string? IndentNo1 { get; set; }
-        public string? IndentDt1 { get; set; }
+  
         public string? PoNo { get; set; }
         public string? PoDate { get; set; }
         public string? WoNo { get; set; }
         public string? WoDate { get; set; }
-        public string? ProjectNo { get; set; }
-        public string? ProjectDt { get; set; }
-        public string? ShipmentNo { get; set; }
-        public string? ShipmentDt { get; set; }
-        public string? DeliveryNo { get; set; }
-        public string? DeliveryDt { get; set; }
+ 
         public string? RiskBy { get; set; }
-        public string? InsCoName { get; set; }
-        public string? InsPolicyNo { get; set; }
-        public string? InsValidDt { get; set; }
-        public string? InsuredValue { get; set; }
+
         public string? BillingParty { get; set; }
         public string? OwnTruck { get; set; }
         public string? TruckId { get; set; }
         public string? TruckNo { get; set; }
         public string? ProductId { get; set; }
-        public string? ClassId { get; set; }
+      
         public string? GstHSN { get; set; }
         public string? NoPackages { get; set; }
-        public string? LooseFlag { get; set; }
+   
         public string? WeightType { get; set; }
         public string? ActualWt { get; set; }
-        public string? SenderWt { get; set; }
+
         public string? Chargewt { get; set; }
         public string? BulkYN { get; set; }
         public string? LoadLength { get; set; }
@@ -85,33 +76,33 @@
         public string? PackingRs { get; set; }
         public string? PackingNarr { get; set; }
         public string? DccRs { get; set; }
-        public string? DccNarr { get; set; }
+
         public string? LoadingDetnRs { get; set; }
-        public string? LoadingDetnNarr { get; set; }
+
         public string? EnrouteRs { get; set; }
-        public string? EnrouteNarr { get; set; }
+    
         public string? MiscRs { get; set; }
-        public string? MiscNarr { get; set; }
+ 
         public string? ExtrasRS { get; set; }
-        public string? ExtrasNarr { get; set; }
+
         public string? UnLoadingRs { get; set; }
-        public string? UnLoadingNarr { get; set; }
+
         public string? DetentionRs { get; set; }
-        public string? DetentionNarr { get; set; }
+ 
         public string? StorageRs { get; set; }
-        public string? StorageNarr { get; set; }
+  
         public string? WarehousingRs { get; set; }
-        public string? WarehousingNarr { get; set; }
+
         public string? OthersRs { get; set; }
-        public string? OthersNarr { get; set; }
+
         public string? OthersRs1 { get; set; }
-        public string? Others1Narr { get; set; }
+
         public string? OthersRs2 { get; set; }
-        public string? Others2Narr { get; set; }
+ 
         public string? OthersRs3 { get; set; }
-        public string? Others3Narr { get; set; }
+   
         public string? OthersRs4 { get; set; }
-        public string? Others4Narr { get; set; }
+     
         public string? SubTotalRs { get; set; }
         public string? GstType { get; set; }
         public string? GstPct { get; set; }
@@ -138,8 +129,7 @@
         public string? UlReportingDateTime { get; set; }
         public string? DeliveryDateTime { get; set; }
         public string? UlDetentionDays { get; set; }
-        public string? CnBilledYN { get; set; }
-        public string? CnBillDate { get; set; }
+   
         public string? GeneralRemarks { get; set; }
         public string? IncludeCnYn { get; set; }
         public string? IncludeCnNo { get; set; }
