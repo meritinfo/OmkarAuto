@@ -14,6 +14,8 @@
         public string? UserScope { get; set; }
         public byte[]? UserImage { get; set; }
         public string? RoleId { get; set; }
+        public string? UserRoleType { get; set; }
+        public string? CentreName { get; set; }
         public string? Remarks { get; set; }
         public string? Employeeid { get; set; }
         public string? Empbranch { get; set; }
@@ -26,5 +28,7 @@
         public string? BranchList { get; set; }
         public string? ModuleList { get; set; }
         public string? CreatedDate { get; set; }
+        public string? ImageName { get; set; }
+        public byte[]? ImageData { get; set; }
     }
 }

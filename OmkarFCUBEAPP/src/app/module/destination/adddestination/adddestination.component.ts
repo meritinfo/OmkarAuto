@@ -10,7 +10,6 @@ import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DestinationService } from 'src/app/services/destination.service';
 import { UserService } from 'src/app/services/user.service';
-debugger
 @Component({
   selector: 'app-adddestination',
   templateUrl: './adddestination.component.html',

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -50,6 +52,9 @@ import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermode
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
+import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/confirmationdialog.component';
+import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
+import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
 
 
 @NgModule({
@@ -84,10 +89,19 @@ import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
+    ConfirmationdialogComponent,
+    ConsignmentaddComponent,
+    ConsignmentlistComponent,
 
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 30000, // 30 seconds
+      closeButton: true,
+      progressBar: true,
+    }),
     AppRoutingModule,
     HttpClientModule,
     FormsModule,

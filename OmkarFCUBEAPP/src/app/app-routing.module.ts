@@ -26,6 +26,8 @@ import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehic
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
+import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
+import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 
 
 const routes: Routes = [
@@ -65,6 +67,8 @@ const routes: Routes = [
   { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
   { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
   { path: 'gstdetails', component: GstdetailsComponent },
+  { path: 'consignmentlist', component: ConsignmentlistComponent },
+  { path: 'consignmentadd', component: ConsignmentaddComponent },
   
   
  

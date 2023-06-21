@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using AdminMasters.Business;
 using AdminMasters.Models;
+using System.IO;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -137,6 +138,60 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await userBusiness.GetEWayBillDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Controller method for delete user details
+        /// </summary>
+        [HttpPost("DeleteUserDetails")]
+        public async Task<IActionResult> DeleteUserDetails(string request)
+        {
+            try
+            {
+                var result = await userBusiness.DeleteUserDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Controller method for validate username
+        /// </summary>
+        [HttpPost("UsernameValidation")]
+        public async Task<IActionResult> UsernameValidation(UserMasterModel userMasterModel)
+        {
+            try
+            {
+                var result = await userBusiness.UsernameValidation(userMasterModel.UserName);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Controller method for Role Type List
+        /// </summary>
+        [HttpPost("GetRoleTypeList")]
+        public async Task<IActionResult> GetRoleTypeList()
+        {
+            try
+            {
+                var result = await userBusiness.GetRoleTypeList();
 
                 return Ok(result);
             }

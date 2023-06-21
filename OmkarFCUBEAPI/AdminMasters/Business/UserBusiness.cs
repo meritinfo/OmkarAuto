@@ -46,5 +46,29 @@ namespace AdminMasters.Business
         {
             return await userRepository.GetEWayBillDetails(request);
         }
+
+        /// <summary>
+        /// Business method for delete user details
+        /// </summary>
+        public async Task<ResponseModel> DeleteUserDetails(string request)
+        {
+            return await userRepository.DeleteUserDetails(request);
+        }
+
+        /// <summary>
+        /// Business method for validate username
+        /// </summary>
+        public async Task<ResponseModel> UsernameValidation(string request)
+        {
+            return await userRepository.UsernameValidation(request);
+        }
+
+        /// <summary>
+        /// Business method for Module list details
+        /// </summary>
+        public async Task<List<DropDownListModel>> GetRoleTypeList()
+        {
+            return await userRepository.GetRoleTypeList();
+        }
     }
 }

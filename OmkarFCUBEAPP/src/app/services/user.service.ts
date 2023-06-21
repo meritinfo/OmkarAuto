@@ -19,6 +19,13 @@ export class UserService {
     })
   }
 
+  formDataOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
+    })
+  }
+
   selectedUser = new Usermodel();
 
   constructor(private httpClient: HttpClient) { }
@@ -33,12 +40,16 @@ export class UserService {
     this.selectedUser = new Usermodel();
   }
 
-  userDetailsSubmitted(user: Usermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', user, this.httpOptions);
+  usernameValidation(user: Usermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UsernameValidation', user, this.httpOptions);
+  }
+
+  userDetailsSubmitted(userMasterModel: Usermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', userMasterModel, this.httpOptions);
   }
 
   getUserMasterList(filter: Filtermodel): Observable<Userlistmodel> {
     return this.httpClient.post<Userlistmodel>(Constants.API_ENDPOINT + 'Admin/GetUserMasterList', filter, this.httpOptions);
   }
-  
+
 }

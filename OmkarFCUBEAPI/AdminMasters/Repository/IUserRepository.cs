@@ -11,5 +11,8 @@ namespace AdminMasters.Repository
         Task<List<ModuleListModel>> GetModuleList();
         Task<UserMasterList> GetUserMasterList(UserMasterListRequest request);
         Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);
+        Task<ResponseModel> DeleteUserDetails(string request);
+        Task<ResponseModel> UsernameValidation(string request);
+        Task<List<DropDownListModel>> GetRoleTypeList();
     }
 }
