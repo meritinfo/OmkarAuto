@@ -76,7 +76,7 @@ submitRateTypesForm(): void {
   if (this.formUser.invalid) {
     return;
   }
-  this.selectedRateTypesDetails.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
+  this.ratetypesmodel.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
   this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc;
   this.ratetypesmodel.rateMethod = this.formUser.value.rateMethod;
 

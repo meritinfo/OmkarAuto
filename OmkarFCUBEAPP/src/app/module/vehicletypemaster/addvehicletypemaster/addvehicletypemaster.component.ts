@@ -58,10 +58,7 @@ ngOnInit(): void {
 
   if (this.selectedVehicleTypeMasterDetails.vehicleTypeId != '') {
     this.formUser.patchValue(this.selectedVehicleTypeMasterDetails);
-    this.formUser.patchValue({
-      
-      
-    })
+   
   }
  
 

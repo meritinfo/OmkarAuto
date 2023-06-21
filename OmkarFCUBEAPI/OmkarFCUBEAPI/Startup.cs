@@ -35,6 +35,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdminMasters.Models;
+using FinanceMaster.Repository;
 
 namespace OmkarFCUBEAPI
 {
@@ -76,6 +77,10 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFreightRatesDtlBusiness, FreightRatesDtlBusiness>();
             services.AddScoped<IDriverMasterRepository, DriverMasterRepository>();
             services.AddScoped<IDriverMasterBusiness, DriverMasterBusiness>();
+            services.AddScoped<IGstPurchaseDtlRepository, GstPurchaseDtlRepository>();
+            services.AddScoped<IGstPurchaseDtlBusiness, GstPurchaseDtlBusiness>();
+            services.AddScoped<IGstPurchaseMstRepository, GstPurchaseMstRepository>();
+            services.AddScoped<IGstPurchaseMstBusiness, GstPurchaseMstBusiness>();
             services.AddScoped<IExpensesTypeMasterRepository, ExpensesTypeMasterRepository>();
             services.AddScoped<IExpensesTypeMasterBusiness, ExpensesTypeMasterBusiness>();
             services.AddScoped<IDistanceMasterFrtRepository, DistanceMasterFrtRepository>();
