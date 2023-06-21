@@ -30,48 +30,54 @@
                                             <label for="horizontal-firstname-input"
                                                 class="col-form-label">Username</label>
                                             <input type="text" class="form-control" placeholder="Enter username"
-                                                formControlName="userName"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userName'].invalid || f['userName'].dirty || f['userName'].touched) }">
+                                                formControlName="userName" (keypress)="alphaNumberOnly($event)"
+                                                maxlength="50"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userName'].invalid) }">
                                         </div>
                                         <div class="mb-4">
                                             <label for="horizontal-password-input"
                                                 class="col-form-label">Password</label>
                                             <input type="password" class="form-control" placeholder="Enter Password"
-                                                formControlName="userPassword"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userPassword'].invalid || f['userPassword'].dirty || f['userPassword'].touched) }">
+                                                formControlName="userPassword" maxlength="50"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userPassword'].invalid) }">
                                         </div>
                                         <div class="mb-4">
                                             <label for="horizontal-email-input"
                                                 class="col-form-label">Description</label>
                                             <input type="text" class="form-control" placeholder="Enter user description"
-                                                formControlName="userDescription"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userDescription'].invalid || f['userDescription'].dirty || f['userDescription'].touched) }">
+                                                formControlName="userDescription" maxlength="50"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userDescription'].invalid) }">
                                         </div>
                                         <div class="mb-4">
                                             <label for="horizontal-email-input" class="col-form-label">Mobile</label>
                                             <input type="text" class="form-control" placeholder="Enter mobile"
-                                                formControlName="userMobile"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userMobile'].invalid || f['userMobile'].dirty || f['userMobile'].touched) }">
+                                                formControlName="userMobile" maxlength="10"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userMobile'].invalid) }">
                                         </div>
                                         <div class="mb-4">
                                             <label for="horizontal-email-input" class="col-form-label">Email</label>
                                             <input type="text" class="form-control" placeholder="Enter email"
-                                                formControlName="userEmail"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userEmail'].invalid || f['userEmail'].dirty || f['userEmail'].touched) }">
+                                                formControlName="userEmail" maxlength="75"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userEmail'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="mb-4">
                                             <label for="scope" class="col-form-label">Scope</label>
-                                            <select id="scope" class="form-select" formControlName="userScope">
+                                            <select id="scope" class="form-select" formControlName="userScope"
+                                                (change)="onScopeChange()">
                                                 <option value="BO">Branch office</option>
                                                 <option value="HO">Headoffice</option>
                                             </select>
                                         </div>
                                         <div class="mb-4">
                                             <label for="role" class="col-form-label">Role</label>
-                                            <select id="role" class="form-select" formControlName="role">
-                                                <option selected>Choose...</option>
+                                            <select id="role" class="form-select" formControlName="role"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['role'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let roleType of roleTypeList" value={{roleType.dataId}}>
+                                                    {{roleType.dataName}}
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="mb-4">
@@ -94,6 +100,13 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-4">
+                                            <label for="scope" class="col-form-label">User picture</label>
+                                            <input type='file' (change)="onSelectFile($event)">
+                                            <img [src]="imagePreview" height="100" width="120">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- end card body -->
@@ -106,7 +119,7 @@
                                 <h4 class="card-title">Branch</h4>
                                 <div class="mb-3">
                                     <select class="form-control" multiple="multiple" formControlName="userBranch"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid || f['userBranch'].dirty || f['userBranch'].touched) }">
+                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid) }">
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -121,7 +134,7 @@
                                 <h4 class="card-title">Module</h4>
                                 <div class="mb-3">
                                     <select class="form-control" multiple="multiple" formControlName="userModule"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['userModule'].invalid || f['userModule'].dirty || f['userModule'].touched) }">
+                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['userModule'].invalid) }">
                                         <option *ngFor="let module of moduleList" value={{module.dataId}}>
                                             {{module.dataName}}
                                         </option>

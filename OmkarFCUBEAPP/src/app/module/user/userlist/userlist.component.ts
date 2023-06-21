@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Userlistmodel } from 'src/app/models/userlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
+import { ConfirmationdialogService } from 'src/app/services/confirmationdialog.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class UserlistComponent implements OnInit {
     search: ''
   }
 
-  constructor(private userService: UserService, private route: Router) {
+  constructor(private userService: UserService, private route: Router, private confirmationdialogService: ConfirmationdialogService) {
   }
 
   ngOnInit(): void {
@@ -55,16 +56,24 @@ export class UserlistComponent implements OnInit {
           data: 'userName',
         },
         {
-          title: 'Mobile',
-          data: 'userMobile',
-        },
-        {
-          title: 'Email',
-          data: 'userEmail',
+          title: 'User Description',
+          data: 'userDescription',
         },
         {
           title: 'Scope',
           data: 'userScope',
+        },
+        {
+          title: 'Role Type',
+          data: 'userRoleType',
+        },
+        {
+          title: 'Centre Name',
+          data: 'centreName',
+        },
+        {
+          title: 'Active',
+          data: 'activeYN',
         },
         {
           title: 'Created Date',
@@ -86,5 +95,12 @@ export class UserlistComponent implements OnInit {
   userDetails(user: Usermodel): void {
     this.userService.setUserDetails(user);
     this.route.navigate(['/useredit']);
+  }
+
+  public deleteUser(user: Usermodel) {
+    console.log(user);
+    // this.confirmationdialogService.confirm('Please confirm..', 'Do you really want to delete ' + user.userName + '?')
+    //   .then((confirmed) => console.log('User confirmed:', confirmed))
+    //   .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
   }
 }
