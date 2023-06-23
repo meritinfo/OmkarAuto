@@ -29,11 +29,45 @@
                     <button class="btn btn-primary buttons-html5" type="button" (click)="consignmentAdd()"><span>New</span></button>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                
+          
+                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>bookingPlace </th>
+                          
+                                <th>gcNoteNo </th>
+                                <th>gcSlNo </th>
+                                <th>gcNoteNo </th>
+                             
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allConsignment.cnList?.length != 0">
+                            <tr *ngFor="let cn of allConsignment.cnList">
+                                <td>{{ cn.bookingPlace }}</td>
+                        
+                                <td>{{ cn.gcNoteNo }}</td>
+                                <td>{{ cn.gcSlNo }}</td>
+                                <td>{{ cn.gcNoteNo }}</td>
+                             
+                                <td>
+                                    <a (click)="getConsignmentDetails(cn)" class="actionicon"><i
+                                        class="bx bx-pencil"></i></a>
+                               
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allConsignment.cnList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- container-fluid -->
-    </div>
+    
     <!-- End Page-content -->
 </div>

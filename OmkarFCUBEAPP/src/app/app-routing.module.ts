@@ -72,6 +72,7 @@ const routes: Routes = [
   { path: 'gstdetails', component: GstdetailsComponent },
   { path: 'consignmentlist', component: ConsignmentlistComponent },
   { path: 'consignmentadd', component: ConsignmentaddComponent },
+  { path: 'consignmentedit', component: ConsignmentaddComponent },
   
   
  

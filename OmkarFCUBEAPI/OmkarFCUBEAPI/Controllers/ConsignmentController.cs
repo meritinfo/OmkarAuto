@@ -40,7 +40,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("GetConsignmentList")]
+        public async Task<IActionResult> GetConsignmentList(ConsignmentListRequest request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetConsignmentList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
 

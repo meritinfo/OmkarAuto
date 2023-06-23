@@ -59,6 +59,7 @@ import { ConsignmentlistComponent } from './module/consignment/consignmentlist/c
 
 import { AddvehiclefltmasterComponent } from './module/vehiclefltmaster/addvehiclefltmaster/addvehiclefltmaster.component';
 import { VehiclefltmasterlistComponent } from './module/vehiclefltmaster/vehiclefltmasterlist/vehiclefltmasterlist.component';
+import { Consignmentmodel } from './models/consignmentmodel';
 
 
 @NgModule({
@@ -117,7 +118,7 @@ import { VehiclefltmasterlistComponent } from './module/vehiclefltmaster/vehicle
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
