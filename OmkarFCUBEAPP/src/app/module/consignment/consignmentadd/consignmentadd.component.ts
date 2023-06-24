@@ -23,7 +23,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ConsignmentaddComponent {
   loggedInUserID: string = '';
-  formUser!: FormGroup;
+  formConsignment!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -51,9 +51,9 @@ ngOnInit(): void {
   }
   this.getBranchList();
   this.selectedConsignmentDetails = this.consignmentService.getConsignmentDetails();
-  this.formUser = this.formBuilder.group({
+  this.formConsignment = this.formBuilder.group({
     bookingPlace: new FormControl('',),
-    gccSeries: new FormControl('',),
+    gcSeries: new FormControl('',),
     gcAlpha: new FormControl('',),
     gcNoteNo: new FormControl('',),
     gcSlNo: new FormControl('',),
@@ -147,9 +147,9 @@ ngOnInit(): void {
 
   });
   if (this.selectedConsignmentDetails.consignmentID != '') {
-    this.formUser.patchValue(this.selectedConsignmentDetails);
+    this.formConsignment.patchValue(this.selectedConsignmentDetails);
  
-    this.formUser.patchValue({
+    this.formConsignment.patchValue({
       userBranch: this.selectedConsignmentDetails.bookingPlace,
     
      
@@ -160,7 +160,7 @@ ngOnInit(): void {
 
 }
 // convenience getter for easy access to contact form fields
-get f() { return this.formUser.controls; }
+get f() { return this.formConsignment.controls; }
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
@@ -171,24 +171,97 @@ getBranchList(): void {
 //Submit user form details //
 submitConsignmentForm(): void {
   this.userSubmitted = true;
-  if (this.formUser.invalid) {
+  if (this.formConsignment.invalid) {
     return;
   }
+  debugger;
   this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
-  this.consignmentmodel.bookingPlace= this.formUser.value.userBranch;
-  this.consignmentmodel.gcSlNo = this.formUser.value.gcSlNo;
-  this.consignmentmodel.gcSeries= this.formUser.value.gcSeries;
-  this.consignmentmodel.gcNoteNo = this.formUser.value.gcNoteNo;
+  this.consignmentmodel.bookingPlace= this.formConsignment.value.userBranch;
+  this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
+  this.consignmentmodel.gcSeries= this.formConsignment.value.gcSeries;
+  this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcNoteNo;
+  this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
+  this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
+  this.consignmentmodel.ewayBillNo = this.formConsignment.value.ewayBillNo;
+  this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
+  this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
+  this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace;
+  this.consignmentmodel.kms = this.formConsignment.value.kms;
+  this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
+  this.consignmentmodel.toPlace = this.formConsignment.value.toPlace;
+  this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
+  this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
+  this.consignmentmodel.cnorInvNo = this.formConsignment.value.cnorInvNo;
+  this.consignmentmodel.cnorInvDate = this.formConsignment.value.cnorInvDate;
+  this.consignmentmodel.poDate = this.formConsignment.value.poDate;
+  this.consignmentmodel.woNo = this.formConsignment.value.woNo;
+  this.consignmentmodel.woDate = this.formConsignment.value.woDate;
+  this.consignmentmodel.riskBy = this.formConsignment.value.riskBy;
+  this.consignmentmodel.billingParty = this.formConsignment.value.billingParty;
+  this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
+  this.consignmentmodel.truckId = this.formConsignment.value.truckId;
+  this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
+  this.consignmentmodel.productId = this.formConsignment.value.productId;
+  this.consignmentmodel.gstHSN = this.formConsignment.value.gstHSN;
+
+  this.consignmentmodel.weightType = this.formConsignment.value.weightType;
+  this.consignmentmodel.actualWt = this.formConsignment.value.actualWt;
+  this.consignmentmodel.chargewt = this.formConsignment.value.chargewt;
+  this.consignmentmodel.bulkYN = this.formConsignment.value.bulkYN;
+  this.consignmentmodel.loadLength = this.formConsignment.value.loadLength;
+  this.consignmentmodel.loadWidth = this.formConsignment.value.loadWidth;
+  this.consignmentmodel.loadHeight = this.formConsignment.value.loadHeight;
+  this.consignmentmodel.loadCFT = this.formConsignment.value.loadCFT;
+  this.consignmentmodel.delType = this.formConsignment.value.delType;
+  this.consignmentmodel.loadType = this.formConsignment.value.loadType;
+  this.consignmentmodel.rateType = this.formConsignment.value.rateType;
+  this.consignmentmodel.privateMark = this.formConsignment.value.privateMark;
+  this.consignmentmodel.staxGstBy = this.formConsignment.value.staxGstBy;
+  this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
+  this.consignmentmodel.freightRs = this.formConsignment.value.freightRs;
+  this.consignmentmodel.statisticalRs = this.formConsignment.value.statisticalRs;
+  this.consignmentmodel.aocRs = this.formConsignment.value.aocRs;
+  this.consignmentmodel.fovRs = this.formConsignment.value.fovRs;
+  this.consignmentmodel.handlingRs = this.formConsignment.value.handlingRs;
+  this.consignmentmodel.doorCollRs = this.formConsignment.value.doorCollRs;
+  this.consignmentmodel.doorDeliRs = this.formConsignment.value.doorDeliRs; 
+  this.consignmentmodel.withPassRs = this.formConsignment.value.withPassRs;
+  this.consignmentmodel.insuranceRs = this.formConsignment.value.insuranceRs;  
+  this.consignmentmodel.packingRs = this.formConsignment.value.packingRs;
+  this.consignmentmodel.dccRs = this.formConsignment.value.dccRs;
+  this.consignmentmodel.loadingDetnRs = this.formConsignment.value.loadingDetnRs;
+  this.consignmentmodel.enrouteRs = this.formConsignment.value.enrouteRs;
+  this.consignmentmodel.miscRs = this.formConsignment.value.miscRs;
+  this.consignmentmodel.extrasRS = this.formConsignment.value.extrasRS;
+  this.consignmentmodel.unLoadingRs = this.formConsignment.value.unLoadingRs;
+  this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs;
+  this.consignmentmodel.storageRs = this.formConsignment.value.storageRs;
+  this.consignmentmodel.warehousingRs = this.formConsignment.value.warehousingRs;
+  this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs;
+  this.consignmentmodel.gstType = this.formConsignment.value.gstType;
+  this.consignmentmodel.gstPct = this.formConsignment.value.gstPct;
+  this.consignmentmodel.sgstAmt = this.formConsignment.value.sgstAmt;
+  this.consignmentmodel.cgstAmt = this.formConsignment.value.cgstAmt;
+  this.consignmentmodel.igstAmt = this.formConsignment.value.igstAmt;
+  this.consignmentmodel.nonGstAmt1 = this.formConsignment.value.nonGstAmt1;
+  this.consignmentmodel.nonGstAmt1Desc = this.formConsignment.value.nonGstAmt1Desc;
+  this.consignmentmodel.nonGstAmt2 = this.formConsignment.value.nonGstAmt2;
+  this.consignmentmodel.nonGstAmt2Desc = this.formConsignment.value.nonGstAmt2Desc;
+  this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
+  this.consignmentmodel.advanceRs = this.formConsignment.value.advanceRs;
+  this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
+  this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
+  this.consignmentmodel.includeCnNo = this.formConsignment.value.includeCnNo;
+  this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
+
+  this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
+
 
   this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     console.log(this.responseDetails.message);
-    this.formUser.reset();
+    this.formConsignment.reset();
     window.location.reload();
   });
 }
 }
-
-
-
-

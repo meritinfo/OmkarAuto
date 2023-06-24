@@ -89,7 +89,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-        new SqlParameter("@ConsignmentID", ConsignmentModel.ConsignmentID),
+                            new SqlParameter("@ConsignmentID", ConsignmentModel.ConsignmentID),
                             new SqlParameter("@BookingPlace", ConsignmentModel.BookingPlace),
                             new SqlParameter("@GcSeries", ConsignmentModel.GcSeries),
                             new SqlParameter("@GcSlNo", ConsignmentModel.GcSlNo),
