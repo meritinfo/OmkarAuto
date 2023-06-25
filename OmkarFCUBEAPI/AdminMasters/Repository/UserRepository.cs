@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SqlHelper.Models;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Net.Http.Headers;
@@ -52,6 +53,8 @@ namespace AdminMasters.Repository
                             new SqlParameter("@LastLoginIP_Fail", userMasterModel.LastLoginIP_Fail),
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
                             new SqlParameter("@ModuleList", userMasterModel.ModuleList),
+                            new SqlParameter("@ImageName", userMasterModel.ImageName),
+                            new SqlParameter("@ImageData", userMasterModel.ImageData){ SqlDbType = SqlDbType.VarBinary},
                             new SqlParameter("@LoggedInUser", userMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserDetails_Insert", param);
@@ -165,6 +168,8 @@ namespace AdminMasters.Repository
                                 UserScope = Convert.ToString(dataSet.Tables[0].Rows[i]["UserScope"]),
                                 UserImage = Convert.IsDBNull(dataSet.Tables[0].Rows[i]["UserImage"]) ? null : (byte[])dataSet.Tables[0].Rows[i]["UserImage"],
                                 RoleId = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleId"]),
+                                UserRoleType = Convert.ToString(dataSet.Tables[0].Rows[i]["UserRoleType"]),
+                                CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
                                 CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
@@ -292,6 +297,141 @@ namespace AdminMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return eWayBill;
+        }
+
+        /// <summary>
+        /// Service method for delete user master details
+        /// </summary>
+        /// <param name="string"></param>
+        /// <returns>ResponseModel</returns>
+        public async Task<ResponseModel> DeleteUserDetails(string request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserId", request)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserDetails_Delete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        /// <summary>
+        /// Service method for validate username
+        /// </summary>
+        /// <param name="string"></param>
+        /// <returns>ResponseModel</returns>
+        public async Task<ResponseModel> UsernameValidation(string request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserName", request)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserValidation_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        /// <summary>
+        /// Service method for get module list
+        /// </summary>
+        /// <returns>List<ModuleListModel></returns>
+        public async Task<List<DropDownListModel>> GetRoleTypeList()
+        {
+            List<DropDownListModel> roleTypeList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "RoleTypeList_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            roleTypeList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return roleTypeList;
         }
     }
 }

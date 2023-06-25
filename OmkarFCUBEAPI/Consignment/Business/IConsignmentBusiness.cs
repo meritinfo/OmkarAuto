@@ -7,6 +7,7 @@ namespace Consignment.Business
     public interface IConsignmentBusiness
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
+        Task<ConsignmentList> GetConsignmentList(ConsignmentListRequest request);
     }
 
 }
