@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">&nbsp;GcSlNo</label>
+                                                <label for="formrow-inputState">GcSlNo</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                 placeholder="Enter GcSlNo" formControlName="gcSlNo"
@@ -57,8 +57,8 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Booking Date</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"
-                                                    class="form-control"formControlName="bookingDate">
+                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd" formControlName="bookingDate"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -72,26 +72,28 @@
                                         </div>
                                     </div>
                                     <div class="row">
+
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio" name="formRadios" formControlName="EwayBillEntryType"id="formRadios1" checked=""
-                                                    class="form-check-input"><label for="formRadios1"
+                                                <input type="radio" formControlName="ewayBillEntryType"  value="A"   class="form-check-input"/>
+                                               
+  <label for="formRadios1"
                                                     class="form-check-label"> Get ALL
                                                     From EWayBill API
                                                 </label>
+                                           
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check">
-                                                <input type="radio" name="formRadios" formControlName="EwayBillEntryType" id="formRadios2"
-                                                    class="form-check-input"><label for="formRadios2"
+                                                <input type="radio" formControlName="ewayBillEntryType"  id="formRadios2"  value="M"   class="form-check-input"/><label for="formRadios2"
                                                     class="form-check-label"> No EWay Bill or Manual Entry
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check">
-                                                <input type="radio" name="formRadios" formControlName="" id="formRadios2"
+                                                <input type="radio" name="ewayBillEntryType" formControlName="ewayBillEntryType" id="formRadios3" value="E" 
                                                     class="form-check-input"><label for="formRadios2"
                                                     class="form-check-label"> No EWay Bill Exemption
                                                 </label>
@@ -163,7 +165,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">KMs</label>
+                                                <label for="formrow-inputZip">kMs</label>
                                                 <input type="text" class="form-control"
                                                 placeholder="Enter  "formControlName="kms"
                                                 [ngClass]=>
@@ -213,7 +215,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"
+                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="cnorInvDate"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -221,24 +223,32 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">W.O No</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                placeholder="Enter woNo" formControlName="woNo"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">W.O Date</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"
+                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="woDate"
                                                     class="form-control">
+                                                   
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputZip">P.O No</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                placeholder="Enter poNo" formControlName="poNo"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">P.O Date</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"
+                                                <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="poDate"
                                                     class="form-control">
+                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -279,7 +289,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
                                                 <input type="text" class="form-control"
-                                                placeholder="Enter  "formControlName=""
+                                                placeholder="Enter  "formControlName="gcSeries"
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -521,8 +531,8 @@
                                         <div class="col-lg-8">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Remarks</label>
-                                                <input type="text" class="form-control"
-                                                placeholder="Enter  Advance "formControlName="generalRemarks"
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                placeholder="Enter generalRemarks "formControlName="generalRemarks"
                                                 [ngClass]=>
                                             </div>
                                         </div>

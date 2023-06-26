@@ -143,6 +143,7 @@ ngOnInit(): void {
 
 
     userBranch: new FormControl('',),
+    userBranch2: new FormControl('',),
   
 
   });
@@ -151,7 +152,9 @@ ngOnInit(): void {
  
     this.formConsignment.patchValue({
       userBranch: this.selectedConsignmentDetails.bookingPlace,
-    
+      fromPlace: this.selectedConsignmentDetails.fromPlace,
+      toPlace: this.selectedConsignmentDetails.toPlace,
+      gcSeries: this.selectedConsignmentDetails.gcSeries,
      
       
     })
@@ -181,6 +184,7 @@ submitConsignmentForm(): void {
   this.consignmentmodel.gcSeries= this.formConsignment.value.gcSeries;
   this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcNoteNo;
   this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
+  this.consignmentmodel.bookingDate = this.formConsignment.value.bookingDate;
   this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
   this.consignmentmodel.ewayBillNo = this.formConsignment.value.ewayBillNo;
   this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
