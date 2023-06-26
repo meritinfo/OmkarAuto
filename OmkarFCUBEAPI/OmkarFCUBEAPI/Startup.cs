@@ -126,6 +126,13 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ITyrePositionMasterBusiness, TyrePositionMasterBusiness>();
             services.AddScoped<IRatetypesRepository, RatetypesRepository>();
             services.AddScoped<IRatetypesBusiness, RatetypesBusiness>();
+            services.AddScoped<IConsigneeMasterRepository, ConsigneeMasterRepository>();
+            services.AddScoped<IConsigneeMasterBusiness, ConsigneeMasterBusiness>();
+            services.AddScoped<ITripPaymentsRepository, TripPaymentsRepository>();
+            services.AddScoped<ITripPaymentsBusiness, TripPaymentsBusiness>();
+
+            //services.AddScoped<IDocRenewalEntryRepository, DocRenewalEntryRepository>();
+            //services.AddScoped<IDocRenewalEntryBusiness, DocRenewalEntryBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

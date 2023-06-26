@@ -28,8 +28,11 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDistanceDetailFrtBusiness distanceDetailFrtBusiness;
         readonly IDistanceDetailTripBusiness distanceDetailTripBusiness;
 
+        readonly IConsigneeMasterBusiness consigneeMasterBusiness;
+        
 
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness distanceMasterFrtBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness)
+
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness distanceMasterFrtBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -41,6 +44,7 @@ namespace OmkarFCUBEAPI.Controllers
             freightRatesDtlBusiness = _freightRatesDtlBusiness;
             distanceDetailFrtBusiness = _distanceDetailFrtBusiness;
             distanceDetailTripBusiness = _distanceDetailTripBusiness;
+            consigneeMasterBusiness = _consigneeMasterBusiness;
         }
 
         /// <summary>
@@ -242,6 +246,25 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ConsigneeMasterSave")]
+        public async Task<IActionResult> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel)
+        {
+            if (consigneeMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consigneeMasterBusiness.ConsigneeMasterSave(consigneeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Controller method for Branch List
@@ -384,5 +407,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
     }
 }
