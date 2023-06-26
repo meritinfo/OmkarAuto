@@ -22,6 +22,8 @@
     "angular-datatables": "^15.0.1",
     "datatables.net": "^1.13.4",
     "datatables.net-dt": "^1.13.4",
+    "install": "^0.13.0",
+    "ng-toast": "^2.0.0",
     "ngx-toastr": "^17.0.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
