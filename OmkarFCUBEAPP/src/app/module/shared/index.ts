@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { LeftsidebarComponent } from './leftsidebar/leftsidebar.component';
 import { ThemeComponent } from './theme/theme.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { ThemeComponent } from './theme/theme.component';
     ThemeComponent
   ],
   imports: [
+    CommonModule
   ],
   exports:[
     HeaderComponent,

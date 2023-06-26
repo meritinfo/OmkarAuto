@@ -38,5 +38,28 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for menu list to the application
+        /// </summary>
+        /// <param name="UserID"></param>
+        [HttpGet("MenuDetails/{userID}")]
+        public async Task<IActionResult> MenuDetails(string userID)
+        {
+            if (userID == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.MenuDetails(userID);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

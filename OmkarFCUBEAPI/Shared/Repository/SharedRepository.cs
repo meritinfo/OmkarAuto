@@ -2,6 +2,7 @@
 using Shared.Models;
 using SqlHelper.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,5 +69,54 @@ namespace Shared.Repository
             return userModel;
         }
 
+        /// <summary>
+        /// Service method for login to the application
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns>List<MenuModel></returns>
+        public async Task<List<MenuModel>> MenuDetails(string userID)
+        {
+            List<MenuModel> menuList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserID", userID)
+                        };
+                    var menuData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "MenuList_Select", param);
+
+                    if (menuData != null && menuData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < menuData.Tables[0].Rows.Count; i++)
+                        {
+                            menuList.Add(new MenuModel
+                            {
+                                ModuleId = Convert.ToInt32(menuData.Tables[0].Rows[i]["ModuleId"]),
+                                ModuleName = Convert.ToString(menuData.Tables[0].Rows[i]["ModuleName"]),
+                                MenuName = Convert.ToString(menuData.Tables[0].Rows[i]["MenuName"]),
+                                MenuType = Convert.ToString(menuData.Tables[0].Rows[i]["MenuType"]),
+                                MenuCode = Convert.ToString(menuData.Tables[0].Rows[i]["MenuCode"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return menuList;
+        }
     }
 }

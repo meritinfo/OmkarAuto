@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shared.Business
 {
@@ -54,6 +56,31 @@ namespace Shared.Business
                 userModel.Token = new JwtSecurityTokenHandler().WriteToken(token);
             }
             return userModel;
+        }
+        
+        /// <summary>
+        /// Business method for menu list to the application
+        /// </summary>
+        /// <param name="userID"></param>
+        public async Task<List<MenuListModel>> MenuDetails(string userID)
+        {
+            List<MenuListModel> menuList = new List<MenuListModel>();
+            var menuData = await sharedRepository.MenuDetails(userID);
+            var distinctModule = menuData.Select(x => x.ModuleName).Distinct();
+            foreach(var item in distinctModule)
+            {
+                menuList.Add(new MenuListModel
+                {
+                    ModuleName = item,
+                    MenuList = menuData.Where(x => x.ModuleName == item)
+                    .Select(m => new MenuModel
+                    {
+                        MenuName = m.MenuName,
+                        MenuCode = m.MenuCode
+                    }).Distinct().ToList()
+                });
+            }
+            return menuList;
         }
     }
 }

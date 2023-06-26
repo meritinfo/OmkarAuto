@@ -1,4 +1,5 @@
 ﻿using Shared.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shared.Business
@@ -9,5 +10,6 @@ namespace Shared.Business
     public interface ISharedBusiness
     {
         Task<UserModel> LoginDetails(LoginModel loginModel);
+        Task<List<MenuListModel>> MenuDetails(string userID);
     }
 }

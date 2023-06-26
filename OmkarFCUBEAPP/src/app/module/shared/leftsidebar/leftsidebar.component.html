@@ -7,74 +7,14 @@
         <div id="sidebar-menu" class="mm-active">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-                <li>
+                <li *ngFor="let menu of mainMenuList">
                     <a href="javascript: void(0);" class="has-arrow">
                         <i class="bx bx-cog"></i>
-                        <span key="t-ui-elements">Admin</span>
+                        <span key="t-ui-elements">{{menu.moduleName}}</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#/userlist">Users</a></li>
-                        <li><a href="#/gstdetails">EWay Bill Details</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow">
-                        <i class="bx bx-map-pin"></i>
-                        <span key="t-ui-elements">Freight</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Branches</a></li>
-                        <li><a href="#/destinationlist">Destinations</a></li>
-                        <li><a href="#/productgroupmasterlist">Product Group Master</a></li>
-                        <li><a href="#/productmasterlist">Product Master</a></li>
-                        <li><a href="#/ratetypeslist">Rate Types</a></li>
-                        <li><a href="#/lrbillserieslist">Lr Bill Series </a></li>
-                        <li><a href="#/consignmentlist">Consignment</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bxs-truck"></i>
-                        <span key="t-ui-elements">Fleet</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        
-                        <li><a href="#/vehicletypegroupmasterlist">Vehicle Type/Model Group Master</a></li>
-                        <li><a href="#/vehicletypemasterlist">Vehicle Type/Model Master</a></li>
-
-
-                        <li><a href="#">Vehicle Type/Model Group Master</a></li>
-                        <li><a href="#">Vehicle Type/Model Master</a></li>
-                        <li><a href="#">Vehicle Master</a></li>
-                        <li><a href="#/brandmasterlist">Brand Master</a></li>
-                        <li><a href="#/tyrepositionmasterlist">Tyre Position Master</a></li>
-                        <li><a href="#/docrenewalmasterlist">Doc renewal Master</a></li>
-                     
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-money"></i>
-                        <span key="t-ui-elements">Finance</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#">Group Master</a></li>
-                        <li><a href="#">Accounts/Ledger Master</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="bx bx-share-alt"></i>
-                        <span key="t-multi-level">Multi Level</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href="javascript: void(0);" key="t-level-1-1">Level 1.1</a></li>
-                        <li>
-                            <a href="javascript: void(0);" class="has-arrow" key="t-level-1-2">Level 1.2</a>
-                            <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="javascript: void(0);" key="t-level-2-1">Level 2.1</a></li>
-                                <li><a href="javascript: void(0);" key="t-level-2-2">Level 2.2</a></li>
-                            </ul>
+                    <ul *ngIf="menu.menuList" class="sub-menu" aria-expanded="false">
+                        <li *ngFor="let subMenu of menu.menuList">
+                            <a href="#{{subMenu.menuCode}}">{{subMenu.menuName}}</a>
                         </li>
                     </ul>
                 </li>

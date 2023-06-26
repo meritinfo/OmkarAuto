@@ -23,4 +23,8 @@ export class SharedService {
   loginSubmitted(login : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
+
+  getMenuList(userID : string): Observable<any> {
+    return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/MenuDetails/' + userID, this.httpOptions);
+  }
 }
