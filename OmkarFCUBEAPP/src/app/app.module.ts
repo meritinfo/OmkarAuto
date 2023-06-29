@@ -60,6 +60,9 @@ import { ConsignmentlistComponent } from './module/consignment/consignmentlist/c
 import { AddvehiclefltmasterComponent } from './module/vehiclefltmaster/addvehiclefltmaster/addvehiclefltmaster.component';
 import { VehiclefltmasterlistComponent } from './module/vehiclefltmaster/vehiclefltmasterlist/vehiclefltmasterlist.component';
 import { Consignmentmodel } from './models/consignmentmodel';
+import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
+import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
+import { Branchmodel } from './models/branchmodel';
 
 
 @NgModule({
@@ -101,6 +104,8 @@ import { Consignmentmodel } from './models/consignmentmodel';
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
     ConsignmentlistComponent,
+    AddbranchmasterComponent,
+    BranchmasterlistComponent,
 
   ],
   imports: [
@@ -118,7 +123,7 @@ import { Consignmentmodel } from './models/consignmentmodel';
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
