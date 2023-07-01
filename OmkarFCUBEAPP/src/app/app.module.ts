@@ -63,7 +63,8 @@ import { Consignmentmodel } from './models/consignmentmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
-
+import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
+import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 
 @NgModule({
   declarations: [
@@ -106,7 +107,8 @@ import { Branchmodel } from './models/branchmodel';
     ConsignmentlistComponent,
     AddbranchmasterComponent,
     BranchmasterlistComponent,
-
+    VehiclemasteraddComponent,
+    VehiclemasterlistComponent,
   ],
   imports: [
     BrowserModule,

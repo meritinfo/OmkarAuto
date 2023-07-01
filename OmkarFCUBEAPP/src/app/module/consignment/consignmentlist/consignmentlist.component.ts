@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -14,7 +14,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
   templateUrl: './consignmentlist.component.html',
   styleUrls: ['./consignmentlist.component.css']
 })
-export class ConsignmentlistComponent  {
+export class ConsignmentlistComponent implements OnInit  {
 
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
