@@ -31,6 +31,8 @@ import { ConsignmentlistComponent } from './module/consignment/consignmentlist/c
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
+import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
+import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 
 
 
@@ -79,6 +81,8 @@ const routes: Routes = [
   { path: 'branchmasterlist', component: BranchmasterlistComponent },
   { path: 'addbranchmaster', component: AddbranchmasterComponent },
   { path: 'branchmasteredit', component: AddbranchmasterComponent },
+  { path: 'vehiclemasterlist', component: VehiclemasterlistComponent },
+  { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
   
   
  
