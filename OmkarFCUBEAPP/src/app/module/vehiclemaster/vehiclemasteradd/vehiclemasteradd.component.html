@@ -1,0 +1,469 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Master</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/#/vehiclemasterlist">Vehicle Master</a></li>
+                                <li class="breadcrumb-item active">Vehicle Master Add</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Master Details</h4>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vehicle No</label>
+                                                <input type="text" class="form-control" placeholder="Enter Vehicle No"
+                                                    [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Fleet Station</label>
+                                                <select id="formrow-inputState" class="form-select"
+                                                    formControlName="gcSeries">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Regn Note</label>
+                                                <select id="formrow-inputState" class="form-select"
+                                                    formControlName="gcSeries">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Regd Owner</label>
+                                                <input autoclose="false" class="form-control"
+                                                    placeholder="Enter Regd Owner">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Chessis No</label>
+                                                <input type="text" class="form-control" placeholder="Enter Chessis No"
+                                                    [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Engine No</label>
+                                                <input type="text" class="form-control" placeholder="Enter Engine No"
+                                                    [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Vehicle Type</label>
+                                                <select id="formrow-inputState" class="form-select"
+                                                    formControlName="gcSeries">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vehicle Model Group</label>
+                                                <input autoclose="false" class="form-control"
+                                                    placeholder="Enter Vehicle Model Group">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Vehicle Mfr</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Mfr Model Name</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Mfr Model Name" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Fule Type</label>
+                                                <select id="formrow-inputState" class="form-select"
+                                                    formControlName="gcSeries">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputZip">Year</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Enter Year"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Tank Capacity</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Tank Capacity" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Gross Weight</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Gross Weight" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Unloaded Weight</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Unloaded Weight" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">No of Tyres</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter No of Tyres" [ngClass]=>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Vehicle Length</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Vehicle Length" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Vehicle Height</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Vehicle Height" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Vehicle Breadth</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Vehicle Breadth" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Vehicle Volumn(CFT)</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Vehicle Volumn(CFT)" [ngClass]=>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">FastTag Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">FastTag Company</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter FastTag Company" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">FastTag Card No</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="FastTag Card No"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Card Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Card Company</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Company" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Card No</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Card Pin</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Card Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Card Company</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Company" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Card No</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Card Pin</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">FIP Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">FIP No</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter FIP No" [ngClass]=>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Sold Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Sold To</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Enter Sold To" [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Sold Date</label>
+                                                <input bsdatepicker="" autoclose="false" type="date"
+                                                    placeholder="Sold Date" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Sold Vehicle</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder="Sold Vehicle"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Transfer Y/N</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Transfer Date</label>
+                                                <input bsdatepicker="" autoclose="false" type="date"
+                                                    placeholder="Transfer Date" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Transfer New Vehicle</label>
+                                                <input bsdatepicker="" autoclose="false"
+                                                    placeholder="Transfer New Vehicle" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Vehicle Lodger Office</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Vehicle Asset Office</label>
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment Description 1</label>
+                                                <input autoclose="false" placeholder="Attachment Description 1"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment</label>
+                                                <input autoclose="false" type="file"
+                                                    placeholder="Attachment Description 1"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment Description 2</label>
+                                                <input autoclose="false" placeholder="Attachment Description 2"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment</label>
+                                                <input autoclose="false" type="file"
+                                                    placeholder="Attachment Description 2"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment Description 3</label>
+                                                <input autoclose="false" placeholder="Attachment Description 3"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Attachment</label>
+                                                <input autoclose="false" type="file"
+                                                    placeholder="Attachment Description 3"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Details</h4>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Valid From</label>
+                                                <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Valid To</label>
+                                                <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vehicle Agv Load</label>
+                                                <input class="form-control" placeholder="Enter Vehicle Agv Load">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vehicle Agv Empty</label>
+                                                <input class="form-control" placeholder="Enter Vehicle Agv Empty">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Ad Avg</label>
+                                                <input class="form-control" placeholder="Enter Ad Avg">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
