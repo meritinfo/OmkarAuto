@@ -140,6 +140,100 @@ namespace FreightMasters.Repository
             }
             return branchList;
         }
+        public async Task<BranchMasterList> GetBranchMasterList(BranchMasterListRequest request)
+        {
+            BranchMasterList branchMasterList = new();
+            List<BranchMasterModel> branchList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BranchMasterList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            branchList.Add(new BranchMasterModel
+                            {
+                                Centreid = Convert.ToString(dataSet.Tables[0].Rows[i]["Centreid"]),
+                                Code = Convert.ToString(dataSet.Tables[0].Rows[i]["Code"]),
+                                CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
+                                ZoneCode = Convert.ToString(dataSet.Tables[0].Rows[i]["ZoneCode"]),
+                                RegionId = Convert.ToString(dataSet.Tables[0].Rows[i]["RegionId"]),
+                                BranchBusinessType = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchBusinessType"]),
+                                AcctBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctBranch"]),
+                                Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
+                                AcctYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctYN"]),
+                                Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
+                                Address3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
+                                City = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
+                                StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+                                OffPhone1 = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone1"]),
+                                OffPhone2 = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone2"]),
+                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
+                                BranchEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchEmail"]),
+                                ManagerName = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerName"]),
+                                ManagerMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerMobileNo"]),
+                                ManagerPhone = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerPhone"]),
+                                ManagerEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerEmail"]),
+                                GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
+                                ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
+                                BankAcLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcLedger"]),
+                                BranchAcLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchAcLedger"]),
+                                EntryLockDays = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryLockDays"]),
+                                BankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankName"]),
+                                BankAdd = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAdd"]),
+                                BankAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
+                                BankIfsc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
+                                EwayBillApiYN = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiYN"]),
+                                EwayBillApiGstId = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiGstId"]),
+                                EwayBillApiUid = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiUid"]),
+                                EwayBillApiPwd = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiPwd"]),
+                                PanApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PanApiCheckYN"]),
+                                BankApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["BankApiCheckYN"]),
+                                TruckApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckApiCheckYN"]),
+                                IsHO = Convert.ToString(dataSet.Tables[0].Rows[i]["IsHO"]),
+
+
+                            });
+                        }
+
+                        branchMasterList.branchMasterList = branchList;
+
+                        branchMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return branchMasterList;
+        }
         public async Task<List<StateListModel>> GetStateList()
         {
             List<StateListModel> stateList = new();

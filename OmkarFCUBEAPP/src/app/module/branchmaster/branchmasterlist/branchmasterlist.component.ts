@@ -1,12 +1,9 @@
-import { Component, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-
-
 import { Filtermodel } from 'src/app/models/filtermodel';
-import { Branchmasterlistmodel  } from 'src/app/models/branchmasterlistmodel';
+import { Branchmasterlistmodel } from 'src/app/models/branchmasterlistmodel';
+import { Usermodel } from 'src/app/models/usermodel';
 import { Branchmodel } from 'src/app/models/branchmodel';
-
 import { BranchMasterService } from 'src/app/services/branchmaster.service';
 
 @Component({
@@ -15,41 +12,79 @@ import { BranchMasterService } from 'src/app/services/branchmaster.service';
   styleUrls: ['./branchmasterlist.component.css']
 })
 export class BranchmasterlistComponent  {
-
-  loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
   allBranchMaster: Branchmasterlistmodel = new Branchmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'brandname',
+    sortColumn: 'username',
     sortOrder: 'asc',
     search: ''
   }
 
-  constructor(private branchService: BranchMasterService, private route: Router) {
+  constructor(private branchmasterService: BranchMasterService, private route: Router) {
   }
 
   ngOnInit(): void {
-    var userData = localStorage.getItem('uid')?.toString();
-    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-      this.loggedInUserID = userData;
-    }
-    if (this.loggedInUserID) {
-      console.log(this.loggedInUserID);
-    }
-    else {
-      this.route.navigate(['/']);
-    }
+    this.branchmasterService.clearBranchMasterDetails();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = dataTablesParameters.search.value;
+        this.branchmasterService.getBranchMasterList(this.filter)
+          .subscribe(resp => {
+            this.allBranchMaster = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
+            });
+          });
+      },
+      // Set column title and data field
+      columns: [
+        {
+          title: 'Code',
+          data: 'code',
+        },
+       
+        {
+          title: 'CentreName',
+          data: 'centreName',
+        },
+          
+        {
+          title: 'RegionId',
+          data: 'regionId',
+        },
+      
+      
+        {
+          title: 'Action',
+          data: 'centreId',
+        },
+      ],
+    };
   }
-       // Set column title and data field
-   
-        
   
   //Open new user add screen
   Addbranchmaster(): void {
     this.route.navigate(['/addbranchmaster']);
   }
   
+//Open user details screen
+branchmasterDetails(Branch: Branchmodel): void {
+  this.branchmasterService.setBranchMasterDetails(Branch);
+  this.route.navigate(['/branchmasteredit']);
+}
+
 }
 

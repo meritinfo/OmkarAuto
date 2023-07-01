@@ -30,6 +30,10 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.GetBranchList();
         }
-      
+        public async Task<BranchMasterList> GetBranchMasterList(BranchMasterListRequest request)
+        {
+            return await freightMastersRepository.GetBranchMasterList(request);
+        }
+
     }
 }

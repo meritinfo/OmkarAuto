@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { Branchmodel } from "./branchmodel";
 
 export class Branchmasterlistmodel {
-  BranchMasterList: Branchmodel[] = [];
+  branchMasterList: Branchmodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }

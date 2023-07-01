@@ -351,6 +351,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBranchMasterList")]
+        public async Task<IActionResult> GetBranchMasterList(BranchMasterListRequest request)
+        {
+            try
+            {
+                var result = await branchMastersBusiness.GetBranchMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetproductMasterList")]
         public async Task<IActionResult> GetProductMasterList(ProductMasterListRequest request)
         {
