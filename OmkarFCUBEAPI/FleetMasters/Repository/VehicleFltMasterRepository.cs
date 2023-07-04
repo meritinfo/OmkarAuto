@@ -1,6 +1,7 @@
 ﻿using FleetMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace FleetMasters.Repository
@@ -111,6 +112,118 @@ namespace FleetMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
+        }
+
+        public async Task<VehicleFltMasterList> GetVehicleFltMasterList(VehicleFltMasterListRequest request)
+        {
+            VehicleFltMasterList vehicleFltMasterList = new();
+            List<VehicleFltMasterModel> VehiclefltList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehiclefltMasterList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            VehiclefltList.Add(new VehicleFltMasterModel
+                            {
+                                VehicleTypeID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeID"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                FleetStation = Convert.ToString(dataSet.Tables[0].Rows[i]["FleetStation"]),
+                                RegnDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RegnDate"]),
+                                RegdOwner = Convert.ToString(dataSet.Tables[0].Rows[i]["RegdOwner"]),
+                                ChasisNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChasisNo"]),
+                                EngineNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EngineNo"]),
+                                VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
+                                MfrModelName = Convert.ToString(dataSet.Tables[0].Rows[i]["MfrModelName"]),
+                                FuelType = Convert.ToString(dataSet.Tables[0].Rows[i]["FuelType"]),
+                                MakeYear = Convert.ToString(dataSet.Tables[0].Rows[i]["MakeYear"]),
+                                TankCap = Convert.ToString(dataSet.Tables[0].Rows[i]["TankCap"]),
+                                VehMfrId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehMfrId"]),
+                                GrossWt = Convert.ToString(dataSet.Tables[0].Rows[i]["GrossWt"]),
+                                UnLadenWT = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLadenWT"]),
+                                NoOfTyres = Convert.ToString(dataSet.Tables[0].Rows[i]["NoOfTyres"]),
+                                MileageLt = Convert.ToString(dataSet.Tables[0].Rows[i]["MileageLt"]),
+                                VehLength = Convert.ToString(dataSet.Tables[0].Rows[i]["VehLength"]),
+                                VehBreadth = Convert.ToString(dataSet.Tables[0].Rows[i]["VehBreadth"]),
+                                VehHeight = Convert.ToString(dataSet.Tables[0].Rows[i]["VehHeight"]),
+                                VehVolumeCFT = Convert.ToString(dataSet.Tables[0].Rows[i]["VehVolumeCFT"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                OwnershipType = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnershipType"]),
+                                FastTagYN = Convert.ToString(dataSet.Tables[0].Rows[i]["FastTagYN"]),
+                                FastTagCo = Convert.ToString(dataSet.Tables[0].Rows[i]["FastTagCo"]),
+                                FastTagNo = Convert.ToString(dataSet.Tables[0].Rows[i]["FastTagNo"]),
+                                PetroCardYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PetroCardYN"]),
+                                PetroCo = Convert.ToString(dataSet.Tables[0].Rows[i]["PetroCo"]),
+                                PetroCardNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PetroCardNo"]),
+                                PetroCardPin = Convert.ToString(dataSet.Tables[0].Rows[i]["PetroCardPin"]),
+                                HappayCardYN = Convert.ToString(dataSet.Tables[0].Rows[i]["HappayCardYN"]),
+                                HappayCardNo = Convert.ToString(dataSet.Tables[0].Rows[i]["HappayCardNo"]),
+                                HappayCardPin = Convert.ToString(dataSet.Tables[0].Rows[i]["HappayCardPin"]),
+                                FipYN = Convert.ToString(dataSet.Tables[0].Rows[i]["FipYN"]),
+                                FipNo = Convert.ToString(dataSet.Tables[0].Rows[i]["FipNo"]),
+                                SoldYN = Convert.ToString(dataSet.Tables[0].Rows[i]["SoldYN"]),
+                                SoldTo = Convert.ToString(dataSet.Tables[0].Rows[i]["SoldTo"]),
+                                SoldDate = Convert.ToString(dataSet.Tables[0].Rows[i]["SoldDate"]),
+                                SoldValue = Convert.ToString(dataSet.Tables[0].Rows[i]["SoldValue"]),
+                                TfrYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TfrYN"]),
+                                TfrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TfrDate"]),
+                                TfrVehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TfrVehicleNo"]),
+                                TfrVehicleId = Convert.ToString(dataSet.Tables[0].Rows[i]["TfrVehicleId"]),
+                                VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
+                                VehicleAssetAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleAssetAc"]),
+                                Attach1Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach1Desc"]),
+                                Attach1Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach1Link"]),
+                                Attach2Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach2Desc"]),
+                                Attach2Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach2Link"]),
+                                Attach3Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Desc"]),
+                                Attach3Link = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach3Link"]),
+
+
+
+
+
+
+
+                            });
+                        }
+
+                        vehicleFltMasterList.vehicleFltMasterList = VehiclefltList;
+
+                        vehicleFltMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return vehicleFltMasterList;
         }
     }
 }

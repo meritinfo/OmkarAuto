@@ -242,6 +242,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleFltMasterList")]
+        public async Task<IActionResult> GetVehicleFltMasterList(VehicleFltMasterListRequest request)
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicleFltMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost("TyrePositionMasterSave")]

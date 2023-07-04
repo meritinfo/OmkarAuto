@@ -37,7 +37,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Centre Name</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch2" [ngClass]="">
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                        {{branch.dataName}}
                                                     </option>
@@ -47,8 +47,8 @@
                                           <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">BranchBusinessType</label>
                                                 <select id="formrow-inputState" class="form-control" formControlName="branchBusinessType">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
+                                                    <option selected="">4</option>
+                                                    <option>6</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">City</label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter Pin" formControlName="city">
+                                                <input autoclose="false" class="form-control" placeholder="Enter City" formControlName="city">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -248,7 +248,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
                                               
-                                                 <input  type="checkbox" id="formCheckcolor1"  class="form-check-input"formControlName="panApiCheckYN">
+                                                 <input  type="checkbox" id="formCheckcolor1"   value="A"  class="form-check-input"formControlName="panApiCheckYN">
   <label for="formRadios1"
                                                     class="form-check-label">PanApiCheckYN
                                                 </label>
@@ -258,7 +258,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
                                               
-                                                <input  type="checkbox" id="formCheckcolor1"    value="A"  class="form-check-input" formControlName="bankApiCheckYN">
+                                                <input  type="checkbox" id="formCheckcolor1"    value="B"  class="form-check-input" formControlName="bankApiCheckYN">
   <label for="formRadios1"
                                                     class="form-check-label"> BankApiCheckYN
                                                 </label>
@@ -268,7 +268,7 @@
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
 
-                                                    <input  type="checkbox" id="formCheckcolor1"     value="A"  class="form-check-input" formControlName="truckApiCheckYN">
+                                                    <input  type="checkbox" id="formCheckcolor1"     value="C"  class="form-check-input" formControlName="truckApiCheckYN">
   <label for="formRadios1"
                                                     class="form-check-label"> TruckApi CheckYN
                                                 </label>
@@ -278,7 +278,7 @@
                                          <div class="col-lg-3">
                                             <div class="form-check mb-3">
 
-                                                    <input  type="checkbox" id="formCheckcolor1"     value="A"  class="form-check-input" formControlName="ewayBillApiYN">
+                                                    <input  type="checkbox" id="formCheckcolor1"     value="D"  class="form-check-input" formControlName="ewayBillApiYN">
   <label for="formRadios1"
                                                     class="form-check-label"> EwayBill ApiYN
                                                 </label>

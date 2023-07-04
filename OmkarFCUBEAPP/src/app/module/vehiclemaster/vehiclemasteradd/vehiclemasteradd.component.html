@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
+            <form [formGroup]="formVehicleMaster">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -29,7 +29,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
-                                                <input type="text" class="form-control" placeholder="Enter Vehicle No"
+                                                <input type="text" class="form-control" placeholder="Enter Vehicle No"  formControlName="vehicleNo"
                                                     [ngClass]=>
                                             </div>
                                         </div>
@@ -37,7 +37,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Fleet Station</label>
                                                 <select id="formrow-inputState" class="form-select"
-                                                    formControlName="gcSeries">
+                                                    formControlName="fleetStation" >
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -46,7 +46,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Regn Note</label>
                                                 <select id="formrow-inputState" class="form-select"
-                                                    formControlName="gcSeries">
+                                                    formControlName="regnDate">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -54,7 +54,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Regd Owner</label>
-                                                <input autoclose="false" class="form-control"
+                                                <input autoclose="false" class="form-control"  formControlName="regdOwner"
                                                     placeholder="Enter Regd Owner">
                                             </div>
                                         </div>
@@ -63,22 +63,22 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Chessis No</label>
-                                                <input type="text" class="form-control" placeholder="Enter Chessis No"
+                                                <input type="text" class="form-control" placeholder="Enter Chessis No"  formControlName="chasisNo"
                                                     [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Engine No</label>
-                                                <input type="text" class="form-control" placeholder="Enter Engine No"
+                                                <input type="text" class="form-control" placeholder="Enter Engine No" formControlName="engineNo"
                                                     [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Type</label>
-                                                <select id="formrow-inputState" class="form-select"
-                                                    formControlName="gcSeries">
+                                                <select id="formrow-inputState" class="form-select" formControlName="vehicleTypeID"
+                                                    >
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -86,7 +86,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle Model Group</label>
-                                                <input autoclose="false" class="form-control"
+                                                <input autoclose="false" class="form-control"  formControlName="vehicleTypeGroupId"
                                                     placeholder="Enter Vehicle Model Group">
                                             </div>
                                         </div>
@@ -94,7 +94,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Vehicle Mfr</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="" >
                                                     <option selected="">Choose...</option>
                                                 </select>
 
@@ -103,7 +103,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Mfr Model Name</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"formControlName="vehMfrId"
                                                     placeholder="Enter Mfr Model Name" [ngClass]=>
                                             </div>
                                         </div>
@@ -111,14 +111,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Fule Type</label>
                                                 <select id="formrow-inputState" class="form-select"
-                                                    formControlName="gcSeries">
+                                                    formControlName="fuelType">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputZip">Year</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Enter Year"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Enter Year"   formControlName="makeYear"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -126,28 +126,28 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Tank Capacity</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="tankCap"
                                                     placeholder="Enter Tank Capacity" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Gross Weight</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"  formControlName="grossWt"
                                                     placeholder="Enter Gross Weight" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Unloaded Weight</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"  formControlName="unLadenWT"
                                                     placeholder="Enter Unloaded Weight" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">No of Tyres</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"  formControlName="noOfTyres"
                                                     placeholder="Enter No of Tyres" [ngClass]=>
                                             </div>
                                         </div>
@@ -155,28 +155,28 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Vehicle Length</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="vehLength"
                                                     placeholder="Enter Vehicle Length" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Height</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="vehHeight"
                                                     placeholder="Enter Vehicle Height" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Breadth</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"  formControlName="vehBreadth"
                                                     placeholder="Enter Vehicle Breadth" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Volumn(CFT)</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="vehVolumeCFT"
                                                     placeholder="Enter Vehicle Volumn(CFT)" [ngClass]=>
                                             </div>
                                         </div>
@@ -192,14 +192,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">FastTag Company</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="remarks"
                                                     placeholder="Enter FastTag Company" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">FastTag Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="FastTag Card No"
+                                                <input bsdatepicker="" autoclose="false" placeholder="FastTag Card No" formControlName="remarks"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -215,21 +215,21 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Card Company</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="remarks"
                                                     placeholder="Enter Company" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card No" formControlName="petroCardNo"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Card Pin</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin" formControlName="petroCardPin"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -237,7 +237,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Card Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="happayCardYN" [ngClass]="">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -252,14 +252,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card No" formControlName="happayCardNo"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Card Pin</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin" formControlName="happayCardPin"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -267,7 +267,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">FIP Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="fipYN" [ngClass]="">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -275,7 +275,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">FIP No</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control"  formControlName="fipNo"
                                                     placeholder="Enter FIP No" [ngClass]=>
                                             </div>
                                         </div>
@@ -283,7 +283,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Sold Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch" [ngClass]=""  formControlName="soldYN">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -291,7 +291,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Sold To</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input type="text" id="formrow-inputCity" class="form-control" formControlName="soldTo"
                                                     placeholder="Enter Sold To" [ngClass]=>
                                             </div>
                                         </div>
@@ -299,13 +299,13 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sold Date</label>
                                                 <input bsdatepicker="" autoclose="false" type="date"
-                                                    placeholder="Sold Date" class="form-control">
+                                                    placeholder="Sold Date" class="form-control" formControlName="soldDate">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sold Vehicle</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Sold Vehicle"
+                                                <input bsdatepicker="" autoclose="false" placeholder="Sold Vehicle" formControlName="soldValue"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -313,7 +313,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Transfer Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="" formControlName="tfrYN">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -322,14 +322,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Transfer Date</label>
                                                 <input bsdatepicker="" autoclose="false" type="date"
-                                                    placeholder="Transfer Date" class="form-control">
+                                                    placeholder="Transfer Date" class="form-control" formControlName="tfrDate">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Transfer New Vehicle</label>
                                                 <input bsdatepicker="" autoclose="false"
-                                                    placeholder="Transfer New Vehicle" class="form-control">
+                                                    placeholder="Transfer New Vehicle" class="form-control" formControlName="tfrVehicleNo">
                                             </div>
                                         </div>
                                     </div>
@@ -337,7 +337,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Lodger Office</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="" formControlName="tfrVehicleId">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -345,7 +345,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Asset Office</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                                <select class="form-control" formControlName="userBranch" [ngClass]="" formControlName="vehicleLedgerAc">
                                                     <option selected="">Choose...</option>
                                                 </select>
                                             </div>
@@ -356,7 +356,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 1</label>
                                                 <input autoclose="false" placeholder="Attachment Description 1"
-                                                    class="form-control">
+                                                    class="form-control" formControlName="vehicleAssetAc">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -364,7 +364,7 @@
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
                                                     placeholder="Attachment Description 1"
-                                                    class="form-control form-control-sm">
+                                                    class="form-control form-control-sm" formControlName="attach1Desc">
                                             </div>
                                         </div>
                                     </div>
@@ -373,7 +373,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 2</label>
                                                 <input autoclose="false" placeholder="Attachment Description 2"
-                                                    class="form-control">
+                                                    class="form-control" formControlName="attach1Desc">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -381,7 +381,7 @@
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
                                                     placeholder="Attachment Description 2"
-                                                    class="form-control form-control-sm">
+                                                    class="form-control form-control-sm" formControlName="attach1Link">
                                             </div>
                                         </div>
                                     </div>
@@ -390,7 +390,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 3</label>
                                                 <input autoclose="false" placeholder="Attachment Description 3"
-                                                    class="form-control">
+                                                    class="form-control" formControlName="attach2Desc">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -398,7 +398,7 @@
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
                                                     placeholder="Attachment Description 3"
-                                                    class="form-control form-control-sm">
+                                                    class="form-control form-control-sm" formControlName="attach2Link">
                                             </div>
                                         </div>
                                     </div>
@@ -418,14 +418,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Valid From</label>
                                                 <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
-                                                    class="form-control">
+                                                    class="form-control" formControlName="attach3Desc">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Valid To</label>
                                                 <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
-                                                    class="form-control">
+                                                    class="form-control"  formControlName="attach3Link">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -455,7 +455,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            <button type="submit" class="btn btn-primary w-md"  (click)="submitVehicleMasterForm()">Submit</button>
                         </div>
                     </div>
                 </div>

@@ -36,6 +36,9 @@ import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemastera
 
 
 
+
+
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },

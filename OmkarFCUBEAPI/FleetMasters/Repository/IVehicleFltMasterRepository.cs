@@ -6,5 +6,6 @@ namespace FleetMasters.Repository
     public interface IVehicleFltMasterRepository
     {
         Task<ResponseModel> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel);
+        Task<VehicleFltMasterList> GetVehicleFltMasterList(VehicleFltMasterListRequest request);
     }
 }
