@@ -57,14 +57,16 @@ import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
 
-import { AddvehiclefltmasterComponent } from './module/vehiclefltmaster/addvehiclefltmaster/addvehiclefltmaster.component';
-import { VehiclefltmasterlistComponent } from './module/vehiclefltmaster/vehiclefltmasterlist/vehiclefltmasterlist.component';
 import { Consignmentmodel } from './models/consignmentmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
+import { Cnorcneemastermodel } from './models/cnorcneemastermodel';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
+import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
+import { ListcnorcneemasterComponent } from './module/cnorcneemaster/listcnorcneemaster/listcnorcneemaster.component';
+import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneemaster/addcnorcneemaster.component';
 
 @NgModule({
   declarations: [
@@ -99,8 +101,6 @@ import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemaster
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
  
-    AddvehiclefltmasterComponent,
-    VehiclefltmasterlistComponent,
 
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
@@ -109,6 +109,8 @@ import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemaster
     BranchmasterlistComponent,
     VehiclemasteraddComponent,
     VehiclemasterlistComponent,
+    ListcnorcneemasterComponent,
+    AddcnorcneemasterComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,7 +127,7 @@ import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemaster
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

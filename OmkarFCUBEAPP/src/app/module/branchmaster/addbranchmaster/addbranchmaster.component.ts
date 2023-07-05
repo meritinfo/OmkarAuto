@@ -53,6 +53,7 @@ ngOnInit(): void {
     stateCode: new FormControl('',),
    
     userBranch: new FormControl('', ),
+    userBranch2: new FormControl('', ),
     userState: new FormControl('', ),
     code: new FormControl('', ),
     centreName: new FormControl('', ),
@@ -97,6 +98,7 @@ ngOnInit(): void {
     this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
     this.formBranchMaster.patchValue({
       userBranch: this.selectedBranchMasterDetails.acctBranch,
+      userBranch2: this.selectedBranchMasterDetails.centreName,
       userState: this.selectedBranchMasterDetails.stateCode,
       
       
@@ -132,7 +134,7 @@ ngOnInit(): void {
      this.branchModel.centreid = this.selectedBranchMasterDetails.centreid != '' ? this.selectedBranchMasterDetails.centreid : '';
  
      this.branchModel.code = this.formBranchMaster.value.code;
-     this.branchModel.centreName = this.formBranchMaster.value.centreName;
+     this.branchModel.centreName = this.formBranchMaster.value.userBranch2;
      this.branchModel.acctBranch = this.formBranchMaster.value.userBranch.toString();
      this.branchModel.stateCode = this.formBranchMaster.value.userState.toString();
      this.branchModel.regionId = this.formBranchMaster.value.regionId;
@@ -143,7 +145,6 @@ ngOnInit(): void {
      this.branchModel.address2 = this.formBranchMaster.value.address2;
      this.branchModel.address3 = this.formBranchMaster.value.address3;
      this.branchModel.city = this.formBranchMaster.value.city;
-     this.branchModel.stateCode = this.formBranchMaster.value.stateCode;
      this.branchModel.pinCode = this.formBranchMaster.value.pinCode;
      this.branchModel.offPhone1 = this.formBranchMaster.value.offPhone1;
      this.branchModel.offPhone2 = this.formBranchMaster.value.offPhone2;
