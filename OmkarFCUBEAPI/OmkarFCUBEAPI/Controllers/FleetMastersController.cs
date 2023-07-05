@@ -186,6 +186,22 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDriverMasterList")]
+        public async Task<IActionResult> GetDriverMasterList(DriverMasterListRequest request)
+        {
+            try
+            {
+                var result = await driverMasterBusiness.GetDriverMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetTyrePositionMasterList")]
         public async Task<IActionResult> GetTyrePositionMasterList(TyrePositionMasterListRequest request)
         {
