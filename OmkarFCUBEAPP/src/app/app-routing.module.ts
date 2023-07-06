@@ -33,6 +33,8 @@ import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlis
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemasterlist/vehiclemasterlist.component';
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
+import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
+import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
 
 
 
@@ -86,6 +88,8 @@ const routes: Routes = [
   { path: 'branchmasteredit', component: AddbranchmasterComponent },
   { path: 'vehiclemasterlist', component: VehiclemasterlistComponent },
   { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
+  { path: 'drivermasterlist', component: DrivermasterlistComponent },
+  { path: 'drivermasteradd', component: DrivermasteraddComponent },
   
   
  

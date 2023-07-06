@@ -67,6 +67,8 @@ import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemaster
 import { Vehiclefltmastermodel } from './models/vehiclefltmastermodel';
 import { ListcnorcneemasterComponent } from './module/cnorcneemaster/listcnorcneemaster/listcnorcneemaster.component';
 import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneemaster/addcnorcneemaster.component';
+import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
+import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,8 @@ import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneem
     VehiclemasterlistComponent,
     ListcnorcneemasterComponent,
     AddcnorcneemasterComponent,
+    DrivermasteraddComponent,
+    DrivermasterlistComponent,
   ],
   imports: [
     BrowserModule,
