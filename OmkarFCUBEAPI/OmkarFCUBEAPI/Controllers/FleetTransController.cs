@@ -6,6 +6,7 @@ using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 
 using FleetTrans.Models;
+using FleetMasters.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -39,6 +40,21 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsSave(docRenewalEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDocRenewalEntryList")]
+        public async Task<IActionResult> GetDocRenewalEntryList(DocRenewalEntryListRequest request)
+        {
+            try
+            {
+                var result = await docRenewalEntryBusiness.GetDocRenewalEntryList(request);
 
                 return Ok(result);
             }

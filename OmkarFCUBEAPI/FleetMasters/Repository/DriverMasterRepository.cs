@@ -192,8 +192,7 @@ namespace FleetMasters.Repository
 
                                 BankIfsCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsCode"]),
                                 BankAccountStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAccountStatus"]),
-                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
-                               
+                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),                               
 
                             });
                         }
