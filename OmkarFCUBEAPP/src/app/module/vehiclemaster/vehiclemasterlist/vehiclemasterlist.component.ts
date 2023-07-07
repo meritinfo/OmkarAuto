@@ -20,8 +20,6 @@ export class VehiclemasterlistComponent {
     sortColumn: 'brandname',
     sortOrder: 'asc',
     search: ''
-
-
 }
 constructor(private vehicleFltMasterService: VehicleFltMasterService, private route: Router) {
 }
