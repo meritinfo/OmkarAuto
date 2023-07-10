@@ -1,4 +1,5 @@
-﻿using FinanceMasters.Models;
+﻿using FinanceMaster.Models;
+using FinanceMasters.Models;
 namespace FinanceMasters.Business
 {
     /// <summary>
@@ -7,6 +8,7 @@ namespace FinanceMasters.Business
     public interface IFinAccountsMasterBusiness
     {
         Task<ResponseModel> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel);
+        Task<FinAccountsMasterList> GetFinAccountsMasterList(FinAccountsMasterListRequest request);
     }
 
 }
