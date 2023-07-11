@@ -6,6 +6,7 @@ using FinTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 
 using FinTrans.Models;
+using FinanceMasters.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -53,6 +54,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetCashReceiptPaymentsList")]
+        public async Task<IActionResult> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request)
+        {
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentsList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("BankReceiptPaymentsSave")]
         public async Task<IActionResult> BankReceiptpaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
         {

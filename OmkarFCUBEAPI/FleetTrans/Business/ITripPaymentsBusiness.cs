@@ -10,6 +10,7 @@ namespace FleetTrans.Business
     public interface ITripPaymentsBusiness
     {
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
-        
+        Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request);
+
     }
 }

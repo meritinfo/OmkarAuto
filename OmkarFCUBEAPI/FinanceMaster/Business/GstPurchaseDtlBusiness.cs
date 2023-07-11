@@ -23,5 +23,10 @@ namespace FinanceMasters.Business
         {
             return await gstPurchaseDtlRepository.GstPurchaseDtlSave(gstPurchaseDtlModel);
         }
+
+        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        {
+            return await gstPurchaseDtlRepository.GetGstPurchaseDtlList(request);
+        }
     }
 }

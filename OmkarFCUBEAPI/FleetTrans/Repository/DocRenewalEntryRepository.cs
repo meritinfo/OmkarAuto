@@ -123,7 +123,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DocRenewalEntryList_Select", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

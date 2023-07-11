@@ -24,6 +24,10 @@ namespace FleetTrans.Business
             return await tripPaymentsRepository.TripPaymentsSave(tripPaymentsModel);
         }
 
+        public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
+        {
+            return await tripPaymentsRepository.GetTripPaymentsList(request);
+        }
 
     }
 }
