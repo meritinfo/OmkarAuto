@@ -58,6 +58,7 @@ import { ConsignmentaddComponent } from './module/consignment/consignmentadd/con
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
 
 import { Consignmentmodel } from './models/consignmentmodel';
+import { Trippaymentsmodel } from './models/trippaymentsmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
@@ -69,6 +70,8 @@ import { ListcnorcneemasterComponent } from './module/cnorcneemaster/listcnorcne
 import { AddcnorcneemasterComponent } from './module/cnorcneemaster/addcnorcneemaster/addcnorcneemaster.component';
 import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
 import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
+import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
+import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 
 @NgModule({
   declarations: [
@@ -115,6 +118,8 @@ import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlis
     AddcnorcneemasterComponent,
     DrivermasteraddComponent,
     DrivermasterlistComponent,
+    AddtrippaymentsComponent,
+    TrippaymentslistComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,7 +136,7 @@ import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlis
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
