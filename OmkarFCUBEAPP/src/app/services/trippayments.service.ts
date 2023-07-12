@@ -26,16 +26,16 @@ export class TripPaymentsService {
     
   
   }
-  getBranchMasterDetails() {
+  getTripPaymentsDetails() {
     return this.selectedTripPayments;
   }
   clearTripPaymentsDetails() {
     this.selectedTripPayments = new Trippaymentsmodel();
   }
   trippaymentDetailsSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/TrippaymentDetailsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSave', user, this.httpOptions);
   }
   getTripPaymentsList(filter: Filtermodel): Observable<Trippaymentslistmodel> {
-    return this.httpClient.post<Trippaymentslistmodel>(Constants.API_ENDPOINT + 'FreightMasters/TripPaymentList', filter, this.httpOptions);
+    return this.httpClient.post<Trippaymentslistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPaymentsList', filter, this.httpOptions);
   }
 }

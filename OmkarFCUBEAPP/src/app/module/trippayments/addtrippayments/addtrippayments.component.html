@@ -16,7 +16,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
+            <form [formGroup]="formUser">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -30,7 +30,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Pmt Branch</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="pmtBranch">
                                                             <option selected="">Choose...</option>
                                                             <option>...</option>
                                                         </select>
@@ -39,14 +39,14 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-lastname-input">Pmt Date</label>
-                                                        <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="cnorInvDate"
+                                                        <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="pmtDate"
                                                         class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Select Vehicle</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="vehicleMasterID">
                                                             <option selected="">Choose...</option>
                                                             <option>...</option>
                                                         </select>
@@ -61,7 +61,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Select Driver</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="driverMasterID">
                                                             <option selected="">Choose...</option>
                                                             <option>...</option>
                                                         </select>
@@ -72,7 +72,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Trans Type</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="transType">
                                                             <option selected="">Choose...</option>
                                                             <option>...</option>
                                                         </select>
@@ -81,7 +81,7 @@
                                                 <div class="col-lg-2">
                                                     <div class="mb-3">
                                                         <label for="basicpill-email-input">Amount Paid</label>
-                                                        <input type="email" class="form-control"
+                                                        <input type="email" class="form-control" formControlName="amountPaid"
                                                             id="basicpill-email-input" placeholder="Enter Amount Paid">
                                                     </div>
                                                 </div>
@@ -91,7 +91,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Remark</label>
-                                                        <input type="email" class="form-control"
+                                                        <input type="email" class="form-control" formControlName="remarks"
                                                             id="basicpill-email-input" placeholder="Enter Remark">
                                                     </div>
                                                 </div>
@@ -100,7 +100,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Pmt Type</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="pmtType">
                                                             <option selected="">Choose...</option>
                                                             <option>...</option>
                                                         </select>
@@ -110,7 +110,7 @@
                                                     <div class="mb-3">
                                                         <div class="form-check mt-4">
                                                             <input type="checkbox" id="formRadio" value="A"
-                                                                class="form-check-input mt-10"><label for="formRadio"
+                                                                class="form-check-input mt-10"><label for="formRadio" formControlName="neftPmt"
                                                                 class="form-check-label"> Neft Payments
                                                             </label>
                                                         </div>
@@ -120,7 +120,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-phoneno-input">CreditAc </label>
-                                                            <select id="formrow-inputState" class="form-control"formControlName="rateRs">
+                                                            <select id="formrow-inputState" class="form-control"formControlName="creditAc">
                                                                 <option selected="">Choose...</option>
                                                                 <option>...</option>
                                                             </select>
@@ -138,7 +138,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Cheque No</label>
-                                                        <input type="text" class="form-control"
+                                                        <input type="text" class="form-control" formControlName="chequeNo"
                                                             id="basicpill-phoneno-input"
                                                             placeholder="Enter Cheque No">
                                                     </div>
@@ -146,7 +146,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-email-input">Cheque Date </label>
-                                                        <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="cnorInvDate"
+                                                        <input bsdatepicker="" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="chequeDate"
                                                         class="form-control">
                                                     </div>
                                                 </div>
@@ -158,7 +158,7 @@
                                                     <div class="tex">
                                                        
                                                         <button type="submit" class="btn btn-primary w-md"
-                                                  >Submit</button>
+                                                        (click)="submitTripPaymentsForm() " >Submit</button>
                                                     </div>
                                                 </div>
                                             </div>

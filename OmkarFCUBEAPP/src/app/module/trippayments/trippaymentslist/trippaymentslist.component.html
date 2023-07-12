@@ -28,7 +28,37 @@
                         (click)="trippaymentsAdd()"><span>New</span></button>
                 </div>
             </div>
+      
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>pmtBranch </th>
+                      
+                            <th>tripNo </th>
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allTripPaymentsTypes.TripPaymentsList?.length != 0">
+                        <tr *ngFor="let trip of allTripPaymentsTypes.TripPaymentsList">
+                            <td>{{ trip.pmtBranch }}</td>
+                    
+                            <td>{{ trip.tripNo }}</td>
+                         
+                            <td>
+                                <a (click)="gettrippaymentsDetails(trip)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allTripPaymentsTypes.TripPaymentsList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- container-fluid -->

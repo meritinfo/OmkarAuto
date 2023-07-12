@@ -1,7 +1,7 @@
 export class Trippaymentsmodel {
     pmtId: string = "";
     pmtBranch: string = "";
-    PmtDate: string = "";
+    pmtDate: string = "";
     vehicleMasterID: string = "";
     tripNo: string = "";
     tripMasterId: string = "";
