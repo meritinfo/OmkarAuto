@@ -89,6 +89,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBankReceiptpaymentsList")]
+        public async Task<IActionResult> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request)
+        {
+            try
+            {
+                var result = await bankReceiptPaymentsBusiness.GetBankReceiptpaymentsList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("BankCashContraSave")]
         public async Task<IActionResult> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
         {
@@ -107,6 +124,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetBankCashContraList")]
+        public async Task<IActionResult> GetBankCashContraList(BankCashContraListRequest request)
+        {
+            try
+            {
+                var result = await bankCashContraBusiness.GetBankCashContraList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("JournalEntrySave")]
         public async Task<IActionResult> JournalEntrySave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
         {
