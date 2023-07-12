@@ -79,5 +79,81 @@ namespace FinanceMasters.Repository
             }
             return responseModel;
         }
+
+        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        {
+            GstPurchaseDtlList gstPurchaseDtlList = new();
+            List<GstPurchaseDtlModel> gstPurchaseList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GstPurchaseDtlList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            gstPurchaseList.Add(new GstPurchaseDtlModel
+                            {
+                                Detailid = Convert.ToString(dataSet.Tables[0].Rows[i]["Detailid"]),
+                                Masterid = Convert.ToString(dataSet.Tables[0].Rows[i]["Masterid"]),
+                                DebitAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DebitAc"]),
+
+                                Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                SacHsnCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SacHsnCode"]),
+                                SubLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["SubLedger"]),
+                                CostCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CostCode"]),
+                                ItemAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ItemAmt"]),
+
+                                SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                TotAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotAmount"]),
+                                RefDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDoc"]),
+                                RefDocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocNo"]),
+                                
+
+                            });
+                        }
+
+                        gstPurchaseDtlList.GstPurchaseList = gstPurchaseList;
+
+                        gstPurchaseDtlList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return gstPurchaseDtlList;
+        }
     }
 }

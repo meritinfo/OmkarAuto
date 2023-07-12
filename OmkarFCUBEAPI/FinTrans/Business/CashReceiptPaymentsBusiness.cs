@@ -22,5 +22,10 @@ namespace FinTrans.Business
         {
             return await cashReceiptPaymentsRepository.CashReceiptPaymentsSave(cashReceiptPaymentsModel);
         }
+
+        public async Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request)
+        {
+            return await cashReceiptPaymentsRepository.GetCashReceiptPaymentsList(request);
+        }
     }
 }

@@ -84,6 +84,86 @@ namespace FleetTrans.Repository
         /// </summary>
         /// <returns>List<BranchListModel></returns>
 
+        public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
+        {
+            TripPaymentsList tripPaymentsList = new();
+            List<TripPaymentsModel> tripPayList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);
 
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tripPayList.Add(new TripPaymentsModel
+                            {
+                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+                                PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+
+                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                TripMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripMasterId"]),
+                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
+                                TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
+                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+
+                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
+                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
+
+                                ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
+
+                                ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
+
+                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
+
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                              
+
+                            });
+                        }
+
+                        tripPaymentsList.TripPaymentList = tripPayList;
+
+                        tripPaymentsList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripPaymentsList;
+        }
     }
 }

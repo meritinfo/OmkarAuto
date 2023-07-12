@@ -10,5 +10,6 @@ namespace FleetTrans.Repository
     public interface ITripPaymentsRepository
     {
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
+        Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request);
     }
 }

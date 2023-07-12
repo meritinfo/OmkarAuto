@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using FinanceMasters.Models;
+using FreightMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -55,6 +56,22 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetFinAccountsMasterList")]
+        public async Task<IActionResult> GetFinAccountsMasterList(FinAccountsMasterListRequest request)
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinAccountsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("FinScheduleMasterSave")]
         public async Task<IActionResult> FinScheduleMasterSave(FinScheduleMasterModel finScheduleMasterModel)
         {
@@ -127,6 +144,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetGstPurchaseDtlList")]
+        public async Task<IActionResult> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        {
+            try
+            {
+                var result = await gstPurchaseDtlBusiness.GetGstPurchaseDtlList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("GstPurchaseMstSave")]
         public async Task<IActionResult> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
         {

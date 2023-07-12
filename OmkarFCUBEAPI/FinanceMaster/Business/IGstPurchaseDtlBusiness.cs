@@ -9,6 +9,7 @@ namespace FinanceMasters.Business
     public interface IGstPurchaseDtlBusiness
     {
         Task<ResponseModel> GstPurchaseDtlSave(GstPurchaseDtlModel gstPurchaseDtlModel);
+        Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request);
     }
 
 }

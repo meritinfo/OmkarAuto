@@ -22,5 +22,10 @@ namespace FinTrans.Business
         {
             return await bankCashContraRepository.BankCashContraSave(cashReceiptPaymentsModel);
         }
+
+        public async Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request)
+        {
+            return await bankCashContraRepository.GetBankCashContraList(request);
+        }
     }
 }

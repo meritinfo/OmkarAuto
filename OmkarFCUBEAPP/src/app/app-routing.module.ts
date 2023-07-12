@@ -35,6 +35,9 @@ import { VehiclemasterlistComponent } from './module/vehiclemaster/vehiclemaster
 import { VehiclemasteraddComponent } from './module/vehiclemaster/vehiclemasteradd/vehiclemasteradd.component';
 import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
 import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
+import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
+import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
+
 
 
 
@@ -90,6 +93,8 @@ const routes: Routes = [
   { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
   { path: 'drivermasterlist', component: DrivermasterlistComponent },
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
+  { path: 'trippaymentlist', component: TrippaymentslistComponent },
+  { path: 'addtrippayments', component: AddtrippaymentsComponent },
   
   
  

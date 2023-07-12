@@ -8,5 +8,6 @@ namespace FinTrans.Business
     public interface IBankReceiptPaymentsBusiness
     {
         Task<ResponseModel> BankReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel);
+        Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request);
     }
 }

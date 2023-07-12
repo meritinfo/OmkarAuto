@@ -107,7 +107,123 @@ namespace FleetTrans.Repository
         /// Service method for get branch list
         /// </summary>
         /// <returns>List<BranchListModel></returns>
-      
-        
+        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(DocRenewalEntryListRequest request)
+        {
+            DocRenewalEntryList docRenewalEntryList = new();
+            List<DocRenewalEntryModel> docRenewalList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DocRenewalEntryList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            docRenewalList.Add(new DocRenewalEntryModel
+                            {
+                                DocRenewalEntryId = Convert.ToString(dataSet.Tables[0].Rows[i]["DocRenewalEntryId"]),
+                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                DocRenewalID = Convert.ToString(dataSet.Tables[0].Rows[i]["DocRenewalID"]),
+
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+
+                                DocumentRefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocumentRefNo"]),
+                                RenewalCompany = Convert.ToString(dataSet.Tables[0].Rows[i]["RenewalCompany"]),
+                                ValidFromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFromDt"]),
+                                ValidToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidToDt"]),
+                                BasicAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BasicAmt"]),
+
+                                SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+
+                                IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+
+                                HsnCode1 = Convert.ToString(dataSet.Tables[0].Rows[i]["HsnCode1"]),
+                                BasicAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["BasicAmt2"]),
+
+                                SgstPct2 = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct2"]),
+                                SgstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt2"]),
+
+                                CgstPct2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct2"]),
+
+                                CgstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt2"]),
+
+                                IgstPct2 = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct2"]),
+
+                                IgstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt2"]),
+
+                                HsnCode2 = Convert.ToString(dataSet.Tables[0].Rows[i]["HsnCode2"]),
+                                NonGstAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmount"]),
+
+                                NonGstAmtDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmtDesc"]),
+
+                                SubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotal"]),
+                                RoundOff = Convert.ToString(dataSet.Tables[0].Rows[i]["RoundOff"]),
+                                NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
+
+                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
+                                NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
+                                ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
+
+                                ChequeDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDt"]),
+                                FinDocID = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocID"]),
+                                Attach1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach1"]),
+
+                                Attach2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Attach2"]),
+
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+
+                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+
+                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+
+                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
+
+                            });
+                        }
+
+                        docRenewalEntryList.DocRenewalList = docRenewalList;
+
+                        docRenewalEntryList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return docRenewalEntryList;
+        }
+
     }
 }
