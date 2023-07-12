@@ -8,5 +8,6 @@ namespace FinTrans.Business
     public interface IBankCashContraBusiness
     {
         Task<ResponseModel> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsModel);
+        Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request);
     }
 }
