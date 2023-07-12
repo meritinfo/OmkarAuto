@@ -72,6 +72,8 @@ import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/
 import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlist/drivermasterlist.component';
 import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
+import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
+import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +122,8 @@ import { TrippaymentslistComponent } from './module/trippayments/trippaymentslis
     DrivermasterlistComponent,
     AddtrippaymentsComponent,
     TrippaymentslistComponent,
+    GstpurchaseaddComponent,
+    GstpurchaselistComponent,
   ],
   imports: [
     BrowserModule,

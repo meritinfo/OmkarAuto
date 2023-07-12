@@ -37,6 +37,8 @@ import { DrivermasterlistComponent } from './module/drivermaster/drivermasterlis
 import { DrivermasteraddComponent } from './module/drivermaster/drivermasteradd/drivermasteradd.component';
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
+import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
+import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 
 
 
@@ -95,6 +97,8 @@ const routes: Routes = [
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
   { path: 'trippaymentlist', component: TrippaymentslistComponent },
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
+  { path: 'gstpurchaselist', component: GstpurchaselistComponent },
+  { path: 'gstpurchaseadd', component: GstpurchaseaddComponent },
   
   
  
