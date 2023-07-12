@@ -5,3 +5,14 @@ export class LoggedinUsermodel {
     message: string = "";
     token: string = "";
 }
+
+export class Menumodel {
+    menuName: string = "";
+    menuCode: string = "";
+    menuType: string = "";
+}
+
+export class Menulistmodel {
+    moduleName: string = "";
+    menuList: Menumodel[] = [];
+}

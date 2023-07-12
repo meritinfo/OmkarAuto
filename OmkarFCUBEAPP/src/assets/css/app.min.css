@@ -5698,3 +5698,15 @@ div.dataTables_wrapper div.dataTables_info {
 .export-button{
     margin-right: 10px;
 }
+
+.wizardSubmit{
+    display: initial !important;
+    position: absolute !important;
+    right: 15px;
+    top: 13px;
+}
+.wizardPrevious{
+    position: absolute !important;
+    right: 135px;
+    top: 0px;
+}

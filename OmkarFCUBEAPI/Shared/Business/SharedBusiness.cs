@@ -76,7 +76,8 @@ namespace Shared.Business
                     .Select(m => new MenuModel
                     {
                         MenuName = m.MenuName,
-                        MenuCode = m.MenuCode
+                        MenuCode = m.MenuCode,
+                        MenuType = m.MenuType
                     }).Distinct().ToList()
                 });
             }
