@@ -22,5 +22,10 @@ namespace FinTrans.Business
         {
             return await JournalEntryRepository.JournalEntrySave(cashReceiptPaymentsModel);
         }
+
+        public async Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request)
+        {
+            return await JournalEntryRepository.GetJournalEntryList(request);
+        }
     }
 }

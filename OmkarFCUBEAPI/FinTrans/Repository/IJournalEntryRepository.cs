@@ -8,5 +8,6 @@ namespace FinTrans.Repository
     public interface IJournalEntryRepository
     {
         Task<ResponseModel> JournalEntrySave(CashReceiptPaymentsModel cashReceiptPaymentsSave);
+        Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request);
     }
 }

@@ -161,6 +161,21 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
 
+        [HttpPost("GetJournalEntryList")]
+        public async Task<IActionResult> GetJournalEntryList(JournalEntryListRequest request)
+        {
+            try
+            {
+                var result = await journalEntryBusiness.GetJournalEntryList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }
