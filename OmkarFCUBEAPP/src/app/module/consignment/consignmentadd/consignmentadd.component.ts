@@ -9,6 +9,8 @@ import { Consignmentlistmodel } from 'src/app/models/consignmentlistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { UserService } from 'src/app/services/user.service';
+import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class ConsignmentaddComponent implements OnInit {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
+  eWayBillDetails = new Ewaybillmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
     this.consignmentmodel = new Consignmentmodel();
@@ -133,7 +136,12 @@ export class ConsignmentaddComponent implements OnInit {
 
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
-
+      fromPlacePin: new FormControl('',),
+      toPlacePin: new FormControl('',),
+      consigneeAddress: new FormControl('',),
+      consigneePinCode: new FormControl('',),
+      invoiceValue: new FormControl('',),
+      vehicleNumber: new FormControl('',),
 
     });
     if (this.selectedConsignmentDetails.consignmentID != '') {
@@ -255,6 +263,30 @@ export class ConsignmentaddComponent implements OnInit {
       console.log(this.responseDetails.message);
       this.formConsignment.reset();
       window.location.reload();
+    });
+  }
+
+  searchGSTDetails(): void {
+    console.log("test");
+    var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
+
+    this.commonService.billDetails(payload).subscribe((res: any) => {
+      debugger;
+      var result = res.result;
+      if (result.code === 200) {
+        this.eWayBillDetails.result = result;
+        this.formConsignment.patchValue({
+          ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+          ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+          fromPlacePin: this.eWayBillDetails.result.message.pincode_of_consignor,
+          toPlacePin: this.eWayBillDetails.result.message.pincode_of_consignee,
+          kms: this.eWayBillDetails.result.message.transportation_distance,
+          consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
+          consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+          invoiceValue: this.eWayBillDetails.result.message.total_invoice_value,
+          vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+        })
+      }
     });
   }
 }

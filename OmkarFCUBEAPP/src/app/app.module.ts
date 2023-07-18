@@ -74,6 +74,7 @@ import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
+import { Drivermodel } from './models/drivermodel';
 
 @NgModule({
   declarations: [
@@ -103,12 +104,9 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     AddlrbillseriesComponent,
     VehicletypemasterlistComponent,
     AddvehicletypemasterComponent,
- 
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
- 
-
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
     ConsignmentlistComponent,
@@ -140,7 +138,7 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel, Drivermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5703,6 +5703,7 @@ div.dataTables_wrapper div.dataTables_info {
     position: absolute !important;
     right: 15px;
     top: 13px;
+    z-index: 99;
 }
 .wizardPrevious{
     position: absolute !important;
