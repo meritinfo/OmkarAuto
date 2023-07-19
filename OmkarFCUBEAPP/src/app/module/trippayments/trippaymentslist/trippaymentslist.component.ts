@@ -8,6 +8,7 @@ import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
+debugger
 @Component({
   selector: 'app-trippaymentslist',
   templateUrl: './trippaymentslist.component.html',
@@ -56,12 +57,12 @@ export class TrippaymentslistComponent {
       
 
         {
-          title: 'pmtBranch',
+          title: 'PmtBranch',
           data: 'pmtBranch',
         },
 
        {
-        title: 'tripNo',
+        title: 'TripNo',
         data: 'tripNo',
       },
      

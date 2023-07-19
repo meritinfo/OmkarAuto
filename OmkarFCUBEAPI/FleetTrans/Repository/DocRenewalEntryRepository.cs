@@ -69,11 +69,10 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Remarks", docRenewalEntryModel.Remarks),
                             new SqlParameter("@BranchCode", docRenewalEntryModel.BranchCode),
                             new SqlParameter("@YearID", docRenewalEntryModel.YearID),
-                            new SqlParameter("@DeleteFlag", docRenewalEntryModel.DeleteFlag),
-                            new SqlParameter("@LoggedInUser", docRenewalEntryModel.LoggedInUser),
+                             new SqlParameter("@LoggedInUser", docRenewalEntryModel.LoggedInUser),
                          
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, " DocRenewalEntryDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DocRenewalEntry_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -194,12 +193,12 @@ namespace FleetTrans.Repository
 
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
 
-                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
+                             
 
                             });
                         }
 
-                        docRenewalEntryList.DocRenewalList = docRenewalList;
+                        docRenewalEntryList.docRenewalList = docRenewalList;
 
                         docRenewalEntryList.PageMetaData = new PaginationMetaData
                         {

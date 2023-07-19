@@ -22,9 +22,10 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AddtrippaymentsComponent {
   loggedInUserID: string = '';
-  formUser!: FormGroup;
+  formUser2!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
+  branchList: Dropdownmodel[] = [];
 
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
@@ -45,9 +46,9 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
-
+  this.getBranchList();
   this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
-  this.formUser = this.formBuilder.group({
+  this.formUser2 = this.formBuilder.group({
     pmtBranch: new FormControl('',),
     pmtDate: new FormControl('',),
     vehicleMasterID: new FormControl('',),
@@ -65,11 +66,12 @@ ngOnInit(): void {
     findocid: new FormControl('',),
     adjInTrip: new FormControl('',),
     yearId: new FormControl('',),
+    userBranch: new FormControl('',),
 
   });
   if (this.selectedTripPaymentsDetails.pmtId != '') {
-    this.formUser.patchValue(this.selectedTripPaymentsDetails);
-    this.formUser.patchValue({
+    this.formUser2.patchValue(this.selectedTripPaymentsDetails);
+    this.formUser2.patchValue({
     
 
      
@@ -80,39 +82,43 @@ ngOnInit(): void {
 
 }
 // convenience getter for easy access to contact form fields
-get f() { return this.formUser.controls; }
+get f() { return this.formUser2.controls; }
 
- 
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  }); 
+}
 
 //Submit user form details //
 submitTripPaymentsForm(): void {
   this.userSubmitted = true;
-  if (this.formUser.invalid) {
+  if (this.formUser2.invalid) {
     return;
   }
   this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId!= '' ? this.selectedTripPaymentsDetails.pmtId : '';
-  this.trippaymentsmodel.pmtBranch= this.formUser.value.pmtBranch;
-  this.trippaymentsmodel.pmtBranch = this.formUser.value.pmtBranch;
-  this.trippaymentsmodel.vehicleMasterID = this.formUser.value.vehicleMasterID;
-  this.trippaymentsmodel.tripNo = this.formUser.value.tripNo;
-  this.trippaymentsmodel.tripMasterId = this.formUser.value.tripMasterId;
-  this.trippaymentsmodel.driverMasterID = this.formUser.value.driverMasterID;
-  this.trippaymentsmodel.amountPaid = this.formUser.value.amountPaid;
-  this.trippaymentsmodel.remarks = this.formUser.value.remarks;
-  this.trippaymentsmodel.pmtType = this.formUser.value.pmtType;
-  this.trippaymentsmodel.neftPmt = this.formUser.value.neftPmt;
-  this.trippaymentsmodel.creditAc = this.formUser.value.creditAc;
-  this.trippaymentsmodel.chequeNo = this.formUser.value.chequeNo;
-  this.trippaymentsmodel.chequeDate = this.formUser.value.chequeDate;
-  this.trippaymentsmodel.findocid = this.formUser.value.findocid;
-  this.trippaymentsmodel.adjInTrip = this.formUser.value.adjInTrip;
-  this.trippaymentsmodel.yearId = this.formUser.value.yearId;
+  this.trippaymentsmodel.pmtBranch= this.formUser2.value.pmtBranch;
+  this.trippaymentsmodel.pmtBranch = this.formUser2.value.pmtBranch;
+  this.trippaymentsmodel.vehicleMasterID = this.formUser2.value.vehicleMasterID;
+  this.trippaymentsmodel.tripNo = this.formUser2.value.tripNo;
+  this.trippaymentsmodel.tripMasterId = this.formUser2.value.tripMasterId;
+  this.trippaymentsmodel.driverMasterID = this.formUser2.value.driverMasterID;
+  this.trippaymentsmodel.amountPaid = this.formUser2.value.amountPaid;
+  this.trippaymentsmodel.remarks = this.formUser2.value.remarks;
+  this.trippaymentsmodel.pmtType = this.formUser2.value.pmtType;
+  this.trippaymentsmodel.neftPmt = this.formUser2.value.neftPmt;
+  this.trippaymentsmodel.creditAc = this.formUser2.value.creditAc;
+  this.trippaymentsmodel.chequeNo = this.formUser2.value.chequeNo;
+  this.trippaymentsmodel.chequeDate = this.formUser2.value.chequeDate;
+  this.trippaymentsmodel.findocid = this.formUser2.value.findocid;
+  this.trippaymentsmodel.adjInTrip = this.formUser2.value.adjInTrip;
+  this.trippaymentsmodel.yearId = this.formUser2.value.yearId;
 
 
   this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     console.log(this.responseDetails.message);
-    this.formUser.reset();
+    this.formUser2.reset();
     window.location.reload();
   });
 }

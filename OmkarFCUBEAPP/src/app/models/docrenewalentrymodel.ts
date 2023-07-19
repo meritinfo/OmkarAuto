@@ -1,0 +1,44 @@
+export class Docrenewalentrymodel {
+    docRenewalEntryId: string = "";
+    transDate: string = "";
+    docRenewalID: string = "";
+    vehicleMasterID: string = "";
+    documentRefNo: string = "";
+    renewalCompany: string = "";
+    validFromDt: string = "";
+    validToDt: string = "";
+    basicAmt: string = "";
+    sgstPct: string = "";
+    sgstAmt: string = "";
+    cgstPct: string = "";
+    cgstAmt: string = "";
+    igstPct: string = "";
+    igstAmt: string = "";
+    hsnCode1: string = "";
+    basicAmt2: string = "";
+    sgstPct2: string = "";
+    sgstAmt2: string = "";
+    cgstPct2: string = "";
+    cgstAmt2: string = "";
+    igstPct2: string = "";
+    igstAmt2: string = "";
+    hsnCode2: string = "";
+    nonGstAmount: string = "";
+    nonGstAmtDesc: string = "";
+    subTotal: string = "";
+    roundOff: string = "";
+    netAmount: string = "";
+    pmtType: string = "";
+    creditAc: string = "";
+    neftPmt: string = "";
+    chequeNo: string = "";
+    chequeDt: string = "";
+    finDocID: string = "";
+    attach1: string = "";
+    attach2: string = "";
+    remarks: string = "";
+    branchCode: string = "";
+    yearID: string = "";
+    loggedInUser: string = "";
+
+}

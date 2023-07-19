@@ -8,7 +8,7 @@ namespace FleetTrans.Models
 {
     public class TripPaymentsList
     {
-        public List<TripPaymentsModel> TripPaymentList { get; set; }
+        public List<TripPaymentsModel> tripPaymentsList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

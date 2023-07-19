@@ -1,0 +1,42 @@
+export class Cashreceiptentrymodel {
+    centreid: string = "";
+    centreName: string = "";
+    code: string = "";
+    zoneCode: string = "";
+    regionId: string = "";
+    branchBusinessType: string = "";
+    acctYN: string = "";
+    acctBranch: string = "";
+    address1: string = "";
+    address2: string = "";
+    address3: string = "";
+    city: string = "";
+    stateCode: string = "";
+    pinCode: string = "";
+    offPhone1: string = "";
+    offPhone2: string = "";
+    mobileNo: string = "";
+    branchEmail: string = "";
+    managerName: string = "";
+    managerMobileNo: string = "";
+    managerPhone: string = "";
+    managerEmail: string = "";
+    gstNo: string = "";
+    activeYN: string = "";
+    bankAcLedger: string = "";
+    branchAcLedger: string = "";
+    entryLockDays: string = "";
+    bankName: string = "";
+    bankAdd: string = "";
+    bankAcNo: string = "";
+    bankIfsc: string = "";
+    ewayBillApiYN: string = "";
+    ewayBillApiGstId: string = "";
+    ewayBillApiUid: string = "";
+    ewayBillApiPwd: string = "";
+    panApiCheckYN: string = "";
+    bankApiCheckYN: string = "";
+    truckApiCheckYN: string = "";
+    isHO: string = "";
+
+}

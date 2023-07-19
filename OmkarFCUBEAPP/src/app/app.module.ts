@@ -39,6 +39,8 @@ import { AddtyrepositionmasterComponent } from './module/tyrepositionmaster/addt
 import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrenewalmasterlist/docrenewalmasterlist.component';
 import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
 import { Docrenewalmastermodel } from './models/docrenewalmastermodel';
+import { Docrenewalentrymodel } from './models/docrenewalentrymodel';
+
 
 import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
@@ -74,6 +76,11 @@ import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
+
+import { AdddocrenewalentryComponent } from './module/docrenewalentry/adddocrenewalentry/adddocrenewalentry.component';
+import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewalentrylist/docrenewalentrylist.component';
+import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashreceiptentrylist/cashreceiptentrylist.component';
+import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
 
 @NgModule({
   declarations: [
@@ -124,6 +131,11 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     TrippaymentslistComponent,
     GstpurchaseaddComponent,
     GstpurchaselistComponent,
+
+    AdddocrenewalentryComponent,
+    DocrenewalentrylistComponent,
+    CashreceiptentrylistComponent,
+    AddcashreceiptentryComponent,
   ],
   imports: [
     BrowserModule,
@@ -140,7 +152,7 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel],
+  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel,Docrenewalmastermodel,Docrenewalentrymodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

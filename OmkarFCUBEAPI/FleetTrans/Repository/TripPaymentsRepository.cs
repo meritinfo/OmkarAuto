@@ -86,7 +86,7 @@ namespace FleetTrans.Repository
 
         public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
         {
-            TripPaymentsList tripPaymentsList = new();
+            TripPaymentsList TripPaymentsList = new();
             List<TripPaymentsModel> tripPayList = new();
             try
             {
@@ -140,9 +140,9 @@ namespace FleetTrans.Repository
                             });
                         }
 
-                        tripPaymentsList.TripPaymentList = tripPayList;
+                        TripPaymentsList.tripPaymentsList = tripPayList;
 
-                        tripPaymentsList.PageMetaData = new PaginationMetaData
+                        TripPaymentsList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -163,7 +163,7 @@ namespace FleetTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return tripPaymentsList;
+            return TripPaymentsList;
         }
     }
 }
