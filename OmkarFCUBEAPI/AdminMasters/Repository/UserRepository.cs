@@ -213,7 +213,7 @@ namespace AdminMasters.Repository
             string token = "";
             try
             {
-                string URL = "https://clientbasic.mastersindia.co/";
+                string URL = "https://pro.mastersindia.co/";
 
                 HttpClient client = new()
                 {
@@ -260,11 +260,11 @@ namespace AdminMasters.Repository
             Root root = new();
             try
             {
-                string URL = "https://clientbasic.mastersindia.co/getEwayBillData";
+                string URL = "https://pro.mastersindia.co/getEwayBillData";
 
                 string token = await GetAccessToken();
 
-                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin=05AAABB0639G1Z8&eway_bill_number=" + request.EWayBillNumber;
+                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ gstConfiguration.Value.GSTNumber + "&eway_bill_number=" + request.EWayBillNumber;
 
                 HttpClient client = new()
                 {
@@ -277,8 +277,20 @@ namespace AdminMasters.Repository
                 HttpResponseMessage response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
                 if (response.IsSuccessStatusCode)
                 {
-                    root = await response.Content.ReadAsAsync<Root>();
-                    eWayBill.result = root.results;
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    int statusCode = data.results.code;
+                    if(statusCode == 200)
+                    {
+                        root = JsonConvert.DeserializeObject<Root>(result);
+                        eWayBill.result = root.results;
+                    }
+                    else
+                    {
+                        eWayBill.result = new();
+                        eWayBill.result.code = statusCode;
+                    }
+                    
 
                     client.Dispose();
                 }

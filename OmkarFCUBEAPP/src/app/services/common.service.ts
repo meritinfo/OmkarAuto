@@ -31,7 +31,7 @@ export class CommonService {
   getRoleTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetRoleTypeList', null, this.httpOptions);
   }
-    
+
   getStateList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetStateList', null, this.httpOptions);
   }
@@ -40,5 +40,17 @@ export class CommonService {
   }
   billDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Admin/GetEWayBillDetails', payload, this.httpOptions);
+  }
+
+  formatDate(date: string) {
+    let dateParts = date.split(" ")[0].split("/");
+    var dateObject = new Date(dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]);
+    const d = new Date(dateObject);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
   }
 }

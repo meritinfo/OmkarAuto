@@ -76,6 +76,7 @@ import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
+import { Drivermodel } from './models/drivermodel';
 
 import { AdddocrenewalentryComponent } from './module/docrenewalentry/adddocrenewalentry/adddocrenewalentry.component';
 import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewalentrylist/docrenewalentrylist.component';
@@ -110,12 +111,9 @@ import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashr
     AddlrbillseriesComponent,
     VehicletypemasterlistComponent,
     AddvehicletypemasterComponent,
- 
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
- 
-
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
     ConsignmentlistComponent,
@@ -152,7 +150,8 @@ import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashr
     DataTablesModule,
     LayoutModule
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel,Docrenewalmastermodel,Docrenewalentrymodel],
+    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
