@@ -24,6 +24,8 @@ export class ConsignmentaddComponent implements OnInit {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
+  cneeList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
   eWayBillDetails = new Ewaybillmodel();
 
@@ -142,6 +144,8 @@ export class ConsignmentaddComponent implements OnInit {
       consigneePinCode: new FormControl('',),
       invoiceValue: new FormControl('',),
       vehicleNumber: new FormControl('',),
+      cnor: new FormControl('',),
+      cnee: new FormControl('',),
 
     });
     if (this.selectedConsignmentDetails.consignmentID != '') {
@@ -280,6 +284,8 @@ export class ConsignmentaddComponent implements OnInit {
           ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
           fromPlacePin: this.eWayBillDetails.result.message.pincode_of_consignor,
           toPlacePin: this.eWayBillDetails.result.message.pincode_of_consignee,
+          cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
+          cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
           kms: this.eWayBillDetails.result.message.transportation_distance,
           consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
           consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,

@@ -83,6 +83,8 @@ import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewa
 import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashreceiptentrylist/cashreceiptentrylist.component';
 import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
 
+import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,6 +136,8 @@ import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashr
     DocrenewalentrylistComponent,
     CashreceiptentrylistComponent,
     AddcashreceiptentryComponent,
+ 
+    IntermediatescreenComponent,
   ],
   imports: [
     BrowserModule,

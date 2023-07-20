@@ -29,6 +29,35 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>ReminderDays </th>
+                      
+                            <th>Doc Code </th>
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allCashReceiptEntry.CashRecPaymentsList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allCashReceiptEntry.CashRecPaymentsList">
+                            <td>{{ renewalMaster.docType }}</td>
+                    
+                            <td>{{ renewalMaster.docSeries }}</td>
+                         
+                            <td>
+                                <a (click)="getCashReceiptEntryDetails(renewalMaster)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allCashReceiptEntry.CashRecPaymentsList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- container-fluid -->
