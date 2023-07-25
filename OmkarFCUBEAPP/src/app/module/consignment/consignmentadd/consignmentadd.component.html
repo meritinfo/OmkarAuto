@@ -200,28 +200,33 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Consignor/Consignee</h4>
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Select Consignor</label>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3"><label for="formrow-inputCity">Consignor</label>
                                                
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                 placeholder="Enter woNo" formControlName="cnorCode" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Cnor LOC</label>
-                                                <select id="formrow-inputState" class="form-control">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
-                                                </select>
+                                                <label for="formrow-inputState">Cnor Gst</label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                placeholder="Enter Cnor Gst" formControlName="" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Ref No</label>
                                                 <input class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Invoice Value</label>
+                                                <input type="text" autoclose="false" class="form-control"
+                                                    formControlName="invoiceValue">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -230,42 +235,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">W.O No</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter woNo" formControlName="woNo" [ngClass]=>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">W.O Date</label>
-                                                <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="woDate"
-                                                    class="form-control">
-
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputZip">P.O No</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter poNo" formControlName="poNo" [ngClass]=>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">P.O Date</label>
-                                                <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="poDate"
-                                                    class="form-control">
-
-                                            </div>
-                                        </div>
-                                    </div>
+                
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Select Consignee</label>
+                                                <label for="formrow-inputZip">Consignee</label>
                                               
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                 placeholder="Enter woNo" formControlName="cneeCode" [ngClass]=>
@@ -324,10 +298,11 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Rate Type</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                    formControlName="rateRs">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
+                                             
+                                                <select class="form-control" formControlName="rateRs" [ngClass]="">
+                                                    <option *ngFor="let branch of rateList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -431,62 +406,9 @@
                                             </div>
                                         </div>
                                     </div>
+    
                                     <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Sgst %</label>
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Sgst Amount</label>
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Cgst %</label>
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Cgst Amount</label>
-                                                <input type="text" class="form-control" placeholder="Enter  cgstAmt "
-                                                    formControlName="cgstAmt" [ngClass]=>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Igst %</label>
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Igst Amount</label>
-                                                <input type="text" class="form-control" placeholder="Enter  igstAmt "
-                                                    formControlName="igstAmt" [ngClass]=>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Non GST Desc</label>
-                                                <input type="text" class="form-control"
-                                                    placeholder="Enter  nonGstAmt1Desc "
-                                                    formControlName="nonGstAmt1Desc" [ngClass]=>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Non GST Amount</label>
-                                                <input type="text" class="form-control" placeholder="Enter  nonGstAmt1 "
-                                                    formControlName="nonGstAmt1" [ngClass]=>
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Net Total</label>
@@ -494,14 +416,7 @@
                                                     formControlName="gtotalRs" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Advance</label>
-
-                                                <input type="text" class="form-control" placeholder="Enter  Advance "
-                                                    formControlName="advanceRs" [ngClass]=>
-                                            </div>
-                                        </div>
+                                    
                                     </div>
                                 </div>
                             </div>

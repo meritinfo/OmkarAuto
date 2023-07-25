@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Loginmodel } from '../models/loginmodel';
+import { Intermediatescreenmodel } from '../models/intermediatescreenmodel';
 import { LoggedinUsermodel } from '../models/loggedinusermodel';
 
 @Injectable({
@@ -23,6 +24,7 @@ export class SharedService {
   loginSubmitted(login : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
+ 
 
   getMenuList(userID : string): Observable<any> {
     return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/MenuDetails/' + userID, this.httpOptions);

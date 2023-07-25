@@ -18,7 +18,7 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.selectedUserID = userData;
-      this.getMenuList(this.selectedUserID);
+     this.getMenuList(this.selectedUserID);
     }
   }
   ngAfterViewInit() {

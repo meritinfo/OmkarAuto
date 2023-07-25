@@ -85,6 +85,8 @@ import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashr
 
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
+import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
+import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 
 @NgModule({
   declarations: [
@@ -139,6 +141,8 @@ import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
     AddcashreceiptentryComponent,
  
     IntermediatescreenComponent,
+       BankreceiptentrylistComponent,
+       AddbankreceiptentryComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,7 +159,7 @@ import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
     DataTablesModule,
     LayoutModule
   ],
-    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel
+    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel,Cashreceiptentrymodel
     ],
   bootstrap: [AppComponent]
 })

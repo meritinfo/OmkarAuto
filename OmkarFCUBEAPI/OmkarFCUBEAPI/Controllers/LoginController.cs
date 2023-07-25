@@ -38,6 +38,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetYearList")]
+        public async Task<IActionResult> GetYearList()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetYearList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Controller method for menu list to the application

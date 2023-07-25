@@ -57,7 +57,11 @@ namespace Shared.Business
             }
             return userModel;
         }
-        
+        public async Task<List<YearListModel>> GetYearList()
+        {
+            return await sharedRepository.GetYearList();
+        }
+
         /// <summary>
         /// Business method for menu list to the application
         /// </summary>

@@ -11,5 +11,6 @@ namespace Shared.Repository
     {
         Task<UserModel> LoginDetails(LoginModel loginModel);
         Task<List<MenuModel>> MenuDetails(string userID);
+        Task<List<YearListModel>> GetYearList();
     }
 }
