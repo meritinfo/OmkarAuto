@@ -12,7 +12,6 @@ export class DrivermasterService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
     })
   }
@@ -27,7 +26,7 @@ export class DrivermasterService {
   clearDriverMasterDetails() {
     this.selectedDriverMaster = new Drivermodel();
   }
-  driverMasterDetailsSubmitted(user: Drivermodel): Observable<Responsemodel> {
+  driverMasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterSave', user, this.httpOptions);
   }
 }

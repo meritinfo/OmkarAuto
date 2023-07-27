@@ -4,6 +4,10 @@ using System;
 using FleetMasters.Models;
 using FleetMasters.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -59,14 +63,98 @@ namespace OmkarFCUBEAPI.Controllers
         /// </summary>
         /// <param name="vehicleTypeGroupMasterModel"></param>
         [HttpPost("DriverMasterSave")]
-        public async Task<IActionResult> DriverMasterSave(DriverMasterModel driverMasterModel)
+        public async Task<IActionResult> DriverMasterSave()
         {
-            if (driverMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var driverPhoto = HttpContext.Request.Form.Files["driverPhoto"];
+                var drivingLicense = HttpContext.Request.Form.Files["drivingLicense"];
+                var hazdrivingLicense = HttpContext.Request.Form.Files["hazdrivingLicense"];
+                var tempAddressProve = HttpContext.Request.Form.Files["tempAddressProve"];
+                var perAddressProve = HttpContext.Request.Form.Files["perAddressProve"];
+                var aadharCard = HttpContext.Request.Form.Files["aadharCard"];
+                var bankPassbook = HttpContext.Request.Form.Files["bankPassbook"];
+
+                DriverMasterModel driverMasterModel = JsonConvert.DeserializeObject<DriverMasterModel>(HttpContext.Request.Form["datadetails"]);
+                
+                if (driverPhoto != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/driverphoto/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await driverPhoto.CopyToAsync(fileStream);
+                        driverMasterModel.DrPhoto = imageName;
+                    }
+                }
+                if (drivingLicense != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(drivingLicense.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(drivingLicense.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/drivinglicense/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await drivingLicense.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrLic = imageName;
+                    }
+                }
+                if (hazdrivingLicense != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(hazdrivingLicense.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(hazdrivingLicense.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/hazdrivinglicense/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await hazdrivingLicense.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrHazLic = imageName;
+                    }
+                }
+                if (tempAddressProve != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(tempAddressProve.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(tempAddressProve.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/tempaddressprove/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await tempAddressProve.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrTempAddProof = imageName;
+                    }
+                }
+                if (perAddressProve != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(perAddressProve.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(perAddressProve.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/peraddressprove/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await perAddressProve.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrPermAddProof = imageName;
+                    }
+                }
+                if (aadharCard != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(aadharCard.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(aadharCard.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/aadharcard/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await aadharCard.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrAadhar = imageName;
+                    }
+                }
+                if (bankPassbook != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(bankPassbook.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(bankPassbook.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/bankpassbook/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await bankPassbook.CopyToAsync(fileStream);
+                        driverMasterModel.AttachDrBankPassBook = imageName;
+                    }
+                }
+
                 var result = await driverMasterBusiness.DriverMasterSave(driverMasterModel);
 
                 return Ok(result);
