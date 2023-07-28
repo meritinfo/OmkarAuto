@@ -69,6 +69,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLocationList")]
+        public async Task<IActionResult> GetList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetLocationList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

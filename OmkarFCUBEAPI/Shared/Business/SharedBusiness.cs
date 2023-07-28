@@ -57,6 +57,10 @@ namespace Shared.Business
             }
             return userModel;
         }
+        public async Task<ResponseModel> IntermediateScreenDetail(string request)
+        {
+            return await sharedRepository.IntermediateScreenDetail(request);
+        }
         public async Task<List<YearListModel>> GetYearList()
         {
             return await sharedRepository.GetYearList();

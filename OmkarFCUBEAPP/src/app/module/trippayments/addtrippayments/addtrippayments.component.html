@@ -30,7 +30,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Pmt Branch</label>
-                                                        <select  class="form-control" formControlName="userBranch" [ngClass]="">
+                                                        <select  class="form-control" formControlName="pmtBranch" [ngClass]="">
                                                             <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                                {{branch.dataName}}
                                                             </option>
@@ -44,28 +44,119 @@
                                                         class="form-control">
                                                     </div>
                                                 </div>
+                                             
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Select Vehicle</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="vehicleMasterID">
-                                                            <option selected="">Choose...</option>
-                                                            <option>3</option>
-                                                        </select>
+                                                       
+                                                        <select  class="form-control" formControlName="vehicleMasterID" [ngClass]="">
+                                                            <option *ngFor="let branch of vehicleList" value={{branch.dataId}}>
+                                                               {{branch.dataName}}
+                                                            </option>
+                                                         </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="basicpill-lastname-input">Open Trip No.</label>
+                                                        <input type="text" id="formrow-inputCity" class="form-control"
+                                                        placeholder="Enter Trip No" formControlName="tripNo" [ngClass]=>
                                                     </div>
                                                 </div>
                                               
+                                            </div>
+                                            <div class="ng-untouched ng-pristine ng-valid">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                       
+                                                         
+                                                               
+                                                                <div class="row">
+                                                                  
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3">
+                                                                            <label for="formrow-inputState">From</label>
+                                                                            <select id="formrow-inputState" class="form-control"formControlName="from">
+                                                                                <option selected="">Choose...</option>
+                                                                                <option>3</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3"><label for="formrow-inputZip">To</label>
+                                                                            <select id="formrow-inputState" class="form-control"formControlName="to">
+                                                                                <option selected="">Choose...</option>
+                                                                                <option>3</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3">
+                                                                            <label for="formrow-inputZip">Load Or Empty</label>
+                                                                         
+                                                                                <select id="formrow-inputState" class="form-control"formControlName="loadorempty">
+                                                                                    <option selected="">Choose...</option>
+                                                                                    <option>3</option>
+                                                                                </select>
+                                                                        </div>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                                <div class="row">
+                                                                  
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3">
+                                                                            <label for="formrow-inputState">Dsl To Be</label>
+                                                                            <input type="text" id="formrow-inputCity" class="form-control"
+                                                                            placeholder="Enter Dsl To Be" formControlName="dsltobe" [ngClass]=>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-3">
+                                                                        <div class="mb-3"><label for="formrow-inputZip">Travel Allowance</label>
+                                                                            <input type="text" id="formrow-inputCity" class="form-control"
+                                                                            placeholder="Enter Travel Allowance" formControlName="travel" [ngClass]=>
+                                                                        </div>
+                                                                    </div>
+                                                                 
+                                                                </div>
+                                            
+                                                   
+                                                   
+                                                            
+                                                       
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                      
-                                                        <label for="basicpill-phoneno-input">Select Driver</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="driverMasterID">
-                                                            <option selected="">Choose...</option>
-                                                            <option>4</option>
-                                                        </select>
+                                                        <label for="basicpill-phoneno-input">QtyLtrs</label>
+                                                      
+                                                        <input type="text" class="form-control" formControlName="qtyLtrs"
+                                                        id="basicpill-email-input" placeholder="Enter qtyLtrs">
+                                                        
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="basicpill-phoneno-input">RatePerLtr</label>
+                                                     
+                                                        <input type="text" class="form-control" formControlName="ratePerLtr"
+                                                        id="basicpill-email-input" placeholder="Enter ratePerLtr">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label for="basicpill-email-input">Amount </label>
+                                                        <input type="email" class="form-control" formControlName="amountPaid"
+                                                            id="basicpill-email-input" placeholder="Enter Amount Paid">
+                                                    </div>
+                                                </div>
+                                              
+                                            </div>
+                                            <div class="row">
+                                              
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Trans Type</label>
@@ -73,19 +164,18 @@
                                                             <option selected="">Choose...</option>
                                                             <option value="DA">  Driver Adv</option>
                                                             <option value="DL">  Diesel </option>
-                                                            <option value="TL"> Toll </option>
-                                                            <option value="AB">AdBlue </option>
-                                                            <option value="OT">Other</option>
+                                                         
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-6">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-email-input">Amount Paid</label>
-                                                        <input type="email" class="form-control" formControlName="amountPaid"
-                                                            id="basicpill-email-input" placeholder="Enter Amount Paid">
+                                                        <label for="basicpill-phoneno-input">Remark</label>
+                                                        <input type="email" class="form-control" formControlName="remarks"
+                                                            id="basicpill-email-input" placeholder="Enter Remark">
                                                     </div>
                                                 </div>
+                                               
                                               
                                             </div>
                                            
@@ -96,28 +186,20 @@
                                            
                                                
                                        
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Remark</label>
-                                                        <input type="email" class="form-control" formControlName="remarks"
-                                                            id="basicpill-email-input" placeholder="Enter Remark">
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Pmt Type</label>
                                                         <select id="formrow-inputState" class="form-control"formControlName="pmtType">
                                                             <option selected="">Choose...</option>
-                                                            <option > Cash</option>
-                                                            <option> Bank</option>
-                                                            <option> Happay</option>
-                                                            <option> Petro</option>
-                                                            <option> Fastag</option>
-                                                            <option> Vendor</option>
-                                                            <option> Adjust </option>
+                                                            <option value="1" >Cash</option>
+                                                            <option value="2"> Bank</option>
+                                                            <option value="3"> Happay</option>
+                                                            <option value="4"> Petro</option>
+                                                            <option value="5"> Fastag</option>
+                                                            <option value="6"> Vendor</option>
+                                                            <option value="7"> Adjust </option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -133,6 +215,17 @@
                                          
                                             </div>
                                             <div class="row">
+                                               
+                                                <div class="col-lg-3">
+                                                    <div class="form-check">
+                                                        <input type="radio" name="ewayBillEntryType"
+                                                            formControlName="neftPmt"  value="E"
+                                                            class="form-check-input"><label for="formRadios2"
+                                                            class="form-check-label"> Neft
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Cheque No</label>

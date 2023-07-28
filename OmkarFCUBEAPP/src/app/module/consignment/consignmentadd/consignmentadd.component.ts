@@ -24,6 +24,7 @@ export class ConsignmentaddComponent implements OnInit {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   cnorList: Dropdownmodel[] = [];
   cneeList: Dropdownmodel[] = [];
@@ -46,6 +47,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
     this.getBranchList();
     this.getRateList();
+    this.getLocationList();
     this.selectedConsignmentDetails = this.consignmentService.getConsignmentDetails();
     this.formConsignment = this.formBuilder.group({
       bookingPlace: new FormControl('',),
@@ -175,6 +177,12 @@ export class ConsignmentaddComponent implements OnInit {
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
       this.rateList = res;
+    });
+  }
+
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
     });
   }
 

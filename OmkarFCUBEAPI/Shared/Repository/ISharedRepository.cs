@@ -10,6 +10,7 @@ namespace Shared.Repository
     public interface ISharedRepository
     {
         Task<UserModel> LoginDetails(LoginModel loginModel);
+        Task<ResponseModel> IntermediateScreenDetail(string request);
         Task<List<MenuModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
     }

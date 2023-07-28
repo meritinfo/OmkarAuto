@@ -34,7 +34,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VehicleMasterID", tripPaymentsModel.VehicleMasterID),
                             new SqlParameter("@TripNo", tripPaymentsModel.TripNo),
                             new SqlParameter("@TripMasterId", tripPaymentsModel.TripMasterId),
-                            new SqlParameter("@DriverMasterID", tripPaymentsModel.DriverMasterID),
                             new SqlParameter("@TransType", tripPaymentsModel.TransType),
                             new SqlParameter("@AmountPaid", tripPaymentsModel.AmountPaid),
                             new SqlParameter("@Remarks", tripPaymentsModel.Remarks),
@@ -45,6 +44,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ChequeDate", tripPaymentsModel.ChequeDate),
                             new SqlParameter("@Findocid", tripPaymentsModel.Findocid),
                             new SqlParameter("@AdjInTrip", tripPaymentsModel.AdjInTrip),
+                            new SqlParameter("@QtyLtrs", tripPaymentsModel.QtyLtrs),
+                            new SqlParameter("@RatePerLtr", tripPaymentsModel.RatePerLtr),
                             new SqlParameter("@YearId", tripPaymentsModel.YearId),
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
@@ -86,7 +87,7 @@ namespace FleetTrans.Repository
 
         public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
         {
-            TripPaymentsList TripPaymentsList = new();
+            TripPaymentsList tripPaymentsList = new();
             List<TripPaymentsModel> tripPayList = new();
             try
             {
@@ -113,11 +114,11 @@ namespace FleetTrans.Repository
                                 PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
 
-                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                            
 
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
                                 TripMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripMasterId"]),
-                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
+                           
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
 
@@ -133,6 +134,8 @@ namespace FleetTrans.Repository
 
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
+                                QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+                                RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
 
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                               
@@ -140,9 +143,9 @@ namespace FleetTrans.Repository
                             });
                         }
 
-                        TripPaymentsList.tripPaymentsList = tripPayList;
+                        tripPaymentsList.tripPaymentsList = tripPayList;
 
-                        TripPaymentsList.PageMetaData = new PaginationMetaData
+                        tripPaymentsList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -163,7 +166,7 @@ namespace FleetTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return TripPaymentsList;
+            return tripPaymentsList;
         }
     }
 }

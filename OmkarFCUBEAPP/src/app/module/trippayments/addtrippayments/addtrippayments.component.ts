@@ -26,6 +26,7 @@ export class AddtrippaymentsComponent {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
 
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
@@ -47,6 +48,7 @@ ngOnInit(): void {
     this.route.navigate(['/']);
   }
   this.getBranchList();
+  this.getVehicleList();
   this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
   this.formUser2 = this.formBuilder.group({
     pmtBranch: new FormControl('',),
@@ -54,7 +56,7 @@ ngOnInit(): void {
     vehicleMasterID: new FormControl('',),
     tripNo: new FormControl('',),
     tripMasterId: new FormControl('',),
-    driverMasterID: new FormControl('',),
+
     transType: new FormControl('',),
     amountPaid: new FormControl('',),
     remarks: new FormControl('',),
@@ -67,6 +69,15 @@ ngOnInit(): void {
     adjInTrip: new FormControl('',),
     yearId: new FormControl('',),
     userBranch: new FormControl('',),
+    from: new FormControl('',),
+    to: new FormControl('',),
+    loadorempty: new FormControl('',),
+    dsltobe: new FormControl('',),
+    travelallowance: new FormControl('',),
+    qtyLtrs: new FormControl('',),
+    ratePerLtr: new FormControl('',),
+    travel: new FormControl('',),
+
 
   });
   if (this.selectedTripPaymentsDetails.pmtId != '') {
@@ -89,6 +100,11 @@ getBranchList(): void {
     this.branchList = res;
   }); 
 }
+getVehicleList(): void {
+  this.commonService.getVehicleList().subscribe((res) => {
+    this.vehicleList = res;
+  }); 
+}
 
 //Submit user form details //
 submitTripPaymentsForm(): void {
@@ -98,20 +114,24 @@ submitTripPaymentsForm(): void {
   }
   this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId!= '' ? this.selectedTripPaymentsDetails.pmtId : '';
   this.trippaymentsmodel.pmtBranch= this.formUser2.value.pmtBranch;
-  this.trippaymentsmodel.pmtBranch = this.formUser2.value.pmtBranch;
-  this.trippaymentsmodel.vehicleMasterID = this.formUser2.value.vehicleMasterID;
+  this.trippaymentsmodel.pmtDate = this.formUser2.value.pmtDate;
+ 
   this.trippaymentsmodel.tripNo = this.formUser2.value.tripNo;
+  this.trippaymentsmodel.vehicleMasterID = this.formUser2.value.vehicleMasterID;
   this.trippaymentsmodel.tripMasterId = this.formUser2.value.tripMasterId;
-  this.trippaymentsmodel.driverMasterID = this.formUser2.value.driverMasterID;
+
   this.trippaymentsmodel.amountPaid = this.formUser2.value.amountPaid;
   this.trippaymentsmodel.remarks = this.formUser2.value.remarks;
   this.trippaymentsmodel.pmtType = this.formUser2.value.pmtType;
+  this.trippaymentsmodel.transType = this.formUser2.value.transType;
   this.trippaymentsmodel.neftPmt = this.formUser2.value.neftPmt;
   this.trippaymentsmodel.creditAc = this.formUser2.value.creditAc;
   this.trippaymentsmodel.chequeNo = this.formUser2.value.chequeNo;
   this.trippaymentsmodel.chequeDate = this.formUser2.value.chequeDate;
   this.trippaymentsmodel.findocid = this.formUser2.value.findocid;
   this.trippaymentsmodel.adjInTrip = this.formUser2.value.adjInTrip;
+  this.trippaymentsmodel.qtyLtrs = this.formUser2.value.qtyLtrs;
+  this.trippaymentsmodel.ratePerLtr = this.formUser2.value.ratePerLtr;
   this.trippaymentsmodel.yearId = this.formUser2.value.yearId;
 
 

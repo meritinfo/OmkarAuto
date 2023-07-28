@@ -3,6 +3,7 @@ export class Intermediatescreenmodel {
     loginDate: string = "";
     userBranch: string = "";
     status: boolean = false;
+    message: string = "";
    
   
 }

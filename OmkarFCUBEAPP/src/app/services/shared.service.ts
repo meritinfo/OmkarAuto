@@ -24,6 +24,10 @@ export class SharedService {
   loginSubmitted(login : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
+  
+  intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Intermediatescreenmodel> {
+    return this.httpClient.post<Intermediatescreenmodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetails_Select', login, this.httpOptions);
+  }
  
 
   getMenuList(userID : string): Observable<any> {
