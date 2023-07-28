@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -18,7 +18,32 @@ export class DrivermasteraddComponent {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
+  driverPhotoData: [] = [];
+  driverPhotoPreview: [] = [];
+  driverPhotoName: string = '';
 
+  @ViewChild('driverPhotoInput', {
+    static: true
+  }) driverPhotoInput: any;
+  @ViewChild('drivingLicenseInput', {
+    static: true
+  }) drivingLicenseInput: any;
+  @ViewChild('hazdrivingLicenseInput', {
+    static: true
+  }) hazdrivingLicenseInput: any;
+  @ViewChild('tempAddressProveInput', {
+    static: true
+  }) tempAddressProveInput: any;
+  @ViewChild('perAddressProveInput', {
+    static: true
+  }) perAddressProveInput: any;
+  @ViewChild('aadharCardInput', {
+    static: true
+  }) aadharCardInput: any;
+  @ViewChild('bankPassbookInput', {
+    static: true
+  }) bankPassbookInput: any;
+  
   constructor(private route: Router, private formBuilder: FormBuilder, private driverModel: Drivermodel, private drivermasterService: DrivermasterService, private toastrService: ToastrService) {
     this.driverModel = new Drivermodel();
   }
@@ -107,6 +132,24 @@ export class DrivermasteraddComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formDriverMaster.controls; }
 
+
+  //On driver photo file select
+  onSelectDrivePhoto(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+          this.driverPhotoPreview = e.target.result;
+          this.driverPhotoData = e.target.result.split('base64,')[1];
+          this.driverPhotoName = fileInput.target.files[0].name;
+        };
+      };
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
+  }
+
   submitDriverMasterForm() {
     this.userSubmitted = true;
     if (this.formDriverMaster.invalid) {
@@ -167,8 +210,19 @@ export class DrivermasteraddComponent {
     this.driverModel.loggedInUser = this.loggedInUserID;
     this.driverModel.deleteFlag = this.formDriverMaster.value.deleteFlag;
 
+    let formData = new FormData();
+    formData.append('driverPhoto', this.driverPhotoInput.nativeElement.files[0]);
+    formData.append('drivingLicense', this.drivingLicenseInput.nativeElement.files[0]);
+    formData.append('hazdrivingLicense', this.hazdrivingLicenseInput.nativeElement.files[0]);
+    formData.append('tempAddressProve', this.tempAddressProveInput.nativeElement.files[0]);
+    formData.append('perAddressProve', this.perAddressProveInput.nativeElement.files[0]);
+    formData.append('aadharCard', this.aadharCardInput.nativeElement.files[0]);
+    formData.append('bankPassbook', this.bankPassbookInput.nativeElement.files[0]);
+
+    formData.append('datadetails', JSON.stringify(this.driverModel));
+
     if (this.driverModel.driverMasterID === "") {
-      this.drivermasterService.driverMasterDetailsSubmitted(this.driverModel).subscribe((res: Responsemodel) => {
+      this.drivermasterService.driverMasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);
