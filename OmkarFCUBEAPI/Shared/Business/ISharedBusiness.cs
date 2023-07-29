@@ -11,7 +11,7 @@ namespace Shared.Business
     {
         Task<UserModel> LoginDetails(LoginModel loginModel);
      
-        Task<ResponseModel> IntermediateScreenDetail(string request);
+        Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
     }

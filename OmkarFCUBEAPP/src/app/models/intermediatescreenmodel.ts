@@ -1,9 +1,5 @@
 export class Intermediatescreenmodel {
-    selectYear: string = "";
+    yearID: string = "";
     loginDate: string = "";
-    userBranch: string = "";
-    status: boolean = false;
-    message: string = "";
-   
-  
+    userBranch: string = "";  
 }

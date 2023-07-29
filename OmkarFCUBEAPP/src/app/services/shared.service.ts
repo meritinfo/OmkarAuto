@@ -5,6 +5,7 @@ import { Constants } from '../common/constants';
 import { Loginmodel } from '../models/loginmodel';
 import { Intermediatescreenmodel } from '../models/intermediatescreenmodel';
 import { LoggedinUsermodel } from '../models/loggedinusermodel';
+import { Responsemodel } from '../models/responsemodel';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class SharedService {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
   
-  intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Intermediatescreenmodel> {
-    return this.httpClient.post<Intermediatescreenmodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetails_Select', login, this.httpOptions);
+  intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetail', login, this.httpOptions);
   }
  
 

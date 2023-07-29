@@ -42,11 +42,11 @@ namespace OmkarFCUBEAPI.Controllers
         }
         /// </summary>
         [HttpPost("IntermediateScreenDetail")]
-        public async Task<IActionResult> IntermediateScreenDetail(UserMasterModel userMasterModel)
+        public async Task<IActionResult> IntermediateScreenDetail(IntermediateScreenModel request)
         {
             try
             {
-                var result = await sharedBusiness.IntermediateScreenDetail(userMasterModel.UserName);
+                var result = await sharedBusiness.IntermediateScreenDetail(request);
 
                 return Ok(result);
             }

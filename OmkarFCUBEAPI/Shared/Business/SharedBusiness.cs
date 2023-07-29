@@ -57,7 +57,7 @@ namespace Shared.Business
             }
             return userModel;
         }
-        public async Task<ResponseModel> IntermediateScreenDetail(string request)
+        public async Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request)
         {
             return await sharedRepository.IntermediateScreenDetail(request);
         }

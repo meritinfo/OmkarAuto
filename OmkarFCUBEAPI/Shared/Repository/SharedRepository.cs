@@ -68,7 +68,7 @@ namespace Shared.Repository
             }
             return userModel;
         }
-        public async Task<ResponseModel> IntermediateScreenDetail(string request)
+        public async Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -77,8 +77,8 @@ namespace Shared.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@YearID", request),
-                             new SqlParameter("@LoginDate", request)
+                            new SqlParameter("@YearID", request.YearID),
+                             new SqlParameter("@LoginDate", request.LoginDate)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "IntermediateScreenDetails_Select", param);
 

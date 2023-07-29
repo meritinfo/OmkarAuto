@@ -27,9 +27,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetRateList();
         }
-        public async Task<List<BranchListModel>> GetLocationList()
+        public async Task<List<BranchListModel>> GetLocationList(ConsignmentModel request)
         {
-            return await consignmentRepository.GetLocationList();
+            return await consignmentRepository.GetLocationList(request);
         }
     }
 }
