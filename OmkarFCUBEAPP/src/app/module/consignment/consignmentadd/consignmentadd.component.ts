@@ -30,6 +30,7 @@ export class ConsignmentaddComponent implements OnInit {
   cneeList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
   eWayBillDetails = new Ewaybillmodel();
+  keywordLocation = 'dataName';
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
     this.consignmentmodel = new Consignmentmodel();
@@ -205,10 +206,10 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.ewayBillNo = this.formConsignment.value.ewayBillNo;
     this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
     this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
-    this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace;
+    this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
     this.consignmentmodel.kms = this.formConsignment.value.kms;
     this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
-    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace;
+    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace.dataId;
     this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
     this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
     this.consignmentmodel.cnorInvNo = this.formConsignment.value.cnorInvNo;
@@ -273,9 +274,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
     this.consignmentmodel.includeCnNo = this.formConsignment.value.includeCnNo;
     this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
-
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
-
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -286,11 +285,9 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   searchGSTDetails(): void {
-    console.log("test");
     var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
 
     this.commonService.billDetails(payload).subscribe((res: any) => {
-      debugger;
       var result = res.result;
       if (result.code === 200) {
         this.eWayBillDetails.result = result;
@@ -309,5 +306,18 @@ export class ConsignmentaddComponent implements OnInit {
         })
       }
     });
+  }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
   }
 }
