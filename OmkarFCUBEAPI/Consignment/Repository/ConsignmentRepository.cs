@@ -329,19 +329,14 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<List<BranchListModel>> GetLocationList(ConsignmentModel request)
+        public async Task<List<BranchListModel>> GetLocationList()
         {
             List<BranchListModel> locationList = new();
             try
             {
                 if (dbconnection != null)
                 {
-                    SqlParameter[] param =
-                       {
-                            new SqlParameter("@SearchValue", request.FromPlace),
-                             
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "LocationList_Select", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "LocationList_Select", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -371,6 +366,5 @@ namespace Consignment.Repository
             }
             return locationList;
         }
-
     }
 }

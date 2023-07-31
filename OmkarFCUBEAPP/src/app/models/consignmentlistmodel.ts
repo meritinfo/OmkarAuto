@@ -3,5 +3,5 @@ import { Consignmentmodel } from "./consignmentmodel";
 
 export class Consignmentlistmodel {
   cnList: Consignmentmodel[] = [];
-    pageMetaData: Paginationmodel = new Paginationmodel;
+  pageMetaData: Paginationmodel = new Paginationmodel;
 }
