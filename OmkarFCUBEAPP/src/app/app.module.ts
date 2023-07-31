@@ -87,6 +87,7 @@ import { IntermediatescreenComponent } from './module/intermediatescreen/interme
 import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
 import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
+import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
 
 @NgModule({
   declarations: [
@@ -159,7 +160,7 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
     DataTablesModule,
     LayoutModule
   ],
-    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel,Cashreceiptentrymodel
+    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel,Cashreceiptentrymodel,Intermediatescreenmodel
     ],
   bootstrap: [AppComponent]
 })
