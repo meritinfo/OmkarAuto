@@ -263,7 +263,8 @@
 }
 
 .page-content {
-    padding: calc(70px + 24px) calc(24px * .75) 60px calc(24px * .75)
+    padding: calc(70px + 24px) calc(24px * .75) 60px calc(24px * .75);
+    background-color: #fff;
 }
 
 .header-item {
@@ -5744,4 +5745,7 @@ div.dataTables_wrapper div.dataTables_info {
 }
 .autocomplete-container{
     box-shadow: none !important;
+}
+.table-bordered>tbody>tr:nth-of-type(odd)>* {
+    background-color: #f8f9fa !important;
 }
