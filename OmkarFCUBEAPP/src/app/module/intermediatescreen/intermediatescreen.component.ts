@@ -20,7 +20,7 @@ import { ToastrService } from 'ngx-toastr';
 
 export class IntermediatescreenComponent {
   formLogin!: FormGroup;
-  loginSubmitted = false;
+  intermediateScreenSubmitted = false;
   year: string = '';
   logindate: string = '';
   branch: string = '';
@@ -30,28 +30,17 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
 
 
-  constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toastrService: ToastrService) {
-    this.loginModel = new Loginmodel();
+  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toastrService: ToastrService) {
+    this.intermediateScreenModel = new Intermediatescreenmodel();
   }
 
   //On initial load
 
   ngOnInit(): void {
-    var userData = localStorage.getItem('yearid')?.toString();
-    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-      this.year = userData;
-    }
-    var userData2 = localStorage.getItem('loginDate')?.toString();
-    if (typeof userData2 !== 'undefined' && userData2 !== null && userData2 !== '') {
-      this.logindate = userData2;
-    }
-    var userData3 = localStorage.getItem('userBranch')?.toString();
-    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
-      this.branch = userData3;
-    }
+    
 
     this.formLogin = this.formBuilder.group({
-      selectYear: new FormControl(''),
+      yearID: new FormControl(''),
       loginDate: new FormControl(''),
       userBranch: new FormControl('')
     });
@@ -68,17 +57,31 @@ export class IntermediatescreenComponent {
   // Send partner details //
 
   submitIntermediateForm(): void {
+    this.intermediateScreenSubmitted = true;
+    if (this.formLogin.invalid) {
+      return;
+    }
+    this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
+    this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
+    this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
     this.sharedService.intermediateScreenSubmitted(this.selectedScreenDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
+     
+     
+      this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
+      this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
+      this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
+
       if (this.responseDetails.status) {
         localStorage.setItem("yearid", this.selectedScreenDetails.yearID);
         localStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         localStorage.setItem("userBranch", this.selectedScreenDetails.userBranch);
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);
+       
       }
       else{
-        //this.toastrService.warning(this.responseDetails.message);
+        this.toastrService.warning(this.responseDetails.message);
       }
     });
 
