@@ -89,6 +89,8 @@ import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankrec
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
 
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -158,7 +160,9 @@ import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    LayoutModule
+    LayoutModule,
+    AutocompleteLibModule
+
   ],
     providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel,Cashreceiptentrymodel,Intermediatescreenmodel
     ],

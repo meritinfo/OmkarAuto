@@ -24,6 +24,8 @@ export class IntermediatescreenComponent {
   intermediateScreenSubmitted = false;
   year: string = '';
   logindate: string = '';
+  currentServerTime: string = '';
+
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
@@ -42,10 +44,13 @@ export class IntermediatescreenComponent {
 
     this.formLogin = this.formBuilder.group({
       yearID: new FormControl(''),
-      loginDate: new FormControl(''),
-      userBranch: new FormControl('')
+     // loginDate: new FormControl(''),
+      userBranch: new FormControl(''),
+      loginDate: new FormControl((new Date()).toISOString().substring(0,10))
     });
-
+    this.sharedService.getCurrentServerTime().subscribe((data: any) => {
+      this.currentServerTime = data.currentServerTime;
+    });
     this.sharedService.loggedInStatus = false;
     this.getBranchList();
     this.getYearList();
@@ -74,7 +79,7 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
 
       if (this.responseDetails.status) {
-        localStorage.setItem("yearid", this.selectedScreenDetails.yearID);
+        localStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         localStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         localStorage.setItem("userBranch", this.selectedScreenDetails.userBranch);
         this.sharedService.loggedInStatus = true;

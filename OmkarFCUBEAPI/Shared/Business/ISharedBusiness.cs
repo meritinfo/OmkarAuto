@@ -14,5 +14,6 @@ namespace Shared.Business
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
+        Task<List<YearListModel>> GetServerDate();
     }
 }

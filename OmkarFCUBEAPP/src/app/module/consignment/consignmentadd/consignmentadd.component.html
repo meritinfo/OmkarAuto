@@ -134,7 +134,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
-                                                <input autoclose="false" class="form-control"
+                                               
+                                                    <input autoclose="false" class="form-control"
                                                     formControlName="vehicleNumber">
                                             </div>
                                         </div>
@@ -452,11 +453,24 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Billing Station</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
-                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                                        {{branch.dataName}}
-                                                    </option>
-                                                </select>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="locationList" formControlName="toPlace"
+                                                        [searchKeyword]="keywordLocation"
+                                                        placeholder="station" (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>  
+                                                
                                             </div>
                                         </div>
                                         <div class="col-lg-8">

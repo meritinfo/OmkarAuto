@@ -34,4 +34,7 @@ export class SharedService {
   getMenuList(userID : string): Observable<any> {
     return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/MenuDetails/' + userID, this.httpOptions);
   }
+  getCurrentServerTime(): Observable<any> {
+    return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/GetServerDate/' , this.httpOptions);
+  }
 }

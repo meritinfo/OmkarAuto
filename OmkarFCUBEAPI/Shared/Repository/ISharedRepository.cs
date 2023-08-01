@@ -13,5 +13,6 @@ namespace Shared.Repository
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<List<MenuModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
+        Task<List<YearListModel>> GetServerDate();
     }
 }

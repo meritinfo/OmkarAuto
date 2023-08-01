@@ -69,6 +69,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetServerDate")]
+        public async Task<IActionResult> GetServerDate()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetServerDate();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <summary>
         /// Controller method for menu list to the application
