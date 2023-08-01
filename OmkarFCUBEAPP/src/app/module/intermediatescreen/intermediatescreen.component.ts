@@ -11,7 +11,6 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
-debugger
 @Component({
   selector: 'app-intermediatescreen',
   templateUrl: './intermediatescreen.component.html',

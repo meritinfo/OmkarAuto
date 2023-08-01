@@ -133,7 +133,6 @@ this.userSubmitted = true;
 if (this.formVehicleMaster.invalid) {
   return;
 }
-debugger;
 this.vehiclefltmastermodel.vehicleMasterID = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
 this.vehiclefltmastermodel.vehicleNo = this.formVehicleMaster.value.vehicleNo;
 this.vehiclefltmastermodel.fleetStation = this.formVehicleMaster.value.fleetStation;

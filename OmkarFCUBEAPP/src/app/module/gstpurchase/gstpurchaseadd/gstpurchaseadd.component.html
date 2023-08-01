@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
+            <form [formGroup]="formGSTPurchase">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -127,7 +127,108 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Details</h4>
-                                    <div class="row">
+                                    <table class="table table-bordered dt-responsive nowrap w-100">
+                                        <tr>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputCity">Acc Name</label>
+                                                        <input autoclose="false" placeholder="Acc Name"
+                                                            class="form-control" formControlName="accountName">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputCity">Narration</label>
+                                                        <input autoclose="false" placeholder="Narration"
+                                                            class="form-control" formControlName="narration">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputCity">SubLedger</label>
+                                                        <input autoclose="false" placeholder="SubLedger"
+                                                            class="form-control" formControlName="subLedger">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputCity">HSN/SAC</label>
+                                                        <input autoclose="false" placeholder="HSN/SAC"
+                                                            class="form-control" formControlName="hSN">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">Amount</label>
+                                                        <input class="form-control" placeholder="Amt"
+                                                            formControlName="amount">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">SGST%</label>
+                                                        <input class="form-control" placeholder="SGST%"
+                                                            formControlName="sGSTPercentage">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <label for="formrow-inputZip">SGST</label>
+                                                        <input class="form-control" placeholder="SGST Amount"
+                                                            formControlName="sGSTAmount">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        <button type="button" class="btn btn-primary"
+                                                            (click)="addItem()">Add</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table table-bordered dt-responsive nowrap w-100">
+                                        <thead>
+                                            <tr>
+                                                <th>Acc Name</th>
+                                                <th>Narration</th>
+                                                <th>SubLedger</th>
+                                                <th>HSN/SAC</th>
+                                                <th>Amount</th>
+                                                <th>SGST%</th>
+                                                <th>SGST</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of gstaccountList; let i = index">
+                                                <td>{{item.accountName}}</td>
+                                                <td>{{item.narration}}</td>
+                                                <td>{{item.subLedger}}</td>
+                                                <td>{{item.hSN}}</td>
+                                                <td>{{item.amount}}</td>
+                                                <td>{{item.sGSTPercentage}}</td>
+                                                <td>{{item.sGSTAmount}}</td>
+                                                <td><input type="button" value="delete" (click)="removeItem(i)"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!-- <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Acc Name</label>
@@ -164,13 +265,19 @@
                                                 <input class="form-control" placeholder="SGST%">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-1">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">SGST Amount</label>
+                                                <label for="formrow-inputZip">SGST</label>
                                                 <input class="form-control" placeholder="SGST Amount">
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-lg-1">
+                                            <div class="mb-3">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="addItem">Add</button>
+                                            </div>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -269,8 +376,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Check Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="woDate"
-                                                    class="form-control">
+                                                    placeholder="yyyy-mm-dd" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
