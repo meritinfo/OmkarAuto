@@ -319,4 +319,8 @@ export class ConsignmentaddComponent implements OnInit {
   onFocused(e: any) {
     // do something
   }
+
+  startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
+    return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 }

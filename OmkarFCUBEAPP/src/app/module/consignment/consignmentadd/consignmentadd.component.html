@@ -150,7 +150,8 @@
                                                         placeholder="From Place" (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate">
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -179,7 +180,8 @@
                                                         placeholder="To Place" (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate">
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
