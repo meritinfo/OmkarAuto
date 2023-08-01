@@ -197,7 +197,7 @@ namespace Shared.Repository
             }
             return yearList;
         }
-        public async Task<List<YearListModel>> GetServerdate()
+        public async Task<List<YearListModel>> GetServerDate()
         {
             List<YearListModel> yearList = new();
             try

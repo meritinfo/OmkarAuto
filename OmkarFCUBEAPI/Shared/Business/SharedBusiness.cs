@@ -65,6 +65,11 @@ namespace Shared.Business
         {
             return await sharedRepository.GetYearList();
         }
+        public async Task<List<YearListModel>> GetServerDate()
+        {
+            return await sharedRepository.GetYearList();
+        }
+
 
         /// <summary>
         /// Business method for menu list to the application
