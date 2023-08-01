@@ -168,7 +168,6 @@ export class AddbranchmasterComponent {
     this.branchModel.panApiCheckYN = this.formBranchMaster.value.panApiCheckYN;
     this.branchModel.bankApiCheckYN = this.formBranchMaster.value.bankApiCheckYN;
     this.branchModel.isHO = this.formBranchMaster.value.isHO;
-    debugger;
     this.branchmasterService.branchMasterDetailsSubmitted(this.branchModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);

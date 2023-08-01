@@ -194,7 +194,6 @@ export class ConsignmentaddComponent implements OnInit {
     if (this.formConsignment.invalid) {
       return;
     }
-    debugger;
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
     this.consignmentmodel.bookingPlace = this.formConsignment.value.userBranch;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
