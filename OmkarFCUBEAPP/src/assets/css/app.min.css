@@ -5749,3 +5749,10 @@ div.dataTables_wrapper div.dataTables_info {
 .table-bordered>tbody>tr:nth-of-type(odd)>* {
     background-color: #f8f9fa !important;
 }
+.no-border-table tr td{
+    border-width: 0px !important;
+}
+.details-button .btn{
+    width: 100%;
+    margin-bottom: 3px;
+}
