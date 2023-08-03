@@ -134,6 +134,9 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDocRenewalEntryRepository, DocRenewalEntryRepository>();
             services.AddScoped<IDocRenewalEntryBusiness, DocRenewalEntryBusiness>();
 
+            services.AddScoped<ITripMasterRepository, TripMasterRepository>();
+            services.AddScoped<ITripMasterBusiness, TripMasterBusiness>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

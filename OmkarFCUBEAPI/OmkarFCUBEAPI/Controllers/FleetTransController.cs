@@ -18,12 +18,14 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IDocRenewalEntryBusiness docRenewalEntryBusiness;
         readonly ITripPaymentsBusiness tripPaymentsBusiness;
+        readonly ITripMasterBusiness tripMasterBusiness;
 
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
+            tripMasterBusiness = _tripMasterBusiness;
 
         }
         /// <summary>
@@ -97,6 +99,24 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("TripMasterSave")]
+        public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
+        {
+            if (tripMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.TripMasterSave(tripMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 
