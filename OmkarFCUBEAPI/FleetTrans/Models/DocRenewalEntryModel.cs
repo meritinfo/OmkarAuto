@@ -45,7 +45,7 @@
         public string? Remarks { get; set; }
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
-        public string? DeleteFlag { get; set; }
+     
         public string? LoggedInUser { get; set; }
 
     }

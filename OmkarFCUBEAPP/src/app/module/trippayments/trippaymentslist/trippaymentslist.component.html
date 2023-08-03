@@ -33,15 +33,17 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>pmtBranch </th>
+                            <th>PmtBranch </th>
                       
-                            <th>tripNo </th>
+                            <th>TripNo </th>
+                            
+                         
                          
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allTripPaymentsTypes.TripPaymentsList?.length != 0">
-                        <tr *ngFor="let trip of allTripPaymentsTypes.TripPaymentsList">
+                    <tbody *ngIf="allTripPaymentsTypes.tripPaymentsList?.length != 0">
+                        <tr *ngFor="let trip of allTripPaymentsTypes.tripPaymentsList">
                             <td>{{ trip.pmtBranch }}</td>
                     
                             <td>{{ trip.tripNo }}</td>
@@ -53,7 +55,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allTripPaymentsTypes.TripPaymentsList?.length == 0">
+                    <tbody *ngIf="allTripPaymentsTypes.tripPaymentsList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

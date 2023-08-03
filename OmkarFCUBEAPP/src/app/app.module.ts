@@ -39,6 +39,8 @@ import { AddtyrepositionmasterComponent } from './module/tyrepositionmaster/addt
 import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrenewalmasterlist/docrenewalmasterlist.component';
 import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
 import { Docrenewalmastermodel } from './models/docrenewalmastermodel';
+import { Docrenewalentrymodel } from './models/docrenewalentrymodel';
+
 
 import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
@@ -74,6 +76,23 @@ import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/
 import { TrippaymentslistComponent } from './module/trippayments/trippaymentslist/trippaymentslist.component';
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
+import { Drivermodel } from './models/drivermodel';
+
+import { AdddocrenewalentryComponent } from './module/docrenewalentry/adddocrenewalentry/adddocrenewalentry.component';
+import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewalentrylist/docrenewalentrylist.component';
+import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashreceiptentrylist/cashreceiptentrylist.component';
+import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
+
+import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
+import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
+import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
+import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
+import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
+
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NumbersonlyDirective } from './directives/numbersonly.directive';
+import { DecimalonlyDirective } from './directives/decimalonly.directive';
+import { AlphanumericonlyDirective } from './directives/alphanumericonly.directive';
 
 @NgModule({
   declarations: [
@@ -96,19 +115,16 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     AddtyrepositionmasterComponent,
     DocrenewalmasterlistComponent,
     AdddocrenewalmasterComponent,
-  
+
     RatetypeslistComponent,
     AddratetypesComponent,
     LrbillserieslistComponent,
     AddlrbillseriesComponent,
     VehicletypemasterlistComponent,
     AddvehicletypemasterComponent,
- 
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
     GstdetailsComponent,
- 
-
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
     ConsignmentlistComponent,
@@ -124,6 +140,18 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     TrippaymentslistComponent,
     GstpurchaseaddComponent,
     GstpurchaselistComponent,
+
+    AdddocrenewalentryComponent,
+    DocrenewalentrylistComponent,
+    CashreceiptentrylistComponent,
+    AddcashreceiptentryComponent,
+
+    IntermediatescreenComponent,
+    BankreceiptentrylistComponent,
+    AddbankreceiptentryComponent,
+    NumbersonlyDirective,
+    DecimalonlyDirective,
+    AlphanumericonlyDirective,
   ],
   imports: [
     BrowserModule,
@@ -138,9 +166,12 @@ import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/g
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
-    LayoutModule
+    LayoutModule,
+    AutocompleteLibModule
+
   ],
-  providers: [Loginmodel, Usermodel,Destinationmodel, Productgroupmastermodel,Productmastermodel,Brandmastermodel,Tyrepositionmastermodel,Docrenewalmastermodel,Ratetypesmodel,Lrbillseriesmodel,Vehicletypemastermodel,Vehicletypegroupmastermodel,Consignmentmodel,Branchmodel,Vehiclefltmastermodel,Cnorcneemastermodel,Trippaymentsmodel],
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

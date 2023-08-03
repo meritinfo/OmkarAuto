@@ -8,7 +8,7 @@ namespace FleetTrans.Models
 {
     public class DocRenewalEntryList
     {
-        public List<DocRenewalEntryModel> DocRenewalList { get; set; }
+        public List<DocRenewalEntryModel> docRenewalList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

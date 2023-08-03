@@ -6,6 +6,7 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> VehicleTypeGroupMasterSave (VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel);
         Task<VehicleTypeGroupMasterList> GetVehicleTypeGroupMasterList(VehicleTypeGroupMasterListRequest request);
+        Task<List<VehicleListModel>> GetVehicleList();
     }
 
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AdminMasters.Business;
+using AdminMasters.Models;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Business;
 using Shared.Models;
 using System;
@@ -30,6 +32,49 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await sharedBusiness.LoginDetails(loginModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// </summary>
+        [HttpPost("IntermediateScreenDetail")]
+        public async Task<IActionResult> IntermediateScreenDetail(IntermediateScreenModel request)
+        {
+            try
+            {
+                var result = await sharedBusiness.IntermediateScreenDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetYearList")]
+        public async Task<IActionResult> GetYearList()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetYearList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetServerDate")]
+        public async Task<IActionResult> GetServerDate()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetServerDate();
 
                 return Ok(result);
             }

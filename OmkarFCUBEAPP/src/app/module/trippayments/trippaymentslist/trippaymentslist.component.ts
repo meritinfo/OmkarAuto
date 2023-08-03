@@ -56,12 +56,12 @@ export class TrippaymentslistComponent {
       
 
         {
-          title: 'pmtBranch',
+          title: 'PmtBranch',
           data: 'pmtBranch',
         },
 
        {
-        title: 'tripNo',
+        title: 'TripNo',
         data: 'tripNo',
       },
      

@@ -31,4 +31,16 @@
         public string? ImageName { get; set; }
         public byte[]? ImageData { get; set; }
     }
+
+    public class Details
+    {
+        public string ? Name { get; set; }
+        public string? Description { get; set; }
+    }
+
+    public class All
+    {
+        public UserMasterModel userMasterModel { get; set; }
+        public List<Details>  DetailsList { get; set; }
+    }
 }

@@ -263,7 +263,8 @@
 }
 
 .page-content {
-    padding: calc(70px + 24px) calc(24px * .75) 60px calc(24px * .75)
+    padding: calc(70px + 24px) calc(24px * .75) 60px calc(24px * .75);
+    background-color: #fff;
 }
 
 .header-item {
@@ -5703,9 +5704,55 @@ div.dataTables_wrapper div.dataTables_info {
     position: absolute !important;
     right: 15px;
     top: 13px;
+    z-index: 99;
 }
 .wizardPrevious{
     position: absolute !important;
     right: 135px;
     top: 0px;
+}
+.ng-autocomplete{
+    width: auto !important;
+}
+.autocomplete-container .suggestions-container ul li a{
+    font-size: 12px !important;
+    padding: 4px 8px !important;
+}
+.autocomplete-container .suggestions-container ul li a:hover{
+    background-color: #556ee6 !important;
+    color: #ffffff !important;
+}
+.autocomplete-container .input-container input{
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0.47rem 0.75rem !important;
+    font-size: .8125rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: var(--bs-gray-700) !important;
+    background-color: var(--bs-custom-white) !important;
+    background-clip: padding-box !important;
+    border: 1px solid var(--bs-input-border-color) !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    border-radius: 0.25rem !important;
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out !important;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out !important;
+}
+.autocomplete-container{
+    box-shadow: none !important;
+}
+.table-bordered>tbody>tr:nth-of-type(odd)>* {
+    background-color: #f8f9fa !important;
+}
+.no-border-table tr td{
+    border-width: 0px !important;
+}
+.details-button .btn{
+    width: 100%;
+    margin-bottom: 3px;
 }

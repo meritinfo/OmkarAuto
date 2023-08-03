@@ -14,7 +14,7 @@ namespace FleetTrans.Models
         public string? VehicleMasterID { get; set; }
         public string? TripNo { get; set; }
         public string? TripMasterId { get; set; }
-        public string? DriverMasterID { get; set; }
+       
         public string? TransType { get; set; }
         public string? AmountPaid { get; set; }
         public string? Remarks { get; set; }
@@ -25,6 +25,8 @@ namespace FleetTrans.Models
         public string? ChequeDate { get; set; }
         public string? Findocid { get; set; }
         public string? AdjInTrip { get; set; }
+        public string? QtyLtrs { get; set; }
+        public string? RatePerLtr { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
      

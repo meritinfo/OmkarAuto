@@ -9,8 +9,10 @@ import { Consignmentlistmodel } from 'src/app/models/consignmentlistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { UserService } from 'src/app/services/user.service';
+import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
+import { formatDate } from '@angular/common';
 
-
+debugger
 @Component({
   selector: 'app-consignmentadd',
   templateUrl: './consignmentadd.component.html',
@@ -22,7 +24,13 @@ export class ConsignmentaddComponent implements OnInit {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
+  rateList: Dropdownmodel[] = [];
+  cnorList: Dropdownmodel[] = [];
+  cneeList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
+  eWayBillDetails = new Ewaybillmodel();
+  keywordLocation = 'dataName';
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
     this.consignmentmodel = new Consignmentmodel();
@@ -39,6 +47,8 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     this.getBranchList();
+    this.getRateList();
+    this.getLocationList();
     this.selectedConsignmentDetails = this.consignmentService.getConsignmentDetails();
     this.formConsignment = this.formBuilder.group({
       bookingPlace: new FormControl('',),
@@ -133,7 +143,14 @@ export class ConsignmentaddComponent implements OnInit {
 
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
-
+      fromPlacePin: new FormControl('',),
+      toPlacePin: new FormControl('',),
+      consigneeAddress: new FormControl('',),
+      consigneePinCode: new FormControl('',),
+      invoiceValue: new FormControl('',),
+      vehicleNumber: new FormControl('',),
+      cnor: new FormControl('',),
+      cnee: new FormControl('',),
 
     });
     if (this.selectedConsignmentDetails.consignmentID != '') {
@@ -158,6 +175,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+  getRateList(): void {
+    this.commonService.getRateList().subscribe((res) => {
+      this.rateList = res;
+    });
+  }
+
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
 
 
   //Submit user form details //
@@ -166,7 +194,6 @@ export class ConsignmentaddComponent implements OnInit {
     if (this.formConsignment.invalid) {
       return;
     }
-    debugger;
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
     this.consignmentmodel.bookingPlace = this.formConsignment.value.userBranch;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
@@ -178,10 +205,10 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.ewayBillNo = this.formConsignment.value.ewayBillNo;
     this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
     this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
-    this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace;
+    this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
     this.consignmentmodel.kms = this.formConsignment.value.kms;
     this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
-    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace;
+    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace.dataId;
     this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
     this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
     this.consignmentmodel.cnorInvNo = this.formConsignment.value.cnorInvNo;
@@ -246,9 +273,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
     this.consignmentmodel.includeCnNo = this.formConsignment.value.includeCnNo;
     this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
-
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
-
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -257,4 +282,45 @@ export class ConsignmentaddComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  searchGSTDetails(): void {
+    var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
+
+    this.commonService.billDetails(payload).subscribe((res: any) => {
+      var result = res.result;
+      if (result.code === 200) {
+        this.eWayBillDetails.result = result;
+        this.formConsignment.patchValue({
+          ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+          ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+          fromPlacePin: this.eWayBillDetails.result.message.pincode_of_consignor,
+          toPlacePin: this.eWayBillDetails.result.message.pincode_of_consignee,
+          cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
+          cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
+          kms: this.eWayBillDetails.result.message.transportation_distance,
+          consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
+          consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+          invoiceValue: this.eWayBillDetails.result.message.total_invoice_value,
+          vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+        })
+      }
+    });
+  }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
+    return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 }

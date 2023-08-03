@@ -44,9 +44,12 @@ export class LoginComponent implements OnInit {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
         localStorage.setItem("uid", this.selectedUserDetails.userId);
+     
         localStorage.setItem("token", this.selectedUserDetails.token);
+        localStorage.setItem("user", this.selectedUserDetails.userName);
+      
         this.sharedService.loggedInStatus = true;
-        this.route.navigate(['/dashboard']);
+        this.route.navigate(['/intermediatescreen']);
       }
       else {
         console.log(this.selectedUserDetails.message);

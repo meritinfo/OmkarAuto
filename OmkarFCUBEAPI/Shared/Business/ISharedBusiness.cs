@@ -10,6 +10,10 @@ namespace Shared.Business
     public interface ISharedBusiness
     {
         Task<UserModel> LoginDetails(LoginModel loginModel);
+     
+        Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
+        Task<List<YearListModel>> GetYearList();
+        Task<List<YearListModel>> GetServerDate();
     }
 }

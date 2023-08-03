@@ -39,6 +39,13 @@ import { TrippaymentslistComponent } from './module/trippayments/trippaymentslis
 import { AddtrippaymentsComponent } from './module/trippayments/addtrippayments/addtrippayments.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
+import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewalentrylist/docrenewalentrylist.component';
+import { AdddocrenewalentryComponent } from './module/docrenewalentry/adddocrenewalentry/adddocrenewalentry.component';
+import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashreceiptentrylist/cashreceiptentrylist.component';
+import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
+import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
+import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
+import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 
 
 
@@ -99,6 +106,14 @@ const routes: Routes = [
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },
   { path: 'gstpurchaseadd', component: GstpurchaseaddComponent },
+  { path: 'docrenewalentrylist', component: DocrenewalentrylistComponent },
+  { path: 'adddocrenewalentry', component: AdddocrenewalentryComponent },
+  { path: 'cashreceiptentrylist', component: CashreceiptentrylistComponent },
+  { path: 'addcashreceiptentry', component: AddcashreceiptentryComponent },
+  { path: 'bankreceiptentrylist', component: BankreceiptentrylistComponent },
+  { path: 'addbankreceiptentry', component: AddbankreceiptentryComponent },
+  { path: 'intermediatescreen', component: IntermediatescreenComponent },
+  
   
   
  

@@ -16,6 +16,9 @@ export class Trippaymentsmodel {
     chequeDate: string = "";
     findocid: string = "";
     adjInTrip: string = "";
+    qtyLtrs: string = "";
+    ratePerLtr: string = "";
+    
     yearId: string = "";
     loggedInUser: string = "";
    

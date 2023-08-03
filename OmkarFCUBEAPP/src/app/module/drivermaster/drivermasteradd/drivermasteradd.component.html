@@ -16,351 +16,342 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
-                <div class="row">
+            <form [formGroup]="formDriverMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <div id="basic-example">
-                                    <!-- Personal Details -->
-                                    <h3>Personal Details</h3>
-                                    <section>
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Driver name</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input"
-                                                            placeholder="Enter Driver Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Father name</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Driver Father Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Date of Birth</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-firstname-input"
-                                                            placeholder="Enter Date of Birth">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Age</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-lastname-input" placeholder="Enter Age">
-                                                    </div>
+                                <!-- Personal Details -->
+                                <h4 class="card-title mb-4">Personal Details</h4>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Driver name</label>
+                                                <input type="text" class="form-control" id="basicpill-firstname-input"
+                                                    formControlName="driverName" placeholder="Enter Driver Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Father name</label>
+                                                <input type="text" class="form-control" formControlName="fatherName"
+                                                    placeholder="Enter Driver Father Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Date of Birth</label>
+                                                <input type="date" class="form-control" formControlName="dateOfBirth"
+                                                    placeholder="Enter Date of Birth">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Age</label>
+                                                <input type="text" class="form-control" formControlName="age"
+                                                    placeholder="Enter Age">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Blood Group</label>
+                                                <input type="text" class="form-control" formControlName="bloodGroup"
+                                                    placeholder="Enter Blood Group">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Introduced By</label>
+                                                <input type="text" class="form-control" formControlName="introBy"
+                                                    placeholder="Enter Introduced By">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Mobile No</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="introByMobileNo" placeholder="Enter Mobile No">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Date of
+                                                    Appointment</label>
+                                                <input type="date" class="form-control" formControlName="dateOfAppoint"
+                                                    placeholder="Enter Date of Appointment">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Group Name</label>
+                                                <input type="text" class="form-control" formControlName="groupName"
+                                                    placeholder="Enter Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Aadhar No</label>
+                                                <input type="text" class="form-control" formControlName="driverAadharNo"
+                                                    placeholder="Enter Aadhar No">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Licence No</label>
+                                                <input type="text" class="form-control" formControlName="licenseNo"
+                                                    placeholder="Enter Licence No">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Valid Upto</label>
+                                                <input type="date" class="form-control" formControlName="licValidUpto"
+                                                    placeholder="Enter Valid Upto">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Issue Auth</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="licenseIssuAuth" placeholder="Enter Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <div class="form-check mt-4">
+                                                    <input type="checkbox" id="formHLicYNRadio"
+                                                        class="form-check-input mt-10"
+                                                        formControlName="isHazardousLicYN">
+                                                    <label for="formHLicYNRadio" class="form-check-label"> Hazardous
+                                                        Lic
+                                                        Y/N
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Blood Group</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input"
-                                                            placeholder="Enter Blood Group">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Introduced By</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input"
-                                                            placeholder="Enter Introduced By">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Mobile No</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-lastname-input" placeholder="Enter Mobile No">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Date of
-                                                            Appointment</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Date of Appointment">
-                                                    </div>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Hazardous Licence No</label>
+                                                <input type="text" class="form-control" formControlName="hazardousLicNo"
+                                                    placeholder="Enter Licence No">
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Name</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input" placeholder="Enter Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Aadhar No</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input"
-                                                            placeholder="Enter Aadhar No">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Licence No</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Licence No">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>hazardous Valid Upto</label>
+                                                <input type="date" class="form-control"
+                                                    formControlName="hazLicValidUpto" placeholder="Enter Valid Upto">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>HazLicense Issue Auth</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="hazLicenseIssuAuth" placeholder="Enter">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <!-- <div class="mb-3">
                                                         <label for="basicpill-lastname-input">Valid Upto</label>
                                                         <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
+                                                             formControlName="userName"
                                                             placeholder="Enter Valid Upto">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Name</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input" placeholder="Enter Name">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <div class="form-check mt-4">
-                                                            <input type="checkbox" id="formRadio" value="A"
-                                                                class="form-check-input mt-10"><label for="formRadio"
-                                                                class="form-check-label"> Y/N
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Licence No</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Licence No">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Valid Upto</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Valid Upto">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Is</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-firstname-input" placeholder="Enter">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Valid Upto</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Valid Upto">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
+                                                    </div> -->
+                                        </div>
+                                        <div class="col-lg-3">
 
-                                                </div>
-                                                <div class="col-lg-3">
+                                        </div>
+                                        <div class="col-lg-3">
 
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label>Temporary Address</label>
+                                                <input type="text" class="form-control" formControlName="temporaryAddr"
+                                                    placeholder="Enter Temporary Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>City</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="temporaryAddrCity" placeholder="Enter City">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Pin</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="temporaryAddrPin" placeholder="Enter Pin">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Phone</label>
+                                                <input type="email" class="form-control" formControlName="tempAddPhone"
+                                                    placeholder="Enter Phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label>Permanent Address</label>
+                                                <input type="text" class="form-control" formControlName="permanentAddr"
+                                                    placeholder="Enter Permanent Address">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>City</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="permanentAddrCity" placeholder="Enter City">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Pin</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="permanentAddrPin" placeholder="Enter Pin">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Phone</label>
+                                                <input type="email" class="form-control" formControlName="permAddPhone"
+                                                    placeholder="Enter Phone">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Experience</label>
+                                                <input type="text" class="form-control"
+                                                    formControlName="previousExpDetails" placeholder="Enter Experience">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Years</label>
+                                                <input type="email" class="form-control"
+                                                    formControlName="previousExpYears" placeholder="Enter Years">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Driver Photo</label>
+                                                <input #driverPhotoInput class="form-control" type="file"
+                                                    id="formDriverPhoto" accept="image/*"
+                                                    (change)="onSelectDrivePhoto($event)">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <img [src]="driverPhotoPreview" height="120" width="120">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Mobile 1</label>
+                                                <input type="email" class="form-control" placeholder="Enter Mobile 1">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Mobile 2</label>
+                                                <input type="email" class="form-control" placeholder="Enter Mobile 2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <div class="form-check mt-4">
+                                                    <input type="checkbox" id="formActive"
+                                                        class="form-check-input mt-10" formControlName="isActive">
+                                                    <label for="formActive" class="form-check-label"> Active Y/N
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Temporary Address</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-phoneno-input"
-                                                            placeholder="Enter Temporary Address">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">City</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter City">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Pin</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Pin">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Phone</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Phone">
-                                                    </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>InActive Date</label>
+                                                <input type="date" class="form-control" formControlName="inActiveDate"
+                                                    placeholder="Enter InActive Date">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <div class="form-check mt-4">
+                                                    <input type="checkbox" id="formRemovedRadio"
+                                                        class="form-check-input mt-10" formControlName="removedYN">
+                                                    <label for="formRemovedRadio" class="form-check-label"> Removed
+                                                        Y/N
+                                                    </label>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Permanent Address</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-phoneno-input"
-                                                            placeholder="Enter Permanent Address">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">City</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter City">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Pin</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Pin">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Phone</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Phone">
-                                                    </div>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Removed Date</label>
+                                                <input type="date" class="form-control" formControlName="removedDate"
+                                                    placeholder="Enter Renewed Date">
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Experience</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-phoneno-input" placeholder="Enter Experience">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Years</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Years">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-
-                                                </div>
-                                                <div class="col-lg-3">
-
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Driver Ph No</label>
-                                                        <input type="text" class="form-control"
-                                                            id="basicpill-phoneno-input"
-                                                            placeholder="Enter Driver Ph No">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Mobile 1</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Mobile 1">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-email-input">Mobile 2</label>
-                                                        <input type="email" class="form-control"
-                                                            id="basicpill-email-input" placeholder="Enter Mobile 2">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <div class="mb-3">
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <div class="form-check mt-4">
-                                                            <input type="checkbox" id="formRadio" value="A"
-                                                                class="form-check-input mt-10"><label for="formRadio"
-                                                                class="form-check-label"> Active Y/N
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">InActive Date</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter InActive Date">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <div class="form-check mt-4">
-                                                            <input type="checkbox" id="formRadio" value="A"
-                                                                class="form-check-input mt-10"><label for="formRadio"
-                                                                class="form-check-label"> Renewed Y/N
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Renewed Date</label>
-                                                        <input type="date" class="form-control"
-                                                            id="basicpill-lastname-input"
-                                                            placeholder="Enter Renewed Date">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </section>
-
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
                                     <!-- Bank Details -->
-                                    <h3>Bank Details</h3>
+                                    <h4 class="card-title mb-4">Bank Details</h4>
                                     <section>
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-pancard-input">Bank Account Name</label>
-                                                    <input type="text" class="form-control" id="basicpill-pancard-input"
+                                                    <label>Bank Account Name</label>
+                                                    <input type="text" class="form-control"
+                                                        formControlName="drBankAccountName"
                                                         placeholder="Enter Bank Account Name">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-vatno-input">Bank Name</label>
-                                                    <input type="text" class="form-control" id="basicpill-vatno-input"
+                                                    <label>Bank Name</label>
+                                                    <input type="text" class="form-control" formControlName="bankName"
                                                         placeholder="Enter Bank Name">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-vatno-input">Bank Account No</label>
-                                                    <input type="text" class="form-control" id="basicpill-vatno-input"
+                                                    <label>Bank Account No</label>
+                                                    <input type="text" class="form-control" formControlName="bankAcNo"
                                                         placeholder="Enter Bank Account No">
                                                 </div>
                                             </div>
@@ -368,91 +359,107 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-pancard-input">IFSC Code</label>
-                                                    <input type="text" class="form-control" id="basicpill-pancard-input"
-                                                        placeholder="Enter IFSC Code">
+                                                    <label>IFSC Code</label>
+                                                    <input type="text" class="form-control"
+                                                        formControlName="bankIfsCode" placeholder="Enter IFSC Code">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-vatno-input">Branch Name</label>
-                                                    <input type="text" class="form-control" id="basicpill-vatno-input"
+                                                    <label>Branch Name</label>
+                                                    <input type="text" class="form-control" formControlName="bankBranch"
                                                         placeholder="Enter Branch Name">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-vatno-input">Account Type</label>
-                                                    <input type="text" class="form-control" id="basicpill-vatno-input"
+                                                    <label>Account Status</label>
+                                                    <input type="text" class="form-control"
+                                                        formControlName="bankAccountStatus"
                                                         placeholder="Enter Account Type">
                                                 </div>
                                             </div>
                                         </div>
                                     </section>
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
                                     <!-- Attachment Details -->
-                                    <h3>Attachment Details</h3>
+                                    <h4 class="card-title mb-4">Attachment Details</h4>
                                     <section>
                                         <div>
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">Driving License</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <label for="formDLFile" class="form-label">Driving
+                                                            License</label>
+                                                        <input #drivingLicenseInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">License</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <label for="formLicFile" class="form-label">Haz License</label>
+                                                        <input #hazdrivingLicenseInput class="form-control" type="file"
+                                                            id="formLicFile" accept="image/*">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">Temporary Address
-                                                            Prove</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <label for="formTempAddFile" class="form-label">Temporary
+                                                            Address Prove</label>
+                                                        <input #tempAddressProveInput class="form-control" type="file"
+                                                            id="formTempAddFile" accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">Permanent Address
+                                                        <label for="formPerAddFile" class="form-label">Permanent
+                                                            Address
                                                             Prove</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <input #perAddressProveInput class="form-control" type="file" id="formPerAddFile"
+                                                            accept="image/*">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">AAdhar Card</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <label for="formAadharFile" class="form-label">Aadhar
+                                                            Card</label>
+                                                        <input #aadharCardInput class="form-control" type="file" id="formAadharFile"
+                                                            accept="image/*">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
-                                                        <label for="formFile" class="form-label">Bank Passbook</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <label for="formPassbookFile" class="form-label">Bank
+                                                            Passbook</label>
+                                                        <input #bankPassbookInput class="form-control" type="file" id="formPassbookFile"
+                                                            accept="image/*">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </section>
-                                    <div class="row text-right">
-                                        <div class="col-lg-12">
-                                            <div class="tex">
-                                                <button type="submit" class="btn btn-primary w-md"
-                                                    style="display: none;" (click)="submitDriverMasterForm()">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
-
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
-
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md"
+                                (click)="submitDriverMasterForm()">Submit</button>
+                        </div>
                     </div>
                     <!-- end col -->
                 </div>

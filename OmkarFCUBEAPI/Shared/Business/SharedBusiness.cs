@@ -57,7 +57,20 @@ namespace Shared.Business
             }
             return userModel;
         }
-        
+        public async Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request)
+        {
+            return await sharedRepository.IntermediateScreenDetail(request);
+        }
+        public async Task<List<YearListModel>> GetYearList()
+        {
+            return await sharedRepository.GetYearList();
+        }
+        public async Task<List<YearListModel>> GetServerDate()
+        {
+            return await sharedRepository.GetYearList();
+        }
+
+
         /// <summary>
         /// Business method for menu list to the application
         /// </summary>

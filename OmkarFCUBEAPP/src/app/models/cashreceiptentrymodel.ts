@@ -1,0 +1,45 @@
+export class Cashreceiptentrymodel {
+    ftmId: string = "";
+    ftmDate: string = "";
+    docType: string = "";
+    docSeries: string = "";
+    docNo: string = "";
+    seriesDoc: string = "";
+    remarks: string = "";
+    refType: string = "";
+    refNo: string = "";
+    docAmount: string = "";
+    neftPmt: string = "";
+    utrNo: string = "";
+    isDebitAdvice: string = "";
+    daRefNo: string = "";
+    autoCreditFtmId: string = "";
+    isTdsEntry: string = "";
+    linkedYN: string = "";
+    linkedDoc: string = "";
+    branchCode: string = "";
+    auditYN: string = "";
+    auditDt: string = "";
+    auditBy: string = "";
+    auditRemarks: string = "";
+    modifyRemarks: string = "";
+    yearID: string = "";
+    ftdID: string = "";
+    ftmID: string = "";
+    slNo: string = "";
+    typeSign: string = "";
+    amount: string = "";
+    accountID: string = "";
+    narration: string = "";
+    chequeNo: string = "";
+    chequeDate: string = "";
+    bankRefNo: string = "";
+    costRefType: string = "";
+    costRefNo: string = "";
+    reference: string = "";
+    costCode: string = "";
+    clearDate: string = "";
+    branchReconYN: string = "";
+    acctLedgerType: string = "";
+
+}

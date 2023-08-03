@@ -23,5 +23,6 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeMasterRepository.GetVehicleTypeMasterList(request);
         }
+
     }
 }

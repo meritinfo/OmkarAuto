@@ -24,46 +24,57 @@
                          <h4 class="card-title mb-4">Destination details</h4>
                          <div class="row">
                             <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
+                              
+                                  
                                      <div class="row">
-                                        <div class="col-sm-2">
+                                       <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <label for="horizontal-firstname-input" class="col-form-label">Destination
                                            Name</label>
                                         </div>
-                                        <div class="col-sm-4">
-                                           <input type="text" class="form-control"
+                                       </div>
+                                        <div class="col-lg-2">
+                                          <div class="mb-4">
+                                           <input type="text"  autofocus="autofocus"  class="form-control"
                                            placeholder="Enter  Destination name" formControlName="centreName"
                                            [ngClass]=>
                                         </div>
                                      </div>
-                                  </div>
-                               </div>
+                                    </div>
+                                
+                               
                             </div>
                             <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
+                             
+                               
                                      <div class="row">
-                                        <div class="col-sm-2">
+                                       <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <label for="horizontal-firstname-input" class="col-form-label">Pin Code</label>
                                         </div>
-                                        <div class="col-sm-4">
+                                       </div>
+                                        <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <input type="text" class="form-control"
                                            placeholder="Enter Pin Code" formControlName="pinCode"
                                            [ngClass]=>
                                         </div>
                                      </div>
-                                  </div>
-                               </div>
+                                    </div>
+                                
+                               
                             </div>
                             <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
+                              
+                                 
                                      <div class="row">
-                                        <div class="col-sm-2">
+                                       <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <label for="horizontal-firstname-input" class="col-form-label">Branch</label>
                                         </div>
-                                        <div class="col-sm-4">
+                                       </div>
+                                        <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <select class="form-control" formControlName="userBranch" [ngClass]="">
                                               <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                  {{branch.dataName}}
@@ -71,17 +82,20 @@
                                            </select>
                                         </div>
                                      </div>
-                                  </div>
-                               </div>
+                                    </div>
+                               
                             </div>
                             <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
+                             
+                                  
                                      <div class="row">
-                                        <div class="col-sm-2">
+                                       <div class="col-lg-2">
+                                          <div class="mb-4">
                                            <label for="horizontal-firstname-input" class="col-form-label">Select State</label>
                                         </div>
-                                        <div class="col-sm-4">
+                                       </div>
+                                       <div class="col-sm-2">
+                                          <div class="mb-4">
                                            <select class="form-control" formControlName="userState" [ngClass]="">
                                               <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                  {{state.dataName}}
@@ -89,8 +103,8 @@
                                            </select>
                                         </div>
                                      </div>
-                                  </div>
-                               </div>
+                                    </div>
+                            
                             </div>
                          </div>
                       </div>

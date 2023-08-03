@@ -35,6 +35,7 @@ export class AddratetypesComponent {
 
 }
 ngOnInit(): void {
+ 
   var userData = localStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
