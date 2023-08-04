@@ -93,6 +93,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NumbersonlyDirective } from './directives/numbersonly.directive';
 import { DecimalonlyDirective } from './directives/decimalonly.directive';
 import { AlphanumericonlyDirective } from './directives/alphanumericonly.directive';
+import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
+import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 
 @NgModule({
   declarations: [
@@ -152,6 +154,8 @@ import { AlphanumericonlyDirective } from './directives/alphanumericonly.directi
     NumbersonlyDirective,
     DecimalonlyDirective,
     AlphanumericonlyDirective,
+    TripsheetlistComponent,
+    TripsheetaddComponent,
   ],
   imports: [
     BrowserModule,
