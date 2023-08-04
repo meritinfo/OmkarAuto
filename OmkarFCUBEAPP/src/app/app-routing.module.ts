@@ -46,6 +46,8 @@ import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashr
 import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
+import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
+import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 
 
 
@@ -113,6 +115,8 @@ const routes: Routes = [
   { path: 'bankreceiptentrylist', component: BankreceiptentrylistComponent },
   { path: 'addbankreceiptentry', component: AddbankreceiptentryComponent },
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
+  { path: 'tripsheetlist', component: TripsheetlistComponent },
+  { path: 'tripsheetadd', component: TripsheetaddComponent },
   
   
   

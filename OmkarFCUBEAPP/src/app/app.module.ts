@@ -90,6 +90,11 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
 import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NumbersonlyDirective } from './directives/numbersonly.directive';
+import { DecimalonlyDirective } from './directives/decimalonly.directive';
+import { AlphanumericonlyDirective } from './directives/alphanumericonly.directive';
+import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
+import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +117,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     AddtyrepositionmasterComponent,
     DocrenewalmasterlistComponent,
     AdddocrenewalmasterComponent,
-  
+
     RatetypeslistComponent,
     AddratetypesComponent,
     LrbillserieslistComponent,
@@ -142,10 +147,15 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     DocrenewalentrylistComponent,
     CashreceiptentrylistComponent,
     AddcashreceiptentryComponent,
- 
+
     IntermediatescreenComponent,
-       BankreceiptentrylistComponent,
-       AddbankreceiptentryComponent,
+    BankreceiptentrylistComponent,
+    AddbankreceiptentryComponent,
+    NumbersonlyDirective,
+    DecimalonlyDirective,
+    AlphanumericonlyDirective,
+    TripsheetlistComponent,
+    TripsheetaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -164,8 +174,8 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     AutocompleteLibModule
 
   ],
-    providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel,Cashreceiptentrymodel,Cashreceiptentrymodel,Intermediatescreenmodel
-    ],
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
