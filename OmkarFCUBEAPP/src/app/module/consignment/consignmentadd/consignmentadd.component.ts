@@ -34,6 +34,7 @@ export class ConsignmentaddComponent implements OnInit {
   selectedConsignmentDetails = new Consignmentmodel();
   eWayBillDetails = new Ewaybillmodel();
   keywordLocation = 'dataName';
+  ivVehicleNo= '';
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
     this.consignmentmodel = new Consignmentmodel();
@@ -135,6 +136,7 @@ export class ConsignmentaddComponent implements OnInit {
       })
     }
 
+    //this.ivVehicleNo = 'TS07UF3495';
 
   }
   // convenience getter for easy access to contact form fields
@@ -288,7 +290,8 @@ export class ConsignmentaddComponent implements OnInit {
           consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
           invoiceValue: this.eWayBillDetails.result.message.total_invoice_value,
           vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-        })
+        });
+        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
       }
     });
   }
