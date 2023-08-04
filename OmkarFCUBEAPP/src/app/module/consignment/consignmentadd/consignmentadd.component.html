@@ -40,10 +40,11 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">LR.Series/No</label>
 
-                                                <select id="formrow-inputState" class="form-select"
-                                                    formControlName="gcSeries">
-                                                    <option selected="">Choose...</option>
-                                                    <option>2001</option>
+                                                
+                                                <select class="form-control" formControlName="gcSeries" [ngClass]="">
+                                                    <option *ngFor="let branch of lrSeries" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -52,7 +53,7 @@
                                                 <label for="formrow-inputState">GcSlNo</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter GcSlNo" formControlName="gcSlNo" [ngClass]=>
+                                                    placeholder="GcSlNo" formControlName="gcSlNo" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -68,7 +69,9 @@
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="bookingStatus">
                                                     <option selected="">Choose...</option>
-                                                    <option>yes</option>
+                                                    <option value="TBB">TBB</option>
+                                                    <option value="FOC">FOC</option>
+                                                    <option value="Can">Cancel</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -79,7 +82,7 @@
                                             <div class="form-check mb-3">
                                                 <input type="radio" formControlName="ewayBillEntryType" value="A"
                                                     class="form-check-input" />
-                                                <label for="formRadios1" class="form-check-label"> Get ALL
+                                                <label for="formRadios1" class="form-check-label" style="color:green"> Get ALL
                                                     From EWayBill API
                                                 </label>
 
@@ -89,7 +92,7 @@
                                             <div class="form-check">
                                                 <input type="radio" formControlName="ewayBillEntryType" id="formRadios2"
                                                     value="M" class="form-check-input" /><label for="formRadios2"
-                                                    class="form-check-label"> No EWay Bill or Manual Entry
+                                                    class="form-check-label" style="color:green">  EWay Bill  Manual Entry
                                                 </label>
                                             </div>
                                         </div>
@@ -98,7 +101,7 @@
                                                 <input type="radio" name="ewayBillEntryType"
                                                     formControlName="ewayBillEntryType" id="formRadios3" value="E"
                                                     class="form-check-input"><label for="formRadios2"
-                                                    class="form-check-label"> No EWay Bill Exemption
+                                                    class="form-check-label" style="color:green"> No EWay Bill Exemption
                                                 </label>
                                             </div>
                                         </div>
@@ -117,7 +120,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">EWay Bill Date</label>
+                                                <label for="formrow-inputZip" >EWay Bill Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
                                                     placeholder="yyyy-mm-dd" formControlName="ewayBillDate"
                                                     class="form-control">
@@ -135,8 +138,13 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
                                                
-                                                    <input autoclose="false" class="form-control"
-                                                    formControlName="vehicleNumber">
+                                                  
+                                                    <select class="form-control" formControlName="vehicleNumber" [ngClass]="">
+                                                        <option *ngFor="let branch of vehicleList" value={{branch.dataId}}>
+                                                            {{branch.dataName}}
+                                                        </option>
+                                                    </select>
+                                                    
                                             </div>
                                         </div>
                                     </div>
@@ -233,27 +241,38 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Cnor Gst</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Cnor Gst" formControlName="" [ngClass]=>
+                                                    placeholder="Enter Cnor Gst" formControlName="cnorGst" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
-                                                <input class="form-control">
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                    placeholder="Cnor Inv No" formControlName="cnorInvNo" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice Value</label>
                                                 <input type="text" autoclose="false" class="form-control"
                                                     formControlName="invoiceValue">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
                                                     placeholder="yyyy-mm-dd" formControlName="cnorInvDate"
                                                     class="form-control">
+                                            </div>
+                                        </div>
+                                          <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">CnorPlantCode </label>
+                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                placeholder="Enter Cnor Gst" formControlName="cnorPlantCode" [ngClass]=>
+
                                             </div>
                                         </div>
                                     </div>
@@ -264,21 +283,40 @@
                                                 <label for="formrow-inputZip">Consignee</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Consignee" formControlName="cneeCode" [ngClass]=>
+                                                    placeholder=" Consignee" formControlName="cneeCode" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">&nbsp;</label>
-                                                <input class="form-control" formControlName="consigneeAddress">
+                                                <label for="formrow-inputZip">Consignee Address 1</label>
+                                                <input class="form-control" formControlName="cneeAdd1">
                                             </div>
                                         </div>
+                                   
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">Consignee Address 2</label>
+                                                    <input class="form-control" formControlName="cneeAdd2">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">Consignee Address 3</label>
+                                                    <input class="form-control" formControlName="cneeAdd3">
+                                                </div>
+                                            </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">&nbsp;</label>
+                                                <label for="formrow-inputZip">Consignee PinCode</label>
                                                 <input class="form-control" formControlName="consigneePinCode">
                                             </div>
                                         </div>
+                                    </div>
+                                        
+                                      
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents</label>
@@ -288,15 +326,16 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
                                                 <input type="text" class="form-control" placeholder="Enter  "
                                                     formControlName="gcSeries" [ngClass]=>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                       
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Actual Wt</label>
@@ -329,7 +368,16 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">CneeDealrCode </label>
+
+                                                <input autoclose="false" placeholder="CneeDealrCode "formControlName="cneeDealrCode"
+                                                class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
+                               
                                 </div>
                             </div>
                         </div>
@@ -408,12 +456,7 @@
                                                 <input class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Multi Pt</label>
-                                                <input class="form-control">
-                                            </div>
-                                        </div>
+                                     
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Other Charge</label>
@@ -455,26 +498,44 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Billing Station</label>
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                                        [searchKeyword]="keywordLocation"
-                                                        placeholder="station" (selected)='selectEvent($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>  
+                                                <select class="form-control" formControlName="userBranch3" [ngClass]="">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
                                                 
                                             </div>
                                         </div>
+                                        <div class="col-lg-4">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Billing Party </label>
+                                     
+                                                   
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="partyList" formControlName="billingParty"
+                                                            [searchKeyword]="keywordLocation"
+                                                            placeholder="Billing Party" (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter">
+                                                        </ng-autocomplete>
+    
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+    
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>  
+                                                    
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                                        <div class="row">
+                                        
                                         <div class="col-lg-8">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Remarks</label>
@@ -494,7 +555,7 @@
                         <div class="tex">
 
                             <button type="submit" class="btn btn-primary w-md"
-                                (click)="submitConsignmentForm()">Submit</button>
+                                (click)="submitConsignmentForm()">Save</button>
                         </div>
                     </div>
                 </div>

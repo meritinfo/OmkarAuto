@@ -58,80 +58,55 @@ namespace Consignment.Repository
                                 EwayBillExpExtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpExtDate"]),
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                FromPin = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPin"]),
+                                ToPin = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPin"]),
 
                                 Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
+                                OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnTruck "]),
+                                TruckId = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckId "]),
+                                TruckNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo "]),
+                                BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty "]),
                                 BillingBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingBranch"]),
-                                CnorCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCode"]),
-                                CneeCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeCode"]),
-                                CnorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvNo"]),
-                                CnorInvDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvDate"]),
-                                PoNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PoNo"]),
-                                PoDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PoDate"]),
-                                WoNo = Convert.ToString(dataSet.Tables[0].Rows[i]["WoNo"]),
-                                WoDate = Convert.ToString(dataSet.Tables[0].Rows[i]["WoDate"]),
-                                RiskBy = Convert.ToString(dataSet.Tables[0].Rows[i]["RiskBy"]),
-                                BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty"]),
-                                OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnTruck"]),
-                                TruckId = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckId"]),
-                                TruckNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
-                                ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
-                                GstHSN = Convert.ToString(dataSet.Tables[0].Rows[i]["GstHSN"]),
+                                CnorCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorCode "]),
+                                CnorGst = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorGst "]),
+                                CnorPlantCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorPlantCode "]),
+                                CnorInvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvNo "]),
+                                CnorInvDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvDate "]),
+                                DeclaredValue = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclaredValue "]),
+                                CneeCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeCode "]),
+                                CneeAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd1  "]),
+                                CneeAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd2  "]),
+
+                                CneeAdd3 = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeAdd3  "]),
+                                CneeGst = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeGst  "]),
+                                CneeDealrCode = Convert.ToString(dataSet.Tables[0].Rows[i]["CneeDealrCode  "]),
+                                ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentNo"]),
+                                ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShipmentDt"]),
+                                ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId  "]),
+                                ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductDesc "]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
-                                WeightType = Convert.ToString(dataSet.Tables[0].Rows[i]["WeightType"]),
                                 ActualWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 Chargewt = Convert.ToString(dataSet.Tables[0].Rows[i]["Chargewt"]),
-                                BulkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["BulkYN"]),
-                                LoadLength = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadLength"]),
-                                LoadWidth = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadWidth"]),
-                                LoadCFT = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadCFT"]),
-                                DelType = Convert.ToString(dataSet.Tables[0].Rows[i]["DelType"]),
-                                LoadType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadType"]),
                                 RateType = Convert.ToString(dataSet.Tables[0].Rows[i]["RateType"]),
-                                PrivateMark = Convert.ToString(dataSet.Tables[0].Rows[i]["PrivateMark"]),
-                                StaxGstBy = Convert.ToString(dataSet.Tables[0].Rows[i]["StaxGstBy"]),
                                 RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
                                 FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
-                                AocRs = Convert.ToString(dataSet.Tables[0].Rows[i]["AocRs"]),
-                                FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
-                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
-                                DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollRs"]),
-                                DoorDeliRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDeliRs"]),
-                                WithPassRs = Convert.ToString(dataSet.Tables[0].Rows[i]["WithPassRs"]),
-                                InsuranceRs = Convert.ToString(dataSet.Tables[0].Rows[i]["InsuranceRs"]),
-                                PackingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["PackingRs"]),
-                                DccRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DccRs"]),
+                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalR"]),
+                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs "]),
                                 LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
-                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
                                 MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
                                 ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
                                 UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
                                 DetentionRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionRs"]),
-                                StorageRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StorageRs"]),
-                                WarehousingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["WarehousingRs"]),
                                 OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
-                                OthersRs1 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs1"]),
-                                OthersRs2 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs2"]),
-                                OthersRs3 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs3"]),
-                                OthersRs4 = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs4"]),
                                 SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
-                                GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
-                                GstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["GstPct"]),
-                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
-                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
-                                NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
-                                NonGstAmt1Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1Desc"]),
-                                NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
-                                NonGstAmt2Desc = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2Desc"]),
-                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                                AdvanceRs = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceRs"]),
-                                GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
-                                IncludeCnYn = Convert.ToString(dataSet.Tables[0].Rows[i]["IncludeCnYn"]),
-                                IncludeCnNo = Convert.ToString(dataSet.Tables[0].Rows[i]["IncludeCnNo"]),
-
-
-                                Attachedfile = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachedfile"]),
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs "]),
+                                GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks "]),
+                                Attachedfile = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachedfile "]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                        
+
+
+
 
 
                             });
@@ -200,6 +175,44 @@ namespace Consignment.Repository
             }
             return rateList;
         }
+        public async Task<List<LrSeriesListModel>> GetLRSeries()
+        {
+            List<LrSeriesListModel> lrSeries = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetLRSeries_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            lrSeries.Add(new LrSeriesListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return lrSeries;
+        }
         public async Task<ResponseModel> ConsignmentSave(ConsignmentModel ConsignmentModel)
         {
             ResponseModel responseModel = new();
@@ -224,79 +237,51 @@ namespace Consignment.Repository
                             new SqlParameter("@EwayBillExpExtDate", ConsignmentModel.EwayBillExpExtDate),
                             new SqlParameter("@FromPlace", ConsignmentModel.FromPlace),
                             new SqlParameter("@ToPlace", ConsignmentModel.ToPlace),
+                             new SqlParameter("@FromPin", ConsignmentModel.FromPin),
+                              new SqlParameter("@ToPin", ConsignmentModel.ToPin),
                             new SqlParameter("@Kms", ConsignmentModel.Kms),
-                            new SqlParameter("@BillingBranch", ConsignmentModel.BillingBranch),
-                            new SqlParameter("@CnorCode", ConsignmentModel.CnorCode),
-                            new SqlParameter("@CneeCode", ConsignmentModel.CneeCode),
-                            new SqlParameter("@CnorInvNo", ConsignmentModel.CnorInvNo),
-                            new SqlParameter("@CnorInvDate", ConsignmentModel.CnorInvDate),
-                            new SqlParameter("@PoNo", ConsignmentModel.PoNo),
-                            new SqlParameter("@PoDate", ConsignmentModel.PoDate),
-                            new SqlParameter("@WoNo", ConsignmentModel.WoNo),
-                            new SqlParameter("@WoDate", ConsignmentModel.WoDate),
-                            new SqlParameter("@RiskBy", ConsignmentModel.RiskBy),
-                            new SqlParameter("@BillingParty", ConsignmentModel.BillingParty),
-                            new SqlParameter("@OwnTruck", ConsignmentModel.OwnTruck),
-                            new SqlParameter("@TruckId", ConsignmentModel.TruckId),
-                            new SqlParameter("@TruckNo", ConsignmentModel.TruckNo),
-                            new SqlParameter("@ProductId", ConsignmentModel.ProductId),
-                            new SqlParameter("@GstHSN", ConsignmentModel.GstHSN),
-                            new SqlParameter("@NoPackages", ConsignmentModel.NoPackages),
-                            new SqlParameter("@WeightType", ConsignmentModel.WeightType),
-                            new SqlParameter("@ActualWt", ConsignmentModel.ActualWt),
-                            new SqlParameter("@Chargewt", ConsignmentModel.Chargewt),
-                            new SqlParameter("@BulkYN", ConsignmentModel.BulkYN),
-                            new SqlParameter("@LoadLength", ConsignmentModel.LoadLength),
-                            new SqlParameter("@LoadWidth", ConsignmentModel.LoadWidth),
-                            new SqlParameter("@LoadHeight", ConsignmentModel.LoadHeight),
-                            new SqlParameter("@LoadCFT", ConsignmentModel.LoadCFT),
-                            new SqlParameter("@DelType", ConsignmentModel.DelType),
-                            new SqlParameter("@LoadType", ConsignmentModel.LoadType),
-                            new SqlParameter("@RateType", ConsignmentModel.RateType),
-                            new SqlParameter("@PrivateMark", ConsignmentModel.PrivateMark),
-                            new SqlParameter("@StaxGstBy", ConsignmentModel.StaxGstBy),
-                            new SqlParameter("@RateRs", ConsignmentModel.RateRs),
+                            new SqlParameter("@OwnTruck ", ConsignmentModel.OwnTruck ),
+                            new SqlParameter("@TruckId ", ConsignmentModel.TruckId ),
+                            new SqlParameter("@TruckNo ", ConsignmentModel.TruckNo ),
+                              new SqlParameter("@BillingParty ", ConsignmentModel.BillingParty ),
+                                new SqlParameter("@BillingBranch ", ConsignmentModel.BillingBranch ),
+                                  new SqlParameter("@CnorCode ", ConsignmentModel.CnorCode ),
+                            new SqlParameter("@CnorGst ", ConsignmentModel.CnorGst ),
+                            new SqlParameter("@CnorPlantCode ", ConsignmentModel.CnorPlantCode ),
+                            new SqlParameter("@CnorInvNo ", ConsignmentModel.CnorInvNo ),
+                            new SqlParameter("@CnorInvDate  ", ConsignmentModel.CnorInvDate ),
+                            new SqlParameter("@DeclaredValue ", ConsignmentModel.DeclaredValue ),
+                            new SqlParameter("@CneeCode ", ConsignmentModel.CneeCode),
+                            new SqlParameter("@CneeAdd1 ", ConsignmentModel.CneeAdd1 ),
+                            new SqlParameter("@CneeAdd2 ", ConsignmentModel.CneeAdd2 ),
+                            new SqlParameter("@CneeAdd3 ", ConsignmentModel.CneeAdd3 ),
+                            new SqlParameter("@CneeGst ", ConsignmentModel.CneeGst ),
+                            new SqlParameter("@CneeDealrCode ", ConsignmentModel.CneeDealrCode ),
+                            new SqlParameter("@ShipmentNo ", ConsignmentModel.ShipmentNo ),
+                            new SqlParameter("@ShipmentDt ", ConsignmentModel.ShipmentDt),
+                            new SqlParameter("@ProductId ", ConsignmentModel.ProductId ),
+                            new SqlParameter("@ProductDesc ", ConsignmentModel.ProductDesc ),
+                            new SqlParameter("@NoPackages ", ConsignmentModel.NoPackages ),
+                            new SqlParameter("@ActualWt ", ConsignmentModel.ActualWt ),
+                            new SqlParameter("@Chargewt ", ConsignmentModel.Chargewt ),
+                            new SqlParameter("@RateType ", ConsignmentModel.RateType ),
+                            new SqlParameter("@RateRs ", ConsignmentModel.RateRs ),
                             new SqlParameter("@FreightRs", ConsignmentModel.FreightRs),
-                            new SqlParameter("@StatisticalRs", ConsignmentModel.StatisticalRs),
-                            new SqlParameter("@AocRs", ConsignmentModel.AocRs),
-                            new SqlParameter("@FovRs", ConsignmentModel.FovRs),
-                            new SqlParameter("@HandlingRs", ConsignmentModel.HandlingRs),
-                            new SqlParameter("@DoorCollRs", ConsignmentModel.DoorCollRs),
-                            new SqlParameter("@DoorDeliRs", ConsignmentModel.DoorDeliRs),
-                            new SqlParameter("@WithPassRs", ConsignmentModel.WithPassRs),
-                            new SqlParameter("@InsuranceRs", ConsignmentModel.InsuranceRs),
-                            new SqlParameter("@PackingRs", ConsignmentModel.PackingRs),
-                            new SqlParameter("@DccRs", ConsignmentModel.DccRs),
-                            new SqlParameter("@LoadingDetnRs", ConsignmentModel.LoadingDetnRs),
-                            new SqlParameter("@EnrouteRs", ConsignmentModel.EnrouteRs),
-                            new SqlParameter("@MiscRs", ConsignmentModel.MiscRs),
-                            new SqlParameter("@ExtrasRS", ConsignmentModel.ExtrasRS),
-                            new SqlParameter("@UnLoadingRs", ConsignmentModel.UnLoadingRs),
+                            new SqlParameter("@StatisticalRs ", ConsignmentModel.StatisticalRs ),
+                            new SqlParameter("@HandlingRs ", ConsignmentModel.HandlingRs ),
+                            new SqlParameter("@LoadingDetnRs ", ConsignmentModel.LoadingDetnRs),
+                            new SqlParameter("@MiscRs ", ConsignmentModel.MiscRs ),
+                            new SqlParameter("@ExtrasRS ", ConsignmentModel.ExtrasRS ),
+                            new SqlParameter("@UnLoadingRs ", ConsignmentModel.UnLoadingRs ),
                             new SqlParameter("@DetentionRs", ConsignmentModel.DetentionRs),
-                            new SqlParameter("@StorageRs", ConsignmentModel.StorageRs),
-                            new SqlParameter("@WarehousingRs", ConsignmentModel.WarehousingRs),
-                            new SqlParameter("@OthersRs", ConsignmentModel.OthersRs),
-                            new SqlParameter("@OthersRs1", ConsignmentModel.OthersRs1),
-                            new SqlParameter("@OthersRs2", ConsignmentModel.OthersRs2),
-                            new SqlParameter("@OthersRs3", ConsignmentModel.OthersRs3),
-                            new SqlParameter("@OthersRs4", ConsignmentModel.OthersRs4),
-                            new SqlParameter("@SubTotalRs", ConsignmentModel.SubTotalRs),
-                            new SqlParameter("@GstType", ConsignmentModel.GstType),
-                            new SqlParameter("@GstPct", ConsignmentModel.GstPct),
-                            new SqlParameter("@SgstAmt", ConsignmentModel.SgstAmt),
-                            new SqlParameter("@CgstAmt", ConsignmentModel.CgstAmt),
-                            new SqlParameter("@IgstAmt", ConsignmentModel.IgstAmt),
-                            new SqlParameter("@NonGstAmt1", ConsignmentModel.NonGstAmt1),
-                            new SqlParameter("@NonGstAmt1Desc", ConsignmentModel.NonGstAmt1Desc),
-                            new SqlParameter("@NonGstAmt2", ConsignmentModel.NonGstAmt2),
-                            new SqlParameter("@NonGstAmt2Desc", ConsignmentModel.NonGstAmt2Desc),
-                            new SqlParameter("@GtotalRs", ConsignmentModel.GtotalRs),
-                            new SqlParameter("@AdvanceRs", ConsignmentModel.AdvanceRs),
-                            new SqlParameter("@GeneralRemarks", ConsignmentModel.GeneralRemarks),
-                            new SqlParameter("@IncludeCnYn", ConsignmentModel.IncludeCnYn),
-                            new SqlParameter("@IncludeCnNo", ConsignmentModel.IncludeCnNo),
-                            new SqlParameter("@Attachedfile", ConsignmentModel.Attachedfile),
-                            new SqlParameter("@YearId", ConsignmentModel.YearId),
+                            new SqlParameter("@OthersRs ", ConsignmentModel.OthersRs ),
+                            new SqlParameter("@SubTotalRs ", ConsignmentModel.SubTotalRs ),
+                            new SqlParameter("@GtotalRs ", ConsignmentModel.GtotalRs ),
+                            new SqlParameter("@GeneralRemarks ", ConsignmentModel.GeneralRemarks),
+                            new SqlParameter("@Attachedfile ", ConsignmentModel.Attachedfile ),
+                            new SqlParameter("@YearId ", ConsignmentModel.YearId ),
+                          
+            
                             new SqlParameter("@LoggedInUser", ConsignmentModel.LoggedInUser),
                          };
 
@@ -367,6 +352,84 @@ namespace Consignment.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return locationList;
+        }
+        public async Task<List<BranchListModel>> GetVehicleNoList()
+        {
+            List<BranchListModel> vehicleList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleNoList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            vehicleList.Add(new BranchListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return vehicleList;
+        }
+        public async Task<List<BranchListModel>> GetBillingPartyList()
+        {
+            List<BranchListModel> partyList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillingPartyList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            partyList.Add(new BranchListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return partyList;
         }
     }
 }

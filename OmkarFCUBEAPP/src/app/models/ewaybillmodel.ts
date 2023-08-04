@@ -59,6 +59,7 @@ class Message {
     extended_times: string = "";
     reject_status: string = "";
     vehicle_type: string = "";
+  
     transaction_type: string = "";
     other_value: string = "";
     cess_nonadvol_value: string = "";
@@ -70,6 +71,7 @@ class Results {
     message: Message = new Message();
     status: string = "";
     code: string = "";
+   
 }
 
 class Root {
