@@ -3,6 +3,7 @@ export class Consignmentmodel {
     bookingPlace: string = "";
     gcSeries: string = "";
     gcSlNo: string = "";
+    GcAlpha: string = "";
     gcNoteNo: string = "";
     bookingDate: string = "";
     bookingStatus: string = "";

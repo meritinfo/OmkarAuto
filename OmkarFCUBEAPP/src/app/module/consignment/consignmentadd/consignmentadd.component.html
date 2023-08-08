@@ -50,10 +50,10 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">GcSlNo</label>
+                                                <label for="formrow-inputState">LR No.</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="GcSlNo" formControlName="gcSlNo" [ngClass]=>
+                                                    placeholder="" formControlName="gcSlNo" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -113,7 +113,7 @@
                                                 <label for="formrow-inputZip">EWay Bill No</label>
                                                 <div class="hstack gap-1">
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter ewayBillNo " formControlName="ewayBillNo">
+                                                        placeholder=" " formControlName="ewayBillNo">
                                                     <button type="button" class="btn btn-primary"
                                                         (click)="searchGSTDetails()">Search</button>
                                                 </div>
@@ -139,8 +139,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="vehicleList" formControlName="vehicleNumber"
-                                                        [searchKeyword]="keywordLocation" placeholder="Vehicle Number"
+                                                    <ng-autocomplete [data]="vehicleList" 
+                                                        [searchKeyword]="keywordLocation" placeholder=""
                                                         [initialValue]="ivVehicleNo"
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
@@ -166,7 +166,7 @@
                                                 <label for="formrow-inputZip">From Place</label>
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                                        [searchKeyword]="keywordLocation" placeholder="From Place"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -188,7 +188,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pin</label>
                                                 <input autoclose="false" class="form-control"
-                                                    formControlName="fromPlacePin">
+                                                    formControlName="fromPin">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -196,7 +196,7 @@
                                                 <label for="formrow-inputZip">To Place</label>
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                                        [searchKeyword]="keywordLocation" placeholder="To Place"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -214,17 +214,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pin</label>
                                                 <input autoclose="false" class="form-control"
-                                                    formControlName="toPlacePin">
+                                                    formControlName="toPin">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">kMs</label>
-                                                <input type="text" class="form-control" placeholder="Enter  "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="kms">
                                             </div>
                                         </div>
@@ -246,20 +246,20 @@
                                             <div class="mb-3"><label for="formrow-inputCity">Consignor</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Consignor" formControlName="cnorCode" [ngClass]=>
+                                                    placeholder="" formControlName="cnorCode" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Cnor Gst</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Cnor Gst" formControlName="cnorGst" [ngClass]=>
+                                                    placeholder="" formControlName="cnorGst" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Cnor Inv No" formControlName="cnorInvNo" [ngClass]=>
+                                                    placeholder="" formControlName="cnorInvNo" [ngClass]=>
                                             </div>
                                         </div>
                                     </div>
@@ -268,7 +268,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice Value</label>
                                                 <input type="text" autoclose="false" class="form-control"
-                                                    formControlName="invoiceValue">
+                                                    formControlName="declaredValue">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -283,7 +283,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">CnorPlantCode </label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Cnor Gst" formControlName="cnorPlantCode"
+                                                    placeholder="" formControlName="cnorPlantCode"
                                                     [ngClass]=>
 
                                             </div>
@@ -296,7 +296,7 @@
                                                 <label for="formrow-inputZip">Consignee</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder=" Consignee" formControlName="cneeCode" [ngClass]=>
+                                                    placeholder="" formControlName="cneeCode" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -321,8 +321,8 @@
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputZip">Consignee PinCode</label>
-                                                    <input class="form-control" formControlName="consigneePinCode">
+                                                    <label for="formrow-inputZip">Consignee gst</label>
+                                                    <input class="form-control" formControlName="cneeGst">
                                                 </div>
                                             </div>
                                         </div>
@@ -342,8 +342,24 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
-                                                <input type="text" class="form-control" placeholder="Enter  "
-                                                    formControlName="gcSeries" [ngClass]=>
+                                                <input type="text" class="form-control" placeholder=" "
+                                                     [ngClass]=>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Shipment No</label>
+                                                <input class="form-control" formControlName="shipmentNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Shipment Dt</label>
+                                                <input bsdatepicker="" type="date" autoclose="false"
+                                                    placeholder="yyyy-mm-dd" formControlName="shipmentDt"
+                                                    class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -352,21 +368,21 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Actual Wt</label>
-                                                <input type="text" class="form-control" placeholder="Enter  actualWt "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="actualWt" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Charged Wt</label>
-                                                <input type="text" class="form-control" placeholder="Enter  chargewt "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="chargewt" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Qty/Pkgs</label>
-                                                <input autoclose="false" placeholder="Enter Qty/Pkgs "
+                                                <input autoclose="false" placeholder=" "
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -385,7 +401,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">CneeDealrCode </label>
 
-                                                <input autoclose="false" placeholder="CneeDealrCode "
+                                                <input autoclose="false" placeholder=" "
                                                     formControlName="cneeDealrCode" class="form-control">
                                             </div>
                                         </div>
@@ -406,14 +422,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Rate</label>
-                                                <input type="text" class="form-control" placeholder="Enter  rateRs "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="rateRs" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Freight</label>
-                                                <input type="text" class="form-control" placeholder="Enter  freightRs "
+                                                <input type="text" class="form-control" placeholder=""
                                                     formControlName="freightRs" [ngClass]=>
                                             </div>
                                         </div>
@@ -421,7 +437,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Statistical</label>
                                                 <input type="text" class="form-control"
-                                                    placeholder="Enter  statisticalRs " formControlName="statisticalRs"
+                                                    placeholder=" " formControlName="statisticalRs"
                                                     [ngClass]=>
                                             </div>
                                         </div>
@@ -429,7 +445,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Loading</label>
                                                 <input type="text" class="form-control"
-                                                    placeholder="Enter  loadingDetnRs " formControlName="loadingDetnRs"
+                                                    placeholder=" " formControlName="loadingDetnRs"
                                                     [ngClass]=>
                                             </div>
                                         </div>
@@ -442,7 +458,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Extra Ch</label>
-                                                <input type="text" class="form-control" placeholder="Enter  extrasRS "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="extrasRS" [ngClass]=>
                                             </div>
                                         </div>
@@ -451,7 +467,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Misc. Charge</label>
-                                                <input type="text" class="form-control" placeholder="Enter  miscRs "
+                                                <input type="text" class="form-control" placeholder=" "
                                                     formControlName="miscRs" [ngClass]=>
                                             </div>
                                         </div>
@@ -459,7 +475,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Un Loading</label>
                                                 <input type="text" class="form-control"
-                                                    placeholder="Enter  unLoadingRs " formControlName="unLoadingRs"
+                                                    placeholder="" formControlName="unLoadingRs"
                                                     [ngClass]=>
                                             </div>
                                         </div>
@@ -473,14 +489,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Other Charge</label>
-                                                <input type="text" class="form-control" placeholder="Enter  othersRs "
+                                                <input type="text" class="form-control" placeholder=""
                                                     formControlName="othersRs" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sub Total</label>
-                                                <input type="text" class="form-control" placeholder="Enter  subTotalRs "
+                                                <input type="text" class="form-control" placeholder=""
                                                     formControlName="subTotalRs" [ngClass]=>
                                             </div>
                                         </div>
@@ -491,7 +507,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Net Total</label>
-                                                <input type="text" class="form-control" placeholder="Enter  total "
+                                                <input type="text" class="form-control" placeholder=""
                                                     formControlName="gtotalRs" [ngClass]=>
                                             </div>
                                         </div>
@@ -524,7 +540,7 @@
                                                 <label for="formrow-inputZip">Billing Party </label>
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="partyList" formControlName="billingParty"
-                                                        [searchKeyword]="keywordLocation" placeholder="Billing Party"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
@@ -550,7 +566,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Remarks</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter generalRemarks " formControlName="generalRemarks"
+                                                    placeholder="" formControlName="generalRemarks"
                                                     [ngClass]=>
                                             </div>
                                         </div>

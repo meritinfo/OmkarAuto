@@ -20,6 +20,7 @@ debugger
 })
 export class ConsignmentaddComponent implements OnInit {
   loggedInUserID: string = '';
+  year: string = '';
   formConsignment!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
@@ -40,6 +41,11 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
+    var userData1 = localStorage.getItem('yearID')?.toString();
+    if (typeof userData1 !== 'undefined' && userData1 !== null && userData1 !== '') {
+      this.year = userData1;
+    }
+ 
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -73,7 +79,7 @@ export class ConsignmentaddComponent implements OnInit {
       fromPlace: new FormControl('',),
       toPlace: new FormControl('',),
       toPin: new FormControl('',),
-      toFrom: new FormControl('',),
+      fromPin: new FormControl('',),
       kms: new FormControl('',),
       ownTruck: new FormControl('',),
       truckId: new FormControl('',),
@@ -194,9 +200,9 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
     this.consignmentmodel.kms = this.formConsignment.value.kms;
     this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
-    this.consignmentmodel.truckId = this.formConsignment.value.truckId;
+    this.consignmentmodel.truckId = this.formConsignment.value.truckId.dataId;
     this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
-    this.consignmentmodel.billingParty = this.formConsignment.value.billingParty;
+    this.consignmentmodel.billingParty = this.formConsignment.value.billingParty.dataId;
     this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
     this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
     this.consignmentmodel.cnorGst = this.formConsignment.value.cnorGst;
@@ -216,6 +222,8 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.productDesc = this.formConsignment.value.productDesc;
 
     this.consignmentmodel.noPackages = this.formConsignment.value.noPackages;
+    this.consignmentmodel.fromPin = this.formConsignment.value.fromPin;
+    this.consignmentmodel.toPin = this.formConsignment.value.toPin;
     this.consignmentmodel.actualWt = this.formConsignment.value.actualWt;
     this.consignmentmodel.chargewt = this.formConsignment.value.chargewt;
     this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
@@ -249,6 +257,8 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
+    //this.consignmentmodel.yearId = this.year;
+    //this.consignmentmodel.loggedInUser = this.formConsignment.value.this.loggedInUser;
 
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
@@ -269,8 +279,8 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.patchValue({
           ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
           ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-          fromPlacePin: this.eWayBillDetails.result.message.pincode_of_consignor,
-          toPlacePin: this.eWayBillDetails.result.message.pincode_of_consignee,
+          fromPin: this.eWayBillDetails.result.message.pincode_of_consignor,
+          toPin: this.eWayBillDetails.result.message.pincode_of_consignee,
           cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
           cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
           kms: this.eWayBillDetails.result.message.transportation_distance,
