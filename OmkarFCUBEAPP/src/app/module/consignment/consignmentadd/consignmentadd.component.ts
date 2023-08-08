@@ -20,6 +20,7 @@ debugger
 })
 export class ConsignmentaddComponent implements OnInit {
   loggedInUserID: string = '';
+  year: string = '';
   formConsignment!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
@@ -28,14 +29,23 @@ export class ConsignmentaddComponent implements OnInit {
   rateList: Dropdownmodel[] = [];
   cnorList: Dropdownmodel[] = [];
   cneeList: Dropdownmodel[] = [];
+  lrSeries: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
   eWayBillDetails = new Ewaybillmodel();
   keywordLocation = 'dataName';
+  ivVehicleNo= '';
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
+    var userData1 = localStorage.getItem('yearID')?.toString();
+    if (typeof userData1 !== 'undefined' && userData1 !== null && userData1 !== '') {
+      this.year = userData1;
+    }
+ 
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -49,6 +59,9 @@ export class ConsignmentaddComponent implements OnInit {
     this.getBranchList();
     this.getRateList();
     this.getLocationList();
+    this.getlrSeriesList();
+    this.getVehicleNoList();
+    this.getBillingPartyList();
     this.selectedConsignmentDetails = this.consignmentService.getConsignmentDetails();
     this.formConsignment = this.formBuilder.group({
       bookingPlace: new FormControl('',),
@@ -65,92 +78,55 @@ export class ConsignmentaddComponent implements OnInit {
       ewayBillExpExtDate: new FormControl('',),
       fromPlace: new FormControl('',),
       toPlace: new FormControl('',),
+      toPin: new FormControl('',),
+      fromPin: new FormControl('',),
       kms: new FormControl('',),
-      billingBranch: new FormControl('',),
-      cnorCode: new FormControl('',),
-      cneeCode: new FormControl('',),
-      cnorInvNo: new FormControl('',),
-      cnorInvDate: new FormControl('',),
-      poNo: new FormControl('',),
-      poDate: new FormControl('',),
-      woNo: new FormControl('',),
-      woDate: new FormControl('',),
-      riskBy: new FormControl('',),
       ownTruck: new FormControl('',),
       truckId: new FormControl('',),
       truckNo: new FormControl('',),
+      billingParty: new FormControl('',),
+      billingBranch: new FormControl('',),
+      cnorCode: new FormControl('',),
+      cnorGst: new FormControl('',),
+      cnorPlantCode: new FormControl('',),
+      cnorInvNo: new FormControl('',),
+      cnorInvDate: new FormControl('',),
+      declaredValue: new FormControl('',),
+      cneeCode: new FormControl('',),
+      cneeAdd1: new FormControl('',),
+      cneeAdd2: new FormControl('',),
+      cneeAdd3: new FormControl('',),
+      cneeGst: new FormControl('',),
+      cneeDealrCode: new FormControl('',),
+      shipmentNo: new FormControl('',),
+      shipmentDt: new FormControl('',),
       productId: new FormControl('',),
-      gstHSN: new FormControl('',),
+      productDesc: new FormControl('',),
       noPackages: new FormControl('',),
-      weightType: new FormControl('',),
       actualWt: new FormControl('',),
       chargewt: new FormControl('',),
-      bulkYN: new FormControl('',),
-      loadLength: new FormControl('',),
-      loadWidth: new FormControl('',),
-      loadHeight: new FormControl('',),
-      loadCFT: new FormControl('',),
-      delType: new FormControl('',),
-      loadType: new FormControl('',),
       rateType: new FormControl('',),
-      privateMark: new FormControl('',),
-      staxGstBy: new FormControl('',),
       rateRs: new FormControl('',),
       freightRs: new FormControl('',),
       statisticalRs: new FormControl('',),
-      aocRs: new FormControl('',),
-      fovRs: new FormControl('',),
       handlingRs: new FormControl('',),
-      doorCollRs: new FormControl('',),
-      doorDeliRs: new FormControl('',),
-      withPassRs: new FormControl('',),
-      insuranceRs: new FormControl('',),
-      packingRs: new FormControl('',),
-      dccRs: new FormControl('',),
       loadingDetnRs: new FormControl('',),
-      enrouteRs: new FormControl('',),
       miscRs: new FormControl('',),
       extrasRS: new FormControl('',),
       unLoadingRs: new FormControl('',),
       detentionRs: new FormControl('',),
-      storageRs: new FormControl('',),
-      warehousingRs: new FormControl('',),
       othersRs: new FormControl('',),
-      othersRs1: new FormControl('',),
-      othersRs2: new FormControl('',),
-      othersRs3: new FormControl('',),
-      othersRs4: new FormControl('',),
       subTotalRs: new FormControl('',),
-      gstType: new FormControl('',),
-      gstPct: new FormControl('',),
-      sgstAmt: new FormControl('',),
-      cgstAmt: new FormControl('',),
-      igstAmt: new FormControl('',),
-      nonGstAmt1: new FormControl('',),
-      nonGstAmt1Desc: new FormControl('',),
-      nonGstAmt2: new FormControl('',),
-      nonGstAmt2Desc: new FormControl('',),
       gtotalRs: new FormControl('',),
-      advanceRs: new FormControl('',),
-
       generalRemarks: new FormControl('',),
-
-      includeCnYn: new FormControl('',),
-      includeCnNo: new FormControl('',),
       attachedfile: new FormControl('',),
       yearId: new FormControl('',),
-
-
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
-      fromPlacePin: new FormControl('',),
-      toPlacePin: new FormControl('',),
-      consigneeAddress: new FormControl('',),
-      consigneePinCode: new FormControl('',),
-      invoiceValue: new FormControl('',),
-      vehicleNumber: new FormControl('',),
-      cnor: new FormControl('',),
-      cnee: new FormControl('',),
+      userBranch3: new FormControl('',),
+      
+ 
+    
 
     });
     if (this.selectedConsignmentDetails.consignmentID != '') {
@@ -166,6 +142,7 @@ export class ConsignmentaddComponent implements OnInit {
       })
     }
 
+    //this.ivVehicleNo = 'TS07UF3495';
 
   }
   // convenience getter for easy access to contact form fields
@@ -186,6 +163,21 @@ export class ConsignmentaddComponent implements OnInit {
       this.locationList = res;
     });
   }
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+  getlrSeriesList(): void {
+    this.commonService.getlrSeriesList().subscribe((res) => {
+      this.lrSeries = res;
+    });
+  }
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
 
 
   //Submit user form details //
@@ -198,7 +190,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.bookingPlace = this.formConsignment.value.userBranch;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
     this.consignmentmodel.gcSeries = this.formConsignment.value.gcSeries;
-    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcNoteNo;
+    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries;
     this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
     this.consignmentmodel.bookingDate = this.formConsignment.value.bookingDate;
     this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
@@ -207,73 +199,67 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
     this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
     this.consignmentmodel.kms = this.formConsignment.value.kms;
+    this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
+    this.consignmentmodel.truckId = this.formConsignment.value.truckId.dataId;
+    this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
+    this.consignmentmodel.billingParty = this.formConsignment.value.billingParty.dataId;
     this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
-    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace.dataId;
     this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
-    this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
+    this.consignmentmodel.cnorGst = this.formConsignment.value.cnorGst;
+    this.consignmentmodel.cnorPlantCode = this.formConsignment.value.cnorPlantCode;
     this.consignmentmodel.cnorInvNo = this.formConsignment.value.cnorInvNo;
     this.consignmentmodel.cnorInvDate = this.formConsignment.value.cnorInvDate;
-    this.consignmentmodel.poDate = this.formConsignment.value.poDate;
-    this.consignmentmodel.woNo = this.formConsignment.value.woNo;
-    this.consignmentmodel.woDate = this.formConsignment.value.woDate;
-    this.consignmentmodel.riskBy = this.formConsignment.value.riskBy;
-    this.consignmentmodel.billingParty = this.formConsignment.value.billingParty;
-    this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
-    this.consignmentmodel.truckId = this.formConsignment.value.truckId;
-    this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
+    this.consignmentmodel.declaredValue = this.formConsignment.value.declaredValue;
+    this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
+    this.consignmentmodel.cneeAdd1 = this.formConsignment.value.cneeAdd1;
+    this.consignmentmodel.cneeAdd2 = this.formConsignment.value.cneeAdd2;
+    this.consignmentmodel.cneeAdd3 = this.formConsignment.value.cneeAdd3;
+    this.consignmentmodel.cneeGst = this.formConsignment.value.cneeGst;
+    this.consignmentmodel.cneeDealrCode = this.formConsignment.value.cneeDealrCode;
+    this.consignmentmodel.shipmentNo = this.formConsignment.value.shipmentNo;
+    this.consignmentmodel.shipmentDt = this.formConsignment.value.shipmentDt;
     this.consignmentmodel.productId = this.formConsignment.value.productId;
-    this.consignmentmodel.gstHSN = this.formConsignment.value.gstHSN;
+    this.consignmentmodel.productDesc = this.formConsignment.value.productDesc;
 
-    this.consignmentmodel.weightType = this.formConsignment.value.weightType;
+    this.consignmentmodel.noPackages = this.formConsignment.value.noPackages;
+    this.consignmentmodel.fromPin = this.formConsignment.value.fromPin;
+    this.consignmentmodel.toPin = this.formConsignment.value.toPin;
     this.consignmentmodel.actualWt = this.formConsignment.value.actualWt;
     this.consignmentmodel.chargewt = this.formConsignment.value.chargewt;
-    this.consignmentmodel.bulkYN = this.formConsignment.value.bulkYN;
-    this.consignmentmodel.loadLength = this.formConsignment.value.loadLength;
-    this.consignmentmodel.loadWidth = this.formConsignment.value.loadWidth;
-    this.consignmentmodel.loadHeight = this.formConsignment.value.loadHeight;
-    this.consignmentmodel.loadCFT = this.formConsignment.value.loadCFT;
-    this.consignmentmodel.delType = this.formConsignment.value.delType;
-    this.consignmentmodel.loadType = this.formConsignment.value.loadType;
-    this.consignmentmodel.rateType = this.formConsignment.value.rateType;
-    this.consignmentmodel.privateMark = this.formConsignment.value.privateMark;
-    this.consignmentmodel.staxGstBy = this.formConsignment.value.staxGstBy;
     this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
     this.consignmentmodel.freightRs = this.formConsignment.value.freightRs;
     this.consignmentmodel.statisticalRs = this.formConsignment.value.statisticalRs;
-    this.consignmentmodel.aocRs = this.formConsignment.value.aocRs;
-    this.consignmentmodel.fovRs = this.formConsignment.value.fovRs;
     this.consignmentmodel.handlingRs = this.formConsignment.value.handlingRs;
-    this.consignmentmodel.doorCollRs = this.formConsignment.value.doorCollRs;
-    this.consignmentmodel.doorDeliRs = this.formConsignment.value.doorDeliRs;
-    this.consignmentmodel.withPassRs = this.formConsignment.value.withPassRs;
-    this.consignmentmodel.insuranceRs = this.formConsignment.value.insuranceRs;
-    this.consignmentmodel.packingRs = this.formConsignment.value.packingRs;
-    this.consignmentmodel.dccRs = this.formConsignment.value.dccRs;
     this.consignmentmodel.loadingDetnRs = this.formConsignment.value.loadingDetnRs;
-    this.consignmentmodel.enrouteRs = this.formConsignment.value.enrouteRs;
     this.consignmentmodel.miscRs = this.formConsignment.value.miscRs;
     this.consignmentmodel.extrasRS = this.formConsignment.value.extrasRS;
     this.consignmentmodel.unLoadingRs = this.formConsignment.value.unLoadingRs;
     this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs;
-    this.consignmentmodel.storageRs = this.formConsignment.value.storageRs;
-    this.consignmentmodel.warehousingRs = this.formConsignment.value.warehousingRs;
+    this.consignmentmodel.othersRs = this.formConsignment.value.othersRs;
+    this.consignmentmodel.subTotalRs = this.formConsignment.value.rateRs;
     this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs;
-    this.consignmentmodel.gstType = this.formConsignment.value.gstType;
-    this.consignmentmodel.gstPct = this.formConsignment.value.gstPct;
-    this.consignmentmodel.sgstAmt = this.formConsignment.value.sgstAmt;
-    this.consignmentmodel.cgstAmt = this.formConsignment.value.cgstAmt;
-    this.consignmentmodel.igstAmt = this.formConsignment.value.igstAmt;
-    this.consignmentmodel.nonGstAmt1 = this.formConsignment.value.nonGstAmt1;
-    this.consignmentmodel.nonGstAmt1Desc = this.formConsignment.value.nonGstAmt1Desc;
-    this.consignmentmodel.nonGstAmt2 = this.formConsignment.value.nonGstAmt2;
-    this.consignmentmodel.nonGstAmt2Desc = this.formConsignment.value.nonGstAmt2Desc;
-    this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
-    this.consignmentmodel.advanceRs = this.formConsignment.value.advanceRs;
-    this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
-    this.consignmentmodel.includeCnYn = this.formConsignment.value.includeCnYn;
-    this.consignmentmodel.includeCnNo = this.formConsignment.value.includeCnNo;
-    this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
+    this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
+
+    this.consignmentmodel.handlingRs = this.formConsignment.value.handlingRs;
+
+
+    this.consignmentmodel.loadingDetnRs = this.formConsignment.value.loadingDetnRs;
+
+    this.consignmentmodel.miscRs = this.formConsignment.value.miscRs;
+    this.consignmentmodel.extrasRS = this.formConsignment.value.extrasRS;
+    this.consignmentmodel.unLoadingRs = this.formConsignment.value.unLoadingRs;
+    this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs;
+
+
+    this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs;
+
+
+    this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
+    this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
+    //this.consignmentmodel.yearId = this.year;
+    //this.consignmentmodel.loggedInUser = this.formConsignment.value.this.loggedInUser;
+
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -293,16 +279,29 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.patchValue({
           ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
           ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-          fromPlacePin: this.eWayBillDetails.result.message.pincode_of_consignor,
-          toPlacePin: this.eWayBillDetails.result.message.pincode_of_consignee,
+          fromPin: this.eWayBillDetails.result.message.pincode_of_consignor,
+          toPin: this.eWayBillDetails.result.message.pincode_of_consignee,
           cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
           cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
           kms: this.eWayBillDetails.result.message.transportation_distance,
           consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
+          cneeAdd1:this.eWayBillDetails.result.message.address1_of_consignee,
+          cneeAdd2:this.eWayBillDetails.result.message.address1_of_consignee,
+          cneeAdd3:this.eWayBillDetails.result.message.place_of_consignee,
+          invoiceDate: this.eWayBillDetails.result.message.document_date,
+          cnorInvDate:  this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+          cnorInvNo:  this.eWayBillDetails.result.message.document_number,
+          cnorGst:this.eWayBillDetails.result.message.gstin_of_consignor,
+          fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
+          toPlace: this.eWayBillDetails.result.message.place_of_consignee,
+          //vehicleNumber:this.eWayBillDetails.result.VehiclListDetail.vehicle_number,
+          
+          
           consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
           invoiceValue: this.eWayBillDetails.result.message.total_invoice_value,
           vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-        })
+        });
+        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
       }
     });
   }
@@ -320,7 +319,8 @@ export class ConsignmentaddComponent implements OnInit {
     // do something
   }
 
-  startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
-    return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
+    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+  
 }

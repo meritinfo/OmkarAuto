@@ -31,5 +31,17 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLocationList();
         }
+        public async Task<List<BranchListModel>> GetVehicleNoList()
+        {
+            return await consignmentRepository.GetVehicleNoList();
+        }
+        public async Task<List<BranchListModel>> GetBillingPartyList()
+        {
+            return await consignmentRepository.GetBillingPartyList();
+        }
+        public async Task<List<LrSeriesListModel>> GetLRSeries()
+        {
+            return await consignmentRepository.GetLRSeries();
+        }
     }
 }

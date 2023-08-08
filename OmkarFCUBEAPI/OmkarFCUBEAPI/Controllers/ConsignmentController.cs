@@ -69,6 +69,48 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetVehicleNoList")]
+        public async Task<IActionResult> GetVehicleNoList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetVehicleNoList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillingPartyList")]
+        public async Task<IActionResult> GetBillingPartyList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetBillingPartyList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLRSeries")]
+        public async Task<IActionResult> GetLRSeries()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetLRSeries();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetLocationList")]
         public async Task<IActionResult> GetLocationList()
         {

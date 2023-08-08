@@ -10,6 +10,9 @@ namespace Consignment.Business
         Task<ConsignmentList> GetConsignmentList(ConsignmentListRequest request);
         Task<List<RateListModel>> GetRateList();
         Task<List<BranchListModel>> GetLocationList();
+        Task<List<BranchListModel>> GetVehicleNoList();
+        Task<List<LrSeriesListModel>> GetLRSeries();
+        Task<List<BranchListModel>> GetBillingPartyList();
     }
 
 }
