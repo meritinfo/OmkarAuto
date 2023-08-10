@@ -151,5 +151,152 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
+        {
+            TripSheetList tripSheetList = new();
+            List<TripMasterModel> tripList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tripList.Add(new TripMasterModel
+                            {
+                                TripId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripId"]),
+                                TripBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBranch"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+
+
+
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+
+                                LastTripCloseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripCloseDate"]),
+                                NewTripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["NewTripDate"]),
+
+                                OpenThrough = Convert.ToString(dataSet.Tables[0].Rows[i]["OpenThrough"]),
+
+                                TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
+                                TripOpenDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenDate"]),
+                                TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
+
+                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
+
+                                ConsignorPayParty = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignorPayParty"]),
+
+                                CompNonCompStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["CompNonCompStatus"]),
+                                ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
+                                LoadingFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingFrom"]),
+                                Destination = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
+
+                                Destination2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination2"]),
+                                Destination3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination3"]),
+                                DistanceTripKM_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM_1"]),
+                                Contents = Convert.ToString(dataSet.Tables[0].Rows[i]["Contents"]),
+                                LoadEmptyType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadEmptyType"]),
+                                ExpectedReportingDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedReportingDt"]),
+                                ExpectedReportingDays = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedReportingDays"]),
+                                LtsDslToBe_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe_1"]),
+                                LtsAdblueToBe_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsAdblueToBe_1"]),
+                                AdvPayable_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvPayable_1"]),
+                                ReportingDt_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDt_1"]),
+                                AdvanceDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceDays_1"]),
+                                DelayedDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayedDays_1"]),
+                                GraceDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["GraceDays_1"]),
+                                DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
+                                DetentionDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionDays"]),
+                                NextReportingBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["NextReportingBranch"]),
+                                DistanceTripKM_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM_2"]),
+                                NextExpectedReportingDt = Convert.ToString(dataSet.Tables[0].Rows[i]["NextExpectedReportingDt"]),
+                                NextExpectedReportingDays = Convert.ToString(dataSet.Tables[0].Rows[i]["NextExpectedReportingDays"]),
+                                LtsDslToBe_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe_2"]),
+                                LtsAdblueToBe_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsAdblueToBe_2"]),
+                                AdvPayable_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvPayable_2"]),
+                                ReportingDt_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDt_2"]),
+                                GraceDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["GraceDays_2"]),
+                                OpBalDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDriver"]),
+                                OpBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDsl"]),
+                                OpBalAdblue = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalAdblue"]),
+                                PaidDriverAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidDriverAdvance"]),
+                                FreightCollByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightCollByDriver"]),
+                                IssuedDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslLtrs"]),
+                                IssuedAdblueLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedAdblueLtrs"]),
+                                RepairsByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["RepairsByDriver"]),
+                                ChallanByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanByDriver"]),
+                                ParkingByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["ParkingByDriver"]),
+                                AccidentByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["AccidentByDriver"]),
+                                WeighmentByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["WeighmentByDriver"]),
+                                OtherExpByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherExpByDriver"]),
+                                TollExpByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["TollExpByDriver"]),
+                                CashDslPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["CashDslPlace"]),
+                                CashDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["CashDslLtrs"]),
+                                CashDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CashDslAmt"]),
+                                TotalBhattaDays = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBhattaDays"]),
+                                BhattaRate = Convert.ToString(dataSet.Tables[0].Rows[i]["BhattaRate"]),
+                                AllowedBhatta = Convert.ToString(dataSet.Tables[0].Rows[i]["AllowedBhatta"]),
+                                OnTimeIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OnTimeIncentiveAmt"]),
+                                MultiDelIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["MultiDelIncentiveAmt"]),
+                                PenaltyChargedToDr = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyChargedToDr"]),
+                                PoolAcAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["PoolAcAmt"]),
+                                TotalDriverAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDriverAc"]),
+                                TripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBalance"]),
+                                RecdFromDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdFromDriver"]),
+                                NetTripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["NetTripBalance"]),
+                                ClBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["ClBalDsl"]),
+                                ClBalAdBlue = Convert.ToString(dataSet.Tables[0].Rows[i]["ClBalAdBlue"]),
+                                TiclStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TiclStatus"]),
+                                TiclRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["TiclRemarks"]),
+                                TripCloseBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseBy"]),
+                                TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
+                                TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
+                                TripSalDoneYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripSalDoneYN"]),
+                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+
+
+
+
+                            });
+                        }
+
+                        tripSheetList.tripSheetList = tripList;
+
+                        tripSheetList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetList;
+        }
     }
+
 }

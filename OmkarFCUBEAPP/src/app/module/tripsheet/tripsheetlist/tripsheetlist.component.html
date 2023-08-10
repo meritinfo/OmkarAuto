@@ -30,6 +30,37 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>lastTripCloseDate </th>
+                      
+                            <th>TripNo </th>
+                            
+                         
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
+                        <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
+                            <td>{{ trip.lastTripCloseDate }}</td>
+                    
+                            <td>{{ trip.tripNo }}</td>
+                         
+                            <td>
+                                <a (click)="gettripSheetDetails(trip)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allTripSheetTypes.tripSheetList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- container-fluid -->

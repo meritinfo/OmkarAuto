@@ -10,5 +10,6 @@ namespace FleetTrans.Business
     public interface ITripMasterBusiness
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
+        Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
     }
 }

@@ -95,6 +95,7 @@ import { DecimalonlyDirective } from './directives/decimalonly.directive';
 import { AlphanumericonlyDirective } from './directives/alphanumericonly.directive';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
+import { Tripsheetmodel } from './models/tripsheetmodel';
 
 @NgModule({
   declarations: [
@@ -174,7 +175,7 @@ import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheet
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel
   ],
   bootstrap: [AppComponent]
 })

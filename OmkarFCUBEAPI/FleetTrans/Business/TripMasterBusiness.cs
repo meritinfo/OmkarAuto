@@ -20,5 +20,9 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.TripMasterSave(tripMasterModel);
         }
+        public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
+        {
+            return await tripMasterRepository.GetTripSheetList(request);
+        }
     }
 }

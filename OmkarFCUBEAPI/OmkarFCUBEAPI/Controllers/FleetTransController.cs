@@ -65,6 +65,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripSheetList")]
+        public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripPaymentsSave")]
         public async Task<IActionResult> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
