@@ -27,8 +27,9 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
-                                                <input type="text" numbersonly class="form-control" placeholder="(Number only) Vehicle No"
-                                                    formControlName="vehicleNo" [ngClass]=>
+                                                <input type="text" numbersonly class="form-control"
+                                                    placeholder="(Number only) Vehicle No" formControlName="vehicleNo"
+                                                    [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -61,15 +62,17 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Chessis No</label>
-                                                <input type="text" decimalonly class="form-control" placeholder="(2 digit decimal) Chessis No"
+                                                <input type="text" decimalonly class="form-control"
+                                                    placeholder="(2 digit decimal) Chessis No"
                                                     formControlName="chasisNo" [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Engine No</label>
-                                                <input type="text" alphanumericonly class="form-control" placeholder="(Alphanumeric) Engine No"
-                                                    formControlName="engineNo" [ngClass]=>
+                                                <input type="text" alphanumericonly class="form-control"
+                                                    placeholder="(Alphanumeric) Engine No" formControlName="engineNo"
+                                                    [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -434,6 +437,33 @@
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i">
+                                                <td>
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Vehicle No</label>
+                                                            <div class="ng-autocomplete">
+                                                                <ng-autocomplete [data]="vehicleList"
+                                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                                    (selected)='selectEvent($event)'
+                                                                    (inputChanged)='onChangeSearch($event)'
+                                                                    (inputFocused)='onFocused($event)'
+                                                                    [itemTemplate]="itemTemplate"
+                                                                    [notFoundTemplate]="notFoundTemplate"
+                                                                    [customFilter]="startWithFilter"
+                                                                    formControlName="vehicleN0">
+                                                                </ng-autocomplete>
+
+                                                                <ng-template #itemTemplate let-item>
+                                                                    <a [innerHTML]="item.dataName"></a>
+                                                                </ng-template>
+
+                                                                <ng-template #notFoundTemplate let-notFound>
+                                                                    <div [innerHTML]="notFound"></div>
+                                                                </ng-template>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">

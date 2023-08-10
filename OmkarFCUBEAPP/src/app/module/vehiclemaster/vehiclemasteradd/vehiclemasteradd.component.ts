@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
-
-
-
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Branchmodel } from 'src/app/models/branchmodel';
@@ -27,6 +23,8 @@ export class VehiclemasteraddComponent {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   selectedVehicleMasterDetails = new Vehiclefltmastermodel();
+  keywordLocation = 'dataName';
+  vehicleList: Dropdownmodel[] = [];
 
   constructor(private route: Router, private formBuilder: FormBuilder, private vehiclefltmastermodel: Vehiclefltmastermodel, private vehiclefltmasterService: VehicleFltMasterService, private commonService: CommonService) {
     this.vehiclefltmastermodel = new Vehiclefltmastermodel();
@@ -43,6 +41,7 @@ export class VehiclemasteraddComponent {
       this.route.navigate(['/']);
     }
     this.getBranchList();
+    this.getVehicleNoList();
 
     this.selectedVehicleMasterDetails = this.vehiclefltmasterService.getvehiclefltmasterDetails();
     this.formVehicleMaster = this.formBuilder.group({
@@ -119,6 +118,12 @@ export class VehiclemasteraddComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
+      this.vehicleList = res;
     });
   }
 
@@ -208,6 +213,7 @@ export class VehiclemasteraddComponent {
 
   createInitialArray() {
     return this.formBuilder.group({
+      vehicleN0: [''],
       validFrom: [''],
       validTo: [''],
       vehicleAgvLoad: [''],
@@ -219,4 +225,21 @@ export class VehiclemasteraddComponent {
   removeItem(index: number) {
     this.formArray.removeAt(index);
   }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 }

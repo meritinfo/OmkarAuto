@@ -95,6 +95,7 @@ import { DecimalonlyDirective } from './directives/decimalonly.directive';
 import { AlphanumericonlyDirective } from './directives/alphanumericonly.directive';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
+import { UppercaseonlyDirective } from './directives/uppercaseonly.directive';
 import { Tripsheetmodel } from './models/tripsheetmodel';
 
 @NgModule({
@@ -157,6 +158,7 @@ import { Tripsheetmodel } from './models/tripsheetmodel';
     AlphanumericonlyDirective,
     TripsheetlistComponent,
     TripsheetaddComponent,
+    UppercaseonlyDirective,
   ],
   imports: [
     BrowserModule,
