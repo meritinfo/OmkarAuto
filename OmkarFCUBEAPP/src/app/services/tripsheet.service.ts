@@ -33,7 +33,7 @@ export class TripSheetService {
     this.selectedTripSheet = new Tripsheetmodel();
   }
   tripSheetDetailsSubmitted(user: Tripsheetmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripSheetSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterSave', user, this.httpOptions);
   }
   getTripSheetList(filter: Filtermodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetList', filter, this.httpOptions);

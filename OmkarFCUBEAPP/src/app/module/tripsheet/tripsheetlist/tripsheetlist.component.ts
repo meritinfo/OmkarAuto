@@ -66,7 +66,7 @@ export class TripsheetlistComponent {
       
         {
           title: 'Action',
-          data: 'pmtId',
+          data: 'tripId',
         },
       ],
     };
