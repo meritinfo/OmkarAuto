@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { formatDate } from '@angular/common';
 
-debugger
 @Component({
   selector: 'app-consignmentadd',
   templateUrl: './consignmentadd.component.html',

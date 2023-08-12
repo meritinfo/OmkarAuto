@@ -36,16 +36,6 @@ export class HeaderComponent {
     if (typeof userData4 !== 'undefined' && userData4 !== null && userData4 !== '') {
       this.user = userData4;
     }
-    if (this.user) {
-      console.log(this.user);
-    }
-   
-    if (this.year) {
-      console.log(this.year);
-    }
-  
-   
-
   }
   //Logout from system
   logout() {
