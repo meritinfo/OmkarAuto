@@ -63,7 +63,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Book Status</label>
                                                 <select id="formrow-inputState" class="form-control"
@@ -123,7 +123,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -228,7 +228,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toPin'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-1">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">kMs</label>
                                                 <input type="text" numbersonly class="form-control" placeholder=" "
@@ -249,7 +249,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Consignor/Consignee</h4>
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Consignor</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
@@ -264,22 +264,20 @@
                                                     placeholder="" formControlName="cnorGst" [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="cnorInvNo" [ngClass]=>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice Value</label>
                                                 <input type="text" decimalonly autoclose="false" class="form-control"
                                                     formControlName="declaredValue">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -287,7 +285,11 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                    </div>
+                                    <div class="row">
+                                      
+                                   
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">CnorPlantCode </label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
@@ -295,10 +297,7 @@
 
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee</label>
 
@@ -313,15 +312,20 @@
                                                 <input class="form-control" formControlName="cneeAdd1">
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="row">
+                                
+                                       
 
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Consignee Address 2</label>
                                                     <input class="form-control" formControlName="cneeAdd2">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Consignee Address 3</label>
                                                     <input class="form-control" formControlName="cneeAdd3">
