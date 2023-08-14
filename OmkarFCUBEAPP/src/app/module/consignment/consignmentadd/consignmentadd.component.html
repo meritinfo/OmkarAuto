@@ -28,12 +28,15 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Booked at</label>
-                                                <select class="form-control" formControlName="userBranch"
+                                                <select class="form-control" formControlName="bookingPlace"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingPlace'].invalid) }">
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
+                                                <div class="text-error" *ngIf="formSubmitted && (f['bookingPlace'].invalid)">
+                                                    Booking at field is mendatory
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -249,7 +252,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Consignor/Consignee</h4>
                                     <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <div class="mb-3"><label for="formrow-inputCity">Consignor</label>
 
                                                 <input type="text" id="formrow-inputCity" class="form-control"
@@ -260,7 +263,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Cnor Gst</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="cnorGst" [ngClass]=>
                                             </div>
                                         </div>
@@ -297,7 +300,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee</label>
 
@@ -309,39 +312,40 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee Address 1</label>
-                                                <input class="form-control" formControlName="cneeAdd1">
+                                                <input uppercaseonly class="form-control" formControlName="cneeAdd1">
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
                                 
                                        
 
                                         <div class="row">
-                                            <div class="col-lg-5">
-                                                <div class="mb-3">
+                                            <div class="col-lg-6">
+                                                <div class="mb-4">
                                                     <label for="formrow-inputZip">Consignee Address 2</label>
-                                                    <input class="form-control" formControlName="cneeAdd2">
+                                                    <input uppercaseonly class="form-control" formControlName="cneeAdd2" >
                                                 </div>
                                             </div>
-                                            <div class="col-lg-5">
-                                                <div class="mb-3">
+                                            <div class="col-lg-6">
+                                                <div class="mb-4">
                                                     <label for="formrow-inputZip">Consignee Address 3</label>
-                                                    <input class="form-control" formControlName="cneeAdd3">
+                                                    <input  uppercaseonly class="form-control" formControlName="cneeAdd3">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-3">
-                                                    <label for="formrow-inputZip">Consignee gst</label>
-                                                    <input class="form-control" formControlName="cneeGst">
-                                                </div>
-                                            </div>
+                                            
+                                            
                                         </div>
 
 
-                                    </div>
+                                
                                     <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Consignee gst</label>
+                                                <input uppercaseonly class="form-control" formControlName="cneeGst">
+                                            </div>
+                                        </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents</label>
@@ -356,18 +360,18 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
-                                                <input type="text" class="form-control" placeholder=" " [ngClass]=>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" " [ngClass]=>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Shipment No</label>
-                                                <input class="form-control" formControlName="shipmentNo">
+                                                <input  uppercaseonly class="form-control" formControlName="shipmentNo">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Shipment Dt</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -375,9 +379,6 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Actual Wt</label>
@@ -399,6 +400,11 @@
                                                     placeholder=" " class="form-control">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+
+                                      
+                                     
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Rate Type</label>
@@ -575,7 +581,7 @@
                                         <div class="col-lg-8">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Remarks</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="generalRemarks" [ngClass]=>
                                             </div>
                                         </div>

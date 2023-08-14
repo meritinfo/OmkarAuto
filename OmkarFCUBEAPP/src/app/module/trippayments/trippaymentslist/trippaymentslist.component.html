@@ -34,8 +34,12 @@
                     <thead>
                         <tr>
                             <th>PmtBranch </th>
+                            <th>Date </th>
+                            <th>Vehicle No. </th>
                       
                             <th>TripNo </th>
+                            <th>Trans Type</th>
+                            <th>Amount</th>
                             
                          
                          
@@ -46,7 +50,12 @@
                         <tr *ngFor="let trip of allTripPaymentsTypes.tripPaymentsList">
                             <td>{{ trip.pmtBranch }}</td>
                     
+                          
+                            <td>{{ trip.pmtDate }}</td>
+                            <td>{{ trip.vehicleMasterID }}</td>
                             <td>{{ trip.tripNo }}</td>
+                            <td>{{ trip.transType }}</td>
+                            <td>{{ trip.amountPaid }}</td>
                          
                             <td>
                                 <a (click)="gettrippaymentsDetails(trip)" class="actionicon"><i

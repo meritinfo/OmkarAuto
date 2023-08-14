@@ -47,6 +47,8 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
+
+  
   this.getBranchList();
   this.getVehicleList();
   this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();

@@ -35,6 +35,9 @@ export class ConsignmentService {
   consignmentDetailsSubmitted(user: Consignmentmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentSave', user, this.httpOptions);
   }
+  consignmentTripDetailsSubmitted(user: Consignmentmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentTripSave', user, this.httpOptions);
+  }
   getConsignmentList(filter: Filtermodel): Observable<Consignmentlistmodel> {
     return this.httpClient.post<Consignmentlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentList', filter, this.httpOptions);
   }

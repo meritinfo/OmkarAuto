@@ -79,12 +79,12 @@ export class ConsignmentlistComponent implements OnInit  {
         },
        
         {
-          title: 'GcSlNo',
-          data: 'gcSlNo',
+          title: 'From Place',
+          data: 'fromPlace',
         },
         {
-          title: 'gcNoteNo',
-          data: 'gcNoteNo',
+          title: 'To Place',
+          data: 'toPlace',
         },
       
       

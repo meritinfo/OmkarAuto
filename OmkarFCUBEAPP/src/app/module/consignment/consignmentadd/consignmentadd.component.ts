@@ -11,6 +11,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
 import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { formatDate } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-consignmentadd',
@@ -36,13 +37,13 @@ export class ConsignmentaddComponent implements OnInit {
   keywordLocation = 'dataName';
   ivVehicleNo = '';
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
-    var userData1 = localStorage.getItem('yearID')?.toString();
-    if (typeof userData1 !== 'undefined' && userData1 !== null && userData1 !== '') {
-      this.year = userData1;
+    var yearIDData = localStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
     }
 
     var userData = localStorage.getItem('uid')?.toString();
@@ -179,10 +180,11 @@ export class ConsignmentaddComponent implements OnInit {
   submitConsignmentForm(): void {
     this.formSubmitted = true;
     if (this.formConsignment.invalid) {
+      this.toasterService.warning("Mandatory fields is required");
       return;
     }
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
-    this.consignmentmodel.bookingPlace = this.formConsignment.value.userBranch;
+    this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
     this.consignmentmodel.gcSeries = this.formConsignment.value.gcSeries;
     this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries;
@@ -252,8 +254,8 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
-    //this.consignmentmodel.yearId = this.year;
-    //this.consignmentmodel.loggedInUser = this.formConsignment.value.this.loggedInUser;
+    this.consignmentmodel.yearId = this.year;
+    this.consignmentmodel.loggedInUser = this.loggedInUserID;
 
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {

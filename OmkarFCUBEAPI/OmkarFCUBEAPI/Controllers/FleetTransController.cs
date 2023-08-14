@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using FleetTrans.Models;
 using FleetMasters.Business;
+using Consignment.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -79,7 +80,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverList")]
+        public async Task<IActionResult> GetDriverList()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDriverList();
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("TripPaymentsSave")]
         public async Task<IActionResult> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {

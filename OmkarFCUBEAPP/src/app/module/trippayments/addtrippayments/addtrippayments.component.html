@@ -29,7 +29,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-firstname-input">Pmt Branch</label>
+                                                        <label for="basicpill-firstname-input">Payment Branch</label>
                                                         <select  class="form-control" formControlName="pmtBranch" [ngClass]="">
                                                             <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                                {{branch.dataName}}
@@ -39,7 +39,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-lastname-input">Pmt Date</label>
+                                                        <label for="basicpill-lastname-input">Payment Date</label>
                                                         <input bsdatepicker="" type ="date"autoclose="false" placeholder="yyyy-mm-dd"  formControlName="pmtDate"
                                                         class="form-control">
                                                     </div>
@@ -191,7 +191,7 @@
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
-                                                        <label for="basicpill-phoneno-input">Pmt Type</label>
+                                                        <label for="basicpill-phoneno-input">Payment Type</label>
                                                         <select id="formrow-inputState" class="form-control"formControlName="pmtType">
                                                             <option selected="">Choose...</option>
                                                             <option value="1" >Cash</option>

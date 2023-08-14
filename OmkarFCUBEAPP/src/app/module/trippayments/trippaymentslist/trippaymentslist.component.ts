@@ -59,11 +59,31 @@ export class TrippaymentslistComponent {
           title: 'PmtBranch',
           data: 'pmtBranch',
         },
+        {
+          title: 'Date',
+          data: 'pmtDate',
+        },
+
 
        {
-        title: 'TripNo',
+        title: 'Vehicle No',
+        data: 'vehicleMasterID',
+      },
+      {
+        title: 'tripNo',
         data: 'tripNo',
       },
+      {
+        title: 'Trans Type',
+        data: 'transType',
+      },
+      {
+        title: 'Amount',
+        data: 'amtPaid',
+      },
+
+
+
      
     
     

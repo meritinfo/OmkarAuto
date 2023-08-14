@@ -25,6 +25,9 @@ export class TripsheetaddComponent {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  driverList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
 
   selectedTripSheetDetails = new Tripsheetmodel();
@@ -136,7 +139,8 @@ export class TripsheetaddComponent {
     });
     
     this.getBranchList();
-    this.getVehicleList();
+    this.getVehicleNoList();
+    this.getLocationList();
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     
     if (this.selectedTripSheetDetails.tripId != '') {
@@ -169,11 +173,39 @@ export class TripsheetaddComponent {
       this.branchList = res;
     });
   }
-  getVehicleList(): void {
-    this.commonService.getVehicleList().subscribe((res) => {
+ 
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
     });
   }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+  getDriverList(): void {
+    this.commonService.getDriverList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (vehicleList: Dropdownmodel[], query: string): any[] {
+    return vehicleList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
   //Submit user form details //
   submitTripSheetForm(): void {
@@ -186,7 +218,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.yearId = this.formTripsheet.value.yearId;
 
     this.tripsheetmodel.tripNo = this.formTripsheet.value.tripNo;
-    this.tripsheetmodel.vehicleMasterID = this.formTripsheet.value.vehicleMasterID;
+    this.tripsheetmodel.vehicleMasterID = this.formTripsheet.value.vehicleMasterID.dataId;
     this.tripsheetmodel.lastTripCloseDate = this.formTripsheet.value.lastTripCloseDate;
 
     this.tripsheetmodel.newTripDate = this.formTripsheet.value.newTripDate;
@@ -194,7 +226,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripOpenBy = this.formTripsheet.value.tripOpenBy;
     this.tripsheetmodel.tripOpenDate = this.formTripsheet.value.tripOpenDate;
     this.tripsheetmodel.tripStatus = this.formTripsheet.value.tripStatus;
-    this.tripsheetmodel.driverMasterID = this.formTripsheet.value.driverMasterID;
+    this.tripsheetmodel.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
     this.tripsheetmodel.consignorPayParty = this.formTripsheet.value.consignorPayParty;
     this.tripsheetmodel.compNonCompStatus = this.formTripsheet.value.compNonCompStatus;
     this.tripsheetmodel.findocid = this.formTripsheet.value.findocid;
@@ -249,6 +281,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripLinkYN = this.formTripsheet.value.tripLinkYN;
     this.tripsheetmodel.findocid = this.formTripsheet.value.findocid;
     this.tripsheetmodel.tripCloseDt = this.formTripsheet.value.tripCloseDt;
+    
 
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
@@ -277,6 +310,7 @@ export class TripsheetaddComponent {
       eWayBillDate: [''],
       eWayBillExpDate: [''],
       ticlStatus: [''],
+    
       grnNo: [''],
       delayDays: ['']
     });

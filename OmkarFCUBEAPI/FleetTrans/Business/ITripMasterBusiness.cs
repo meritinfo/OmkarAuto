@@ -11,5 +11,6 @@ namespace FleetTrans.Business
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
         Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
+        Task<List<BranchListModel>> GetDriverList();
     }
 }
