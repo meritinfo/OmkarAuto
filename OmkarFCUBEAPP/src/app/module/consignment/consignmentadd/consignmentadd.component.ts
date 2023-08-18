@@ -134,12 +134,15 @@ export class ConsignmentaddComponent implements OnInit {
     });
     if (this.selectedConsignmentDetails.consignmentID != '') {
       this.formConsignment.patchValue(this.selectedConsignmentDetails);
-
+   this.formConsignment.controls['bookingPlace'].disable();
+   this.formConsignment.controls['gcSeries'].disable();
+   this.formConsignment.controls['truckId'].disable();
       this.formConsignment.patchValue({
         userBranch: this.selectedConsignmentDetails.bookingPlace,
         fromPlace: this.selectedConsignmentDetails.fromPlace,
         toPlace: this.selectedConsignmentDetails.toPlace,
         gcSeries: this.selectedConsignmentDetails.gcSeries,
+     
       })
     }
 
@@ -303,7 +306,7 @@ export class ConsignmentaddComponent implements OnInit {
           fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
           toPlace: this.eWayBillDetails.result.message.place_of_consignee,
           //vehicleNumber:this.eWayBillDetails.result.VehiclListDetail.vehicle_number,
-           
+        
 
 
           consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,

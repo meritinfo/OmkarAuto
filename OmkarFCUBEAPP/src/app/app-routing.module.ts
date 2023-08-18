@@ -106,6 +106,7 @@ const routes: Routes = [
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
   { path: 'trippaymentlist', component: TrippaymentslistComponent },
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
+  { path: 'trippaymentsedit', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },
   { path: 'gstpurchaseadd', component: GstpurchaseaddComponent },
   { path: 'docrenewalentrylist', component: DocrenewalentrylistComponent },

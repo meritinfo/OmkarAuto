@@ -24,7 +24,7 @@ export class IntermediatescreenComponent {
   year: string = '';
   logindate: string = '';
   currentServerTime: string = '';
-
+  formSubmitted = false;
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
@@ -32,7 +32,7 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
 
 
-  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toastrService: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toasterService: ToastrService) {
     this.intermediateScreenModel = new Intermediatescreenmodel();
   }
 
@@ -42,10 +42,11 @@ export class IntermediatescreenComponent {
     
 
     this.formLogin = this.formBuilder.group({
-      yearID: new FormControl(''),
+      yearID: new FormControl('' , [Validators.required]),
+      
      // loginDate: new FormControl(''),
-      userBranch: new FormControl(''),
-      loginDate: new FormControl((new Date()).toISOString().substring(0,10))
+      userBranch: new FormControl('', [Validators.required]),
+      loginDate: new FormControl((new Date()).toISOString().substring(0,10),  [Validators.required])
     });
     this.sharedService.getCurrentServerTime().subscribe((data: any) => {
       this.currentServerTime = data.currentServerTime;
@@ -64,8 +65,10 @@ export class IntermediatescreenComponent {
   submitIntermediateForm(): void {
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
+      this.toasterService.warning("Mandatory fields is required");
       return;
     }
+    
     this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
     this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
     this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
@@ -86,7 +89,7 @@ export class IntermediatescreenComponent {
        
       }
       else{
-        this.toastrService.warning(this.responseDetails.message);
+        this.toasterService.warning(this.responseDetails.message);
       }
     });
 

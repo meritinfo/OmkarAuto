@@ -27,9 +27,11 @@ export class AddtrippaymentsComponent {
   formUser2!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
+  keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
 
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
@@ -54,8 +56,10 @@ ngOnInit(): void {
   //this.changeEWay();
   this.getBranchList();
   this.getVehicleList();
+  this.getLocationList();
 
   this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
+  
   this.formUser2 = this.formBuilder.group({
     pmtBranch: new FormControl('',[Validators.required]),
     pmtDate: new FormControl('',[Validators.required]),
@@ -88,6 +92,9 @@ ngOnInit(): void {
   });
   if (this.selectedTripPaymentsDetails.pmtId != '') {
     this.formUser2.patchValue(this.selectedTripPaymentsDetails);
+    this.formUser2.controls['pmtBranch'].disable();
+    this.formUser2.controls['pmtDate'].disable();
+    this.formUser2.controls['vehicleMasterID'].disable();
     this.formUser2.patchValue({
     
 
@@ -106,10 +113,33 @@ getBranchList(): void {
     this.branchList = res;
   }); 
 }
+
+selectEvent(item: any) {
+  // do something with selected item
+}
+
+onChangeSearch(search: string) {
+  // fetch remote data from here
+  // And reassign the 'data' which is binded to 'data' property.
+}
+
+onFocused(e: any) {
+  // do something
+}
+
+startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
+  return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+};
+
 getVehicleList(): void {
   this.commonService.getVehicleList().subscribe((res) => {
     this.vehicleList = res;
   }); 
+}
+getLocationList(): void {
+  this.commonService.getLocationList().subscribe((res) => {
+    this.locationList = res;
+  });
 }
 changeEWay(e: any) {
   console.log(e.target.value);

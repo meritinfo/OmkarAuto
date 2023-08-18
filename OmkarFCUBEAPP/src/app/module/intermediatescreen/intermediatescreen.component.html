@@ -46,7 +46,7 @@
                                   
                                         <div class="mb-3">
                                             <label for="basicpill-phoneno-input">Select Year</label>
-                                            <select class="form-control" formControlName="yearID" [ngClass]="">
+                                            <select class="form-control" formControlName="yearID" [ngClass]="{ 'is-invalid': formSubmitted && (f['yearID'].invalid) }" >
                                                 <option *ngFor="let branch of yearList" value={{branch.dataId}}>
                                                    {{branch.dataName}}
                                                 </option>
@@ -58,11 +58,11 @@
                                             <label for="formrow-inputState">Login  Date</label>
                                           
                                         
-                                            <input type="date" [value]="currentServerTime" class="form-control col-md-8" formControlName="loginDate"/>
+                                            <input type="date" [value]="currentServerTime" class="form-control col-md-8" formControlName="loginDate"  [ngClass]="{ 'is-invalid': formSubmitted && (f['loginDate'].invalid) }"/>
                                         </div>
                                         <div class="mb-3">
                                             <label for="basicpill-phoneno-input">Select Branch</label>
-                                            <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                            <select class="form-control" formControlName="userBranch"  [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                    {{branch.dataName}}
                                                 </option>
