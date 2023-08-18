@@ -101,6 +101,12 @@ namespace Consignment.Repository
                                 GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
                                 Attachedfile = Convert.ToString(dataSet.Tables[0].Rows[i]["Attachedfile"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
+                                FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
+                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                VehicelNO = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicelNO"]),
+
+
                             });
                         }
 
@@ -232,9 +238,9 @@ namespace Consignment.Repository
                              new SqlParameter("@FromPin", ConsignmentModel.FromPin),
                               new SqlParameter("@ToPin", ConsignmentModel.ToPin),
                             new SqlParameter("@Kms", ConsignmentModel.Kms),
-                            new SqlParameter("@OwnTruck ", ConsignmentModel.OwnTruck ),
-                            new SqlParameter("@TruckId ", ConsignmentModel.TruckId ),
-                            new SqlParameter("@TruckNo ", ConsignmentModel.TruckNo ),
+                            new SqlParameter("@OwnTruck", ConsignmentModel.OwnTruck ),
+                            new SqlParameter("@TruckId", ConsignmentModel.TruckId ),
+                            new SqlParameter("@TruckNo", ConsignmentModel.TruckNo ),
                               new SqlParameter("@BillingParty ", ConsignmentModel.BillingParty ),
                                 new SqlParameter("@BillingBranch ", ConsignmentModel.BillingBranch ),
                                   new SqlParameter("@CnorCode ", ConsignmentModel.CnorCode ),
@@ -275,6 +281,7 @@ namespace Consignment.Repository
                           
             
                             new SqlParameter("@LoggedInUser", ConsignmentModel.LoggedInUser),
+
                          };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Consignment_Insert", param);
@@ -383,6 +390,85 @@ namespace Consignment.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return vehicleList;
+        }
+        public async Task<ResponseModel> GetVehicleNoForEwayBill(VehicleModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@data", request.VehicleNo)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetVehicleNoForEwayBill_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<List<BranchListModel>> GetContentList()
+        {
+            List<BranchListModel> contentList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ContentList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            contentList.Add(new BranchListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return contentList;
         }
         public async Task<List<BranchListModel>> GetBillingPartyList()
         {

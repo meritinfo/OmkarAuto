@@ -145,14 +145,16 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
+                                                
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        [searchKeyword]="keywordLocation" placeholder="" formControlName="truckId"
                                                         [initialValue]="ivVehicleNo" (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter">
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -349,18 +351,19 @@
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                    formControlName="contents"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['contents'].invalid) }">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
-                                                </select>
+                                           
+                                                <select class="form-control" formControlName="productId"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
+                                                <option *ngFor="let data of contentList" value={{data.dataId}}>
+                                                    {{data.dataName}}
+                                                </option>
+                                            </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" " [ngClass]=>
+                                                <input uppercaseonly type="text" class="form-control" formControlName="productDesc" placeholder=" " [ngClass]=>
                                             </div>
                                         </div>
                                     </div>
@@ -543,6 +546,7 @@
                                                 <label for="formrow-inputZip">Billing Station</label>
                                                 <select class="form-control" formControlName="userBranch3"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch3'].invalid) }">
+                                                    
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>

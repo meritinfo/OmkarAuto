@@ -32,10 +32,13 @@ export class ConsignmentaddComponent implements OnInit {
   lrSeries: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  contentList: Dropdownmodel[] = [];
   selectedConsignmentDetails = new Consignmentmodel();
   eWayBillDetails = new Ewaybillmodel();
   keywordLocation = 'dataName';
   ivVehicleNo = '';
+  billstation = '';
+  
 
   constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService) {
     this.consignmentmodel = new Consignmentmodel();
@@ -56,8 +59,10 @@ export class ConsignmentaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    this.ivVehicleNo ="Hyderabad";
     this.getBranchList();
     this.getRateList();
+    this.getContentList();
     this.getLocationList();
     this.getlrSeriesList();
     this.getVehicleNoList();
@@ -159,6 +164,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.locationList = res;
     });
   }
+ 
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
@@ -167,6 +173,11 @@ export class ConsignmentaddComponent implements OnInit {
   getlrSeriesList(): void {
     this.commonService.getlrSeriesList().subscribe((res) => {
       this.lrSeries = res;
+    });
+  }
+  getContentList(): void {
+    this.commonService.getContentList().subscribe((res) => {
+      this.contentList = res;
     });
   }
   getBillingPartyList(): void {
@@ -292,6 +303,7 @@ export class ConsignmentaddComponent implements OnInit {
           fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
           toPlace: this.eWayBillDetails.result.message.place_of_consignee,
           //vehicleNumber:this.eWayBillDetails.result.VehiclListDetail.vehicle_number,
+           
 
 
           consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
@@ -331,11 +343,15 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['toPin'].clearValidators();
       this.formConsignment.controls['cnorCode'].clearValidators();
       this.formConsignment.controls['cneeCode'].clearValidators();
-      this.formConsignment.controls['contents'].clearValidators();
+      this.formConsignment.controls['productId'].clearValidators();
       this.formConsignment.controls['rateRs'].clearValidators();
       this.formConsignment.controls['userBranch3'].clearValidators();
       this.formConsignment.controls['billingParty'].clearValidators();
+      this.formConsignment.controls['declaredValue'].clearValidators();
+      this.formConsignment.controls['cnorInvDate'].clearValidators();
       //Disable field
+
+   
       this.formConsignment.controls['cnorCode'].disable();
       this.formConsignment.controls['cneeCode'].disable();
       this.formConsignment.controls['fromPin'].disable();
@@ -343,6 +359,13 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['kms'].disable();
       this.formConsignment.controls['ewayBillDate'].disable();
       this.formConsignment.controls['ewayBillExpDate'].disable();
+     // this.formConsignment.controls['ewayBillNo'].disable();
+      this.formConsignment.controls['fromPlace'].disable();
+      this.formConsignment.controls['toPlace'].disable();
+      this.formConsignment.controls['truckId'].disable();
+      this.formConsignment.controls['billingBranch'].disable();
+      this.formConsignment.controls['userBranch3'].disable();
+      this.formConsignment.controls['billingParty'].disable();
       this.formConsignment.controls['cneeAdd1'].disable();
       this.formConsignment.controls['cneeAdd2'].disable();
       this.formConsignment.controls['cneeAdd3'].disable();
@@ -350,6 +373,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cneeGst'].disable();
       this.formConsignment.controls['declaredValue'].disable();
       this.formConsignment.controls['cnorInvDate'].disable();
+
       this.formConsignment.controls['qtypkgs'].disable();
     }
     if (selectedValue === "M" || selectedValue === "E") {
@@ -358,13 +382,24 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['fromPin'].setValidators([Validators.required]);
       this.formConsignment.controls['toPlace'].setValidators([Validators.required]);
       this.formConsignment.controls['toPin'].setValidators([Validators.required]);
+      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formConsignment.controls['cnorCode'].setValidators([Validators.required]);
       this.formConsignment.controls['cneeCode'].setValidators([Validators.required]);
-      this.formConsignment.controls['contents'].setValidators([Validators.required]);
+      this.formConsignment.controls['cneeGst'].setValidators([Validators.required]);
+      this.formConsignment.controls['cnorGst'].setValidators([Validators.required]);
+      this.formConsignment.controls['cnorInvNo'].setValidators([Validators.required]);
+      this.formConsignment.controls['declaredValue'].setValidators([Validators.required]);
+      this.formConsignment.controls['productId'].setValidators([Validators.required]);
       this.formConsignment.controls['rateRs'].setValidators([Validators.required]);
       this.formConsignment.controls['userBranch3'].setValidators([Validators.required]);
       this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
+      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
       //Enable field
+      
+      this.formConsignment.controls['fromPlace'].enable();
+      this.formConsignment.controls['toPlace'].enable();
       this.formConsignment.controls['cnorCode'].enable();
       this.formConsignment.controls['cneeCode'].enable();
       this.formConsignment.controls['fromPin'].enable();
@@ -372,6 +407,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['kms'].enable();
       this.formConsignment.controls['ewayBillDate'].enable();
       this.formConsignment.controls['ewayBillExpDate'].enable();
+      this.formConsignment.controls['ewayBillNo'].enable();
+      this.formConsignment.controls['cneeAdd1'].enable();
+      this.formConsignment.controls['cneeAdd2'].enable();
+      this.formConsignment.controls['cneeAdd3'].enable();
+
+   
+     
+      this.formConsignment.controls['truckId'].enable();
+      this.formConsignment.controls['billingBranch'].enable();
+      this.formConsignment.controls['userBranch3'].enable();
+      this.formConsignment.controls['billingParty'].enable();
       this.formConsignment.controls['cneeAdd1'].enable();
       this.formConsignment.controls['cneeAdd2'].enable();
       this.formConsignment.controls['cneeAdd3'].enable();
@@ -379,7 +425,10 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cneeGst'].enable();
       this.formConsignment.controls['declaredValue'].enable();
       this.formConsignment.controls['cnorInvDate'].enable();
+    
+
       this.formConsignment.controls['qtypkgs'].enable();
+     
     }
 
     this.formConsignment.controls['fromPlace'].updateValueAndValidity();
@@ -388,11 +437,17 @@ export class ConsignmentaddComponent implements OnInit {
     this.formConsignment.controls['toPin'].updateValueAndValidity();
     this.formConsignment.controls['cnorCode'].updateValueAndValidity();
     this.formConsignment.controls['cneeCode'].updateValueAndValidity();
-    this.formConsignment.controls['contents'].updateValueAndValidity();
+    this.formConsignment.controls['productId'].updateValueAndValidity();
     this.formConsignment.controls['rateRs'].updateValueAndValidity();
     this.formConsignment.controls['userBranch3'].updateValueAndValidity();
     this.formConsignment.controls['billingParty'].updateValueAndValidity();
+    this.formConsignment.controls['cnorInvDate'].updateValueAndValidity();
+    this.formConsignment.controls['declaredValue'].updateValueAndValidity();
+    this.formConsignment.controls['truckId'].updateValueAndValidity();
+    this.formConsignment.controls['ewayBillNo'].updateValueAndValidity();
+
   }
+
 
   calculateTotalAmount() {
     let total = 0;

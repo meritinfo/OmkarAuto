@@ -30,7 +30,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Payment Branch</label>
-                                                        <select  class="form-control" formControlName="pmtBranch" [ngClass]="">
+                                                        <select  class="form-control" formControlName="pmtBranch"   [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtBranch'].invalid) }">
                                                             <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                                {{branch.dataName}}
                                                             </option>
@@ -40,7 +40,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-lastname-input">Payment Date</label>
-                                                        <input bsdatepicker="" type ="date"autoclose="false" placeholder="yyyy-mm-dd"  formControlName="pmtDate"
+                                                        <input bsdatepicker="" type ="date"autoclose="false" placeholder="yyyy-mm-dd"  formControlName="pmtDate"  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtDate'].invalid) }"
                                                         class="form-control">
                                                     </div>
                                                 </div>
@@ -49,7 +49,7 @@
                                                     <div class="mb-3">
                                                         <label for="basicpill-firstname-input">Select Vehicle</label>
                                                        
-                                                        <select  class="form-control" formControlName="vehicleMasterID" [ngClass]="">
+                                                        <select  class="form-control" formControlName="vehicleMasterID"   [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }">
                                                             <option *ngFor="let branch of vehicleList" value={{branch.dataId}}>
                                                                {{branch.dataName}}
                                                             </option>
@@ -132,7 +132,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Trans Type</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="transType">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="transType"  [ngClass]="{ 'is-invalid': userSubmitted && (f['transType'].invalid) }"  (ngModelChange)="changeEWay($event)" >
                                                             <option selected="">Choose...</option>
                                                             <option value="DA">  Driver Adv</option>
                                                             <option value="DL">  Diesel </option>
@@ -156,7 +156,7 @@
                                                      
                                                         <label for="basicpill-phoneno-input">QtyLtrs</label>
                                                       
-                                                        <input type="text" class="form-control" formControlName="qtyLtrs"
+                                                        <input type="text" class="form-control" formControlName="qtyLtrs"  [ngClass]="{ 'is-invalid': userSubmitted && (f['qtyLtrs'].invalid) }"
                                                         id="basicpill-email-input" placeholder="">
                                                         
                                                     </div>
@@ -165,7 +165,7 @@
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">RatePerLtr</label>
                                                      
-                                                        <input type="text" class="form-control" formControlName="ratePerLtr"
+                                                        <input type="text" class="form-control" formControlName="ratePerLtr"  [ngClass]="{ 'is-invalid': userSubmitted && (f['ratePerLtr'].invalid) }"
                                                         id="basicpill-email-input" placeholder="">
                                                     </div>
                                                 </div>
@@ -173,7 +173,7 @@
                                                     <div class="mb-3">
                                                         <label for="basicpill-email-input">Amount </label>
                                                         <input type="email" class="form-control" formControlName="amountPaid"
-                                                            id="basicpill-email-input" placeholder="">
+                                                            id="basicpill-email-input" placeholder="" [ngClass]="{ 'is-invalid': userSubmitted && (f['amountPaid'].invalid) }">
                                                     </div>
                                                 </div>
                                               
@@ -192,7 +192,7 @@
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Payment Type</label>
-                                                        <select id="formrow-inputState" class="form-control"formControlName="pmtType">
+                                                        <select id="formrow-inputState" class="form-control"formControlName="pmtType"  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }">
                                                             <option selected="">Choose...</option>
                                                             <option value="1" >Cash</option>
                                                             <option value="2"> Bank</option>
@@ -207,7 +207,7 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="basicpill-phoneno-input">CreditAc </label>
-                                                            <select id="formrow-inputState" class="form-control"formControlName="creditAc">
+                                                            <select id="formrow-inputState" class="form-control"formControlName="creditAc"  [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
                                                                 <option selected="">Choose...</option>
                                                                 <option>2</option>
                                                             </select>
@@ -219,10 +219,10 @@
                                                
                                                 <div class="col-lg-3">
                                                     <div class="form-check">
-                                                        <input type="radio" name="ewayBillEntryType"
+                                                        <input type="radio" 
                                                             formControlName="neftPmt"  value="E"
                                                             class="form-check-input"><label for="formRadios2"
-                                                            class="form-check-label"> Neft
+                                                            class="form-check-label" (change)="changeEWay($event)" > Neft
                                                         </label>
                                                     </div>
                                                 </div>
@@ -231,7 +231,7 @@
                                                     <div class="mb-3">
                                                         <label for="basicpill-phoneno-input">Cheque No</label>
                                                         <input type="text" class="form-control" formControlName="chequeNo"
-                                                            id="basicpill-phoneno-input"
+                                                            id="basicpill-phoneno-input"  [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid)}"
                                                             placeholder="">
                                                     </div>
                                                 </div>
@@ -239,7 +239,7 @@
                                                     <div class="mb-3">
                                                         <label for="basicpill-email-input">Cheque Date </label>
                                                         <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"  formControlName="chequeDate"
-                                                        class="form-control">
+                                                        class="form-control" [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDate'].invalid)}">
                                                     </div>
                                                 </div>
                                                
@@ -250,7 +250,7 @@
                                                     <div class="tex">
                                                        
                                                         <button type="submit" class="btn btn-primary w-md"
-                                                        (click)="submitTripPaymentsForm() " >Submit</button>
+                                                        (click)="submitTripPaymentsForm()" >Submit</button>
                                                     </div>
                                                 </div>
                                             </div>

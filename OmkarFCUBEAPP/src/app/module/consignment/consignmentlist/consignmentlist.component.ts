@@ -69,22 +69,30 @@ export class ConsignmentlistComponent implements OnInit  {
         
   
           {
-            title: 'BookingPlace',
-            data: 'bookingPlace',
+            title: 'Booked At',
+            data: 'bookedAt',
+          },
+          {
+            title: 'Booking Date',
+            data: 'bookingDate',
           },
   
          {
-          title: 'GcSeries',
-          data: 'gcSeries',
+          title: 'LR No',
+          data: 'gcNoteNo',
         },
        
         {
-          title: 'From Place',
-          data: 'fromPlace',
+          title: 'From/Origin',
+          data: 'fPlace',
         },
         {
-          title: 'To Place',
-          data: 'toPlace',
+          title: 'To/Dest',
+          data: 'tPlace',
+        },
+        {
+          title: 'Vehicle No',
+          data: 'vehicelNo',
         },
       
       

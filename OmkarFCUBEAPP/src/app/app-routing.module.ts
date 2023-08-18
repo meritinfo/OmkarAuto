@@ -117,6 +117,7 @@ const routes: Routes = [
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
+  { path: 'tripsheetedit', component: TripsheetaddComponent },
   
   
   
