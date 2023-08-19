@@ -97,6 +97,7 @@ import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripshe
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 import { UppercaseonlyDirective } from './directives/uppercaseonly.directive';
 import { Tripsheetmodel } from './models/tripsheetmodel';
+import { Getkmsmodel } from './models/getkmsmodel';
 
 @NgModule({
   declarations: [
@@ -177,7 +178,7 @@ import { Tripsheetmodel } from './models/tripsheetmodel';
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,
   ],
   bootstrap: [AppComponent]
 })

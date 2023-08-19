@@ -8,6 +8,8 @@
 
       
 
-        public string? VehicleNo { get; set; }
+        public string? TransDate { get; set; }
+        public string? FromLocation { get; set; }
+        public string? ToLocation { get; set; }
     }
 }

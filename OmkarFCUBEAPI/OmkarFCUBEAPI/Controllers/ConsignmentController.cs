@@ -72,12 +72,12 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
        
-        [HttpPost("GetVehicleNoForEwayBill")]
-        public async Task<IActionResult> GetVehicleNoForEwayBill(VehicleModel request)
+        [HttpPost("GetKms")]
+        public async Task<IActionResult> GetKms(VehicleModel request)
         {
             try
             {
-                var result = await consignmentBusiness.GetVehicleNoForEwayBill(request);
+                var result = await consignmentBusiness.GetKms(request);
 
                 return Ok(result);
             }

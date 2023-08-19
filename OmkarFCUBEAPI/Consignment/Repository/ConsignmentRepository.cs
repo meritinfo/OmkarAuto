@@ -391,7 +391,7 @@ namespace Consignment.Repository
             }
             return vehicleList;
         }
-        public async Task<ResponseModel> GetVehicleNoForEwayBill(VehicleModel request)
+        public async Task<ResponseModel> GetKms(VehicleModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -400,9 +400,11 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@data", request.VehicleNo)
+                            new SqlParameter("@TransDate", request.TransDate),
+                            new SqlParameter("@FromLocation", request.FromLocation),
+                    new SqlParameter("@ToLocation", request.ToLocation)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetVehicleNoForEwayBill_Select", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetFrtKms", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

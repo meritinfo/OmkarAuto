@@ -70,6 +70,9 @@ export class CommonService {
   billDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Admin/GetEWayBillDetails', payload, this.httpOptions);
   }
+  getKms(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getKms', payload, this.httpOptions);
+  }
  
 
   formatDate(date: string) {

@@ -35,9 +35,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLocationList();
         }
-        public async Task<ResponseModel> GetVehicleNoForEwayBill(VehicleModel request)
+        public async Task<ResponseModel> GetKms(VehicleModel request)
         {
-            return await consignmentRepository.GetVehicleNoForEwayBill(request);
+            return await consignmentRepository.GetKms(request);
         }
 
         public async Task<List<BranchListModel>> GetVehicleNoList()

@@ -12,7 +12,7 @@ namespace Consignment.Business
         Task<List<BranchListModel>> GetLocationList();
         Task<List<BranchListModel>> GetContentList();
         Task<List<BranchListModel>> GetVehicleNoList();
-        Task<ResponseModel> GetVehicleNoForEwayBill(VehicleModel request);
+        Task<ResponseModel> GetKms(VehicleModel request);
         Task<List<LrSeriesListModel>> GetLRSeries();
         Task<List<BranchListModel>> GetBillingPartyList();
     }
