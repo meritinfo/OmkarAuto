@@ -62,16 +62,13 @@
         public string? GeneralRemarks { get; set; }
         public string? Attachedfile { get; set; }
         public string? YearId { get; set; }
-
-
-
-
-
-
-
-
-
-
         public string? LoggedInUser { get; set; }
+        public string? BookedAt { get; set; }
+        public string? FPlace { get; set; }
+        public string? TPlace { get; set; }
+        public string? VehicelNO { get; set; }
+
+
+
     }
 }

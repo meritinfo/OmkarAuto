@@ -22,30 +22,31 @@ export class IntermediatescreenComponent {
   formLogin!: FormGroup;
   intermediateScreenSubmitted = false;
   year: string = '';
+  branchname: string = '';
   logindate: string = '';
   currentServerTime: string = '';
-
+  formSubmitted = false;
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   selectedScreenDetails = new Intermediatescreenmodel();
+  maxDate: string = '';
 
-
-  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toastrService: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toasterService: ToastrService) {
     this.intermediateScreenModel = new Intermediatescreenmodel();
   }
 
   //On initial load
 
   ngOnInit(): void {
-    
 
     this.formLogin = this.formBuilder.group({
-      yearID: new FormControl(''),
-     // loginDate: new FormControl(''),
-      userBranch: new FormControl(''),
-      loginDate: new FormControl((new Date()).toISOString().substring(0,10))
+      yearID: new FormControl('', [Validators.required]),
+
+      // loginDate: new FormControl(''),
+      userBranch: new FormControl('', [Validators.required]),
+      loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
     });
     this.sharedService.getCurrentServerTime().subscribe((data: any) => {
       this.currentServerTime = data.currentServerTime;
@@ -53,7 +54,8 @@ export class IntermediatescreenComponent {
     this.sharedService.loggedInStatus = false;
     this.getBranchList();
     this.getYearList();
-
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    console.log(this.maxDate);
   }
 
   // convenience getter for easy access to contact form fields
@@ -64,29 +66,34 @@ export class IntermediatescreenComponent {
   submitIntermediateForm(): void {
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
+      this.toasterService.warning("Mandatory fields is required");
       return;
     }
+
     this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
     this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
-    this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
+    this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
+    this.branchname = this.formLogin.value.userBranch.dataName;
     this.sharedService.intermediateScreenSubmitted(this.selectedScreenDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-     
-     
+
+
       this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
       this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
-      this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch;
+      this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
       if (this.responseDetails.status) {
         localStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         localStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
-        localStorage.setItem("userBranch", this.selectedScreenDetails.userBranch);
+        localStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
+        localStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
+
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);
-       
+
       }
-      else{
-        this.toastrService.warning(this.responseDetails.message);
+      else {
+        this.toasterService.warning(this.responseDetails.message);
       }
     });
 

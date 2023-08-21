@@ -35,9 +35,10 @@
                         <thead>
                             <tr>
                                 <th>bookingPlace </th>
-                          
+                                <th>booking date </th>
                                 <th>GcSeries </th>
                                 <th>From </th>
+                                <th>To </th>
                                 <th>To </th>
                              
                                 <th>Action</th>
@@ -45,11 +46,13 @@
                         </thead>
                         <tbody *ngIf="allConsignment.cnList?.length != 0">
                             <tr *ngFor="let cn of allConsignment.cnList">
-                                <td>{{ cn.bookingPlace }}</td>
+                                <td>{{ cn.bookedAt }}</td>
+                                <td>{{ cn.bookingDate }}</td>
                         
-                                <td>{{ cn.gcSeries }}</td>
-                                <td>{{ cn.fromPlace }}</td>
-                                <td>{{ cn.toPlace }}</td>
+                                <td>{{ cn.gcNoteNo }}</td>
+                                <td>{{ cn.fPlace }}</td>
+                                <td>{{ cn.tPlace }}</td>
+                                <td>{{ cn.vehicelNo }}</td>
                              
                                 <td>
                                     <a (click)="getConsignmentDetails(cn)" class="actionicon"><i

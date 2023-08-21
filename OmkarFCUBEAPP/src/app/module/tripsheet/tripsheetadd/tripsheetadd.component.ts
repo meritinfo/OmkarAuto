@@ -137,13 +137,14 @@ export class TripsheetaddComponent {
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
 
     });
-    
+    this.getValidation();
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     
     if (this.selectedTripSheetDetails.tripId != '') {
+
       this.formTripsheet.patchValue(this.selectedTripSheetDetails);
       this.formTripsheet.patchValue({
       })
@@ -298,6 +299,46 @@ export class TripsheetaddComponent {
 
   removeLRItem(index: number) {
     this.formLRArray.removeAt(index);
+  }
+  getValidation(): void {
+    this.formTripsheet.controls['tripBranch'].disable();
+    this.formTripsheet.controls['vehicleMasterID'].disable();
+    this.formTripsheet.controls['tripNo'].disable();
+    this.formTripsheet.controls['newTripDate'].disable();
+    this.formTripsheet.controls['driverMasterID'].disable();
+    this.formTripsheet.controls['advPayable_2'].disable();
+    this.formTripsheet.controls['reportingDt_2'].disable();
+    this.formTripsheet.controls['tripStatus'].disable();
+    this.formTripsheet.controls['ltsDslToBe_2'].disable();
+    this.formTripsheet.controls['ltsAdblueToBe_2'].disable();
+    this.formTripsheet.controls['advPayable_2'].disable();
+    this.formTripsheet.controls['reportingDt_2'].disable();
+    this.formTripsheet.controls['advanceDays_2'].disable();
+    this.formTripsheet.controls['delayedDays_2'].disable();
+    this.formTripsheet.controls['graceDays_2'].disable();
+    this.formTripsheet.controls['opBalDriver'].disable();
+    this.formTripsheet.controls['opBalDsl'].disable();
+    this.formTripsheet.controls['opBalAdblue'].disable();
+    this.formTripsheet.controls['paidDriverAdvance'].disable();
+    this.formTripsheet.controls['freightCollByDriver'].disable();
+    this.formTripsheet.controls['issuedDslLtrs'].disable();
+    this.formTripsheet.controls['opBalDriver'].disable();
+    this.formTripsheet.controls['opBalDsl'].disable();
+    this.formTripsheet.controls['opBalDsl'].disable();
+    this.formTripsheet.controls['opBalAdblue'].disable();
+    this.formTripsheet.controls['freightCollByDriver'].disable();
+    this.formTripsheet.controls['totalDriverAc'].disable();
+    this.formTripsheet.controls['tripBalance'].disable();
+    this.formTripsheet.controls['recdFromDriver'].disable();
+    this.formTripsheet.controls['clBalDsl'].disable();
+    this.formTripsheet.controls['clBalAdBlue'].disable();
+    this.formTripsheet.controls['clBalAdBlue'].disable();
+    
+
+
+
+
+    
   }
 
   createLRArray() {

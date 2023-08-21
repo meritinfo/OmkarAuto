@@ -334,7 +334,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Load Type</label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder=""> <select id="formrow-inputState" class="form-control"
+                                                formControlName="loadType"
+                                                [ngClass]="">
+                                                <option selected="">Choose...</option>
+                                                <option value="L">Load</option>
+                                                <option value="E">Empty</option>
+                                           
+                                            </select>
                                             </div>
                                         </div>
 
@@ -647,18 +654,19 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Reporting Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    formControlName="reportingDt_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
                                                 <label for="formrow-inputCity">Delay Days</label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="delayedDays_2">
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Reporting Date</label>
+                                                <input type="date" class="form-control" placeholder=""
+                                                    formControlName="reportingDt_2">
+                                            </div>
+                                        </div>
+                                       
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Grace Days</label>
@@ -689,28 +697,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Driver Payments</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Repair</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Label</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Label</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                         
                                 </div>
                             </div>
                         </div>

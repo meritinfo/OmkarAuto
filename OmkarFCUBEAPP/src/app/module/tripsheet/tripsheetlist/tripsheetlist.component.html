@@ -33,9 +33,14 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>lastTripCloseDate </th>
+                            <th>TripBranch </th>
+                      
+                            <th>NewTripDate </th>
+                            <th>VehicleMasterID </th>
                       
                             <th>TripNo </th>
+                             
+                            <th>DriverMasterID </th>
                             
                          
                          
@@ -44,9 +49,12 @@
                     </thead>
                     <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
                         <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
-                            <td>{{ trip.lastTripCloseDate }}</td>
+                            <td>{{ trip.tripBranch }}</td>
                     
+                            <td>{{ trip.newTripDate }}</td>
+                            <td>{{ trip.vehicleMasterID }}</td>
                             <td>{{ trip.tripNo }}</td>
+                            <td>{{ trip.driverMasterID }}</td>
                          
                             <td>
                                 <a (click)="gettripSheetDetails(trip)" class="actionicon"><i

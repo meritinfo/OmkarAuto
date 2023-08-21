@@ -4,6 +4,8 @@ using Consignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
+using Shared.Business;
+using Shared.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -61,6 +63,35 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.GetRateList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetKms")]
+        public async Task<IActionResult> GetKms(KmsModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetKms(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetContentList")]
+        public async Task<IActionResult> GetContentList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetContentList();
 
                 return Ok(result);
             }

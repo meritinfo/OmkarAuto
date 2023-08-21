@@ -61,6 +61,11 @@ export class Consignmentmodel {
     attachedfile: string = "";
     yearId: string = "";
     loggedInUser: string = "";
+    bookedAt: string = "";
+    fPlace: string = "";
+    tPlace: string = "";
+    vehicelNo: string = "";
+  
   
     
     

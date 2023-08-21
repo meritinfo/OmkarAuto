@@ -48,8 +48,6 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
-import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
-import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
 
 
 
@@ -108,6 +106,7 @@ const routes: Routes = [
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
   { path: 'trippaymentlist', component: TrippaymentslistComponent },
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
+  { path: 'trippaymentsedit', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },
   { path: 'gstpurchaseadd', component: GstpurchaseaddComponent },
   { path: 'docrenewalentrylist', component: DocrenewalentrylistComponent },
@@ -119,8 +118,7 @@ const routes: Routes = [
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
-  { path: 'frtdistancemasterlist', component: DistancemasterfreightlistComponent },
-  { path: 'frtdistancemasteradd', component: DistancemasterfreightaddComponent },
+  { path: 'tripsheetedit', component: TripsheetaddComponent },
   
   
   

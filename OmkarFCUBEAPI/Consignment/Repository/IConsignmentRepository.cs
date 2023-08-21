@@ -8,7 +8,9 @@ namespace Consignment.Repository
         Task<ConsignmentList> GetConsignmentList(ConsignmentListRequest request);
         Task<List<RateListModel>> GetRateList();
         Task<List<BranchListModel>> GetLocationList();
+        Task<List<BranchListModel>> GetContentList();
         Task<List<BranchListModel>> GetVehicleNoList();
+          Task<ResponseModel> GetKms(KmsModel request);
         Task<List<BranchListModel>> GetBillingPartyList();
         Task<List<LrSeriesListModel>> GetLRSeries();
     }

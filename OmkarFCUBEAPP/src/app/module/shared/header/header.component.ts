@@ -13,6 +13,7 @@ export class HeaderComponent {
   logindate: string = '';
   branch: string = '';
   user: string = '';
+  branchname: string = '';
   selectedScreenDetails = new Intermediatescreenmodel();
   constructor(private sharedService: SharedService, private route: Router) {
 
@@ -31,6 +32,10 @@ export class HeaderComponent {
     var userData3 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
+    }
+    var userData5 = localStorage.getItem('branchname')?.toString();
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+      this.branchname = userData5;
     }
     var userData4 = localStorage.getItem('user')?.toString();
     if (typeof userData4 !== 'undefined' && userData4 !== null && userData4 !== '') {
