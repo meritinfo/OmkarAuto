@@ -25,15 +25,15 @@ export class ConsignmentaddComponent implements OnInit {
   year: string = '';
   branch: string = '';
   transDate: string = '';
-  fromLocation : string = '';
-  toLocation  : string = '';
+  fromLocation: string = '';
+  toLocation: string = '';
   kms: string = '';
   branchid: string = '';
   formConsignment!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
   kmsDetails = new kmsmodel();
- 
+
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
@@ -49,9 +49,10 @@ export class ConsignmentaddComponent implements OnInit {
   keywordLocation = 'dataName';
   ivVehicleNo = '';
   billstation = '';
+  ivFromPlace = '';
+  ivToPlace = '';
 
-
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private  toasterService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
@@ -62,7 +63,7 @@ export class ConsignmentaddComponent implements OnInit {
     var userData3 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
-    
+
     }
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -101,7 +102,7 @@ export class ConsignmentaddComponent implements OnInit {
       toPlace: new FormControl('',),
       toPin: new FormControl('',),
       fromPin: new FormControl('',),
-      kms: new FormControl( this.kms,),
+      kms: new FormControl(this.kms,),
       ownTruck: new FormControl('',),
       truckId: new FormControl('',),
       truckNo: new FormControl('',),
@@ -172,7 +173,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
- 
+
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
       this.rateList = res;
@@ -205,21 +206,37 @@ export class ConsignmentaddComponent implements OnInit {
       this.partyList = res;
     });
   }
-  changeKms(e: any) {
-    this.kms = '33';
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
- 
-this.kmsDetails.fromLocation ="14"
-this.kmsDetails.toLocation = "51"
-this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
-    this.commonService.getKms(this.kmsDetails).subscribe((res: Responsemodel) => {
-     this.responseDetails = res;
-
-
- 
-  
-  });
+  changeFromPlace(e: any) {
+    this.ivFromPlace = e.dataId;
+    this.checkMs();
+  }
+  changeToPlace(e: any) {
+    this.ivToPlace = e.dataId;
+    this.checkMs();
+  }
+  checkMs() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.ivToPlace;
+      this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
+      this.commonService.getKms(this.kmsDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formConsignment.patchValue({
+            kms: this.responseDetails.message
+          });
+        } else {
+          this.formConsignment.patchValue({
+            kms: ''
+          });
+        }
+      });
+    }
+    else {
+      this.formConsignment.patchValue({
+        kms: ''
+      });
+    }
   }
   //Submit user form details //
   submitConsignmentForm(): void {
@@ -319,11 +336,11 @@ this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
       if (result.code === 200) {
         this.eWayBillDetails.result = result;
 
-        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;        
+        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
         var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo)?.dataId;
-        if(selectedVehicleID){
+        if (selectedVehicleID) {
           this.ivVehicleNo = ewayVNo;
-        } else{
+        } else {
           this.ivVehicleNo = "";
         }
 
