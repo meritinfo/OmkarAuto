@@ -5771,3 +5771,6 @@ table td label{
  table td .btn{
     width: 50px !important;
  }
+ .grid-table{
+    display: contents;
+ }

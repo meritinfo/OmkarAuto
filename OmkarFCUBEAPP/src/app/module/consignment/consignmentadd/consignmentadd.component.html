@@ -173,7 +173,7 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="fromPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='selectEvent($event)'
+                                                        (selected)='selectFromPlaceEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"

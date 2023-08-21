@@ -417,4 +417,9 @@ export class ConsignmentaddComponent implements OnInit {
     })
   }
 
+  selectFromPlaceEvent(item: any) {
+    console.log(item);
+    // do something with selected item
+  }
+
 }

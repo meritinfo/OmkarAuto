@@ -28,7 +28,6 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DistanceDtlID", distanceDetailFrtModel.DistanceDtlID),
                             new SqlParameter("@MasterID", distanceDetailFrtModel.MasterID),
                             new SqlParameter("@FromLocation", distanceDetailFrtModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailFrtModel.ToLocation),

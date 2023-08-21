@@ -1,6 +1,4 @@
-﻿
-
-using FreightMasters.Models;
+﻿using FreightMasters.Models;
 
 namespace FreightMasters.Business
 {
