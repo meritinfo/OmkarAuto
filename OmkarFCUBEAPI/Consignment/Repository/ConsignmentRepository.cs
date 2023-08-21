@@ -391,7 +391,7 @@ namespace Consignment.Repository
             }
             return vehicleList;
         }
-        public async Task<ResponseModel> GetKms(VehicleModel request)
+        public async Task<ResponseModel> GetKms(KmsModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -405,11 +405,12 @@ namespace Consignment.Repository
                     new SqlParameter("@ToLocation", request.ToLocation)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetFrtKms", param);
-
+                   
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                      // var kms = Convert.ToString(statusData.Tables[0].Rows[0]["KMS"]);
+                        //responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                       responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["KMS"]);
                     }
                     else
                     {

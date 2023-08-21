@@ -73,7 +73,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
        
         [HttpPost("GetKms")]
-        public async Task<IActionResult> GetKms(VehicleModel request)
+        public async Task<IActionResult> GetKms(KmsModel request)
         {
             try
             {

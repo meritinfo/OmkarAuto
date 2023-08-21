@@ -13,7 +13,8 @@ import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { formatDate } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-
+import { kmsmodel } from 'src/app/models/kmsmodel';
+debugger
 @Component({
   selector: 'app-consignmentadd',
   templateUrl: './consignmentadd.component.html',
@@ -23,11 +24,16 @@ export class ConsignmentaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
+  transDate: string = '';
+  fromLocation : string = '';
+  toLocation  : string = '';
   kms: string = '';
   branchid: string = '';
   formConsignment!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
+  kmsDetails = new kmsmodel();
+ 
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
@@ -69,6 +75,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     ////this.ivVehicleNo = "Hyderabad";
+
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -94,7 +101,7 @@ export class ConsignmentaddComponent implements OnInit {
       toPlace: new FormControl('',),
       toPin: new FormControl('',),
       fromPin: new FormControl('',),
-      kms: new FormControl('',),
+      kms: new FormControl( this.kms,),
       ownTruck: new FormControl('',),
       truckId: new FormControl('',),
       truckNo: new FormControl('',),
@@ -165,6 +172,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+ 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
       this.rateList = res;
@@ -198,17 +206,21 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
   changeKms(e: any) {
+    this.kms = '33';
     console.log(e.target.value);
     var selectedValue = e.target.value;
  
-    //this.commonService.getKms(this.consignmentmodel).subscribe((res: Responsemodel) => {
-     // this.responseDetails = res;
-    
+this.kmsDetails.fromLocation ="14"
+this.kmsDetails.toLocation = "51"
+this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
+    this.commonService.getKms(this.kmsDetails).subscribe((res: Responsemodel) => {
+     this.responseDetails = res;
+
 
  
-  //  }
+  
+  });
   }
-
   //Submit user form details //
   submitConsignmentForm(): void {
     this.formSubmitted = true;
