@@ -12,6 +12,7 @@ import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { UserService } from 'src/app/services/user.service';
+import { kmsmodel } from 'src/app/models/kmsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -20,6 +21,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class TripsheetaddComponent {
   loggedInUserID: string = '';
+  distanceTripKM_1: string = '';
   formTripsheet!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
@@ -27,7 +29,13 @@ export class TripsheetaddComponent {
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  kmsDetails = new kmsmodel();
   keywordLocation = 'dataName';
+  ivVehicleNo = '';
+  billstation = '';
+  ivFromPlace = '';
+  ivToPlace = '';
+
 
 
   selectedTripSheetDetails = new Tripsheetmodel();
@@ -53,8 +61,7 @@ export class TripsheetaddComponent {
       vehicleMasterID: new FormControl('',),
       tripNo: new FormControl('',),
       lastTripCloseDate: new FormControl('',),
-
-      newTripDate: new FormControl('',),
+       newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
       tripOpenDate: new FormControl('',),
@@ -68,7 +75,7 @@ export class TripsheetaddComponent {
       destination: new FormControl('',),
       destination2: new FormControl('',),
       destination3: new FormControl('',),
-      distanceTripKM_1: new FormControl('',),
+      distanceTripKM_1: new FormControl(this.distanceTripKM_1,),
       contents: new FormControl('',),
       loadEmptyType: new FormControl('',),
       expectedReportingDays: new FormControl('',),
@@ -304,7 +311,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['tripBranch'].disable();
     this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripNo'].disable();
-    this.formTripsheet.controls['newTripDate'].disable();
+  //  this.formTripsheet.controls['newTripDate'].disable();
     this.formTripsheet.controls['driverMasterID'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
     this.formTripsheet.controls['reportingDt_2'].disable();
@@ -364,7 +371,38 @@ export class TripsheetaddComponent {
   removeDieselItem(index: number) {
     this.formDieselArray.removeAt(index);
   }
-
+  changeFromPlace(e: any) {
+    this.ivFromPlace = e.dataId;
+    this.checkMs();
+  }
+  changeToPlace(e: any) {
+    this.ivToPlace = e.dataId;
+    this.checkMs();
+  }
+  checkMs() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.ivToPlace;
+      this.kmsDetails.transDate = this.formTripsheet.value.newTripDate;
+      this.commonService.getKms(this.kmsDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formTripsheet.patchValue({
+            distanceTripKM_1: this.responseDetails.message
+          });
+        } else {
+          this.formTripsheet.patchValue({
+            distanceTripKM_1: ''
+          });
+        }
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        distanceTripKM_1: ''
+      });
+    }
+  }
   createDieselArray() {
     return this.formBuilder.group({
       fillingStation: [''],

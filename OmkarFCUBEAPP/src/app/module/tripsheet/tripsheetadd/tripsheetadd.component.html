@@ -334,13 +334,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Load Type</label>
-                                                <input class="form-control" placeholder=""> <select id="formrow-inputState" class="form-control"
+                                                <select id="formrow-inputState" class="form-control"
                                                 formControlName="loadType"
                                                 [ngClass]="">
                                                 <option selected="">Choose...</option>
-                                                <option value="L">Load</option>
+                                                <option value="L">Loaded</option>
                                                 <option value="E">Empty</option>
-                                           
+                                              
+                                     
                                             </select>
                                             </div>
                                         </div>
@@ -351,25 +352,25 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">From Point</label>
                                                
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList" formControlName="loadingFrom"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            [ngClass]="">
-                                                        </ng-autocomplete>
-    
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-    
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="locationList" formControlName="loadingFrom"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='changeFromPlace($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -377,34 +378,10 @@
                                                 <label for="formrow-inputState">To Point</label>
                                              
                                                       
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList" formControlName="destination"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            [ngClass]="">
-                                                        </ng-autocomplete>
-    
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-    
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Destination 2</label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="destination2"
+                                                    <ng-autocomplete [data]="locationList" formControlName="destination"
                                                         [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='selectEvent($event)'
+                                                        (selected)='changeToPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
@@ -424,17 +401,41 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Destination 2</label>
+                                                <label for="formrow-inputCity">Destination 2</label>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="locationList" formControlName="destination2"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='changeToPlace($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Destination 3</label>
                                         
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList" formControlName="destination3"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            [ngClass]="">
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='changeToPlace($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="">
                                                         </ng-autocomplete>
     
                                                         <ng-template #itemTemplate let-item>

@@ -81,6 +81,12 @@ export class Tripsheetmodel {
     tripLinkYN: string = "";
     tripSalDoneYN: string = "";
     findocid: string = "";
+    tripBrName: string = "";
+    vehicleNo: string = "";
+    drName: string = "";
+    frPlace: string = "";
+    tPlace: string = "";
+
    
 
 

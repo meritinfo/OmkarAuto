@@ -108,5 +108,11 @@ namespace FleetTrans.Models
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? TripBrName { get; set; }
+        public string? VehicleNo { get; set; }
+        public string? DrName{ get; set; }
+        public string? FrPlace { get; set; }
+        public string? TPlace { get; set; }
+
     }
 }

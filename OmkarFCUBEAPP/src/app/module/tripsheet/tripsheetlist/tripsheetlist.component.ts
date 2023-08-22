@@ -51,27 +51,52 @@ export class TripsheetlistComponent {
          // Set column title and data field
          columns: [
           {
-            title: 'TripBranch',
-            data: 'tripBranch',
+            title: 'Vehicle No',
+            data: 'vehicleNo',
           },
          
           {
-            title: 'NewTripDate',
+            title: 'Trip Date',
             data: 'newTripDate',
           },
-          {
-            title: 'VehicleMasterID',
-            data: 'vehicleMasterID',
-          },
+         
+        
+         
   
           {
-            title: 'TripNo',
+            title: 'Trip No',
             data: 'tripNo',
           },
+          {
+            title: 'From',
+            data: 'frPlace',
+          },
+         
+          {
+            title: 'To',
+            data: 'tPlace',
+          },
+          {
+            title: 'Expected UL. Dt.',
+            data: 'expectedReportingDt',
+          },
+          {
+            title: 'LoadType',
+            data: 'loadEmptyType',
+          },
+         
   
          {
-          title: 'DriverMasterID',
-          data: 'driverMasterID',
+          title: 'Driver',
+          data: 'drName',
+        },
+        {
+          title: 'TripCloseDate',
+          data: 'lastTripCloseDate',
+        },
+        {
+          title: 'TripLinkYN',
+          data: 'loadEmptyType',
         },
        
       

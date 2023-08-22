@@ -33,14 +33,22 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>TripBranch </th>
+                            <th>vehicleNo </th>
+              
                       
                             <th>NewTripDate </th>
-                            <th>VehicleMasterID </th>
+                        
                       
                             <th>TripNo </th>
+                            <th>FrPlace </th>
+                            <th>TPlace </th>
                              
+                            <th>expectedReportingDt </th>
+                            <th>loadEmptyType </th>
                             <th>DriverMasterID </th>
+                            <th>lastTripCloseDate </th>
+                            <th>tripLinkYN </th>
+                            
                             
                          
                          
@@ -49,12 +57,17 @@
                     </thead>
                     <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
                         <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
-                            <td>{{ trip.tripBranch }}</td>
-                    
+                            <td>{{ trip.vehicleNo }}</td>
+                          
                             <td>{{ trip.newTripDate }}</td>
-                            <td>{{ trip.vehicleMasterID }}</td>
                             <td>{{ trip.tripNo }}</td>
-                            <td>{{ trip.driverMasterID }}</td>
+                            <td>{{ trip.frPlace }}</td>
+                            <td>{{ trip.tPlace }}</td>
+                            <td>{{ trip.expectedReportingDt }}</td>
+                            <td>{{ trip.loadEmptyType }}</td>
+                            <td>{{ trip.drName }}</td>
+                            <td>{{ trip.lastTripCloseDate }}</td>
+                            <td>{{ trip.tripLinkYN }}</td>
                          
                             <td>
                                 <a (click)="gettripSheetDetails(trip)" class="actionicon"><i

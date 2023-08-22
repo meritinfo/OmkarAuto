@@ -62,7 +62,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Booking Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="bookingDate"
+                                                    placeholder="yyyy-mm-dd" formControlName="bookingDate"  max="{{maxDate}}"
                                                     class="form-control"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                             </div>
@@ -131,7 +131,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="ewayBillDate"
+                                                    placeholder="yyyy-mm-dd"  max="{{maxDate}}" formControlName="ewayBillDate"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -139,7 +139,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill Exp Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="ewayBillExpDate"
+                                                    placeholder="yyyy-mm-dd" formControlName="ewayBillExpDate"  max="{{maxDate}}"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeFromPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
@@ -290,7 +290,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="cnorInvDate"
+                                                    placeholder="yyyy-mm-dd" formControlName="cnorInvDate"  max="{{maxDate}}"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -383,7 +383,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Shipment Dt</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="shipmentDt"
+                                                    placeholder="yyyy-mm-dd" formControlName="shipmentDt"  max="{{maxDate}}"
                                                     class="form-control">
                                             </div>
                                         </div>

@@ -33,7 +33,7 @@ export class ConsignmentaddComponent implements OnInit {
   formSubmitted = false;
   responseDetails = new Responsemodel();
   kmsDetails = new kmsmodel();
-
+  maxDate: string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
@@ -162,7 +162,8 @@ export class ConsignmentaddComponent implements OnInit {
 
       })
     }
-
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
 
   }
