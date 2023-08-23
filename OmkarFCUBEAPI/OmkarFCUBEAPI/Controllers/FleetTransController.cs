@@ -145,6 +145,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetTripSheetInnerGridList")]
+        public async Task<IActionResult> GetTripSheetInnerGridList()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetInnerGridList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

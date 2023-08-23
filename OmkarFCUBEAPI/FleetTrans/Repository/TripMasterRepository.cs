@@ -341,6 +341,82 @@ namespace FleetTrans.Repository
             }
             return tripSheetList;
         }
+        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList()
+        {
+            TripSheetInnerGridListModel tripSheetInnerGridList = new()
+            {
+                LRDetailsList = new List<LRDetailsModel>(),
+                DieselDetailsList = new List<DieselDetailsModel>(),
+                DriverAdvanceList = new List<DriverAdvanceModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", null);
+                    
+                    //LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.LRDetailsList.Add(new LRDetailsModel
+                            {
+                                ConsignmentID = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
+                                GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
+                                CneeCode = Convert.ToString(resultData.Tables[0].Rows[i]["CneeCode"]),
+                                CnorInvNo = Convert.ToString(resultData.Tables[0].Rows[i]["CnorInvNo"]),
+                                EwayBillNo = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillNo"]),
+                                EwayBillDate = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillDate"]),
+                                EwayBillExpDate = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillExpDate"]),
+                            });
+                        }
+                    }
+                    //Diseal Details
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.DieselDetailsList.Add(new DieselDetailsModel
+                            {
+                                PmtId = Convert.ToString(resultData.Tables[1].Rows[i]["PmtId"]),
+                                PmtDate = Convert.ToString(resultData.Tables[1].Rows[i]["PmtDate"]),
+                                QtyLtrs = Convert.ToString(resultData.Tables[1].Rows[i]["QtyLtrs"]),
+                                RatePerLtr = Convert.ToString(resultData.Tables[1].Rows[i]["RatePerLtr"]),
+                                AmountPaid = Convert.ToString(resultData.Tables[1].Rows[i]["AmountPaid"]),
+                            });
+                        }
+                    }
+                    //Driver Adv Details
+                    if (resultData != null && resultData.Tables[2].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.DriverAdvanceList.Add(new DriverAdvanceModel
+                            {
+                                PmtId = Convert.ToString(resultData.Tables[2].Rows[i]["PmtId"]),
+                                PmtDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
+                                AmountPaid = Convert.ToString(resultData.Tables[2].Rows[i]["AmountPaid"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetInnerGridList;
+        }
     }
 
 }

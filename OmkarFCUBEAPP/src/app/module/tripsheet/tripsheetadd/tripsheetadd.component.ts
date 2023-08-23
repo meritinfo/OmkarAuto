@@ -13,6 +13,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { UserService } from 'src/app/services/user.service';
 import { kmsmodel } from 'src/app/models/kmsmodel';
+import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -29,6 +30,7 @@ export class TripsheetaddComponent {
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  tripsheetinnergridmodel = new Tripsheetinnergridmodel();
   kmsDetails = new kmsmodel();
   keywordLocation = 'dataName';
   ivVehicleNo = '';
@@ -144,6 +146,7 @@ export class TripsheetaddComponent {
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
 
     });
+    this.getTripSheetInnerGridList();
     this.getValidation();
     this.getBranchList();
     this.getVehicleNoList();
@@ -185,6 +188,13 @@ export class TripsheetaddComponent {
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
+    });
+  }
+
+  getTripSheetInnerGridList(): void {
+    this.tripSheetService.getTripSheetInnerGridList().subscribe((res) => {
+      this.tripsheetinnergridmodel = res;
+      console.log(this.tripsheetinnergridmodel);
     });
   }
   

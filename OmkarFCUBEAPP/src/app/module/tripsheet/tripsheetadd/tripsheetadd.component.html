@@ -63,25 +63,26 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle No</label>
-                                               
-                                                    <div class="ng-autocomplete" >
-                                                        <ng-autocomplete [data]="vehicleList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""formControlName="vehicleMasterID"
-                                                            [initialValue]="" (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter">
-                                                        </ng-autocomplete>
-    
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-    
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
+
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleMasterID" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -93,15 +94,15 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Driver</label>
-                                            
-                                                    <select class="form-control" formControlName="driverMasterID"
+
+                                                <select class="form-control" formControlName="driverMasterID"
                                                     [ngClass]="">
                                                     <option *ngFor="let branch of driverList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
-                                                    
-                                                    
+
+
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -156,114 +157,85 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">LR Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity">LR Series</label></th>
+                                            <th><label for="formrow-inputCity">LR No</label></th>
+                                            <th><label for="formrow-inputCity">Consignee</label></th>
+                                            <th><label for="formrow-inputZip">Invoice No</label></th>
+                                            <th><label for="formrow-inputZip">EWay Bill No</label></th>
+                                            <th><label for="formrow-inputZip">EWay Bill Date</label></th>
+                                            <th><label for="formrow-inputZip">EWay Bill Exp Date</label></th>
+                                            <th><label for="formrow-inputCity">Ticl Status</label></th>
+                                            <th><label for="formrow-inputZip">GRN No</label></th>
+                                            <th><label for="formrow-inputZip">Delay Days</label></th>
+                                        </tr>
                                         <tr formArrayName="lrDetailsList"
-                                            *ngFor="let arrayData of formLRArray.controls; let i = index">
-                                            <div [formGroupName]="i">
+                                            *ngFor="let lrData of tripsheetinnergridmodel.lRDetailsList;">
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">LR Series</label>
-                                                            <select id="role" class="form-select"
-                                                                formControlName="lrSeries">
-                                                                <option value="">Choose...</option>
-                                                            </select>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">LR No</label>
-                                                            <input autoclose="false" type="text" placeholder="LR No"
-                                                                class="form-control" formControlName="lrNo">
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">Consignee</label>
-                                                            <input autoclose="false" type="text" placeholder="Consignee"
-                                                                class="form-control" formControlName="consignee">
+                                                            {{lrData.consignmentID}}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-121">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">Invoice No</label>
-                                                            <input class="form-control" placeholder="Invoice No"
-                                                                formControlName="invoiceNo">
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">EWay Bill No</label>
-                                                            <input class="form-control" placeholder="EWay Bill No"
-                                                                formControlName="eWayBillNo">
+                                                            {{lrData.ewayBillNo}}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">EWay Bill Date</label>
-                                                            <input class="form-control" type="date"
-                                                                placeholder="EWay Bill Date"
-                                                                formControlName="eWayBillDate">
+                                                            {{lrData.ewayBillDate}}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">EWay Bill Exp Date</label>
-                                                            <input class="form-control" type="date"
-                                                                placeholder="EWay Bill Exp Date"
-                                                                formControlName="eWayBillExpDate">
+                                                            {{lrData.ewayBillExpDate}}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">Ticl Status</label>
-                                                            <select class="form-select" formControlName="ticlStatus">
-                                                                <option value="">Choose...</option>
-                                                            </select>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">GRN No</label>
-                                                            <input class="form-control" placeholder="GRN No"
-                                                                formControlName="grnNo">
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">Delay Days</label>
-                                                            <input class="form-control" placeholder="Delay Days"
-                                                                formControlName="delayDays">
+                                                            
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addLRItem()">Add</button>
-                                                        <button *ngIf="formLRArray.controls.length > 1"
-                                                            (click)="removeLRItem(i)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
-                                                </td>
-                                            </div>
                                         </tr>
                                     </table>
                                 </div>
@@ -301,15 +273,16 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Challan No.</label>
-                                                <input class="form-control" placeholder="" formControlName="challanByDriver">
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="challanByDriver">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios1" value="Company"
-                                                    class="form-check-input" />
+                                                <input type="radio" name="compNonCompStatus" id="formRadios1"
+                                                    value="Company" class="form-check-input" />
                                                 <label for="formRadios1" class="form-check-label"> Company
                                                 </label>
 
@@ -325,8 +298,8 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios3" value="Rem"
-                                                    class="form-check-input" formControlName=""/>
+                                                <input type="radio" name="compNonCompStatus" id="formRadios3"
+                                                    value="Rem" class="form-check-input" formControlName="" />
                                                 <label for="formRadios3" class="form-check-label"> RCM
                                                 </label>
                                             </div>
@@ -335,14 +308,13 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Load Type</label>
                                                 <select id="formrow-inputState" class="form-control"
-                                                formControlName="loadType"
-                                                [ngClass]="">
-                                                <option selected="">Choose...</option>
-                                                <option value="L">Loaded</option>
-                                                <option value="E">Empty</option>
-                                              
-                                     
-                                            </select>
+                                                    formControlName="loadType" [ngClass]="">
+                                                    <option selected="">Choose...</option>
+                                                    <option value="L">Loaded</option>
+                                                    <option value="E">Empty</option>
+
+
+                                                </select>
                                             </div>
                                         </div>
 
@@ -351,16 +323,15 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">From Point</label>
-                                               
+
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="loadingFrom"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeFromPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"
-                                                        [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]="">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -376,8 +347,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">To Point</label>
-                                             
-                                                      
+
+
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList" formControlName="destination"
                                                         [searchKeyword]="keywordLocation" placeholder=""
@@ -385,8 +356,7 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"
-                                                        [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]="">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -403,14 +373,13 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Destination 2</label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="destination2"
-                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                    (selected)='changeToPlace($event)'
-                                                    (inputChanged)='onChangeSearch($event)'
-                                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                    [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="startWithFilter"
-                                                    [ngClass]="">
+                                                    <ng-autocomplete [data]="locationList"
+                                                        formControlName="destination2" [searchKeyword]="keywordLocation"
+                                                        placeholder="" (selected)='changeToPlace($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" [ngClass]="">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -426,27 +395,26 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Destination 3</label>
-                                        
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList" formControlName="destination3"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='changeToPlace($event)'
+
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="locationList"
+                                                        formControlName="destination3" [searchKeyword]="keywordLocation"
+                                                        placeholder="" (selected)='changeToPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter"
-                                                        [ngClass]="">
-                                                        </ng-autocomplete>
-    
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-    
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                                    
+                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+
                                             </div>
                                         </div>
 
@@ -604,8 +572,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Next Reporting Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                   >
+                                                <input type="date" class="form-control" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -667,7 +634,7 @@
                                                     formControlName="reportingDt_2">
                                             </div>
                                         </div>
-                                       
+
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Grace Days</label>
@@ -698,12 +665,12 @@
                                             </div>
                                         </div>
                                     </div>
-                         
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-6">
@@ -711,47 +678,33 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Diesel Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity">Filling Stn</label></th>
+                                            <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
+                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                        </tr>
                                         <tr formArrayName="dieselDetailsList"
-                                            *ngFor="let dieselData of formDieselArray.controls; let j = index">
-                                            <div [formGroupName]="j">
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Filling Stn</label>
-                                                            <input autoclose="false" type="text"
-                                                                placeholder="Filling Stn" class="form-control"
-                                                                formControlName="fillingStation">
-                                                        </div>
+                                            *ngFor="let dieselData of tripsheetinnergridmodel.dieselDetailsList;">
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Dsl Ltrs</label>
-                                                            <input autoclose="false" type="text" placeholder="Dsl Ltrs"
-                                                                class="form-control" formControlName="dieselLiter">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{dieselData.qtyLtrs}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-121">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Amount</label>
-                                                            <input class="form-control" placeholder="Amount"
-                                                                formControlName="dieselAmount">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-121">
+                                                    <div class="mb-3">
+                                                        {{dieselData.amountPaid}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addDieselItem()">Add</button>
-                                                        <button *ngIf="formDieselArray.controls.length > 1"
-                                                            (click)="removeDieselItem(j)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
-                                                </td>
-                                            </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -818,48 +771,34 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Driver Advance</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th> <label for="formrow-inputCity">Pmt Type</label></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
+                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                        </tr>
                                         <tr formArrayName="driverDetailsList"
-                                            *ngFor="let driverData of formDriverArray.controls; let l = index">
-                                            <div [formGroupName]="l">
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Pmt Type</label>
-                                                            <select id="role" class="form-select"
-                                                                formControlName="pmtType">
-                                                                <option value="">Choose...</option>
-                                                            </select>
-                                                        </div>
+                                            *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{driverData.pmtId}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Pmt Date</label>
-                                                            <input autoclose="false" type="text" placeholder="Pmt Date"
-                                                                class="form-control" formControlName="pmtDate">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{driverData.pmtDate}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-121">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Amount</label>
-                                                            <input class="form-control" placeholder="Amount"
-                                                                formControlName="pmtAmount">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-121">
+                                                    <div class="mb-3">
+                                                        {{driverData.amountPaid}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addDriverItem()">Add</button>
-                                                        <button *ngIf="formDriverArray.controls.length > 1"
-                                                            (click)="removeDriverItem(l)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
-                                                </td>
-                                            </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -888,7 +827,8 @@
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Dsl Ltrs</label>
                                                             <input autoclose="false" type="text" placeholder="Dsl Ltrs"
-                                                                class="form-control" formControlName="adbluedieselLiter">
+                                                                class="form-control"
+                                                                formControlName="adbluedieselLiter">
                                                         </div>
                                                     </div>
                                                 </td>
@@ -1077,40 +1017,41 @@
                                             <input class="form-control" placeholder="" formControlName="ticlRemarks">
                                         </div>
                                     </div>
-                                 
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">tripCloseBy </label>
-                                            <input class="form-control" placeholder="" formControlName="tripCloseBy">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">tripClose Date </label>
-                                            <input type="date" class="form-control" placeholder=""
-                                                formControlName="tripCloseDt">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity"> TripCloseUpdate Date </label>
-                                            <input type="date" class="form-control" placeholder=""
-                                                formControlName="tripCloseUpdateDt">
-                                        </div>
-                                    </div>
-                               
-                                    <div class="col-lg-2">
-                                        <div class="mb-4">
-                                            <input type="checkbox" name="tripLinkYN" id="formRadios1" value="Y"
-                                                class="form-check-input" />
-                                            <label for="formrow-inputCity">TripLinkYN</label>
-                                        </div>
-                                        <div class="mb-2">
 
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">tripCloseBy </label>
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="tripCloseBy">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">tripClose Date </label>
+                                                <input type="date" class="form-control" placeholder=""
+                                                    formControlName="tripCloseDt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity"> TripCloseUpdate Date </label>
+                                                <input type="date" class="form-control" placeholder=""
+                                                    formControlName="tripCloseUpdateDt">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <div class="mb-4">
+                                                <input type="checkbox" name="tripLinkYN" id="formRadios1" value="Y"
+                                                    class="form-check-input" />
+                                                <label for="formrow-inputCity">TripLinkYN</label>
+                                            </div>
+                                            <div class="mb-2">
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-3">
