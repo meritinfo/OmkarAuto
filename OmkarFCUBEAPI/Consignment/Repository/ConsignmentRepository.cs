@@ -433,6 +433,90 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetTripKms(KmsModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TransDate", request.TransDate),
+                            new SqlParameter("@FromLocation", request.FromLocation),
+                    new SqlParameter("@ToLocation", request.ToLocation)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateLr(GcModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GcSlNo", request.GcSlNo),
+                           
+                 
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CheckDuplicateLR", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
         public async Task<List<BranchListModel>> GetContentList()
         {
             List<BranchListModel> contentList = new();
@@ -452,6 +536,45 @@ namespace Consignment.Repository
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return contentList;
+        }
+        public async Task<List<ResponseModel>> GetGcSeries()
+        {
+            List<ResponseModel> contentList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetGcSeries_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            contentList.Add(new ResponseModel
+                            {
+
+                                Message = Convert.ToString(statusData.Tables[0].Rows[i]["message"]),
                             });
                         }
                     }

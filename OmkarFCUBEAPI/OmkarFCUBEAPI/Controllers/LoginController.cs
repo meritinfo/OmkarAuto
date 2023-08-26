@@ -55,6 +55,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckBookingDate")]
+        public async Task<IActionResult> CheckBookingDate(DateModel request)
+        {
+            try
+            {
+                var result = await sharedBusiness.CheckBookingDate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetYearList")]
         public async Task<IActionResult> GetYearList()
         {

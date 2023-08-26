@@ -6,6 +6,7 @@ import { Loginmodel } from '../models/loginmodel';
 import { Intermediatescreenmodel } from '../models/intermediatescreenmodel';
 import { LoggedinUsermodel } from '../models/loggedinusermodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Datemodel } from '../models/datemodel';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,9 @@ export class SharedService {
   intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetail', login, this.httpOptions);
   }
+  checkBookingdate(login : Datemodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Login/CheckBookingDate', login, this.httpOptions);
+  }
  
 
   getMenuList(userID : string): Observable<any> {
@@ -37,4 +41,8 @@ export class SharedService {
   getCurrentServerTime(): Observable<any> {
     return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/GetServerDate/' , this.httpOptions);
   }
+  //getGcSeries(): Observable<any> {
+    //return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries/' , this.httpOptions);
+  //}
+ 
 }

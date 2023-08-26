@@ -73,7 +73,12 @@ export class CommonService {
   getKms(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getKms', payload, this.httpOptions);
   }
- 
+  getTripKms(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getTripKms', payload, this.httpOptions);
+  }
+  getGcSeries():  Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', null, this.httpOptions);
+  }
 
   formatDate(date: string) {
     let dateParts = date.split(" ")[0].split("/");

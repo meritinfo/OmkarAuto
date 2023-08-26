@@ -86,6 +86,49 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripKms")]
+        public async Task<IActionResult> GetTripKms(KmsModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetTripKms(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateLr")]
+        public async Task<IActionResult> CheckDuplicateLr(GcModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.CheckDuplicateLr(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetGcSeries")]
+        public async Task<IActionResult> GetGcSeries()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetGcSeries();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetContentList")]
         public async Task<IActionResult> GetContentList()
         {

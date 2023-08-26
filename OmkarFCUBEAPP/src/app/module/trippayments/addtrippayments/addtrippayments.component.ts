@@ -24,7 +24,9 @@ import { ToastrService } from 'ngx-toastr';
 export class AddtrippaymentsComponent {
   loggedInUserID: string = '';
   ttype: string = '';
-  formUser2!: FormGroup;
+  amount: string = '';
+  maxDate: string = '';
+  formTripPayment!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
   keywordLocation = 'dataName';
@@ -57,10 +59,12 @@ export class AddtrippaymentsComponent {
     this.getBranchList();
     this.getVehicleList();
     this.getLocationList();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    console.log(this.maxDate);
 
     this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
 
-    this.formUser2 = this.formBuilder.group({
+    this.formTripPayment = this.formBuilder.group({
       pmtBranch: new FormControl('', [Validators.required]),
       pmtDate: new FormControl('', [Validators.required]),
       vehicleMasterID: new FormControl('', [Validators.required]),
@@ -68,7 +72,7 @@ export class AddtrippaymentsComponent {
       tripMasterId: new FormControl('',),
 
       transType: new FormControl('', [Validators.required]),
-      amountPaid: new FormControl('', [Validators.required]),
+      amountPaid: new FormControl('0', [Validators.required]),
       remarks: new FormControl('',),
       pmtType: new FormControl('', [Validators.required]),
       neftPmt: new FormControl('',),
@@ -91,12 +95,15 @@ export class AddtrippaymentsComponent {
 
     });
     if (this.selectedTripPaymentsDetails.pmtId != '') {
-      this.formUser2.patchValue(this.selectedTripPaymentsDetails);
-      this.formUser2.controls['pmtBranch'].disable();
-      this.formUser2.controls['pmtDate'].disable();
-      this.formUser2.controls['vehicleMasterID'].disable();
-      this.formUser2.patchValue({
-
+      this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
+      this.formTripPayment.controls['pmtBranch'].disable();
+      this.formTripPayment.controls['pmtDate'].disable();
+      this.formTripPayment.controls['tripNo'].disable();
+      this.formTripPayment.controls['loadorempty'].disable();
+      this.formTripPayment.controls['loadorempty'].disable();
+      this.formTripPayment.controls['vehicleMasterID'].disable();
+      this.formTripPayment.patchValue({
+        
 
 
 
@@ -106,7 +113,7 @@ export class AddtrippaymentsComponent {
 
   }
   // convenience getter for easy access to contact form fields
-  get f() { return this.formUser2.controls; }
+  get f() { return this.formTripPayment.controls; }
 
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -145,72 +152,100 @@ export class AddtrippaymentsComponent {
     console.log(e.target.value);
     var selectedValue = e.target.value;
     if (selectedValue == "DL") {
-      this.formUser2.controls['qtyLtrs'].setValidators([Validators.required]);
-      this.formUser2.controls['ratePerLtr'].setValidators([Validators.required]);
+      this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
+      this.formTripPayment.controls['ratePerLtr'].setValidators([Validators.required]);
     }
     else {
-      this.formUser2.controls['qtyLtrs'].clearValidators();
-      this.formUser2.controls['ratePerLtr'].clearValidators();
+      this.formTripPayment.controls['qtyLtrs'].clearValidators();
+      this.formTripPayment.controls['ratePerLtr'].clearValidators();
     }
-    this.formUser2.controls['qtyLtrs'].updateValueAndValidity();
-    this.formUser2.controls['ratePerLtr'].updateValueAndValidity();
+    this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
+    this.formTripPayment.controls['ratePerLtr'].updateValueAndValidity();
   }
+  calculateTotalAmount() {
+    let total = 0;
+    if (this.formTripPayment.value.qtyLtrs!= "" && this.formTripPayment.value.ratePerLtr!= "") {
+    var qtyLtrs = this.formTripPayment.value.qtyLtrs ? parseFloat(this.formTripPayment.value.qtyLtrs) : 0;
+    var ratePerLtr = this.formTripPayment.value.ratePerLtr ? parseFloat(this.formTripPayment.value.ratePerLtr) : 0;
+    var amountPaid = this.formTripPayment.value.paidAmount ? parseFloat(this.formTripPayment.value.paidAmount) : 0;
+
+    total = qtyLtrs * ratePerLtr ;
+
+    this.formTripPayment.patchValue({
+      amountPaid: total,
+      
+      
+    });
+  }
+  else{
+    
+    this.formTripPayment.patchValue({
+      amountPaid: '',
+      
+      
+    });
+   
+  }
+  }
+
+ 
+    
+  
 
   changeNEFTValue(e: any){
     console.log(e.target.checked);
     var selectedValue = e.target.checked;
     if(selectedValue){
-      this.formUser2.controls['chequeNo'].clearValidators();
-      this.formUser2.controls['chequeDate'].clearValidators();
+      this.formTripPayment.controls['chequeNo'].clearValidators();
+      this.formTripPayment.controls['chequeDate'].clearValidators();
     }
     else{
-      this.formUser2.controls['chequeNo'].setValidators([Validators.required]);
-      this.formUser2.controls['chequeDate'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
     }
-    this.formUser2.controls['chequeNo'].updateValueAndValidity();
-    this.formUser2.controls['chequeDate'].updateValueAndValidity();
+    this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+    this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
   }
 
   //Submit user form details //
   submitTripPaymentsForm(): void {
     this.userSubmitted = true;
-    if (this.formUser2.invalid) {
+    if (this.formTripPayment.invalid) {
       this.toasterService.warning("Mandatory fields is required");
       return;
     }
 
     this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId != '' ? this.selectedTripPaymentsDetails.pmtId : '';
-    this.trippaymentsmodel.pmtBranch = this.formUser2.value.pmtBranch;
-    this.trippaymentsmodel.pmtDate = this.formUser2.value.pmtDate;
+    this.trippaymentsmodel.pmtBranch = this.formTripPayment.value.pmtBranch;
+    this.trippaymentsmodel.pmtDate = this.formTripPayment.value.pmtDate;
 
-    this.trippaymentsmodel.tripNo = this.formUser2.value.tripNo;
-    this.trippaymentsmodel.vehicleMasterID = this.formUser2.value.vehicleMasterID;
-    this.trippaymentsmodel.tripMasterId = this.formUser2.value.tripMasterId;
+    this.trippaymentsmodel.tripNo = this.formTripPayment.value.tripNo;
+    this.trippaymentsmodel.vehicleMasterID = this.formTripPayment.value.vehicleMasterID;
+    this.trippaymentsmodel.tripMasterId = this.formTripPayment.value.tripMasterId;
 
-    this.trippaymentsmodel.amountPaid = this.formUser2.value.amountPaid;
-    this.trippaymentsmodel.remarks = this.formUser2.value.remarks;
-    this.trippaymentsmodel.pmtType = this.formUser2.value.pmtType;
-    this.trippaymentsmodel.transType = this.formUser2.value.transType;
-    this.trippaymentsmodel.neftPmt = this.formUser2.value.neftPmt;
-    this.trippaymentsmodel.creditAc = this.formUser2.value.creditAc;
-    this.trippaymentsmodel.chequeNo = this.formUser2.value.chequeNo;
-    this.trippaymentsmodel.chequeDate = this.formUser2.value.chequeDate;
-    this.trippaymentsmodel.findocid = this.formUser2.value.findocid;
-    this.trippaymentsmodel.adjInTrip = this.formUser2.value.adjInTrip;
-    this.trippaymentsmodel.qtyLtrs = this.formUser2.value.qtyLtrs;
-    this.trippaymentsmodel.ratePerLtr = this.formUser2.value.ratePerLtr;
-    this.trippaymentsmodel.yearId = this.formUser2.value.yearId;
-    this.ttype = this.formUser2.value.transType;
-
+    this.trippaymentsmodel.amountPaid = this.formTripPayment.value.amountPaid;
+    this.trippaymentsmodel.remarks = this.formTripPayment.value.remarks;
+    this.trippaymentsmodel.pmtType = this.formTripPayment.value.pmtType;
+    this.trippaymentsmodel.transType = this.formTripPayment.value.transType;
+    this.trippaymentsmodel.neftPmt = this.formTripPayment.value.neftPmt;
+    this.trippaymentsmodel.creditAc = this.formTripPayment.value.creditAc;
+    this.trippaymentsmodel.chequeNo = this.formTripPayment.value.chequeNo;
+    this.trippaymentsmodel.chequeDate = this.formTripPayment.value.chequeDate;
+    this.trippaymentsmodel.findocid = this.formTripPayment.value.findocid;
+    this.trippaymentsmodel.adjInTrip = this.formTripPayment.value.adjInTrip;
+    this.trippaymentsmodel.qtyLtrs = this.formTripPayment.value.qtyLtrs;
+    this.trippaymentsmodel.ratePerLtr = this.formTripPayment.value.ratePerLtr;
+    this.trippaymentsmodel.yearId = this.formTripPayment.value.yearId;
+    this.ttype = this.formTripPayment.value.transType;
+    
     this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
+
       console.log(this.responseDetails.message);
-      this.formUser2.reset();
+    
+      this.formTripPayment.reset();
+   
       window.location.reload();
     });
   }
 }
-
-
-
-

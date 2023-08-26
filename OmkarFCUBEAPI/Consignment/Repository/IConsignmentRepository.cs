@@ -11,7 +11,10 @@ namespace Consignment.Repository
         Task<List<BranchListModel>> GetContentList();
         Task<List<BranchListModel>> GetVehicleNoList();
           Task<ResponseModel> GetKms(KmsModel request);
+        Task<ResponseModel> GetTripKms(KmsModel request);
+        Task<ResponseModel> CheckDuplicateLr(GcModel request);
         Task<List<BranchListModel>> GetBillingPartyList();
         Task<List<LrSeriesListModel>> GetLRSeries();
+        Task<List<ResponseModel>> GetGcSeries();
     }
 }

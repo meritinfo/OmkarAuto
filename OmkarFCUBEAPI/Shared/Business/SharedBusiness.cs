@@ -61,6 +61,10 @@ namespace Shared.Business
         {
             return await sharedRepository.IntermediateScreenDetail(request);
         }
+        public async Task<ResponseModel> CheckBookingDate(DateModel request)
+        {
+            return await sharedRepository.CheckBookingDate(request);
+        }
         public async Task<List<YearListModel>> GetYearList()
         {
             return await sharedRepository.GetYearList();

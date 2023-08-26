@@ -12,6 +12,7 @@ namespace Shared.Business
         Task<UserModel> LoginDetails(LoginModel loginModel);
      
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
+        Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
         Task<List<YearListModel>> GetServerDate();

@@ -8,13 +8,15 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Consignmentlistmodel } from 'src/app/models/consignmentlistmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { formatDate } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { kmsmodel } from 'src/app/models/kmsmodel';
-debugger
+import { Datemodel } from 'src/app/models/datemodel';
+
 @Component({
   selector: 'app-consignmentadd',
   templateUrl: './consignmentadd.component.html',
@@ -28,11 +30,14 @@ export class ConsignmentaddComponent implements OnInit {
   fromLocation: string = '';
   toLocation: string = '';
   kms: string = '';
+  gcno: string = '';
   branchid: string = '';
+  loginDate: string = '';
   formConsignment!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
   kmsDetails = new kmsmodel();
+  dateDetails = new Datemodel();
   maxDate: string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -52,13 +57,17 @@ export class ConsignmentaddComponent implements OnInit {
   ivFromPlace = '';
   ivToPlace = '';
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService,private sharedService: SharedService) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
     var yearIDData = localStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    var loginDate = localStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
     }
     var userData3 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -76,7 +85,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     ////this.ivVehicleNo = "Hyderabad";
-
+    this.getGcSeries();
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -197,6 +206,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.lrSeries = res;
     });
   }
+  getGcSeries(): void {
+    //this.commonService.getGcSeries().subscribe((res) => {
+     // this.gcno = res.dataName;
+   // });
+    this.commonService.getGcSeries().subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      this.formConsignment.patchValue({
+        gcSlNo: res.message
+      });
+    });
+  }
   getContentList(): void {
     this.commonService.getContentList().subscribe((res) => {
       this.contentList = res;
@@ -210,10 +230,12 @@ export class ConsignmentaddComponent implements OnInit {
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
     this.checkMs();
+    this.checkTripkMs();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
     this.checkMs();
+    this.checkTripkMs();
   }
   checkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -239,6 +261,54 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
+  checkTripkMs() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.ivToPlace;
+      this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
+      this.commonService.getTripKms(this.kmsDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formConsignment.patchValue({
+            DistanceTripKM_1: this.responseDetails.message
+          });
+        } else {
+          this.formConsignment.patchValue({
+            DistanceTripKM_1: ''
+          });
+        }
+      });
+    }
+    else {
+      this.formConsignment.patchValue({
+        kms: ''
+      });
+    }
+  }
+  checkDate() {
+   
+      this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
+      this.dateDetails.yearId = this.year;
+
+      this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+         
+        }
+         else {
+          this.toasterService.warning("booking date is invalid");
+          return;
+        
+      }
+    });
+  }
+      
+    
+  
+    
+  
+
+
   //Submit user form details //
   submitConsignmentForm(): void {
     this.formSubmitted = true;
@@ -246,6 +316,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.toasterService.warning("Mandatory fields is required");
       return;
     }
+   
+    this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
+    this.dateDetails.yearId = this.year;
+
+    this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+ 
+   if( this.formConsignment.value.bookingDate >= this.formConsignment.value.cnorInvDate )
+   {
+    
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
     this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
@@ -328,6 +409,18 @@ export class ConsignmentaddComponent implements OnInit {
       window.location.reload();
     });
   }
+  else{
+    this.toasterService.warning("invoice date is incorrect");
+    return;
+
+  }
+}else{
+  this.toasterService.warning("booking date is invalid");
+  return;
+
+}
+  });
+}
 
   searchGSTDetails(): void {
     var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
@@ -375,7 +468,17 @@ export class ConsignmentaddComponent implements OnInit {
       }
     });
   }
+checkInvoiceDate(){
+  if( this.formConsignment.value.bookingDate < this.formConsignment.value.invoiceDate ){
+    this.toasterService.warning("invoice Date Cannot be greater than Booking Date");
+    return;
 
+
+  }
+
+
+
+}
   selectEvent(item: any) {
     // do something with selected item
   }
