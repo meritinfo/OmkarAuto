@@ -13,6 +13,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
 import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
 import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { kmsmodel } from 'src/app/models/kmsmodel';
 import { Datemodel } from 'src/app/models/datemodel';
@@ -43,6 +44,7 @@ export class ConsignmentaddComponent implements OnInit {
   kmsDetails = new kmsmodel();
   dateDetails = new Datemodel();
   maxDate: string = '';
+  newDate: string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
@@ -104,8 +106,8 @@ export class ConsignmentaddComponent implements OnInit {
       gcAlpha: new FormControl('',),
       gcNoteNo: new FormControl('',),
       gcSlNo: new FormControl('', [Validators.required]),
-      bookingDate: new FormControl('', [Validators.required]),
-      bookingStatus: new FormControl('', [Validators.required]),
+      bookingDate: new FormControl( this.loginDate, [Validators.required]),
+      bookingStatus: new FormControl('TBB', [Validators.required]),
       ewayBillEntryType: new FormControl('A',),
       ewayBillNo: new FormControl('',),
       ewayBillDate: new FormControl('',),
@@ -276,9 +278,19 @@ export class ConsignmentaddComponent implements OnInit {
           this.DistanceTripKM_1=  parseInt(this.responseDetails.message)
   this.ExpectedReportingDays 
   = this.DistanceTripKM_1/400 
+  this.ExpectedReportingDays = Math.round( this.ExpectedReportingDays) +1
+  let date: Date = new Date(this.formConsignment.value.bookingDate);
+ 
+ 
+date.setDate(date.getDate() + this.ExpectedReportingDays)
+let date2 = (date).toISOString()
+//date2 =this.commonService.formatDate(date2)
+const myFormattedDate = this.commonService.formatDate(date2);
+
           this.formConsignment.patchValue({
-            cneeGst:  (this.ExpectedReportingDays).toString() 
-            
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+           // cneeGst:  date2.split("T")[0]
+             
           });
         } else {
           this.formConsignment.patchValue({
@@ -337,9 +349,9 @@ export class ConsignmentaddComponent implements OnInit {
     
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
     this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
-    this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo;
+    this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo
     this.consignmentmodel.gcSeries = this.formConsignment.value.gcSeries;
-    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries;
+    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries + this.formConsignment.value.gcSlNo;
     this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
     this.consignmentmodel.bookingDate = this.formConsignment.value.bookingDate;
     this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
@@ -347,6 +359,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
     this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
     this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
+    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace.dataId;
     this.consignmentmodel.kms = this.formConsignment.value.kms;
     this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
     this.consignmentmodel.truckId = this.formConsignment.value.truckId.dataId;
@@ -405,6 +418,7 @@ export class ConsignmentaddComponent implements OnInit {
 
 
     this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
+    this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
     this.consignmentmodel.yearId = this.year;
     this.consignmentmodel.loggedInUser = this.loggedInUserID;
@@ -450,26 +464,28 @@ export class ConsignmentaddComponent implements OnInit {
           ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
           ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
           fromPin: this.eWayBillDetails.result.message.pincode_of_consignor.toString(),
-          toPin: this.eWayBillDetails.result.message.pincode_of_consignee.toString(),
+         toPin: this.eWayBillDetails.result.message.pincode_of_consignee.toString(),
           cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
           cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
           kms: this.eWayBillDetails.result.message.transportation_distance.toString(),
           consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
           cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
-          cneeAdd2: this.eWayBillDetails.result.message.address1_of_consignee,
+          cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
           cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
           invoiceDate: this.eWayBillDetails.result.message.document_date,
           cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
           cnorInvNo: this.eWayBillDetails.result.message.document_number,
           cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,
-          fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
-          toPlace: this.eWayBillDetails.result.message.place_of_consignee,
+          cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
+         qtypkgs:this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
+        //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
+         // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
           //truckId: selectedVehicleID ? selectedVehicleID : "",
 
 
 
-          consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-          invoiceValue: this.eWayBillDetails.result.message.total_invoice_value,
+          //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+          declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
           //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
         });
         //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;

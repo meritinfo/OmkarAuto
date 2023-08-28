@@ -96,7 +96,7 @@ export class TripsheetlistComponent {
         },
         {
           title: 'TripLinkYN',
-          data: 'loadEmptyType',
+          data: 'tripLinkYN',
         },
        
       

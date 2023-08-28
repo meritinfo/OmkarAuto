@@ -45,7 +45,7 @@
                                                 <label for="formrow-inputState">LR.Series/No</label>
                                                 <select class="form-control" formControlName="gcSeries"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSeries'].invalid) }">
-                                                    <option *ngFor="let branch of lrSeries" value={{branch.dataId}}>
+                                                    <option *ngFor="let branch of lrSeries" value={{branch.dataName}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
