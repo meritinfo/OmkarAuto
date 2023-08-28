@@ -446,7 +446,7 @@ namespace Consignment.Repository
                             new SqlParameter("@FromLocation", request.FromLocation),
                     new SqlParameter("@ToLocation", request.ToLocation)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms2", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

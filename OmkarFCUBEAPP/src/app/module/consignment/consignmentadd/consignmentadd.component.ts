@@ -33,6 +33,10 @@ export class ConsignmentaddComponent implements OnInit {
   gcno: string = '';
   branchid: string = '';
   loginDate: string = '';
+  ExpectedReportingDays    : number = 0;
+  ExpectedReportingDt        : string = '';
+  DistanceTripKM_1 : number= 0;
+
   formConsignment!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -269,8 +273,12 @@ export class ConsignmentaddComponent implements OnInit {
       this.commonService.getTripKms(this.kmsDetails).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
+          this.DistanceTripKM_1=  parseInt(this.responseDetails.message)
+  this.ExpectedReportingDays 
+  = this.DistanceTripKM_1/400 
           this.formConsignment.patchValue({
-            DistanceTripKM_1: this.responseDetails.message
+            cneeGst:  (this.ExpectedReportingDays).toString() 
+            
           });
         } else {
           this.formConsignment.patchValue({
