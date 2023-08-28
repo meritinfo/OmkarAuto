@@ -91,7 +91,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     ////this.ivVehicleNo = "Hyderabad";
-    this.getGcSeries();
+    
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -177,6 +177,7 @@ export class ConsignmentaddComponent implements OnInit {
 
       })
     }
+    this.getGcSeries();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
@@ -422,7 +423,6 @@ const myFormattedDate = this.commonService.formatDate(date2);
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
     this.consignmentmodel.yearId = this.year;
     this.consignmentmodel.loggedInUser = this.loggedInUserID;
-
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

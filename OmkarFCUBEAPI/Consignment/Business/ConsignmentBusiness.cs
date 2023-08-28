@@ -61,7 +61,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLRSeries();
         }
-        public async Task<List<ResponseModel>> GetGcSeries()
+        public async Task<ResponseModel> GetGcSeries()
         {
             return await consignmentRepository.GetGcSeries();
         }

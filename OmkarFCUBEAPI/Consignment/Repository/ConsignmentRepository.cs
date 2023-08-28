@@ -556,9 +556,9 @@ namespace Consignment.Repository
             }
             return contentList;
         }
-        public async Task<List<ResponseModel>> GetGcSeries()
+        public async Task<ResponseModel> GetGcSeries()
         {
-            List<ResponseModel> contentList = new();
+            ResponseModel content = new();
             try
             {
                 if (dbconnection != null)
@@ -569,14 +569,8 @@ namespace Consignment.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
-                        {
-                            contentList.Add(new ResponseModel
-                            {
-
-                                Message = Convert.ToString(statusData.Tables[0].Rows[i]["message"]),
-                            });
-                        }
+                        content.Message = Convert.ToString(statusData.Tables[0].Rows[0]["message"]);
+                        content.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                     }
                 }
             }
@@ -593,7 +587,7 @@ namespace Consignment.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return contentList;
+            return content;
         }
         public async Task<List<BranchListModel>> GetBillingPartyList()
         {
