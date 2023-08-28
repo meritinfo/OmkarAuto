@@ -138,71 +138,71 @@
                                         </tr>
                                         <tr formArrayName="lrDetailsList"
                                             *ngFor="let lrData of tripsheetinnergridmodel.lRDetailsList;">
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                        </div>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            {{lrData.consignmentID}}
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{lrData.consignmentID}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-121">
-                                                        <div class="mb-3">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-121">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            {{lrData.ewayBillNo}}
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{lrData.ewayBillNo}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            {{lrData.ewayBillDate}}
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{lrData.ewayBillDate}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            {{lrData.ewayBillExpDate}}
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{lrData.ewayBillExpDate}}
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
                                                     </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            
-                                                        </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+
                                                     </div>
-                                                </td>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>
@@ -447,7 +447,7 @@
                         </div>
                     </div>
                 </div>
-         
+
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -618,8 +618,7 @@
                                             <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                         </tr>
-                                        <tr formArrayName="dieselDetailsList"
-                                            *ngFor="let dieselData of tripsheetinnergridmodel.dieselDetailsList;">
+                                        <tr *ngFor="let dieselData of tripsheetinnergridmodel.dieselDetailsList;">
                                             <td>
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
@@ -656,7 +655,8 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Exp Type</label>
+                                                            <label for="formrow-inputCity" style="font-size: large;">Exp
+                                                                Type</label>
                                                             <select id="role" class="form-select"
                                                                 formControlName="expType">
                                                                 <option value="">Choose...</option>
@@ -667,7 +667,8 @@
                                                 <td>
                                                     <div class="col-lg-121">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip" style="font-size: large;">Amount</label>
+                                                            <label for="formrow-inputZip"
+                                                                style="font-size: large;">Amount</label>
                                                             <input class="form-control" placeholder="Amount"
                                                                 formControlName="miscAmount">
                                                         </div>
@@ -676,7 +677,8 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Narration</label>
+                                                            <label for="formrow-inputCity"
+                                                                style="font-size: large;">Narration</label>
                                                             <input autoclose="false" type="text" placeholder="Narration"
                                                                 class="form-control" formControlName="narration">
                                                         </div>
@@ -711,8 +713,7 @@
                                             <th><label for="formrow-inputCity">Pmt Date</label></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                         </tr>
-                                        <tr formArrayName="driverDetailsList"
-                                            *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">
+                                        <tr *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">
                                             <td>
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
@@ -750,7 +751,8 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Filling Stn</label>
+                                                            <label for="formrow-inputCity"
+                                                                style="font-size: large;">Filling Stn</label>
                                                             <input autoclose="false" type="text"
                                                                 placeholder="Filling Stn" class="form-control"
                                                                 formControlName="adbluefillingStation">
@@ -760,7 +762,8 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Dsl Ltrs</label>
+                                                            <label for="formrow-inputCity" style="font-size: large;">Dsl
+                                                                Ltrs</label>
                                                             <input autoclose="false" type="text" placeholder="Dsl Ltrs"
                                                                 class="form-control"
                                                                 formControlName="adbluedieselLiter">
@@ -770,7 +773,8 @@
                                                 <td>
                                                     <div class="col-lg-121">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip" style="font-size: large;">Amount</label>
+                                                            <label for="formrow-inputZip"
+                                                                style="font-size: large;">Amount</label>
                                                             <input class="form-control" placeholder="Amount"
                                                                 formControlName="adbluedieselAmount">
                                                         </div>

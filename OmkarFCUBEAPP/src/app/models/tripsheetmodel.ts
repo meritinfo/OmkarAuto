@@ -1,3 +1,5 @@
+import { Tripsheetinnergridmodel } from "./tripsheetinnergridmodel";
+
 export class Tripsheetmodel {
     tripId: string = "";
     tripBranch: string = "";
@@ -87,7 +89,19 @@ export class Tripsheetmodel {
     frPlace: string = "";
     tPlace: string = "";
 
-   
+    tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
+    miscList: MiscListmodel[] = [];
+    adblueList: AdblueListmodel[] = [];
+}
 
+export class MiscListmodel {
+    expType: string = "";
+    miscAmount: string = "";
+    narration: string = "";
+}
 
+export class AdblueListmodel {
+    adbluefillingStation: string = "";
+    adbluedieselLiter: string = "";
+    adbluedieselAmount: string = "";
 }

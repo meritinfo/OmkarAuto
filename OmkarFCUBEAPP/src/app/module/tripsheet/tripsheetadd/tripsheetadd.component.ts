@@ -63,7 +63,7 @@ export class TripsheetaddComponent {
       vehicleMasterID: new FormControl('',),
       tripNo: new FormControl('',),
       lastTripCloseDate: new FormControl('',),
-       newTripDate: new FormControl('',),
+      newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
       tripOpenDate: new FormControl('',),
@@ -138,11 +138,9 @@ export class TripsheetaddComponent {
       tripSalDoneYN: new FormControl('',),
       findocid: new FormControl('',),
       expectedReportingDt: new FormControl('',),
+      loadType: new FormControl('',),
 
-      lrDetailsList: this.formBuilder.array([this.createLRArray()]),
-      dieselDetailsList: this.formBuilder.array([this.createDieselArray()]),
       miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
-      driverDetailsList: this.formBuilder.array([this.createDriverArray()]),
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
 
     });
@@ -152,9 +150,8 @@ export class TripsheetaddComponent {
     this.getVehicleNoList();
     this.getLocationList();
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
-    
-    if (this.selectedTripSheetDetails.tripId != '') {
 
+    if (this.selectedTripSheetDetails.tripId != '') {
       this.formTripsheet.patchValue(this.selectedTripSheetDetails);
       this.formTripsheet.patchValue({
       })
@@ -162,19 +159,19 @@ export class TripsheetaddComponent {
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formTripsheet.controls; }
-  get formLRArray() {
-    return this.formTripsheet.get("lrDetailsList") as FormArray;
-  }
+  // get formLRArray() {
+  //   return this.formTripsheet.get("lrDetailsList") as FormArray;
+  // }
 
-  get formDieselArray() {
-    return this.formTripsheet.get("dieselDetailsList") as FormArray;
-  }
+  // get formDieselArray() {
+  //   return this.formTripsheet.get("dieselDetailsList") as FormArray;
+  // }
   get formMiscArray() {
     return this.formTripsheet.get("miscDetailsList") as FormArray;
   }
-  get formDriverArray() {
-    return this.formTripsheet.get("driverDetailsList") as FormArray;
-  }
+  // get formDriverArray() {
+  //   return this.formTripsheet.get("driverDetailsList") as FormArray;
+  // }
   get formAdblueArray() {
     return this.formTripsheet.get("adblueDetailsList") as FormArray;
   }
@@ -184,7 +181,7 @@ export class TripsheetaddComponent {
       this.branchList = res;
     });
   }
- 
+
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
@@ -197,7 +194,7 @@ export class TripsheetaddComponent {
       console.log(this.tripsheetinnergridmodel);
     });
   }
-  
+
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
@@ -299,8 +296,28 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripLinkYN = this.formTripsheet.value.tripLinkYN;
     this.tripsheetmodel.findocid = this.formTripsheet.value.findocid;
     this.tripsheetmodel.tripCloseDt = this.formTripsheet.value.tripCloseDt;
-    
 
+    this.tripsheetmodel.tripSheetInnerGridList = this.tripsheetinnergridmodel;
+
+    if (this.formMiscArray.value != undefined) {
+      for (var i = 0; i < this.formMiscArray.value.length; i++) {
+        this.tripsheetmodel.miscList.push({
+          'expType': this.formMiscArray.value[i].expType,
+          'miscAmount': this.formMiscArray.value[i].miscAmount,
+          'narration': this.formMiscArray.value[i].narration
+        })
+      }
+    }
+
+    if (this.formAdblueArray.value != undefined) {
+      for (var i = 0; i < this.formAdblueArray.value.length; i++) {
+        this.tripsheetmodel.adblueList.push({
+          'adbluefillingStation': this.formAdblueArray.value[i].adbluefillingStation,
+          'adbluedieselLiter': this.formAdblueArray.value[i].adbluedieselLiter,
+          'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
+        })
+      }
+    }
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -310,19 +327,19 @@ export class TripsheetaddComponent {
     });
   }
 
-  addLRItem(): void {
-    this.formLRArray.push(this.createLRArray());
-  }
+  // addLRItem(): void {
+  //   this.formLRArray.push(this.createLRArray());
+  // }
 
-  removeLRItem(index: number) {
-    this.formLRArray.removeAt(index);
-  }
+  // removeLRItem(index: number) {
+  //   this.formLRArray.removeAt(index);
+  // }
   getValidation(): void {
     this.formTripsheet.controls['tripBranch'].disable();
-    this.formTripsheet.controls['vehicleMasterID'].disable();
+    //this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripNo'].disable();
-  //  this.formTripsheet.controls['newTripDate'].disable();
-    this.formTripsheet.controls['driverMasterID'].disable();
+    //  this.formTripsheet.controls['newTripDate'].disable();
+    //this.formTripsheet.controls['driverMasterID'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
     this.formTripsheet.controls['reportingDt_2'].disable();
     this.formTripsheet.controls['tripStatus'].disable();
@@ -350,37 +367,31 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['clBalDsl'].disable();
     this.formTripsheet.controls['clBalAdBlue'].disable();
     this.formTripsheet.controls['clBalAdBlue'].disable();
-    
-
-
-
-
-    
   }
 
-  createLRArray() {
-    return this.formBuilder.group({
-      lrSeries: [''],
-      lrNo: [''],
-      consignee: [''],
-      invoiceNo: [''],
-      eWayBillNo: [''],
-      eWayBillDate: [''],
-      eWayBillExpDate: [''],
-      ticlStatus: [''],
-    
-      grnNo: [''],
-      delayDays: ['']
-    });
-  }
+  // createLRArray() {
+  //   return this.formBuilder.group({
+  //     lrSeries: [''],
+  //     lrNo: [''],
+  //     consignee: [''],
+  //     invoiceNo: [''],
+  //     eWayBillNo: [''],
+  //     eWayBillDate: [''],
+  //     eWayBillExpDate: [''],
+  //     ticlStatus: [''],
 
-  addDieselItem(): void {
-    this.formDieselArray.push(this.createDieselArray());
-  }
+  //     grnNo: [''],
+  //     delayDays: ['']
+  //   });
+  // }
 
-  removeDieselItem(index: number) {
-    this.formDieselArray.removeAt(index);
-  }
+  // addDieselItem(): void {
+  //   this.formDieselArray.push(this.createDieselArray());
+  // }
+
+  // removeDieselItem(index: number) {
+  //   this.formDieselArray.removeAt(index);
+  // }
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
     this.checkMs();
@@ -413,13 +424,13 @@ export class TripsheetaddComponent {
       });
     }
   }
-  createDieselArray() {
-    return this.formBuilder.group({
-      fillingStation: [''],
-      dieselLiter: [''],
-      dieselAmount: ['']
-    });
-  }
+  // createDieselArray() {
+  //   return this.formBuilder.group({
+  //     fillingStation: [''],
+  //     dieselLiter: [''],
+  //     dieselAmount: ['']
+  //   });
+  // }
 
   addMiscItem(): void {
     this.formMiscArray.push(this.createMiscArray());
@@ -437,21 +448,21 @@ export class TripsheetaddComponent {
     });
   }
 
-  addDriverItem(): void {
-    this.formDriverArray.push(this.createDriverArray());
-  }
+  // addDriverItem(): void {
+  //   this.formDriverArray.push(this.createDriverArray());
+  // }
 
-  removeDriverItem(index: number) {
-    this.formDriverArray.removeAt(index);
-  }
+  // removeDriverItem(index: number) {
+  //   this.formDriverArray.removeAt(index);
+  // }
 
-  createDriverArray() {
-    return this.formBuilder.group({
-      pmtType: [''],
-      pmtDate: [''],
-      pmtAmount: ['']
-    });
-  }
+  // createDriverArray() {
+  //   return this.formBuilder.group({
+  //     pmtType: [''],
+  //     pmtDate: [''],
+  //     pmtAmount: ['']
+  //   });
+  // }
 
   addAdblueItem(): void {
     this.formAdblueArray.push(this.createAdblueArray());
