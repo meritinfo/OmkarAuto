@@ -43,6 +43,18 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetTripKms(request);
         }
+        public async Task<TripKmsModel> GetTripKms2(KmsModel request)
+        {
+            return await consignmentRepository.GetTripKms2(request);
+        }
+        public async Task<ResponseModel> GetDslToBe(DslModel request)
+        {
+            return await consignmentRepository.GetDslToBe(request);
+        }
+        public async Task<ResponseModel> GetAdBlueToBe(AdBlueModel request)
+        {
+            return await consignmentRepository.GetAdBlueToBe(request);
+        }
         public async Task<ResponseModel> CheckDuplicateLr(GcModel request)
         {
             return await consignmentRepository.CheckDuplicateLr(request);

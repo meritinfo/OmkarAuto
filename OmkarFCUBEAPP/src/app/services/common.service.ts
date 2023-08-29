@@ -76,8 +76,17 @@ export class CommonService {
   getTripKms(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getTripKms', payload, this.httpOptions);
   }
+  getTripKms2(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getTripKms2', payload, this.httpOptions);
+  }
+  getDslToBe(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);
+  }
   getGcSeries():  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', null, this.httpOptions);
+  }
+  getAdBlueToBe(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetAdBlueToBe', payload, this.httpOptions);
   }
 
   formatDate(date: string) {

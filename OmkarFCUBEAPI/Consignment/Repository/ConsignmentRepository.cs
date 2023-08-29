@@ -105,6 +105,7 @@ namespace Consignment.Repository
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 VehicelNO = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicelNO"]),
+                               // TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
 
 
                             });
@@ -278,9 +279,62 @@ namespace Consignment.Repository
                             new SqlParameter("@GeneralRemarks ", ConsignmentModel.GeneralRemarks),
                             new SqlParameter("@Attachedfile ", ConsignmentModel.Attachedfile ),
                             new SqlParameter("@YearId ", ConsignmentModel.YearId ),
-                          
-            
+                       //     new SqlParameter("@TripOpenBy ", ConsignmentModel.LoggedInUser ),
+
+
                             new SqlParameter("@LoggedInUser", ConsignmentModel.LoggedInUser),
+
+                         };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Consignment_Insert", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> TripSave(TripModel tripModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@NewTripDate", tripModel.NewTripDate),
+                            new SqlParameter("@OpenThrough", tripModel.OpenThrough),
+                            new SqlParameter("@TripOpenBy", tripModel.TripOpenBy),
+                            new SqlParameter("@TripOpenDate", tripModel.TripOpenDate),
+                            new SqlParameter("@DistanceTripKM_1", tripModel.DistanceTripKM_1),
+                            new SqlParameter("@ExpectedReportingDt", tripModel.ExpectedReportingDt),
+                            new SqlParameter("@ExpectedReportingDays", tripModel.ExpectedReportingDays),
+                        
+
+
+                        
 
                          };
 
@@ -446,7 +500,7 @@ namespace Consignment.Repository
                             new SqlParameter("@FromLocation", request.FromLocation),
                     new SqlParameter("@ToLocation", request.ToLocation)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms2", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -475,6 +529,100 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+        public async Task<TripKmsModel> GetTripKms2(KmsModel request)
+        {
+            TripKmsModel tripKmsModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@TransDate", request.TransDate),
+                            new SqlParameter("@FromLocation", request.FromLocation),
+                    new SqlParameter("@ToLocation", request.ToLocation)
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        tripKmsModel.KMS = Convert.ToString(userData.Tables[0].Rows[0]["KMS"]);
+                        tripKmsModel.EnrouteExpTruck = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpTruck"]);
+                        tripKmsModel.EnrouteExpTrailer = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpTrailer"]);
+                        tripKmsModel.EnrouteExpCarCarrier = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpCarCarrier"]);
+                        tripKmsModel.EnrouteExpEmpty = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpEmpty"]);
+                        tripKmsModel.DefinedTollExp = Convert.ToString(userData.Tables[0].Rows[0]["DefinedTollExp"]);
+                      //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                     //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                       // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripKmsModel;
+        }
+        public async Task<ResponseModel> GetDslToBe(DslModel request)
+        {
+           ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TransDate", request.TransDate),
+                            new SqlParameter("@TripKms", request.TripKms),
+                    new SqlParameter("@LoadType", request.LoadType),
+                    new SqlParameter("@VehicleMasterId", request.VehicleMasterId)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetDslToBe", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                       // responseModel.Status = false;
+                      //  responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+
         public async Task<ResponseModel> CheckDuplicateLr(GcModel request)
         {
             ResponseModel responseModel = new();
@@ -499,6 +647,50 @@ namespace Consignment.Repository
                     {
                         responseModel.Status = false;
                         responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetAdBlueToBe(AdBlueModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TransDate", request.TransDate),
+                             new SqlParameter("@TripKms", request.TripKms),
+                              new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetAdblueToBe", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                       // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                       // responseModel.Status = false;
+                      //  responseModel.Message = "Unable to process";
                     }
                 }
             }

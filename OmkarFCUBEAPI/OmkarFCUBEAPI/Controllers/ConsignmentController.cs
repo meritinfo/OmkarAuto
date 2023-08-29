@@ -42,6 +42,24 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        //[HttpPost("TripSave")]
+        //public async Task<IActionResult> TripSave(TripModel tripModel)
+        //{
+        //    if (tripModel == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await consignmentBusiness.ConsignmentSave(tripModel);
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("GetConsignmentList")]
         public async Task<IActionResult> GetConsignmentList(ConsignmentListRequest request)
         {
@@ -100,6 +118,48 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripKms2")]
+        public async Task<IActionResult> GetTripKms2(KmsModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetTripKms2(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDslToBe")]
+        public async Task<IActionResult> GetDslToBe(DslModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetDslToBe(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAdBlueToBe")]
+        public async Task<IActionResult> GetAdBlueToBe(AdBlueModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetAdBlueToBe(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CheckDuplicateLr")]
         public async Task<IActionResult> CheckDuplicateLr(GcModel request)
         {
@@ -129,6 +189,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
         [HttpPost("GetContentList")]
         public async Task<IActionResult> GetContentList()
         {

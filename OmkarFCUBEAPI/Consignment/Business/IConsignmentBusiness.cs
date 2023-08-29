@@ -14,6 +14,9 @@ namespace Consignment.Business
         Task<List<BranchListModel>> GetVehicleNoList();
         Task<ResponseModel> GetKms(KmsModel request);
         Task<ResponseModel> GetTripKms(KmsModel request);
+        Task<TripKmsModel> GetTripKms2(KmsModel request);
+        Task<ResponseModel> GetDslToBe(DslModel request);
+        Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
         Task<ResponseModel> CheckDuplicateLr(GcModel request);
         Task<List<LrSeriesListModel>> GetLRSeries();
         Task<ResponseModel> GetGcSeries();

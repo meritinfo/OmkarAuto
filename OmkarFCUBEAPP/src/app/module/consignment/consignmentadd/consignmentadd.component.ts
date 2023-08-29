@@ -16,7 +16,11 @@ import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { kmsmodel } from 'src/app/models/kmsmodel';
+import { Dslmodel } from 'src/app/models/dslmodel';
+import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
+import { GetDslmodel } from 'src/app/models/getdslmodel';
 import { Datemodel } from 'src/app/models/datemodel';
+import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 
 @Component({
   selector: 'app-consignmentadd',
@@ -28,8 +32,12 @@ export class ConsignmentaddComponent implements OnInit {
   year: string = '';
   branch: string = '';
   transDate: string = '';
+  ltsDslToBe: string = '';
+  tripOpenBy: string = '';
+  adBlueToBe: string = '';
   fromLocation: string = '';
   toLocation: string = '';
+  tripKms: string = '';
   kms: string = '';
   gcno: string = '';
   branchid: string = '';
@@ -41,7 +49,13 @@ export class ConsignmentaddComponent implements OnInit {
   formConsignment!: FormGroup;
   formSubmitted = false;
   responseDetails = new Responsemodel();
+  tripkmsDetails = new Tripkmsmodel();
   kmsDetails = new kmsmodel();
+  dslDetails = new Dslmodel();
+  adBlueDetails = new Adbluetobemodel();
+  getdslDetails = new GetDslmodel();
+
+
   dateDetails = new Datemodel();
   maxDate: string = '';
   newDate: string = '';
@@ -91,7 +105,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     ////this.ivVehicleNo = "Hyderabad";
-    
+   
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -238,11 +252,15 @@ export class ConsignmentaddComponent implements OnInit {
     this.ivFromPlace = e.dataId;
     this.checkMs();
     this.checkTripkMs();
+    this.getAdBlueToBe();
+    this.getDslToBe();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
     this.checkMs();
     this.checkTripkMs();
+    this.getDslToBe();
+    this.getAdBlueToBe();
   }
   checkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -273,10 +291,11 @@ export class ConsignmentaddComponent implements OnInit {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
       this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
-      this.commonService.getTripKms(this.kmsDetails).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.DistanceTripKM_1=  parseInt(this.responseDetails.message)
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+       // if (this.tripkmsDetails.status) {
+        this.tripKms= this.tripkmsDetails.kms
+          this.DistanceTripKM_1=  parseInt(this.tripkmsDetails.kms)
   this.ExpectedReportingDays 
   = this.DistanceTripKM_1/400 
   this.ExpectedReportingDays = Math.round( this.ExpectedReportingDays) +1
@@ -286,18 +305,74 @@ export class ConsignmentaddComponent implements OnInit {
 date.setDate(date.getDate() + this.ExpectedReportingDays)
 let date2 = (date).toISOString()
 //date2 =this.commonService.formatDate(date2)
-const myFormattedDate = this.commonService.formatDate(date2);
+//const myFormattedDate = this.commonService.formatDate(date2);
 
           this.formConsignment.patchValue({
            // cneeGst:  (this.ExpectedReportingDays).toString() 
-           // cneeGst:  date2.split("T")[0]
+          //  cneeGst:  date2.split("T")[0]
              
           });
-        } else {
+       
+      });
+    }
+    else {
+      this.formConsignment.patchValue({
+        kms: ''
+      });
+    }
+  }
+  getDslToBe() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.dslDetails.transDate = this.formConsignment.value.bookingDate;
+      this.dslDetails.tripKms = this.tripKms;
+      this.dslDetails.loadType = "L";
+      this.dslDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
+      this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
+       this.ltsDslToBe = res.message;
+       // if (this.tripkmsDetails.status) {
+   
+       
+
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
           this.formConsignment.patchValue({
-            DistanceTripKM_1: ''
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+           cneeGst:   this.ltsDslToBe
+        
+             
           });
-        }
+       
+      });
+    }
+    else {
+      this.formConsignment.patchValue({
+        kms: ''
+      });
+    }
+  }
+  getAdBlueToBe() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.adBlueDetails.transDate = this.formConsignment.value.bookingDate;
+      this.adBlueDetails.tripKms =  this.tripKms//this.formConsignment.value.kms;
+
+      this.adBlueDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
+      this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
+       this.adBlueToBe = res.message;
+       // if (this.tripkmsDetails.status) {
+   
+       
+
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formConsignment.patchValue({
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+       //   cneeGst:   this.adBlueToBe
+        
+             
+          });
+       
       });
     }
     else {
@@ -352,7 +427,7 @@ const myFormattedDate = this.commonService.formatDate(date2);
     this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo
     this.consignmentmodel.gcSeries = this.formConsignment.value.gcSeries;
-    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries + this.formConsignment.value.gcSlNo;
+    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries+this.formConsignment.value.gcSlNo ;
     this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
     this.consignmentmodel.bookingDate = this.formConsignment.value.bookingDate;
     this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
@@ -423,6 +498,8 @@ const myFormattedDate = this.commonService.formatDate(date2);
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
     this.consignmentmodel.yearId = this.year;
     this.consignmentmodel.loggedInUser = this.loggedInUserID;
+    this.consignmentmodel.tripOpenBy = this.loggedInUserID;
+
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
