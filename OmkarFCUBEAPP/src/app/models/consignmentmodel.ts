@@ -65,7 +65,7 @@ export class Consignmentmodel {
     fPlace: string = "";
     tPlace: string = "";
     vehicelNo: string = "";
-    tripOpenBy: string = "";
+   // tripOpenBy: string = "";
   
   
     

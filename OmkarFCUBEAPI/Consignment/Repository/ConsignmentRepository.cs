@@ -748,16 +748,21 @@ namespace Consignment.Repository
             }
             return contentList;
         }
-        public async Task<ResponseModel> GetGcSeries()
+        public async Task<ResponseModel> GetGcSeries(GcModel request)
         {
             ResponseModel content = new();
             try
             {
                 if (dbconnection != null)
                 {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GcSlNo", request.GcSlNo),
 
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetGcSeries_Select", null);
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetGcSeries_Select", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

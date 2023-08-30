@@ -43,7 +43,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">LR.Series/No</label>
-                                                <select class="form-control" formControlName="gcSeries"
+                                                <select class="form-control" formControlName="gcSeries" (change)="lrSeriesChange()"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSeries'].invalid) }">
                                                     <option *ngFor="let branch of lrSeries" value={{branch.dataName}}>
                                                         {{branch.dataName}}
@@ -56,7 +56,7 @@
                                                 <label for="formrow-inputState">LR No.</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="gcSlNo"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }" (change)="checkDuplicateLr()">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -86,7 +86,7 @@
                                             <div class="form-check mb-3">
                                                 <input type="radio" formControlName="ewayBillEntryType" id="formRadios1"
                                                     value="A" class="form-check-input" name="ewayBillEntryType"
-                                                    (change)="changeEWay($event)" />
+                                                    (change)="changeEWay('A')" />
                                                 <label for="formRadios1" class="form-check-label" style="color:green">
                                                     Get ALL From EWayBill API
                                                 </label>
@@ -97,7 +97,7 @@
                                             <div class="form-check">
                                                 <input type="radio" formControlName="ewayBillEntryType" id="formRadios2"
                                                     value="M" class="form-check-input" name="ewayBillEntryType"
-                                                    (change)="changeEWay($event)" />
+                                                    (change)="changeEWay('M')" />
                                                 <label for="formRadios2" class="form-check-label" style="color:green">
                                                     EWay Bill Manual Entry
                                                 </label>
@@ -108,7 +108,7 @@
                                                 <input type="radio" name="ewayBillEntryType"
                                                     formControlName="ewayBillEntryType" id="formRadios3" value="E"
                                                     class="form-check-input" name="ewayBillEntryType"
-                                                    (change)="changeEWay($event)">
+                                                    (change)="changeEWay('E')">
                                                 <label for="formRadios3" class="form-check-label" style="color:green">
                                                     No EWay Bill Exemption
                                                 </label>
@@ -215,7 +215,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }"
+                                                        (closed)="popupClosedToPlace()">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -270,20 +271,20 @@
                                                 <label for="formrow-inputState">Cnor Gst</label>
                                                 <input uppercaseonly type="text" id="formrow-inputCity"
                                                     class="form-control" placeholder="" formControlName="cnorGst"
-                                                    [ngClass]=>
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGst'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="" formControlName="cnorInvNo" [ngClass]=>
+                                                    placeholder="" formControlName="cnorInvNo" [ngClass]= "{ 'is-invalid': formSubmitted && (f['cnorInvNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice Value</label>
                                                 <input type="text" decimalonly autoclose="false" class="form-control"
-                                                    formControlName="declaredValue">
+                                                    formControlName="declaredValue" [ngClass]= "{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -291,7 +292,7 @@
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
                                                     placeholder="yyyy-mm-dd" formControlName="cnorInvDate"  max="{{maxDate}}"
-                                                    class="form-control">
+                                                    class="form-control"  [ngClass]= "{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -302,7 +303,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">CnorPlantCode </label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="" formControlName="cnorPlantCode" [ngClass]=>
+                                                    placeholder="" formControlName="cnorPlantCode" [ngClass]= >
 
                                             </div>
                                         </div>
@@ -349,7 +350,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee gst</label>
-                                                <input uppercaseonly class="form-control" formControlName="cneeGst">
+                                                <input uppercaseonly class="form-control" formControlName="cneeGst" [ngClass]= "{ 'is-invalid': formSubmitted && (f['cneeGst'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -368,7 +369,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="productDesc" placeholder=" " [ngClass]=>
+                                                    formControlName="productDesc" placeholder=" " [ngClass]= >
                                             </div>
                                         </div>
                                     </div>
@@ -404,8 +405,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Qty/Pkgs</label>
-                                                <input numbersonly autoclose="false" formControlName="qtypkgs"
-                                                    placeholder=" " class="form-control">
+                                                <input numbersonly autoclose="false" formControlName="noPackages"
+                                                    placeholder=" " class="form-control"    [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -417,7 +418,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Rate Type</label>
 
-                                                <select class="form-control" formControlName="rateRs"
+                                                <select class="form-control" formControlName="rateType"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['rateRs'].invalid) }">
                                                     <option *ngFor="let branch of rateList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
@@ -553,6 +554,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch3'].invalid) }">
 
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>

@@ -20,6 +20,7 @@ import { Dslmodel } from 'src/app/models/dslmodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { GetDslmodel } from 'src/app/models/getdslmodel';
 import { Datemodel } from 'src/app/models/datemodel';
+import { Gcmodel } from 'src/app/models/gcmodel';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 
 @Component({
@@ -54,6 +55,7 @@ export class ConsignmentaddComponent implements OnInit {
   dslDetails = new Dslmodel();
   adBlueDetails = new Adbluetobemodel();
   getdslDetails = new GetDslmodel();
+  gcDetails = new Gcmodel();
 
 
   dateDetails = new Datemodel();
@@ -123,7 +125,7 @@ export class ConsignmentaddComponent implements OnInit {
       bookingDate: new FormControl( this.loginDate, [Validators.required]),
       bookingStatus: new FormControl('TBB', [Validators.required]),
       ewayBillEntryType: new FormControl('A',),
-      ewayBillNo: new FormControl('',),
+      ewayBillNo: new FormControl('', [Validators.required]),
       ewayBillDate: new FormControl('',),
       ewayBillExpDate: new FormControl('',),
       ewayBillExpExtDate: new FormControl('',),
@@ -191,11 +193,12 @@ export class ConsignmentaddComponent implements OnInit {
 
       })
     }
-    this.getGcSeries();
+    //this.getGcSeries();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
 
+    this.changeEWay('A');
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formConsignment.controls; }
@@ -227,11 +230,16 @@ export class ConsignmentaddComponent implements OnInit {
       this.lrSeries = res;
     });
   }
-  getGcSeries(): void {
+  lrSeriesChange(): void{
+    var selectedData = this.formConsignment.value.gcSeries;
+    this.getGcSeries(selectedData);
+  }
+  getGcSeries(gcSeries: any): void {
     //this.commonService.getGcSeries().subscribe((res) => {
      // this.gcno = res.dataName;
    // });
-    this.commonService.getGcSeries().subscribe((res: Responsemodel) => {
+   this.gcDetails.gcSlNo = gcSeries;
+    this.commonService.getGcSeries(this.gcDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formConsignment.patchValue({
         gcSlNo: res.message
@@ -251,17 +259,41 @@ export class ConsignmentaddComponent implements OnInit {
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
     this.checkMs();
-    this.checkTripkMs();
-    this.getAdBlueToBe();
-    this.getDslToBe();
+  //  this.checkTripkMs();
+  //  this.getAdBlueToBe();
+  //  this.getDslToBe();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
     this.checkMs();
-    this.checkTripkMs();
-    this.getDslToBe();
-    this.getAdBlueToBe();
+ //   this.checkTripkMs();
+  //  this.getDslToBe();
+ //   this.getAdBlueToBe();
   }
+  popupClosedToPlace() {
+    if(!this.ivToPlace){
+      this.formConsignment.patchValue({
+        toPlace: ''
+      });
+    }
+    this.ivToPlace = '';
+  }
+  checkDuplicateLr(){
+
+
+    this.gcDetails.gcSlNo = this.formConsignment.value.gcSlNo;
+    this.commonService.checkDuplicateLr(this.gcDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (!this.responseDetails.status) {
+        this.toasterService.warning(this.responseDetails.message);
+        this.formConsignment.patchValue({
+          gcSlNo: ''
+        });
+      }
+  });
+
+  }
+  
   checkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.kmsDetails.fromLocation = this.ivFromPlace;
@@ -407,6 +439,7 @@ let date2 = (date).toISOString()
 
   //Submit user form details //
   submitConsignmentForm(): void {
+    
     this.formSubmitted = true;
     if (this.formConsignment.invalid) {
       this.toasterService.warning("Mandatory fields is required");
@@ -441,7 +474,7 @@ let date2 = (date).toISOString()
     this.consignmentmodel.truckId = this.formConsignment.value.truckId.dataId;
     this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
     this.consignmentmodel.billingParty = this.formConsignment.value.billingParty.dataId;
-    this.consignmentmodel.billingBranch = this.formConsignment.value.billingBranch;
+    this.consignmentmodel.billingBranch = this.formConsignment.value.userBranch3;
     this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
     this.consignmentmodel.cnorGst = this.formConsignment.value.cnorGst;
     this.consignmentmodel.cnorPlantCode = this.formConsignment.value.cnorPlantCode;
@@ -490,15 +523,16 @@ let date2 = (date).toISOString()
     this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs;
 
 
-    this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs;
+    this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs.toString();
 
 
-    this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs;
+    this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs.toString();
     this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
+    this.consignmentmodel.rateType = this.formConsignment.value.rateType;
     this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
     this.consignmentmodel.yearId = this.year;
     this.consignmentmodel.loggedInUser = this.loggedInUserID;
-    this.consignmentmodel.tripOpenBy = this.loggedInUserID;
+    //this.consignmentmodel.tripOpenBy = this.loggedInUserID;
 
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
@@ -554,7 +588,7 @@ let date2 = (date).toISOString()
           cnorInvNo: this.eWayBillDetails.result.message.document_number,
           cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,
           cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
-         qtypkgs:this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
+          noPackages:this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
         //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
          // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
           //truckId: selectedVehicleID ? selectedVehicleID : "",
@@ -587,6 +621,7 @@ checkInvoiceDate(){
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
+    console.log(search);
   }
 
   onFocused(e: any) {
@@ -597,9 +632,7 @@ checkInvoiceDate(){
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  changeEWay(e: any) {
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
+  changeEWay(selectedValue: string) {
     if (selectedValue === "A") {
       //Remove field validation
       this.formConsignment.controls['fromPlace'].clearValidators();
@@ -609,7 +642,7 @@ checkInvoiceDate(){
       this.formConsignment.controls['cnorCode'].clearValidators();
       this.formConsignment.controls['cneeCode'].clearValidators();
       this.formConsignment.controls['productId'].clearValidators();
-      this.formConsignment.controls['rateRs'].clearValidators();
+      this.formConsignment.controls['rateType'].clearValidators();
       this.formConsignment.controls['userBranch3'].clearValidators();
       this.formConsignment.controls['billingParty'].clearValidators();
       this.formConsignment.controls['declaredValue'].clearValidators();
@@ -639,7 +672,7 @@ checkInvoiceDate(){
       this.formConsignment.controls['declaredValue'].disable();
       this.formConsignment.controls['cnorInvDate'].disable();
 
-      this.formConsignment.controls['qtypkgs'].disable();
+      this.formConsignment.controls['noPackages'].disable();
     }
     if (selectedValue === "M" || selectedValue === "E") {
       //Add field validation
@@ -656,11 +689,12 @@ checkInvoiceDate(){
       this.formConsignment.controls['cnorInvNo'].setValidators([Validators.required]);
       this.formConsignment.controls['declaredValue'].setValidators([Validators.required]);
       this.formConsignment.controls['productId'].setValidators([Validators.required]);
-      this.formConsignment.controls['rateRs'].setValidators([Validators.required]);
+      this.formConsignment.controls['rateType'].setValidators([Validators.required]);
       this.formConsignment.controls['userBranch3'].setValidators([Validators.required]);
       this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
       this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formConsignment.controls['truckId'].setValidators([Validators.required]);
+      this.formConsignment.controls['noPackages'].setValidators([Validators.required]);
       //Enable field
 
       this.formConsignment.controls['fromPlace'].enable();
@@ -692,7 +726,7 @@ checkInvoiceDate(){
       this.formConsignment.controls['cnorInvDate'].enable();
 
 
-      this.formConsignment.controls['qtypkgs'].enable();
+      this.formConsignment.controls['noPackages'].enable();
 
     }
 
@@ -703,12 +737,15 @@ checkInvoiceDate(){
     this.formConsignment.controls['cnorCode'].updateValueAndValidity();
     this.formConsignment.controls['cneeCode'].updateValueAndValidity();
     this.formConsignment.controls['productId'].updateValueAndValidity();
-    this.formConsignment.controls['rateRs'].updateValueAndValidity();
+    this.formConsignment.controls['rateType'].updateValueAndValidity();
     this.formConsignment.controls['userBranch3'].updateValueAndValidity();
     this.formConsignment.controls['billingParty'].updateValueAndValidity();
     this.formConsignment.controls['cnorInvDate'].updateValueAndValidity();
+    this.formConsignment.controls['cnorInvNo'].updateValueAndValidity();
     this.formConsignment.controls['declaredValue'].updateValueAndValidity();
     this.formConsignment.controls['truckId'].updateValueAndValidity();
+    this.formConsignment.controls['cneeGst'].updateValueAndValidity();
+    this.formConsignment.controls['cnorGst'].updateValueAndValidity();
     this.formConsignment.controls['ewayBillNo'].updateValueAndValidity();
 
   }

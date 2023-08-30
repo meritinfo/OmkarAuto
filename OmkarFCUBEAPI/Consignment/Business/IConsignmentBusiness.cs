@@ -19,7 +19,7 @@ namespace Consignment.Business
         Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
         Task<ResponseModel> CheckDuplicateLr(GcModel request);
         Task<List<LrSeriesListModel>> GetLRSeries();
-        Task<ResponseModel> GetGcSeries();
+        Task<ResponseModel> GetGcSeries(GcModel request);
         Task<List<BranchListModel>> GetBillingPartyList();
     }
 

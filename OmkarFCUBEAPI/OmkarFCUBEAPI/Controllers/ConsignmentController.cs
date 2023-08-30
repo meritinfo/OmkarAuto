@@ -176,11 +176,11 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetGcSeries")]
-        public async Task<IActionResult> GetGcSeries()
+        public async Task<IActionResult> GetGcSeries(GcModel request)
         {
             try
             {
-                var result = await consignmentBusiness.GetGcSeries();
+                var result = await consignmentBusiness.GetGcSeries(request);
 
                 return Ok(result);
             }

@@ -82,11 +82,14 @@ export class CommonService {
   getDslToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);
   }
-  getGcSeries():  Observable<any> {
-    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', null, this.httpOptions);
+  getGcSeries(payload: any):  Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', payload, this.httpOptions);
   }
   getAdBlueToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetAdBlueToBe', payload, this.httpOptions);
+  }
+  checkDuplicateLr(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', payload, this.httpOptions);
   }
 
   formatDate(date: string) {
