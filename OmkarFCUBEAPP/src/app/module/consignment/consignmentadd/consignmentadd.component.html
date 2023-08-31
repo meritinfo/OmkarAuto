@@ -156,7 +156,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }"
+                                                        (closed)="popupClosedVehicle()">
 
                                                     </ng-autocomplete>
 
@@ -183,7 +184,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }"
+                                                        (closed)="popupClosedFromPlace()">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>

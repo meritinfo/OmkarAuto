@@ -10,6 +10,8 @@ import { Branchmodel } from 'src/app/models/branchmodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
+import { Tripmodel } from 'src/app/models/tripmodel';
 import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
@@ -26,11 +28,15 @@ export class AddtrippaymentsComponent {
   ttype: string = '';
   amount: string = '';
   maxDate: string = '';
+  loginDate: string = '';
+  branch: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
+  tripDetails = new Tripmodel();
+  tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -54,10 +60,20 @@ export class AddtrippaymentsComponent {
     else {
       this.route.navigate(['/']);
     }
+    var loginDate = localStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    var userData3 = localStorage.getItem('userBranch')?.toString();
+    if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
+      this.branch = userData3;
+
+    }
 
     //this.changeEWay();
     this.getBranchList();
-    this.getVehicleList();
+    //this.getVehicleList();
+    this.getVehicleNoList();
     this.getLocationList();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -65,8 +81,8 @@ export class AddtrippaymentsComponent {
     this.selectedTripPaymentsDetails = this.tripPaymentsService.getTripPaymentsDetails();
 
     this.formTripPayment = this.formBuilder.group({
-      pmtBranch: new FormControl('', [Validators.required]),
-      pmtDate: new FormControl('', [Validators.required]),
+      pmtBranch: new FormControl(this.branch , [Validators.required]),
+      pmtDate: new FormControl(this.loginDate , [Validators.required]),
       vehicleMasterID: new FormControl('', [Validators.required]),
       tripNo: new FormControl('',),
       tripMasterId: new FormControl('',),
@@ -120,6 +136,27 @@ export class AddtrippaymentsComponent {
       this.branchList = res;
     });
   }
+  getTripDetails() {
+    
+      this.tripVehicleDetails.vehicleMasterId =  this.formTripPayment.value.vehicleMasterID;
+      
+      
+      this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
+        this.tripDetails = res;
+       // if (this.tripkmsDetails.status) {
+       
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formTripPayment.patchValue({
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //  cneeGst:  date2.split("T")[0]
+             
+          });
+       
+      });
+    
+  }
 
   selectEvent(item: any) {
     // do something with selected item
@@ -140,6 +177,11 @@ export class AddtrippaymentsComponent {
 
   getVehicleList(): void {
     this.commonService.getVehicleList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
     });
   }
@@ -206,6 +248,7 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
     this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
   }
+  
 
   //Submit user form details //
   submitTripPaymentsForm(): void {

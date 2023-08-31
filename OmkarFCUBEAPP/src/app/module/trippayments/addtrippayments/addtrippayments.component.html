@@ -52,14 +52,27 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Select Vehicle</label>
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleMasterID" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }"
+                                                      >
 
-                                                    <select class="form-control" formControlName="vehicleMasterID"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }">
-                                                        <option *ngFor="let branch of vehicleList"
-                                                            value={{branch.dataId}}>
-                                                            {{branch.dataName}}
-                                                        </option>
-                                                    </select>
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">

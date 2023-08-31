@@ -278,6 +278,30 @@ export class ConsignmentaddComponent implements OnInit {
     }
     this.ivToPlace = '';
   }
+  popupClosedFromPlace() {
+    if(!this.ivFromPlace){
+      this.formConsignment.patchValue({
+        fromPlace: ''
+      });
+    }
+    this.ivFromPlace = '';
+  }
+  popupClosedVehicle() {
+    if(!this.ivVehicleNo){
+      this.formConsignment.patchValue({
+        truckId: ''
+      });
+    }
+    this.ivVehicleNo = '';
+  }
+  popupClosedBilling() {
+    if(!this.ivVehicleNo){
+      this.formConsignment.patchValue({
+        truckId: ''
+      });
+    }
+    this.ivVehicleNo = '';
+  }
   checkDuplicateLr(){
 
 

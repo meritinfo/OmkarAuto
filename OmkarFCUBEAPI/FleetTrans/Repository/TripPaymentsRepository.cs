@@ -79,6 +79,55 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<TripModel> GetTripDetail(TripVehicleModel request)
+        {
+            TripModel tripModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                          
+               
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripDetail", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        tripModel.TripNo = Convert.ToString(userData.Tables[0].Rows[0]["TripNo"]);
+                        tripModel.LoadEmptyType = Convert.ToString(userData.Tables[0].Rows[0]["LoadEmptyType"]);
+                        tripModel.CentreName = Convert.ToString(userData.Tables[0].Rows[0]["CentreName"]);
+                        tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
+                        tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
+                        tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
+                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripModel;
+        }
 
         /// <summary>
         /// Service method for get branch list
