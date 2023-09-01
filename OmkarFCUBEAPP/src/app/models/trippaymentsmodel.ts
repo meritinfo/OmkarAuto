@@ -5,7 +5,7 @@ export class Trippaymentsmodel {
     vehicleMasterID: string = "";
     tripNo: string = "";
     tripMasterId: string = "";
-    driverMasterID: string = "";
+   // driverMasterID: string = "";
     transType: string = "";
     amountPaid: string = "";
     remarks: string = "";

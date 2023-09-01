@@ -157,7 +157,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }"
-                                                        (closed)="popupClosedVehicle()">
+                                                        >
 
                                                     </ng-autocomplete>
 
@@ -185,7 +185,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }"
-                                                        (closed)="popupClosedFromPlace()">
+                                                      >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -218,7 +218,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }"
-                                                        (closed)="popupClosedToPlace()">
+                                                       >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>

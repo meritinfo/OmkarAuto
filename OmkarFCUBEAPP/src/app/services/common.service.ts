@@ -80,7 +80,7 @@ export class CommonService {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getTripKms2', payload, this.httpOptions);
   }
   getTripDetails(payload: any): Observable<any> {
-    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDetails', payload, this.httpOptions);
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDetail', payload, this.httpOptions);
   }
   getDslToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);

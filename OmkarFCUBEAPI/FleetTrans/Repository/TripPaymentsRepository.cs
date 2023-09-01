@@ -98,10 +98,12 @@ namespace FleetTrans.Repository
                     {
                         tripModel.TripNo = Convert.ToString(userData.Tables[0].Rows[0]["TripNo"]);
                         tripModel.LoadEmptyType = Convert.ToString(userData.Tables[0].Rows[0]["LoadEmptyType"]);
-                        tripModel.CentreName = Convert.ToString(userData.Tables[0].Rows[0]["CentreName"]);
+                        tripModel.FP = Convert.ToString(userData.Tables[0].Rows[0]["FP"]);
+                        tripModel.TP = Convert.ToString(userData.Tables[0].Rows[0]["TP"]);
                         tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
                         tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
                         tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
+                        tripModel.TripId = Convert.ToString(userData.Tables[0].Rows[0]["TripId"]);
                         //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
                         //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
                     }

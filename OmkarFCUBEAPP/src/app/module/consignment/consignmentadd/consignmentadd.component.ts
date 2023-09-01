@@ -198,7 +198,7 @@ export class ConsignmentaddComponent implements OnInit {
     console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
 
-    this.changeEWay('A');
+    //this.changeEWay('A');
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formConsignment.controls; }
@@ -287,12 +287,12 @@ export class ConsignmentaddComponent implements OnInit {
     this.ivFromPlace = '';
   }
   popupClosedVehicle() {
-    if(!this.ivVehicleNo){
-      this.formConsignment.patchValue({
-        truckId: ''
-      });
-    }
-    this.ivVehicleNo = '';
+   // if(!this.ivVehicleNo){
+    //  this.formConsignment.patchValue({
+   //     truckId: ''
+  //    });
+  //  }
+  //  this.ivVehicleNo = '';
   }
   popupClosedBilling() {
     if(!this.ivVehicleNo){
@@ -477,9 +477,7 @@ let date2 = (date).toISOString()
       this.responseDetails = res;
       if (this.responseDetails.status) {
  
-   if( this.formConsignment.value.bookingDate >= this.formConsignment.value.cnorInvDate )
-   {
-    
+
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
     this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
     this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo
@@ -565,12 +563,7 @@ let date2 = (date).toISOString()
       this.formConsignment.reset();
       window.location.reload();
     });
-  }
-  else{
-    this.toasterService.warning("invoice date is incorrect");
-    return;
-
-  }
+ 
 }else{
   this.toasterService.warning("booking date is invalid");
   return;
@@ -628,12 +621,7 @@ let date2 = (date).toISOString()
     });
   }
 checkInvoiceDate(){
-  if( this.formConsignment.value.bookingDate < this.formConsignment.value.invoiceDate ){
-    this.toasterService.warning("invoice Date Cannot be greater than Booking Date");
-    return;
-
-
-  }
+ 
 
 
 
@@ -682,12 +670,12 @@ checkInvoiceDate(){
       this.formConsignment.controls['ewayBillDate'].disable();
       this.formConsignment.controls['ewayBillExpDate'].disable();
       // this.formConsignment.controls['ewayBillNo'].disable();
-      this.formConsignment.controls['fromPlace'].disable();
-      this.formConsignment.controls['toPlace'].disable();
-      this.formConsignment.controls['truckId'].disable();
+    //  this.formConsignment.controls['fromPlace'].disable();
+    //  this.formConsignment.controls['toPlace'].disable();
+   //   this.formConsignment.controls['truckId'].disable();
       this.formConsignment.controls['billingBranch'].disable();
       this.formConsignment.controls['userBranch3'].disable();
-      this.formConsignment.controls['billingParty'].disable();
+   //   this.formConsignment.controls['billingParty'].disable();
       this.formConsignment.controls['cneeAdd1'].disable();
       this.formConsignment.controls['cneeAdd2'].disable();
       this.formConsignment.controls['cneeAdd3'].disable();

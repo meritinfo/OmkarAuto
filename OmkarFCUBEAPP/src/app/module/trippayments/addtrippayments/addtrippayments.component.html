@@ -55,7 +55,7 @@
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         formControlName="vehicleMasterID" [initialValue]=""
-                                                        (selected)='selectEvent($event)'
+                                                        (selected)='getTripDetails($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
@@ -91,54 +91,17 @@
                                                         <div class="col-lg-3">
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputState">From</label>
-
-                                                                <div class="ng-autocomplete">
-                                                                    <ng-autocomplete [data]="locationList"
-                                                                        formControlName="from"
-                                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                                        (selected)='selectEvent($event)'
-                                                                        (inputChanged)='onChangeSearch($event)'
-                                                                        (inputFocused)='onFocused($event)'
-                                                                        [itemTemplate]="itemTemplate"
-                                                                        [notFoundTemplate]="notFoundTemplate"
-                                                                        [customFilter]="startWithFilter"
-                                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['from'].invalid) }">
-                                                                    </ng-autocomplete>
-
-                                                                    <ng-template #itemTemplate let-item>
-                                                                        <a [innerHTML]="item.dataName"></a>
-                                                                    </ng-template>
-
-                                                                    <ng-template #notFoundTemplate let-notFound>
-                                                                        <div [innerHTML]="notFound"></div>
-                                                                    </ng-template>
-                                                                </div>
+                                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                                placeholder="" formControlName="from" [ngClass]=>
+                                                            
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <div class="mb-3"><label for="formrow-inputZip">To</label>
-
-                                                                <div class="ng-autocomplete">
-                                                                    <ng-autocomplete [data]="locationList"
-                                                                        formControlName="to"
-                                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                                        (selected)='selectEvent($event)'
-                                                                        (inputChanged)='onChangeSearch($event)'
-                                                                        (inputFocused)='onFocused($event)'
-                                                                        [itemTemplate]="itemTemplate"
-                                                                        [notFoundTemplate]="notFoundTemplate"
-                                                                        [customFilter]="startWithFilter"
-                                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['from'].invalid) }">
-                                                                    </ng-autocomplete>
-
-                                                                    <ng-template #itemTemplate let-item>
-                                                                        <a [innerHTML]="item.dataName"></a>
-                                                                    </ng-template>
-
-                                                                    <ng-template #notFoundTemplate let-notFound>
-                                                                        <div [innerHTML]="notFound"></div>
-                                                                    </ng-template>
-                                                                </div>
+                                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                                placeholder="" formControlName="to" [ngClass]=>
+                                                            
+                          
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3">
