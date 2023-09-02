@@ -66,7 +66,7 @@
         public string? BookedAt { get; set; }
         public string? FPlace { get; set; }
         public string? TPlace { get; set; }
-        public string? VehicelNO { get; set; }
+        public string? VehicleNo { get; set; }
        // public string? TripOpenBy { get; set; }
 
 

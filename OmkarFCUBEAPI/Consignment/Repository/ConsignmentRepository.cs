@@ -104,7 +104,7 @@ namespace Consignment.Repository
                                 BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
-                                VehicelNO = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicelNO"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                // TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
 
 

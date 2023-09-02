@@ -180,25 +180,31 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch2: new FormControl('',),
       userBranch3: new FormControl('1',),
     });
-    if (this.selectedConsignmentDetails.consignmentID != '') {
-      this.formConsignment.patchValue(this.selectedConsignmentDetails);
-      this.formConsignment.controls['bookingPlace'].disable();
-      this.formConsignment.controls['gcSeries'].disable();
-      this.formConsignment.controls['truckId'].disable();
-      this.formConsignment.patchValue({
-        userBranch: this.selectedConsignmentDetails.bookingPlace,
-        fromPlace: this.selectedConsignmentDetails.fromPlace,
-        toPlace: this.selectedConsignmentDetails.toPlace,
-        gcSeries: this.selectedConsignmentDetails.gcSeries,
-
-      })
-    }
+    setTimeout(() => {
+      if (this.selectedConsignmentDetails.consignmentID != '') {
+        this.formConsignment.patchValue(this.selectedConsignmentDetails);
+        this.formConsignment.controls['bookingPlace'].disable();
+        this.formConsignment.controls['gcSeries'].disable();
+        this.formConsignment.controls['truckId'].disable();
+        var bookingConvertatedDate = this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate);
+        this.formConsignment.patchValue({
+          userBranch: this.selectedConsignmentDetails.bookingPlace,
+          bookingDate: bookingConvertatedDate,
+          fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
+          toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
+          gcSeries: this.selectedConsignmentDetails.gcSeries,
+          truckId: this.vehicleList.find(e => e.dataId == this.selectedConsignmentDetails.truckId),
+       
+        })
+      }
+    }, 2000);
+    
     //this.getGcSeries();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
 
-    //this.changeEWay('A');
+    this.changeEWay('A');
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formConsignment.controls; }
@@ -477,81 +483,82 @@ let date2 = (date).toISOString()
       this.responseDetails = res;
       if (this.responseDetails.status) {
  
+    var selectedDataValue = this.formConsignment.getRawValue();
 
     this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
-    this.consignmentmodel.bookingPlace = this.formConsignment.value.bookingPlace;
-    this.consignmentmodel.gcSlNo = this.formConsignment.value.gcSlNo
-    this.consignmentmodel.gcSeries = this.formConsignment.value.gcSeries;
-    this.consignmentmodel.gcNoteNo = this.formConsignment.value.gcSeries+this.formConsignment.value.gcSlNo ;
-    this.consignmentmodel.bookingStatus = this.formConsignment.value.bookingStatus;
-    this.consignmentmodel.bookingDate = this.formConsignment.value.bookingDate;
-    this.consignmentmodel.ewayBillEntryType = this.formConsignment.value.ewayBillEntryType;
-    this.consignmentmodel.ewayBillNo = this.formConsignment.value.ewayBillNo;
-    this.consignmentmodel.ewayBillDate = this.formConsignment.value.ewayBillDate;
-    this.consignmentmodel.ewayBillExpDate = this.formConsignment.value.ewayBillExpDate;
-    this.consignmentmodel.fromPlace = this.formConsignment.value.fromPlace.dataId;
-    this.consignmentmodel.toPlace = this.formConsignment.value.toPlace.dataId;
-    this.consignmentmodel.kms = this.formConsignment.value.kms;
-    this.consignmentmodel.ownTruck = this.formConsignment.value.ownTruck;
-    this.consignmentmodel.truckId = this.formConsignment.value.truckId.dataId;
-    this.consignmentmodel.truckNo = this.formConsignment.value.truckNo;
-    this.consignmentmodel.billingParty = this.formConsignment.value.billingParty.dataId;
-    this.consignmentmodel.billingBranch = this.formConsignment.value.userBranch3;
-    this.consignmentmodel.cnorCode = this.formConsignment.value.cnorCode;
-    this.consignmentmodel.cnorGst = this.formConsignment.value.cnorGst;
-    this.consignmentmodel.cnorPlantCode = this.formConsignment.value.cnorPlantCode;
-    this.consignmentmodel.cnorInvNo = this.formConsignment.value.cnorInvNo;
-    this.consignmentmodel.cnorInvDate = this.formConsignment.value.cnorInvDate;
-    this.consignmentmodel.declaredValue = this.formConsignment.value.declaredValue;
-    this.consignmentmodel.cneeCode = this.formConsignment.value.cneeCode;
-    this.consignmentmodel.cneeAdd1 = this.formConsignment.value.cneeAdd1;
-    this.consignmentmodel.cneeAdd2 = this.formConsignment.value.cneeAdd2;
-    this.consignmentmodel.cneeAdd3 = this.formConsignment.value.cneeAdd3;
-    this.consignmentmodel.cneeGst = this.formConsignment.value.cneeGst;
-    this.consignmentmodel.cneeDealrCode = this.formConsignment.value.cneeDealrCode;
-    this.consignmentmodel.shipmentNo = this.formConsignment.value.shipmentNo;
-    this.consignmentmodel.shipmentDt = this.formConsignment.value.shipmentDt;
-    this.consignmentmodel.productId = this.formConsignment.value.productId;
-    this.consignmentmodel.productDesc = this.formConsignment.value.productDesc;
+    this.consignmentmodel.bookingPlace = selectedDataValue.bookingPlace;
+    this.consignmentmodel.gcSlNo = selectedDataValue.gcSlNo
+    this.consignmentmodel.gcSeries = selectedDataValue.gcSeries;
+    this.consignmentmodel.gcNoteNo = selectedDataValue.gcSeries+selectedDataValue.gcSlNo ;
+    this.consignmentmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.consignmentmodel.bookingDate = selectedDataValue.bookingDate;
+    this.consignmentmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
+    this.consignmentmodel.ewayBillNo = selectedDataValue.ewayBillNo;
+    this.consignmentmodel.ewayBillDate = selectedDataValue.ewayBillDate;
+    this.consignmentmodel.ewayBillExpDate = selectedDataValue.ewayBillExpDate;
+    this.consignmentmodel.fromPlace = selectedDataValue.fromPlace.dataId;
+    this.consignmentmodel.toPlace = selectedDataValue.toPlace.dataId;
+    this.consignmentmodel.kms = selectedDataValue.kms;
+    this.consignmentmodel.ownTruck = selectedDataValue.ownTruck;
+    this.consignmentmodel.truckId = selectedDataValue.truckId.dataId;
+    this.consignmentmodel.truckNo = selectedDataValue.truckNo;
+    this.consignmentmodel.billingParty = selectedDataValue.billingParty.dataId;
+    this.consignmentmodel.billingBranch = selectedDataValue.userBranch3;
+    this.consignmentmodel.cnorCode = selectedDataValue.cnorCode;
+    this.consignmentmodel.cnorGst = selectedDataValue.cnorGst;
+    this.consignmentmodel.cnorPlantCode = selectedDataValue.cnorPlantCode;
+    this.consignmentmodel.cnorInvNo = selectedDataValue.cnorInvNo;
+    this.consignmentmodel.cnorInvDate = selectedDataValue.cnorInvDate;
+    this.consignmentmodel.declaredValue = selectedDataValue.declaredValue;
+    this.consignmentmodel.cneeCode = selectedDataValue.cneeCode;
+    this.consignmentmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
+    this.consignmentmodel.cneeAdd2 = selectedDataValue.cneeAdd2;
+    this.consignmentmodel.cneeAdd3 = selectedDataValue.cneeAdd3;
+    this.consignmentmodel.cneeGst = selectedDataValue.cneeGst;
+    this.consignmentmodel.cneeDealrCode = selectedDataValue.cneeDealrCode;
+    this.consignmentmodel.shipmentNo = selectedDataValue.shipmentNo;
+    this.consignmentmodel.shipmentDt = selectedDataValue.shipmentDt;
+    this.consignmentmodel.productId = selectedDataValue.productId;
+    this.consignmentmodel.productDesc = selectedDataValue.productDesc;
 
-    this.consignmentmodel.noPackages = this.formConsignment.value.noPackages;
-    this.consignmentmodel.fromPin = this.formConsignment.value.fromPin;
-    this.consignmentmodel.toPin = this.formConsignment.value.toPin;
-    this.consignmentmodel.actualWt = this.formConsignment.value.actualWt;
-    this.consignmentmodel.chargewt = this.formConsignment.value.chargewt;
-    this.consignmentmodel.rateRs = this.formConsignment.value.rateRs ? this.formConsignment.value.rateRs : "0";
-    this.consignmentmodel.freightRs = this.formConsignment.value.freightRs ? this.formConsignment.value.freightRs : "0";
-    this.consignmentmodel.statisticalRs = this.formConsignment.value.statisticalRs ? this.formConsignment.value.statisticalRs : "0";
-    this.consignmentmodel.handlingRs = this.formConsignment.value.handlingRs ? this.formConsignment.value.handlingRs : "0";
-    this.consignmentmodel.loadingDetnRs = this.formConsignment.value.loadingDetnRs ? this.formConsignment.value.loadingDetnRs : "0";
-    this.consignmentmodel.miscRs = this.formConsignment.value.miscRs ? this.formConsignment.value.miscRs : "0";
-    this.consignmentmodel.extrasRS = this.formConsignment.value.extrasRS ? this.formConsignment.value.extrasRS : "0";
-    this.consignmentmodel.unLoadingRs = this.formConsignment.value.unLoadingRs ? this.formConsignment.value.unLoadingRs : "0";
-    this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs ? this.formConsignment.value.detentionRs : "0";
-    this.consignmentmodel.othersRs = this.formConsignment.value.othersRs ? this.formConsignment.value.othersRs : "0";
-    this.consignmentmodel.subTotalRs = this.formConsignment.value.rateRs ? this.formConsignment.value.rateRs : "0";
-    this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs ? this.formConsignment.value.subTotalRs : "0";
-    this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
-    this.consignmentmodel.attachedfile = this.formConsignment.value.attachedfile;
+    this.consignmentmodel.noPackages = selectedDataValue.noPackages;
+    this.consignmentmodel.fromPin = selectedDataValue.fromPin;
+    this.consignmentmodel.toPin = selectedDataValue.toPin;
+    this.consignmentmodel.actualWt = selectedDataValue.actualWt;
+    this.consignmentmodel.chargewt = selectedDataValue.chargewt;
+    this.consignmentmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
+    this.consignmentmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
+    this.consignmentmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
+    this.consignmentmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";
+    this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
+    this.consignmentmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
+    this.consignmentmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
+    this.consignmentmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
+    this.consignmentmodel.detentionRs = selectedDataValue.detentionRs ? selectedDataValue.detentionRs : "0";
+    this.consignmentmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
+    this.consignmentmodel.subTotalRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
+    this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0";
+    this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
+    this.consignmentmodel.attachedfile = selectedDataValue.attachedfile;
 
-    this.consignmentmodel.handlingRs = this.formConsignment.value.handlingRs;
-
-
-    this.consignmentmodel.loadingDetnRs = this.formConsignment.value.loadingDetnRs;
-
-    this.consignmentmodel.miscRs = this.formConsignment.value.miscRs;
-    this.consignmentmodel.extrasRS = this.formConsignment.value.extrasRS;
-    this.consignmentmodel.unLoadingRs = this.formConsignment.value.unLoadingRs;
-    this.consignmentmodel.detentionRs = this.formConsignment.value.detentionRs;
+    this.consignmentmodel.handlingRs = selectedDataValue.handlingRs;
 
 
-    this.consignmentmodel.subTotalRs = this.formConsignment.value.subTotalRs.toString();
+    this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs;
+
+    this.consignmentmodel.miscRs = selectedDataValue.miscRs;
+    this.consignmentmodel.extrasRS = selectedDataValue.extrasRS;
+    this.consignmentmodel.unLoadingRs = selectedDataValue.unLoadingRs;
+    this.consignmentmodel.detentionRs = selectedDataValue.detentionRs;
 
 
-    this.consignmentmodel.gtotalRs = this.formConsignment.value.gtotalRs.toString();
-    this.consignmentmodel.rateRs = this.formConsignment.value.rateRs;
-    this.consignmentmodel.rateType = this.formConsignment.value.rateType;
-    this.consignmentmodel.generalRemarks = this.formConsignment.value.generalRemarks;
+    this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs.toString();
+
+
+    this.consignmentmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
+    this.consignmentmodel.rateRs = selectedDataValue.rateRs;
+    this.consignmentmodel.rateType = selectedDataValue.rateType;
+    this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
     this.consignmentmodel.yearId = this.year;
     this.consignmentmodel.loggedInUser = this.loggedInUserID;
     //this.consignmentmodel.tripOpenBy = this.loggedInUserID;
@@ -559,7 +566,7 @@ let date2 = (date).toISOString()
 
     this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
+      this.toasterService.success(this.responseDetails.message);
       this.formConsignment.reset();
       window.location.reload();
     });
@@ -581,9 +588,9 @@ let date2 = (date).toISOString()
         this.eWayBillDetails.result = result;
 
         var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo)?.dataId;
+        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
         if (selectedVehicleID) {
-          this.ivVehicleNo = ewayVNo;
+          //this.ivVehicleNo = ewayVNo;
         } else {
           this.ivVehicleNo = "";
         }
@@ -608,7 +615,7 @@ let date2 = (date).toISOString()
           noPackages:this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
         //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
          // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
-          //truckId: selectedVehicleID ? selectedVehicleID : "",
+          truckId: selectedVehicleID ? selectedVehicleID : "",
 
 
 
@@ -659,6 +666,10 @@ checkInvoiceDate(){
       this.formConsignment.controls['billingParty'].clearValidators();
       this.formConsignment.controls['declaredValue'].clearValidators();
       this.formConsignment.controls['cnorInvDate'].clearValidators();
+//required
+
+      this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
+      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
       //Disable field
 
 
@@ -673,6 +684,7 @@ checkInvoiceDate(){
     //  this.formConsignment.controls['fromPlace'].disable();
     //  this.formConsignment.controls['toPlace'].disable();
    //   this.formConsignment.controls['truckId'].disable();
+ 
       this.formConsignment.controls['billingBranch'].disable();
       this.formConsignment.controls['userBranch3'].disable();
    //   this.formConsignment.controls['billingParty'].disable();

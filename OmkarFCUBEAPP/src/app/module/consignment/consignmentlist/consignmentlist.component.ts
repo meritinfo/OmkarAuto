@@ -92,7 +92,7 @@ export class ConsignmentlistComponent implements OnInit  {
         },
         {
           title: 'Vehicle No',
-          data: 'vehicelNo',
+          data: 'vehicleNo',
         },
       
       

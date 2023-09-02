@@ -121,7 +121,7 @@
                                                 <label for="formrow-inputZip">EWay Bill No</label>
                                                 <div class="hstack gap-1">
                                                     <input type="text" class="form-control" placeholder=" "
-                                                        formControlName="ewayBillNo">
+                                                        formControlName="ewayBillNo" [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
                                                     <button type="button" class="btn btn-primary"
                                                         (click)="searchGSTDetails()">Search</button>
                                                 </div>
@@ -150,13 +150,13 @@
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
-                                                        formControlName="truckId" [initialValue]="ivVehicleNo"
+                                                        formControlName="truckId"
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['truckId'].invalid) }"
                                                         >
 
                                                     </ng-autocomplete>
