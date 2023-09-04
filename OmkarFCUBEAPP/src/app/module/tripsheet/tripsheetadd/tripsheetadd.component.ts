@@ -22,6 +22,8 @@ import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel'
 })
 export class TripsheetaddComponent {
   loggedInUserID: string = '';
+  year: string = '';
+  loginDate: string = '';
   distanceTripKM_1: string = '';
   formTripsheet!: FormGroup;
   userSubmitted = false;
@@ -51,8 +53,16 @@ export class TripsheetaddComponent {
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
+    var yearIDData = localStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
+    }
+    var loginDate = localStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
     }
     else {
       this.route.navigate(['/']);
@@ -71,7 +81,7 @@ export class TripsheetaddComponent {
       tripBalance: new FormControl('',),
       driverMasterID: new FormControl('',),
       consignorPayParty: new FormControl('',),
-      compNonCompStatus: new FormControl('',),
+      compNonCompStatus: new FormControl('C',),
       challanNo: new FormControl('',),
       loadingFrom: new FormControl('',),
       destination: new FormControl('',),
@@ -146,6 +156,7 @@ export class TripsheetaddComponent {
     });
     this.getTripSheetInnerGridList();
     this.getValidation();
+    this.getDriverList();
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
@@ -154,6 +165,7 @@ export class TripsheetaddComponent {
     if (this.selectedTripSheetDetails.tripId != '') {
       this.formTripsheet.patchValue(this.selectedTripSheetDetails);
       this.formTripsheet.patchValue({
+        newTripDate:this.loginDate
       })
     }
   }
@@ -202,7 +214,7 @@ export class TripsheetaddComponent {
   }
   getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
-      this.locationList = res;
+      this.driverList = res;
     });
   }
   selectEvent(item: any) {
@@ -230,7 +242,7 @@ export class TripsheetaddComponent {
     }
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = this.formTripsheet.value.tripBranch;
-    this.tripsheetmodel.yearId = this.formTripsheet.value.yearId;
+    this.tripsheetmodel.yearId = this.year;
 
     this.tripsheetmodel.tripNo = this.formTripsheet.value.tripNo;
     this.tripsheetmodel.vehicleMasterID = this.formTripsheet.value.vehicleMasterID.dataId;
