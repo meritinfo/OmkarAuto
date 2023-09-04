@@ -84,8 +84,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@RepairsByDriver", tripMasterModel.RepairsByDriver),
                             new SqlParameter("@ChallanByDriver", tripMasterModel.ChallanByDriver),
                             new SqlParameter("@ParkingByDriver", tripMasterModel.ParkingByDriver),
-
-                                new SqlParameter("@AccidentByDriver", tripMasterModel.AccidentByDriver),
+                            new SqlParameter("@AccidentByDriver", tripMasterModel.AccidentByDriver),
                             new SqlParameter("@WeighmentByDriver", tripMasterModel.WeighmentByDriver),
                             new SqlParameter("@OtherExpByDriver", tripMasterModel.OtherExpByDriver),
                             new SqlParameter("@TollExpByDriver", tripMasterModel.TollExpByDriver),
@@ -103,9 +102,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripBalance", tripMasterModel.TripBalance),
                             new SqlParameter("@RecdFromDriver", tripMasterModel.RecdFromDriver),
                             new SqlParameter("@NetTripBalance", tripMasterModel.NetTripBalance),
-
-
-                                 new SqlParameter("@ClBalDsl", tripMasterModel.ClBalDsl),
+                            new SqlParameter("@ClBalDsl", tripMasterModel.ClBalDsl),
                             new SqlParameter("@ClBalAdBlue", tripMasterModel.ClBalAdBlue),
                             new SqlParameter("@TiclStatus", tripMasterModel.TiclStatus),
                             new SqlParameter("@TiclRemarks", tripMasterModel.TiclRemarks),
@@ -124,10 +121,65 @@ namespace FleetTrans.Repository
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripMaster_Insert", param);
 
+                    string TripID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        // LR Details insert or update
+                        if (tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count > 0)
+                        {
+                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count; i++)
+                            {
+                                SqlParameter[] paramLR =
+                                {
+                                    new SqlParameter("@TripId", TripID),
+                                    new SqlParameter("@GcNoteNo", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].GcNoteNo),
+                                    new SqlParameter("@ConsignmentId", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].ConsignmentID),
+                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                                };
+                                var statusLR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripLRDetails_Insert", paramLR);
+                            }
+                        }
+
+                        // DSL Details insert or update
+                        if (tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count > 0)
+                        {
+                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count; i++)
+                            {
+                                SqlParameter[] paramLR =
+                                {
+                                    new SqlParameter("@TripId", TripID),
+                                    new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtId),
+                                    new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtDate),
+                                    new SqlParameter("@DslLtrs", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].QtyLtrs),
+                                    new SqlParameter("@DslAmt", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].AmountPaid),
+                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                                };
+                                var statusDSL = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDslDetails_Insert", paramLR);
+                            }
+                        }
+
+                        // DR Payment Details insert or update
+                        if (tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count > 0)
+                        {
+                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count; i++)
+                            {
+                                SqlParameter[] paramLR =
+                                {
+                                    new SqlParameter("@TripId", TripID),
+                                    new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtId),
+                                    new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtDate),
+                                    new SqlParameter("@PmtAmt", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].AmountPaid),
+                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                                };
+                                var statusDR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrPaymentDetails_Insert", paramLR);
+                            }
+                        }
                     }
                     else
                     {
@@ -341,7 +393,7 @@ namespace FleetTrans.Repository
             }
             return tripSheetList;
         }
-        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList()
+        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {
             TripSheetInnerGridListModel tripSheetInnerGridList = new()
             {
@@ -353,8 +405,14 @@ namespace FleetTrans.Repository
             {
                 if (dbconnection != null)
                 {
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", null);
-                    
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId)
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", param);
+
                     //LR Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
@@ -382,7 +440,6 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(resultData.Tables[1].Rows[i]["PmtId"]),
                                 PmtDate = Convert.ToString(resultData.Tables[1].Rows[i]["PmtDate"]),
                                 QtyLtrs = Convert.ToString(resultData.Tables[1].Rows[i]["QtyLtrs"]),
-                                RatePerLtr = Convert.ToString(resultData.Tables[1].Rows[i]["RatePerLtr"]),
                                 AmountPaid = Convert.ToString(resultData.Tables[1].Rows[i]["AmountPaid"]),
                             });
                         }

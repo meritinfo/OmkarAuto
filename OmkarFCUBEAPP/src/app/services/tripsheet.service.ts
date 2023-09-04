@@ -7,6 +7,7 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Tripsheetlistmodel } from '../models/tripsheetlistmodel';
 import { Tripsheetinnergridmodel } from '../models/tripsheetinnergridmodel';
+import { Tripsheetinnergridrequest } from '../models/tripsheetinnergridrequest';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class TripSheetService {
   getTripSheetList(filter: Filtermodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetList', filter, this.httpOptions);
   }
-  getTripSheetInnerGridList(): Observable<Tripsheetinnergridmodel> {
-    return this.httpClient.post<Tripsheetinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', null, this.httpOptions);
+  getTripSheetInnerGridList(request: Tripsheetinnergridrequest): Observable<Tripsheetinnergridmodel> {
+    return this.httpClient.post<Tripsheetinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
   }
 }

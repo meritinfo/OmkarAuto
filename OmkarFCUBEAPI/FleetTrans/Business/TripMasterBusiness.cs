@@ -28,9 +28,9 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverList();
         }
-        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList()
+        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {
-            return await tripMasterRepository.GetTripSheetInnerGridList();
+            return await tripMasterRepository.GetTripSheetInnerGridList(request);
         }
     }
 }

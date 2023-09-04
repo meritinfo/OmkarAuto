@@ -14,6 +14,7 @@ import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { UserService } from 'src/app/services/user.service';
 import { kmsmodel } from 'src/app/models/kmsmodel';
 import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel';
+import { Tripsheetinnergridrequest } from 'src/app/models/tripsheetinnergridrequest';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -39,7 +40,7 @@ export class TripsheetaddComponent {
   billstation = '';
   ivFromPlace = '';
   ivToPlace = '';
-
+  tripsheetinnergridrequest = new Tripsheetinnergridrequest();
 
 
   selectedTripSheetDetails = new Tripsheetmodel();
@@ -154,7 +155,6 @@ export class TripsheetaddComponent {
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
 
     });
-    this.getTripSheetInnerGridList();
     this.getValidation();
     this.getDriverList();
     this.getBranchList();
@@ -165,9 +165,17 @@ export class TripsheetaddComponent {
     if (this.selectedTripSheetDetails.tripId != '') {
       this.formTripsheet.patchValue(this.selectedTripSheetDetails);
       this.formTripsheet.patchValue({
-        newTripDate:this.loginDate
-      })
+        newTripDate: this.loginDate
+      });
+
+      this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
+      this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
+    } else{
+      this.tripsheetinnergridrequest.tripId = 0;
+      this.tripsheetinnergridrequest.vehicleMasterId = 0;
     }
+    
+    this.getTripSheetInnerGridList();
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formTripsheet.controls; }
@@ -201,7 +209,7 @@ export class TripsheetaddComponent {
   }
 
   getTripSheetInnerGridList(): void {
-    this.tripSheetService.getTripSheetInnerGridList().subscribe((res) => {
+    this.tripSheetService.getTripSheetInnerGridList(this.tripsheetinnergridrequest).subscribe((res) => {
       this.tripsheetinnergridmodel = res;
       console.log(this.tripsheetinnergridmodel);
     });
