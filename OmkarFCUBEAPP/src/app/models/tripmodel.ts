@@ -1,8 +1,8 @@
 export class Tripmodel {
     tripNo: string = '';
     loadEmptyType : string = '';
-    fP  : string = '';
-    tP  : string = '';
+    fp  : string = '';
+    tp  : string = '';
     ltsDslToBe_1: string = '';
     advPayable_1 : string = '';
     travelAllowance  : string = '';

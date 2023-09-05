@@ -219,12 +219,15 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">CreditAc </label>
-                                                    <select id="formrow-inputState" class="form-control"
-                                                        formControlName="creditAc"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
-                                                        <option selected="">Choose...</option>
-                                                        <option>2</option>
-                                                    </select>
+          
+                                                    <select class="form-control" formControlName="creditAc"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+
+                                                    <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
                                                 </div>
                                             </div>
 

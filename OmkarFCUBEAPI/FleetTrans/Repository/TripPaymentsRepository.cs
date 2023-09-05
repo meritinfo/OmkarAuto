@@ -101,7 +101,7 @@ namespace FleetTrans.Repository
                         tripModel.FP = Convert.ToString(userData.Tables[0].Rows[0]["FP"]);
                         tripModel.TP = Convert.ToString(userData.Tables[0].Rows[0]["TP"]);
                         tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
-                        tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
+                        //tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
                         tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
                         tripModel.TripId = Convert.ToString(userData.Tables[0].Rows[0]["TripId"]);
                         //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
@@ -130,7 +130,45 @@ namespace FleetTrans.Repository
             }
             return tripModel;
         }
+        public async Task<List<BranchListModel>> GetCreditAcList()
+        {
+            List<BranchListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
 
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new BranchListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return creditacList;
+        }
         /// <summary>
         /// Service method for get branch list
         /// </summary>

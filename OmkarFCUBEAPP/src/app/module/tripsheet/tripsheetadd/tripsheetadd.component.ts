@@ -160,6 +160,7 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
+  
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
 
     if (this.selectedTripSheetDetails.tripId != '') {

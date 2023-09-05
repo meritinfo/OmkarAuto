@@ -30,6 +30,7 @@ export class AddtrippaymentsComponent {
   maxDate: string = '';
   loginDate: string = '';
   branch: string = '';
+  year: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
@@ -38,6 +39,7 @@ export class AddtrippaymentsComponent {
   tripDetails = new Tripmodel();
   tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
+  creditacList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
 
@@ -69,12 +71,18 @@ export class AddtrippaymentsComponent {
       this.branch = userData3;
 
     }
-
+    var yearIDData = localStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+   
     //this.changeEWay();
     this.getBranchList();
+    //this.getValidation();
     //this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
+    this.getCreditAcList()
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
 
@@ -128,6 +136,17 @@ export class AddtrippaymentsComponent {
 
 
   }
+  getValidation(): void {
+    this.formTripPayment.controls['pmtBranch'].disable();
+    this.formTripPayment.controls['pmtDate'].disable();
+    this.formTripPayment.controls['tripNo'].disable();
+    this.formTripPayment.controls['loadorempty'].disable();
+    this.formTripPayment.controls['loadorempty'].disable();
+    this.formTripPayment.controls['vehicleMasterID'].disable();
+
+  
+  }
+
   // convenience getter for easy access to contact form fields
   get f() { return this.formTripPayment.controls; }
 
@@ -150,12 +169,12 @@ export class AddtrippaymentsComponent {
           this.formTripPayment.patchValue({
            // cneeGst:  (this.ExpectedReportingDays).toString() 
            tripNo:   this.tripDetails.tripNo,
-           from:   this.tripDetails.fP,
-           to:   this.tripDetails.tP,
-           loadEmptyType:   this.tripDetails.loadEmptyType,
-           travelallowance:   this.tripDetails.travelAllowance,
+           from:   this.tripDetails.fp,
+           to:   this.tripDetails.tp,
+           loadorempty:   this.tripDetails.loadEmptyType,
+           travel:   this.tripDetails.travelAllowance,
            dsltobe:   this.tripDetails.ltsDslToBe_1,
-       
+           tripMasterId:  this.tripDetails.tripId,
           
              
           });
@@ -194,6 +213,11 @@ export class AddtrippaymentsComponent {
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
+    });
+  }
+  getCreditAcList(): void {
+    this.commonService.getCreditAcList().subscribe((res) => {
+      this.creditacList = res;
     });
   }
   changeTransType(e: any) {
@@ -270,9 +294,9 @@ export class AddtrippaymentsComponent {
 
     this.trippaymentsmodel.tripNo = this.formTripPayment.value.tripNo;
     this.trippaymentsmodel.vehicleMasterID = this.formTripPayment.value.vehicleMasterID.dataId;
-    this.trippaymentsmodel.tripMasterId = this.formTripPayment.value.tripMasterId;
+    this.trippaymentsmodel.tripMasterId = this.tripDetails.tripId;
 
-    this.trippaymentsmodel.amountPaid = this.formTripPayment.value.amountPaid;
+    this.trippaymentsmodel.amountPaid = this.formTripPayment.value.amountPaid.toString();
     this.trippaymentsmodel.remarks = this.formTripPayment.value.remarks;
     this.trippaymentsmodel.pmtType = this.formTripPayment.value.pmtType;
     this.trippaymentsmodel.transType = this.formTripPayment.value.transType;
@@ -284,8 +308,10 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.adjInTrip = this.formTripPayment.value.adjInTrip;
     this.trippaymentsmodel.qtyLtrs = this.formTripPayment.value.qtyLtrs;
     this.trippaymentsmodel.ratePerLtr = this.formTripPayment.value.ratePerLtr;
-    this.trippaymentsmodel.yearId = this.formTripPayment.value.yearId;
+    
+    this.trippaymentsmodel.yearId = this.year;
     this.ttype = this.formTripPayment.value.transType;
+    this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
     
     this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

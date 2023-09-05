@@ -95,12 +95,26 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Driver</label>
 
-                                                <select class="form-control" formControlName="driverMasterID"
-                                                    [ngClass]="">
-                                                    <option *ngFor="let branch of driverList" value={{branch.dataId}}>
-                                                        {{branch.dataName}}
-                                                    </option>
-                                                </select>
+                                                
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="driverList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="driverMasterID" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
 
 
                                             </div>
@@ -660,7 +674,7 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Exp
+                                                            <label for="formrow-inputCity" >Exp
                                                                 Type</label>
                                                             <select id="role" class="form-select"
                                                                 formControlName="expType">
@@ -679,7 +693,7 @@
                                                     <div class="col-lg-121">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputZip"
-                                                                style="font-size: large;">Amount</label>
+                                                                >Amount</label>
                                                             <input class="form-control" placeholder="Amount"
                                                                 formControlName="miscAmount">
                                                         </div>
@@ -689,7 +703,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity"
-                                                                style="font-size: large;">Narration</label>
+                                                                >Narration</label>
                                                             <input autoclose="false" type="text" placeholder="Narration"
                                                                 class="form-control" formControlName="narration">
                                                         </div>
@@ -763,7 +777,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity"
-                                                                style="font-size: large;">Filling Stn</label>
+                                                                >Filling Stn</label>
                                                           
                                                                 <select id="role" class="form-select"
                                                                 formControlName="adbluefillingStation">
@@ -775,7 +789,7 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity" style="font-size: large;">Adblue
+                                                            <label for="formrow-inputCity" >Adblue
                                                                 </label>
                                                             <input autoclose="false" type="text" placeholder="Adblue"
                                                                 class="form-control"
@@ -787,7 +801,7 @@
                                                     <div class="col-lg-121">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputZip"
-                                                                style="font-size: large;">Amount</label>
+                                                                >Amount</label>
                                                             <input class="form-control" placeholder="Amount"
                                                                 formControlName="adbluedieselAmount">
                                                         </div>
