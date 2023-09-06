@@ -212,7 +212,6 @@ export class TripsheetaddComponent {
   getTripSheetInnerGridList(): void {
     this.tripSheetService.getTripSheetInnerGridList(this.tripsheetinnergridrequest).subscribe((res) => {
       this.tripsheetinnergridmodel = res;
-      console.log(this.tripsheetinnergridmodel);
     });
   }
 

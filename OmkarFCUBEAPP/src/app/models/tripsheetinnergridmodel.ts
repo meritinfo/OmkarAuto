@@ -1,17 +1,17 @@
 export class Tripsheetinnergridmodel {
-    lRDetailsList: Lrdetailsmodel[] = [];
+    lrDetailsList: Lrdetailsmodel[] = [];
     dieselDetailsList: Dieseldetailsmodel[] = [];
     driverAdvanceList: Driveradvancemodel[] = [];
 }
 
 export class Lrdetailsmodel {
-    consignmentID: string = "";
-    gcNoteNo: string = "";
     cneeCode: string = "";
     cnorInvNo: string = "";
-    ewayBillNo: string = "";
+    consignmentID: string = "";
     ewayBillDate: string = "";
     ewayBillExpDate: string = "";
+    ewayBillNo: string = "";
+    gcNoteNo: string = "";
 }
 
 export class Dieseldetailsmodel {
