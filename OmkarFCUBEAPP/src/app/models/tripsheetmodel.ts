@@ -88,6 +88,7 @@ export class Tripsheetmodel {
     drName: string = "";
     frPlace: string = "";
     tPlace: string = "";
+    loggedInUser: string = "";
 
     tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
     miscList: MiscListmodel[] = [];

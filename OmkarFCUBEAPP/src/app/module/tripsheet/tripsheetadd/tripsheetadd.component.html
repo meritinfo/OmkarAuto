@@ -40,8 +40,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Last Trip Close</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    formControlName="lastTripCloseDate">
+                                                <input type="date" class="form-control"   [ngClass]="{ 'is-invalid': userSubmitted && (f['lastTripCloseDate'].invalid) }"placeholder=""
+                                                    formControlName="lastTripCloseDate" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -623,7 +623,7 @@
                                     <h4 class="card-title mb-4">Diesel Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Filling Stn</label></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
                                             <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                         </tr>
@@ -631,10 +631,7 @@
                                             <td>
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
-                                                        <select id="role" class="form-select"
-                                                        formControlName="expType">
-                                                        <option value="">Choose...</option>
-                                                    </select>
+                                                        {{dieselData.pmtDate}}
                                                     </div>
                                                 </div>
                                             </td>

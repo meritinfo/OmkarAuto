@@ -35,6 +35,7 @@ export class AddtrippaymentsComponent {
   formSubmitted = false;
   userSubmitted = false;
   keywordLocation = 'dataName';
+
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
   tripVehicleDetails = new Tripvehiclemodel();
@@ -94,7 +95,7 @@ export class AddtrippaymentsComponent {
       vehicleMasterID: new FormControl('', [Validators.required]),
       tripNo: new FormControl('',),
       tripMasterId: new FormControl('',),
-
+   
       transType: new FormControl('', [Validators.required]),
       amountPaid: new FormControl('0', [Validators.required]),
       remarks: new FormControl('',),

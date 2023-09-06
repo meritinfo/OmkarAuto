@@ -166,19 +166,19 @@ namespace FleetTrans.Repository
                         // DR Payment Details insert or update
                         if (tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count > 0)
                         {
-                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count; i++)
-                            {
-                                SqlParameter[] paramLR =
-                                {
-                                    new SqlParameter("@TripId", TripID),
-                                    new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtId),
-                                    new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtDate),
-                                    new SqlParameter("@PmtAmt", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].AmountPaid),
-                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
-                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
-                                };
-                                var statusDR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrPaymentDetails_Insert", paramLR);
-                            }
+                            //for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count; i++)
+                            //{
+                            //    SqlParameter[] paramLR =
+                            //    {
+                            //        new SqlParameter("@TripId", TripID),
+                            //        new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtId),
+                            //        new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtDate),
+                            //        new SqlParameter("@PmtAmt", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].AmountPaid),
+                            //        new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                            //        new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                            //    };
+                            //    var statusDR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrPaymentDetails_Insert", paramLR);
+                            //}
                         }
                     }
                     else

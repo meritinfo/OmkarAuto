@@ -69,11 +69,11 @@ export class TripsheetaddComponent {
       this.route.navigate(['/']);
     }
     this.formTripsheet = this.formBuilder.group({
-      tripBranch: new FormControl('',),
+      tripBranch: new FormControl('', ),
       yearId: new FormControl('',),
       vehicleMasterID: new FormControl('',),
       tripNo: new FormControl('',),
-      lastTripCloseDate: new FormControl('',),
+      lastTripCloseDate: new FormControl('',[Validators.required]),
       newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
@@ -162,11 +162,17 @@ export class TripsheetaddComponent {
     this.getLocationList();
   
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
-
+    setTimeout(() => {
     if (this.selectedTripSheetDetails.tripId != '') {
       this.formTripsheet.patchValue(this.selectedTripSheetDetails);
       this.formTripsheet.patchValue({
-        newTripDate: this.loginDate
+        newTripDate: this.loginDate,
+        lastTripCloseDate: this.selectedTripSheetDetails.lastTripCloseDate,
+        loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
+        destination: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination),
+        destination2: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination2),
+        destination3: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination3),
+        vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
       });
 
       this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
@@ -175,7 +181,7 @@ export class TripsheetaddComponent {
       this.tripsheetinnergridrequest.tripId = 0;
       this.tripsheetinnergridrequest.vehicleMasterId = 0;
     }
-    
+  }, 2000);
     this.getTripSheetInnerGridList();
   }
   // convenience getter for easy access to contact form fields
@@ -248,77 +254,75 @@ export class TripsheetaddComponent {
     if (this.formTripsheet.invalid) {
       return;
     }
+    var selectedDataValue = this.formTripsheet.getRawValue();
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
-    this.tripsheetmodel.tripBranch = this.formTripsheet.value.tripBranch;
+    this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
     this.tripsheetmodel.yearId = this.year;
-
-    this.tripsheetmodel.tripNo = this.formTripsheet.value.tripNo;
-    this.tripsheetmodel.vehicleMasterID = this.formTripsheet.value.vehicleMasterID.dataId;
-    this.tripsheetmodel.lastTripCloseDate = this.formTripsheet.value.lastTripCloseDate;
-
-    this.tripsheetmodel.newTripDate = this.formTripsheet.value.newTripDate;
-    this.tripsheetmodel.openThrough = this.formTripsheet.value.openThrough;
-    this.tripsheetmodel.tripOpenBy = this.formTripsheet.value.tripOpenBy;
-    this.tripsheetmodel.tripOpenDate = this.formTripsheet.value.tripOpenDate;
-    this.tripsheetmodel.tripStatus = this.formTripsheet.value.tripStatus;
-    this.tripsheetmodel.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-    this.tripsheetmodel.consignorPayParty = this.formTripsheet.value.consignorPayParty;
-    this.tripsheetmodel.compNonCompStatus = this.formTripsheet.value.compNonCompStatus;
-    this.tripsheetmodel.findocid = this.formTripsheet.value.findocid;
-    this.tripsheetmodel.challanNo = this.formTripsheet.value.challanNo;
-    this.tripsheetmodel.loadingFrom = this.formTripsheet.value.loadingFrom;
-    this.tripsheetmodel.destination = this.formTripsheet.value.destination;
-    this.tripsheetmodel.destination2 = this.formTripsheet.value.destination2;
-    this.tripsheetmodel.destination3 = this.formTripsheet.value.destination3;
-    this.tripsheetmodel.distanceTripKM_1 = this.formTripsheet.value.distanceTripKM_1;
-    this.tripsheetmodel.contents = this.formTripsheet.value.contents;
-    this.tripsheetmodel.loadEmptyType = this.formTripsheet.value.loadEmptyType;
-    this.tripsheetmodel.expectedReportingDt = this.formTripsheet.value.expectedReportingDt;
-    this.tripsheetmodel.expectedReportingDays = this.formTripsheet.value.expectedReportingDays;
-    this.tripsheetmodel.ltsDslToBe_2 = this.formTripsheet.value.ltsDslToBe_2;
-    this.tripsheetmodel.ltsAdblueToBe_2 = this.formTripsheet.value.ltsAdblueToBe_2;
-    this.tripsheetmodel.advPayable_2 = this.formTripsheet.value.advPayable_2;
-    this.tripsheetmodel.reportingDt_2 = this.formTripsheet.value.reportingDt_2;
-    this.tripsheetmodel.advanceDays_2 = this.formTripsheet.value.advanceDays_2;
-    this.tripsheetmodel.delayedDays_2 = this.formTripsheet.value.delayedDays_2;
-    this.tripsheetmodel.graceDays_2 = this.formTripsheet.value.graceDays_2;
-    this.tripsheetmodel.opBalDriver = this.formTripsheet.value.opBalDriver;
-    this.tripsheetmodel.opBalDsl = this.formTripsheet.value.opBalDsl;
-    this.tripsheetmodel.opBalAdblue = this.formTripsheet.value.opBalAdblue;
-    this.tripsheetmodel.paidDriverAdvance = this.formTripsheet.value.paidDriverAdvance;
-    this.tripsheetmodel.freightCollByDriver = this.formTripsheet.value.freightCollByDriver;
-    this.tripsheetmodel.issuedDslLtrs = this.formTripsheet.value.issuedDslLtrs;
-    this.tripsheetmodel.issuedAdblueLtrs = this.formTripsheet.value.issuedAdblueLtrs;
-    this.tripsheetmodel.challanByDriver = this.formTripsheet.value.challanByDriver;
-    this.tripsheetmodel.repairsByDriver = this.formTripsheet.value.repairsByDriver;
-    this.tripsheetmodel.parkingByDriver = this.formTripsheet.value.parkingByDriver;
-    this.tripsheetmodel.accidentByDriver = this.formTripsheet.value.accidentByDriver;
-    this.tripsheetmodel.weighmentByDriver = this.formTripsheet.value.weighmentByDriver;
-    this.tripsheetmodel.cashDslPlace = this.formTripsheet.value.cashDslPlace;
-    this.tripsheetmodel.cashDslLtrs = this.formTripsheet.value.cashDslLtrs;
-    this.tripsheetmodel.cashDslAmt = this.formTripsheet.value.cashDslAmt;
-    this.tripsheetmodel.totalBhattaDays = this.formTripsheet.value.totalBhattaDays;
-    this.tripsheetmodel.bhattaRate = this.formTripsheet.value.bhattaRate;
-    this.tripsheetmodel.allowedBhatta = this.formTripsheet.value.allowedBhatta;
-    this.tripsheetmodel.onTimeIncentiveAmt = this.formTripsheet.value.onTimeIncentiveAmt;
-    this.tripsheetmodel.multiDelIncentiveAmt = this.formTripsheet.value.multiDelIncentiveAmt;
-    this.tripsheetmodel.penaltyChargedToDr = this.formTripsheet.value.penaltyChargedToDr;
-    this.tripsheetmodel.poolAcAmt = this.formTripsheet.value.poolAcAmt;
-    this.tripsheetmodel.totalDriverAc = this.formTripsheet.value.totalDriverAc;
-    this.tripsheetmodel.tripBalance = this.formTripsheet.value.tripBalance;
-    this.tripsheetmodel.recdFromDriver = this.formTripsheet.value.recdFromDriver;
-    this.tripsheetmodel.netTripBalance = this.formTripsheet.value.netTripBalance;
-    this.tripsheetmodel.clBalDsl = this.formTripsheet.value.clBalDsl;
-    this.tripsheetmodel.clBalAdBlue = this.formTripsheet.value.clBalAdBlue;
-    this.tripsheetmodel.ticlRemarks = this.formTripsheet.value.ticlRemarks;
-    this.tripsheetmodel.tripCloseBy = this.formTripsheet.value.tripCloseBy;
-    this.tripsheetmodel.tripCloseUpdateDt = this.formTripsheet.value.tripCloseUpdateDt;
-    this.tripsheetmodel.tripLinkYN = this.formTripsheet.value.tripLinkYN;
-    this.tripsheetmodel.findocid = this.formTripsheet.value.findocid;
-    this.tripsheetmodel.tripCloseDt = this.formTripsheet.value.tripCloseDt;
-
+    this.tripsheetmodel.tripNo = selectedDataValue.tripNo;
+    this.tripsheetmodel.vehicleMasterID =  selectedDataValue.vehicleMasterID.dataId;
+    this.tripsheetmodel.lastTripCloseDate = selectedDataValue.lastTripCloseDate;
+    this.tripsheetmodel.newTripDate = selectedDataValue.newTripDate;
+    this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
+    this.tripsheetmodel.tripOpenBy = selectedDataValue.tripOpenBy;
+    this.tripsheetmodel.tripOpenDate = selectedDataValue.tripOpenDate;
+    this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus;
+    this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID.dataId;
+    this.tripsheetmodel.consignorPayParty = selectedDataValue.consignorPayParty;
+    this.tripsheetmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
+    this.tripsheetmodel.findocid = selectedDataValue.findocid;
+    this.tripsheetmodel.challanNo = selectedDataValue.challanNo;
+    this.tripsheetmodel.loadingFrom = selectedDataValue.loadingFrom.dataId;
+    this.tripsheetmodel.destination = selectedDataValue.destination.dataId;
+    this.tripsheetmodel.destination2 = selectedDataValue.destination2;
+    this.tripsheetmodel.destination3 = selectedDataValue.destination3;
+    this.tripsheetmodel.distanceTripKM_1 = selectedDataValue.distanceTripKM_1;
+    this.tripsheetmodel.contents = selectedDataValue.contents;
+    this.tripsheetmodel.loadEmptyType = selectedDataValue.loadEmptyType;
+    this.tripsheetmodel.expectedReportingDt = selectedDataValue.expectedReportingDt;
+    this.tripsheetmodel.expectedReportingDays = selectedDataValue.expectedReportingDays;
+    this.tripsheetmodel.ltsDslToBe_2 = selectedDataValue.ltsDslToBe_2;
+    this.tripsheetmodel.ltsAdblueToBe_2 = selectedDataValue.ltsAdblueToBe_2;
+    this.tripsheetmodel.advPayable_2 = selectedDataValue.advPayable_2;
+    this.tripsheetmodel.reportingDt_2 = selectedDataValue.reportingDt_2;
+    this.tripsheetmodel.advanceDays_2 = selectedDataValue.advanceDays_2;
+    this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2;
+    this.tripsheetmodel.graceDays_2 = selectedDataValue.graceDays_2;
+    this.tripsheetmodel.opBalDriver = selectedDataValue.opBalDriver;
+    this.tripsheetmodel.opBalDsl = selectedDataValue.opBalDsl;
+    this.tripsheetmodel.opBalAdblue = selectedDataValue.opBalAdblue;
+    this.tripsheetmodel.paidDriverAdvance = selectedDataValue.paidDriverAdvance;
+    this.tripsheetmodel.freightCollByDriver = selectedDataValue.freightCollByDriver;
+    this.tripsheetmodel.issuedDslLtrs = selectedDataValue.issuedDslLtrs;
+    this.tripsheetmodel.issuedAdblueLtrs = selectedDataValue.issuedAdblueLtrs;
+    this.tripsheetmodel.challanByDriver = selectedDataValue.challanByDriver;
+    this.tripsheetmodel.repairsByDriver = selectedDataValue.repairsByDriver;
+    this.tripsheetmodel.parkingByDriver = selectedDataValue.parkingByDriver;
+    this.tripsheetmodel.accidentByDriver = selectedDataValue.accidentByDriver;
+    this.tripsheetmodel.weighmentByDriver = selectedDataValue.weighmentByDriver;
+    this.tripsheetmodel.cashDslPlace = selectedDataValue.cashDslPlace;
+    this.tripsheetmodel.cashDslLtrs = selectedDataValue.cashDslLtrs;
+    this.tripsheetmodel.cashDslAmt = selectedDataValue.cashDslAmt;
+    this.tripsheetmodel.totalBhattaDays = selectedDataValue.totalBhattaDays;
+    this.tripsheetmodel.bhattaRate = selectedDataValue.bhattaRate;
+    this.tripsheetmodel.allowedBhatta = selectedDataValue.allowedBhatta;
+    this.tripsheetmodel.onTimeIncentiveAmt = selectedDataValue.onTimeIncentiveAmt;
+    this.tripsheetmodel.multiDelIncentiveAmt = selectedDataValue.multiDelIncentiveAmt;
+    this.tripsheetmodel.penaltyChargedToDr = selectedDataValue.penaltyChargedToDr;
+    this.tripsheetmodel.poolAcAmt = selectedDataValue.poolAcAmt;
+    this.tripsheetmodel.totalDriverAc = selectedDataValue.totalDriverAc;
+    this.tripsheetmodel.tripBalance = selectedDataValue.tripBalance;
+    this.tripsheetmodel.recdFromDriver = selectedDataValue.recdFromDriver;
+    this.tripsheetmodel.netTripBalance = selectedDataValue.netTripBalance;
+    this.tripsheetmodel.clBalDsl = selectedDataValue.clBalDsl;
+    this.tripsheetmodel.clBalAdBlue = selectedDataValue.clBalAdBlue;
+    this.tripsheetmodel.ticlRemarks = selectedDataValue.ticlRemarks;
+    this.tripsheetmodel.tripCloseBy = selectedDataValue.tripCloseBy;
+    this.tripsheetmodel.tripCloseUpdateDt = selectedDataValue.tripCloseUpdateDt;
+    this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN;
+    this.tripsheetmodel.findocid = selectedDataValue.findocid;
+    this.tripsheetmodel.tripCloseDt = selectedDataValue.tripCloseDt;
     this.tripsheetmodel.tripSheetInnerGridList = this.tripsheetinnergridmodel;
-
+    this.tripsheetmodel.loggedInUser = this.loggedInUserID;
     if (this.formMiscArray.value != undefined) {
       for (var i = 0; i < this.formMiscArray.value.length; i++) {
         this.tripsheetmodel.miscList.push({
