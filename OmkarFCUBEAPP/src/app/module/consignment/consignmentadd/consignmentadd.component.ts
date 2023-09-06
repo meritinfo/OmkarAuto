@@ -190,6 +190,10 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.patchValue({
           userBranch: this.selectedConsignmentDetails.bookingPlace,
           bookingDate: bookingConvertatedDate,
+          ewayBillDate:  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
+          ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
+          shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
+
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
           gcSeries: this.selectedConsignmentDetails.gcSeries,

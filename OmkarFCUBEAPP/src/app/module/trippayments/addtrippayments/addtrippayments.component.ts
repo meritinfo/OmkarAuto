@@ -79,7 +79,7 @@ export class AddtrippaymentsComponent {
     //this.changeEWay();
     this.getBranchList();
     //this.getValidation();
-    //this.getVehicleList();
+   // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
     this.getCreditAcList()
@@ -128,8 +128,9 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['vehicleMasterID'].disable();
       this.formTripPayment.patchValue({
         
-
-
+        //vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+      //  vehicleMasterID:
+      vehicleMasterID: this.selectedTripPaymentsDetails.vehicleMasterID,
 
       })
     }
