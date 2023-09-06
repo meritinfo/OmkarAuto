@@ -69,11 +69,11 @@ export class TripsheetaddComponent {
       this.route.navigate(['/']);
     }
     this.formTripsheet = this.formBuilder.group({
-      tripBranch: new FormControl('', ),
+      tripBranch: new FormControl('',),
       yearId: new FormControl('',),
       vehicleMasterID: new FormControl('',),
       tripNo: new FormControl('',),
-      lastTripCloseDate: new FormControl('',[Validators.required]),
+      lastTripCloseDate: new FormControl('', [Validators.required]),
       newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
@@ -160,29 +160,29 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-  
+
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
-    if (this.selectedTripSheetDetails.tripId != '') {
-      this.formTripsheet.patchValue(this.selectedTripSheetDetails);
-      this.formTripsheet.patchValue({
-        newTripDate: this.loginDate,
-        lastTripCloseDate: this.selectedTripSheetDetails.lastTripCloseDate,
-        loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
-        destination: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination),
-        destination2: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination2),
-        destination3: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination3),
-        vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
-      });
+      if (this.selectedTripSheetDetails.tripId != '') {
+        this.formTripsheet.patchValue(this.selectedTripSheetDetails);
+        this.formTripsheet.patchValue({
+          newTripDate: this.loginDate,
+          lastTripCloseDate: this.selectedTripSheetDetails.lastTripCloseDate,
+          loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
+          destination: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination),
+          destination2: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination2),
+          destination3: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination3),
+          vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
+        });
 
-      this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
-      this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
-    } else{
-      this.tripsheetinnergridrequest.tripId = 0;
-      this.tripsheetinnergridrequest.vehicleMasterId = 0;
-    }
-  }, 2000);
-    this.getTripSheetInnerGridList();
+        this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
+        this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
+      } else {
+        this.tripsheetinnergridrequest.tripId = 0;
+        this.tripsheetinnergridrequest.vehicleMasterId = 0;
+      }
+      this.getTripSheetInnerGridList();
+    }, 2000);
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formTripsheet.controls; }
@@ -218,7 +218,71 @@ export class TripsheetaddComponent {
   getTripSheetInnerGridList(): void {
     this.tripSheetService.getTripSheetInnerGridList(this.tripsheetinnergridrequest).subscribe((res) => {
       this.tripsheetinnergridmodel = res;
+      for (let misc = 1; misc < this.tripsheetinnergridmodel.miscList.length; misc++) {
+        this.addMiscItem();
+      }
+      for (let misc = 1; misc < this.tripsheetinnergridmodel.adblueList.length; misc++) {
+        this.addAdblueItem();
+      }
+      this.formTripsheet.patchValue({
+        miscDetailsList: this.tripsheetinnergridmodel.miscList,
+        adblueDetailsList: this.tripsheetinnergridmodel.adblueList
+      });
+
+      this.calculateTotal();
     });
+  }
+
+  calculateTotal(): void{
+    var totalDslLtr = 0;
+    var totalAdBlueLtr = 0;
+    var totalAdvAmount = 0;
+    var totalRepairs = 0;
+    var totalParking = 0;
+    var totalAccident = 0;
+    var totalWeighment= 0;
+    var totalMchallan = 0;
+    for(let i=0; i< this.tripsheetinnergridmodel.dieselDetailsList.length; i++){
+      totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
+    }
+    for(let i=0; i< this.tripsheetinnergridmodel.adblueList.length; i++){
+      totalAdBlueLtr = totalAdBlueLtr + parseFloat(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter);
+    }
+    for(let i=0; i< this.tripsheetinnergridmodel.driverAdvanceList.length; i++){
+      totalAdvAmount = totalAdvAmount + parseFloat(this.tripsheetinnergridmodel.driverAdvanceList[i].amountPaid);
+    }
+
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "r");
+    for(let i=0; i< dataList.length; i++){
+      totalRepairs = totalRepairs + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "p");
+    for(let i=0; i< dataList.length; i++){
+      totalParking = totalParking + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "a");
+    for(let i=0; i< dataList.length; i++){
+      totalAccident = totalAccident + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "w");
+    for(let i=0; i< dataList.length; i++){
+      totalWeighment = totalWeighment + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "m");
+    for(let i=0; i< dataList.length; i++){
+      totalMchallan = totalMchallan + parseFloat(dataList[i].miscAmount);
+    }
+
+    this.formTripsheet.patchValue({
+      issuedDslLtrs: totalDslLtr,
+      issuedAdblueLtrs: totalAdBlueLtr,
+      paidDriverAdvance: totalAdvAmount,
+      repairsByDriver: totalRepairs,
+      parkingByDriver: totalParking,
+      accidentByDriver: totalAccident,
+      weighmentByDriver: totalWeighment,
+      challanByDriver: totalMchallan
+    })
   }
 
   getLocationList(): void {
@@ -259,7 +323,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.tripNo = selectedDataValue.tripNo;
-    this.tripsheetmodel.vehicleMasterID =  selectedDataValue.vehicleMasterID.dataId;
+    this.tripsheetmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
     this.tripsheetmodel.lastTripCloseDate = selectedDataValue.lastTripCloseDate;
     this.tripsheetmodel.newTripDate = selectedDataValue.newTripDate;
     this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
@@ -290,15 +354,15 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.opBalDriver = selectedDataValue.opBalDriver;
     this.tripsheetmodel.opBalDsl = selectedDataValue.opBalDsl;
     this.tripsheetmodel.opBalAdblue = selectedDataValue.opBalAdblue;
-    this.tripsheetmodel.paidDriverAdvance = selectedDataValue.paidDriverAdvance;
+    this.tripsheetmodel.paidDriverAdvance = selectedDataValue.paidDriverAdvance.toString();
     this.tripsheetmodel.freightCollByDriver = selectedDataValue.freightCollByDriver;
-    this.tripsheetmodel.issuedDslLtrs = selectedDataValue.issuedDslLtrs;
-    this.tripsheetmodel.issuedAdblueLtrs = selectedDataValue.issuedAdblueLtrs;
-    this.tripsheetmodel.challanByDriver = selectedDataValue.challanByDriver;
-    this.tripsheetmodel.repairsByDriver = selectedDataValue.repairsByDriver;
-    this.tripsheetmodel.parkingByDriver = selectedDataValue.parkingByDriver;
-    this.tripsheetmodel.accidentByDriver = selectedDataValue.accidentByDriver;
-    this.tripsheetmodel.weighmentByDriver = selectedDataValue.weighmentByDriver;
+    this.tripsheetmodel.issuedDslLtrs = selectedDataValue.issuedDslLtrs.toString();
+    this.tripsheetmodel.issuedAdblueLtrs = selectedDataValue.issuedAdblueLtrs.toString();
+    this.tripsheetmodel.challanByDriver = selectedDataValue.challanByDriver.toString();
+    this.tripsheetmodel.repairsByDriver = selectedDataValue.repairsByDriver.toString();
+    this.tripsheetmodel.parkingByDriver = selectedDataValue.parkingByDriver.toString();
+    this.tripsheetmodel.accidentByDriver = selectedDataValue.accidentByDriver.toString();
+    this.tripsheetmodel.weighmentByDriver = selectedDataValue.weighmentByDriver.toString();
     this.tripsheetmodel.cashDslPlace = selectedDataValue.cashDslPlace;
     this.tripsheetmodel.cashDslLtrs = selectedDataValue.cashDslLtrs;
     this.tripsheetmodel.cashDslAmt = selectedDataValue.cashDslAmt;

@@ -127,59 +127,93 @@ namespace FleetTrans.Repository
                         TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        // LR Details insert or update
-                        if (tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count > 0)
+                        // Miss Details insert or update
+                        if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "")
                         {
-                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count; i++)
+                            for (int i = 0; i < tripMasterModel.MiscList.Count; i++)
                             {
-                                SqlParameter[] paramLR =
+                                SqlParameter[] paramMisc =
                                 {
                                     new SqlParameter("@TripId", TripID),
-                                    new SqlParameter("@GcNoteNo", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].GcNoteNo),
-                                    new SqlParameter("@ConsignmentId", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].ConsignmentID),
-                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
-                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                                    new SqlParameter("@ExpType", tripMasterModel.MiscList[i].ExpType),
+                                    new SqlParameter("@ExpParticulars", tripMasterModel.MiscList[i].Narration),
+                                    new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
+                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
                                 };
-                                var statusLR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripLRDetails_Insert", paramLR);
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrExpDetails_Insert", paramMisc);
                             }
                         }
 
-                        // DSL Details insert or update
-                        if (tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count > 0)
+                        // AdBlue Details insert or update
+                        if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
                         {
-                            for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count; i++)
+                            for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
                             {
-                                SqlParameter[] paramLR =
+                                SqlParameter[] paramAdBlue =
                                 {
                                     new SqlParameter("@TripId", TripID),
-                                    new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtId),
-                                    new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtDate),
-                                    new SqlParameter("@DslLtrs", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].QtyLtrs),
-                                    new SqlParameter("@DslAmt", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].AmountPaid),
-                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
-                                    new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                                    new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].AdbluefillingStation),
+                                    new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdbluedieselLiter),
+                                    new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
+                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
                                 };
-                                var statusDSL = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDslDetails_Insert", paramLR);
+                                var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripAdblueDetails_Insert", paramAdBlue);
                             }
                         }
 
-                        // DR Payment Details insert or update
-                        if (tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count > 0)
-                        {
-                            //for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count; i++)
-                            //{
-                            //    SqlParameter[] paramLR =
-                            //    {
-                            //        new SqlParameter("@TripId", TripID),
-                            //        new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtId),
-                            //        new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtDate),
-                            //        new SqlParameter("@PmtAmt", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].AmountPaid),
-                            //        new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
-                            //        new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
-                            //    };
-                            //    var statusDR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrPaymentDetails_Insert", paramLR);
-                            //}
-                        }
+                        //// LR Details insert or update
+                        //if (tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count > 0)
+                        //{
+                        //    for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count; i++)
+                        //    {
+                        //        SqlParameter[] paramLR =
+                        //        {
+                        //            new SqlParameter("@TripId", TripID),
+                        //            new SqlParameter("@GcNoteNo", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].GcNoteNo),
+                        //            new SqlParameter("@ConsignmentId", tripMasterModel.TripSheetInnerGridList.LRDetailsList[i].ConsignmentID),
+                        //            new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                        //            new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                        //        };
+                        //        var statusLR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripLRDetails_Insert", paramLR);
+                        //    }
+                        //}
+
+                        //// DSL Details insert or update
+                        //if (tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count > 0)
+                        //{
+                        //    for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DieselDetailsList.Count; i++)
+                        //    {
+                        //        SqlParameter[] paramLR =
+                        //        {
+                        //            new SqlParameter("@TripId", TripID),
+                        //            new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtId),
+                        //            new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].PmtDate),
+                        //            new SqlParameter("@DslLtrs", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].QtyLtrs),
+                        //            new SqlParameter("@DslAmt", tripMasterModel.TripSheetInnerGridList.DieselDetailsList[i].AmountPaid),
+                        //            new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                        //            new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                        //        };
+                        //        var statusDSL = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDslDetails_Insert", paramLR);
+                        //    }
+                        //}
+
+                        //// DR Payment Details insert or update
+                        //if (tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count > 0)
+                        //{
+                        //    //for (int i = 0; i < tripMasterModel.TripSheetInnerGridList.DriverAdvanceList.Count; i++)
+                        //    //{
+                        //    //    SqlParameter[] paramLR =
+                        //    //    {
+                        //    //        new SqlParameter("@TripId", TripID),
+                        //    //        new SqlParameter("@TripPaymentId", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtId),
+                        //    //        new SqlParameter("@PmtDate", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].PmtDate),
+                        //    //        new SqlParameter("@PmtAmt", tripMasterModel.TripSheetInnerGridList.DriverAdvanceList[i].AmountPaid),
+                        //    //        new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0"),
+                        //    //        new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser)
+                        //    //    };
+                        //    //    var statusDR = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrPaymentDetails_Insert", paramLR);
+                        //    //}
+                        //}
                     }
                     else
                     {
@@ -400,6 +434,8 @@ namespace FleetTrans.Repository
                 LRDetailsList = new List<LRDetailsModel>(),
                 DieselDetailsList = new List<DieselDetailsModel>(),
                 DriverAdvanceList = new List<DriverAdvanceModel>(),
+                MiscList = new List<MiscListModel>(),
+                AdblueList = new List<AdblueListmodel>(),
             };
             try
             {
@@ -454,6 +490,34 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(resultData.Tables[2].Rows[i]["PmtId"]),
                                 PmtDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
                                 AmountPaid = Convert.ToString(resultData.Tables[2].Rows[i]["AmountPaid"]),
+                            });
+                        }
+                    }
+
+                    //Misc Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.MiscList.Add(new MiscListModel
+                            {
+                                ExpType = Convert.ToString(resultData.Tables[3].Rows[i]["ExpType"]),
+                                Narration = Convert.ToString(resultData.Tables[3].Rows[i]["Narration"]),
+                                MiscAmount = Convert.ToString(resultData.Tables[3].Rows[i]["MiscAmount"]),
+                            });
+                        }
+                    }
+
+                    //Adblue Details
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.AdblueList.Add(new AdblueListmodel
+                            {
+                                AdbluefillingStation = Convert.ToString(resultData.Tables[4].Rows[i]["AdbluefillingStation"]),
+                                AdbluedieselLiter = Convert.ToString(resultData.Tables[4].Rows[i]["AdbluedieselLiter"]),
+                                AdbluedieselAmount = Convert.ToString(resultData.Tables[4].Rows[i]["AdbluedieselAmount"]),
                             });
                         }
                     }
