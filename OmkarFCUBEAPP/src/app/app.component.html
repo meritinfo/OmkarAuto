@@ -1,4 +1,7 @@
 <div id="layout-wrapper">
+    <div class="loader"  *ngIf="sharedService.loading">
+        <div class="spinner"></div>
+    </div>
     <app-theme *ngIf="sharedService.loggedInStatus"></app-theme>
     <router-outlet></router-outlet>
 </div>

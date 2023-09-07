@@ -15,6 +15,7 @@ import { UserService } from 'src/app/services/user.service';
 import { kmsmodel } from 'src/app/models/kmsmodel';
 import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel';
 import { Tripsheetinnergridrequest } from 'src/app/models/tripsheetinnergridrequest';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -45,11 +46,12 @@ export class TripsheetaddComponent {
 
   selectedTripSheetDetails = new Tripsheetmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, private commonService: CommonService, private sharedService: SharedService) {
     this.tripsheetmodel = new Tripsheetmodel();
 
   }
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -238,6 +240,16 @@ export class TripsheetaddComponent {
     });
   }
 
+  updateMisc(index: number, event: any){
+    this.tripsheetinnergridmodel.miscList[index].miscAmount = event.target.value;
+    this.calculateTotal();
+  }
+
+  updateAdBlue(index: number, event: any){
+    this.tripsheetinnergridmodel.adblueList[index].adbluedieselLiter = event.target.value;
+    this.calculateTotal();
+  }
+
   calculateTotal(): void{
     var totalDslLtr = 0;
     var totalAdBlueLtr = 0;
@@ -279,15 +291,16 @@ export class TripsheetaddComponent {
     }
 
     this.formTripsheet.patchValue({
-      issuedDslLtrs: totalDslLtr,
-      issuedAdblueLtrs: totalAdBlueLtr,
-      paidDriverAdvance: totalAdvAmount,
-      repairsByDriver: totalRepairs,
-      parkingByDriver: totalParking,
-      accidentByDriver: totalAccident,
-      weighmentByDriver: totalWeighment,
-      challanByDriver: totalMchallan
-    })
+      issuedDslLtrs: totalDslLtr.toFixed(2),
+      issuedAdblueLtrs: totalAdBlueLtr.toFixed(2),
+      paidDriverAdvance: totalAdvAmount.toFixed(2),
+      repairsByDriver: totalRepairs.toFixed(2),
+      parkingByDriver: totalParking.toFixed(2),
+      accidentByDriver: totalAccident.toFixed(2),
+      weighmentByDriver: totalWeighment.toFixed(2),
+      challanByDriver: totalMchallan.toFixed(2)
+    });
+    this.sharedService.loading = false;
   }
 
   getLocationList(): void {
@@ -415,9 +428,8 @@ export class TripsheetaddComponent {
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
       this.formTripsheet.reset();
-      window.location.reload();
+      this.route.navigate(['/tripsheetlist']);
     });
   }
 

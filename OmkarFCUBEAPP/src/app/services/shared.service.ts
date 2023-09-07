@@ -20,6 +20,7 @@ export class SharedService {
   }
 
   loggedInStatus: boolean = false;
+  loading: boolean = false;
 
   constructor(private httpClient: HttpClient) { }
 
