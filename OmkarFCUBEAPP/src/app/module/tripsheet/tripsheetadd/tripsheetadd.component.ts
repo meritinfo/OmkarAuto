@@ -167,12 +167,14 @@ export class TripsheetaddComponent {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
           newTripDate: this.loginDate,
-          lastTripCloseDate: this.selectedTripSheetDetails.lastTripCloseDate,
+          lastTripCloseDate:  this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
+          tripCloseDt:  this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
           loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
           destination: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination),
           destination2: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination2),
           destination3: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.destination3),
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
+          driverMasterID:this.driverList.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
         });
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
@@ -385,6 +387,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN;
     this.tripsheetmodel.findocid = selectedDataValue.findocid;
     this.tripsheetmodel.tripCloseDt = selectedDataValue.tripCloseDt;
+    this.tripsheetmodel.ticlStatus = selectedDataValue.ticlStatus;
     this.tripsheetmodel.tripSheetInnerGridList = this.tripsheetinnergridmodel;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
     if (this.formMiscArray.value != undefined) {
@@ -429,12 +432,16 @@ export class TripsheetaddComponent {
     //  this.formTripsheet.controls['newTripDate'].disable();
     //this.formTripsheet.controls['driverMasterID'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
-    this.formTripsheet.controls['reportingDt_2'].disable();
+   // this.formTripsheet.controls['reportingDt_2'].disable();
     this.formTripsheet.controls['tripStatus'].disable();
     this.formTripsheet.controls['ltsDslToBe_2'].disable();
+    this.formTripsheet.controls['ltsDslToBe_1'].disable();
     this.formTripsheet.controls['ltsAdblueToBe_2'].disable();
+    this.formTripsheet.controls['ltsAdblueToBe_1'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
-    this.formTripsheet.controls['reportingDt_2'].disable();
+    this.formTripsheet.controls['advPayable_1'].disable();
+    this.formTripsheet.controls['advPayable_2'].disable();
+  //  this.formTripsheet.controls['reportingDt_2'].disable();
     this.formTripsheet.controls['advanceDays_2'].disable();
     this.formTripsheet.controls['delayedDays_2'].disable();
     this.formTripsheet.controls['graceDays_2'].disable();
@@ -454,7 +461,8 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['recdFromDriver'].disable();
     this.formTripsheet.controls['clBalDsl'].disable();
     this.formTripsheet.controls['clBalAdBlue'].disable();
-    this.formTripsheet.controls['clBalAdBlue'].disable();
+    this.formTripsheet.controls['expectedReportingDt'].disable();
+    this.formTripsheet.controls['expectedReportingDays'].disable();
   }
 
   // createLRArray() {

@@ -204,7 +204,7 @@
                                                     <label for="basicpill-phoneno-input">Payment Type</label>
                                                     <select id="formrow-inputState" class="form-control"
                                                         formControlName="pmtType"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"   (change)="changePmtType($event)">
                                                         <option selected="">Choose...</option>
                                                         <option value="1">Cash</option>
                                                         <option value="2"> Bank</option>
