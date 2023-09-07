@@ -150,6 +150,9 @@ export class TripsheetaddComponent {
       findocid: new FormControl('',),
       expectedReportingDt: new FormControl('',),
       loadType: new FormControl('',),
+      totaldsl: new FormControl('',),
+      totaladblue: new FormControl('',),
+      totalpayable: new FormControl('',),
 
       miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
