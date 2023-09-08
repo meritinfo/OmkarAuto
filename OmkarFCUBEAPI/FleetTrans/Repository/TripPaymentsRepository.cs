@@ -203,7 +203,7 @@ namespace FleetTrans.Repository
                                 PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
 
-                            
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
 
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
                                 TripMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripMasterId"]),

@@ -153,8 +153,10 @@ export class TripsheetaddComponent {
       expectedReportingDt: new FormControl('',),
       loadType: new FormControl('',),
       totaldsl: new FormControl('',),
-      totaladblue: new FormControl('',),
+      totalAdblue: new FormControl('',),
       totalpayable: new FormControl('',),
+      totalBhattaDays: new FormControl('',),
+      
 
       miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
       adblueDetailsList: this.formBuilder.array([this.createAdblueArray()])
@@ -172,6 +174,8 @@ export class TripsheetaddComponent {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
           newTripDate: this.loginDate,
+          ticlStatus:this.selectedTripSheetDetails.ticlStatus,
+          tripLinkYN:this.selectedTripSheetDetails.tripLinkYN,
           lastTripCloseDate:  this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
           tripCloseDt:  this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
           loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),

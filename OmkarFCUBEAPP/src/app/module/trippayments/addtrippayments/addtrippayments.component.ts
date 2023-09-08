@@ -120,6 +120,7 @@ export class AddtrippaymentsComponent {
 
 
     });
+    setTimeout(() => {
     if (this.selectedTripPaymentsDetails.pmtId != '') {
       this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
       this.formTripPayment.controls['pmtBranch'].disable();
@@ -127,24 +128,30 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['tripNo'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
-      this.formTripPayment.controls['vehicleMasterID'].disable();
+     // this.formTripPayment.controls['vehicleMasterID'].disable();
+     
+ 
       var selectedDataValue = this.formTripPayment.getRawValue();
+     
       this.formTripPayment.patchValue({
         
         pmtBranch:  selectedDataValue.pmtBranch, 
         pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
         tripNo:  selectedDataValue.tripNo, 
-        loadorempty:  selectedDataValue.loadorempty, 
-        vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
-        //vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
-      //  vehicleMasterID:
-     // vehicleMasterID: this.selectedTripPaymentsDetails.vehicleMasterID,
+       // loadorempty:  selectedDataValue.loadorempty, 
+      //  vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
+      //  vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+        
+       
+    // vehicleMasterID: this.selectedTripPaymentsDetails.vehicleMasterID,
       
       })
     }
-   // this.getValidation();
+    this.getValidation();
+    
        this.formTripPayment.controls['pmtBranch'].disable();
     this.formTripPayment.controls['pmtDate'].disable();
+  }, 2000);
 
   }
   getValidation(): void {
@@ -197,7 +204,7 @@ export class AddtrippaymentsComponent {
           
              
           });
-          this.getValidation();
+       //   this.getValidation();
        
       });
     

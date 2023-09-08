@@ -186,6 +186,9 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.controls['bookingPlace'].disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
+        this.formConsignment.controls['ewayBillEntryType'].disable();
+        this.formConsignment.controls['gcSlNo'].disable();
+
         var bookingConvertatedDate = this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate);
         this.formConsignment.patchValue({
           userBranch: this.selectedConsignmentDetails.bookingPlace,
@@ -193,11 +196,13 @@ export class ConsignmentaddComponent implements OnInit {
           ewayBillDate:  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
           ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
           shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
-
+          cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
+               
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
           gcSeries: this.selectedConsignmentDetails.gcSeries,
           truckId: this.vehicleList.find(e => e.dataId == this.selectedConsignmentDetails.truckId),
+          billingParty: this.partyList.find(e => e.dataId == this.selectedConsignmentDetails.billingParty),
        
         })
       }

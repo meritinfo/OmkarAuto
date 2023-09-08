@@ -42,7 +42,7 @@ export class IntermediatescreenComponent {
   ngOnInit(): void {
 
     this.formLogin = this.formBuilder.group({
-      yearID: new FormControl('', [Validators.required]),
+      yearID: new FormControl('22', [Validators.required]),
 
       // loginDate: new FormControl(''),
       userBranch: new FormControl('', [Validators.required]),
