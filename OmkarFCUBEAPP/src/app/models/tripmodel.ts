@@ -7,5 +7,6 @@ export class Tripmodel {
     advPayable_1 : string = '';
     travelAllowance  : string = '';
     tripId : string = '';
+    
 
 }

@@ -16,6 +16,7 @@ import { kmsmodel } from 'src/app/models/kmsmodel';
 import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel';
 import { Tripsheetinnergridrequest } from 'src/app/models/tripsheetinnergridrequest';
 import { SharedService } from 'src/app/services/shared.service';
+import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -26,7 +27,15 @@ export class TripsheetaddComponent {
   loggedInUserID: string = '';
   year: string = '';
   loginDate: string = '';
+  day1: string = '';
+  day2: string = '';
   distanceTripKM_1: string = '';
+  dTripKM_1: number= 0;
+  tripkms: string = '';
+  ExpReportingDays    : number = 0;
+  ExpReportingDt        : string = '';
+
+
   formTripsheet!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
@@ -34,6 +43,7 @@ export class TripsheetaddComponent {
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  tripkmsDetails = new Tripkmsmodel();
   tripsheetinnergridmodel = new Tripsheetinnergridmodel();
   kmsDetails = new kmsmodel();
   keywordLocation = 'dataName';
@@ -79,6 +89,7 @@ export class TripsheetaddComponent {
       newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
+      
       tripOpenDate: new FormControl('',),
       tripStatus: new FormControl('',),
       tripBalance: new FormControl('',),
@@ -153,6 +164,8 @@ export class TripsheetaddComponent {
       expectedReportingDt: new FormControl('',),
       loadType: new FormControl('',),
       totaldsl: new FormControl('',),
+      actualDays_1: new FormControl('',),
+      actualDays_2: new FormControl('',),
       totalAdblue: new FormControl('',),
       totalpayable: new FormControl('',),
       totalBhattaDays: new FormControl('',),
@@ -173,7 +186,8 @@ export class TripsheetaddComponent {
       if (this.selectedTripSheetDetails.tripId != '') {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
-          newTripDate: this.loginDate,
+         // newTripDate: this.loginDate,
+         newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
           ticlStatus:this.selectedTripSheetDetails.ticlStatus,
           tripLinkYN:this.selectedTripSheetDetails.tripLinkYN,
           lastTripCloseDate:  this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
@@ -446,7 +460,7 @@ export class TripsheetaddComponent {
   // }
   getValidation(): void {
     this.formTripsheet.controls['tripBranch'].disable();
-    //this.formTripsheet.controls['vehicleMasterID'].disable();
+    this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripNo'].disable();
     //  this.formTripsheet.controls['newTripDate'].disable();
     //this.formTripsheet.controls['driverMasterID'].disable();
@@ -466,14 +480,33 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['graceDays_2'].disable();
     this.formTripsheet.controls['opBalDriver'].disable();
     this.formTripsheet.controls['opBalDsl'].disable();
+    this.formTripsheet.controls['opBalDsl'].disable();
     this.formTripsheet.controls['opBalAdblue'].disable();
     this.formTripsheet.controls['paidDriverAdvance'].disable();
     this.formTripsheet.controls['freightCollByDriver'].disable();
     this.formTripsheet.controls['issuedDslLtrs'].disable();
     this.formTripsheet.controls['opBalDriver'].disable();
     this.formTripsheet.controls['opBalDsl'].disable();
-    this.formTripsheet.controls['opBalDsl'].disable();
+    this.formTripsheet.controls['distanceTripKM_1'].disable();
+    this.formTripsheet.controls['distanceTripKM_2'].disable();
+    this.formTripsheet.controls['expectedReportingDt'].disable();
+    this.formTripsheet.controls['expectedReportingDays'].disable();
+    this.formTripsheet.controls['ltsDslToBe_1'].disable();
+    this.formTripsheet.controls['ltsDslToBe_2'].disable();
+    this.formTripsheet.controls['ltsAdblueToBe_1'].disable();
+    this.formTripsheet.controls['ltsAdblueToBe_2'].disable();
     this.formTripsheet.controls['opBalAdblue'].disable();
+   // this.formTripsheet.controls['advanceDays_1'].disable();
+  //  this.formTripsheet.controls['advanceDays_2'].disable();
+   // this.formTripsheet.controls['delayedDays_1'].disable();
+  //  this.formTripsheet.controls['delayedDays_2'].disable();
+    this.formTripsheet.controls['nextExpectedReportingDt'].disable();
+   // this.formTripsheet.controls['nextExpectedReportingDays'].disable();
+   // this.formTripsheet.controls['reportingDt_2'].disable();
+   // this.formTripsheet.controls['reportingDt_1'].disable();
+   // this.formTripsheet.controls['totalDsl'].disable();
+   // this.formTripsheet.controls['totalAdBlue'].disable();
+  //  this.formTripsheet.controls['totalpayable'].disable();
     this.formTripsheet.controls['freightCollByDriver'].disable();
     this.formTripsheet.controls['totalDriverAc'].disable();
     this.formTripsheet.controls['tripBalance'].disable();
@@ -482,6 +515,95 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['clBalAdBlue'].disable();
     this.formTripsheet.controls['expectedReportingDt'].disable();
     this.formTripsheet.controls['expectedReportingDays'].disable();
+  }
+  checkTripkMs() {
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.ivToPlace;
+      this.kmsDetails.transDate = this.formTripsheet.value.newTripDate;
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+     //  // if (this.tripkmsDetails.status) {
+       this.tripkms= this.tripkmsDetails.kms;
+          this.dTripKM_1 =  parseInt(this.tripkmsDetails.kms);
+  this.ExpReportingDays 
+ = this.dTripKM_1/400 
+   this.ExpReportingDays = Math.round( this.ExpReportingDays) +1
+ let date: Date = new Date(this.formTripsheet.value.newTripDate);
+ 
+ 
+date.setDate(date.getDate() + this.ExpReportingDays)
+let date2 = (date).toISOString()
+////date2 =this.commonService.formatDate(date2)
+////const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formTripsheet.patchValue({
+         //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+       //   //  cneeGst:  date2.split("T")[0]
+       expectedReportingDt: date2.split("T")[0],
+       DistanceTripKM_1:  this.dTripKM_1,
+       expectedReportingDays: this.ExpReportingDays
+          });
+       
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+     //   kms: ''
+      });
+    }
+  }
+  checkDays(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+  //  let date = selectedDataValue.expectedReportingDt;
+   // date.setDate(date.getDate() )
+    //this.date1 = (date).toISOString();
+   // this.date1 = this.date1.split("T")[0];
+   // let currentDate = new Date();
+   let dt1 = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
+   let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+   //calculation
+   var date1 = new Date(dt1);
+   var date2 = new Date(dt2);
+     
+   // To calculate the time difference of two dates
+   var Difference_In_Time = date2.getTime() - date1.getTime();
+     
+   // To calculate the no. of days between two dates
+   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+   if(Difference_In_Days > 0){ 
+    this.day1 = (Difference_In_Days).toString();
+    this.formTripsheet.patchValue({
+      advanceDays_2:  this.day1
+
+    });
+} else { 
+    //do something with negative values 
+   Difference_In_Days = Math. abs(Difference_In_Days)
+    this.day2 = (Difference_In_Days).toString();
+    this.formTripsheet.patchValue({
+      delayedDays_2:  this.day2
+
+    });
+    
+}
+     
+    if (  dt1 == dt2){
+      this.formTripsheet.patchValue({
+        actualDays_2: selectedDataValue.expectedReportingDays
+
+      });
+    }
+      else {
+        this.formTripsheet.patchValue({
+       //   kms: ''
+           actualDays_2:'0'
+        });
+      }
+    
+
+
+    
   }
 
   // createLRArray() {

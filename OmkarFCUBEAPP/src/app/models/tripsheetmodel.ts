@@ -88,6 +88,8 @@ export class Tripsheetmodel {
     drName: string = "";
     frPlace: string = "";
     tPlace: string = "";
+    actualDays_1: string = "";
+    actualDays_2: string = "";
     loggedInUser: string = "";
 
     tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();

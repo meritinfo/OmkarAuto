@@ -111,6 +111,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripCloseUpdateDt", tripMasterModel.TripCloseUpdateDt),
                             new SqlParameter("@TripLinkYN", tripMasterModel.TripLinkYN),
                             new SqlParameter("@TripSalDoneYN", tripMasterModel.TripSalDoneYN),
+                               new SqlParameter("@ActualDays_1", tripMasterModel.ActualDays_1),
+                            new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
                             new SqlParameter("@Findocid", tripMasterModel.Findocid),
                             new SqlParameter("@CreatedBy", tripMasterModel.CreatedBy),
                             new SqlParameter("@CreatedDate", tripMasterModel.CreatedDate),
@@ -395,6 +397,8 @@ namespace FleetTrans.Repository
                                 DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
                                 FrPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FrPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
+                                ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
 
 
 
