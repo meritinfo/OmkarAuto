@@ -17,6 +17,8 @@ import { Tripsheetinnergridmodel } from 'src/app/models/tripsheetinnergridmodel'
 import { Tripsheetinnergridrequest } from 'src/app/models/tripsheetinnergridrequest';
 import { SharedService } from 'src/app/services/shared.service';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
+import { Dslmodel } from 'src/app/models/dslmodel';
+import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -29,11 +31,15 @@ export class TripsheetaddComponent {
   loginDate: string = '';
   day1: string = '';
   day2: string = '';
+  adblue: string = '';
+  ltsdsl: string = '';
   distanceTripKM_1: string = '';
   dTripKM_1: number= 0;
   tripkms: string = '';
   ExpReportingDays    : number = 0;
   ExpReportingDt        : string = '';
+  dslDetails = new Dslmodel();
+  adBlueDetails = new Adbluetobemodel();
 
 
   formTripsheet!: FormGroup;
@@ -50,6 +56,7 @@ export class TripsheetaddComponent {
   ivVehicleNo = '';
   billstation = '';
   ivFromPlace = '';
+  ivNewFromPlace = '';
   ivToPlace = '';
   tripsheetinnergridrequest = new Tripsheetinnergridrequest();
 
@@ -462,7 +469,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['tripBranch'].disable();
     this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripNo'].disable();
-    //  this.formTripsheet.controls['newTripDate'].disable();
+     this.formTripsheet.controls['newTripDate'].disable();
     //this.formTripsheet.controls['driverMasterID'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
    // this.formTripsheet.controls['reportingDt_2'].disable();
@@ -517,10 +524,11 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['expectedReportingDays'].disable();
   }
   checkTripkMs() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
-      this.kmsDetails.transDate = this.formTripsheet.value.newTripDate;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate); 
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
      //  // if (this.tripkmsDetails.status) {
@@ -529,7 +537,7 @@ export class TripsheetaddComponent {
   this.ExpReportingDays 
  = this.dTripKM_1/400 
    this.ExpReportingDays = Math.round( this.ExpReportingDays) +1
- let date: Date = new Date(this.formTripsheet.value.newTripDate);
+ let date: Date = new Date(selectedDataValue.newTripDate);
  
  
 date.setDate(date.getDate() + this.ExpReportingDays)
@@ -541,8 +549,46 @@ let date2 = (date).toISOString()
          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
        //   //  cneeGst:  date2.split("T")[0]
        expectedReportingDt: date2.split("T")[0],
-       DistanceTripKM_1:  this.dTripKM_1,
-       expectedReportingDays: this.ExpReportingDays
+       distanceTripKM_1:  this.dTripKM_1,
+       expectedReportingDays: (this.ExpReportingDays).toString()
+          });
+       
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+     //   kms: ''
+      });
+    }
+  }
+  checkTripkMsSecond() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (this.ivToPlace != "" && this.ivNewFromPlace != "") {
+      this.kmsDetails.fromLocation = this.ivToPlace;
+      this.kmsDetails.toLocation = this.ivNewFromPlace;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate); 
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+     //  // if (this.tripkmsDetails.status) {
+       this.tripkms= this.tripkmsDetails.kms;
+          this.dTripKM_1 =  parseInt(this.tripkmsDetails.kms);
+  this.ExpReportingDays 
+ = this.dTripKM_1/400 
+   this.ExpReportingDays = Math.round( this.ExpReportingDays) +1
+ let date: Date = new Date(selectedDataValue.newTripDate);
+ 
+ 
+date.setDate(date.getDate() + this.ExpReportingDays)
+let date2 = (date).toISOString()
+////date2 =this.commonService.formatDate(date2)
+////const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formTripsheet.patchValue({
+         //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+       //   //  cneeGst:  date2.split("T")[0]
+       nextExpectedReportingDt: date2.split("T")[0],
+       distanceTripKM_2:  this.dTripKM_1,
+       nextExpectedReportingDays: (this.ExpReportingDays).toString()
           });
        
       });
@@ -560,29 +606,42 @@ let date2 = (date).toISOString()
     //this.date1 = (date).toISOString();
    // this.date1 = this.date1.split("T")[0];
    // let currentDate = new Date();
-   let dt1 = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
-   let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+   let dt3= this.commonService.formatDate(selectedDataValue.expectedReportingDt)
+  // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+  let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+  let dt2 = this.commonService.formatDate(selectedDataValue.newTripDate)
    //calculation
    var date1 = new Date(dt1);
    var date2 = new Date(dt2);
+   var date3 = new Date(dt3);
      
    // To calculate the time difference of two dates
    var Difference_In_Time = date2.getTime() - date1.getTime();
-     
+     var difftime = date3.getTime() - date1.getTime();
    // To calculate the no. of days between two dates
    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-   if(Difference_In_Days > 0){ 
-    this.day1 = (Difference_In_Days).toString();
+   var DiffDays = difftime / (1000 * 3600 * 24);
+   Difference_In_Days = Math. abs(Difference_In_Days)
+   this.formTripsheet.patchValue({
+    actualDays_2: Difference_In_Days
+
+  });
+   if(DiffDays > 0){ 
+    this.day1 = (DiffDays).toString();
     this.formTripsheet.patchValue({
-      advanceDays_2:  this.day1
+      advanceDays_2  :  this.day1,
+      delayedDays_2: '',
+      actualDays_2:  Difference_In_Days
 
     });
 } else { 
     //do something with negative values 
-   Difference_In_Days = Math. abs(Difference_In_Days)
-    this.day2 = (Difference_In_Days).toString();
+    DiffDays = Math. abs(DiffDays)
+    this.day2 = (DiffDays).toString();
     this.formTripsheet.patchValue({
-      delayedDays_2:  this.day2
+      delayedDays_2 :  this.day2,
+      advanceDays_2:'',
+   // actualDays_2:  Difference_In_Days
 
     });
     
@@ -590,14 +649,14 @@ let date2 = (date).toISOString()
      
     if (  dt1 == dt2){
       this.formTripsheet.patchValue({
-        actualDays_2: selectedDataValue.expectedReportingDays
+     //  actualDays_2: selectedDataValue.expectedReportingDays
 
       });
     }
       else {
         this.formTripsheet.patchValue({
        //   kms: ''
-           actualDays_2:'0'
+     //  actualDays_2: Difference_In_Days
         });
       }
     
@@ -605,7 +664,45 @@ let date2 = (date).toISOString()
 
     
   }
+  checkDays2(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+  //  let date = selectedDataValue.expectedReportingDt;
+   // date.setDate(date.getDate() )
+    //this.date1 = (date).toISOString();
+   // this.date1 = this.date1.split("T")[0];
+   // let currentDate = new Date();
+ //  let dt3= this.commonService.formatDate(selectedDataValue.expectedReportingDt)
+  // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+  let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+  let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+   //calculation
+   var date1 = new Date(dt1);
+   var date2 = new Date(dt2);
+ //  var date3 = new Date(dt3);
+     
+   // To calculate the time difference of two dates
+   var Difference_In_Time = date1.getTime() - date2.getTime();
+  //  var difftime = date3.getTime() - date1.getTime();
+   // To calculate the no. of days between two dates
+   var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+  // var DiffDays = difftime / (1000 * 3600 * 24);
+   Difference_In_Days = Math. abs(Difference_In_Days)
+   this.formTripsheet.patchValue({
+    actualDays_2: Difference_In_Days
+    
+  });
+   if(Difference_In_Days > 0){ 
+    this.day1 = (Difference_In_Days).toString();
+    this.formTripsheet.patchValue({
+      detentionDays  :  this.day1,
+    
 
+    });
+
+  }
+
+    
+  }
   // createLRArray() {
   //   return this.formBuilder.group({
   //     lrSeries: [''],
@@ -631,13 +728,86 @@ let date2 = (date).toISOString()
   // }
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
-    this.checkMs();
+    //this.checkMs();
+    this.checkTripkMs();
+  }
+  changeFromPlace2(e: any) {
+    this.ivNewFromPlace = e.dataId;
+    //this.checkMs();
+    this.checkTripkMsSecond();
+    this.getAdBlueToBe();
+    this.getDslToBe();
+  }
+  getAdBlueToBe() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (this.ivNewFromPlace != "" && this.ivToPlace != "") {
+      this.adBlueDetails.transDate = selectedDataValue.newTripDate;
+      this.adBlueDetails.tripKms =   (selectedDataValue.distanceTripKM_2).toString();
+
+      this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
+      this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
+       this.adblue = res.message;
+       // if (this.tripkmsDetails.status) {
+   
+       
+
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formTripsheet.patchValue({
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+           ltsAdblueToBe_2:   this.adblue
+        
+             
+          });
+       
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        ltsAdblueToBe_2: ''
+      });
+    }
+  }
+  getDslToBe() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (this.ivNewFromPlace != "" && this.ivToPlace != "") {
+      this.dslDetails.transDate =  selectedDataValue.newTripDate;
+      this.dslDetails.tripKms =  (selectedDataValue.distanceTripKM_2).toString();
+      this.dslDetails.loadType = "L";
+      this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
+      this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
+       this.ltsdsl = res.message;
+       // if (this.tripkmsDetails.status) {
+   
+       
+
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
+          this.formTripsheet.patchValue({
+           // cneeGst:  (this.ExpectedReportingDays).toString() 
+           ltsDslToBe_2:  this.ltsdsl
+        
+             
+          });
+       
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        ltsDslToBe_2: ''
+      });
+    }
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
-    this.checkMs();
+   // this.checkMs();
+   this.checkTripkMs();
   }
   checkMs() {
+    //this.checkTripkMs();
+
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
