@@ -76,9 +76,13 @@ export class CommonService {
   getKms(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getKms', payload, this.httpOptions);
   }
+  getOpeningBal(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/getOpeningBal', payload, this.httpOptions);
+  }
   getTripKms(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getTripKms', payload, this.httpOptions);
   }
+
   getTripKms2(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetTripKms2', payload, this.httpOptions);
   }
@@ -88,6 +92,7 @@ export class CommonService {
   getDslToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);
   }
+
   getGcSeries(payload: any):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', payload, this.httpOptions);
   }

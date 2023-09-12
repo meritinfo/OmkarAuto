@@ -20,6 +20,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.TripMasterSave(tripMasterModel);
         }
+        public async Task<ResponseModel> GetOpeningBal(OpBalModel request)
+        {
+            return await tripMasterRepository.GetOpeningBal(request);
+        }
         public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
         {
             return await tripMasterRepository.GetTripSheetList(request);

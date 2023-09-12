@@ -12,7 +12,8 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
         Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
         Task<List<BranchListModel>> GetDriverList();
-    
+        Task<ResponseModel> GetOpeningBal(OpBalModel request);
+
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

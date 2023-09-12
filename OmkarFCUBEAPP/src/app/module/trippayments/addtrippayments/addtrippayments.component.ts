@@ -349,7 +349,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.remarks = selectedDataValue.remarks;
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
-    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt;
+    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "0";;
     this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
     this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;

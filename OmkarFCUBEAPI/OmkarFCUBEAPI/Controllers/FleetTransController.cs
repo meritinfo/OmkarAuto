@@ -154,6 +154,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetOpeningBal")]
+        public async Task<IActionResult> GetOpeningBal(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetOpeningBal(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
