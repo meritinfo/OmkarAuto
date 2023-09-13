@@ -28,6 +28,7 @@ export class AddtrippaymentsComponent {
   ttype: string = '';
   amount: string = '';
   maxDate: string = '';
+  minDate: string = '';
   loginDate: string = '';
   branch: string = '';
   year: string = '';
@@ -343,7 +344,8 @@ export class AddtrippaymentsComponent {
 
     this.trippaymentsmodel.tripNo = selectedDataValue.tripNo;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    this.trippaymentsmodel.tripMasterId = selectedDataValue.tripId;
+   // this.trippaymentsmodel.tripMasterId = selectedDataValue.tripId;tripMasterId
+   this.trippaymentsmodel.tripMasterId = selectedDataValue.tripMasterId;
 
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
     this.trippaymentsmodel.remarks = selectedDataValue.remarks;

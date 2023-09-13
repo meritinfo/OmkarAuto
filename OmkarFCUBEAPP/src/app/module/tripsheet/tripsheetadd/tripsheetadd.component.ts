@@ -36,6 +36,8 @@ export class TripsheetaddComponent {
   day2: string = '';
   adblue: string = '';
   ltsdsl: string = '';
+  adblue1: string = '';
+  ltsdsl1: string = '';
   totalAdblue: number = 0;
   totaldsl: number = 0;
   totalpayable: number = 0;
@@ -183,6 +185,7 @@ export class TripsheetaddComponent {
       totalAdblue: new FormControl('',),
       totalpayable: new FormControl('',),
       totalBhattaDays: new FormControl('',),
+      tripTime: new FormControl('',),
 
 
       miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
@@ -194,7 +197,7 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-    this.GetOpeningBal();
+  
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -203,8 +206,12 @@ export class TripsheetaddComponent {
         this.formTripsheet.patchValue({
           // newTripDate: this.loginDate,
           newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
+         // newTripDate:this.selectedTripSheetDetails.newTripDate,
           ticlStatus: this.selectedTripSheetDetails.ticlStatus,
           tripLinkYN: this.selectedTripSheetDetails.tripLinkYN,
+         compNonCompStatus:  this.selectedTripSheetDetails.compNonCompStatus,
+       //  compNonCompStatus:  "C",
+          loadType:this.selectedTripSheetDetails.loadEmptyType,
           lastTripCloseDate: this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
           tripCloseDt: this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
           loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
@@ -225,6 +232,7 @@ export class TripsheetaddComponent {
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
       }
       this.getTripSheetInnerGridList();
+      this.GetOpeningBal();
     }, 2000);
   }
   // convenience getter for easy access to contact form fields
@@ -351,6 +359,7 @@ export class TripsheetaddComponent {
   }
   selectEvent(item: any) {
     // do something with selected item
+    this.GetOpeningBal();
   }
 
   onChangeSearch(search: string) {
@@ -381,6 +390,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.lastTripCloseDate = selectedDataValue.lastTripCloseDate;
     this.tripsheetmodel.newTripDate = selectedDataValue.newTripDate;
     this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
+    this.tripsheetmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
     this.tripsheetmodel.tripOpenBy = selectedDataValue.tripOpenBy;
     this.tripsheetmodel.tripOpenDate = selectedDataValue.tripOpenDate;
     this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus;
@@ -534,6 +544,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['expectedReportingDt'].disable();
     this.formTripsheet.controls['expectedReportingDays'].disable();
   }
+ 
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -578,18 +589,24 @@ export class TripsheetaddComponent {
     var selectedDataValue = this.formTripsheet.getRawValue();
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+   this.OpbalDetails.driverMasterID =  selectedDataValue.driverMasterID.dataId;
+ // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+ // this.OpbalDetails.driverMasterID='1';
     this.OpbalDetails.yearid = this.year;
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      if (this.responseDetails.status) {
+     // if (this.responseDetails.status) {
+        if(this.responseDetails.message!=undefined || this.responseDetails.message!='' )
+        {
         this.formTripsheet.patchValue({
           opBalDriver: this.responseDetails.message
         });
+    //  }
+      //else
       } else {
         this.formTripsheet.patchValue({
-          opBalDriver: ''
+          opBalDriver: '0'
         });
       }
     });
@@ -656,17 +673,19 @@ export class TripsheetaddComponent {
         
         var date: Date = new Date();
         var date2 = "";
+        
         if (selectedDataValue.newTripDate != undefined && selectedDataValue.newTripDate != "") {
-          let date: Date = new Date(selectedDataValue.newTripDate);
+          let date: Date = new Date(selectedDataValue.deliveryDate);
+          date.setDate(date.getDate() + this.ExpReportingDays)
           date2 = (date).toISOString();
         }
-        if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
-          let date3: Date = new Date(selectedDataValue.deliveryDate);
-          date.setDate(date3.getDate() + this.ExpReportingDays)
-        }
+       // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
+         // let date3: Date = new Date(selectedDataValue.deliveryDate);
+       //   date.setDate(date3.getDate() + this.ExpReportingDays)
+      //  }
 
 
-        //date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
+       // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
 
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
@@ -757,16 +776,28 @@ export class TripsheetaddComponent {
   }
   totalCal() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    this.totalAdblue = selectedDataValue.ltsAdblueToBe_2 + selectedDataValue.ltsAdblueToBe_1;
-    this.totaldsl = selectedDataValue.ltsDslToBe_2 + selectedDataValue.ltsDslToBe_1;
-    this.totalpayable = selectedDataValue.advPayable_2 + selectedDataValue.advPayable_1;
-
+ 
+ 
+    this.totalAdblue = parseFloat(selectedDataValue.ltsAdblueToBe_2 )+ parseFloat(selectedDataValue.ltsAdblueToBe_1);
+    this.totaldsl =  parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
+    this.totalpayable = parseFloat(selectedDataValue.advPayable_2 )+ parseFloat(selectedDataValue.advPayable_1);
+    if( this.totalAdblue !== undefined &&   this.totaldsl!== undefined && this.totalpayable!== undefined ) {
     this.formTripsheet.patchValue({
       totaldsl: this.totaldsl,
       totalAdblue: this.totalAdblue,
       totalpayable: this.totalpayable,
 
     });
+
+  }
+  else{
+    this.formTripsheet.patchValue({
+      totaldsl: 0,
+      totalAdblue: 0,
+      totalpayable: 0,
+
+    });
+  }
 
   }
   checkDays2() {
@@ -835,6 +866,8 @@ export class TripsheetaddComponent {
     this.ivFromPlace = e.dataId;
     //this.checkMs();
     this.checkTripkMs();
+    this.getDslToBe1();
+    this.getAdBlueToBe1();
   }
   changeFromPlace2(e: any) {
     this.ivNewFromPlace = e.dataId;
@@ -860,17 +893,68 @@ export class TripsheetaddComponent {
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
-
+        if (this.adblue!= undefined ) {
         this.formTripsheet.patchValue({
           // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsAdblueToBe_2: this.adblue
+          ltsAdblueToBe_2:   parseFloat(this.adblue).toFixed(2).toString()
+
+
+        });
+      }else{
+        this.formTripsheet.patchValue({
+          // cneeGst:  (this.ExpectedReportingDays).toString() 
+          ltsAdblueToBe_2:   0
 
 
         });
 
+      }
+
       });
     }
     else {
+
+      this.formTripsheet.patchValue({
+        ltsAdblueToBe_2: ''
+      });
+    }
+  }
+  getAdBlueToBe1() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.adBlueDetails.transDate = selectedDataValue.newTripDate;
+      this.adBlueDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
+
+      this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
+      this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
+        this.adblue1 = res.message;
+        // if (this.tripkmsDetails.status) {
+
+
+
+        //date2 =this.commonService.formatDate(date2)
+        //const myFormattedDate = this.commonService.formatDate(date2);
+        if (this.adblue1!= undefined ) {
+        this.formTripsheet.patchValue({
+          // cneeGst:  (this.ExpectedReportingDays).toString() 
+          ltsAdblueToBe_1:   parseFloat(this.adblue1).toFixed(2).toString()
+
+
+        });
+      }else{
+        this.formTripsheet.patchValue({
+          // cneeGst:  (this.ExpectedReportingDays).toString() 
+          ltsAdblueToBe_1:   0
+
+
+        });
+
+      }
+
+      });
+    }
+    else {
+
       this.formTripsheet.patchValue({
         ltsAdblueToBe_2: ''
       });
@@ -886,16 +970,61 @@ export class TripsheetaddComponent {
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl = res.message;
         // if (this.tripkmsDetails.status) {
+          if (this.ltsdsl!= undefined ) {
+            this.formTripsheet.patchValue({
+              // cneeGst:  (this.ExpectedReportingDays).toString() 
+              ltsDslToBe_2: parseFloat(this.ltsdsl).toFixed(2).toString()
+            });
 
+          }
+          else{
+            this.formTripsheet.patchValue({
+              // cneeGst:  (this.ExpectedReportingDays).toString() 
+              ltsDslToBe_2: 0
+            });
 
-
+          }
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
 
-        this.formTripsheet.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsDslToBe_2: parseFloat(this.ltsdsl).toFixed(2).toString()
-        });
+       
+
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        ltsDslToBe_2: ''
+      });
+    }
+  }
+  getDslToBe1() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+      this.dslDetails.transDate = selectedDataValue.newTripDate;
+      this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
+      this.dslDetails.loadType = "L";
+      this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
+      this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
+        this.ltsdsl1 = res.message;
+        // if (this.tripkmsDetails.status) {
+          if (this.ltsdsl1!= undefined ) {
+            this.formTripsheet.patchValue({
+              // cneeGst:  (this.ExpectedReportingDays).toString() 
+              ltsDslToBe_1: parseFloat(this.ltsdsl1).toFixed(2).toString()
+            });
+
+          }
+          else{
+            this.formTripsheet.patchValue({
+              // cneeGst:  (this.ExpectedReportingDays).toString() 
+              ltsDslToBe_1: 0
+            });
+
+          }
+        //date2 =this.commonService.formatDate(date2)
+        //const myFormattedDate = this.commonService.formatDate(date2);
+
+       
 
       });
     }
@@ -909,6 +1038,11 @@ export class TripsheetaddComponent {
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
+    this.getDslToBe1();
+    this.getDslToBe();
+   this.getAdBlueToBe1();
+   this.getAdBlueToBe();
+
   }
   checkMs() {
     //this.checkTripkMs();
