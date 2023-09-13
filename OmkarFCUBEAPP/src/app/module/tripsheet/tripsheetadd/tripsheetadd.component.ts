@@ -20,6 +20,7 @@ import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 import { Dslmodel } from 'src/app/models/dslmodel';
 import { Opbalmodel } from 'src/app/models/opbalmodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -72,7 +73,7 @@ export class TripsheetaddComponent {
 
   selectedTripSheetDetails = new Tripsheetmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, private commonService: CommonService, private sharedService: SharedService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, private commonService: CommonService, private sharedService: SharedService, private toastrService: ToastrService) {
     this.tripsheetmodel = new Tripsheetmodel();
 
   }
@@ -141,7 +142,7 @@ export class TripsheetaddComponent {
       advanceDays_2: new FormControl('',),
       delayedDays_2: new FormControl('',),
       graceDays_2: new FormControl('',),
-      opBalDriver: new FormControl('',),
+      opBalDriver: new FormControl('0',),
       opBalDsl: new FormControl('',),
       opBalAdblue: new FormControl('',),
       paidDriverAdvance: new FormControl('',),
@@ -197,7 +198,7 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-  
+
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -206,12 +207,13 @@ export class TripsheetaddComponent {
         this.formTripsheet.patchValue({
           // newTripDate: this.loginDate,
           newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
-         // newTripDate:this.selectedTripSheetDetails.newTripDate,
+          // newTripDate:this.selectedTripSheetDetails.newTripDate,
           ticlStatus: this.selectedTripSheetDetails.ticlStatus,
           tripLinkYN: this.selectedTripSheetDetails.tripLinkYN,
-         compNonCompStatus:  this.selectedTripSheetDetails.compNonCompStatus,
-       //  compNonCompStatus:  "C",
-          loadType:this.selectedTripSheetDetails.loadEmptyType,
+          compNonCompStatus: this.selectedTripSheetDetails.compNonCompStatus,
+          tripTime: this.selectedTripSheetDetails.tripTime,
+          //  compNonCompStatus:  "C",
+          loadType: this.selectedTripSheetDetails.loadEmptyType,
           lastTripCloseDate: this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
           tripCloseDt: this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
           loadingFrom: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.loadingFrom),
@@ -544,7 +546,7 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['expectedReportingDt'].disable();
     this.formTripsheet.controls['expectedReportingDays'].disable();
   }
- 
+
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -577,6 +579,11 @@ export class TripsheetaddComponent {
           advPayable_1: this.advancePay
         });
 
+        this.getDslToBe1();
+        this.getDslToBe();
+        this.getAdBlueToBe1();
+        this.getAdBlueToBe();
+
       });
     }
     else {
@@ -589,21 +596,20 @@ export class TripsheetaddComponent {
     var selectedDataValue = this.formTripsheet.getRawValue();
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-   this.OpbalDetails.driverMasterID =  selectedDataValue.driverMasterID.dataId;
- // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
- // this.OpbalDetails.driverMasterID='1';
+    this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+    // this.OpbalDetails.driverMasterID='1';
     this.OpbalDetails.yearid = this.year;
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-     // if (this.responseDetails.status) {
-        if(this.responseDetails.message!=undefined || this.responseDetails.message!='' )
-        {
+      // if (this.responseDetails.status) {
+      if (this.responseDetails.message != undefined || this.responseDetails.message != '') {
         this.formTripsheet.patchValue({
           opBalDriver: this.responseDetails.message
         });
-    //  }
-      //else
+        //  }
+        //else
       } else {
         this.formTripsheet.patchValue({
           opBalDriver: '0'
@@ -670,22 +676,22 @@ export class TripsheetaddComponent {
         this.ExpReportingDays
           = this.dTripKM_1 / 400
         this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
-        
+
         var date: Date = new Date();
         var date2 = "";
-        
+
         if (selectedDataValue.newTripDate != undefined && selectedDataValue.newTripDate != "") {
           let date: Date = new Date(selectedDataValue.deliveryDate);
           date.setDate(date.getDate() + this.ExpReportingDays)
           date2 = (date).toISOString();
         }
-       // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
-         // let date3: Date = new Date(selectedDataValue.deliveryDate);
-       //   date.setDate(date3.getDate() + this.ExpReportingDays)
-      //  }
+        // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
+        // let date3: Date = new Date(selectedDataValue.deliveryDate);
+        //   date.setDate(date3.getDate() + this.ExpReportingDays)
+        //  }
 
 
-       // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
+        // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
 
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
@@ -711,6 +717,15 @@ export class TripsheetaddComponent {
   }
   checkDays() {
     var selectedDataValue = this.formTripsheet.getRawValue();
+    const d1 = Date.parse(selectedDataValue.newTripDate);
+    const d2 = Date.parse(selectedDataValue.reportingDt_2);
+    if (d1 > d2) {
+      this.formTripsheet.patchValue({
+        reportingDt_2: ''
+      });
+      this.toastrService.warning("Actual Reported Date should be same or greater than New Trip Date");
+      return
+    }
     //  let date = selectedDataValue.expectedReportingDt;
     // date.setDate(date.getDate() )
     //this.date1 = (date).toISOString();
@@ -776,28 +791,28 @@ export class TripsheetaddComponent {
   }
   totalCal() {
     var selectedDataValue = this.formTripsheet.getRawValue();
- 
- 
-    this.totalAdblue = parseFloat(selectedDataValue.ltsAdblueToBe_2 )+ parseFloat(selectedDataValue.ltsAdblueToBe_1);
-    this.totaldsl =  parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
-    this.totalpayable = parseFloat(selectedDataValue.advPayable_2 )+ parseFloat(selectedDataValue.advPayable_1);
-    if( this.totalAdblue !== undefined &&   this.totaldsl!== undefined && this.totalpayable!== undefined ) {
-    this.formTripsheet.patchValue({
-      totaldsl: this.totaldsl,
-      totalAdblue: this.totalAdblue,
-      totalpayable: this.totalpayable,
 
-    });
 
-  }
-  else{
-    this.formTripsheet.patchValue({
-      totaldsl: 0,
-      totalAdblue: 0,
-      totalpayable: 0,
+    this.totalAdblue = parseFloat(selectedDataValue.ltsAdblueToBe_2) + parseFloat(selectedDataValue.ltsAdblueToBe_1);
+    this.totaldsl = parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
+    this.totalpayable = parseFloat(selectedDataValue.advPayable_2) + parseFloat(selectedDataValue.advPayable_1);
+    if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
+      this.formTripsheet.patchValue({
+        totaldsl: this.totaldsl,
+        totalAdblue: this.totalAdblue,
+        totalpayable: this.totalpayable,
 
-    });
-  }
+      });
+
+    }
+    else {
+      this.formTripsheet.patchValue({
+        totaldsl: 0,
+        totalAdblue: 0,
+        totalpayable: 0,
+
+      });
+    }
 
   }
   checkDays2() {
@@ -876,7 +891,7 @@ export class TripsheetaddComponent {
     this.checkTripkMsNext();
     this.getAdBlueToBe();
     this.getDslToBe();
-   // this.totalCal();
+    // this.totalCal();
   }
   getAdBlueToBe() {
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -893,22 +908,22 @@ export class TripsheetaddComponent {
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
-        if (this.adblue!= undefined ) {
-        this.formTripsheet.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsAdblueToBe_2:   parseFloat(this.adblue).toFixed(2).toString()
+        if (this.adblue != undefined) {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsAdblueToBe_2: parseFloat(this.adblue).toFixed(2).toString()
 
 
-        });
-      }else{
-        this.formTripsheet.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsAdblueToBe_2:   0
+          });
+        } else {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsAdblueToBe_2: 0
 
 
-        });
+          });
 
-      }
+        }
 
       });
     }
@@ -934,22 +949,22 @@ export class TripsheetaddComponent {
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
-        if (this.adblue1!= undefined ) {
-        this.formTripsheet.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsAdblueToBe_1:   parseFloat(this.adblue1).toFixed(2).toString()
+        if (this.adblue1 != undefined) {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsAdblueToBe_1: parseFloat(this.adblue1).toFixed(2).toString()
 
 
-        });
-      }else{
-        this.formTripsheet.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          ltsAdblueToBe_1:   0
+          });
+        } else {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsAdblueToBe_1: 0
 
 
-        });
+          });
 
-      }
+        }
 
       });
     }
@@ -970,24 +985,24 @@ export class TripsheetaddComponent {
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl = res.message;
         // if (this.tripkmsDetails.status) {
-          if (this.ltsdsl!= undefined ) {
-            this.formTripsheet.patchValue({
-              // cneeGst:  (this.ExpectedReportingDays).toString() 
-              ltsDslToBe_2: parseFloat(this.ltsdsl).toFixed(2).toString()
-            });
+        if (this.ltsdsl != undefined) {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsDslToBe_2: parseFloat(this.ltsdsl).toFixed(2).toString()
+          });
 
-          }
-          else{
-            this.formTripsheet.patchValue({
-              // cneeGst:  (this.ExpectedReportingDays).toString() 
-              ltsDslToBe_2: 0
-            });
+        }
+        else {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsDslToBe_2: 0
+          });
 
-          }
+        }
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
 
-       
+
 
       });
     }
@@ -1007,24 +1022,24 @@ export class TripsheetaddComponent {
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl1 = res.message;
         // if (this.tripkmsDetails.status) {
-          if (this.ltsdsl1!= undefined ) {
-            this.formTripsheet.patchValue({
-              // cneeGst:  (this.ExpectedReportingDays).toString() 
-              ltsDslToBe_1: parseFloat(this.ltsdsl1).toFixed(2).toString()
-            });
+        if (this.ltsdsl1 != undefined) {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsDslToBe_1: parseFloat(this.ltsdsl1).toFixed(2).toString()
+          });
 
-          }
-          else{
-            this.formTripsheet.patchValue({
-              // cneeGst:  (this.ExpectedReportingDays).toString() 
-              ltsDslToBe_1: 0
-            });
+        }
+        else {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            ltsDslToBe_1: 0
+          });
 
-          }
+        }
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
 
-       
+
 
       });
     }
@@ -1038,10 +1053,6 @@ export class TripsheetaddComponent {
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
-    this.getDslToBe1();
-    this.getDslToBe();
-   this.getAdBlueToBe1();
-   this.getAdBlueToBe();
 
   }
   checkMs() {

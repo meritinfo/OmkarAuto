@@ -15,6 +15,7 @@ namespace FleetTrans.Models
         public string? TripNo { get; set; }
         public string? LastTripCloseDate { get; set; }
         public string? NewTripDate { get; set; }
+        public string? TripTime { get; set; }
         public string? OpenThrough { get; set; }
         public string? TripOpenBy { get; set; }
         public string? TripOpenDate { get; set; }

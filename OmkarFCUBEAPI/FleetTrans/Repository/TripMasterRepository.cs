@@ -314,6 +314,8 @@ namespace FleetTrans.Repository
 
                                 LastTripCloseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripCloseDate"]),
                                 NewTripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["NewTripDate"]),
+                                TripTime = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTime"]),
+
 
                                 OpenThrough = Convert.ToString(dataSet.Tables[0].Rows[i]["OpenThrough"]),
 

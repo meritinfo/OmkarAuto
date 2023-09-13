@@ -8,6 +8,7 @@ export class Tripsheetmodel {
     tripNo: string = "";
     lastTripCloseDate: string = "";
     newTripDate: string = "";
+    tripTime: string = "";
     openThrough: string = "";
     tripOpenBy: string = "";
     tripOpenDate: string = "";
