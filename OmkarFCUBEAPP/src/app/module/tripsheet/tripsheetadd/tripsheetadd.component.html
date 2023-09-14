@@ -452,34 +452,34 @@
                                                 <label for="formrow-inputCity"> Actual Reported Date</label>
 
                                                 <input type="date" class="form-control" placeholder="" (change)="checkDays()"
-                                                    formControlName="reportingDt_2">
+                                                    formControlName="reportingDt_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Actual Days</label>
-                                                <input class="form-control" placeholder=""   formControlName="actualDays_2">
+                                                <input class="form-control" placeholder=""   formControlName="actualDays_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Advance Days</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="advanceDays_2">
+                                                    formControlName="advanceDays_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Delay Days</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="delayedDays_2">
+                                                    formControlName="delayedDays_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Grace Days</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="graceDays_2">
+                                                    formControlName="graceDays_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -568,7 +568,27 @@
                                                     formControlName="advPayable_2">
                                             </div>
                                         </div>
-                                     
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Reporting Date</label>
+                                                <input type="date" class="form-control" placeholder=""(change)="checkDaysNew()"
+                                                    formControlName="reportingDt_2" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Actual Days  </label>
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="actualDays_2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">AdvanceDays </label>
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="advanceDays_2">
+                                            </div>
+                                        </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Delay Days</label>
@@ -578,6 +598,10 @@
                                         </div>
 
 
+                                      
+
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Grace Days</label>
@@ -585,9 +609,6 @@
                                                     formControlName="graceDays_2">
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Total Dsl To be</label>
@@ -1011,7 +1032,7 @@
                                         <div class="col-lg-2">
 
                                             <div class="mb-2">
-                                                <input type="checkbox" name="tripLinkYN" id="formRadios1" value="Y"
+                                                <input type="checkbox" name="tripStatus" id="formRadios1" value="Y"
                                                     class="form-check-input" />
                                                 <label for="formrow-inputCity">Trip Close</label>
 
