@@ -8,6 +8,8 @@ namespace FleetTrans.Business
         Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
         Task<List<BranchListModel>> GetDriverList();
         Task<ResponseModel>GetOpeningBal(OpBalModel request);
+        Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
+        Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

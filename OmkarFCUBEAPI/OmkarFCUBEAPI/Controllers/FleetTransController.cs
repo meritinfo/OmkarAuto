@@ -168,6 +168,34 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetIncentiveRate")]
+        public async Task<IActionResult> GetIncentiveRate(IncentiveRateModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetIncentiveRate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBhattaRate")]
+        public async Task<IActionResult> GetBhattaRate(BhattaRateModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetBhattaRate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)

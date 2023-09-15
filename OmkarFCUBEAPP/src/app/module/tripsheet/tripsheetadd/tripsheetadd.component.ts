@@ -18,7 +18,9 @@ import { Tripsheetinnergridrequest } from 'src/app/models/tripsheetinnergridrequ
 import { SharedService } from 'src/app/services/shared.service';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 import { Dslmodel } from 'src/app/models/dslmodel';
+import { BhattaRateModel } from 'src/app/models/bhattaratemodel';
 import { Opbalmodel } from 'src/app/models/opbalmodel';
+import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
 
@@ -33,12 +35,15 @@ export class TripsheetaddComponent {
   loginDate: string = '';
   day1: string = '';
   advancePay: string = '';
+  incentiveRate: string = '';
+  bhattaRate: string = '';
   advancePay2: string = '';
   day2: string = '';
   adblue: string = '';
   ltsdsl: string = '';
   adblue1: string = '';
   ltsdsl1: string = '';
+  bDays:number = 0;
   totalAdblue: number = 0;
   totaldsl: number = 0;
   totalpayable: number = 0;
@@ -48,7 +53,9 @@ export class TripsheetaddComponent {
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';
   dslDetails = new Dslmodel();
+  incentiveDetails = new IncentiveRateModel();
   OpbalDetails = new Opbalmodel();
+  bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
 
   formTripsheet!: FormGroup;
@@ -184,8 +191,8 @@ export class TripsheetaddComponent {
       expectedReportingDt: new FormControl('',),
       loadType: new FormControl('',),
       totaldsl: new FormControl('',),
-      actualDays_1: new FormControl('',),
-      actualDays_2: new FormControl('',),
+      actualDays_1: new FormControl('0',),
+      actualDays_2: new FormControl('0',),
       totalAdblue: new FormControl('',),
       totalpayable: new FormControl('',),
       totalBhattaDays: new FormControl('',),
@@ -239,6 +246,7 @@ export class TripsheetaddComponent {
       this.checkDestinationControlStatus();
 
       this.getTripSheetInnerGridList();
+     
       this.GetOpeningBal();
     }, 2000);
   }
@@ -594,6 +602,9 @@ export class TripsheetaddComponent {
         this.getDslToBe();
         this.getAdBlueToBe1();
         this.getAdBlueToBe();
+       // this.getIncentiveRate();
+       this.getMultiIncentiveRate();
+      
 
       });
     }
@@ -663,7 +674,7 @@ export class TripsheetaddComponent {
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: this.advancePay2
         });
-
+   
       });
     }
     else {
@@ -717,6 +728,7 @@ export class TripsheetaddComponent {
         });
 
         this.totalCal();
+        this.getBhattaRate();
 
       });
     }
@@ -794,6 +806,7 @@ export class TripsheetaddComponent {
         // actualDays_2:  Difference_In_Days
 
       });
+     
 
     }
 
@@ -868,7 +881,7 @@ export class TripsheetaddComponent {
       this.formTripsheet.patchValue({
         delayedDays_2: this.day2,
         advanceDays_2: '',
-        // actualDays_2:  Difference_In_Days
+        actualDays_2:  Difference_In_Days
 
       });
 
@@ -954,7 +967,7 @@ export class TripsheetaddComponent {
     // var DiffDays = difftime / (1000 * 3600 * 24);
     Difference_In_Days = Math.abs(Difference_In_Days)
     this.formTripsheet.patchValue({
-      actualDays_1: Difference_In_Days
+     // actualDays_2: Difference_In_Days
 
     });
     if (Difference_In_Days > 0) {
@@ -964,6 +977,8 @@ export class TripsheetaddComponent {
 
 
       });
+     // this.getIncentiveRate();
+     this.getBhattaRate();
 
     }
 
@@ -989,31 +1004,32 @@ export class TripsheetaddComponent {
     // let currentDate = new Date();
     //  let dt3= this.commonService.formatDate(selectedDataValue.expectedReportingDt)
     // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
-    let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_1)
-    let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+    let dt5 = this.commonService.formatDate(selectedDataValue.reportingDt_1)
+    let dt6 = this.commonService.formatDate(selectedDataValue.deliveryDate)
     //calculation
-    var date1 = new Date(dt1);
-    var date2 = new Date(dt2);
+    var date1 = new Date(dt5);
+    var date2 = new Date(dt6);
     //  var date3 = new Date(dt3);
 
     // To calculate the time difference of two dates
-    var Difference_In_Time = date1.getTime() - date2.getTime();
+    var Difference_In_Time2 = date1.getTime() - date2.getTime();
     //  var difftime = date3.getTime() - date1.getTime();
     // To calculate the no. of days between two dates
-    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    var Difference_In_Days3 = Difference_In_Time2 / (1000 * 3600 * 24);
     // var DiffDays = difftime / (1000 * 3600 * 24);
-    Difference_In_Days = Math.abs(Difference_In_Days)
+    Difference_In_Days3 = Math.abs(Difference_In_Days3)
     this.formTripsheet.patchValue({
-      actualDays_1: Difference_In_Days
+      actualDays_1: Difference_In_Days3
 
     });
-    if (Difference_In_Days > 0) {
-      this.day1 = (Difference_In_Days).toString();
+    if (Difference_In_Days3 > 0) {
+      let dy1 = (Difference_In_Days3).toString();
       this.formTripsheet.patchValue({
-        detentionDays: this.day1,
+        detentionDays: dy1,
 
 
       });
+     // this.getBhattaRate();
 
     }
 
@@ -1100,6 +1116,7 @@ export class TripsheetaddComponent {
     }
   }
   getAdBlueToBe1() {
+    
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.adBlueDetails.transDate = selectedDataValue.newTripDate;
@@ -1177,6 +1194,98 @@ export class TripsheetaddComponent {
       });
     }
   }
+  getIncentiveRate (e: any) {
+   
+      console.log(e.target.value);
+      var selectedValue = e.target.value;
+    var selectedDataValue = this.formTripsheet.getRawValue();
+if(selectedValue =="OK")
+{
+      this.incentiveDetails.transDate = selectedDataValue.newTripDate;
+      this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
+    
+      this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
+        this.incentiveRate = res.message;
+        let ir=0;
+        ir=  parseInt(this.incentiveRate )* selectedDataValue.advanceDays_1;
+        // if (this.tripkmsDetails.status) {
+       // if (this.ltsdsl != undefined) {
+          this.formTripsheet.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+           // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+           onTimeIncentiveAmt: ir
+          });
+         // this.getMultiIncentiveRate();
+       // }
+      //  else {
+       //   this.formTripsheet.patchValue({
+           // // cneeGst:  (this.ExpectedReportingDays).toString() 
+         //   ltsDslToBe_2: 0
+       //   });
+
+      //  }
+        //date2 =this.commonService.formatDate(date2)
+        //const myFormattedDate = this.commonService.formatDate(date2);
+
+
+
+      });
+    }else{
+      this.formTripsheet.patchValue({
+        // cneeGst:  (this.ExpectedReportingDays).toString() 
+       // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+       onTimeIncentiveAmt: ""
+      });
+
+    }
+   
+  }
+  getBhattaRate() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+
+    this.bhattaDetails.transDate = selectedDataValue.newTripDate;
+    
+  
+    this.commonService.getBhattaRate(this.bhattaDetails).subscribe((res: Responsemodel) => {
+      this.bhattaRate = res.message;
+      let br=0;
+      let bd=0;
+    
+     // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
+     bd =   selectedDataValue.actualDays_1+  selectedDataValue.actualDays_2;
+      br =  parseInt( this.bhattaRate )*  bd;
+      this.formTripsheet.patchValue({
+     
+       allowedBhatta:br,
+       totalBhattaDays: bd
+      });
+    
+  });
+}
+  getMultiIncentiveRate() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if(selectedDataValue.destination2!=''){
+      this.formTripsheet.patchValue({
+      multiDelIncentiveAmt:1000
+    });
+  }
+    else if( selectedDataValue.destination3!=''){
+      this.formTripsheet.patchValue({
+      multiDelIncentiveAmt:2000
+    });
+
+
+    }
+    else{
+      this.formTripsheet.patchValue({
+        multiDelIncentiveAmt:0
+      });
+
+    }
+
+    
+
+  }
   getDslToBe1() {
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -1218,13 +1327,13 @@ export class TripsheetaddComponent {
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
-    this.checkDestinationControlStatus();
+   // this.checkDestinationControlStatus();
   }
   changeDestination2(e: any) {
     this.formTripsheet.patchValue({
       destination2: e
     });
-    this.checkDestinationControlStatus();
+   // this.checkDestinationControlStatus();
   }
   changeDestination3(e: any) {
     this.formTripsheet.patchValue({
@@ -1268,6 +1377,7 @@ export class TripsheetaddComponent {
     }
 
   }
+
   checkMs() {
     //this.checkTripkMs();
 
