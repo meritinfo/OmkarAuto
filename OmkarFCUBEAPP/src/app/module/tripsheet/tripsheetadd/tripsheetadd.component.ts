@@ -43,7 +43,7 @@ export class TripsheetaddComponent {
   ltsdsl: string = '';
   adblue1: string = '';
   ltsdsl1: string = '';
-  bDays:number = 0;
+  bDays: number = 0;
   totalAdblue: number = 0;
   totaldsl: number = 0;
   totalpayable: number = 0;
@@ -242,11 +242,11 @@ export class TripsheetaddComponent {
         this.tripsheetinnergridrequest.tripId = 0;
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
       }
-      
+
       this.checkDestinationControlStatus();
 
       this.getTripSheetInnerGridList();
-     
+
       this.GetOpeningBal();
     }, 2000);
   }
@@ -602,9 +602,9 @@ export class TripsheetaddComponent {
         this.getDslToBe();
         this.getAdBlueToBe1();
         this.getAdBlueToBe();
-       // this.getIncentiveRate();
-       this.getMultiIncentiveRate();
-      
+        // this.getIncentiveRate();
+        this.getMultiIncentiveRate();
+
 
       });
     }
@@ -674,7 +674,7 @@ export class TripsheetaddComponent {
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: this.advancePay2
         });
-   
+
       });
     }
     else {
@@ -806,7 +806,7 @@ export class TripsheetaddComponent {
         // actualDays_2:  Difference_In_Days
 
       });
-     
+
 
     }
 
@@ -881,7 +881,7 @@ export class TripsheetaddComponent {
       this.formTripsheet.patchValue({
         delayedDays_2: this.day2,
         advanceDays_2: '',
-        actualDays_2:  Difference_In_Days
+        actualDays_2: Difference_In_Days
 
       });
 
@@ -967,7 +967,7 @@ export class TripsheetaddComponent {
     // var DiffDays = difftime / (1000 * 3600 * 24);
     Difference_In_Days = Math.abs(Difference_In_Days)
     this.formTripsheet.patchValue({
-     // actualDays_2: Difference_In_Days
+      // actualDays_2: Difference_In_Days
 
     });
     if (Difference_In_Days > 0) {
@@ -977,8 +977,8 @@ export class TripsheetaddComponent {
 
 
       });
-     // this.getIncentiveRate();
-     this.getBhattaRate();
+      // this.getIncentiveRate();
+      this.getBhattaRate();
 
     }
 
@@ -1029,7 +1029,7 @@ export class TripsheetaddComponent {
 
 
       });
-     // this.getBhattaRate();
+      // this.getBhattaRate();
 
     }
 
@@ -1116,7 +1116,7 @@ export class TripsheetaddComponent {
     }
   }
   getAdBlueToBe1() {
-    
+
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.adBlueDetails.transDate = selectedDataValue.newTripDate;
@@ -1194,96 +1194,95 @@ export class TripsheetaddComponent {
       });
     }
   }
-  getIncentiveRate (e: any) {
-   
-      console.log(e.target.value);
-      var selectedValue = e.target.value;
+  getIncentiveRate(e: any) {
+
+    console.log(e.target.value);
+    var selectedValue = e.target.value;
     var selectedDataValue = this.formTripsheet.getRawValue();
-if(selectedValue =="OK")
-{
+    if (selectedValue == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
-    
+
       this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
         this.incentiveRate = res.message;
-        let ir=0;
-        ir=  parseInt(this.incentiveRate )* selectedDataValue.advanceDays_1;
+        let ir = 0;
+        ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
         // if (this.tripkmsDetails.status) {
-       // if (this.ltsdsl != undefined) {
-          this.formTripsheet.patchValue({
-            // cneeGst:  (this.ExpectedReportingDays).toString() 
-           // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
-           onTimeIncentiveAmt: ir
-          });
-         // this.getMultiIncentiveRate();
-       // }
-      //  else {
-       //   this.formTripsheet.patchValue({
-           // // cneeGst:  (this.ExpectedReportingDays).toString() 
-         //   ltsDslToBe_2: 0
-       //   });
+        // if (this.ltsdsl != undefined) {
+        this.formTripsheet.patchValue({
+          // cneeGst:  (this.ExpectedReportingDays).toString() 
+          // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+          onTimeIncentiveAmt: ir
+        });
+        // this.getMultiIncentiveRate();
+        // }
+        //  else {
+        //   this.formTripsheet.patchValue({
+        // // cneeGst:  (this.ExpectedReportingDays).toString() 
+        //   ltsDslToBe_2: 0
+        //   });
 
-      //  }
+        //  }
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
 
 
 
       });
-    }else{
+    } else {
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
-       // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
-       onTimeIncentiveAmt: ""
+        // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+        onTimeIncentiveAmt: ""
       });
 
     }
-   
+
   }
   getBhattaRate() {
     var selectedDataValue = this.formTripsheet.getRawValue();
 
     this.bhattaDetails.transDate = selectedDataValue.newTripDate;
-    
-  
+
+
     this.commonService.getBhattaRate(this.bhattaDetails).subscribe((res: Responsemodel) => {
       this.bhattaRate = res.message;
-      let br=0;
-      let bd=0;
-    
-     // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
-     bd =   selectedDataValue.actualDays_1+  selectedDataValue.actualDays_2;
-      br =  parseInt( this.bhattaRate )*  bd;
+      let br = 0;
+      let bd = 0;
+
+      // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
+      bd = selectedDataValue.actualDays_1 + selectedDataValue.actualDays_2;
+      br = parseInt(this.bhattaRate) * bd;
       this.formTripsheet.patchValue({
-     
-       allowedBhatta:br,
-       totalBhattaDays: bd
+
+        allowedBhatta: br,
+        totalBhattaDays: bd
       });
-    
-  });
-}
-  getMultiIncentiveRate() {
-    var selectedDataValue = this.formTripsheet.getRawValue();
-    if(selectedDataValue.destination2!=''){
-      this.formTripsheet.patchValue({
-      multiDelIncentiveAmt:1000
+
     });
   }
-    else if( selectedDataValue.destination3!=''){
+  getMultiIncentiveRate() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if (selectedDataValue.destination2 != '') {
       this.formTripsheet.patchValue({
-      multiDelIncentiveAmt:2000
-    });
+        multiDelIncentiveAmt: 1000
+      });
+    }
+    else if (selectedDataValue.destination3 != '') {
+      this.formTripsheet.patchValue({
+        multiDelIncentiveAmt: 2000
+      });
 
 
     }
-    else{
+    else {
       this.formTripsheet.patchValue({
-        multiDelIncentiveAmt:0
+        multiDelIncentiveAmt: 0
       });
 
     }
 
-    
+
 
   }
   getDslToBe1() {
@@ -1327,13 +1326,13 @@ if(selectedValue =="OK")
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
-   // this.checkDestinationControlStatus();
+    this.checkDestinationControlStatus();
   }
   changeDestination2(e: any) {
     this.formTripsheet.patchValue({
       destination2: e
     });
-   // this.checkDestinationControlStatus();
+    this.checkDestinationControlStatus();
   }
   changeDestination3(e: any) {
     this.formTripsheet.patchValue({
@@ -1341,8 +1340,23 @@ if(selectedValue =="OK")
     });
     this.checkDestinationControlStatus();
   }
-  clearDestination(){
-    console.log("cler");
+  onClearedDestination(e: any) {
+    this.formTripsheet.patchValue({
+      destination: undefined
+    });
+    this.checkDestinationControlStatus();
+  }
+  onClearedDestination2(e: any) {
+    this.formTripsheet.patchValue({
+      destination2: undefined
+    });
+    this.checkDestinationControlStatus();
+  }
+  onClearedDestination3(e: any) {
+    this.formTripsheet.patchValue({
+      destination3: undefined
+    });
+    this.checkDestinationControlStatus();
   }
   checkDestinationControlStatus() {
     this.formTripsheet.controls['destination'].enable();
@@ -1351,16 +1365,20 @@ if(selectedValue =="OK")
 
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (selectedDataValue.destination) {
-      this.formTripsheet.controls['destination'].disable();
+      this.formTripsheet.controls['destination'].enable();
       this.formTripsheet.controls['destination2'].enable();
       this.formTripsheet.controls['destination3'].disable();
     }
     if (selectedDataValue.destination2) {
       this.formTripsheet.controls['destination'].disable();
+      this.formTripsheet.controls['destination2'].enable();
+      this.formTripsheet.controls['destination3'].enable();
+    }
+    if (selectedDataValue.destination3) {
+      this.formTripsheet.controls['destination'].disable();
       this.formTripsheet.controls['destination2'].disable();
       this.formTripsheet.controls['destination3'].enable();
     }
-
   }
   changeDestPlace(e: any) {
     var selectedDataValue = this.formTripsheet.getRawValue();

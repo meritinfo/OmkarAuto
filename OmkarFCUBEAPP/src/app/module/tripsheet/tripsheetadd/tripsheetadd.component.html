@@ -315,7 +315,8 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]=""
+                                                        (inputCleared)="onClearedDestination($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -338,7 +339,8 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]=""
+                                                        (inputCleared)="onClearedDestination2($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -362,7 +364,8 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]=""
+                                                        (inputCleared)="onClearedDestination3($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
