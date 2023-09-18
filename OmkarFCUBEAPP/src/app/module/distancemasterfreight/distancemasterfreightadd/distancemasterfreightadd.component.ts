@@ -21,6 +21,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   formDistanceMasterFreight!: FormGroup;
   selectedDistancemasterfreightDetails = new Distancemasterfreightmodel();
   keywordLocation = 'dataName';
+
   formSubmitted = false;
   responseDetails = new Responsemodel();
 

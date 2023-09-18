@@ -11,6 +11,6 @@ export class DistancemasterfreightlistComponent {
   }
   //Open new driver master add screen
   distanceMasterFreightAdd(): void {
-    this.route.navigate(['/frtdistancemasteradd']);
+    this.route.navigate(['/distancemasterfreightadd']);
   }
 }

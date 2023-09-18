@@ -291,7 +291,6 @@ export class ConsignmentaddComponent implements OnInit {
         toPlace: ''
       });
     }
-    this.ivToPlace = '';
   }
   popupClosedFromPlace() {
     if (!this.ivFromPlace) {
@@ -299,7 +298,6 @@ export class ConsignmentaddComponent implements OnInit {
         fromPlace: ''
       });
     }
-    this.ivFromPlace = '';
   }
   popupClosedVehicle() {
     // if(!this.ivVehicleNo){
@@ -646,10 +644,16 @@ export class ConsignmentaddComponent implements OnInit {
     // do something with selected item
   }
 
+  onChangeSearchFromPlace(search: string) {
+    this.ivFromPlace = '';
+  }
+
+  onChangeSearchToPlace(search: string) {
+    this.ivToPlace = '';
+  }
+
   onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    console.log(search);
+    this.ivToPlace = '';
   }
 
   onFocused(e: any) {

@@ -101,7 +101,7 @@
                                                     <ng-autocomplete [data]="driverList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         formControlName="driverMasterID" [initialValue]=""
-                                                        (selected)='selectEvent($event)'
+                                                        (selected)='selectNewEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"

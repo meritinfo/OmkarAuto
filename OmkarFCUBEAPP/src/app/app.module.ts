@@ -14,6 +14,7 @@ import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
 import { Destinationmodel } from './models/destinationmodel';
+import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
 import { Brandmastermodel } from './models/brandmastermodel';
 import { Ratetypesmodel } from './models/ratetypesmodel';
 import { Tyrepositionmastermodel } from './models/tyrepositionmastermodel';
@@ -98,6 +99,8 @@ import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheet
 import { UppercaseonlyDirective } from './directives/uppercaseonly.directive';
 import { Tripsheetmodel } from './models/tripsheetmodel';
 import { Getkmsmodel } from './models/getkmsmodel';
+import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
+import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 
 @NgModule({
   declarations: [
@@ -160,6 +163,8 @@ import { Getkmsmodel } from './models/getkmsmodel';
     TripsheetlistComponent,
     TripsheetaddComponent,
     UppercaseonlyDirective,
+    DistancemasterfreightaddComponent,
+    DistancemasterfreightlistComponent
   ],
   imports: [
     BrowserModule,
@@ -178,7 +183,7 @@ import { Getkmsmodel } from './models/getkmsmodel';
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel
   ],
   bootstrap: [AppComponent]
 })

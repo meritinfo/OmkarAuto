@@ -220,7 +220,7 @@ export class TripsheetaddComponent {
           reportingDt_2: this.commonService.formatDate(this.selectedTripSheetDetails.reportingDt_2),
           nextExpectedReportingDt:this.commonService.formatDate(this.selectedTripSheetDetails.nextExpectedReportingDt),
           deliveryDate:this.commonService.formatDate(this.selectedTripSheetDetails.deliveryDate),
-          // newTripDate:this.selectedTripSheetDetails.newTripDate,
+          // deliveryDate:this.selectedTripSheetDetails.deliveryDate,
           ticlStatus: this.selectedTripSheetDetails.ticlStatus,
           tripLinkYN: this.selectedTripSheetDetails.tripLinkYN,
           compNonCompStatus: this.selectedTripSheetDetails.compNonCompStatus,
@@ -236,7 +236,8 @@ export class TripsheetaddComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripSheetDetails.vehicleMasterID),
           driverMasterID: this.driverList.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
           nextReportingBranch: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.nextReportingBranch),
-          tripStatus: this.selectedTripSheetDetails.tripStatus == "O" ? false : true
+          tripStatus: this.selectedTripSheetDetails.tripStatus == "O" ? false : true,
+           yearid: this.year
         });
 
         this.ivFromPlace = this.selectedTripSheetDetails.loadingFrom;
@@ -244,6 +245,8 @@ export class TripsheetaddComponent {
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
+
+        this.GetOpeningBal();
       } else {
         this.tripsheetinnergridrequest.tripId = 0;
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
@@ -378,9 +381,13 @@ export class TripsheetaddComponent {
       this.driverList = res;
     });
   }
-  selectEvent(item: any) {
+  selectNewEvent(item: any) {
     // do something with selected item
     this.GetOpeningBal();
+  }
+  selectEvent(item: any) {
+    // do something with selected item
+   // this.GetOpeningBal();
   }
 
   onChangeSearch(search: string) {
@@ -414,7 +421,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
     this.tripsheetmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
     this.tripsheetmodel.tripOpenBy = selectedDataValue.tripOpenBy;
-   this.tripsheetmodel.tripOpenDate = this.commonService.formatDate(selectedDataValue.tripOpenDate);
+   this.tripsheetmodel.tripOpenDate = this.commonService.formatDate( this.loginDate);
      // this.tripsheetmodel.tripOpenDate = selectedDataValue.tripOpenDate;
     this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus ? 'C' : 'O';
     this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID? selectedDataValue.driverMasterID.dataId :'';
@@ -432,16 +439,16 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.expectedReportingDt = this.commonService.formatDate(selectedDataValue.expectedReportingDt);
     this.tripsheetmodel.expectedReportingDays = selectedDataValue.expectedReportingDays;
     this.tripsheetmodel.ltsDslToBe_2 = selectedDataValue.ltsDslToBe_2.toString();;
-    this.tripsheetmodel.ltsDslToBe_1 = selectedDataValue.ltsDslToBe_2.toString();;
+    this.tripsheetmodel.ltsDslToBe_1 = selectedDataValue.ltsDslToBe_1.toString();;
     this.tripsheetmodel.ltsAdblueToBe_2 = selectedDataValue.ltsAdblueToBe_2.toString();;
-    this.tripsheetmodel.ltsAdblueToBe_1 = selectedDataValue.ltsAdblueToBe_2.toString();;
+    this.tripsheetmodel.ltsAdblueToBe_1 = selectedDataValue.ltsAdblueToBe_1.toString();;
     this.tripsheetmodel.advPayable_2 = selectedDataValue.advPayable_2;
     this.tripsheetmodel.advPayable_1 = selectedDataValue.advPayable_1;
     this.tripsheetmodel.reportingDt_2 = selectedDataValue.reportingDt_2;
     this.tripsheetmodel.reportingDt_1 = selectedDataValue.reportingDt_1;
-    this.tripsheetmodel.advanceDays_2 = selectedDataValue.advanceDays_2;
+    this.tripsheetmodel.advanceDays_2 = selectedDataValue.advanceDays_2 ? selectedDataValue.advanceDays_2 : '';
     this.tripsheetmodel.advanceDays_1 = selectedDataValue.advanceDays_1;
-    this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2;
+    this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2 ? selectedDataValue.delayedDays_2 : '';
     this.tripsheetmodel.delayedDays_1 = selectedDataValue.delayedDays_1;
     this.tripsheetmodel.deliveryDate = selectedDataValue.deliveryDate;
     this.tripsheetmodel.graceDays_2 = selectedDataValue.graceDays_2;
@@ -461,7 +468,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.parkingByDriver = selectedDataValue.parkingByDriver.toString();
     this.tripsheetmodel.accidentByDriver = selectedDataValue.accidentByDriver.toString();
     this.tripsheetmodel.weighmentByDriver = selectedDataValue.weighmentByDriver.toString();
-    this.tripsheetmodel.nextReportingBranch = selectedDataValue.nextReportingBranch ? selectedDataValue.nextReportingBranch:'';
+    this.tripsheetmodel.nextReportingBranch = selectedDataValue.nextReportingBranch ? selectedDataValue.nextReportingBranch.dataId:'';
     this.tripsheetmodel.nextExpectedReportingDt = selectedDataValue.nextExpectedReportingDt;
     this.tripsheetmodel.cashDslPlace = selectedDataValue.cashDslPlace;
     this.tripsheetmodel.cashDslLtrs = selectedDataValue.cashDslLtrs;
@@ -621,9 +628,9 @@ export class TripsheetaddComponent {
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           expectedReportingDt: date2.split("T")[0],
-          distanceTripKM_1: this.dTripKM_1,
+          distanceTripKM_1: (this.dTripKM_1).toString(),
           expectedReportingDays: (this.ExpReportingDays).toString(),
-          advPayable_1: this.advancePay
+          advPayable_1: (this.advancePay).toString(),
         });
 
         this.getDslToBe1();
@@ -752,7 +759,7 @@ export class TripsheetaddComponent {
           nextExpectedReportingDt: date2.split("T")[0],
           distanceTripKM_2: (this.dTripKM_1).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
-          advPayable_2: this.advancePay2
+          advPayable_2: (this.advancePay2).toString(),
         });
 
         this.totalCal();
@@ -955,9 +962,9 @@ export class TripsheetaddComponent {
     }
     else {
       this.formTripsheet.patchValue({
-        totaldsl: 0,
-        totalAdblue: 0,
-        totalpayable: 0,
+        totaldsl: '0',
+        totalAdblue: '0',
+        totalpayable: '0',
 
       });
     }
@@ -1124,15 +1131,16 @@ export class TripsheetaddComponent {
         if (this.adblue != undefined) {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
-          //  ltsAdblueToBe_2: parseFloat(this.adblue).toFixed(2).toString()
-            ltsAdblueToBe_2: (adb).toString()
+         //  ltsAdblueToBe_2: parseFloat(this.adblue).toFixed(2).toString()
+           ltsAdblueToBe_2: (adb).toString()
+       //  ltsAdblueToBe_2: "0"
 
 
           });
         } else {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
-            ltsAdblueToBe_2: 0
+            ltsAdblueToBe_2: "0"
 
 
           });
@@ -1446,7 +1454,7 @@ export class TripsheetaddComponent {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formTripsheet.patchValue({
-            distanceTripKM_1: this.responseDetails.message
+            distanceTripKM_1: (this.responseDetails.message).toString()
           });
         } else {
           this.formTripsheet.patchValue({

@@ -180,12 +180,12 @@
                                                     <ng-autocomplete [data]="locationList" formControlName="fromPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeFromPlace($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputChanged)='onChangeSearchFromPlace($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }"
-                                                      
+                                                        (closed) = "popupClosedFromPlace()"
                                                       >
                                                     </ng-autocomplete>
 
@@ -214,7 +214,7 @@
                                                     <ng-autocomplete [data]="locationList" formControlName="toPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeToPlace($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputChanged)='onChangeSearchToPlace($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
