@@ -72,6 +72,8 @@ export class TripsheetaddComponent {
   ivVehicleNo = '';
   billstation = '';
   ivFromPlace = '';
+  destinationid2='';
+  destinationid3='';
   ivNewFromPlace = '';
   ivToPlace = '';
   tripsheetinnergridrequest = new Tripsheetinnergridrequest();
@@ -242,6 +244,9 @@ export class TripsheetaddComponent {
 
         this.ivFromPlace = this.selectedTripSheetDetails.loadingFrom;
         this.ivToPlace = this.selectedTripSheetDetails.destination;
+      //  this.destinationid2= this.selectedTripSheetDetails.destination2;
+      //  this.destinationid3= this.selectedTripSheetDetails.destination3;
+       // this.ivNewFromPlace= this.selectedTripSheetDetails.nextReportingBranch;
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
@@ -317,6 +322,32 @@ export class TripsheetaddComponent {
     this.tripsheetinnergridmodel.adblueList[index].adbluedieselLiter = event.target.value;
     this.calculateTotal();
   }
+  calTotalnew(): void {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    let clBalDsl= 0;
+    let clBalAdBlue =0;
+    let netTripBalance =0;
+    clBalDsl =  parseInt(selectedDataValue.opBalDsl) + parseFloat(selectedDataValue.issuedDslLtrs)- parseInt(selectedDataValue.cashDslLtrs)-parseInt(selectedDataValue.totaldsl)
+    clBalAdBlue =  parseInt(selectedDataValue.opBalAdblue) + parseFloat(selectedDataValue.issuedAdblueLtrs)+parseFloat(selectedDataValue.cashAdblueLtrs)-parseInt(selectedDataValue.totalAdblue)
+    netTripBalance = parseInt(selectedDataValue.opBalDsl) + parseInt(selectedDataValue.paidDriverAdvance)-   parseInt(selectedDataValue.totalpayable)-parseInt(selectedDataValue.totalpayable)-parseInt(selectedDataValue.repairsByDriver)-parseInt(selectedDataValue.parkingByDriver)-parseInt(selectedDataValue.accidentByDriver)-parseInt(selectedDataValue.weighmentByDriver)-parseInt(selectedDataValue.otherExpByDriver)-parseInt(selectedDataValue.allowedBhatta)-parseInt(selectedDataValue.onTimeIncentiveAmt)-parseInt(selectedDataValue.multiDelIncentiveAmt)-parseInt(selectedDataValue.penaltyChargedToDr)-parseInt(selectedDataValue.poolAcAmt)
+    if(clBalDsl!= undefined && clBalAdBlue != undefined && netTripBalance != undefined){
+    this.formTripsheet.patchValue({
+      clBalDsl: clBalDsl,
+      clBalAdBlue: clBalAdBlue,
+      netTripBalance: netTripBalance
+    });
+    
+
+  }
+  else{
+    this.formTripsheet.patchValue({
+      clBalDsl: '',
+      clBalAdBlue: '',
+      netTripBalance: '',
+    });
+
+  }
+}
 
   calculateTotal(): void {
     var totalDslLtr = 0;
@@ -433,7 +464,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.destination = selectedDataValue.destination ?  selectedDataValue.destination.dataId:'';
     this.tripsheetmodel.destination2 = selectedDataValue.destination2 ? selectedDataValue.destination2.dataId : '';
     this.tripsheetmodel.destination3 = selectedDataValue.destination3 ? selectedDataValue.destination3.dataId : '';
-    this.tripsheetmodel.distanceTripKM_1 = selectedDataValue.distanceTripKM_1.toString();;
+    this.tripsheetmodel.distanceTripKM_1 = selectedDataValue.distanceTripKM_1.toString();
+    this.tripsheetmodel.distanceTripKM_2 = selectedDataValue.distanceTripKM_2.toString();
     this.tripsheetmodel.contents = selectedDataValue.contents;
     this.tripsheetmodel.loadEmptyType = selectedDataValue.loadEmptyType;
     this.tripsheetmodel.expectedReportingDt = this.commonService.formatDate(selectedDataValue.expectedReportingDt);
@@ -601,10 +633,12 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['expectedReportingDt'].disable();
     this.formTripsheet.controls['expectedReportingDays'].disable();
   }
-
+findKMs(){
+  
+}
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivFromPlace != "" && this.ivToPlace != "") {
+    if (this.ivFromPlace != "" && this.ivToPlace != ""  && this.destinationid2 == "") {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
       this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
@@ -642,6 +676,86 @@ export class TripsheetaddComponent {
 
 
       });
+    }
+    else if (this.ivFromPlace != "" && this.destinationid2 != "" && this.destinationid3 == "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.destinationid2;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+        // if (this.tripkmsDetails.status) {
+        this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
+        this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
+        this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.ExpReportingDays = this.dTripKM_1 / 400;
+        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+        let date: Date = new Date(selectedDataValue.newTripDate);
+
+
+        date.setDate(date.getDate() + this.ExpReportingDays)
+        let date2 = (date).toISOString()
+        ////date2 =this.commonService.formatDate(date2)
+        ////const myFormattedDate = this.commonService.formatDate(date2);
+
+        this.formTripsheet.patchValue({
+          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //   //  cneeGst:  date2.split("T")[0]
+          expectedReportingDt: date2.split("T")[0],
+          distanceTripKM_1: (this.dTripKM_1).toString(),
+          expectedReportingDays: (this.ExpReportingDays).toString(),
+          advPayable_1: (this.advancePay).toString(),
+        });
+
+        this.getDslToBe1();
+        this.getDslToBe();
+        this.getAdBlueToBe1();
+        this.getAdBlueToBe();
+        // this.getIncentiveRate();
+        this.getMultiIncentiveRate();
+
+
+      });
+
+    }
+    else if (this.ivFromPlace != "" && this.destinationid3 != "") {
+      this.kmsDetails.fromLocation = this.ivFromPlace;
+      this.kmsDetails.toLocation = this.destinationid3;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+        // if (this.tripkmsDetails.status) {
+        this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
+        this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
+        this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.ExpReportingDays = this.dTripKM_1 / 400;
+        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+        let date: Date = new Date(selectedDataValue.newTripDate);
+
+
+        date.setDate(date.getDate() + this.ExpReportingDays)
+        let date2 = (date).toISOString()
+        ////date2 =this.commonService.formatDate(date2)
+        ////const myFormattedDate = this.commonService.formatDate(date2);
+
+        this.formTripsheet.patchValue({
+          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //   //  cneeGst:  date2.split("T")[0]
+          expectedReportingDt: date2.split("T")[0],
+          distanceTripKM_1: (this.dTripKM_1).toString(),
+          expectedReportingDays: (this.ExpReportingDays).toString(),
+          advPayable_1: (this.advancePay).toString(),
+        });
+
+        this.getDslToBe1();
+        this.getDslToBe();
+        this.getAdBlueToBe1();
+        this.getAdBlueToBe();
+        // this.getIncentiveRate();
+        this.getMultiIncentiveRate();
+
+
+      });
+
     }
     else {
       this.formTripsheet.patchValue({
@@ -720,15 +834,109 @@ export class TripsheetaddComponent {
   }
   checkTripkMsNext() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivToPlace != "" && this.ivNewFromPlace != "") {
+    if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2== "" &&  this.destinationid3 == "") {
       this.kmsDetails.fromLocation = this.ivToPlace;
       this.kmsDetails.toLocation = this.ivNewFromPlace;
       this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
         //  // if (this.tripkmsDetails.status) {
-        this.tripkms = this.tripkmsDetails.kms;
-        this.dTripKM_1 = parseInt(this.tripkmsDetails.kms);
+        this.tripkms = this.tripkmsDetails.kms?  this.tripkmsDetails.kms:'';
+        this.dTripKM_1 = this.tripkmsDetails.kms? parseInt(this.tripkmsDetails.kms) : 0;
+        this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
+        this.ExpReportingDays
+          = this.dTripKM_1 / 400
+        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+
+        var date: Date = new Date();
+        var date2 = "";
+
+        if (selectedDataValue.newTripDate != undefined && selectedDataValue.newTripDate != "") {
+          let date: Date = new Date(selectedDataValue.deliveryDate);
+          date.setDate(date.getDate() + this.ExpReportingDays)
+          date2 = (date).toISOString();
+        }
+        // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
+        // let date3: Date = new Date(selectedDataValue.deliveryDate);
+        //   date.setDate(date3.getDate() + this.ExpReportingDays)
+        //  }
+
+
+        // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
+
+        ////date2 =this.commonService.formatDate(date2)
+        ////const myFormattedDate = this.commonService.formatDate(date2);
+
+        this.formTripsheet.patchValue({
+          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //   //  cneeGst:  date2.split("T")[0]
+          nextExpectedReportingDt: date2.split("T")[0],
+          distanceTripKM_2: (this.dTripKM_1).toString(),
+          nextExpectedReportingDays: (this.ExpReportingDays).toString(),
+          advPayable_2: (this.advancePay2).toString(),
+        });
+
+        this.totalCal();
+        this.getBhattaRate();
+
+      });
+    }
+    else if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 !== "" ) {
+      this.kmsDetails.fromLocation = this.destinationid2;
+      this.kmsDetails.toLocation = this.ivNewFromPlace;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+        //  // if (this.tripkmsDetails.status) {
+        this.tripkms = this.tripkmsDetails.kms?  this.tripkmsDetails.kms:'';
+        this.dTripKM_1 = this.tripkmsDetails.kms? parseInt(this.tripkmsDetails.kms) : 0;
+        this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
+        this.ExpReportingDays
+          = this.dTripKM_1 / 400
+        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+
+        var date: Date = new Date();
+        var date2 = "";
+
+        if (selectedDataValue.newTripDate != undefined && selectedDataValue.newTripDate != "") {
+          let date: Date = new Date(selectedDataValue.deliveryDate);
+          date.setDate(date.getDate() + this.ExpReportingDays)
+          date2 = (date).toISOString();
+        }
+        // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
+        // let date3: Date = new Date(selectedDataValue.deliveryDate);
+        //   date.setDate(date3.getDate() + this.ExpReportingDays)
+        //  }
+
+
+        // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
+
+        ////date2 =this.commonService.formatDate(date2)
+        ////const myFormattedDate = this.commonService.formatDate(date2);
+
+        this.formTripsheet.patchValue({
+          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //   //  cneeGst:  date2.split("T")[0]
+          nextExpectedReportingDt: date2.split("T")[0],
+          distanceTripKM_2: (this.dTripKM_1).toString(),
+          nextExpectedReportingDays: (this.ExpReportingDays).toString(),
+          advPayable_2: (this.advancePay2).toString(),
+        });
+
+        this.totalCal();
+        this.getBhattaRate();
+
+      });
+    }
+    else if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 !== "" && this.destinationid3 !== "" ) {
+      this.kmsDetails.fromLocation = this.destinationid3;
+      this.kmsDetails.toLocation = this.ivNewFromPlace;
+      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+        this.tripkmsDetails = res;
+        //  // if (this.tripkmsDetails.status) {
+        this.tripkms = this.tripkmsDetails.kms?  this.tripkmsDetails.kms:'';
+        this.dTripKM_1 = this.tripkmsDetails.kms? parseInt(this.tripkmsDetails.kms) : 0;
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
@@ -1374,17 +1582,23 @@ export class TripsheetaddComponent {
     this.checkDestinationControlStatus();
   }
   changeDestination2(e: any) {
+    this.destinationid2=e.dataId;
     this.formTripsheet.patchValue({
-      destination2: e
+      destination2: e,
+   
+     // destinationid2:'1'
     });
     this.checkTripkMs();
+   // this.checkTripkMsNext();
     this.checkDestinationControlStatus();
   }
   changeDestination3(e: any) {
+    this.destinationid3=e.dataId;
     this.formTripsheet.patchValue({
       destination3: e
     });
     this.checkTripkMs();
+   // this.checkTripkMsNext();
     this.checkDestinationControlStatus();
   }
   onClearedDestination(e: any) {
