@@ -1,22 +1,21 @@
 import { Component } from '@angular/core';
-
 import { Router } from '@angular/router';
 
 import { Filtermodel } from 'src/app/models/filtermodel';
-import { bankreceiptentrylistmodel  } from 'src/app/models/bankreceiptentrylistmodel';
+import { Bankcashcontralistmodel  } from 'src/app/models/bankcashcontralistmodel';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
 
-import {BankReceiptEntryService } from 'src/app/services/bankreceiptentry.service';
-
+import {BankCashContraService } from 'src/app/services/bankcashcontra.service';
 
 @Component({
-  selector: 'app-bankreceiptentrylist',
-  templateUrl: './bankreceiptentrylist.component.html',
-  styleUrls: ['./bankreceiptentrylist.component.css']
+  selector: 'app-bankcashcontralist',
+  templateUrl: './bankcashcontralist.component.html',
+  styleUrls: ['./bankcashcontralist.component.css']
 })
-export class BankreceiptentrylistComponent {
+
+export class BankcashcontralistComponent {
   dtOptions: DataTables.Settings = {};
-  allBankReceiptEntry: bankreceiptentrylistmodel = new bankreceiptentrylistmodel();
+  allBankCashcontra: Bankcashcontralistmodel = new Bankcashcontralistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -25,11 +24,11 @@ export class BankreceiptentrylistComponent {
     search: ''
 
 }
-constructor(private bankReceiptEntryService: BankReceiptEntryService, private route: Router) {
+constructor(private bankcashcontraService: BankCashContraService, private route: Router) {
 }
   ngOnInit(): void {
    
-      this.bankReceiptEntryService.clearBankReceiptEntryDetails();
+      this.bankcashcontraService.clearBankCashContraDetails();
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -42,9 +41,9 @@ constructor(private bankReceiptEntryService: BankReceiptEntryService, private ro
           this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
           this.filter.sortOrder = dataTablesParameters.order[0].dir;
           this.filter.search = dataTablesParameters.search.value;
-          this.bankReceiptEntryService.getBankReceiptEntryList(this.filter)
+          this.bankcashcontraService.bankCashContraEntryList(this.filter)
             .subscribe(resp => {
-             this.allBankReceiptEntry = resp;
+           //  this.allBankCashcontra = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,
@@ -78,15 +77,16 @@ constructor(private bankReceiptEntryService: BankReceiptEntryService, private ro
     }
   
   //Open new driver master add screen
-  bankreceiptentryAdd(): void {
-    this.route.navigate(['/addbankreceiptentry']);
+  bankCashContraAdd(): void {
+    this.route.navigate(['/addbankcashcontra']);
   }
   
 //Open user details screen
-getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {
+//getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {
  // this.bankReceiptEntryService.setBankReceiptEntryDetails(Docrenewal);
-  this.route.navigate(['/cashreceiptentryedit']);
-  }
+  //this.route.navigate(['/cashreceiptentryedit']);
+ // }
 }
+
 
 

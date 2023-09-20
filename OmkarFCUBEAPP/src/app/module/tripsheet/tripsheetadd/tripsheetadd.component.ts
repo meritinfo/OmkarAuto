@@ -147,7 +147,7 @@ export class TripsheetaddComponent {
       distanceTripKM_2: new FormControl('',),
       nextExpectedReportingDt: new FormControl('',),
       nextExpectedReportingDays: new FormControl('',),
-      ltsDslToBe_2: new FormControl('',),
+      ltsDslToBe_2: new FormControl('0',),
       ltsAdblueToBe_2: new FormControl('',),
       advPayable_2: new FormControl('',),
       reportingDt_2: new FormControl('',),
@@ -843,7 +843,7 @@ findKMs(){
         //  // if (this.tripkmsDetails.status) {
         this.tripkms = this.tripkmsDetails.kms?  this.tripkmsDetails.kms:'';
         this.dTripKM_1 = this.tripkmsDetails.kms? parseInt(this.tripkmsDetails.kms) : 0;
-        this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
+        this.advancePay2 = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '0';
         this.ExpReportingDays
           = this.dTripKM_1 / 400
         this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
@@ -1441,7 +1441,7 @@ findKMs(){
     }
     else {
       this.formTripsheet.patchValue({
-        ltsDslToBe_2: ''
+        ltsDslToBe_2: '0'
       });
     }
   }
@@ -1571,7 +1571,7 @@ findKMs(){
     }
     else {
       this.formTripsheet.patchValue({
-        ltsDslToBe_2: ''
+        ltsDslToBe_2: '0'
       });
     }
   }

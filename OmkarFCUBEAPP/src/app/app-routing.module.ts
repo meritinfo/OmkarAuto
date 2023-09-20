@@ -50,6 +50,10 @@ import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripshe
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 import {  DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import {  DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
+import {  BankcashcontralistComponent } from './module/bankcashcontra/bankcashcontralist/bankcashcontralist.component';
+import {  AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
+import {  JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
+import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 
 
 
@@ -123,6 +127,10 @@ const routes: Routes = [
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
   { path: 'tripsheetedit', component: TripsheetaddComponent },
+  { path: 'bankcashcontralist', component:  BankcashcontralistComponent },
+  { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
+  { path: 'journalentrylist', component:  JournalentrylistComponent },
+  { path: 'addjournalentry', component:  AddjournalentryComponent },
   
   
   

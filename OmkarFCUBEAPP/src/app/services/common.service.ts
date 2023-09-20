@@ -110,6 +110,9 @@ export class CommonService {
   }
 
   formatDate(date: string) {
+    if(date == ''){
+      return '';
+    }
     let dateParts = date.split(" ")[0].split("/");
     var dateObject = new Date(dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]);
     const d = new Date(dateObject);

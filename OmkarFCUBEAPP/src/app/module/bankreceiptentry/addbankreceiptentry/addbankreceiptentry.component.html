@@ -1,1 +1,272 @@
-<p>addbankreceiptentry works!</p>
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Bank Receipt</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/#/gstpurchaselist">Cash Receipt</a></li>
+                                <li class="breadcrumb-item active">Cash Receipt</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Details</h4>
+                                    
+                                    <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <div class="form-check mt-4">
+                                                <input type="checkbox" id="formRadio" value="A"
+                                                    class="form-check-input mt-10">
+                                                <label for="formRadio" class="form-check-label"> Bank Payment
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <div class="form-check mt-4">
+                                                <input type="checkbox" id="formRadio" value="A"
+                                                    class="form-check-input mt-10">
+                                                <label for="formRadio" class="form-check-label"> Bank Receipt
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <div class="form-check mt-4">
+                                                <input type="checkbox" id="formRadio" value="A"
+                                                    class="form-check-input mt-10">
+                                                <label for="formRadio" class="form-check-label"> NEFT / RTGS, Bank Charges, Bank Interest, EMI, ECS Payment
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        
+                                            <label for="formrow-inputState">Doc No</label>
+                                            <input class="form-control" placeholder="Vendor invoice No">
+                                        
+                                    </div>
+                                    
+                                    <div class="col-lg-3">
+                                       
+                                            <label for="formrow-inputState">Ftm Date</label>
+                                            <input type="date" class="form-control" placeholder="Trans Date">
+                                        
+                                    </div>
+                               
+                                <div class="col-lg-3">
+                                 
+                                        <label for="formrow-inputCity">Ref Type </label>
+                                        <select class="form-control">
+                                            <option selected="">Choose...</option>
+                                        </select>
+                                
+                                </div>
+                          
+                                <div class="col-lg-3">
+                                    
+                                        <label for="formrow-inputZip">Ref No </label>
+                                        <input bsdatepicker="" autoclose="false" placeholder="Vendor GST No"
+                                            class="form-control">
+                                    
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-lg-3">
+                                 
+                                    <label for="formrow-inputCity"> Type </label>
+                                    <select class="form-control">
+                                        <option selected="">Choose...</option>
+                                    </select>
+                            
+                            </div>  
+                                <div class="col-lg-3">
+                              
+                                        <label for="formrow-inputState">Account No</label>
+                                        <input class="form-control" placeholder="">
+                            
+                                </div>
+                            
+                                <div class="col-lg-3">
+                                    <div class="mb-3">
+                                        <label for="formrow-inputZip">Utr No</label>
+                                        <input class="form-control" placeholder="Vendor invoice No">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4" style="color: red;"> Details</h4>
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr formArrayName="miscDetailsList"
+                                              >
+                                                <div>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-4">
+                                                                <label for="formrow-inputCity">Exp
+                                                                    Type</label>
+                                                                <select id="role" class="form-select"
+                                                                    formControlName="expType">
+                                                                    <option value="">Choose...</option>
+                                                                    <option value="R">REPAIR</option>
+                                                                    <option value="P">PARKING</option>
+                                                                    <option value="M">M.CHALLAN</option>
+                                                                    <option value="W">WEIGHMENT </option>
+                                                                    <option value="A">ACCIDENT </option>
+                                                                    <option value="O">OTHER</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-4">
+                                                                <label for="formrow-inputZip">Amount</label>
+                                                                <input class="form-control" placeholder="Amount"
+                                                                    formControlName="" decimalonly >
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label for="formrow-inputCity">Narration</label>
+                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                    class="form-control" formControlName="narration">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label for="formrow-inputCity">Narration</label>
+                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                    class="form-control" formControlName="narration">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label for="formrow-inputCity">Narration</label>
+                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                    class="form-control" formControlName="narration">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label for="formrow-inputCity">Narration</label>
+                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                    class="form-control" formControlName="narration">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12 details-button">
+                                                            <button type="button" class="btn btn-primary"
+                                                                >Add</button>
+                                                            <button
+                                                                
+                                                                class="btn btn-danger">Delete</button>
+                                                        </div>
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                                    <div class="row">
+                                      
+                                        <div class="col-lg-3">
+                                      
+                                                <label for="formrow-inputState">DA Ref No.</label>
+                                                <input class="form-control" placeholder="">
+                                    
+                                        </div>
+                                    
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Total Amt. </label>
+                                                <input class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-6">
+                                                <label for="formrow-inputState">Modify Del Remark</label>
+                                                <input class="form-control" placeholder="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-3">
+                                            <div class="form-check">
+                                                <input type="checkbox" formControlName="neftPmt" id="neft"
+                                                    name="neft" class="form-check-input" >
+                                                <label for="neft" class="form-check-label"> Is TDS Deduction Entry
+                                                </label>
+                                            </div>
+                                        </div>
+                
+                                    </div>
+                       
+                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+                                 
+                                     
+                                      
+                                        
+                                    
+                                
+                                      
+                                   
+           
+                
+
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
