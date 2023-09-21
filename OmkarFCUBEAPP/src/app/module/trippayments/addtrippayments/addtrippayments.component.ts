@@ -133,14 +133,18 @@ export class AddtrippaymentsComponent {
      
  
       var selectedDataValue = this.formTripPayment.getRawValue();
+      this. getTripDetailseditmode(selectedDataValue.vehicleMasterID) 
      
       this.formTripPayment.patchValue({
         
         pmtBranch:  selectedDataValue.pmtBranch, 
         pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
         tripNo:  selectedDataValue.tripNo, 
-       // loadorempty:  selectedDataValue.loadorempty, 
-      //  vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
+        loadorempty:  selectedDataValue.loadorempty, 
+       vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
+
+      // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
+      // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
       //  vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
         
        
@@ -210,6 +214,35 @@ export class AddtrippaymentsComponent {
       });
     
   }
+  getTripDetailseditmode(e: any) {
+    
+    this.tripVehicleDetails.vehicleMasterId =  e;
+    
+    this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
+      this.tripDetails = res;
+     // if (this.tripkmsDetails.status) {
+     
+//date2 =this.commonService.formatDate(date2)
+//const myFormattedDate = this.commonService.formatDate(date2);
+
+        this.formTripPayment.patchValue({
+         // cneeGst:  (this.ExpectedReportingDays).toString() 
+         tripNo:   this.tripDetails.tripNo,
+         from:   this.tripDetails.fp,
+         to:   this.tripDetails.tp,
+         loadorempty:   this.tripDetails.loadEmptyType,
+         travel:   this.tripDetails.travelAllowance,
+         dsltobe:   this.tripDetails.ltsDslToBe_1,
+         tripMasterId:  this.tripDetails.tripId,
+         
+        
+           
+        });
+     //   this.getValidation();
+     
+    });
+  
+}
 
   selectEvent(item: any) {
     // do something with selected item

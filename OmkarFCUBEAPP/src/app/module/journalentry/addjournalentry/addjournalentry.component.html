@@ -32,14 +32,14 @@
                                     <div class="col-lg-3">
                                         
                                             <label for="formrow-inputState">Document No</label>
-                                            <input class="form-control" placeholder="Vendor invoice No">
+                                            <input class="form-control" placeholder="">
                                         
                                     </div>
                                     
                                     <div class="col-lg-3">
                                        
                                             <label for="formrow-inputState"> Trance Date</label>
-                                            <input type="date" class="form-control" placeholder="Trans Date">
+                                            <input type="date" class="form-control" placeholder="">
                                         
                                     </div>
                                
@@ -55,7 +55,7 @@
                                 <div class="col-lg-3">
                                     
                                         <label for="formrow-inputZip">Ref No </label>
-                                        <input bsdatepicker="" autoclose="false" placeholder="Vendor GST No"
+                                        <input bsdatepicker="" autoclose="false" placeholder=""
                                             class="form-control">
                                     
                                 </div>
@@ -69,11 +69,22 @@
                                             <tr formArrayName="miscDetailsList"
                                               >
                                                 <div>
+                                                    
+                                                        <td>
+                                                            <div class="col-lg-12">
+                                                                <div class="mb-3">
+                                                                    <label for="formrow-inputCity"><h6>Account Name</h6></label>
+                                                                    <input autoclose="false" type="text" placeholder=""
+                                                                        class="form-control" formControlName="narration">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-4">
-                                                                <label for="formrow-inputCity">Exp
-                                                                    Type</label>
+                                                                <label for="formrow-inputCity">
+                                                                    <h6>Type</h6> </label>
                                                                 <select id="role" class="form-select"
                                                                     formControlName="expType">
                                                                     <option value="">Choose...</option>
@@ -89,18 +100,9 @@
                                                     </td>
                                                     <td>
                                                         <div class="col-lg-12">
-                                                            <div class="mb-4">
-                                                                <label for="formrow-inputZip">Amount</label>
-                                                                <input class="form-control" placeholder="Amount"
-                                                                    formControlName="" decimalonly >
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label for="formrow-inputCity">Narration</label>
-                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                <label for="formrow-inputCity"><h6>Amount</h6></label>
+                                                                <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="narration">
                                                             </div>
                                                         </div>
@@ -108,8 +110,8 @@
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label for="formrow-inputCity">Narration</label>
-                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                <label for="formrow-inputCity"><h6>Narration</h6></label>
+                                                                <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="narration">
                                                             </div>
                                                         </div>
@@ -117,8 +119,8 @@
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label for="formrow-inputCity">Narration</label>
-                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                <label for="formrow-inputCity"><h6>Reference/Subledger</h6></label>
+                                                                <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="narration">
                                                             </div>
                                                         </div>
@@ -126,8 +128,17 @@
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label for="formrow-inputCity">Narration</label>
-                                                                <input autoclose="false" type="text" placeholder="Narration"
+                                                                <label for="formrow-inputCity"><h6> Cn Ref No</h6></label>
+                                                                <input autoclose="false" type="text" placeholder=""
+                                                                    class="form-control" formControlName="narration">
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-lg-12">
+                                                            <div class="mb-3">
+                                                                <label for="formrow-inputCity">Cbs Cost Ref</label>
+                                                                <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="narration">
                                                             </div>
                                                         </div>

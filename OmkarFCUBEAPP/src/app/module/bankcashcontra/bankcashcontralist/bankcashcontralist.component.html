@@ -29,6 +29,35 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>ReminderDays </th>
+                      
+                            <th>Doc Code </th>
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allBankCashcontra.bankCashContraList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allBankCashcontra.bankCashContraList">
+                            <td></td>
+                    
+                            <td></td>
+                         
+                            <td>
+                                <a  class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allBankCashcontra.bankCashContraList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
                
                    
             </div>

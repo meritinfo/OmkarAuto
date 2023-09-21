@@ -21,7 +21,7 @@ export class BankcashcontralistComponent {
     pageSize: 10,
     sortColumn: 'doccode',
     sortOrder: 'asc',
-    search: ''
+    search: '',
 
 }
 constructor(private bankcashcontraService: BankCashContraService, private route: Router) {
@@ -56,12 +56,12 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
     
           {
             title: 'DocType ',
-            data: 'docType',
+            data: '',
           },
     
          {
           title: 'DocSeries ',
-          data: 'docSeries',
+          data: '',
         },
        
        
@@ -80,6 +80,10 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
   bankCashContraAdd(): void {
     this.route.navigate(['/addbankcashcontra']);
   }
+  getBankCashContraDetails(Docrenewal: bankreceiptentrymodel): void {
+    // this.bankReceiptEntryService.setBankReceiptEntryDetails(Docrenewal);
+     this.route.navigate(['/cashreceiptentryedit']);
+     }
   
 //Open user details screen
 //getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {

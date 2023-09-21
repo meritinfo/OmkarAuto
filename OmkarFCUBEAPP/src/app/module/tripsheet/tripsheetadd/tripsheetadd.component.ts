@@ -40,6 +40,7 @@ export class TripsheetaddComponent {
   advancePay2: string = '';
   day2: string = '';
   adblue: string = '';
+  driverid: string = '';
   ltsdsl: string = '';
   adblue1: string = '';
   ltsdsl1: string = '';
@@ -413,6 +414,7 @@ export class TripsheetaddComponent {
     });
   }
   selectNewEvent(item: any) {
+    this.driverid= item.dataId;
     // do something with selected item
     this.GetOpeningBal();
   }
@@ -767,7 +769,8 @@ findKMs(){
     var selectedDataValue = this.formTripsheet.getRawValue();
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+  //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+  this.OpbalDetails.driverMasterID = this.driverid?this.driverid:'0' ;
     // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
     // this.OpbalDetails.driverMasterID='1';
     this.OpbalDetails.yearid = this.year;
@@ -777,7 +780,7 @@ findKMs(){
       // if (this.responseDetails.status) {
       if (this.responseDetails.message != undefined || this.responseDetails.message != '') {
         this.formTripsheet.patchValue({
-          opBalDriver: this.responseDetails.message
+          opBalDriver: this.responseDetails.message? this.responseDetails.message:'0'
         });
         //  }
         //else
@@ -1390,7 +1393,7 @@ findKMs(){
         } else {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
-            ltsAdblueToBe_1: 0
+            ltsAdblueToBe_1: '0'
 
 
           });
@@ -1603,19 +1606,32 @@ findKMs(){
   }
   onClearedDestination(e: any) {
     this.formTripsheet.patchValue({
-      destination: undefined
+      destination: undefined,
+      distanceTripKM_1:'0',
+      distanceTripKM_2:'0'
     });
     this.checkDestinationControlStatus();
   }
+  onClearedFromPlace(e: any) {
+    this.formTripsheet.patchValue({
+    distanceTripKM_1:'0'
+  });
+  }
+  
   onClearedDestination2(e: any) {
     this.formTripsheet.patchValue({
-      destination2: undefined
+      destination2: undefined,
+      distanceTripKM_1:'0',
+      distanceTripKM_2:'0'
+
     });
     this.checkDestinationControlStatus();
   }
   onClearedDestination3(e: any) {
     this.formTripsheet.patchValue({
-      destination3: undefined
+      destination3: undefined,
+      distanceTripKM_1:'0',
+      distanceTripKM_2:'0'
     });
     this.checkDestinationControlStatus();
   }
