@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
 import { Destinationmodel } from 'src/app/models/destinationmodel';
@@ -20,7 +20,9 @@ export class AddcashreceiptentryComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+
   responseDetails = new Responsemodel();
+  creditacList: Dropdownmodel[] = [];
 
 
   selectedCashReceiptEntryDetails = new Cashreceiptentrymodel();
@@ -55,6 +57,7 @@ ngOnInit(): void {
     docAmount: new FormControl('',),
     neftPmt: new FormControl('',),
     utrNo: new FormControl('',),
+    
     isDebitAdvice: new FormControl('',),
     daRefNo: new FormControl('',),
     autoCreditFtmId: new FormControl('',),
@@ -86,19 +89,52 @@ ngOnInit(): void {
     branchReconYN: new FormControl('',),
     acctLedgerType: new FormControl('',),
 
-
+    miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
   
 
   });
   if (this.selectedCashReceiptEntryDetails.ftmId != '') {
+    this.getCreditAcList();
     this.formUser.patchValue(this.selectedCashReceiptEntryDetails);
 
   }
  
 
 }
+getCreditAcList(): void {
+  this.commonService.getCreditAcList().subscribe((res) => {
+    this.creditacList = res;
+  });
+}
+addMiscItem(): void {
+  this.formCashArray.push(this.createMiscArray());
+}
+
+removeMiscItem(index: number) {
+  this.formCashArray.removeAt(index);
+}
+
+createMiscArray() {
+  return this.formBuilder.group({
+    ftdID: [''],
+    ftmID: [''],
+    ftmDate: [''],
+    slNo: [''],
+    typeSign: [''],
+    amount: [''],
+    reference: [''],
+    accountId: [''],
+    narration: [''],
+    costRefNo: [''],
+
+    branchCode: [''],
+  });
+}
 
 
+get formCashArray() {
+  return this.formUser.get("cashDetailsList") as FormArray;
+}
 
 
 // convenience getter for easy access to contact form fields
@@ -112,7 +148,7 @@ this.userSubmitted = true;
 if (this.formUser.invalid) {
   return;
 }
-this.cashreceiptentryModel.ftmID = this.selectedCashReceiptEntryDetails.ftmID != '' ? this.selectedCashReceiptEntryDetails.ftmID : '';
+this.cashreceiptentryModel.ftmId = this.selectedCashReceiptEntryDetails.ftmId != '' ? this.selectedCashReceiptEntryDetails.ftmId : '';
 this.cashreceiptentryModel.ftmDate= this.formUser.value.ftmDate;
 this.cashreceiptentryModel.docType = this.formUser.value.docType;
 this.cashreceiptentryModel.docSeries = this.formUser.value.reminderDays;
@@ -122,23 +158,28 @@ this.cashreceiptentryModel.remarks = this.formUser.value.remarks;
 this.cashreceiptentryModel.refType = this.formUser.value.refType;
 this.cashreceiptentryModel.refNo = this.formUser.value.refNo;
 this.cashreceiptentryModel.docAmount = this.formUser.value.docAmount;
-this.cashreceiptentryModel.neftPmt = this.formUser.value.neftPmt;
-this.cashreceiptentryModel.utrNo = this.formUser.value.utrNo;
-this.cashreceiptentryModel.isDebitAdvice = this.formUser.value.isDebitAdvice;
-this.cashreceiptentryModel.daRefNo = this.formUser.value.daRefNo;
-this.cashreceiptentryModel.autoCreditFtmId = this.formUser.value.autoCreditFtmId;
-this.cashreceiptentryModel.isTdsEntry = this.formUser.value.isTdsEntry;
-this.cashreceiptentryModel.linkedYN = this.formUser.value.linkedYN;
-this.cashreceiptentryModel.linkedDoc = this.formUser.value.linkedDoc;
-this.cashreceiptentryModel.branchCode = this.formUser.value.branchCode;
-this.cashreceiptentryModel.auditYN = this.formUser.value.auditYN;
-this.cashreceiptentryModel.auditDt = this.formUser.value.auditDt;
-this.cashreceiptentryModel.auditBy = this.formUser.value.auditBy;
-this.cashreceiptentryModel.auditRemarks = this.formUser.value.auditRemarks;
-this.cashreceiptentryModel.modifyRemarks = this.formUser.value.modifyRemarks;
-this.cashreceiptentryModel.ftdID = this.formUser.value.ftdID;
-this.cashreceiptentryModel.slNo = this.formUser.value.slNo;
-this.cashreceiptentryModel.ftmID = this.formUser.value.ftmID;
+this.cashreceiptentryModel.linkedYN   = this.formUser.value.linkedYN  ;
+this.cashreceiptentryModel.yearID     = this.formUser.value.yearID    ;
+this.cashreceiptentryModel.branchCode      = this.formUser.value.branchCode     ;
+this.cashreceiptentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
+if (this.formCashArray.value != undefined) {
+  for (var i = 0; i < this.formCashArray.value.length; i++) {
+    this.cashreceiptentryModel.detailList.push({
+      'ftdID': this.formCashArray.value[i].ftdID,
+      'ftmID': this.formCashArray.value[i].ftmID,
+      'ftmDate': this.formCashArray.value[i].ftmDate,
+      'slNo': this.formCashArray.value[i].slNo ,
+      'typeSign': this.formCashArray.value[i].typeSign,
+      'amount': this.formCashArray.value[i].amount,
+      'narration': this.formCashArray.value[i].narration,
+      'accountId': this.formCashArray.value[i].accountId ,
+      'costRefNo': this.formCashArray.value[i].costRefNo,
+      'reference': this.formCashArray.value[i].reference,
+      'branchCode': this.formCashArray.value[i].branchCode,
+    })
+  }
+}
+
 
 this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.cashreceiptentryModel).subscribe((res: Responsemodel) => {
   this.responseDetails = res;

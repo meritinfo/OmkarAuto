@@ -159,6 +159,7 @@ export class AddtrippaymentsComponent {
   }, 2000);
 
   }
+  
   getValidation(): void {
    // this.formTripPayment.controls['pmtBranch'].disable();
     //this.formTripPayment.controls['pmtDate'].disable();
