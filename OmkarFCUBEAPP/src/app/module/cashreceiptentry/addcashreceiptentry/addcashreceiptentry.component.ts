@@ -88,8 +88,9 @@ ngOnInit(): void {
     clearDate: new FormControl('',),
     branchReconYN: new FormControl('',),
     acctLedgerType: new FormControl('',),
+    accountid2: new FormControl('',),
 
-    miscDetailsList: this.formBuilder.array([this.createMiscArray()]),
+    cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
   
 
   });
@@ -119,6 +120,7 @@ createMiscArray() {
     ftdID: [''],
     ftmID: [''],
     ftmDate: [''],
+
     slNo: [''],
     typeSign: [''],
     amount: [''],
@@ -143,7 +145,7 @@ get f() { return this.formUser.controls; }
 
 
 //Submit user form details //
-submitDocRenewalMasterForm(): void {
+submitCashReceiptPaymentsForm(): void {
 this.userSubmitted = true;
 if (this.formUser.invalid) {
   return;
@@ -151,7 +153,7 @@ if (this.formUser.invalid) {
 this.cashreceiptentryModel.ftmId = this.selectedCashReceiptEntryDetails.ftmId != '' ? this.selectedCashReceiptEntryDetails.ftmId : '';
 this.cashreceiptentryModel.ftmDate= this.formUser.value.ftmDate;
 this.cashreceiptentryModel.docType = this.formUser.value.docType;
-this.cashreceiptentryModel.docSeries = this.formUser.value.reminderDays;
+this.cashreceiptentryModel.docSeries = this.formUser.value.docSeries + this.formUser.value.docNo;
 this.cashreceiptentryModel.docNo = this.formUser.value.docNo;
 this.cashreceiptentryModel.seriesDoc = this.formUser.value.seriesDoc;
 this.cashreceiptentryModel.remarks = this.formUser.value.remarks;
