@@ -20,6 +20,8 @@
         public string? YearID { get; set; }
         
         public string? BranchCode { get; set; }
+
+        public string? LoggedInUser { get; set; }
         public List<CashReceiptPaymentDetailModel>? DetailList { get; set; }
 
     }
@@ -36,7 +38,8 @@
         public string? CostRefNo { get; set; }
         public string? Reference { get; set; }
         public string? BranchCode { get; set; }
-     
+       
+
 
     }
 }

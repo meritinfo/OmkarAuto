@@ -79,12 +79,13 @@ namespace FinTrans.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                       // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
                     }
                     else
                     {
-                        responseModel.Status = false;
+                       // responseModel.Status = false;
                         responseModel.Message = "Unable to process";
                     }
                 }
@@ -140,26 +141,26 @@ namespace FinTrans.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
 
-                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
-                                DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
-                                NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
-                                UTRNo = Convert.ToString(dataSet.Tables[0].Rows[i]["UTRNo"]),
-                                ISDebitAdvice = Convert.ToString(dataSet.Tables[0].Rows[i]["ISDebitAdvice"]),
+                                //RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
+                                //DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
+                                //NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
+                                //UTRNo = Convert.ToString(dataSet.Tables[0].Rows[i]["UTRNo"]),
+                                //ISDebitAdvice = Convert.ToString(dataSet.Tables[0].Rows[i]["ISDebitAdvice"]),
 
-                                DARefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DARefNo"]),
-                                AutoCreditFtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoCreditFtmId"]),
-                                IsTdsEntry = Convert.ToString(dataSet.Tables[0].Rows[i]["IsTdsEntry"]),
-                                LinkedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedYN"]),
-                                LinkedDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedDoc"]),
+                                //DARefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DARefNo"]),
+                                //AutoCreditFtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoCreditFtmId"]),
+                                //IsTdsEntry = Convert.ToString(dataSet.Tables[0].Rows[i]["IsTdsEntry"]),
+                                //LinkedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedYN"]),
+                                //LinkedDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedDoc"]),
 
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                AuditYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditYN"]),
-                                AuditDt = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditDt"]),
-                                AuditBy = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditBy"]),
-                                AuditRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditRemarks"]),
+                                //BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                //AuditYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditYN"]),
+                                //AuditDt = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditDt"]),
+                                //AuditBy = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditBy"]),
+                                //AuditRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditRemarks"]),
 
-                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
-                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                //ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
+                                //YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
 
 
                             });

@@ -31,7 +31,8 @@ namespace FinTrans.Repository
                              new SqlParameter("@FtmDate", cashReceiptPaymentsModel.@FtmDate),
                              new SqlParameter("@DocType", cashReceiptPaymentsModel.@DocType),
                              new SqlParameter("@DocSeries", cashReceiptPaymentsModel.@DocSeries),
-                       
+                              new SqlParameter("@DocNo", cashReceiptPaymentsModel.@DocNo),
+
                              new SqlParameter("@SeriesDoc", cashReceiptPaymentsModel.SeriesDoc),
                              new SqlParameter("@Remarks", cashReceiptPaymentsModel.Remarks),
                              new SqlParameter("@RefType", cashReceiptPaymentsModel.RefType),
@@ -41,24 +42,58 @@ namespace FinTrans.Repository
                              new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID),
                             new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
                              new SqlParameter("@ModifyRemarks", cashReceiptPaymentsModel.ModifyRemarks),
+                             new SqlParameter("@LoggedInUser", cashReceiptPaymentsModel.LoggedInUser),
 
-                          
-                   
-                     
+
+
+
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinTrans_Insert", param);
 
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CashReceiptPayments_Insert", param);
+                    string FtmID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        FtmID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                       // responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        // Miss Details insert or update
+                        if (cashReceiptPaymentsModel.DetailList.Count > 0)
+                        {
+                            for (int i = 0; i < cashReceiptPaymentsModel.DetailList.Count; i++)
+                            {
+                                SqlParameter[] paramMisc =
+                                {
+                                    new SqlParameter("@FtmID", FtmID),
+                                    new SqlParameter("@FtmDate",cashReceiptPaymentsModel.DetailList[i].FtmDate),
+                                    new SqlParameter("@SlNo", cashReceiptPaymentsModel.DetailList[i].SlNo),
+                                    new SqlParameter("@TypeSign", cashReceiptPaymentsModel.DetailList[i].TypeSign),
+                                    new SqlParameter("@Amount", cashReceiptPaymentsModel.DetailList[i].Amount),
+                                    new SqlParameter("@AccountID", cashReceiptPaymentsModel.DetailList[i].AccountID),
+                                    new SqlParameter("@Narration", cashReceiptPaymentsModel.DetailList[i].Narration),
+                                    new SqlParameter("@CostRefNo", cashReceiptPaymentsModel.DetailList[i].CostRefNo),
+                                    new SqlParameter("@Reference", cashReceiptPaymentsModel.DetailList[i].Reference),
+                                    new SqlParameter("@BranchCode", cashReceiptPaymentsModel.DetailList[i].BranchCode),
+
+                                   // new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                };
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CashReceiptPaymentDetails_Insert", paramMisc);
+                            }
+                        }
+
+
+                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                        {
+                           // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                          //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                        }
+                        else
+                        {
+                           // responseModel.Status = false;
+                            responseModel.Message = "Unable to process";
+                        }
                     }
                 }
             }

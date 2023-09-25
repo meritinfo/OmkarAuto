@@ -20,7 +20,9 @@ export class AddcashreceiptentryComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
-
+  branchname: string = '';
+  year: string = '';
+  locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   creditacList: Dropdownmodel[] = [];
 
@@ -41,10 +43,19 @@ ngOnInit(): void {
   if (this.loggedInUserID) {
     console.log(this.loggedInUserID);
   }
+  var userData2 = localStorage.getItem('yearID')?.toString();
+  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
+    this.year = userData2;
+  }
+  var userData5 = localStorage.getItem('userBranch')?.toString();
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+      this.branchname = userData5;
+      //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
+    }
   else {
     this.route.navigate(['/']);
   }
-
+  this.getCreditAcList();
   this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
   this.formUser = this.formBuilder.group({
     ftmDate: new FormControl('',),
@@ -55,47 +66,27 @@ ngOnInit(): void {
     refType: new FormControl('',),
     refNo: new FormControl('',),
     docAmount: new FormControl('',),
-    neftPmt: new FormControl('',),
+   
     utrNo: new FormControl('',),
     
-    isDebitAdvice: new FormControl('',),
-    daRefNo: new FormControl('',),
-    autoCreditFtmId: new FormControl('',),
-    isTdsEntry: new FormControl('',),
+   
     linkedYN: new FormControl('',),
     
-    linkedDoc: new FormControl('',),
-    auditYN: new FormControl('',),
-    auditDt: new FormControl('',),
-    auditBy: new FormControl('',),
-    auditRemarks: new FormControl('',),
+   
     modifyRemarks: new FormControl('',),
     yearID: new FormControl('',),
-    ftdID: new FormControl('',),
-    ftmID: new FormControl('',),
-    slNo: new FormControl('',),
-    typeSign: new FormControl('',),
-    amount: new FormControl('',),
-    accountID: new FormControl('',),
-    narration: new FormControl('',),
-    chequeNo: new FormControl('',),
-    chequeDate: new FormControl('',),
-    bankRefNo: new FormControl('',),
-    costRefType: new FormControl('',),
-    costRefNo: new FormControl('',),
-    reference: new FormControl('',),
-    costCode: new FormControl('',),
-    clearDate: new FormControl('',),
-    branchReconYN: new FormControl('',),
-    acctLedgerType: new FormControl('',),
+   
+   
+   
     accountid2: new FormControl('',),
 
     cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
   
 
   });
+
   if (this.selectedCashReceiptEntryDetails.ftmId != '') {
-    this.getCreditAcList();
+   
     this.formUser.patchValue(this.selectedCashReceiptEntryDetails);
 
   }
@@ -105,6 +96,11 @@ ngOnInit(): void {
 getCreditAcList(): void {
   this.commonService.getCreditAcList().subscribe((res) => {
     this.creditacList = res;
+  });
+}
+getLocationList(): void {
+  this.commonService.getLocationList().subscribe((res) => {
+    this.locationList = res;
   });
 }
 addMiscItem(): void {
@@ -150,19 +146,20 @@ this.userSubmitted = true;
 if (this.formUser.invalid) {
   return;
 }
+
 this.cashreceiptentryModel.ftmId = this.selectedCashReceiptEntryDetails.ftmId != '' ? this.selectedCashReceiptEntryDetails.ftmId : '';
 this.cashreceiptentryModel.ftmDate= this.formUser.value.ftmDate;
 this.cashreceiptentryModel.docType = this.formUser.value.docType;
-this.cashreceiptentryModel.docSeries = this.formUser.value.docSeries + this.formUser.value.docNo;
+this.cashreceiptentryModel.docSeries = this.formUser.value.docSeries;
 this.cashreceiptentryModel.docNo = this.formUser.value.docNo;
-this.cashreceiptentryModel.seriesDoc = this.formUser.value.seriesDoc;
+this.cashreceiptentryModel.seriesDoc = this.formUser.value.docSeries + this.formUser.value.docNo;;
 this.cashreceiptentryModel.remarks = this.formUser.value.remarks;
 this.cashreceiptentryModel.refType = this.formUser.value.refType;
 this.cashreceiptentryModel.refNo = this.formUser.value.refNo;
 this.cashreceiptentryModel.docAmount = this.formUser.value.docAmount;
 this.cashreceiptentryModel.linkedYN   = this.formUser.value.linkedYN  ;
-this.cashreceiptentryModel.yearID     = this.formUser.value.yearID    ;
-this.cashreceiptentryModel.branchCode      = this.formUser.value.branchCode     ;
+this.cashreceiptentryModel.yearID     = this.year   ;
+this.cashreceiptentryModel.branchCode      =    this.branchname  ;
 this.cashreceiptentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
 if (this.formCashArray.value != undefined) {
   for (var i = 0; i < this.formCashArray.value.length; i++) {
