@@ -20,14 +20,14 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDocRenewalEntryBusiness docRenewalEntryBusiness;
         readonly ITripPaymentsBusiness tripPaymentsBusiness;
         readonly ITripMasterBusiness tripMasterBusiness;
+        readonly IDieselStatementBusiness dieselStatementBusiness;
 
-
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
-
+            dieselStatementBusiness = _dieselStatementBusiness;
         }
         /// <summary>
 
@@ -222,6 +222,21 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDieselStatementSearchList")]
+        public async Task<IActionResult> GetDieselStatementSearchList(DieselStatementSearchListRequest request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementSearchList(request);
 
                 return Ok(result);
             }

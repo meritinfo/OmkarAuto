@@ -137,6 +137,9 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ITripMasterRepository, TripMasterRepository>();
             services.AddScoped<ITripMasterBusiness, TripMasterBusiness>();
 
+            services.AddScoped<IDieselStatementRepository, DieselStatementRepository>();
+            services.AddScoped<IDieselStatementBusiness, DieselStatementBusiness>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
