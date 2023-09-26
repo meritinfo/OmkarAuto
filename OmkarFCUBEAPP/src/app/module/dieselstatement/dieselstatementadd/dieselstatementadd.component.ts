@@ -121,15 +121,6 @@ export class DieselstatementaddComponent implements OnInit {
         }
         totalStatementAmount = totalStatementAmount + parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
       }
-      // else{
-      //   if (this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].hsdAdvType === "D") {
-      //     totalDslAmount = totalDslAmount - parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
-      //   }
-      //   if (this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].hsdAdvType === "A") {
-      //     totalDriverAdvAmount = totalDriverAdvAmount - parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
-      //   }
-      //   totalStatementAmount = totalStatementAmount - parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
-      // }
     }
 
     this.formDieselStatement.patchValue({
