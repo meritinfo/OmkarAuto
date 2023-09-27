@@ -18,9 +18,9 @@ namespace FinTrans.Business
         /// Business method for save  details
         /// </summary>
         /// <param name="destinationMasterModel"></param>
-        public async Task<ResponseModel> BankReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<ResponseModel> BankReceiptPaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsModel)
         {
-            return await bankReceiptPaymentsRepository.BankReceiptPaymentsSave(cashReceiptPaymentsModel);
+            return await bankReceiptPaymentsRepository.BankReceiptPaymentsSave(bankReceiptPaymentsModel);
         }
 
         public async Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request)

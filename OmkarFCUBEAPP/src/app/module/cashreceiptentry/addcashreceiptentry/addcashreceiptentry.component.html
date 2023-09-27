@@ -130,14 +130,13 @@
                                             <tr formArrayName="cashDetailsList"
                                             *ngFor="let miscData of formCashArray.controls; let k = index">
                                             <div [formGroupName]="k">
-                                            <tr formArrayName="cashDetailsList"
-                                              >
+                                         
                                                 <div>
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-4">
                                                                 <label for="formrow-inputZip"><h6>Account Name</h6></label>
-                                                                <select class="form-control" formControlName="accountID"
+                                                                <select class="form-control" formControlName="accountId"
                                                     [ngClass]="">
 
                                                     <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
@@ -171,7 +170,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity"><h6>Reference/SubLedger</h6></label>
                                                                 <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="reference">
+                                                                    class="form-control" formControlName="ftmDate">
                                                             </div>
                                                         </div>
                                                     </td>

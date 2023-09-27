@@ -7,7 +7,7 @@ namespace FinTrans.Repository
     /// </summary>
     public interface IBankReceiptPaymentsRepository
     {
-        Task<ResponseModel> BankReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsSave);
+        Task<ResponseModel> BankReceiptPaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsSave);
         Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request);
     }
 }

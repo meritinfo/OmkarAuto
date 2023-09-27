@@ -72,15 +72,15 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("BankReceiptPaymentsSave")]
-        public async Task<IActionResult> BankReceiptpaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<IActionResult> BankReceiptpaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsModel)
         {
-            if (cashReceiptPaymentsModel == null)
+            if (bankReceiptPaymentsModel == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await bankReceiptPaymentsBusiness.BankReceiptPaymentsSave(cashReceiptPaymentsModel);
+                var result = await bankReceiptPaymentsBusiness.BankReceiptPaymentsSave(bankReceiptPaymentsModel);
 
                 return Ok(result);
             }

@@ -129,20 +129,22 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['tripNo'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
+      this.formTripPayment.controls['loadorempty'].disable();
      // this.formTripPayment.controls['vehicleMasterID'].disable();
      
  
       var selectedDataValue = this.formTripPayment.getRawValue();
       this. getTripDetailseditmode(selectedDataValue.vehicleMasterID) 
-     
+      this.formTripPayment.controls['vehicleMasterID'].disable();
       this.formTripPayment.patchValue({
         
         pmtBranch:  selectedDataValue.pmtBranch, 
         pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
+        chequeDate:  this.commonService.formatDate(selectedDataValue.chequeDate), 
         tripNo:  selectedDataValue.tripNo, 
         loadorempty:  selectedDataValue.loadorempty, 
        vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
-
+   
       // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
       // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
       //  vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),

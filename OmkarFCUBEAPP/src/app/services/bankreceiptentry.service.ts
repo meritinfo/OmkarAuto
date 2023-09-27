@@ -18,9 +18,9 @@ export class BankReceiptEntryService {
       'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
     })
   }
-  selectedBankreceiptentry = new bankreceiptentrylistmodel();
+  selectedBankreceiptentry = new bankreceiptentrymodel();
   constructor(private httpClient: HttpClient) { }
-  setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrylistmodel) {
+  setBankReceiptEntryDetails(docrenewalmaster: bankreceiptentrymodel) {
  
       this.selectedBankreceiptentry = docrenewalmaster;
     
@@ -30,7 +30,7 @@ export class BankReceiptEntryService {
     return this.selectedBankreceiptentry;
   }
   clearBankReceiptEntryDetails() {
-  //  this.selectedBankreceiptentry = new bankreceiptentrymodel();
+  // this.selectedBankreceiptentry = new bankreceiptentrymodel();
   }
   bankReceiptEntryDetailsSubmitted(user: bankreceiptentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BankReceiptPaymentsSave', user, this.httpOptions);

@@ -18,7 +18,7 @@ namespace FinTrans.Repository
         /// </summary>
         /// <param name="CashReceiptPaymentsModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> BankReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<ResponseModel> BankReceiptPaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsModel)
         {
             ResponseModel responseModel = new();
             try
@@ -27,65 +27,77 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            // new SqlParameter("@FtmID", cashReceiptPaymentsModel.@FtmID),
-                            // new SqlParameter("@FtmDate", cashReceiptPaymentsModel.@FtmDate),
-                            // new SqlParameter("@DocType", cashReceiptPaymentsModel.@DocType),
-                            // new SqlParameter("@@DocSeries", cashReceiptPaymentsModel.@DocSeries),
-                            // new SqlParameter("@DocNo", cashReceiptPaymentsModel.FtdID),
-                            // new SqlParameter("@SeriesDoc", cashReceiptPaymentsModel.SeriesDoc),
-                            // new SqlParameter("@Remarks", cashReceiptPaymentsModel.Remarks),
-                            // new SqlParameter("@RefType", cashReceiptPaymentsModel.RefType),
-                            // new SqlParameter("@RefNo", cashReceiptPaymentsModel.RefNo),
-                            // new SqlParameter("@DocAmount", cashReceiptPaymentsModel.DocAmount),
-                            // new SqlParameter("@NeftPmt", cashReceiptPaymentsModel.NeftPmt),
-                            // new SqlParameter("@UTRNo", cashReceiptPaymentsModel.UTRNo),
-                            // new SqlParameter("@ISDebitAdvice", cashReceiptPaymentsModel.ISDebitAdvice),
-                            // new SqlParameter("@DARefNo", cashReceiptPaymentsModel.DARefNo),
-                            // new SqlParameter("@AutoCreditFtmId", cashReceiptPaymentsModel.AutoCreditFtmId),
-                            // new SqlParameter("@IsTdsEntry", cashReceiptPaymentsModel.IsTdsEntry),
-                            // new SqlParameter("@LinkedYN", cashReceiptPaymentsModel.LinkedYN),
-                            // new SqlParameter("@LinkedDoc", cashReceiptPaymentsModel.LinkedDoc),
-                            // new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID),
-                            // new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@AuditYN", cashReceiptPaymentsModel.AuditYN),
-                            //new SqlParameter("@AuditDt", cashReceiptPaymentsModel.AuditDt),
-                            //new SqlParameter("@AuditBy", cashReceiptPaymentsModel.AuditBy),
-                            //new SqlParameter("@AuditRemarks", cashReceiptPaymentsModel.AuditRemarks),
-                            //new SqlParameter("@ModifyRemarks", cashReceiptPaymentsModel.ModifyRemarks),
-                            //new SqlParameter("@FtdID", cashReceiptPaymentsModel.FtdID),
-                            //new SqlParameter("@FtmID", cashReceiptPaymentsModel.FtmID),
-                            //new SqlParameter("@FtmDate", cashReceiptPaymentsModel.FtmDate),
-                            //new SqlParameter("@SlNo", cashReceiptPaymentsModel.SlNo),
-                            //new SqlParameter("@TypeSign", cashReceiptPaymentsModel.TypeSign),
-                            //new SqlParameter("@Amount", cashReceiptPaymentsModel.Amount),
-                            //new SqlParameter("@AccountID", cashReceiptPaymentsModel.AccountID),
-                            //new SqlParameter("@Narration", cashReceiptPaymentsModel.Narration),
-                            //new SqlParameter("@ChequeNo", cashReceiptPaymentsModel.ChequeNo),
-                            //new SqlParameter("@ChequeDate", cashReceiptPaymentsModel.ChequeDate),
-                            //new SqlParameter("@BankRefNo", cashReceiptPaymentsModel.BankRefNo),
-                            //new SqlParameter("@CostRefType", cashReceiptPaymentsModel.CostRefType),
-                            //new SqlParameter("@CostRefNo", cashReceiptPaymentsModel.CostRefNo),
-                            //new SqlParameter("@Reference", cashReceiptPaymentsModel.Reference),
-                            //new SqlParameter("@CostCode", cashReceiptPaymentsModel.CostCode),
-                            //new SqlParameter("@ClearDate", cashReceiptPaymentsModel.ClearDate),
-                            //new SqlParameter("@BranchReconYN", cashReceiptPaymentsModel.BranchReconYN),
-                            //new SqlParameter("@AcctLedgerType", cashReceiptPaymentsModel.AcctLedgerType),
-                            //new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID)
+                             new SqlParameter("@FtmID", bankReceiptPaymentsModel.@FtmID),
+                             new SqlParameter("@FtmDate", bankReceiptPaymentsModel.@FtmDate),
+                             new SqlParameter("@DocType", bankReceiptPaymentsModel.@DocType),
+                             new SqlParameter("@DocSeries", bankReceiptPaymentsModel.@DocSeries),
+                              new SqlParameter("@DocNo", bankReceiptPaymentsModel.@DocNo),
+
+                             new SqlParameter("@SeriesDoc", bankReceiptPaymentsModel.SeriesDoc),
+                             new SqlParameter("@Remarks", bankReceiptPaymentsModel.Remarks),
+                             new SqlParameter("@RefType", bankReceiptPaymentsModel.RefType),
+                             new SqlParameter("@RefNo", bankReceiptPaymentsModel.RefNo),
+                             new SqlParameter("@DocAmount", bankReceiptPaymentsModel.DocAmount),
+                             new SqlParameter("@LinkedYN", bankReceiptPaymentsModel.LinkedYN),
+                                 new SqlParameter("@NeftPmt", bankReceiptPaymentsModel.NeftPmt),
+                             new SqlParameter("@UTRNo", bankReceiptPaymentsModel.UTRNo),
+                             new SqlParameter("@YearID", bankReceiptPaymentsModel.YearID),
+                            new SqlParameter("@BranchCode", bankReceiptPaymentsModel.BranchCode),
+                             new SqlParameter("@ModifyRemarks", bankReceiptPaymentsModel.ModifyRemarks),
+                             new SqlParameter("@LoggedInUser", bankReceiptPaymentsModel.LoggedInUser),
+
+
+
+
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinTrans_Insert", param);
 
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptPayments_Insert", param);
+                    string FtmID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        FtmID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        // responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        // Miss Details insert or update
+                        if (bankReceiptPaymentsModel.DetailList.Count > 0)
+                        {
+                            for (int i = 0; i < bankReceiptPaymentsModel.DetailList.Count; i++)
+                            {
+                                SqlParameter[] paramMisc =
+                                {
+                                    new SqlParameter("@FtmID", FtmID),
+                                    new SqlParameter("@FtmDate",bankReceiptPaymentsModel.DetailList[i].FtmDate),
+                                    new SqlParameter("@SlNo", bankReceiptPaymentsModel.DetailList[i].SlNo),
+                                    new SqlParameter("@TypeSign", bankReceiptPaymentsModel.DetailList[i].TypeSign),
+                                    new SqlParameter("@Amount", bankReceiptPaymentsModel.DetailList[i].Amount),
+                                    new SqlParameter("@AccountID", bankReceiptPaymentsModel.DetailList[i].AccountID),
+                                    new SqlParameter("@Narration", bankReceiptPaymentsModel.DetailList[i].Narration),
+                                    new SqlParameter("@CostRefNo", bankReceiptPaymentsModel.DetailList[i].CostRefNo),
+                                    new SqlParameter("@Reference", bankReceiptPaymentsModel.DetailList[i].Reference),
+                                    new SqlParameter("@ChequeNo", bankReceiptPaymentsModel.DetailList[i].ChequeNo),
+                                    new SqlParameter("@ChequeDate", bankReceiptPaymentsModel.DetailList[i].ChequeDate),
+                                    new SqlParameter("@BranchCode", bankReceiptPaymentsModel.DetailList[i].BranchCode),
+
+                                   // new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                };
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptPaymentDetails_Insert", paramMisc);
+                            }
+                        }
+
+
+                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                        {
+                            // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                            //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                        }
+                        else
+                        {
+                            // responseModel.Status = false;
+                            responseModel.Message = "Unable to process";
+                        }
                     }
                 }
             }
@@ -105,10 +117,11 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
+
         public async Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request)
         {
             BankReceiptpaymentsList bankReceiptpaymentsList = new();
-            List<FinTransMasterModel> bankRecptpaymentsList = new();
+            List<BankReceiptPaymentsModel> bankRecptpaymentsList = new();
             try
             {
                 if (dbconnection != null)
@@ -128,7 +141,7 @@ namespace FinTrans.Repository
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            bankRecptpaymentsList.Add(new FinTransMasterModel
+                            bankRecptpaymentsList.Add(new BankReceiptPaymentsModel
                             {
                                 FtmID = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmID"]),
                                 FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
