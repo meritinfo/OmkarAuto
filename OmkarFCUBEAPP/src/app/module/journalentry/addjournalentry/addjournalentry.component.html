@@ -19,7 +19,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
+            <form [formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -29,25 +29,35 @@
                                     
                                  
                                 <div class="row">
+                                    <div class="col-lg-2">
+
+                                        <label for="formrow-inputState">Document Series</label>
+
+
+                                        <input class="form-control" placeholder="" formControlName="docSeries">
+
+
+                                    </div>
                                     <div class="col-lg-3">
                                         
                                             <label for="formrow-inputState">Document No</label>
-                                            <input class="form-control" placeholder="">
+                                            <input class="form-control" placeholder=""    formControlName="docNo">
                                         
                                     </div>
                                     
                                     <div class="col-lg-3">
                                        
                                             <label for="formrow-inputState"> Trance Date</label>
-                                            <input type="date" class="form-control" placeholder="">
+                                            <input type="date" class="form-control" placeholder=""  formControlName="ftmDate">
                                         
                                     </div>
                                
                                 <div class="col-lg-3">
                                  
                                         <label for="formrow-inputCity">Ref Type </label>
-                                        <select class="form-control">
+                                        <select class="form-control" formControlName="refType">
                                             <option selected="">Choose...</option>
+                                            <option selected="">1</option>
                                         </select>
                                 
                                 </div>
@@ -55,7 +65,7 @@
                                 <div class="col-lg-3">
                                     
                                         <label for="formrow-inputZip">Ref No </label>
-                                        <input bsdatepicker="" autoclose="false" placeholder=""
+                                        <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
                                             class="form-control">
                                     
                                 </div>
@@ -66,16 +76,24 @@
                                     <div class="card-body">
                                         <h4 class="card-title mb-4" style="color: red;"> Details</h4>
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                            <tr formArrayName="miscDetailsList"
-                                              >
-                                                <div>
+                                            <tr formArrayName="cashDetailsList"
+                                            *ngFor="let miscData of formCashArray.controls; let k = index">
+                                            <div [formGroupName]="k">
+                                                
                                                     
                                                         <td>
                                                             <div class="col-lg-12">
                                                                 <div class="mb-3">
                                                                     <label for="formrow-inputCity"><h6>Account Name</h6></label>
-                                                                    <input autoclose="false" type="text" placeholder=""
-                                                                        class="form-control" formControlName="narration">
+                                                                    <select class="form-control"
+                                                                    formControlName="accountId" [ngClass]="">
+
+                                                                    <option *ngFor="let branch of creditacList"
+                                                                        value={{branch.dataId}}>
+
+                                                                        {{branch.dataName}}
+                                                                    </option>
+                                                                </select>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -86,14 +104,11 @@
                                                                 <label for="formrow-inputCity">
                                                                     <h6>Type</h6> </label>
                                                                 <select id="role" class="form-select"
-                                                                    formControlName="expType">
+                                                                    formControlName="typeSign">
                                                                     <option value="">Choose...</option>
-                                                                    <option value="R">REPAIR</option>
-                                                                    <option value="P">PARKING</option>
-                                                                    <option value="M">M.CHALLAN</option>
-                                                                    <option value="W">WEIGHMENT </option>
-                                                                    <option value="A">ACCIDENT </option>
-                                                                    <option value="O">OTHER</option>
+                                                                    <option value="C">Credit</option>
+                                                                    <option value="D">Debit</option>
+                                                                
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -103,7 +118,7 @@
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity"><h6>Amount</h6></label>
                                                                 <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="narration">
+                                                                    class="form-control" formControlName="amount">
                                                             </div>
                                                         </div>
                                                     </td>
@@ -121,34 +136,27 @@
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity"><h6>Reference/Subledger</h6></label>
                                                                 <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="narration">
+                                                                    class="form-control" formControlName="reference">
                                                             </div>
                                                         </div>
                                                     </td>
+                                                  
                                                     <td>
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
-                                                                <label for="formrow-inputCity"><h6> Cn Ref No</h6></label>
+                                                                <label for="formrow-inputCity"><h6>Cbs Cost Ref</h6></label>
                                                                 <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="narration">
+                                                                    class="form-control" formControlName="costRefNo">
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity">Cbs Cost Ref</label>
-                                                                <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="narration">
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                  
                                                     <td>
                                                         <div class="col-lg-12 details-button">
+
                                                             <button type="button" class="btn btn-primary"
-                                                                >Add</button>
-                                                            <button
-                                                                
+                                                                (click)="addMiscItem()">Add</button>
+                                                            <button (click)="removeMiscItem(k)"
                                                                 class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </td>
@@ -171,13 +179,13 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Total Debits </label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder=""  formControlName="docAmount">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Remark</label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder="" formControlName="remarks">
                                             </div>
                                         </div>
                                     </div>
@@ -185,18 +193,11 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState"> Modify Remark</label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder="" formControlName="modifyRemarks">
                                             </div>
                                         </div>
 
-                                        <div class="col-lg-3">
-                                            <div class="form-check">
-                                                <input type="checkbox" formControlName="neftPmt" id="neft"
-                                                    name="neft" class="form-check-input" >
-                                                <label for="neft" class="form-check-label"> Is TDS Deduction Entry
-                                                </label>
-                                            </div>
-                                        </div>
+                                    
                 
                                     </div>
                        
@@ -221,7 +222,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md">Save</button>
+                            <button type="submit" class="btn btn-primary w-md" (click)="submitJournalEntryForm()">Save</button>
                         </div>
                     </div>
                 </div>

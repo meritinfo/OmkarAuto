@@ -18,8 +18,9 @@ namespace FinTrans.Repository
         /// </summary>
         /// <param name="CashReceiptPaymentsModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> JournalEntrySave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<ResponseModel> JournalEntrySave(JournalEntryModel journalEntryModel)
         {
+
             ResponseModel responseModel = new();
             try
             {
@@ -27,65 +28,73 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            // new SqlParameter("@FtmID", cashReceiptPaymentsModel.@FtmID),
-                            // new SqlParameter("@FtmDate", cashReceiptPaymentsModel.@FtmDate),
-                            // new SqlParameter("@DocType", cashReceiptPaymentsModel.@DocType),
-                            // new SqlParameter("@@DocSeries", cashReceiptPaymentsModel.@DocSeries),
-                            // new SqlParameter("@DocNo", cashReceiptPaymentsModel.FtdID),
-                            // new SqlParameter("@SeriesDoc", cashReceiptPaymentsModel.SeriesDoc),
-                            // new SqlParameter("@Remarks", cashReceiptPaymentsModel.Remarks),
-                            // new SqlParameter("@RefType", cashReceiptPaymentsModel.RefType),
-                            // new SqlParameter("@RefNo", cashReceiptPaymentsModel.RefNo),
-                            // new SqlParameter("@DocAmount", cashReceiptPaymentsModel.DocAmount),
-                            // new SqlParameter("@NeftPmt", cashReceiptPaymentsModel.NeftPmt),
-                            // new SqlParameter("@UTRNo", cashReceiptPaymentsModel.UTRNo),
-                            // new SqlParameter("@ISDebitAdvice", cashReceiptPaymentsModel.ISDebitAdvice),
-                            // new SqlParameter("@DARefNo", cashReceiptPaymentsModel.DARefNo),
-                            // new SqlParameter("@AutoCreditFtmId", cashReceiptPaymentsModel.AutoCreditFtmId),
-                            // new SqlParameter("@IsTdsEntry", cashReceiptPaymentsModel.IsTdsEntry),
-                            // new SqlParameter("@LinkedYN", cashReceiptPaymentsModel.LinkedYN),
-                            // new SqlParameter("@LinkedDoc", cashReceiptPaymentsModel.LinkedDoc),
-                            // new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID),
-                            // new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@AuditYN", cashReceiptPaymentsModel.AuditYN),
-                            //new SqlParameter("@AuditDt", cashReceiptPaymentsModel.AuditDt),
-                            //new SqlParameter("@AuditBy", cashReceiptPaymentsModel.AuditBy),
-                            //new SqlParameter("@AuditRemarks", cashReceiptPaymentsModel.AuditRemarks),
-                            //new SqlParameter("@ModifyRemarks", cashReceiptPaymentsModel.ModifyRemarks),
-                            //new SqlParameter("@FtdID", cashReceiptPaymentsModel.FtdID),
-                            //new SqlParameter("@FtmID", cashReceiptPaymentsModel.FtmID),
-                            //new SqlParameter("@FtmDate", cashReceiptPaymentsModel.FtmDate),
-                            //new SqlParameter("@SlNo", cashReceiptPaymentsModel.SlNo),
-                            //new SqlParameter("@TypeSign", cashReceiptPaymentsModel.TypeSign),
-                            //new SqlParameter("@Amount", cashReceiptPaymentsModel.Amount),
-                            //new SqlParameter("@AccountID", cashReceiptPaymentsModel.AccountID),
-                            //new SqlParameter("@Narration", cashReceiptPaymentsModel.Narration),
-                            //new SqlParameter("@ChequeNo", cashReceiptPaymentsModel.ChequeNo),
-                            //new SqlParameter("@ChequeDate", cashReceiptPaymentsModel.ChequeDate),
-                            //new SqlParameter("@BankRefNo", cashReceiptPaymentsModel.BankRefNo),
-                            //new SqlParameter("@CostRefType", cashReceiptPaymentsModel.CostRefType),
-                            //new SqlParameter("@CostRefNo", cashReceiptPaymentsModel.CostRefNo),
-                            //new SqlParameter("@Reference", cashReceiptPaymentsModel.Reference),
-                            //new SqlParameter("@CostCode", cashReceiptPaymentsModel.CostCode),
-                            //new SqlParameter("@ClearDate", cashReceiptPaymentsModel.ClearDate),
-                            //new SqlParameter("@BranchReconYN", cashReceiptPaymentsModel.BranchReconYN),
-                            //new SqlParameter("@AcctLedgerType", cashReceiptPaymentsModel.AcctLedgerType),
-                            //new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID)
+                             new SqlParameter("@FtmID", journalEntryModel.@FtmID),
+                             new SqlParameter("@FtmDate", journalEntryModel.@FtmDate),
+                             new SqlParameter("@DocType", journalEntryModel.@DocType),
+                             new SqlParameter("@DocSeries", journalEntryModel.@DocSeries),
+                              new SqlParameter("@DocNo", journalEntryModel.@DocNo),
+
+                             new SqlParameter("@SeriesDoc", journalEntryModel.SeriesDoc),
+                             new SqlParameter("@Remarks", journalEntryModel.Remarks),
+                             new SqlParameter("@RefType", journalEntryModel.RefType),
+                             new SqlParameter("@RefNo", journalEntryModel.RefNo),
+                             new SqlParameter("@DocAmount", journalEntryModel.DocAmount),
+                             new SqlParameter("@LinkedYN", journalEntryModel.LinkedYN),
+                             new SqlParameter("@YearID", journalEntryModel.YearID),
+                            new SqlParameter("@BranchCode", journalEntryModel.BranchCode),
+                             new SqlParameter("@ModifyRemarks", journalEntryModel.ModifyRemarks),
+                             new SqlParameter("@LoggedInUser", journalEntryModel.LoggedInUser),
+
+
+
+
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinTrans_Insert", param);
 
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "JournalEntry_Insert", param);
+                    string FtmID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        FtmID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        // responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        // Miss Details insert or update
+                        if (journalEntryModel.DetailList.Count > 0)
+                        {
+                            for (int i = 0; i < journalEntryModel.DetailList.Count; i++)
+                            {
+                                SqlParameter[] paramMisc =
+                                {
+                                    new SqlParameter("@FtmID", FtmID),
+                                    new SqlParameter("@FtmDate",journalEntryModel.DetailList[i].FtmDate),
+                                    new SqlParameter("@SlNo", journalEntryModel.DetailList[i].SlNo),
+                                    new SqlParameter("@TypeSign", journalEntryModel.DetailList[i].TypeSign),
+                                    new SqlParameter("@Amount", journalEntryModel.DetailList[i].Amount),
+                                    new SqlParameter("@AccountID", journalEntryModel.DetailList[i].AccountID),
+                                    new SqlParameter("@Narration", journalEntryModel.DetailList[i].Narration),
+                                    new SqlParameter("@CostRefNo", journalEntryModel.DetailList[i].CostRefNo),
+                                    new SqlParameter("@Reference", journalEntryModel.DetailList[i].Reference),
+                                    new SqlParameter("@BranchCode", journalEntryModel.DetailList[i].BranchCode),
+
+                                   // new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                };
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "JournalEntryDetails_Insert", paramMisc);
+                            }
+                        }
+
+
+                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                        {
+                            // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                            //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                        }
+                        else
+                        {
+                            // responseModel.Status = false;
+                            responseModel.Message = "Unable to process";
+                        }
                     }
                 }
             }

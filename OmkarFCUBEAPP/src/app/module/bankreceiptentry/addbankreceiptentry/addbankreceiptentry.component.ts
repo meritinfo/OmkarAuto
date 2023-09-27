@@ -63,15 +63,16 @@ ngOnInit(): void {
  this.selectedBankReceiptEntryDetails = this.bankreceiptentryService.getBankReceiptEntryDetails();
   this.formUser = this.formBuilder.group({
     ftmDate: new FormControl('',),
-    docType: new FormControl('',),
+    docType: new FormControl('BP',),
     docSeries: new FormControl('',),
     docNo: new FormControl('',),
     remarks: new FormControl('',),
     refType: new FormControl('',),
     refNo: new FormControl('',),
-    docAmount: new FormControl('',),
+    amount: new FormControl('',),
    
     utrNo: new FormControl('',),
+    neftPmt: new FormControl('',),
     
    
     linkedYN: new FormControl('',),
@@ -125,6 +126,8 @@ createMiscArray() {
     amount: [''],
     reference: [''],
     accountId: [''],
+    chequeDate: [''],
+    chequeNo: [''],
     narration: [''],
     costRefNo: [''],
 
@@ -164,12 +167,52 @@ this.bankreceiptentryModel.linkedYN   = this.formUser.value.linkedYN  ;
 this.bankreceiptentryModel.yearID     = this.year   ;
 this.bankreceiptentryModel.branchCode      =    this.branchname  ;
 this.bankreceiptentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
+if (this.formUser.value.docType =="BP") {
 if (this.formCashArray.value != undefined) {
   for (var i = 0; i < this.formCashArray.value.length; i++) {
+    this.bankreceiptentryModel.detailList.push({
+      'ftdID': this.formCashArray.value[i].ftdID,
+      'ftmID': this.formCashArray.value[i].ftmID,
+      'ftmDate': this.formCashArray.value[i].ftmDate,
+      'slNo': this.formCashArray.value[i].slNo ,
+      'typeSign':'D',
+      'amount': this.formCashArray.value[i].amount,
+      'narration': this.formCashArray.value[i].narration,
+      'chequeDate': this.formCashArray.value[i].chequeDate,
+      'chequeNo': this.formCashArray.value[i].chequeNo,
+      'accountId': this.formCashArray.value[i].accountId ,
+      'costRefNo': this.formCashArray.value[i].costRefNo,
+      'reference': this.formCashArray.value[i].reference,
+      'branchCode':  this.branchname ,
+    })
+    
  
   }
 }
+}else{
+  if (this.formCashArray.value != undefined) {
+    for (var i = 0; i < this.formCashArray.value.length; i++) {
+      this.bankreceiptentryModel.detailList.push({
+        'ftdID': this.formCashArray.value[i].ftdID,
+        'ftmID': this.formCashArray.value[i].ftmID,
+        'ftmDate': this.formCashArray.value[i].ftmDate,
+        'slNo': this.formCashArray.value[i].slNo ,
+        'typeSign': 'C',
+        'amount': this.formCashArray.value[i].amount,
+        'narration': this.formCashArray.value[i].narration,
+        'chequeDate': this.formCashArray.value[i].chequeDate,
+        'chequeNo': this.formCashArray.value[i].chequeNo,
+        'accountId': this.formCashArray.value[i].accountId ,
+        'costRefNo': this.formCashArray.value[i].costRefNo,
+        'reference': this.formCashArray.value[i].reference,
+        'branchCode': this.branchname,
+      })
+      
+   
+    }
+  }
 
+}
 
 this.bankreceiptentryService.bankReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
   this.responseDetails = res;

@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { Journalentrymodel } from "./journalentrymodel";
 
 export class Journalentrylistmodel {
-  docRenewalMasterList: Journalentrymodel[] = [];
+  JournalEntryList: Journalentrymodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }

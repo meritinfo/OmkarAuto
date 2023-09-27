@@ -7,7 +7,7 @@ namespace FinTrans.Business
     /// </summary>
     public interface IJournalEntryBusiness
     {
-        Task<ResponseModel> JournalEntrySave(CashReceiptPaymentsModel cashReceiptPaymentsModel);
+        Task<ResponseModel> JournalEntrySave(JournalEntryModel journalEntryModel);
         Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request);
     }
 }
