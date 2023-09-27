@@ -87,8 +87,8 @@
                                                             [itemTemplate]="itemTemplate"
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
-                                                            formControlName="statementBranch"
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['statementBranch'].invalid) }">
+                                                            formControlName="vendor"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendor'].invalid) }">
                                                         </ng-autocomplete>
 
                                                         <ng-template #itemTemplate let-item>
@@ -218,6 +218,15 @@
                                                 formControlName="totalStatementAmount">
                                         </div>
                                     </div>
+                                    <div class="row mt-1">
+                                        <div class="col-lg-1 text-right">
+                                            <label for="formrow-inputCity">Remarks</label>
+                                        </div>
+                                        <div class="col-lg-11">
+                                            <input autoclose="false" type="text" class="form-control"
+                                                formControlName="remarks">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -226,7 +235,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Submit</button>
                         </div>
                     </div>
                 </div>

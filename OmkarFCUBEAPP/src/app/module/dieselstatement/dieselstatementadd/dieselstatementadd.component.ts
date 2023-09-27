@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
+import { Dieselstatementsaverequest } from 'src/app/models/dieselstatementsaverequest';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
 import { Dieselstatementsearchlistrequestmodel } from 'src/app/models/dieselstatementsearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -18,6 +19,7 @@ import { DieselstatementService } from 'src/app/services/dieselstatement.service
 export class DieselstatementaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
+  branch: string = '';
   branchList: Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
   Dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
@@ -25,7 +27,8 @@ export class DieselstatementaddComponent implements OnInit {
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
-
+  saveData = new Dieselstatementsaverequest();
+ 
   constructor(private dieselstatementsearchlistrequestmodel: Dieselstatementsearchlistrequestmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
     this.dieselstatementsearchlistrequestmodel = new Dieselstatementsearchlistrequestmodel();
   }
@@ -34,6 +37,11 @@ export class DieselstatementaddComponent implements OnInit {
     var yearIDData = localStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
+    }
+    var branchData = localStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+
     }
     var userData = localStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -55,7 +63,8 @@ export class DieselstatementaddComponent implements OnInit {
       vendor: new FormControl('', [Validators.required]),
       totalDieselAmount: new FormControl(''),
       totalDriverAdvAmount: new FormControl(''),
-      totalStatementAmount: new FormControl('')
+      totalStatementAmount: new FormControl(''),
+      remarks: new FormControl(''),
     });
     // if (this.selectedDistancemasterfreightDetails.masterID != '') {
     //   this.formDieselStatement.patchValue(this.selectedDistancemasterfreightDetails);
@@ -127,6 +136,28 @@ export class DieselstatementaddComponent implements OnInit {
       totalDieselAmount: totalDslAmount.toFixed(2),
       totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
       totalStatementAmount: totalStatementAmount.toFixed(2)
+    });
+  }
+
+  saveStatementDetails(): void {
+    this.saveData.statementBranch = this.formDieselStatement.value.statementBranch.dataId;
+    this.saveData.statementDate = this.formDieselStatement.value.statementDate;
+    this.saveData.fromDate = this.formDieselStatement.value.fromDate;
+    this.saveData.toDate = this.formDieselStatement.value.toDate;
+    this.saveData.vendor = this.formDieselStatement.value.vendor.dataId;
+    this.saveData.remarks = this.formDieselStatement.value.remarks;
+    this.saveData.totalDslLtrs = this.formDieselStatement.value.totalDieselAmount;
+    this.saveData.totalCashAdv = this.formDieselStatement.value.totalDriverAdvAmount;
+    this.saveData.totalNetAmount = this.formDieselStatement.value.totalStatementAmount;
+    this.saveData.branchCode = this.branch;
+    this.saveData.yearId = this.year;
+    this.saveData.loggedInUser = this.loggedInUserID;
+    this.saveData.dieselStatementListData = this.Dieselstatementsearchlistmodel.dieselStatementSearchList;
+    this.dieselstatementService.saveDieselStatementDetails(this.saveData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      this.toasterService.success(this.responseDetails.message);
+      this.formDieselStatement.reset();
+      window.location.reload();
     });
   }
 }
