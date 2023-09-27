@@ -54,6 +54,7 @@ import {  BankcashcontralistComponent } from './module/bankcashcontra/bankcashco
 import {  AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
 import {  JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
+import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 
 
 
@@ -131,14 +132,7 @@ const routes: Routes = [
   { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
   { path: 'journalentrylist', component:  JournalentrylistComponent },
   { path: 'addjournalentry', component:  AddjournalentryComponent },
-  
-  
-  
- 
- 
-
- 
-
+  { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
   
 ];
 
