@@ -83,6 +83,7 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
     this.route.navigate(['/addjournalentry']);
   }
   
+  
 //Open user details screen
 //getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {
  // this.bankReceiptEntryService.setBankReceiptEntryDetails(Docrenewal);

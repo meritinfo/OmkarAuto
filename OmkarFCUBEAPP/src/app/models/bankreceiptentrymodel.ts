@@ -27,8 +27,8 @@ export class BankreceiptpaymentDetailmodel {
     typeSign  : string = "";
     amount: string = "";
     accountId : string = "";
-    ChequeNo : string = "";
-ChequeDate : string = "";
+    chequeNo : string = "";
+chequeDate : string = "";
   
     narration : string = "";
     costRefNo: string = "";

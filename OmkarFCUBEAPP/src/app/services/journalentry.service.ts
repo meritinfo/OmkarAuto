@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { bankreceiptentrylistmodel } from '../models/bankreceiptentrylistmodel';
+import { Journalentrymodel } from '../models/journalentrymodel';
+import { Journalentrylistmodel } from '../models/journalentrylistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -18,24 +20,24 @@ export class JournalEntryService {
       'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
     })
   }
-  selectedJournalEntry = new bankreceiptentrylistmodel();
+  selectedJournalEntry = new bankreceiptentrymodel();
   constructor(private httpClient: HttpClient) { }
-  setJournalEntryDetails(docrenewalmaster: bankreceiptentrylistmodel) {
+  setJournalEntryDetails(docrenewalmaster: bankreceiptentrymodel) {
  
       this.selectedJournalEntry = docrenewalmaster;
     
   
   }
-  getBankCashContraDetails() {
+  getJournalEntryDetails() {
     return this.selectedJournalEntry;
   }
   clearjournalEntryDetails() {
   //  this.selectedBankreceiptentry = new bankreceiptentrymodel();
   }
-  journalEntryDetailsSubmitted(user: bankreceiptentrymodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BankReceiptPaymentsSave', user, this.httpOptions);
+  journalEntryDetailsSubmitted(user: Journalentrymodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/JournalEntrySave', user, this.httpOptions);
   }
-  journalEntryList(filter: Filtermodel): Observable<bankreceiptentrylistmodel> {
-    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankReceiptPaymentsList', filter, this.httpOptions);
+  journalEntryList(filter: Filtermodel): Observable<Journalentrylistmodel> {
+    return this.httpClient.post<Journalentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetJournalEntryList', filter, this.httpOptions);
   }
 }

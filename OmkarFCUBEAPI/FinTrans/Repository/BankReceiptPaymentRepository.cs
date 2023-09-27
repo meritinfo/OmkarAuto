@@ -61,6 +61,7 @@ namespace FinTrans.Repository
                         // responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         // Miss Details insert or update
+
                         if (bankReceiptPaymentsModel.DetailList.Count > 0)
                         {
                             for (int i = 0; i < bankReceiptPaymentsModel.DetailList.Count; i++)

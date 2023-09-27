@@ -142,15 +142,15 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("JournalEntrySave")]
-        public async Task<IActionResult> JournalEntrySave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<IActionResult> JournalEntrySave(JournalEntryModel journalEntryModel)
         {
-            if (cashReceiptPaymentsModel == null)
+            if (journalEntryModel == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await journalEntryBusiness.JournalEntrySave(cashReceiptPaymentsModel);
+                var result = await journalEntryBusiness.JournalEntrySave(journalEntryModel);
 
                 return Ok(result);
             }

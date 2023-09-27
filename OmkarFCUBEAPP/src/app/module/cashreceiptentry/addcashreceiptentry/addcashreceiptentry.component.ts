@@ -59,7 +59,7 @@ ngOnInit(): void {
   this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
   this.formUser = this.formBuilder.group({
     ftmDate: new FormControl('',),
-    docType: new FormControl('',),
+    docType: new FormControl('CP',),
     docSeries: new FormControl('',),
     docNo: new FormControl('',),
     remarks: new FormControl('',),
@@ -161,6 +161,7 @@ this.cashreceiptentryModel.linkedYN   = this.formUser.value.linkedYN  ;
 this.cashreceiptentryModel.yearID     = this.year   ;
 this.cashreceiptentryModel.branchCode      =    this.branchname  ;
 this.cashreceiptentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
+if (this.formUser.value.docType =="CP") {
 if (this.formCashArray.value != undefined) {
   for (var i = 0; i < this.formCashArray.value.length; i++) {
     this.cashreceiptentryModel.detailList.push({
@@ -168,15 +169,35 @@ if (this.formCashArray.value != undefined) {
       'ftmID': this.formCashArray.value[i].ftmID,
       'ftmDate': this.formCashArray.value[i].ftmDate,
       'slNo': this.formCashArray.value[i].slNo ,
-      'typeSign': this.formCashArray.value[i].typeSign,
+      'typeSign': 'D',
       'amount': this.formCashArray.value[i].amount,
       'narration': this.formCashArray.value[i].narration,
       'accountId': this.formCashArray.value[i].accountId ,
       'costRefNo': this.formCashArray.value[i].costRefNo,
       'reference': this.formCashArray.value[i].reference,
-      'branchCode': this.formCashArray.value[i].branchCode,
+      'branchCode': this.branchname,
     })
   }
+}
+}else{
+  if (this.formCashArray.value != undefined) {
+    for (var i = 0; i < this.formCashArray.value.length; i++) {
+      this.cashreceiptentryModel.detailList.push({
+        'ftdID': this.formCashArray.value[i].ftdID,
+        'ftmID': this.formCashArray.value[i].ftmID,
+        'ftmDate': this.formCashArray.value[i].ftmDate,
+        'slNo': this.formCashArray.value[i].slNo ,
+        'typeSign': "C",
+        'amount': this.formCashArray.value[i].amount,
+        'narration': this.formCashArray.value[i].narration,
+        'accountId': this.formCashArray.value[i].accountId ,
+        'costRefNo': this.formCashArray.value[i].costRefNo,
+        'reference': this.formCashArray.value[i].reference,
+        'branchCode':  this.branchname ,
+      })
+    }
+  }
+
 }
 
 
