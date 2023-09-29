@@ -245,6 +245,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("SaveDieselStatementDetails")]
+        public async Task<IActionResult> SaveDieselStatementDetails(DieselStatementSaveRequest request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.SaveDieselStatementDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

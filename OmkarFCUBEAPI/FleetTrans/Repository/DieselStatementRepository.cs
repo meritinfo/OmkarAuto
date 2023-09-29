@@ -76,5 +76,84 @@ namespace FleetTrans.Repository
             }
             return dieselStatementSearchList;
         }
+
+        /// <summary>
+        /// Service method for save Diesel Statement details
+        /// </summary>
+        /// <returns>ResponseModel</returns>
+        public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@StatementBranch", request.StatementBranch),
+                            new SqlParameter("@StatementDate", request.StatementDate),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@Vendor", request.Vendor),
+                            new SqlParameter("@Remarks", request.Remarks),
+                            new SqlParameter("@TotalDslLtrs", request.TotalDslLtrs),
+                            new SqlParameter("@TotalCashAdv", request.TotalCashAdv),
+                            new SqlParameter("@TotalNetAmount", request.TotalNetAmount),
+                            new SqlParameter("@BranchCode", request.BranchCode),
+                            new SqlParameter("@YearId", request.YearId),
+                            new SqlParameter("@LoggedInUser", request.LoggedInUser)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DieselStatementMaster_Insert", param);
+
+                    string MasterID = "";
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        // statement list insert
+                        if (request.DieselStatementListData.Count > 0)
+                        {
+                            for (int i = 0; i < request.DieselStatementListData.Count; i++)
+                            {
+                                if (request.DieselStatementListData[i].Selected)
+                                {
+                                    SqlParameter[] paramMisc =
+                                    {
+                                        new SqlParameter("@MasterID", MasterID),
+                                        new SqlParameter("@VehicleNo", request.DieselStatementListData[i].VehicleNo),
+                                        new SqlParameter("@HsdAdvTyps", request.DieselStatementListData[i].HsdAdvType),
+                                        new SqlParameter("@DslQty", request.DieselStatementListData[i].QtyLtrs),
+                                        new SqlParameter("@DslRate", request.DieselStatementListData[i].RatePerLtr),
+                                        new SqlParameter("@Amount", request.DieselStatementListData[i].AmountPaid),
+                                        new SqlParameter("@TripPmtId", request.DieselStatementListData[i].PmtId),
+                                    };
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DieselStatementDetails_Insert", paramMisc);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
     }
 }
