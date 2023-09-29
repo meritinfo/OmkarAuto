@@ -169,7 +169,7 @@ ngOnInit(): void {
   this.journalentryModel.yearID     = this.year   ;
   this.journalentryModel.branchCode      =    this.branchname  ;
   this.journalentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
-  if (this.formUser.value.debit! =="") {
+
   if (this.formCashArray.value != undefined) {
     for (var i = 0; i < this.formCashArray.value.length; i++) {
       this.journalentryModel.detailList.push({
@@ -186,25 +186,9 @@ ngOnInit(): void {
         'branchCode': this.branchname,
       })
     }
-  }
-  }else{
-    if (this.formCashArray.value != undefined) {
-      for (var i = 0; i < this.formCashArray.value.length; i++) {
-        this.journalentryModel.detailList.push({
-          'ftdID': this.formCashArray.value[i].ftdID,
-          'ftmID': this.formCashArray.value[i].ftmID,
-          'ftmDate': this.formCashArray.value[i].ftmDate,
-          'slNo': this.formCashArray.value[i].slNo ,
-          'typeSign': "C",
-          'amount': this.formCashArray.value[i].amount,
-          'narration': this.formCashArray.value[i].narration,
-          'accountId': this.formCashArray.value[i].accountId ,
-          'costRefNo': this.formCashArray.value[i].costRefNo,
-          'reference': this.formCashArray.value[i].reference,
-          'branchCode':  this.branchname ,
-        })
-      }
-    }
+  
+ 
+    
   
   }
   
