@@ -21,6 +21,7 @@ export class AddcashreceiptentryComponent {
   formUser!: FormGroup;
   userSubmitted = false;
   branchname: string = '';
+  loginDate: string = '';
   year: string = '';
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -47,6 +48,10 @@ ngOnInit(): void {
   if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
     this.year = userData2;
   }
+  var loginDate = localStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
   var userData5 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
@@ -57,15 +62,17 @@ ngOnInit(): void {
   }
   this.getCreditAcList();
   this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
+
   this.formUser = this.formBuilder.group({
-    ftmDate: new FormControl('',),
+    ftmDate: new FormControl(this.loginDate,),
     docType: new FormControl('CP',),
-    docSeries: new FormControl('',),
+    docSeries: new FormControl('CP',),
     docNo: new FormControl('',),
     remarks: new FormControl('',),
     refType: new FormControl('',),
     refNo: new FormControl('',),
     docAmount: new FormControl('',),
+    
    
     utrNo: new FormControl('',),
     
@@ -85,13 +92,32 @@ ngOnInit(): void {
 
   });
 
+
   if (this.selectedCashReceiptEntryDetails.ftmId != '') {
    
     this.formUser.patchValue(this.selectedCashReceiptEntryDetails);
 
   }
+  this.formUser.controls['ftmDate'].disable();
+  this.formUser.controls['docSeries'].disable();
  
 
+}
+
+changePType(selectedValue: string) {
+  var selectedDataValue = this.formUser.getRawValue();
+
+    this.formUser.patchValue({
+
+      docSeries: selectedValue
+  
+    });
+
+
+  
+  
+
+  
 }
 getCreditAcList(): void {
   this.commonService.getCreditAcList().subscribe((res) => {

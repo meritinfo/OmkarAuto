@@ -31,7 +31,7 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="form-check mb-3">
-                                                    <input type="radio"formControlName="docType"  value="BP"
+                                                    <input type="radio"formControlName="docType"  value="BP" (change)="changePType('BP')"
                                                         class="form-check-input" />
                                                     <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Payment</h6>
                                                     </label>
@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="form-check mb-3">
-                                                    <input type="radio" formControlName="docType"  value="BR"
+                                                    <input type="radio" formControlName="docType"  value="BR" (change)="changePType('BR')"
                                                         class="form-check-input" />
                                                     <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Receipt</h6>
                                                     </label>
@@ -117,6 +117,22 @@
                                     <div class="mb-3">
                                         <label for="formrow-inputZip">Utr No</label>
                                         <input class="form-control" placeholder=""  formControlName="utrNo">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="mb-4">
+                                        <label for="formrow-inputZip">
+                                            <h6>Account Name</h6>
+                                        </label>
+                                        <select class="form-control"
+                                            formControlName="accountid2" [ngClass]="">
+
+                                            <option *ngFor="let branch of creditacList"
+                                                value={{branch.dataId}}>
+
+                                                {{branch.dataName}}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

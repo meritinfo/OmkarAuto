@@ -25,6 +25,7 @@ export class AddbankreceiptentryComponent {
   userSubmitted = false;
   branchname: string = '';
   year: string = '';
+  loginDate: string = '';
   locationList: Dropdownmodel[] = [];
   selectedBankReceiptEntryDetails = new bankreceiptentrymodel();
   responseDetails = new Responsemodel();
@@ -51,6 +52,10 @@ ngOnInit(): void {
   if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
     this.year = userData2;
   }
+  var loginDate = localStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
   var userData5 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
@@ -61,10 +66,11 @@ ngOnInit(): void {
   }
   this.getCreditAcList();
  this.selectedBankReceiptEntryDetails = this.bankreceiptentryService.getBankReceiptEntryDetails();
+
   this.formUser = this.formBuilder.group({
-    ftmDate: new FormControl('',),
+    ftmDate: new FormControl(this.loginDate,),
     docType: new FormControl('BP',),
-    docSeries: new FormControl('',),
+    docSeries: new FormControl('BP',),
     docNo: new FormControl('',),
     remarks: new FormControl('',),
     refType: new FormControl('',),
@@ -94,7 +100,8 @@ ngOnInit(): void {
     this.formUser.patchValue(this.selectedBankReceiptEntryDetails);
 
   }
- 
+  this.formUser.controls['ftmDate'].disable();
+  this.formUser.controls['docSeries'].disable();
 
 }
 getCreditAcList(): void {
@@ -109,6 +116,21 @@ getLocationList(): void {
 }
 addMiscItem(): void {
   this.formCashArray.push(this.createMiscArray());
+}
+changePType(selectedValue: string) {
+  var selectedDataValue = this.formUser.getRawValue();
+
+    this.formUser.patchValue({
+
+      docSeries: selectedValue
+  
+    });
+
+
+  
+  
+
+  
 }
 
 removeMiscItem(index: number) {
@@ -152,6 +174,7 @@ this.userSubmitted = true;
 if (this.formUser.invalid) {
   return;
 }
+
 
 this.bankreceiptentryModel.ftmId = this.selectedBankReceiptEntryDetails.ftmId != '' ? this.selectedBankReceiptEntryDetails.ftmId : '';
 this.bankreceiptentryModel.ftmDate= this.formUser.value.ftmDate;

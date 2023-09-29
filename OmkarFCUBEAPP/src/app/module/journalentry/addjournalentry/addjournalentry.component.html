@@ -10,8 +10,8 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/gstpurchaselist">Cash Receipt</a></li>
-                                <li class="breadcrumb-item active">Cash Receipt</li>
+                                <li class="breadcrumb-item"><a href="/#/">Fin Trans</a></li>
+                                <li class="breadcrumb-item active">Journal Entry</li>
                             </ol>
                         </div>
 
@@ -105,7 +105,7 @@
                                                                 <label for="formrow-inputCity">
                                                                     <h6>Type</h6> </label>
                                                                 <select id="role" class="form-select"
-                                                                    formControlName="typeSign">
+                                                                    formControlName="typeSign" (change)="changePmtType()">
                                                                     <option value="">Choose...</option>
                                                                     <option value="C">Credit</option>
                                                                     <option value="D">Debit</option>
@@ -118,7 +118,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity"><h6>Amount</h6></label>
-                                                                <input autoclose="false" type="text" placeholder=""
+                                                                <input autoclose="false" type="text" placeholder="" (change)="changePmtType()"
                                                                     class="form-control" formControlName="amount">
                                                             </div>
                                                         </div>

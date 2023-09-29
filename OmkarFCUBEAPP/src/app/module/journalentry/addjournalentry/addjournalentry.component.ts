@@ -11,6 +11,7 @@ import { Journalentrymodel } from 'src/app/models/journalentrymodel';
 import { CommonService } from 'src/app/services/common.service';
 import { JournalEntryService } from 'src/app/services/journalentry.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addjournalentry',
@@ -22,6 +23,7 @@ export class AddjournalentryComponent {
   formUser!: FormGroup;
   userSubmitted = false;
   branchname: string = '';
+  loginDate: string = '';
   year: string = '';
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
@@ -30,7 +32,7 @@ export class AddjournalentryComponent {
 
   selectedJournalEntryDetails = new Journalentrymodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private journalentryModel: Journalentrymodel, private journalentryService: JournalEntryService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private journalentryModel: Journalentrymodel, private journalentryService: JournalEntryService, private toasterService: ToastrService,private commonService: CommonService) {
     this.journalentryModel = new Journalentrymodel();
 
   
@@ -53,13 +55,17 @@ ngOnInit(): void {
       this.branchname = userData5;
       //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
     }
+    var loginDate = localStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
   else {
     this.route.navigate(['/']);
   }
   this.getCreditAcList();
   this.selectedJournalEntryDetails = this.journalentryService.getJournalEntryDetails();
   this.formUser = this.formBuilder.group({
-    ftmDate: new FormControl('',),
+    ftmDate: new FormControl(this.loginDate,),
     docType: new FormControl('CP',),
     docSeries: new FormControl('',),
     docNo: new FormControl('',),
@@ -104,9 +110,25 @@ ngOnInit(): void {
       this.locationList = res;
     });
   }
-  changePmtType(e: any) {
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
+  changePmtType() {
+//console.log(e.target.value);
+   // var selectedValue = e.target.value;
+    var selectedDataValue = this.formUser.getRawValue();
+if(selectedDataValue.typeSign =='D'){
+    this.formUser.patchValue({
+
+      //debit: selectedDataValue.amount
+      debit: '100'
+  
+    });
+  }else{
+    this.formUser.patchValue({
+
+     // credit: selectedDataValue.amount
+  
+    });
+
+  }
 
     
   }
@@ -154,7 +176,11 @@ ngOnInit(): void {
   if (this.formUser.invalid) {
     return;
   }
-  
+  var selectedDataValue = this.formUser.getRawValue();
+  if (this.formCashArray.value.debit!== this.formCashArray.value.debit) {
+   this.toasterService.warning("total credit and debit should be equal");
+    return;
+  }
   this.journalentryModel.ftmId = this.selectedJournalEntryDetails.ftmId != '' ? this.selectedJournalEntryDetails.ftmId : '';
   this.journalentryModel.ftmDate= this.formUser.value.ftmDate;
  // this.journalentryModel.docType = this.formUser.value.docType;

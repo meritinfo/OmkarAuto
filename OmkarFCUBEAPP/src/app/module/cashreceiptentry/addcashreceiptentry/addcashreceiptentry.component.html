@@ -30,7 +30,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio" formControlName="docType" value="CP"
+                                                <input type="radio" formControlName="docType" value="CP"  (change)="changePType('CP')"
                                                     class="form-check-input" />
                                                 <label for="formRadios1" class="form-check-label" style="color: blue;">
                                                     <h6>Cash Payment</h6>
@@ -40,7 +40,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio" formControlName="docType" value="CR"
+                                                <input type="radio" formControlName="docType" value="CR"(change)="changePType('CR')"
                                                     class="form-check-input" />
                                                 <label for="formRadios1" class="form-check-label" style="color: blue;">
                                                     <h6>Cash Receipt</h6>
@@ -122,6 +122,23 @@
                                                 <input class="form-control" placeholder="" formControlName="remarks">
                                             </div>
                                         </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-4">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Account Name</h6>
+                                                </label>
+                                                <select class="form-control"
+                                                    formControlName="accountid2" [ngClass]="">
+
+                                                    <option *ngFor="let branch of creditacList"
+                                                        value={{branch.dataId}}>
+
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="card">
