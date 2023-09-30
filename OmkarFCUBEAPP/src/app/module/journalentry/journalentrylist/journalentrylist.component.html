@@ -10,7 +10,7 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Finance</a></li>
-                                <li class="breadcrumb-item active"> Cash Receipt payments</li>
+                                <li class="breadcrumb-item active"> Journal Entry payments</li>
                             </ol>
                         </div>
                     </div>
@@ -30,6 +30,35 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>ReminderDays </th>
+                      
+                            <th>Doc Code </th>
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allJournalEntry.journalEntList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allJournalEntry.journalEntList">
+                            <td>{{ renewalMaster.docType }}</td>
+                    
+                            <td>{{ renewalMaster.docSeries }}</td>
+                         
+                            <td>
+                                <a (click)="getJournalEntryDetails(renewalMaster)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allJournalEntry.journalEntList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
                
                    
             </div>

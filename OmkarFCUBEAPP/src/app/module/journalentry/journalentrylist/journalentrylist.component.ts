@@ -3,7 +3,7 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Journalentrylistmodel  } from 'src/app/models/journalentrylistmodel';
 import { Journalentrymodel } from 'src/app/models/journalentrymodel';
 
-import {BankCashContraService } from 'src/app/services/bankcashcontra.service';
+import {JournalEntryService } from 'src/app/services/journalentry.service';
 import { Router } from '@angular/router';
 
 
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 
 export class JournalentrylistComponent {
   dtOptions: DataTables.Settings = {};
-  allBankCashcontra: Journalentrylistmodel = new Journalentrylistmodel();
+  allJournalEntry: Journalentrylistmodel = new Journalentrylistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -26,11 +26,11 @@ export class JournalentrylistComponent {
     search: ''
 
 }
-constructor(private bankcashcontraService: BankCashContraService, private route: Router) {
+constructor(private journalEntryService: JournalEntryService, private route: Router) {
 }
   ngOnInit(): void {
    
-      this.bankcashcontraService.clearBankCashContraDetails();
+      this.journalEntryService.clearjournalEntryDetails();
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -43,7 +43,7 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
           this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
           this.filter.sortOrder = dataTablesParameters.order[0].dir;
           this.filter.search = dataTablesParameters.search.value;
-          this.bankcashcontraService.bankCashContraEntryList(this.filter)
+          this.journalEntryService.journalEntryList(this.filter)
             .subscribe(resp => {
            //  this.allBankCashcontra = resp;
               callback({
@@ -85,10 +85,10 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
   
   
 //Open user details screen
-//getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {
- // this.bankReceiptEntryService.setBankReceiptEntryDetails(Docrenewal);
-  //this.route.navigate(['/cashreceiptentryedit']);
- // }
+getJournalEntryDetails(Docrenewal: Journalentrymodel): void {
+ // this.journalEntryService.setJournalEntryDetails(Docrenewal);
+  this.route.navigate(['/cashreceiptentryedit']);
+  }
 }
 
 

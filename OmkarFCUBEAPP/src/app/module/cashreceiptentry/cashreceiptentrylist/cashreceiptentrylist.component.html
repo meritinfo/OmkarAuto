@@ -32,18 +32,18 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>ReminderDays </th>
+                            <th>docType </th>
                       
-                            <th>Doc Code </th>
+                            <th>docType </th>
                          
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allCashReceiptEntry.CashRecPaymentsList?.length != 0">
-                        <tr *ngFor="let renewalMaster of allCashReceiptEntry.CashRecPaymentsList">
+                    <tbody *ngIf="allCashReceiptEntry.cashRecPaymentsList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allCashReceiptEntry.cashRecPaymentsList">
                             <td>{{ renewalMaster.docType }}</td>
                     
-                            <td>{{ renewalMaster.docSeries }}</td>
+                            <td>{{ renewalMaster.docType }}</td>
                          
                             <td>
                                 <a (click)="getCashReceiptEntryDetails(renewalMaster)" class="actionicon"><i
@@ -52,7 +52,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allCashReceiptEntry.CashRecPaymentsList?.length == 0">
+                    <tbody *ngIf="allCashReceiptEntry.cashRecPaymentsList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

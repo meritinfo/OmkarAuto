@@ -27,5 +27,6 @@ namespace FinTrans.Business
         {
             return await cashReceiptPaymentsRepository.GetCashReceiptPaymentsList(request);
         }
+       
     }
 }

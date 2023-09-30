@@ -39,8 +39,8 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allBankReceiptEntry.BankRecptpaymentsList?.length != 0">
-                        <tr *ngFor="let renewalMaster of allBankReceiptEntry.BankRecptpaymentsList">
+                    <tbody *ngIf="allBankReceiptEntry.bankRecptpaymentsList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allBankReceiptEntry.bankRecptpaymentsList">
                             <td>{{ renewalMaster.docType }}</td>
                     
                             <td>{{ renewalMaster.docSeries }}</td>
@@ -52,7 +52,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allBankReceiptEntry.BankRecptpaymentsList?.length == 0">
+                    <tbody *ngIf="allBankReceiptEntry.bankRecptpaymentsList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

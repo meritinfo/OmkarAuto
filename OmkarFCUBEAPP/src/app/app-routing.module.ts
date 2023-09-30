@@ -62,6 +62,7 @@ import { DieselstatementaddComponent } from './module/dieselstatement/dieselstat
 
 
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -122,6 +123,7 @@ const routes: Routes = [
   { path: 'adddocrenewalentry', component: AdddocrenewalentryComponent },
   { path: 'cashreceiptentrylist', component: CashreceiptentrylistComponent },
   { path: 'addcashreceiptentry', component: AddcashreceiptentryComponent },
+  { path: 'cashreceiptentryedit', component: AddcashreceiptentryComponent },
   { path: 'bankreceiptentrylist', component: BankreceiptentrylistComponent },
   { path: 'addbankreceiptentry', component: AddbankreceiptentryComponent },
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
@@ -133,6 +135,7 @@ const routes: Routes = [
   { path: 'journalentrylist', component:  JournalentrylistComponent },
   { path: 'addjournalentry', component:  AddjournalentryComponent },
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
+ 
   
 ];
 

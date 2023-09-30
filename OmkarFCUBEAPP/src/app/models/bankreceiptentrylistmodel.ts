@@ -2,7 +2,7 @@ import { Paginationmodel } from "./paginationmodel";
 import { bankreceiptentrymodel } from "./bankreceiptentrymodel";
 
 export class bankreceiptentrylistmodel {
-    BankRecptpaymentsList: bankreceiptentrymodel[] = [];
+    bankRecptpaymentsList: bankreceiptentrymodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }
 

@@ -116,8 +116,8 @@ namespace FinTrans.Repository
 
         public async Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request)
         {
-            JournalEntryList journalEntryList = new();
-            List<FinTransMasterModel> journalList = new();
+            JournalEntryList JournalEntList = new();
+            List<JournalEntryModel> journalList = new();
             try
             {
                 if (dbconnection != null)
@@ -130,14 +130,14 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptpaymentsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "JournalEntryList_Select", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            journalList.Add(new FinTransMasterModel
+                            journalList.Add(new JournalEntryModel
                             {
                                 FtmID = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmID"]),
                                 FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
@@ -174,9 +174,9 @@ namespace FinTrans.Repository
                             });
                         }
 
-                        journalEntryList.JournalEntList = journalList;
+                        JournalEntList.JournalEntList = journalList;
 
-                        journalEntryList.PageMetaData = new PaginationMetaData
+                        JournalEntList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -197,7 +197,7 @@ namespace FinTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return journalEntryList;
+            return JournalEntList;
         }
     }
 

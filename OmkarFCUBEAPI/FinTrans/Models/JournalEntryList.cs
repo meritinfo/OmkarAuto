@@ -8,7 +8,7 @@ namespace FinTrans.Models
 {
     public class JournalEntryList
     {
-        public List<FinTransMasterModel> JournalEntList { get; set; }
+        public List<JournalEntryModel> JournalEntList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }
