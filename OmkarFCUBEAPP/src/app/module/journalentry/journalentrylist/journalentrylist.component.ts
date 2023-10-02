@@ -45,7 +45,7 @@ constructor(private journalEntryService: JournalEntryService, private route: Rou
           this.filter.search = dataTablesParameters.search.value;
           this.journalEntryService.journalEntryList(this.filter)
             .subscribe(resp => {
-           //  this.allBankCashcontra = resp;
+            this.allJournalEntry = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,

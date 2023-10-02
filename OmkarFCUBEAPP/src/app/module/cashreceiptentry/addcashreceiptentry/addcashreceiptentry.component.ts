@@ -98,7 +98,7 @@ ngOnInit(): void {
     this.formUser.patchValue(this.selectedCashReceiptEntryDetails);
 
   }
-  this.formUser.controls['ftmDate'].disable();
+  //this.formUser.controls['ftmDate'].disable();
   this.formUser.controls['docSeries'].disable();
  
 

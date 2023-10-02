@@ -216,6 +216,7 @@ export class TripsheetaddComponent {
     setTimeout(() => {
       if (this.selectedTripSheetDetails.tripId != '') {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
+        this.getTripSheetInnerGridList();
         this.formTripsheet.patchValue({
           // newTripDate: this.loginDate,
           newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
@@ -260,7 +261,7 @@ export class TripsheetaddComponent {
 
       this.checkDestinationControlStatus();
 
-      this.getTripSheetInnerGridList();
+     // this.getTripSheetInnerGridList();
 
      // this.GetOpeningBal();
     }, 2000);

@@ -32,25 +32,25 @@ export class AddjournalentryComponent {
 
   selectedJournalEntryDetails = new Journalentrymodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private journalentryModel: Journalentrymodel, private journalentryService: JournalEntryService, private toasterService: ToastrService,private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private journalentryModel: Journalentrymodel, private journalentryService: JournalEntryService, private toasterService: ToastrService, private commonService: CommonService) {
     this.journalentryModel = new Journalentrymodel();
 
-  
 
-}
-ngOnInit(): void {
-  var userData = localStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
+
   }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  var userData2 = localStorage.getItem('yearID')?.toString();
-  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
-    this.year = userData2;
-  }
-  var userData5 = localStorage.getItem('userBranch')?.toString();
+  ngOnInit(): void {
+    var userData = localStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData2 = localStorage.getItem('yearID')?.toString();
+    if (typeof userData2 !== 'undefined' && userData2 !== null && userData2 !== '') {
+      this.year = userData2;
+    }
+    var userData5 = localStorage.getItem('userBranch')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
       //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
@@ -59,47 +59,47 @@ ngOnInit(): void {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-  else {
-    this.route.navigate(['/']);
+    else {
+      this.route.navigate(['/']);
+    }
+    this.getCreditAcList();
+    this.selectedJournalEntryDetails = this.journalentryService.getJournalEntryDetails();
+    this.formUser = this.formBuilder.group({
+      ftmDate: new FormControl(this.loginDate,),
+      docType: new FormControl('CP',),
+      docSeries: new FormControl('',),
+      docNo: new FormControl('',),
+      remarks: new FormControl('',),
+      refType: new FormControl('',),
+      refNo: new FormControl('',),
+      docAmount: new FormControl('',),
+
+      utrNo: new FormControl('',),
+
+
+      linkedYN: new FormControl('',),
+      debit: new FormControl('',),
+      credit: new FormControl('',),
+
+
+      modifyRemarks: new FormControl('',),
+      yearID: new FormControl('',),
+
+
+
+      accountid2: new FormControl('',),
+
+      cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
+
+
+    });
+
+    if (this.selectedJournalEntryDetails.ftmId != '') {
+
+      this.formUser.patchValue(this.selectedJournalEntryDetails);
+
+    }
   }
-  this.getCreditAcList();
-  this.selectedJournalEntryDetails = this.journalentryService.getJournalEntryDetails();
-  this.formUser = this.formBuilder.group({
-    ftmDate: new FormControl(this.loginDate,),
-    docType: new FormControl('CP',),
-    docSeries: new FormControl('',),
-    docNo: new FormControl('',),
-    remarks: new FormControl('',),
-    refType: new FormControl('',),
-    refNo: new FormControl('',),
-    docAmount: new FormControl('',),
-   
-    utrNo: new FormControl('',),
-    
-   
-    linkedYN: new FormControl('',),
-    debit: new FormControl('',),
-    credit: new FormControl('',),
-    
-   
-    modifyRemarks: new FormControl('',),
-    yearID: new FormControl('',),
-   
-   
-   
-    accountid2: new FormControl('',),
-
-    cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
-  
-
-  });
-
-  if (this.selectedJournalEntryDetails.ftmId != '') {
-   
-    this.formUser.patchValue(this.selectedJournalEntryDetails);
-
-  }
-}
   getCreditAcList(): void {
     this.commonService.getCreditAcList().subscribe((res) => {
       this.creditacList = res;
@@ -110,42 +110,86 @@ ngOnInit(): void {
       this.locationList = res;
     });
   }
-  changePmtType() {
-//console.log(e.target.value);
-   // var selectedValue = e.target.value;
+  changePmtType2(index: number) {
+    //console.log(e.target.value);
+    // var selectedValue = e.target.value;
     var selectedDataValue = this.formUser.getRawValue();
-if(selectedDataValue.typeSign =='D'){
-    this.formUser.patchValue({
+    if (selectedDataValue.cashDetailsList[index].typeSign == 'D') {
+      this.formUser.patchValue({
 
-      //debit: selectedDataValue.amount
-      debit: '100'
-  
-    });
-  }else{
-    this.formUser.patchValue({
+        debit: selectedDataValue.cashDetailsList[index].amount
+       // debit: '100'
 
-     // credit: selectedDataValue.amount
-  
-    });
+      });
+    } else {
+      this.formUser.patchValue({
+
+         credit: selectedDataValue.cashDetailsList[index].amount
+
+      });
+
+    }
+
 
   }
+  addMiscItem(index: number): void {
+    if (this.formCashArray.value[index].accountId != "") {
+      this.formCashArray.push(this.createMiscArray());
+    } else{
+      this.toasterService.warning("Please select one account name");
+    }
+  }
 
-    
-  }
-  addMiscItem(): void {
-    this.formCashArray.push(this.createMiscArray());
-  }
-  
   removeMiscItem(index: number) {
     this.formCashArray.removeAt(index);
   }
-  
+  changePmtType(index: number) {
+    var totalCreditAmount = 0;
+    var totalDebitAmount = 0;
+    var totalStatementAmount = 0;
+    var amt = 0;
+    for (var i = 0; i < this.formCashArray.value.length; i++) {
+      var selectedDataValue = this.formUser.getRawValue();
+      amt = selectedDataValue.cashDetailsList[index].amount
+      //if (selectedDataValue.cashDetailsList[i].selected) {
+if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
+          totalCreditAmount = totalCreditAmount + parseFloat(selectedDataValue.cashDetailsList[index].amount);
+       }
+       if (selectedDataValue.cashDetailsList[index].typeSign == 'D') {
+        totalDebitAmount = totalDebitAmount + parseFloat(selectedDataValue.cashDetailsList[index].amount);
+      // }
+       // totalStatementAmount = totalStatementAmount + parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
+      }
+    }
+
+  //  this.formUser.patchValue({
+   
+     // debit: totalDslAmount.toFixed(2),
+    //  credit: totalDriverAdvAmount.toFixed(2)
+ //   });
+    if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
+      this.formUser.patchValue({
+        credit: totalCreditAmount.toFixed(2),
+        
+       // debit: '100'
+
+      });
+    } else {
+      this.formUser.patchValue({
+
+        debit: totalDebitAmount.toFixed(2)
+
+      });
+
+    }
+  }
+
   createMiscArray() {
     return this.formBuilder.group({
       ftdID: [''],
       ftmID: [''],
       ftmDate: [''],
-  
+
       slNo: [''],
       typeSign: [''],
       amount: [''],
@@ -153,83 +197,83 @@ if(selectedDataValue.typeSign =='D'){
       accountId: [''],
       narration: [''],
       costRefNo: [''],
-  
+
       branchCode: [''],
     });
   }
 
-  
-  
+
+
   get formCashArray() {
     return this.formUser.get("cashDetailsList") as FormArray;
   }
-  
-  
+
+
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
-  
-  
-  
+
+
+
   //Submit user form details //
   submitJournalEntryForm(): void {
-  this.userSubmitted = true;
-  if (this.formUser.invalid) {
-    return;
-  }
-  var selectedDataValue = this.formUser.getRawValue();
-  if (this.formCashArray.value.debit!== this.formCashArray.value.debit) {
-   this.toasterService.warning("total credit and debit should be equal");
-    return;
-  }
-  this.journalentryModel.ftmId = this.selectedJournalEntryDetails.ftmId != '' ? this.selectedJournalEntryDetails.ftmId : '';
-  this.journalentryModel.ftmDate= this.formUser.value.ftmDate;
- // this.journalentryModel.docType = this.formUser.value.docType;
-  this.journalentryModel.docSeries = this.formUser.value.docSeries;
-  this.journalentryModel.docNo = this.formUser.value.docNo;
-  this.journalentryModel.seriesDoc = this.formUser.value.docSeries + this.formUser.value.docNo;;
-  this.journalentryModel.remarks = this.formUser.value.remarks;
-  this.journalentryModel.refType = this.formUser.value.refType;
-  this.journalentryModel.refNo = this.formUser.value.refNo;
-  this.journalentryModel.docAmount = this.formUser.value.docAmount;
-  this.journalentryModel.linkedYN   = this.formUser.value.linkedYN  ;
-  this.journalentryModel.yearID     = this.year   ;
-  this.journalentryModel.branchCode      =    this.branchname  ;
-  this.journalentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
-
-  if (this.formCashArray.value != undefined) {
-    for (var i = 0; i < this.formCashArray.value.length; i++) {
-      this.journalentryModel.detailList.push({
-        'ftdID': this.formCashArray.value[i].ftdID,
-        'ftmID': this.formCashArray.value[i].ftmID,
-        'ftmDate': this.formCashArray.value[i].ftmDate,
-        'slNo': this.formCashArray.value[i].slNo ,
-        'typeSign': 'D',
-        'amount': this.formCashArray.value[i].amount,
-        'narration': this.formCashArray.value[i].narration,
-        'accountId': this.formCashArray.value[i].accountId ,
-        'costRefNo': this.formCashArray.value[i].costRefNo,
-        'reference': this.formCashArray.value[i].reference,
-        'branchCode': this.branchname,
-      })
+    this.userSubmitted = true;
+    if (this.formUser.invalid) {
+      return;
     }
-  
- 
-    
-  
+    var selectedDataValue = this.formUser.getRawValue();
+    if (selectedDataValue.debit !== selectedDataValue.credit) {
+      this.toasterService.warning("total credit and debit should be equal");
+      return;
+    }
+    this.journalentryModel.ftmId = this.selectedJournalEntryDetails.ftmId != '' ? this.selectedJournalEntryDetails.ftmId : '';
+    this.journalentryModel.ftmDate = this.formUser.value.ftmDate;
+    // this.journalentryModel.docType = this.formUser.value.docType;
+    this.journalentryModel.docSeries = this.formUser.value.docSeries;
+    this.journalentryModel.docNo = this.formUser.value.docNo;
+    this.journalentryModel.seriesDoc = this.formUser.value.docSeries + this.formUser.value.docNo;;
+    this.journalentryModel.remarks = this.formUser.value.remarks;
+    this.journalentryModel.refType = this.formUser.value.refType;
+    this.journalentryModel.refNo = this.formUser.value.refNo;
+    this.journalentryModel.docAmount = this.formUser.value.docAmount;
+    this.journalentryModel.linkedYN = this.formUser.value.linkedYN;
+    this.journalentryModel.yearID = this.year;
+    this.journalentryModel.branchCode = this.branchname;
+    this.journalentryModel.modifyRemarks = this.formUser.value.modifyRemarks;
+
+    if (this.formCashArray.value != undefined) {
+      for (var i = 0; i < this.formCashArray.value.length; i++) {
+        this.journalentryModel.detailList.push({
+          'ftdID': this.formCashArray.value[i].ftdID,
+          'ftmID': this.formCashArray.value[i].ftmID,
+          'ftmDate': this.formCashArray.value[i].ftmDate,
+          'slNo': this.formCashArray.value[i].slNo,
+          'typeSign': 'D',
+          'amount': this.formCashArray.value[i].amount,
+          'narration': this.formCashArray.value[i].narration,
+          'accountId': this.formCashArray.value[i].accountId,
+          'costRefNo': this.formCashArray.value[i].costRefNo,
+          'reference': this.formCashArray.value[i].reference,
+          'branchCode': this.branchname,
+        })
+      }
+
+
+
+
+    }
+
+
+    this.journalentryService.journalEntryDetailsSubmitted(this.journalentryModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      console.log(this.responseDetails.message);
+      this.formUser.reset();
+      window.location.reload();
+    });
   }
-  
-  
-  this.journalentryService.journalEntryDetailsSubmitted(this.journalentryModel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
-  });
-  }
-  }
-  
-  
-  
-  
- 
+}
+
+
+
+
+
 

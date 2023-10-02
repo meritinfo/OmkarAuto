@@ -32,9 +32,9 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>docType </th>
+                            <th>DocType </th>
                       
-                            <th>docType </th>
+                            <th>DocSeries </th>
                          
                             <th>Action</th>
                         </tr>
@@ -43,7 +43,7 @@
                         <tr *ngFor="let renewalMaster of allCashReceiptEntry.cashRecPaymentsList">
                             <td>{{ renewalMaster.docType }}</td>
                     
-                            <td>{{ renewalMaster.docType }}</td>
+                            <td>{{ renewalMaster.docSeries }}</td>
                          
                             <td>
                                 <a (click)="getCashReceiptEntryDetails(renewalMaster)" class="actionicon"><i

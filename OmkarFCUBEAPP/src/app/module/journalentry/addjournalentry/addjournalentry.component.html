@@ -38,21 +38,21 @@
 
 
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         
                                             <label for="formrow-inputState">Document No</label>
                                             <input class="form-control" placeholder=""    formControlName="docNo">
                                         
                                     </div>
                                     
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                        
                                             <label for="formrow-inputState"> Trance Date</label>
                                             <input type="date" class="form-control" placeholder=""  formControlName="ftmDate">
                                         
                                     </div>
                                
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                    <div class="mb-3">
                                         <label for="formrow-inputCity">Ref Type </label>
                                         <select class="form-control" formControlName="refType">
@@ -63,7 +63,7 @@
                                 
                                 </div>
                           
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                       <div class="mb-3">
                                         <label for="formrow-inputZip">Ref No </label>
                                         <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
@@ -99,13 +99,13 @@
                                                             </div>
                                                         </td>
                                                     
-                                                    <td>
+                                                    <td class="col-lg-2">
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity">
                                                                     <h6>Type</h6> </label>
                                                                 <select id="role" class="form-select"
-                                                                    formControlName="typeSign" (change)="changePmtType()">
+                                                                    formControlName="typeSign" (change)="changePmtType(k)">
                                                                     <option value="">Choose...</option>
                                                                     <option value="C">Credit</option>
                                                                     <option value="D">Debit</option>
@@ -118,7 +118,7 @@
                                                         <div class="col-lg-12">
                                                             <div class="mb-3">
                                                                 <label for="formrow-inputCity"><h6>Amount</h6></label>
-                                                                <input autoclose="false" type="text" placeholder="" (change)="changePmtType()"
+                                                                <input autoclose="false" type="text" placeholder="" (change)="changePmtType(k)"
                                                                     class="form-control" formControlName="amount">
                                                             </div>
                                                         </div>
@@ -152,12 +152,12 @@
                                                         </div>
                                                     </td>
                                                   
-                                                    <td>
+                                                    <td class="col-lg-1">
                                                         <div class="col-lg-12 details-button">
 
-                                                            <button type="button" class="btn btn-primary"
-                                                                (click)="addMiscItem()">Add</button>
-                                                            <button (click)="removeMiscItem(k)"
+                                                            <button *ngIf="k == formCashArray.controls.length-1" type="button" class="btn btn-primary"
+                                                                (click)="addMiscItem(k)">Add</button>
+                                                            <button *ngIf="formCashArray.controls.length > 1" (click)="removeMiscItem(k)"
                                                                 class="btn btn-danger">Delete</button>
                                                         </div>
                                                     </td>
@@ -173,14 +173,14 @@
                                         <div class="col-lg-3">
                                       
                                                 <label for="formrow-inputState">Total Credits </label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder="" formControlName="credit">
                                     
                                         </div>
                                     
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Total Debits </label>
-                                                <input class="form-control" placeholder=""  formControlName="docAmount">
+                                                <input class="form-control" placeholder=""  formControlName="debit">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
