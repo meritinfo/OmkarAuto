@@ -13,6 +13,7 @@ import { Cashreceiptentrymodel } from 'src/app/models/cashreceiptentrymodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BankReceiptEntryService } from 'src/app/services/bankreceiptentry.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addbankreceiptentry',
@@ -34,7 +35,7 @@ export class AddbankreceiptentryComponent {
 
  
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private bankreceiptentryModel: bankreceiptentrymodel, private bankreceiptentryService: BankReceiptEntryService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private bankreceiptentryModel: bankreceiptentrymodel, private bankreceiptentryService: BankReceiptEntryService, private toasterService: ToastrService, private commonService: CommonService) {
     this.bankreceiptentryModel = new bankreceiptentrymodel();
 
   
@@ -100,7 +101,7 @@ ngOnInit(): void {
     this.formUser.patchValue(this.selectedBankReceiptEntryDetails);
 
   }
-  this.formUser.controls['ftmDate'].disable();
+  //this.formUser.controls['ftmDate'].disable();
   this.formUser.controls['docSeries'].disable();
 
 }
@@ -114,8 +115,14 @@ getLocationList(): void {
     this.locationList = res;
   });
 }
-addMiscItem(): void {
-  this.formCashArray.push(this.createMiscArray());
+
+addMiscItem(index: number): void {
+
+  if (this.formCashArray.value[index].accountId != "" && this.formCashArray.value[index].amount != "" ) {
+    this.formCashArray.push(this.createMiscArray());
+  } else{
+    this.toasterService.warning("Please select one account name, amount ");
+  }
 }
 changePType(selectedValue: string) {
   var selectedDataValue = this.formUser.getRawValue();

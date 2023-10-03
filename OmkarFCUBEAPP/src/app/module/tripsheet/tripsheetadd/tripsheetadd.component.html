@@ -685,14 +685,39 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;">Repair/Misc Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+
+                                            <div class="row">
+                                                         <div class="col-lg-3">
+                                                             <label for="formrow-inputZip">
+                                                                 <h6>Exp Type</h6>
+                                                             </label>
+                                                         </div>
+                                                       
+                                                    
+                                                         <div class="col-lg-4">
+                                                         <label for="formrow-inputZip">
+                                                             <h6>Amount</h6>
+                                                         </label>
+                                                     </div>
+                                                     <div class="col-lg-4">
+                                                        <label for="formrow-inputZip">
+                                                            <h6>Narration</h6>
+                                                        </label>
+                                                    </div>
+                                               
+                                                
+                                                     
+                                                 </div>
+                                                 </tr>
+                                    
+
+                       
                                         <tr formArrayName="miscDetailsList"
                                             *ngFor="let miscData of formMiscArray.controls; let k = index">
                                             <div [formGroupName]="k">
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Exp
-                                                                Type</label>
+                                                <td class="col-lg-3">
+                                                   
                                                             <select id="role" class="form-select"
                                                                 formControlName="expType">
                                                                 <option value="">Choose...</option>
@@ -703,28 +728,22 @@
                                                                 <option value="A">ACCIDENT </option>
                                                                 <option value="O">OTHER</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
+                                                  
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-121">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Amount</label>
+                                                   
                                                             <input class="form-control" placeholder="Amount"
-                                                                formControlName="miscAmount" decimalonly (change)="updateMisc(k, $event)">
-                                                        </div>
-                                                    </div>
+                                                                formControlName="miscAmount"  (change)="updateMisc(k, $event)">
+                                                      
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Narration</label>
+                                                  
+                                                        
                                                             <input autoclose="false" type="text" placeholder="Narration"
                                                                 class="form-control" formControlName="narration">
-                                                        </div>
-                                                    </div>
+                                                     
                                                 </td>
-                                                <td>
+                                                <td >
                                                     <div class="col-lg-12 details-button">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="addMiscItem()">Add</button>
@@ -748,6 +767,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;">Driver Advance</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        
                                         <tr>
                                             <th> <label for="formrow-inputCity">Pmt Type</label></th>
                                             <th><label for="formrow-inputCity">Pmt Date</label></th>
@@ -785,13 +805,40 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;">AdBlue Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+
+                                            <div class="row">
+                                                         <div class="col-lg-3">
+                                                             <label for="formrow-inputZip">
+                                                                 <h6>Filling Stn</h6>
+                                                             </label>
+                                                         </div>
+                                                       
+                                                    
+                                                         <div class="col-lg-4">
+                                                         <label for="formrow-inputZip">
+                                                             <h6>Adblue</h6>
+                                                         </label>
+                                                     </div>
+                                                     <div class="col-lg-4">
+                                                        <label for="formrow-inputZip">
+                                                            <h6>Amount</h6>
+                                                        </label>
+                                                    </div>
+                                               
+                                                
+                                                     
+                                                 </div>
+                                                 </tr>
+                                    
+
                                         <tr formArrayName="adblueDetailsList"
                                             *ngFor="let adblueData of formAdblueArray.controls; let m = index">
                                             <div [formGroupName]="m">
-                                                <td>
+                                                <td class="col-lg-3">
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">Filling Stn</label>
+                                                  
                                                             <select id="role" class="form-select"
                                                                 formControlName="adbluefillingStation">
                                                                 <option value="">Choose...</option>
@@ -807,8 +854,7 @@
                                                 <td>
                                                     <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputCity">Adblue
-                                                            </label>
+                                                            
                                                             <input autoclose="false" type="text" placeholder="Adblue"
                                                                 class="form-control" decimalonly
                                                                 formControlName="adbluedieselLiter" (change)="updateAdBlue(m, $event)">
@@ -816,9 +862,9 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-121">
+                                                    <div class="col-lg-12">
                                                         <div class="mb-3">
-                                                            <label for="formrow-inputZip">Amount</label>
+                                                          
                                                             <input class="form-control" placeholder="Amount"
                                                                 formControlName="adbluedieselAmount" decimalonly>
                                                         </div>

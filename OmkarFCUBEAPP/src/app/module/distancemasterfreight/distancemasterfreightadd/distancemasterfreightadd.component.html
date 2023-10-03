@@ -83,13 +83,15 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                   
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
-                                                <td>
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Select Destination</label>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Select Destination</h6>
+                                                    </label>
+                                                  
                                                             <div class="ng-autocomplete">
                                                                 <ng-autocomplete [data]="locationList"
                                                                     [searchKeyword]="keywordLocation" placeholder=""
@@ -110,26 +112,34 @@
                                                                     <div [innerHTML]="notFound"></div>
                                                                 </ng-template>
                                                             </div>
-                                                        </div>
-                                                    </div>
+                                                       
+                                                      
                                                 </td>
-                                                <td>
-                                                    <div class="col-lg-6">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Enter KMs</label>
+                                                <td class="col-lg-2">
+                                                   
+                                                     
+                                                    <label for="formrow-inputZip">
+
+                                                        <h6>Enter KMs</h6>
+                                                    </label>
+                                                           
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enterKM">
-                                                        </div>
-                                                    </div>
+                                                         
                                                 </td>
-                                                <td>
-                                                    <div class="col-lg-6 details-button">
+                                                <td class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                    <div class="col-lg-4 details-button">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="addItem()">Add</button>
                                                         <button *ngIf="formArray.controls.length > 1"
                                                             (click)="removeItem(i)"
                                                             class="btn btn-danger">Delete</button>
-                                                    </div>
+                                                        </div>
+                                                    
                                                 </td>
                                             </div>
                                         </tr>

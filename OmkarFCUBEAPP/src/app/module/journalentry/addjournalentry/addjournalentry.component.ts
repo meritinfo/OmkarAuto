@@ -118,13 +118,13 @@ export class AddjournalentryComponent {
       this.formUser.patchValue({
 
         debit: selectedDataValue.cashDetailsList[index].amount
-       // debit: '100'
+        // debit: '100'
 
       });
     } else {
       this.formUser.patchValue({
 
-         credit: selectedDataValue.cashDetailsList[index].amount
+        credit: selectedDataValue.cashDetailsList[index].amount
 
       });
 
@@ -133,15 +133,16 @@ export class AddjournalentryComponent {
 
   }
   addMiscItem(index: number): void {
-    if (this.formCashArray.value[index].accountId != "") {
+    if (this.formCashArray.value[index].accountId != "" && this.formCashArray.value[index].amount != "" && this.formCashArray.value[index].typeSign != "") {
       this.formCashArray.push(this.createMiscArray());
-    } else{
-      this.toasterService.warning("Please select one account name");
+    } else {
+      this.toasterService.warning("Please select one account name, amount and type");
     }
   }
 
   removeMiscItem(index: number) {
     this.formCashArray.removeAt(index);
+    this.updateAmount(index, undefined, "");
   }
   changePmtType(index: number) {
     var totalCreditAmount = 0;
@@ -151,27 +152,27 @@ export class AddjournalentryComponent {
     for (var i = 0; i < this.formCashArray.value.length; i++) {
       var selectedDataValue = this.formUser.getRawValue();
       amt = selectedDataValue.cashDetailsList[index].amount
-      //if (selectedDataValue.cashDetailsList[i].selected) {
-if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
-          totalCreditAmount = totalCreditAmount + parseFloat(selectedDataValue.cashDetailsList[index].amount);
-       }
-       if (selectedDataValue.cashDetailsList[index].typeSign == 'D') {
+      // if (selectedDataValue.cashDetailsList[index].selected) {
+      if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
+        totalCreditAmount = totalCreditAmount + parseFloat(selectedDataValue.cashDetailsList[index].amount);
+      }
+      if (selectedDataValue.cashDetailsList[index].typeSign == 'D') {
         totalDebitAmount = totalDebitAmount + parseFloat(selectedDataValue.cashDetailsList[index].amount);
-      // }
-       // totalStatementAmount = totalStatementAmount + parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
+        //   }
+        // totalStatementAmount = totalStatementAmount + parseFloat(this.Dieselstatementsearchlistmodel.dieselStatementSearchList[i].amountPaid);
       }
     }
 
-  //  this.formUser.patchValue({
-   
-     // debit: totalDslAmount.toFixed(2),
+    //  this.formUser.patchValue({
+
+    // debit: totalDslAmount.toFixed(2),
     //  credit: totalDriverAdvAmount.toFixed(2)
- //   });
+    //   });
     if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
       this.formUser.patchValue({
         credit: totalCreditAmount.toFixed(2),
-        
-       // debit: '100'
+
+        // debit: '100'
 
       });
     } else {
@@ -183,7 +184,45 @@ if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
 
     }
   }
+  updateAmount(index: number, event: any, comingFrom: string) {
+    var selectedDataValue = this.formUser.getRawValue();
+    if (comingFrom === 'amount') {
+      selectedDataValue.cashDetailsList[index].amount = event.target.value;
+    }
+    var totalCreditAmount = 0;
+    var totalDebitAmount = 0;
+    var amt = 0;
+    for (var i = 0; i < selectedDataValue.cashDetailsList.length; i++) {
+      if (selectedDataValue.cashDetailsList[i].typeSign == 'C') {
+        totalCreditAmount = totalCreditAmount + (selectedDataValue.cashDetailsList[i].amount == "" ? 0 : parseFloat(selectedDataValue.cashDetailsList[i].amount));
+      }
+      if (selectedDataValue.cashDetailsList[i].typeSign == 'D') {
+        totalDebitAmount = totalDebitAmount + (selectedDataValue.cashDetailsList[i].amount == "" ? 0 : parseFloat(selectedDataValue.cashDetailsList[i].amount));
+      }
+    }
 
+    this.formUser.patchValue({
+      debit: totalDebitAmount.toFixed(2),
+      credit: totalCreditAmount.toFixed(2)
+    });
+
+    // if (selectedDataValue.cashDetailsList[index].typeSign == 'C') {
+    //   this.formUser.patchValue({
+    //     credit: totalCreditAmount.toFixed(2),
+
+    //     // debit: '100'
+
+    //   });
+    // } else {
+    //   this.formUser.patchValue({
+
+    //     debit: totalDebitAmount.toFixed(2)
+
+    //   });
+
+    // }
+    // //this.calculateTotal();
+  }
   createMiscArray() {
     return this.formBuilder.group({
       ftdID: [''],

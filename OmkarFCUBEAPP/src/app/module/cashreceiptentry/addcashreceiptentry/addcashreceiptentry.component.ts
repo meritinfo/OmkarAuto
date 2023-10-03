@@ -10,6 +10,7 @@ import { Cashreceiptentrymodel } from 'src/app/models/cashreceiptentrymodel';
 import { CommonService } from 'src/app/services/common.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addcashreceiptentry',
@@ -30,7 +31,7 @@ export class AddcashreceiptentryComponent {
 
   selectedCashReceiptEntryDetails = new Cashreceiptentrymodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private cashreceiptentryModel: Cashreceiptentrymodel, private cashreceiptentryService: CashReceiptEntryService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private cashreceiptentryModel: Cashreceiptentrymodel, private cashreceiptentryService: CashReceiptEntryService, private toasterService: ToastrService, private commonService: CommonService) {
     this.cashreceiptentryModel = new Cashreceiptentrymodel();
 
   
@@ -129,8 +130,13 @@ getLocationList(): void {
     this.locationList = res;
   });
 }
-addMiscItem(): void {
-  this.formCashArray.push(this.createMiscArray());
+addMiscItem(index: number): void {
+
+  if (this.formCashArray.value[index].accountId != "" && this.formCashArray.value[index].amount != "" ) {
+    this.formCashArray.push(this.createMiscArray());
+  } else{
+    this.toasterService.warning("Please select one account name, amount ");
+  }
 }
 
 removeMiscItem(index: number) {

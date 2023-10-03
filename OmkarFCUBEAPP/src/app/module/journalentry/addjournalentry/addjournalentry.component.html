@@ -1,4 +1,3 @@
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -26,68 +25,112 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4">Details</h4>
-                                    
-                                 
-                                <div class="row">
-                                    <div class="col-lg-2">
-
-                                        <label for="formrow-inputState">Document Series</label>
 
 
-                                        <input class="form-control" placeholder="" formControlName="docSeries">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+
+                                            <label for="formrow-inputState">Document Series</label>
 
 
-                                    </div>
-                                    <div class="col-lg-2">
-                                        
-                                            <label for="formrow-inputState">Document No</label>
-                                            <input class="form-control" placeholder=""    formControlName="docNo">
-                                        
-                                    </div>
-                                    
-                                    <div class="col-lg-2">
-                                       
-                                            <label for="formrow-inputState"> Trance Date</label>
-                                            <input type="date" class="form-control" placeholder=""  formControlName="ftmDate">
-                                        
-                                    </div>
-                               
-                                <div class="col-lg-2">
-                                   <div class="mb-3">
-                                        <label for="formrow-inputCity">Ref Type </label>
-                                        <select class="form-control" formControlName="refType">
-                                            <option selected="">Choose...</option>
-                                            <option selected="">1</option>
-                                        </select>
+                                            <input class="form-control" placeholder="" formControlName="docSeries">
+
+
                                         </div>
-                                
-                                </div>
-                          
-                                <div class="col-lg-2">
-                                      <div class="mb-3">
-                                        <label for="formrow-inputZip">Ref No </label>
-                                        <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
-                                            class="form-control">
+                                        <div class="col-lg-2">
+
+                                            <label for="formrow-inputState">Document No</label>
+                                            <input class="form-control" placeholder="" formControlName="docNo">
+
+                                        </div>
+
+                                        <div class="col-lg-2">
+
+                                            <label for="formrow-inputState"> Trance Date</label>
+                                            <input type="date" class="form-control" placeholder=""
+                                                formControlName="ftmDate">
+
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Ref Type </label>
+                                                <select class="form-control" formControlName="refType">
+                                                    <option selected="">Choose...</option>
+                                                    <option selected="">1</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Ref No </label>
+                                                <input bsdatepicker="" autoclose="false" placeholder=""
+                                                    formControlName="refNo" class="form-control">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-4" style="color: red;"> Details</h4>
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                            <tr formArrayName="cashDetailsList"
-                                            *ngFor="let miscData of formCashArray.controls; let k = index">
-                                            <div [formGroupName]="k">
-                                                
-                                                    
-                                                        <td>
-                                                            <div class="col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label for="formrow-inputCity"><h6>Account Name</h6></label>
-                                                                    <select class="form-control"
-                                                                    formControlName="accountId" [ngClass]="">
+
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Details</h4>
+                                                <table
+                                                    class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+
+                                                        <div class="row">
+                                                            <div class="col-lg-2">
+                                                                <label for="formrow-inputZip">
+                                                                    <h6>Account Name</h6>
+                                                                </label>
+                                                            </div>
+
+
+                                                            <div class="col-lg-2">
+                                                                <label for="formrow-inputZip">
+                                                                    <h6>Type</h6>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <label for="formrow-inputZip">
+                                                                    <h6>Amount</h6>
+                                                                </label>
+                                                            </div>
+
+                                                            <div class="col-lg-2">
+                                                                <label for="formrow-inputCity">
+                                                                    <h6>Narration</h6>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-lg-1">
+                                                                <label for="formrow-inputCity">
+                                                                    <h6>Ref/Sub Ledger</h6>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-lg-1">
+                                                                <label for="formrow-inputCity">
+                                                                    <h6>CBs Cost Ref</h6>
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <label for="formrow-inputCity">
+
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </tr>
+                                                    <tr formArrayName="cashDetailsList"
+                                                        *ngFor="let miscData of formCashArray.controls; let k = index">
+                                                        <div [formGroupName]="k">
+
+
+                                                            <td class="col-lg-2">
+
+
+                                                                <select class="form-control" formControlName="accountId"
+                                                                    [ngClass]="">
 
                                                                     <option *ngFor="let branch of creditacList"
                                                                         value={{branch.dataId}}>
@@ -95,92 +138,84 @@
                                                                         {{branch.dataName}}
                                                                     </option>
                                                                 </select>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    
-                                                    <td class="col-lg-2">
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity">
-                                                                    <h6>Type</h6> </label>
+
+                                                            </td>
+
+                                                            <td class="col-lg-2">
+
+
                                                                 <select id="role" class="form-select"
-                                                                    formControlName="typeSign" (change)="changePmtType(k)">
+                                                                    formControlName="typeSign"
+                                                                    (change)="updateAmount(k,$event, '')">
                                                                     <option value="">Choose...</option>
                                                                     <option value="C">Credit</option>
                                                                     <option value="D">Debit</option>
-                                                                
+
                                                                 </select>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity"><h6>Amount</h6></label>
-                                                                <input autoclose="false" type="text" placeholder="" (change)="changePmtType(k)"
+
+                                                            </td>
+                                                            <td class="col-lg-2">
+
+
+                                                                <input autoclose="false" type="text" placeholder=""
+                                                                    (change)="updateAmount(k,$event, 'amount')"
                                                                     class="form-control" formControlName="amount">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity"><h6>Narration</h6></label>
+
+                                                            </td>
+                                                            <td class="col-lg-2">
+
+
                                                                 <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="narration">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity"><h6>Reference/Subledger</h6></label>
+
+                                                            </td>
+                                                            <td class="col-lg-1">
+
+
                                                                 <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="reference">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                  
-                                                    <td>
-                                                        <div class="col-lg-12">
-                                                            <div class="mb-3">
-                                                                <label for="formrow-inputCity"><h6>Cbs Cost Ref</h6></label>
+
+                                                            </td>
+
+                                                            <td class="col-lg-1">
+
+
                                                                 <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="costRefNo">
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                  
-                                                    <td class="col-lg-1">
-                                                        <div class="col-lg-12 details-button">
 
-                                                            <button *ngIf="k == formCashArray.controls.length-1" type="button" class="btn btn-primary"
-                                                                (click)="addMiscItem(k)">Add</button>
-                                                            <button *ngIf="formCashArray.controls.length > 1" (click)="removeMiscItem(k)"
-                                                                class="btn btn-danger">Delete</button>
+                                                            </td>
+
+                                                            <td class="col-lg-2">
+                                                                <div class="col-lg-12 details-button">
+
+                                                                    <button *ngIf="k == formCashArray.controls.length-1"
+                                                                        type="button" class="btn btn-primary"
+                                                                        (click)="addMiscItem(k)">Add</button> &nbsp;
+                                                                    <button *ngIf="formCashArray.controls.length > 1"
+                                                                        (click)="removeMiscItem(k)"
+                                                                        class="btn btn-danger">Delete</button>
+                                                                </div>
+                                                            </td>
                                                         </div>
-                                                    </td>
-                                                </div>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                                    <div class="row">
-                                      
-                                        <div class="col-lg-3">
-                                      
-                                                <label for="formrow-inputState">Total Credits </label>
-                                                <input class="form-control" placeholder="" formControlName="credit">
-                                    
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
-                                    
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-lg-3">
+
+                                            <label for="formrow-inputState">Total Credits </label>
+                                            <input class="form-control" placeholder="" formControlName="credit">
+
+                                        </div>
+
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Total Debits </label>
-                                                <input class="form-control" placeholder=""  formControlName="debit">
+                                                <input class="form-control" placeholder="" formControlName="debit">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -194,36 +229,38 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState"> Modify Remark</label>
-                                                <input class="form-control" placeholder="" formControlName="modifyRemarks">
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="modifyRemarks">
                                             </div>
                                         </div>
 
-                                    
-                
+
+
                                     </div>
-                       
-                 
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-             
-                                 
-                                     
-                                      
-                                        
-                                    
-                                
-                                      
-                                   
-           
-                
+
+
+
+
+
+
+
+
+
+
+
 
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md" (click)="submitJournalEntryForm()">Save</button>
+                            <button type="submit" class="btn btn-primary w-md"
+                                (click)="submitJournalEntryForm()">Save</button>
                         </div>
                     </div>
                 </div>
