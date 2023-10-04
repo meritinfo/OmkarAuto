@@ -1,0 +1,311 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Bill Statement</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Bill Statement </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formBillStatement">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Bill Statement</h4>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Bill Station</label>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="branchList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="statementBranch"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['statementBranch'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Bill Series</label>
+                                                    <input autoclose="false" type="text" placeholder="Bill Series"
+                                                        class="form-control" formControlName="billSeries"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Bill No</label>
+                                                    <input autoclose="false" type="text" placeholder="Bill No"
+                                                        class="form-control" formControlName="billNo"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billNo'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Bill Date</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="billDate"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billDate'].invalid) }">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Party</label>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="branchList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter" formControlName="party"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['party'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">LR From</label>
+                                                    <input autoclose="false" type="text" placeholder="LR From"
+                                                        class="form-control" formControlName="lrFrom"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['lrFrom'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">LR To</label>
+                                                    <input autoclose="false" type="text" placeholder="LR To"
+                                                        class="form-control" formControlName="lrTo"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['lrTo'].invalid) }">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">From Point</label>
+                                                    <input autoclose="false" type="text" placeholder="From Point"
+                                                        class="form-control" formControlName="fromPoint"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPoint'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Label</label>
+                                                    <input autoclose="false" type="text" placeholder="From Point"
+                                                        class="form-control" formControlName="fromPoint"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPoint'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <button type="submit"
+                                                        class="btn btn-primary w-md mt-4">Show</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity"></label></th>
+                                            <th><label for="formrow-inputCity">GC No</label></th>
+                                            <th><label for="formrow-inputZip">LR Date</label></th>
+                                            <th><label for="formrow-inputZip">From Place</label></th>
+                                            <th><label for="formrow-inputZip">To Place</label></th>
+                                            <th><label for="formrow-inputZip">Total</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="select" class="form-check-input">
+                                                    <!-- {{arrayData.pmtId}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.branch}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.pmtDate}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.vehicleNo}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.hsdAdvType}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.transDesc}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.remarks}} -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Freight</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalFreight">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Extra</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalExtra">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Sub Total</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalSubTotal">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">GST Type</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="gstType">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">SGST Ref</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sgstRef">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">SGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sgstAmount">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">CGST Ref</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="cgstRef">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">CGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="cgstAmount">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">IGST Ref</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="igstRef">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">IGST Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="igstAmount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Bill Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalbillAmount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

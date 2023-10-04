@@ -110,6 +110,7 @@ import { Journalentrymodel } from './models/journalentrymodel';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
+import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +179,8 @@ import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatements
     BankcashcontralistComponent,
     JournalentrylistComponent,
     AddjournalentryComponent,
-    DieselstatementaddComponent
+    DieselstatementaddComponent,
+    BillstatementaddComponent
   ],
   imports: [
     BrowserModule,
