@@ -126,6 +126,7 @@ const routes: Routes = [
   { path: 'cashreceiptentryedit', component: AddcashreceiptentryComponent },
   { path: 'bankreceiptentrylist', component: BankreceiptentrylistComponent },
   { path: 'addbankreceiptentry', component: AddbankreceiptentryComponent },
+  { path: 'bankreceiptentryedit', component: AddbankreceiptentryComponent },
   { path: 'intermediatescreen', component: IntermediatescreenComponent },
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },

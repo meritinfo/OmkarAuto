@@ -7,7 +7,7 @@ namespace FinTrans.Repository
     /// </summary>
     public interface IBankCashContraRepository
     {
-        Task<ResponseModel> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsSave);
+        Task<ResponseModel> BankCashContraSave(BankCashContraModel bankCashcontraSave);
         Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request);
     }
 }

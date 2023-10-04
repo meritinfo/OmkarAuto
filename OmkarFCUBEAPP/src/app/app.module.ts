@@ -110,6 +110,7 @@ import { Journalentrymodel } from './models/journalentrymodel';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
+import { BankCashContraModel } from './models/bankcashcontramodel';
 
 @NgModule({
   declarations: [
@@ -197,7 +198,7 @@ import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatements
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,bankreceiptentrymodel,Journalentrymodel,
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,bankreceiptentrymodel,Journalentrymodel,BankCashContraModel,
   Dieselstatementmodel,Dieselstatementsearchlistrequestmodel],
   bootstrap: [AppComponent]
 })

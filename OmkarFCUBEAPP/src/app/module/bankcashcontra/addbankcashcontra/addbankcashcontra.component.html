@@ -19,7 +19,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form>
+            <form [formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
@@ -44,9 +44,16 @@
                             <div class="col-lg-3">
                              
                                     <label for="formrow-inputCity">Select Account </label>
-                                    <select class="form-control">
-                                        <option selected="">Choose...</option>
-                                    </select>
+                                 
+                                    <select class="form-control"
+                                    formControlName="accountId" [ngClass]="">
+
+                                    <option *ngFor="let branch of creditacList"
+                                        value={{branch.dataId}}>
+
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
                             
                             </div>
                                   
@@ -76,25 +83,25 @@
                                         <div class="col-lg-3">
                               
                                             <label for="formrow-inputState">Account Name</label>
-                                            <input class="form-control" placeholder="">
+                                            <input class="form-control" placeholder="" formControlName="accountId">
                                 
                                     </div>
                                     <div class="col-lg-1">
                                   
                                         <label for="formrow-inputState">Amount</label>
-                                        <input class="form-control" placeholder="">
+                                        <input class="form-control" placeholder=""  formControlName="amount">
                             
                                 </div>
                                 <div class="col-lg-2">
                                   
                                     <label for="formrow-inputState">Cheque No</label>
-                                    <input class="form-control" placeholder="">
+                                    <input class="form-control" placeholder=""  formControlName="chequeName">
                         
                             </div>
                             <div class="col-lg-2">
                                        
                                 <label for="formrow-inputState">Cheque Date</label>
-                                <input type="date" class="form-control" placeholder="Cheque Date">
+                                <input type="date" class="form-control" placeholder="Cheque Date" formControlName="chequeDate">
                             
                         </div>
                                     
@@ -102,7 +109,7 @@
                                         <div class="col-lg-4">
                                             <div class="mb-4">
                                                 <label for="formrow-inputState">Narration</label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder="" formControlName="narration">
                                             </div>
                                         </div>
                                     </div>
@@ -110,14 +117,14 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Remark</label>
-                                                <input class="form-control" placeholder="">
+                                                <input class="form-control" placeholder="" formControlName="remarks">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                   
                                             <label for="formrow-inputState"> Doc Amount</label>
-                                            <input class="form-control" placeholder="">
+                                            <input class="form-control" placeholder="" formControlName="docAmount">
                                             </div>
                                 
                                     </div>
@@ -128,7 +135,7 @@
                                     <div class="col-lg-6">
                                         <div class="mb-6">
                                             <label for="formrow-inputState"> Modify Remark</label>
-                                            <input class="form-control" placeholder="">
+                                            <input class="form-control" placeholder="" formControlName="modifyRemarks">
                                         </div>
                                     </div>
                        
@@ -153,7 +160,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md">Save</button>
+                            <button type="submit" class="btn btn-primary w-md"  (click)="submitBankCashContraForm()">Save</button>
                         </div>
                     </div>
                 </div>

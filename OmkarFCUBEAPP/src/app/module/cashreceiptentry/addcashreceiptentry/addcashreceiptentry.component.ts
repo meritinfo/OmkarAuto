@@ -95,8 +95,15 @@ ngOnInit(): void {
 
 
   if (this.selectedCashReceiptEntryDetails.ftmId != '') {
-   
+    var selectedDataValue = this.formUser.getRawValue();
     this.formUser.patchValue(this.selectedCashReceiptEntryDetails);
+    ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate)
+    remarks: this.selectedCashReceiptEntryDetails.remarks
+    docSeries: this.selectedCashReceiptEntryDetails.docSeries
+    docNo: this.selectedCashReceiptEntryDetails.docNo
+    refType: this.selectedCashReceiptEntryDetails.refType
+    accountid2: this.creditacList.find(e => e.dataId == selectedDataValue.accountid2)
+   
 
   }
   //this.formUser.controls['ftmDate'].disable();
@@ -104,6 +111,7 @@ ngOnInit(): void {
  
 
 }
+
 
 changePType(selectedValue: string) {
   var selectedDataValue = this.formUser.getRawValue();
@@ -119,6 +127,26 @@ changePType(selectedValue: string) {
   
 
   
+}
+updateAmount(index: number, event: any, comingFrom: string) {
+  var selectedDataValue = this.formUser.getRawValue();
+  if (comingFrom === 'amount') {
+    selectedDataValue.cashDetailsList[index].amount = event.target.value;
+  }
+  var totalAmount = 0;
+
+  var amt = 0;
+  for (var i = 0; i < selectedDataValue.cashDetailsList.length; i++) {
+   // if (selectedDataValue.cashDetailsList[i].typeSign == 'C') {
+      totalAmount = totalAmount + (selectedDataValue.cashDetailsList[i].amount == "" ? 0 : parseFloat(selectedDataValue.cashDetailsList[i].amount));
+  //  }
+   
+  }
+
+  this.formUser.patchValue({
+    docAmount: totalAmount.toFixed(2),
+ //   credit: totalCreditAmount.toFixed(2)
+  });
 }
 getCreditAcList(): void {
   this.commonService.getCreditAcList().subscribe((res) => {
@@ -141,6 +169,7 @@ addMiscItem(index: number): void {
 
 removeMiscItem(index: number) {
   this.formCashArray.removeAt(index);
+  this.updateAmount(index, undefined, "");
 }
 
 createMiscArray() {
