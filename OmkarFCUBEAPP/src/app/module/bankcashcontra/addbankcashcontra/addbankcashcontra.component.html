@@ -31,7 +31,7 @@
                                         <div class="col-lg-3">
                                         
                                             <label for="formrow-inputState">Document No</label>
-                                            <input class="form-control" placeholder="Vendor invoice No">
+                                            <input class="form-control" placeholder="">
                                         
                                     </div>
                                     <div class="col-lg-3">
@@ -46,7 +46,7 @@
                                     <label for="formrow-inputCity">Select Account </label>
                                  
                                     <select class="form-control"
-                                    formControlName="accountId" [ngClass]="">
+                                    formControlName="accountId2">
 
                                     <option *ngFor="let branch of creditacList"
                                         value={{branch.dataId}}>
@@ -75,15 +75,24 @@
                                 </div>
                                
                             
-                       
+                     
 
-                                    <div class="row">
-                                      
+                                    <div   formArrayName="cashDetailsList"
+                                        *ngFor="let miscData of formCashArray.controls; let k = index" >
+                                    
+                                    <div class="row" [formGroupName]="k">
                                        
                                         <div class="col-lg-3">
                               
                                             <label for="formrow-inputState">Account Name</label>
-                                            <input class="form-control" placeholder="" formControlName="accountId">
+                                            <select class="form-control" formControlName="accountId"
+                                            [ngClass]="">
+
+                                            <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+
+                                                {{branch.dataName}}
+                                            </option>
+                                        </select>
                                 
                                     </div>
                                     <div class="col-lg-1">
@@ -95,7 +104,7 @@
                                 <div class="col-lg-2">
                                   
                                     <label for="formrow-inputState">Cheque No</label>
-                                    <input class="form-control" placeholder=""  formControlName="chequeName">
+                                    <input class="form-control" placeholder=""  formControlName="chequeNo">
                         
                             </div>
                             <div class="col-lg-2">
@@ -113,6 +122,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-6">
@@ -142,6 +152,7 @@
                  
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

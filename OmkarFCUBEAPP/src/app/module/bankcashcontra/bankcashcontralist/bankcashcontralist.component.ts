@@ -56,12 +56,12 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
     
           {
             title: 'DocType ',
-            data: '',
+            data: 'docType',
           },
     
          {
           title: 'DocSeries ',
-          data: '',
+          data: 'docSeries',
         },
        
        

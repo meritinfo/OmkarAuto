@@ -111,6 +111,8 @@ import { DieselstatementaddComponent } from './module/dieselstatement/dieselstat
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
 import { BankCashContraModel } from './models/bankcashcontramodel';
+import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
+import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
 
 @NgModule({
   declarations: [
@@ -179,7 +181,9 @@ import { BankCashContraModel } from './models/bankcashcontramodel';
     BankcashcontralistComponent,
     JournalentrylistComponent,
     AddjournalentryComponent,
-    DieselstatementaddComponent
+    DieselstatementaddComponent,
+    DistancemastertripaddComponent,
+    DistancemastertriplistComponent
   ],
   imports: [
     BrowserModule,

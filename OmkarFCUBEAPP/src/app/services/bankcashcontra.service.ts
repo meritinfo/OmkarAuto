@@ -36,6 +36,6 @@ export class BankCashContraService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BankCashContraSave', user, this.httpOptions);
   }
   bankCashContraEntryList(filter: Filtermodel): Observable<bankreceiptentrylistmodel> {
-    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankReceiptPaymentsList', filter, this.httpOptions);
+    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankCashContraList', filter, this.httpOptions);
   }
 }

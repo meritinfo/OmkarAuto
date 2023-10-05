@@ -8,7 +8,7 @@ namespace FinTrans.Models
 {
     public class BankCashContraList
     {
-        public List<FinTransMasterModel> BankCashContList { get; set; }
+        public List<BankCashContraModel> BankCashList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

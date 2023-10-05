@@ -39,11 +39,12 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allBankCashcontra.bankCashContraList?.length != 0">
-                        <tr *ngFor="let renewalMaster of allBankCashcontra.bankCashContraList">
-                            <td></td>
+                    <tbody *ngIf="allBankCashcontra.bankCashList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allBankCashcontra.bankCashList">
+                            <td>{{ renewalMaster.docType }}</td>
                     
-                            <td></td>
+                            <td>{{ renewalMaster.docSeries }}</td>
+                         
                          
                             <td>
                                 <a  class="actionicon"><i
@@ -52,7 +53,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allBankCashcontra.bankCashContraList?.length == 0">
+                    <tbody *ngIf="allBankCashcontra.bankCashList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

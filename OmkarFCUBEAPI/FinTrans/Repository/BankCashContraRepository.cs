@@ -121,8 +121,9 @@ namespace FinTrans.Repository
 
         public async Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request)
         {
-            BankCashContraList bankCashContraList = new();
-            List<FinTransMasterModel> bankCashList = new();
+
+            BankCashContraList bankCashcontraList = new();
+            List<BankCashContraModel> bankCashList = new();
             try
             {
                 if (dbconnection != null)
@@ -135,14 +136,14 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptpaymentsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankCashContraList_Select2", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            bankCashList.Add(new FinTransMasterModel
+                            bankCashList.Add(new BankCashContraModel
                             {
                                 FtmID = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmID"]),
                                 FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
@@ -154,34 +155,20 @@ namespace FinTrans.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
 
-                                //RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
-                                //DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
-                                //NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
-                                //UTRNo = Convert.ToString(dataSet.Tables[0].Rows[i]["UTRNo"]),
-                                //ISDebitAdvice = Convert.ToString(dataSet.Tables[0].Rows[i]["ISDebitAdvice"]),
+                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
+                                DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
 
-                                //DARefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DARefNo"]),
-                                //AutoCreditFtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoCreditFtmId"]),
-                                //IsTdsEntry = Convert.ToString(dataSet.Tables[0].Rows[i]["IsTdsEntry"]),
-                                //LinkedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedYN"]),
-                                //LinkedDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedDoc"]),
 
-                                //BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                //AuditYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditYN"]),
-                                //AuditDt = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditDt"]),
-                                //AuditBy = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditBy"]),
-                                //AuditRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditRemarks"]),
-
-                                //ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
-                                //YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
+                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
 
 
                             });
                         }
 
-                        bankCashContraList.BankCashContList = bankCashList;
+                        bankCashcontraList.BankCashList = bankCashList;
 
-                        bankCashContraList.PageMetaData = new PaginationMetaData
+                        bankCashcontraList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -202,9 +189,9 @@ namespace FinTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return bankCashContraList;
+            return bankCashcontraList;
         }
     }
 
 
-}
+    }

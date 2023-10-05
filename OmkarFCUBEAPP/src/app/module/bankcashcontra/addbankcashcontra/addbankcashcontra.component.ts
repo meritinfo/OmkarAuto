@@ -86,7 +86,7 @@ ngOnInit(): void {
    
    
    
-    accountid2: new FormControl('',),
+    accountId2: new FormControl('',),
     docAmount :new FormControl('',),
 
     cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
