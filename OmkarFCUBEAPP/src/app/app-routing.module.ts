@@ -50,6 +50,8 @@ import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripshe
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 import {  DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import {  DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
+import {  DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
+import {  DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
 import {  BankcashcontralistComponent } from './module/bankcashcontra/bankcashcontralist/bankcashcontralist.component';
 import {  AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
 import {  JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
@@ -115,6 +117,8 @@ const routes: Routes = [
   { path: 'trippaymentlist', component: TrippaymentslistComponent },
   { path: 'distancemasterfreightlist', component: DistancemasterfreightlistComponent },
   { path: 'distancemasterfreightadd', component: DistancemasterfreightaddComponent },
+  { path: 'distancemastertriplist', component: DistancemastertriplistComponent },
+  { path: 'distancemastertripadd', component: DistancemastertripaddComponent },
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
   { path: 'trippaymentsedit', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },

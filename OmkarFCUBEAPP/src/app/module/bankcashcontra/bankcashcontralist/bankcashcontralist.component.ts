@@ -43,7 +43,7 @@ constructor(private bankcashcontraService: BankCashContraService, private route:
           this.filter.search = dataTablesParameters.search.value;
           this.bankcashcontraService.bankCashContraEntryList(this.filter)
             .subscribe(resp => {
-           //  this.allBankCashcontra = resp;
+          //  this.allBankCashcontra = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,
