@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinTrans.Models
+namespace FreightMasters.Models
 {
-    public class BankCashContraList
+    public class DistanceMasterFrtList
     {
-        public List<BankCashContraModel> BankCashList { get; set; }
+        public List<DistanceMasterFrtModel> DistanceFrtList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

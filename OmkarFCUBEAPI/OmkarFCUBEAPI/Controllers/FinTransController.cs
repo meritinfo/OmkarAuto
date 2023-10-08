@@ -107,15 +107,15 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("BankCashContraSave")]
-        public async Task<IActionResult> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<IActionResult> BankCashContraSave(BankCashContraModel bankCashContraModel)
         {
-            if (cashReceiptPaymentsModel == null)
+            if (bankCashContraModel == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await bankCashContraBusiness.BankCashContraSave(cashReceiptPaymentsModel);
+                var result = await bankCashContraBusiness.BankCashContraSave(bankCashContraModel);
 
                 return Ok(result);
             }

@@ -33,24 +33,14 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromLocation", distanceDetailTripModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailTripModel.ToLocation),
                             new SqlParameter("@KMS", distanceDetailTripModel.KMS),
-                            new SqlParameter("@EnrouteExpTaurus", distanceDetailTripModel.EnrouteExpTaurus),
-                            new SqlParameter("@EnrouteExpTaurusRemarks", distanceDetailTripModel.EnrouteExpTaurusRemarks),
-                            new SqlParameter("@TollTaxTaurus", distanceDetailTripModel.TollTaxTaurus),
-                            new SqlParameter("@TollTaxTaurusRemarks", distanceDetailTripModel.TollTaxTaurusRemarks),
-                            new SqlParameter("@OthExpTaurus", distanceDetailTripModel.OthExpTaurus),
-                            new SqlParameter("@OthExpTaurusRemarks", distanceDetailTripModel.OthExpTaurusRemarks),
+                          //  new SqlParameter("@EnrouteExpTaurus", distanceDetailTripModel.EnrouteExpTaurus),
+                            new SqlParameter("@EnrouteExpTruck", distanceDetailTripModel.EnrouteExpTruck),
                             new SqlParameter("@EnrouteExpTrailer", distanceDetailTripModel.EnrouteExpTrailer),
-                            new SqlParameter("@EnrouteExpTrailerRemarks", distanceDetailTripModel.EnrouteExpTrailerRemarks),
-                            new SqlParameter("@TollTaxTrailer", distanceDetailTripModel.TollTaxTrailer),
-                            new SqlParameter("@TollTaxTrailerRemarks", distanceDetailTripModel.TollTaxTrailerRemarks),
-                            new SqlParameter("@OthExpTrailer", distanceDetailTripModel.OthExpTrailer),
-                            new SqlParameter("@OthExpTrailerRemarks", distanceDetailTripModel.OthExpTrailerRemarks),
+                            new SqlParameter("@EnrouteExpCarCarrier", distanceDetailTripModel.EnrouteExpCarCarrier),
                             new SqlParameter("@EnrouteExpEmpty", distanceDetailTripModel.EnrouteExpEmpty),
-                            new SqlParameter("@EnrouteExpEmptyRemarks", distanceDetailTripModel.OthExpTrailerRemarks),
-                            new SqlParameter("@TollTaxEmpty", distanceDetailTripModel.TollTaxEmpty),
-                            new SqlParameter("@TollTaxEmptyRemarks", distanceDetailTripModel.TollTaxEmptyRemarks),
-                            new SqlParameter("@OthExpEmpty", distanceDetailTripModel.OthExpEmpty),
-                            new SqlParameter("@OthExpEmptyRemarks", distanceDetailTripModel.OthExpEmptyRemarks),
+                            new SqlParameter("@EnrouteExpRemarks", distanceDetailTripModel.EnrouteExpRemarks),
+                            new SqlParameter("@DefineTollExp", distanceDetailTripModel.DefineTollExp),
+                       
 
 
 
@@ -85,5 +75,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
     }
 }

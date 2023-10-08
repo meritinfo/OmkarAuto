@@ -25,12 +25,12 @@
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
                     <button class="btn btn-primary buttons-html5" type="button"
-                        (click)="distanceMasterFreightAdd()"><span>New</span></button>
+                        (click)="distanceMasterTripAdd()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <!-- <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>ReminderDays </th>
@@ -40,25 +40,25 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="allDistanceFreightMaster.distanceFrtList?.length != 0">
-                            <tr *ngFor="let renewalMaster of allDistanceFreightMaster.distanceFrtList">
-                                <td>{{ renewalMaster.validFrom }}</td>
+                        <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length != 0">
+                            <tr *ngFor="let renewalMaster of allDocRenewalEntry.docRenewalList">
+                                <td>{{ renewalMaster.vehicleMasterID }}</td>
                         
-                                <td>{{ renewalMaster.validUpto }}</td>
+                                <td>{{ renewalMaster.docRenewalID }}</td>
                              
                                 <td>
-                                    <a (click)="getDistanceMasterFreightDetails(renewalMaster)" class="actionicon"><i
+                                    <a (click)="getRenewalEntryDetails(renewalMaster)" class="actionicon"><i
                                         class="bx bx-pencil"></i></a>
                                
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allDistanceFreightMaster.distanceFrtList?.length == 0">
+                        <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table> -->
                 </div>
             </div>
             

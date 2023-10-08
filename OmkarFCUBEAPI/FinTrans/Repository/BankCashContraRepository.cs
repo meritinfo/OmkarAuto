@@ -18,7 +18,7 @@ namespace FinTrans.Repository
         /// </summary>
         /// <param name="CashReceiptPaymentsModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<ResponseModel> BankCashContraSave(BankCashContraModel bankCashContraModel)
         {
             ResponseModel responseModel = new();
             try
@@ -27,66 +27,78 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            // new SqlParameter("@FtmID", cashReceiptPaymentsModel.@FtmID),
-                            // new SqlParameter("@FtmDate", cashReceiptPaymentsModel.@FtmDate),
-                            // new SqlParameter("@DocType", cashReceiptPaymentsModel.@DocType),
-                            // new SqlParameter("@@DocSeries", cashReceiptPaymentsModel.@DocSeries),
-                            // new SqlParameter("@DocNo", cashReceiptPaymentsModel.FtdID),
-                            // new SqlParameter("@SeriesDoc", cashReceiptPaymentsModel.SeriesDoc),
-                            // new SqlParameter("@Remarks", cashReceiptPaymentsModel.Remarks),
-                            // new SqlParameter("@RefType", cashReceiptPaymentsModel.RefType),
-                            // new SqlParameter("@RefNo", cashReceiptPaymentsModel.RefNo),
-                            // new SqlParameter("@DocAmount", cashReceiptPaymentsModel.DocAmount),
-                            // new SqlParameter("@NeftPmt", cashReceiptPaymentsModel.NeftPmt),
-                            // new SqlParameter("@UTRNo", cashReceiptPaymentsModel.UTRNo),
-                            // new SqlParameter("@ISDebitAdvice", cashReceiptPaymentsModel.ISDebitAdvice),
-                            // new SqlParameter("@DARefNo", cashReceiptPaymentsModel.DARefNo),
-                            // new SqlParameter("@AutoCreditFtmId", cashReceiptPaymentsModel.AutoCreditFtmId),
-                            // new SqlParameter("@IsTdsEntry", cashReceiptPaymentsModel.IsTdsEntry),
-                            // new SqlParameter("@LinkedYN", cashReceiptPaymentsModel.LinkedYN),
-                            // new SqlParameter("@LinkedDoc", cashReceiptPaymentsModel.LinkedDoc),
-                            // new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID),
-                            // new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@AuditYN", cashReceiptPaymentsModel.AuditYN),
-                            //new SqlParameter("@AuditDt", cashReceiptPaymentsModel.AuditDt),
-                            //new SqlParameter("@AuditBy", cashReceiptPaymentsModel.AuditBy),
-                            //new SqlParameter("@AuditRemarks", cashReceiptPaymentsModel.AuditRemarks),
-                            //new SqlParameter("@ModifyRemarks", cashReceiptPaymentsModel.ModifyRemarks),
-                            //new SqlParameter("@FtdID", cashReceiptPaymentsModel.FtdID),
-                            //new SqlParameter("@FtmID", cashReceiptPaymentsModel.FtmID),
-                            //new SqlParameter("@FtmDate", cashReceiptPaymentsModel.FtmDate),
-                            //new SqlParameter("@SlNo", cashReceiptPaymentsModel.SlNo),
-                            //new SqlParameter("@TypeSign", cashReceiptPaymentsModel.TypeSign),
-                            //new SqlParameter("@Amount", cashReceiptPaymentsModel.Amount),
-                            //new SqlParameter("@AccountID", cashReceiptPaymentsModel.AccountID),
-                            //new SqlParameter("@Narration", cashReceiptPaymentsModel.Narration),
-                            //new SqlParameter("@ChequeNo", cashReceiptPaymentsModel.ChequeNo),
-                            //new SqlParameter("@ChequeDate", cashReceiptPaymentsModel.ChequeDate),
-                            //new SqlParameter("@BankRefNo", cashReceiptPaymentsModel.BankRefNo),
-                            //new SqlParameter("@CostRefType", cashReceiptPaymentsModel.CostRefType),
-                            //new SqlParameter("@CostRefNo", cashReceiptPaymentsModel.CostRefNo),
-                            //new SqlParameter("@Reference", cashReceiptPaymentsModel.Reference),
-                            //new SqlParameter("@CostCode", cashReceiptPaymentsModel.CostCode),
-                            //new SqlParameter("@ClearDate", cashReceiptPaymentsModel.ClearDate),
-                            //new SqlParameter("@BranchReconYN", cashReceiptPaymentsModel.BranchReconYN),
-                            //new SqlParameter("@AcctLedgerType", cashReceiptPaymentsModel.AcctLedgerType),
-                            //new SqlParameter("@BranchCode", cashReceiptPaymentsModel.BranchCode),
-                            //new SqlParameter("@YearID", cashReceiptPaymentsModel.YearID)
+                             new SqlParameter("@FtmID", bankCashContraModel.@FtmID),
+                             new SqlParameter("@FtmDate", bankCashContraModel.@FtmDate),
+                             new SqlParameter("@DocType", bankCashContraModel.@DocType),
+                             new SqlParameter("@DocSeries", bankCashContraModel.@DocSeries),
+                              new SqlParameter("@DocNo", bankCashContraModel.@DocNo),
+
+                             new SqlParameter("@SeriesDoc", bankCashContraModel.SeriesDoc),
+                             new SqlParameter("@Remarks", bankCashContraModel.Remarks),
+                             new SqlParameter("@RefType", bankCashContraModel.RefType),
+                             new SqlParameter("@RefNo", bankCashContraModel.RefNo),
+                             new SqlParameter("@DocAmount", bankCashContraModel.DocAmount),
+                             new SqlParameter("@LinkedYN", bankCashContraModel.LinkedYN),
+                                 new SqlParameter("@NeftPmt", bankCashContraModel.NeftPmt),
+                             new SqlParameter("@UTRNo", bankCashContraModel.UTRNo),
+                             new SqlParameter("@YearID", bankCashContraModel.YearID),
+                            new SqlParameter("@BranchCode", bankCashContraModel.BranchCode),
+                             new SqlParameter("@ModifyRemarks", bankCashContraModel.ModifyRemarks),
+                             new SqlParameter("@LoggedInUser", bankCashContraModel.LoggedInUser),
+
+
+
+
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "FinTrans_Insert", param);
 
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptPayments_Insert", param);
+                    string FtmID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                       // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        FtmID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        // responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                    }
-                    else
-                    {
-                       // responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        // Miss Details insert or update
+
+                        if (bankCashContraModel.DetailList.Count > 0)
+                        {
+                            for (int i = 0; i < bankCashContraModel.DetailList.Count; i++)
+                            {
+                                SqlParameter[] paramMisc =
+                                {
+                                    new SqlParameter("@FtmID", FtmID),
+                                    new SqlParameter("@FtmDate",bankCashContraModel.DetailList[i].FtmDate),
+                                    new SqlParameter("@SlNo", bankCashContraModel.DetailList[i].SlNo),
+                                    new SqlParameter("@TypeSign", bankCashContraModel.DetailList[i].TypeSign),
+                                    new SqlParameter("@Amount", bankCashContraModel.DetailList[i].Amount),
+                                    new SqlParameter("@AccountID", bankCashContraModel.DetailList[i].AccountID),
+                                    new SqlParameter("@Narration", bankCashContraModel.DetailList[i].Narration),
+                                    new SqlParameter("@CostRefNo", bankCashContraModel.DetailList[i].CostRefNo),
+                                    new SqlParameter("@Reference", bankCashContraModel.DetailList[i].Reference),
+                                    new SqlParameter("@ChequeNo", bankCashContraModel.DetailList[i].ChequeNo),
+                                    new SqlParameter("@ChequeDate", bankCashContraModel.DetailList[i].ChequeDate),
+                                    new SqlParameter("@BranchCode", bankCashContraModel.DetailList[i].BranchCode),
+
+                                   // new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                };
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptPaymentDetails_Insert", paramMisc);
+                            }
+                        }
+
+
+                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                        {
+                            // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                            //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                        }
+                        else
+                        {
+                            // responseModel.Status = false;
+                            responseModel.Message = "Unable to process";
+                        }
                     }
                 }
             }
@@ -106,10 +118,12 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
+
         public async Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request)
         {
-            BankCashContraList bankCashContraList = new();
-            List<FinTransMasterModel> bankCashList = new();
+
+            BankCashContraList bankCashcontraList = new();
+            List<BankCashContraModel> bankCashList = new();
             try
             {
                 if (dbconnection != null)
@@ -122,14 +136,14 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankReceiptpaymentsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankCashContraList_Select2", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            bankCashList.Add(new FinTransMasterModel
+                            bankCashList.Add(new BankCashContraModel
                             {
                                 FtmID = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmID"]),
                                 FtmDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
@@ -141,34 +155,20 @@ namespace FinTrans.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
 
-                                //RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
-                                //DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
-                                //NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
-                                //UTRNo = Convert.ToString(dataSet.Tables[0].Rows[i]["UTRNo"]),
-                                //ISDebitAdvice = Convert.ToString(dataSet.Tables[0].Rows[i]["ISDebitAdvice"]),
+                                RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
+                                DocAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["DocAmount"]),
 
-                                //DARefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DARefNo"]),
-                                //AutoCreditFtmId = Convert.ToString(dataSet.Tables[0].Rows[i]["AutoCreditFtmId"]),
-                                //IsTdsEntry = Convert.ToString(dataSet.Tables[0].Rows[i]["IsTdsEntry"]),
-                                //LinkedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedYN"]),
-                                //LinkedDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["LinkedDoc"]),
 
-                                //BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                //AuditYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditYN"]),
-                                //AuditDt = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditDt"]),
-                                //AuditBy = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditBy"]),
-                                //AuditRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["AuditRemarks"]),
-
-                                //ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
-                                //YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
+                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
 
 
                             });
                         }
 
-                        bankCashContraList.BankCashContList = bankCashList;
+                        bankCashcontraList.BankCashList = bankCashList;
 
-                        bankCashContraList.PageMetaData = new PaginationMetaData
+                        bankCashcontraList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -189,9 +189,9 @@ namespace FinTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return bankCashContraList;
+            return bankCashcontraList;
         }
     }
 
 
-}
+    }

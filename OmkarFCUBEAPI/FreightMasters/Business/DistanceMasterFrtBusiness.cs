@@ -21,6 +21,10 @@ namespace FreightMasters.Business
         {
             return await distanceMasterFrtRepository.DistanceMasterFrtSave(distanceMasterFrtModel);
         }
+        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
+        {
+            return await distanceMasterFrtRepository.GetDistanceMasterFrtList(request);
+        }
     }
 }
 

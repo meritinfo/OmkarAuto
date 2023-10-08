@@ -151,7 +151,11 @@
                                                                  </label>
                                                              </div>
                                                            
-                                                        
+                                                             <div class="col-lg-1">
+                                                                <label for="formrow-inputCity">
+                                                                    <h6>Amount</h6>
+                                                                </label>
+                                                            </div>
                                                             
                                                    
                                                      <div class="col-lg-2">
@@ -159,7 +163,7 @@
                                                                  <h6>Narration</h6>
                                                              </label>
                                                          </div>
-                                                         <div class="col-lg-2">
+                                                         <div class="col-lg-1">
                                                             <label for="formrow-inputCity">
                                                                 <h6>Cheque No</h6>
                                                             </label>
@@ -174,7 +178,7 @@
                                                                  <h6>Reference/SubLedger</h6>
                                                              </label>
                                                          </div>
-                                                         <div class="col-lg-2">
+                                                         <div class="col-lg-1">
                                                              <label for="formrow-inputCity">
                                                                  <h6>CBs Cost Ref</h6>
                                                              </label>
@@ -199,6 +203,14 @@
                                                 </select>
                                                             
                                                     </td>
+                                                      
+                                                    <td  class="col-lg-1">
+                                                      
+                                                              
+                                                        <input class="form-control" placeholder=""  (change)="updateAmount(k,$event, '')"
+                                                            formControlName="amount">
+                                                
+                                            </td>
                                                     <td  class="col-lg-2">
                                                       
                                                               
@@ -206,28 +218,28 @@
                                                                     formControlName="narration"  >
                                                         
                                                     </td>
-                                                    <td  class="col-lg-2">
+                                                    <td  class="col-lg-1">
                                                         
                                                             
                                                                 <input class="form-control" placeholder=""
-                                                                    formControlName="chequeNo"  >
+                                                                    formControlName="chequeNo">
                                                         
                                                     </td>
-                                                    <td  class="col-lg-2">
+                                                    <td  class="col-lg-1">
                                                       
                                                           
                                                                 <input autoclose="false" type="date" placeholder=""
                                                                     class="form-control" formControlName="chequeDate">
                                                         
                                                     </td>
-                                                    <td  class="col-lg-2">
+                                                    <td  class="col-lg-1">
                                                       
                                                              
                                                                 <input autoclose="false" type="text" placeholder=""
                                                                     class="form-control" formControlName="reference">
                                                   
                                                     </td>
-                                                    <td  class="col-lg-2">
+                                                    <td  class="col-lg-1">
                                                         
                                                                
                                                                 <input autoclose="false" type="text" placeholder=""
@@ -235,7 +247,7 @@
                                                             
                                                      
                                                     </td >
-                                                    <td>
+                                                    <td class="col-lg-2">
                                                         <div class="col-lg-12 details-button">
                                                             
                                                             <button type="button" class="btn btn-primary"
@@ -258,7 +270,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Total Amt. </label>
-                                                <input class="form-control" placeholder=""  formControlName="amount">
+                                                <input class="form-control" placeholder=""  formControlName="docAmount">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

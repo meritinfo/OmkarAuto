@@ -85,7 +85,7 @@ constructor(private bankReceiptEntryService: BankReceiptEntryService, private ro
 //Open user details screen
 getBankReceiptEntryDetails(Docrenewal: bankreceiptentrymodel): void {
  // this.bankReceiptEntryService.setBankReceiptEntryDetails(Docrenewal);
-  this.route.navigate(['/cashreceiptentryedit']);
+  this.route.navigate(['/bankreceiptentryedit']);
   }
 }
 

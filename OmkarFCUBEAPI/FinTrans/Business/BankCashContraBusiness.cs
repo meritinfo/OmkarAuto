@@ -18,9 +18,9 @@ namespace FinTrans.Business
         /// Business method for save  details
         /// </summary>
         /// <param name="FinTransModel"></param>
-        public async Task<ResponseModel> BankCashContraSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
+        public async Task<ResponseModel> BankCashContraSave(BankCashContraModel bankCashContraModel)
         {
-            return await bankCashContraRepository.BankCashContraSave(cashReceiptPaymentsModel);
+            return await bankCashContraRepository.BankCashContraSave(bankCashContraModel);
         }
 
         public async Task<BankCashContraList> GetBankCashContraList(BankCashContraListRequest request)

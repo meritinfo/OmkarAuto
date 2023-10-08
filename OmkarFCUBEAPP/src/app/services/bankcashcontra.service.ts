@@ -18,9 +18,9 @@ export class BankCashContraService {
       'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
     })
   }
-  selectedBankCashContra = new bankreceiptentrylistmodel();
+  selectedBankCashContra = new bankreceiptentrymodel();
   constructor(private httpClient: HttpClient) { }
-  setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrylistmodel) {
+  setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrymodel) {
  
       this.selectedBankCashContra = docrenewalmaster;
     
@@ -33,9 +33,9 @@ export class BankCashContraService {
   //  this.selectedBankreceiptentry = new bankreceiptentrymodel();
   }
   bankCashContraDetailsSubmitted(user: bankreceiptentrymodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BankReceiptPaymentsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/BankCashContraSave', user, this.httpOptions);
   }
   bankCashContraEntryList(filter: Filtermodel): Observable<bankreceiptentrylistmodel> {
-    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankReceiptPaymentsList', filter, this.httpOptions);
+    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankCashContraList', filter, this.httpOptions);
   }
 }

@@ -351,6 +351,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDistanceMasterFrtList")]
+        public async Task<IActionResult> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
+        {
+            try
+            {
+                var result = await distanceMasterFrtBusiness.GetDistanceMasterFrtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBranchMasterList")]
         public async Task<IActionResult> GetBranchMasterList(BranchMasterListRequest request)
         {

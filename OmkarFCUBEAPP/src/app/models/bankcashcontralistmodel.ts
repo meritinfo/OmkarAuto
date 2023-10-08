@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { BankCashContraModel } from "./bankcashcontramodel";
 
 export class Bankcashcontralistmodel {
-  bankCashContraList: BankCashContraModel[] = [];
+  bankCashList: BankCashContraModel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }
