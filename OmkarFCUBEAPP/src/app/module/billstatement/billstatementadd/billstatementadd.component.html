@@ -37,7 +37,7 @@
                                                             [itemTemplate]="itemTemplate"
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
-                                                            formControlName="statementBranch"
+                                                            formControlName="statementBillStation"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['statementBranch'].invalid) }">
                                                         </ng-autocomplete>
 
@@ -130,15 +130,15 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputCity">Label</label>
-                                                    <input autoclose="false" type="text" placeholder="From Point"
-                                                        class="form-control" formControlName="fromPoint"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPoint'].invalid) }">
+                                                    <label for="formrow-inputCity">To Point</label>
+                                                    <input autoclose="false" type="text" placeholder="To Point"
+                                                        class="form-control" formControlName="toPoint"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPoint'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
-                                                    <button type="submit"
+                                                    <button type="submit" (click)="searchStatement()"
                                                         class="btn btn-primary w-md mt-4">Show</button>
                                                 </div>
                                             </div>
@@ -157,51 +157,53 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mb-5">
                                         <tr>
                                             <th><label for="formrow-inputCity"></label></th>
                                             <th><label for="formrow-inputCity">GC No</label></th>
                                             <th><label for="formrow-inputZip">LR Date</label></th>
-                                            <th><label for="formrow-inputZip">From Place</label></th>
-                                            <th><label for="formrow-inputZip">To Place</label></th>
+                                            <th><label for="formrow-inputZip">Vehicle No</label></th>
+                                            <th><label for="formrow-inputZip">Product Name</label></th>
+                                            <th><label for="formrow-inputZip">No Packages</label></th>
                                             <th><label for="formrow-inputZip">Total</label></th>
-                                            <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
-                                        <tr>
+                                        <tr
+                                            *ngFor="let arrayData of billstatementsearchlistmodel.billStatementSearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="select" class="form-check-input">
+                                                    <input type="checkbox" name="select" class="form-check-input"
+                                                    (change)="selectedData(i, $event)">
                                                     <!-- {{arrayData.pmtId}} -->
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.branch}} -->
+                                                    {{arrayData.gcNoteNo}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.pmtDate}} -->
+                                                    {{arrayData.bookingDate}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.vehicleNo}} -->
+                                                    {{arrayData.vehicleNo}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.hsdAdvType}} -->
+                                                    {{arrayData.productName}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.transDesc}} -->
+                                                    {{arrayData.noPackages}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.remarks}} -->
+                                                    {{arrayData.gtotalRs}}
                                                 </div>
                                             </td>
                                         </tr>

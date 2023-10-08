@@ -140,6 +140,9 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDieselStatementRepository, DieselStatementRepository>();
             services.AddScoped<IDieselStatementBusiness, DieselStatementBusiness>();
 
+            services.AddScoped<IBillStatementRepository, BillStatementRepository>();
+            services.AddScoped<IBillStatementBusiness, BillStatementBusiness>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;

@@ -111,6 +111,9 @@ import { DieselstatementaddComponent } from './module/dieselstatement/dieselstat
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
+import { Distancemastertripmodel } from './models/distancemastertripmodel';
+import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
+import { Billstatementsearchlistrequestmodel } from './models/billstatementsearchlistrequestmodel';
 
 @NgModule({
   declarations: [
@@ -180,7 +183,8 @@ import { BillstatementaddComponent } from './module/billstatement/billstatementa
     JournalentrylistComponent,
     AddjournalentryComponent,
     DieselstatementaddComponent,
-    BillstatementaddComponent
+    BillstatementaddComponent,
+    DistancemastertripaddComponent
   ],
   imports: [
     BrowserModule,
@@ -199,8 +203,8 @@ import { BillstatementaddComponent } from './module/billstatement/billstatementa
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,bankreceiptentrymodel,Journalentrymodel,
-  Dieselstatementmodel,Dieselstatementsearchlistrequestmodel],
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,bankreceiptentrymodel,Journalentrymodel,
+  Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Billstatementsearchlistmodel } from 'src/app/models/billstatementsearchlistmodel';
+import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { BillstatementService } from 'src/app/services/billstatement.service';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -16,11 +19,13 @@ export class BillstatementaddComponent implements OnInit {
   branchList: Dropdownmodel[] = [];
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
+  billstatementsearchlistmodel = new Billstatementsearchlistmodel();
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder) {
+  constructor(private billstatementsearchlistrequestmodel: Billstatementsearchlistrequestmodel, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder) {
+    this.billstatementsearchlistrequestmodel = new Billstatementsearchlistrequestmodel();
   }
 
   ngOnInit(): void {
@@ -44,15 +49,26 @@ export class BillstatementaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
     this.formBillStatement = this.formBuilder.group({
-      statementBranch: new FormControl('', [Validators.required]),
-      statementDate: new FormControl('', [Validators.required]),
-      fromDate: new FormControl('', [Validators.required]),
-      toDate: new FormControl('', [Validators.required]),
-      vendor: new FormControl('', [Validators.required]),
-      totalDieselAmount: new FormControl(''),
-      totalDriverAdvAmount: new FormControl(''),
-      totalStatementAmount: new FormControl(''),
-      remarks: new FormControl(''),
+      statementBillStation: new FormControl(''),
+      billSeries: new FormControl(''),
+      billNo: new FormControl(''),
+      billDate: new FormControl(''),
+      party: new FormControl(''),
+      lrFrom: new FormControl(''),
+      lrTo: new FormControl(''),
+      fromPoint: new FormControl(''),
+      toPoint: new FormControl(''),
+      totalFreight: new FormControl(''),
+      totalExtra: new FormControl(''),
+      totalSubTotal: new FormControl(''),
+      gstType: new FormControl(''),
+      sgstRef: new FormControl(''),
+      sgstAmount: new FormControl(''),
+      cgstRef: new FormControl(''),
+      cgstAmount: new FormControl(''),
+      igstRef: new FormControl(''),
+      igstAmount: new FormControl(''),
+      totalbillAmount: new FormControl('')
     });
   }
 
@@ -74,5 +90,15 @@ export class BillstatementaddComponent implements OnInit {
   startWithFilter = function (branchList: Dropdownmodel[], query: string): any[] {
     return branchList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
+
+  searchStatement(): void {
+    this.billstatementService.getBillStatementSearchList(this.billstatementsearchlistrequestmodel).subscribe((res: Billstatementsearchlistmodel) => {
+      this.billstatementsearchlistmodel = res;
+    });
+  }
+
+  selectedData(index: number, event: any) {
+    this.billstatementsearchlistmodel.billStatementSearchList[index].selected = event.target.checked;
+  }
 
 }
