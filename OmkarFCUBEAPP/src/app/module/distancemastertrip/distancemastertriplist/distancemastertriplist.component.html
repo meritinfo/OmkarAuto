@@ -28,9 +28,9 @@
                         (click)="distanceMasterTripAdd()"><span>New</span></button>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+           <!-- <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                    <!-- <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>ReminderDays </th>
@@ -40,29 +40,27 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length != 0">
-                            <tr *ngFor="let renewalMaster of allDocRenewalEntry.docRenewalList">
-                                <td>{{ renewalMaster.vehicleMasterID }}</td>
+                        <tbody *ngIf="allDistanceTripMaster.distanceTripList?.length != 0">
+                            <tr *ngFor="let renewalMaster of allDistanceTripMaster.distanceTripList">
+                                <td>{{ renewalMaster.validFrom }}</td>
                         
-                                <td>{{ renewalMaster.docRenewalID }}</td>
+                                <td>{{ renewalMaster.validUpto }}</td>
                              
                                 <td>
-                                    <a (click)="getRenewalEntryDetails(renewalMaster)" class="actionicon"><i
+                                    <a (click)="getDistanceMasterTripDetails(renewalMaster)" class="actionicon"><i
                                         class="bx bx-pencil"></i></a>
                                
                                 </td>
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length == 0">
+                        <tbody *ngIf="allDistanceTripMaster.distanceTripList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
                         </tbody>
-                    </table> -->
+                    </table> 
                 </div>
-            </div>
-            
-        </div>
+            </div>-->
         <!-- container-fluid -->
     </div>
     <!-- End Page-content -->

@@ -35,6 +35,6 @@ export class DistancemasterfreightmasterService {
     this.selectedDistancemasterfreightDetails = new Distancemasterfreightmodel();
   }
   getDistanceMasterFreightList(filter: Filtermodel): Observable<Distancemasterfreightlistmodel> {
-    return this.httpClient.post<Distancemasterfreightlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceMasterFreightList', filter, this.httpOptions);
+    return this.httpClient.post<Distancemasterfreightlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceMasterFrtList', filter, this.httpOptions);
   }
 }

@@ -89,6 +89,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDistanceDetailFrtBusiness, DistanceDetailFrtBusiness>();
             services.AddScoped<IDistanceDetailTripRepository, DistanceDetailTripRepository>();
             services.AddScoped<IDistanceDetailTripBusiness, DistanceDetailTripBusiness>();
+            services.AddScoped<IDistanceMasterTripRepository, DistanceMasterTripRepository>();
+            services.AddScoped<IDistanceMasterTripBusiness, DistanceMasterTripBusiness>();
             services.AddScoped<IFreightRatesDtlRepository, FreightRatesDtlRepository>();
             services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
             services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
