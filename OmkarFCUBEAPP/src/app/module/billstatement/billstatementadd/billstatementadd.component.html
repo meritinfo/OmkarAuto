@@ -213,21 +213,21 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Freight</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalFreight">
+                                                    formControlName="totFreight">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Extra</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalExtra">
+                                                    formControlName="totExtraChrg">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Sub Total</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalSubTotal">
+                                                    formControlName="totSubTotal">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -241,44 +241,44 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">SGST Ref</label>
+                                                <label for="formrow-inputCity">SGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="sgstRef">
+                                                    formControlName="sgstPct">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="sgstAmount">
+                                                    formControlName="sgstAmt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">CGST Ref</label>
+                                                <label for="formrow-inputCity">CGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstRef">
+                                                    formControlName="cgstPct">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstAmount">
+                                                    formControlName="cgstAmt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">IGST Ref</label>
+                                                <label for="formrow-inputCity">IGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstRef">
+                                                    formControlName="igstPct">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstAmount">
+                                                    formControlName="igstAmt">
                                             </div>
                                         </div>
                                     </div>
@@ -287,7 +287,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Bill Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalbillAmount">
+                                                    formControlName="totalBillAmt">
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Submit</button>
                         </div>
                     </div>
                 </div>

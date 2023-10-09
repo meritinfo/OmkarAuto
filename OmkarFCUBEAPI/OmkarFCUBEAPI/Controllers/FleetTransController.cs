@@ -277,6 +277,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("SaveBillStatementDetails")]
+        public async Task<IActionResult> SaveBillStatementDetails(BillStatementSaveRequest request)
+        {
+            try
+            {
+                var result = await billStatementBusiness.SaveBillStatementDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 

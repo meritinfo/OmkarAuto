@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
 import { Billstatementsearchlistmodel } from 'src/app/models/billstatementsearchlistmodel';
 import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -20,11 +23,12 @@ export class BillstatementaddComponent implements OnInit {
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
+  saveData = new Billstatementsaverequest();
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
 
-  constructor(private billstatementsearchlistrequestmodel: Billstatementsearchlistrequestmodel, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder) {
+  constructor(private billstatementsearchlistrequestmodel: Billstatementsearchlistrequestmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder, private toasterService: ToastrService) {
     this.billstatementsearchlistrequestmodel = new Billstatementsearchlistrequestmodel();
   }
 
@@ -48,6 +52,7 @@ export class BillstatementaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    this.getBranchList();
     this.formBillStatement = this.formBuilder.group({
       statementBillStation: new FormControl(''),
       billSeries: new FormControl(''),
@@ -58,17 +63,23 @@ export class BillstatementaddComponent implements OnInit {
       lrTo: new FormControl(''),
       fromPoint: new FormControl(''),
       toPoint: new FormControl(''),
-      totalFreight: new FormControl(''),
-      totalExtra: new FormControl(''),
-      totalSubTotal: new FormControl(''),
+      totFreight: new FormControl(''),
+      totExtraChrg: new FormControl(''),
+      totSubTotal: new FormControl(''),
       gstType: new FormControl(''),
-      sgstRef: new FormControl(''),
-      sgstAmount: new FormControl(''),
-      cgstRef: new FormControl(''),
-      cgstAmount: new FormControl(''),
-      igstRef: new FormControl(''),
-      igstAmount: new FormControl(''),
-      totalbillAmount: new FormControl('')
+      sgstPct: new FormControl(''),
+      sgstAmt: new FormControl(''),
+      cgstPct: new FormControl(''),
+      cgstAmt: new FormControl(''),
+      igstPct: new FormControl(''),
+      igstAmt: new FormControl(''),
+      totalBillAmt: new FormControl('')
+    });
+  }
+
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
     });
   }
 
@@ -99,6 +110,33 @@ export class BillstatementaddComponent implements OnInit {
 
   selectedData(index: number, event: any) {
     this.billstatementsearchlistmodel.billStatementSearchList[index].selected = event.target.checked;
+  }
+
+  saveStatementDetails(): void {
+    this.saveData.billingParty = this.formBillStatement.value.party.dataId;
+    this.saveData.fromPlace = this.formBillStatement.value.fromPlace ? this.formBillStatement.value.fromPlace : '';
+    this.saveData.toPlace = this.formBillStatement.value.toPlace ? this.formBillStatement.value.toPlace : '';
+    this.saveData.cnorPlantCode = this.formBillStatement.value.cnorPlantCode ? this.formBillStatement.value.cnorPlantCode : '';
+    this.saveData.productId = this.formBillStatement.value.productId ? this.formBillStatement.value.productId : '';
+    this.saveData.totFreight = this.formBillStatement.value.totFreight;
+    this.saveData.totExtraChrg = this.formBillStatement.value.totExtraChrg;
+    this.saveData.totSubTotal = this.formBillStatement.value.totSubTotal;
+    this.saveData.gstType = this.formBillStatement.value.gstType;
+    this.saveData.sgstPct = this.formBillStatement.value.sgstPct;
+    this.saveData.sgstAmt = this.formBillStatement.value.sgstAmt;
+    this.saveData.cgstPct = this.formBillStatement.value.cgstPct;
+    this.saveData.cgstAmt = this.formBillStatement.value.cgstAmt;
+    this.saveData.igstPct = this.formBillStatement.value.igstPct;
+    this.saveData.igstAmt = this.formBillStatement.value.igstAmt;
+    this.saveData.totalBillAmt = this.formBillStatement.value.totalBillAmt;
+    this.saveData.loggedInUser = this.loggedInUserID;
+    this.saveData.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
+    this.billstatementService.saveBillStatementDetails(this.saveData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      this.toasterService.success(this.responseDetails.message);
+      this.formBillStatement.reset();
+      window.location.reload();
+    });
   }
 
 }
