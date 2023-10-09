@@ -22,7 +22,8 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IFreightRatesDtlBusiness freightRatesDtlBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
-      
+        readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
+
 
 
         readonly IDistanceDetailFrtBusiness distanceDetailFrtBusiness;
@@ -32,7 +33,7 @@ namespace OmkarFCUBEAPI.Controllers
         
 
 
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness distanceMasterFrtBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , IDistanceMasterTripBusiness _distanceMasterTripBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -44,6 +45,8 @@ namespace OmkarFCUBEAPI.Controllers
             freightRatesDtlBusiness = _freightRatesDtlBusiness;
             distanceDetailFrtBusiness = _distanceDetailFrtBusiness;
             distanceDetailTripBusiness = _distanceDetailTripBusiness;
+            distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
+            distanceMasterTripBusiness = _distanceMasterTripBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
         }
 
@@ -164,6 +167,24 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterFrtBusiness.DistanceMasterFrtSave(distanceMasterFrtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DistanceMasterTripSave")]
+        public async Task<IActionResult> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel)
+        {
+            if (distanceMasterTripModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.DistanceMasterTripSave(distanceMasterTripModel);
 
                 return Ok(result);
             }
@@ -358,6 +379,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterFrtBusiness.GetDistanceMasterFrtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDistanceMasterTripList")]
+        public async Task<IActionResult> GetDistanceMasterTripList(DistanceMasterTripListRequest request)
+        {
+            try
+            {
+                var result = await distanceMasterTripBusiness.GetDistanceMasterTripList(request);
 
                 return Ok(result);
             }

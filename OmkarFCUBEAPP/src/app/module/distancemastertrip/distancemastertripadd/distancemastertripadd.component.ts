@@ -45,7 +45,7 @@ ngOnInit(): void {
     this.route.navigate(['/']);
   }
   this.getLocationList();
-  this.selectedDistancemastertripDetails = this.distanceMastertripService.getDistancemasterfreightDetails();
+  this.selectedDistancemastertripDetails = this.distanceMastertripService.getDistancemastertripDetails();
   this.formDistanceMasterTrip = this.formBuilder.group({
     fromLocation: new FormControl('', [Validators.required]),
     validFrom: new FormControl('', [Validators.required]),

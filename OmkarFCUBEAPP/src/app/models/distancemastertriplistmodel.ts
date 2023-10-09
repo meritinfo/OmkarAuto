@@ -1,7 +1,7 @@
 import { Paginationmodel } from "./paginationmodel";
-import { Brandmastermodel } from "./brandmastermodel";
+import { Distancemastertripmodel } from "./distancemastertripmodel";
 
-export class Brandmasterlistmodel {
-  brandList: Brandmastermodel[] = [];
+export class Distancemastertriplistmodel {
+    distanceTripList: Distancemastertripmodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }

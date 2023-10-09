@@ -114,6 +114,8 @@ import { BillstatementaddComponent } from './module/billstatement/billstatementa
 import { Distancemastertripmodel } from './models/distancemastertripmodel';
 import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
 import { Billstatementsearchlistrequestmodel } from './models/billstatementsearchlistrequestmodel';
+import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
+import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 
 @NgModule({
   declarations: [
@@ -184,7 +186,9 @@ import { Billstatementsearchlistrequestmodel } from './models/billstatementsearc
     AddjournalentryComponent,
     DieselstatementaddComponent,
     BillstatementaddComponent,
-    DistancemastertripaddComponent
+    DistancemastertripaddComponent,
+    AddratesmasterComponent,
+    RatesmasterlistComponent
   ],
   imports: [
     BrowserModule,
