@@ -12,7 +12,7 @@ export class DrivermasterService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
   selectedDriverMaster = new Drivermodel();

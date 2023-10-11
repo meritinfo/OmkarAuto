@@ -40,6 +40,28 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Controller method for login to the application
+        /// </summary>
+        /// <param name="loginModel"></param>
+        [HttpPost("RefreshToken")]
+        public async Task<IActionResult> RefreshToken(LoginModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.RefreshToken(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         /// </summary>
         [HttpPost("IntermediateScreenDetail")]
         public async Task<IActionResult> IntermediateScreenDetail(IntermediateScreenModel request)

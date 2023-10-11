@@ -15,7 +15,7 @@ export class ProductGroupMasterService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('token')?.toString()}`
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
   selectedProductgroupmaster = new Productgroupmastermodel();

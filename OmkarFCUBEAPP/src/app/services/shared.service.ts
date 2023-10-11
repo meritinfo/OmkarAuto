@@ -27,6 +27,9 @@ export class SharedService {
   loginSubmitted(login : Loginmodel): Observable<LoggedinUsermodel> {
     return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/LoginDetails', login, this.httpOptions);
   }
+  refreshToken(request : Loginmodel): Observable<LoggedinUsermodel> {
+    return this.httpClient.post<LoggedinUsermodel>(Constants.API_ENDPOINT + 'Login/RefreshToken', request, this.httpOptions);
+  }
   
   intermediateScreenSubmitted(login : Intermediatescreenmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Login/IntermediateScreenDetail', login, this.httpOptions);

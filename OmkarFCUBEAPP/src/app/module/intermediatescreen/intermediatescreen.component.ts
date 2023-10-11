@@ -83,10 +83,10 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
       if (this.responseDetails.status) {
-        localStorage.setItem("yearID", this.selectedScreenDetails.yearID);
-        localStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
-        localStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
-        localStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
+        sessionStorage.setItem("yearID", this.selectedScreenDetails.yearID);
+        sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
+        sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
+        sessionStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
 
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);

@@ -39,23 +39,23 @@ export class AddjournalentryComponent {
 
   }
   ngOnInit(): void {
-    var userData = localStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
-    var userData2 = localStorage.getItem('yearID')?.toString();
+    var userData2 = sessionStorage.getItem('yearID')?.toString();
     if (typeof userData2 !== 'undefined' && userData2 !== null && userData2 !== '') {
       this.year = userData2;
     }
-    var userData5 = localStorage.getItem('userBranch')?.toString();
+    var userData5 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
       this.branchname = userData5;
       //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
     }
-    var loginDate = localStorage.getItem('loginDate')?.toString();
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }

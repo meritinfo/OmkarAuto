@@ -18,7 +18,7 @@ export class GstdetailsComponent {
 }
   
   ngOnInit(): void {
-    var userData = localStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

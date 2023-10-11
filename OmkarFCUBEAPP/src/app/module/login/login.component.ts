@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   //On initial load
   ngOnInit(): void {
-    localStorage.removeItem('uid');
+    sessionStorage.removeItem('uid');
     this.formLogin = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),
       userPassword: new FormControl('', Validators.required)
@@ -43,12 +43,13 @@ export class LoginComponent implements OnInit {
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
-        localStorage.setItem("uid", this.selectedUserDetails.userId);
+        sessionStorage.setItem("uid", this.selectedUserDetails.userId);
      
-        localStorage.setItem("token", this.selectedUserDetails.token);
-        localStorage.setItem("user", this.selectedUserDetails.userName);
+        sessionStorage.setItem("token", this.selectedUserDetails.token);
+        sessionStorage.setItem("user", this.selectedUserDetails.userName);
       
         this.sharedService.loggedInStatus = true;
+
         this.route.navigate(['/intermediatescreen']);
       }
       else {
@@ -57,4 +58,5 @@ export class LoginComponent implements OnInit {
       this.formLogin.reset(); 
     });
   }
+
 }

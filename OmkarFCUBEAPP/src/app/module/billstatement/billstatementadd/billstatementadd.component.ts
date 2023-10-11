@@ -33,16 +33,16 @@ export class BillstatementaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var yearIDData = localStorage.getItem('yearID')?.toString();
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    var branchData = localStorage.getItem('userBranch')?.toString();
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
       this.branch = branchData;
 
     }
-    var userData = localStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }

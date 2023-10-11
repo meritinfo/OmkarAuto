@@ -50,12 +50,41 @@ namespace Shared.Business
                     _configuration["Jwt:Issuer"],
                     _configuration["Jwt:Audience"],
                     claims,
-                    expires: DateTime.UtcNow.AddMinutes(10),
+                    expires: DateTime.UtcNow.AddMinutes(30),
                     signingCredentials: signIn);
 
                 userModel.Token = new JwtSecurityTokenHandler().WriteToken(token);
             }
             return userModel;
+        }
+        /// <summary>
+        /// Business method for refresh token to the application
+        /// </summary>
+        /// <param name="userName"></param>
+        public async Task<UserModel> RefreshToken(LoginModel request)
+        {
+            var userData = new UserModel();
+            // authentication successful so generate jwt token
+            var claims = new[] {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("UserName", Convert.ToString(request.UserName))
+                    };
+
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: signIn);
+
+            string RefreshToken = new JwtSecurityTokenHandler().WriteToken(token);
+            userData.Token = RefreshToken;
+            return userData;
         }
         public async Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request)
         {

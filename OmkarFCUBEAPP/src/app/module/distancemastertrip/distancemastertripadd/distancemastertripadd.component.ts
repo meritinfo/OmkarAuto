@@ -30,11 +30,11 @@ export class DistancemastertripaddComponent {
 
 }
 ngOnInit(): void {
-  var yearIDData = localStorage.getItem('yearID')?.toString();
+  var yearIDData = sessionStorage.getItem('yearID')?.toString();
   if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
     this.year = yearIDData;
   }
-  var userData = localStorage.getItem('uid')?.toString();
+  var userData = sessionStorage.getItem('uid')?.toString();
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }

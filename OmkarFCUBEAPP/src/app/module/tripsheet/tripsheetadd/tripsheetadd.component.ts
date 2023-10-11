@@ -92,18 +92,18 @@ export class TripsheetaddComponent {
   }
   ngOnInit(): void {
     this.sharedService.loading = true;
-    var userData = localStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
-    var yearIDData = localStorage.getItem('yearID')?.toString();
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
-    var loginDate = localStorage.getItem('loginDate')?.toString();
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }

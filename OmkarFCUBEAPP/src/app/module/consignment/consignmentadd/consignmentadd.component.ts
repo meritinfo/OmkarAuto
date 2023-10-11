@@ -83,20 +83,20 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
-    var yearIDData = localStorage.getItem('yearID')?.toString();
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
-    var loginDate = localStorage.getItem('loginDate')?.toString();
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    var userData3 = localStorage.getItem('userBranch')?.toString();
+    var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
 
     }
-    var userData = localStorage.getItem('uid')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
