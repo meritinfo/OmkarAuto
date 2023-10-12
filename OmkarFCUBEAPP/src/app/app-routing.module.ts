@@ -27,6 +27,8 @@ import {AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaste
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
+import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
+import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
@@ -98,6 +100,9 @@ const routes: Routes = [
   { path: 'addlrbillseries', component: AddlrbillseriesComponent },
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },
+  { path: 'addratesmaster', component: AddratesmasterComponent },
+  { path: 'ratesmasteredit', component: AddratesmasterComponent },
+  { path: 'ratesmasterlist', component: RatesmasterlistComponent },
   { path: 'addvehicletypemaster', component: AddvehicletypemasterComponent },
   { path: 'addvehicletypegroupmaster', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },

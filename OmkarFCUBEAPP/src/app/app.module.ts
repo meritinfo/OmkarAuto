@@ -116,6 +116,7 @@ import { DistancemastertripaddComponent } from './module/distancemastertrip/dist
 import { Billstatementsearchlistrequestmodel } from './models/billstatementsearchlistrequestmodel';
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
+import { Ratesmastermodel } from './models/ratesmastermodel';
 
 @NgModule({
   declarations: [
@@ -207,7 +208,7 @@ import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/r
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,bankreceiptentrymodel,Journalentrymodel,
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,
   Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel],
   bootstrap: [AppComponent]
 })

@@ -1,1 +1,254 @@
-<p>addratesmaster works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Rates Master </h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Rate</a></li>
+                                <li class="breadcrumb-item active">Rates Master  </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formRatesMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Rates Master Freight</h4>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Account Name</h6>
+                                                    </label>
+                                                    <select class="form-control"
+                                                        formControlName="accountId" [ngClass]="">
+            
+                                                        <option *ngFor="let branch of creditacList"
+                                                            value={{branch.dataId}}>
+            
+                                                            {{branch.dataName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">From Location</label>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="fromPlace"
+                                                            [ngClass]="">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-2">
+                                                    <label for="formrow-inputCity">Valid From</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="validFrom"
+                                                        [ngClass]=" ">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-2">
+                                                    <label for="formrow-inputCity">Valid To</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="validUpto"
+                                                        [ngClass]="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-2">
+                                                 
+                                                    <label for="formrow-inputCity">Rate Type</label>
+                                                    <select class="form-control" formControlName="rateTypeId"
+                                                    [ngClass]="">
+                                                    <option *ngFor="let branch of rateList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-2">
+                                                    <label for="formrow-inputCity">Rate Method</label>
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                    formControlName="rateMethod">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check mb-3">
+                                                    <input type="radio"formControlName="rateForStateOrToPlace"  value="S" 
+                                                        class="form-check-input" />
+                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>State</h6>
+                                                    </label>
+    
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="form-check mb-3">
+                                                    <input type="radio"formControlName="rateForStateOrToPlace"  value="P" 
+                                                        class="form-check-input" />
+                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6> To Place</h6>
+                                                    </label>
+    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                   
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Select Destination</h6>
+                                                    </label>
+                                                  
+                                                            <div class="ng-autocomplete">
+                                                                <ng-autocomplete [data]="locationList"
+                                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                                    (selected)='selectEvent($event)'
+                                                                    (inputChanged)='onChangeSearch($event)'
+                                                                    (inputFocused)='onFocused($event)'
+                                                                    [itemTemplate]="itemTemplate"
+                                                                    [notFoundTemplate]="notFoundTemplate"
+                                                                    [customFilter]="startWithFilter"
+                                                                    formControlName="destState">
+                                                                </ng-autocomplete>
+
+                                                                <ng-template #itemTemplate let-item>
+                                                                    <a [innerHTML]="item.dataName"></a>
+                                                                </ng-template>
+
+                                                                <ng-template #notFoundTemplate let-notFound>
+                                                                    <div [innerHTML]="notFound"></div>
+                                                                </ng-template>
+                                                            </div>
+                                                       
+                                                      
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>To place</h6>
+                                                    </label>
+                                                  
+                                                            <div class="ng-autocomplete">
+                                                                <ng-autocomplete [data]="locationList"
+                                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                                    (selected)='selectEvent($event)'
+                                                                    (inputChanged)='onChangeSearch($event)'
+                                                                    (inputFocused)='onFocused($event)'
+                                                                    [itemTemplate]="itemTemplate"
+                                                                    [notFoundTemplate]="notFoundTemplate"
+                                                                    [customFilter]="startWithFilter"
+                                                                    formControlName="toPlace">
+                                                                </ng-autocomplete>
+
+                                                                <ng-template #itemTemplate let-item>
+                                                                    <a [innerHTML]="item.dataName"></a>
+                                                                </ng-template>
+
+                                                                <ng-template #notFoundTemplate let-notFound>
+                                                                    <div [innerHTML]="notFound"></div>
+                                                                </ng-template>
+                                                            </div>
+                                                       
+                                                      
+                                                </td>
+                                                <td class="col-lg-2">
+                                                   
+                                               
+                                                         
+                                                            <label for="formrow-inputCity">Rate Type</label>
+                                                            <select class="form-control" formControlName="rateTypeId"
+                                                            [ngClass]="">
+                                                            <option *ngFor="let branch of rateList" value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
+                                                     
+                                                </td>
+                                                <td class="col-lg-2">
+                                                <label for="formrow-inputCity">Rate Method</label>
+                                                <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="rate">
+                                            </td>
+                                                <td class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                    <div class="col-lg-4 details-button">
+                                                        <button type="button" class="btn btn-primary"
+                                                            (click)="addItem()">Add</button>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)"
+                                                            class="btn btn-danger">Delete</button>
+                                                        </div>
+                                                    
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md"
+                                (click)="submitRatesMasterForm()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

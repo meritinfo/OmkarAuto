@@ -19,5 +19,9 @@ namespace FreightMasters.Business
         {
             return await freightRatesMstRepository.FreightRatesMstSave(freightRatesMstModel);
         }
+        public async Task<FreightRatesMstList> GetFreightRatesList(FreightRatesListRequest request)
+        {
+            return await freightRatesMstRepository.GetFreightRatesList(request);
+        }
     }
 }

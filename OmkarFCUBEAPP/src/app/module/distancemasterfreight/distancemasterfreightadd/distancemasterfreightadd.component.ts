@@ -163,5 +163,6 @@ export class DistancemasterfreightaddComponent implements OnInit {
       window.location.reload();
     });
   }
+  
 
 }

@@ -87,7 +87,7 @@ constructor(private distanceMastertripService: DistancemastertripService, privat
   //Open user details screen
 getDistanceMasterTripDetails(Docrenewal: Distancemastertripmodel): void {
   this.distanceMastertripService.setDistancemastertripDetails(Docrenewal);
-  this.route.navigate(['/docrenewalmasteredit']);
+  this.route.navigate(['/distancemastertripedit']);
   }
   
   

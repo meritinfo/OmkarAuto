@@ -81,7 +81,7 @@ ngOnInit(): void {
 //Open user details screen
 getDistanceMasterFreightDetails(Docrenewal: Distancemasterfreightmodel): void {
 this.distancemasterfreightmasterService.setDistancemasterfreightDetails(Docrenewal);
-this.route.navigate(['/docrenewalmasteredit']);
+this.route.navigate(['/distancemasterfreightedit']);
 }
 
 

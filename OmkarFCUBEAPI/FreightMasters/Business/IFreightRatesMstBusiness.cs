@@ -8,5 +8,6 @@ namespace FreightMasters.Business
     public interface IFreightRatesMstBusiness
     {
         Task<ResponseModel> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel);
+        Task<FreightRatesMstList> GetFreightRatesList(FreightRatesListRequest request);
     }
 }

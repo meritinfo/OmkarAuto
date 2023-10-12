@@ -9,7 +9,8 @@ namespace FreightMasters.Models
         public string? ToPlace { get; set; }
         public string? RateTypeId { get; set; }
         public string? Rate { get; set; }
-       
+        public string? Index { get; set; }
+
 
     }
 }

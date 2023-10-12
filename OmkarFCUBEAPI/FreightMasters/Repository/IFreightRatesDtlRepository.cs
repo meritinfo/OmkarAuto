@@ -8,5 +8,6 @@ namespace FreightMasters.Repository
     public interface IFreightRatesDtlRepository
     {
         Task<ResponseModel> FreightRatesDtlSave(FreightRatesDtlModel freightRatesDtlModel);
+       
     }
 }

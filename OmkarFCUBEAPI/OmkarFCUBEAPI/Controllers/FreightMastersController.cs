@@ -175,6 +175,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
         [HttpPost("DistanceMasterTripSave")]
         public async Task<IActionResult> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel)
         {
@@ -379,6 +380,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterFrtBusiness.GetDistanceMasterFrtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFreightRatesList")]
+        public async Task<IActionResult> GetFreightRatesList(FreightRatesListRequest request)
+        {
+            try
+            {
+                var result = await freightRatesMstBusiness.GetFreightRatesList(request);
 
                 return Ok(result);
             }

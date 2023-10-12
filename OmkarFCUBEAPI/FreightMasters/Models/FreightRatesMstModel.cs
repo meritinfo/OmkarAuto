@@ -1,5 +1,4 @@
-﻿
-namespace FreightMasters.Models
+﻿namespace FreightMasters.Models
 {
     public class FreightRatesMstModel
     {
@@ -16,6 +15,7 @@ namespace FreightMasters.Models
         public string? ModifiedBy { get; set; }
         public string? ModifiedDate { get; set; }
         public string? LoggedInUser { get; set; }
+        public List<FreightRatesDtlModel> FreightRatesDetailsList { get; set; }
 
     }
 }
