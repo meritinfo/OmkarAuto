@@ -60,6 +60,7 @@ import {  JournalentrylistComponent } from './module/journalentry/journalentryli
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
+import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 
 
 
@@ -147,7 +148,7 @@ const routes: Routes = [
   { path: 'addjournalentry', component:  AddjournalentryComponent },
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
   { path: 'billstatementadd', component:  BillstatementaddComponent },
- 
+  { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
   
 ];
 

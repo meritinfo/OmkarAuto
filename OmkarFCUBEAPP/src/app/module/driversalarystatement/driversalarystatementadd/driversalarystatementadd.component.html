@@ -1,0 +1,215 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Driver Salary Statement</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Driver Salary Statement </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formDriverSalaryStatement">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Driver Salary Statement</h4>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Trans Date Date</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="transDate"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Trip From</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="tripFrom"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['tripFrom'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Trip To</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="tripTo"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['tripTo'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Pmt Type</label>
+                                                    <select class="form-control" formControlName="pmtType">
+                                                        <option selected="">Choose...</option>
+                                                        <option selected="">1</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <button type="submit" 
+                                                        class="btn btn-primary w-md mt-4">Generate Salary</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table mb-5">
+                                        <tr>
+                                            <th><label for="formrow-inputCity"></label></th>
+                                            <th><label for="formrow-inputCity">Vehicle No</label></th>
+                                            <th><label for="formrow-inputZip">Driver Name</label></th>
+                                            <th><label for="formrow-inputZip">No of Days</label></th>
+                                            <th><label for="formrow-inputZip">Salary Amt</label></th>
+                                            <th><label for="formrow-inputZip">Pool Amt</label></th>
+                                            <th><label for="formrow-inputZip">Last Trip Cl Bal</label></th>
+                                            <th><label for="formrow-inputZip">Last Trip Date</label></th>
+                                            <th><label for="formrow-inputZip">Ledger Bal on Trip dt</label></th>
+                                            <th><label for="formrow-inputZip">Net Payable</label></th>
+                                        </tr>
+                                        <tr>
+                                            <!-- *ngFor="let arrayData of driverSalarystatementsearchlistmodel.driverSalaryStatementSearchList; let i = index" -->
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="select" class="form-check-input">
+                                                    <!-- {{arrayData.pmtId}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.gcNoteNo}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.bookingDate}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.vehicleNo}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.productName}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.noPackages}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Remarks</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="remarks">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Salary</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalSalary">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Pool Amt</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalPoolAmt">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Net Payable</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="netPayable">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Credit a/c</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="creditAC">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Cheq No</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="cheqNo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

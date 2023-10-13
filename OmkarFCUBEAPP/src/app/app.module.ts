@@ -117,6 +117,7 @@ import { Billstatementsearchlistrequestmodel } from './models/billstatementsearc
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { Ratesmastermodel } from './models/ratesmastermodel';
+import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 
 @NgModule({
   declarations: [
@@ -189,7 +190,8 @@ import { Ratesmastermodel } from './models/ratesmastermodel';
     BillstatementaddComponent,
     DistancemastertripaddComponent,
     AddratesmasterComponent,
-    RatesmasterlistComponent
+    RatesmasterlistComponent,
+    DriversalarystatementaddComponent
   ],
   imports: [
     BrowserModule,
