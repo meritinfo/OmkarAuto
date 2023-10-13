@@ -30,18 +30,19 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID", distanceMasterFrtModel.MasterID),
+                            new SqlParameter("@MasterID", distanceMasterFrtModel.MasterID == "" ? 0 : Convert.ToInt32(distanceMasterFrtModel.MasterID)),
                             new SqlParameter("@ValidFrom", distanceMasterFrtModel.ValidFrom),
                             new SqlParameter("@ValidUpto", distanceMasterFrtModel.ValidUpto),
                             new SqlParameter("@FromLocation", distanceMasterFrtModel.FromLocation),
                             new SqlParameter("@LoggedInUser", distanceMasterFrtModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceMasterFrt_Insert", param);
-
+                    string MasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(responseModel.Message);
                     }
                     else
                     {
@@ -53,11 +54,8 @@ namespace FreightMasters.Repository
                     {
                         for(int i=0; i< distanceMasterFrtModel.DistanceDetailsFreightList.Count; i++)
                         {
-                            if (i == 0)
-                            {
-                                distanceMasterFrtModel.DistanceDetailsFreightList[i].Index = i.ToString();
-                            }
-                            distanceMasterFrtModel.DistanceDetailsFreightList[i].MasterID = responseModel.Message;
+                            distanceMasterFrtModel.DistanceDetailsFreightList[i].Index = i.ToString();
+                            distanceMasterFrtModel.DistanceDetailsFreightList[i].MasterID = MasterID;
                             responseModel = await DistanceDetailFrtSave(distanceMasterFrtModel.DistanceDetailsFreightList[i]);
                         }
                     }
