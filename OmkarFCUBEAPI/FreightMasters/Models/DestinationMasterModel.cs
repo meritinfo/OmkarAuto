@@ -10,6 +10,9 @@
         public string? AcctBranch { get; set; }
         public string? StateCode { get; set; }
         public string? PinCode { get; set; }
+        public string? Code { get; set; }
+        public string? ZoneCode { get; set; }
+        public string? StateName { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

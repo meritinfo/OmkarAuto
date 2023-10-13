@@ -4,5 +4,8 @@ export class Destinationmodel {
     acctBranch: string = "";
     stateCode: string = "";
     pinCode: string = "";
+    code: string = "";
+    zoneCode: string = "";
+    stateName: string = "";
     loggedInUser: string = "";
 }

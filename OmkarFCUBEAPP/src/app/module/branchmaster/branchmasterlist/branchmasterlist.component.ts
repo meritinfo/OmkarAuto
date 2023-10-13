@@ -60,6 +60,22 @@ export class BranchmasterlistComponent  {
           title: 'CentreName',
           data: 'centreName',
         },
+        {
+          title: 'ZoneCode',
+          data: 'zoneCode',
+        },
+        {
+          title: 'StateCode',
+          data: 'stateCode',
+        },
+        {
+          title: 'ManagerName',
+          data: 'managerName',
+        },
+        {
+          title: 'ManagerMobileNo',
+          data: 'managerMobileNo',
+        },
           
         {
           title: 'RegionId',

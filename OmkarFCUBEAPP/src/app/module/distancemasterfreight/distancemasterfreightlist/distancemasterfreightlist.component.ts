@@ -62,6 +62,10 @@ ngOnInit(): void {
       title: 'ValidUpto ',
       data: 'validUpto',
     },
+    {
+      title: 'FromPoint ',
+      data: 'fromPoint',
+    },
    
    
   

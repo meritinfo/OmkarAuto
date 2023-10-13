@@ -3,6 +3,7 @@ export class Distancemasterfreightmodel {
     validFrom: string = "";
     validUpto: string = "";
     fromLocation: string = "";
+    fromPoint: string = "";
     loggedInUser: string = "";
     distanceDetailsFreightList: Distancedetailsfreightmodel[] = [];
 }

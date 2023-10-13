@@ -157,7 +157,8 @@ namespace FreightMasters.Repository
                                 ValidFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFrom"]),
                                 ValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidUpto"]),
                                 FromLocation = Convert.ToString(dataSet.Tables[0].Rows[i]["FromLocation"]),
-                         
+                                FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
+
 
                             });
                         }

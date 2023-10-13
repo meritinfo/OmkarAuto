@@ -58,8 +58,20 @@ export class RatesmasterlistComponent {
         },
   
        {
-        title: 'ValidUpto ',
+        title: 'ValidUpto',
         data: 'validUpto',
+      },
+      {
+        title: 'FromPoint',
+        data: 'fromPoint',
+      },
+      {
+        title: 'rateMethod',
+        data: 'rateMethod',
+      },
+      {
+        title: 'accountName',
+        data: 'accountName',
       },
      
      

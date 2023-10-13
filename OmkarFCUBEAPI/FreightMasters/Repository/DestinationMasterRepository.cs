@@ -94,6 +94,9 @@ namespace FreightMasters.Repository
                                 CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 AcctBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctBranch"]),
                                 StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                Code = Convert.ToString(dataSet.Tables[0].Rows[i]["Code"]),
+                                ZoneCode = Convert.ToString(dataSet.Tables[0].Rows[i]["ZoneCode"]),
+                                StateName = Convert.ToString(dataSet.Tables[0].Rows[i]["StateName"]),
                                 PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
 
                             });

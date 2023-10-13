@@ -61,6 +61,18 @@ export class DestinationlistComponent {
           title: 'State Code',
           data: 'stateCode',
         },
+        {
+          title: 'Code',
+          data: 'code',
+        },
+        {
+          title: 'ZoneCode',
+          data: 'zoneCode',
+        },
+        {
+          title: 'StateName',
+          data: 'stateName',
+        },
       
         {
           title: 'Action',

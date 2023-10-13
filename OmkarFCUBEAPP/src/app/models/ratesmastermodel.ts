@@ -5,6 +5,8 @@ export class Ratesmastermodel {
     validFrom: string = "";
     validUpto: string = "";
     rateMethod: string = "";
+    fromPoint: string = "";
+    accountName: string = "";
     rateTypeId: string = "";
     rateForStateOrToPlace: string = "";
 
