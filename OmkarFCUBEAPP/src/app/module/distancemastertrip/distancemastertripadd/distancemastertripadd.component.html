@@ -83,14 +83,51 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Select Destination</h6>
+                                                </label></td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Enter KMs</h6>
+                                                    </label></td>
+                                                    <td class="col-lg-2">
+                                                        <label for="formrow-inputZip">
+                                                            <h6>EnrouteExp Truck</h6>
+                                                        </label></td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Enroute ExpTrailer</h6>
+                                                            </label></td>
+                                                            <td class="col-lg-2">
+                                                                <label for="formrow-inputZip">
+                                                                    <h6>EnrouteExpCarCarrier</h6>
+                                                                </label></td>
+                                                                <td class="col-lg-2">
+                                                                    <label for="formrow-inputZip">
+                                                                        <h6>EnrouteExpEmpty</h6>
+                                                                    </label></td>
+                                                                    <td class="col-lg-2">
+                                                                        <label for="formrow-inputZip">
+                                                                            <h6>enrouteExpRemarks</h6>
+                                                                        </label></td>
+                                                                        <td class="col-lg-2">
+                                                                            <label for="formrow-inputZip">
+                                                                                <h6>DefineTollExp</h6>
+                                                                            </label></td>
+                                                                            <td class="col-lg-2">
+                                                                                <label for="formrow-inputZip">
+                                                                                    <h6>Action</h6>
+                                                                                </label></td>
+                        
+                    
+                                        </tr>
                    
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Select Destination</h6>
-                                                    </label>
                                                   
                                                             <div class="ng-autocomplete">
                                                                 <ng-autocomplete [data]="locationList"
@@ -101,7 +138,7 @@
                                                                     [itemTemplate]="itemTemplate"
                                                                     [notFoundTemplate]="notFoundTemplate"
                                                                     [customFilter]="startWithFilter"
-                                                                    formControlName="destination">
+                                                                    formControlName="fromLocation">
                                                                 </ng-autocomplete>
 
                                                                 <ng-template #itemTemplate let-item>
@@ -118,22 +155,15 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>Enter KMs</h6>
-                                                    </label>
-                                                           
+                                                  
                                                             <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enterKM">
+                                                                formControlName="kms">
                                                          
                                                 </td>
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>EnrouteExp Truck</h6>
-                                                    </label>
+                                                  
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpTruck">
@@ -142,10 +172,7 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>Enroute ExpTrailer</h6>
-                                                    </label>
+                                                 
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpTrailer">
@@ -154,10 +181,7 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>EnrouteExpCarCarrier</h6>
-                                                    </label>
+                                                   
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpCarCarrier">
@@ -166,10 +190,7 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>EnrouteExpEmpty</h6>
-                                                    </label>
+                                                   
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpEmpty">
@@ -178,10 +199,7 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>enrouteExpRemarks</h6>
-                                                    </label>
+                                                   
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpRemarks">
@@ -190,20 +208,14 @@
                                                 <td class="col-lg-2">
                                                    
                                                      
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>DefineTollExp</h6>
-                                                    </label>
+                                                   
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
                                                                 formControlName="defineTollExp">
                                                          
                                                 </td>
                                                 <td class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>Action</h6>
-                                                    </label>
+                                                   
                                                     <div class="col-lg-4 details-button">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="addItem()">Add</button>

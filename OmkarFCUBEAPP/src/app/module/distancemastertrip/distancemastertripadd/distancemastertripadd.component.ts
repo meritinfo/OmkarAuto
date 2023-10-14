@@ -98,8 +98,17 @@ addItem(): void {
 
 createInitialArray() {
   return this.formBuilder.group({
-    destination: ['', [Validators.required]],
-    enterKM: ['', [Validators.required]]
+    fromLocation: ['', []],
+    toLocation: ['', []],
+    kms: ['', []],
+   
+    index: ['', []],
+    enrouteExpTruck: ['', []],
+    enrouteExpTrailer: ['', []],
+    enrouteExpCarCarrier: ['', []],
+    enrouteExpEmpty: ['', []],
+    enrouteExpRemarks: ['', []],
+    defineTollExp: ['', []],
   });
 }
 
@@ -129,10 +138,10 @@ submitDistanceMasterFreightForm(): void {
      'index': '',
       'masterID': '',
       'fromLocation': this.formDistanceMasterTrip.value.fromLocation.dataId,
-      'toLocation': this.formDistanceMasterTrip.value.arrayList[i].destination.dataId,
-      'kms': this.formDistanceMasterTrip.value.arrayList[i].enterKM,
+      'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+      'kms': this.formDistanceMasterTrip.value.arrayList[i].kms,
       'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck,
-      'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enterKM,
+      'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer,
       'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier,
       'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty,
       'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,

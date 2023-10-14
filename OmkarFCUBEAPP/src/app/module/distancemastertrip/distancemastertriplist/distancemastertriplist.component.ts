@@ -58,12 +58,12 @@ constructor(private distanceMastertripService: DistancemastertripService, privat
         
   
         {
-          title: 'ValidFrom ',
+          title: 'ValidFrom',
           data: 'validFrom',
         },
   
        {
-        title: 'ValidUpto ',
+        title: 'ValidUpto',
         data: 'validUpto',
       },
      

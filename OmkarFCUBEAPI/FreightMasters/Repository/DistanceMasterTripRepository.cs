@@ -30,18 +30,19 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID", distanceMasterTripModel.MasterID),
+                            new SqlParameter("@MasterID", distanceMasterTripModel.MasterID == "" ? 0 : Convert.ToInt32(distanceMasterTripModel.MasterID)),
                             new SqlParameter("@ValidFrom", distanceMasterTripModel.ValidFrom),
                             new SqlParameter("@ValidUpto", distanceMasterTripModel.ValidUpto),
                             new SqlParameter("@FromLocation", distanceMasterTripModel.FromLocation),
                             new SqlParameter("@LoggedInUser", distanceMasterTripModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceMasterTrip_Insert", param);
-
+                    string MasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(responseModel.Message);
                     }
                     else
                     {
@@ -53,11 +54,9 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < distanceMasterTripModel.DistanceDetailsTripList.Count; i++)
                         {
-                            if (i == 0)
-                            {
-                                distanceMasterTripModel.DistanceDetailsTripList[i].Index = i.ToString();
-                            }
-                            distanceMasterTripModel.DistanceDetailsTripList[i].MasterID = responseModel.Message;
+
+                            distanceMasterTripModel.DistanceDetailsTripList[i].Index = i.ToString();
+                            distanceMasterTripModel.DistanceDetailsTripList[i].MasterID = MasterID;
                             responseModel = await DistanceDetailTripSave(distanceMasterTripModel.DistanceDetailsTripList[i]);
                         }
                     }
@@ -93,7 +92,8 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID", distanceDetailTripModel.MasterID),
+                            new SqlParameter("@MasterID", distanceDetailTripModel.MasterID
+                             == "" ? 0 : Convert.ToInt32(distanceDetailTripModel.MasterID)),
                             new SqlParameter("@FromLocation", distanceDetailTripModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailTripModel.ToLocation),
                             new SqlParameter("@KMS", distanceDetailTripModel.KMS),
@@ -106,17 +106,20 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DefineTollExp", distanceDetailTripModel.DefineTollExp)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceDetailTrip_Insert", param);
-
+                   
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        
                     }
                     else
                     {
                         responseModel.Status = false;
                         responseModel.Message = "Unable to process";
                     }
+                   
+
                 }
             }
             catch (Exception ex)

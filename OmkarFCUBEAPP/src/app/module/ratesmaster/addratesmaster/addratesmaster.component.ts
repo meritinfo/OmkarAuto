@@ -119,8 +119,8 @@ export class AddratesmasterComponent implements OnInit {
 
   createInitialArray() {
     return this.formBuilder.group({
-      destState: ['', [Validators.required]],
-      toPlace: ['', [Validators.required]],
+      destState: ['', []],
+      toPlace: ['', [] ],
       rateTypeId: ['', []],
       rate: ['', []],
     });
@@ -152,7 +152,7 @@ export class AddratesmasterComponent implements OnInit {
         'index': '',
         'dtlId': '',
         'masterID': '',
-        'destState': this.formRatesMaster.value.destState.dataId,
+        'destState': this.formRatesMaster.value.arrayList[i].destState.dataId,
         'toPlace': this.formRatesMaster.value.arrayList[i].toPlace.dataId,
         'rateTypeId': this.formRatesMaster.value.arrayList[i].rateTypeId,
         'rate': this.formRatesMaster.value.arrayList[i].rate,

@@ -27,7 +27,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID", freightRatesMstModel.MasterID),
+                            new SqlParameter("@MasterID", freightRatesMstModel.MasterID == "" ? 0 : Convert.ToInt32(freightRatesMstModel.MasterID)),
                             new SqlParameter("@Accountid", freightRatesMstModel.Accountid),
                             new SqlParameter("@FromPlace", freightRatesMstModel.FromPlace),
                             new SqlParameter("@ValidFrom", freightRatesMstModel.ValidFrom),
@@ -44,11 +44,13 @@ namespace FreightMasters.Repository
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "freightRatesMst_Insert", param);
+                    string MasterID = "0";
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(responseModel.Message);
                     }
                     else
                     {
@@ -59,11 +61,9 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < freightRatesMstModel.FreightRatesDetailsList.Count; i++)
                         {
-                            if (i == 0)
-                            {
-                                freightRatesMstModel.FreightRatesDetailsList[i].Index = i.ToString();
-                            }
-                            freightRatesMstModel.FreightRatesDetailsList[i].MasterID = responseModel.Message;
+
+                            freightRatesMstModel.FreightRatesDetailsList[i].Index = i.ToString();
+                            responseModel = await FreightRatesDtlSave(freightRatesMstModel.FreightRatesDetailsList[i]);
                             responseModel = await FreightRatesDtlSave(freightRatesMstModel.FreightRatesDetailsList[i]);
                         }
                     }
