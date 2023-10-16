@@ -29,6 +29,42 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>ReminderDays </th>
+                      
+                            <th>Doc Code </th>
+                            <th>dateOfAppoint </th>
+                            <th>dateOfAppoint </th>
+                            <th>dateOfAppoint </th>
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allDriverMaster.driverList?.length != 0">
+                        <tr *ngFor="let renewalMaster of allDriverMaster.driverList">
+                            <td>{{ renewalMaster.driverName }}</td>
+                    
+                            <td>{{ renewalMaster.fatherName }}</td>
+                            <td>{{ renewalMaster.dateOfAppoint }}</td>
+                            <td>{{ renewalMaster.licenseNo }}</td>
+                            <td>{{ renewalMaster.licValidUpto }}</td>
+                       
+                         
+                            <td>
+                                <a (click)="getDriverMasterDetails(renewalMaster)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allDriverMaster.driverList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- container-fluid -->

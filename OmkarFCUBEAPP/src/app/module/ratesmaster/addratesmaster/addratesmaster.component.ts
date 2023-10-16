@@ -142,8 +142,10 @@ export class AddratesmasterComponent implements OnInit {
     }
     this.ratesmastermodel.masterID = this.ratesmastermodel.masterID != '' ? this.ratesmastermodel.masterID : '';
     this.ratesmastermodel.accountid = this.formRatesMaster.value.accountId;
+    this.ratesmastermodel.fromPlace  = this.formRatesMaster.value.fromPlace.dataId;
     this.ratesmastermodel.validFrom = this.formRatesMaster.value.validFrom;
     this.ratesmastermodel.validUpto = this.formRatesMaster.value.validUpto;
+    this.ratesmastermodel.rateTypeId = this.formRatesMaster.value.rateTypeId;
     this.ratesmastermodel.rateMethod = this.loggedInUserID;
 
     this.ratesmastermodel.ratesMasterDetailsList = [];

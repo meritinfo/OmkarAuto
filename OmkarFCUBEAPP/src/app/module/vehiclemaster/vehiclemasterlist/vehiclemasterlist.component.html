@@ -38,7 +38,10 @@
                         <tr>
                             <th>Centre Name</th>
                       
+                       
                             <th>rateMethod </th>
+                            <th>mfrModelName </th>
+                            <th>makeYear</th>
                          
                             <th>Action</th>
                         </tr>
@@ -47,7 +50,10 @@
                         <tr *ngFor="let ratetype of allVehicleFltMaster.vehicleFltMasterList">
                             <td>{{ ratetype.vehicleNo }}</td>
                     
-                            <td>{{ ratetype.fleetStation }}</td>
+                     
+                            <td>{{ ratetype.regnDate }}</td>
+                            <td>{{ ratetype.mfrModelName }}</td>
+                            <td>{{ ratetype.makeYear }}</td>
                          
                             <td>
                                 <a (click)="getvehicleFltDetails(ratetype)" class="actionicon"><i

@@ -57,14 +57,20 @@ ngOnInit(): void {
           data: 'vehicleNo',
         },
 
-       {
-        title: 'fleetStation',
-        data: 'fleetStation',
-      },
      
-    
-    
       {
+        title: 'RegnDate',
+        data: 'regnDate',
+      },
+      {
+        title: 'MfrModelName',
+        data: 'mfrModelName',
+      },
+      {
+        title: 'MakeYear ',
+        data: 'makeYear ',
+      },
+     {
         title: 'Action',
         data: 'vehicleMasterID',
       },

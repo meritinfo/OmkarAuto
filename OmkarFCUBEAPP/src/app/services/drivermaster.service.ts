@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Drivermodel } from '../models/drivermodel';
+import { Drivermasterlistmodel } from '../models/drivermasterlistmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Constants } from '../common/constants';
+import { Filtermodel } from '../models/filtermodel';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -28,5 +30,8 @@ export class DrivermasterService {
   }
   driverMasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterSave', user, this.httpOptions);
+  }
+  getDriverMasterList(filter: Filtermodel): Observable<Drivermasterlistmodel> {
+    return this.httpClient.post<Drivermasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetDriverMasterList', filter, this.httpOptions);
   }
 }
