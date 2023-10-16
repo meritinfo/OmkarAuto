@@ -9,6 +9,7 @@
         public string? ValidUpto { get; set; }
         public string? RateTypeId { get; set; }
         public string? RateMethod { get; set; }
+        public string? RateDesc { get; set; }
         public string? AccountName { get; set; }
         public string? FromPoint { get; set; }
         public string? RateForStateOrToPlace { get; set; }

@@ -21,7 +21,7 @@ export class RatesmasterlistComponent {
     sortOrder: 'asc',
     search: ''
   }
-  constructor(private ratesMasterService: RatesMasterService, private route: Router)  {
+  constructor(private ratesMasterService: RatesMasterService, private route: Router) {
 
 
   }
@@ -39,9 +39,9 @@ export class RatesmasterlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
-        this.ratesMasterService. getRatesMasterList(this.filter)
+        this.ratesMasterService.getRatesMasterList(this.filter)
           .subscribe(resp => {
-           this. allRatesMaster = resp;
+            this.allRatesMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
               recordsFiltered: resp.pageMetaData.totalCount,
@@ -50,47 +50,41 @@ export class RatesmasterlistComponent {
           });
       },
       columns: [
-        
-  
         {
           title: 'ValidFrom ',
           data: 'validFrom',
         },
-  
-       {
-        title: 'ValidUpto',
-        data: 'validUpto',
-      },
-      {
-        title: 'FromPoint',
-        data: 'fromPoint',
-      },
-      {
-        title: 'rateMethod',
-        data: 'rateMethod',
-      },
-      {
-        title: 'accountName',
-        data: 'accountName',
-      },
-     
-     
-    
-    
-      {
-        title: 'Action',
-        data: 'MasterID',
-      },
-     
-    ],
-  };
+
+        {
+          title: 'ValidUpto',
+          data: 'validUpto',
+        },
+        {
+          title: 'FromPoint',
+          data: 'fromPoint',
+        },
+        {
+          title: 'Rate Type',
+          data: 'rateDesc',
+        },
+        {
+          title: 'accountName',
+          data: 'accountName',
+        },
+        {
+          title: 'Action',
+          data: 'MasterID',
+        },
+
+      ],
+    };
   }
- //Open new driver master add screen
- ratesMasterAdd(): void {
-  this.route.navigate(['/addratesmaster']);
-}
-getRatesMasterDetails(Docrenewal: Ratesmastermodel): void {
-  this.ratesMasterService.setRatesMasterDetails(Docrenewal);
-  this.route.navigate(['/ratesmasteredit']);
+  //Open new driver master add screen
+  ratesMasterAdd(): void {
+    this.route.navigate(['/addratesmaster']);
+  }
+  getRatesMasterDetails(Docrenewal: Ratesmastermodel): void {
+    this.ratesMasterService.setRatesMasterDetails(Docrenewal);
+    this.route.navigate(['/ratesmasteredit']);
   }
 }

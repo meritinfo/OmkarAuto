@@ -35,12 +35,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@RateTypeId", freightRatesMstModel.RateTypeId),
                             new SqlParameter("@RateMethod", freightRatesMstModel.RateMethod),
                             new SqlParameter("@RateForStateOrToPlace", freightRatesMstModel.RateForStateOrToPlace),
-                            new SqlParameter("@CreatedBy", freightRatesMstModel.CreatedBy),
-                            new SqlParameter("@CreatedDate", freightRatesMstModel.RateMethod),
-                            new SqlParameter("@ModifiedBy", freightRatesMstModel.RateForStateOrToPlace),
-                            new SqlParameter("@ModifiedDate", freightRatesMstModel.CreatedBy),
-
-                           new SqlParameter("@LoggedInUser", freightRatesMstModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", freightRatesMstModel.LoggedInUser)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "freightRatesMst_Insert", param);
@@ -63,7 +58,6 @@ namespace FreightMasters.Repository
                         {
 
                             freightRatesMstModel.FreightRatesDetailsList[i].Index = i.ToString();
-                            responseModel = await FreightRatesDtlSave(freightRatesMstModel.FreightRatesDetailsList[i]);
                             responseModel = await FreightRatesDtlSave(freightRatesMstModel.FreightRatesDetailsList[i]);
                         }
                     }
@@ -116,8 +110,9 @@ namespace FreightMasters.Repository
                                 FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
                                 AccountName = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountName"]),
                                 RateMethod = Convert.ToString(dataSet.Tables[0].Rows[i]["RateMethod"]),
-
-
+                                RateDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["RateDesc"]),
+                                Accountid = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountID"]),
+                                RateForStateOrToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["RateForStateOrToPlace"]),
                             });
                         }
 

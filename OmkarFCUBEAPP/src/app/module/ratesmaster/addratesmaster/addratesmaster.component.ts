@@ -49,10 +49,6 @@ export class AddratesmasterComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
-    this.getLocationList();
-    this.getRateList();
-    this.getCreditAcList()
-    this.selectedRatesMaster = this.ratesMasterService.getRatesMasterDetails();
     this.formRatesMaster = this.formBuilder.group({
       accountId: new FormControl('', []),
       fromPlace: new FormControl('', []),
@@ -63,15 +59,25 @@ export class AddratesmasterComponent implements OnInit {
       rateForStateOrToPlace: new FormControl('', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])
     });
-    if (this.selectedRatesMaster.masterID != '') {
-      this.formRatesMaster.patchValue(this.selectedRatesMaster);
 
-      this.formRatesMaster.patchValue({
-        FromPlace: this.selectedRatesMaster.fromPlace,
-        validFrom: this.selectedRatesMaster.validFrom,
-        validUpto: this.selectedRatesMaster.validUpto,
-      })
-    }
+    this.getLocationList();
+    this.getRateList();
+    this.getCreditAcList()
+    this.selectedRatesMaster = this.ratesMasterService.getRatesMasterDetails();
+    setTimeout(() => {
+      if (this.selectedRatesMaster.masterID != '') {
+        this.formRatesMaster.patchValue(this.selectedRatesMaster);
+
+        this.formRatesMaster.patchValue({
+          accountId: this.selectedRatesMaster.accountid,
+          fromPlace: this.locationList.find(e => e.dataId == this.selectedRatesMaster.fromPlace),
+          validFrom: this.commonService.formatDate(this.selectedRatesMaster.validFrom),
+          validUpto: this.commonService.formatDate(this.selectedRatesMaster.validUpto),
+          rateTypeId: this.selectedRatesMaster.rateMethod,
+          rateForStateOrToPlace: this.selectedRatesMaster.rateForStateOrToPlace,
+        })
+      }
+    }, 2000);
   }
 
   getLocationList(): void {
@@ -120,7 +126,7 @@ export class AddratesmasterComponent implements OnInit {
   createInitialArray() {
     return this.formBuilder.group({
       destState: ['', []],
-      toPlace: ['', [] ],
+      toPlace: ['', []],
       rateTypeId: ['', []],
       rate: ['', []],
     });
@@ -142,15 +148,17 @@ export class AddratesmasterComponent implements OnInit {
     }
     this.ratesmastermodel.masterID = this.ratesmastermodel.masterID != '' ? this.ratesmastermodel.masterID : '';
     this.ratesmastermodel.accountid = this.formRatesMaster.value.accountId;
-    this.ratesmastermodel.fromPlace  = this.formRatesMaster.value.fromPlace.dataId;
+    this.ratesmastermodel.fromPlace = this.formRatesMaster.value.fromPlace.dataId;
     this.ratesmastermodel.validFrom = this.formRatesMaster.value.validFrom;
     this.ratesmastermodel.validUpto = this.formRatesMaster.value.validUpto;
     this.ratesmastermodel.rateTypeId = this.formRatesMaster.value.rateTypeId;
-    this.ratesmastermodel.rateMethod = this.loggedInUserID;
+    this.ratesmastermodel.rateMethod = this.formRatesMaster.value.rateMethod;
+    this.ratesmastermodel.rateForStateOrToPlace = this.formRatesMaster.value.rateForStateOrToPlace;
+    this.ratesmastermodel.loggedInUser = this.loggedInUserID;
 
-    this.ratesmastermodel.ratesMasterDetailsList = [];
+    this.ratesmastermodel.freightRatesDetailsList = [];
     for (var i = 0; i < this.formRatesMaster.value.arrayList.length; i++) {
-      this.ratesmastermodel.ratesMasterDetailsList.push({
+      this.ratesmastermodel.freightRatesDetailsList.push({
         'index': '',
         'dtlId': '',
         'masterID': '',
@@ -168,20 +176,20 @@ export class AddratesmasterComponent implements OnInit {
     }
 
     //From Location & Destination validation
-   // const found = this.ratesmastermodel.ratesMasterDetailsList.some(el => el.toLocation === this.ratesmastermodel.fromLocation);
+    // const found = this.ratesmastermodel.ratesMasterDetailsList.some(el => el.toLocation === this.ratesmastermodel.fromLocation);
     //if (found) {
-     // this.toasterService.warning("From location cannot be same as destination in details grid");
-     // return;
-   // }
+    // this.toasterService.warning("From location cannot be same as destination in details grid");
+    // return;
+    // }
 
     //Duplicate destination check
     //const foundDuplicateName = this.ratesmastermodel.ratesMasterDetailsList.find((data, index) => {
-   //   return this.ratesmastermodel.ratesMasterDetailsList.find((x, ind) => x.toLocation === data.toLocation && index !== ind);
-  ////  })
-  //  if (foundDuplicateName) {
+    //   return this.ratesmastermodel.ratesMasterDetailsList.find((x, ind) => x.toLocation === data.toLocation && index !== ind);
+    ////  })
+    //  if (foundDuplicateName) {
     //  this.toasterService.warning("Duplicate destination in details grid not allowed");
-     // return;
- //   }
+    // return;
+    //   }
 
     this.ratesMasterService.ratesMasterSubmitted(this.ratesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

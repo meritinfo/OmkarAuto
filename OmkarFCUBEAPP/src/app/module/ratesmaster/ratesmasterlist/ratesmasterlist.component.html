@@ -39,21 +39,16 @@
                                 <th>Doc Code </th>
                                 <th>Doc Code </th>
                                 <th>Doc Code </th>
-                             
-                             
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allRatesMaster.ratesMasterList?.length != 0">
                             <tr *ngFor="let renewalMaster of allRatesMaster.ratesMasterList">
                                 <td>{{ renewalMaster.validFrom }}</td>
-                        
                                 <td>{{ renewalMaster.validUpto }}</td>
                                 <td>{{ renewalMaster.fromPoint }}</td>
-                                <td>{{ renewalMaster.rateMethod }}</td>
+                                <td>{{ renewalMaster.rateDesc }}</td>
                                 <td>{{ renewalMaster.accountName}}</td>
-                           
-                             
                                 <td>
                                     <a (click)="getRatesMasterDetails(renewalMaster)" class="actionicon"><i
                                         class="bx bx-pencil"></i></a>

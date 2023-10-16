@@ -8,9 +8,10 @@ export class Ratesmastermodel {
     fromPoint: string = "";
     accountName: string = "";
     rateTypeId: string = "";
+    rateDesc: string = "";
     rateForStateOrToPlace: string = "";
-
-    ratesMasterDetailsList: RatesMasterDetailsList[] = [];
+    loggedInUser: string = "";
+    freightRatesDetailsList: RatesMasterDetailsList[] = [];
 }
 
 export class RatesMasterDetailsList {
