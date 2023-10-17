@@ -57,7 +57,7 @@ constructor(private cashReceiptEntryService: CashReceiptEntryService, private ro
           
     
           {
-            title: 'DocType ',
+            title: 'DocType',
             data: 'docType',
           },
     

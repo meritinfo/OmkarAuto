@@ -21,7 +21,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   formDistanceMasterFreight!: FormGroup;
   selectedDistancemasterfreightDetails = new Distancemasterfreightmodel();
   keywordLocation = 'dataName';
-
+  ivToPlace = '';
   formSubmitted = false;
   responseDetails = new Responsemodel();
 
@@ -56,9 +56,10 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.formDistanceMasterFreight.patchValue(this.selectedDistancemasterfreightDetails);
 
       this.formDistanceMasterFreight.patchValue({
-        fromLocation: this.selectedDistancemasterfreightDetails.fromLocation,
+       // fromLocation: this.selectedDistancemasterfreightDetails.fromLocation,
         validFrom: this.selectedDistancemasterfreightDetails.validFrom,
         validUpto: this.selectedDistancemasterfreightDetails.validUpto,
+        fromLocation: this.locationList.find(e => e.dataId == this.selectedDistancemasterfreightDetails.fromLocation),
       })
     }
   }
@@ -76,13 +77,24 @@ export class DistancemasterfreightaddComponent implements OnInit {
   }
 
   selectEvent(item: any) {
+    this.ivToPlace = item.dataId;
     // do something with selected item
+    
+  }
+  popupClosedToPlace() {
+    if (!this.ivToPlace) {
+      this.formDistanceMasterFreight.patchValue({
+        fromLocation: ''
+      });
+    }
   }
 
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+  
+
 
   onFocused(e: any) {
     // do something

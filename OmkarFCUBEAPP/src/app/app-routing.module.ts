@@ -127,6 +127,7 @@ const routes: Routes = [
   { path: 'distancemasterfreightedit', component: DistancemasterfreightaddComponent },
   { path: 'distancemastertriplist', component: DistancemastertriplistComponent },
   { path: 'distancemastertripadd', component: DistancemastertripaddComponent },
+  { path: 'distancemastertripedit', component: DistancemastertripaddComponent },
   { path: 'addtrippayments', component: AddtrippaymentsComponent },
   { path: 'trippaymentsedit', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },

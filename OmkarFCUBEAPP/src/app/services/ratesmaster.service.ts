@@ -32,6 +32,7 @@ export class RatesMasterService {
   ratesMasterSubmitted(ratesMaster: Ratesmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FreightRatesMstSave', ratesMaster, this.httpOptions);
   }
+  
   clearRatesMasterDetails() {
     this.selectedRatesMasterDetails = new Ratesmastermodel();
   }

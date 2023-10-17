@@ -113,6 +113,7 @@ import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatements
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { Distancemastertripmodel } from './models/distancemastertripmodel';
 import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
+import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
 import { Billstatementsearchlistrequestmodel } from './models/billstatementsearchlistrequestmodel';
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
@@ -182,6 +183,8 @@ import { DriversalarystatementaddComponent } from './module/driversalarystatemen
     UppercaseonlyDirective,
     DistancemasterfreightaddComponent,
     DistancemasterfreightlistComponent,
+    DistancemastertriplistComponent,
+    DistancemastertripaddComponent,
     AddbankcashcontraComponent,
     BankcashcontralistComponent,
     JournalentrylistComponent,

@@ -17,6 +17,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 export class DistancemastertripaddComponent {
   loggedInUserID: string = '';
   year: string = '';
+  ivToPlace = '';
   locationList: Dropdownmodel[] = [];
   formDistanceMasterTrip!: FormGroup;
   selectedDistancemastertripDetails = new Distancemastertripmodel();
@@ -68,6 +69,13 @@ getLocationList(): void {
     this.locationList = res;
   });
 }
+popupClosedToPlace() {
+  if (!this.ivToPlace) {
+    this.formDistanceMasterTrip.patchValue({
+      fromLocation: ''
+    });
+  }
+}
 
 // convenience getter for easy access to contact form fields
 get f() { return this.formDistanceMasterTrip.controls; }
@@ -77,6 +85,7 @@ get formArray() {
 
 selectEvent(item: any) {
   // do something with selected item
+  this.ivToPlace = item.dataId;
 }
 
 onChangeSearch(search: string) {
@@ -161,6 +170,7 @@ submitDistanceMasterFreightForm(): void {
     this.toasterService.warning("From location cannot be same as destination in details grid");
     return;
   }
+  
 
   //Duplicate destination check
   const foundDuplicateName = this.distancemastertripmodel.distanceDetailsTripList.find((data, index) => {
