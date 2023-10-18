@@ -73,7 +73,8 @@ export class AddratesmasterComponent implements OnInit {
           fromPlace: this.locationList.find(e => e.dataId == this.selectedRatesMaster.fromPlace),
           validFrom: this.commonService.formatDate(this.selectedRatesMaster.validFrom),
           validUpto: this.commonService.formatDate(this.selectedRatesMaster.validUpto),
-          rateTypeId: this.selectedRatesMaster.rateMethod,
+        
+          rateTypeId: this.rateList.find(e => e.dataId == this.selectedRatesMaster.rateTypeId),
           rateForStateOrToPlace: this.selectedRatesMaster.rateForStateOrToPlace,
         })
       }

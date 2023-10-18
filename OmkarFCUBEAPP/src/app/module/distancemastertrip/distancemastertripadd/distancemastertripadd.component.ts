@@ -53,15 +53,17 @@ ngOnInit(): void {
     validUpto: new FormControl('', [Validators.required]),
     arrayList: this.formBuilder.array([this.createInitialArray()])
   });
+  setTimeout(() => {
   if (this.selectedDistancemastertripDetails.masterID != '') {
     this.formDistanceMasterTrip.patchValue(this.selectedDistancemastertripDetails);
 
     this.formDistanceMasterTrip.patchValue({
-      fromLocation: this.selectedDistancemastertripDetails.fromLocation,
-      validFrom: this.selectedDistancemastertripDetails.validFrom,
-      validUpto: this.selectedDistancemastertripDetails.validUpto,
+   validFrom:this.commonService.formatDate(this.selectedDistancemastertripDetails.validFrom),
+     validUpto:this.commonService.formatDate(this.selectedDistancemastertripDetails.validUpto),
+       fromLocation: this.locationList.find(e => e.dataId == this.selectedDistancemastertripDetails.fromLocation),
     })
   }
+}, 2000);
 }
 
 getLocationList(): void {

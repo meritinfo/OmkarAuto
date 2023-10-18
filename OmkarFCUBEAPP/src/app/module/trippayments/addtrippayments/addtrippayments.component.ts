@@ -122,6 +122,7 @@ export class AddtrippaymentsComponent {
 
     });
     setTimeout(() => {
+     
     if (this.selectedTripPaymentsDetails.pmtId != '') {
       this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
       this.formTripPayment.controls['pmtBranch'].disable();
@@ -130,12 +131,13 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
+      this.formTripPayment.controls['pmtBranch'].disable();
      // this.formTripPayment.controls['vehicleMasterID'].disable();
      
  
       var selectedDataValue = this.formTripPayment.getRawValue();
       this. getTripDetailseditmode(selectedDataValue.vehicleMasterID) 
-      this.formTripPayment.controls['vehicleMasterID'].disable();
+     
       this.formTripPayment.patchValue({
         
         pmtBranch:  selectedDataValue.pmtBranch, 
@@ -164,7 +166,7 @@ export class AddtrippaymentsComponent {
   
   getValidation(): void {
    // this.formTripPayment.controls['pmtBranch'].disable();
-    //this.formTripPayment.controls['pmtDate'].disable();
+    this.formTripPayment.controls['pmtDate'].disable();
     this.formTripPayment.controls['tripNo'].disable();
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
@@ -194,28 +196,38 @@ export class AddtrippaymentsComponent {
       
       this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
         this.tripDetails = res;
-       // if (this.tripkmsDetails.status) {
-       
+      if (this.tripDetails.tripNo!=='') {
+        this.formTripPayment.patchValue({
+          vehicleMasterID:''
+        });
+        this.toasterService.warning("there is no Open trip for this vehicle");
+          return;
+         
+      }
 //date2 =this.commonService.formatDate(date2)
 //const myFormattedDate = this.commonService.formatDate(date2);
 
-          this.formTripPayment.patchValue({
-           // cneeGst:  (this.ExpectedReportingDays).toString() 
-           tripNo:   this.tripDetails.tripNo,
-           from:   this.tripDetails.fp,
-           to:   this.tripDetails.tp,
-           loadorempty:   this.tripDetails.loadEmptyType,
-           travel:   this.tripDetails.travelAllowance,
-           dsltobe:   this.tripDetails.ltsDslToBe_1,
-           tripMasterId:  this.tripDetails.tripId,
-           
-          
-             
-          });
        //   this.getValidation();
-       
+        
+        else{
+          
+          this.formTripPayment.patchValue({
+            // cneeGst:  (this.ExpectedReportingDays).toString() 
+            tripNo:   this.tripDetails.tripNo,
+            from:   this.tripDetails.fp,
+            to:   this.tripDetails.tp,
+            loadorempty:   this.tripDetails.loadEmptyType,
+            travel:   this.tripDetails.travelAllowance,
+            dsltobe:   this.tripDetails.ltsDslToBe_1,
+            tripMasterId:  this.tripDetails.tripId,
+            
+           
+              
+           });
+         
+        }
       });
-    
+  
   }
   getTripDetailseditmode(e: any) {
     

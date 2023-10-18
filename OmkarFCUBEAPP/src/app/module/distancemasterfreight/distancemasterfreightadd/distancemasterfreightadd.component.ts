@@ -52,17 +52,22 @@ export class DistancemasterfreightaddComponent implements OnInit {
       validUpto: new FormControl('', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])
     });
+    setTimeout(() => {
     if (this.selectedDistancemasterfreightDetails.masterID != '') {
       this.formDistanceMasterFreight.patchValue(this.selectedDistancemasterfreightDetails);
 
       this.formDistanceMasterFreight.patchValue({
        // fromLocation: this.selectedDistancemasterfreightDetails.fromLocation,
-        validFrom: this.selectedDistancemasterfreightDetails.validFrom,
-        validUpto: this.selectedDistancemasterfreightDetails.validUpto,
+        validFrom:this.commonService.formatDate(this.selectedDistancemasterfreightDetails.validFrom),
+       // validFrom: this.selectedDistancemasterfreightDetails.validFrom,
+     
+        validUpto:this.commonService.formatDate(this.selectedDistancemasterfreightDetails.validUpto),
         fromLocation: this.locationList.find(e => e.dataId == this.selectedDistancemasterfreightDetails.fromLocation),
       })
     }
-  }
+  
+}, 2000);
+}
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
