@@ -277,5 +277,51 @@ namespace Shared.Repository
             return yearList;
         }
 
+        // <summary>
+        /// Service method for login to the application
+        /// </summary>
+        /// <param name="loginModel"></param>
+        /// <returns>UserModel</returns>
+        public async Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails()
+        {
+            EWayAPIConfigurationModel configModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "EWayApiDetails_Select", null);
+
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        configModel.ApiCheckGstinUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiCheckGstinUrl"]);
+                        configModel.ApiAccessTokenUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiAccessTokenUrl"]);
+                        configModel.ApiUserName = Convert.ToString(resultData.Tables[0].Rows[0]["ApiUserName"]);
+                        configModel.ApiPassword = Convert.ToString(resultData.Tables[0].Rows[0]["ApiPassword"]);
+                        configModel.ApiClient_id = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_id"]);
+                        configModel.ApiClient_secret = Convert.ToString(resultData.Tables[0].Rows[0]["ApiClient_secret"]);
+                        configModel.ApiGrantType = Convert.ToString(resultData.Tables[0].Rows[0]["ApiGrantType"]);
+                        configModel.GstUserName = Convert.ToString(resultData.Tables[0].Rows[0]["GstUserName"]);
+                        configModel.EwayBillApiYN = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiYN"]);
+                        configModel.EwayBillApiGstId = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiGstId"]);
+                        configModel.EwayBillApiUid = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiUid"]);
+                        configModel.EwayBillApiPwd = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiPwd"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return configModel;
+        }
     }
 }

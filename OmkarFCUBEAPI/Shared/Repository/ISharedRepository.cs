@@ -15,5 +15,6 @@ namespace Shared.Repository
         Task<List<MenuModel>> MenuDetails(string userID);
         Task<List<YearListModel>> GetYearList();
         Task<List<YearListModel>> GetServerDate();
+        Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();
     }
 }

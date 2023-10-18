@@ -1,6 +1,8 @@
 ﻿using AdminMasters.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Shared.Models;
+using Shared.Repository;
 using SqlHelper.Models;
 using System;
 using System.Data;
@@ -14,20 +16,22 @@ namespace AdminMasters.Repository
     {
         private readonly IOptions<DBModel> dbconnection;
         private readonly IOptions<GSTConfigurationModel> gstConfiguration;
+        private ISharedRepository sharedRepository;
 
-        public UserRepository(IOptions<DBModel> _dbconnection, IOptions<GSTConfigurationModel> _gstConfiguration)
+        public UserRepository(IOptions<DBModel> _dbconnection, IOptions<GSTConfigurationModel> _gstConfiguration, ISharedRepository _sharedRepository)
         {
             dbconnection = _dbconnection;
             gstConfiguration = _gstConfiguration;
+            sharedRepository = _sharedRepository;
         }
         /// <summary>
         /// Service method for save user master details
         /// </summary>
         /// <param name="userMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel)
+        public async Task<Models.ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel)
         {
-            ResponseModel responseModel = new();
+            Models.ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
@@ -208,7 +212,7 @@ namespace AdminMasters.Repository
         /// Service method for get eway bill details
         /// </summary>
         /// <returns>EWayBillModel</returns>
-        public async Task<string> GetAccessToken()
+        public async Task<string> GetAccessToken(EWayAPIConfigurationModel ewayapiConfigurtion)
         {
             string token = "";
             try
@@ -223,7 +227,8 @@ namespace AdminMasters.Repository
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var data = new { username = gstConfiguration.Value.Username, password = gstConfiguration.Value.Password, client_id = gstConfiguration.Value.ClientId, client_secret = gstConfiguration.Value.ClientSecret, grant_type = gstConfiguration.Value.GrantType };
+                var data = new { username = ewayapiConfigurtion.ApiUserName, password = ewayapiConfigurtion.ApiPassword, client_id = ewayapiConfigurtion.ApiClient_id, client_secret = ewayapiConfigurtion.ApiClient_secret, grant_type = ewayapiConfigurtion.ApiGrantType };
+                //var data = new { username = gstConfiguration.Value.Username, password = gstConfiguration.Value.Password, client_id = gstConfiguration.Value.ClientId, client_secret = gstConfiguration.Value.ClientSecret, grant_type = gstConfiguration.Value.GrantType };
                 HttpResponseMessage response = client.PostAsJsonAsync("oauth/access_token", data).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -260,11 +265,15 @@ namespace AdminMasters.Repository
             Root root = new();
             try
             {
-                string URL = "https://pro.mastersindia.co/getEwayBillData";
+                EWayAPIConfigurationModel ewayapiConfigurtion = new();
 
-                string token = await GetAccessToken();
+                ewayapiConfigurtion = await sharedRepository.EWayAPIConfigurationDetails();
 
-                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ gstConfiguration.Value.GSTNumber + "&eway_bill_number=" + request.EWayBillNumber;
+                string URL = ewayapiConfigurtion.ApiCheckGstinUrl; // "https://pro.mastersindia.co/getEwayBillData";
+
+                string token = await GetAccessToken(ewayapiConfigurtion);
+
+                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ ewayapiConfigurtion.EwayBillApiGstId + "&eway_bill_number=" + request.EWayBillNumber;
 
                 HttpClient client = new()
                 {
@@ -316,9 +325,9 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="string"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> DeleteUserDetails(string request)
+        public async Task<Models.ResponseModel> DeleteUserDetails(string request)
         {
-            ResponseModel responseModel = new();
+            Models.ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
@@ -362,9 +371,9 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="string"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> UsernameValidation(string request)
+        public async Task<Models.ResponseModel> UsernameValidation(string request)
         {
-            ResponseModel responseModel = new();
+            Models.ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
