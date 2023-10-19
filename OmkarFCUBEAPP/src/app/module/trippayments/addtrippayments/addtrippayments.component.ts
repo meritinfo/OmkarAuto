@@ -166,7 +166,7 @@ export class AddtrippaymentsComponent {
   
   getValidation(): void {
    // this.formTripPayment.controls['pmtBranch'].disable();
-    this.formTripPayment.controls['pmtDate'].disable();
+ //   this.formTripPayment.controls['pmtDate'].disable();
     this.formTripPayment.controls['tripNo'].disable();
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
@@ -196,7 +196,7 @@ export class AddtrippaymentsComponent {
       
       this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
         this.tripDetails = res;
-      if (this.tripDetails.tripNo!=='') {
+      if (res.fp ==''|| res.fp == null ) {
         this.formTripPayment.patchValue({
           vehicleMasterID:''
         });

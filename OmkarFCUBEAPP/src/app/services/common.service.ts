@@ -98,6 +98,7 @@ export class CommonService {
   getDslToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);
   }
+  
 
   getGcSeries(payload: any):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', payload, this.httpOptions);

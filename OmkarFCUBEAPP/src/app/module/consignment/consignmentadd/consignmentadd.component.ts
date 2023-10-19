@@ -190,13 +190,21 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.controls['gcSlNo'].disable();
 
         var bookingConvertatedDate = this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate);
+        var ewayBillDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate);
+        var shipmentDtConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt);
+        var cnorInvDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate);
+        var ewayBillExpDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate);
         this.formConsignment.patchValue({
           userBranch: this.selectedConsignmentDetails.bookingPlace,
           bookingDate: bookingConvertatedDate,
-          ewayBillDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
-          ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
-          shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
-          cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
+        //  ewayBillDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
+         // ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
+          ewayBillDate:ewayBillDateConverted,
+         ewayBillExpDate: ewayBillExpDateConverted,
+          //shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
+         // cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
+                shipmentDt:shipmentDtConverted,
+          cnorInvDate: cnorInvDateConverted,
 
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),

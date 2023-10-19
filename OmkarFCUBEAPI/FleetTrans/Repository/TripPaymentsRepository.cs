@@ -169,16 +169,21 @@ namespace FleetTrans.Repository
             }
             return creditacList;
         }
-        public async Task<List<BranchListModel>> GetCreditAcList2()
+        public async Task<List<BranchListModel>> GetCreditAcList2(AcModel request)
         {
             List<BranchListModel> creditacList = new();
-            try
-            {
-                if (dbconnection != null)
+          
+                try
                 {
+                    if (dbconnection != null)
+                    {
+                        SqlParameter[] param =
+                            {
+                            new SqlParameter("@PType", request.PType),
+                        
+                        };
 
-
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select2", null);
+                        var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select2", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

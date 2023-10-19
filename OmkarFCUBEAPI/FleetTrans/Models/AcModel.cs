@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Models
 {
-    internal class AcModel
+    public class AcModel
     {
+        public string PType { get; set; }
     }
 }
