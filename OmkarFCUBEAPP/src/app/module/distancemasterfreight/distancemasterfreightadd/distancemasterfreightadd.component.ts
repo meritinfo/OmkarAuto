@@ -109,8 +109,13 @@ export class DistancemasterfreightaddComponent implements OnInit {
     return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  addItem(): void {
-    this.formArray.push(this.createInitialArray());
+  addItem(index: number): void {
+  
+    if (this.formArray.value[index].destination != "" && this.formArray.value[index].enterKM != "" ) {
+      this.formArray.push(this.createInitialArray());
+    } else{
+      this.toasterService.warning("Please select one destination name, enterKM ");
+    }
   }
 
   createInitialArray() {

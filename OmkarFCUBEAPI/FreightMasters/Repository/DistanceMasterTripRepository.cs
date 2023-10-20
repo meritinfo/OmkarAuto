@@ -77,6 +77,63 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<DistanceMasterTripModel> GetTripInnerGridList()
+        {
+            DistanceMasterTripModel tripInnerGridList = new()
+            {
+                DistanceDetailsTripList = new List<DistanceDetailTripModel>(),
+             
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                   
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", param);
+
+                    //LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tripInnerGridList.DistanceDetailsTripList.Add(new DistanceDetailTripModel
+                            {
+                                DistanceDtlID = Convert.ToString(resultData.Tables[0].Rows[i]["DistanceDtlID"]),
+                                MasterID = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
+                                FromLocation = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
+                                ToLocation = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
+                                KMS = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
+                                EnrouteExpTruck = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
+                                EnrouteExpTrailer = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
+                                EnrouteExpCarCarrier = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
+                                EnrouteExpEmpty = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
+                                EnrouteExpRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
+                                DefineTollExp = Convert.ToString(resultData.Tables[0].Rows[i]["DefineTollExp"]),
+                             
+                            });
+                        }
+                    }
+                    //Diseal Details
+                 
+                   
+                 
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetInnerGridList;
+        }
 
         /// <summary>
         /// Service method for save destination details
@@ -137,6 +194,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
         public async Task<DistanceMasterTripList> GetDistanceMasterTripList(DistanceMasterTripListRequest request)
         {
             DistanceMasterTripList distanceMasterTripList = new();

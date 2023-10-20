@@ -22,7 +22,7 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Distance Master Trip</h4>
+                                    <h4 class="card-title mb-4"></h4>
                                     <div class="row">
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -85,37 +85,37 @@
                                     <h4 class="card-title mb-4"></h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <td class="col-lg-2">
+                                            <td class="col-lg-3">
                                                 <label for="formrow-inputZip">
-                                                    <h6>Select Destination</h6>
+                                                    <h6>Destination</h6>
                                                 </label></td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Enter KMs</h6>
+                                                        <h6>Kms</h6>
                                                     </label></td>
                                                     <td class="col-lg-2">
                                                         <label for="formrow-inputZip">
-                                                            <h6>EnrouteExp Truck</h6>
+                                                            <h6>Enroute Exp Truck</h6>
                                                         </label></td>
                                                         <td class="col-lg-2">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Enroute ExpTrailer</h6>
+                                                                <h6>Enroute Exp Trailer</h6>
                                                             </label></td>
-                                                            <td class="col-lg-2">
+                                                            <td class="col-lg-1">
                                                                 <label for="formrow-inputZip">
-                                                                    <h6>EnrouteExpCarCarrier</h6>
+                                                                    <h6> Enroute Exp Car Carrier</h6>
                                                                 </label></td>
-                                                                <td class="col-lg-2">
+                                                                <td class="col-lg-1">
                                                                     <label for="formrow-inputZip">
-                                                                        <h6>EnrouteExpEmpty</h6>
+                                                                        <h6>Enroute Exp Empty</h6>
                                                                     </label></td>
-                                                                    <td class="col-lg-2">
+                                                                    <td class="col-lg-3">
                                                                         <label for="formrow-inputZip">
-                                                                            <h6>enrouteExpRemarks</h6>
+                                                                            <h6>Enroute Remarks</h6>
                                                                         </label></td>
                                                                         <td class="col-lg-2">
                                                                             <label for="formrow-inputZip">
-                                                                                <h6>DefineTollExp</h6>
+                                                                                <h6>Define Toll exp</h6>
                                                                             </label></td>
                                                                             <td class="col-lg-2">
                                                                                 <label for="formrow-inputZip">
@@ -128,7 +128,7 @@
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-3">
                                                   
                                                             <div class="ng-autocomplete">
                                                                 <ng-autocomplete [data]="locationList"
@@ -154,7 +154,7 @@
                                                        
                                                       
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                    
                                                      
                                                   
@@ -180,7 +180,7 @@
                                                                 formControlName="enrouteExpTrailer">
                                                          
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                    
                                                      
                                                    
@@ -189,7 +189,7 @@
                                                                 formControlName="enrouteExpCarCarrier">
                                                          
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                    
                                                      
                                                    
@@ -198,12 +198,12 @@
                                                                 formControlName="enrouteExpEmpty">
                                                          
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-3">
                                                    
                                                      
                                                    
                                                            
-                                                            <input numbersonly autoclose="false" class="form-control"
+                                                            <input autoclose="false" class="form-control"
                                                                 formControlName="enrouteExpRemarks">
                                                          
                                                 </td>
@@ -220,7 +220,7 @@
                                                    
                                                     <div class="col-lg-4 details-button">
                                                         <button type="button" class="btn btn-primary"
-                                                            (click)="addItem()">Add</button>
+                                                            (click)="addItem(i)">Add</button>
                                                         <button *ngIf="formArray.controls.length > 1"
                                                             (click)="removeItem(i)"
                                                             class="btn btn-danger">Delete</button>

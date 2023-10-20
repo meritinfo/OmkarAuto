@@ -103,8 +103,14 @@ startWithFilter = function (locationList: Dropdownmodel[], query: string): any[]
   return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
 
-addItem(): void {
+addItem(index: number): void {
   this.formArray.push(this.createInitialArray());
+  if (this.formArray.value[index].fromLocation != "" && this.formArray.value[index].toLocation != "" ) {
+    this.formArray.push(this.createInitialArray());
+    
+  } else{
+    this.toasterService.warning("Please select one destination name, enterKM ");
+  }
 }
 
 createInitialArray() {

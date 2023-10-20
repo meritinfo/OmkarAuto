@@ -15,5 +15,6 @@ namespace FleetTrans.Business
         Task<List<BranchListModel>> GetCreditAcList();
       // Task<List<BranchListModel>> GetCreditAcList2(AcModel request);
 
+
     }
 }
