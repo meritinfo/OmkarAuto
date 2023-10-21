@@ -652,7 +652,8 @@ findKMs(){
         this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.ExpReportingDays = this.dTripKM_1 / 400;
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+       // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+       this.ExpReportingDays = Math.round(this.ExpReportingDays) 
         let date: Date = new Date(selectedDataValue.newTripDate);
 
 
@@ -691,7 +692,8 @@ findKMs(){
         this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.ExpReportingDays = this.dTripKM_1 / 400;
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+       // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+       this.ExpReportingDays = Math.round(this.ExpReportingDays) 
         let date: Date = new Date(selectedDataValue.newTripDate);
 
 
@@ -731,7 +733,8 @@ findKMs(){
         this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.ExpReportingDays = this.dTripKM_1 / 400;
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+      //  this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+      this.ExpReportingDays = Math.round(this.ExpReportingDays) 
         let date: Date = new Date(selectedDataValue.newTripDate);
 
 
@@ -810,7 +813,8 @@ findKMs(){
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+      //  this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1
+      this.ExpReportingDays = Math.round(this.ExpReportingDays) 
         let date: Date = new Date(selectedDataValue.newTripDate);
 
 
@@ -850,7 +854,8 @@ findKMs(){
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '0';
         this.ExpReportingDays
           = this.dTripKM_1 / 400
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+       // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+       this.ExpReportingDays = Math.round(this.ExpReportingDays) 
 
         var date: Date = new Date();
         var date2 = "";
@@ -897,7 +902,8 @@ findKMs(){
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+      //  this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+      this.ExpReportingDays = Math.round(this.ExpReportingDays) 
 
         var date: Date = new Date();
         var date2 = "";
@@ -944,7 +950,8 @@ findKMs(){
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+       // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
+        this.ExpReportingDays = Math.round(this.ExpReportingDays) 
 
         var date: Date = new Date();
         var date2 = "";
