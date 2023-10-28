@@ -1519,9 +1519,11 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       let bd = 0;
       let ad1= parseInt(selectedDataValue.actualDays_1);
       let ad2= parseInt(selectedDataValue.actualDays_2);
+      let ad3= parseInt(selectedDataValue.detentionDays);
+
 
       // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
-      bd = ad1 + ad2;
+      bd = ad1 + ad2 + ad3;
       br = parseInt(this.bhattaRate) * bd;
       this.formTripsheet.patchValue({
 
