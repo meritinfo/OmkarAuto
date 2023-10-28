@@ -51,6 +51,7 @@ export class TripsheetaddComponent {
   distanceTripKM_1: string = '';
   dTripKM_1: number = 0;
   tripkms: string = '';
+  nexttripkms: string = '';
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';
   dslDetails = new Dslmodel();
@@ -675,7 +676,7 @@ findKMs(){
         this.getDslToBe();
         this.getAdBlueToBe1();
         this.getAdBlueToBe();
-        // this.getIncentiveRate();
+      // this.getIncentiveRate();
         this.getMultiIncentiveRate();
 
 
@@ -884,9 +885,10 @@ findKMs(){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
-
+this.nexttripkms = (this.dTripKM_1).toString(),
         this.totalCal();
         this.getBhattaRate();
+        this.getDslToBe()
 
       });
     }
@@ -1421,7 +1423,8 @@ findKMs(){
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivNewFromPlace != "" && this.ivToPlace != "") {
       this.dslDetails.transDate = selectedDataValue.newTripDate;
-      this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString();
+   //  this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString(); this.dTripKM_1 
+     this.dslDetails.tripKms = this.nexttripkms 
       this.dslDetails.loadType = "L";
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
@@ -1468,7 +1471,10 @@ findKMs(){
       this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
         this.incentiveRate = res.message;
         let ir = 0;
+        if(selectedDataValue.advanceDays_1!==''){
         ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
+      }
+      ir = parseInt(this.incentiveRate)
         // if (this.tripkmsDetails.status) {
         // if (this.ltsdsl != undefined) {
         this.formTripsheet.patchValue({

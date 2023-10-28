@@ -27,11 +27,13 @@ namespace FleetTrans.Models
         public string? QtyLtrs { get; set; }
         public string? RatePerLtr { get; set; }
         public string? AmountPaid { get; set; }
+        public string? VendorName { get; set; }
     }
     public class DriverAdvanceModel
     {
         public string? PmtId { get; set; }
         public string? PmtDate { get; set; }
         public string? AmountPaid { get; set; }
+        public string? Ptype { get; set; }
     }
 }

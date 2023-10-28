@@ -614,6 +614,7 @@ namespace FleetTrans.Repository
                                 PmtDate = Convert.ToString(resultData.Tables[1].Rows[i]["PmtDate"]),
                                 QtyLtrs = Convert.ToString(resultData.Tables[1].Rows[i]["QtyLtrs"]),
                                 AmountPaid = Convert.ToString(resultData.Tables[1].Rows[i]["AmountPaid"]),
+                                VendorName = Convert.ToString(resultData.Tables[1].Rows[i]["VendorName"]),
                             });
                         }
                     }
@@ -627,6 +628,7 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(resultData.Tables[2].Rows[i]["PmtId"]),
                                 PmtDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
                                 AmountPaid = Convert.ToString(resultData.Tables[2].Rows[i]["AmountPaid"]),
+                                Ptype = Convert.ToString(resultData.Tables[2].Rows[i]["Ptype"]),
                             });
                         }
                     }

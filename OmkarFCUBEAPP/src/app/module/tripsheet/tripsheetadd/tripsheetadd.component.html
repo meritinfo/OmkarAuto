@@ -651,7 +651,7 @@
                                         <tr>
                                             <th><label for="formrow-inputCity">Pmt Date</label></th>
                                             <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
-                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                            <th><label for="formrow-inputZip">Vendor Name</label></th>
                                         </tr>
                                         <tr *ngFor="let dieselData of tripsheetinnergridmodel.dieselDetailsList;">
                                             <td>
@@ -671,7 +671,7 @@
                                             <td>
                                                 <div class="col-lg-121">
                                                     <div class="mb-3">
-                                                        {{dieselData.amountPaid}}
+                                                        {{dieselData.vendorName}}
                                                     </div>
                                                 </div>
                                             </td>
@@ -688,14 +688,14 @@
                                         <tr>
 
                                             <div class="row">
-                                                         <div class="col-lg-3">
+                                                         <div class="col-lg-4">
                                                              <label for="formrow-inputZip">
                                                                  <h6>Exp Type</h6>
                                                              </label>
                                                          </div>
                                                        
                                                     
-                                                         <div class="col-lg-4">
+                                                         <div class="col-lg-3">
                                                          <label for="formrow-inputZip">
                                                              <h6>Amount</h6>
                                                          </label>
@@ -716,7 +716,7 @@
                                         <tr formArrayName="miscDetailsList"
                                             *ngFor="let miscData of formMiscArray.controls; let k = index">
                                             <div [formGroupName]="k">
-                                                <td class="col-lg-3">
+                                                <td class="col-lg-4">
                                                    
                                                             <select id="role" class="form-select"
                                                                 formControlName="expType">
@@ -732,14 +732,14 @@
                                                 </td>
                                                 <td>
                                                    
-                                                            <input class="form-control" placeholder="Amount"
+                                                            <input class="form-control" placeholder=""
                                                                 formControlName="miscAmount"  (change)="updateMisc(k, $event)">
                                                       
                                                 </td>
                                                 <td>
                                                   
                                                         
-                                                            <input autoclose="false" type="text" placeholder="Narration"
+                                                            <input autoclose="false" type="text" placeholder=""
                                                                 class="form-control" formControlName="narration">
                                                      
                                                 </td>
@@ -777,7 +777,7 @@
                                             <td>
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
-                                                        {{driverData.pmtId}}
+                                                        {{driverData.ptype}}
                                                     </div>
                                                 </div>
                                             </td>
@@ -789,7 +789,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="col-lg-121">
+                                                <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         {{driverData.amountPaid}}
                                                     </div>
@@ -808,14 +808,14 @@
                                         <tr>
 
                                             <div class="row">
-                                                         <div class="col-lg-3">
+                                                         <div class="col-lg-4">
                                                              <label for="formrow-inputZip">
-                                                                 <h6>Filling Stn</h6>
+                                                                 <h6>Filling Branch</h6>
                                                              </label>
                                                          </div>
                                                        
                                                     
-                                                         <div class="col-lg-4">
+                                                         <div class="col-lg-3">
                                                          <label for="formrow-inputZip">
                                                              <h6>Adblue</h6>
                                                          </label>
@@ -836,39 +836,39 @@
                                             *ngFor="let adblueData of formAdblueArray.controls; let m = index">
                                             <div [formGroupName]="m">
                                                 <td class="col-lg-3">
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
                                                   
-                                                            <select id="role" class="form-select"
-                                                                formControlName="adbluefillingStation">
-                                                                <option value="">Choose...</option>
-                                                                <option value="1">Station 1</option>
-                                                                <option value="2">Station 2</option>
-                                                                <option value="3">Station 3</option>
-                                                                <option value="4">Station 4</option>
-                                                                <option value="5">Station 5</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
+                                                      
+                                                  
+                                                           
+                                                            <select class="form-control" formControlName="adbluefillingStation"
+                                                            [ngClass]="">
+        
+                                                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+        
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
+                                                        
+                                                  
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
+                                                  
+                                                      
                                                             
-                                                            <input autoclose="false" type="text" placeholder="Adblue"
+                                                            <input autoclose="false" type="text" placeholder=""
                                                                 class="form-control" decimalonly
                                                                 formControlName="adbluedieselLiter" (change)="updateAdBlue(m, $event)">
-                                                        </div>
-                                                    </div>
+                                                        
+                                                    
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
+                                                    
+                                                   
                                                           
-                                                            <input class="form-control" placeholder="Amount"
+                                                            <input class="form-control" placeholder=""
                                                                 formControlName="adbluedieselAmount" decimalonly>
-                                                        </div>
-                                                    </div>
+                                        
+                                                    
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12 details-button">

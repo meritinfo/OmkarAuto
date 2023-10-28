@@ -24,10 +24,12 @@ export class Dieseldetailsmodel {
     qtyLtrs: string = "";
     ratePerLtr: string = "";
     amountPaid: string = "";
+    vendorName: string = "";
 }
 
 export class Driveradvancemodel {
     pmtId: string = "";
     pmtDate: string = "";
     amountPaid: string = "";
+    ptype: string = "";
 }
