@@ -34,12 +34,14 @@ export class TripsheetaddComponent {
   year: string = '';
   loginDate: string = '';
   day1: string = '';
+  clBalDsl:string = '';
   advancePay: string = '';
   incentiveRate: string = '';
   bhattaRate: string = '';
   advancePay2: string = '';
   day2: string = '';
   adblue: string = '';
+  dsl2: number = 0;
   driverid: string = '';
   ltsdsl: string = '';
   adblue1: string = '';
@@ -255,6 +257,7 @@ export class TripsheetaddComponent {
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
         this.getTripSheetInnerGridList();
         this.GetOpeningBal();
+        this.getBhattaRate();
       } else {
         this.tripsheetinnergridrequest.tripId = 0;
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
@@ -620,6 +623,9 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['graceDays_2'].disable();
     this.formTripsheet.controls['graceDays_1'].disable();
     this.formTripsheet.controls['nextExpectedReportingDt'].disable();
+    this.formTripsheet.controls['issuedAdblueLtrs'].disable();
+    this.formTripsheet.controls['loadType'].disable();
+  
     /////////////////////
      this.formTripsheet.controls['repairsByDriver'].disable();
      this.formTripsheet.controls['parkingByDriver'].disable();
@@ -888,7 +894,8 @@ findKMs(){
 this.nexttripkms = (this.dTripKM_1).toString(),
         this.totalCal();
         this.getBhattaRate();
-        this.getDslToBe()
+        this.getDslToBe();
+        this.totalCalculation();
 
       });
     }
@@ -1080,7 +1087,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       });
     }
 
-
+    this.getBhattaRate();
 
 
   }
@@ -1167,10 +1174,12 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
   totalCal() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-
+    
+   let dsl= parseFloat(this.ltsdsl).toFixed(2);
 
     this.totalAdblue = parseFloat(selectedDataValue.ltsAdblueToBe_2) + parseFloat(selectedDataValue.ltsAdblueToBe_1);
-    this.totaldsl = parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
+  //  this.totaldsl = parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
+  this.totaldsl = this.dsl2 + parseFloat(selectedDataValue.ltsDslToBe_1);
     this.totalpayable = parseFloat(selectedDataValue.advPayable_2) + parseFloat(selectedDataValue.advPayable_1);
     if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
       this.formTripsheet.patchValue({
@@ -1189,6 +1198,35 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
       });
     }
+
+  }
+  totalCalculation(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    var clBalDsl = 0;
+    var clBalAdblue = 0;
+    var netTripBalance = 0;
+    clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + selectedDataValue.issuedDslLtrs?parseFloat(selectedDataValue.issuedDslLtrs):0 - selectedDataValue.totaldsl?parseFloat(selectedDataValue.totaldsl ):0
+   //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
+    clBalAdblue = selectedDataValue.opBalAdblue?parseFloat(selectedDataValue.opBalAdblue):0+ selectedDataValue.issuedAdblueLtrs?parseFloat(selectedDataValue.issuedAdblueLtrs):0- selectedDataValue.totalAdblue ?parseFloat(selectedDataValue.totalAdblue ):0
+    netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
+    if (clBalDsl!== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
+      this.formTripsheet.patchValue({
+        clBalDsl: (clBalDsl).toString(),
+        clBalAdBlue: (clBalAdblue).toString(),
+        netTripBalance: (netTripBalance).toString(),
+
+      });
+
+    }
+    else {
+      this.formTripsheet.patchValue({
+        clBalDsl: '0',
+        clBalAdBlue: '0',
+        netTripBalance: '0',
+
+      });
+    }
+
 
   }
   checkDays2() {
@@ -1323,6 +1361,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     this.checkTripkMs();
     this.getDslToBe1();
     this.getAdBlueToBe1();
+    this.getBhattaRate();
   }
   changeFromPlace2(e: any) {
     this.ivNewFromPlace = e.dataId;
@@ -1331,7 +1370,8 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     this.checkTripkMsNext();
     this.getAdBlueToBe();
     this.getDslToBe();
-    // this.totalCal();
+    this.getBhattaRate();
+     this.totalCal();
   }
   getAdBlueToBe() {
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -1430,6 +1470,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl = res.message;
         let ld= parseFloat(this.ltsdsl).toFixed(2);
+        this.dsl2 = parseFloat(ld);
         // if (this.tripkmsDetails.status) {
         if (this.ltsdsl != undefined) {
           this.formTripsheet.patchValue({
@@ -1458,6 +1499,8 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         ltsDslToBe_2: '0'
       });
     }
+    
+    this.totalCal();
   }
   getIncentiveRate(e: any) {
 
@@ -1474,7 +1517,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         if(selectedDataValue.advanceDays_1!==''){
         ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
       }
-      ir = parseInt(this.incentiveRate)
+     // ir = parseInt(this.incentiveRate)
         // if (this.tripkmsDetails.status) {
         // if (this.ltsdsl != undefined) {
         this.formTripsheet.patchValue({
@@ -1505,6 +1548,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       });
 
     }
+    this.totalCalculation();
 
   }
   getBhattaRate() {
@@ -1517,13 +1561,14 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       this.bhattaRate = res.message;
       let br = 0;
       let bd = 0;
-      let ad1= parseInt(selectedDataValue.actualDays_1);
-      let ad2= parseInt(selectedDataValue.actualDays_2);
-      let ad3= parseInt(selectedDataValue.detentionDays);
+      let ad1= selectedDataValue.actualDays_1?parseInt(selectedDataValue.actualDays_1):0;
+      let ad2= selectedDataValue.actualDays_2?parseInt(selectedDataValue.actualDays_2):0;
+      let ad3= selectedDataValue.detentionDays?parseInt(selectedDataValue.detentionDays):0;
 
 
       // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
       bd = ad1 + ad2 + ad3;
+     //bd = ad1 + ad2
       br = parseInt(this.bhattaRate) * bd;
       this.formTripsheet.patchValue({
 
@@ -1598,6 +1643,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
+    this.getBhattaRate();
     this.checkDestinationControlStatus();
   }
   changeDestination2(e: any) {
@@ -1608,6 +1654,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
      // destinationid2:'1'
     });
     this.checkTripkMs();
+    this.getBhattaRate();
    // this.checkTripkMsNext();
     this.checkDestinationControlStatus();
   }

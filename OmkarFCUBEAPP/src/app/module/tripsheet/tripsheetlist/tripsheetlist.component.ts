@@ -80,10 +80,7 @@ export class TripsheetlistComponent {
             title: 'Expected UL. Dt.',
             data: 'expectedReportingDt',
           },
-          {
-            title: 'LoadType',
-            data: 'loadEmptyType',
-          },
+         
          
   
          {
@@ -91,11 +88,11 @@ export class TripsheetlistComponent {
           data: 'drName',
         },
         {
-          title: 'TripCloseDate',
+          title: 'CloseDate',
           data: 'lastTripCloseDate',
         },
         {
-          title: 'TripLinkYN',
+          title: 'LinkYN',
           data: 'tripLinkYN',
         },
        
