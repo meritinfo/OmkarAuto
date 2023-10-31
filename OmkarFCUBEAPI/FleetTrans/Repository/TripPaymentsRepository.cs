@@ -183,7 +183,7 @@ namespace FleetTrans.Repository
                         
                         };
 
-                        var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select2", null);
+                        var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select2", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -191,8 +191,8 @@ namespace FleetTrans.Repository
                         {
                             creditacList.Add(new BranchListModel
                             {
-                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
-                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["AccountId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["AccountName"]),
                             });
                         }
                     }

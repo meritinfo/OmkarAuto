@@ -32,6 +32,7 @@ export class AddtrippaymentsComponent {
   loginDate: string = '';
   branch: string = '';
   year: string = '';
+  ptype: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
@@ -84,6 +85,7 @@ export class AddtrippaymentsComponent {
    // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
+    //this.getCreditAcList2("C");
     this.getCreditAcList()
     
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -190,6 +192,24 @@ export class AddtrippaymentsComponent {
       this.branchList = res;
     });
   }
+  getCreditAcList2(e: any){
+    //this.tripVehicleDetails.vehicleMasterId =  e;
+      this.ptype = e;
+    this.commonService.getCreditAcList2(this.ptype).subscribe((res) => {
+      this.creditacList = res;
+    });
+
+
+  }
+  getCreditAcList(){
+    //this.tripVehicleDetails.vehicleMasterId =  e;
+     // this.ptype = e;
+    this.commonService.getCreditAcList().subscribe((res) => {
+      this.creditacList = res;
+    });
+
+
+  }
   getTripDetails(e: any) {
     
       this.tripVehicleDetails.vehicleMasterId =  e.dataId;
@@ -291,14 +311,12 @@ export class AddtrippaymentsComponent {
       this.locationList = res;
     });
   }
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
-    });
-  }
+ 
   changeTransType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
+ 
+
     if (selectedValue == "DL") {
       this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
       this.formTripPayment.controls['ratePerLtr'].setValidators([Validators.required]);
@@ -363,8 +381,10 @@ export class AddtrippaymentsComponent {
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
+    this.ptype = e.target.value;
+    this.getCreditAcList2(this.ptype);
     if (selectedValue == "2") {
-   
+      
       this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
       this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
     }

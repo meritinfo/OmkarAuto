@@ -12,8 +12,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
         Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request);
         Task<TripModel> GetTripDetail(TripVehicleModel request);
-    
-                    Task<List<BranchListModel>> GetCreditAcList();
-     // Task<List<AcModel>> GetCreditAcList2(AcModel request);
+        Task<List<BranchListModel>> GetCreditAcList();
+        Task<List<BranchListModel>> GetCreditAcList2(AcModel request);
     }
 }

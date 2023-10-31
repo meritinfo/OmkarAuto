@@ -37,11 +37,11 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetCreditAcList();
         }
-        // public async Task<List<BranchListModel>> GetCreditAcList2(AcModel request)
-        // {
-        //   return await tripPaymentsRepository.GetCreditAcList2(request);
-        //}
-       
+        public async Task<List<BranchListModel>> GetCreditAcList2(AcModel request)
+        {
+            return await tripPaymentsRepository.GetCreditAcList2(request);
+        }
+
 
     }
 }

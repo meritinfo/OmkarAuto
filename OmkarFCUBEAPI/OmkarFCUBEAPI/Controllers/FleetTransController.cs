@@ -96,12 +96,13 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetCreditAcList")]
-        public async Task<IActionResult> GetCreditAcList()
+       
+        [HttpPost("GetCreditAcList2")]
+        public async Task<IActionResult> GetCreditAcList2(AcModel request)
         {
             try
             {
-                var result = await tripPaymentsBusiness.GetCreditAcList();
+                var result = await tripPaymentsBusiness.GetCreditAcList2(request);
 
                 return Ok(result);
             }
@@ -110,20 +111,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPost("GetCreditAcList2")]
-        //public async Task<IActionResult> GetCreditAcList2(AcModel request)
-        //{
-        //    try
-        //    {
-        //        var result = await tripPaymentsBusiness.GetCreditAcList( request);
-
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
         [HttpPost("TripPaymentsSave")]
         public async Task<IActionResult> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {

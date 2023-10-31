@@ -719,7 +719,7 @@
                                                 <td class="col-lg-4">
                                                    
                                                             <select id="role" class="form-select"
-                                                                formControlName="expType">
+                                                                formControlName="expType" (change)="changeMisc(k, $event)">
                                                                 <option value="">Choose...</option>
                                                                 <option value="R">REPAIR</option>
                                                                 <option value="P">PARKING</option>
@@ -836,12 +836,8 @@
                                             *ngFor="let adblueData of formAdblueArray.controls; let m = index">
                                             <div [formGroupName]="m">
                                                 <td class="col-lg-3">
-                                                  
-                                                      
-                                                  
-                                                           
-                                                            <select class="form-control" formControlName="adbluefillingStation"
-                                                            [ngClass]="">
+                                                  <select class="form-control" formControlName="adbluefillingStation"
+                                                            [ngClass]="" (change)="changeAdBlue(m, $event)">
         
                                                             <option *ngFor="let branch of branchList" value={{branch.dataId}}>
         
