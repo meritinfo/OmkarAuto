@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Dropdownmodel } from '../../../models/dropdownmodel';
 import { CommonService } from '../../../services/common.service';
 import { Distancemasterfreightmodel } from 'src/app/models/distancemasterfreightmodel';
+import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { DistancemasterfreightmasterService } from 'src/app/services/distancemasterfreightmaster.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 
@@ -20,6 +21,8 @@ export class DistancemasterfreightaddComponent implements OnInit {
   locationList: Dropdownmodel[] = [];
   formDistanceMasterFreight!: FormGroup;
   selectedDistancemasterfreightDetails = new Distancemasterfreightmodel();
+  freighttripInnergridlistrequest = new FreighttripInnergridlistrequest();
+  distancemstfrtmodel = new Distancemasterfreightmodel();
   keywordLocation = 'dataName';
   ivToPlace = '';
   formSubmitted = false;
@@ -67,6 +70,8 @@ export class DistancemasterfreightaddComponent implements OnInit {
     }
   
 }, 2000);
+this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemasterfreightDetails.masterID);
+this.getFreightInnerGridList();
 }
 
   getLocationList(): void {
@@ -74,7 +79,15 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.locationList = res;
     });
   }
-
+  getFreightInnerGridList(): void {
+    this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
+      this.distancemstfrtmodel = res;
+     
+     
+  
+    
+    });
+  }
   // convenience getter for easy access to contact form fields
   get f() { return this.formDistanceMasterFreight.controls; }
   get formArray() {

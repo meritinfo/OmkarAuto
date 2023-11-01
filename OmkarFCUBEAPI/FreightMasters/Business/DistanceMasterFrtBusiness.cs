@@ -25,6 +25,10 @@ namespace FreightMasters.Business
         {
             return await distanceMasterFrtRepository.GetDistanceMasterFrtList(request);
         }
+        public async Task<DistanceMasterFrtModel> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
+        {
+            return await distanceMasterFrtRepository.GetFreightInnerGridList(request);
+        }
     }
 }
 

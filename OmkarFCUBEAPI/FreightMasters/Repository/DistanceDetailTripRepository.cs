@@ -39,7 +39,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@EnrouteExpCarCarrier", distanceDetailTripModel.EnrouteExpCarCarrier),
                             new SqlParameter("@EnrouteExpEmpty", distanceDetailTripModel.EnrouteExpEmpty),
                             new SqlParameter("@EnrouteExpRemarks", distanceDetailTripModel.EnrouteExpRemarks),
-                            new SqlParameter("@DefineTollExp", distanceDetailTripModel.DefineTollExp),
+                            new SqlParameter("@DefinedTollExp", distanceDetailTripModel.DefinedTollExp),
                        
 
 

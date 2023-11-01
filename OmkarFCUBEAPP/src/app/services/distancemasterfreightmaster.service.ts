@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Distancemasterfreightmodel } from '../models/distancemasterfreightmodel';
 import { Distancemasterfreightlistmodel } from '../models/distancemasterfreightlistmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { FreighttripInnergridlistrequest } from '../models/freighttripInnergridlistrequest';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
@@ -36,5 +37,8 @@ export class DistancemasterfreightmasterService {
   }
   getDistanceMasterFreightList(filter: Filtermodel): Observable<Distancemasterfreightlistmodel> {
     return this.httpClient.post<Distancemasterfreightlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceMasterFrtList', filter, this.httpOptions);
+  }
+   getFreightInnerGridList(request: FreighttripInnergridlistrequest): Observable<Distancemasterfreightmodel> {
+    return this.httpClient.post<Distancemasterfreightmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightInnerGridList', request, this.httpOptions);
   }
 }

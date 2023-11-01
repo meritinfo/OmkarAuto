@@ -126,6 +126,68 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<DistanceMasterFrtModel> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
+        {
+            DistanceMasterFrtModel tripSheetInnerGridList = new()
+            {
+                DistanceDetailsFreightList = new List<DistanceDetailFrtModel>(),
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          //  new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@MasterId", request.MasterID)
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetFreightInnerGridList_Select", param);
+
+                    // LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.DistanceDetailsFreightList.Add(new DistanceDetailFrtModel
+                            {
+                                //  
+                              //  DistanceDtlID = Convert.ToString(resultData.Tables[0].Rows[i]["DistanceDtlID"]),
+                                MasterID = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
+                                FromLocation = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
+                                ToLocation = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
+                                KMS = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
+                               // EnrouteExpTruck = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
+                               // EnrouteExpTrailer = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
+                              //  EnrouteExpCarCarrier = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
+                              //  EnrouteExpEmpty = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
+                              //  EnrouteExpRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
+                             //   DefinedTollExp = Convert.ToString(resultData.Tables[0].Rows[i]["DefinedTollExp"]),
+
+                            });
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetInnerGridList;
+        }
         public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
         {
             DistanceMasterFrtList distanceMasterFreightList = new();

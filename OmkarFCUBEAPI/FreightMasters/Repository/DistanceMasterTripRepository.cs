@@ -160,7 +160,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@EnrouteExpCarCarrier", distanceDetailTripModel.EnrouteExpCarCarrier),
                             new SqlParameter("@EnrouteExpEmpty", distanceDetailTripModel.EnrouteExpEmpty),
                             new SqlParameter("@EnrouteExpRemarks", distanceDetailTripModel.EnrouteExpRemarks),
-                            new SqlParameter("@DefineTollExp", distanceDetailTripModel.DefineTollExp)
+                            new SqlParameter("@DefinedTollExp", distanceDetailTripModel.DefinedTollExp)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceDetailTrip_Insert", param);
                    
@@ -194,62 +194,69 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        //public async Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request)
-        //{
-        //    TripSheetInnerGridListModel tripSheetInnerGridList = new()
-        //    {
-        //        LRDetailsList = new List<LRDetailsModel>(),
-                
-        //    };
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@TripId", request.TripId),
-        //                    new SqlParameter("@VehicleMasterId", request.VehicleMasterId)
-        //                };
+        public async Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request)
+        {
+            DistanceMasterTripModel tripSheetInnerGridList = new()
+            {
+                DistanceDetailsTripList = new List<DistanceDetailTripModel>(),
 
-        //            var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", param);
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          //  new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@MasterId", request.MasterID)
+                        };
 
-        //            //LR Details
-        //            if (resultData != null && resultData.Tables[0].Rows.Count > 0)
-        //            {
-        //                for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
-        //                {
-        //                    tripSheetInnerGridList.LRDetailsList.Add(new LRDetailsModel
-        //                    {
-        //                        ConsignmentID = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
-        //                        GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
-        //                        CneeCode = Convert.ToString(resultData.Tables[0].Rows[i]["CneeCode"]),
-        //                        CnorInvNo = Convert.ToString(resultData.Tables[0].Rows[i]["CnorInvNo"]),
-        //                        EwayBillNo = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillNo"]),
-        //                        EwayBillDate = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillDate"]),
-        //                        EwayBillExpDate = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillExpDate"]),
-        //                    });
-        //                }
-        //            }
-                
-              
-          
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception on database
-        //        //ExceptionModel exceptionModel = new()
-        //        //{
-        //        //    ExceptionMessage = Convert.ToString(ex.Message),
-        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
-        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
-        //        //};
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetFreightTripInnerGridList_Select", param);
 
-        //        //ExceptionRepository exception = new(dbconnection);
-        //        //await exception.SaveExceptionDetails(exceptionModel);
-        //    }
-        //    return tripSheetInnerGridList;
-        //}
+                   // LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.DistanceDetailsTripList.Add(new DistanceDetailTripModel
+                            {
+                                //  
+                                DistanceDtlID = Convert.ToString(resultData.Tables[0].Rows[i]["DistanceDtlID"]),
+                                MasterID = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
+                                FromLocation = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
+                                ToLocation = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
+
+                                KMS = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
+                                EnrouteExpTruck = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
+                                EnrouteExpTrailer = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
+                                EnrouteExpCarCarrier = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
+                                EnrouteExpEmpty = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
+                                EnrouteExpRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
+                                DefinedTollExp = Convert.ToString(resultData.Tables[0].Rows[i]["DefinedTollExp"]),
+
+                            });
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetInnerGridList;
+        }
 
         public async Task<DistanceMasterTripList> GetDistanceMasterTripList(DistanceMasterTripListRequest request)
         {

@@ -4,6 +4,8 @@ using System;
 using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
+using FleetTrans.Business;
+using FleetTrans.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -230,6 +232,35 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetFreightTripInnerGridList")]
+        public async Task<IActionResult> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request)
+        {
+            try
+            {
+                var result = await distanceMasterTripBusiness.GetFreightTripInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFreightInnerGridList")]
+        public async Task<IActionResult> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
+        {
+            try
+            {
+                var result = await distanceMasterFrtBusiness.GetFreightInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("FreightRatesMstSave")]
         public async Task<IActionResult> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel)

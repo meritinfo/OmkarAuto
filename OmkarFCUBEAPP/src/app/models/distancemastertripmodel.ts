@@ -5,12 +5,14 @@ export class Distancemastertripmodel {
     fromLocation: string = "";
     loggedInUser: string = "";
     distanceDetailsTripList: Distancedetailstripmodel[] = [];
+    
 }
 
 export class Distancedetailstripmodel {
     masterID: string = "";
     fromLocation: string = "";
     toLocation: string = "";
+    //toLocat: string = "";
     kms: string = "";
     index: string = "";
     enrouteExpTruck: string = "";

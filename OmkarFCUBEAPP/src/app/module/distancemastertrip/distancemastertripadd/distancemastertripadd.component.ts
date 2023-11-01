@@ -7,6 +7,7 @@ import { Dropdownmodel } from '../../../models/dropdownmodel';
 import { CommonService } from '../../../services/common.service';
 import { Distancemastertripmodel } from 'src/app/models/distancemastertripmodel';
 import { DistancemastertripService } from 'src/app/services/distancemastertrip.service';
+import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { Responsemodel } from 'src/app/models/responsemodel';
 
 @Component({
@@ -21,7 +22,9 @@ export class DistancemastertripaddComponent {
   locationList: Dropdownmodel[] = [];
   formDistanceMasterTrip!: FormGroup;
   selectedDistancemastertripDetails = new Distancemastertripmodel();
+  distancemsttripmodel = new Distancemastertripmodel();
   keywordLocation = 'dataName';
+  freighttripInnergridlistrequest = new FreighttripInnergridlistrequest();
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -46,6 +49,7 @@ ngOnInit(): void {
     this.route.navigate(['/']);
   }
   this.getLocationList();
+ 
   this.selectedDistancemastertripDetails = this.distanceMastertripService.getDistancemastertripDetails();
   this.formDistanceMasterTrip = this.formBuilder.group({
     fromLocation: new FormControl('', [Validators.required]),
@@ -64,6 +68,8 @@ ngOnInit(): void {
     })
   }
 }, 2000);
+this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemastertripDetails.masterID);
+this.getFreightTripInnerGridList();
 }
 
 getLocationList(): void {
@@ -112,6 +118,16 @@ addItem(index: number): void {
     this.toasterService.warning("Please select one destination name, enterKM ");
   }
 }
+getFreightTripInnerGridList(): void {
+  this.distanceMastertripService.getFreightTripInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
+    this.distancemsttripmodel = res;
+   
+   
+
+  
+  });
+}
+
 
 createInitialArray() {
   return this.formBuilder.group({
@@ -155,6 +171,7 @@ submitDistanceMasterFreightForm(): void {
      'index': '',
       'masterID': '',
       'fromLocation': this.formDistanceMasterTrip.value.fromLocation.dataId,
+      
       'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
       'kms': this.formDistanceMasterTrip.value.arrayList[i].kms,
       'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck,

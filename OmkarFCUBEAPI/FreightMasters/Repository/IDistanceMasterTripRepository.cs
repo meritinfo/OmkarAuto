@@ -7,6 +7,7 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel DistanceMasterTripModel);
         Task<DistanceMasterTripList> GetDistanceMasterTripList(DistanceMasterTripListRequest request);
+        Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request);
     }
 }
 

@@ -43,6 +43,7 @@ export class AddtrippaymentsComponent {
   tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
+  creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
 
@@ -85,8 +86,8 @@ export class AddtrippaymentsComponent {
    // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
-    //this.getCreditAcList2("C");
-    this.getCreditAcList()
+    this.getCreditAcList2('C');
+    this.getCreditAcList();
     
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -206,10 +207,12 @@ export class AddtrippaymentsComponent {
      // this.ptype = e;
     this.commonService.getCreditAcList().subscribe((res) => {
       this.creditacList = res;
+    
     });
-
+  
 
   }
+ 
   getTripDetails(e: any) {
     
       this.tripVehicleDetails.vehicleMasterId =  e.dataId;
