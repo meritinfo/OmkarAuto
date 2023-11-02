@@ -121,6 +121,7 @@ addItem(index: number): void {
 getFreightTripInnerGridList(): void {
   this.distanceMastertripService.getFreightTripInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
     this.distancemsttripmodel = res;
+    
    
    
 
@@ -173,13 +174,15 @@ submitDistanceMasterFreightForm(): void {
       'fromLocation': this.formDistanceMasterTrip.value.fromLocation.dataId,
       
       'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+      'toLocat': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+      'fromLocat': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
       'kms': this.formDistanceMasterTrip.value.arrayList[i].kms,
       'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck,
       'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer,
       'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier,
       'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty,
       'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,
-      'defineTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp,
+      'definedTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp,
     })
   }
 

@@ -12,7 +12,8 @@ export class Distancedetailstripmodel {
     masterID: string = "";
     fromLocation: string = "";
     toLocation: string = "";
-    //toLocat: string = "";
+    toLocat: string = "";
+    fromLocat: string = "";
     kms: string = "";
     index: string = "";
     enrouteExpTruck: string = "";
@@ -20,6 +21,6 @@ export class Distancedetailstripmodel {
     enrouteExpCarCarrier: string = "";
     enrouteExpEmpty: string = "";
     enrouteExpRemarks: string = "";
-    defineTollExp: string = "";
+    definedTollExp: string = "";
     
 }

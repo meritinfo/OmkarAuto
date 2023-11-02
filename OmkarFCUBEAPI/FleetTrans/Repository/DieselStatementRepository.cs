@@ -76,12 +76,14 @@ namespace FleetTrans.Repository
             }
             return dieselStatementSearchList;
         }
-
+    
         /// <summary>
         /// Service method for save Diesel Statement details
         /// </summary>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request)
+        /// 
+
+    public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request)
         {
             ResponseModel responseModel = new();
             try
@@ -155,5 +157,81 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<DieselStatementList> GetDieselStatementList(DieselStatementListRequest request)
+        {
+            DieselStatementList dieselStatementList = new();
+            List<DieselStatementModel> dieselList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DieselStatementList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dieselList.Add(new DieselStatementModel
+                            {
+                                DfVendor = Convert.ToString(dataSet.Tables[0].Rows[i]["DfVendor"]),
+                                BillStmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtNo"]),
+                                BillStmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
+
+                                FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
+
+                                ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
+                                Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
+                                TotalCashAdv = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
+                                TotalDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
+                                TotalNetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
+                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+
+
+
+
+
+                            });
+                        }
+
+                        dieselStatementList.DieselList = dieselList;
+
+                        dieselStatementList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return dieselStatementList;
+        }
+
     }
+
+
 }

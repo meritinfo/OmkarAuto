@@ -196,7 +196,10 @@ export class AddtrippaymentsComponent {
   getCreditAcList2(e: any){
     //this.tripVehicleDetails.vehicleMasterId =  e;
       this.ptype = e;
-    this.commonService.getCreditAcList2(this.ptype).subscribe((res) => {
+      var data = {
+        'pType' : this.ptype
+      }
+    this.commonService.getCreditAcList2(data).subscribe((res) => {
       this.creditacList = res;
     });
 

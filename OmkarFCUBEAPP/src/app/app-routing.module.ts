@@ -121,6 +121,7 @@ const routes: Routes = [
   { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
   { path: 'drivermasterlist', component: DrivermasterlistComponent },
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
+  { path: 'drivermasteredit', component: DrivermasteraddComponent },
   { path: 'trippaymentlist', component: TrippaymentslistComponent },
   { path: 'distancemasterfreightlist', component: DistancemasterfreightlistComponent },
   { path: 'distancemasterfreightadd', component: DistancemasterfreightaddComponent },

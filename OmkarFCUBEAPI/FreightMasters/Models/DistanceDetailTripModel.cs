@@ -7,7 +7,8 @@ namespace FreightMasters.Models
         public string? DistanceDtlID { get; set; }
         public string? MasterID { get; set; }
         public string? FromLocation { get; set; }
-       // public string? FromLocat { get; set; }
+        public string? FromLocat { get; set; }
+        public string? ToLocat { get; set; }
         public string? ToLocation { get; set; }
         public string? KMS { get; set; }
         public string? EnrouteExpTruck { get; set; }

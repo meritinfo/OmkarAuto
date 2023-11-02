@@ -57,6 +57,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
     });
     setTimeout(() => {
     if (this.selectedDistancemasterfreightDetails.masterID != '') {
+      console.log(this.selectedDistancemasterfreightDetails);
       this.formDistanceMasterFreight.patchValue(this.selectedDistancemasterfreightDetails);
 
       this.formDistanceMasterFreight.patchValue({
@@ -79,12 +80,34 @@ this.getFreightInnerGridList();
       this.locationList = res;
     });
   }
+  
   getFreightInnerGridList(): void {
     this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemstfrtmodel = res;
-     
-     
-  
+      this.distancemasterfreightmodel.distanceDetailsFreightList = [];
+      for (let misc = 1; misc < this.distancemstfrtmodel.distanceDetailsFreightList.length; misc++) {
+        this.addItem2();
+
+        this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+          'index': '',
+          'masterID': this.distancemstfrtmodel.distanceDetailsFreightList[misc].masterID,
+          'fromLocation': this.distancemstfrtmodel.distanceDetailsFreightList[misc].fromLocation,
+          'toLocation': this.distancemstfrtmodel.distanceDetailsFreightList[misc].toLocation,
+          'kms': this.distancemstfrtmodel.distanceDetailsFreightList[misc].kms
+        })
+
+        this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+          'index': '',
+          'masterID': this.distancemstfrtmodel.distanceDetailsFreightList[misc].masterID,
+          'fromLocation': this.distancemstfrtmodel.distanceDetailsFreightList[misc].fromLocation,
+          'toLocation': this.distancemstfrtmodel.distanceDetailsFreightList[misc].toLocation,
+          'kms': this.distancemstfrtmodel.distanceDetailsFreightList[misc].kms
+        })
+      }
+
+      this.formDistanceMasterFreight.patchValue({
+        arrayList: this.distancemasterfreightmodel.distanceDetailsFreightList
+      })
     
     });
   }
@@ -130,11 +153,17 @@ this.getFreightInnerGridList();
       this.toasterService.warning("Please select one destination name, enterKM ");
     }
   }
+  addItem2(): void {
+  
+   
+      this.formArray.push(this.createInitialArray());
+   
+  }
 
   createInitialArray() {
     return this.formBuilder.group({
-      destination: ['', [Validators.required]],
-      enterKM: ['', [Validators.required]]
+      toLocation: ['', [Validators.required]],
+      kms: ['', [Validators.required]]
     });
   }
 

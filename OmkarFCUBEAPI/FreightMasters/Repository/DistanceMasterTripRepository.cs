@@ -233,6 +233,8 @@ namespace FreightMasters.Repository
                                 EnrouteExpEmpty = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
                                 EnrouteExpRemarks = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
                                 DefinedTollExp = Convert.ToString(resultData.Tables[0].Rows[i]["DefinedTollExp"]),
+                                ToLocat = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocat"]),
+                                FromLocat = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocat"]),
 
                             });
                         }

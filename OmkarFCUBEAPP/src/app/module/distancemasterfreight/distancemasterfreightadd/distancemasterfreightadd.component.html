@@ -109,7 +109,7 @@
                                                                     [itemTemplate]="itemTemplate"
                                                                     [notFoundTemplate]="notFoundTemplate"
                                                                     [customFilter]="startWithFilter"
-                                                                    formControlName="destination">
+                                                                    formControlName="toLocation">
                                                                 </ng-autocomplete>
 
                                                                 <ng-template #itemTemplate let-item>
@@ -129,7 +129,7 @@
                                                
                                                            
                                                             <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enterKM">
+                                                                formControlName="kms">
                                                          
                                                 </td>
                                                 <td class="col-lg-4">
@@ -139,7 +139,7 @@
                                                     </label>
                                                     <div class="col-lg-4 details-button">
                                                         <button type="button" class="btn btn-primary"
-                                                            (click)="addItem(i)">Add</button>
+                                                            (click)="addItem2()">Add</button>
                                                         <button *ngIf="formArray.controls.length > 1"
                                                             (click)="removeItem(i)"
                                                             class="btn btn-danger">Delete</button>
@@ -204,7 +204,7 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button type="submit" class="btn btn-primary w-md"
-                                (click)="submitDistanceMasterFreightForm()">Submit</button>
+                                (click)="submitDistanceMasterFreightForm()">Save</button>
                         </div>
                     </div>
                 </div>
