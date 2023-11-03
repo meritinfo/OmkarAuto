@@ -59,6 +59,7 @@ import {  AddbankcashcontraComponent } from './module/bankcashcontra/addbankcash
 import {  JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
+import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 
@@ -150,6 +151,8 @@ const routes: Routes = [
   { path: 'journalentrylist', component:  JournalentrylistComponent },
   { path: 'addjournalentry', component:  AddjournalentryComponent },
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
+  { path: 'dieselstatementedit', component:  DieselstatementaddComponent },
+  { path: 'dieselstatementlist', component:  DieselstatementlistComponent },
   { path: 'billstatementadd', component:  BillstatementaddComponent },
   { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
   

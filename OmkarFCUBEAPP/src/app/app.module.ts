@@ -120,6 +120,7 @@ import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/r
 import { Ratesmastermodel } from './models/ratesmastermodel';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
+import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 
 @NgModule({
   declarations: [
@@ -191,12 +192,14 @@ import { DieselstatementlistComponent } from './module/dieselstatement/dieselsta
     JournalentrylistComponent,
     AddjournalentryComponent,
     DieselstatementaddComponent,
+    DieselstatementlistComponent,
     BillstatementaddComponent,
     DistancemastertripaddComponent,
     AddratesmasterComponent,
     RatesmasterlistComponent,
     DriversalarystatementaddComponent,
-    DieselstatementlistComponent
+    DieselstatementlistComponent,
+    BillstatementlistComponent
   ],
   imports: [
     BrowserModule,

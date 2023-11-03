@@ -27,5 +27,9 @@ namespace FleetTrans.Business
         {
             return await billStatementRepository.SaveBillStatementDetails(request);
         }
+        public async Task<BillStatementList> GetBillStatementList(BillStatementListRequest request)
+        {
+            return await billStatementRepository.GetBillStatementList(request);
+        }
     }
 }

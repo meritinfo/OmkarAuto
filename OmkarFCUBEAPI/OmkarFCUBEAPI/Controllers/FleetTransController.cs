@@ -68,6 +68,35 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDieselStatementList")]
+        public async Task<IActionResult> GetDieselStatementList(DieselStatementListRequest request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillStatementList")]
+        public async Task<IActionResult> GetBillStatementList(BillStatementListRequest request)
+        {
+            try
+            {
+                var result = await billStatementBusiness.GetBillStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTripSheetList")]
         public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
         {
@@ -262,6 +291,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+      
 
         [HttpPost("SaveDieselStatementDetails")]
         public async Task<IActionResult> SaveDieselStatementDetails(DieselStatementSaveRequest request)

@@ -193,8 +193,8 @@ this.getFreightInnerGridList();
         'index': '',
         'masterID': '',
         'fromLocation': this.formDistanceMasterFreight.value.fromLocation.dataId,
-        'toLocation': this.formDistanceMasterFreight.value.arrayList[i].destination.dataId,
-        'kms': this.formDistanceMasterFreight.value.arrayList[i].enterKM
+        'toLocation': this.formDistanceMasterFreight.value.arrayList[i].toLocation.dataId,
+        'kms': this.formDistanceMasterFreight.value.arrayList[i].kms
       })
     }
 

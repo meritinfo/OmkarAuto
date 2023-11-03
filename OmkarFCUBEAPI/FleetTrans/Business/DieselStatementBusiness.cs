@@ -26,5 +26,10 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.SaveDieselStatementDetails(request);
         }
+        public async Task<DieselStatementList> GetDieselStatementList(DieselStatementListRequest request)
+        {
+            return await dieselStatementRepository.GetDieselStatementList(request);
+        }
+
     }
 }

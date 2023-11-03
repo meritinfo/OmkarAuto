@@ -84,6 +84,79 @@ namespace FleetTrans.Repository
             }
             return billStatementSearchList;
         }
+        public async Task<BillStatementList> GetBillStatementList(BillStatementListRequest request)
+        {
+            BillStatementList billStatementList = new();
+            List<BillStatementModel> billList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            billList.Add(new BillStatementModel
+                            {
+                                BillStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStation"]),
+                                SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
+                                Bill_StmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["Bill_StmtNo"]),
+
+                                BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
+
+                                BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),
+                              ////  Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
+                              // // Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                              //  TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
+                              //  TotalCashAdv = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
+
+                              //  TotalNetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
+                              //  BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                              //  YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+
+
+
+
+
+                            });
+                        }
+
+                        billStatementList.BillList = billList;
+
+                        billStatementList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return billStatementList;
+        }
 
         /// <summary>
         /// Service method for save Bill Statement details

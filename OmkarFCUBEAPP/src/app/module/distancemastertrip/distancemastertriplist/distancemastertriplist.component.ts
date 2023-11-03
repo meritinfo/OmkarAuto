@@ -55,7 +55,10 @@ constructor(private distanceMastertripService: DistancemastertripService, privat
           });
       },
       columns: [
-        
+        {
+          title: 'fromLocation',
+          data: 'fromLocation',
+        },
   
         {
           title: 'ValidFrom',

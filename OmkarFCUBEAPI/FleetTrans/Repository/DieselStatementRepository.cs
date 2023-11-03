@@ -193,7 +193,7 @@ namespace FleetTrans.Repository
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
                                 TotalCashAdv = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
-                                TotalDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
+                           
                                 TotalNetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
