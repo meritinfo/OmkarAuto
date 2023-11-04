@@ -1,0 +1,33 @@
+export class billstatementmodel {
+    masterID: string = "";
+    billStation: string = "";
+    seriesCode: string = "";
+    bill_StmtNo: string = "";
+    billDate: string = "";
+    billStatus: string = "";
+    partyCode: string = "";
+    fromDate: string = "";
+    suppYN: string = "";
+    gcNoteNo: string = "";
+    totFreight: string = "";
+    TotExtraChrg: string = "";
+    TotSubTotal: string = "";
+    gstType: string = "";
+    sgstPct: string = "";
+    sgstAmt: string = "";
+    cgstPct: string = "";
+    cgstAmt: string = "";
+    igstPct: string = "";
+    igstAmt: string = "";
+    totalBillAmt: string = "";
+    ftmid: string = "";
+    linkedYN: string = "";
+    yearID: string = "";
+    remarks: string = "";
+    totRecdAmt: string = "";
+    totDedAmt: string = "";
+    totTdsAmt: string = "";
+    einv_Gst_Irn: string = "";
+    einv_Gst_AckNo: string = "";
+    einv_Gst_AckDt: string = "";
+}

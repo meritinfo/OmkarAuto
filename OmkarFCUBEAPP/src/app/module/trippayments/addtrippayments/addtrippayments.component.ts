@@ -45,6 +45,7 @@ export class AddtrippaymentsComponent {
   creditacList: Dropdownmodel[] = [];
   creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  newList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
 
 
@@ -86,8 +87,8 @@ export class AddtrippaymentsComponent {
    // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
-    this.getCreditAcList2('C');
-    this.getCreditAcList();
+    //this.getCreditAcList2('');
+    //this.getCreditAcList();
     
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -135,20 +136,29 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['loadorempty'].disable();
       this.formTripPayment.controls['pmtBranch'].disable();
+      this.formTripPayment.controls['dsltobe'].disable();
+      this.formTripPayment.controls['travel'].disable();
      // this.formTripPayment.controls['vehicleMasterID'].disable();
      
  
       var selectedDataValue = this.formTripPayment.getRawValue();
       this. getTripDetailseditmode(selectedDataValue.vehicleMasterID) 
-     
+      this.getCreditAcList2(selectedDataValue.pmtType);
+      //this.getCreditAcList();
+      this.formTripPayment.controls['vehicleMasterID'].disable();
+      this.formTripPayment.controls['vehicleMasterID'].setValidators([Validators.required]);
       this.formTripPayment.patchValue({
-        
+      
         pmtBranch:  selectedDataValue.pmtBranch, 
         pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
         chequeDate:  this.commonService.formatDate(selectedDataValue.chequeDate), 
         tripNo:  selectedDataValue.tripNo, 
         loadorempty:  selectedDataValue.loadorempty, 
        vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
+      //creditAc: this.newList.find(e => e.dataId == selectedDataValue.creditAc),
+      
+    
+      // neftPmt:  selectedDataValue.neftPmt, 
    
       // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
       // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
@@ -159,9 +169,11 @@ export class AddtrippaymentsComponent {
       
       })
     }
+  
     this.getValidation();
     
        this.formTripPayment.controls['pmtBranch'].disable();
+
     this.formTripPayment.controls['pmtDate'].disable();
   }, 2000);
 
@@ -174,13 +186,15 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
     this.formTripPayment.controls['to'].disable();
-  //  this.formTripPayment.controls['vehicleMasterID'].disable();
-
+  // this.formTripPayment.controls['vehicleMasterID'].disable();
+   this.formTripPayment.controls['vehicleMasterID'].updateValueAndValidity();
     this.formTripPayment.controls['pmtBranch'].updateValueAndValidity();
     this.formTripPayment.controls['pmtDate'].updateValueAndValidity();
     this.formTripPayment.controls['tripNo'].updateValueAndValidity();
     this.formTripPayment.controls['loadorempty'].updateValueAndValidity();
     this.formTripPayment.controls['pmtfromDate'].updateValueAndValidity();
+  
+
 
   
   }
@@ -201,6 +215,7 @@ export class AddtrippaymentsComponent {
       }
     this.commonService.getCreditAcList2(data).subscribe((res) => {
       this.creditacList = res;
+      this.newList = this.creditacList;
     });
 
 
@@ -426,6 +441,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "0";
+  //this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt ;
     this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
     this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;

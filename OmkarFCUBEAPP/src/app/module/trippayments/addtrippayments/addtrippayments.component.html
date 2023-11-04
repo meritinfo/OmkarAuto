@@ -221,7 +221,7 @@
                                                     <label for="basicpill-phoneno-input">CreditAc </label>
           
                                                     <select class="form-control" formControlName="creditAc"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
 
                                                     <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
 
