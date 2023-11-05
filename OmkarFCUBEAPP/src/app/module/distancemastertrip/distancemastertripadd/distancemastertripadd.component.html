@@ -38,7 +38,7 @@
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
                                                             formControlName="fromLocation"
-                                                            (closed) = "popupClosedToPlace()"
+                                                            (closed)="popupClosedToPlace()"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
                                                         </ng-autocomplete>
 
@@ -83,149 +83,124 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table no-padding">
                                         <tr>
                                             <td class="col-lg-3">
                                                 <label for="formrow-inputZip">
                                                     <h6>Destination</h6>
-                                                </label></td>
-                                                <td class="col-lg-1">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Kms</h6>
-                                                    </label></td>
-                                                    <td class="col-lg-2">
-                                                        <label for="formrow-inputZip">
-                                                            <h6>Enroute Exp Truck</h6>
-                                                        </label></td>
-                                                        <td class="col-lg-2">
-                                                            <label for="formrow-inputZip">
-                                                                <h6>Enroute Exp Trailer</h6>
-                                                            </label></td>
-                                                            <td class="col-lg-1">
-                                                                <label for="formrow-inputZip">
-                                                                    <h6> Enroute Exp Car Carrier</h6>
-                                                                </label></td>
-                                                                <td class="col-lg-1">
-                                                                    <label for="formrow-inputZip">
-                                                                        <h6>Enroute Exp Empty</h6>
-                                                                    </label></td>
-                                                                    <td class="col-lg-3">
-                                                                        <label for="formrow-inputZip">
-                                                                            <h6>Enroute Remarks</h6>
-                                                                        </label></td>
-                                                                        <td class="col-lg-2">
-                                                                            <label for="formrow-inputZip">
-                                                                                <h6>Define Toll exp</h6>
-                                                                            </label></td>
-                                                                            <td class="col-lg-2">
-                                                                                <label for="formrow-inputZip">
-                                                                                    <h6>Action</h6>
-                                                                                </label></td>
-                        
-                    
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Kms</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Enroute Exp Truck</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Enroute Exp Trailer</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <label for="formrow-inputZip">
+                                                    <h6> Enroute Exp Car Carrier</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Enroute Exp Empty</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-3">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Enroute Remarks</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Define Toll exp</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Action</h6>
+                                                </label>
+                                            </td>
+
+
                                         </tr>
-                   
+
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-3">
-                                                  
-                                                            <div class="ng-autocomplete">
-                                                                <ng-autocomplete [data]="locationList"
-                                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                                    (selected)='selectEvent($event)'
-                                                                    (inputChanged)='onChangeSearch($event)'
-                                                                    (inputFocused)='onFocused($event)'
-                                                                    [itemTemplate]="itemTemplate"
-                                                                    [notFoundTemplate]="notFoundTemplate"
-                                                                    [customFilter]="startWithFilter"
-                                                                    formControlName="fromLocation">
 
-                                                                </ng-autocomplete>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toLocation">
 
-                                                                <ng-template #itemTemplate let-item>
-                                                                    <a [innerHTML]="item.dataName"></a>
-                                                                </ng-template>
+                                                        </ng-autocomplete>
 
-                                                                <ng-template #notFoundTemplate let-notFound>
-                                                                    <div [innerHTML]="notFound"></div>
-                                                                </ng-template>
-                                                            </div>
-                                                       
-                                                      
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+
+
                                                 </td>
                                                 <td class="col-lg-1">
-                                                   
-                                                     
-                                                  
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="kms">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="kms">
                                                 </td>
                                                 <td class="col-lg-2">
-                                                   
-                                                     
-                                                  
-                                                           
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enrouteExpTruck">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="enrouteExpTruck">
+
                                                 </td>
                                                 <td class="col-lg-2">
-                                                   
-                                                     
-                                                 
-                                                           
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enrouteExpTrailer">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="enrouteExpTrailer">
                                                 </td>
                                                 <td class="col-lg-1">
-                                                   
-                                                     
-                                                   
-                                                           
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enrouteExpCarCarrier">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="enrouteExpCarCarrier">
                                                 </td>
                                                 <td class="col-lg-1">
-                                                   
-                                                     
-                                                   
-                                                           
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="enrouteExpEmpty">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="enrouteExpEmpty">
                                                 </td>
                                                 <td class="col-lg-3">
-                                                   
-                                                     
-                                                   
-                                                           
-                                                            <input autoclose="false" class="form-control"
-                                                                formControlName="enrouteExpRemarks">
-                                                         
+                                                    <input autoclose="false" class="form-control"
+                                                        formControlName="enrouteExpRemarks">
                                                 </td>
                                                 <td class="col-lg-2">
-                                                   
-                                                     
-                                                   
-                                                           
-                                                            <input numbersonly autoclose="false" class="form-control"
-                                                                formControlName="defineTollExp">
-                                                         
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="defineTollExp">
                                                 </td>
                                                 <td class="col-lg-4">
-                                                   
                                                     <div class="col-lg-4 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addItem(i)">Add</button>
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button" class="btn btn-add"
+                                                            (click)="addItem(i)"></button>
                                                         <button *ngIf="formArray.controls.length > 1"
                                                             (click)="removeItem(i)"
-                                                            class="btn btn-danger">Delete</button>
-                                                        </div>
-                                                    
+                                                            class="btn btn-delete"></button>
+                                                    </div>
+
                                                 </td>
                                             </div>
                                         </tr>
@@ -235,8 +210,8 @@
                         </div>
                     </div>
                 </div>
-                
-     
+
+
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">

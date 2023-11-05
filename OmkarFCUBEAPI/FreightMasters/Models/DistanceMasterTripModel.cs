@@ -12,6 +12,7 @@ namespace FreightMasters.Models
         public string? ValidFrom { get; set; }
         public string? ValidUpto { get; set; }
         public string? FromLocation { get; set; }
+        public string? LocationName { get; set; }
         public string? LoggedInUser { get; set; }
         public List<DistanceDetailTripModel> DistanceDetailsTripList { get; set; }
     }

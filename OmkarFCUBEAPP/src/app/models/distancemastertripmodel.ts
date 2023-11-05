@@ -3,6 +3,7 @@ export class Distancemastertripmodel {
     validFrom: string = "";
     validUpto: string = "";
     fromLocation: string = "";
+    locationName: string = "";
     loggedInUser: string = "";
     distanceDetailsTripList: Distancedetailstripmodel[] = [];
     
@@ -12,8 +13,8 @@ export class Distancedetailstripmodel {
     masterID: string = "";
     fromLocation: string = "";
     toLocation: string = "";
-    toLocat: string = "";
-    fromLocat: string = "";
+    toLocationName: string = "";
+    fromLocationName: string = "";
     kms: string = "";
     index: string = "";
     enrouteExpTruck: string = "";

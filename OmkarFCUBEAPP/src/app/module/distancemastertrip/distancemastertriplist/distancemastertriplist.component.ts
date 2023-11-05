@@ -7,7 +7,7 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Distancemastertriplistmodel } from 'src/app/models/distancemastertriplistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Distancemastertripmodel } from 'src/app/models/distancemastertripmodel';
-import{ DistancemastertripService } from 'src/app/services/distancemastertrip.service';
+import { DistancemastertripService } from 'src/app/services/distancemastertrip.service';
 
 @Component({
   selector: 'app-distancemastertriplist',
@@ -25,9 +25,7 @@ export class DistancemastertriplistComponent {
     search: ''
   }
 
-constructor(private distanceMastertripService: DistancemastertripService, private route: Router)  {
-
-
+  constructor(private distanceMastertripService: DistancemastertripService, private route: Router) {
   }
 
   ngOnInit(): void {
@@ -46,7 +44,7 @@ constructor(private distanceMastertripService: DistancemastertripService, privat
         this.filter.search = dataTablesParameters.search.value;
         this.distanceMastertripService.getDistanceMasterTripList(this.filter)
           .subscribe(resp => {
-           this.allDistanceTripMaster = resp;
+            this.allDistanceTripMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
               recordsFiltered: resp.pageMetaData.totalCount,
@@ -56,51 +54,40 @@ constructor(private distanceMastertripService: DistancemastertripService, privat
       },
       columns: [
         {
-          title: 'fromLocation',
-          data: 'fromLocation',
+          title: 'Location Name',
+          data: 'locationName',
         },
-  
         {
-          title: 'ValidFrom',
+          title: 'Valid From',
           data: 'validFrom',
         },
-  
-       {
-        title: 'ValidUpto',
-        data: 'validUpto',
-      },
-     
-     
-    
-    
-      {
-        title: 'Action',
-        data: 'MasterID',
-      },
-     
-    ],
-  };
+        {
+          title: 'Valid Upto',
+          data: 'validUpto',
+        },
+        {
+          title: '',
+          data: 'MasterID',
+        },
+      ],
+    };
   }
   //Open new destination add screen
-  
-  
-  
+
+
+
   //Open user details screen
-  
+
   //Open user details screen
-getDistanceMasterTripDetails(Docrenewal: Distancemastertripmodel): void {
-  this.distanceMastertripService.setDistancemastertripDetails(Docrenewal);
-  this.route.navigate(['/distancemastertripedit']);
+  getDistanceMasterTripDetails(Docrenewal: Distancemastertripmodel): void {
+    this.distanceMastertripService.setDistancemastertripDetails(Docrenewal);
+    this.route.navigate(['/distancemastertripedit']);
   }
-  
-  
-  
-    
-    //Open new driver master add screen
-    distanceMasterTripAdd(): void {
-      this.route.navigate(['/distancemastertripadd']);
-    }
+  //Open new driver master add screen
+  distanceMasterTripAdd(): void {
+    this.route.navigate(['/distancemastertripadd']);
   }
-  
-  
+}
+
+
 

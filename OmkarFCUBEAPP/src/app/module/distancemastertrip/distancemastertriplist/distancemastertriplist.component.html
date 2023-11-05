@@ -30,32 +30,15 @@
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
-                        <thead>
-                            <tr>
-                                <th>ReminderDays </th>
-                                
-                                <th>ReminderDays </th>
-                          
-                                <th>Doc Code </th>
-                             
-                                <th>Action</th>
-                            </tr>
-                        </thead>
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <tbody *ngIf="allDistanceTripMaster.distanceTripList?.length != 0">
                             <tr *ngFor="let renewalMaster of allDistanceTripMaster.distanceTripList">
-                                <td>{{ renewalMaster.fromLocation }}</td>
-                                
+                                <td>{{ renewalMaster.locationName }}</td>
                                 <td>{{ renewalMaster.validFrom }}</td>
-
-                    
-                        
                                 <td>{{ renewalMaster.validUpto }}</td>
-                             
                                 <td>
-                                    <a (click)="getDistanceMasterTripDetails(renewalMaster)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
-                               
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getDistanceMasterTripDetails(renewalMaster)"></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -64,10 +47,10 @@
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             </div>
-        <!-- container-fluid -->
+            <!-- container-fluid -->
+        </div>
+        <!-- End Page-content -->
     </div>
-    <!-- End Page-content -->
-</div>
