@@ -1076,10 +1076,18 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
     var DiffDays = difftime / (1000 * 3600 * 24);
     Difference_In_Days = Math.abs(Difference_In_Days)
+    if(!Number.isNaN(Difference_In_Days)){
     this.formTripsheet.patchValue({
       actualDays_1: (Difference_In_Days).toString()
 
+    });}
+    else{
+    this.formTripsheet.patchValue({
+      actualDays_1: ''
+
     });
+    
+  }
     if (DiffDays > 0  ) {
       this.day1 = (DiffDays).toString();
       this.formTripsheet.patchValue({
@@ -1092,30 +1100,25 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       //do something with negative values 
       DiffDays = Math.abs(DiffDays)
       this.day2 = (DiffDays).toString();
+      if(!Number.isNaN(this.day2)){
       this.formTripsheet.patchValue({
         delayedDays_1: this.day2,
         advanceDays_1: '',
         // actualDays_2:  Difference_In_Days
 
-      });
-
-
-    }
-
-
-    if (dt1 == dt2) {
-      this.formTripsheet.patchValue({
-        //  actualDays_2: selectedDataValue.expectedReportingDays
+      });}
+      else {
+        this.formTripsheet.patchValue({
+          delayedDays_1: '',
+          advanceDays_1: '',
 
       });
-    }
-    else {
-      this.formTripsheet.patchValue({
-        //   kms: ''
-        //  actualDays_2: Difference_In_Days
-      });
-    }
 
+
+    
+
+
+    }}
     this.getBhattaRate();
 
 
