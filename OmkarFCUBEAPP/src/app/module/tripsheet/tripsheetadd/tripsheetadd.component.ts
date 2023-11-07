@@ -1080,7 +1080,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       actualDays_1: (Difference_In_Days).toString()
 
     });
-    if (DiffDays > 0) {
+    if (DiffDays > 0  ) {
       this.day1 = (DiffDays).toString();
       this.formTripsheet.patchValue({
         advanceDays_1: this.day1,
@@ -1612,8 +1612,11 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
         this.incentiveRate = res.message;
         let ir = 0;
-        if(selectedDataValue.advanceDays_1!==''){
-        ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
+        let rptdt = this.commonService.formatDate(selectedDataValue.reportingDt_1)
+    let expdt = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
+        if(rptdt == expdt &&  this.incentiveRate!=''){
+        //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
+        ir = parseInt(this.incentiveRate)
       }
      // ir = parseInt(this.incentiveRate)
         // if (this.tripkmsDetails.status) {

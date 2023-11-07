@@ -130,7 +130,8 @@ namespace FleetTrans.Repository
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         // Miss Details insert or update
-                        if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "")
+                        //if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" )
+                        if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" && TripID!="0")
                         {
                             for (int i = 0; i < tripMasterModel.MiscList.Count; i++)
                             {
@@ -147,7 +148,8 @@ namespace FleetTrans.Repository
                         }
 
                         // AdBlue Details insert or update
-                        if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
+                        //  if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
+                        if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "" && TripID != "0")
                         {
                             for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
                             {
