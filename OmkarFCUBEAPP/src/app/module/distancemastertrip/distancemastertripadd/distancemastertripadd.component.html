@@ -83,7 +83,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table no-padding">
+                                    <table
+                                        class="table table-bordered dt-responsive nowrap w-100 no-border-table no-padding">
                                         <tr>
                                             <td class="col-lg-3">
                                                 <label for="formrow-inputZip">
@@ -148,7 +149,8 @@
                                                             [itemTemplate]="itemTemplate"
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
-                                                            formControlName="toLocation">
+                                                            formControlName="toLocation"
+                                                            (inputCleared)="clearLocation($event, i)">
 
                                                         </ng-autocomplete>
 
@@ -194,11 +196,10 @@
                                                 </td>
                                                 <td class="col-lg-4">
                                                     <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formArray.controls.length-1" type="button" class="btn btn-add"
-                                                            (click)="addItem(i)"></button>
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
                                                         <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)"
-                                                            class="btn btn-delete"></button>
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
                                                     </div>
 
                                                 </td>
@@ -215,8 +216,11 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md"
+                            <button type="submit" class="btn btn-primary w-md m-2"
                                 (click)="submitDistanceMasterFreightForm()">Save</button>
+                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDistanceMasterFreightForm()">Delete</button>
+                            <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

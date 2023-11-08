@@ -20,6 +20,7 @@ export class DistancemastertripaddComponent {
   year: string = '';
   ivToPlace = '';
   locationList: Dropdownmodel[] = [];
+  allLocationList: Dropdownmodel[] = [];
   formDistanceMasterTrip!: FormGroup;
   selectedDistancemastertripDetails = new Distancemastertripmodel();
   distancemsttripmodel = new Distancemastertripmodel();
@@ -28,12 +29,30 @@ export class DistancemastertripaddComponent {
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  selectedLocation: string[] = [];
 
   constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService) {
     this.distancemastertripmodel = new Distancemastertripmodel();
 
   }
   ngOnInit(): void {
+    //Privilege check
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -65,16 +84,20 @@ export class DistancemastertripaddComponent {
           validFrom: this.commonService.formatDate(this.selectedDistancemastertripDetails.validFrom),
           validUpto: this.commonService.formatDate(this.selectedDistancemastertripDetails.validUpto),
           fromLocation: this.locationList.find(e => e.dataId == this.selectedDistancemastertripDetails.fromLocation),
-        })
+        });
+        this.formDistanceMasterTrip.controls['fromLocation'].disable();
+        this.editMode = true;
+        this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemastertripDetails.masterID);
+        this.getFreightTripInnerGridList();
       }
     }, 2000);
-    this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemastertripDetails.masterID);
-    this.getFreightTripInnerGridList();
+
   }
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
       this.locationList = res;
+      this.allLocationList = res;
     });
   }
   popupClosedToPlace() {
@@ -93,12 +116,28 @@ export class DistancemastertripaddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+    this.selectedLocation = [];
     this.ivToPlace = item.dataId;
+    this.selectedLocation.push(item.dataId);
+    this.selectedLocation.push(this.formDistanceMasterTrip.value.fromLocation.dataId);
+    for (var i = 0; i < this.formDistanceMasterTrip.value.arrayList.length; i++) {
+      this.selectedLocation.push(this.formArray.controls[i].get("toLocation")?.value.dataId);
+    }
+    this.locationList = this.allLocationList.filter(aa => this.selectedLocation.indexOf(aa.dataId) === -1);
+  }
+
+  clearLocation(item: any, index: number) {
+    var removedDataId = this.formArray.controls[index].get("toLocation")?.value.dataId;
+    const dataindex = this.selectedLocation.indexOf(removedDataId);
+    if (dataindex !== -1) {
+      this.selectedLocation.splice(dataindex, 1);
+    }
   }
 
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
+    console.log("change")
   }
 
   onFocused(e: any) {
@@ -121,6 +160,15 @@ export class DistancemastertripaddComponent {
       this.distancemsttripmodel = res;
       for (var i = 0; i < res.distanceDetailsTripList.length - 1; i++) {
         this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsTripList[i].fromLocation));
+        this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsTripList[i].toLocation));
+        this.formArray.controls[i].get("kms")?.setValue(res.distanceDetailsTripList[i].kms);
+        this.formArray.controls[i].get("enrouteExpTruck")?.setValue(res.distanceDetailsTripList[i].enrouteExpTruck);
+        this.formArray.controls[i].get("enrouteExpTrailer")?.setValue(res.distanceDetailsTripList[i].enrouteExpTrailer);
+        this.formArray.controls[i].get("enrouteExpCarCarrier")?.setValue(res.distanceDetailsTripList[i].enrouteExpCarCarrier);
+        this.formArray.controls[i].get("enrouteExpEmpty")?.setValue(res.distanceDetailsTripList[i].enrouteExpEmpty);
+        this.formArray.controls[i].get("enrouteExpRemarks")?.setValue(res.distanceDetailsTripList[i].enrouteExpRemarks);
+        this.formArray.controls[i].get("definedTollExp")?.setValue(res.distanceDetailsTripList[i].definedTollExp);
         // this.formDistanceMasterTrip.value.arrayList.patchValue({
         //   'fromLocation': res.distanceDetailsTripList[i].fromLocation,
         //   'toLocation': res.distanceDetailsTripList[i].toLocation,
@@ -133,9 +181,9 @@ export class DistancemastertripaddComponent {
         //   'definedTollExp': res.distanceDetailsTripList[i].definedTollExp,
         // })
       }
-      this.formDistanceMasterTrip.patchValue({
-        arrayList: res.distanceDetailsTripList
-      })
+      // this.formDistanceMasterTrip.patchValue({
+      //   arrayList: res.distanceDetailsTripList
+      // })
     });
   }
 
@@ -224,10 +272,19 @@ export class DistancemastertripaddComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formDistanceMasterTrip.reset();
-      window.location.reload();
+      this.route.navigate(['/distancemastertriplist']);
     });
   }
 
+  deleteDistanceMasterFreightForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
+
+  exit(): void {
+    this.route.navigate(['/distancemastertriplist']);
+  }
 }
 
 

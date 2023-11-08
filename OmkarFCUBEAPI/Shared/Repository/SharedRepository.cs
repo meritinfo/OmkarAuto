@@ -180,6 +180,10 @@ namespace Shared.Repository
                                 MenuName = Convert.ToString(menuData.Tables[0].Rows[i]["MenuName"]),
                                 MenuType = Convert.ToString(menuData.Tables[0].Rows[i]["MenuType"]),
                                 MenuCode = Convert.ToString(menuData.Tables[0].Rows[i]["MenuCode"]),
+                                CreateYN = Convert.ToString(menuData.Tables[0].Rows[i]["CreateYN"]),
+                                EditYN = Convert.ToString(menuData.Tables[0].Rows[i]["EditYN"]),
+                                ViewYN = Convert.ToString(menuData.Tables[0].Rows[i]["ViewYN"]),
+                                DeleteYN = Convert.ToString(menuData.Tables[0].Rows[i]["DeleteYN"]),
                             });
                         }
                     }

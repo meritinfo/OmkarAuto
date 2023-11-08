@@ -123,7 +123,11 @@ namespace Shared.Business
                     {
                         MenuName = m.MenuName,
                         MenuCode = m.MenuCode,
-                        MenuType = m.MenuType
+                        MenuType = m.MenuType,
+                        CreateYN = m.CreateYN,
+                        EditYN = m.EditYN,
+                        ViewYN = m.ViewYN,
+                        DeleteYN = m.DeleteYN
                     }).Distinct().ToList()
                 });
             }

@@ -24,7 +24,7 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                    <button class="btn btn-primary buttons-html5" type="button"
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                         (click)="distanceMasterTripAdd()"><span>New</span></button>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                                 <td>{{ renewalMaster.validFrom }}</td>
                                 <td>{{ renewalMaster.validUpto }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-edit"
+                                    <button type="button" class="btn btn-edit" *ngIf="editStatus"
                                         (click)="getDistanceMasterTripDetails(renewalMaster)"></button>
                                 </td>
                             </tr>
