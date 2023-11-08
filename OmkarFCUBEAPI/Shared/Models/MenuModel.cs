@@ -12,6 +12,10 @@ namespace Shared.Models
         public string MenuName { get; set; }
         public string MenuType { get; set; }
         public string MenuCode { get; set; }
+        public string CreateYN { get; set; }
+        public string EditYN { get; set; }
+        public string ViewYN { get; set; }
+        public string DeleteYN { get; set; }
     }
 
     public class MenuListModel

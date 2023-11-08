@@ -17,6 +17,10 @@ import { DistancemastertripService } from 'src/app/services/distancemastertrip.s
 export class DistancemastertriplistComponent {
   dtOptions: DataTables.Settings = {};
   allDistanceTripMaster: Distancemastertriplistmodel = new Distancemastertriplistmodel();
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -29,6 +33,18 @@ export class DistancemastertriplistComponent {
   }
 
   ngOnInit(): void {
+    //Privilege check
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     this.distanceMastertripService.clearDistanceMasterTripDetails();
     this.dtOptions = {
       pagingType: 'full_numbers',
