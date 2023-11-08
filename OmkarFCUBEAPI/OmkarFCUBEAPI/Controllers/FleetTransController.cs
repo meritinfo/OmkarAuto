@@ -22,14 +22,16 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
+        readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness, IDriverSalaryStatementBusiness _driverSalaryStatementBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
+            driverSalaryStatementBusiness = _driverSalaryStatementBusiness;
         }
         /// <summary>
 
@@ -89,6 +91,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await billStatementBusiness.GetBillStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDriverSalaryStatementList")]
+        public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStatementBusiness.GetDriverSalaryStatementList(request);
 
                 return Ok(result);
             }
