@@ -22,16 +22,16 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
-        readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+      //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness, IDriverSalaryStatementBusiness _driverSalaryStatementBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
-            driverSalaryStatementBusiness = _driverSalaryStatementBusiness;
+           // driverSalaryStatementBusiness = _driverSalaryStatementBusiness;
         }
         /// <summary>
 
@@ -99,20 +99,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetDriverSalaryStatementList")]
-        public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
-        {
-            try
-            {
-                var result = await driverSalaryStatementBusiness.GetDriverSalaryStatementList(request);
+        //[HttpPost("GetDriverSalaryStatementList")]
+        //public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        //{
+        //    try
+        //    {
+        //        var result = await driverSalaryStatementBusiness.GetDriverSalaryStatementList(request);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("GetTripSheetList")]
         public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
         {

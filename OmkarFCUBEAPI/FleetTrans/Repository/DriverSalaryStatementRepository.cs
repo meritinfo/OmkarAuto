@@ -8,16 +8,16 @@
 
 //namespace FleetTrans.Repository
 //{
-   
-//        public class DriverSalaryStatementRepository : IDriverSalaryStatementRepository
-//    {
-//            private readonly IOptions<DBModel> dbconnection;
 
-//            public DriverSalaryStatementRepository(IOptions<DBModel> _dbconnection)
-//            {
-//                dbconnection = _dbconnection;
-//            }
-//            public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DieselStatementListRequest request)
+//    public class DriverSalaryStatementRepository : IDriverSalaryStatementRepository
+//    {
+//        private readonly IOptions<DBModel> dbconnection;
+
+//        public DriverSalaryStatementRepository(IOptions<DBModel> _dbconnection)
+//        {
+//            dbconnection = _dbconnection;
+//        }
+//        public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DieselStatementListRequest request)
 //        {
 //            DriverSalaryStatementList driverSalaryStatementList = new();
 //            List<DriverSalaryStatementModel> driverSalaryList = new();
@@ -55,7 +55,7 @@
 //                                CreditAC = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAC"]),
 
 //                                CheqNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqNo"]),
-                        
+
 
 
 
