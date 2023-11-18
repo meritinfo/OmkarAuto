@@ -117,6 +117,71 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
+        public async Task<BankReceiptPaymentsModel> GetBankReceiptPmtInnerGridList(BankReceiptPmtGridListRequest request)
+        {
+            BankReceiptPaymentsModel bankReceiptPmtInnerGridList = new()
+            {
+                DetailList = new List<BankReceiptPaymentDetailModel>(),
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          //  new SqlParameter("@TripId", request.TripId),
+                          new SqlParameter("@FtmID", request.FtmID)
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBankReceiptPmtInnerGridList_Select", param);
+
+                    // LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            bankReceiptPmtInnerGridList.DetailList.Add(new BankReceiptPaymentDetailModel
+                            {
+                                //  
+                                FtdID = Convert.ToString(resultData.Tables[0].Rows[i]["DistanceDtlID"]),
+                                FtmID = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
+                                FtmDate = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
+                                SlNo = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
+
+                                TypeSign = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
+                                Amount = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
+                                AccountID = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
+                                Narration = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
+                                CostRefNo = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
+                                ChequeNo = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
+                                ChequeDate = Convert.ToString(resultData.Tables[0].Rows[i]["DefinedTollExp"]),
+                                Reference = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocationName"]),
+                                BranchCode = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocationName"]),
+
+                            });
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return bankReceiptPmtInnerGridList;
+        }
 
 
         public async Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request)

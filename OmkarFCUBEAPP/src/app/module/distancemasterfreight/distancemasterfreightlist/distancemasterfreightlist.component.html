@@ -31,6 +31,7 @@
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                      <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        
                         <thead>
                             <tr>
                                 <th>ReminderDays </th>
@@ -49,8 +50,9 @@
                                 <td>{{ renewalMaster.fromPoint }}</td>
                              
                                 <td>
-                                    <a (click)="getDistanceMasterFreightDetails(renewalMaster)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
+                                  
+                                        <button type="button" class="btn btn-edit"
+                                        (click)="getDistanceMasterFreightDetails(renewalMaster)"></button>
                                
                                 </td>
                             </tr>
