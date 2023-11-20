@@ -95,6 +95,10 @@
                                                 <label for="formrow-inputZip">
                                                     <h6>Enter KMs</h6>
                                                 </label></td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label></td>
                                                </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
@@ -134,11 +138,7 @@
                                                                 formControlName="kms">
                                                          
                                                 </td>
-                                                <td class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>Action</h6>
-                                                    </label>
+                                              
                                                     <!--<div class="col-lg-4 details-button">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="addItem2()">Add</button>
@@ -171,6 +171,9 @@
                         <div class="tex">
                             <button type="submit" class="btn btn-primary w-md"
                                 (click)="submitDistanceMasterFreightForm()">Save</button>
+                                <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDistanceMasterFreightForm()">Delete</button>
+                            <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

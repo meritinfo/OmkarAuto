@@ -9,5 +9,6 @@ namespace FinTrans.Repository
     {
         Task<ResponseModel> BankReceiptPaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsSave);
         Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request);
+        Task<BankReceiptPaymentsModel> GetBankReceiptPmtInnerGridList(BankReceiptPmtGridListRequest request);
     }
 }

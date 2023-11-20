@@ -27,6 +27,11 @@ export class DistancemasterfreightaddComponent implements OnInit {
   selectedLocation: string[] = [];
   allLocationList: Dropdownmodel[] = [];
   ivToPlace = '';
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   formSubmitted = false;
   responseDetails = new Responsemodel();
 
@@ -35,6 +40,18 @@ export class DistancemasterfreightaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+     //Privilege check
+     var menuData = sessionStorage.getItem('menulist')?.toString();
+     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+       var privilegeData = JSON.parse(menuData);
+       var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+       if (privilegeStatus) {
+         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+       }
+     }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -69,12 +86,15 @@ export class DistancemasterfreightaddComponent implements OnInit {
      
         validUpto:this.commonService.formatDate(this.selectedDistancemasterfreightDetails.validUpto),
         fromLocation: this.locationList.find(e => e.dataId == this.selectedDistancemasterfreightDetails.fromLocation),
+     
       })
+      this.editMode = true;
+      this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemasterfreightDetails.masterID);
+      this.getFreightInnerGridList();
     }
   
 }, 2000);
-this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemasterfreightDetails.masterID);
-this.getFreightInnerGridList();
+
 }
 
   getLocationList(): void {
@@ -85,6 +105,16 @@ this.getFreightInnerGridList();
   
   getFreightInnerGridList(): void {
     this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
+      this.distancemstfrtmodel = res;
+      for (var i = 0; i < res.distanceDetailsFreightList.length - 1; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].fromLocation));
+        this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].toLocation));
+        this.formArray.controls[i].get("kms")?.setValue(res.distanceDetailsFreightList[i].kms);
+      }
+    });
+      
+   /* this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemstfrtmodel = res;
       this.distancemasterfreightmodel.distanceDetailsFreightList = [];
       for (let misc = 1; misc < this.distancemstfrtmodel.distanceDetailsFreightList.length; misc++) {
@@ -111,7 +141,8 @@ this.getFreightInnerGridList();
         arrayList: this.distancemasterfreightmodel.distanceDetailsFreightList
       })
     
-    });
+    });*/
+
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formDistanceMasterFreight.controls; }
@@ -164,9 +195,10 @@ this.getFreightInnerGridList();
 
   addItem(index: number): void {
   
-    if (this.formArray.value[index].destination != "" && this.formArray.value[index].enterKM != "" ) {
+   
+    if (this.formArray.value[index].destination != "" && this.formArray.value[index].enterKM != "") {
       this.formArray.push(this.createInitialArray());
-    } else{
+    } else {
       this.toasterService.warning("Please select one destination name, enterKM ");
     }
   }
@@ -183,9 +215,19 @@ this.getFreightInnerGridList();
       kms: ['', [Validators.required]]
     });
   }
+  deleteDistanceMasterFreightForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/distancemasterfreightlist']);
+  }
 
   removeItem(index: number) {
-    this.formArray.removeAt(index);
+    if (confirm("Are you sure, you want to delete this row?")) {
+      this.formArray.removeAt(index);
+    }
   }
 
   //Submit form details //

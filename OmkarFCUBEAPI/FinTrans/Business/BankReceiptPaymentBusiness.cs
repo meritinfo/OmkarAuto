@@ -27,5 +27,9 @@ namespace FinTrans.Business
         {
             return await bankReceiptPaymentsRepository.GetBankReceiptpaymentsList(request);
         }
+        public async Task<BankReceiptPaymentsModel> GetBankReceiptPmtInnerGridList(BankReceiptPmtGridListRequest request)
+        {
+            return await bankReceiptPaymentsRepository.GetBankReceiptPmtInnerGridList(request);
+        }
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinTrans.Business
+namespace FinTrans.Models
 {
-    public class BankReceiptPaymentMasterBusiness
+    public class GetCashReceiptPmtInnerGridList
     {
-
+        public int FtmID { get; set; }
     }
 }
