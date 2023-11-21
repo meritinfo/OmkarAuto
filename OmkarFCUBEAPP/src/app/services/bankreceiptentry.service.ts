@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { bankreceiptentrymodel } from '../models/bankreceiptentrymodel';
+import { Bankreceiptpmtgridlistrequest } from '../models/bankreceiptpmtgridlistrequest';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
@@ -37,5 +38,8 @@ export class BankReceiptEntryService {
   }
   getBankReceiptEntryList(filter: Filtermodel): Observable<bankreceiptentrylistmodel> {
     return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetBankReceiptPaymentsList', filter, this.httpOptions);
+  }
+  getBankReceiptInnerGridList(request: Bankreceiptpmtgridlistrequest): Observable<bankreceiptentrymodel> {
+    return this.httpClient.post<bankreceiptentrymodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightTripInnerGridList', request, this.httpOptions);
   }
 }

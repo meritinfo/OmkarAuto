@@ -155,6 +155,7 @@ export class DistancemastertripaddComponent {
       this.toasterService.warning("Please select one destination name, enterKM");
     }
   }
+  
   getFreightTripInnerGridList(): void {
     this.distanceMastertripService.getFreightTripInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemsttripmodel = res;
@@ -244,6 +245,7 @@ export class DistancemastertripaddComponent {
         'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty.toString(),
         'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,
         'definedTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp.toString(),
+
       })
     }
 

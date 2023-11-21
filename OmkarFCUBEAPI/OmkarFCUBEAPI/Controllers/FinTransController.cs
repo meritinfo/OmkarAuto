@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 using FinTrans.Models;
 using FinanceMasters.Business;
+using FreightMasters.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -61,6 +62,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentsList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBankReceiptPmtInnerGridList")]
+        public async Task<IActionResult> GetBankReceiptPmtInnerGridList(BankReceiptPmtGridListRequest request)
+        {
+            try
+            {
+                var result = await bankReceiptPaymentsBusiness.GetBankReceiptPmtInnerGridList(request);
 
                 return Ok(result);
             }

@@ -7,6 +7,7 @@ import { Branchmodel } from 'src/app/models/branchmodel';
 import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Bankreceiptpmtgridlistrequest } from 'src/app/models/bankreceiptpmtgridlistrequest';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
 import { bankreceiptentrylistmodel } from 'src/app/models/bankreceiptentrylistmodel';
 import { Cashreceiptentrymodel } from 'src/app/models/cashreceiptentrymodel';
@@ -29,6 +30,7 @@ export class AddbankreceiptentryComponent {
   loginDate: string = '';
   locationList: Dropdownmodel[] = [];
   selectedBankReceiptEntryDetails = new bankreceiptentrymodel();
+  bankreceiptpmtgridlistrequest = new Bankreceiptpmtgridlistrequest();
   responseDetails = new Responsemodel();
   creditacList: Dropdownmodel[] = [];
 
@@ -112,7 +114,12 @@ ngOnInit(): void {
   }
   //this.formUser.controls['ftmDate'].disable();
   this.formUser.controls['docSeries'].disable();
+  this.bankreceiptpmtgridlistrequest.ftmID = parseInt(this.selectedBankReceiptEntryDetails.ftmId);
+  this.getBankReceiptInnerGridList();
 
+}
+get formArray() {
+  return this.formUser.get("arrayList") as FormArray;
 }
 updateAmount(index: number, event: any, comingFrom: string) {
   var selectedDataValue = this.formUser.getRawValue();
@@ -142,6 +149,26 @@ getCreditAcList(): void {
 getLocationList(): void {
   this.commonService.getLocationList().subscribe((res) => {
     this.locationList = res;
+  });
+}
+getBankReceiptInnerGridList(): void {
+  this.bankreceiptentryService.getBankReceiptInnerGridList(this.bankreceiptpmtgridlistrequest).subscribe((res) => {
+    this.bankreceiptentryModel = res;
+    for (var i = 0; i < res.detailList.length - 1; i++) {
+      this.formArray.push(this.createMiscArray());
+      this.formArray.controls[i].get("accountId")?.setValue(this.creditacList.find(e => e.dataId == res.detailList[i].accountId));
+     
+      this.formArray.controls[i].get("amount")?.setValue(res.detailList[i].amount);
+      this.formArray.controls[i].get("narration")?.setValue(res.detailList[i].narration);
+      this.formArray.controls[i].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
+      this.formArray.controls[i].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
+      this.formArray.controls[i].get("costRefNo")?.setValue(res.detailList[i].costRefNo);
+
+
+    }
+    // this.formDistanceMasterTrip.patchValue({
+    //   arrayList: res.distanceDetailsTripList
+    // })
   });
 }
 

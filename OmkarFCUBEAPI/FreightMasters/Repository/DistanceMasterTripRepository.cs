@@ -149,6 +149,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
+                           
                             new SqlParameter("@MasterID", distanceDetailTripModel.MasterID
                              == "" ? 0 : Convert.ToInt32(distanceDetailTripModel.MasterID)),
                             new SqlParameter("@FromLocation", distanceDetailTripModel.FromLocation),
