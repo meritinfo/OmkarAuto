@@ -196,7 +196,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   addItem(index: number): void {
   
    
-    if (this.formArray.value[index].destination != "" && this.formArray.value[index].enterKM != "") {
+    if (this.formArray.value[index].destination != "" && this.formArray.value[index].kms != "") {
       this.formArray.push(this.createInitialArray());
     } else {
       this.toasterService.warning("Please select one destination name, enterKM ");

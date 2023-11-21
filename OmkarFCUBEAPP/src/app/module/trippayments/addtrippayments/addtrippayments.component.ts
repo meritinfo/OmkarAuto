@@ -340,14 +340,14 @@ export class AddtrippaymentsComponent {
 
     if (selectedValue == "DL") {
       this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-      this.formTripPayment.controls['ratePerLtr'].setValidators([Validators.required]);
+     // this.formTripPayment.controls['ratePerLtr'].setValidators([Validators.required]);
     }
     else {
       this.formTripPayment.controls['qtyLtrs'].clearValidators();
-      this.formTripPayment.controls['ratePerLtr'].clearValidators();
+     // this.formTripPayment.controls['ratePerLtr'].clearValidators();
     }
     this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-    this.formTripPayment.controls['ratePerLtr'].updateValueAndValidity();
+   // this.formTripPayment.controls['ratePerLtr'].updateValueAndValidity();
   }
   calculateTotalAmount() {
     let total = 0;
