@@ -100,6 +100,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
       this.locationList = res;
+      this.allLocationList = res;
     });
   }
   
@@ -163,6 +164,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
     this.locationList = this.allLocationList.filter(aa => this.selectedLocation.indexOf(aa.dataId) === -1);
     
   }
+  
   clearLocation(item: any, index: number) {
     var removedDataId = this.formArray.controls[index].get("toLocation")?.value.dataId;
     const dataindex = this.selectedLocation.indexOf(removedDataId);
@@ -170,6 +172,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.selectedLocation.splice(dataindex, 1);
     }
   }
+  
   popupClosedToPlace() {
     if (!this.ivToPlace) {
       this.formDistanceMasterFreight.patchValue({

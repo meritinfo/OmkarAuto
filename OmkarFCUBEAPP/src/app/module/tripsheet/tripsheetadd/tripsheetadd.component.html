@@ -1110,9 +1110,11 @@
                         <div class="tex">
                             <button type="submit" (click)="submitTripSheetForm()"
                                 class="btn btn-primary w-md">Save</button>
+                                <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>
+
             </form>
             <!-- end row -->
             <!-- end row -->

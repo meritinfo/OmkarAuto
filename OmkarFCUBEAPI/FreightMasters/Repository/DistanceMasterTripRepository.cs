@@ -54,10 +54,12 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < distanceMasterTripModel.DistanceDetailsTripList.Count; i++)
                         {
-
-                            distanceMasterTripModel.DistanceDetailsTripList[i].Index = i.ToString();
-                            distanceMasterTripModel.DistanceDetailsTripList[i].MasterID = MasterID;
-                            responseModel = await DistanceDetailTripSave(distanceMasterTripModel.DistanceDetailsTripList[i]);
+                            if (Convert.ToString(distanceMasterTripModel.DistanceDetailsTripList[i].ToLocation) != "")
+                            {
+                                distanceMasterTripModel.DistanceDetailsTripList[i].Index = i.ToString();
+                                distanceMasterTripModel.DistanceDetailsTripList[i].MasterID = MasterID;
+                                responseModel = await DistanceDetailTripSave(distanceMasterTripModel.DistanceDetailsTripList[i]);
+                            }
                         }
                     }
                 }
@@ -149,19 +151,22 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                           
+                         new SqlParameter("@DistanceDtlID", distanceDetailTripModel.DistanceDtlID),
+
+
                             new SqlParameter("@MasterID", distanceDetailTripModel.MasterID
                              == "" ? 0 : Convert.ToInt32(distanceDetailTripModel.MasterID)),
                             new SqlParameter("@FromLocation", distanceDetailTripModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailTripModel.ToLocation),
                             new SqlParameter("@KMS", distanceDetailTripModel.KMS),
-                            new SqlParameter("@Index", distanceDetailTripModel.Index),
+                         
                             new SqlParameter("@EnrouteExpTruck", distanceDetailTripModel.EnrouteExpTruck),
                             new SqlParameter("@EnrouteExpTrailer", distanceDetailTripModel.EnrouteExpTrailer),
                             new SqlParameter("@EnrouteExpCarCarrier", distanceDetailTripModel.EnrouteExpCarCarrier),
                             new SqlParameter("@EnrouteExpEmpty", distanceDetailTripModel.EnrouteExpEmpty),
                             new SqlParameter("@EnrouteExpRemarks", distanceDetailTripModel.EnrouteExpRemarks),
-                            new SqlParameter("@DefinedTollExp", distanceDetailTripModel.DefinedTollExp)
+                            new SqlParameter("@DefinedTollExp", distanceDetailTripModel.DefinedTollExp== "" ? DBNull.Value : Convert.ToInt32(distanceDetailTripModel.DefinedTollExp)),
+                               //new SqlParameter("@Index", distanceDetailTripModel.Index),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceDetailTrip_Insert", param);
                    

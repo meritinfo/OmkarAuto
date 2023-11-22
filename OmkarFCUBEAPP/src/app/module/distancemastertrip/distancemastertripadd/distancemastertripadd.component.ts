@@ -155,11 +155,11 @@ export class DistancemastertripaddComponent {
       this.toasterService.warning("Please select one destination name, enterKM");
     }
   }
-  
+
   getFreightTripInnerGridList(): void {
     this.distanceMastertripService.getFreightTripInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemsttripmodel = res;
-      for (var i = 0; i < res.distanceDetailsTripList.length - 1; i++) {
+      for (var i = 0; i < res.distanceDetailsTripList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsTripList[i].fromLocation));
         this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsTripList[i].toLocation));
@@ -230,23 +230,26 @@ export class DistancemastertripaddComponent {
 
     this.distancemastertripmodel.distanceDetailsTripList = [];
     for (var i = 0; i < this.formDistanceMasterTrip.value.arrayList.length; i++) {
-      this.distancemastertripmodel.distanceDetailsTripList.push({
-        'index': '',
-        'masterID': '',
-        'fromLocation': selectedDataValue.fromLocation.dataId,
-        //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
-        'toLocation': selectedDataValue.arrayList[i].toLocation.dataId,
-        'toLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
-        'fromLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
-        'kms': selectedDataValue.arrayList[i].kms,
-        'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck.toString(),
-        'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer.toString(),
-        'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier.toString(),
-        'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty.toString(),
-        'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,
-        'definedTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp.toString(),
+      if (this.formDistanceMasterTrip.value.arrayList[i].toLocation != '') {
+        this.distancemastertripmodel.distanceDetailsTripList.push({
+          'distanceDtlID': this.distancemsttripmodel.distanceDetailsTripList.length > i ? this.distancemsttripmodel.distanceDetailsTripList[i].distanceDtlID : '',
+          'index': '',
+          'masterID': '',
+          'fromLocation': selectedDataValue.fromLocation.dataId,
+          //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+          'toLocation': selectedDataValue.arrayList[i].toLocation.dataId,
+          'toLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
+          'fromLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
+          'kms': selectedDataValue.arrayList[i].kms,
+          'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck.toString(),
+          'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer.toString(),
+          'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier.toString(),
+          'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty.toString(),
+          'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,
+          'definedTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp.toString(),
 
-      })
+        })
+      }
     }
 
     //Start date end date validation

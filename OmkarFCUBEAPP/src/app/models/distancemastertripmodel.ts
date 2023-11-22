@@ -10,6 +10,7 @@ export class Distancemastertripmodel {
 }
 
 export class Distancedetailstripmodel {
+    distanceDtlID: string = "";
     masterID: string = "";
     fromLocation: string = "";
     toLocation: string = "";

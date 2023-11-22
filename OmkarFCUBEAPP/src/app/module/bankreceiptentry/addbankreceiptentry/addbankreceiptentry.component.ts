@@ -33,6 +33,11 @@ export class AddbankreceiptentryComponent {
   bankreceiptpmtgridlistrequest = new Bankreceiptpmtgridlistrequest();
   responseDetails = new Responsemodel();
   creditacList: Dropdownmodel[] = [];
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
 
  
@@ -141,10 +146,18 @@ updateAmount(index: number, event: any, comingFrom: string) {
  //   credit: totalCreditAmount.toFixed(2)
   });
 }
+deleteBankRceiptPmtForm(): void {
+  if (confirm("Are you sure, you want to delete this?")) {
+
+  }
+}
 getCreditAcList(): void {
   this.commonService.getCreditAcList().subscribe((res) => {
     this.creditacList = res;
   });
+}
+exit(): void {
+  this.route.navigate(['/deleteBankRceiptPmtForm']);
 }
 getLocationList(): void {
   this.commonService.getLocationList().subscribe((res) => {
@@ -200,6 +213,21 @@ removeMiscItem(index: number) {
   this.formCashArray.removeAt(index);
   this.updateAmount(index, undefined, "");
 }
+removeItem(index: number) {
+  if (confirm("Are you sure, you want to delete this row?")) {
+    this.formArray.removeAt(index);
+  }
+}
+addItem(index: number): void {
+  
+   
+  if (this.formArray.value[index].refNo != "" && this.formArray.value[index].kms != "") {
+    this.formArray.push(this.createMiscArray());
+  } else {
+    this.toasterService.warning("Please select one destination name, enterKM ");
+  }
+}
+
 createMiscArray() {
   return this.formBuilder.group({
     ftdID: [''],

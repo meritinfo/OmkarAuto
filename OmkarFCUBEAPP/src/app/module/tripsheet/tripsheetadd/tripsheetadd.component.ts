@@ -54,6 +54,7 @@ export class TripsheetaddComponent {
   dTripKM_1: number = 0;
   tripkms: string = '';
   nexttripkms: string = '';
+
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';
   dslDetails = new Dslmodel();
@@ -72,6 +73,7 @@ export class TripsheetaddComponent {
   tripkmsDetails = new Tripkmsmodel();
   tripsheetinnergridmodel = new Tripsheetinnergridmodel();
   kmsDetails = new kmsmodel();
+  editMode = false;
   keywordLocation = 'dataName';
   ivVehicleNo = '';
   billstation = '';
@@ -266,7 +268,7 @@ export class TripsheetaddComponent {
       this.checkDestinationControlStatus();
 
      // this.getTripSheetInnerGridList();
-
+     this.editMode = true;
      // this.GetOpeningBal();
     }, 2000);
   }
@@ -287,6 +289,9 @@ export class TripsheetaddComponent {
   // }
   get formAdblueArray() {
     return this.formTripsheet.get("adblueDetailsList") as FormArray;
+  }
+  exit(): void {
+    this.route.navigate(['/tripsheetlist']);
   }
 
   getBranchList(): void {
@@ -482,8 +487,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.yearId = this.year;
     this.tripsheetmodel.tripNo = selectedDataValue.tripNo;
     this.tripsheetmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-   // this.tripsheetmodel.lastTripCloseDate = selectedDataValue.lastTripCloseDate ? selectedDataValue.lastTripCloseDate:'';
-     this.tripsheetmodel.lastTripCloseDate = '';
+   this.tripsheetmodel.lastTripCloseDate = selectedDataValue.lastTripCloseDate ? selectedDataValue.lastTripCloseDate:'';
+     //this.tripsheetmodel.lastTripCloseDate = '';
     this.tripsheetmodel.newTripDate = selectedDataValue.newTripDate;
     this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
     this.tripsheetmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
@@ -559,7 +564,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripCloseUpdateDt = selectedDataValue.tripCloseUpdateDt ?  selectedDataValue.tripCloseUpdateDt :'';
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN ? "1" : "0";
     this.tripsheetmodel.findocid = selectedDataValue.findocid;
-    this.tripsheetmodel.tripCloseDt = "";
+   // this.tripsheetmodel.tripCloseDt = "";
+   this.tripsheetmodel.tripCloseDt = selectedDataValue.loggedInUserID;
     this.tripsheetmodel.ticlStatus = selectedDataValue.ticlStatus;
     this.tripsheetmodel.actualDays_1 = selectedDataValue.actualDays_1.toString();
     this.tripsheetmodel.actualDays_2 = selectedDataValue.actualDays_2.toString();

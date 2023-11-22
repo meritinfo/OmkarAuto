@@ -19,10 +19,10 @@
         public string unit_of_product { get; set; }
         public double cgst_rate { get; set; }
         public double sgst_rate { get; set; }
-        public int igst_rate { get; set; }
+        public double igst_rate { get; set; }
         public int cess_rate { get; set; }
         public int cessNonAdvol { get; set; }
-        public int taxable_amount { get; set; }
+        public double taxable_amount { get; set; }
     }
 
     public class Message
@@ -56,7 +56,7 @@
         public string state_of_supply { get; set; }
         public string actual_to_state_name { get; set; }
         public decimal total_invoice_value { get; set; }
-        public int taxable_amount { get; set; }
+        public double taxable_amount { get; set; }
         public int cgst_amount { get; set; }
         public int sgst_amount { get; set; }
         public decimal igst_amount { get; set; }

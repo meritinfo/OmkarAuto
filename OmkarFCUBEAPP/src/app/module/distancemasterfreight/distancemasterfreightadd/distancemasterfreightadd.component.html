@@ -38,9 +38,7 @@
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
                                                             formControlName="fromLocation"
-                                                            (closed) = "popupClosedToPlace()"
-                                                      
-
+                                                           
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
                                                         </ng-autocomplete>
 
@@ -53,6 +51,7 @@
                                                         </ng-template>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
@@ -105,27 +104,28 @@
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
                                                   
-                                                            <div class="ng-autocomplete">
-                                                                <ng-autocomplete [data]="locationList"
-                                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                                    (selected)='selectEvent($event)'
-                                                                    (inputChanged)='onChangeSearch($event)'
-                                                                    (inputFocused)='onFocused($event)'
-                                                                    [itemTemplate]="itemTemplate"
-                                                                    [notFoundTemplate]="notFoundTemplate"
-                                                                    [customFilter]="startWithFilter"
-                                                                    formControlName="toLocation"
-                                                                    (inputCleared)="clearLocation($event, i)">
-                                                                </ng-autocomplete>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toLocation"
+                                                            (inputCleared)="clearLocation($event, i)">
 
-                                                                <ng-template #itemTemplate let-item>
-                                                                    <a [innerHTML]="item.dataName"></a>
-                                                                </ng-template>
+                                                        </ng-autocomplete>
 
-                                                                <ng-template #notFoundTemplate let-notFound>
-                                                                    <div [innerHTML]="notFound"></div>
-                                                                </ng-template>
-                                                            </div>
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                        
                                                       
                                                 </td>
