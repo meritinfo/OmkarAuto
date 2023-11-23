@@ -228,6 +228,7 @@ export class TripsheetaddComponent {
           reportingDt_1: this.commonService.formatDate(this.selectedTripSheetDetails.reportingDt_1),
           reportingDt_2: this.commonService.formatDate(this.selectedTripSheetDetails.reportingDt_2),
           nextExpectedReportingDt:this.commonService.formatDate(this.selectedTripSheetDetails.nextExpectedReportingDt),
+          expectedReportingDt:this.commonService.formatDate(this.selectedTripSheetDetails.expectedReportingDt),
           deliveryDate:this.commonService.formatDate(this.selectedTripSheetDetails.deliveryDate),
           // deliveryDate:this.selectedTripSheetDetails.deliveryDate,
           ticlStatus: this.selectedTripSheetDetails.ticlStatus,
@@ -283,6 +284,7 @@ export class TripsheetaddComponent {
   // }
   get formMiscArray() {
     return this.formTripsheet.get("miscDetailsList") as FormArray;
+
   }
   // get formDriverArray() {
   //   return this.formTripsheet.get("driverDetailsList") as FormArray;
@@ -323,6 +325,8 @@ export class TripsheetaddComponent {
       this.calculateTotal();
     });
   }
+
+
 
   changeMisc(index: number, event: any) {
     this.tripsheetinnergridmodel.miscList = this.formMiscArray.value;
@@ -398,6 +402,67 @@ export class TripsheetaddComponent {
     var totalAccident = 0;
     var totalWeighment = 0;
     var totalMchallan = 0;
+        var totalotherExpByDriver = 0;
+    for (let i = 0; i < this.tripsheetinnergridmodel.dieselDetailsList.length; i++) {
+      totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
+    }
+    for (let i = 0; i < this.tripsheetinnergridmodel.adblueList.length; i++) {
+      totalAdBlueLtr = totalAdBlueLtr + parseFloat(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter);
+    }
+    for (let i = 0; i < this.tripsheetinnergridmodel.driverAdvanceList.length; i++) {
+      totalAdvAmount = totalAdvAmount + parseFloat(this.tripsheetinnergridmodel.driverAdvanceList[i].amountPaid);
+    }
+
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "r");
+    for (let i = 0; i < dataList.length; i++) {
+      totalRepairs = totalRepairs + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "p");
+   
+    for (let i = 0; i < dataList.length; i++) {
+      totalParking = totalParking + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "a");
+    for (let i = 0; i < dataList.length; i++) {
+      totalAccident = totalAccident + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "w");
+    for (let i = 0; i < dataList.length; i++) {
+      totalWeighment = totalWeighment + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "m");
+    for (let i = 0; i < dataList.length; i++) {
+      totalMchallan = totalMchallan + parseFloat(dataList[i].miscAmount);
+    }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "o");
+    for (let i = 0; i < dataList.length; i++) {
+      totalotherExpByDriver  = totalotherExpByDriver + parseFloat(dataList[i].miscAmount);
+    }
+    
+
+    this.formTripsheet.patchValue({
+      issuedDslLtrs: totalDslLtr.toFixed(2),
+      issuedAdblueLtrs: totalAdBlueLtr.toFixed(2),
+      paidDriverAdvance: totalAdvAmount.toFixed(2),
+      repairsByDriver: totalRepairs.toFixed(2),
+      parkingByDriver: totalParking.toFixed(2),
+      accidentByDriver: totalAccident.toFixed(2),
+      weighmentByDriver: totalWeighment.toFixed(2),
+      challanByDriver: totalMchallan.toFixed(2),
+      otherExpByDriver :totalotherExpByDriver.toFixed(2),
+    });
+    this.sharedService.loading = false;
+  }
+  calculateTotal2(): void {
+    var totalDslLtr = 0;
+    var totalAdBlueLtr = 0;
+    var totalAdvAmount = 0;
+    var totalRepairs = 0;
+    var totalParking = 0;
+    var totalAccident = 0;
+    var totalWeighment = 0;
+    var totalMchallan = 0;
+        var totalotherExpByDriver = 0;
     for (let i = 0; i < this.tripsheetinnergridmodel.dieselDetailsList.length; i++) {
       totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
     }
@@ -414,7 +479,7 @@ export class TripsheetaddComponent {
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "p");
     for (let i = 0; i < dataList.length; i++) {
-      totalParking = totalParking + parseFloat(dataList[i].miscAmount);
+      totalParking = totalParking - parseFloat(dataList[i].miscAmount);
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "a");
     for (let i = 0; i < dataList.length; i++) {
@@ -428,6 +493,11 @@ export class TripsheetaddComponent {
     for (let i = 0; i < dataList.length; i++) {
       totalMchallan = totalMchallan + parseFloat(dataList[i].miscAmount);
     }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "o");
+    for (let i = 0; i < dataList.length; i++) {
+      totalotherExpByDriver  = totalotherExpByDriver + parseFloat(dataList[i].miscAmount);
+    }
+    
 
     this.formTripsheet.patchValue({
       issuedDslLtrs: totalDslLtr.toFixed(2),
@@ -437,7 +507,8 @@ export class TripsheetaddComponent {
       parkingByDriver: totalParking.toFixed(2),
       accidentByDriver: totalAccident.toFixed(2),
       weighmentByDriver: totalWeighment.toFixed(2),
-      challanByDriver: totalMchallan.toFixed(2)
+      challanByDriver: totalMchallan.toFixed(2),
+      otherExpByDriver :totalotherExpByDriver.toFixed(2),
     });
     this.sharedService.loading = false;
   }
@@ -655,6 +726,12 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['advanceDays_2'].disable();
     this.formTripsheet.controls['delayedDays_1'].disable();
     this.formTripsheet.controls['delayedDays_2'].disable();
+    this.formTripsheet.controls['weighmentByDriver'].disable();
+
+    this.formTripsheet.controls['challanByDriver'].disable();
+    this.formTripsheet.controls['otherExpByDriver'].disable();
+    this.formTripsheet.controls['netTripBalance'].disable();
+    
     this.formTripsheet.controls['graceDays_2'].disable();
     this.formTripsheet.controls['graceDays_1'].disable();
     this.formTripsheet.controls['nextExpectedReportingDt'].disable();
@@ -917,7 +994,8 @@ findKMs(){
         // date.setDate(date.getDate() + this.ExpReportingDays+ date3.getDate())
 
         ////date2 =this.commonService.formatDate(date2)
-        ////const myFormattedDate = this.commonService.formatDate(date2);
+
+
 
         this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
@@ -927,11 +1005,18 @@ findKMs(){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
+   
 this.nexttripkms = (this.dTripKM_1).toString(),
        // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
-        this.totalCalculation();
+   
+
+          this.totalCalculation();
+      
+      
+      
+        this. checkDaysNew();
 
       });
     }
@@ -979,7 +1064,10 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         });
 
        // this.totalCal();
-        this.getBhattaRate();
+       this.getBhattaRate();
+       this.getDslToBe();
+       this.totalCalculation();
+       this. checkDaysNew();
 
       });
     }
@@ -1027,7 +1115,10 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         });
 
        // this.totalCal();
-        this.getBhattaRate();
+       this.getBhattaRate();
+       this.getDslToBe();
+       this.totalCalculation();
+       this. checkDaysNew();
 
       });
     }
@@ -1036,6 +1127,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         //   kms: ''
       });
     }
+    
   }
   checkDeliveryDate() {
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -1127,6 +1219,9 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
     }}
     this.getBhattaRate();
+    this.getDslToBe();
+    this.totalCalculation();
+    this. checkDaysNew();
 
 
   }
@@ -1372,7 +1467,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       // actualDays_2: Difference_In_Days
 
     });
-    if (Difference_In_Days > 0) {
+    if (Difference_In_Days >= 0) {
       this.day1 = (Difference_In_Days).toString();
       this.formTripsheet.patchValue({
         detentionDays: this.day1,
@@ -1579,7 +1674,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         this.totalCal2( ld );
 
         // if (this.tripkmsDetails.status) {
-        if (this.ltsdsl != undefined) {
+        if (this.ltsdsl != undefined ) {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
          //   ltsDslToBe_2: parseFloat(this.ltsdsl).toFixed(2).toString()
@@ -1588,7 +1683,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
           });
 
         }
-        else {
+        else  {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
             ltsDslToBe_2: 0
@@ -1887,6 +1982,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
   removeMiscItem(index: number) {
     this.formMiscArray.removeAt(index);
+    this.calculateTotal();
   }
 
   createMiscArray() {

@@ -272,9 +272,9 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Challan No.</label>
+                                                <label for="formrow-inputState"> RCM Challan No.</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="challanByDriver">
+                                                    formControlName="challanNo">
                                             </div>
                                         </div>
                                     </div>
@@ -394,8 +394,9 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Expected Rpt</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="expectedReportingDt">
+                                            
+                                                    <input type="date" class="form-control" formControlName="expectedReportingDt"
+                                                    placeholder="expectedReportingDt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -976,6 +977,32 @@
                                             <input class="form-control" placeholder="" formControlName="allowedBhatta">
                                         </div>
                                     </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash Dsl Place</label>
+                                           
+                                            <select class="form-control" formControlName="cashDslPlace"
+                                                            [ngClass]="" >
+        
+                                                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+        
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash Dsl Ltrs</label>
+                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash DslAmt</label>
+                                            <input class="form-control" placeholder="" formControlName="cashDslAmt">
+                                        </div>
+                                    </div>
 
 
                                     <div class="col-lg-2">
@@ -1008,7 +1035,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
-                                            <label for="formrow-inputCity">Total DriverAc</label>
+                                            <label for="formrow-inputCity">Total Driver Exp Ac</label>
                                             <input class="form-control" placeholder="" formControlName="totalDriverAc">
                                         </div>
                                     </div>
@@ -1019,8 +1046,7 @@
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="row">
+                              
 
                                     <div class="col-lg-2">
                                         <div class="mb-2">
@@ -1040,6 +1066,8 @@
                                             <input class="form-control" placeholder="" formControlName="clBalDsl">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cl Bal AdBlue</label>
@@ -1064,6 +1092,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="row">
 
                                     <div class="col-lg-6">
@@ -1110,7 +1139,8 @@
                         <div class="tex">
                             <button type="submit" (click)="submitTripSheetForm()"
                                 class="btn btn-primary w-md">Save</button>
-                                <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
+                                
+                                <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="editMode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

@@ -14,14 +14,14 @@
         public int product_id { get; set; }
         public string product_name { get; set; }
         public string product_description { get; set; }
-        public int hsn_code { get; set; }
+        public string hsn_code { get; set; }
         public int quantity { get; set; }
         public string unit_of_product { get; set; }
         public double cgst_rate { get; set; }
         public double sgst_rate { get; set; }
         public double igst_rate { get; set; }
-        public int cess_rate { get; set; }
-        public int cessNonAdvol { get; set; }
+        public double cess_rate { get; set; }
+        public double cessNonAdvol { get; set; }
         public double taxable_amount { get; set; }
     }
 
@@ -44,7 +44,7 @@
         public string address1_of_consignor { get; set; }
         public string address2_of_consignor { get; set; }
         public string place_of_consignor { get; set; }
-        public int pincode_of_consignor { get; set; }
+        public string pincode_of_consignor { get; set; }
         public string state_of_consignor { get; set; }
         public string actual_from_state_name { get; set; }
         public string gstin_of_consignee { get; set; }
@@ -52,24 +52,24 @@
         public string address1_of_consignee { get; set; }
         public string address2_of_consignee { get; set; }
         public string place_of_consignee { get; set; }
-        public int pincode_of_consignee { get; set; }
+        public string pincode_of_consignee { get; set; }
         public string state_of_supply { get; set; }
         public string actual_to_state_name { get; set; }
         public decimal total_invoice_value { get; set; }
         public double taxable_amount { get; set; }
-        public int cgst_amount { get; set; }
-        public int sgst_amount { get; set; }
+        public double cgst_amount { get; set; }
+        public double sgst_amount { get; set; }
         public decimal igst_amount { get; set; }
-        public int cess_amount { get; set; }
+        public double cess_amount { get; set; }
         public string transporter_id { get; set; }
         public string transporter_name { get; set; }
-        public int transportation_distance { get; set; }
-        public int extended_times { get; set; }
+        public double transportation_distance { get; set; }
+        public double extended_times { get; set; }
         public string reject_status { get; set; }
         public string vehicle_type { get; set; }
         public string transaction_type { get; set; }
-        public int other_value { get; set; }
-        public int cess_nonadvol_value { get; set; }
+        public double other_value { get; set; }
+        public double cess_nonadvol_value { get; set; }
         public List<ItemList> itemList { get; set; }
         public List<VehiclListDetail> VehiclListDetails { get; set; }
     }
