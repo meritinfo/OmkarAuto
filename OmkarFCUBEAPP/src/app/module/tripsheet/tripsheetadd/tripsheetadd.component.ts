@@ -407,7 +407,7 @@ export class TripsheetaddComponent {
       totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
     }
     for (let i = 0; i < this.tripsheetinnergridmodel.adblueList.length; i++) {
-      totalAdBlueLtr = totalAdBlueLtr + parseFloat(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter);
+      totalAdBlueLtr = totalAdBlueLtr +(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter === '' ? 0 : parseFloat(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter));
     }
     for (let i = 0; i < this.tripsheetinnergridmodel.driverAdvanceList.length; i++) {
       totalAdvAmount = totalAdvAmount + parseFloat(this.tripsheetinnergridmodel.driverAdvanceList[i].amountPaid);
@@ -415,28 +415,28 @@ export class TripsheetaddComponent {
 
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "r");
     for (let i = 0; i < dataList.length; i++) {
-      totalRepairs = totalRepairs + parseFloat(dataList[i].miscAmount);
+      totalRepairs = totalRepairs + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "p");
    
     for (let i = 0; i < dataList.length; i++) {
-      totalParking = totalParking + parseFloat(dataList[i].miscAmount);
+      totalParking = totalParking + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "a");
     for (let i = 0; i < dataList.length; i++) {
-      totalAccident = totalAccident + parseFloat(dataList[i].miscAmount);
+      totalAccident = totalAccident + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "w");
     for (let i = 0; i < dataList.length; i++) {
-      totalWeighment = totalWeighment + parseFloat(dataList[i].miscAmount);
+      totalWeighment = totalWeighment + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "m");
     for (let i = 0; i < dataList.length; i++) {
-      totalMchallan = totalMchallan + parseFloat(dataList[i].miscAmount);
+      totalMchallan = totalMchallan + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "o");
     for (let i = 0; i < dataList.length; i++) {
-      totalotherExpByDriver  = totalotherExpByDriver + parseFloat(dataList[i].miscAmount);
+      totalotherExpByDriver  = totalotherExpByDriver + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
     
 
@@ -1982,6 +1982,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
   removeMiscItem(index: number) {
     this.formMiscArray.removeAt(index);
+    this.tripsheetinnergridmodel.miscList.splice(index, 1);
     this.calculateTotal();
   }
 
@@ -2015,6 +2016,8 @@ this.nexttripkms = (this.dTripKM_1).toString(),
 
   removeAdblueItem(index: number) {
     this.formAdblueArray.removeAt(index);
+    this.tripsheetinnergridmodel.adblueList.splice(index, 1);
+    this.calculateTotal();
   }
 
   createAdblueArray() {
