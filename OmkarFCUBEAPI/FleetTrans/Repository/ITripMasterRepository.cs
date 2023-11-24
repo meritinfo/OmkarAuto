@@ -14,6 +14,7 @@ namespace FleetTrans.Repository
         Task<List<BranchListModel>> GetDriverList();
         Task<ResponseModel> GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
+        Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
 
 

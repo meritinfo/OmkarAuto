@@ -244,6 +244,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetPenaltyRate")]
+        public async Task<IActionResult> GetPenaltyRate(PenaltyRateModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetPenaltyRate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBhattaRate")]
         public async Task<IActionResult> GetBhattaRate(BhattaRateModel request)
         {
