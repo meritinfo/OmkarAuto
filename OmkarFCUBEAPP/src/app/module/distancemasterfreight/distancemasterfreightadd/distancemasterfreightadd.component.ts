@@ -107,7 +107,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   getFreightInnerGridList(): void {
     this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemstfrtmodel = res;
-      for (var i = 0; i < res.distanceDetailsFreightList.length - 1; i++) {
+      for (var i = 0; i < res.distanceDetailsFreightList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].fromLocation));
         this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].toLocation));
