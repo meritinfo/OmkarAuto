@@ -92,8 +92,8 @@
                                                 <input class="form-control" placeholder="" formControlName="tripNo">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-4">
+                                            <div class="mb-4">
                                                 <label for="formrow-inputState">Driver</label>
 
 
@@ -105,7 +105,7 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter">
+                                                        [customFilter]="startWithFilter"  [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -115,6 +115,7 @@
                                                     <ng-template #notFoundTemplate let-notFound>
                                                         <div [innerHTML]="notFound"></div>
                                                     </ng-template>
+                                                    
                                                 </div>
 
 
@@ -710,7 +711,7 @@
                                             *ngFor="let miscData of formMiscArray.controls; let k = index">
                                             <div [formGroupName]="k">
                                                 <td class="col-lg-4">
-                                                    <select id="role" class="form-select" formControlName="expType"
+                                                    <select id="role" class="form-select" formControlName="expType" style="font-size: small;"
                                                         (change)="changeMisc(k, $event)">
                                                         <option value="">Choose...</option>
                                                         <option value="R">REPAIR</option>
@@ -723,11 +724,11 @@
 
                                                 </td>
                                                 <td>
-                                                    <input class="form-control" placeholder=""
+                                                    <input class="form-control" placeholder="" style="font-size: small;"
                                                         formControlName="miscAmount" (change)="updateMisc(k, $event)">
                                                 </td>
                                                 <td>
-                                                    <input autoclose="false" type="text" placeholder=""
+                                                    <input autoclose="false" type="text" placeholder="" style="font-size: small;"
                                                         class="form-control" formControlName="narration">
                                                 </td>
                                                 <td>
@@ -1096,7 +1097,7 @@
                                         <div class="col-lg-2">
 
                                             <div class="mb-2">
-                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"
+                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"  (change)="changeTripCloseValue($event)"
                                                     class="form-check-input" />
                                                 <label for="tripStatus">Trip Close</label>
 
@@ -1105,7 +1106,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Trip Close Date </label>
-                                                <input type="date" class="form-control" placeholder=""
+                                                <input type="date" class="form-control" placeholder=""  [ngClass]="{ 'is-invalid': userSubmitted && (f['tripCloseDt'].invalid) }"
                                                     formControlName="tripCloseDt">
                                             </div>
                                         </div>
