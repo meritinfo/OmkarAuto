@@ -42,4 +42,5 @@ export class BankReceiptEntryService {
   getBankReceiptInnerGridList(request: Bankreceiptpmtgridlistrequest): Observable<bankreceiptentrymodel> {
     return this.httpClient.post<bankreceiptentrymodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightTripInnerGridList', request, this.httpOptions);
   }
+  
 }

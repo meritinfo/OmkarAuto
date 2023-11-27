@@ -251,14 +251,17 @@ export class DistancemasterfreightaddComponent implements OnInit {
 
     this.distancemasterfreightmodel.distanceDetailsFreightList = [];
     for (var i = 0; i < this.formDistanceMasterFreight.value.arrayList.length; i++) {
+      if (this.formDistanceMasterFreight.value.arrayList[i].toLocation != '') {
       this.distancemasterfreightmodel.distanceDetailsFreightList.push({
         'index': '',
+        'distanceDtlID': '',
         'masterID': '',
         'fromLocation': this.formDistanceMasterFreight.value.fromLocation.dataId,
         'toLocation': this.formDistanceMasterFreight.value.arrayList[i].toLocation.dataId,
         'kms': this.formDistanceMasterFreight.value.arrayList[i].kms
       })
     }
+  }
 
     //Start date end date validation
     if (Date.parse(this.distancemasterfreightmodel.validUpto) < Date.parse(this.distancemasterfreightmodel.validFrom)) {

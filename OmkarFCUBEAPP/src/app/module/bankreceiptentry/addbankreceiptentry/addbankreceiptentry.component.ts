@@ -151,6 +151,7 @@ deleteBankRceiptPmtForm(): void {
 
   }
 }
+
 getCreditAcList(): void {
   this.commonService.getCreditAcList().subscribe((res) => {
     this.creditacList = res;
@@ -277,7 +278,7 @@ this.bankreceiptentryModel.remarks = this.formUser.value.remarks;
 this.bankreceiptentryModel.refType = this.formUser.value.refType;
 this.bankreceiptentryModel.refNo = this.formUser.value.refNo;
 this.bankreceiptentryModel.docAmount = this.formUser.value.docAmount;
-this.bankreceiptentryModel.linkedYN   = this.formUser.value.linkedYN  ;
+this.bankreceiptentryModel.linkedYN   = this.formUser.value.linkedYN ;
 this.bankreceiptentryModel.yearID     = this.year   ;
 this.bankreceiptentryModel.branchCode      =    this.branchname  ;
 this.bankreceiptentryModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;

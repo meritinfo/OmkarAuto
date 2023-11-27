@@ -9,6 +9,8 @@ export class Distancemasterfreightmodel {
 }
 
 export class Distancedetailsfreightmodel {
+
+    distanceDtlID: string = "";
     masterID: string = "";
     fromLocation: string = "";
     toLocation: string = "";
