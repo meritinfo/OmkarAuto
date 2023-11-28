@@ -243,6 +243,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
       }
       return;
     }
+    var selectedDataValue = this.formDistanceMasterFreight.getRawValue();
     this.distancemasterfreightmodel.masterID = this.selectedDistancemasterfreightDetails.masterID != '' ? this.selectedDistancemasterfreightDetails.masterID : '';
     this.distancemasterfreightmodel.fromLocation = this.formDistanceMasterFreight.value.fromLocation.dataId;
     this.distancemasterfreightmodel.validFrom = this.formDistanceMasterFreight.value.validFrom;
@@ -252,12 +253,16 @@ export class DistancemasterfreightaddComponent implements OnInit {
     this.distancemasterfreightmodel.distanceDetailsFreightList = [];
     for (var i = 0; i < this.formDistanceMasterFreight.value.arrayList.length; i++) {
       if (this.formDistanceMasterFreight.value.arrayList[i].toLocation != '') {
-      this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+        this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+     
+        'distanceDtlID': this.distancemasterfreightmodel.distanceDetailsFreightList.length > i ? this.distancemasterfreightmodel.distanceDetailsFreightList[i].distanceDtlID : '',
         'index': '',
-        'distanceDtlID': '',
         'masterID': '',
-        'fromLocation': this.formDistanceMasterFreight.value.fromLocation.dataId,
-        'toLocation': this.formDistanceMasterFreight.value.arrayList[i].toLocation.dataId,
+        'fromLocation': selectedDataValue.fromLocation.dataId,
+        //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+        'toLocation': selectedDataValue.arrayList[i].toLocation.dataId,
+        'toLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
+        'fromLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
         'kms': this.formDistanceMasterFreight.value.arrayList[i].kms
       })
     }

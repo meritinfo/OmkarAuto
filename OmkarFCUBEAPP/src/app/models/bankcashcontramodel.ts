@@ -34,5 +34,6 @@ chequeDate : string = "";
     costRefNo: string = "";
     reference : string = "";
     branchCode : string = "";
+    index : string = "";
   
 }

@@ -42,6 +42,7 @@
         public string? ChequeDate { get; set; }
         public string? Reference { get; set; }
         public string? BranchCode { get; set; }
+        public string? Index { get; set; }
 
 
 

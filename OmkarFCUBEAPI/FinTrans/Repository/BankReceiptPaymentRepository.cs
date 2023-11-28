@@ -68,8 +68,10 @@ namespace FinTrans.Repository
                             {
                                 SqlParameter[] paramMisc =
                                 {
-                                    new SqlParameter("@FtmID", FtmID),
+                                    new SqlParameter("@FtdID", bankReceiptPaymentsModel.DetailList[i].FtdID),
                                     new SqlParameter("@FtmDate",bankReceiptPaymentsModel.DetailList[i].FtmDate),
+                                        new SqlParameter("@FtmID", FtmID
+                             == "" ? 0 : Convert.ToInt32(FtmID)),
                                     new SqlParameter("@SlNo", bankReceiptPaymentsModel.DetailList[i].SlNo),
                                     new SqlParameter("@TypeSign", bankReceiptPaymentsModel.DetailList[i].TypeSign),
                                     new SqlParameter("@Amount", bankReceiptPaymentsModel.DetailList[i].Amount),

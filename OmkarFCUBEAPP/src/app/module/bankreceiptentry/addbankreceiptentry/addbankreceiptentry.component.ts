@@ -104,7 +104,9 @@ ngOnInit(): void {
   
 
   });
+  setTimeout(() => {
   if (this.selectedBankReceiptEntryDetails.ftmId != '') {
+    
     var selectedDataValue = this.formUser.getRawValue();
    
     this.formUser.patchValue(this.selectedBankReceiptEntryDetails);
@@ -117,10 +119,12 @@ ngOnInit(): void {
     accountid2: this.creditacList.find(e => e.dataId == selectedDataValue.accountid2)
 
   }
+}, 2000);
   //this.formUser.controls['ftmDate'].disable();
   this.formUser.controls['docSeries'].disable();
   this.bankreceiptpmtgridlistrequest.ftmID = parseInt(this.selectedBankReceiptEntryDetails.ftmId);
-  this.getBankReceiptInnerGridList();
+  //this.getBankReceiptInnerGridList();
+ this.editMode = true;
 
 }
 get formArray() {
@@ -158,33 +162,15 @@ getCreditAcList(): void {
   });
 }
 exit(): void {
-  this.route.navigate(['/deleteBankRceiptPmtForm']);
+  this.route.navigate(['/bankreceiptentrylist']);
 }
 getLocationList(): void {
   this.commonService.getLocationList().subscribe((res) => {
     this.locationList = res;
   });
 }
-getBankReceiptInnerGridList(): void {
-  this.bankreceiptentryService.getBankReceiptInnerGridList(this.bankreceiptpmtgridlistrequest).subscribe((res) => {
-    this.bankreceiptentryModel = res;
-    for (var i = 0; i < res.detailList.length - 1; i++) {
-      this.formArray.push(this.createMiscArray());
-      this.formArray.controls[i].get("accountId")?.setValue(this.creditacList.find(e => e.dataId == res.detailList[i].accountId));
-     
-      this.formArray.controls[i].get("amount")?.setValue(res.detailList[i].amount);
-      this.formArray.controls[i].get("narration")?.setValue(res.detailList[i].narration);
-      this.formArray.controls[i].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
-      this.formArray.controls[i].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
-      this.formArray.controls[i].get("costRefNo")?.setValue(res.detailList[i].costRefNo);
 
 
-    }
-    // this.formDistanceMasterTrip.patchValue({
-    //   arrayList: res.distanceDetailsTripList
-    // })
-  });
-}
 
 addMiscItem(index: number): void {
 
@@ -286,7 +272,9 @@ if (this.formUser.value.docType =="BP") {
 if (this.formCashArray.value != undefined) {
   for (var i = 0; i < this.formCashArray.value.length; i++) {
     this.bankreceiptentryModel.detailList.push({
+      
       'ftdID': this.formCashArray.value[i].ftdID,
+      'index': '',
       'ftmID': this.formCashArray.value[i].ftmID,
       'ftmDate': this.formCashArray.value[i].ftmDate,
       'slNo': this.formCashArray.value[i].slNo ,
@@ -308,6 +296,7 @@ if (this.formCashArray.value != undefined) {
   if (this.formCashArray.value != undefined) {
     for (var i = 0; i < this.formCashArray.value.length; i++) {
       this.bankreceiptentryModel.detailList.push({
+        'index': '',
         'ftdID': this.formCashArray.value[i].ftdID,
         'ftmID': this.formCashArray.value[i].ftmID,
         'ftmDate': this.formCashArray.value[i].ftmDate,
@@ -317,7 +306,7 @@ if (this.formCashArray.value != undefined) {
         'narration': this.formCashArray.value[i].narration,
         'chequeDate': this.formCashArray.value[i].chequeDate,
         'chequeNo': this.formCashArray.value[i].chequeNo,
-        'accountId': this.formCashArray.value[i].accountId ,
+        'accountId': this.formCashArray.value[i].accountId,
         'costRefNo': this.formCashArray.value[i].costRefNo,
         'reference': this.formCashArray.value[i].reference,
         'branchCode': this.branchname,

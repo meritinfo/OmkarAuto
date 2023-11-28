@@ -28,11 +28,12 @@ export class BankreceiptpaymentDetailmodel {
     amount: string = "";
     accountId : string = "";
     chequeNo : string = "";
-chequeDate : string = "";
+    chequeDate : string = "";
   
     narration : string = "";
     costRefNo: string = "";
     reference : string = "";
     branchCode : string = "";
+    index : string = "";
   
 }
