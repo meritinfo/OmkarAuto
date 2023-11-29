@@ -403,6 +403,7 @@ namespace FleetTrans.Repository
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
+                                VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
 
 
 
