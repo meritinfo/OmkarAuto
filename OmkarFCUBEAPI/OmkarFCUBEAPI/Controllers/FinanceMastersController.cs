@@ -17,6 +17,7 @@ namespace OmkarFCUBEAPI.Controllers
     public class FinanceMastersController : ControllerBase
     {
         readonly IFinAccountsMasterBusiness finAccountsMasterBusiness;
+        readonly IFinGroupMasterBusiness finGroupMasterBusiness;
         readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
         readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
@@ -24,9 +25,10 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
 
 
-        public FinanceMastersController(IFinAccountsMasterBusiness _finAccountsMasterBusiness, IFinScheduleMasterBusiness _finScheduleMasterBusiness, IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness, IGstPurchaseDtlBusiness _gstPurchaseDtlBusiness, IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
+        public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, IFinAccountsMasterBusiness _finAccountsMasterBusiness, IFinScheduleMasterBusiness _finScheduleMasterBusiness, IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness, IGstPurchaseDtlBusiness _gstPurchaseDtlBusiness, IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
         {
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
+            finGroupMasterBusiness = _finGroupMasterBusiness;
             finScheduleMasterBusiness = _finScheduleMasterBusiness;
             chequeAllotmentDtlBusiness = _chequeAllotmentDtlBusiness;
             chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
@@ -58,11 +60,43 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetFinAccountsMasterList")]
-        public async Task<IActionResult> GetFinAccountsMasterList(FinAccountsMasterListRequest request)
+        public async Task<IActionResult> GetFinAccountsMasterList(PageRequest request)
         {
             try
             {
                 var result = await finAccountsMasterBusiness.GetFinAccountsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetFinActLedgertype")]
+        public async Task<IActionResult> GetFinActLedgertype()
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinActLedgertype();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetEmpList")]
+        public async Task<IActionResult> GetEmpList()
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetEmpList();
 
                 return Ok(result);
             }
@@ -90,6 +124,8 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
         [HttpPost("ChequeAllotmentDtlSave")]
         public async Task<IActionResult> ChequeAllotmentDtlSave(ChequeAllotmentDtlModel chequeAllotmentDtlModel)
         {
@@ -171,6 +207,106 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await gstPurchaseMstBusiness.GstPurchaseMstSave(gstPurchaseMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("FinGroupMasterSave")]
+        public async Task<IActionResult> FinGroupMasterSave(FinGroupMasterModel finGroupMasterModel)
+        {
+            if (finGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.FinGroupMasterSave(finGroupMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFinGroupMasterList")]
+        public async Task<IActionResult> GetFinGroupMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.GetFinGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAccountTypeList")]
+        public async Task<IActionResult> GetAccountTypeList()
+        {
+            try
+            {
+                var result = await finGroupMasterBusiness.GetAccountTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSubAccountTypeList")]
+        public async Task<IActionResult> GetSubAccountTypeList(string accountType)
+        {           
+            try
+            {
+                var result = await finGroupMasterBusiness.GetSubAccountTypeList(accountType);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetScheduleList")]
+        public async Task<IActionResult> GetScheduleList()
+        {            
+            try
+            {
+                var result = await finGroupMasterBusiness.GetScheduleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("chkActName")]
+        public async Task<IActionResult> chkActName(string AccountName)
+        {
+            try
+            {
+                var result = await finGroupMasterBusiness.chkActName(AccountName);
 
                 return Ok(result);
             }

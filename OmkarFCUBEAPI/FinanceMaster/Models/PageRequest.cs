@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinanceMaster.Models
 {
-    public class FinAccountsMasterListRequest
+    public class PageRequest
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }

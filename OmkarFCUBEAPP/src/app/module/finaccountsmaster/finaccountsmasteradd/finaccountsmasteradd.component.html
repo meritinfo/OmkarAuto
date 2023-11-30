@@ -1,0 +1,512 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Accounts/Ledger Master</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="basic-example">
+                                <!-- Personal Details -->
+                                <section>
+                                    <form [formGroup]="formAccountMaster">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-firstname-input" class="form-label">Account Name:</label><span style="color:red">*</span>
+                                                    <input uppercaseonly type="text" class="form-control"
+                                                        placeholder="Enter Account Name" formControlName="accountName">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Main Group:</label><span style="color:red">*</span>
+                                                    <select formControlName="mainGroup" 
+                                                        class="form-control form-select ng-pristine ng-touched"
+                                                        (change)="accountTypeChange($event)">
+                                                        <option *ngFor="let acttp of accountTypeList" value={{acttp.dataId}}>
+                                                            {{acttp.dataName}}
+                                                        </option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Sub Group:</label><span style="color:red">*</span>
+                                                    <select formControlName="subGroup" 
+                                                        class="form-control form-select ng-pristine ng-touched"
+                                                        (change)="subaccountTypeChange($event)">                                             
+                                                        <option *ngFor="let subacttp of subAccountTypeList" value={{subacttp.dataId}}>
+                                                            {{subacttp.dataName}}
+                                                        </option>
+                                                    </select>   
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Ledger Type:</label><span style="color:red">*</span>
+                                                    <select formControlName="ledgertype" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option *ngFor="let ldg of ledgerList" value={{ldg.dataId}}>
+                                                            {{ldg.dataName}}
+                                                        </option>
+                                                    </select>   
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Schedule:</label><span style="color:red">*</span>
+                                                    <select formControlName="schedule" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option *ngFor="let sch of scheduleList" value={{sch.dataId}}>
+                                                            {{sch.dataName}}
+                                                        </option>
+                                                    </select>   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Status:</label><span style="color:red">*</span>
+                                                    <select formControlName="status" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option value="">Choose...</option>
+                                                        <option value="G">Green</option>
+                                                        <option value="O">Orange</option>
+                                                        <option value="R">Red</option>
+                                                    </select>   
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-firstname-input" class="form-label">Address:</label>
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="address">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="address1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="address2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="address3">
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">State:</label>
+                                                    <select formControlName="state" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option *ngFor="let stl of statelist" value={{stl.dataId}}>
+                                                            {{stl.dataName}}
+                                                        </option>
+                                                    </select>   
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Pincode:</label>
+                                                    <input numbersonly type="text" autoclose="false" class="form-control" 
+                                                    formControlName="pincode"> 
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Phone No:</label>
+                                                    <input type="text" class="form-control" formControlName="phoneNo"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Mobile No:</label>
+                                                    <input type="text" class="form-control" formControlName="mobileNo"> 
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">A/c Contact:</label>
+                                                    <input type="text" class="form-control" formControlName="acContact"> 
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Fax:</label>
+                                                    <input type="text" class="form-control" formControlName="fax"> 
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Email:</label>
+                                                    <input type="text" class="form-control" formControlName="email"> 
+                                                </div>
+                                            </div>
+                                        </div>                                         
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Url:</label>
+                                                    <input type="text" class="form-control" formControlName="url"> 
+                                                </div>
+                                            </div>
+                                        </div>                                         
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Print Name:</label>
+                                                    <input type="text" class="form-control" formControlName="printName"> 
+                                                </div>
+                                            </div>
+                                        </div>                                     
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Credit Limit:</label>
+                                                    <input type="text" class="form-control" formControlName="creditLimit"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Security Deposit:</label>
+                                                    <input type="text" class="form-control" formControlName="securityDeposit"> 
+                                                </div>
+                                            </div>
+                                        </div>                                       
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Credit Days:</label>
+                                                    <input type="text" class="form-control" formControlName="creditDays"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">AccountBG:</label>
+                                                    <input type="text" class="form-control" formControlName="accountBG"> 
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Interest Rate:</label>
+                                                    <input type="text" class="form-control" formControlName="interestRate"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">TDS Rate:</label>
+                                                    <input type="text" class="form-control" formControlName="tDSRate"> 
+                                                </div>
+                                            </div>
+                                        </div>                                          
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Account Rem.Ref:</label>
+                                                    <input type="text" class="form-control" formControlName="accountRemRef"> 
+                                                </div>
+                                            </div>
+                                        </div>                                           
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Vendor Code:</label>
+                                                    <input type="text" class="form-control" formControlName="vendorCode"> 
+                                                </div>
+                                            </div>
+                                        </div>                                            
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Bank Name:</label>
+                                                    <input type="text" class="form-control" formControlName="bankName"> 
+                                                </div>
+                                            </div>
+                                        </div>                                  
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Bank Branch:</label>
+                                                    <input type="text" class="form-control" formControlName="bankBranch"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Ifsc Code:</label>
+                                                    <input type="text" class="form-control" formControlName="ifscCode"> 
+                                                </div>
+                                            </div>
+                                        </div>                                  
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Account Type:</label>
+                                                    <select formControlName="accountType" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option value="">Choose...</option>
+                                                        <option value="CA">Current Account</option>
+                                                        <option value="SB">Savings Bank</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Account No:</label>
+                                                    <input type="text" class="form-control" formControlName="accountNo"> 
+                                                </div>
+                                            </div>
+                                        </div>                               
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">PAN No:</label>
+                                                    <input type="text" class="form-control" formControlName="pANNo"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">GST No:</label>
+                                                    <input type="text" class="form-control" formControlName="gSTNo"> 
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Liability Type:</label>
+                                                    <select formControlName="liabilityType" 
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
+                                                        <option value="N">NA</option>
+                                                        <option value="E">Expense</option>
+                                                        <option value="A">Advance</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Party Type:</label>
+                                                    <select formControlName="partyType" 
+                                                        class="form-control form-select ng-pristine ng-touched">   
+                                                        <option value="N">Normal Party</option>
+                                                        <option value="C">Contract Validity</option>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Contract Validity:</label>
+                                                    <input bsdatepicker="" type="date" autoclose="false"
+                                                        placeholder="dd/MM/yyyy"  formControlName="contractValidity"
+                                                        class="form-control"> 
+                                                </div>
+                                            </div>
+                                        </div>                                                                                    
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Account TAN:</label>
+                                                    <input type="text" class="form-control" formControlName="accountTAN"> 
+                                                </div>
+                                            </div>
+                                        </div>                                                                               
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">User Name:</label>
+                                                    <input type="text" class="form-control" formControlName="userName"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="basicpill-lastname-input" class="form-label">Password:</label>
+                                                    <input type="text" class="form-control" formControlName="password"> 
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">                                                
+                                                    <input type="checkbox" name="activeyn" formControlName="activeyn" 
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Active (Y/N)</label>
+                                                </div>
+                                            </div>
+                                        </div>                                                                             
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="hideBranchLogin" formControlName="hideBranchLogin"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Hide Branch Login</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="hideForNonAdminUsers" formControlName="hideForNonAdminUsers"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Hide For Non-Admin Users</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="generalMRApplicable" formControlName="generalMRApplicable"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">General MR Applicable</label>
+                                                </div>
+                                            </div>
+                                        </div>                                                                             
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="hOAccountOnly" formControlName="hOAccountOnly"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">HO Account Only</label>
+                                                </div>
+                                            </div>                                       
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="tdsLedgerYN" formControlName="tdsLedgerYN"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">TDS Ledger Y/N</label>
+                                                </div>
+                                            </div>                                       
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="onlineActiveYn" formControlName="onlineActiveYn"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Online Active Y/N</label>
+                                                </div>
+                                            </div> 
+                                        </div>                                                                            
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="globalAccount" formControlName="globalAccount"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label"> Global Account</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="costRef" formControlName="costRef"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label"> Cost Ref</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="isExpApprovalReq" formControlName="isExpApprovalReq"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label"> Is Exp Approval Req?</label>
+                                                </div>
+                                            </div>
+                                        </div>                                                                    
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="sendEmail" formControlName="sendEmail"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Send Email</label>
+                                                </div>
+                                            </div>                               
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">                                                   
+                                                    <input type="checkbox" name="manualJV" formControlName="manualJV"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Manual JV</label>
+                                                </div>
+                                            </div>
+                                        </div>                                                                    
+                                        <div class="row">                                        
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="subLedgerApplicable" formControlName="subLedgerApplicable"
+                                                        value="N" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label">Sub Ledger Applicable</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">                                      
+                                                    <input type="text" class="form-control" formControlName="subledgerQry"> 
+                                                </div>
+                                            </div>
+                                        </div>                                   
+                                        <div class="row text-right">
+                                            <div class="col-lg-12">
+                                            <div class="tex">
+                                                <button type="submit" class="btn btn-primary w-md"
+                                                    (click)="submitFinAccountMasterForm()">Submit</button>
+                                            </div>
+                                            </div>
+                                        </div>                                                                                      
+                                    </form>
+                                    
+                                </section>
+                                <!-- Attachment Details -->
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
