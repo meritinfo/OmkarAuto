@@ -194,7 +194,7 @@ export class TripsheetlistComponent {
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-    this.filter.vehicle = this.formFilter.value.vehicle.dataId;
+    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
     this.tripSheetService.getTripSheetList(this.filter)
       .subscribe(resp => {
         this.allTripSheetTypes = resp;
