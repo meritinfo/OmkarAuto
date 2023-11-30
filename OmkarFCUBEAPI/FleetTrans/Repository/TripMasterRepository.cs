@@ -300,7 +300,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
                             new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select2", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
