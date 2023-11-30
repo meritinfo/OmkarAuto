@@ -190,79 +190,15 @@ export class TripsheetlistComponent {
   };
 
   search(): void {
-
+    debugger;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch;
+    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
     this.filter.vehicle = this.formFilter.value.vehicle.dataId;
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
-        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-        this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
-        this.tripSheetService.getTripSheetList(this.filter)
-          .subscribe(resp => {
-            this.allTripSheetTypes = resp;
-            callback({
-              recordsTotal: resp.pageMetaData.totalCount,
-              recordsFiltered: resp.pageMetaData.totalCount,
-              data: []
-            });
-          });
-      },
-      // Set column title and data field
-      columns: [
-        {
-          title: 'Vehicle No',
-          data: 'vehicleNo',
-        },
-
-        {
-          title: 'Trip Date',
-          data: 'newTripDate',
-        },
-        {
-          title: 'Trip No',
-          data: 'tripNo',
-        },
-        {
-          title: 'From',
-          data: 'frPlace',
-        },
-
-        {
-          title: 'To',
-          data: 'tPlace',
-        },
-        {
-          title: 'Expected UL. Dt.',
-          data: 'expectedReportingDt',
-        },
-        {
-          title: 'Driver',
-          data: 'drName',
-        },
-        {
-          title: 'CloseDate',
-          data: 'lastTripCloseDate',
-        },
-        {
-          title: 'LinkYN',
-          data: 'tripLinkYN',
-        },
-        {
-          title: 'Action',
-          data: 'tripId',
-        },
-      ],
-    };
+    this.tripSheetService.getTripSheetList(this.filter)
+      .subscribe(resp => {
+        this.allTripSheetTypes = resp;
+      });
   }
 
   getCurrentFiscalYear(date: string) {
