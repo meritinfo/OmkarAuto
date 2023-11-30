@@ -113,10 +113,12 @@ namespace FleetTrans.Models
         public string? VehicleNo { get; set; }
         public string? DrName{ get; set; }
         public string? FrPlace { get; set; }
+     
         public string? TPlace { get; set; }
+        public string? VehicleTypeGroupId { get; set; }
         public string? ActualDays_1 { get; set; }
         public string? ActualDays_2 { get; set; }
-        public string? VehicleTypeGroupId { get; set; }
+     
 
         public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
         public List<MiscListModel>? MiscList { get; set; }

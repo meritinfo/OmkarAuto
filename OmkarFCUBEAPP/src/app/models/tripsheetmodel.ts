@@ -89,12 +89,11 @@ export class Tripsheetmodel {
     drName: string = "";
     frPlace: string = "";
     tPlace: string = "";
+    vehicleTypeGroupId : string = "";
     actualDays_1: string = "";
     actualDays_2: string = "";
-    vehicleTypeGroupId : string = "";
     loggedInUser: string = "";
-
-    tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
+   tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
     miscList: MiscListmodel[] = [];
     adblueList: AdblueListmodel[] = [];
 }
