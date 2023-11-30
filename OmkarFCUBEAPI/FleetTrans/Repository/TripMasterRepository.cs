@@ -294,7 +294,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
+                            new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
 
@@ -403,6 +407,7 @@ namespace FleetTrans.Repository
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
+                                VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
 
 
 
@@ -498,6 +503,49 @@ namespace FleetTrans.Repository
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                       //  responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Transdate", request.Transdate),
+
+                 //     new SqlParameter("@TripKms", request.TripKms)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetPenaltyRate", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        //  responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                     }

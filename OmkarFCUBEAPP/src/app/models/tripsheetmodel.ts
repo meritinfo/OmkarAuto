@@ -91,6 +91,7 @@ export class Tripsheetmodel {
     tPlace: string = "";
     actualDays_1: string = "";
     actualDays_2: string = "";
+    vehicleTypeGroupId : string = "";
     loggedInUser: string = "";
 
     tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();

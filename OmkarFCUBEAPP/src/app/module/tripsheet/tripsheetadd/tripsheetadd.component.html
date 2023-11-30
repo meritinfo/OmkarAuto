@@ -55,8 +55,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Time</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="" formControlName="tripTime"
-                                                    class="form-control">
+                                                <input bsdatepicker="" autoclose="false" placeholder=""
+                                                    formControlName="tripTime" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -92,8 +92,8 @@
                                                 <input class="form-control" placeholder="" formControlName="tripNo">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-4">
+                                            <div class="mb-4">
                                                 <label for="formrow-inputState">Driver</label>
 
 
@@ -105,7 +105,7 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter">
+                                                        [customFilter]="startWithFilter"  [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -115,6 +115,7 @@
                                                     <ng-template #notFoundTemplate let-notFound>
                                                         <div [innerHTML]="notFound"></div>
                                                     </ng-template>
+                                                    
                                                 </div>
 
 
@@ -146,7 +147,7 @@
                                             <th><label for="formrow-inputZip">EWay Bill No</label></th>
                                             <th><label for="formrow-inputZip">EWay Bill Date</label></th>
                                             <th><label for="formrow-inputZip">EWay Bill Exp Date</label></th>
-                                    
+
                                         </tr>
                                         <tr formArrayName="lrDetailsList"
                                             *ngFor="let lrData of tripsheetinnergridmodel.lrDetailsList">
@@ -192,7 +193,7 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                           
+
 
                                         </tr>
                                     </table>
@@ -219,16 +220,16 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios2"
-                                                    value="N" class="form-check-input" formControlName="compNonCompStatus" />
+                                                <input type="radio" name="compNonCompStatus" id="formRadios2" value="N"
+                                                    class="form-check-input" formControlName="compNonCompStatus" />
                                                 <label for="formRadios2" class="form-check-label"> Non Company
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios3"
-                                                    value="R" class="form-check-input" formControlName="compNonCompStatus" />
+                                                <input type="radio" name="compNonCompStatus" id="formRadios3" value="R"
+                                                    class="form-check-input" formControlName="compNonCompStatus" />
                                                 <label for="formRadios3" class="form-check-label"> RCM
                                                 </label>
                                             </div>
@@ -272,9 +273,8 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Challan No.</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="challanByDriver">
+                                                <label for="formrow-inputState"> RCM Challan No.</label>
+                                                <input class="form-control" placeholder="" formControlName="challanNo">
                                             </div>
                                         </div>
                                     </div>
@@ -394,8 +394,10 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Expected Rpt</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="expectedReportingDt">
+
+                                                <input type="date" class="form-control"
+                                                    formControlName="expectedReportingDt"
+                                                    placeholder="expectedReportingDt">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -421,7 +423,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Advance Payable</label>
+                                                <label for="formrow-inputCity">Travel Adv Payable</label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="advPayable_1">
                                             </div>
@@ -455,14 +457,15 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity"> Actual Reported Date</label>
 
-                                                <input type="date" class="form-control" placeholder="" (change)="checkDays()"
-                                                    formControlName="reportingDt_1">
+                                                <input type="date" class="form-control" placeholder=""
+                                                    (change)="checkDays()" formControlName="reportingDt_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Actual Days</label>
-                                                <input class="form-control" placeholder=""   formControlName="actualDays_1">
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="actualDays_1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -489,8 +492,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Delivery Date</label>
-                                                <input type="date" class="form-control" placeholder=""(change)="checkDays2()"
-                                                    formControlName="deliveryDate">
+                                                <input type="date" class="form-control" placeholder=""
+                                                    (change)="checkDays2()" formControlName="deliveryDate">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -549,7 +552,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">AdBlue to be</label>
-                                                <input class="form-control" placeholder=""(change)="totalCal()"
+                                                <input class="form-control" placeholder="" (change)="totalCal()"
                                                     formControlName="ltsAdblueToBe_2">
                                             </div>
                                         </div>
@@ -560,28 +563,28 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Dsl To Be</label>
-                                                <input class="form-control" placeholder=""(change)="totalCal()"
+                                                <input class="form-control" placeholder="" (change)="totalCal()"
                                                     formControlName="ltsDslToBe_2">
                                             </div>
                                         </div>
 
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Advance Payable</label>
-                                                <input class="form-control" placeholder="" 
+                                                <label for="formrow-inputCity">Travel Adv Payable</label>
+                                                <input class="form-control" placeholder=""
                                                     formControlName="advPayable_2">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Reporting Date</label>
-                                                <input type="date" class="form-control" placeholder=""(change)="checkDaysNew()"
-                                                    formControlName="reportingDt_2" >
+                                                <input type="date" class="form-control" placeholder=""
+                                                    (change)="checkDaysNew()" formControlName="reportingDt_2">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Actual Days  </label>
+                                                <label for="formrow-inputCity">Actual Days </label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="actualDays_2">
                                             </div>
@@ -602,7 +605,7 @@
                                         </div>
 
 
-                                      
+
 
                                     </div>
                                     <div class="row">
@@ -629,7 +632,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Total Payable</label>
+                                                <label for="formrow-inputCity">Total Travel Adv Payable</label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="totalpayable">
                                             </div>
@@ -686,64 +689,49 @@
                                     <h4 class="card-title mb-4" style="color: red;">Repair/Misc Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-
                                             <div class="row">
-                                                         <div class="col-lg-4">
-                                                             <label for="formrow-inputZip">
-                                                                 <h6>Exp Type</h6>
-                                                             </label>
-                                                         </div>
-                                                       
-                                                    
-                                                         <div class="col-lg-3">
-                                                         <label for="formrow-inputZip">
-                                                             <h6>Amount</h6>
-                                                         </label>
-                                                     </div>
-                                                     <div class="col-lg-4">
-                                                        <label for="formrow-inputZip">
-                                                            <h6>Narration</h6>
-                                                        </label>
-                                                    </div>
-                                               
-                                                
-                                                     
-                                                 </div>
-                                                 </tr>
-                                    
-
-                       
+                                                <div class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Exp Type</h6>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Amount</h6>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Narration</h6>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </tr>
                                         <tr formArrayName="miscDetailsList"
                                             *ngFor="let miscData of formMiscArray.controls; let k = index">
                                             <div [formGroupName]="k">
                                                 <td class="col-lg-4">
-                                                   
-                                                            <select id="role" class="form-select"
-                                                                formControlName="expType" (change)="changeMisc(k, $event)">
-                                                                <option value="">Choose...</option>
-                                                                <option value="R">REPAIR</option>
-                                                                <option value="P">PARKING</option>
-                                                                <option value="M">M.CHALLAN</option>
-                                                                <option value="W">WEIGHMENT </option>
-                                                                <option value="A">ACCIDENT </option>
-                                                                <option value="O">OTHER</option>
-                                                            </select>
-                                                  
+                                                    <select id="role" class="form-select" formControlName="expType" style="font-size: small;"
+                                                        (change)="changeMisc(k, $event)">
+                                                        <option value="">Choose...</option>
+                                                        <option value="R">REPAIR</option>
+                                                        <option value="P">PARKING</option>
+                                                        <option value="M">M.CHALLAN</option>
+                                                        <option value="W">WEIGHMENT </option>
+                                                        <option value="A">ACCIDENT </option>
+                                                        <option value="O">OTHER</option>
+                                                    </select>
+
                                                 </td>
                                                 <td>
-                                                   
-                                                            <input class="form-control" placeholder=""
-                                                                formControlName="miscAmount"  (change)="updateMisc(k, $event)">
-                                                      
+                                                    <input class="form-control" placeholder="" style="font-size: small;"
+                                                        formControlName="miscAmount" (change)="updateMisc(k, $event)">
                                                 </td>
                                                 <td>
-                                                  
-                                                        
-                                                            <input autoclose="false" type="text" placeholder=""
-                                                                class="form-control" formControlName="narration">
-                                                     
+                                                    <input autoclose="false" type="text" placeholder="" style="font-size: small;"
+                                                        class="form-control" formControlName="narration">
                                                 </td>
-                                                <td >
+                                                <td>
                                                     <div class="col-lg-12 details-button">
                                                         <button type="button" class="btn btn-primary"
                                                             (click)="addMiscItem()">Add</button>
@@ -767,7 +755,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;">Driver Advance</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        
+
                                         <tr>
                                             <th> <label for="formrow-inputCity">Pmt Type</label></th>
                                             <th><label for="formrow-inputCity">Pmt Date</label></th>
@@ -808,63 +796,65 @@
                                         <tr>
 
                                             <div class="row">
-                                                         <div class="col-lg-4">
-                                                             <label for="formrow-inputZip">
-                                                                 <h6>Filling Branch</h6>
-                                                             </label>
-                                                         </div>
-                                                       
-                                                    
-                                                         <div class="col-lg-3">
-                                                         <label for="formrow-inputZip">
-                                                             <h6>Adblue</h6>
-                                                         </label>
-                                                     </div>
-                                                     <div class="col-lg-4">
-                                                        <label for="formrow-inputZip">
-                                                            <h6>Amount</h6>
-                                                        </label>
-                                                    </div>
-                                               
-                                                
-                                                     
-                                                 </div>
-                                                 </tr>
-                                    
+                                                <div class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Filling Branch</h6>
+                                                    </label>
+                                                </div>
+
+
+                                                <div class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Adblue</h6>
+                                                    </label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Amount</h6>
+                                                    </label>
+                                                </div>
+
+
+
+                                            </div>
+                                        </tr>
+
 
                                         <tr formArrayName="adblueDetailsList"
                                             *ngFor="let adblueData of formAdblueArray.controls; let m = index">
                                             <div [formGroupName]="m">
                                                 <td class="col-lg-3">
-                                                  <select class="form-control" formControlName="adbluefillingStation"
-                                                            [ngClass]="" (change)="changeAdBlue(m, $event)">
-        
-                                                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-        
-                                                                {{branch.dataName}}
-                                                            </option>
-                                                        </select>
-                                                        
-                                                  
+                                                    <select class="form-control" formControlName="adbluefillingStation"
+                                                        [ngClass]="" (change)="changeAdBlue(m, $event)">
+
+                                                        <option *ngFor="let branch of branchList"
+                                                            value={{branch.dataId}}>
+
+                                                            {{branch.dataName}}
+                                                        </option>
+                                                    </select>
+
+
                                                 </td>
                                                 <td>
-                                                  
-                                                      
-                                                            
-                                                            <input autoclose="false" type="text" placeholder=""
-                                                                class="form-control" decimalonly
-                                                                formControlName="adbluedieselLiter" (change)="updateAdBlue(m, $event)">
-                                                        
-                                                    
+
+
+
+                                                    <input autoclose="false" type="text" placeholder=""
+                                                        class="form-control" decimalonly
+                                                        formControlName="adbluedieselLiter"
+                                                        (change)="updateAdBlue(m, $event)">
+
+
                                                 </td>
                                                 <td>
-                                                    
-                                                   
-                                                          
-                                                            <input class="form-control" placeholder=""
-                                                                formControlName="adbluedieselAmount" decimalonly>
-                                        
-                                                    
+
+
+
+                                                    <input class="form-control" placeholder=""
+                                                        formControlName="adbluedieselAmount" decimalonly>
+
+
                                                 </td>
                                                 <td>
                                                     <div class="col-lg-12 details-button">
@@ -892,7 +882,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Dsl/Ltr Issued</label>
-                                            <input class="form-control" placeholder="" formControlName="issuedDslLtrs" decimalonly>
+                                            <input class="form-control" placeholder="" formControlName="issuedDslLtrs"
+                                                decimalonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -912,15 +903,15 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Repairs</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="repairsByDriver" decimalonly>
+                                            <input class="form-control" placeholder="" formControlName="repairsByDriver"
+                                                decimalonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Parking</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="parkingByDriver" decimalonly>
+                                            <input class="form-control" placeholder="" formControlName="parkingByDriver"
+                                                decimalonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -944,8 +935,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Mchallan</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="challanByDriver" decimalonly>
+                                            <input class="form-control" placeholder="" formControlName="challanByDriver"
+                                                decimalonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -974,6 +965,31 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Driver Bhatta Amt</label>
                                             <input class="form-control" placeholder="" formControlName="allowedBhatta">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash Dsl Place</label>
+
+                                            <select class="form-control" formControlName="cashDslPlace" [ngClass]="">
+
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash Dsl Ltrs</label>
+                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Cash DslAmt</label>
+                                            <input class="form-control" placeholder="" formControlName="cashDslAmt">
                                         </div>
                                     </div>
 
@@ -1008,7 +1024,7 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
-                                            <label for="formrow-inputCity">Total DriverAc</label>
+                                            <label for="formrow-inputCity">Total Driver Exp Ac</label>
                                             <input class="form-control" placeholder="" formControlName="totalDriverAc">
                                         </div>
                                     </div>
@@ -1019,13 +1035,12 @@
                                         </div>
                                     </div>
 
-                                </div>
-                                <div class="row">
+
 
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">RecdFromDriver </label>
-                                            <input class="form-control" placeholder="" formControlName="recdFromDriver">
+                                            <input class="form-control" placeholder="" formControlName="recdFromDriver" (change)="totalCalculation()">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -1040,6 +1055,8 @@
                                             <input class="form-control" placeholder="" formControlName="clBalDsl">
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cl Bal AdBlue</label>
@@ -1050,7 +1067,8 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Ticl Status</label>
 
-                                            <select id="role" class="form-select" formControlName="ticlStatus" (change)="getIncentiveRate($event)">
+                                            <select id="role" class="form-select" formControlName="ticlStatus"
+                                                (change)="getIncentiveRate($event)">
                                                 <option value="">Choose...</option>
                                                 <option value="OK">OK </option>
                                                 <option value="MD">Minor Damage </option>
@@ -1064,6 +1082,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
 
                                     <div class="col-lg-6">
@@ -1078,7 +1097,7 @@
                                         <div class="col-lg-2">
 
                                             <div class="mb-2">
-                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"
+                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"  (change)="changeTripCloseValue($event)"
                                                     class="form-check-input" />
                                                 <label for="tripStatus">Trip Close</label>
 
@@ -1087,11 +1106,11 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Trip Close Date </label>
-                                                <input type="date" class="form-control" placeholder=""
+                                                <input type="date" class="form-control" placeholder=""  [ngClass]="{ 'is-invalid': userSubmitted && (f['tripCloseDt'].invalid) }"
                                                     formControlName="tripCloseDt">
                                             </div>
                                         </div>
-                                      
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1110,7 +1129,9 @@
                         <div class="tex">
                             <button type="submit" (click)="submitTripSheetForm()"
                                 class="btn btn-primary w-md">Save</button>
-                                <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
+
+                            <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="editMode"
+                                (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

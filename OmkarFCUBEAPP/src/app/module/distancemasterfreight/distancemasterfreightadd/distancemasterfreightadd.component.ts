@@ -107,7 +107,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   getFreightInnerGridList(): void {
     this.distanceMasterFreightService.getFreightInnerGridList(this.freighttripInnergridlistrequest).subscribe((res) => {
       this.distancemstfrtmodel = res;
-      for (var i = 0; i < res.distanceDetailsFreightList.length - 1; i++) {
+      for (var i = 0; i < res.distanceDetailsFreightList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("fromLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].fromLocation));
         this.formArray.controls[i].get("toLocation")?.setValue(this.locationList.find(e => e.dataId == res.distanceDetailsFreightList[i].toLocation));
@@ -243,6 +243,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
       }
       return;
     }
+    var selectedDataValue = this.formDistanceMasterFreight.getRawValue();
     this.distancemasterfreightmodel.masterID = this.selectedDistancemasterfreightDetails.masterID != '' ? this.selectedDistancemasterfreightDetails.masterID : '';
     this.distancemasterfreightmodel.fromLocation = this.formDistanceMasterFreight.value.fromLocation.dataId;
     this.distancemasterfreightmodel.validFrom = this.formDistanceMasterFreight.value.validFrom;
@@ -251,14 +252,21 @@ export class DistancemasterfreightaddComponent implements OnInit {
 
     this.distancemasterfreightmodel.distanceDetailsFreightList = [];
     for (var i = 0; i < this.formDistanceMasterFreight.value.arrayList.length; i++) {
-      this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+      if (this.formDistanceMasterFreight.value.arrayList[i].toLocation != '') {
+        this.distancemasterfreightmodel.distanceDetailsFreightList.push({
+     
+        'distanceDtlID': this.distancemasterfreightmodel.distanceDetailsFreightList.length > i ? this.distancemasterfreightmodel.distanceDetailsFreightList[i].distanceDtlID : '',
         'index': '',
         'masterID': '',
-        'fromLocation': this.formDistanceMasterFreight.value.fromLocation.dataId,
-        'toLocation': this.formDistanceMasterFreight.value.arrayList[i].toLocation.dataId,
+        'fromLocation': selectedDataValue.fromLocation.dataId,
+        //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+        'toLocation': selectedDataValue.arrayList[i].toLocation.dataId,
+        'toLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
+        'fromLocationName': selectedDataValue.arrayList[i].toLocation.dataId,
         'kms': this.formDistanceMasterFreight.value.arrayList[i].kms
       })
     }
+  }
 
     //Start date end date validation
     if (Date.parse(this.distancemasterfreightmodel.validUpto) < Date.parse(this.distancemasterfreightmodel.validFrom)) {

@@ -28,12 +28,13 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
+                          new SqlParameter("@DistanceDtlID", distanceDetailFrtModel.DistanceDtlID),
                             new SqlParameter("@MasterID", distanceDetailFrtModel.MasterID),
                             new SqlParameter("@FromLocation", distanceDetailFrtModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailFrtModel.ToLocation),
                             new SqlParameter("@KMS", distanceDetailFrtModel.KMS)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistannceDetailFrt_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistannceDetailFrt_Insert2", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

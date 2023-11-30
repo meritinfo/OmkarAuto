@@ -221,6 +221,7 @@ if (this.formUser.value.docType =="BP") {
 if (this.formCashArray.value != undefined) {
   for (var i = 0; i < this.formCashArray.value.length; i++) {
     this.bankCashcontraModel.detailList.push({
+      'index': '',
       'ftdID': this.formCashArray.value[i].ftdID,
       'ftmID': this.formCashArray.value[i].ftmID,
       'ftmDate': this.formCashArray.value[i].ftmDate,
@@ -243,6 +244,7 @@ if (this.formCashArray.value != undefined) {
   if (this.formCashArray.value != undefined) {
     for (var i = 0; i < this.formCashArray.value.length; i++) {
       this.bankCashcontraModel.detailList.push({
+        'index': '',
         'ftdID': this.formCashArray.value[i].ftdID,
         'ftmID': this.formCashArray.value[i].ftmID,
         'ftmDate': this.formCashArray.value[i].ftmDate,
@@ -256,6 +258,7 @@ if (this.formCashArray.value != undefined) {
         'costRefNo': this.formCashArray.value[i].costRefNo,
         'reference': this.formCashArray.value[i].reference,
         'branchCode': this.branchname,
+
       })
       
    

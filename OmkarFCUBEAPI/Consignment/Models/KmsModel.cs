@@ -11,8 +11,9 @@
         public string? TransDate { get; set; }
         public string? FromLocation { get; set; }
         public string? ToLocation { get; set; }
-      //  public bool Status { get; set; }
-     //   public string Message { get; set; }
-     //   public string kms { get; set; }
+        public string? VehicleTypeGroupId { get; set; }
+        //  public bool Status { get; set; }
+        //   public string Message { get; set; }
+        //   public string kms { get; set; }
     }
 }

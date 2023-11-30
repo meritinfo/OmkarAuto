@@ -40,7 +40,7 @@ ngOnInit(): void {
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
       this.filter.search = dataTablesParameters.search.value;
-      this.distancemasterfreightmasterService. getDistanceMasterFreightList(this.filter)
+      this.distancemasterfreightmasterService.getDistanceMasterFreightList(this.filter)
         .subscribe(resp => {
          this.allDistanceFreightMaster = resp;
           callback({

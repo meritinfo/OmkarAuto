@@ -215,7 +215,7 @@
                                                       
                                                               
                                                                 <input class="form-control" placeholder=""
-                                                                    formControlName="narration"  >
+                                                                    formControlName="narration">
                                                         
                                                     </td>
                                                     <td  class="col-lg-1">
@@ -246,14 +246,14 @@
                                                                     class="form-control" formControlName="costRefNo">
                                                             
                                                      
-                                                    </td >
+                                                    </td>
                                                     <td class="col-lg-2">
                                                         <div class="col-lg-12 details-button">
                                                             
-                                                            <button type="button" class="btn btn-primary"
-                                                            (click)="addMiscItem(k)" >Add</button>
+                                                            <button type="button" class="btn btn-add"
+                                                            (click)="addMiscItem(k)" ></button>
                                                             <button *ngIf="formCashArray.controls.length > 1" (click)="removeMiscItem(k)"
-                                                                class="btn btn-danger">Delete</button>
+                                                                class="btn btn-delete"></button>
                                                         </div>
                                                     </td>
                                               
@@ -307,7 +307,10 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md" (click)="submitBankReceiptPaymentsForm()">Save</button>
+                            <button type="submit" class="btn btn-primary w-md m-2" (click)="submitBankReceiptPaymentsForm()">Save</button>
+                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteBankRceiptPmtForm()">Delete</button>
+                        <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>
