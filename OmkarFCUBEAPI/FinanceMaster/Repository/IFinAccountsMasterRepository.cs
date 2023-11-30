@@ -9,6 +9,8 @@ namespace FinanceMasters.Repository
     public interface IFinAccountsMasterRepository
     {
         Task<ResponseModel> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel);
-        Task<FinAccountsMasterList> GetFinAccountsMasterList(FinAccountsMasterListRequest request);
+        Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request);
+        Task<List<DropDownListModel>> GetFinActLedgertype();
+        Task<List<DropDownListModel>> GetEmpList();
     }
 }

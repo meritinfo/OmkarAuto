@@ -20,9 +20,19 @@ namespace FinanceMasters.Business
         {
             return await finAccountsMasterRepository.FinAccountsMasterSave(finAccountsMasterModel);
         }
-        public async Task<FinAccountsMasterList> GetFinAccountsMasterList(FinAccountsMasterListRequest request)
+        public async Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request)
         {
             return await finAccountsMasterRepository.GetFinAccountsMasterList(request);
         }
+        public async Task<List<DropDownListModel>> GetFinActLedgertype()
+        {
+            return await finAccountsMasterRepository.GetFinActLedgertype();
+        }
+        public async Task<List<DropDownListModel>> GetEmpList()
+        {
+            return await finAccountsMasterRepository.GetEmpList();
+        }
+
+
     }
 }

@@ -1192,6 +1192,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     this.getBhattaRate();
     this.getDslToBe();
   //  this.totalCalculation();
+ // this.getIncentiveRate('JD');
     this. checkDaysNew();
     this.getPenaltyRate();
    
@@ -1277,8 +1278,9 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     this.getBhattaRate();
     //this.commonDetailUpdate();
     //this.checkDaysNew();
-    this.getIncentiveRateByDate();
-    this.totalCalculation();
+   
+   
+   // this.totalCalculation();
 
 
 
@@ -1799,7 +1801,8 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     let rptdt = this.commonService.formatDate(selectedDataValue.reportingDt_1)
     let expdt = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
    // this.tstatus =  e.target.value;;
-    if (selectedDataValue.ticlStatus == "OK" && rptdt == expdt || rptdt < expdt) {
+    //if (selectedDataValue.ticlStatus == "OK" && rptdt == expdt || rptdt < expdt) {
+      if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt ) {
     //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
@@ -1808,7 +1811,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         this.incentiveRate = res.message;
         let ir = 0;
      
-        if(rptdt == expdt || rptdt < expdt &&  this.incentiveRate!=''){
+        if(rptdt <= expdt  &&  this.incentiveRate!=''){
         //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
         ir = parseInt(this.incentiveRate)
         this.totalCalculationForTicl(ir);
@@ -1858,7 +1861,8 @@ this.nexttripkms = (this.dTripKM_1).toString(),
     let rptdt = this.commonService.formatDate(selectedDataValue.reportingDt_1)
     let expdt = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
    // this.tstatus =  e.target.value;;
-    if (selectedValue == "OK"  && rptdt == expdt || rptdt < expdt) {
+   // if (selectedValue == "OK"  && rptdt == expdt || rptdt < expdt) {
+    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt ) {
     //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
@@ -1867,7 +1871,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
         this.incentiveRate = res.message;
         let ir = 0;
 
-        if(rptdt == expdt || rptdt < expdt &&  this.incentiveRate!=''){
+        if(rptdt <= expdt &&  this.incentiveRate!=''){
         //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
         ir = parseInt(this.incentiveRate)
         this.totalCalculationForTicl(ir);
@@ -1991,6 +1995,7 @@ this.nexttripkms = (this.dTripKM_1).toString(),
       });
 
     });
+    this.getIncentiveRateByDate();
   }
   changeTripCloseValue(e: any){
     console.log(e.target.checked);
