@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace FinanceMaster.Models
 {
-    public class FinAccountsMasterList
+    public class FinGroupMasterList
     {
-        public List<FinAccountsMasterModel> FinaccountList { get; set; }
+        public List<FinGroupMasterModel> FinGroupList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

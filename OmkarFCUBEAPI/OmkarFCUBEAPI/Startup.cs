@@ -64,6 +64,8 @@ namespace OmkarFCUBEAPI
           //  services.AddScoped<IDriverSalaryStatementBusiness, DriverSalaryStatementBusiness>();
             services.AddScoped<IFinAccountsMasterBusiness, FinAccountsMasterBusiness>();
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
+            services.AddScoped<IFinGroupMasterBusiness, FinGroupMasterBusiness>();
+            services.AddScoped<IFinGroupMasterRepository, FinGroupMasterRepository>();
             services.AddScoped<IConsignmentBusiness, ConsignmentBusiness>();
             services.AddScoped<IConsignmentRepository, ConsignmentRepository>();
             services.AddScoped<IChequeAllotmentDtlBusiness, ChequeAllotmentDtlBusiness>();

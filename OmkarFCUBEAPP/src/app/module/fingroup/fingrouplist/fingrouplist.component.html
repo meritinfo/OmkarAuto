@@ -1,0 +1,64 @@
+<p>fingroups works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Fin Account Groups</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Group Master</a></li>
+                                <!-- <li class="breadcrumb-item active">Group Master</li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
+                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                    </div>
+                   <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="addfingroup()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>Group Name</th>  
+                            <th>Account Type</th>
+                            <th>Sub Account Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allFingrouplistTypes.finGroupList">
+                        <tr *ngFor="let grp of allFingrouplistTypes.finGroupList">
+                            <td>{{ grp.groupName }}</td>
+                            <td>{{ grp.accountType }}</td>
+                            <td>{{ grp.subAccountName }}</td>                         
+                            <td>
+                                <a (click)="getFingroupDetails(grp)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allFingrouplistTypes.finGroupList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

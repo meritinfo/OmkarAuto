@@ -32,8 +32,8 @@ namespace AdminMasters.Repository
                             new SqlParameter("@MenuCode", menuFormTypesModel.MenuCode),
                             new SqlParameter("@MenuName", menuFormTypesModel.MenuName),
                             new SqlParameter("@MenuType", menuFormTypesModel.MenuType),
-                             new SqlParameter("@ModuleId", menuFormTypesModel.ModuleId),
-                               new SqlParameter("@ActiveYN", menuFormTypesModel.ActiveYN)
+                            new SqlParameter("@ModuleId", menuFormTypesModel.ModuleId),
+                            new SqlParameter("@ActiveYN", menuFormTypesModel.ActiveYN)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "MenuFormTypes_Insert", param);

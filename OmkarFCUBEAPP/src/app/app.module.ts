@@ -123,6 +123,14 @@ import { DieselstatementlistComponent } from './module/dieselstatement/dieselsta
 import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { billstatementmodel } from './models/billstatementmodel';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
+import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
+import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
+import { Fingrouplistmodel } from './models/fingrouplistmodel';
+import { Fingroupmodel } from './models/fingroupmodel';
+import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finaccountsmasterlist/finaccountsmasterlist.component';
+import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
+import { Finaccountlistmodel } from './models/finaccountlistmodel';
+import { Finaccountmodel } from './models/finaccountmodel';
 
 @NgModule({
   declarations: [
@@ -202,7 +210,11 @@ import { DriversalarystatementlistComponent } from './module/driversalarystateme
     DriversalarystatementaddComponent,
     DieselstatementlistComponent,
     BillstatementlistComponent,
-    DriversalarystatementlistComponent
+    DriversalarystatementlistComponent,
+    FingroupaddComponent,
+    FingrouplistComponent,
+    FinaccountsmasterlistComponent,
+    FinaccountsmasteraddComponent
   ],
   imports: [
     BrowserModule,
@@ -221,8 +233,15 @@ import { DriversalarystatementlistComponent } from './module/driversalarystateme
     AutocompleteLibModule
 
   ],
-  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,billstatementmodel,
-  Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel],
+  providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
+    Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
+    Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
+    Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, 
+    Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, 
+    Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
+    bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,billstatementmodel,
+    Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
