@@ -4,8 +4,6 @@ using System;
 using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
-using FleetTrans.Business;
-using FleetTrans.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -74,6 +72,31 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Controller method for DESTINATION MASTER
+        /// </summary>
+        /// <param name="DestinationDetailsDelete"></param>
+        [HttpPost("DestinationDetailsDelete")]
+        public async Task<IActionResult> DestinationDetailsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightMastersBusiness.DestinationDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("BranchMasterDetailsSave")]
         public async Task<IActionResult> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)

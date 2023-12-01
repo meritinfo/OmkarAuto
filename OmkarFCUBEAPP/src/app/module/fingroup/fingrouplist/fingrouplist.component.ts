@@ -67,7 +67,7 @@ export class FingrouplistComponent {
         },
         {
           title: 'Action',
-          data: 'accountID',
+          data: 'accountId',
         },
       ],
     };

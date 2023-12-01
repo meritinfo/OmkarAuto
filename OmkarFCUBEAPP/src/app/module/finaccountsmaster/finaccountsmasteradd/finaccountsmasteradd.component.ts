@@ -10,6 +10,7 @@ import { FingroupService } from 'src/app/services/fingroup.service';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-finaccountsmasteradd',
@@ -100,7 +101,7 @@ export class FinaccountsmasteraddComponent {
     constructor(private route: Router, private formBuilder: FormBuilder, 
        private finaccountmodel: Finaccountmodel,
        private finsaccountmasterService: FinsaccountmasterService,
-       private commonService: CommonService, 
+       private commonService: CommonService, private requestmodel:Requestmodel,
        private fingroupService :FingroupService, private toasterService: ToastrService) {
       this.finaccountmodel = new Finaccountmodel();
    
@@ -121,12 +122,12 @@ export class FinaccountsmasteraddComponent {
     
     this.selectedFinaccountMasterDetails = this.finsaccountmasterService.getFinsaccountsDetails(); 
     this.formAccountMaster = this.formBuilder.group({      
-      accountName: new FormControl('',),
-      mainGroup: new FormControl('',),
-      subGroup: new FormControl('',),
-      ledgertype: new FormControl('',),
-      schedule: new FormControl('',),
-      status: new FormControl('',),
+      accountName: new FormControl('',[Validators.required]),
+      mainGroup: new FormControl('',[Validators.required]),
+      subGroup: new FormControl('',[Validators.required]),
+      ledgertype: new FormControl('',[Validators.required]),
+      schedule: new FormControl('',[Validators.required]),
+      status: new FormControl('',[Validators.required]),
       address: new FormControl('',),
       address1: new FormControl('',),
       address2: new FormControl('',),
@@ -176,23 +177,22 @@ export class FinaccountsmasteraddComponent {
       tdsLedgerYN: new FormControl('',),
       onlineActiveYn: new FormControl('',),
     });    
-   
+    this.requestmodel.strRequest="";
     this.getaccounttypes();
-    this.getsubaccounttypes('');
+    this.getsubaccounttypes(this.requestmodel);
     this.getschedulelist();  
     this.getledgerList();  
     this.getstatelist(); 
     
     setTimeout(() => {
       if (this.selectedFinaccountMasterDetails.accountId != '') {
-          this.formAccountMaster.patchValue(this.selectedFinaccountMasterDetails);         
-        }
-        this.formAccountMaster.patchValue({
-          mainGroup: this.accountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.accountType),
-          subGroup:this.subAccountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.subAccountId),
-          ledgertype:this.ledgerList.find(e => e.dataId == this.selectedFinaccountMasterDetails.ledgerName),
-        });
-
+          this.formAccountMaster.patchValue(this.selectedFinaccountMasterDetails);
+          this.formAccountMaster.patchValue({
+            // mainGroup: this.accountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.accountType),
+            // subGroup:this.subAccountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.subAccountId),
+            // ledgertype:this.ledgerList.find(e => e.dataId == this.selectedFinaccountMasterDetails.ledgerName),
+          });         
+      }
     }, 2000);
     
   }
@@ -206,8 +206,8 @@ export class FinaccountsmasteraddComponent {
     });
   }
   
-  getsubaccounttypes(actType: string): void {
-    this.fingroupService.getsubaccounttypes(actType).subscribe((res) => {
+  getsubaccounttypes(request:Requestmodel): void {
+    this.fingroupService.getsubaccounttypes(request).subscribe((res) => {
       this.subAccountTypeList = res;
     });
   }
@@ -241,22 +241,16 @@ export class FinaccountsmasteraddComponent {
 
   accountTypeChange(e: any) { 
       console.log(e.target.value);
-      var selectedValue = e.target.value;
+      this.requestmodel.strRequest = e.target.value;  
+      this.getsubaccounttypes(this.requestmodel);
+  } 
   
-      this.getsubaccounttypes(selectedValue);
-  }
-  
-  subaccountTypeChange(e: any) {    
-    console.log(e.target.value);
-    var selectedValue = e.target.value;
-  
-    this.getsubaccounttypes(selectedValue);  
-  }
   
   //Submit user form details //
   submitFinAccountMasterForm(): void {
     this.formSubmitted = true;
     if (this.formAccountMaster.invalid) {
+      this.toasterService.warning("All fields are mandatory");      
       return;
     }
     var selectedDataValue = this.formAccountMaster.getRawValue();

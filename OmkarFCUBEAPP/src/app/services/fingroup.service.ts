@@ -7,6 +7,7 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Fingrouplistmodel } from '../models/fingrouplistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -49,8 +50,8 @@ export class FingroupService {
   getaccounttypes():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetAccountTypeList', null, this.httpOptions);
   }
-  getsubaccounttypes(accountType: string ):  Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubAccountTypeList', accountType, this.httpOptions);
+  getsubaccounttypes(request: Requestmodel ):  Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetSubAccountTypeList', request, this.httpOptions);
   }
   
   getschedulelist():  Observable<Dropdownmodel[]> {

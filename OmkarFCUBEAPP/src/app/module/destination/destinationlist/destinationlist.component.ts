@@ -18,7 +18,7 @@ export class DestinationlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'username',
+    sortColumn: 'centreName',
     sortOrder: 'asc',
     search: ''
   }
@@ -57,23 +57,23 @@ export class DestinationlistComponent {
           data: 'centreName',
         },
        
-        {
-          title: 'State Code',
-          data: 'stateCode',
-        },
-        {
-          title: 'Code',
-          data: 'code',
-        },
-        {
-          title: 'ZoneCode',
-          data: 'zoneCode',
-        },
+        // {
+        //   title: 'State Code',
+        //   data: 'stateCode',
+        // },
+        // {
+        //   title: 'Code',
+        //   data: 'code',
+        // },
+       
         {
           title: 'StateName',
           data: 'stateName',
         },
-      
+        {
+          title: 'Control Branch',
+           data: 'ControlBranch',
+        },
         {
           title: 'Action',
           data: 'centreId',

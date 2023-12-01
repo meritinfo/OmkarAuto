@@ -35,9 +35,9 @@
                                        </div>
                                         <div class="col-lg-2">
                                           <div class="mb-4">
-                                           <input type="text"  autofocus="autofocus"  class="form-control"
-                                           placeholder="" formControlName="centreName"
-                                           [ngClass]=>
+                                           <input uppercaseonly type="text"  autofocus="autofocus"  class="form-control"
+                                           placeholder="" formControlName="centreName"  autoclose="false"                                      
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['centreName'].invalid) }">
                                         </div>
                                      </div>
                                     </div>
@@ -55,9 +55,9 @@
                                        </div>
                                         <div class="col-lg-2">
                                           <div class="mb-4">
-                                           <input type="text" class="form-control"
-                                           placeholder="" formControlName="pinCode"
-                                           [ngClass]=>
+                                           <input numbersonly type="text" class="form-control"
+                                           placeholder="" formControlName="pinCode" autoclose="false"                                     
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['pinCode'].invalid) }">
                                         </div>
                                      </div>
                                     </div>
@@ -75,7 +75,8 @@
                                        </div>
                                         <div class="col-lg-2">
                                           <div class="mb-4">
-                                           <select class="form-control" formControlName="userBranch" [ngClass]="">
+                                           <select class="form-control" autoclose="false" formControlName="userBranch" 
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                               <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                  {{branch.dataName}}
                                               </option>
@@ -86,17 +87,16 @@
                                
                             </div>
                             <div class="col-lg-12">
-                             
-                                  
                                      <div class="row">
                                        <div class="col-lg-2">
                                           <div class="mb-4">
-                                           <label for="horizontal-firstname-input" class="col-form-label">Select State</label>
+                                           <label for="horizontal-firstname-input" class="col-form-label">State</label>
                                         </div>
                                        </div>
                                        <div class="col-sm-2">
                                           <div class="mb-4">
-                                           <select class="form-control" formControlName="userState" [ngClass]="">
+                                           <select class="form-control" formControlName="userState" autoclose="false"
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['userState'].invalid) }">
                                               <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                  {{state.dataName}}
                                               </option>
@@ -117,7 +117,10 @@
                 <div class="col-lg-12">
                    <div class="tex">
                       <button type="submit" class="btn btn-primary w-md"
-                         (click)="submitDestinationForm()">Submit</button>
+                         (click)="submitDestinationForm()">Save</button>
+                      <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                             (click)="deleteDestinationForm()">Delete</button>
+                      <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
                    </div>
                 </div>
              </div>

@@ -24,6 +24,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input" class="form-label">Account Name:</label><span style="color:red">*</span>
                                                     <input uppercaseonly type="text" class="form-control"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountName'].invalid) }"
                                                         placeholder="Enter Account Name" formControlName="accountName">
                                                 </div>
                                             </div>
@@ -33,6 +34,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Main Group:</label><span style="color:red">*</span>
                                                     <select formControlName="mainGroup" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['mainGroup'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched"
                                                         (change)="accountTypeChange($event)">
                                                         <option *ngFor="let acttp of accountTypeList" value={{acttp.dataId}}>
@@ -47,8 +49,8 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Sub Group:</label><span style="color:red">*</span>
                                                     <select formControlName="subGroup" 
-                                                        class="form-control form-select ng-pristine ng-touched"
-                                                        (change)="subaccountTypeChange($event)">                                             
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['subGroup'].invalid) }"
+                                                        class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let subacttp of subAccountTypeList" value={{subacttp.dataId}}>
                                                             {{subacttp.dataName}}
                                                         </option>
@@ -61,6 +63,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ledger Type:</label><span style="color:red">*</span>
                                                     <select formControlName="ledgertype" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['ledgertype'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let ldg of ledgerList" value={{ldg.dataId}}>
                                                             {{ldg.dataName}}
@@ -74,6 +77,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Schedule:</label><span style="color:red">*</span>
                                                     <select formControlName="schedule" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['schedule'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let sch of scheduleList" value={{sch.dataId}}>
                                                             {{sch.dataName}}
@@ -85,6 +89,7 @@
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Status:</label><span style="color:red">*</span>
                                                     <select formControlName="status" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['status'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option value="">Choose...</option>
                                                         <option value="G">Green</option>
@@ -146,13 +151,13 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input" class="form-label">Phone No:</label>
+                                                    <label numbersonly for="basicpill-lastname-input" class="form-label">Phone No:</label>
                                                     <input type="text" class="form-control" formControlName="phoneNo"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input" class="form-label">Mobile No:</label>
+                                                    <label numbersonly for="basicpill-lastname-input" class="form-label">Mobile No:</label>
                                                     <input type="text" class="form-control" formControlName="mobileNo"> 
                                                 </div>
                                             </div>
@@ -168,7 +173,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-lastname-input" class="form-label">Fax:</label>
+                                                    <label numbersonly for="basicpill-lastname-input" class="form-label">Fax:</label>
                                                     <input type="text" class="form-control" formControlName="fax"> 
                                                 </div>
                                             </div>

@@ -6,8 +6,6 @@ using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 
 using FleetTrans.Models;
-using FleetMasters.Business;
-using Consignment.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers

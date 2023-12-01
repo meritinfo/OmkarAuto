@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { FingroupService } from 'src/app/services/fingroup.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-fingroupadd',
@@ -39,7 +40,7 @@ export class FingroupaddComponent {
   selectedFinGroupMasterDetails = new Fingroupmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, private fingroupmodel: Fingroupmodel,
-     private finGroupService: FingroupService, private commonService: CommonService,
+     private finGroupService: FingroupService, private commonService: CommonService,private requestmodel:Requestmodel,
      private toasterService: ToastrService) {
     this.fingroupmodel = new Fingroupmodel();
  
@@ -61,22 +62,23 @@ ngOnInit(): void {
   
   this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
   this.formFinGroup = this.formBuilder.group({
-    groupName: new FormControl('',),
-    accounttype: new FormControl('',),
-    subaccounttype: new FormControl('',),
-    schedule: new FormControl('',),
+    groupName: new FormControl('',[Validators.required]),
+    accounttype: new FormControl('',[Validators.required]),
+    subaccounttype: new FormControl('',[Validators.required]),
+    schedule: new FormControl('',[Validators.required]),
   });  
  
+  this.requestmodel.strRequest="";
   this.getaccounttypes();
-  this.getsubaccounttypes('');
+  this.getsubaccounttypes(this.requestmodel);
   this.getschedulelist();  
 
   setTimeout(() => {
     if (this.selectedFinGroupMasterDetails.accountId != '') {
         this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
         this.formFinGroup.patchValue({
-          accounttype: this.accountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.accountType),
-          subaccounttype:this.subAccountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.subAccountName),
+          // accounttype: this.accountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.accountType),
+          // subaccounttype:this.subAccountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.subAccountName),
         });
       }
   }, 2000);
@@ -107,8 +109,8 @@ getaccounttypes(): void {
   });
 }
 
-getsubaccounttypes(actType: string): void {
-  this.finGroupService.getsubaccounttypes(actType).subscribe((res) => {
+getsubaccounttypes(request:Requestmodel): void {
+  this.finGroupService.getsubaccounttypes(request).subscribe((res) => {
     this.subAccountTypeList = res;
   });
 }
@@ -121,22 +123,16 @@ getschedulelist(): void {
 
 accountTypeChange(e: any) { 
     console.log(e.target.value);
-    var selectedValue = e.target.value;
-
-    this.getsubaccounttypes(selectedValue);
+    this.requestmodel.strRequest = e.target.value; 
+    this.getsubaccounttypes(this.requestmodel);
 }
 
-subaccountTypeChange(e: any) {    
-  console.log(e.target.value);
-  var selectedValue = e.target.value;
-
-  this.getsubaccounttypes(selectedValue);  
-}
 
 //Submit user form details //
 submitFinGroupMasterForm(): void {
   this.formSubmitted = true;
   if (this.formFinGroup.invalid) {
+    this.toasterService.warning("All fields are mandatory");      
     return;
   }
 
