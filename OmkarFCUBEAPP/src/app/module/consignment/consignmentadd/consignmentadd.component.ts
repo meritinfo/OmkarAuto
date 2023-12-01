@@ -76,6 +76,12 @@ export class ConsignmentaddComponent implements OnInit {
   keywordLocation = 'dataName';
   ivVehicleNo = '';
   billstation = '';
+  editMode = false;
+  createmode  = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   ivFromPlace = '';
   ivToPlace = '';
 
@@ -181,6 +187,7 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch3: new FormControl('1',),
     });
     setTimeout(() => {
+      this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
         this.formConsignment.controls['bookingPlace'].disable();
@@ -362,6 +369,14 @@ export class ConsignmentaddComponent implements OnInit {
         kms: ''
       });
     }
+  }
+  deleteConsignmentForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/consignmentlist']);
   }
   checkTripkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {

@@ -77,8 +77,9 @@ ngOnInit(): void {
     if (this.selectedFinGroupMasterDetails.accountId != '') {
         this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
         this.formFinGroup.patchValue({
-          // accounttype: this.accountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.accountType),
-          // subaccounttype:this.subAccountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.subAccountName),
+
+          accounttype: this.accountTypeList.find(e => e.dataId == this.selectedFinGroupMasterDetails.accountType),
+           subaccounttype:this.subAccountTypeList.find(e => e.dataId == this.selectedFinGroupMasterDetails.subAccountName),
         });
       }
   }, 2000);
