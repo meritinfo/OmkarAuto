@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Destinationmodel } from '../models/destinationmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
@@ -37,5 +38,8 @@ export class DestinationService {
   }
   getDestinationList(filter: Filtermodel): Observable<Destinationlistmodel> {
     return this.httpClient.post<Destinationlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDestinationMasterList', filter, this.httpOptions);
+  }
+  destinationDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DestinationDetailsDelete', req, this.httpOptions);
   }
 }

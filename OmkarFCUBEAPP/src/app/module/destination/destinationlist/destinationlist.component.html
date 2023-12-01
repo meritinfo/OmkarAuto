@@ -34,24 +34,19 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Centre Name</th>
-                      
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                         
+                            <th>Centre Name</th>                      
+                            <!-- <th>State Code</th>
+                            <th>State Code</th>-->
+                            <th>State Code</th> 
+                            <th>Control Branch</th>                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allDestination.destinationList?.length != 0">
                         <tr *ngFor="let destination of allDestination.destinationList">
                             <td>{{ destination.centreName }}</td>
-                    
-                            <td>{{ destination.stateCode }}</td>
-                            <td>{{ destination.code }}</td>
-                            <td>{{ destination.zoneCode }}</td>
                             <td>{{ destination.stateName }}</td>
+                            <td>{{ destination.controlBranch}}</td>
                          
                             <td>
                                 <a (click)="destinationDetails(destination)" class="actionicon"><i

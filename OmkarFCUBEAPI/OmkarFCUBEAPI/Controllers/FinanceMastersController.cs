@@ -4,10 +4,7 @@ using System;
 using FinanceMaster.Models;
 using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
-using FleetMasters.Business;
-using FleetMasters.Models;
 using FinanceMasters.Models;
-using FreightMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -271,11 +268,11 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetSubAccountTypeList")]
-        public async Task<IActionResult> GetSubAccountTypeList(string accountType)
+        public async Task<IActionResult> GetSubAccountTypeList(RequestModel req)
         {           
             try
             {
-                var result = await finGroupMasterBusiness.GetSubAccountTypeList(accountType);
+                var result = await finGroupMasterBusiness.GetSubAccountTypeList(req);
 
                 return Ok(result);
             }

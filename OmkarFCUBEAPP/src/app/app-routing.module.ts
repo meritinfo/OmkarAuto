@@ -67,7 +67,7 @@ import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingroupli
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finaccountsmasterlist/finaccountsmasterlist.component';
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
-
+import { Requestmodel } from './models/requestmodel';
 
 
 

@@ -7,5 +7,6 @@ export class Destinationmodel {
     code: string = "";
     zoneCode: string = "";
     stateName: string = "";
+    controlBranch: string = "";
     loggedInUser: string = "";
 }

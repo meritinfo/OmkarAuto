@@ -30,9 +30,9 @@ namespace FinanceMasters.Business
             return await finGroupMasterRepository.GetAccountTypeList();
         }
 
-        public async Task<List<DropDownListModel>> GetSubAccountTypeList(string accountType)
+        public async Task<List<DropDownListModel>> GetSubAccountTypeList(RequestModel req)
         {
-            return await finGroupMasterRepository.GetSubAccountTypeList(accountType);
+            return await finGroupMasterRepository.GetSubAccountTypeList(req);
         }
 
         public async Task<List<DropDownListModel>> GetScheduleList()

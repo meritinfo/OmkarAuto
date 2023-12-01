@@ -6,8 +6,6 @@ using FinTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 
 using FinTrans.Models;
-using FinanceMasters.Business;
-using FreightMasters.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers

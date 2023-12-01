@@ -36,6 +36,7 @@
                                         <div class="col-lg-4">
                                           <div class="mb-3">
                                            <input type="text" class="form-control"
+                                           [ngClass]="{ 'is-invalid': formSubmitted && (f['groupName'].invalid) }"
                                            placeholder="Enter Group Name" formControlName="groupName" (change)="chkActName()">
                                         </div>
                                        </div>
@@ -51,6 +52,7 @@
                                           <div class="mb-3">
                                              <select formControlName="accounttype" 
                                                 class="form-control form-select ng-pristine ng-touched"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['accounttype'].invalid) }"
                                                 (change)="accountTypeChange($event)">
                                                 <option *ngFor="let acttp of accountTypeList" value={{acttp.dataId}}>
                                                     {{acttp.dataName}}
@@ -69,8 +71,8 @@
                                         <div class="col-lg-4">
                                           <div class="mb-3">
                                              <select formControlName="subaccounttype" 
-                                                class="form-control form-select ng-pristine ng-touched"
-                                                (change)="subaccountTypeChange($event)">                                             
+                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['subaccounttype'].invalid) }"
+                                                class="form-control form-select ng-pristine ng-touched" >                                             
                                                 <option *ngFor="let subacttp of subAccountTypeList" value={{subacttp.dataId}}>
                                                     {{subacttp.dataName}}
                                                 </option>
@@ -88,6 +90,7 @@
                                        <div class="col-lg-4">
                                           <div class="mb-3">
                                              <select formControlName="schedule" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['schedule'].invalid) }"
                                                       class="form-control form-select ng-pristine ng-touched">
                                                 <option *ngFor="let sch of scheduleList" value={{sch.dataId}}>
                                                          {{sch.dataName}}

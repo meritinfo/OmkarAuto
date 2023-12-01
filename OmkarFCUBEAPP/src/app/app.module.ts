@@ -131,6 +131,7 @@ import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finac
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
+import { Requestmodel } from './models/requestmodel';
 
 @NgModule({
   declarations: [
@@ -241,7 +242,7 @@ import { Finaccountmodel } from './models/finaccountmodel';
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
     bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
-    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel],
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -68,7 +68,7 @@ export class FinaccountsmasterlistComponent {
         },
         {
           title: 'Action',
-          data: 'accountID',
+          data: 'accountId',
         },
       ],
     };

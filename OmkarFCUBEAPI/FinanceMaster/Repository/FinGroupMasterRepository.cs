@@ -178,7 +178,7 @@ namespace FinanceMasters.Repository
         /// Service method for get Sub Account Type List
         /// </summary>
         /// <returns>List<DropDownListModel></returns>
-        public async Task<List<DropDownListModel>> GetSubAccountTypeList(string accountType)
+        public async Task<List<DropDownListModel>> GetSubAccountTypeList(RequestModel req)
         {
             List<DropDownListModel> SubAccountTypeList = new();
             try
@@ -186,7 +186,7 @@ namespace FinanceMasters.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param = {
-                        new SqlParameter("@AccountType",accountType),
+                        new SqlParameter("@AccountType",req.strRequest),
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFinGroupSubAccountTypes", param);
 
