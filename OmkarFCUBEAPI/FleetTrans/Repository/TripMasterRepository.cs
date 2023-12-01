@@ -300,7 +300,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
                             new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select2", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -405,9 +405,10 @@ namespace FleetTrans.Repository
                                 DrName = Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
                                 FrPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FrPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
-                                ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
-                                ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
                                 VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
+                                ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
+                                ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"])
+
 
 
 
