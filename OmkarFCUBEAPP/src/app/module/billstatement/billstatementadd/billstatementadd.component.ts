@@ -20,10 +20,17 @@ export class BillstatementaddComponent implements OnInit {
   year: string = '';
   branch: string = '';
   branchList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
   saveData = new Billstatementsaverequest();
+  editMode = false;
+  createmode = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -52,6 +59,7 @@ export class BillstatementaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    this.getLocationList();
     this.getBranchList();
     this.formBillStatement = this.formBuilder.group({
       statementBillStation: new FormControl(''),
@@ -82,6 +90,14 @@ export class BillstatementaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+  exit(): void {
+    this.route.navigate(['/billstatementlist']);
+  }
+  deleteBillStatementForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+  
+    }
+  }
 
   get f() { return this.formBillStatement.controls; }
 
@@ -110,6 +126,12 @@ export class BillstatementaddComponent implements OnInit {
 
   selectedData(index: number, event: any) {
     this.billstatementsearchlistmodel.billStatementSearchList[index].selected = event.target.checked;
+  }
+  
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
   }
 
   saveStatementDetails(): void {

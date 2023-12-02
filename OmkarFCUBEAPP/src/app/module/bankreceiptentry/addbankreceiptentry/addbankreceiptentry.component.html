@@ -310,7 +310,7 @@
                             <button type="submit" class="btn btn-primary w-md m-2" (click)="submitBankReceiptPaymentsForm()">Save</button>
                             <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteBankRceiptPmtForm()">Delete</button>
-                        <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
+                        <button type="submit" class="btn btn-secondary w-md" *ngIf="createmode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

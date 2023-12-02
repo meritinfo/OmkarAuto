@@ -719,7 +719,7 @@ export class TripsheetaddComponent {
   }
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivFromPlace != "" && this.ivToPlace != "" && this.destinationid2 == "") {
+    if (this.ivFromPlace != "" && this.ivToPlace != "" && selectedDataValue.destination2==""  ) {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
@@ -2123,7 +2123,8 @@ export class TripsheetaddComponent {
   }
   onClearedDestination(e: any) {
     this.formTripsheet.patchValue({
-      destination: undefined,
+    // destination: undefined,
+    destination: "",
       distanceTripKM_1: '0',
       distanceTripKM_2: '0'
     });
@@ -2142,6 +2143,7 @@ export class TripsheetaddComponent {
       distanceTripKM_2: '0'
 
     });
+    this.checkTripkMs();
     this.checkDestinationControlStatus();
   }
   onClearedDestination3(e: any) {

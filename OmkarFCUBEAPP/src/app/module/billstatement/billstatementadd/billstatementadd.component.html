@@ -123,18 +123,52 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">From Point</label>
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" formControlName="fromPoint"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPoint'].invalid) }">
+                                                  
+                                                    <ng-autocomplete [data]="locationList"
+                                                        formControlName="fromPoint"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                     
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
                                                 </div>
+                                                        
+                                              
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">To Point</label>
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" formControlName="toPoint"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPoint'].invalid) }">
-                                                </div>
+                                                    <ng-autocomplete [data]="locationList"
+                                                    formControlName="toPoint"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                 
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter" [ngClass]="">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                                    
+                                                   
+                                                
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
@@ -300,6 +334,9 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Submit</button>
+                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteBillStatementForm()">Delete</button>
+                        <button type="submit" class="btn btn-secondary w-md  m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>
