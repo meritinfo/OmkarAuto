@@ -18,6 +18,7 @@ namespace Consignment.Repository
         Task<ResponseModel> CheckDuplicateLr(GcModel request);
         Task<List<BranchListModel>> GetBillingPartyList();
         Task<List<LrSeriesListModel>> GetLRSeries();
+        Task<List<LrSeriesListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(GcModel request);
     }
 }

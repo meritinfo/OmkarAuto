@@ -246,6 +246,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLRSeriesForBill")]
+        public async Task<IActionResult> GetLRSeriesforBill()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetLRSeriesForBill();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetLocationList")]
         public async Task<IActionResult> GetLocationList()
         {

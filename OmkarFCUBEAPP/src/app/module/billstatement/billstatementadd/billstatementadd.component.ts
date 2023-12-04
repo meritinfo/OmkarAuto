@@ -21,6 +21,8 @@ export class BillstatementaddComponent implements OnInit {
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
+  lrSeries: Dropdownmodel[] = [];
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
@@ -49,20 +51,26 @@ export class BillstatementaddComponent implements OnInit {
       this.branch = branchData;
 
     }
+ 
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
+
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
     else {
       this.route.navigate(['/']);
     }
+
     this.getLocationList();
     this.getBranchList();
+    this.getBillingPartyList();
+    this.getlrSeriesForBillList();
     this.formBillStatement = this.formBuilder.group({
-      statementBillStation: new FormControl(''),
+      statementBillStation: new FormControl(this.branch),
       billSeries: new FormControl(''),
       billNo: new FormControl(''),
       billDate: new FormControl(''),
@@ -98,11 +106,23 @@ export class BillstatementaddComponent implements OnInit {
   
     }
   }
+  
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+  
 
   get f() { return this.formBillStatement.controls; }
 
   selectEvent(item: any) {
     // do something with selected item
+  }
+  getlrSeriesForBillList(): void {
+    this.commonService.getlrSeriesForBillList().subscribe((res) => {
+      this.lrSeries = res;
+    });
   }
 
   onChangeSearch(search: string) {

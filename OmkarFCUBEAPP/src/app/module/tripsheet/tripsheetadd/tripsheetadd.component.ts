@@ -419,6 +419,7 @@ export class TripsheetaddComponent {
     var totalWeighment = 0;
     var totalMchallan = 0;
     var totalotherExpByDriver = 0;
+    var totalToll = 0;
     for (let i = 0; i < this.tripsheetinnergridmodel.dieselDetailsList.length; i++) {
       totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
     }
@@ -454,6 +455,10 @@ export class TripsheetaddComponent {
     for (let i = 0; i < dataList.length; i++) {
       totalotherExpByDriver = totalotherExpByDriver + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
     }
+    var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "t");
+    for (let i = 0; i < dataList.length; i++) {
+      totalToll = totalToll + (dataList[i].miscAmount === '' ? 0 : parseFloat(dataList[i].miscAmount));
+    }
 
 
     this.formTripsheet.patchValue({
@@ -466,6 +471,7 @@ export class TripsheetaddComponent {
       weighmentByDriver: totalWeighment.toFixed(2),
       challanByDriver: totalMchallan.toFixed(2),
       otherExpByDriver: totalotherExpByDriver.toFixed(2),
+      tollExpByDriver: totalToll.toFixed(2),
     });
     this.sharedService.loading = false;
   }
@@ -713,13 +719,15 @@ export class TripsheetaddComponent {
     this.formTripsheet.controls['nextExpectedReportingDays'].disable();
     this.formTripsheet.controls['expectedReportingDt'].disable();
     this.formTripsheet.controls['expectedReportingDays'].disable();
+    this.formTripsheet.controls['tollExpByDriver'].disable();
+    
   }
   findKMs() {
 
   }
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivFromPlace != "" && this.ivToPlace != "" && selectedDataValue.destination2==""  ) {
+    if (this.ivFromPlace != "" && this.ivToPlace != ""  && selectedDataValue.destination2== undefined ||this.ivFromPlace != "" && this.ivToPlace != ""  && selectedDataValue.destination2== "" ) {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
@@ -923,7 +931,7 @@ export class TripsheetaddComponent {
   }
   checkTripkMsNext() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == "" && this.destinationid3 == "") {
+    if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == "" && this.destinationid3 == "" ||this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == undefined && this.destinationid3 == undefined) {
       this.kmsDetails.fromLocation = this.ivToPlace;
       this.kmsDetails.toLocation = this.ivNewFromPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
@@ -1116,8 +1124,8 @@ export class TripsheetaddComponent {
   }
   checkDays() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    const d1 = Date.parse(selectedDataValue.newTripDate);
-    const d2 = Date.parse(selectedDataValue.reportingDt_1);
+    const d1 = selectedDataValue.newTripDate?Date.parse(selectedDataValue.newTripDate):0;
+    const d2 = selectedDataValue.reportingDt_1?Date.parse(selectedDataValue.reportingDt_1):0;
     if (d1 > d2) {
       this.formTripsheet.patchValue({
         reportingDt_1: ''
@@ -1192,6 +1200,7 @@ export class TripsheetaddComponent {
 
 
       }
+      this.checkDays2();
     }
     this.getBhattaRate();
     this.getDslToBe();
@@ -1206,8 +1215,10 @@ export class TripsheetaddComponent {
   }
   checkDaysNew() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    const d1 = Date.parse(selectedDataValue.deliveryDate);
-    const d2 = Date.parse(selectedDataValue.reportingDt_2);
+    
+    const d1 = selectedDataValue.deliveryDate?Date.parse(selectedDataValue.deliveryDate):0;
+   const d2 = selectedDataValue.reportingDt_2?Date.parse(selectedDataValue.reportingDt_2):0;
+
     if (d1 > d2) {
       this.formTripsheet.patchValue({
         reportingDt_2: ''
@@ -1375,6 +1386,7 @@ export class TripsheetaddComponent {
     var opBalDriver = selectedDataValue.opBalDriver ? parseFloat(selectedDataValue.opBalDriver) : 0;
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance ? parseFloat(selectedDataValue.paidDriverAdvance) : 0;
     var recdFromDriver = selectedDataValue.recdFromDriver ? parseFloat(selectedDataValue.recdFromDriver) : 0;
+    var tollExpByDriver  = selectedDataValue.tollExpByDriver ? parseFloat(selectedDataValue.tollExpByDriver) : 0;
     var clBalDsl = 0;
     var clBalAdblue = 0;
     var netTripBalance = 0;
@@ -1388,7 +1400,7 @@ export class TripsheetaddComponent {
 
     clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
-    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt - penaltyChargedToDr;
+    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver- penaltyChargedToDr;
     clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
@@ -1439,6 +1451,7 @@ export class TripsheetaddComponent {
     var opBalDriver = selectedDataValue.opBalDriver ? parseFloat(selectedDataValue.opBalDriver) : 0;
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance ? parseFloat(selectedDataValue.paidDriverAdvance) : 0;
     var recdFromDriver = selectedDataValue.recdFromDriver ? parseFloat(selectedDataValue.recdFromDriver) : 0;
+    var tollExpByDriver  = selectedDataValue.tollExpByDriver ? parseFloat(selectedDataValue.tollExpByDriver) : 0;
     var clBalDsl = 0;
     var clBalAdblue = 0;
     var netTripBalance = 0;
@@ -1452,7 +1465,7 @@ export class TripsheetaddComponent {
 
     clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
-    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt - penaltyChargedToDr;
+    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt + tollExpByDriver - penaltyChargedToDr;
     clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
@@ -1519,8 +1532,8 @@ export class TripsheetaddComponent {
   checkDays2() {
     // this.checkDeliveryDate();
     var selectedDataValue = this.formTripsheet.getRawValue();
-    const d3 = Date.parse(selectedDataValue.deliveryDate);
-    const d4 = Date.parse(selectedDataValue.reportingDt_1);
+    const d3 = selectedDataValue.deliveryDate?Date.parse(selectedDataValue.deliveryDate):0;
+    const d4 = selectedDataValue.reportingDt_1?Date.parse(selectedDataValue.reportingDt_1):0;
     if (d3 < d4) {
       this.formTripsheet.patchValue({
         deliveryDate: ''
@@ -2106,6 +2119,7 @@ export class TripsheetaddComponent {
       // destinationid2:'1'
     });
     this.checkTripkMs();
+    this.checkTripkMsNext();
     this.getBhattaRate();
     // this.checkTripkMsNext();
     this.checkDestinationControlStatus();
