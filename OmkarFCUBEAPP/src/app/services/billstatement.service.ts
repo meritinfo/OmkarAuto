@@ -41,7 +41,7 @@ export class BillstatementService {
     return this.httpClient.post<Billstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementList', filter, this.httpOptions);
   }
 
-  saveBillStatementDetails(request: Billstatementsaverequest): Observable<Responsemodel> {
+  saveBillStatementDetails(request: billstatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveBillStatementDetails', request, this.httpOptions);
   }
 

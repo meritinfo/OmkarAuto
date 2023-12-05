@@ -352,7 +352,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("SaveBillStatementDetails")]
-        public async Task<IActionResult> SaveBillStatementDetails(BillStatementSaveRequest request)
+        public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)
         {
             try
             {

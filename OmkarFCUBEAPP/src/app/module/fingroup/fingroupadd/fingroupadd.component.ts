@@ -63,7 +63,7 @@ ngOnInit(): void {
   this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
   this.formFinGroup = this.formBuilder.group({
     groupName: new FormControl('',[Validators.required]),
-    accounttype: new FormControl('',[Validators.required]),
+    accountType: new FormControl('',[Validators.required]),
     subaccounttype: new FormControl('',[Validators.required]),
     schedule: new FormControl('',[Validators.required]),
   });  
@@ -77,8 +77,9 @@ ngOnInit(): void {
     if (this.selectedFinGroupMasterDetails.accountId != '') {
         this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
         this.formFinGroup.patchValue({
+          accountType: this.selectedFinGroupMasterDetails.accountType,
 
-          accounttype: this.accountTypeList.find(e => e.dataId == this.selectedFinGroupMasterDetails.accountType),
+        //  accountType: this.accountTypeList.find(e => e.dataId == this.selectedFinGroupMasterDetails.accountType),
            subaccounttype:this.subAccountTypeList.find(e => e.dataId == this.selectedFinGroupMasterDetails.subAccountName),
         });
       }
@@ -139,7 +140,7 @@ submitFinGroupMasterForm(): void {
 
   this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
   this.fingroupmodel.groupName= this.formFinGroup.value.groupName;
-  this.fingroupmodel.accountType= this.formFinGroup.value.accounttype;
+  this.fingroupmodel.accountType= this.formFinGroup.value.accountType;
   this.fingroupmodel.subAccountType=this.formFinGroup.value.subaccounttype;
   this.fingroupmodel.schID= this.formFinGroup.value.schedule;
   this.fingroupmodel.createdBy= this.loggedInUserID;

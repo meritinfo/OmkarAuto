@@ -115,7 +115,7 @@ namespace FleetTrans.Repository
 
                                 BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
 
-                                BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),
+                                //BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),
                               ////  Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
                               // // Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                               //  TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
@@ -162,7 +162,7 @@ namespace FleetTrans.Repository
         /// Service method for save Bill Statement details
         /// </summary>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> SaveBillStatementDetails(BillStatementSaveRequest request)
+        public async Task<ResponseModel> SaveBillStatementDetails(BillStatementModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -171,11 +171,14 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillingParty", request.BillingParty),
-                            new SqlParameter("@FromPlace", request.FromPlace),
-                            new SqlParameter("@ToPlace", request.ToPlace),
-                            new SqlParameter("@CnorPlantCode", request.CnorPlantCode),
-                            new SqlParameter("@ProductId", request.ProductId),
+                            new SqlParameter("@BillStation", request.BillStation),
+                            new SqlParameter("@SeriesCode", request.SeriesCode),
+                            new SqlParameter("@Bill_StmtNo", request.Bill_StmtNo),
+                            new SqlParameter("@BillDate", request.BillDate),
+                            new SqlParameter("@PartyCode", request.PartyCode),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@FromPoint", request.FromPoint),
                             new SqlParameter("@TotFreight", request.TotFreight),
                             new SqlParameter("@TotExtraChrg", request.TotExtraChrg),
                             new SqlParameter("@TotSubTotal", request.TotSubTotal),
@@ -188,8 +191,10 @@ namespace FleetTrans.Repository
                             new SqlParameter("@IgstAmt", request.IgstAmt),
                             new SqlParameter("@TotalBillAmt", request.TotalBillAmt),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
+
+
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BilStatementMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BilStatementMaster_Insert2", param);
 
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
