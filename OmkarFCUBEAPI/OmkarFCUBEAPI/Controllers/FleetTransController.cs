@@ -6,6 +6,7 @@ using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 
 using FleetTrans.Models;
+using FreightMasters.Business;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -357,6 +358,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await billStatementBusiness.SaveBillStatementDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillStatementInnerGridList")]
+        public async Task<IActionResult> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        {
+            try
+            {
+                var result = await billStatementBusiness.GetBillStatementInnerGridList(request);
 
                 return Ok(result);
             }

@@ -118,6 +118,7 @@ export class BillstatementaddComponent implements OnInit {
         lrFrom:  this.commonService.formatDate(this.selectedBillstatementDetails.fromDate), 
        lrTo:  this.commonService.formatDate(this.selectedBillstatementDetails.toDate), 
        fromPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.fromPoint),
+       toPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.toPoint),
         
        ///  pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
 //chequeDate:  this.commonService.formatDate(selectedDataValue.chequeDate), 
@@ -196,6 +197,7 @@ export class BillstatementaddComponent implements OnInit {
       this.locationList = res;
     });
   }
+  
 
   saveStatementDetails(): void {
     var selectedDataValue = this.formBillStatement.getRawValue();
@@ -208,6 +210,7 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.fromDate = selectedDataValue.lrFrom;
     this.billsstatementmodel.toDate = selectedDataValue.lrTo;
     this.billsstatementmodel.fromPoint = selectedDataValue.fromPoint.dataId;
+    this.billsstatementmodel.toPoint = selectedDataValue.toPoint.dataId;
   //  this.saveData.fromPlace = this.formBillStatement.value.fromPlace ? this.formBillStatement.value.fromPlace.dataId : '';
   //  this.saveData.toPlace = this.formBillStatement.value.toPlace ? this.formBillStatement.value.toPlace.dataId : '';
   //  this.saveData.cnorPlantCode = this.formBillStatement.value.cnorPlantCode ? this.formBillStatement.value.cnorPlantCode : '';

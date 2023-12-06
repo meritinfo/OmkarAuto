@@ -119,6 +119,7 @@ namespace FleetTrans.Repository
                                 FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
                                 ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
                                 FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
+                                ToPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
                                 TotFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),
                                 TotExtraChrg = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtraChrg"]),
                                 TotSubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
@@ -174,6 +175,77 @@ namespace FleetTrans.Repository
             }
             return billStatementList;
         }
+        public async Task<BillStatementModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        {
+            BillStatementModel billstatementInnerGridList = new()
+            {
+                BillStatementListData = new List<BillStatementSearchModel>(),
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          //  new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@MasterId", request.MasterID)
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillStatementInnerGridList_Select", param);
+
+                    // LR Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            billstatementInnerGridList.BillStatementListData.Add(new BillStatementSearchModel
+                            {
+                                //  
+                                ConsignmentID = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
+                                BookedAt = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
+                                GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
+                                BookingDate = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
+
+                                VehicleNo = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
+                                ProductName = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
+                                NoPackages = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
+                                FreightRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
+                                StatisticalRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
+                                HandlingRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
+                                LoadingDetnRs = Convert.ToString(resultData.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                EnrouteRs = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocationName"]),
+                                MiscRs = Convert.ToString(resultData.Tables[0].Rows[i]["MiscRs"]),
+                                ExtrasRs = Convert.ToString(resultData.Tables[0].Rows[i]["ExtrasRs"]),
+                                UnloadingRs = Convert.ToString(resultData.Tables[0].Rows[i]["UnloadingRs"]),
+                                DetentionRs = Convert.ToString(resultData.Tables[0].Rows[i]["DetentionRs"]),
+                                OthersRs = Convert.ToString(resultData.Tables[0].Rows[i]["OthersRs"]),
+                                GtotalRs = Convert.ToString(resultData.Tables[0].Rows[i]["GtotalRs"]),
+                                Selected = Convert.ToBoolean(resultData.Tables[0].Rows[i]["Selected"]),
+
+                            });
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return billstatementInnerGridList;
+        }
 
         /// <summary>
         /// Service method for save Bill Statement details
@@ -196,6 +268,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
                             new SqlParameter("@FromPoint", request.FromPoint),
+                            new SqlParameter("@FromPoint", request.ToPoint),
                             new SqlParameter("@TotFreight", request.TotFreight == "" ? "0" : request.TotExtraChrg),
                             new SqlParameter("@TotExtraChrg", request.TotExtraChrg== "" ? "0" : request.TotExtraChrg),
                             new SqlParameter("@TotSubTotal", request.TotSubTotal == "" ? "0" : request.TotSubTotal),

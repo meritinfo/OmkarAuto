@@ -14,10 +14,11 @@ namespace FleetTrans.Models
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
         public string? FromPoint { get; set; }
-     //   public string? PlantCode { get; set; }
-      //  public string? SuppYN { get; set; }
-        
-       //       public string? GcNoteNo { get; set; }
+        public string? ToPoint { get; set; }
+        //   public string? PlantCode { get; set; }
+        //  public string? SuppYN { get; set; }
+
+        //       public string? GcNoteNo { get; set; }
         public string? TotFreight { get; set; }
         public string? TotExtraChrg { get; set; }
         public string? TotSubTotal { get; set; }
