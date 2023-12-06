@@ -73,7 +73,7 @@ export class BillstatementaddComponent implements OnInit {
     this.getBillingPartyList();
     this.getlrSeriesForBillList();
     
-    
+    this.selectedBillstatementDetails = this.billstatementService.getBillStatementDetails();
     this.formBillStatement = this.formBuilder.group({
       statementBillStation: new FormControl(this.branch),
       billSeries: new FormControl(''),
@@ -96,8 +96,45 @@ export class BillstatementaddComponent implements OnInit {
       igstAmt: new FormControl(''),
       totalBillAmt: new FormControl('')
     });
-    this.formBillStatement.controls['statementBillStation'].disable();
-  }
+    setTimeout(() => {
+      this.createmode = true;
+     if (this.selectedBillstatementDetails.masterID != '') {
+       this.formBillStatement.patchValue(this.selectedBillstatementDetails);
+      
+      // this.formTripPayment.controls['vehicleMasterID'].disable();
+      
+  
+   //    var selectedDataValue = this.formBillStatement.getRawValue();
+       
+   
+       this.formBillStatement.patchValue({
+       
+        billNo:  this.selectedBillstatementDetails.bill_StmtNo, 
+        billSeries :this.selectedBillstatementDetails.seriesCode, 
+        billDate:this.commonService.formatDate(this.selectedBillstatementDetails.billDate), 
+      party :this.partyList.find(e => e.dataId == this.selectedBillstatementDetails.partyCode),
+        // party :this.selectedBillstatementDetails.partyCode,
+       
+        lrFrom:  this.commonService.formatDate(this.selectedBillstatementDetails.fromDate), 
+       lrTo:  this.commonService.formatDate(this.selectedBillstatementDetails.toDate), 
+       fromPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.fromPoint),
+        
+       ///  pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
+//chequeDate:  this.commonService.formatDate(selectedDataValue.chequeDate), 
+       //  tripNo:  selectedDataValue.tripNo, 
+     //    loadorempty:  selectedDataValue.loadorempty, 
+
+       
+       })
+     }
+   
+   
+     
+   }, 2000);
+ 
+   }
+   
+  
 
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -188,7 +225,7 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.igstAmt =  this.formBillStatement.value.igstAmt.toString();;
     this.billsstatementmodel.totalBillAmt =  this.formBillStatement.value.totalBillAmt.toString();;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
-    this.saveData.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
+    this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
     this.billstatementService.saveBillStatementDetails(this.billsstatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.toasterService.success(this.responseDetails.message);

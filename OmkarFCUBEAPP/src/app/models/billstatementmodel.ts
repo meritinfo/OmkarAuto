@@ -1,3 +1,5 @@
+import { Billstatementsearchmodel } from "./billstatementsearchmodel";
+
 export class billstatementmodel {
     masterID: string = "";
     billStation: string = "";
@@ -33,4 +35,5 @@ export class billstatementmodel {
     //einv_Gst_AckNo: string = "";
    // einv_Gst_AckDt: string = "";
     loggedInUser: string = "";
+    billStatementListData: Billstatementsearchmodel[] = [];
 }

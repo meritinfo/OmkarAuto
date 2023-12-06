@@ -23,15 +23,18 @@ export class BillstatementService {
   }
 
   constructor(private httpClient: HttpClient) { }
-  selectedBillStatement = new billstatementmodel();
+  selectedBillStatementDetails = new billstatementmodel();
   setBillStatementDetails(docrenewalmaster: billstatementmodel) {
  
-    this.selectedBillStatement = docrenewalmaster;
+    this.selectedBillStatementDetails = docrenewalmaster;
   
 
 }
+getBillStatementDetails() {
+  return this.selectedBillStatementDetails;
+}
   clearBillStatementDetails() {
-    this.selectedBillStatement= new billstatementmodel();
+    this.selectedBillStatementDetails= new billstatementmodel();
   }
 
   getBillStatementSearchList(request: Billstatementsearchlistrequestmodel): Observable<Billstatementsearchlistmodel> {
@@ -44,6 +47,7 @@ export class BillstatementService {
   saveBillStatementDetails(request: billstatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveBillStatementDetails', request, this.httpOptions);
   }
+  
 
 
 }
