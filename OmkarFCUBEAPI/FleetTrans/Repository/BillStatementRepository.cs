@@ -109,6 +109,7 @@ namespace FleetTrans.Repository
                         {
                             billList.Add(new BillStatementModel
                             {
+                                MasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["MasteriD"]),
                                 BillStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStation"]),
                                 SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
                                 Bill_StmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["Bill_StmtNo"]),
@@ -175,61 +176,62 @@ namespace FleetTrans.Repository
             }
             return billStatementList;
         }
-        public async Task<BillStatementModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
         {
-            BillStatementModel billstatementInnerGridList = new()
-            {
-                BillStatementListData = new List<BillStatementSearchModel>(),
+           
+            //BillStatementModel billstatementInnerGridList = new()
+            //{
+            //    BillStatementListData = new List<BillStatementSearchModel>(),
 
-            };
+            //};
+            BillStatementSearchListModel billStatementSearchList = new();
+            List<BillStatementSearchModel> billStatementSearchModels = new();
             try
             {
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
                         {
-                          //  new SqlParameter("@TripId", request.TripId),
-                            new SqlParameter("@MasterId", request.MasterID)
+                            new SqlParameter("@MasterId", request.MasterID),
+                         
                         };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillStatementInnerGridList_Select", param);
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillStatementInnerGridList_Select", param);
-
-                    // LR Details
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        //int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            billstatementInnerGridList.BillStatementListData.Add(new BillStatementSearchModel
+                            billStatementSearchModels.Add(new BillStatementSearchModel
                             {
-                                //  
-                                ConsignmentID = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
-                                BookedAt = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
-                                GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["FromLocation"]),
-                                BookingDate = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocation"]),
-
-                                VehicleNo = Convert.ToString(resultData.Tables[0].Rows[i]["KMS"]),
-                                ProductName = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTruck"]),
-                                NoPackages = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpTrailer"]),
-                                FreightRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpCarCarrier"]),
-                                StatisticalRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpEmpty"]),
-                                HandlingRs = Convert.ToString(resultData.Tables[0].Rows[i]["EnrouteExpRemarks"]),
-                                LoadingDetnRs = Convert.ToString(resultData.Tables[0].Rows[i]["LoadingDetnRs"]),
-                                EnrouteRs = Convert.ToString(resultData.Tables[0].Rows[i]["ToLocationName"]),
-                                MiscRs = Convert.ToString(resultData.Tables[0].Rows[i]["MiscRs"]),
-                                ExtrasRs = Convert.ToString(resultData.Tables[0].Rows[i]["ExtrasRs"]),
-                                UnloadingRs = Convert.ToString(resultData.Tables[0].Rows[i]["UnloadingRs"]),
-                                DetentionRs = Convert.ToString(resultData.Tables[0].Rows[i]["DetentionRs"]),
-                                OthersRs = Convert.ToString(resultData.Tables[0].Rows[i]["OthersRs"]),
-                                GtotalRs = Convert.ToString(resultData.Tables[0].Rows[i]["GtotalRs"]),
-                                Selected = Convert.ToBoolean(resultData.Tables[0].Rows[i]["Selected"]),
-
+                                ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
+                                BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
+                                NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
+                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
+                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
+                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
+                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
+                                ExtrasRs = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRs"]),
+                                UnloadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingRs"]),
+                                DetentionRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionRs"]),
+                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
+                               Selected = false
                             });
+                        }
+                        billStatementSearchList.BillStatementSearchList = billStatementSearchModels;
                         }
                     }
 
 
 
-                }
+                
             }
             catch (Exception ex)
             {
@@ -244,7 +246,7 @@ namespace FleetTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return billstatementInnerGridList;
+            return billStatementSearchList;
         }
 
         /// <summary>
@@ -302,7 +304,8 @@ namespace FleetTrans.Repository
                                     SqlParameter[] paramMisc =
                                     {
                                         new SqlParameter("@MasterID", MasterID),
-                                        new SqlParameter("@FreightRs", request.BillStatementListData[i].FreightRs != "" ? request.BillStatementListData[i].FreightRs : "0"),
+                                        new SqlParameter("@ConsignmentID", request.BillStatementListData[i].ConsignmentID != "" ? request.BillStatementListData[i].ConsignmentID : "0"),
+                                        new SqlParameter("@FreightRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0"),
                                         new SqlParameter("@StatisticalRs", request.BillStatementListData[i].StatisticalRs != "" ? request.BillStatementListData[i].StatisticalRs : "0"),
                                         new SqlParameter("@HandlingRs", request.BillStatementListData[i].HandlingRs != "" ? request.BillStatementListData[i].HandlingRs : "0"),
                                         new SqlParameter("@LoadingDetnRs", request.BillStatementListData[i].LoadingDetnRs != "" ? request.BillStatementListData[i].LoadingDetnRs : "0"),

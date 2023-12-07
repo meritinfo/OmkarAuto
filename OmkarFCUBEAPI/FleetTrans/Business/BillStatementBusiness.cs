@@ -31,7 +31,7 @@ namespace FleetTrans.Business
         {
             return await billStatementRepository.GetBillStatementList(request);
         }
-        public async Task<BillStatementModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
         {
             return await billStatementRepository.GetBillStatementInnerGridList(request);
         }

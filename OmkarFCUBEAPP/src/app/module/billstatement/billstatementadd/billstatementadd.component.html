@@ -189,7 +189,7 @@
                                             <th><label for="formrow-inputZip">No Packages</label></th>
                                             <th><label for="formrow-inputZip">Total</label></th>
                                         </tr>
-                                        <tr
+                                        <tr  
                                             *ngFor="let arrayData of billstatementsearchlistmodel.billStatementSearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
@@ -234,22 +234,22 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Freight</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control"  (change)="calTotalBill()"
                                                     formControlName="totFreight">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Extra</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control" (change)="calTotalBill()"
                                                     formControlName="totExtraChrg">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Sub Total</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totSubTotal">
+                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
+                                                    formControlName="totSubTotal" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -257,7 +257,7 @@
                                                 <label for="formrow-inputCity">GST Type</label>
                                               
                                                     <select id="formrow-inputState" class="form-control"
-                                                    formControlName="gstType"
+                                                    formControlName="gstType"  (change)="changeGstType($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
                                                     <option selected="">Choose...</option>
                                                     <option value="N">Not Application</option>
@@ -271,7 +271,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Pct</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
                                                     formControlName="sgstPct">
                                             </div>
                                         </div>
@@ -279,35 +279,35 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="sgstAmt">
+                                                    formControlName="sgstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Pct</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstPct">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstPct" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amount</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstAmt">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstPct">
+                                                    formControlName="igstPct" (change)="calTotalBill()" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amount</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstAmt">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="igstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                     </div>
