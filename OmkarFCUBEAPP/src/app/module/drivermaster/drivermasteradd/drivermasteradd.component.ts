@@ -43,7 +43,7 @@ export class DrivermasteraddComponent {
   @ViewChild('bankPassbookInput', {
     static: true
   }) bankPassbookInput: any;
-  
+
   constructor(private route: Router, private formBuilder: FormBuilder, private driverModel: Drivermodel, private drivermasterService: DrivermasterService, private toastrService: ToastrService) {
     this.driverModel = new Drivermodel();
   }
@@ -136,17 +136,27 @@ export class DrivermasteraddComponent {
   //On driver photo file select
   onSelectDrivePhoto(fileInput: any) {
     if (fileInput.target.files && fileInput.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        const image = new Image();
-        image.src = e.target.result;
-        image.onload = rs => {
-          this.driverPhotoPreview = e.target.result;
-          this.driverPhotoData = e.target.result.split('base64,')[1];
-          this.driverPhotoName = fileInput.target.files[0].name;
+      var maxFileSize = 1024 * 1024;
+      var fileSize = fileInput.target.files[0].size;
+      if (fileSize > maxFileSize) {
+        this.toastrService.warning("Maximum 1MB file size is allowed");
+        this.driverPhotoInput.nativeElement.value = "";
+        this.driverPhotoPreview = [];
+        this.driverPhotoData = [];
+        this.driverPhotoName = "";
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          image.onload = rs => {
+            this.driverPhotoPreview = e.target.result;
+            this.driverPhotoData = e.target.result.split('base64,')[1];
+            this.driverPhotoName = fileInput.target.files[0].name;
+          };
         };
-      };
-      reader.readAsDataURL(fileInput.target.files[0]);
+        reader.readAsDataURL(fileInput.target.files[0]);
+      }
     }
   }
 
