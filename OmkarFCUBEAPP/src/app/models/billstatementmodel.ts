@@ -35,6 +35,7 @@ export class billstatementmodel {
   //  einv_Gst_Irn: string = "";
     //einv_Gst_AckNo: string = "";
    // einv_Gst_AckDt: string = "";
+     yearId: string = "";
     loggedInUser: string = "";
     billStatementListData: Billstatementsearchmodel[] = [];
 }

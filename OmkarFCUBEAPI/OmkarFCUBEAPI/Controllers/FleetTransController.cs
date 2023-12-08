@@ -21,16 +21,17 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
-      //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+        //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+        readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness, IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
-           // driverSalaryStatementBusiness = _driverSalaryStatementBusiness;
+            driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
         }
         /// <summary>
 
@@ -112,6 +113,20 @@ namespace OmkarFCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("GetDriverSalaryStmtList")]
+        public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.GetDriverSalaryStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTripSheetList")]
         public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
         {

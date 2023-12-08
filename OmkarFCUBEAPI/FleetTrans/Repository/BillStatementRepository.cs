@@ -282,7 +282,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@IgstPct", request.IgstPct == "" ? "0" : request.IgstPct),
                             new SqlParameter("@IgstAmt", request.IgstAmt == "" ? "0" : request.IgstPct),
                             new SqlParameter("@TotalBillAmt", request.TotalBillAmt),
+                            new SqlParameter("@YearId", request.YearId),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
+                       
 
 
                         };

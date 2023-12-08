@@ -41,6 +41,7 @@ namespace FleetTrans.Models
   //      public string? Einv_Gst_AckNo { get; set; }
     //    public string? Einv_Gst_AckDt { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? YearId { get; set; }
         public List<BillStatementSearchModel> BillStatementListData { get; set; }
 
 

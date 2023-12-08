@@ -99,8 +99,10 @@ export class BillstatementaddComponent implements OnInit {
       igstAmt: new FormControl(''),
       totalBillAmt: new FormControl('')
     });
+  
     setTimeout(() => {
       this.createmode = true;
+   ;
      if (this.selectedBillstatementDetails.masterID != '') {
        this.formBillStatement.patchValue(this.selectedBillstatementDetails);
       
@@ -138,9 +140,16 @@ export class BillstatementaddComponent implements OnInit {
    
      
    }, 2000);
+   this.getValidation();
  
    }
-
+getValidation():void {
+  this.formBillStatement.controls['tatementBillStation'].disable();
+  this.formBillStatement.controls['totalBillAmt'].disable();
+  this.formBillStatement.controls['totFreight'].disable();
+  this.formBillStatement.controls['totSubTotal'].disable();
+  
+}
 
 
   getBranchList(): void {
@@ -267,7 +276,8 @@ export class BillstatementaddComponent implements OnInit {
    // var totalSubtotal = 0;
     var totalBillAmt = 0;
     totSub = totFreight+ totExtraChrg;
-    allgst = sgstPct+ sgstAmt + cgstPct + cgstAmt + igstPct + igstAmt;
+   // allgst = sgstPct+ sgstAmt + cgstPct + cgstAmt + igstPct + igstAmt;
+    allgst =  sgstAmt + cgstAmt  + igstAmt;
     totalBillAmt = allgst +  totSubTotal;
 
 
@@ -275,10 +285,39 @@ export class BillstatementaddComponent implements OnInit {
   //  var  totFreight: totalFrtAmount.toFixed(2),
      // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
      // totalStatementAmount: totalStatementAmount.toFixed(2)
-     totalBillAmt:totalBillAmt.toFixed(2),
-     totSubTotal:totSub.toFixed(2)
+   //  totSubTotal:totSub.toFixed(2),
+     totalBillAmt:totalBillAmt.toFixed(2)
+   
     });
      
+       
+      
+
+  }
+  calSubTotalBill(){
+    var selectedDataValue = this.formBillStatement.getRawValue();
+  // var sgstPct = parseFloat(this.billstatementsearchlistmodel.sgstPct
+  
+    var totExtraChrg = selectedDataValue.totExtraChrg ? parseFloat(selectedDataValue.totExtraChrg) : 0;
+    var totSubTotal = selectedDataValue.totSubTotal ? parseFloat(selectedDataValue.totSubTotal) : 0;
+    var totFreight = selectedDataValue.totFreight ? parseFloat(selectedDataValue.totFreight) : 0;
+    var allgst = 0;
+    var totSub = 0;
+   // var totalSubtotal = 0;
+    var totalBillAmt = 0;
+    totSub = totFreight+ totExtraChrg;
+
+
+
+    this.formBillStatement.patchValue({
+  //  var  totFreight: totalFrtAmount.toFixed(2),
+     // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
+     // totalStatementAmount: totalStatementAmount.toFixed(2)
+     totSubTotal:totSub.toFixed(2),
+    // totalBillAmt:totalBillAmt.toFixed(2)
+   
+    });
+    this.calTotalBill();
        
       
 
@@ -327,6 +366,7 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.igstPct = this.formBillStatement.value.igstPct.toString();;
     this.billsstatementmodel.igstAmt =  this.formBillStatement.value.igstAmt.toString();;
     this.billsstatementmodel.totalBillAmt =  this.formBillStatement.value.totalBillAmt.toString();;
+    this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
     this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
     this.billstatementService.saveBillStatementDetails(this.billsstatementmodel).subscribe((res: Responsemodel) => {
