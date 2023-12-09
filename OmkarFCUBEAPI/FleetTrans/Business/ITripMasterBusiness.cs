@@ -11,6 +11,7 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
+        Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

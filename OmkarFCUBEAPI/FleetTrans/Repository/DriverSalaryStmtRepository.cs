@@ -39,6 +39,7 @@ namespace FleetTrans.Repository
                         {
                             driverStmtList.Add(new DriverSalaryStatementModel
                             {
+                                MasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterId"]),
                                 TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
                                 TripFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["TripFrom"]),
                                 TripTo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
@@ -46,12 +47,12 @@ namespace FleetTrans.Repository
                                 PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
 
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                TotalSalary = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSalary"]),
+                                TotalSalaryAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSalaryAmt"]),
                                 TotalPoolAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalPoolAmt"]),
-                                NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
-                                CreditAC = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAC"]),
+                              //  NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+                              //  CreditAC = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAC"]),
 
-                                CheqNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqNo"]),
+                              //  CheqNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqNo"]),
 
 
 

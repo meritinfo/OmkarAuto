@@ -529,6 +529,56 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request)
+        {
+            DriverDetailModel driverDetailModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DriverMasterID", request.DriverMasterID),
+
+                 
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_DriverDetail", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        driverDetailModel.LicenseNo = Convert.ToString(userData.Tables[0].Rows[0]["LicenseNo"]);
+                        driverDetailModel.LicValidUpto = Convert.ToString(userData.Tables[0].Rows[0]["LicValidUpto"]);
+                        driverDetailModel.DriverMobile1 = Convert.ToString(userData.Tables[0].Rows[0]["DriverMobile1"]);
+                        driverDetailModel.DrPhoto = Convert.ToString(userData.Tables[0].Rows[0]["DrPhoto"]);
+                        driverDetailModel.IsActive = Convert.ToString(userData.Tables[0].Rows[0]["IsActive"]);
+                        driverDetailModel.DriverAadharNo = Convert.ToString(userData.Tables[0].Rows[0]["DriverAadharNo"]);
+                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return driverDetailModel;
+        }
+    
         public async Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request)
         {
             ResponseModel responseModel = new();

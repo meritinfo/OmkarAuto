@@ -1,4 +1,5 @@
 export class Driversalarystatementmodel {
+    masterId: string = "";
     transDate: string = "";
     tripFrom: string = "";
     tripTo: string = "";

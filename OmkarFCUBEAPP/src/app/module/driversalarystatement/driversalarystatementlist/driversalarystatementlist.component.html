@@ -28,7 +28,46 @@
                         (click)="driversalaryStatementAdd()"><span>New</span></button>
                 </div>
             </div>
-      
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>PmtBranch </th>
+                            <th>Date </th>
+                            <th>Vehicle No. </th>
+                      
+                            <th>TripNo </th>
+                   
+                            
+                         
+                         
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allDriverSalaryStatement.driverSalaryList?.length != 0">
+                        <tr *ngFor="let trip of allDriverSalaryStatement.driverSalaryList">
+                            <td>{{ trip.transDate }}</td>
+                    
+                          
+                            <td>{{ trip.tripFrom }}</td>
+                            <td>{{ trip.tripTo }}</td>
+                            <td>{{ trip.totalSalary }}</td>
+                   
+                            <td>
+                                <a  class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>
+                           
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allDriverSalaryStatement.driverSalaryList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
      
         <!-- container-fluid -->
     </div>

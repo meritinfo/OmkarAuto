@@ -60,31 +60,24 @@ this.dtOptions = {
     
 
       {
-        title: 'PmtBranch',
-        data: 'pmtBranch',
+        title: 'transDate',
+        data: 'transDate',
       },
       {
-        title: 'Date',
-        data: 'pmtDate',
+        title: 'tripFrom',
+        data: 'tripFrom',
       },
 
 
      {
-      title: 'Vehicle No',
-      data: 'vehicleMasterID',
+      title: 'tripTo',
+      data: 'tripTo',
     },
     {
-      title: 'tripNo',
-      data: 'tripNo',
+      title: 'totalSalary',
+      data: 'totalSalary',
     },
-    {
-      title: 'Trans Type',
-      data: 'transType',
-    },
-    {
-      title: 'Amount',
-      data: 'amtPaid',
-    },
+    
 
 
 
@@ -93,7 +86,7 @@ this.dtOptions = {
   
     {
       title: 'Action',
-      data: 'pmtId',
+      data: 'masterId',
     },
   ],
 };

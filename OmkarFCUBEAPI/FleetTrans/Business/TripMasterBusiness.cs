@@ -36,6 +36,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetBhattaRate(request);
         }
+        public async Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request)
+        {
+            return await tripMasterRepository.GetDriverDetail(request);
+        }
         public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
         {
             return await tripMasterRepository.GetTripSheetList(request);

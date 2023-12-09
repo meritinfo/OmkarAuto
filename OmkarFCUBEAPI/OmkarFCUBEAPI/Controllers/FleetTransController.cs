@@ -286,6 +286,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverDetail")]
+        public async Task<IActionResult> GetDriverDetail(DriverRequestModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDriverDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)

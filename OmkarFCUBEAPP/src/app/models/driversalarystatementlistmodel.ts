@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { Driversalarystatementmodel } from "./driversalarystatementmodel";
 
 export class Driversalarystatementlistmodel {
-  driversalaryList: Driversalarystatementmodel[] = [];
+  driverSalaryList: Driversalarystatementmodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }
