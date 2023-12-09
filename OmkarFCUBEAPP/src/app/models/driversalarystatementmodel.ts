@@ -1,14 +1,15 @@
 export class Driversalarystatementmodel {
     masterId: string = "";
-    transDate: string = "";
-    tripFrom: string = "";
-    tripTo: string = "";
+    transDt: string = "";
+    fromDt: string = "";
+    toDt: string = "";
+ 
     pmtType: string = "";
     remarks: string = "";
-    totalSalary: string = "";
+    totalSalaryAmt: string = "";
     totalPoolAmt: string = "";
-    netPayable: string = "";
-    creditAC: string = "";
-    cheqNo: string = "";
+    yearId: string = "";
+    loggedInUser: string = "";
+   
    
 }

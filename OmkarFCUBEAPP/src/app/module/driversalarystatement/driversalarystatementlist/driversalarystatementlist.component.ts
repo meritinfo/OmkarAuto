@@ -61,21 +61,21 @@ this.dtOptions = {
 
       {
         title: 'transDate',
-        data: 'transDate',
+        data: 'transDt',
       },
       {
         title: 'tripFrom',
-        data: 'tripFrom',
+        data: 'fromDt',
       },
 
 
      {
-      title: 'tripTo',
-      data: 'tripTo',
+      title: 'toDt',
+      data: 'toDt',
     },
     {
       title: 'totalSalary',
-      data: 'totalSalary',
+      data: 'totalSalaryAmt',
     },
     
 
