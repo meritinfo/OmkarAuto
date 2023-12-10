@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, Observer } from 'rxjs';
+import { Constants } from 'src/app/common/constants';
 import { Drivermodel } from 'src/app/models/drivermodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -19,7 +21,7 @@ export class DrivermasteraddComponent {
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
   driverPhotoData: [] = [];
-  driverPhotoPreview: [] = [];
+  driverPhotoPreview: any;
   driverPhotoName: string = '';
 
   @ViewChild('driverPhotoInput', {
@@ -120,6 +122,10 @@ export class DrivermasteraddComponent {
       deleteFlag: new FormControl('',)
     });
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
+      console.log(this.selectedDriverMasterDetails);
+      //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
+      this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
+      //this.driverPhotoPreview = this.selectedDriverMasterDetails.drPhoto;
       // this.formDriverMaster.patchValue(this.selectedBranchMasterDetails);
       // this.formDriverMaster.patchValue({
       //   userBranch: this.selectedBranchMasterDetails.acctBranch,
@@ -132,6 +138,18 @@ export class DrivermasteraddComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formDriverMaster.controls; }
 
+  // Convert file to base64 string
+  convertDataUrlToBlob(dataUrl: any): Blob {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].split(/[#?]/)[0].split('.').pop().trim();
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], {type: mime});
+}
 
   //On driver photo file select
   onSelectDrivePhoto(fileInput: any) {

@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
 
   // Send partner details //
   submitLoginForm(): void {
+    this.sharedService.loading = true;
     this.loginSubmitted = true;
     if (this.formLogin.invalid) {
       return;
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("user", this.selectedUserDetails.userName);
       
         this.sharedService.loggedInStatus = true;
-
+        this.sharedService.loading = false;
         this.route.navigate(['/intermediatescreen']);
       }
       else {

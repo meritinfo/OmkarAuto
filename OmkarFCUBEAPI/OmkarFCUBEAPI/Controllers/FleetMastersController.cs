@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.IO;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -16,6 +18,7 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class FleetMastersController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
         readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
@@ -24,8 +27,9 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
+        public FleetMastersController(IOptions<DBModel> _dbconnection, IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
         {
+            dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
             vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
@@ -95,7 +99,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/driverphoto/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await driverPhoto.CopyToAsync(fileStream);

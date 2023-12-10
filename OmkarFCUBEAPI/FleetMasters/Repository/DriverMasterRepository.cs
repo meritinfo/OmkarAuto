@@ -78,7 +78,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@BankIfsCode", driverMasterModel.BankIfsCode),
                             new SqlParameter("@BankAccountStatus", driverMasterModel.BankAccountStatus),
                             new SqlParameter("@DeleteFlag", driverMasterModel.DeleteFlag),
-                            new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverMasterDetails_Insert", param);
@@ -192,7 +192,8 @@ namespace FleetMasters.Repository
 
                                 BankIfsCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsCode"]),
                                 BankAccountStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAccountStatus"]),
-                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),                               
+                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
+                                DrPhoto = Convert.ToString(dataSet.Tables[0].Rows[i]["DrPhoto"])
 
                             });
                         }

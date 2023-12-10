@@ -43,7 +43,7 @@ export class IntermediatescreenComponent {
 
     this.formLogin = this.formBuilder.group({
       yearID: new FormControl('22', [Validators.required]),
-      
+
       // loginDate: new FormControl(''),
       userBranch: new FormControl('', [Validators.required]),
       loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
@@ -52,8 +52,7 @@ export class IntermediatescreenComponent {
       this.currentServerTime = data.currentServerTime;
     });
     this.sharedService.loggedInStatus = false;
-    this.getBranchList();
-    this.getYearList();
+    this.getDropdownList();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
   }
@@ -64,6 +63,7 @@ export class IntermediatescreenComponent {
   // Send partner details //
 
   submitIntermediateForm(): void {
+    this.sharedService.loading = true;
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
       this.toasterService.warning("Mandatory fields is required");
@@ -76,8 +76,6 @@ export class IntermediatescreenComponent {
     this.branchname = this.formLogin.value.userBranch.dataName;
     this.sharedService.intermediateScreenSubmitted(this.selectedScreenDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-
-
       this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
       this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
@@ -89,6 +87,7 @@ export class IntermediatescreenComponent {
         sessionStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
 
         this.sharedService.loggedInStatus = true;
+        this.sharedService.loading = false;
         this.route.navigate(['/dashboard']);
 
       }
@@ -98,15 +97,14 @@ export class IntermediatescreenComponent {
     });
 
   }
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
-  }
-  getYearList(): void {
+  getDropdownList() {
+    this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
+      this.commonService.getBranchList().subscribe((res) => {
+        this.branchList = res;
+        this.sharedService.loading = false;
+      });
     });
   }
-
 }
