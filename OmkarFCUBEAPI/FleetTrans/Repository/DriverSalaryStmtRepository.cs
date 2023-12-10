@@ -14,6 +14,7 @@ namespace FleetTrans.Repository
             dbconnection = _dbconnection;
         }
 
+
         public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request)
         {
             DriverSalaryStatementList driverSalaryList = new();
@@ -40,11 +41,11 @@ namespace FleetTrans.Repository
                             driverStmtList.Add(new DriverSalaryStatementModel
                             {
                                 MasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterId"]),
-                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
-                                TripFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["TripFrom"]),
-                                TripTo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
+                                TransDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDt"]),
+                                FromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDt"]),
+                                ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDt"]),
 
-                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                              //  PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
 
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 TotalSalaryAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSalaryAmt"]),
@@ -84,5 +85,88 @@ namespace FleetTrans.Repository
             }
             return driverSalaryList;
         }
+        public async Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                           new SqlParameter("@MasterId", request.MasterId),
+                            new SqlParameter("@TransDt", request.TransDt),
+                            new SqlParameter("@FromDt", request.FromDt),
+                            new SqlParameter("@ToDt", request.ToDt),
+                          
+                            new SqlParameter("@Remarks", request.Remarks),
+                            new SqlParameter("@TotalSalaryAmt", request.TotalSalaryAmt  == "" ? "0" : request.TotalSalaryAmt),
+                            new SqlParameter("@TotalPoolAmt", request.TotalPoolAmt== "" ? "0" : request.TotalPoolAmt ),
+                           
+                            new SqlParameter("@YearId", request.YearId),
+                            new SqlParameter("@LoggedInUser", request.LoggedInUser)
+
+
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryStatementMaster_Insert", param);
+
+                    string MasterID = "";
+                    //if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    //{
+                    //    MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                    //    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    //    // statement list insert
+                    //    if (request.BillStatementListData.Count > 0)
+                    //    {
+                    //        for (int i = 0; i < request.BillStatementListData.Count; i++)
+                    //        {
+                    //            if (request.BillStatementListData[i].Selected)
+                    //            {
+                    //                SqlParameter[] paramMisc =
+                    //                {
+                    //                    new SqlParameter("@MasterID", MasterID),
+                    //                    new SqlParameter("@ConsignmentID", request.BillStatementListData[i].ConsignmentID != "" ? request.BillStatementListData[i].ConsignmentID : "0"),
+                    //                    new SqlParameter("@FreightRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0"),
+                    //                    new SqlParameter("@StatisticalRs", request.BillStatementListData[i].StatisticalRs != "" ? request.BillStatementListData[i].StatisticalRs : "0"),
+                    //                    new SqlParameter("@HandlingRs", request.BillStatementListData[i].HandlingRs != "" ? request.BillStatementListData[i].HandlingRs : "0"),
+                    //                    new SqlParameter("@LoadingDetnRs", request.BillStatementListData[i].LoadingDetnRs != "" ? request.BillStatementListData[i].LoadingDetnRs : "0"),
+                    //                    new SqlParameter("@EnrouteRs", request.BillStatementListData[i].EnrouteRs != "" ? request.BillStatementListData[i].EnrouteRs : "0"),
+                    //                    new SqlParameter("@MiscRs", request.BillStatementListData[i].MiscRs != "" ? request.BillStatementListData[i].MiscRs : "0"),
+                    //                    new SqlParameter("@ExtrasRS", request.BillStatementListData[i].ExtrasRs != "" ? request.BillStatementListData[i].ExtrasRs : "0"),
+                    //                    new SqlParameter("@UnLoadingRs", request.BillStatementListData[i].UnloadingRs != "" ? request.BillStatementListData[i].UnloadingRs : "0"),
+                    //                    new SqlParameter("@DetentionRs", request.BillStatementListData[i].DetentionRs != "" ? request.BillStatementListData[i].DetentionRs : "0"),
+                    //                    new SqlParameter("@OthersRs", request.BillStatementListData[i].OthersRs != "" ? request.BillStatementListData[i].OthersRs : "0"),
+                    //                    new SqlParameter("@TotalRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0")
+                    //                };
+                    //                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementDetails_Insert", paramMisc);
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    responseModel.Status = false;
+                    //    responseModel.Message = "Unable to process";
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
     }
+
 }

@@ -46,12 +46,12 @@
                     </thead>
                     <tbody *ngIf="allDriverSalaryStatement.driverSalaryList?.length != 0">
                         <tr *ngFor="let trip of allDriverSalaryStatement.driverSalaryList">
-                            <td>{{ trip.transDate }}</td>
+                            <td>{{ trip.transDt }}</td>
                     
                           
-                            <td>{{ trip.tripFrom }}</td>
-                            <td>{{ trip.tripTo }}</td>
-                            <td>{{ trip.totalSalary }}</td>
+                            <td>{{ trip.fromDt }}</td>
+                            <td>{{ trip.toDt }}</td>
+                            <td>{{ trip.totalSalaryAmt }}</td>
                    
                             <td>
                                 <a  class="actionicon"><i
