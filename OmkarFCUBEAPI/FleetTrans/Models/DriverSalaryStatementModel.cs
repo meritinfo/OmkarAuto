@@ -19,6 +19,8 @@ namespace FleetTrans.Models
     //   public string CheqNo { get; set; }
         public string YearId { get; set; }
         public string LoggedInUser { get; set; }
+  
+        public List<DriverSalaryStatementDtlModel> DriverSalaryListData { get; set; }
 
     }
 }

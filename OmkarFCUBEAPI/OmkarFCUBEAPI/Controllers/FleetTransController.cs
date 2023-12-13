@@ -396,6 +396,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("SaveDriverSalaryStatementDetails")]
+        public async Task<IActionResult> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.SaveDriverSalaryStatementDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillStatementInnerGridList")]
         public async Task<IActionResult> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
         {

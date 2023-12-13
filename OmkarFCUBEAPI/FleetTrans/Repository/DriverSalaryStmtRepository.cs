@@ -112,44 +112,44 @@ namespace FleetTrans.Repository
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryStatementMaster_Insert", param);
 
                     string MasterID = "";
-                    //if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    //{
-                    //    MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
-                    //    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                    //    // statement list insert
-                    //    if (request.BillStatementListData.Count > 0)
-                    //    {
-                    //        for (int i = 0; i < request.BillStatementListData.Count; i++)
-                    //        {
-                    //            if (request.BillStatementListData[i].Selected)
-                    //            {
-                    //                SqlParameter[] paramMisc =
-                    //                {
-                    //                    new SqlParameter("@MasterID", MasterID),
-                    //                    new SqlParameter("@ConsignmentID", request.BillStatementListData[i].ConsignmentID != "" ? request.BillStatementListData[i].ConsignmentID : "0"),
-                    //                    new SqlParameter("@FreightRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0"),
-                    //                    new SqlParameter("@StatisticalRs", request.BillStatementListData[i].StatisticalRs != "" ? request.BillStatementListData[i].StatisticalRs : "0"),
-                    //                    new SqlParameter("@HandlingRs", request.BillStatementListData[i].HandlingRs != "" ? request.BillStatementListData[i].HandlingRs : "0"),
-                    //                    new SqlParameter("@LoadingDetnRs", request.BillStatementListData[i].LoadingDetnRs != "" ? request.BillStatementListData[i].LoadingDetnRs : "0"),
-                    //                    new SqlParameter("@EnrouteRs", request.BillStatementListData[i].EnrouteRs != "" ? request.BillStatementListData[i].EnrouteRs : "0"),
-                    //                    new SqlParameter("@MiscRs", request.BillStatementListData[i].MiscRs != "" ? request.BillStatementListData[i].MiscRs : "0"),
-                    //                    new SqlParameter("@ExtrasRS", request.BillStatementListData[i].ExtrasRs != "" ? request.BillStatementListData[i].ExtrasRs : "0"),
-                    //                    new SqlParameter("@UnLoadingRs", request.BillStatementListData[i].UnloadingRs != "" ? request.BillStatementListData[i].UnloadingRs : "0"),
-                    //                    new SqlParameter("@DetentionRs", request.BillStatementListData[i].DetentionRs != "" ? request.BillStatementListData[i].DetentionRs : "0"),
-                    //                    new SqlParameter("@OthersRs", request.BillStatementListData[i].OthersRs != "" ? request.BillStatementListData[i].OthersRs : "0"),
-                    //                    new SqlParameter("@TotalRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0")
-                    //                };
-                    //                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementDetails_Insert", paramMisc);
-                    //            }
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    responseModel.Status = false;
-                    //    responseModel.Message = "Unable to process";
-                    //}
+                        // statement list insert
+                        if (request.DriverSalaryListData.Count > 0)
+                        {
+                            for (int i = 0; i < request.DriverSalaryListData.Count; i++)
+                            {
+                                if (request.DriverSalaryListData[i].Selected)
+                                {
+                                    SqlParameter[] paramMisc =
+                                    {
+                                        new SqlParameter("@MasterID", MasterID),
+                                        new SqlParameter("@ConsignmentID", request.DriverSalaryListData[i].DetailId != "" ? request.DriverSalaryListData[i].DetailId : "0"),
+                                        new SqlParameter("@FreightRs", request.DriverSalaryListData[i].MasterId != "" ? request.DriverSalaryListData[i].MasterId : "0"),
+                                        new SqlParameter("@StatisticalRs", request.DriverSalaryListData[i].VehicleMasterId != "" ? request.DriverSalaryListData[i].VehicleMasterId : "0"),
+                                        new SqlParameter("@HandlingRs", request.DriverSalaryListData[i].DriverMasterId != "" ? request.DriverSalaryListData[i].DriverMasterId : "0"),
+                                        new SqlParameter("@LoadingDetnRs", request.DriverSalaryListData[i].FromDt != "" ? request.DriverSalaryListData[i].FromDt : "0"),
+                                        new SqlParameter("@EnrouteRs", request.DriverSalaryListData[i].ToDt != "" ? request.DriverSalaryListData[i].ToDt : "0"),
+                                        new SqlParameter("@MiscRs", request.DriverSalaryListData[i].SalaryDays != "" ? request.DriverSalaryListData[i].SalaryDays : "0"),
+                                        new SqlParameter("@ExtrasRS", request.DriverSalaryListData[i].SalaryAmt != "" ? request.DriverSalaryListData[i].SalaryAmt : "0"),
+                                        new SqlParameter("@UnLoadingRs", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
+                                        new SqlParameter("@DetentionRs", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
+                                        new SqlParameter("@OthersRs", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
+                                        new SqlParameter("@TotalRs", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
+                                    };
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
                 }
             }
             catch (Exception ex)

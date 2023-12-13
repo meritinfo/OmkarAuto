@@ -10,5 +10,6 @@ namespace FleetTrans.Repository
     public interface IDriverSalaryStmtRepository
     {
         Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request);
+        Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request);
     }
 }

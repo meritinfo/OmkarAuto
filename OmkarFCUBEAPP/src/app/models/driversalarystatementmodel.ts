@@ -1,3 +1,5 @@
+import { Driversalarydetailmodel } from "./driversalarydetailmodel";
+
 export class Driversalarystatementmodel {
     masterId: string = "";
     transDt: string = "";
@@ -10,6 +12,7 @@ export class Driversalarystatementmodel {
     totalPoolAmt: string = "";
     yearId: string = "";
     loggedInUser: string = "";
+    driverSalaryListData: Driversalarydetailmodel[] = [];
    
    
 }

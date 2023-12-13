@@ -60,21 +60,21 @@ this.dtOptions = {
     
 
       {
-        title: 'transDate',
+        title: 'Trans Date',
         data: 'transDt',
       },
       {
-        title: 'tripFrom',
+        title: 'From Date',
         data: 'fromDt',
       },
 
 
      {
-      title: 'toDt',
+      title: 'To Date',
       data: 'toDt',
     },
     {
-      title: 'totalSalary',
+      title: 'Total Salary',
       data: 'totalSalaryAmt',
     },
     
