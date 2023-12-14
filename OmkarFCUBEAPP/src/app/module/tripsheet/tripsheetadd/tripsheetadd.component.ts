@@ -1410,6 +1410,7 @@ export class TripsheetaddComponent {
     var recdFromDriver = selectedDataValue.recdFromDriver ? parseFloat(selectedDataValue.recdFromDriver) : 0;
     var tollExpByDriver  = selectedDataValue.tollExpByDriver ? parseFloat(selectedDataValue.tollExpByDriver) : 0;
     var totalpayable  = selectedDataValue.totalpayable ? parseFloat(selectedDataValue.totalpayable) : 0;
+    var cashDslAmt  = selectedDataValue.cashDslAmt ? parseFloat(selectedDataValue.cashDslAmt) : 0;
     var clBalDsl = 0;
     var clBalAdblue = 0;
     var netTripBalance = 0;
@@ -1423,7 +1424,7 @@ export class TripsheetaddComponent {
 
     clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
-    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver + totalpayable - penaltyChargedToDr;
+    totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver + totalpayable + cashDslAmt - penaltyChargedToDr;
     clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue ;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
@@ -1475,6 +1476,7 @@ export class TripsheetaddComponent {
     var paidDriverAdvance = selectedDataValue.paidDriverAdvance ? parseFloat(selectedDataValue.paidDriverAdvance) : 0;
     var recdFromDriver = selectedDataValue.recdFromDriver ? parseFloat(selectedDataValue.recdFromDriver) : 0;
     var tollExpByDriver  = selectedDataValue.tollExpByDriver ? parseFloat(selectedDataValue.tollExpByDriver) : 0;
+    var cashDslAmt  = selectedDataValue.cashDslAmt ? parseFloat(selectedDataValue.cashDslAmt) : 0;
     var clBalDsl = 0;
     var clBalAdblue = 0;
     var netTripBalance = 0;
@@ -1490,7 +1492,7 @@ export class TripsheetaddComponent {
     clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
     totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt + tollExpByDriver 
-    + totalpayable - penaltyChargedToDr;
+    + totalpayable + cashDslAmt - penaltyChargedToDr;
     clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;

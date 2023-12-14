@@ -102,14 +102,17 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Remarks", request.Remarks),
                             new SqlParameter("@TotalSalaryAmt", request.TotalSalaryAmt  == "" ? "0" : request.TotalSalaryAmt),
                             new SqlParameter("@TotalPoolAmt", request.TotalPoolAmt== "" ? "0" : request.TotalPoolAmt ),
-                           
+                            new SqlParameter("@TotalNetPayAmt", request.TotalNetPayAmt== "" ? "0" : request.TotalNetPayAmt ),
+                            new SqlParameter("@PmtType", request.PmtType),
+                            new SqlParameter("@CreditAc", request.CreditAc),
+
                             new SqlParameter("@YearId", request.YearId),
                             new SqlParameter("@LoggedInUser", request.LoggedInUser)
 
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryStatementMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryStatement_Insert", param);
 
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)

@@ -135,8 +135,8 @@ export class ConsignmentaddComponent implements OnInit {
       ewayBillDate: new FormControl('',),
       ewayBillExpDate: new FormControl('',),
       ewayBillExpExtDate: new FormControl('',),
-      fromPlace: new FormControl('',),
-      toPlace: new FormControl('',),
+      fromPlace: new FormControl('',[Validators.required]),
+      toPlace: new FormControl('',[Validators.required]),
       toPin: new FormControl('',),
       fromPin: new FormControl('',),
       kms: new FormControl(this.kms,),
@@ -706,6 +706,11 @@ export class ConsignmentaddComponent implements OnInit {
 
       this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
       this.formConsignment.controls['truckId'].setValidators([Validators.required]);
+      this.formConsignment.controls['fromPlace'].setValidators([Validators.required]);
+      this.formConsignment.controls['toPlace'].setValidators([Validators.required]);
+     // this.formConsignment.controls['fromPin'].setValidators([Validators.required]);
+      this.formConsignment.controls['productId'].setValidators([Validators.required]);
+      this.formConsignment.controls['rateType'].setValidators([Validators.required]);
       //Disable field
 
 

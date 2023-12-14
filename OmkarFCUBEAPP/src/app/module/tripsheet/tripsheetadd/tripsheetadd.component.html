@@ -985,13 +985,13 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash Dsl Ltrs</label>
-                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs">
+                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation()">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash DslAmt</label>
-                                            <input class="form-control" placeholder="" formControlName="cashDslAmt">
+                                            <input class="form-control" placeholder="" formControlName="cashDslAmt" (change)="totalCalculation()">
                                         </div>
                                     </div>
 
@@ -1054,7 +1054,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cl Bal Dsl </label>
-                                            <input class="form-control" placeholder="" formControlName="clBalDsl">
+                                            <input class="form-control" placeholder="" formControlName="clBalDsl" >
                                         </div>
                                     </div>
                                 </div>

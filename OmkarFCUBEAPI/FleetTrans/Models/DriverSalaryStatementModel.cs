@@ -14,9 +14,9 @@ namespace FleetTrans.Models
         public string Remarks { get; set; }
         public string TotalSalaryAmt { get; set; }
         public string TotalPoolAmt { get; set; }
-     //   public string NetPayable { get; set; }
-      //  public string CreditAC { get; set; }
-    //   public string CheqNo { get; set; }
+        public string TotalNetPayAmt { get; set; }
+        public string CreditAc { get; set; }
+       public string PmtType { get; set; }
         public string YearId { get; set; }
         public string LoggedInUser { get; set; }
   

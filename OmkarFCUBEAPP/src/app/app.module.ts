@@ -132,6 +132,8 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
 import { Requestmodel } from './models/requestmodel';
+import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
+import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
 
 @NgModule({
   declarations: [
@@ -242,7 +244,7 @@ import { Requestmodel } from './models/requestmodel';
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
     bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
-    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel],
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel,Driversalarydetailmodel,Driversalarystatementmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

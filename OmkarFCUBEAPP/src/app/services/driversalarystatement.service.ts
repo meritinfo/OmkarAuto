@@ -39,4 +39,7 @@ export class DriversalarystatementService {
   getDriverSalaryStatementList(filter: Filtermodel): Observable<Driversalarystatementlistmodel> {
     return this.httpClient.post<Driversalarystatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalaryStmtList', filter, this.httpOptions);
   }
+  saveDriverSalaryDetails(request: Driversalarystatementmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveDriverSalaryStatementDetails', request, this.httpOptions);
+  }
 }
