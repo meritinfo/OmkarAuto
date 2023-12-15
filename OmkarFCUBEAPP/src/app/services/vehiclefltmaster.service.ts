@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Vehiclefltmasterlistmodel } from '../models/vehiclefltmasterlistmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,30 @@ export class VehicleFltMasterService {
   }
   getVehicleFltMasterList(filter: Filtermodel): Observable<Vehiclefltmasterlistmodel> {
     return this.httpClient.post<Vehiclefltmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicleFltMasterList', filter, this.httpOptions);
+  } 
+   
+  chkVehicalNoExist(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkVehicalNoExist', req, this.httpOptions);
+  }
+
+  vehicalMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicalMasterDetailsDelete', req, this.httpOptions);
+  }
+
+  getVehicleList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeList', null, this.httpOptions);
+  }  
+  getVehicleMfrList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalMfrList', null, this.httpOptions);
+  }  
+  getVehicleLedgerList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalLedgerAccountList', null, this.httpOptions);
+  }  
+  getVehicleAssetList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalAssetAccountList', null, this.httpOptions);
+  }  
+  
+  getVehiclefltMstInnerGridList(request: Requestmodel): Observable<Vehiclefltmastermodel> {
+    return this.httpClient.post<Vehiclefltmastermodel>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicleFltInnerGridList', request, this.httpOptions);
   }
 }

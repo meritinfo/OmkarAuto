@@ -72,7 +72,7 @@ export class DestinationlistComponent {
         },
         {
           title: 'Control Branch',
-           data: 'ControlBranch',
+           data: 'controlBranch',
         },
         {
           title: 'Action',

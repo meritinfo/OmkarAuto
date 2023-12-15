@@ -52,8 +52,15 @@ export class Vehiclefltmastermodel {
     attach3Desc: string = "";
     attach3Link: string = "";
 
+    vehiclefltDetailList: VehiclefltDetailmodel[] = [];
+}
 
-
-
-
+export class VehiclefltDetailmodel {
+    detailID        : string = "";
+    vehicleMasterID : string = "";
+    validFrom       : string = "";
+    validTo         : string = "";
+    vehicleAvgLoad  : string = "";
+    vehicleAvgEmpty : string = "";
+    adBlue          : string = "";
 }

@@ -1,6 +1,7 @@
 ﻿using FinanceMaster.Models;
 using FinanceMasters.Models;
 using FinanceMasters.Repository;
+using Shared.Models;
 
 namespace FinanceMasters.Business
 {
@@ -32,6 +33,11 @@ namespace FinanceMasters.Business
         {
             return await finAccountsMasterRepository.GetEmpList();
         }
+        public async Task<ResponseModel> FinAccountsMasterDelete(Request req)
+        {
+            return await finAccountsMasterRepository.FinAccountsMasterDelete(req);
+        }
+
 
 
     }

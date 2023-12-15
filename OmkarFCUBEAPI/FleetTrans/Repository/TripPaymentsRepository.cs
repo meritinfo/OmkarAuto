@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetTrans.Repository
 {
@@ -130,9 +131,9 @@ namespace FleetTrans.Repository
             }
             return tripModel;
         }
-        public async Task<List<BranchListModel>> GetCreditAcList()
+        public async Task<List<DropDownListModel>> GetCreditAcList()
         {
-            List<BranchListModel> creditacList = new();
+            List<DropDownListModel> creditacList = new();
             try
             {
                 if (dbconnection != null)
@@ -145,7 +146,7 @@ namespace FleetTrans.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            creditacList.Add(new BranchListModel
+                            creditacList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -169,9 +170,9 @@ namespace FleetTrans.Repository
             }
             return creditacList;
         }
-        public async Task<List<BranchListModel>> GetCreditAcList2(AcModel request)
+        public async Task<List<DropDownListModel>> GetCreditAcList2(AcModel request)
         {
-            List<BranchListModel> creditacList = new();
+            List<DropDownListModel> creditacList = new();
           
                 try
                 {
@@ -189,7 +190,7 @@ namespace FleetTrans.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            creditacList.Add(new BranchListModel
+                            creditacList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["AccountId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["AccountName"]),
@@ -218,7 +219,7 @@ namespace FleetTrans.Repository
         /// </summary>
         /// <returns>List<BranchListModel></returns>
 
-        public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
+        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequest request)
         {
             TripPaymentsList tripPaymentsList = new();
             List<TripPaymentsModel> tripPayList = new();

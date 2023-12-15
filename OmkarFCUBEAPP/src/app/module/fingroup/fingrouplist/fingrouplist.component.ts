@@ -59,7 +59,7 @@ export class FingrouplistComponent {
         },
         {
           title: 'Account Type',
-          data: 'accountType',
+          data: 'accountName',
         },
         {
         title: 'Sub Account Name',

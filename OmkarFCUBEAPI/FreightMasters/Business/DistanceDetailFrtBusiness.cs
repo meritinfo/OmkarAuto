@@ -2,6 +2,7 @@
 
 using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {

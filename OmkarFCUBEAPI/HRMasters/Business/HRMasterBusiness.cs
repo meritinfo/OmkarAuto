@@ -1,5 +1,6 @@
 ﻿using HRMasters.Models;
 using HRMasters.Repository;
+using Shared.Models;
 
 namespace HRMasters.Business
 {

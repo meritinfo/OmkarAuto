@@ -85,7 +85,6 @@ import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashrec
 import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
 
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
-import { Cashreceiptentrymodel } from './models/cashreceiptentrymodel';
 import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
@@ -106,7 +105,6 @@ import { BankcashcontralistComponent } from './module/bankcashcontra/bankcashcon
 import { bankreceiptentrymodel } from './models/bankreceiptentrymodel';
 import { JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
-import { Journalentrymodel } from './models/journalentrymodel';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
@@ -132,6 +130,8 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
 import { Requestmodel } from './models/requestmodel';
+import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
+import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 
 @NgModule({
   declarations: [
@@ -215,7 +215,9 @@ import { Requestmodel } from './models/requestmodel';
     FingroupaddComponent,
     FingrouplistComponent,
     FinaccountsmasterlistComponent,
-    FinaccountsmasteraddComponent
+    FinaccountsmasteraddComponent,
+    AddothertripopenComponent,
+    OthertripopenlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -238,9 +240,9 @@ import { Requestmodel } from './models/requestmodel';
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, 
-    Docrenewalmastermodel, Docrenewalentrymodel, Cashreceiptentrymodel, Cashreceiptentrymodel, 
+    Docrenewalmastermodel, Docrenewalentrymodel, 
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
-    bankreceiptentrymodel,Journalentrymodel,Ratesmastermodel,billstatementmodel,
+    bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel],
   bootstrap: [AppComponent]

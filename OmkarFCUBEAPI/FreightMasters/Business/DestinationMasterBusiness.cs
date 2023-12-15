@@ -1,5 +1,6 @@
 ﻿using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -27,12 +28,12 @@ namespace FreightMasters.Business
             return await freightMastersRepository.DestinationDetailsDelete(requestModel);
         }
         
-        public async Task<List<StateListModel>> GetStateList()
+        public async Task<List<DropDownListModel>> GetStateList()
         {
             return await freightMastersRepository.GetStateList();
 
         }
-        public async Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request)
+        public async Task<DestinationMasterList> GetDestinationMasterList(PageRequest request)
         {
             return await freightMastersRepository.GetDestinationMasterList(request);
         }

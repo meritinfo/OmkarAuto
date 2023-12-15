@@ -22,74 +22,13 @@ export class FinaccountsmasteraddComponent {
     userlogindate:string="";
     formAccountMaster!: FormGroup;
     formSubmitted = false;
+    editMode = false;
+    createStatus = false;
+    editStatus = false;
+    deleteStatus = false;
+    viewStatus = false;
+
     responseDetails = new Responsemodel();
-  
-      accountId: string = "";
-      accountName: string = "";
-      subAccountId: string = "";
-      subAccountName: string = "";
-      accountType: string = "";
-      accountGroupFlag: string = "";
-      accountLedgerType: string = "";
-      groupSortId: string = "";
-      schID: string = "";
-      schDesc: string = "";
-      printName: string = "";
-      accountAddress1: string = "";
-      accountAddress2: string = "";
-      accountAddress3: string = "";
-      accountAddress4: string = "";
-      stateCode: string = "";
-      pinCode: string = "";
-      accountPhone: string = "";
-      accountContact: string = "";
-      accountMobile: string = "";
-      accountEmail: string = "";
-      accountFax: string = "";
-      accountUrl: string = "";
-      accountTAN: string = "";
-      accountPAN: string = "";
-      gstNo: string = "";
-      tDSRate: string = "";
-      accountCredit_Days: string = "";
-      accountCredit_Limit: string = "";
-      accountInterest_Rate: string = "";
-      accountSecurity_Dep: string = "";
-      accountBG: string = "";
-      accountRem_Ref: string = "";
-      accountStatus: string = "";
-      globalAc: string = "";
-      hO_Account: string = "";
-      isLiabilityYNType: string = "";
-      subLedgerYN: string = ""; 
-      subLedgerQry: string = "";
-      costCodeYN: string = "";
-      manualJv: string = "";
-      isAdminExpYN: string = "";
-      hideBranch: string = "";
-      hideNonAdmin: string = "";
-      tdsLedgerYN: string = ""; 
-      onlineActiveYn: string = "";
-      username: string = "";
-      password: string = "";
-      sendEmail: string = "";
-      partyType: string = "";
-      contractValidity: string = "";
-      staxEX: string = "";
-      vendorCode: string = "";
-      bankName: string = "";
-      bankBranch: string = "";
-      bankAcType: string = "";
-      bankAcNo: string = "";
-      bankIfsc: string = "";
-      deleteFlag: string = "";
-      blockAct: string = "";
-      statusColor: string = "";
-      ledgerName: string = "";
-      createdBy: string = "";
-      loggedInUser: string = "";    
-  
-  
     accountTypeList: Dropdownmodel[] = [];
     subAccountTypeList: Dropdownmodel[] = []; 
     scheduleList: Dropdownmodel[] = [];
@@ -108,6 +47,22 @@ export class FinaccountsmasteraddComponent {
   }
   
   ngOnInit(): void {
+
+    
+
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+
+
     var userData = sessionStorage.getItem('uid')?.toString();
     
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -120,78 +75,82 @@ export class FinaccountsmasteraddComponent {
       this.route.navigate(['/']);
     }
     
-    this.selectedFinaccountMasterDetails = this.finsaccountmasterService.getFinsaccountsDetails(); 
-    this.formAccountMaster = this.formBuilder.group({      
+     this.formAccountMaster = this.formBuilder.group({    
       accountName: new FormControl('',[Validators.required]),
-      mainGroup: new FormControl('',[Validators.required]),
-      subGroup: new FormControl('',[Validators.required]),
-      ledgertype: new FormControl('',[Validators.required]),
-      schedule: new FormControl('',[Validators.required]),
-      status: new FormControl('',[Validators.required]),
-      address: new FormControl('',),
-      address1: new FormControl('',),
-      address2: new FormControl('',),
-      address3: new FormControl('',),
-      state:new FormControl('',),
-      pincode: new FormControl('',),
-      phoneNo: new FormControl('',),
-      mobileNo: new FormControl('',),
-      acContact: new FormControl('',),
-      fax: new FormControl('',),
-      email:new FormControl('',),
-      url: new FormControl('',),
+      accountType: new FormControl('',[Validators.required]),
+      subAccountType: new FormControl('',[Validators.required]),
+      accountGroupFlag: new FormControl('',),
+      accountLedgerType: new FormControl('',),
+      groupSortId: new FormControl('',),
+      schID: new FormControl('',[Validators.required]),
+      schDesc: new FormControl('',),
       printName: new FormControl('',),
-      creditLimit: new FormControl('',),
-      securityDeposit: new FormControl('',),
-      creditDays: new FormControl('',),
-      accountBG:new FormControl('',),
-      interestRate: new FormControl('',),
-      tDSRate: new FormControl('',),
-      accountRemRef: new FormControl('',),
-      vendorCode: new FormControl('',),
-      bankName:new FormControl('',),
-      bankBranch: new FormControl('',),
-      ifscCode: new FormControl('',),
-      accountType:new FormControl('',),
-      accountNo: new FormControl('',),
-      pANNo: new FormControl('',),
-      gSTNo: new FormControl('',),
-      liabilityType: new FormControl('',),
-      partyType:new FormControl('',),
-      contractValidity:new FormControl('',),
+      accountAddress1: new FormControl('',),
+      accountAddress2: new FormControl('',),
+      accountAddress3: new FormControl('',),
+      accountAddress4: new FormControl('',),
+      stateCode: new FormControl('',),
+      pinCode: new FormControl('',),
+      accountPhone: new FormControl('',),
+      accountContact1: new FormControl('',),
+      accountMobile1: new FormControl('',),
+      accountEmail1: new FormControl('',),
+      accountFax: new FormControl('',),
+      accountUrl: new FormControl('',),
       accountTAN: new FormControl('',),
-      userName: new FormControl('',),
-      password: new FormControl('',),
-      activeyn: new FormControl('',),
-      hideBranchLogin:new FormControl('',),
-      hideForNonAdminUsers: new FormControl('',),
-      generalMRApplicable: new FormControl('',),
-      hOAccountOnly: new FormControl('',),
-      sendEmail: new FormControl('',),
-      globalAccount:new FormControl('',),
-      costRef: new FormControl('',),
-      isExpApprovalReq: new FormControl('',),
-      manualJV: new FormControl('',),
-      subLedgerApplicable: new FormControl('',),
-      subledgerQry: new FormControl('',),
+      accountPAN: new FormControl('',),
+      accountGstNo: new FormControl('',),
+      tDSRate: new FormControl('',),
+      accountCreditDays: new FormControl('',),
+      accountCreditLimit: new FormControl('',),
+      accountInterestRate: new FormControl('',),
+      accountSecurityDep: new FormControl('',),
+      accountBG: new FormControl('',),
+      accountRemRef: new FormControl('',),
+      globalAc: new FormControl('',),
+      accountStatus:new FormControl('',),
+      hO_Account: new FormControl('',),
+      isExpForLiabilityYN: new FormControl('',),
+      subLedgerYN: new FormControl('',),
+      subLedgerQry: new FormControl('',),
+      costCodeYN: new FormControl('',),
+      manualJv: new FormControl('',),
+      isAdminExpYN: new FormControl('',),
+      hideBranch: new FormControl('',),
+      hideNonAdmin: new FormControl('',),
       tdsLedgerYN: new FormControl('',),
       onlineActiveYn: new FormControl('',),
+      username: new FormControl('',),
+      password: new FormControl('',),
+      sendEmail: new FormControl('',),
+      partyType: new FormControl('',),
+      contractValidity: new FormControl('',),
+      staxEX: new FormControl('',),
+      vendorCode: new FormControl('',),
+      bankName: new FormControl('',),
+      bankBranch: new FormControl('',),
+      bankAcType: new FormControl('',),
+      bankAcNo: new FormControl('',),
+      bankIfsc: new FormControl('',),
+      statusColor: new FormControl('',),     
+      
     });    
-    this.requestmodel.strRequest="";
+
+    this.selectedFinaccountMasterDetails = this.finsaccountmasterService.getFinsaccountsDetails(); 
+   
+    if (this.selectedFinaccountMasterDetails.accountId != ''){
+      this.requestmodel.strRequest=this.selectedFinaccountMasterDetails.accountType;
+    }
     this.getaccounttypes();
     this.getsubaccounttypes(this.requestmodel);
-    this.getschedulelist();  
+    this.getschedulelist(); 
     this.getledgerList();  
     this.getstatelist(); 
     
     setTimeout(() => {
       if (this.selectedFinaccountMasterDetails.accountId != '') {
-          this.formAccountMaster.patchValue(this.selectedFinaccountMasterDetails);
-          this.formAccountMaster.patchValue({
-            // mainGroup: this.accountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.accountType),
-            // subGroup:this.subAccountTypeList.find(e => e.dataId == this.selectedFinaccountMasterDetails.subAccountId),
-            // ledgertype:this.ledgerList.find(e => e.dataId == this.selectedFinaccountMasterDetails.ledgerName),
-          });         
+          this.formAccountMaster.patchValue(this.selectedFinaccountMasterDetails);   
+          this.editMode=true;           
       }
     }, 2000);
     
@@ -224,6 +183,22 @@ export class FinaccountsmasteraddComponent {
     });
   }
 
+  chkAccountNameExits(e: any) { 
+    if (this.selectedFinaccountMasterDetails.accountId == "")
+    {
+      this.requestmodel.strRequest = e.target.value; 
+      this.fingroupService.chkActName(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formAccountMaster.patchValue({
+            accountName: ''
+          });
+        }
+      });
+    }
+  }
+
   chkChange(e: any) { 
     if(e.target.checked){
       e.target.value='Y';
@@ -244,78 +219,95 @@ export class FinaccountsmasteraddComponent {
       this.requestmodel.strRequest = e.target.value;  
       this.getsubaccounttypes(this.requestmodel);
   } 
+
+  
+  deleteFinAccountMasterForm(): void {
+    if(this.selectedFinaccountMasterDetails.accountId != '' ){
+     this.requestmodel.strRequest =this.selectedFinaccountMasterDetails.accountId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.finsaccountmasterService.FinGroupDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formAccountMaster.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/fingrouplist']);
+  }
   
   
   //Submit user form details //
   submitFinAccountMasterForm(): void {
     this.formSubmitted = true;
     if (this.formAccountMaster.invalid) {
-      this.toasterService.warning("All fields are mandatory");      
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
       return;
     }
     var selectedDataValue = this.formAccountMaster.getRawValue();
    
     
-  this.finaccountmodel.accountId = this.selectedFinaccountMasterDetails.accountId != '' ? this.selectedFinaccountMasterDetails.accountId : '';
-  this.finaccountmodel.accountName= selectedDataValue.accountName;
-  this.finaccountmodel.accountType= selectedDataValue.mainGroup;
-  this.finaccountmodel.subAccountId=selectedDataValue.subGroup? selectedDataValue.subGroup :"1";
-  this.finaccountmodel.accountGroupFlag="G";
-  this.finaccountmodel.groupSortId="0";
-  this.finaccountmodel.accountLedgerType =selectedDataValue.ledgertype;
-  this.finaccountmodel.printName=selectedDataValue.printName;
-  this.finaccountmodel.accountAddress1=selectedDataValue.address;
-  this.finaccountmodel.accountAddress2=selectedDataValue.address1;
-  this.finaccountmodel.accountAddress3=selectedDataValue.address2;
-  this.finaccountmodel.accountAddress4=selectedDataValue.address3;
-  this.finaccountmodel.stateCode=selectedDataValue.state;
-  this.finaccountmodel.pinCode=selectedDataValue.pincode;
-  this.finaccountmodel.accountPhone=selectedDataValue.phoneNo;
-  this.finaccountmodel.accountMobile=selectedDataValue.mobileNo;
-  this.finaccountmodel.accountContact=selectedDataValue.acContact;
-  this.finaccountmodel.accountEmail=selectedDataValue.email;
-  this.finaccountmodel.accountFax=selectedDataValue.fax;
-  this.finaccountmodel.accountUrl=selectedDataValue.url;
-  this.finaccountmodel.accountTAN=selectedDataValue.accountTAN;
-  this.finaccountmodel.accountPAN=selectedDataValue.pANNo;
-  this.finaccountmodel.gstNo=selectedDataValue.gSTNo;
-  this.finaccountmodel.tDSRate =selectedDataValue.tDSRate;
-  this.finaccountmodel.accountCredit_Days=selectedDataValue.creditDays;
-  this.finaccountmodel.accountCredit_Limit=selectedDataValue.creditLimit;
-  this.finaccountmodel.accountSecurity_Dep=selectedDataValue.securityDeposit;
-  this.finaccountmodel.accountInterest_Rate=selectedDataValue.interestRate;
-  this.finaccountmodel.accountBG=selectedDataValue.accountBG;
-  this.finaccountmodel.accountRem_Ref=selectedDataValue.accountRemRef;
-  this.finaccountmodel.accountStatus=selectedDataValue.activeyn? "Y" :"N";
-  this.finaccountmodel.globalAc=selectedDataValue.globalAccount? "Y" :"N";
-  this.finaccountmodel.hO_Account=selectedDataValue.hOAccountOnly? "Y" :"N";
-  this.finaccountmodel.isLiabilityYNType=selectedDataValue.liabilityType;
-  this.finaccountmodel.subLedgerYN =selectedDataValue.subLedgerApplicable? "Y" :"N";
-  this.finaccountmodel.subLedgerQry =selectedDataValue.subledgerQry;
-  this.finaccountmodel.costCodeYN  =selectedDataValue.costRef? "Y" :"N";
-  this.finaccountmodel.manualJv  =selectedDataValue.manualJV? "Y" :"N";
-  this.finaccountmodel.isAdminExpYN =selectedDataValue.isExpApprovalReq? "Y" :"N";
-  this.finaccountmodel.hideBranch =selectedDataValue.hideBranchLogin? "Y" :"N";
-  this.finaccountmodel.hideNonAdmin =selectedDataValue.hideForNonAdminUsers? "Y" :"N";
-  this.finaccountmodel.tdsLedgerYN =selectedDataValue.tdsLedgerYN? "Y" :"N";
-  this.finaccountmodel.onlineActiveYn =selectedDataValue.onlineActiveYn? "Y" :"N";
-  this.finaccountmodel.tdsLedgerYN =selectedDataValue.tdsLedgerYN? "Y" :"N";
-  this.finaccountmodel.username =selectedDataValue.userName;
-  this.finaccountmodel.password =selectedDataValue.password;
-  this.finaccountmodel.sendEmail =selectedDataValue.sendEmail? "Y" :"N";
-  this.finaccountmodel.partyType =selectedDataValue.partyType;
-  this.finaccountmodel.contractValidity =selectedDataValue.contractValidity;
-  this.finaccountmodel.staxEX =selectedDataValue.generalMRApplicable? "Y" :"N";
-  this.finaccountmodel.vendorCode =selectedDataValue.vendorCode;
-  this.finaccountmodel.bankName =selectedDataValue.bankName;
-  this.finaccountmodel.bankBranch =selectedDataValue.bankBranch;
-  this.finaccountmodel.bankAcNo =selectedDataValue.accountNo;
-  this.finaccountmodel.bankAcType =selectedDataValue.accountType;
-  this.finaccountmodel.bankIfsc =selectedDataValue.ifscCode;
-  this.finaccountmodel.blockAct ='N';
-  this.finaccountmodel.statusColor =selectedDataValue.status;
-  this.finaccountmodel.schID= selectedDataValue.schedule;
-  this.finaccountmodel.createdBy= this.loggedInUserID;
+  this.finaccountmodel.accountId          = this.selectedFinaccountMasterDetails.accountId != '' ? this.selectedFinaccountMasterDetails.accountId : '';
+  this.finaccountmodel.accountName        = selectedDataValue.accountName.toString().toUpperCase();;
+  this.finaccountmodel.accountType        = selectedDataValue.accountType.toString().toUpperCase();;
+  this.finaccountmodel.subAccountType     = selectedDataValue.subAccountType? selectedDataValue.subAccountType :"1";
+  this.finaccountmodel.accountGroupFlag   = "A";
+  this.finaccountmodel.groupSortId        = "0";
+  this.finaccountmodel.accountLedgerType  = selectedDataValue.accountLedgerType.toString().toUpperCase();;
+  this.finaccountmodel.printName          = selectedDataValue.printName.toString().toUpperCase();;
+  this.finaccountmodel.accountAddress1    = selectedDataValue.accountAddress1;
+  this.finaccountmodel.accountAddress2    = selectedDataValue.accountAddress2;
+  this.finaccountmodel.accountAddress3    = selectedDataValue.accountAddress3;
+  this.finaccountmodel.accountAddress4    = selectedDataValue.accountAddress4;
+  this.finaccountmodel.stateCode          = selectedDataValue.stateCode.toString().toUpperCase();;
+  this.finaccountmodel.pinCode            = selectedDataValue.pinCode;
+  this.finaccountmodel.accountPhone       = selectedDataValue.accountPhone;
+  this.finaccountmodel.accountMobile1     = selectedDataValue.accountMobile1;
+  this.finaccountmodel.accountContact1    = selectedDataValue.accountContact1;
+  this.finaccountmodel.accountEmail1      = selectedDataValue.accountEmail1;
+  this.finaccountmodel.accountFax         = selectedDataValue.accountFax;
+  this.finaccountmodel.accountUrl         = selectedDataValue.accountUrl;
+  this.finaccountmodel.accountTAN         = selectedDataValue.accountTAN.toString().toUpperCase();;
+  this.finaccountmodel.accountPAN         = selectedDataValue.accountPAN.toString().toUpperCase();;
+  this.finaccountmodel.accountGstNo       = selectedDataValue.accountGstNo.toString().toUpperCase();;
+  this.finaccountmodel.tDSRate            = selectedDataValue.tDSRate;
+  this.finaccountmodel.accountCreditDays  = selectedDataValue.accountCreditDays;
+  this.finaccountmodel.accountCreditLimit = selectedDataValue.accountCreditLimit;
+  this.finaccountmodel.accountSecurityDep = selectedDataValue.accountSecurityDep;
+  this.finaccountmodel.accountInterestRate= selectedDataValue.accountInterestRate;
+  this.finaccountmodel.accountBG          = selectedDataValue.accountBG;
+  this.finaccountmodel.accountRemRef      = selectedDataValue.accountRemRef.toString().toUpperCase();;
+  this.finaccountmodel.accountStatus      = selectedDataValue.accountStatus? "Y" :"N";
+  this.finaccountmodel.globalAc           = selectedDataValue.globalAc? "Y" :"N";
+  this.finaccountmodel.hO_Account         = selectedDataValue.hO_Account? "Y" :"N";
+  this.finaccountmodel.isExpForLiabilityYN= selectedDataValue.isExpForLiabilityYN;
+  this.finaccountmodel.subLedgerYN        = selectedDataValue.subLedgerYN? "Y" :"N";
+  this.finaccountmodel.subLedgerQry       = selectedDataValue.subLedgerQry?selectedDataValue.subLedgerQry:'';
+  this.finaccountmodel.costCodeYN         = selectedDataValue.costCodeYN? "Y" :"N";
+  this.finaccountmodel.manualJv           = selectedDataValue.manualJv? "Y" :"N";
+  this.finaccountmodel.isAdminExpYN       = selectedDataValue.isAdminExpYN? "Y" :"N";
+  this.finaccountmodel.hideBranch         = selectedDataValue.hideBranch? "Y" :"N";
+  this.finaccountmodel.hideNonAdmin       = selectedDataValue.hideNonAdmin? "Y" :"N";
+  this.finaccountmodel.tdsLedgerYN        = selectedDataValue.tdsLedgerYN? "Y" :"N";
+  this.finaccountmodel.onlineActiveYn     = selectedDataValue.onlineActiveYn? "Y" :"N";
+  this.finaccountmodel.username           = selectedDataValue.username?selectedDataValue.username:'';
+  this.finaccountmodel.password           = selectedDataValue.password?selectedDataValue.password:'';
+  this.finaccountmodel.sendEmail          = selectedDataValue.sendEmail? "Y" :"N";
+  this.finaccountmodel.partyType          = selectedDataValue.partyType;
+  this.finaccountmodel.contractValidity   = selectedDataValue.contractValidity;
+  this.finaccountmodel.staxEX             = selectedDataValue.staxEX? "Y" :"N";
+  this.finaccountmodel.vendorCode         = selectedDataValue.vendorCode.toString().toUpperCase();;
+  this.finaccountmodel.bankName           = selectedDataValue.bankName.toString().toUpperCase();;
+  this.finaccountmodel.bankBranch         = selectedDataValue.bankBranch.toString().toUpperCase();;
+  this.finaccountmodel.bankAcNo           = selectedDataValue.bankAcNo;
+  this.finaccountmodel.bankAcType         = selectedDataValue.bankAcType;
+  this.finaccountmodel.bankIfsc           = selectedDataValue.bankIfsc.toString().toUpperCase();;
+  this.finaccountmodel.blockAct           = 'N';
+  this.finaccountmodel.statusColor        = selectedDataValue.statusColor;
+  this.finaccountmodel.schID              = selectedDataValue.schID;
+  this.finaccountmodel.loggedInUserID     = this.loggedInUserID;
 
    this.finsaccountmasterService.finsaccountsDetailsSubmitted(this.finaccountmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

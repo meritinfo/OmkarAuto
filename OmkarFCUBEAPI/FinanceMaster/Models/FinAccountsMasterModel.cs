@@ -3,10 +3,10 @@
     public class FinAccountsMasterModel
     { 
         public string? AccountId { get; set; }
-        public string? AccountName { get; set; }
-        public string? SubAccountId { get; set; }
-        public string? SubAccountName { get; set; }
+        public string? AccountName { get; set; }  
         public string? AccountType { get; set; }
+        public string? SubAccountType { get; set; }
+        public string? SubAccountName { get; set; }
         public string? AccountGroupFlag { get; set; }
         public string? AccountLedgerType { get; set; }
         public string? GroupSortId { get; set; }
@@ -20,25 +20,25 @@
         public string? StateCode { get; set; }
         public string? PinCode { get; set; }
         public string? AccountPhone { get; set; }
-        public string? AccountContact { get; set; }
-        public string? AccountMobile { get; set; }
-        public string? AccountEmail { get; set; }
+        public string? AccountContact1 { get; set; }
+        public string? AccountMobile1 { get; set; }
+        public string? AccountEmail1 { get; set; }
         public string? AccountFax { get; set; }
         public string? AccountUrl { get; set; }
         public string? AccountTAN { get; set; }
         public string? AccountPAN { get; set; }
-        public string? GstNo { get; set; }
+        public string? AccountGstNo { get; set; }
         public string? TDSRate { get; set; }
-        public string? AccountCredit_Days { get; set; }
-        public string? AccountCredit_Limit { get; set; }
-        public string? AccountInterest_Rate { get; set; }
-        public string? AccountSecurity_Dep { get; set; }
+        public string? AccountCreditDays { get; set; }
+        public string? AccountCreditLimit { get; set; }
+        public string? AccountInterestRate { get; set; }
+        public string? AccountSecurityDep { get; set; }
         public string? AccountBG { get; set; }
-        public string? AccountRem_Ref { get; set; }
+        public string? AccountRemRef { get; set; }
         public string? AccountStatus { get; set; }
         public string? GlobalAc { get; set; }
         public string? HO_Account { get; set; }
-        public string? IsLiabilityYNType { get; set; }
+        public string? IsExpForLiabilityYN { get; set; }
         public string? SubLedgerYN { get; set; }
         public string? SubLedgerQry { get; set; }
         public string? CostCodeYN { get; set; }
@@ -65,7 +65,7 @@
         public string? StatusColor { get; set; }
         public string? LedgerName { get; set; }
         public string? CreatedBy { get; set; }
-        public string? LoggedInUser { get; set; }
+        public string? LoggedInUserID { get; set; }
     }
 
 }

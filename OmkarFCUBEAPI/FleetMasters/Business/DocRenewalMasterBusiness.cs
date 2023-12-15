@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
@@ -19,7 +20,7 @@ namespace FleetMasters.Business
         {
             return await docRenewalMasterRepository.DocRenewalMasterSave(docRenewalMasterModel);
         }
-        public async Task<DocRenewalMasterList> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
+        public async Task<DocRenewalMasterList> GetDocRenewalMasterList(PageRequest request)
         {
             return await docRenewalMasterRepository.GetDocRenewalMasterList(request);
         }

@@ -1,4 +1,5 @@
 ﻿using FleetTrans.Models;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -6,11 +7,15 @@ namespace FleetTrans.Business
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
         Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
-        Task<List<BranchListModel>> GetDriverList();
+        Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel>GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
+        Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request);
+        Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel);
+        Task<ResponseModel> OtherTripOpenDelete(Request request);
+        Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

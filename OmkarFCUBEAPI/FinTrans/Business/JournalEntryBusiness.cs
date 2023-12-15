@@ -1,5 +1,6 @@
 ﻿using FinTrans.Models;
 using FinTrans.Repository;
+using Shared.Models;
 
 namespace FinTrans.Business
 {
@@ -23,7 +24,7 @@ namespace FinTrans.Business
             return await JournalEntryRepository.JournalEntrySave(journalEntryModel);
         }
 
-        public async Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request)
+        public async Task<JournalEntryList> GetJournalEntryList(PageRequest request)
         {
             return await JournalEntryRepository.GetJournalEntryList(request);
         }

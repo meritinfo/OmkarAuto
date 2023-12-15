@@ -4,6 +4,7 @@ using FreightMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -191,7 +192,7 @@ namespace FreightMasters.Repository
             }
             return tripSheetInnerGridList;
         }
-        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
+        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequest request)
         {
             DistanceMasterFrtList distanceMasterFreightList = new();
             List<DistanceMasterFrtModel> distanceFrtList = new();

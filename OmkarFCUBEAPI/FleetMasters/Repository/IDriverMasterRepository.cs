@@ -1,4 +1,5 @@
 ﻿using FleetMasters.Models;
+using Shared.Models;
 
 
 namespace FleetMasters.Repository
@@ -6,6 +7,7 @@ namespace FleetMasters.Repository
     public interface IDriverMasterRepository
     {
         Task<ResponseModel> DriverMasterSave(DriverMasterModel driverMasterModel);
-        Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
+        Task<ResponseModel> DriverMasterDetailsDelete(Request requestModel);
+        Task<DriverMasterList> GetDriverMasterList(PageRequest request);
     }
 }

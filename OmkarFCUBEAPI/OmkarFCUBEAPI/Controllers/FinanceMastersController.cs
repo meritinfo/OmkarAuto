@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using System;
 using FinanceMaster.Models;
+using FinanceMasters.Models;
 using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
-using FinanceMasters.Models;
+using Shared.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -62,6 +63,25 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await finAccountsMasterBusiness.GetFinAccountsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FinAccountsMasterDelete")]
+        public async Task<IActionResult> FinAccountsMasterDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountsMasterDelete(req);
 
                 return Ok(result);
             }
@@ -179,7 +199,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetGstPurchaseDtlList")]
-        public async Task<IActionResult> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        public async Task<IActionResult> GetGstPurchaseDtlList(PageRequest request)
         {
             try
             {
@@ -252,6 +272,25 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("FinGroupDetailsDelete")]
+        public async Task<IActionResult> FinGroupDetailsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.FinGroupDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetAccountTypeList")]
         public async Task<IActionResult> GetAccountTypeList()
         {
@@ -268,8 +307,12 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetSubAccountTypeList")]
-        public async Task<IActionResult> GetSubAccountTypeList(RequestModel req)
-        {           
+        public async Task<IActionResult> GetSubAccountTypeList(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await finGroupMasterBusiness.GetSubAccountTypeList(req);
@@ -299,11 +342,15 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("chkActName")]
-        public async Task<IActionResult> chkActName(string AccountName)
+        public async Task<IActionResult> chkActName(Request req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
-                var result = await finGroupMasterBusiness.chkActName(AccountName);
+                var result = await finGroupMasterBusiness.chkActName(req);
 
                 return Ok(result);
             }

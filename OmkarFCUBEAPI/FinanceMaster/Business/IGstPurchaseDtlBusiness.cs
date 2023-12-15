@@ -1,6 +1,7 @@
 ﻿using FinanceMaster.Models;
-using FinanceMaster.Models;
 using FinanceMasters.Models;
+using Shared.Models;
+
 namespace FinanceMasters.Business
 {
     /// <summary>
@@ -9,7 +10,7 @@ namespace FinanceMasters.Business
     public interface IGstPurchaseDtlBusiness
     {
         Task<ResponseModel> GstPurchaseDtlSave(GstPurchaseDtlModel gstPurchaseDtlModel);
-        Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request);
+        Task<GstPurchaseDtlList> GetGstPurchaseDtlList(PageRequest request);
     }
 
 }

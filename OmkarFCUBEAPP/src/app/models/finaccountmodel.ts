@@ -1,9 +1,10 @@
 export class Finaccountmodel {    
     accountId: string = "";
     accountName: string = "";
-    subAccountId: string = "";
     subAccountName: string = "";
+    mainGroup: string = "";
     accountType: string = "";
+    subAccountType: string = "";
     accountGroupFlag: string = "";
     accountLedgerType: string = "";
     groupSortId: string = "";
@@ -17,25 +18,25 @@ export class Finaccountmodel {
     stateCode: string = "";
     pinCode: string = "";
     accountPhone: string = "";
-    accountContact: string = "";
-    accountMobile: string = "";
-    accountEmail: string = "";
+    accountContact1: string = "";
+    accountMobile1: string = "";
+    accountEmail1: string = "";
     accountFax: string = "";
     accountUrl: string = "";
     accountTAN: string = "";
     accountPAN: string = "";
-    gstNo: string = "";
+    accountGstNo: string = "";
     tDSRate: string = "";
-    accountCredit_Days: string = "";
-    accountCredit_Limit: string = "";
-    accountInterest_Rate: string = "";
-    accountSecurity_Dep: string = "";
+    accountCreditDays: string = "";
+    accountCreditLimit: string = "";
+    accountInterestRate: string = "";
+    accountSecurityDep: string = "";
     accountBG: string = "";
-    accountRem_Ref: string = "";
+    accountRemRef: string = "";
     accountStatus: string = "";
     globalAc: string = "";
     hO_Account: string = "";
-    isLiabilityYNType: string = "";
+    isExpForLiabilityYN: string = "";
     subLedgerYN: string = ""; 
     subLedgerQry: string = "";
     costCodeYN: string = "";
@@ -62,6 +63,6 @@ export class Finaccountmodel {
     statusColor: string = "";
     ledgerName: string = "";
     createdBy: string = "";
-    loggedInUser: string = "";  
+    loggedInUserID: string = "";  
 }
 

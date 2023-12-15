@@ -36,7 +36,8 @@ export class AdddestinationComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private destinationModel: Destinationmodel, private destinationService: DestinationService, 
-    private commonService: CommonService, private requestmodel:Requestmodel, private toasterService: ToastrService ) {
+    private commonService: CommonService, private requestmodel:Requestmodel,
+     private toasterService: ToastrService ) {
     this.destinationModel = new Destinationmodel();
 
 
@@ -72,20 +73,14 @@ export class AdddestinationComponent {
     this.selectedDestinationDetails = this.destinationService.getDestinationDetails();
     this.formUser = this.formBuilder.group({
       centreName: new FormControl('', [Validators.required]),
-      acctBranch: new FormControl('',),
-      stateCode: new FormControl('', ),
+      acctBranch: new FormControl('',[Validators.required]),
+      stateCode: new FormControl('', [Validators.required]), 
       pinCode: new FormControl('', [Validators.required]),
-      userBranch: new FormControl('', [Validators.required]),
-      userState: new FormControl('', [Validators.required]),
+      controlBranch: new FormControl('',),
+
     });
     if (this.selectedDestinationDetails.centreid != '') {
-      this.formUser.patchValue(this.selectedDestinationDetails);
-      this.formUser.patchValue({
-        userBranch: this.selectedDestinationDetails.acctBranch,
-        // userState:  this.selectedDestinationDetails.stateName,  
-        pinCode:  this.selectedDestinationDetails.pinCode,  
-        // userstate: this.stateList.find(e => e.dataName == this.selectedDestinationDetails.stateName)?.dataId  
-      })      
+      this.formUser.patchValue(this.selectedDestinationDetails);          
       this.editMode = true;
     }   
   }
@@ -129,17 +124,17 @@ export class AdddestinationComponent {
   submitDestinationForm(): void {
     this.formSubmitted = true;
     if (this.formUser.invalid) {
-      this.toasterService.warning("All fields are mandatory");      
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
       return;
     }
 
     this.destinationModel.centreid = this.selectedDestinationDetails.centreid != '' ? this.selectedDestinationDetails.centreid : '';
     var selectedDataValue = this.formUser.getRawValue();
-    this.destinationModel.centreName = selectedDataValue.centreName.toString();
-    this.destinationModel.pinCode = selectedDataValue.pinCode.toString();
-    this.destinationModel.acctBranch = selectedDataValue.userBranch.toString();
-    this.destinationModel.stateCode = selectedDataValue.userState.toString();
-    this.destinationModel.loggedInUser = this.loggedInUserID;
+    this.destinationModel.centreName      = selectedDataValue.centreName.toString().toUpperCase();
+    this.destinationModel.pinCode         = selectedDataValue.pinCode.toString();
+    this.destinationModel.acctBranch      = selectedDataValue.acctBranch.toString();
+    this.destinationModel.stateCode       = selectedDataValue.stateCode.toString();
+    this.destinationModel.loggedInUserID  = this.loggedInUserID;
 
     this.destinationService.destinationDetailsSubmitted(this.destinationModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

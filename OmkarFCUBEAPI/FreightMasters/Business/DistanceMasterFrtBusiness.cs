@@ -2,6 +2,7 @@
 
 using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -21,7 +22,7 @@ namespace FreightMasters.Business
         {
             return await distanceMasterFrtRepository.DistanceMasterFrtSave(distanceMasterFrtModel);
         }
-        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
+        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequest request)
         {
             return await distanceMasterFrtRepository.GetDistanceMasterFrtList(request);
         }

@@ -1,4 +1,5 @@
 ﻿using FinTrans.Models;
+using Shared.Models;
 
 namespace FinTrans.Repository
 {
@@ -8,6 +9,6 @@ namespace FinTrans.Repository
     public interface IJournalEntryRepository
     {
         Task<ResponseModel> JournalEntrySave(JournalEntryModel journalEntryModel);
-        Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request);
+        Task<JournalEntryList> GetJournalEntryList(PageRequest request);
     }
 }

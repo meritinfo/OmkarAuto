@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using AdminMasters.Models;
+using Shared.Models;
 
 namespace AdminMasters.Repository
 {

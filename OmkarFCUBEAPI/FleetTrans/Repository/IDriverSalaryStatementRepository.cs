@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -11,6 +12,6 @@ namespace FleetTrans.Business
     public interface IDriverSalaryStatementRepository
 
     {
-        Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request);
+        Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request);
     }
 }

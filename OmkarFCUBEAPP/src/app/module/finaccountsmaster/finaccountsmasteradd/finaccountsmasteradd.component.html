@@ -23,7 +23,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input" class="form-label">Account Name:</label><span style="color:red">*</span>
-                                                    <input uppercaseonly type="text" class="form-control"
+                                                    <input uppercaseonly type="text" class="form-control" (change)="chkAccountNameExits($event)"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['accountName'].invalid) }"
                                                         placeholder="Enter Account Name" formControlName="accountName">
                                                 </div>
@@ -33,8 +33,8 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Main Group:</label><span style="color:red">*</span>
-                                                    <select formControlName="mainGroup" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['mainGroup'].invalid) }"
+                                                    <select formControlName="accountType" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountType'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched"
                                                         (change)="accountTypeChange($event)">
                                                         <option *ngFor="let acttp of accountTypeList" value={{acttp.dataId}}>
@@ -48,8 +48,8 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Sub Group:</label><span style="color:red">*</span>
-                                                    <select formControlName="subGroup" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['subGroup'].invalid) }"
+                                                    <select formControlName="subAccountType" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['subAccountType'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let subacttp of subAccountTypeList" value={{subacttp.dataId}}>
                                                             {{subacttp.dataName}}
@@ -62,8 +62,8 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ledger Type:</label><span style="color:red">*</span>
-                                                    <select formControlName="ledgertype" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['ledgertype'].invalid) }"
+                                                    <select formControlName="accountLedgerType" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountLedgerType'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let ldg of ledgerList" value={{ldg.dataId}}>
                                                             {{ldg.dataName}}
@@ -76,8 +76,8 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Schedule:</label><span style="color:red">*</span>
-                                                    <select formControlName="schedule" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['schedule'].invalid) }"
+                                                    <select formControlName="schID" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['schID'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let sch of scheduleList" value={{sch.dataId}}>
                                                             {{sch.dataName}}
@@ -88,8 +88,8 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Status:</label><span style="color:red">*</span>
-                                                    <select formControlName="status" 
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['status'].invalid) }"
+                                                    <select formControlName="statusColor" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['statusColor'].invalid) }"
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option value="">Choose...</option>
                                                         <option value="G">Green</option>
@@ -103,28 +103,28 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input" class="form-label">Address:</label>
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="address">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountAddress1">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="address1">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountAddress2">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="address2">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountAddress3">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="address3">
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountAddress4">
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -132,7 +132,7 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">State:</label>
-                                                    <select formControlName="state" 
+                                                    <select formControlName="stateCode" 
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option *ngFor="let stl of statelist" value={{stl.dataId}}>
                                                             {{stl.dataName}}
@@ -143,8 +143,8 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Pincode:</label>
-                                                    <input numbersonly type="text" autoclose="false" class="form-control" 
-                                                    formControlName="pincode"> 
+                                                    <input numbersonly maxlength="6" type="text" autoclose="false" class="form-control" 
+                                                    formControlName="pinCode"> 
                                                 </div>
                                             </div>
                                         </div>                                       
@@ -152,13 +152,13 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label numbersonly for="basicpill-lastname-input" class="form-label">Phone No:</label>
-                                                    <input type="text" class="form-control" formControlName="phoneNo"> 
+                                                    <input type="text" maxlength="10" class="form-control" formControlName="accountPhone"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label numbersonly for="basicpill-lastname-input" class="form-label">Mobile No:</label>
-                                                    <input type="text" class="form-control" formControlName="mobileNo"> 
+                                                    <input type="text" maxlength="10" class="form-control" formControlName="accountMobile1"> 
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -166,7 +166,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">A/c Contact:</label>
-                                                    <input type="text" class="form-control" formControlName="acContact"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountContact1"> 
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -174,7 +174,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label numbersonly for="basicpill-lastname-input" class="form-label">Fax:</label>
-                                                    <input type="text" class="form-control" formControlName="fax"> 
+                                                    <input type="text" class="form-control" formControlName="accountFax"> 
                                                 </div>
                                             </div>
                                         </div>                                        
@@ -182,7 +182,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Email:</label>
-                                                    <input type="text" class="form-control" formControlName="email"> 
+                                                    <input type="text" class="form-control" formControlName="accountEmail1"> 
                                                 </div>
                                             </div>
                                         </div>                                         
@@ -190,7 +190,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Url:</label>
-                                                    <input type="text" class="form-control" formControlName="url"> 
+                                                    <input type="text" class="form-control" formControlName="accountUrl"> 
                                                 </div>
                                             </div>
                                         </div>                                         
@@ -198,7 +198,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Print Name:</label>
-                                                    <input type="text" class="form-control" formControlName="printName"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="printName"> 
                                                 </div>
                                             </div>
                                         </div>                                     
@@ -206,13 +206,13 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Credit Limit:</label>
-                                                    <input type="text" class="form-control" formControlName="creditLimit"> 
+                                                    <input decimalonly type="text" class="form-control" formControlName="accountCreditLimit"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Security Deposit:</label>
-                                                    <input type="text" class="form-control" formControlName="securityDeposit"> 
+                                                    <input decimalonly type="text" class="form-control" formControlName="accountSecurityDep"> 
                                                 </div>
                                             </div>
                                         </div>                                       
@@ -220,13 +220,13 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Credit Days:</label>
-                                                    <input type="text" class="form-control" formControlName="creditDays"> 
+                                                    <input numbersonly type="text" class="form-control" formControlName="accountCreditDays"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">AccountBG:</label>
-                                                    <input type="text" class="form-control" formControlName="accountBG"> 
+                                                    <input decimalonly type="text" class="form-control" formControlName="accountBG"> 
                                                 </div>
                                             </div>
                                         </div>                                    
@@ -234,7 +234,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Interest Rate:</label>
-                                                    <input type="text" class="form-control" formControlName="interestRate"> 
+                                                    <input type="text" class="form-control" formControlName="accountInterestRate"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -248,7 +248,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account Rem.Ref:</label>
-                                                    <input type="text" class="form-control" formControlName="accountRemRef"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountRemRef"> 
                                                 </div>
                                             </div>
                                         </div>                                           
@@ -256,7 +256,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Vendor Code:</label>
-                                                    <input type="text" class="form-control" formControlName="vendorCode"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="vendorCode"> 
                                                 </div>
                                             </div>
                                         </div>                                            
@@ -264,7 +264,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Bank Name:</label>
-                                                    <input type="text" class="form-control" formControlName="bankName"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="bankName"> 
                                                 </div>
                                             </div>
                                         </div>                                  
@@ -272,13 +272,13 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Bank Branch:</label>
-                                                    <input type="text" class="form-control" formControlName="bankBranch"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="bankBranch"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Ifsc Code:</label>
-                                                    <input type="text" class="form-control" formControlName="ifscCode"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="bankIfsc"> 
                                                 </div>
                                             </div>
                                         </div>                                  
@@ -286,7 +286,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account Type:</label>
-                                                    <select formControlName="accountType" 
+                                                    <select formControlName="bankAcType" 
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option value="">Choose...</option>
                                                         <option value="CA">Current Account</option>
@@ -297,7 +297,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account No:</label>
-                                                    <input type="text" class="form-control" formControlName="accountNo"> 
+                                                    <input type="text" class="form-control" formControlName="bankAcNo"> 
                                                 </div>
                                             </div>
                                         </div>                               
@@ -305,13 +305,13 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">PAN No:</label>
-                                                    <input type="text" class="form-control" formControlName="pANNo"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountPAN"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">GST No:</label>
-                                                    <input type="text" class="form-control" formControlName="gSTNo"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountGstNo"> 
                                                 </div>
                                             </div>
                                         </div>  
@@ -319,7 +319,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Liability Type:</label>
-                                                    <select formControlName="liabilityType" 
+                                                    <select formControlName="isExpForLiabilityYN" 
                                                         class="form-control form-select ng-pristine ng-touched">                                             
                                                         <option value="N">NA</option>
                                                         <option value="E">Expense</option>
@@ -350,7 +350,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">Account TAN:</label>
-                                                    <input type="text" class="form-control" formControlName="accountTAN"> 
+                                                    <input uppercaseonly type="text" class="form-control" formControlName="accountTAN"> 
                                                 </div>
                                             </div>
                                         </div>                                                                               
@@ -358,7 +358,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input" class="form-label">User Name:</label>
-                                                    <input type="text" class="form-control" formControlName="userName"> 
+                                                    <input type="text" class="form-control" formControlName="username"> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
@@ -369,7 +369,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">                                                
-                                                    <input type="checkbox" name="activeyn" formControlName="activeyn" 
+                                                    <input type="checkbox" name="accountStatus" formControlName="accountStatus" 
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">Active (Y/N)</label>
@@ -379,7 +379,7 @@
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hideBranchLogin" formControlName="hideBranchLogin"
+                                                    <input type="checkbox" name="hideBranchLogin" formControlName="hideBranch"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">Hide Branch Login</label>
@@ -387,7 +387,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hideForNonAdminUsers" formControlName="hideForNonAdminUsers"
+                                                    <input type="checkbox" name="hideForNonAdminUsers" formControlName="hideNonAdmin"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">Hide For Non-Admin Users</label>
@@ -395,7 +395,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="generalMRApplicable" formControlName="generalMRApplicable"
+                                                    <input type="checkbox" name="staxEX" formControlName="staxEX"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">General MR Applicable</label>
@@ -405,7 +405,7 @@
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hOAccountOnly" formControlName="hOAccountOnly"
+                                                    <input type="checkbox" name="hOAccountOnly" formControlName="hO_Account"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">HO Account Only</label>
@@ -431,7 +431,7 @@
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="globalAccount" formControlName="globalAccount"
+                                                    <input type="checkbox" name="globalAccount" formControlName="globalAc"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label"> Global Account</label>
@@ -439,7 +439,7 @@
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="costRef" formControlName="costRef"
+                                                    <input type="checkbox" name="costRef" formControlName="costCodeYN"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label"> Cost Ref</label>
@@ -447,7 +447,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="isExpApprovalReq" formControlName="isExpApprovalReq"
+                                                    <input type="checkbox" name="isAdminExpYN" formControlName="isAdminExpYN"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label"> Is Exp Approval Req?</label>
@@ -465,7 +465,7 @@
                                             </div>                               
                                             <div class="col-lg-3">
                                                 <div class="mb-3">                                                   
-                                                    <input type="checkbox" name="manualJV" formControlName="manualJV"
+                                                    <input type="checkbox" name="manualJV" formControlName="manualJv"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">Manual JV</label>
@@ -475,7 +475,7 @@
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="subLedgerApplicable" formControlName="subLedgerApplicable"
+                                                    <input type="checkbox" name="subLedgerApplicable" formControlName="subLedgerYN"
                                                         value="N" (change)="chkChange($event)"
                                                         class="form-check-input" />
                                                     <label for="basicpill-lastname-input" class="form-label">Sub Ledger Applicable</label>
@@ -483,18 +483,22 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">                                      
-                                                    <input type="text" class="form-control" formControlName="subledgerQry"> 
+                                                    <input type="text" class="form-control" formControlName="subLedgerQry"> 
                                                 </div>
                                             </div>
-                                        </div>                                   
+                                        </div>       
                                         <div class="row text-right">
                                             <div class="col-lg-12">
-                                            <div class="tex">
-                                                <button type="submit" class="btn btn-primary w-md"
-                                                    (click)="submitFinAccountMasterForm()">Submit</button>
+                                                <div class="tex">
+                                                    <button type="submit" class="btn btn-primary w-md"
+                                                        (click)="submitFinAccountMasterForm()">Save</button>&nbsp;
+                                                        <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                                        (click)="deleteFinAccountMasterForm()">Delete</button>&nbsp;
+                                                    <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                                </div>
                                             </div>
-                                            </div>
-                                        </div>                                                                                      
+                                            <!-- end col -->
+                                        </div>                                                                                        
                                     </form>
                                     
                                 </section>

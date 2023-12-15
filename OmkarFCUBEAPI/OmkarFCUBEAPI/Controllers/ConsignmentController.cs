@@ -4,7 +4,6 @@ using Consignment.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-using Shared.Business;
 using Shared.Models;
 
 namespace OmkarFCUBEAPI.Controllers
@@ -61,7 +60,7 @@ namespace OmkarFCUBEAPI.Controllers
         //    }
         //}
         [HttpPost("GetConsignmentList")]
-        public async Task<IActionResult> GetConsignmentList(ConsignmentListRequest request)
+        public async Task<IActionResult> GetConsignmentList(PageRequest request)
         {
             try
             {

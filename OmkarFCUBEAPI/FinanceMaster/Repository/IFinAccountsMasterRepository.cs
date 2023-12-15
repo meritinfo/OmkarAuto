@@ -1,5 +1,6 @@
 ﻿using FinanceMaster.Models;
 using FinanceMasters.Models;
+using Shared.Models;
 
 namespace FinanceMasters.Repository
 {
@@ -12,5 +13,6 @@ namespace FinanceMasters.Repository
         Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetFinActLedgertype();
         Task<List<DropDownListModel>> GetEmpList();
+        Task<ResponseModel> FinAccountsMasterDelete(Request req);
     }
 }

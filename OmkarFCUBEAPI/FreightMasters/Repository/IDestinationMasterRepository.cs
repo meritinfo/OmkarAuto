@@ -1,4 +1,5 @@
 ﻿using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -9,7 +10,7 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel);
         Task<ResponseModel> DestinationDetailsDelete(Request requestModel);
-        Task<List<StateListModel>> GetStateList();
-        Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request);
+        Task<List<DropDownListModel>> GetStateList();
+        Task<DestinationMasterList> GetDestinationMasterList(PageRequest request);
     }
 }

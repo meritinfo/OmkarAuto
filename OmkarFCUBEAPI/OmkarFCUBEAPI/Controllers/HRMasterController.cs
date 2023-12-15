@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-
+using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
-
-using HRMasters.Models;
+using Shared.Models;
 
 
 namespace OmkarFCUBEAPI.Controllers

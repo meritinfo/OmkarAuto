@@ -23,15 +23,12 @@ export class FingroupaddComponent {
   userlogindate:string="";
   formFinGroup!: FormGroup;
   formSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   responseDetails = new Responsemodel();
-
-  accountId:string = "" ;
-  groupName: string = "" ;
-  accounttype: string = "" ;
-  subAccountName: string = "" ;
-  subAccountType: string = "";
-  SchID: string = "";
-  createdBy: string = "" ;
 
   accountTypeList: Dropdownmodel[] = [];
   subAccountTypeList: Dropdownmodel[] = []; 
@@ -47,6 +44,20 @@ export class FingroupaddComponent {
 }
 
 ngOnInit(): void {
+
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+
+
   var userData = sessionStorage.getItem('uid')?.toString();
   var userlogindate =sessionStorage.getItem('loginDate')?.toString();
   
@@ -60,26 +71,27 @@ ngOnInit(): void {
     this.route.navigate(['/']);
   }
   
-  this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
   this.formFinGroup = this.formBuilder.group({
     groupName: new FormControl('',[Validators.required]),
-    accounttype: new FormControl('',[Validators.required]),
-    subaccounttype: new FormControl('',[Validators.required]),
-    schedule: new FormControl('',[Validators.required]),
+    accountType: new FormControl('',[Validators.required]),
+    subAccountType: new FormControl('',[Validators.required]),
+    schID: new FormControl('',[Validators.required]),
   });  
  
-  this.requestmodel.strRequest="";
+  this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
+  
+  if (this.selectedFinGroupMasterDetails.accountId != ''){
+    this.requestmodel.strRequest=this.selectedFinGroupMasterDetails.accountType;
+  }
   this.getaccounttypes();
   this.getsubaccounttypes(this.requestmodel);
   this.getschedulelist();  
 
+ 
   setTimeout(() => {
     if (this.selectedFinGroupMasterDetails.accountId != '') {
         this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
-        this.formFinGroup.patchValue({
-          // accounttype: this.accountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.accountType),
-          // subaccounttype:this.subAccountTypeList.find(e => e.dataName == this.selectedFinGroupMasterDetails.subAccountName),
-        });
+        this.editMode=true;
       }
   }, 2000);
   
@@ -87,11 +99,11 @@ ngOnInit(): void {
 // convenience getter for easy access to contact form fields
 get f() { return this.formFinGroup.controls; }
 
-chkActName() {
-    if (this.accountId == "")
+chkActName(e: any) {
+    if (this.selectedFinGroupMasterDetails.accountId == "")
     {
-      this.groupName = this.formFinGroup.value.groupName;
-      this.finGroupService.chkActName(this.groupName).subscribe((res: Responsemodel) => {
+      this.requestmodel.strRequest = e.target.value; 
+      this.finGroupService.chkActName(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (!this.responseDetails.status) {
           this.toasterService.warning(this.responseDetails.message);
@@ -101,6 +113,23 @@ chkActName() {
         }
       });
     }
+  }
+
+  deleteFinGroupMasterForm(): void {
+    if(this.selectedFinGroupMasterDetails.accountId != '' ){
+     this.requestmodel.strRequest =this.selectedFinGroupMasterDetails.accountId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.finGroupService.FinGroupDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formFinGroup.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/fingrouplist']);
   }
 
 getaccounttypes(): void {
@@ -132,16 +161,16 @@ accountTypeChange(e: any) {
 submitFinGroupMasterForm(): void {
   this.formSubmitted = true;
   if (this.formFinGroup.invalid) {
-    this.toasterService.warning("All fields are mandatory");      
+    this.toasterService.warning("Please Enter Mandatory Fields ");   
     return;
   }
 
   this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
-  this.fingroupmodel.groupName= this.formFinGroup.value.groupName;
-  this.fingroupmodel.accountType= this.formFinGroup.value.accounttype;
-  this.fingroupmodel.subAccountType=this.formFinGroup.value.subaccounttype;
-  this.fingroupmodel.schID= this.formFinGroup.value.schedule;
-  this.fingroupmodel.createdBy= this.loggedInUserID;
+  this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
+  this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
+  this.fingroupmodel.subAccountType=this.formFinGroup.value.subAccountType;
+  this.fingroupmodel.schID= this.formFinGroup.value.schID;
+  this.fingroupmodel.loggedInUserID= this.loggedInUserID;
 
   this.finGroupService.fingroupDetailsSubmitted(this.fingroupmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;

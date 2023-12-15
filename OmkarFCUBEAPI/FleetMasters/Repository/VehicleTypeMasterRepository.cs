@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {
@@ -63,7 +64,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<VehicleTypeMasterList> GetVehicleTypeMasterList(VehicleTypeMasterListRequest request)
+        public async Task<VehicleTypeMasterList> GetVehicleTypeMasterList(PageRequest request)
         {
             VehicleTypeMasterList vehicleTypeMasterList = new();
             List<VehicleTypeMasterModel> VehicleList = new();

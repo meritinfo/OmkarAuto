@@ -2,6 +2,7 @@
 using FinanceMaster.Models;
 using FinanceMasters.Models;
 using FinanceMasters.Repository;
+using Shared.Models;
 
 namespace FinanceMasters.Business
 {

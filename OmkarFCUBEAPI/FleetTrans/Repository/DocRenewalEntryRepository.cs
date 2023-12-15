@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetTrans.Repository
 {
@@ -106,7 +107,7 @@ namespace FleetTrans.Repository
         /// Service method for get branch list
         /// </summary>
         /// <returns>List<BranchListModel></returns>
-        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(DocRenewalEntryListRequest request)
+        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request)
         {
             DocRenewalEntryList docRenewalEntryList = new();
             List<DocRenewalEntryModel> docRenewalList = new();

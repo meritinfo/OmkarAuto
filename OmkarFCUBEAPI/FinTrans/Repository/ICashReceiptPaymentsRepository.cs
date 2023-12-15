@@ -1,4 +1,5 @@
 ﻿using FinTrans.Models;
+using Shared.Models;
 
 namespace FinTrans.Repository
 {
@@ -8,6 +9,10 @@ namespace FinTrans.Repository
     public interface ICashReceiptPaymentsRepository
     {
         Task<ResponseModel> CashReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsSave);
-        Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request);
+        Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request);
+        Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter);
+        Task<ResponseModel> CashReceiptPaymentsDelete(Request req);
+        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req);
+
     }
 }

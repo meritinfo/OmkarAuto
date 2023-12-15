@@ -1,5 +1,6 @@
 ﻿using FleetTrans.Models;
 using FleetTrans.Repository;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -26,7 +27,7 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.SaveDieselStatementDetails(request);
         }
-        public async Task<DieselStatementList> GetDieselStatementList(DieselStatementListRequest request)
+        public async Task<DieselStatementList> GetDieselStatementList(PageRequest request)
         {
             return await dieselStatementRepository.GetDieselStatementList(request);
         }

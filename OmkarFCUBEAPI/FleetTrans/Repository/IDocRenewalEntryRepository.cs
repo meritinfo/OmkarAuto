@@ -1,4 +1,5 @@
 ﻿using FleetTrans.Models;
+using Shared.Models;
 
 namespace FleetTrans.Repository
 {
@@ -8,6 +9,6 @@ namespace FleetTrans.Repository
     public interface IDocRenewalEntryRepository
     {
         Task<ResponseModel> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel);
-        Task<DocRenewalEntryList> GetDocRenewalEntryList(DocRenewalEntryListRequest request);
+        Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request);
     }
 }

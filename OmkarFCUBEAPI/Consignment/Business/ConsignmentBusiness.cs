@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using Shared.Models;
 
 namespace Consignment.Business
 {
@@ -19,19 +20,19 @@ namespace Consignment.Business
         {
             return await consignmentRepository.ConsignmentSave(consignmentModel);
         }
-        public async Task<ConsignmentList> GetConsignmentList(ConsignmentListRequest request)
+        public async Task<ConsignmentList> GetConsignmentList(PageRequest request)
         {
             return await consignmentRepository.GetConsignmentList(request);
         }
-        public async Task<List<RateListModel>> GetRateList()
+        public async Task<List<DropDownListModel>> GetRateList()
         {
             return await consignmentRepository.GetRateList();
         }
-        public async Task<List<BranchListModel>> GetContentList()
+        public async Task<List<DropDownListModel>> GetContentList()
         {
             return await consignmentRepository.GetContentList();
         }
-        public async Task<List<BranchListModel>> GetLocationList()
+        public async Task<List<DropDownListModel>> GetLocationList()
         {
             return await consignmentRepository.GetLocationList();
         }
@@ -61,15 +62,15 @@ namespace Consignment.Business
         }
 
 
-        public async Task<List<BranchListModel>> GetVehicleNoList()
+        public async Task<List<DropDownListModel>> GetVehicleNoList()
         {
             return await consignmentRepository.GetVehicleNoList();
         }
-        public async Task<List<BranchListModel>> GetBillingPartyList()
+        public async Task<List<DropDownListModel>> GetBillingPartyList()
         {
             return await consignmentRepository.GetBillingPartyList();
         }
-        public async Task<List<LrSeriesListModel>> GetLRSeries()
+        public async Task<List<DropDownListModel>> GetLRSeries()
         {
             return await consignmentRepository.GetLRSeries();
         }

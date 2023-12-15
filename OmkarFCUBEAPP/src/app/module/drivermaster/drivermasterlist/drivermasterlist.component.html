@@ -29,31 +29,31 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>ReminderDays </th>
-                      
-                            <th>Doc Code </th>
-                            <th>dateOfAppoint </th>
-                            <th>dateOfAppoint </th>
-                            <th>dateOfAppoint </th>
-                         
+                            <th>Driver Name </th>
+                            <th>Father Name </th>
+                            <th>Date Of Appoint </th>
+                            <th>License No</th>
+                            <th>licValidUpto</th>
+                            <th>driverMobile1</th>
+                            <th>introBy</th>                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allDriverMaster.driverList?.length != 0">
-                        <tr *ngFor="let renewalMaster of allDriverMaster.driverList">
-                            <td>{{ renewalMaster.driverName }}</td>
-                    
-                            <td>{{ renewalMaster.fatherName }}</td>
-                            <td>{{ renewalMaster.dateOfAppoint }}</td>
-                            <td>{{ renewalMaster.licenseNo }}</td>
-                            <td>{{ renewalMaster.licValidUpto }}</td>
-                       
+                        <tr *ngFor="let drvr of allDriverMaster.driverList">
+                            <td style="width:80px; word-wrap:break-word;">{{ drvr.driverName }}</td>
+                            <td>{{ drvr.fatherName }}</td>
+                            <td>{{ drvr.dateOfAppoint }}</td>
+                            <td>{{ drvr.licenseNo }}</td>
+                            <td>{{ drvr.licValidUpto }}</td>
+                            <td>{{ drvr.driverMobile1 }}</td>
+                            <td>{{ drvr.introBy }}</td>                       
                          
                             <td>
-                                <a (click)="getDriverMasterDetails(renewalMaster)" class="actionicon"><i
+                                <a (click)="getDriverMasterDetails(drvr)" class="actionicon"><i
                                     class="bx bx-pencil"></i></a>
                            
                             </td>

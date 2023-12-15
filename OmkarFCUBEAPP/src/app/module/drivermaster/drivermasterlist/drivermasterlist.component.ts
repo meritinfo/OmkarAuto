@@ -18,78 +18,75 @@ export class DrivermasterlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'doccode',
+    sortColumn: 'DriverName',
     sortOrder: 'asc',
     search: ''
   }
 
-    constructor(private drivermasterService: DrivermasterService, private route: Router) {
+    constructor(private drivermasterService: DrivermasterService, private route: Router) {  
     }
-    
-  
-
 
   ngOnInit(): void {
     this.drivermasterService.clearDriverMasterDetails();
-  this.dtOptions = {
-    pagingType: 'full_numbers',
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
-    ajax: (dataTablesParameters: any, callback) => {
-      // Filter setting
-      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-      this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
-      this.drivermasterService.getDriverMasterList(this.filter)
-        .subscribe(resp => {
-         this.allDriverMaster = resp;
-          callback({
-            recordsTotal: resp.pageMetaData.totalCount,
-            recordsFiltered: resp.pageMetaData.totalCount,
-            data: []
-  
-});
-});
-},
-columns: [
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = dataTablesParameters.search.value;
+        this.drivermasterService.getDriverMasterList(this.filter)
+          .subscribe(resp => {
+          this.allDriverMaster = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []  
+            });
+          });
+      },
+      columns: [
+        {
+          title: 'Driver Name ',
+          data: 'driverName',
+        },
+        {
+          title: 'Father Name ',
+          data: 'fatherName',
+        },
+        {
+          title: 'DOA',
+          data: 'dateOfAppoint',
+        },        
+        {
+          title: 'License No ',
+          data: 'licenseNo',
+        },
+        {
+          title: 'Lic Valid Upto ',
+          data: 'licValidUpto',
+        },        
+        {
+          title: 'Driver Mobile ',
+          data: 'driverMobile1',
+        },
+        {
+          title: 'Intro By ',
+          data: 'introBy',
+        }, 
+        {
+        title: 'Action',
+        data: 'driverMasterID',
+        },
 
-
-{
-title: 'DriverName ',
-data: 'driverName',
-},
-
-{
-title: 'fatherName ',
-data: 'fatherName',
-},
-{
-  title: 'DateOfAppoint ',
-  data: 'dateOfAppoint',
-  },
-  
-  {
-    title: 'LicenseNo ',
-    data: 'licenseNo',
-    },
-    {
-      title: 'LicValidUpto ',
-      data: 'licValidUpto',
-      }, 
-    
-
-
-{
-title: 'Action',
-data: 'driverMasterID',
-},
-
-],
-};
-}
+      ],
+    };
+  }
   
   //Open new driver master add screen
   drivermasterAdd(): void {

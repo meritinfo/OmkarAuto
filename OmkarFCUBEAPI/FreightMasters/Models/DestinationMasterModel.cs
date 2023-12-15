@@ -15,5 +15,6 @@
         public string? StateName { get; set; }
         public string? ControlBranch { get; set; }
         public string? LoggedInUser { get; set; }
+ 
     }
 }

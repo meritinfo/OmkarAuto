@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
@@ -19,7 +20,7 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeMasterRepository.VehicleTypeMasterSave(vehicleTypeMasterModel);
         }
-        public async Task<VehicleTypeMasterList> GetVehicleTypeMasterList(VehicleTypeMasterListRequest request)
+        public async Task<VehicleTypeMasterList> GetVehicleTypeMasterList(PageRequest request)
         {
             return await vehicleTypeMasterRepository.GetVehicleTypeMasterList(request);
         }

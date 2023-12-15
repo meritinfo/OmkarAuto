@@ -35,29 +35,23 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Centre Name</th>
-                      
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                            <th>State Code</th>
-                         
+                            <th>Code</th>
+                            <th>CentreName</th>
+                            <th>ZoneCode</th>
+                            <th>StateName</th>
+                            <th>ManagerName</th>
+                            <th>ManagerMobileNo</th>                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allBranchMaster.branchMasterList?.length != 0">
                         <tr *ngFor="let branch  of allBranchMaster.branchMasterList">
                             <td>{{ branch.code }}</td>
-                    
                             <td>{{ branch.centreName }}</td>
-                            
                             <td>{{ branch.zoneCode }}</td>
-                            <td>{{ branch.stateCode }}</td>
+                            <td>{{ branch.stateName }}</td>
                             <td>{{ branch.managerName }}</td>
                             <td>{{ branch.managerMobileNo }}</td>
-                            <td>{{ branch.regionId }}</td>
                          
                             <td>
                                 <a (click)="branchmasterDetails(branch)" class="actionicon"><i

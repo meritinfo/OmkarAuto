@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FinanceMasters.Repository
 {

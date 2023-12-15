@@ -27,20 +27,17 @@ namespace FleetTrans.Models
         public string? LoadingFrom { get; set; }
         public string? Destination { get; set; }
         public string? Destination2 { get; set; }
-        public string? Destination3 { get; set; } //DistanceTripKM_1
-
+        public string? Destination3 { get; set; } 
         public string? DistanceTripKM_1 { get; set; }
         public string? Contents { get; set; }
         public string? LoadEmptyType { get; set; }
         public string? ExpectedReportingDt { get; set; }
         public string? ExpectedReportingDays { get; set; }
-
         public string? LtsDslToBe_1 { get; set; }
         public string? LtsAdblueToBe_1 { get; set; }
         public string? AdvPayable_1 { get; set; }
         public string? ReportingDt_1 { get; set; }
         public string? AdvanceDays_1 { get; set; }
-
         public string? DelayedDays_1 { get; set; }
         public string? GraceDays_1 { get; set; }
         public string? DeliveryDate { get; set; }

@@ -1,4 +1,5 @@
 ﻿using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -8,8 +9,10 @@ namespace FreightMasters.Business
     public interface IBranchMasterBusiness
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel);
-        Task<List<BranchListModel>> GetBranchList();
-        Task<BranchMasterList> GetBranchMasterList(BranchMasterListRequest request);
+        Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel);
+        Task<List<DropDownListModel>> GetBranchList();
+        Task<BranchMasterList> GetBranchMasterList(PageRequest request);
+        Task<ResponseModel> ChkCodeExits(Request req);
 
     }
 }

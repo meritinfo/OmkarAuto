@@ -29,9 +29,9 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="userMasterModel"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<Models.ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel)
+        public async Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel)
         {
-            Models.ResponseModel responseModel = new();
+            ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
@@ -325,9 +325,9 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="string"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<Models.ResponseModel> DeleteUserDetails(string request)
+        public async Task<ResponseModel> DeleteUserDetails(string request)
         {
-            Models.ResponseModel responseModel = new();
+            ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
@@ -371,9 +371,9 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="string"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<Models.ResponseModel> UsernameValidation(string request)
+        public async Task<ResponseModel> UsernameValidation(string request)
         {
-            Models.ResponseModel responseModel = new();
+            ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)

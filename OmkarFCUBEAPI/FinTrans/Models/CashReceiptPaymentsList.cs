@@ -8,7 +8,7 @@ namespace FinTrans.Models
 {
     public class CashReceiptPaymentsList
     {
-        public List<CashReceiptPaymentsModel> CashRecPaymentsList { get; set; }
+        public List<CashReceiptPaymentsModel> RecPaymentsList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }

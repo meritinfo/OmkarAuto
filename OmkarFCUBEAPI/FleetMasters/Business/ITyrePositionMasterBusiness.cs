@@ -1,10 +1,11 @@
 ﻿using FleetMasters.Models;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
     public interface ITyrePositionMasterBusiness
     {
         Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel);
-        Task<TyrePositionMasterList> GetTyrePositionMasterList(TyrePositionMasterListRequest request);
+        Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request);
     }
 }

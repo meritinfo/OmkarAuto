@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-
+using FleetTrans.Models;
 using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
-
-using FleetTrans.Models;
+using Shared.Models;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -55,7 +54,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDocRenewalEntryList")]
-        public async Task<IActionResult> GetDocRenewalEntryList(DocRenewalEntryListRequest request)
+        public async Task<IActionResult> GetDocRenewalEntryList(PageRequest request)
         {
             try
             {
@@ -70,7 +69,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDieselStatementList")]
-        public async Task<IActionResult> GetDieselStatementList(DieselStatementListRequest request)
+        public async Task<IActionResult> GetDieselStatementList(PageRequest request)
         {
             try
             {
@@ -84,7 +83,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillStatementList")]
-        public async Task<IActionResult> GetBillStatementList(BillStatementListRequest request)
+        public async Task<IActionResult> GetBillStatementList(PageRequest request)
         {
             try
             {
@@ -187,7 +186,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTripPaymentsList")]
-        public async Task<IActionResult> GetTripPaymentsList(TripPaymentsListRequest request)
+        public async Task<IActionResult> GetTripPaymentsList(PageRequest request)
         {
             try
             {
@@ -365,6 +364,84 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetOtherTripOpenList")]
+        public async Task<IActionResult> GetOtherTripOpenList(TripSheetListRequest request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetOtherTripOpenList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("OtherTripOpenSave")]
+        public async Task<IActionResult> OtherTripOpenSave(TripMasterModel tripMasterModel)
+        {
+            if (tripMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.OtherTripOpenSave(tripMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+         [HttpPost("OtherTripOpenDelete")]
+        public async Task<IActionResult> OtherTripOpenDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.OtherTripOpenDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetNextTripNo")]
+        public async Task<IActionResult> GetNextTripNo(OpBalModel tripNoFilter)
+        {
+            if (tripNoFilter == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetNextTripNo(tripNoFilter);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+       
+
+
+
+
     }
 }
 

@@ -6,5 +6,6 @@
     public class DBModel
     {
         public string DBConnection { get; set; }
+        public string UploadFolderPath { get; set; }
     }
 }

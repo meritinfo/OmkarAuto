@@ -50,27 +50,23 @@ ngOnInit(): void {
     },
      // Set column title and data field
     columns: [
-      
-
-        {
-          title: 'vehicleNo',
-          data: 'vehicleNo',
-        },
-
-     
       {
-        title: 'RegnDate',
+        title: 'vehicle No',
+        data: 'vehicleNo',
+      },     
+      {
+        title: 'Regn Date',
         data: 'regnDate',
       },
       {
-        title: 'MfrModelName',
+        title: 'Mfr Model Name',
         data: 'mfrModelName',
       },
       {
-        title: 'MakeYear ',
+        title: 'Make Year ',
         data: 'makeYear ',
       },
-     {
+      {
         title: 'Action',
         data: 'vehicleMasterID',
       },
@@ -85,7 +81,7 @@ ngOnInit(): void {
 //Open user details screen
 getvehicleFltDetails(Vehicletype: Vehiclefltmastermodel): void {
   this.vehicleFltMasterService.setVehiclefltMasterDetails(Vehicletype);
-  this.route.navigate(['/vehiclefltmasteredit']);
-}
+  this.route.navigate(['/vehiclemasteredit']);
+} 
 
 }

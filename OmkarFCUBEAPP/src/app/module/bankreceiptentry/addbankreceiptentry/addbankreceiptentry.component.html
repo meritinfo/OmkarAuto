@@ -19,120 +19,94 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formUser">
+            <form [formGroup]="formBankRecEntry">
                 <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Details</h4>
-                                    
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-lg-3">
-                                                <div class="form-check mb-3">
-                                                    <input type="radio"formControlName="docType"  value="BP" (change)="changePType('BP')"
+                                        <div class="col-lg-3">
+                                            <div class="form-check mb-3">
+                                                <input type="radio"formControlName="docType"  value="BP" (change)="changePType('BP')"
                                                         class="form-check-input" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Payment</h6>
-                                                    </label>
-    
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-check mb-3">
-                                                    <input type="radio" formControlName="docType"  value="BR" (change)="changePType('BR')"
-                                                        class="form-check-input" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Receipt</h6>
-                                                    </label>
-    
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="mb-4">
-                                                <div class="form-check">
-                                                            <input type="checkbox" formControlName="neftPmt" id="neft"
-                                                                name="neft" class="form-check-input" >
-                                                            <label for="neft" class="form-check-label"> NEFT / RTGS, Bank Charges, Bank Interest, EMI, ECS Payment
-                                                            </label>
-                                                        </div>
+                                                <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Payment</h6>
+                                                </label>
                                             </div>
                                         </div>
-    
-                                       
+                                        <div class="col-lg-3">
+                                            <div class="form-check mb-3">
+                                                <input type="radio" formControlName="docType"  value="BR" (change)="changePType('BR')"
+                                                            class="form-check-input" />
+                                                <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Receipt</h6>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-4">
+                                                <div class="form-check">
+                                                    <input type="checkbox" formControlName="neftPmt" id="neft"
+                                                        name="neft" class="form-check-input" >
+                                                    <label for="neft" class="form-check-label"> NEFT / RTGS, Bank Charges, Bank Interest, EMI, ECS Payment
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>                                       
                                     </div>
-                                  
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                  
-                                        <label for="formrow-inputState">Document Series</label>
-                                   
-                                    
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <label for="formrow-inputState">Document Series</label>
                                             <input class="form-control" placeholder="" formControlName="docSeries">
-
-                                    
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <label for="formrow-inputState">Document No</label>
-                                        <label for="formrow-inputState">.</label>
-                                
-                                   
-                                    
-                                            <input class="form-control" placeholder="" formControlName="docNo">
-
-                                    
-                                    </div>
-                                 
-                                    
-                                    <div class="col-lg-3">
-                                       
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <label for="formrow-inputState">Document No</label>
+                                            <label for="formrow-inputState">.</label>
+                                            <input class="form-control" placeholder="" formControlName="docNo"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['docNo'].invalid) }">
+                                        </div>
+                                        <div class="col-lg-2">
                                             <label for="formrow-inputState">Trans Date</label>
-                                            <input type="date" class="form-control" placeholder="" formControlName="ftmDate">
-                                        
-                                    </div>
-                               
-                                <div class="col-lg-3">
-                                    <div class="mb-4">
-                                        <label for="formrow-inputCity">Ref Type </label>
-                                        <select class="form-control" formControlName="refType">
-                                            <option selected="">Choose...</option>
-                                            <option selected="">1</option>
-                                        </select>
-                                    </div>
-                                </div>
-                          
-                            </div>
-                            
-                            <div class="row">
-                             
-                                <div class="col-lg-3">
-                                    
-                                    <label for="formrow-inputZip">Ref No </label>
-                                    <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
-                                        class="form-control">
-                                
-                            </div>
-                               
-                                <div class="col-lg-3">
-                                    <div class="mb-3">
-                                        <label for="formrow-inputZip">Utr No</label>
-                                        <input class="form-control" placeholder=""  formControlName="utrNo">
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-4">
-                                        <label for="formrow-inputZip">
-                                            <h6>Account Name</h6>
-                                        </label>
-                                        <select class="form-control"
-                                            formControlName="accountid2" [ngClass]="">
-
-                                            <option *ngFor="let branch of creditacList"
-                                                value={{branch.dataId}}>
-
-                                                {{branch.dataName}}
-                                            </option>
-                                        </select>
+                                            <input type="date" class="form-control" placeholder="" 
+                                            formControlName="ftmDate"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-4">
+                                                <label for="formrow-inputCity">Ref Type </label>
+                                                <select class="form-control" formControlName="refType">
+                                                    <option selected="">Choose...</option>
+                                                    <option selected="">1</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">                                    
+                                            <label for="formrow-inputZip">Ref No </label>
+                                            <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
+                                                class="form-control">                                
+                                        </div>    
+                                    </div>                            
+                                    <div class="row">                            
+                                        <div class="col-lg-4">
+                                            <div class="mb-4">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Account Name</h6>
+                                                </label>
+                                                <select class="form-control"
+                                                    formControlName="accountid2"  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['accountid2'].invalid) }">
+                                                    <option *ngFor="let branch of creditacList"
+                                                        value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>                           
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Utr No</label>
+                                                <input uppercaseonly class="form-control" placeholder=""  formControlName="utrNo">
+                                            </div>
+                                        </div>                                        
                                     </div>
                                 </div>
                             </div>
@@ -140,183 +114,122 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title mb-4" style="color: red;"> Details</h4>
-                                        
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-
-                                                <div class="row">
-                                                             <div class="col-lg-2">
-                                                                 <label for="formrow-inputZip">
-                                                                     <h6>Account Name</h6>
-                                                                 </label>
-                                                             </div>
-                                                           
-                                                             <div class="col-lg-1">
-                                                                <label for="formrow-inputCity">
-                                                                    <h6>Amount</h6>
-                                                                </label>
-                                                            </div>
-                                                            
-                                                   
-                                                     <div class="col-lg-2">
-                                                             <label for="formrow-inputCity">
-                                                                 <h6>Narration</h6>
-                                                             </label>
-                                                         </div>
-                                                         <div class="col-lg-1">
-                                                            <label for="formrow-inputCity">
-                                                                <h6>Cheque No</h6>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-lg-1">
-                                                            <label for="formrow-inputCity">
-                                                                <h6>cheque Date</h6>
-                                                            </label>
-                                                        </div>
-                                                         <div class="col-lg-2">
-                                                             <label for="formrow-inputCity">
-                                                                 <h6>Reference/SubLedger</h6>
-                                                             </label>
-                                                         </div>
-                                                         <div class="col-lg-1">
-                                                             <label for="formrow-inputCity">
-                                                                 <h6>CBs Cost Ref</h6>
-                                                             </label>
-                                                         </div>
-                                                     </div>
-                                                     </tr>
-                                            <tr formArrayName="cashDetailsList"
-                                            *ngFor="let miscData of formCashArray.controls; let k = index">
-                                            <div [formGroupName]="k">
-                                        
-                                             
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Account Name</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Amount</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Narration</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputCity">
+                                                        <h6>Cheque No</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputCity">
+                                                        <h6>Cheque Date</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-3">
+                                                    <label for="formrow-inputCity">
+                                                         <h6>Reference/SubLedger</h6>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                *ngFor="let miscData of formArray.controls; let k = index">
+                                                <div [formGroupName]="k" class="grid-table">                                             
                                                     <td  class="col-lg-2">
-                                                        
-                                                              
-                                                                <select class="form-control" formControlName="accountId"
-                                                    [ngClass]="">
-
-                                                    <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
-
-                                                        {{branch.dataName}}
-                                                    </option>
-                                                </select>
-                                                            
+                                                        <select class="form-control"
+                                                            formControlName="accountID" [ngClass]="">
+                                                            <option *ngFor="let branch of creditacList"
+                                                                style="font-size:small; "
+                                                                value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>                                                            
                                                     </td>
-                                                      
-                                                    <td  class="col-lg-1">
-                                                      
-                                                              
-                                                        <input class="form-control" placeholder=""  (change)="updateAmount(k,$event, '')"
-                                                            formControlName="amount">
-                                                
-                                            </td>
-                                                    <td  class="col-lg-2">
-                                                      
-                                                              
-                                                                <input class="form-control" placeholder=""
-                                                                    formControlName="narration">
-                                                        
+                                                    <td class="col-lg-1">
+                                                        <input decimalonly class="form-control" placeholder=""  
+                                                        (change)="updateAmount(k,$event, '')"
+                                                            formControlName="amount">                                                
                                                     </td>
-                                                    <td  class="col-lg-1">
-                                                        
-                                                            
-                                                                <input class="form-control" placeholder=""
-                                                                    formControlName="chequeNo">
-                                                        
+                                                    <td  class="col-lg-2">   
+                                                        <input autoclose="false" type="text" placeholder="" class="form-control"
+                                                            formControlName="narration">                                                        
                                                     </td>
-                                                    <td  class="col-lg-1">
-                                                      
-                                                          
-                                                                <input autoclose="false" type="date" placeholder=""
-                                                                    class="form-control" formControlName="chequeDate">
-                                                        
+                                                    <td  class="col-lg-1">   
+                                                        <input numbersonly maxlength="20" class="form-control" placeholder=""
+                                                                        formControlName="chequeNo">                                                        
                                                     </td>
-                                                    <td  class="col-lg-1">
-                                                      
-                                                             
-                                                                <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="reference">
-                                                  
+                                                    <td  class="col-lg-1"> 
+                                                        <input autoclose="false" type="date" placeholder=""
+                                                                class="form-control" formControlName="chequeDate">                                                        
                                                     </td>
-                                                    <td  class="col-lg-1">
-                                                        
-                                                               
-                                                                <input autoclose="false" type="text" placeholder=""
-                                                                    class="form-control" formControlName="costRefNo">
-                                                            
-                                                     
+                                                    <td  class="col-lg-1"> 
+                                                        <input autoclose="false" type="text" placeholder=""
+                                                        class="form-control" formControlName="reference">
                                                     </td>
                                                     <td class="col-lg-2">
-                                                        <div class="col-lg-12 details-button">
-                                                            
-                                                            <button type="button" class="btn btn-add"
-                                                            (click)="addMiscItem(k)" ></button>
-                                                            <button *ngIf="formCashArray.controls.length > 1" (click)="removeMiscItem(k)"
-                                                                class="btn btn-delete"></button>
-                                                        </div>
-                                                    </td>
-                                              
-                                            </div>
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="k === formArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(k)"></button>
+                                                            <button *ngIf="formArray.controls.length > 1"
+                                                                (click)="removeItem(k)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>                                              
+                                                </div>
                                             </tr>
+                                            <tr>
+                                                <td class="col-lg-3 text-right">
+                                                    <label for="formrow-inputZip"><h6>Total Amt. </h6></label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <div class="mb-3">
+                                                        <input autoclose="false" type="text"
+                                                        placeholder="" class="form-control" formControlName="docAmount"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['docAmount'].invalid) }">
+                                                    </div>
+                                                </td>
+                                            </tr>      
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                                    <div class="row">
-                                      
-                                     
-                                    
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Total Amt. </label>
-                                                <input class="form-control" placeholder=""  formControlName="docAmount">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="mb-6">
-                                                <label for="formrow-inputState">Modify Del Remark</label>
-                                                <input class="form-control" placeholder=""  formControlName="modifyRemarks">
-                                            </div>
-                                        </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-6">
+                                        <label for="formrow-inputState">Modify Del Remark</label>
+                                        <input class="form-control" placeholder="" formControlName="modifyRemarks">
                                     </div>
-                                    <div class="row">
-
-                                      
-                
-                                    </div>
-                       
-                 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-             
-                                 
-                                     
-                                      
-                                        
-                                    
-                                
-                                      
-                                   
-           
-                
-
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md m-2" (click)="submitBankReceiptPaymentsForm()">Save</button>
-                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                            (click)="deleteBankRceiptPmtForm()">Delete</button>
-                        <button type="submit" class="btn btn-secondary w-md" *ngIf="editMode" (click)="exit()">Exit</button>
+                            <button type="submit" class="btn btn-primary w-md"
+                                (click)="submitBankReceiptPaymentsForm()">Save</button>&nbsp;
+                                <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteBankRceiptPaymentsForm()">Delete</button>&nbsp;
+                            <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>
             </form>
-            <!-- end row -->
-            <!-- end row -->
         </div>
         <!-- container-fluid -->
     </div>

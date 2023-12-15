@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -63,7 +64,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ProductGroupMasterList> GetProductGroupMasterList(ProductGroupMasterListRequest request)
+        public async Task<ProductGroupMasterList> GetProductGroupMasterList(PageRequest request)
         {
             ProductGroupMasterList productGroupMasterList = new();
             List<ProductGroupMasterModel> productgroupList = new();

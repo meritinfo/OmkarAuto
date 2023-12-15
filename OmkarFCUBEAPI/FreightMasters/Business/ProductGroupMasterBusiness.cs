@@ -1,5 +1,6 @@
 ﻿using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -19,7 +20,7 @@ namespace FreightMasters.Business
         {
             return await productGroupMasterRepository.ProductGroupMasterDetailsSave(productGroupMasterModel);
         }
-        public async Task<ProductGroupMasterList> GetProductGroupMasterList(ProductGroupMasterListRequest request)
+        public async Task<ProductGroupMasterList> GetProductGroupMasterList(PageRequest request)
         {
             return await productGroupMasterRepository.GetProductGroupMasterList(request);
         }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetTrans.Repository
 {
@@ -84,7 +85,7 @@ namespace FleetTrans.Repository
             }
             return billStatementSearchList;
         }
-        public async Task<BillStatementList> GetBillStatementList(BillStatementListRequest request)
+        public async Task<BillStatementList> GetBillStatementList(PageRequest request)
         {
             BillStatementList billStatementList = new();
             List<BillStatementModel> billList = new();

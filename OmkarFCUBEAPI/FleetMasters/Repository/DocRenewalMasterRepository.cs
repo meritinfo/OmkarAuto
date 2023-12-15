@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {
@@ -68,7 +69,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<DocRenewalMasterList> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
+        public async Task<DocRenewalMasterList> GetDocRenewalMasterList(PageRequest request)
         {
             DocRenewalMasterList RenewalMasterList = new();
             List<DocRenewalMasterModel> docRenewalMasterList = new();

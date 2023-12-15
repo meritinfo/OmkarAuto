@@ -24,93 +24,93 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                 
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Code</label>
-                                                <input type="text"  autofocus="autofocus" class="form-control"
-                                                placeholder=""formControlName="code"
-                                                [ngClass]=>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text"  autofocus="autofocus" class="form-control"
+                                                placeholder="" formControlName="code" maxlength="6" (change)="chkCodeExits($event)"                              
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['code'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Centre Name</label>
-                                                <select class="form-control" formControlName="userBranch2" [ngClass]="">
-                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                                       {{branch.dataName}}
-                                                    </option>
-                                                 </select>
-                                            </div>
-                                        </div>
-                                          <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">BranchBusinessType</label>
-                                                <select id="formrow-inputState" class="form-control" formControlName="branchBusinessType">
-                                                    <option selected="">4</option>
-                                                    <option>6</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                       
-                                        
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Branch </label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
-                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                                       {{branch.dataName}}
-                                                    </option>
-                                                 </select>
-                                            </div>
-                                        </div>
-                                       
-                                    
                                     </div>
-                                 
-                             
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-check">
-                                      <input  type="checkbox" id="formCheckcolor1"    value="A"  class="form-check-input"><label for="formRadios2"
-                                                    class="form-check-label"> Acct YN
-                                                </label>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Branch Name</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                formControlName="userBranch"    maxlength="49"       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Zone Code</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="zoneCode" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['zoneCode'].invalid) }"
+                                                    class="form-control form-select ng-pristine ng-touched">                                             
+                                                    <option value="">Choose...</option>
+                                                    <option value="N">North</option>
+                                                    <option value="E">EAST</option>
+                                                    <option value="W">WEST</option>
+                                                    <option value="S">SOUTH</option>
+                                                </select> 
+                                            </div>
+                                        </div>  
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-9">
                                             <div class="mb-6">
                                                 <label for="formrow-inputZip">Address 1</label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" "formControlName="address1"
-                                                [ngClass]=>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                formControlName="address1"   maxlength="49"        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['address1'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-9">
                                             <div class="mb-6">
                                                 <label for="formrow-inputZip">Address 2</label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" "formControlName="address2"
-                                                [ngClass]=>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                placeholder=" "formControlName="address2"   maxlength="49"       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['address2'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-9">
                                             <div class="mb-6">
                                                 <label for="formrow-inputZip">Address 3</label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" "formControlName="address3"
+                                                <input uppercaseonly type="text" class="form-control"
+                                                placeholder=" "formControlName="address3" maxlength="49"    
                                                 [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-9">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">City</label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter City" formControlName="city">
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly autoclose="false" class="form-control" placeholder="Enter City" 
+                                                formControlName="city"    maxlength="10"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['city'].invalid) }">
                                             </div>
                                         </div>
+                                    </div>   
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">State</label>
-                                                <select class="form-control" formControlName="userState" [ngClass]="">
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="stateCode"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['stateCode'].invalid) }">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                        {{state.dataName}}
                                                     </option>
@@ -120,191 +120,111 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip"> Pin</label>
-                                                <input autoclose="false" class="form-control" placeholder="" formControlName="pinCode">
+                                                <span style="color: red">*</span>
+                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="pinCode" maxlength="6"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['pinCode'].invalid) }">
                                             </div>
                                         </div>
+                                    </div>   
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Phone1</label>
-                                                <input autoclose="false" class="form-control"  placeholder=" "  formControlName="offPhone1">
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" class="form-control"  placeholder=" "  
+                                                formControlName="offPhone1"   maxlength="10"     
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['offPhone1'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Phone2</label>
-                                                <input autoclose="false" class="form-control" placeholder=""  formControlName="offPhone2">
+                                                <input autoclose="false" class="form-control" placeholder=""  
+                                                formControlName="offPhone2"   maxlength="10"     >
                                             </div>
                                         </div>
                                       
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Mobile No</label>
-                                                <input autoclose="false" class="form-control"  placeholder=" " formControlName="mobileNo">
+                                                <label for="formrow-inputZip">Office Mobile No</label>
+                                                <span style="color: red">*</span>
+                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=" " 
+                                                formControlName="mobileNo"     maxlength="10"        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['mobileNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Email</label>
-                                                <input autoclose="false" class="form-control"  placeholder="" formControlName="branchEmail">
+                                                <label for="formrow-inputZip">Office Email</label>
+                                                <input type="email" autoclose="false" class="form-control"  placeholder="" 
+                                                formControlName="branchEmail">
                                             </div>
                                         </div>
+                                    </div>   
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Name</label>
-                                                <input autoclose="false" class="form-control"  placeholder=" "  formControlName="managerName">
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly autoclose="false" class="form-control"  placeholder=" "  
+                                                formControlName="managerName"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['managerName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Mobile No</label>
-                                                <input autoclose="false" class="form-control" placeholder=""  formControlName="managerMobileNo">
+                                                <span style="color: red">*</span>
+                                                <input  maxlength="10"  autoclose="false" class="form-control" placeholder=""  
+                                                formControlName="managerMobileNo"   maxlength="10"          
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['managerMobileNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Phone</label>
-                                                <input autoclose="false" class="form-control"  placeholder=""  formControlName="managerPhone">
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Email</label>
-                                                <input autoclose="false" class="form-control" placeholder="" formControlName="managerEmail">
+                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=""  
+                                                formControlName="managerPhone">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">GstNo</label>
-                                                <input autoclose="false" class="form-control" placeholder="" formControlName="gstNo">
+                                                <label for="formrow-inputZip">Manager Email</label>
+                                                <input type="email" autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="managerEmail">
                                             </div>
                                         </div>
+                                    </div>   
+                                    <div class="row">
                                         <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Bank AcLedger</label>
-                                                <select id="formrow-inputState" class="form-control" formControlName="bankAcLedger">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Branch AcLedger</label>
-                                                <select id="formrow-inputState" class="form-control" placeholder="" formControlName="branchAcLedger">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
-                                                </select>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Gst No</label>
+                                                <input maxlength="15" autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="gstNo">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Entry LockDays </label>
-                                                <input autoclose="false" class="form-control" placeholder=" " formControlName="entryLockDays" >
+                                                <label for="formrow-inputZip">Entry Lock Days </label>
+                                                <input numbersonly   maxlength="3" autoclose="false" class="form-control" placeholder=" " 
+                                                formControlName="entryLockDays" >
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Bank Name </label>
-                                                <input autoclose="false" class="form-control" placeholder=" " formControlName="bankName" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Bank Address </label>
-                                                <input autoclose="false" class="form-control" placeholder=" " formControlName="bankAdd"  >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Bank AcNo </label>
-                                                <input autoclose="false" class="form-control" placeholder=" " formControlName="bankAcNo">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">BankIfsc </label>
-                                                <input autoclose="false" class="form-control" placeholder=" " formControlName="bankIfsc">
-                                            </div>
-                                        </div>
-                                       
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">EwayBillApiGstId </label>
-                                                <input autoclose="false" class="form-control" formControlName="ewayBillApiGstId" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">EwayBillApiUid </label>
-                                                <input autoclose="false" class="form-control" formControlName="ewayBillApiUid">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">EwayBillApiPwd </label>
-                                                <input autoclose="false" class="form-control"formControlName="ewayBillApiPwd" >
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-check mb-3">
-                                              
-                                                 <input  type="checkbox" id="formCheckcolor1"   value="A"  class="form-check-input"formControlName="panApiCheckYN">
-  <label for="formRadios1"
-                                                    class="form-check-label">PanApiCheckYN
-                                                </label>
-                                           
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-check mb-3">
-                                              
-                                                <input  type="checkbox" id="formCheckcolor1"    value="B"  class="form-check-input" formControlName="bankApiCheckYN">
-  <label for="formRadios1"
-                                                    class="form-check-label"> BankApiCheckYN
-                                                </label>
-                                           
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-check mb-3">
-
-                                                    <input  type="checkbox" id="formCheckcolor1"     value="C"  class="form-check-input" formControlName="truckApiCheckYN">
-  <label for="formRadios1"
-                                                    class="form-check-label"> TruckApi CheckYN
-                                                </label>
-                                           
-                                            </div>
-                                        </div>
-                                         <div class="col-lg-3">
-                                            <div class="form-check mb-3">
-
-                                                    <input  type="checkbox" id="formCheckcolor1"     value="D"  class="form-check-input" formControlName="ewayBillApiYN">
-  <label for="formRadios1"
-                                                    class="form-check-label"> EwayBill ApiYN
-                                                </label>
-                                           
-                                            </div>
-                                        </div>
-                                     
-                                        
-                                    </div>
-                                       
-                                       
+                                        </div>   
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-             
-           
+                </div>           
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
                             <button type="submit" class="btn btn-primary w-md"
-                            (click)="submitBranchMasterForm()" >Submit</button>
-            
-                           
+                            (click)="submitBranchMasterForm()" >Submit</button> &nbsp;  
+                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteBranchMasterForm()">Delete</button> &nbsp;
+                            <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

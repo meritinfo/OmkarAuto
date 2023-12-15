@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
@@ -19,7 +20,7 @@ namespace FleetMasters.Business
         {
             return await tyrePositionMasterRepository.TyrePositionMasterSave(tyrePositionMasterModel);
         }
-        public async Task<TyrePositionMasterList> GetTyrePositionMasterList(TyrePositionMasterListRequest request)
+        public async Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request)
         {
             return await tyrePositionMasterRepository.GetTyrePositionMasterList(request);
         }

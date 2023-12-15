@@ -4,6 +4,7 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using HRMasters.Models;
 using HRMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {

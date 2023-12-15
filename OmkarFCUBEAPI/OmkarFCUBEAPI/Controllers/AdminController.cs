@@ -1,13 +1,10 @@
-﻿using FleetMasters.Business;
-using FleetMasters.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using AdminMasters.Business;
 using AdminMasters.Models;
-using System.IO;
+using Shared.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {

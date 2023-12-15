@@ -2,6 +2,7 @@
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using FinTrans.Models;
+using Shared.Models;
 
 namespace FinTrans.Repository
 {
@@ -114,7 +115,7 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
-        public async Task<JournalEntryList> GetJournalEntryList(JournalEntryListRequest request)
+        public async Task<JournalEntryList> GetJournalEntryList(PageRequest request)
         {
             JournalEntryList JournalEntList = new();
             List<JournalEntryModel> journalList = new();

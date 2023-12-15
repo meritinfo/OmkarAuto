@@ -37,7 +37,8 @@
                                           <div class="mb-3">
                                            <input type="text" class="form-control"
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['groupName'].invalid) }"
-                                           placeholder="Enter Group Name" formControlName="groupName" (change)="chkActName()">
+                                           placeholder="Enter Group Name" formControlName="groupName" 
+                                           (change)="chkActName($event)">
                                         </div>
                                        </div>
                                      </div>
@@ -50,9 +51,9 @@
                                         </div>
                                         <div class="col-lg-4">
                                           <div class="mb-3">
-                                             <select formControlName="accounttype" 
+                                             <select formControlName="accountType" 
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['accounttype'].invalid) }"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['accountType'].invalid) }"
                                                 (change)="accountTypeChange($event)">
                                                 <option *ngFor="let acttp of accountTypeList" value={{acttp.dataId}}>
                                                     {{acttp.dataName}}
@@ -70,8 +71,8 @@
                                         </div>
                                         <div class="col-lg-4">
                                           <div class="mb-3">
-                                             <select formControlName="subaccounttype" 
-                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['subaccounttype'].invalid) }"
+                                             <select formControlName="subAccountType" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['subAccountType'].invalid) }"
                                                 class="form-control form-select ng-pristine ng-touched" >                                             
                                                 <option *ngFor="let subacttp of subAccountTypeList" value={{subacttp.dataId}}>
                                                     {{subacttp.dataName}}
@@ -89,8 +90,8 @@
                                        </div>
                                        <div class="col-lg-4">
                                           <div class="mb-3">
-                                             <select formControlName="schedule" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['schedule'].invalid) }"
+                                             <select formControlName="schID" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['schID'].invalid) }"
                                                       class="form-control form-select ng-pristine ng-touched">
                                                 <option *ngFor="let sch of scheduleList" value={{sch.dataId}}>
                                                          {{sch.dataName}}
@@ -108,15 +109,19 @@
                    </div>
                    <!-- end card -->
                 </div>
-             </div>
+             </div>              
              <div class="row text-right">
-                <div class="col-lg-12">
-                   <div class="tex">
-                      <button type="submit" class="btn btn-primary w-md"
-                         (click)="submitFinGroupMasterForm()">Submit</button>
-                   </div>
-                </div>
-             </div>
+                 <div class="col-lg-12">
+                     <div class="tex">
+                         <button type="submit" class="btn btn-primary w-md"
+                             (click)="submitFinGroupMasterForm()">Save</button>&nbsp;
+                             <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                             (click)="deleteFinGroupMasterForm()">Delete</button>&nbsp;
+                         <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                     </div>
+                 </div>
+                 <!-- end col -->
+             </div>  
           </form>
           <!-- end row -->
           <!-- end row -->

@@ -52,8 +52,7 @@ export class IntermediatescreenComponent {
       this.currentServerTime = data.currentServerTime;
     });
     this.sharedService.loggedInStatus = false;
-    this.getBranchList();
-    this.getYearList();
+    this.getDropdownList();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
   }
@@ -64,6 +63,7 @@ export class IntermediatescreenComponent {
   // Send partner details //
 
   submitIntermediateForm(): void {
+    this.sharedService.loading = true;
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
       this.toasterService.warning("Mandatory fields is required");
@@ -88,6 +88,7 @@ export class IntermediatescreenComponent {
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
         sessionStorage.setItem("branchname", this.formLogin.value.userBranch.dataName);
 
+        this.sharedService.loading = false;
         this.sharedService.loggedInStatus = true;
         this.route.navigate(['/dashboard']);
 
@@ -98,15 +99,15 @@ export class IntermediatescreenComponent {
     });
 
   }
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
-  }
-  getYearList(): void {
+  getDropdownList() {
+    this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
-    });
+      this.commonService.getBranchList().subscribe((res) => {
+        this.branchList = res;
+        this.sharedService.loading = false;
+      });
+   });
   }
 
 }

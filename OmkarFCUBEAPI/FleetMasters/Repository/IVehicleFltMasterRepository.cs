@@ -1,11 +1,19 @@
 ﻿
 using FleetMasters.Models;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {
     public interface IVehicleFltMasterRepository
     {
         Task<ResponseModel> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel);
-        Task<VehicleFltMasterList> GetVehicleFltMasterList(VehicleFltMasterListRequest request);
+        Task<VehicleFltMasterList> GetVehicleFltMasterList(PageRequest request);
+        Task<ResponseModel> VehicalMasterDetailsDelete(Request req);
+        Task<List<DropDownListModel>> GetVehicalTypeList();
+        Task<List<DropDownListModel>> GetVehicalLedgerAccountList();
+        Task<List<DropDownListModel>> GetVehicalAssetAccountList();
+        Task<List<DropDownListModel>> GetVehicalMfrList();
+        Task<ResponseModel> ChkVehicalNoExist(Request req);
+        Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(Request req);
     }
 }

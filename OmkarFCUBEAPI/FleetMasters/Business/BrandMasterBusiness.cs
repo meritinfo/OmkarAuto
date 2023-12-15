@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
@@ -19,7 +20,7 @@ namespace FleetMasters.Business
         {
             return await brandMasterRepository.BrandMasterSave(brandMasterModel);
         }
-        public async Task<BrandMasterList> GetBrandMasterList(BrandMasterListRequest request)
+        public async Task<BrandMasterList> GetBrandMasterList(PageRequest request)
         {
             return await brandMasterRepository.GetBrandMasterList(request);
         }

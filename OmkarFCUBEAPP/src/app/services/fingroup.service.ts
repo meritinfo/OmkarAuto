@@ -43,8 +43,8 @@ export class FingroupService {
     return this.httpClient.post<Fingrouplistmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinGroupMasterList', filter, this.httpOptions);
   }
   
-  chkActName(AccountName: string): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/chkActName', AccountName, this.httpOptions);
+  chkActName(request: Requestmodel ): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/chkActName', request, this.httpOptions);
   }
 
   getaccounttypes():  Observable<Dropdownmodel[]> {
@@ -56,5 +56,9 @@ export class FingroupService {
   
   getschedulelist():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetScheduleList', null, this.httpOptions);
+  }
+
+  FinGroupDetailsDelete(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinGroupDetailsDelete', request, this.httpOptions);
   }
 }

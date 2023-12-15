@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
     public interface IDistanceMasterTripBusiness
     {
         Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel);
-       Task<DistanceMasterTripList> GetDistanceMasterTripList(DistanceMasterTripListRequest request);
+       Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequest request);
         Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request);
 
     }

@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Ratesmasterlistmodel } from '../models/ratesmasterlistmodel';
+import { RatesMasterDetailsList } from '../models/ratesmastermodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +41,12 @@ export class RatesMasterService {
   }
   getRatesMasterList(filter: Filtermodel): Observable<Ratesmasterlistmodel> {
     return this.httpClient.post<Ratesmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightRatesList', filter, this.httpOptions);
+  }
+  RatesMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FreightRatesMasterDetailsDelete', req, this.httpOptions);
+  }
+
+  getFreightRateInnerGridList(req: Requestmodel): Observable<Ratesmastermodel> {
+    return this.httpClient.post<Ratesmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightRateInnerGridList', req, this.httpOptions);
   }
 }

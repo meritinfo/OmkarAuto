@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Drivermodel } from '../models/drivermodel';
 import { Drivermasterlistmodel } from '../models/drivermasterlistmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from '../models/requestmodel';
 import { Constants } from '../common/constants';
 import { Filtermodel } from '../models/filtermodel';
 import { Observable } from 'rxjs';
@@ -33,5 +34,9 @@ export class DrivermasterService {
   }
   getDriverMasterList(filter: Filtermodel): Observable<Drivermasterlistmodel> {
     return this.httpClient.post<Drivermasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetDriverMasterList', filter, this.httpOptions);
+  }
+
+  driverMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterDetailsDelete', req, this.httpOptions);
   }
 }

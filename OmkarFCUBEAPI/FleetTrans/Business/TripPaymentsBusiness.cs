@@ -1,6 +1,7 @@
 ﻿using FleetTrans.Business;
 using FleetTrans.Models;
 using FleetTrans.Repository;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -24,7 +25,7 @@ namespace FleetTrans.Business
             return await tripPaymentsRepository.TripPaymentsSave(tripPaymentsModel);
         }
 
-        public async Task<TripPaymentsList> GetTripPaymentsList(TripPaymentsListRequest request)
+        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequest request)
         {
             return await tripPaymentsRepository.GetTripPaymentsList(request);
         }
@@ -33,11 +34,11 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetTripDetail(request);
         }
-        public async Task<List<BranchListModel>> GetCreditAcList()
+        public async Task<List<DropDownListModel>> GetCreditAcList()
         {
             return await tripPaymentsRepository.GetCreditAcList();
         }
-        public async Task<List<BranchListModel>> GetCreditAcList2(AcModel request)
+        public async Task<List<DropDownListModel>> GetCreditAcList2(AcModel request)
         {
             return await tripPaymentsRepository.GetCreditAcList2(request);
         }

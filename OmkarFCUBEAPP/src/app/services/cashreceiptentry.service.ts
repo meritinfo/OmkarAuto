@@ -1,11 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { Cashreceiptentrymodel } from '../models/cashreceiptentrymodel';
+import { bankreceiptentrymodel } from '../models/bankreceiptentrymodel';
+import { Bankdocnofiltermodel } from 'src/app/models/bankdocnofiltermodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
-import { Filtermodel } from '../models/filtermodel';
+import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 import { Constants } from '../common/constants';
-import { Cashreceiptentrylistmodel } from '../models/cashreceiptentrylistmodel';
+import { bankreceiptentrylistmodel } from '../models/bankreceiptentrylistmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -18,24 +20,31 @@ export class CashReceiptEntryService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedCashreceiptentry = new Cashreceiptentrymodel();
+  selectedCashreceiptentry = new bankreceiptentrymodel();
   constructor(private httpClient: HttpClient) { }
-  setCashReceiptEntryDetails(docrenewalmaster: Cashreceiptentrymodel) {
- 
-      this.selectedCashreceiptentry = docrenewalmaster;
-    
-  
+  setCashReceiptEntryDetails(docrenewalmaster: bankreceiptentrymodel) { 
+      this.selectedCashreceiptentry = docrenewalmaster;  
   }
+  
   getCashReceiptEntryDetails() {
     return this.selectedCashreceiptentry;
   }
   clearCashReceiptEntryDetails() {
-    this.selectedCashreceiptentry = new Cashreceiptentrymodel();
+    this.selectedCashreceiptentry = new bankreceiptentrymodel();
   }
-  cashReceiptEntryDetailsSubmitted(user: Cashreceiptentrymodel): Observable<Responsemodel> {
+  cashReceiptEntryDetailsSubmitted(user: bankreceiptentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CashReceiptPaymentsSave', user, this.httpOptions);
   }
-  getCashReceiptEntryList(filter: Filtermodel): Observable<Cashreceiptentrylistmodel> {
-    return this.httpClient.post<Cashreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentsList', filter, this.httpOptions);
+  getCashReceiptEntryList(filter: Cashbankfiltermodel): Observable<bankreceiptentrylistmodel> {
+    return this.httpClient.post<bankreceiptentrylistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentsList', filter, this.httpOptions);
+  }  
+  getCashReceiptInnerGridList(req: Requestmodel): Observable<bankreceiptentrymodel> {
+    return this.httpClient.post<bankreceiptentrymodel>(Constants.API_ENDPOINT + 'FinTrans/GetCashReceiptPaymentInnerGridList', req, this.httpOptions);
+  }
+  getDocNo(docNoFilter: Bankdocnofiltermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetNextDocNo', docNoFilter, this.httpOptions);
+  }
+  cashReceiptPaymentsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CashReceiptPaymentsDelete', req, this.httpOptions);
   }
 }

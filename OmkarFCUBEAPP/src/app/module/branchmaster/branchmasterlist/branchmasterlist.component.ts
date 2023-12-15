@@ -17,7 +17,7 @@ export class BranchmasterlistComponent  {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'username',
+    sortColumn: 'Code',
     sortOrder: 'asc',
     search: ''
   }
@@ -57,32 +57,25 @@ export class BranchmasterlistComponent  {
         },
        
         {
-          title: 'CentreName',
+          title: 'Centre Name',
           data: 'centreName',
         },
         {
-          title: 'ZoneCode',
+          title: 'Zone Code',
           data: 'zoneCode',
         },
         {
-          title: 'StateCode',
-          data: 'stateCode',
+          title: 'State Name',
+          data: 'stateName',
         },
         {
-          title: 'ManagerName',
+          title: 'Manager Name',
           data: 'managerName',
         },
         {
-          title: 'ManagerMobileNo',
+          title: 'Manager Mobile No',
           data: 'managerMobileNo',
-        },
-          
-        {
-          title: 'RegionId',
-          data: 'regionId',
-        },
-      
-      
+        },    
         {
           title: 'Action',
           data: 'centreId',

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {    
@@ -62,7 +63,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<VehicleTypeGroupMasterList> GetVehicleTypeGroupMasterList(VehicleTypeGroupMasterListRequest request)
+        public async Task<VehicleTypeGroupMasterList> GetVehicleTypeGroupMasterList(PageRequest request)
         {
             VehicleTypeGroupMasterList vehicleTypeGroupMasterList = new();
             List<VehicleTypeGroupMasterModel> vehicleTypeGroupList = new();
@@ -91,9 +92,6 @@ namespace FleetMasters.Repository
                                 VehicleTypeGroupName = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupName"]),
 
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
-                            
-                             
-
 
                             });
                         }
@@ -123,9 +121,9 @@ namespace FleetMasters.Repository
             }
             return vehicleTypeGroupMasterList;
         }
-        public async Task<List<VehicleListModel>> GetVehicleList()
+        public async Task<List<DropDownListModel>> GetVehicleList()
         {
-            List<VehicleListModel> vehicleList = new();
+            List<DropDownListModel> vehicleList = new();
             try
             {
                 if (dbconnection != null)
@@ -137,7 +135,7 @@ namespace FleetMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            vehicleList.Add(new VehicleListModel
+                            vehicleList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

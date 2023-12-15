@@ -1,12 +1,12 @@
-﻿
-
-using FleetMasters.Models;
+﻿using FleetMasters.Models;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
     public interface IDriverMasterBusiness
     {
         Task<ResponseModel> DriverMasterSave(DriverMasterModel DriverMasterModel);
-        Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
+        Task<ResponseModel> DriverMasterDetailsDelete(Request requestModel);
+        Task<DriverMasterList> GetDriverMasterList(PageRequest request);
     }
 }

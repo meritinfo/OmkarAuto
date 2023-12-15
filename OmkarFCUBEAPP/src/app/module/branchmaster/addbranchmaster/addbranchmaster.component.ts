@@ -3,13 +3,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
-
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BranchMasterService } from 'src/app/services/branchmaster.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-addbranchmaster',
@@ -20,6 +21,11 @@ export class AddbranchmasterComponent {
   loggedInUserID: string = '';
   formBranchMaster!: FormGroup;
   userSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
@@ -27,11 +33,27 @@ export class AddbranchmasterComponent {
   List: Dropdownmodel[] = [];
   selectedBranchMasterDetails = new Branchmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private branchModel: Branchmodel, private branchmasterService: BranchMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private branchModel: Branchmodel, private branchmasterService: BranchMasterService, 
+    private commonService: CommonService,private requestmodel:Requestmodel,
+    private toasterService: ToastrService) {
     this.branchModel = new Branchmodel();
   }
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
+    
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -41,6 +63,8 @@ export class AddbranchmasterComponent {
     else {
       this.route.navigate(['/']);
     }
+
+
     this.getBranchList();
 
     this.getStateList();
@@ -48,60 +72,34 @@ export class AddbranchmasterComponent {
     this.selectedBranchMasterDetails = this.branchmasterService.getBranchMasterDetails();
     this.formBranchMaster = this.formBuilder.group({
 
-      acctBranch: new FormControl('',),
-      stateCode: new FormControl('',),
-
-      userBranch: new FormControl('',),
-      userBranch2: new FormControl('',),
-      userState: new FormControl('',),
-      code: new FormControl('',),
-      centreName: new FormControl('',),
-      zoneCode: new FormControl('',),
-      regionId: new FormControl('',),
-      branchBusinessType: new FormControl('',),
-      acctYN: new FormControl('',),
-      address1: new FormControl('',),
-      address2: new FormControl('',),
+      code: new FormControl('',[Validators.required]),
+      userBranch: new FormControl('',[Validators.required]),
+      zoneCode: new FormControl('',[Validators.required]),
+      address1: new FormControl('',[Validators.required]),
+      address2: new FormControl('',[Validators.required]),
       address3: new FormControl('',),
-      city: new FormControl('',),
-      pinCode: new FormControl('',),
-      offPhone1: new FormControl('',),
+      city: new FormControl('',[Validators.required]),
+      userState: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',[Validators.required]),
+      offPhone1: new FormControl('',[Validators.required]),
       offPhone2: new FormControl('',),
-      mobileNo: new FormControl('',),
+      mobileNo: new FormControl('',[Validators.required,]),
       branchEmail: new FormControl('',),
-      managerName: new FormControl('',),
-      managerMobileNo: new FormControl('',),
+      managerName: new FormControl('',[Validators.required]),
+      managerMobileNo: new FormControl('',[Validators.required]),
       managerPhone: new FormControl('',),
       managerEmail: new FormControl('',),
       gstNo: new FormControl('',),
-      activeYN: new FormControl('',),
-      bankAcLedger: new FormControl('',),
-      branchAcLedger: new FormControl('',),
-      entryLockDays: new FormControl('',),
-      bankName: new FormControl('',),
-      bankAdd: new FormControl('',),
-      bankAcNo: new FormControl('',),
-      bankIfsc: new FormControl('',),
-      ewayBillApiYN: new FormControl('',),
-      ewayBillApiGstId: new FormControl('',),
-      ewayBillApiUid: new FormControl('',),
-      ewayBillApiPwd: new FormControl('',),
-      panApiCheckYN: new FormControl('',),
-      bankApiCheckYN: new FormControl('',),
-      truckApiCheckYN: new FormControl('',),
-      isHO: new FormControl('',),
-
+      entryLockDays: new FormControl('',),     
 
     });
     if (this.selectedBranchMasterDetails.centreid != '') {
       this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
       this.formBranchMaster.patchValue({
-        userBranch: this.selectedBranchMasterDetails.acctBranch,
-        userBranch2: this.selectedBranchMasterDetails.centreName,
+        userBranch: this.selectedBranchMasterDetails.centreName,
         userState: this.selectedBranchMasterDetails.stateCode,
-
-
       })
+      this.editMode = true;
     }
 
 
@@ -124,50 +122,74 @@ export class AddbranchmasterComponent {
     });
   }
 
+  
+  chkCodeExits(e: any) { 
+    if (this.selectedBranchMasterDetails.centreid == "")
+    {
+      this.requestmodel.strRequest = e.target.value; 
+      this.branchmasterService.chkCodeExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBranchMaster.patchValue({
+            code: ''
+          });
+        }
+      });
+    }
+  }
+
+  deleteBranchMasterForm(): void {
+    if(this.selectedBranchMasterDetails.centreid != '' ){
+     this.requestmodel.strRequest =this.selectedBranchMasterDetails.centreid
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.branchmasterService.branchMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formBranchMaster.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/branchmasterlist']);
+  }
+
+
   //Submit user form details //
   submitBranchMasterForm(): void {
     this.userSubmitted = true;
     if (this.formBranchMaster.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");
       return;
     }
     this.branchModel.centreid = this.selectedBranchMasterDetails.centreid != '' ? this.selectedBranchMasterDetails.centreid : '';
 
-    this.branchModel.code = this.formBranchMaster.value.code;
-    this.branchModel.centreName = this.formBranchMaster.value.userBranch2;
-    this.branchModel.acctBranch = this.formBranchMaster.value.userBranch.toString();
-    this.branchModel.stateCode = this.formBranchMaster.value.userState.toString();
-    this.branchModel.regionId = this.formBranchMaster.value.regionId;
-    this.branchModel.branchBusinessType = this.formBranchMaster.value.branchBusinessType;
-    this.branchModel.acctYN = this.formBranchMaster.value.acctYN;
-    this.branchModel.acctBranch = this.formBranchMaster.value.acctBranch;
-    this.branchModel.address1 = this.formBranchMaster.value.address1;
-    this.branchModel.address2 = this.formBranchMaster.value.address2;
-    this.branchModel.address3 = this.formBranchMaster.value.address3;
-    this.branchModel.city = this.formBranchMaster.value.city;
-    this.branchModel.pinCode = this.formBranchMaster.value.pinCode;
-    this.branchModel.offPhone1 = this.formBranchMaster.value.offPhone1;
-    this.branchModel.offPhone2 = this.formBranchMaster.value.offPhone2;
-    this.branchModel.mobileNo = this.formBranchMaster.value.mobileNo;
-    this.branchModel.branchEmail = this.formBranchMaster.value.branchEmail;
-    this.branchModel.managerMobileNo = this.formBranchMaster.value.managerMobileNo;
-    this.branchModel.managerPhone = this.formBranchMaster.value.managerPhone;
-    this.branchModel.managerEmail = this.formBranchMaster.value.managerEmail;
-    this.branchModel.gstNo = this.formBranchMaster.value.gstNo;
-    this.branchModel.activeYN = this.formBranchMaster.value.activeYN;
-    this.branchModel.bankAcLedger = this.formBranchMaster.value.bankAcLedger;
-    this.branchModel.branchAcLedger = this.formBranchMaster.value.branchAcLedger;
-    this.branchModel.entryLockDays = this.formBranchMaster.value.entryLockDays;
-    this.branchModel.bankName = this.formBranchMaster.value.bankName;
-    this.branchModel.bankAdd = this.formBranchMaster.value.bankAdd;
-    this.branchModel.bankAcNo = this.formBranchMaster.value.bankAcNo;
-    this.branchModel.bankIfsc = this.formBranchMaster.value.bankIfsc;
-    this.branchModel.ewayBillApiYN = this.formBranchMaster.value.ewayBillApiYN;
-    this.branchModel.ewayBillApiGstId = this.formBranchMaster.value.ewayBillApiGstId;
-    this.branchModel.ewayBillApiUid = this.formBranchMaster.value.ewayBillApiUid;
-    this.branchModel.ewayBillApiPwd = this.formBranchMaster.value.ewayBillApiPwd;
-    this.branchModel.panApiCheckYN = this.formBranchMaster.value.panApiCheckYN;
-    this.branchModel.bankApiCheckYN = this.formBranchMaster.value.bankApiCheckYN;
-    this.branchModel.isHO = this.formBranchMaster.value.isHO;
+    var selectedDataVal = this.formBranchMaster.getRawValue();
+
+    this.branchModel.code             = selectedDataVal.code.toString().toUpperCase();
+    this.branchModel.centreName       = selectedDataVal.userBranch.toString().toUpperCase();
+    this.branchModel.zoneCode         = selectedDataVal.zoneCode.toString().toUpperCase();
+    this.branchModel.address1         = selectedDataVal.address1.toString().toUpperCase();
+    this.branchModel.address2         = selectedDataVal.address2.toString().toUpperCase();
+    this.branchModel.address3         = selectedDataVal.address3.toString().toUpperCase();
+    this.branchModel.city             = selectedDataVal.city.toString().toUpperCase();
+    this.branchModel.stateCode        = selectedDataVal.stateCode.toString().toUpperCase();
+    this.branchModel.pinCode          = selectedDataVal.pinCode;
+    this.branchModel.offPhone1        = selectedDataVal.offPhone1;
+    this.branchModel.offPhone2        = selectedDataVal.offPhone2;
+    this.branchModel.mobileNo         = selectedDataVal.mobileNo;
+    this.branchModel.branchEmail      = selectedDataVal.branchEmail;
+    this.branchModel.managerName      = selectedDataVal.managerName.toString().toUpperCase();
+    this.branchModel.managerMobileNo  = selectedDataVal.managerMobileNo;
+    this.branchModel.managerPhone     = selectedDataVal.managerPhone;
+    this.branchModel.managerEmail     = selectedDataVal.managerEmail;
+    this.branchModel.gstNo            = selectedDataVal.gstNo.toString().toUpperCase();
+    this.branchModel.entryLockDays    = selectedDataVal.entryLockDays;
+    this.branchModel.loggedInUserID   = this.loggedInUserID;
+
+  
     this.branchmasterService.branchMasterDetailsSubmitted(this.branchModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);

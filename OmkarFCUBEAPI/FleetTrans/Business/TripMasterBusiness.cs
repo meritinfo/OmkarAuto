@@ -1,6 +1,7 @@
 ﻿using FleetTrans.Business;
 using FleetTrans.Models;
 using FleetTrans.Repository;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -40,9 +41,25 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetTripSheetList(request);
         }
-        public async Task<List<BranchListModel>> GetDriverList()
+        public async Task<List<DropDownListModel>> GetDriverList()
         {
             return await tripMasterRepository.GetDriverList();
+        }
+        public async Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request)
+        {
+            return await tripMasterRepository.GetOtherTripOpenList(request);
+        }
+        public async Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel)
+        {
+            return await tripMasterRepository.OtherTripOpenSave(tripMasterModel);
+        }
+        public async Task<ResponseModel> OtherTripOpenDelete(Request request)
+        {
+            return await tripMasterRepository.OtherTripOpenDelete(request);
+        }
+        public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
+        {
+            return await tripMasterRepository.GetNextTripNo(tripNoFilter);
         }
         public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {

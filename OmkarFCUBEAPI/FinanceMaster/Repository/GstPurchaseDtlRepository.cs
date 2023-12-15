@@ -5,6 +5,7 @@ using FinanceMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FinanceMasters.Repository
 {
@@ -80,7 +81,7 @@ namespace FinanceMasters.Repository
             return responseModel;
         }
 
-        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(PageRequest request)
         {
             GstPurchaseDtlList gstPurchaseDtlList = new();
             List<GstPurchaseDtlModel> gstPurchaseList = new();

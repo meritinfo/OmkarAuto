@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {

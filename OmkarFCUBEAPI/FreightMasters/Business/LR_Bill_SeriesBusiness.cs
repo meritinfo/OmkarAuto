@@ -1,5 +1,6 @@
 ﻿using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -22,7 +23,7 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.LR_Bill_SeriesDetailsSave(lr_Bill_SeriesModel);
         }
-        public async Task<LRBillSeriesList> LRBillSeriesList(LRBillSeriesListRequest request)
+        public async Task<LRBillSeriesList> LRBillSeriesList(PageRequest request)
         {
             return await freightMastersRepository.LRBillSeriesList(request);
         }

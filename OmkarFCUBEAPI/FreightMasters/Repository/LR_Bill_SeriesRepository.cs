@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -64,7 +65,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<LRBillSeriesList> LRBillSeriesList(LRBillSeriesListRequest request)
+        public async Task<LRBillSeriesList> LRBillSeriesList(PageRequest request)
         {
             LRBillSeriesList LlrBillSeriesList = new();
             List<LR_Bill_SeriesModel> lrbillList = new();

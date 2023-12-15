@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -105,7 +106,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<DestinationMasterList> GetDestinationMasterList(DestinationMasterListRequest request)
+        public async Task<DestinationMasterList> GetDestinationMasterList(PageRequest request)
         {
             DestinationMasterList destinationMasterList = new();
             List<DestinationMasterModel> destinationList = new();
@@ -134,6 +135,8 @@ namespace FreightMasters.Repository
                                 CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 StateName = Convert.ToString(dataSet.Tables[0].Rows[i]["StateName"]),
                                 PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+                                StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                AcctBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctBranch"]),
                                 ControlBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["ControlBranch"]),
 
                             });
@@ -165,9 +168,9 @@ namespace FreightMasters.Repository
             return destinationMasterList;
         }
 
-        public async Task<List<StateListModel>> GetStateList()
+        public async Task<List<DropDownListModel>> GetStateList()
         {
-            List<StateListModel> stateList = new();
+            List<DropDownListModel> stateList = new();
             try
             {
                 if (dbconnection != null)
@@ -179,7 +182,7 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            stateList.Add(new StateListModel
+                            stateList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

@@ -1,5 +1,6 @@
 ﻿using FleetMasters.Models;
 using FleetMasters.Repository;
+using Shared.Models;
 
 namespace FleetMasters.Business
 {
@@ -20,9 +21,14 @@ namespace FleetMasters.Business
             return await driverMasterRepository.DriverMasterSave(driverMasterModel);
         }
 
-        public async Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request)
+        public async Task<DriverMasterList> GetDriverMasterList(PageRequest request)
         {
             return await driverMasterRepository.GetDriverMasterList(request);
         }
+        public async Task<ResponseModel> DriverMasterDetailsDelete(Request req)
+        {
+            return await driverMasterRepository.DriverMasterDetailsDelete(req);
+        }
+
     }
 }

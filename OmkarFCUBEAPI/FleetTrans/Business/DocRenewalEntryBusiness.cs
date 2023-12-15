@@ -1,6 +1,7 @@
 ﻿using FleetTrans.Business;
 using FleetTrans.Models;
 using FleetTrans.Repository;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -24,7 +25,7 @@ namespace FleetTrans.Business
             return await docRenewalEntryRepository.DocRenewalEntryDetailsSave(docRenewalEntryModel);
         }
 
-        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(DocRenewalEntryListRequest request)
+        public async Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request)
         {
             return await docRenewalEntryRepository.GetDocRenewalEntryList(request);
         }

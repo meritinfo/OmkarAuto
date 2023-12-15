@@ -10,7 +10,6 @@ namespace FleetTrans.Models
     {
         public string Tripdate { get; set; }
         public string VehicleMasterID { get; set; }
-
         public string DriverMasterID { get; set; }
         public string Yearid { get; set; }
         public string TripNo { get; set; }

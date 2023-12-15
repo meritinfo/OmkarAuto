@@ -1,5 +1,5 @@
 export class bankreceiptentrymodel {
-    ftmId: string = "";
+    ftmID: string = "";
     ftmDate: string = "";
     docType: string = "";
     docSeries: string = "";
@@ -15,25 +15,21 @@ export class bankreceiptentrymodel {
     yearID    : string = "";
     branchCode     : string = "";
     modifyRemarks     : string = "";
+    acHeader:string = "";
+    accountOf:string = "";
+    narration:string = "";
+    loggedInUser:string = "";
    
     detailList: BankreceiptpaymentDetailmodel[] = [];
 
 }
 export class BankreceiptpaymentDetailmodel {
-    ftdID : string = "";
-    ftmID: string = "";
-    ftmDate: string = "";
     slNo : string = "";
     typeSign  : string = "";
     amount: string = "";
-    accountId : string = "";
+    accountID : string = "";
     chequeNo : string = "";
-    chequeDate : string = "";
-  
+    chequeDate : string = "";  
     narration : string = "";
-    costRefNo: string = "";
-    reference : string = "";
-    branchCode : string = "";
-    index : string = "";
-  
+    reference : string = "";  
 }

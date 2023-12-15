@@ -121,7 +121,13 @@ export class CommonService {
     if(date == ''){
       return '';
     }
-    let dateParts = date.split(" ")[0].split("/");
+    var dateParts =[''];
+    if(date.includes("/")){   
+     dateParts = date.split(" ")[0].split("/");
+    }
+    else{  
+     dateParts = date.split(" ")[0].split("-");
+    }
     var dateObject = new Date(dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0]);
     const d = new Date(dateObject);
     let month = '' + (d.getMonth() + 1);
@@ -130,5 +136,23 @@ export class CommonService {
     if (month.length < 2) month = '0' + month;
     if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
+  }
+
+  getCurrentFiscalYear(date: string) {
+    var dates = {
+      'sDate': new Date(),
+      'eDate': new Date()
+    };
+    var docDate = new Date(date);
+    var month = docDate.getMonth();
+    if (month > 3) {
+      dates.sDate = new Date(docDate.getFullYear(), 3, 1);
+      dates.eDate = new Date(dates.sDate.getFullYear() + 1, dates.sDate.getMonth() - 1, 31);
+    }
+    else {
+      dates.sDate = new Date(docDate.getFullYear() - 1, 3, 1);
+      dates.eDate = new Date(docDate.getFullYear(), dates.sDate.getMonth() - 1, 31);
+    }
+    return dates;
   }
 }

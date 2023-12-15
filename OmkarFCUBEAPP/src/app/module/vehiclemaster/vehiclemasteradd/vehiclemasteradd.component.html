@@ -27,101 +27,99 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
-                                                <input type="text" numbersonly class="form-control"
-                                                    placeholder="(Number only) Vehicle No" formControlName="vehicleNo"
-                                                    [ngClass]=>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    placeholder="" formControlName="vehicleNo"  
+                                                    (change)="onVehicalNoChange($event)"                                                  
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Fleet Station</label>
-                                                <select id="formrow-inputState" class="form-select"
-                                                    formControlName="fleetStation">
-                                                    <option selected="">Choose...</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">Regn Note</label>
-                                                <select id="formrow-inputState" class="form-select"
-                                                    formControlName="regnDate">
-                                                    <option selected="">Choose...</option>
-                                                </select>
+                                                <label for="formrow-inputState">Regn Date</label>                                                
+                                                <input type="date" class="form-control" formControlName="regnDate"
+                                                    placeholder= "dd/MM/yyyy"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['regnDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Regd Owner</label>
-                                                <input autoclose="false" class="form-control"
-                                                    formControlName="regdOwner" placeholder="Enter Regd Owner">
+                                                <input uppercaseonly autoclose="false" class="form-control"
+                                                    formControlName="regdOwner" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['regdOwner'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Chessis No</label>
-                                                <input type="text" decimalonly class="form-control"
-                                                    placeholder="(2 digit decimal) Chessis No"
-                                                    formControlName="chasisNo" [ngClass]=>
+                                                <label  for="formrow-inputZip">Chessis No</label>
+                                                <input uppercaseonly alphanumericonly type="text" decimalonly class="form-control"
+                                                    placeholder=""
+                                                    formControlName="chasisNo"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['chasisNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Engine No</label>
-                                                <input type="text" alphanumericonly class="form-control"
-                                                    placeholder="(Alphanumeric) Engine No" formControlName="engineNo"
-                                                    [ngClass]=>
+                                                <input type="text" uppercaseonly alphanumericonly class="form-control"
+                                                    placeholder="" formControlName="engineNo"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['engineNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Type</label>
-                                                <select id="formrow-inputState" class="form-select"
-                                                    formControlName="vehicleTypeID">
-                                                    <option selected="">Choose...</option>
-                                                </select>
+                                                <select class="form-control" formControlName="vehicleTypeID"   
+                                                class="form-control form-select ng-pristine ng-touched"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleTypeID'].invalid) }">
+                                                    <option *ngFor="let vehi of vehicleGrpList" value={{vehi.dataId}}>
+                                                       {{vehi.dataName}}
+                                                    </option>
+                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Vehicle Model Group</label>
-                                                <input autoclose="false" class="form-control"
-                                                    formControlName="vehicleTypeGroupId"
-                                                    placeholder="Enter Vehicle Model Group">
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Vehicle Mfr</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
-                                                    <option selected="">Choose...</option>
-                                                </select>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Vehicle Mfr</label>
+                                                <select class="form-control" formControlName="vehMfrId"   
+                                                class="form-control form-select ng-pristine ng-touched"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehMfrId'].invalid) }">
+                                                    <option *ngFor="let mfr of vehicleMfrList" value={{mfr.dataId}}>
+                                                       {{mfr.dataName}}
+                                                    </option>
+                                                 </select>
 
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Mfr Model Name</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="vehMfrId" placeholder="Enter Mfr Model Name"
-                                                    [ngClass]=>
+                                                <input  uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="mfrModelName" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mfrModelName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Fule Type</label>
-                                                <select id="formrow-inputState" class="form-select"
+                                                <select id="formrow-inputState" class="form-select"  formControlName="fuelType"    
+                                                class="form-control form-select ng-pristine ng-touched"                                            
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['fuelType'].invalid) }"
                                                     formControlName="fuelType">
-                                                    <option selected="">Choose...</option>
+                                                    <option value="">Choose...</option>
+                                                    <option value="D">Diesel</option>
+                                                    <option value="E">Electric</option>
+                                                    <option value="H">Hybrid</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputZip">Year</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Enter Year"
+                                                <input numbersonly maxlength="4" autoclose="false" placeholder=""                                                 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['makeYear'].invalid) }"
                                                     formControlName="makeYear" class="form-control">
                                             </div>
                                         </div>
@@ -129,58 +127,58 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Tank Capacity</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="tankCap" placeholder="Enter Tank Capacity"
-                                                    [ngClass]=>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="tankCap" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tankCap'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Gross Weight</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="grossWt" placeholder="Enter Gross Weight"
-                                                    [ngClass]=>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="grossWt" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['grossWt'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Unloaded Weight</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="unLadenWT" placeholder="Enter Unloaded Weight"
-                                                    [ngClass]=>
+                                                <label for="formrow-inputState">UnLaden Weight</label>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="unLadenWT" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['unLadenWT'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">No of Tyres</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="noOfTyres" placeholder="Enter No of Tyres"
-                                                    [ngClass]=>
+                                                <input numbersonly maxlength="3" type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="noOfTyres" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['noOfTyres'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Vehicle Length</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="vehLength" placeholder="Enter Vehicle Length"
-                                                    [ngClass]=>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="vehLength" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehLength'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Height</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="vehHeight" placeholder="Enter Vehicle Height"
-                                                    [ngClass]=>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="vehHeight" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehHeight'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Breadth</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="vehBreadth" placeholder="Enter Vehicle Breadth"
-                                                    [ngClass]=>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="vehBreadth" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehBreadth'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -188,186 +186,221 @@
                                                 <label for="formrow-inputState">Vehicle Volumn(CFT)</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehVolumeCFT"
-                                                    placeholder="Enter Vehicle Volumn(CFT)" [ngClass]=>
+                                                    placeholder=""                                                  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehVolumeCFT'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">FastTag Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
-                                                    <option selected="">Choose...</option>
+                                                <select class="form-control" formControlName="fastTagYN" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                (change)="onFastTagChange($event)"                                                 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">FastTag Company</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="remarks" placeholder="Enter FastTag Company"
-                                                    [ngClass]=>
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="fastTagCo" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagCo'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">FastTag Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="FastTag Card No"
-                                                    formControlName="remarks" class="form-control">
+                                                <input uppercaseonly autoclose="false" placeholder=""
+                                                    formControlName="fastTagNo" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Card Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]="">
-                                                    <option selected="">Choose...</option>
+                                            <div class="mb-3"><label for="formrow-inputCity">Petro Card Y/N</label>
+                                                <select class="form-control" formControlName="petroCardYN"    
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                (change)="onPetroCardChange($event)"                                                    
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Card Company</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="remarks" placeholder="Enter Company" [ngClass]=>
+                                                <label for="formrow-inputState">Petro Card Company</label>
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="petroCo" placeholder=""                                                  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
-                                                    formControlName="petroCardNo" class="form-control">
+                                                <label for="formrow-inputZip">Petro Card No</label>
+                                                <input uppercaseonly  autoclose="false" placeholder=""
+                                                    formControlName="petroCardNo" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Card Pin</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
-                                                    formControlName="petroCardPin" class="form-control">
+                                                <label for="formrow-inputZip">Petro Card Pin</label>
+                                                <input uppercaseonly autoclose="false" placeholder=""
+                                                    formControlName="petroCardPin" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardPin'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">Card Y/N</label>
-                                                <select class="form-control" formControlName="happayCardYN"
-                                                    [ngClass]="">
-                                                    <option selected="">Choose...</option>
+                                            <div class="mb-3"><label for="formrow-inputCity">Happay Card Y/N</label>
+                                                <select class="form-control" formControlName="happayCardYN"  
+                                                class="form-control form-select ng-pristine ng-touched"  
+                                                (change)="onHappayCardChange($event)"                                                                       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Card Company</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="Enter Company" [ngClass]=>
+                                                <label for="formrow-inputZip">Happay Card No</label>
+                                                <input uppercaseonly  autoclose="false" placeholder=""
+                                                    formControlName="happayCardNo" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Card No</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card No"
-                                                    formControlName="happayCardNo" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Card Pin</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Card Pin"
-                                                    formControlName="happayCardPin" class="form-control">
+                                                <label for="formrow-inputZip">Happay Card Pin</label>
+                                                <input uppercaseonly  autoclose="false" placeholder=""
+                                                    formControlName="happayCardPin" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardPin'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">FIP Y/N</label>
-                                                <select class="form-control" formControlName="fipYN" [ngClass]="">
-                                                    <option selected="">Choose...</option>
+                                                <select class="form-control" formControlName="fipYN"      
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                (change)="onFipChange($event)"                                                                      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['fipYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">FIP No</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="fipNo" placeholder="Enter FIP No" [ngClass]=>
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="fipNo" placeholder=""                                                  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fipNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Sold Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]=""
+                                                <select class="form-control"     
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                (change)="onSoldChange($event)"                                                                        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['soldYN'].invalid) }"
                                                     formControlName="soldYN">
-                                                    <option selected="">Choose...</option>
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Sold To</label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
-                                                    formControlName="soldTo" placeholder="Enter Sold To" [ngClass]=>
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="soldTo" placeholder=""                                                  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldTo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Sold Date</label>
-                                                <input bsdatepicker="" autoclose="false" type="date"
-                                                    placeholder="Sold Date" class="form-control"
-                                                    formControlName="soldDate">
+                                                <input autoclose="false" type="date" 
+                                                    placeholder="dd-mm-yyyy" class="form-control"
+                                                    formControlName="soldDate"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Sold Vehicle</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder="Sold Vehicle"
-                                                    formControlName="soldValue" class="form-control">
+                                                <label for="formrow-inputZip">Sold Value</label>
+                                                <input decimalonly bsdatepicker="" autoclose="false" placeholder=""
+                                                    formControlName="soldValue" class="form-control"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldValue'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Transfer Y/N</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]=""
+                                                <select class="form-control" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                (change)="onTransferChange($event)"                                                       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrYN'].invalid) }"
                                                     formControlName="tfrYN">
-                                                    <option selected="">Choose...</option>
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Transfer Date</label>
-                                                <input bsdatepicker="" autoclose="false" type="date"
-                                                    placeholder="Transfer Date" class="form-control"
-                                                    formControlName="tfrDate">
+                                                <input autoclose="false" type="date"
+                                                    placeholder="dd-mm-yyyy" class="form-control"
+                                                    formControlName="tfrDate"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Transfer New Vehicle</label>
-                                                <input bsdatepicker="" autoclose="false"
-                                                    placeholder="Transfer New Vehicle" class="form-control"
-                                                    formControlName="tfrVehicleNo">
+                                                <input uppercaseonly autoclose="false"
+                                                    placeholder="" class="form-control"
+                                                    formControlName="tfrVehicleNo"                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrVehicleNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Vehicle Lodger Office</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]=""
-                                                    formControlName="tfrVehicleId">
-                                                    <option selected="">Choose...</option>
-                                                </select>
+                                                <label for="formrow-inputCity">Vehicle Ledger Account</label>
+                                                <select class="form-control" formControlName="vehicleLedgerAc"     
+                                                class="form-control form-select ng-pristine ng-touched" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleLedgerAc'].invalid) }">
+                                                    <option *ngFor="let ldg of vehicleLedgerAcList" value={{ldg.dataId}}>
+                                                       {{ldg.dataName}}
+                                                    </option>
+                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Vehicle Asset Office</label>
-                                                <select class="form-control" formControlName="userBranch" [ngClass]=""
-                                                    formControlName="vehicleLedgerAc">
-                                                    <option selected="">Choose...</option>
-                                                </select>
+                                                <label for="formrow-inputCity">Vehicle Asset Account</label>
+                                                <select class="form-control" formControlName="vehicleAssetAc"  
+                                                class="form-control form-select ng-pristine ng-touched"    
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleAssetAc'].invalid) }">
+                                                    <option *ngFor="let ast of vehicleAssetAcList" value={{ast.dataId}}>
+                                                       {{ast.dataName}}
+                                                    </option>
+                                                 </select>
                                             </div>
                                         </div>
                                     </div>
@@ -375,7 +408,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 1</label>
-                                                <input autoclose="false" placeholder="Attachment Description 1"
+                                                <input autoclose="false" placeholder=""
                                                     class="form-control" formControlName="vehicleAssetAc">
                                             </div>
                                         </div>
@@ -383,7 +416,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
-                                                    placeholder="Attachment Description 1"
+                                                    placeholder=""
                                                     class="form-control form-control-sm" formControlName="attach1Desc">
                                             </div>
                                         </div>
@@ -392,7 +425,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 2</label>
-                                                <input autoclose="false" placeholder="Attachment Description 2"
+                                                <input autoclose="false" placeholder=""
                                                     class="form-control" formControlName="attach1Desc">
                                             </div>
                                         </div>
@@ -400,7 +433,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
-                                                    placeholder="Attachment Description 2"
+                                                    placeholder=""
                                                     class="form-control form-control-sm" formControlName="attach1Link">
                                             </div>
                                         </div>
@@ -409,7 +442,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment Description 3</label>
-                                                <input autoclose="false" placeholder="Attachment Description 3"
+                                                <input autoclose="false" placeholder=""
                                                     class="form-control" formControlName="attach2Desc">
                                             </div>
                                         </div>
@@ -417,127 +450,104 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Attachment</label>
                                                 <input autoclose="false" type="file"
-                                                    placeholder="Attachment Description 3"
+                                                    placeholder=""
                                                     class="form-control form-control-sm" formControlName="attach2Link">
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Details</h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        <tr formArrayName="arrayList"
+                    <div class="ng-untouched ng-pristine ng-valid">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-4">Details</h4>
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Valid From</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Valid To</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Vehicle Agv Load</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Vehicle Agv Empty</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Ad Blue</h6>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
-                                            <div [formGroupName]="i">
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Vehicle No</label>
-                                                            <div class="ng-autocomplete">
-                                                                <ng-autocomplete [data]="vehicleList"
-                                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                                    (selected)='selectEvent($event)'
-                                                                    (inputChanged)='onChangeSearch($event)'
-                                                                    (inputFocused)='onFocused($event)'
-                                                                    [itemTemplate]="itemTemplate"
-                                                                    [notFoundTemplate]="notFoundTemplate"
-                                                                    [customFilter]="startWithFilter"
-                                                                    formControlName="vehicleN0">
-                                                                </ng-autocomplete>
-
-                                                                <ng-template #itemTemplate let-item>
-                                                                    <a [innerHTML]="item.dataName"></a>
-                                                                </ng-template>
-
-                                                                <ng-template #notFoundTemplate let-notFound>
-                                                                    <div [innerHTML]="notFound"></div>
-                                                                </ng-template>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Valid From</label>
-                                                            <input autoclose="false" type="date"
-                                                                placeholder="dd/MM/yyyy" class="form-control"
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2">                                                  
+                                                        <input autoclose="false" type="date"
+                                                                class="form-control form-control-lg" 
                                                                 formControlName="validFrom">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputCity">Valid To</label>
-                                                            <input autoclose="false" type="date"
-                                                                placeholder="dd/MM/yyyy" class="form-control"
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input autoclose="false" type="date"
+                                                                class="form-control form-control-lg" 
                                                                 formControlName="validTo">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-121">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Vehicle Agv Load</label>
-                                                            <input class="form-control"
-                                                                placeholder="Enter Vehicle Agv Load"
-                                                                formControlName="vehicleAgvLoad">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Vehicle Agv Empty</label>
-                                                            <input class="form-control"
-                                                                placeholder="Enter Vehicle Agv Empty"
-                                                                formControlName="vehicleAgvEmpty">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12">
-                                                        <div class="mb-3">
-                                                            <label for="formrow-inputZip">Ad Avg</label>
-                                                            <input class="form-control" placeholder="Enter Ad Avg"
-                                                                formControlName="AdAvg">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addItem()">Add</button>
-                                                        <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
-                                                </td>
-                                            </div>
-                                        </tr>
-                                    </table>
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input class="form-control form-control-lg"
+                                                                formControlName="vehicleAvgLoad">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input class="form-control form-control-lg"
+                                                            formControlName="vehicleAvgEmpty">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input class="form-control form-control-lg" 
+                                                                    formControlName="adBlue">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>                                        
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row text-right">
-                    <div class="col-lg-12">
-                        <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md"
-                                (click)="submitVehicleMasterForm()">Submit</button>
+                    </div>                
+                    <div class="row text-right">
+                        <div class="col-lg-12">
+                            <div class="tex">
+                                <button type="submit" class="btn btn-primary w-md"
+                                    (click)="submitVehicleMasterForm()">Save</button>&nbsp;
+                                    <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                    (click)="deleteVehicleMasterForm()">Delete</button>&nbsp;
+                                <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        <!-- end col -->
+                    </div>   
+                </div>                       
             </form>
             <!-- end row -->
             <!-- end row -->

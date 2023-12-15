@@ -17,7 +17,7 @@ export class RatesmasterlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'doccode',
+    sortColumn: 'FromPoint',
     sortOrder: 'asc',
     search: ''
   }
@@ -51,29 +51,29 @@ export class RatesmasterlistComponent {
       },
       columns: [
         {
-          title: 'ValidFrom ',
+          title: 'Account Name',
+          data: 'accountName',
+        },
+        {
+          title: 'From Point',
+          data: 'fromPoint',
+        },
+        {
+          title: 'Valid From',
           data: 'validFrom',
         },
 
         {
-          title: 'ValidUpto',
+          title: 'Valid Upto',
           data: 'validUpto',
         },
         {
-          title: 'FromPoint',
-          data: 'fromPoint',
-        },
-        {
-          title: 'Rate Type',
-          data: 'rateDesc',
-        },
-        {
-          title: 'accountName',
-          data: 'accountName',
+          title: 'Rate Method',
+          data: 'rateMethod',
         },
         {
           title: 'Action',
-          data: 'MasterID',
+          data: 'masterID',
         },
 
       ],

@@ -1,6 +1,5 @@
-﻿
-
-using FleetMasters.Models;
+﻿using FleetMasters.Models;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {

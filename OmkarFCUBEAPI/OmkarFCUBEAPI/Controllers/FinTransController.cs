@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-
+using FinTrans.Models;
 using FinTrans.Business;
 using Microsoft.AspNetCore.Authorization;
+using Shared.Models;
 
-using FinTrans.Models;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -16,16 +16,12 @@ namespace OmkarFCUBEAPI.Controllers
     public class FinTransController : ControllerBase
     {
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
-        readonly IBankReceiptPaymentsBusiness bankReceiptPaymentsBusiness;
-        readonly IBankCashContraBusiness bankCashContraBusiness;
         readonly IJournalEntryBusiness journalEntryBusiness;
 
 
-        public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness, IBankReceiptPaymentsBusiness _bankReceiptPaymentsBusiness, IBankCashContraBusiness _bankCashContraBusiness, IJournalEntryBusiness _journalEntryBusiness)
+        public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness, IJournalEntryBusiness _journalEntryBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
-            bankReceiptPaymentsBusiness = _bankReceiptPaymentsBusiness;
-            bankCashContraBusiness = _bankCashContraBusiness;
             journalEntryBusiness = _journalEntryBusiness;
 
 
@@ -55,7 +51,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetCashReceiptPaymentsList")]
-        public async Task<IActionResult> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request)
+        public async Task<IActionResult> GetCashReceiptPaymentsList(BankCashListFilterModel request)
         {
             try
             {
@@ -68,12 +64,28 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBankReceiptPmtInnerGridList")]
-        public async Task<IActionResult> GetBankReceiptPmtInnerGridList(BankReceiptPmtGridListRequest request)
+
+        [HttpPost("CashReceiptPaymentsDelete")]
+        public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
         {
             try
             {
-                var result = await bankReceiptPaymentsBusiness.GetBankReceiptPmtInnerGridList(request);
+                var result = await cashReceiptPaymentsBusiness.CashReceiptPaymentsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetCashReceiptPaymentInnerGridList")]
+        public async Task<IActionResult> GetCashReceiptPaymentInnerGridList(Request req)
+        {
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentInnerGridList(req);
 
                 return Ok(result);
             }
@@ -84,66 +96,12 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
 
-        [HttpPost("BankReceiptPaymentsSave")]
-        public async Task<IActionResult> BankReceiptpaymentsSave(BankReceiptPaymentsModel bankReceiptPaymentsModel)
-        {
-            if (bankReceiptPaymentsModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await bankReceiptPaymentsBusiness.BankReceiptPaymentsSave(bankReceiptPaymentsModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetBankReceiptpaymentsList")]
-        public async Task<IActionResult> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request)
+        [HttpPost("GetNextDocNo")]
+        public async Task<IActionResult> GetNextDocNo(DocNoFilterModel docNoFilter)
         {
             try
             {
-                var result = await bankReceiptPaymentsBusiness.GetBankReceiptpaymentsList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("BankCashContraSave")]
-        public async Task<IActionResult> BankCashContraSave(BankCashContraModel bankCashContraModel)
-        {
-            if (bankCashContraModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await bankCashContraBusiness.BankCashContraSave(bankCashContraModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetBankCashContraList")]
-        public async Task<IActionResult> GetBankCashContraList(BankCashContraListRequest request)
-        {
-            try
-            {
-                var result = await bankCashContraBusiness.GetBankCashContraList(request);
+                var result = await cashReceiptPaymentsBusiness.GetNextDocNo(docNoFilter);
 
                 return Ok(result);
             }
@@ -175,7 +133,7 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("GetJournalEntryList")]
-        public async Task<IActionResult> GetJournalEntryList(JournalEntryListRequest request)
+        public async Task<IActionResult> GetJournalEntryList(PageRequest request)
         {
             try
             {

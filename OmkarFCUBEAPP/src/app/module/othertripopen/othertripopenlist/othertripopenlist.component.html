@@ -1,0 +1,101 @@
+<p>tripsheetlist works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Other Trip Open</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Other Trip Open</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Branch</label>
+                                    <select class="form-control" formControlName="branch" [ngClass]="">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
+                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                    </div>
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="othertripopenAdd()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>tripBrName </th>
+                            <th>newTripDate </th>
+                            <th>TripNo </th>
+                            <th>vehicleNo </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allOtherTripOpenList.tripSheetList?.length != 0">
+                        <tr *ngFor="let trip of allOtherTripOpenList.tripSheetList">
+                            <td>{{ trip.tripBrName }}</td>
+                            <td>{{ trip.newTripDate }}</td>
+                            <td>{{ trip.vehicleNo }}</td>
+                            <td>{{ trip.tripNo }}</td>
+                            <td>
+                                <a (click)="getothertripopenDetails(trip)" class="actionicon"><i
+                                        class="bx bx-pencil"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allOtherTripOpenList.tripSheetList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

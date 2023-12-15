@@ -27,44 +27,26 @@
                                         <div class="row">
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Account Name</h6>
-                                                    </label>
+                                                    <label for="formrow-inputZip">Account Name</label>
                                                     <select class="form-control"
-                                                        formControlName="accountId" [ngClass]="">
-            
-                                                        <option *ngFor="let branch of creditacList"
-                                                            value={{branch.dataId}}>
-            
-                                                            {{branch.dataName}}
+                                                        formControlName="accountid" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['accountid'].invalid) }">
+                                                        <option *ngFor="let ac of creditacList"  value={{ac.dataId}}>
+                                                            {{ac.dataName}}
                                                         </option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputCity">From Location</label>
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="locationList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="fromPlace"
-                                                            [ngClass]="">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
+                                                    <label for="formrow-inputCity">From Point</label>
+                                                    <select class="form-control" formControlName="fromPlace"   
+                                                    class="form-control form-select ng-pristine ng-touched"   
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
+                                                        <option *ngFor="let loc of locationList" value={{loc.dataId}}>
+                                                           {{loc.dataName}}
+                                                        </option>
+                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -72,7 +54,7 @@
                                                     <label for="formrow-inputCity">Valid From</label>
                                                     <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
                                                         class="form-control" formControlName="validFrom"
-                                                        [ngClass]=" ">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['validFrom'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
@@ -80,17 +62,18 @@
                                                     <label for="formrow-inputCity">Valid To</label>
                                                     <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
                                                         class="form-control" formControlName="validUpto"
-                                                        [ngClass]="">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['validUpto'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                 
+                                                <div class="mb-2">                                                 
                                                     <label for="formrow-inputCity">Rate Type</label>
-                                                    <select class="form-control" formControlName="rateTypeId"
-                                                    [ngClass]="">
-                                                    <option *ngFor="let branch of rateList" value={{branch.dataId}}>
-                                                        {{branch.dataName}}
+                                                    <select formControlName="rateTypeId"
+                                                    class="form-control form-select ng-pristine ng-touched"                                            
+                                                    (change)="onRateTypeChange($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateTypeId'].invalid) }">
+                                                    <option *ngFor="let rtl of rateList" value={{rtl.dataId}}>
+                                                        {{rtl.dataName}}
                                                     </option>
                                                 </select>
                                                 </div>
@@ -99,23 +82,27 @@
                                                 <div class="mb-2">
                                                     <label for="formrow-inputCity">Rate Method</label>
                                                     <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="rateMethod">
+                                                    formControlName="rateMethod" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateMethod'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="form-check mb-3">
-                                                    <input type="radio"formControlName="rateForStateOrToPlace"  value="S" 
-                                                        class="form-check-input" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>State</h6>
+                                                <div class="form-check mb-3"><br /><br />
+                                                    <input type="radio"formControlName="rateForStateOrToPlace" value="P" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }"
+                                                        class="form-check-input" (change)="onStateorPlaceChange($event)" />
+                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> 
+                                                        <h6> To Place</h6>
                                                     </label>
     
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="form-check mb-3">
-                                                    <input type="radio"formControlName="rateForStateOrToPlace"  value="P" 
-                                                        class="form-check-input" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6> To Place</h6>
+                                                <div class="form-check mb-3"><br /><br />
+                                                    <input type="radio"formControlName="rateForStateOrToPlace" value="S"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }"
+                                                        class="form-check-input" (change)="onStateorPlaceChange($event)" />
+                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>State</h6>
                                                     </label>
     
                                                 </div>
@@ -136,111 +123,81 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                    <tr>
-                        <td class="col-lg-2">
-                            <label for="formrow-inputZip">
-                                <h6>Select Destination</h6>
-                            </label></td>
-                            <td class="col-lg-2">
-                                <label for="formrow-inputZip">
-                                    <h6>To place</h6>
-                                </label></td>
-                                <td class="col-lg-2">
-                                    <label for="formrow-inputZip">
-                                        <h6>Rate Type</h6>
-                                    </label></td>
-                                    <td class="col-lg-2">
-                                        <label for="formrow-inputZip">
-                                            <h6>Rate Method</h6>
-                                        </label></td>
-
-                    </tr>
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>To place</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Destination State</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Rate</h6>
+                                                </label>
+                                            </td>
+                                        </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2">
-                                                   
-                                                  
-                                                            <div class="ng-autocomplete">
-                                                                <ng-autocomplete [data]="locationList"
-                                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                                    (selected)='selectEvent($event)'
-                                                                    (inputChanged)='onChangeSearch($event)'
-                                                                    (inputFocused)='onFocused($event)'
-                                                                    [itemTemplate]="itemTemplate"
-                                                                    [notFoundTemplate]="notFoundTemplate"
-                                                                    [customFilter]="startWithFilter"
-                                                                    formControlName="destState">
-                                                                </ng-autocomplete>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="locationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toPlace">
+                                                        </ng-autocomplete>
 
-                                                                <ng-template #itemTemplate let-item>
-                                                                    <a [innerHTML]="item.dataName"></a>
-                                                                </ng-template>
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
 
-                                                                <ng-template #notFoundTemplate let-notFound>
-                                                                    <div [innerHTML]="notFound"></div>
-                                                                </ng-template>
-                                                            </div>
-                                                       
-                                                      
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </td>
+                                                <td class="col-lg-2">                                                  
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="stateList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="destState">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
                                                 </td>
                                                 <td class="col-lg-2">
-                                            
-                                                  
-                                                            <div class="ng-autocomplete">
-                                                                <ng-autocomplete [data]="locationList"
-                                                                    [searchKeyword]="keywordLocation" placeholder=""
-                                                                    (selected)='selectEvent($event)'
-                                                                    (inputChanged)='onChangeSearch($event)'
-                                                                    (inputFocused)='onFocused($event)'
-                                                                    [itemTemplate]="itemTemplate"
-                                                                    [notFoundTemplate]="notFoundTemplate"
-                                                                    [customFilter]="startWithFilter"
-                                                                    formControlName="toPlace">
-                                                                </ng-autocomplete>
-
-                                                                <ng-template #itemTemplate let-item>
-                                                                    <a [innerHTML]="item.dataName"></a>
-                                                                </ng-template>
-
-                                                                <ng-template #notFoundTemplate let-notFound>
-                                                                    <div [innerHTML]="notFound"></div>
-                                                                </ng-template>
-                                                            </div>
-                                                       
-                                                      
+                                                    <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="rate">
                                                 </td>
-                                                <td class="col-lg-2">
-                                                   
-                                               
-                                                         
-                                                      
-                                                            <select class="form-control" formControlName="rateTypeId"
-                                                            [ngClass]="">
-                                                            <option *ngFor="let branch of rateList" value={{branch.dataId}}>
-                                                                {{branch.dataName}}
-                                                            </option>
-                                                        </select>
-                                                     
-                                                </td>
-                                                <td class="col-lg-2">
-                                               
-                                                <input numbersonly autoclose="false" class="form-control"
-                                                formControlName="rate">
-                                            </td>
                                                 <td class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-
-                                                        <h6>Action</h6>
-                                                    </label>
                                                     <div class="col-lg-4 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addItem()">Add</button>
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
                                                         <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)"
-                                                            class="btn btn-danger">Delete</button>
-                                                        </div>
-                                                    
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>                                        
                                                 </td>
                                             </div>
                                         </tr>
@@ -249,15 +206,19 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                               
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
                             <button type="submit" class="btn btn-primary w-md"
-                                (click)="submitRatesMasterForm()">Submit</button>
+                                (click)="submitRatesMasterForm()">Save</button>&nbsp;
+                                <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteRatesMasterForm()">Delete</button>&nbsp;
+                            <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
-                </div>
+                    <!-- end col -->
+                </div>  
             </form>
             <!-- end row -->
             <!-- end row -->
@@ -266,3 +227,4 @@
     </div>
     <!-- End Page-content -->
 </div>
+

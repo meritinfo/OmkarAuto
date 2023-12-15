@@ -1,4 +1,5 @@
 ﻿using HRMasters.Models;
+using Shared.Models;
 
 namespace HRMasters.Business
 {

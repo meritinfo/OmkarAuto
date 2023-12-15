@@ -1,5 +1,6 @@
 ﻿using FinTrans.Models;
 using FinTrans.Repository;
+using Shared.Models;
 
 namespace FinTrans.Business
 {
@@ -23,10 +24,22 @@ namespace FinTrans.Business
             return await cashReceiptPaymentsRepository.CashReceiptPaymentsSave(cashReceiptPaymentsModel);
         }
 
-        public async Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request)
+        public async Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request)
         {
             return await cashReceiptPaymentsRepository.GetCashReceiptPaymentsList(request);
         }
-       
+        public async Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter)
+        {
+            return await cashReceiptPaymentsRepository.GetNextDocNo(docNoFilter);
+        }
+        public async Task<ResponseModel> CashReceiptPaymentsDelete(Request req)
+        {
+            return await cashReceiptPaymentsRepository.CashReceiptPaymentsDelete(req);
+        }
+        public async Task <CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req)
+        {
+            return await cashReceiptPaymentsRepository.GetCashReceiptPaymentInnerGridList(req);
+        }
+
     }
 }

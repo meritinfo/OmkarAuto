@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Branchmodel } from 'src/app/models/branchmodel';
+import { ToastrService } from 'ngx-toastr';
 import { Vehiclefltmasterlistmodel } from 'src/app/models/vehiclefltmasterlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -10,6 +11,7 @@ import { Vehiclefltmastermodel } from 'src/app/models/vehiclefltmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
 import { UserService } from 'src/app/services/user.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-vehiclemasteradd',
@@ -20,16 +22,43 @@ export class VehiclemasteraddComponent {
   loggedInUserID: string = '';
   formVehicleMaster!: FormGroup;
   userSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   selectedVehicleMasterDetails = new Vehiclefltmastermodel();
+  vehicalfltmstmodel = new Vehiclefltmastermodel();
   keywordLocation = 'dataName';
   vehicleList: Dropdownmodel[] = [];
+  vehicleGrpList: Dropdownmodel[] = [];
+  vehicleMfrList: Dropdownmodel[] = [];
+  vehicleLedgerAcList: Dropdownmodel[] = [];
+  vehicleAssetAcList: Dropdownmodel[] = [];
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private vehiclefltmastermodel: Vehiclefltmastermodel, private vehiclefltmasterService: VehicleFltMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private vehiclefltmastermodel: Vehiclefltmastermodel, 
+    private toasterService: ToastrService,
+    private vehiclefltmasterService: VehicleFltMasterService, private commonService: CommonService,
+    private requestmodel:Requestmodel) {
     this.vehiclefltmastermodel = new Vehiclefltmastermodel();
   }
   ngOnInit(): void {
+    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -42,54 +71,56 @@ export class VehiclemasteraddComponent {
     }
     this.getBranchList();
     this.getVehicleNoList();
+    this.getVehicleGrpList();
+    this.getVehicleMfrList();
+    this.getVehicleLedgerList();
+    this.getVehicleAssetList();
 
     this.selectedVehicleMasterDetails = this.vehiclefltmasterService.getvehiclefltmasterDetails();
     this.formVehicleMaster = this.formBuilder.group({
-      vehicleNo: new FormControl('',),
-      fleetStation: new FormControl('',),
-      regnDate: new FormControl('',),
-      regdOwner: new FormControl('',),
-      chasisNo: new FormControl('',),
-      engineNo: new FormControl('',),
-      vehicleTypeID: new FormControl('',),
-      vehicleTypeGroupId: new FormControl('',),
-      vehMfrId: new FormControl('',),
-      mfrModelName: new FormControl('',),
-      fuelType: new FormControl('',),
-      makeYear: new FormControl('',),
-      tankCap: new FormControl('',),
-      grossWt: new FormControl('',),
-      unLadenWT: new FormControl('',),
-      noOfTyres: new FormControl('',),
-      mileageLt: new FormControl('',),
-      vehLength: new FormControl('',),
-      vehBreadth: new FormControl('',),
-      vehHeight: new FormControl('',),
-      vehVolumeCFT: new FormControl('',),
+      vehicleNo: new FormControl('',[Validators.required]),
+      regnDate: new FormControl('',[Validators.required]),
+      regdOwner: new FormControl('',[Validators.required]),
+      chasisNo: new FormControl('',[Validators.required]),
+      engineNo: new FormControl('',[Validators.required]),
+      vehicleTypeID: new FormControl('',[Validators.required]),
+      vehMfrId: new FormControl('',[Validators.required]),
+      mfrModelName: new FormControl('',[Validators.required]),
+      fuelType: new FormControl('',[Validators.required]),
+      makeYear: new FormControl('',[Validators.required]),
+      tankCap: new FormControl('',[Validators.required]),
+      grossWt: new FormControl('',[Validators.required]),
+      unLadenWT: new FormControl('',[Validators.required]),
+      noOfTyres: new FormControl('',[Validators.required]),
+      mileageLt: new FormControl('',[Validators.required]),
+      vehLength: new FormControl('',[Validators.required]),
+      vehBreadth: new FormControl('',[Validators.required]),
+      vehHeight: new FormControl('',[Validators.required]),
+      vehVolumeCFT: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),
       ownershipType: new FormControl('',),
-      fastTagYN: new FormControl('',),
+      fastTagYN: new FormControl('',[Validators.required]),
       fastTagCo: new FormControl('',),
       fastTagNo: new FormControl('',),
-      petroCardYN: new FormControl('',),
+      petroCardYN: new FormControl('',[Validators.required]),
       petroCo: new FormControl('',),
       petroCardNo: new FormControl('',),
       petroCardPin: new FormControl('',),
-      happayCardYN: new FormControl('',),
+      happayCardYN: new FormControl('',[Validators.required]),
       happayCardNo: new FormControl('',),
       happayCardPin: new FormControl('',),
-      fipYN: new FormControl('',),
+      fipYN: new FormControl('',[Validators.required]),
       fipNo: new FormControl('',),
-      soldYN: new FormControl('',),
+      soldYN: new FormControl('',[Validators.required]),
       soldTo: new FormControl('',),
       soldDate: new FormControl('',),
       soldValue: new FormControl('',),
-      tfrYN: new FormControl('',),
+      tfrYN: new FormControl('',[Validators.required]),
       tfrDate: new FormControl('',),
       tfrVehicleNo: new FormControl('',),
       tfrVehicleId: new FormControl('',),
-      vehicleLedgerAc: new FormControl('',),
-      vehicleAssetAc: new FormControl('',),
+      vehicleLedgerAc: new FormControl('',[Validators.required]),
+      vehicleAssetAc: new FormControl('',[Validators.required]),
       attach1Desc: new FormControl('',),
       attach1Link: new FormControl('',),
       attach2Desc: new FormControl('',),
@@ -105,14 +136,45 @@ export class VehiclemasteraddComponent {
 
     if (this.selectedVehicleMasterDetails.vehicleMasterID != '') {
       this.formVehicleMaster.patchValue(this.selectedVehicleMasterDetails);
-      this.formVehicleMaster.patchValue({
+      this.formVehicleMaster.patchValue({        
+        regnDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.regnDate),
+        soldDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.soldDate),
+        tfrDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.tfrDate),
       })
+      this.editMode=true;
+      this.getVehicleInnerGridList();
     }
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formVehicleMaster.controls; }
   get formArray() {
     return this.formVehicleMaster.get("arrayList") as FormArray;
+  }
+
+  getVehicleInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedVehicleMasterDetails.vehicleMasterID;
+    this.vehiclefltmasterService.getVehiclefltMstInnerGridList(this.requestmodel).subscribe((res) => {
+      this.vehicalfltmstmodel = res;
+      for (var i = 0; i < res.vehiclefltDetailList.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("validFrom")?.setValue(this.commonService.formatDate(res.vehiclefltDetailList[i].validFrom));
+        this.formArray.controls[i].get("validTo")?.setValue(this.commonService.formatDate(res.vehiclefltDetailList[i].validTo));
+        this.formArray.controls[i].get("vehicleAvgLoad")?.setValue(res.vehiclefltDetailList[i].vehicleAvgLoad);
+        this.formArray.controls[i].get("vehicleAvgEmpty")?.setValue(res.vehiclefltDetailList[i].vehicleAvgEmpty);
+        this.formArray.controls[i].get("adBlue")?.setValue(res.vehiclefltDetailList[i].adBlue);
+      }
+    });
+  }
+
+  
+  createInitialArray() {
+    return this.formBuilder.group({
+      validFrom: ['', []],
+      validTo: ['', []],
+      vehicleAvgLoad: ['', []],
+      vehicleAvgEmpty:['', []],
+      adBlue: ['', []],
+    });
   }
 
   getBranchList(): void {
@@ -126,68 +188,251 @@ export class VehiclemasteraddComponent {
       this.vehicleList = res;
     });
   }
+  
+  getVehicleGrpList(): void {
+    this.vehiclefltmasterService.getVehicleList().subscribe((res) => {
+      this.vehicleGrpList = res;
+    });
+  }
+  
+  getVehicleMfrList(): void {
+    this.vehiclefltmasterService.getVehicleMfrList().subscribe((res) => {
+      this.vehicleMfrList = res;
+    });
+  }
+
+  getVehicleLedgerList(): void {
+    this.vehiclefltmasterService.getVehicleLedgerList().subscribe((res) => {
+      this.vehicleLedgerAcList = res;
+    });
+  }
+
+  getVehicleAssetList(): void {
+    this.vehiclefltmasterService.getVehicleAssetList().subscribe((res) => {
+      this.vehicleAssetAcList = res;
+    });
+  }
+
+  onVehicalNoChange(e: any) {
+    var selectedValue = e.target.value;
+    if (this.selectedVehicleMasterDetails.vehicleMasterID == ''){ 
+      this.requestmodel.strRequest = e.target.value; 
+      this.vehiclefltmasterService.chkVehicalNoExist(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formVehicleMaster.patchValue({
+            vehicleNo: ''
+          });
+        }
+      });
+    }
+
+  }
+
+
+  onFastTagChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['fastTagCo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['fastTagNo'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['fastTagCo'].clearValidators();
+      this.formVehicleMaster.controls['fastTagNo'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['fastTagCo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['fastTagNo'].updateValueAndValidity();
+
+  }
+
+  onPetroCardChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['petroCo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['petroCardNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['petroCardPin'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['petroCo'].clearValidators();
+      this.formVehicleMaster.controls['petroCardNo'].clearValidators();
+      this.formVehicleMaster.controls['petroCardPin'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['petroCo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['petroCardNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['petroCardPin'].updateValueAndValidity();
+
+  }
+
+  onHappayCardChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['happayCardNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['happayCardPin'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['happayCardNo'].clearValidators();
+      this.formVehicleMaster.controls['happayCardPin'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['happayCardNo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['happayCardPin'].updateValueAndValidity();
+
+  }
+
+  onFipChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['fipNo'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['fipNo'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['fipNo'].updateValueAndValidity();
+  }
+
+  onSoldChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['soldTo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['soldDate'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['soldValue'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['soldTo'].clearValidators();
+      this.formVehicleMaster.controls['soldDate'].clearValidators();
+      this.formVehicleMaster.controls['soldValue'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['soldTo'].updateValueAndValidity();
+    this.formVehicleMaster.controls['soldDate'].updateValueAndValidity();
+    this.formVehicleMaster.controls['soldValue'].updateValueAndValidity();
+
+  }
+
+  
+  onTransferChange(e: any) {
+    var selectedValue = e.target.value;
+    if(selectedValue=="Y"){ 
+      this.formVehicleMaster.controls['tfrDate'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['tfrVehicleNo'].setValidators([Validators.required]);
+    }
+    else {
+      this.formVehicleMaster.controls['tfrDate'].clearValidators();
+      this.formVehicleMaster.controls['tfrVehicleNo'].clearValidators();
+      
+    }
+    this.formVehicleMaster.controls['tfrDate'].updateValueAndValidity();
+    this.formVehicleMaster.controls['tfrVehicleNo'].updateValueAndValidity();
+
+  }
+  
+  deleteVehicleMasterForm(): void {
+    if(this.selectedVehicleMasterDetails.vehicleMasterID != '' ){
+     this.requestmodel.strRequest =this.selectedVehicleMasterDetails.vehicleMasterID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.vehiclefltmasterService.vehicalMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formVehicleMaster.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/vehiclemasterlist']);
+  }
+
 
   //Submit user form details //
   submitVehicleMasterForm(): void {
     this.userSubmitted = true;
-    if (this.formVehicleMaster.invalid) {
+    if (this.formVehicleMaster.invalid) {      
+      this.toasterService.warning("Please Enter Mandatory Fields ");
       return;
     }
+    
+    var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
-    this.vehiclefltmastermodel.vehicleNo = this.formVehicleMaster.value.vehicleNo;
-    this.vehiclefltmastermodel.fleetStation = this.formVehicleMaster.value.fleetStation;
-    this.vehiclefltmastermodel.regnDate = this.formVehicleMaster.value.regnDate;
-    this.vehiclefltmastermodel.regdOwner = this.formVehicleMaster.value.regdOwner;
-    this.vehiclefltmastermodel.chasisNo = this.formVehicleMaster.value.chasisNo;
-    this.vehiclefltmastermodel.engineNo = this.formVehicleMaster.value.engineNo;
-    this.vehiclefltmastermodel.vehicleTypeID = this.formVehicleMaster.value.vehicleTypeID;
-    this.vehiclefltmastermodel.vehicleTypeGroupId = this.formVehicleMaster.value.vehicleTypeGroupId;
-    this.vehiclefltmastermodel.vehMfrId = this.formVehicleMaster.value.vehMfrId;
-    this.vehiclefltmastermodel.mfrModelName = this.formVehicleMaster.value.mfrModelName;
-    this.vehiclefltmastermodel.fuelType = this.formVehicleMaster.value.fuelType;
-    this.vehiclefltmastermodel.makeYear = this.formVehicleMaster.value.makeYear;
-    this.vehiclefltmastermodel.tankCap = this.formVehicleMaster.value.tankCap;
-    this.vehiclefltmastermodel.grossWt = this.formVehicleMaster.value.grossWt;
-    this.vehiclefltmastermodel.unLadenWT = this.formVehicleMaster.value.unLadenWT;
-    this.vehiclefltmastermodel.noOfTyres = this.formVehicleMaster.value.noOfTyres;
-    this.vehiclefltmastermodel.mileageLt = this.formVehicleMaster.value.mileageLt;
-    this.vehiclefltmastermodel.vehLength = this.formVehicleMaster.value.vehLength;
-    this.vehiclefltmastermodel.vehBreadth = this.formVehicleMaster.value.vehBreadth;
-    this.vehiclefltmastermodel.vehHeight = this.formVehicleMaster.value.vehHeight;
-    this.vehiclefltmastermodel.vehVolumeCFT = this.formVehicleMaster.value.vehVolumeCFT;
-    this.vehiclefltmastermodel.remarks = this.formVehicleMaster.value.remarks;
-    this.vehiclefltmastermodel.ownershipType = this.formVehicleMaster.value.ownershipType;
-    this.vehiclefltmastermodel.fastTagYN = this.formVehicleMaster.value.fastTagYN;
-    this.vehiclefltmastermodel.fastTagCo = this.formVehicleMaster.value.fastTagCo;
-    this.vehiclefltmastermodel.fastTagNo = this.formVehicleMaster.value.fastTagNo;
-    this.vehiclefltmastermodel.petroCardYN = this.formVehicleMaster.value.petroCardYN;
-    this.vehiclefltmastermodel.petroCo = this.formVehicleMaster.value.petroCo;
+    this.vehiclefltmastermodel.vehicleNo = selectedDataValue.vehicleNo;
+    this.vehiclefltmastermodel.fleetStation = selectedDataValue.fleetStation;
+    this.vehiclefltmastermodel.regnDate = selectedDataValue.regnDate;
+    this.vehiclefltmastermodel.regdOwner = selectedDataValue.regdOwner;
+    this.vehiclefltmastermodel.chasisNo = selectedDataValue.chasisNo;
+    this.vehiclefltmastermodel.engineNo = selectedDataValue.engineNo;
+    this.vehiclefltmastermodel.vehicleTypeID = selectedDataValue.vehicleTypeID;
+    this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId;
+    this.vehiclefltmastermodel.vehMfrId = selectedDataValue.vehMfrId;
+    this.vehiclefltmastermodel.mfrModelName = selectedDataValue.mfrModelName;
+    this.vehiclefltmastermodel.fuelType = selectedDataValue.fuelType;
+    this.vehiclefltmastermodel.makeYear = selectedDataValue.makeYear;
+    this.vehiclefltmastermodel.tankCap = selectedDataValue.tankCap;
+    this.vehiclefltmastermodel.grossWt = selectedDataValue.grossWt;
+    this.vehiclefltmastermodel.unLadenWT = selectedDataValue.unLadenWT;
+    this.vehiclefltmastermodel.noOfTyres = selectedDataValue.noOfTyres;
+    this.vehiclefltmastermodel.mileageLt = selectedDataValue.mileageLt;
+    this.vehiclefltmastermodel.vehLength = selectedDataValue.vehLength;
+    this.vehiclefltmastermodel.vehBreadth = selectedDataValue.vehBreadth;
+    this.vehiclefltmastermodel.vehHeight = selectedDataValue.vehHeight;
+    this.vehiclefltmastermodel.vehVolumeCFT = selectedDataValue.vehVolumeCFT;
+    this.vehiclefltmastermodel.remarks = selectedDataValue.remarks;
+    this.vehiclefltmastermodel.ownershipType = selectedDataValue.ownershipType;
+    this.vehiclefltmastermodel.fastTagYN = selectedDataValue.fastTagYN;
+    this.vehiclefltmastermodel.fastTagCo = selectedDataValue.fastTagCo;
+    this.vehiclefltmastermodel.fastTagNo = selectedDataValue.fastTagNo;
+    this.vehiclefltmastermodel.petroCardYN = selectedDataValue.petroCardYN;
+    this.vehiclefltmastermodel.petroCo = selectedDataValue.petroCo;
 
-    this.vehiclefltmastermodel.petroCardNo = this.formVehicleMaster.value.petroCardNo;
-    this.vehiclefltmastermodel.petroCardPin = this.formVehicleMaster.value.petroCardPin;
-    this.vehiclefltmastermodel.happayCardYN = this.formVehicleMaster.value.happayCardYN;
-    this.vehiclefltmastermodel.happayCardNo = this.formVehicleMaster.value.happayCardNo;
-    this.vehiclefltmastermodel.happayCardPin = this.formVehicleMaster.value.happayCardPin;
-    this.vehiclefltmastermodel.fipYN = this.formVehicleMaster.value.fipYN;
-    this.vehiclefltmastermodel.fipNo = this.formVehicleMaster.value.fipNo;
-    this.vehiclefltmastermodel.soldYN = this.formVehicleMaster.value.soldYN;
-    this.vehiclefltmastermodel.soldTo = this.formVehicleMaster.value.soldTo;
-    this.vehiclefltmastermodel.soldDate = this.formVehicleMaster.value.soldDate;
-    this.vehiclefltmastermodel.soldValue = this.formVehicleMaster.value.soldValue;
-    this.vehiclefltmastermodel.tfrYN = this.formVehicleMaster.value.tfrYN;
-    this.vehiclefltmastermodel.tfrDate = this.formVehicleMaster.value.tfrDate;
-    this.vehiclefltmastermodel.tfrVehicleNo = this.formVehicleMaster.value.tfrVehicleNo;
-    this.vehiclefltmastermodel.tfrVehicleId = this.formVehicleMaster.value.tfrVehicleId;
-    this.vehiclefltmastermodel.vehicleLedgerAc = this.formVehicleMaster.value.vehicleLedgerAc;
-    this.vehiclefltmastermodel.vehicleAssetAc = this.formVehicleMaster.value.vehicleAssetAc;
-    this.vehiclefltmastermodel.attach1Desc = this.formVehicleMaster.value.attach1Desc;
-    this.vehiclefltmastermodel.attach1Link = this.formVehicleMaster.value.attach1Link;
-    this.vehiclefltmastermodel.attach2Desc = this.formVehicleMaster.value.attach2Desc;
-    this.vehiclefltmastermodel.attach2Link = this.formVehicleMaster.value.attach2Link;
-    this.vehiclefltmastermodel.attach3Desc = this.formVehicleMaster.value.attach3Desc;
-    this.vehiclefltmastermodel.attach3Link = this.formVehicleMaster.value.attach3Link;
+    this.vehiclefltmastermodel.petroCardNo = selectedDataValue.petroCardNo;
+    this.vehiclefltmastermodel.petroCardPin = selectedDataValue.petroCardPin;
+    this.vehiclefltmastermodel.happayCardYN = selectedDataValue.happayCardYN;
+    this.vehiclefltmastermodel.happayCardNo = selectedDataValue.happayCardNo;
+    this.vehiclefltmastermodel.happayCardPin = selectedDataValue.happayCardPin;
+    this.vehiclefltmastermodel.fipYN = selectedDataValue.fipYN;
+    this.vehiclefltmastermodel.fipNo = selectedDataValue.fipNo;
+    this.vehiclefltmastermodel.soldYN = selectedDataValue.soldYN;
+    this.vehiclefltmastermodel.soldTo = selectedDataValue.soldTo;
+    this.vehiclefltmastermodel.soldDate = selectedDataValue.soldDate;
+    this.vehiclefltmastermodel.soldValue = selectedDataValue.soldValue;
+    this.vehiclefltmastermodel.tfrYN = selectedDataValue.tfrYN;
+    this.vehiclefltmastermodel.tfrDate = selectedDataValue.tfrDate;
+    this.vehiclefltmastermodel.tfrVehicleNo = selectedDataValue.tfrVehicleNo;
+    this.vehiclefltmastermodel.tfrVehicleId = selectedDataValue.tfrVehicleId;
+    this.vehiclefltmastermodel.vehicleLedgerAc = selectedDataValue.vehicleLedgerAc;
+    this.vehiclefltmastermodel.vehicleAssetAc = selectedDataValue.vehicleAssetAc;
+    this.vehiclefltmastermodel.attach1Desc = selectedDataValue.attach1Desc;
+    this.vehiclefltmastermodel.attach1Link = selectedDataValue.attach1Link;
+    this.vehiclefltmastermodel.attach2Desc = selectedDataValue.attach2Desc;
+    this.vehiclefltmastermodel.attach2Link = selectedDataValue.attach2Link;
+    this.vehiclefltmastermodel.attach3Desc = selectedDataValue.attach3Desc;
+    this.vehiclefltmastermodel.attach3Link = selectedDataValue.attach3Link;
 
+    this.vehiclefltmastermodel.vehiclefltDetailList = [];
+    for (var i = 0; i < this.formVehicleMaster.value.arrayList.length; i++) {
+      if (this.formVehicleMaster.value.arrayList[i].validFrom != '') {
+        //Start date end date validation
+        if (Date.parse(selectedDataValue.arrayList[i].validTo) < Date.parse(selectedDataValue.arrayList[i].validFrom)) {
+          this.toasterService.warning("Valid To date should be greter than Valid From date");
+          return;
+        }
 
+        this.vehiclefltmastermodel.vehiclefltDetailList.push({
+          'detailID': '',
+          'vehicleMasterID': '',
+          'validFrom': selectedDataValue.arrayList[i].validFrom,
+          'validTo': selectedDataValue.arrayList[i].validTo,
+          'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad,
+          'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty,
+          'adBlue': selectedDataValue.arrayList[i].kms,
+        })
+      }
+    }
+
+    
     this.vehiclefltmasterService.vehicleFltmasterDetailsSubmitted(this.vehiclefltmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
@@ -196,7 +441,8 @@ export class VehiclemasteraddComponent {
     });
   }
 
-  addItem(): void {
+  
+  // addItem(): void {
     // this.gstaccountdetails = new Gstaccountdetailsmodel();
     // this.gstaccountdetails.accountName = this.formGSTPurchase.value.accountName;
     // this.gstaccountdetails.narration = this.formGSTPurchase.value.narration;
@@ -208,19 +454,26 @@ export class VehiclemasteraddComponent {
 
     // this.gstaccountList.push(this.gstaccountdetails);
     // this.createInitialArray();
-    this.formArray.push(this.createInitialArray());
-  }
+  //   this.formArray.push(this.createInitialArray());
+  // }
+  
+  addItem(index: number): void { 
+    if (this.formArray.value[index].validFrom != "" && this.formArray.value[index].validTo != "" 
+      && this.formArray.value[index].vehicleAvgLoad != "" && this.formArray.value[index].vehicleAvgEmpty!= "" 
+      && this.formArray.value[index].AdAvg != "" ) {
 
-  createInitialArray() {
-    return this.formBuilder.group({
-      vehicleN0: [''],
-      validFrom: [''],
-      validTo: [''],
-      vehicleAgvLoad: [''],
-      vehicleAgvEmpty: [''],
-      AdAvg: ['']
-    });
-  }
+       //Start date end date validation
+     if (Date.parse(this.formArray.value[index].validTo) < Date.parse(this.formArray.value[index].validFrom)) {
+      this.toasterService.warning("Valid To date should be greter than Valid From date");
+      }
+      else {
+        this.formArray.push(this.createInitialArray());
+      }
+     } 
+     else {
+       this.toasterService.warning("Please select Required Fields ");
+     }
+ }
 
   removeItem(index: number) {
     this.formArray.removeAt(index);

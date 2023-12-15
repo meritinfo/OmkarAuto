@@ -1,4 +1,5 @@
 ﻿using FleetTrans.Models;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -6,6 +7,6 @@ namespace FleetTrans.Business
     {
         Task<DieselStatementSearchListModel> GetDieselStatementSearchList(DieselStatementSearchListRequest request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request);
-        Task<DieselStatementList> GetDieselStatementList(DieselStatementListRequest request);
+        Task<DieselStatementList> GetDieselStatementList(PageRequest request);
     }
 }

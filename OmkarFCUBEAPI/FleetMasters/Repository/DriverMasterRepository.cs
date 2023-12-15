@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetMasters.Repository
 {
@@ -54,12 +55,12 @@ namespace FleetMasters.Repository
                             new SqlParameter("@PermanentAddrCity", driverMasterModel.PermanentAddrCity),
                             new SqlParameter("@PermanentAddrPin", driverMasterModel.PermanentAddrPin),
                             new SqlParameter("@PermAddPhone", driverMasterModel.PermAddPhone),
-                              new SqlParameter("@DriverAadharNo", driverMasterModel.DriverAadharNo),
+                            new SqlParameter("@DriverAadharNo", driverMasterModel.DriverAadharNo),
                             new SqlParameter("@PreviousExpDetails", driverMasterModel.PreviousExpDetails),
                             new SqlParameter("@PreviousExpYears", driverMasterModel.PreviousExpYears),
                             new SqlParameter("@IsActive", driverMasterModel.IsActive),
                             new SqlParameter("@InActiveDate", driverMasterModel.InActiveDate),
-                               new SqlParameter("@RemovedYN", driverMasterModel.RemovedYN),
+                            new SqlParameter("@RemovedYN", driverMasterModel.RemovedYN),
                             new SqlParameter("@RemovedDate", driverMasterModel.RemovedDate),
                             new SqlParameter("@Remarks", driverMasterModel.Remarks),
                             new SqlParameter("@GroupName", driverMasterModel.GroupName),
@@ -81,7 +82,48 @@ namespace FleetMasters.Repository
                             new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverMasterDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverMasterDetailsSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};  
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> DriverMasterDetailsDelete(Request req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@driverMasterID", req.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverMasterDetailsDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -111,7 +153,8 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-        public async Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request)
+
+        public async Task<DriverMasterList> GetDriverMasterList(PageRequest request)
         {
             DriverMasterList driverMasterList = new();
             List<DriverMasterModel> driverList = new();
@@ -127,7 +170,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverMasterDetailsList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -139,9 +182,9 @@ namespace FleetMasters.Repository
                                 DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
                                 DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 FatherName = Convert.ToString(dataSet.Tables[0].Rows[i]["FatherName"]),
-
                                 DateOfBirth = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfBirth"]),
                                 Age = Convert.ToString(dataSet.Tables[0].Rows[i]["Age"]),
+                                
                                 IntroBy = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroBy"]),
                                 IntroByMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroByMobileNo"]),
                                 DateOfAppoint = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfAppoint"]),
@@ -150,7 +193,6 @@ namespace FleetMasters.Repository
                                 LicenseIssuAuth = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseIssuAuth"]),
                                 IsHazardousLicYN = Convert.ToString(dataSet.Tables[0].Rows[i]["IsHazardousLicYN"]),
                                 HazLicenseIssuAuth = Convert.ToString(dataSet.Tables[0].Rows[i]["HazLicenseIssuAuth"]),
-
                                 HazardousLicNo = Convert.ToString(dataSet.Tables[0].Rows[i]["HazardousLicNo"]),
                                 HazLicValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["HazLicValidUpto"]),
                                 BloodGroup = Convert.ToString(dataSet.Tables[0].Rows[i]["BloodGroup"]),
@@ -192,7 +234,8 @@ namespace FleetMasters.Repository
 
                                 BankIfsCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsCode"]),
                                 BankAccountStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAccountStatus"]),
-                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),                               
+                                DeleteFlag = Convert.ToString(dataSet.Tables[0].Rows[i]["DeleteFlag"]),
+                                DrPhoto = Convert.ToString(dataSet.Tables[0].Rows[i]["DrPhoto"])
 
                             });
                         }

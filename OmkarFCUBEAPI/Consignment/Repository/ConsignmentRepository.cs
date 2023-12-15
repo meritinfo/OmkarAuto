@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace Consignment.Repository
 {
@@ -19,7 +20,7 @@ namespace Consignment.Repository
         /// <param name="ConsignmentModel"></param>
         /// <returns>ResponseModel</returns>
         /// 
-        public async Task<ConsignmentList> GetConsignmentList(ConsignmentListRequest request)
+        public async Task<ConsignmentList> GetConsignmentList(PageRequest request)
         {
             ConsignmentList cnList = new();
             List<ConsignmentModel> consignmentList = new();
@@ -136,9 +137,9 @@ namespace Consignment.Repository
             }
             return cnList;
         }
-        public async Task<List<RateListModel>> GetRateList()
+        public async Task<List<DropDownListModel>> GetRateList()
         {
-            List<RateListModel> rateList = new();
+            List<DropDownListModel> rateList = new();
             try
             {
                 if (dbconnection != null)
@@ -150,7 +151,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            rateList.Add(new RateListModel
+                            rateList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -174,9 +175,9 @@ namespace Consignment.Repository
             }
             return rateList;
         }
-        public async Task<List<LrSeriesListModel>> GetLRSeries()
+        public async Task<List<DropDownListModel>> GetLRSeries()
         {
-            List<LrSeriesListModel> lrSeries = new();
+            List<DropDownListModel> lrSeries = new();
             try
             {
                 if (dbconnection != null)
@@ -188,7 +189,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            lrSeries.Add(new LrSeriesListModel
+                            lrSeries.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -367,9 +368,9 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<List<BranchListModel>> GetLocationList()
+        public async Task<List<DropDownListModel>> GetLocationList()
         {
-            List<BranchListModel> locationList = new();
+            List<DropDownListModel> locationList = new();
             try
             {
                 if (dbconnection != null)
@@ -382,7 +383,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            locationList.Add(new BranchListModel
+                            locationList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -406,9 +407,9 @@ namespace Consignment.Repository
             }
             return locationList;
         }
-        public async Task<List<BranchListModel>> GetVehicleNoList()
+        public async Task<List<DropDownListModel>> GetVehicleNoList()
         {
-            List<BranchListModel> vehicleList = new();
+            List<DropDownListModel> vehicleList = new();
             try
             {
                 if (dbconnection != null)
@@ -421,7 +422,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            vehicleList.Add(new BranchListModel
+                            vehicleList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -456,7 +457,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@TransDate", request.TransDate),
                             new SqlParameter("@FromLocation", request.FromLocation),
-                    new SqlParameter("@ToLocation", request.ToLocation)
+                            new SqlParameter("@ToLocation", request.ToLocation)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetFrtKms", param);
                    
@@ -498,7 +499,7 @@ namespace Consignment.Repository
                         {
                             new SqlParameter("@TransDate", request.TransDate),
                             new SqlParameter("@FromLocation", request.FromLocation),
-                    new SqlParameter("@ToLocation", request.ToLocation)
+                            new SqlParameter("@ToLocation", request.ToLocation)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
 
@@ -541,8 +542,8 @@ namespace Consignment.Repository
                        {
                             new SqlParameter("@TransDate", request.TransDate),
                             new SqlParameter("@FromLocation", request.FromLocation),
-                    new SqlParameter("@ToLocation", request.ToLocation),
-                      new SqlParameter("@VehicleTypeGroupId", request.VehicleTypeGroupId)
+                            new SqlParameter("@ToLocation", request.ToLocation),
+                            new SqlParameter("@VehicleTypeGroupId", request.VehicleTypeGroupId)
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
 
@@ -550,10 +551,10 @@ namespace Consignment.Repository
                     {
                         tripKmsModel.KMS = Convert.ToString(userData.Tables[0].Rows[0]["KMS"]);
                         tripKmsModel.EnrouteExpTruck = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpTruck"]);
-                        tripKmsModel.EnrouteExpTrailer = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpTrailer"]);
-                        tripKmsModel.EnrouteExpCarCarrier = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpCarCarrier"]);
-                        tripKmsModel.EnrouteExpEmpty = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpEmpty"]);
-                        tripKmsModel.DefinedTollExp = Convert.ToString(userData.Tables[0].Rows[0]["DefinedTollExp"]);
+                        //tripKmsModel.EnrouteExpTrailer = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpTrailer"]);
+                        //tripKmsModel.EnrouteExpCarCarrier = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpCarCarrier"]);
+                        //tripKmsModel.EnrouteExpEmpty = Convert.ToString(userData.Tables[0].Rows[0]["EnrouteExpEmpty"]);
+                        //tripKmsModel.DefinedTollExp = Convert.ToString(userData.Tables[0].Rows[0]["DefinedTollExp"]);
                       //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
                      //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
                     }
@@ -711,9 +712,9 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<List<BranchListModel>> GetContentList()
+        public async Task<List<DropDownListModel>> GetContentList()
         {
-            List<BranchListModel> contentList = new();
+            List<DropDownListModel> contentList = new();
             try
             {
                 if (dbconnection != null)
@@ -726,7 +727,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            contentList.Add(new BranchListModel
+                            contentList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -788,9 +789,9 @@ namespace Consignment.Repository
             }
             return content;
         }
-        public async Task<List<BranchListModel>> GetBillingPartyList()
+        public async Task<List<DropDownListModel>> GetBillingPartyList()
         {
-            List<BranchListModel> partyList = new();
+            List<DropDownListModel> partyList = new();
             try
             {
                 if (dbconnection != null)
@@ -803,7 +804,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            partyList.Add(new BranchListModel
+                            partyList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

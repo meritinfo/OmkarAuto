@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { BankCashContraModel } from 'src/app/models/bankcashcontramodel';
-import { Bankcashcontralistmodel } from 'src/app/models/bankcashcontralistmodel';
-import { Cashreceiptentrymodel } from 'src/app/models/cashreceiptentrymodel';
 import { CommonService } from 'src/app/services/common.service';
-import { BankCashContraService } from 'src/app/services/bankcashcontra.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Bankdocnofiltermodel } from 'src/app/models/bankdocnofiltermodel';
 
 @Component({
   selector: 'app-addbankcashcontra',
@@ -20,261 +17,234 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddbankcashcontraComponent {
   loggedInUserID: string = '';
-  formUser!: FormGroup;
+  formBankContra!: FormGroup;
   userSubmitted = false;
   branchname: string = '';
   year: string = '';
   loginDate: string = '';
   locationList: Dropdownmodel[] = [];
-  selectedBankCashContraDetails = new BankCashContraModel();
-  responseDetails = new Responsemodel();
+  ledgerList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
-
+  requestmodel = new Requestmodel();
+  docNoFilter= new Bankdocnofiltermodel();
+  selectedBankCashContraDetails = new bankreceiptentrymodel();
+  responseDetails = new Responsemodel();
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
 
   
-  constructor(private route: Router, private formBuilder: FormBuilder, private bankCashcontraModel: BankCashContraModel, private bankCashcontraService: BankCashContraService, private toasterService: ToastrService, private commonService: CommonService) {
-    this.bankCashcontraModel = new BankCashContraModel();
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private bankreceiptentryModel: bankreceiptentrymodel, 
+    private cashreceiptentryService: CashReceiptEntryService,
+    private toasterService: ToastrService, private commonService: CommonService) {
+      this.bankreceiptentryModel = new bankreceiptentrymodel();
+  }
 
-
-}
-ngOnInit(): void {
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  var userData2 = sessionStorage.getItem('yearID')?.toString();
-  if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
-    this.year = userData2;
-  }
-  var loginDate = sessionStorage.getItem('loginDate')?.toString();
-  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-    this.loginDate = loginDate;
-  }
-  var userData5 = sessionStorage.getItem('userBranch')?.toString();
-    if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
-      this.branchname = userData5;
-      //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
+  ngOnInit(): void {  
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  else {
-    this.route.navigate(['/']);
-  }
-  this.getCreditAcList();
- this.selectedBankCashContraDetails = this.bankCashcontraService.getBankCashContraDetails();
 
-  this.formUser = this.formBuilder.group({
-    ftmDate: new FormControl(this.loginDate,),
-    docType: new FormControl('BP',),
-    docSeries: new FormControl('BP',),
-    docNo: new FormControl('',),
-    remarks: new FormControl('',),
-    refType: new FormControl('',),
-    refNo: new FormControl('',),
-    amount: new FormControl('',),
-   
-    utrNo: new FormControl('',),
-    neftPmt: new FormControl('',),
-    
-   
-    linkedYN: new FormControl('',),
-    
-   
-    modifyRemarks: new FormControl('',),
-    yearID: new FormControl('',),
-   
-   
-   
-    accountId2: new FormControl('',),
-    docAmount :new FormControl('',),
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var userData2 = sessionStorage.getItem('yearID')?.toString();
+    if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
+      this.year = userData2;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    var userData5 = sessionStorage.getItem('userBranch')?.toString();
+      if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+        this.branchname = userData5;
+        //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
+      }
+    else {
+      this.route.navigate(['/']);
+    }
+    this.getCreditAcList();
+    this.selectedBankCashContraDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
-    cashDetailsList: this.formBuilder.array([this.createMiscArray()]),
-  
-
-  });
-  if (this.selectedBankCashContraDetails.ftmId != '') {
-    var selectedDataValue = this.formUser.getRawValue();
-   
-    this.formUser.patchValue(this.selectedBankCashContraDetails);
-  
-    ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate)
-    remarks: this.selectedBankCashContraDetails.remarks
-    docSeries: this.selectedBankCashContraDetails.docSeries
-    docNo: this.selectedBankCashContraDetails.docNo
-    refType: this.selectedBankCashContraDetails.refType
-    accountid2: this.creditacList.find(e => e.dataId == selectedDataValue.accountid2)
-
-  }
-  //this.formUser.controls['ftmDate'].disable();
-  this.formUser.controls['docSeries'].disable();
-
-}
-updateAmount(index: number, event: any, comingFrom: string) {
-  var selectedDataValue = this.formUser.getRawValue();
-  if (comingFrom === 'amount') {
-    selectedDataValue.cashDetailsList[index].amount = event.target.value;
-  }
-  var totalAmount = 0;
-
-  var amt = 0;
-  for (var i = 0; i < selectedDataValue.cashDetailsList.length; i++) {
-   // if (selectedDataValue.cashDetailsList[i].typeSign == 'C') {
-      totalAmount = totalAmount + (selectedDataValue.cashDetailsList[i].amount == "" ? 0 : parseFloat(selectedDataValue.cashDetailsList[i].amount));
-  //  }
-   
-  }
-
-  this.formUser.patchValue({
-    docAmount: totalAmount.toFixed(2),
- //   credit: totalCreditAmount.toFixed(2)
-  });
-}
-getCreditAcList(): void {
-  this.commonService.getCreditAcList().subscribe((res) => {
-    this.creditacList = res;
-  });
-}
-getLocationList(): void {
-  this.commonService.getLocationList().subscribe((res) => {
-    this.locationList = res;
-  });
-}
-
-addMiscItem(index: number): void {
-
-  if (this.formCashArray.value[index].accountId != "" && this.formCashArray.value[index].amount != "" ) {
-    this.formCashArray.push(this.createMiscArray());
-  } else{
-    this.toasterService.warning("Please select one account name, amount ");
-  }
-}
-changePType(selectedValue: string) {
-  var selectedDataValue = this.formUser.getRawValue();
-
-    this.formUser.patchValue({
-
-      docSeries: selectedValue
-  
+    this.formBankContra = this.formBuilder.group({
+      ftmDate: new FormControl(this.loginDate,[Validators.required]),
+      docType: new FormControl('BC',),
+      docSeries: new FormControl('BC',),
+      docNo: new FormControl('',[Validators.required]),
+      refType: new FormControl('',),
+      refNo: new FormControl('',),
+      chequeNo: new FormControl('',),
+      chequeDate: new FormControl('',),
+      narration: new FormControl('',),
+      remarks:new FormControl('',),
+      utrNo: new FormControl('',), 
+      linkedYN: new FormControl('',),
+      modifyRemarks: new FormControl('',),
+      yearID: new FormControl('',),
+      amount: new FormControl('',[Validators.required]),
+      neftPmt: new FormControl('',), 
+      accountID: new FormControl('',[Validators.required]),
+      accountid2: new FormControl('',[Validators.required]),
     });
 
-  }
-  
-removeMiscItem(index: number) {
-  this.formCashArray.removeAt(index);
-  this.updateAmount(index, undefined, "");
-}
-createMiscArray() {
-  return this.formBuilder.group({
-    ftdID: [''],
-    ftmID: [''],
-    ftmDate: [''],
+    this.formBankContra.controls['docSeries'].disable(); 
+    this.formBankContra.controls['docNo'].disable(); 
+    this.formBankContra.controls['modifyRemarks'].disable();
 
-    slNo: [''],
-    typeSign: [''],
-    amount: [''],
-    reference: [''],
-    accountId: [''],
-    chequeDate: [''],
-    chequeNo: [''],
-    narration: [''],
-    costRefNo: [''],
-
-    branchCode: [''],
-  });
-}
-
-
-get formCashArray() {
-  return this.formUser.get("cashDetailsList") as FormArray;
-}
-
-
-// convenience getter for easy access to contact form fields
-get f() { return this.formUser.controls; }
-
-
-
-//Submit user form details //
-submitBankCashContraForm(): void {
-this.userSubmitted = true;
-if (this.formUser.invalid) {
-  return;
-}
-
-
-this.bankCashcontraModel.ftmId = this.selectedBankCashContraDetails.ftmId != '' ? this.selectedBankCashContraDetails.ftmId : '';
-this.bankCashcontraModel.ftmDate= this.formUser.value.ftmDate;
-this.bankCashcontraModel.docType = this.formUser.value.docType;
-this.bankCashcontraModel.docSeries = this.formUser.value.docSeries;
-this.bankCashcontraModel.docNo = this.formUser.value.docNo;
-this.bankCashcontraModel.seriesDoc = this.formUser.value.docSeries + this.formUser.value.docNo;;
-this.bankCashcontraModel.remarks = this.formUser.value.remarks;
-this.bankCashcontraModel.refType = this.formUser.value.refType;
-this.bankCashcontraModel.refNo = this.formUser.value.refNo;
-this.bankCashcontraModel.docAmount = this.formUser.value.docAmount;
-this.bankCashcontraModel.linkedYN   = this.formUser.value.linkedYN  ;
-this.bankCashcontraModel.yearID     = this.year   ;
-this.bankCashcontraModel.branchCode      =    this.branchname  ;
-this.bankCashcontraModel.modifyRemarks      = this.formUser.value.modifyRemarks     ;
-if (this.formUser.value.docType =="BP") {
-if (this.formCashArray.value != undefined) {
-  for (var i = 0; i < this.formCashArray.value.length; i++) {
-    this.bankCashcontraModel.detailList.push({
-      'index': '',
-      'ftdID': this.formCashArray.value[i].ftdID,
-      'ftmID': this.formCashArray.value[i].ftmID,
-      'ftmDate': this.formCashArray.value[i].ftmDate,
-      'slNo': this.formCashArray.value[i].slNo ,
-      'typeSign':'D',
-      'amount': this.formCashArray.value[i].amount,
-      'narration': this.formCashArray.value[i].narration,
-      'chequeDate': this.formCashArray.value[i].chequeDate,
-      'chequeNo': this.formCashArray.value[i].chequeNo,
-      'accountId': this.formCashArray.value[i].accountId ,
-      'costRefNo': this.formCashArray.value[i].costRefNo,
-      'reference': this.formCashArray.value[i].reference,
-      'branchCode':  this.branchname ,
-    })
-    
- 
-  }
-}
-}else{
-  if (this.formCashArray.value != undefined) {
-    for (var i = 0; i < this.formCashArray.value.length; i++) {
-      this.bankCashcontraModel.detailList.push({
-        'index': '',
-        'ftdID': this.formCashArray.value[i].ftdID,
-        'ftmID': this.formCashArray.value[i].ftmID,
-        'ftmDate': this.formCashArray.value[i].ftmDate,
-        'slNo': this.formCashArray.value[i].slNo ,
-        'typeSign': 'C',
-        'amount': this.formCashArray.value[i].amount,
-        'narration': this.formCashArray.value[i].narration,
-        'chequeDate': this.formCashArray.value[i].chequeDate,
-        'chequeNo': this.formCashArray.value[i].chequeNo,
-        'accountId': this.formCashArray.value[i].accountId ,
-        'costRefNo': this.formCashArray.value[i].costRefNo,
-        'reference': this.formCashArray.value[i].reference,
-        'branchCode': this.branchname,
-
-      })
-      
-   
+    if (this.selectedBankCashContraDetails.ftmID != '') {        
+      var selectedDataValue = this.formBankContra.getRawValue();
+      this.formBankContra.patchValue(this.selectedBankCashContraDetails); 
+      this.formBankContra.patchValue({
+        ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate),
+      }); 
+      this.editMode=true;
+      this.formBankContra.controls['modifyRemarks'].enable();
+      this.getBankReceiptPaymentInnerGridList();
+    }
+    else{
+      this.getdocno("BC");
     }
   }
 
+  getBankReceiptPaymentInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedBankCashContraDetails.ftmID;
+    this.cashreceiptentryService.getCashReceiptInnerGridList(this.requestmodel).subscribe((res) => {
+      this.bankreceiptentryModel = res;
+      this.formBankContra.patchValue({
+        accountid2: res.detailList[0].accountID,
+        chequeNo: res.detailList[0].chequeNo,
+        chequeDate: res.detailList[0].chequeDate,
+        amount: res.detailList[0].amount,
+        reference: res.detailList[0].reference,
+        narration: res.detailList[0].narration,
+        accountID: res.detailList[1].accountID,
+      });       
+    });
+  }
+
+  // convenience getter for easy access to contact form fields
+  get f() { return this.formBankContra.controls; }
+
+  getdocno(doctp: string){
+    this.docNoFilter.branchCode = this.branchname;
+    this.docNoFilter.yearID     = this.year;
+    this.docNoFilter.docSeries  = doctp;
+    this.docNoFilter.docType    = doctp;
+
+    this.cashreceiptentryService.getDocNo(this.docNoFilter).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      this.formBankContra.patchValue({
+        docNo:this.responseDetails.message
+      }); 
+    });
+  }
+
+  getCreditAcList(): void {
+    this.commonService.getCreditAcList().subscribe((res) => {
+      this.creditacList = res;
+    });
+  }
+
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+
+  
+  deleteBankCashContraForm(): void {
+    if(this.selectedBankCashContraDetails.ftmID != '' ){
+     this.requestmodel.strRequest =this.selectedBankCashContraDetails.ftmID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formBankContra.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+
+  exit(): void {
+    this.route.navigate(['/bankcashcontralist']);
+  }
+  
+  //Submit user form details //
+  submitBankCashContraForm(): void {
+    this.userSubmitted = true;
+    if (this.formBankContra.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
+      return;
+    }
+
+    var selectedDataValue=  this.formBankContra.getRawValue();
+    this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID != '' ? this.selectedBankCashContraDetails.ftmID : '';
+    this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
+    this.bankreceiptentryModel.docType        = selectedDataValue.docType;
+    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries;
+    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo;
+    this.bankreceiptentryModel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
+    this.bankreceiptentryModel.remarks        = '';
+    this.bankreceiptentryModel.refType        = selectedDataValue.refType;
+    this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
+    this.bankreceiptentryModel.docAmount      = selectedDataValue.amount;
+    this.bankreceiptentryModel.linkedYN       = 'N';
+    this.bankreceiptentryModel.yearID         = this.year;
+    this.bankreceiptentryModel.branchCode     = this.branchname;
+    this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
+    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
+
+    this.bankreceiptentryModel.detailList.push({
+      'slNo': '0' ,
+      'typeSign': 'D',
+      'amount': selectedDataValue.amount,
+      'chequeDate': selectedDataValue.chequeDate,
+      'chequeNo': selectedDataValue.chequeNo,
+      'narration': selectedDataValue.narration,
+      'accountID': selectedDataValue.accountid2,
+      'reference': selectedDataValue.refNo,
+    })
+
+    this.bankreceiptentryModel.detailList.push({
+      'slNo': '1' ,
+      'typeSign': 'C',
+      'amount': selectedDataValue.amount,
+      'chequeDate': selectedDataValue.chequeDate,
+      'chequeNo': selectedDataValue.chequeNo,
+      'narration': selectedDataValue.narration,
+      'accountID': selectedDataValue.accountID,
+      'reference': selectedDataValue.refNo,
+    })
+
+    this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      console.log(this.responseDetails.message);
+      this.formBankContra.reset();
+      window.location.reload();
+    });
+  }
 }
 
-this.bankCashcontraService.bankCashContraDetailsSubmitted(this.bankCashcontraModel).subscribe((res: Responsemodel) => {
-  this.responseDetails = res;
-  console.log(this.responseDetails.message);
-  this.formUser.reset();
-  window.location.reload();
-});
-}
-}
+
+
+
 
 
 

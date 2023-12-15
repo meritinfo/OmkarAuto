@@ -4,6 +4,7 @@ using FinanceMaster.Models;
 using FinanceMaster.Repository;
 using FinanceMasters.Models;
 using FinanceMasters.Repository;
+using Shared.Models;
 
 namespace FinanceMasters.Business
 {
@@ -24,7 +25,7 @@ namespace FinanceMasters.Business
             return await gstPurchaseDtlRepository.GstPurchaseDtlSave(gstPurchaseDtlModel);
         }
 
-        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(GstPurchaseDtlListRequest request)
+        public async Task<GstPurchaseDtlList> GetGstPurchaseDtlList(PageRequest request)
         {
             return await gstPurchaseDtlRepository.GetGstPurchaseDtlList(request);
         }

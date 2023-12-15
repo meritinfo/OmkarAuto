@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FleetTrans.Repository
 {
@@ -241,9 +242,9 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<List<BranchListModel>> GetDriverList()
+        public async Task<List<DropDownListModel>> GetDriverList()
         {
-            List<BranchListModel> driverList = new();
+            List<DropDownListModel> driverList = new();
             try
             {
                 if (dbconnection != null)
@@ -256,7 +257,7 @@ namespace FleetTrans.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            driverList.Add(new BranchListModel
+                            driverList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -409,10 +410,6 @@ namespace FleetTrans.Repository
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"])
 
-
-
-
-
                             });
                         }
 
@@ -452,9 +449,9 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@Tripdate", request.Tripdate),
                             new SqlParameter("@VehicleMasterID", request.VehicleMasterID),
-                    new SqlParameter("@DriverMasterID", request.DriverMasterID),
-                      new SqlParameter("@Yearid", request.Yearid),
-                      new SqlParameter("@TripNo", request.TripNo)
+                            new SqlParameter("@DriverMasterID", request.DriverMasterID),
+                            new SqlParameter("@Yearid", request.Yearid),
+                            new SqlParameter("@TripNo", request.TripNo)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetDrOpeningBal", param);
 
@@ -495,9 +492,8 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@Transdate", request.Transdate),
-            
-                      new SqlParameter("@TripKms", request.TripKms)
+                            new SqlParameter("@Transdate", request.Transdate),            
+                            new SqlParameter("@TripKms", request.TripKms)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetIncentiveRate", param);
 
@@ -728,6 +724,238 @@ namespace FleetTrans.Repository
             }
             return tripSheetInnerGridList;
         }
+
+        public async Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request)
+        {
+            TripSheetList otherTripSheetList = new();
+            List<TripMasterModel> otherTripList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@Branch", request.Branch)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOtherTripOpenList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            otherTripList.Add(new TripMasterModel
+                            {
+                                TripId = Convert.ToString(dataSet.Tables[0].Rows[i]["OthTripOpenId"]),
+                                TripBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                TripBrName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                NewTripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripDate"]),
+                                OpenThrough = Convert.ToString(dataSet.Tables[0].Rows[i]["OpenThrough"]),
+                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
+                                CompNonCompStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["CompNonCompStatus"]),
+                                ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RCM_Chno"]),
+                                LoadingFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingFrom"]),
+                                Destination = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
+                                DistanceTripKM_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM_1"]),
+                                Contents = Convert.ToString(dataSet.Tables[0].Rows[i]["ContentsDesc"]),
+                                LoadEmptyType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadEmptyType"]),
+                                ExpectedReportingDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedReportingDt"]),
+                                ExpectedReportingDays = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedReportingDays"]),
+                                LtsDslToBe_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe_1"]),
+                                LtsAdblueToBe_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsAdblueToBe_1"]),
+                                AdvPayable_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvPayable_1"]),
+                                OpBalDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDriver"]),
+                                OpBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDsl"]),
+                                OpBalAdblue = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalAdblue"]),                                
+                            });
+                        }
+
+                        otherTripSheetList.tripSheetList = otherTripList;
+
+                        otherTripSheetList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return otherTripSheetList;
+        }
+        public async Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@OthTripOpenId"           , tripMasterModel.TripId),
+                            new SqlParameter("@BranchCode"              , tripMasterModel.TripBranch),
+                            new SqlParameter("@YearId"                  , tripMasterModel.YearId),
+                            new SqlParameter("@VehicleMasterID"         , tripMasterModel.VehicleMasterID),
+                            new SqlParameter("@TripNo"                  , tripMasterModel.TripNo),
+                            new SqlParameter("@TripDate"                , tripMasterModel.NewTripDate),
+                            new SqlParameter("@OpenThrough"             , tripMasterModel.OpenThrough),
+                            new SqlParameter("@DriverMasterID"          , tripMasterModel.DriverMasterID),
+                            new SqlParameter("@CompNonCompStatus"       , tripMasterModel.CompNonCompStatus),
+                            new SqlParameter("@RCM_Chno"                , tripMasterModel.ChallanNo),
+                            new SqlParameter("@LoadingFrom"             , tripMasterModel.LoadingFrom),
+                            new SqlParameter("@Destination"             , tripMasterModel.Destination),
+                            new SqlParameter("@DistanceTripKM_1"        , tripMasterModel.DistanceTripKM_1),
+                            new SqlParameter("@ContentsDesc"            , tripMasterModel.Contents),
+                            new SqlParameter("@LoadEmptyType"           , tripMasterModel.LoadEmptyType),
+                            new SqlParameter("@ExpectedReportingDt"     , tripMasterModel.ExpectedReportingDt),
+                            new SqlParameter("@ExpectedReportingDays"   , tripMasterModel.ExpectedReportingDays),
+                            new SqlParameter("@LtsDslToBe_1"            , tripMasterModel.LtsDslToBe_1),
+                            new SqlParameter("@LtsAdblueToBe_1"         , tripMasterModel.LtsAdblueToBe_1),
+                            new SqlParameter("@AdvPayable_1"            , tripMasterModel.AdvPayable_1),
+                            new SqlParameter("@OpBalDriver"             , tripMasterModel.OpBalDriver),
+                            new SqlParameter("@OpBalDsl"                , tripMasterModel.OpBalDsl),
+                            new SqlParameter("@OpBalAdblue"             , tripMasterModel.OpBalAdblue),
+                            new SqlParameter("@LoggedInUser"            , tripMasterModel.LoggedInUser),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_OtherTripOpenSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                      
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> OtherTripOpenDelete(Request request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@OthTripOpenId", request.strRequest),                           
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_OtherTripOpenDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterID", tripNoFilter.VehicleMasterID),
+                            new SqlParameter("@YearID", tripNoFilter.Yearid),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTripNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
     }
 
 }

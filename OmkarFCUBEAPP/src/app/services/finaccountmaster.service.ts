@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Finaccountmodel } from '../models/finaccountmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
@@ -39,5 +40,9 @@ export class FinsaccountmasterService {
   }  
   getledgerList():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinActLedgertype', null, this.httpOptions);
+  }
+
+  FinGroupDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountsMasterDelete', req, this.httpOptions);
   }
 }

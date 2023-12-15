@@ -4,6 +4,8 @@ using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Shared.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -31,10 +33,9 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Centreid", BranchMasterModel.Centreid),
+                            new SqlParameter("@Code", BranchMasterModel.Code),
                             new SqlParameter("@CentreName", BranchMasterModel.CentreName),
-                            new SqlParameter("@BranchBusinessType", BranchMasterModel.BranchBusinessType),
-                            new SqlParameter("@AcctYN", BranchMasterModel.AcctYN),
-                            new SqlParameter("@AcctBranch", BranchMasterModel.AcctBranch),
+                            new SqlParameter("@ZoneCode",BranchMasterModel.ZoneCode),
                             new SqlParameter("@Address1", BranchMasterModel.Address1),
                             new SqlParameter("@Address2", BranchMasterModel.Address2),
                             new SqlParameter("@Address3", BranchMasterModel.Address3),
@@ -50,25 +51,10 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ManagerPhone", BranchMasterModel.ManagerPhone),
                             new SqlParameter("@ManagerEmail", BranchMasterModel.ManagerEmail),
                             new SqlParameter("@GstNo", BranchMasterModel.GstNo),
-                            new SqlParameter("@ActiveYN", BranchMasterModel.ActiveYN),
-                            new SqlParameter("@BankAcLedger", BranchMasterModel.BankAcLedger),
-                            new SqlParameter("@BranchAcLedger", BranchMasterModel.BranchAcLedger),
                             new SqlParameter("@EntryLockDays", BranchMasterModel.EntryLockDays),
-                            new SqlParameter("@BankName", BranchMasterModel.BankName),
-                            new SqlParameter("@BankAdd", BranchMasterModel.BankAdd),
-                            new SqlParameter("@BankAcNo", BranchMasterModel.BankAcNo),
-                            new SqlParameter("@BankIfsc", BranchMasterModel.BankIfsc),
-                            new SqlParameter("@EwayBillApiYN", BranchMasterModel.EwayBillApiYN),
-                            new SqlParameter("@EwayBillApiGstId", BranchMasterModel.EwayBillApiGstId),
-                            new SqlParameter("@EwayBillApiUid", BranchMasterModel.EwayBillApiUid),
-                            new SqlParameter("@EwayBillApiPwd", BranchMasterModel.EwayBillApiPwd),
-                            new SqlParameter("@PanApiCheckYN", BranchMasterModel.PanApiCheckYN),
-                            new SqlParameter("@BankApiCheckYN", BranchMasterModel.BankApiCheckYN),
-                            new SqlParameter("@TruckApiCheckYN", BranchMasterModel.TruckApiCheckYN),
-                            new SqlParameter("@IsHO", BranchMasterModel.IsHO),
-                            new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUserID)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BranchMasterDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BranchMasterDetailsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -102,9 +88,9 @@ namespace FreightMasters.Repository
         /// Service method for get branch list
         /// </summary>
         /// <returns>List<BranchListModel></returns>
-        public async Task<List<BranchListModel>> GetBranchList()
+        public async Task<List<DropDownListModel>> GetBranchList()
         {
-            List<BranchListModel> branchList = new();
+            List<DropDownListModel> branchList = new();
             try
             {
                 if (dbconnection != null)
@@ -116,7 +102,7 @@ namespace FreightMasters.Repository
                     {
                         for(int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            branchList.Add(new BranchListModel
+                            branchList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -140,7 +126,7 @@ namespace FreightMasters.Repository
             }
             return branchList;
         }
-        public async Task<BranchMasterList> GetBranchMasterList(BranchMasterListRequest request)
+        public async Task<BranchMasterList> GetBranchMasterList(PageRequest request)
         {
             BranchMasterList branchMasterList = new();
             List<BranchMasterModel> branchList = new();
@@ -156,7 +142,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BranchMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBranchMasterDetailsList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -165,47 +151,27 @@ namespace FreightMasters.Repository
                         {
                             branchList.Add(new BranchMasterModel
                             {
-                                Centreid = Convert.ToString(dataSet.Tables[0].Rows[i]["Centreid"]),
-                                Code = Convert.ToString(dataSet.Tables[0].Rows[i]["Code"]),
-                                CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
-                                ZoneCode = Convert.ToString(dataSet.Tables[0].Rows[i]["ZoneCode"]),
-                                RegionId = Convert.ToString(dataSet.Tables[0].Rows[i]["RegionId"]),
-                                BranchBusinessType = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchBusinessType"]),
-                                AcctBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctBranch"]),
-                                Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
-                                AcctYN = Convert.ToString(dataSet.Tables[0].Rows[i]["AcctYN"]),
-                                Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
-                                Address3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
-                                City = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
-                                StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
-                                PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
-                                OffPhone1 = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone1"]),
-                                OffPhone2 = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone2"]),
-                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
-                                BranchEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchEmail"]),
-                                ManagerName = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerName"]),
+                                Centreid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Centreid"]),
+                                Code            = Convert.ToString(dataSet.Tables[0].Rows[i]["Code"]),
+                                CentreName      = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
+                                ZoneCode        = Convert.ToString(dataSet.Tables[0].Rows[i]["ZoneCode"]),
+                                StateName       = Convert.ToString(dataSet.Tables[0].Rows[i]["StateName"]),
+                                Address1        = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
+                                Address2        = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
+                                Address3        = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
+                                City            = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
+                                StateCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                PinCode         = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+                                OffPhone1       = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone1"]),
+                                OffPhone2       = Convert.ToString(dataSet.Tables[0].Rows[i]["OffPhone2"]),
+                                MobileNo        = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
+                                BranchEmail     = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchEmail"]),
+                                ManagerName     = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerName"]),
                                 ManagerMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerMobileNo"]),
-                                ManagerPhone = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerPhone"]),
-                                ManagerEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerEmail"]),
-                                GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
-                                ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
-                                BankAcLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcLedger"]),
-                                BranchAcLedger = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchAcLedger"]),
-                                EntryLockDays = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryLockDays"]),
-                                BankName = Convert.ToString(dataSet.Tables[0].Rows[i]["BankName"]),
-                                BankAdd = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAdd"]),
-                                BankAcNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BankAcNo"]),
-                                BankIfsc = Convert.ToString(dataSet.Tables[0].Rows[i]["BankIfsc"]),
-                                EwayBillApiYN = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiYN"]),
-                                EwayBillApiGstId = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiGstId"]),
-                                EwayBillApiUid = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiUid"]),
-                                EwayBillApiPwd = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillApiPwd"]),
-                                PanApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PanApiCheckYN"]),
-                                BankApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["BankApiCheckYN"]),
-                                TruckApiCheckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckApiCheckYN"]),
-                                IsHO = Convert.ToString(dataSet.Tables[0].Rows[i]["IsHO"]),
-
-
+                                ManagerPhone    = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerPhone"]),
+                                ManagerEmail    = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerEmail"]),
+                                GstNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
+                                EntryLockDays   = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryLockDays"]),
                             });
                         }
 
@@ -234,9 +200,9 @@ namespace FreightMasters.Repository
             }
             return branchMasterList;
         }
-        public async Task<List<StateListModel>> GetStateList()
+        public async Task<List<DropDownListModel>> GetStateList()
         {
-            List<StateListModel> stateList = new();
+            List<DropDownListModel> stateList = new();
             try
             {
                 if (dbconnection != null)
@@ -248,7 +214,7 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            stateList.Add(new StateListModel
+                            stateList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -271,6 +237,89 @@ namespace FreightMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return stateList;
+        }
+
+        public async Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Centreid", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BranchMasterDetailsDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> ChkCodeExits(Request req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Code", req.strRequest),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BranchChkCodeExists", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
         }
     }
 

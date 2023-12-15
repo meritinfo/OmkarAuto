@@ -1,4 +1,5 @@
 ﻿using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -8,7 +9,7 @@ namespace FreightMasters.Repository
     public interface IProductMasterRepository
     {
         Task<ResponseModel> ProductMasterSave(ProductMasterModel productMasterModel);
-        Task<List<ProductListModel>> GetProductGroupList();
-        Task<ProductMasterList> GetProductMasterList(ProductMasterListRequest request);
+        Task<List<DropDownListModel>> GetProductGroupList();
+        Task<ProductMasterList> GetProductMasterList(PageRequest request);
     }
 }

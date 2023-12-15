@@ -4,6 +4,7 @@ using FinanceMaster.Models;
 using FinanceMaster.Repository;
 using FinanceMasters.Models;
 using FinanceMasters.Repository;
+using Shared.Models;
 
 namespace FinanceMasters.Business
 {

@@ -1,4 +1,5 @@
 ﻿using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -8,6 +9,8 @@ namespace FreightMasters.Business
     public interface IFreightRatesMstBusiness
     {
         Task<ResponseModel> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel);
-        Task<FreightRatesMstList> GetFreightRatesList(FreightRatesListRequest request);
+        Task<FreightRatesMstList> GetFreightRatesList(PageRequest request);
+        Task<ResponseModel> FreightRatesMasterDetailsDelete(Request req);
+        Task<FreightRatesMstModel> GetFreightRateInnerGridList(Request req);
     }
 }

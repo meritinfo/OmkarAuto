@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -65,7 +66,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ProductMasterList> GetProductMasterList(ProductMasterListRequest request)
+        public async Task<ProductMasterList> GetProductMasterList(PageRequest request)
         {
             ProductMasterList productMasterList = new();
             List<ProductMasterModel> productList = new();
@@ -125,9 +126,9 @@ namespace FreightMasters.Repository
             return productMasterList;
         }
 
-        public async Task<List<ProductListModel>> GetProductGroupList()
+        public async Task<List<DropDownListModel>> GetProductGroupList()
         {
-            List<ProductListModel> productList = new();
+            List<DropDownListModel> productList = new();
             try
             {
                 if (dbconnection != null)
@@ -139,7 +140,7 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            productList.Add(new ProductListModel
+                            productList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

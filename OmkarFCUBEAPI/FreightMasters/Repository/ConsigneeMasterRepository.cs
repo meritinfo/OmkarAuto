@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using FreightMasters.Models;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {

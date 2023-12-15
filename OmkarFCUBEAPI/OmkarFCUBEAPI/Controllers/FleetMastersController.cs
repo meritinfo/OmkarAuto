@@ -1,13 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-using FleetMasters.Models;
-using FleetMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json;
 using System.IO;
 using Newtonsoft.Json;
+using FleetMasters.Business;
+using FleetMasters.Models;
+using Shared.Models;
+using FinanceMaster.Models;
+using FinanceMasters.Business;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
+using System.Data.Common;
+using System.Data;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -16,6 +22,7 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class FleetMastersController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IVehicleTypeGroupMasterBusiness vehicleTypeGroupMasterBusiness;
         readonly IVehicleTypeMasterBusiness vehicleTypeMasterBusiness;
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
@@ -24,8 +31,9 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
-        public FleetMastersController(IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
+        public FleetMastersController(IOptions<DBModel> _dbconnection, IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
         {
+            dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
             vehicleTypeMasterBusiness = _vehicleTypeMasterBusiness;
             vehicleFltMasterBusiness = _vehicleFltMasterBusiness;
@@ -57,7 +65,8 @@ namespace OmkarFCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }
+        }       
+
         [HttpPost("GetVehicleList")]
         public async Task<IActionResult> GetVehicleList()
         {
@@ -75,7 +84,6 @@ namespace OmkarFCUBEAPI.Controllers
         /// <summary>
         /// Controller method for Driver master
         /// </summary>
-        /// <param name="vehicleTypeGroupMasterModel"></param>
         [HttpPost("DriverMasterSave")]
         public async Task<IActionResult> DriverMasterSave()
         {
@@ -95,8 +103,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/driverphoto/" + imageName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto/" + imageName); using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await driverPhoto.CopyToAsync(fileStream);
                         driverMasterModel.DrPhoto = imageName;
@@ -178,6 +185,45 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDriverMasterList")]
+        public async Task<IActionResult> GetDriverMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverMasterBusiness.GetDriverMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DriverMasterDetailsDelete")]
+        public async Task<IActionResult> DriverMasterDetailsDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverMasterBusiness.DriverMasterDetailsDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Controller method for vehicle type master
         /// </summary>
@@ -200,6 +246,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         /// <param name="expensesTypeMasterModel"></param>
         [HttpPost("ExpensesTypeMasterSave")]
         public async Task<IActionResult> ExpenseTypeMasterSave(ExpensesTypeMasterModel expensesTypeMasterModel)
@@ -219,6 +266,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("VehicleFltMasterSave")]
         public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
         {
@@ -237,6 +285,123 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetVehicleFltInnerGridList")]
+        public async Task<IActionResult> GetVehicleFltInnerGridList(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicleFltInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicalMasterDetailsDelete")]
+        public async Task<IActionResult> VehicalMasterDetailsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleFltMasterBusiness.VehicalMasterDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        [HttpPost("GetVehicalTypeList")]
+        public async Task<IActionResult> GetVehicalTypeList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicalTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicalLedgerAccountList")]
+        public async Task<IActionResult> GetVehicalLedgerAccountList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicalLedgerAccountList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetVehicalAssetAccountList")]
+        public async Task<IActionResult> GetVehicalAssetAccountList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicalAssetAccountList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicalMfrList")]
+        public async Task<IActionResult> GetVehicalMfrList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicalMfrList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ChkVehicalNoExist")]
+        public async Task<IActionResult> ChkVehicalNoExist(Request req)
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.ChkVehicalNoExist(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("DocRenewalMasterSave")]
         public async Task<IActionResult> DocRenewalMasterSave(DocRenewalMasterModel docRenewalMasterModel)
         {
@@ -275,7 +440,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetBrandMasterList")]
-        public async Task<IActionResult> GetBrandMasterList(BrandMasterListRequest request)
+        public async Task<IActionResult> GetBrandMasterList(PageRequest request)
         {
             try
             {
@@ -289,23 +454,9 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetDriverMasterList")]
-        public async Task<IActionResult> GetDriverMasterList(DriverMasterListRequest request)
-        {
-            try
-            {
-                var result = await driverMasterBusiness.GetDriverMasterList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("GetTyrePositionMasterList")]
-        public async Task<IActionResult> GetTyrePositionMasterList(TyrePositionMasterListRequest request)
+        public async Task<IActionResult> GetTyrePositionMasterList(PageRequest request)
         {
             try
             {
@@ -319,7 +470,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetVehicleTypeGroupMasterList")]
-        public async Task<IActionResult> GetVehicleTypeGroupMasterList(VehicleTypeGroupMasterListRequest request)
+        public async Task<IActionResult> GetVehicleTypeGroupMasterList(PageRequest request)
         {
             try
             {
@@ -333,7 +484,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDocRenewalMasterList")]
-        public async Task<IActionResult> GetDocRenewalMasterList(DocRenewalMasterListRequest request)
+        public async Task<IActionResult> GetDocRenewalMasterList(PageRequest request)
         {
             try
             {
@@ -347,7 +498,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetVehicleTypeMasterList")]
-        public async Task<IActionResult> GetVehicleTypeMasterList(VehicleTypeMasterListRequest request)
+        public async Task<IActionResult> GetVehicleTypeMasterList(PageRequest request)
         {
             try
             {
@@ -361,7 +512,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetVehicleFltMasterList")]
-        public async Task<IActionResult> GetVehicleFltMasterList(VehicleFltMasterListRequest request)
+        public async Task<IActionResult> GetVehicleFltMasterList(PageRequest request)
         {
             try
             {

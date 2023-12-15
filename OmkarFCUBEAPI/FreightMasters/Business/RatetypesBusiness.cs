@@ -1,5 +1,6 @@
 ﻿using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -22,7 +23,7 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.RatetypesDetailsSave(ratetypesModel);
         }
-        public async Task<RateTypesList> GetRateTypesList(RateTypesListRequest request)
+        public async Task<RateTypesList> GetRateTypesList(PageRequest request)
         {
             return await freightMastersRepository.GetRateTypesList(request);
         }

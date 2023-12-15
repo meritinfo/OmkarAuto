@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Security.Principal;
+using Shared.Models;
 
 namespace FinanceMasters.Repository
 {
@@ -31,13 +32,13 @@ namespace FinanceMasters.Repository
                 {
                     SqlParameter[] param =
                     {
-                        new SqlParameter("@AccountID"           , finGroupMasterModel.AccountID     ),
+                        new SqlParameter("@AccountID"           , finGroupMasterModel.AccountId     ),
                         new SqlParameter("@AccountName"         , finGroupMasterModel.GroupName     ),
                         new SqlParameter("@AccountType"         , finGroupMasterModel.AccountType   ),
                         new SqlParameter("@subAccountType"      , finGroupMasterModel.SubAccountType),
                         new SqlParameter("@AccountGroupFlag"    , "G"                               ),
                         new SqlParameter("@AccountLedgerType"   , "O"                               ),
-                        new SqlParameter("@CreatedBy"           , finGroupMasterModel.CreatedBy     ),
+                        new SqlParameter("@CreatedBy"           , finGroupMasterModel.LoggedInUserID),
                         new SqlParameter("@DeleteFlag"          , "N"                               ),
                         new SqlParameter("@SchID"               , finGroupMasterModel.SchID         ),
                     };
@@ -96,11 +97,14 @@ namespace FinanceMasters.Repository
                         {
                             finGroupList.Add(new FinGroupMasterModel
                             {
-                                AccountID = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountId"]),
+                                AccountId = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountId"]),
                                 GroupName = Convert.ToString(dataSet.Tables[0].Rows[i]["GroupName"]),
+                                AccountName=Convert.ToString(dataSet.Tables[0].Rows[i]["AccountName"]),
                                 AccountType = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountType"]),
+                                SubAccountType = Convert.ToString(dataSet.Tables[0].Rows[i]["SubAccountType"]),
                                 SubAccountName = Convert.ToString(dataSet.Tables[0].Rows[i]["SubAccountName"]),
-
+                                SchID= Convert.ToString(dataSet.Tables[0].Rows[i]["SchID"]),
+                                SchDesc= Convert.ToString(dataSet.Tables[0].Rows[i]["SchDesc"]),
                             });
                         }
 
@@ -128,6 +132,47 @@ namespace FinanceMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return finGroupMasterList;
+        }
+
+        public async Task<ResponseModel> FinGroupDetailsDelete(Request req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@AccountID", req.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinGroupDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
         }
 
 
@@ -178,7 +223,7 @@ namespace FinanceMasters.Repository
         /// Service method for get Sub Account Type List
         /// </summary>
         /// <returns>List<DropDownListModel></returns>
-        public async Task<List<DropDownListModel>> GetSubAccountTypeList(RequestModel req)
+        public async Task<List<DropDownListModel>> GetSubAccountTypeList(Request req)
         {
             List<DropDownListModel> SubAccountTypeList = new();
             try
@@ -263,7 +308,7 @@ namespace FinanceMasters.Repository
         }
 
   
-        public async Task<ResponseModel> chkActName(string AccountName)
+        public async Task<ResponseModel> chkActName(Request req)
         {
             ResponseModel responseModel = new();
             try
@@ -272,7 +317,7 @@ namespace FinanceMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@accountName", AccountName),
+                            new SqlParameter("@accountName", req.strRequest),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinGroupChkActName", param);

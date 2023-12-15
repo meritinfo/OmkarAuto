@@ -67,5 +67,6 @@ namespace FleetMasters.Models
         public string? DeleteFlag { get; set; }
     
         public string? LoggedInUser { get; set; }
+        public List<VehicleFltDtlsModel> VehiclefltDetailList { get; set; }
     }
 }

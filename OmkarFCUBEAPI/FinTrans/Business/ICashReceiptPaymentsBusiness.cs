@@ -1,4 +1,5 @@
 ﻿using FinTrans.Models;
+using Shared.Models;
 
 namespace FinTrans.Business
 {
@@ -8,7 +9,10 @@ namespace FinTrans.Business
     public interface ICashReceiptPaymentsBusiness
     {
         Task<ResponseModel> CashReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel);
-       Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(CashReceiptPaymentsListRequest request);
-       // Task<BankReceiptpaymentsList> GetBankReceiptpaymentsList(BankReceiptpaymentsListRequest request);
+        Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request);
+        Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter);
+        Task<ResponseModel> CashReceiptPaymentsDelete(Request req);
+        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req);
+
     }
 }

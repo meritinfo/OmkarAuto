@@ -4,6 +4,8 @@ using System;
 using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
+using Shared.Models;
+using FleetMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -20,11 +22,8 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
-        readonly IFreightRatesDtlBusiness freightRatesDtlBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
-
-
 
         readonly IDistanceDetailFrtBusiness distanceDetailFrtBusiness;
         readonly IDistanceDetailTripBusiness distanceDetailTripBusiness;
@@ -33,7 +32,7 @@ namespace OmkarFCUBEAPI.Controllers
         
 
 
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness, IFreightRatesDtlBusiness _freightRatesDtlBusiness, IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , IDistanceMasterTripBusiness _distanceMasterTripBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness,IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , IDistanceMasterTripBusiness _distanceMasterTripBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -42,7 +41,6 @@ namespace OmkarFCUBEAPI.Controllers
             lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
             ratetypesBusiness = _ratetypesBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
-            freightRatesDtlBusiness = _freightRatesDtlBusiness;
             distanceDetailFrtBusiness = _distanceDetailFrtBusiness;
             distanceDetailTripBusiness = _distanceDetailTripBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
@@ -76,7 +74,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// <summary>
         /// Controller method for DESTINATION MASTER
         /// </summary>
-        /// <param name="DestinationDetailsDelete"></param>
+        /// <param name="Request"></param>
         [HttpPost("DestinationDetailsDelete")]
         public async Task<IActionResult> DestinationDetailsDelete(Request req)
         {
@@ -108,6 +106,49 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await branchMastersBusiness.BranchMasterDetailsSave(branchMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// Controller method for DESTINATION MASTER
+        /// </summary>
+        /// <param name="Request"></param>
+        [HttpPost("BranchMasterDetailsDelete")]
+        public async Task<IActionResult> BranchMasterDetailsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchMastersBusiness.BranchMasterDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ChkCodeExits")]
+        public async Task<IActionResult> ChkCodeExits(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchMastersBusiness.ChkCodeExits(req);
 
                 return Ok(result);
             }
@@ -269,6 +310,22 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("GetFreightRateInnerGridList")]
+        public async Task<IActionResult> GetFreightRateInnerGridList(Request request)
+        {
+            try
+            {
+                var result = await freightRatesMstBusiness.GetFreightRateInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetFreightInnerGridList")]
         public async Task<IActionResult> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
         {
@@ -303,25 +360,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("FreightRatesDtlSave")]
-        public async Task<IActionResult> FreightRatesDtlSave(FreightRatesDtlModel freightRatesDtlModel)
-        {
-            if (freightRatesDtlModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await freightRatesDtlBusiness.FreightRatesDtlSave(freightRatesDtlModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         [HttpPost("ConsigneeMasterSave")]
         public async Task<IActionResult> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel)
         {
@@ -414,7 +452,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDestinationMasterList")]
-        public async Task<IActionResult> GetDestinationMasterList(DestinationMasterListRequest request)
+        public async Task<IActionResult> GetDestinationMasterList(PageRequest request)
         {
             try
             {
@@ -429,7 +467,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceMasterFrtList")]
-        public async Task<IActionResult> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request)
+        public async Task<IActionResult> GetDistanceMasterFrtList(PageRequest request)
         {
             try
             {
@@ -443,7 +481,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetFreightRatesList")]
-        public async Task<IActionResult> GetFreightRatesList(FreightRatesListRequest request)
+        public async Task<IActionResult> GetFreightRatesList(PageRequest request)
         {
             try
             {
@@ -456,8 +494,28 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("FreightRatesMasterDetailsDelete")]
+        public async Task<IActionResult> FreightRatesMasterDetailsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await freightRatesMstBusiness.FreightRatesMasterDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDistanceMasterTripList")]
-        public async Task<IActionResult> GetDistanceMasterTripList(DistanceMasterTripListRequest request)
+        public async Task<IActionResult> GetDistanceMasterTripList(PageRequest request)
         {
             try
             {
@@ -471,7 +529,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBranchMasterList")]
-        public async Task<IActionResult> GetBranchMasterList(BranchMasterListRequest request)
+        public async Task<IActionResult> GetBranchMasterList(PageRequest request)
         {
             try
             {
@@ -485,7 +543,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetproductMasterList")]
-        public async Task<IActionResult> GetProductMasterList(ProductMasterListRequest request)
+        public async Task<IActionResult> GetProductMasterList(PageRequest request)
         {
             try
             {
@@ -499,7 +557,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetProductGroupMasterList")]
-        public async Task<IActionResult> GetProductGroupMasterList(ProductGroupMasterListRequest request)
+        public async Task<IActionResult> GetProductGroupMasterList(PageRequest request)
         {
             try
             {
@@ -513,7 +571,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("LRBillSeriesList")]
-        public async Task<IActionResult> LrBillSeriesList(LRBillSeriesListRequest request)
+        public async Task<IActionResult> LrBillSeriesList(PageRequest request)
         {
             try
             {
@@ -527,7 +585,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetRateTypesList")]
-        public async Task<IActionResult> GetRateTypesList(RateTypesListRequest request)
+        public async Task<IActionResult> GetRateTypesList(PageRequest request)
         {
             try
             {

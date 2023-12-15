@@ -1,5 +1,7 @@
 ﻿using FinanceMaster.Models;
 using FinanceMasters.Models;
+using Shared.Models;
+
 namespace FinanceMasters.Business
 {
     /// <summary>

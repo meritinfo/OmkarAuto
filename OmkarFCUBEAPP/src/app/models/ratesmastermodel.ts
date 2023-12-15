@@ -9,9 +9,10 @@ export class Ratesmastermodel {
     accountName: string = "";
     rateTypeId: string = "";
     rateDesc: string = "";
-    rateForStateOrToPlace: string = "";
+    rateForStateOrToPlace: string = "";   
     loggedInUser: string = "";
-    freightRatesDetailsList: RatesMasterDetailsList[] = [];
+    freightRatesDetailsList: RatesMasterDetailsList[] = [];  
+
 }
 
 export class RatesMasterDetailsList {
@@ -19,9 +20,5 @@ export class RatesMasterDetailsList {
     masterID: string = "";
     destState: string = "";
     toPlace: string = "";
-    index: string = "";
-    rateTypeId: string = "";
     rate: string = "";
-
-    
 }

@@ -1,6 +1,4 @@
-﻿using AdminMasters.Business;
-using AdminMasters.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Business;
 using Shared.Models;
 using System;

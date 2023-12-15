@@ -1,5 +1,6 @@
 ﻿using FreightMasters.Models;
 using FreightMasters.Repository;
+using Shared.Models;
 
 namespace FreightMasters.Business
 {
@@ -19,9 +20,18 @@ namespace FreightMasters.Business
         {
             return await freightRatesMstRepository.FreightRatesMstSave(freightRatesMstModel);
         }
-        public async Task<FreightRatesMstList> GetFreightRatesList(FreightRatesListRequest request)
+        public async Task<FreightRatesMstList> GetFreightRatesList(PageRequest request)
         {
             return await freightRatesMstRepository.GetFreightRatesList(request);
         }
+        public async Task<ResponseModel> FreightRatesMasterDetailsDelete(Request req)
+        {
+            return await freightRatesMstRepository.FreightRatesMasterDetailsDelete(req);
+        }
+        public async Task<FreightRatesMstModel> GetFreightRateInnerGridList(Request req)
+        {
+            return await freightRatesMstRepository.GetFreightRateInnerGridList(req);
+        }
+
     }
 }

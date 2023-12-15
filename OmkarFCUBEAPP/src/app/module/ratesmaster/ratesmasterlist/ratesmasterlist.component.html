@@ -33,24 +33,23 @@
                      <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
-                                <th>ReminderDays </th>
-                          
-                                <th>Doc Code </th>
-                                <th>Doc Code </th>
-                                <th>Doc Code </th>
-                                <th>Doc Code </th>
+                                <th>accountName </th>
+                                <th>fromPoint</th>
+                                <th>validFrom</th>
+                                <th>validUpto </th>
+                                <th>rateDesc </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allRatesMaster.ratesMasterList?.length != 0">
-                            <tr *ngFor="let renewalMaster of allRatesMaster.ratesMasterList">
-                                <td>{{ renewalMaster.validFrom }}</td>
-                                <td>{{ renewalMaster.validUpto }}</td>
-                                <td>{{ renewalMaster.fromPoint }}</td>
-                                <td>{{ renewalMaster.rateDesc }}</td>
-                                <td>{{ renewalMaster.accountName}}</td>
+                            <tr *ngFor="let rt of allRatesMaster.ratesMasterList">
+                                <td>{{ rt.accountName}}</td>
+                                <td>{{ rt.fromPoint }}</td>
+                                <td>{{ rt.validFrom }}</td>
+                                <td>{{ rt.validUpto }}</td>
+                                <td>{{ rt.rateDesc }}</td>
                                 <td>
-                                    <a (click)="getRatesMasterDetails(renewalMaster)" class="actionicon"><i
+                                    <a (click)="getRatesMasterDetails(rt)" class="actionicon"><i
                                         class="bx bx-pencil"></i></a>
                                
                                 </td>

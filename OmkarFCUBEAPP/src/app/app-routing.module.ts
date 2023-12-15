@@ -50,13 +50,15 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
-import {  DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
-import {  DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
-import {  DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
-import {  DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
-import {  BankcashcontralistComponent } from './module/bankcashcontra/bankcashcontralist/bankcashcontralist.component';
-import {  AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
-import {  JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
+import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
+import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
+import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
+import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
+import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
+import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
+import { BankcashcontralistComponent } from './module/bankcashcontra/bankcashcontralist/bankcashcontralist.component';
+import { AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
+import { JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
@@ -67,7 +69,7 @@ import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingroupli
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finaccountsmasterlist/finaccountsmasterlist.component';
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
-import { Requestmodel } from './models/requestmodel';
+
 
 
 
@@ -125,6 +127,7 @@ const routes: Routes = [
   { path: 'branchmasteredit', component: AddbranchmasterComponent },
   { path: 'vehiclemasterlist', component: VehiclemasterlistComponent },
   { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
+  { path: 'vehiclemasteredit', component: VehiclemasteraddComponent },
   { path: 'drivermasterlist', component: DrivermasterlistComponent },
   { path: 'drivermasteradd', component: DrivermasteraddComponent },
   { path: 'drivermasteredit', component: DrivermasteraddComponent },
@@ -151,10 +154,15 @@ const routes: Routes = [
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
   { path: 'tripsheetedit', component: TripsheetaddComponent },
+  { path: 'othertripopenlist', component: OthertripopenlistComponent },
+  { path: 'othertripopenadd', component: AddothertripopenComponent },
+  { path: 'othertripopenedit', component: AddothertripopenComponent },
   { path: 'bankcashcontralist', component:  BankcashcontralistComponent },
   { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
+  { path: 'bankcashcontraedit', component:  AddbankcashcontraComponent },
   { path: 'journalentrylist', component:  JournalentrylistComponent },
   { path: 'addjournalentry', component:  AddjournalentryComponent },
+  { path: 'journalentryedit', component:  AddjournalentryComponent },
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
   { path: 'dieselstatementedit', component:  DieselstatementaddComponent },
   { path: 'dieselstatementlist', component:  DieselstatementlistComponent },

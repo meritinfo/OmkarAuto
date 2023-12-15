@@ -1,4 +1,5 @@
 ﻿using AdminMasters.Models;
+using Shared.Models;
 
 namespace AdminMasters.Repository
 {

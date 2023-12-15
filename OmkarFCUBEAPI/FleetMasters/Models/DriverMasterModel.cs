@@ -19,8 +19,7 @@ namespace FleetMasters.Models
         public string? LicenseNo { get; set; }
         public string? LicValidUpto { get; set; }
         public string? LicenseIssuAuth { get; set; }
-        public string? IsHazardousLicYN { get; set; }
-        
+        public string? IsHazardousLicYN { get; set; }        
         public string? HazLicenseIssuAuth { get; set; }
         public string? HazardousLicNo { get; set; }
         public string? HazLicValidUpto { get; set; }

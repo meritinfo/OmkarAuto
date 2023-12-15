@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
+using Shared.Models;
 
 namespace FreightMasters.Repository
 {
@@ -56,7 +57,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<RateTypesList> GetRateTypesList(RateTypesListRequest request)
+        public async Task<RateTypesList> GetRateTypesList(PageRequest request)
         {
             RateTypesList ratetypesList = new();
             List<RatetypesModel> rateTypesList = new();
