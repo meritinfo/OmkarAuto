@@ -163,6 +163,7 @@ const routes: Routes = [
   { path: 'billstatementlist', component:  BillstatementlistComponent },
   { path: 'billstatementedit', component:  BillstatementaddComponent },
   { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
+  { path: 'driversalarystatementedit', component:  DriversalarystatementaddComponent },
   { path: 'driversalarystatementlist', component:  DriversalarystatementlistComponent },
   { path: 'fingrouplist', component:  FingrouplistComponent },
   { path: 'fingroupadd', component: FingroupaddComponent },

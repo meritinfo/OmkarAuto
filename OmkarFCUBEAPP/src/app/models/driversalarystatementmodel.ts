@@ -1,4 +1,5 @@
 import { Driversalarydetailmodel } from "./driversalarydetailmodel";
+import { Driversalarysearchmodel } from "./driversalarysearchmodel";
 
 export class Driversalarystatementmodel {
     masterId: string = "";
@@ -15,7 +16,7 @@ export class Driversalarystatementmodel {
     creditAc: string = "";
     yearId: string = "";
     loggedInUser: string = "";
-    driverSalaryListData: Driversalarydetailmodel[] = [];
+    driverSalaryListData: Driversalarysearchmodel[] = [];
    
    
 }

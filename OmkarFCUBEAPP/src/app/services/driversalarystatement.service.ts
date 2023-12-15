@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Driversalarystatementmodel } from '../models/driversalarystatementmodel';
+import { Driversalarysearchlistrequestmodel } from '../models/driversalarysearchlistrequestmodel';
+import { Driversalarysearchlistmodel } from '../models/driversalarysearchlistmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
@@ -21,7 +23,7 @@ export class DriversalarystatementService {
   }
   selectedDriverSalaryStatement = new Driversalarystatementmodel();
   constructor(private httpClient: HttpClient) { }
-  setTripPaymentsDetails(Driver: Driversalarystatementmodel) {
+  setDriverSalaryDetails(Driver: Driversalarystatementmodel) {
  
       this.selectedDriverSalaryStatement = Driver;
     
@@ -29,6 +31,9 @@ export class DriversalarystatementService {
   }
   getDriverSalaryStatementDetails() {
     return this.selectedDriverSalaryStatement;
+  }
+  getDriverSalarySearchList(request: Driversalarysearchlistrequestmodel): Observable<Driversalarysearchlistmodel> {
+    return this.httpClient.post<Driversalarysearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalarySearchList', request, this.httpOptions);
   }
   clearDriverSalaryStatementDetails() {
     this.selectedDriverSalaryStatement = new Driversalarystatementmodel();

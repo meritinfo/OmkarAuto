@@ -1,5 +1,10 @@
-import { Driversalarydetailmodel } from "./driversalarydetailmodel";
+//import { Driversalarysearchmodel } from "./driversalarysearchmodel";
+
+//export class Driversalarysearchlistmodel {
+   // driverSalarySearchList: Driversalarysearchmodel[] = [];
+//}
+import { Driversalarysearchmodel } from "./driversalarysearchmodel";
 
 export class Driversalarysearchlistmodel {
-    driverSalarySearchList: Driversalarydetailmodel[] = [];
+    driverSalarySearchList: Driversalarysearchmodel[] = [];
 }

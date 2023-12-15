@@ -8,6 +8,8 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Driversalarystatementlistmodel  } from 'src/app/models/driversalarystatementlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
+import { Driversalarystatementmodel } from 'src/app/models/driversalarystatementmodel';
+import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
 
@@ -97,9 +99,9 @@ driversalaryStatementAdd(): void {
   this.route.navigate(['/driversalarystatementadd']);
 }
 //Open user details screen
-//gettrippaymentsDetails(trippayments: Driversalarystatementmodel): void {
-//this.driversalarystatementService.getDriverSalaryStatementList(trippayments);
-//this.route.navigate(['/trippaymentsedit']);
-//}
+getDriverSalaryDetails(trippayments: Driversalarystatementmodel): void {
+this.driversalarystatementService.setDriverSalaryDetails(trippayments);
+this.route.navigate(['/driversalarystatementedit']);
+}
 
 }

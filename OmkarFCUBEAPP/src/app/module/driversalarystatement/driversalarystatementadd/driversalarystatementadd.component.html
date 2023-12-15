@@ -52,15 +52,19 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Pmt Type</label>
-                                                    <select class="form-control" formControlName="pmtType">
-                                                        <option selected="">Choose...</option>
-                                                        <option selected="">1</option>
-                                                    </select>
+                                                    <select id="formrow-inputState" class="form-control"
+                                                    formControlName="pmtType"
+                                                    [ngClass]=""   (change)="changePmtType($event)">
+                                                    <option selected="">Choose...</option>
+                                                    <option value="C">Cash</option>
+                                                    <option value="B"> Bank</option>
+                                                
+                                                </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <button type="submit" 
+                                                    <button type="submit"  (click)="searchStatement()"
                                                         class="btn btn-primary w-md mt-4">Generate Salary</button>
                                                 </div>
                                             </div>
@@ -171,9 +175,9 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Net Payable</label>
+                                                <label for="formrow-inputCity"> Net Payable</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="netPayable">
+                                                    formControlName="totalNetPayAmt">
                                             </div>
                                         </div>
                                     </div>
@@ -193,19 +197,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Payment type</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                formControlName="pmtType"
-                                                [ngClass]=""   (change)="changePmtType($event)">
-                                                <option selected="">Choose...</option>
-                                                <option value="C">Cash</option>
-                                                <option value="B"> Bank</option>
-                                            
-                                            </select>
-                                            </div>
-                                        </div>
+                                     
                                     </div>
                                 </div>
                             </div>

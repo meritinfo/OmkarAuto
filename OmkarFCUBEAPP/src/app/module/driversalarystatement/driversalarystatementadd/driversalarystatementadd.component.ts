@@ -7,7 +7,9 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Driversalarystatementmodel } from 'src/app/models/driversalarystatementmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
+import { Driversalarysearchmodel } from 'src/app/models/driversalarysearchmodel';
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
+import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
 
 
@@ -31,6 +33,7 @@ export class DriversalarystatementaddComponent implements OnInit {
   driversalarysearchlistmodel = new Driversalarysearchlistmodel();
   Driversalarydetailmodel = new Driversalarydetailmodel();
   selectedDriverSalaryStatementDetails = new Driversalarystatementmodel();
+  Driversalarysearchlistrequestmodel = new Driversalarysearchlistrequestmodel();
   creditacList: Dropdownmodel[] = [];
   creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -70,9 +73,10 @@ export class DriversalarystatementaddComponent implements OnInit {
       remarks: new FormControl(''),
       totalSalaryAmt: new FormControl(''),
       totalPoolAmt: new FormControl(''),
-      netPayable: new FormControl(''),
+     // netPayable: new FormControl(''),
+      totalNetPayAmt: new FormControl(''),
       creditAc: new FormControl(''),
-     cheqNo: new FormControl('')
+     pmtType: new FormControl('')
     });
     this.getCreditAcList2("B");
     setTimeout(() => {
@@ -97,10 +101,13 @@ export class DriversalarystatementaddComponent implements OnInit {
        //this.getCreditAcList();
      
        this.formDriverSalaryStatement.patchValue({
-       
-        transDt:  this.selectedDriverSalaryStatementDetails.transDt, 
-          fromDt :this.selectedDriverSalaryStatementDetails.fromDt, 
-      toDt :this.selectedDriverSalaryStatementDetails.toDt, 
+        transDt:    this.commonService.formatDate(this.selectedDriverSalaryStatementDetails.transDt), 
+        fromDt:    this.commonService.formatDate(this.selectedDriverSalaryStatementDetails.fromDt), 
+        toDt:    this.commonService.formatDate(this.selectedDriverSalaryStatementDetails.toDt), 
+    
+    
+          pmtType :this.selectedDriverSalaryStatementDetails.pmtType, 
+     // toDt :this.selectedDriverSalaryStatementDetails.toDt, 
 
        
        });
@@ -129,6 +136,11 @@ export class DriversalarystatementaddComponent implements OnInit {
     });
 
 
+  }
+  searchStatement(): void {
+    this.driverSalaryStatementService.getDriverSalarySearchList(this.Driversalarysearchlistrequestmodel).subscribe((res: Driversalarysearchlistmodel) => {
+      this.driversalarysearchlistmodel = res;
+    });
   }
   getCreditAcList(){
     //this.tripVehicleDetails.vehicleMasterId =  e;
@@ -159,6 +171,10 @@ saveStatementDetails(): void {
   this.driversalarystatementmodel.remarks = selectedDataValue.remarks;
   this.driversalarystatementmodel.totalSalaryAmt = selectedDataValue.totalSalaryAmt;
   this.driversalarystatementmodel.totalPoolAmt = selectedDataValue.totalPoolAmt;
+  this.driversalarystatementmodel.pmtType = selectedDataValue.pmtType;
+  this.driversalarystatementmodel.creditAc = selectedDataValue.creditAc;
+  this.driversalarystatementmodel.totalNetPayAmt = selectedDataValue.totalNetPayAmt;
+  
   
   this.driversalarystatementmodel.yearId = this.year;
   this.driversalarystatementmodel.loggedInUser = this.loggedInUserID;
