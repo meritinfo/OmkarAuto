@@ -98,25 +98,29 @@
                                         </tr>
                                         <tr>
                                             <!-- *ngFor="let arrayData of driverSalarystatementsearchlistmodel.driverSalaryStatementSearchList; let i = index" -->
+                                            <tr  
+                                            *ngFor="let arrayData of driversalarysearchlistmodel.driverSalarySearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="select" class="form-check-input">
+                                                    <input type="checkbox" name="select" class="form-check-input"
+                                                    >
                                                     <!-- {{arrayData.pmtId}} -->
                                                 </div>
                                             </td>
+                                            
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.gcNoteNo}} -->
+                                                     {{arrayData.vehicleNo}} 
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.bookingDate}} -->
+                                                     {{arrayData.driverName}} 
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.vehicleNo}} -->
+                                                     {{arrayData.salaryDays}} -->
                                                 </div>
                                             </td>
                                             <td>

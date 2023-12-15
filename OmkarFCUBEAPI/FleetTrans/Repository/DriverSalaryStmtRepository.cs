@@ -28,7 +28,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@DriverMasterID", request.DriverMasterID),
                           
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementSearchList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalarySearchList_Select", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
