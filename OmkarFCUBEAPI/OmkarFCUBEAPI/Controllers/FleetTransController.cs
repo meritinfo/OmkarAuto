@@ -380,6 +380,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverSalarySearchList")]
+        public async Task<IActionResult> GetDriverSalarySearchList(DriverSalarySearchListRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.GetDriverSalarySearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("SaveBillStatementDetails")]
         public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)

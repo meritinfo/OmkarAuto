@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
+import { SharedService } from 'src/app/services/shared.service';
 import { Tripsheetmodel } from 'src/app/models/tripsheetmodel';
 import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -40,13 +41,12 @@ export class TripsheetlistComponent {
   maxDate: string = '';
   minDate: string = '';
 
-  constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, 
-    private route: Router, 
-    private commonService: CommonService) {
+  constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, private route: Router, private sharedService: SharedService, private commonService: CommonService) {
 
   }
 
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -151,6 +151,7 @@ export class TripsheetlistComponent {
         },
       ],
     };
+    this.sharedService.loading = false;
   }
   //Open new gst purchase add screen
   tripsheetAdd(): void {
@@ -200,6 +201,24 @@ export class TripsheetlistComponent {
       .subscribe(resp => {
         this.allTripSheetTypes = resp;
       });
+  }
+
+  getCurrentFiscalYear(date: string) {
+    var dates = {
+      'sDate': new Date(),
+      'eDate': new Date()
+    };
+    var docDate = new Date(date);
+    var month = docDate.getMonth();
+    if (month > 3) {
+      dates.sDate = new Date(docDate.getFullYear(), 3, 1);
+      dates.eDate = new Date(dates.sDate.getFullYear() + 1, dates.sDate.getMonth() - 1, 31);
+    }
+    else {
+      dates.sDate = new Date(docDate.getFullYear() - 1, 3, 1);
+      dates.eDate = new Date(docDate.getFullYear(), dates.sDate.getMonth() - 1, 31);
+    }
+    return dates;
   }
 
 }

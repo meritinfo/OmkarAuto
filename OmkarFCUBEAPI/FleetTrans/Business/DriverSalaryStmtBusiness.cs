@@ -23,5 +23,9 @@ namespace FleetTrans.Business
         {
             return await driverSalaryStmtRepository.SaveDriverSalaryStatementDetails(request);
         }
+        public async Task<DriverSalarySearchListModel> GetDriverSalarySearchList(DriverSalarySearchListRequest request)
+        {
+            return await driverSalaryStmtRepository.GetDriverSalarySearchList(request);
+        }
     }
 }
