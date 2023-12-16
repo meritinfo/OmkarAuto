@@ -5,15 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Newtonsoft.Json;
-using FleetMasters.Business;
-using FleetMasters.Models;
-using Shared.Models;
-using FinanceMaster.Models;
-using FinanceMasters.Business;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using System.Data.Common;
-using System.Data;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -103,7 +96,8 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto/" + imageName); using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await driverPhoto.CopyToAsync(fileStream);
                         driverMasterModel.DrPhoto = imageName;

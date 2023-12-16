@@ -1,0 +1,15 @@
+﻿using FleetTrans.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FleetTrans.Repository
+{
+    public interface IDriverSalaryStmtRepository
+    {
+        Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request);
+        Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request);
+    }
+}

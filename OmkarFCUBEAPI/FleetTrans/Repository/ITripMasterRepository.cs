@@ -14,6 +14,7 @@ namespace FleetTrans.Repository
         Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
         Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel> GetOpeningBal(OpBalModel request);
+        Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);

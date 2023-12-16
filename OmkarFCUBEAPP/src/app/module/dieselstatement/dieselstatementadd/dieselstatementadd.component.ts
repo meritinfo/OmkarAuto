@@ -24,6 +24,12 @@ export class DieselstatementaddComponent implements OnInit {
   formDieselStatement!: FormGroup;
   Dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
   keywordLocation = 'dataName';
+  editMode = false;
+  createmode = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
@@ -115,6 +121,7 @@ export class DieselstatementaddComponent implements OnInit {
     this.Dieselstatementsearchlistmodel.dieselStatementSearchList[index].selected = event.target.checked;
     this.calculateTotal();
   }
+  
 
   calculateTotal() {
     var totalDslAmount = 0;
@@ -137,6 +144,14 @@ export class DieselstatementaddComponent implements OnInit {
       totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
       totalStatementAmount: totalStatementAmount.toFixed(2)
     });
+  }
+  exit(): void {
+    this.route.navigate(['/dieselstatementlist']);
+  }
+  deleteDieselStatementForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+  
+    }
   }
 
   saveStatementDetails(): void {

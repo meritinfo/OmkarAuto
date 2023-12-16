@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-using FleetTrans.Models;
+
 using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 
+using FleetTrans.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -19,16 +20,17 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
-      //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+        //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+        readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness, IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
-           // driverSalaryStatementBusiness = _driverSalaryStatementBusiness;
+            driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
         }
         /// <summary>
 
@@ -110,6 +112,20 @@ namespace OmkarFCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("GetDriverSalaryStmtList")]
+        public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.GetDriverSalaryStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTripSheetList")]
         public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
         {
@@ -269,6 +285,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverDetail")]
+        public async Task<IActionResult> GetDriverDetail(DriverRequestModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDriverDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
@@ -351,7 +382,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("SaveBillStatementDetails")]
-        public async Task<IActionResult> SaveBillStatementDetails(BillStatementSaveRequest request)
+        public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)
         {
             try
             {

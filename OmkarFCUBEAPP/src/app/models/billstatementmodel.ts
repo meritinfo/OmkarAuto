@@ -1,17 +1,22 @@
+import { Billstatementsearchmodel } from "./billstatementsearchmodel";
+
 export class billstatementmodel {
     masterID: string = "";
     billStation: string = "";
     seriesCode: string = "";
     bill_StmtNo: string = "";
     billDate: string = "";
-    billStatus: string = "";
+  //  billStatus: string = "";
+    fromPoint : string = "";
+    toPoint : string = "";
     partyCode: string = "";
     fromDate: string = "";
-    suppYN: string = "";
-    gcNoteNo: string = "";
+    toDate: string = "";
+   // suppYN: string = "";
+   // gcNoteNo: string = "";
     totFreight: string = "";
-    TotExtraChrg: string = "";
-    TotSubTotal: string = "";
+    totExtraChrg: string = "";
+    totSubTotal: string = "";
     gstType: string = "";
     sgstPct: string = "";
     sgstAmt: string = "";
@@ -20,14 +25,17 @@ export class billstatementmodel {
     igstPct: string = "";
     igstAmt: string = "";
     totalBillAmt: string = "";
-    ftmid: string = "";
-    linkedYN: string = "";
-    yearID: string = "";
-    remarks: string = "";
-    totRecdAmt: string = "";
-    totDedAmt: string = "";
-    totTdsAmt: string = "";
-    einv_Gst_Irn: string = "";
-    einv_Gst_AckNo: string = "";
-    einv_Gst_AckDt: string = "";
+   // ftmid: string = "";
+  //  linkedYN: string = "";
+   // yearID: string = "";
+  //  remarks: string = "";
+   // totRecdAmt: string = "";
+   // totDedAmt: string = "";
+  //  totTdsAmt: string = "";
+  //  einv_Gst_Irn: string = "";
+    //einv_Gst_AckNo: string = "";
+   // einv_Gst_AckDt: string = "";
+     yearId: string = "";
+    loggedInUser: string = "";
+    billStatementListData: Billstatementsearchmodel[] = [];
 }

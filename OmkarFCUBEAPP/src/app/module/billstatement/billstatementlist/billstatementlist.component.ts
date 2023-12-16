@@ -76,10 +76,7 @@ export class BillstatementlistComponent {
           title: 'BillDate ',
           data: 'billDate'
         },
-        {
-          title: 'billStatus ',
-          data: 'billStatus',
-        },
+       
   
   
   

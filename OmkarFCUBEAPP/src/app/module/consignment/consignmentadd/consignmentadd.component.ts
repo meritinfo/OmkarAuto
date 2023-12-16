@@ -76,6 +76,12 @@ export class ConsignmentaddComponent implements OnInit {
   keywordLocation = 'dataName';
   ivVehicleNo = '';
   billstation = '';
+  editMode = false;
+  createmode  = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   ivFromPlace = '';
   ivToPlace = '';
 
@@ -129,8 +135,8 @@ export class ConsignmentaddComponent implements OnInit {
       ewayBillDate: new FormControl('',),
       ewayBillExpDate: new FormControl('',),
       ewayBillExpExtDate: new FormControl('',),
-      fromPlace: new FormControl('',),
-      toPlace: new FormControl('',),
+      fromPlace: new FormControl('',[Validators.required]),
+      toPlace: new FormControl('',[Validators.required]),
       toPin: new FormControl('',),
       fromPin: new FormControl('',),
       kms: new FormControl(this.kms,),
@@ -181,6 +187,7 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch3: new FormControl('1',),
     });
     setTimeout(() => {
+      this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
         this.formConsignment.controls['bookingPlace'].disable();
@@ -362,6 +369,14 @@ export class ConsignmentaddComponent implements OnInit {
         kms: ''
       });
     }
+  }
+  deleteConsignmentForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/consignmentlist']);
   }
   checkTripkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
@@ -691,6 +706,11 @@ export class ConsignmentaddComponent implements OnInit {
 
       this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
       this.formConsignment.controls['truckId'].setValidators([Validators.required]);
+      this.formConsignment.controls['fromPlace'].setValidators([Validators.required]);
+      this.formConsignment.controls['toPlace'].setValidators([Validators.required]);
+     // this.formConsignment.controls['fromPin'].setValidators([Validators.required]);
+      this.formConsignment.controls['productId'].setValidators([Validators.required]);
+      this.formConsignment.controls['rateType'].setValidators([Validators.required]);
       //Disable field
 
 

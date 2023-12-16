@@ -24,13 +24,17 @@ namespace FleetTrans.Business
         /// Business method for Save Bill Statement Details
         /// </summary>
         /// <param name="BillStatementSaveRequest"></param>
-        public async Task<ResponseModel> SaveBillStatementDetails(BillStatementSaveRequest request)
+        public async Task<ResponseModel> SaveBillStatementDetails(BillStatementModel request)
         {
             return await billStatementRepository.SaveBillStatementDetails(request);
         }
         public async Task<BillStatementList> GetBillStatementList(PageRequest request)
         {
             return await billStatementRepository.GetBillStatementList(request);
+        }
+        public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        {
+            return await billStatementRepository.GetBillStatementInnerGridList(request);
         }
     }
 }

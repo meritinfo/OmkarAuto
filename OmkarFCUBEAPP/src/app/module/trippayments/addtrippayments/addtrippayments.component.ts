@@ -37,6 +37,12 @@ export class AddtrippaymentsComponent {
   formSubmitted = false;
   userSubmitted = false;
   keywordLocation = 'dataName';
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  createmode = false;
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
@@ -126,7 +132,7 @@ export class AddtrippaymentsComponent {
 
     });
     setTimeout(() => {
-     
+     this.createmode = true;
     if (this.selectedTripPaymentsDetails.pmtId != '') {
       this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
       this.formTripPayment.controls['pmtBranch'].disable();
@@ -219,6 +225,14 @@ export class AddtrippaymentsComponent {
     });
 
 
+  }
+  deleteTripPaymentsForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
+  exit(): void {
+    this.route.navigate(['/trippaymentslist']);
   }
   getCreditAcList(){
     //this.tripVehicleDetails.vehicleMasterId =  e;

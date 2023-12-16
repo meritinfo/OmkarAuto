@@ -34,6 +34,7 @@ export class DistancemastertripaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  createmode =true;
   selectedLocation: string[] = [];
 
   constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService) {

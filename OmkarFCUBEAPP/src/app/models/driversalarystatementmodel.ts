@@ -1,13 +1,21 @@
+import { Driversalarydetailmodel } from "./driversalarydetailmodel";
+
 export class Driversalarystatementmodel {
-    transDate: string = "";
-    tripFrom: string = "";
-    tripTo: string = "";
-    pmtType: string = "";
+    masterId: string = "";
+    transDt: string = "";
+    fromDt: string = "";
+    toDt: string = "";
+ 
+   // pmtType: string = "";
     remarks: string = "";
-    totalSalary: string = "";
+    totalSalaryAmt: string = "";
     totalPoolAmt: string = "";
-    netPayable: string = "";
-    creditAC: string = "";
-    cheqNo: string = "";
+    totalNetPayAmt: string = "";
+    pmtType: string = "";
+    creditAc: string = "";
+    yearId: string = "";
+    loggedInUser: string = "";
+    driverSalaryListData: Driversalarydetailmodel[] = [];
+   
    
 }

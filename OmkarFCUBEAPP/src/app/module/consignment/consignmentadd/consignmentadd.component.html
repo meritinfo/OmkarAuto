@@ -9,8 +9,8 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/consignmentlist">Consignment</a></li>
-                                <li class="breadcrumb-item active">Consignment Add</li>
+                                <li class="breadcrumb-item">Consignment</li>
+                                <li class="breadcrumb-item active">Consignment </li>
                             </ol>
                         </div>
 
@@ -184,7 +184,7 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }"
+                                                        [ngClass]="{'is-invalid': formSubmitted && (f['fromPlace'].invalid)}"
                                                         (closed) = "popupClosedFromPlace()"
                                                       >
                                                     </ng-autocomplete>
@@ -423,7 +423,7 @@
                                                 <label for="formrow-inputZip">Rate Type</label>
 
                                                 <select class="form-control" formControlName="rateType"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateRs'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateType'].invalid) }">
                                                     <option *ngFor="let branch of rateList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
@@ -613,6 +613,9 @@
 
                             <button type="submit" class="btn btn-primary w-md"
                                 (click)="submitConsignmentForm()">Save</button>
+                                <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteConsignmentForm()">Delete</button>
+                            <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

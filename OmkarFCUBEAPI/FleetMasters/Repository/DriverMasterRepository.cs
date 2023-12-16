@@ -79,7 +79,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@BankIfsCode", driverMasterModel.BankIfsCode),
                             new SqlParameter("@BankAccountStatus", driverMasterModel.BankAccountStatus),
                             new SqlParameter("@DeleteFlag", driverMasterModel.DeleteFlag),
-                            new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverMasterDetailsSave", param);

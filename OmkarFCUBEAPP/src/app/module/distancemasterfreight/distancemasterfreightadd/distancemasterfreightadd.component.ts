@@ -30,6 +30,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
   editMode = false;
   createStatus = false;
   editStatus = false;
+  createmode= true;
   deleteStatus = false;
   viewStatus = false;
   formSubmitted = false;
@@ -280,6 +281,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.toasterService.warning("From location cannot be same as destination in details grid");
       return;
     }
+    
 
     //Duplicate destination check
     const foundDuplicateName = this.distancemasterfreightmodel.distanceDetailsFreightList.find((data, index) => {

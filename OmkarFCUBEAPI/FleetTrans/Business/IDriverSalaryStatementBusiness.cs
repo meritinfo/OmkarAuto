@@ -10,6 +10,6 @@ namespace FleetTrans.Business
 {
     public interface IDriverSalaryStatementBusiness
     {
-        Task<DriverSalaryStatementList>GetDriverSalaryStatementList(PageRequest request);
+       // Task<DriverSalaryStatementList>GetDriverSalaryStatementList(DriverSalaryListRequest request);
     }
 }

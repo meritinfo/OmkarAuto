@@ -65,6 +65,7 @@ import { DieselstatementlistComponent } from './module/dieselstatement/dieselsta
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
+import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
 import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finaccountsmasterlist/finaccountsmasterlist.component';
@@ -170,6 +171,7 @@ const routes: Routes = [
   { path: 'billstatementlist', component:  BillstatementlistComponent },
   { path: 'billstatementedit', component:  BillstatementaddComponent },
   { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
+  { path: 'driversalarystatementlist', component:  DriversalarystatementlistComponent },
   { path: 'fingrouplist', component:  FingrouplistComponent },
   { path: 'fingroupadd', component: FingroupaddComponent },
   { path: 'fingroupedit', component: FingroupaddComponent },

@@ -28,37 +28,26 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Bill Station</label>
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="branchList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="statementBillStation"
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['statementBranch'].invalid) }">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
+                                                    <select class="form-control" formControlName="statementBillStation"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['statementBillStation'].invalid) }">
+                                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Bill Series</label>
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" formControlName="billSeries"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
+                                                    <select class="form-control" formControlName="billSeries" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
+                                                    <option *ngFor="let branch of lrSeries" value={{branch.dataName}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
                                                 </div>
                                             </div>
+
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Bill No</label>
@@ -80,40 +69,39 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Party</label>
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="branchList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter" formControlName="party"
-                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['party'].invalid) }">
-                                                        </ng-autocomplete>
+                                                                 <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="partyList" formControlName="party"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['party'].invalid) }">
+                                                    </ng-autocomplete>
 
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
 
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputCity">LR From</label>
-                                                    <input autoclose="false" type="text" placeholder=""
+                                                    <label for="formrow-inputCity">LR From Date</label>
+                                                    <input autoclose="false" type="date" placeholder=""
                                                         class="form-control" formControlName="lrFrom"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lrFrom'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="formrow-inputCity">LR To</label>
-                                                    <input autoclose="false" type="text" placeholder=""
+                                                    <label for="formrow-inputCity">LR To Date</label>
+                                                    <input autoclose="false" type="date" placeholder=""
                                                         class="form-control" formControlName="lrTo"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['lrTo'].invalid) }">
                                                 </div>
@@ -123,18 +111,52 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">From Point</label>
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" formControlName="fromPoint"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPoint'].invalid) }">
+                                                  
+                                                    <ng-autocomplete [data]="locationList"
+                                                        formControlName="fromPoint"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                     
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
                                                 </div>
+                                                        
+                                              
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">To Point</label>
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" formControlName="toPoint"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPoint'].invalid) }">
-                                                </div>
+                                                    <ng-autocomplete [data]="locationList"
+                                                    formControlName="toPoint"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                 
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter" [ngClass]="">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                                    
+                                                   
+                                                
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
@@ -167,7 +189,7 @@
                                             <th><label for="formrow-inputZip">No Packages</label></th>
                                             <th><label for="formrow-inputZip">Total</label></th>
                                         </tr>
-                                        <tr
+                                        <tr  
                                             *ngFor="let arrayData of billstatementsearchlistmodel.billStatementSearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
@@ -212,29 +234,36 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Freight</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control"  (change)="calSubTotalBill()"
                                                     formControlName="totFreight">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Extra</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control" (change)="calSubTotalBill()"
                                                     formControlName="totExtraChrg">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Sub Total</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totSubTotal">
+                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
+                                                    formControlName="totSubTotal" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">GST Type</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="gstType">
+                                              
+                                                    <select id="formrow-inputState" class="form-control"
+                                                    formControlName="gstType"  (change)="changeGstType($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
+                                                    <option selected="">Choose...</option>
+                                                    <option value="N">Not Application</option>
+                                                    <option value="B">B/CGST</option>
+                                                    <option value="I">IGST</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +271,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Pct</label>
-                                                <input autoclose="false" type="text" class="form-control"
+                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
                                                     formControlName="sgstPct">
                                             </div>
                                         </div>
@@ -250,35 +279,35 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="sgstAmt">
+                                                    formControlName="sgstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Pct</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstPct">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstPct" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amount</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="cgstAmt">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="cgstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstPct">
+                                                    formControlName="igstPct" (change)="calTotalBill()" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amount</label>
-                                                <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstAmt">
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="igstAmt" (change)="calTotalBill()">
                                             </div>
                                         </div>
                                     </div>
@@ -299,7 +328,10 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Submit</button>
+                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Save</button>
+                            <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteBillStatementForm()">Delete</button>
+                        <button type="submit" class="btn btn-secondary w-md  m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

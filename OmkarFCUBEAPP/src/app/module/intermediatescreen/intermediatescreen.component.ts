@@ -43,7 +43,7 @@ export class IntermediatescreenComponent {
 
     this.formLogin = this.formBuilder.group({
       yearID: new FormControl('22', [Validators.required]),
-      
+
       // loginDate: new FormControl(''),
       userBranch: new FormControl('', [Validators.required]),
       loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
@@ -76,8 +76,6 @@ export class IntermediatescreenComponent {
     this.branchname = this.formLogin.value.userBranch.dataName;
     this.sharedService.intermediateScreenSubmitted(this.selectedScreenDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-
-
       this.selectedScreenDetails.yearID = this.formLogin.value.yearID;
       this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
@@ -90,6 +88,7 @@ export class IntermediatescreenComponent {
 
         this.sharedService.loading = false;
         this.sharedService.loggedInStatus = true;
+        this.sharedService.loading = false;
         this.route.navigate(['/dashboard']);
 
       }
@@ -109,5 +108,4 @@ export class IntermediatescreenComponent {
       });
    });
   }
-
 }

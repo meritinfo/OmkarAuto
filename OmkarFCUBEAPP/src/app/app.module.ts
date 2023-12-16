@@ -130,6 +130,8 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
 import { Requestmodel } from './models/requestmodel';
+import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
+import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
 import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
 import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 
@@ -244,7 +246,7 @@ import { OthertripopenlistComponent } from './module/othertripopen/othertripopen
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
-    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel],
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel,Driversalarydetailmodel,Driversalarystatementmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

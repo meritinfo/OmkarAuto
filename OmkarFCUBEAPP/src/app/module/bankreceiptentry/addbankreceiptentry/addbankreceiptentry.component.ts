@@ -33,6 +33,7 @@ export class AddbankreceiptentryComponent {
   requestmodel = new Requestmodel();
   creditacList: Dropdownmodel[] = [];
   editMode = false;
+  createmode = true;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;

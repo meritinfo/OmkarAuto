@@ -7,8 +7,11 @@ import { Filtermodel } from '../models/filtermodel';
 import { Observable } from 'rxjs';
 import { Responsemodel } from '../models/responsemodel';
 import { Billstatementsaverequest } from '../models/billstatementsaverequest';
+import { Billstatementinnergridrequest } from '../models/billstatementinnergridrequest';
 import { Billstatementlistmodel } from '../models/billstatementlistmodel';
+
 import { billstatementmodel } from '../models/billstatementmodel';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +26,18 @@ export class BillstatementService {
   }
 
   constructor(private httpClient: HttpClient) { }
-  selectedBillStatement = new billstatementmodel();
+  selectedBillStatementDetails = new billstatementmodel();
   setBillStatementDetails(docrenewalmaster: billstatementmodel) {
  
-    this.selectedBillStatement = docrenewalmaster;
+    this.selectedBillStatementDetails = docrenewalmaster;
   
 
 }
+getBillStatementDetails() {
+  return this.selectedBillStatementDetails;
+}
   clearBillStatementDetails() {
-    this.selectedBillStatement= new billstatementmodel();
+    this.selectedBillStatementDetails= new billstatementmodel();
   }
 
   getBillStatementSearchList(request: Billstatementsearchlistrequestmodel): Observable<Billstatementsearchlistmodel> {
@@ -41,9 +47,13 @@ export class BillstatementService {
     return this.httpClient.post<Billstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementList', filter, this.httpOptions);
   }
 
-  saveBillStatementDetails(request: Billstatementsaverequest): Observable<Responsemodel> {
+  saveBillStatementDetails(request: billstatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveBillStatementDetails', request, this.httpOptions);
   }
+  getBillStatementInnerGridList(request: Billstatementinnergridrequest): Observable<Billstatementsearchlistmodel> {
+    return this.httpClient.post<Billstatementsearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementInnerGridList', request, this.httpOptions);
+  }
+  
 
 
 }

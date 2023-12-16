@@ -463,7 +463,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Actual Days</label>
+                                                <label for="formrow-inputCity">Actual(bhatta) Days</label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="actualDays_1">
                                             </div>
@@ -584,7 +584,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Actual Days </label>
+                                                <label for="formrow-inputCity">Actual (bhatta)Days </label>
                                                 <input class="form-control" placeholder=""
                                                     formControlName="actualDays_2">
                                             </div>
@@ -607,37 +607,7 @@
 
 
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Grace Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="graceDays_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Total Dsl To be</label>
-                                                <input class="form-control" placeholder="" formControlName="totaldsl">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Total Adblue to Be</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="totalAdblue">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Total Travel Adv Payable</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="totalpayable">
-                                            </div>
-                                        </div>
-                                    </div>
+                              
 
                                 </div>
                             </div>
@@ -719,12 +689,13 @@
                                                         <option value="M">M.CHALLAN</option>
                                                         <option value="W">WEIGHMENT </option>
                                                         <option value="A">ACCIDENT </option>
+                                                        <option value="T">Toll</option>
                                                         <option value="O">OTHER</option>
                                                     </select>
 
                                                 </td>
                                                 <td>
-                                                    <input class="form-control" placeholder="" style="font-size: small;"
+                                                    <input class="form-control"  decimalonly placeholder="" style="font-size: small;"
                                                         formControlName="miscAmount" (change)="updateMisc(k, $event)">
                                                 </td>
                                                 <td>
@@ -878,6 +849,37 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title mb-4" style="color: red;">Trip Summary</h4>
+                            </div>
+                            <div class="row">
+                                <!--<div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Grace Days</label>
+                                        <input class="form-control" placeholder=""
+                                            formControlName="graceDays_2">
+                                    </div>
+                                </div>-->
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Total Dsl To be</label>
+                                        <input class="form-control" placeholder="" formControlName="totaldsl">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Total Adblue to Be</label>
+                                        <input class="form-control" placeholder=""
+                                            formControlName="totalAdblue">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Total Travel Adv Payable</label>
+                                        <input class="form-control" placeholder=""
+                                            formControlName="totalpayable">
+                                    </div>
+                                </div>
+                            </div>
                                 <div class="row">
                                     <div class="col-lg-2">
                                         <div class="mb-2">
@@ -983,13 +985,13 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash Dsl Ltrs</label>
-                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs">
+                                            <input class="form-control" placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation()">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash DslAmt</label>
-                                            <input class="form-control" placeholder="" formControlName="cashDslAmt">
+                                            <input class="form-control" placeholder="" formControlName="cashDslAmt" (change)="totalCalculation()">
                                         </div>
                                     </div>
 
@@ -1052,7 +1054,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cl Bal Dsl </label>
-                                            <input class="form-control" placeholder="" formControlName="clBalDsl">
+                                            <input class="form-control" placeholder="" formControlName="clBalDsl" >
                                         </div>
                                     </div>
                                 </div>
