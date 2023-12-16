@@ -509,6 +509,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverSalaryInnerGridList")]
+        public async Task<IActionResult> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.GetDriverSalaryInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
 
