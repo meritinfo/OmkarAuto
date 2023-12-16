@@ -1,5 +1,6 @@
 ﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
+using Shared.Models;
 using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -15,7 +16,7 @@ namespace FleetTrans.Repository
         }
 
 
-        public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request)
         {
             DriverSalaryStatementList driverSalaryList = new();
             List<DriverSalaryStatementModel> driverStmtList = new();

@@ -7,7 +7,7 @@ namespace FleetTrans.Repository
     {
         Task<BillStatementSearchListModel> GetBillStatementSearchList(BillStatementSearchListRequest request);
         Task<ResponseModel> SaveBillStatementDetails(BillStatementModel request);
-        Task<BillStatementList> GetBillStatementList(BillStatementListRequest request);
+        Task<BillStatementList> GetBillStatementList(PageRequest request);
         Task<BillStatementSearchListModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request);
     }
 }

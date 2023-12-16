@@ -9,8 +9,6 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DrivermasterService } from 'src/app/services/drivermaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Observable, Observer } from 'rxjs';
-import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-drivermasteradd',
@@ -342,20 +340,18 @@ export class DrivermasteraddComponent {
     this.driverModel.bankBranch = selectedDataVal.bankBranch;
     this.driverModel.bankIfsCode = selectedDataVal.bankIfsCode;
     this.driverModel.bankAccountStatus = selectedDataVal.bankAccountStatus;
-     this.driverModel.loggedInUser = this.loggedInUserID;
+    this.driverModel.loggedInUser = this.loggedInUserID;
     this.driverModel.deleteFlag = selectedDataVal.deleteFlag;
 
-    let formData = new FormData();
-    formData.append('driverPhoto', this.driverPhotoInput.nativeElement.files[0]);
-    formData.append('drivingLicense', this.drivingLicenseInput.nativeElement.files[0]);
-    formData.append('hazdrivingLicense', this.hazdrivingLicenseInput.nativeElement.files[0]);
-    formData.append('tempAddressProve', this.tempAddressProveInput.nativeElement.files[0]);
-    formData.append('perAddressProve', this.perAddressProveInput.nativeElement.files[0]);
-    formData.append('aadharCard', this.aadharCardInput.nativeElement.files[0]);
-    formData.append('bankPassbook', this.bankPassbookInput.nativeElement.files[0]);
-    formData.append('datadetails', JSON.stringify(this.driverModel));
-
-    this.drivermasterService.driverMasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+    this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
+    this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0];
+    this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0];
+    this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0];
+    this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0];
+    this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0];
+    this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0];
+ 
+    this.drivermasterService.driverMasterDetailsSubmitted(this.driverModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toasterService.success(this.responseDetails.message);
@@ -367,4 +363,6 @@ export class DrivermasteraddComponent {
         }
       });
     }
+
+    
 }

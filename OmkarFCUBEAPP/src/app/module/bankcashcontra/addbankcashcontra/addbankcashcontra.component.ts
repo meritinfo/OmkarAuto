@@ -211,6 +211,8 @@ export class AddbankcashcontraComponent {
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
     this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
 
+    this.bankreceiptentryModel.detailList = [];
+    
     this.bankreceiptentryModel.detailList.push({
       'slNo': '0' ,
       'typeSign': 'D',

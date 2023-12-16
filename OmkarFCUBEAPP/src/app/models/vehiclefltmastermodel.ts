@@ -51,6 +51,7 @@ export class Vehiclefltmastermodel {
     attach2Link: string = "";
     attach3Desc: string = "";
     attach3Link: string = "";
+    loggedInUser: string = "";
 
     vehiclefltDetailList: VehiclefltDetailmodel[] = [];
 }

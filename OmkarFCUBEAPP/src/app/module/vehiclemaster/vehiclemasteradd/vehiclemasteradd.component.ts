@@ -351,6 +351,7 @@ export class VehiclemasteraddComponent {
   //Submit user form details //
   submitVehicleMasterForm(): void {
     this.userSubmitted = true;
+    var selectedDataValue = this.formVehicleMaster.getRawValue();
     if (this.formVehicleMaster.invalid) {      
       this.toasterService.warning("Please Enter Mandatory Fields ");
       return;
@@ -359,13 +360,13 @@ export class VehiclemasteraddComponent {
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
     this.vehiclefltmastermodel.vehicleNo = selectedDataValue.vehicleNo;
-    this.vehiclefltmastermodel.fleetStation = selectedDataValue.fleetStation;
+    this.vehiclefltmastermodel.fleetStation = '1';
     this.vehiclefltmastermodel.regnDate = selectedDataValue.regnDate;
     this.vehiclefltmastermodel.regdOwner = selectedDataValue.regdOwner;
     this.vehiclefltmastermodel.chasisNo = selectedDataValue.chasisNo;
     this.vehiclefltmastermodel.engineNo = selectedDataValue.engineNo;
     this.vehiclefltmastermodel.vehicleTypeID = selectedDataValue.vehicleTypeID;
-    this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId;
+    this.vehiclefltmastermodel.vehicleTypeGroupId = '1';
     this.vehiclefltmastermodel.vehMfrId = selectedDataValue.vehMfrId;
     this.vehiclefltmastermodel.mfrModelName = selectedDataValue.mfrModelName;
     this.vehiclefltmastermodel.fuelType = selectedDataValue.fuelType;
@@ -410,8 +411,10 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.attach2Link = selectedDataValue.attach2Link;
     this.vehiclefltmastermodel.attach3Desc = selectedDataValue.attach3Desc;
     this.vehiclefltmastermodel.attach3Link = selectedDataValue.attach3Link;
+    this.vehiclefltmastermodel.loggedInUser=this.loggedInUserID;
 
     this.vehiclefltmastermodel.vehiclefltDetailList = [];
+
     for (var i = 0; i < this.formVehicleMaster.value.arrayList.length; i++) {
       if (this.formVehicleMaster.value.arrayList[i].validFrom != '') {
         //Start date end date validation

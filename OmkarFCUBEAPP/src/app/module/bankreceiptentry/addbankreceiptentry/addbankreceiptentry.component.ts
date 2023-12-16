@@ -178,6 +178,7 @@ export class AddbankreceiptentryComponent {
 
   removeItem(index: number) {
     this.formArray.removeAt(index);
+    this.updateAmount(0, '', '');
   }
 
   changePType(selectedValue: string) { 
@@ -275,6 +276,8 @@ export class AddbankreceiptentryComponent {
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
     this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
 
+    this.bankreceiptentryModel.detailList = [];
+
     var tpsign =''
     var tpfirstsign =''
     if (selectedDataValue.docType == "BP") {
@@ -304,7 +307,7 @@ export class AddbankreceiptentryComponent {
         'amount': this.formArray.value[i].amount,
         'chequeDate': this.formArray.value[i].chequeDate,
         'chequeNo': this.formArray.value[i].chequeNo,
-        'narration': '',
+        'narration': this.formArray.value[i].narration,
         'accountID': this.formArray.value[i].accountID ,
         'reference': this.formArray.value[i].reference,
         })

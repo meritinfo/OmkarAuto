@@ -171,7 +171,8 @@ export class AddjournalentryComponent{
   }
   
   removeItem(i: number) {
-    this.formArray.removeAt(i);
+    this.formArray.removeAt(i);    
+    this.updateAmount(0, '', '');
   }
 
   getdocno(doctp: string){
@@ -275,6 +276,9 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
     this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks;
+
+    
+    this.bankrecEntrymodel.detailList = [];
     
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {

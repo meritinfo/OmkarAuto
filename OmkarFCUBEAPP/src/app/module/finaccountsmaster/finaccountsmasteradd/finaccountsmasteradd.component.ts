@@ -84,7 +84,7 @@ export class FinaccountsmasteraddComponent {
       groupSortId: new FormControl('',),
       schID: new FormControl('',[Validators.required]),
       schDesc: new FormControl('',),
-      printName: new FormControl('',),
+      printName: new FormControl('',[Validators.required]),
       accountAddress1: new FormControl('',),
       accountAddress2: new FormControl('',),
       accountAddress3: new FormControl('',),
@@ -107,32 +107,32 @@ export class FinaccountsmasteraddComponent {
       accountSecurityDep: new FormControl('',),
       accountBG: new FormControl('',),
       accountRemRef: new FormControl('',),
-      globalAc: new FormControl('',),
-      accountStatus:new FormControl('',),
-      hO_Account: new FormControl('',),
-      isExpForLiabilityYN: new FormControl('',),
-      subLedgerYN: new FormControl('',),
+      globalAc: new FormControl('N',),
+      accountStatus:new FormControl('Y',),
+      hO_Account: new FormControl('N',),
+      isExpForLiabilityYN: new FormControl('N',),
+      subLedgerYN: new FormControl('N',),
       subLedgerQry: new FormControl('',),
-      costCodeYN: new FormControl('',),
-      manualJv: new FormControl('',),
-      isAdminExpYN: new FormControl('',),
-      hideBranch: new FormControl('',),
-      hideNonAdmin: new FormControl('',),
-      tdsLedgerYN: new FormControl('',),
-      onlineActiveYn: new FormControl('',),
+      costCodeYN: new FormControl('N',),
+      manualJv: new FormControl('N',),
+      isAdminExpYN: new FormControl('N',),
+      hideBranch: new FormControl('N',),
+      hideNonAdmin: new FormControl('N',),
+      tdsLedgerYN: new FormControl('N',),
+      onlineActiveYn: new FormControl('N',),
       username: new FormControl('',),
       password: new FormControl('',),
-      sendEmail: new FormControl('',),
+      sendEmail: new FormControl('N',),
       partyType: new FormControl('',),
       contractValidity: new FormControl('',),
-      staxEX: new FormControl('',),
+      staxEX: new FormControl('N',),
       vendorCode: new FormControl('',),
       bankName: new FormControl('',),
       bankBranch: new FormControl('',),
       bankAcType: new FormControl('',),
       bankAcNo: new FormControl('',),
       bankIfsc: new FormControl('',),
-      statusColor: new FormControl('',),     
+      statusColor: new FormControl('',[Validators.required]),
       
     });    
 
@@ -279,25 +279,25 @@ export class FinaccountsmasteraddComponent {
   this.finaccountmodel.accountInterestRate= selectedDataValue.accountInterestRate;
   this.finaccountmodel.accountBG          = selectedDataValue.accountBG;
   this.finaccountmodel.accountRemRef      = selectedDataValue.accountRemRef.toString().toUpperCase();;
-  this.finaccountmodel.accountStatus      = selectedDataValue.accountStatus? "Y" :"N";
-  this.finaccountmodel.globalAc           = selectedDataValue.globalAc? "Y" :"N";
-  this.finaccountmodel.hO_Account         = selectedDataValue.hO_Account? "Y" :"N";
+  this.finaccountmodel.accountStatus      = selectedDataValue.accountStatus? selectedDataValue.accountStatus:"N";
+  this.finaccountmodel.globalAc           = selectedDataValue.globalAc? selectedDataValue.globalAc :"N";
+  this.finaccountmodel.hO_Account         = selectedDataValue.hO_Account? selectedDataValue.hO_Account :"N";
   this.finaccountmodel.isExpForLiabilityYN= selectedDataValue.isExpForLiabilityYN;
-  this.finaccountmodel.subLedgerYN        = selectedDataValue.subLedgerYN? "Y" :"N";
+  this.finaccountmodel.subLedgerYN        = selectedDataValue.subLedgerYN? selectedDataValue.subLedgerYN :"N";
   this.finaccountmodel.subLedgerQry       = selectedDataValue.subLedgerQry?selectedDataValue.subLedgerQry:'';
-  this.finaccountmodel.costCodeYN         = selectedDataValue.costCodeYN? "Y" :"N";
-  this.finaccountmodel.manualJv           = selectedDataValue.manualJv? "Y" :"N";
-  this.finaccountmodel.isAdminExpYN       = selectedDataValue.isAdminExpYN? "Y" :"N";
-  this.finaccountmodel.hideBranch         = selectedDataValue.hideBranch? "Y" :"N";
-  this.finaccountmodel.hideNonAdmin       = selectedDataValue.hideNonAdmin? "Y" :"N";
-  this.finaccountmodel.tdsLedgerYN        = selectedDataValue.tdsLedgerYN? "Y" :"N";
-  this.finaccountmodel.onlineActiveYn     = selectedDataValue.onlineActiveYn? "Y" :"N";
+  this.finaccountmodel.costCodeYN         = selectedDataValue.costCodeYN? selectedDataValue.costCodeYN :"N";
+  this.finaccountmodel.manualJv           = selectedDataValue.manualJv? selectedDataValue.manualJv :"N";
+  this.finaccountmodel.isAdminExpYN       = selectedDataValue.isAdminExpYN? selectedDataValue.isAdminExpYN :"N";
+  this.finaccountmodel.hideBranch         = selectedDataValue.hideBranch? selectedDataValue.hideBranch :"N";
+  this.finaccountmodel.hideNonAdmin       = selectedDataValue.hideNonAdmin? selectedDataValue.hideNonAdmin :"N";
+  this.finaccountmodel.tdsLedgerYN        = selectedDataValue.tdsLedgerYN? selectedDataValue.tdsLedgerYN :"N";
+  this.finaccountmodel.onlineActiveYn     = selectedDataValue.onlineActiveYn? selectedDataValue.onlineActiveYn :"N";
   this.finaccountmodel.username           = selectedDataValue.username?selectedDataValue.username:'';
   this.finaccountmodel.password           = selectedDataValue.password?selectedDataValue.password:'';
-  this.finaccountmodel.sendEmail          = selectedDataValue.sendEmail? "Y" :"N";
+  this.finaccountmodel.sendEmail          = selectedDataValue.sendEmail? selectedDataValue.sendEmail :"N";
   this.finaccountmodel.partyType          = selectedDataValue.partyType;
   this.finaccountmodel.contractValidity   = selectedDataValue.contractValidity;
-  this.finaccountmodel.staxEX             = selectedDataValue.staxEX? "Y" :"N";
+  this.finaccountmodel.staxEX             = selectedDataValue.staxEX? selectedDataValue.staxEX :"N";
   this.finaccountmodel.vendorCode         = selectedDataValue.vendorCode.toString().toUpperCase();;
   this.finaccountmodel.bankName           = selectedDataValue.bankName.toString().toUpperCase();;
   this.finaccountmodel.bankBranch         = selectedDataValue.bankBranch.toString().toUpperCase();;

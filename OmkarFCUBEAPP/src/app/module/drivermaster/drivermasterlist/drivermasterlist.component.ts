@@ -18,7 +18,7 @@ export class DrivermasterlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'DriverName',
+    sortColumn: 'driverName',
     sortOrder: 'asc',
     search: ''
   }

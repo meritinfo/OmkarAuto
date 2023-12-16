@@ -79,7 +79,7 @@ export class AddbranchmasterComponent {
       address2: new FormControl('',[Validators.required]),
       address3: new FormControl('',),
       city: new FormControl('',[Validators.required]),
-      userState: new FormControl('',[Validators.required]),
+      stateCode: new FormControl('',[Validators.required]),
       pinCode: new FormControl('',[Validators.required]),
       offPhone1: new FormControl('',[Validators.required]),
       offPhone2: new FormControl('',),
@@ -97,8 +97,9 @@ export class AddbranchmasterComponent {
       this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
       this.formBranchMaster.patchValue({
         userBranch: this.selectedBranchMasterDetails.centreName,
-        userState: this.selectedBranchMasterDetails.stateCode,
-      })
+        stateCode: this.selectedBranchMasterDetails.stateCode,
+      })      
+      this.formBranchMaster.controls['code'].disable();        
       this.editMode = true;
     }
 

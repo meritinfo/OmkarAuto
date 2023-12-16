@@ -7,6 +7,7 @@ import { Requestmodel } from '../models/requestmodel';
 import { Constants } from '../common/constants';
 import { Filtermodel } from '../models/filtermodel';
 import { Observable } from 'rxjs';
+import { Driverdetailmodel } from '../models/driverdetailmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,8 @@ export class DrivermasterService {
   clearDriverMasterDetails() {
     this.selectedDriverMaster = new Drivermodel();
   }
-  driverMasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
+  
+  driverMasterDetailsSubmitted(user: Driverdetailmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterSave', user, this.httpOptions);
   }
   getDriverMasterList(filter: Filtermodel): Observable<Drivermasterlistmodel> {

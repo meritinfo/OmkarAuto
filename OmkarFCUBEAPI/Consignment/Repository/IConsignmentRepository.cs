@@ -17,9 +17,9 @@ namespace Consignment.Repository
         Task<ResponseModel> GetDslToBe(DslModel request);
         Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
         Task<ResponseModel> CheckDuplicateLr(GcModel request);
-        Task<List<BranchListModel>> GetBillingPartyList();
-        Task<List<LrSeriesListModel>> GetLRSeries();
-        Task<List<LrSeriesListModel>> GetLRSeriesForBill();
+        Task<List<DropDownListModel>> GetBillingPartyList();
+        Task<List<DropDownListModel>> GetLRSeries();
+        Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(GcModel request);
     }
 }

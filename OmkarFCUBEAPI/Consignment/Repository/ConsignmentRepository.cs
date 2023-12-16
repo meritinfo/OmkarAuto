@@ -213,9 +213,9 @@ namespace Consignment.Repository
             }
             return lrSeries;
         }
-        public async Task<List<LrSeriesListModel>> GetLRSeriesForBill()
+        public async Task<List<DropDownListModel>> GetLRSeriesForBill()
         {
-            List<LrSeriesListModel> lrSeries = new();
+            List<DropDownListModel> lrSeries = new();
             try
             {
                 if (dbconnection != null)
@@ -227,7 +227,7 @@ namespace Consignment.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            lrSeries.Add(new LrSeriesListModel
+                            lrSeries.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

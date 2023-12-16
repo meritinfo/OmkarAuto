@@ -1,5 +1,6 @@
 ﻿using FleetTrans.Models;
 using FleetTrans.Repository;
+using Shared.Models;
 
 namespace FleetTrans.Business
 {
@@ -14,7 +15,7 @@ namespace FleetTrans.Business
         /// Business method for Get Diesel Statement Search List
         /// </summary>
         /// <param name="DieselStatementSearchListRequest"></param>
-        public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request)
+        public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request)
         {
             return await driverSalaryStmtRepository.GetDriverSalaryStatementList(request);
         }

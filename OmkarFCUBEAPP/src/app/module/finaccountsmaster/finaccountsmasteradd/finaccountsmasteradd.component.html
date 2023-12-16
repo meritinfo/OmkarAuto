@@ -368,121 +368,212 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="mb-3">                                                
-                                                    <input type="checkbox" name="accountStatus" formControlName="accountStatus" 
-                                                        value="N" (change)="chkChange($event)"
+                                                <div class="mb-3"> 
+                                                    <!-- <input type="checkbox" name="accountStatus" formControlName="accountStatus" 
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Active (Y/N)</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Active (Y/N)</label> -->
+                                                    <label>Active (Y/N)</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="accountStatus"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['accountStatus'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>                                                                             
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hideBranchLogin" formControlName="hideBranch"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="hideBranchLogin" formControlName="hideBranch"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Hide Branch Login</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Hide Branch Login</label> -->
+                                                    <label>Hide Branch Login</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="hideBranch"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['hideBranch'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hideForNonAdminUsers" formControlName="hideNonAdmin"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="hideForNonAdminUsers" formControlName="hideNonAdmin"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Hide For Non-Admin Users</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Hide For Non-Admin Users</label> -->
+                                                    <label>Hide For Non-Admin Users</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="hideNonAdmin"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['hideNonAdmin'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="staxEX" formControlName="staxEX"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="staxEX" formControlName="staxEX"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">General MR Applicable</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">General MR Applicable</label> -->
+                                                    <label>General MR Applicable</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="staxEX"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['staxEX'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>                                                                             
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="hOAccountOnly" formControlName="hO_Account"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="hOAccountOnly" formControlName="hO_Account"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">HO Account Only</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">HO Account Only</label> -->
+                                                    <label>HO Account Only</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="hO_Account"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['hO_Account'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>                                       
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="tdsLedgerYN" formControlName="tdsLedgerYN"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="tdsLedgerYN" formControlName="tdsLedgerYN"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">TDS Ledger Y/N</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">TDS Ledger Y/N</label> -->                                                    
+                                                    <label>TDS Ledger Y/N</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="tdsLedgerYN"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tdsLedgerYN'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>                                       
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="onlineActiveYn" formControlName="onlineActiveYn"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="onlineActiveYn" formControlName="onlineActiveYn"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Online Active Y/N</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Online Active Y/N</label> -->                                                                                                      
+                                                    <label>Online Active Y/N</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="onlineActiveYn"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['onlineActiveYn'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div> 
                                         </div>                                                                            
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="globalAccount" formControlName="globalAc"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="globalAccount" formControlName="globalAc"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label"> Global Account</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-3">
-                                                    <input type="checkbox" name="costRef" formControlName="costCodeYN"
-                                                        value="N" (change)="chkChange($event)"
-                                                        class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label"> Cost Ref</label>
+                                                    <label for="basicpill-lastname-input" class="form-label"> Global Account</label> -->
+                                                    <label>Global Account</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="globalAc"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['globalAc'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="isAdminExpYN" formControlName="isAdminExpYN"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="costRef" formControlName="costCodeYN"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label"> Is Exp Approval Req?</label>
+                                                    <label for="basicpill-lastname-input" class="form-label"> Cost Ref</label> -->
+                                                    <label>Cost Ref</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="costCodeYN"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['costCodeYN'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <!-- <input type="checkbox" name="isAdminExpYN" formControlName="isAdminExpYN"
+                                                        value="Y" (change)="chkChange($event)"
+                                                        class="form-check-input" />
+                                                    <label for="basicpill-lastname-input" class="form-label"> Is Exp Approval Req?</label> -->
+                                                    <label>Is Exp Approval Req?</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="isAdminExpYN"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['isAdminExpYN'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>                                                                    
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="sendEmail" formControlName="sendEmail"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="sendEmail" formControlName="sendEmail"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Send Email</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Send Email</label> -->
+                                                    <label>Send Email</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="sendEmail"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['sendEmail'].invalid) }">
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
                                                 </div>
                                             </div>                               
                                             <div class="col-lg-3">
                                                 <div class="mb-3">                                                   
-                                                    <input type="checkbox" name="manualJV" formControlName="manualJv"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="manualJV" formControlName="manualJv"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Manual JV</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Manual JV</label> --> 
+                                                    <label>Manual JV</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="manualJv"
+                                                    class="form-control form-select ng-pristine ng-touched" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['manualJv'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
                                                 </div>
                                             </div>
                                         </div>                                                                    
                                         <div class="row">                                        
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="subLedgerApplicable" formControlName="subLedgerYN"
-                                                        value="N" (change)="chkChange($event)"
+                                                    <!-- <input type="checkbox" name="subLedgerApplicable" formControlName="subLedgerYN"
+                                                        value="Y" (change)="chkChange($event)"
                                                         class="form-check-input" />
-                                                    <label for="basicpill-lastname-input" class="form-label">Sub Ledger Applicable</label>
+                                                    <label for="basicpill-lastname-input" class="form-label">Sub Ledger Applicable</label> --> 
+                                                    <label>Sub Ledger Applicable</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="subLedgerYN"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['subLedgerYN'].invalid) }">
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="mb-3">                                      
+                                                <div class="mb-3">     <br />                                 
                                                     <input type="text" class="form-control" formControlName="subLedgerQry"> 
                                                 </div>
                                             </div>

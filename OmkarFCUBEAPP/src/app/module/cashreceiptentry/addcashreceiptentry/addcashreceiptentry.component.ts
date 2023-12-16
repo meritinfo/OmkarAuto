@@ -172,6 +172,7 @@ export class AddcashreceiptentryComponent {
 
   removeItem(index: number) {
     this.formArray.removeAt(index);
+    this.updateAmount(0, '', '');
   }
 
   changePType(selectedValue: string) { 
@@ -267,6 +268,9 @@ export class AddcashreceiptentryComponent {
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
     this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    
+    this.bankrecEntrymodel.detailList = [];
+
     var tpsign =''
     var tpfirstsign =''
     if (selectedDataValue.docType == "CP") {

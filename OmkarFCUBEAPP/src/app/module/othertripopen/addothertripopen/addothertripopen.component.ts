@@ -68,8 +68,8 @@ export class AddothertripopenComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, 
-    private commonService: CommonService, private sharedService: SharedService, 
-    private toastrService: ToastrService) {
+    private commonService: CommonService, private sharedService: SharedService,     
+    private toasterService: ToastrService) {
     this.tripsheetmodel = new Tripsheetmodel();
 
   }
@@ -119,7 +119,7 @@ export class AddothertripopenComponent {
       newTripDate: new FormControl('',[Validators.required]),
       driverMasterID: new FormControl('', [Validators.required]),
       compNonCompStatus: new FormControl('C',[Validators.required]),
-      challanNo: new FormControl('',),
+      challanNo: new FormControl('',[Validators.required]),
       loadingFrom: new FormControl('',[Validators.required]),
       destination: new FormControl('',[Validators.required]),
       distanceTripKM_1: new FormControl('',),
@@ -140,6 +140,9 @@ export class AddothertripopenComponent {
     this.getVehicleNoList();
     this.getLocationList();
     this.getContentList();
+    
+    this.formOtherTripOpen.controls['challanNo'].clearValidators(); 
+    this.formOtherTripOpen.controls['challanNo'].updateValueAndValidity();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -372,6 +375,7 @@ export class AddothertripopenComponent {
   submitOtherTripOpenForm(): void {
     this.userSubmitted = true;
     if (this.formOtherTripOpen.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
       return;
     }
     var selectedDataValue = this.formOtherTripOpen.getRawValue();

@@ -89,7 +89,7 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@StatusColor"		    , finAccountsMasterModel.StatusColor            ),
                             new SqlParameter("@DeleteFlag"			, "N"                                           ),
                             new SqlParameter("@SchID"				, finAccountsMasterModel.SchID                  ),
-                            new SqlParameter("@CreatedBy"			, finAccountsMasterModel.LoggedInUserID              ),
+                            new SqlParameter("@CreatedBy"			, finAccountsMasterModel.LoggedInUserID         ),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinAccountSave", param);

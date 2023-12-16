@@ -81,11 +81,11 @@ namespace FleetMasters.Repository
                            new SqlParameter("@Attach2Link", vehicleFltMasterModel.Attach2Link),
                            new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
                            new SqlParameter("@Attach3Desc", vehicleFltMasterModel.Attach3Desc),
-                           new SqlParameter("@DeleteFlag", vehicleFltMasterModel.DeleteFlag),
+                           new SqlParameter("@DeleteFlag", 'N'),
                            new SqlParameter("@LoggedInUser", vehicleFltMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleFltMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_VehicleFltMasterSave", param);
                     string VehiMasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

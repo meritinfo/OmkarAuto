@@ -74,7 +74,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLRSeries();
         }
-        public async Task<List<LrSeriesListModel>> GetLRSeriesForBill()
+        public async Task<List<DropDownListModel>> GetLRSeriesForBill()
         {
             return await consignmentRepository.GetLRSeriesForBill();
         }

@@ -26,7 +26,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Vehicle No</label>
+                                                <label for="formrow-inputState">Vehicle No</label>
                                                 <input uppercaseonly type="text" class="form-control"
                                                     placeholder="" formControlName="vehicleNo"  
                                                     (change)="onVehicalNoChange($event)"                                                  
@@ -41,9 +41,9 @@
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['regnDate'].invalid) }">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-5">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Regd Owner</label>
+                                                <label for="formrow-inputState">Regd Owner</label>
                                                 <input uppercaseonly autoclose="false" class="form-control"
                                                     formControlName="regdOwner" placeholder=""                                                 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['regdOwner'].invalid) }">
@@ -53,7 +53,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label  for="formrow-inputZip">Chessis No</label>
+                                                <label  for="formrow-inputState">Chessis No</label>
                                                 <input uppercaseonly alphanumericonly type="text" decimalonly class="form-control"
                                                     placeholder=""
                                                     formControlName="chasisNo"                                                 
@@ -62,7 +62,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Engine No</label>
+                                                <label for="formrow-inputState">Engine No</label>
                                                 <input type="text" uppercaseonly alphanumericonly class="form-control"
                                                     placeholder="" formControlName="engineNo"                                                 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['engineNo'].invalid) }">
@@ -83,7 +83,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Vehicle Mfr</label>
+                                                <label for="formrow-inputState">Vehicle Mfr</label>
                                                 <select class="form-control" formControlName="vehMfrId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['vehMfrId'].invalid) }">
@@ -91,7 +91,6 @@
                                                        {{mfr.dataName}}
                                                     </option>
                                                  </select>
-
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -102,6 +101,16 @@
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['mfrModelName'].invalid) }">
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Year</label>
+                                                <input numbersonly maxlength="4" autoclose="false" placeholder=""                                                 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['makeYear'].invalid) }"
+                                                    formControlName="makeYear" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Fule Type</label>
@@ -117,21 +126,21 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputZip">Year</label>
-                                                <input numbersonly maxlength="4" autoclose="false" placeholder=""                                                 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['makeYear'].invalid) }"
-                                                    formControlName="makeYear" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
                                             <div class="mb-3"><label for="formrow-inputCity">Tank Capacity</label>
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="tankCap" placeholder=""                                                 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['tankCap'].invalid) }">
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3"><label for="formrow-inputCity">Mileage</label>
+                                                <input decimalonly type="text" id="formrow-inputCity" class="form-control"
+                                                    formControlName="mileageLt" placeholder=""                                                 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mileageLt'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Gross Weight</label>

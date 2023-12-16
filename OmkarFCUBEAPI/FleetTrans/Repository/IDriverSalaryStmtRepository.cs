@@ -1,4 +1,5 @@
 ﻿using FleetTrans.Models;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace FleetTrans.Repository
 {
     public interface IDriverSalaryStmtRepository
     {
-        Task<DriverSalaryStatementList> GetDriverSalaryStatementList(DriverSalaryListRequest request);
+        Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request);
         Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request);
     }
 }

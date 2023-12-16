@@ -157,7 +157,8 @@
                                         </div>                                       
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <input class="form-control" placeholder="" formControlName="challanNo">
+                                                <input class="form-control" placeholder="" formControlName="challanNo"               
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['challanNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>

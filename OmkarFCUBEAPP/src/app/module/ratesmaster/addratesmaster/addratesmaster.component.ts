@@ -300,6 +300,7 @@ export class AddratesmasterComponent implements OnInit {
     this.ratesmastermodel.loggedInUser = this.loggedInUserID; 
 
     this.ratesmastermodel.freightRatesDetailsList = [];
+
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].destState!='' || selectedDataVal.arrayList[i].toPlace !=''){
         this.ratesmastermodel.freightRatesDetailsList.push({
