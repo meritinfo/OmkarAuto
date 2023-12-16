@@ -27,7 +27,7 @@ namespace AdminMasters.Business
         /// <summary>
         /// Business method for Module list details
         /// </summary>
-        public async Task<List<ModuleListModel>> GetModuleList()
+        public async Task<List<DropDownListModel>> GetModuleList()
         {
             return await userRepository.GetModuleList();
         }
@@ -35,7 +35,7 @@ namespace AdminMasters.Business
         /// <summary>
         /// Business method for Module list details
         /// </summary>
-        public async Task<UserMasterList> GetUserMasterList(UserMasterListRequest request)
+        public async Task<UserMasterList> GetUserMasterList(PageRequest request)
         {
             return await userRepository.GetUserMasterList(request);
         }

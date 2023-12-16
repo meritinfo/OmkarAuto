@@ -112,7 +112,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// Controller method for User Master List
         /// </summary>
         [HttpPost("GetUserMasterList")]
-        public async Task<IActionResult> GetUserMasterList(UserMasterListRequest request)
+        public async Task<IActionResult> GetUserMasterList(PageRequest request)
         {
             try
             {

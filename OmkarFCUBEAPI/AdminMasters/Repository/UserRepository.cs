@@ -94,10 +94,10 @@ namespace AdminMasters.Repository
         /// <summary>
         /// Service method for get module list
         /// </summary>
-        /// <returns>List<ModuleListModel></returns>
-        public async Task<List<ModuleListModel>> GetModuleList()
+        /// <returns>List<DropDownListModel></returns>
+        public async Task<List<DropDownListModel>> GetModuleList()
         {
-            List<ModuleListModel> moduleList = new();
+            List<DropDownListModel> moduleList = new();
             try
             {
                 if (dbconnection != null)
@@ -109,7 +109,7 @@ namespace AdminMasters.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            moduleList.Add(new ModuleListModel
+                            moduleList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -137,8 +137,7 @@ namespace AdminMasters.Repository
         /// <summary>
         /// Service method for get user master list
         /// </summary>
-        /// <returns>List<ModuleListModel></returns>
-        public async Task<UserMasterList> GetUserMasterList(UserMasterListRequest request)
+        public async Task<UserMasterList> GetUserMasterList(PageRequest request)
         {
             UserMasterList userMasterList = new();
             List<UserMasterModel> userList = new();
@@ -415,7 +414,6 @@ namespace AdminMasters.Repository
         /// <summary>
         /// Service method for get module list
         /// </summary>
-        /// <returns>List<ModuleListModel></returns>
         public async Task<List<DropDownListModel>> GetRoleTypeList()
         {
             List<DropDownListModel> roleTypeList = new();

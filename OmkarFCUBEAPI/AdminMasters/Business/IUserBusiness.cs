@@ -9,8 +9,8 @@ namespace AdminMasters.Business
     public interface IUserBusiness
     {
         Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel);
-        Task<List<ModuleListModel>> GetModuleList();
-        Task<UserMasterList> GetUserMasterList(UserMasterListRequest request);
+        Task<List<DropDownListModel>> GetModuleList();
+        Task<UserMasterList> GetUserMasterList(PageRequest request);
         Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);
         Task<ResponseModel> DeleteUserDetails(string request);
         Task<ResponseModel> UsernameValidation(string request);
