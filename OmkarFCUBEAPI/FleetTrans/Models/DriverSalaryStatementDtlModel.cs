@@ -19,8 +19,8 @@ namespace FleetTrans.Models
         public string PoolAmt { get; set; }
         public string LastTripBal{ get; set; }
         public string NetPayable { get; set; }
-        public string DetRemarks { get; set; }
-        public string FinDocldDtl{ get; set; }
+     //   public string DetRemarks { get; set; }
+      //  public string FinDocldDtl{ get; set; }
         public string LastTripDt { get; set; }
       
         public bool Selected { get; set; }

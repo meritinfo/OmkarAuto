@@ -41,12 +41,18 @@ namespace FleetTrans.Repository
                                 VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
                                 DriverMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterId"]),
                                 SalaryDays = Convert.ToString(dataSet.Tables[0].Rows[i]["SalaryDays"]),
+                                SalaryAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SalaryAmt"]),
                                 PoolAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["PoolAmt"]),
                                 // VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
-                              
+                                FromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDt"]),
+                                ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDt"]),
+                                NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+                                LastTripBal = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripBal"]),
+                                LastTripDt = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripDt"]),
+
                                 Selected = false
                             });
                         }
@@ -70,7 +76,75 @@ namespace FleetTrans.Repository
             }
             return driverSalarySearchList;
         }
+        public async Task<DriverSalarySearchListModel> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request)
+        {
 
+            //BillStatementModel billstatementInnerGridList = new()
+            //{
+            //    BillStatementListData = new List<BillStatementSearchModel>(),
+
+            //};
+            DriverSalarySearchListModel driverSalarySearchList = new();
+            List<DriverSalarySearchModel> driverSalarySearchModels = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterId", request.MasterID),
+
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetDriverSalaryInnerGridList_Select", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        //int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            driverSalarySearchModels.Add(new DriverSalarySearchModel
+                            {
+                                VehicleMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
+                                DriverMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterId"]),
+
+                                SalaryDays = Convert.ToString(dataSet.Tables[0].Rows[i]["SalaryDays"]),
+                                PoolAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["PoolAmt"]),
+                                // VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
+                                FromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDt"]),
+                                ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDt"]),
+                                NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+                                LastTripBal = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripBal"]),
+                                LastTripDt = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripDt"]),
+                                VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
+                              
+                                Selected = false
+                            });
+                        }
+                        driverSalarySearchList.DriverSalarySearchList = driverSalarySearchModels;
+                    }
+                }
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return driverSalarySearchList;
+        }
 
         public async Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request)
         {
@@ -97,18 +171,19 @@ namespace FleetTrans.Repository
                         {
                             driverStmtList.Add(new DriverSalaryStatementModel
                             {
+
                                 MasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterId"]),
                                 TransDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDt"]),
                                 FromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDt"]),
                                 ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDt"]),
 
-                              //  PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                               PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
 
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 TotalSalaryAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSalaryAmt"]),
                                 TotalPoolAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalPoolAmt"]),
-                              //  NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
-                              //  CreditAC = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAC"]),
+                                TotalNetPayAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetPayAmt"]),
+                               CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
 
                               //  CheqNo = Convert.ToString(dataSet.Tables[0].Rows[i]["CheqNo"]),
 
@@ -151,6 +226,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
+                        
                            new SqlParameter("@MasterId", request.MasterId),
                             new SqlParameter("@TransDt", request.TransDt),
                             new SqlParameter("@FromDt", request.FromDt),
@@ -198,7 +274,7 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@PoolAmt", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
                                         new SqlParameter("@LastTripBal", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
                                         new SqlParameter("@NetPayable", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
-                                        new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
+                                      //  new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
                                     };
                                     var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
                                 }

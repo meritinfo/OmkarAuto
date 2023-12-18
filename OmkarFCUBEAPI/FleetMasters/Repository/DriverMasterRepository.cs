@@ -154,7 +154,7 @@ namespace FleetMasters.Repository
         }
 
 
-        public async Task<DriverMasterList> GetDriverMasterList(PageRequest request)
+        public async Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request)
         {
             DriverMasterList driverMasterList = new();
             List<DriverMasterModel> driverList = new();
@@ -168,7 +168,8 @@ namespace FleetMasters.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@AllData", request.AllData)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverMasterDetailsList", param);
 

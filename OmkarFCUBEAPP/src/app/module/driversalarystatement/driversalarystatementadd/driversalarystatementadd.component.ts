@@ -8,6 +8,7 @@ import { Driversalarystatementmodel } from 'src/app/models/driversalarystatement
 import { CommonService } from 'src/app/services/common.service';
 import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
 import { Driversalarysearchmodel } from 'src/app/models/driversalarysearchmodel';
+import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergridrequest';
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
 import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
@@ -34,6 +35,7 @@ export class DriversalarystatementaddComponent implements OnInit {
   Driversalarydetailmodel = new Driversalarydetailmodel();
   selectedDriverSalaryStatementDetails = new Driversalarystatementmodel();
   Driversalarysearchlistrequestmodel = new Driversalarysearchlistrequestmodel();
+  driversalaryinnergridrequest = new Driversalaryinnergridrequest();
   creditacList: Dropdownmodel[] = [];
   creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -115,6 +117,9 @@ export class DriversalarystatementaddComponent implements OnInit {
       }
     
   }, 2000);
+ // this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
+ this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
+       this.getTripSheetInnerGridList();
 
 }
   
@@ -159,6 +164,19 @@ export class DriversalarystatementaddComponent implements OnInit {
     this.getCreditAcList2(this.ptype);
   
   }
+  getTripSheetInnerGridList(): void {
+    this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
+      this.driversalarysearchlistmodel = res;
+     
+      this.formDriverSalaryStatement.patchValue({
+       // miscDetailsList: this.tripsheetinnergridmodel.miscList,
+      //  adblueDetailsList: this.tripsheetinnergridmodel.adblueList
+      });
+
+     // this.calculateTotal();
+    //  this.totalCalculation();
+    });
+  }
   
 
 
@@ -178,7 +196,39 @@ saveStatementDetails(): void {
   
   this.driversalarystatementmodel.yearId = this.year;
   this.driversalarystatementmodel.loggedInUser = this.loggedInUserID;
-  this.driversalarystatementmodel.driverSalaryListData = this.driversalarysearchlistmodel.driverSalarySearchList;
+  this.driversalarystatementmodel.driverSalaryListData = [];
+  for (var i = 0; i < this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
+    //if (this.formDistanceMasterTrip.value.arrayList[i].toLocation != '') {
+      this.driversalarystatementmodel.driverSalaryListData.push({
+        'detailId':'', //this.driversalarysearchlistmodel.driverSalarySearchList.length > i ? this.driversalarystatementmodel.driverSalaryListData[i].detailId : '',
+      //  'index': '',
+        'masterId': '',
+        'vehicleMasterId': this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleMasterId,
+        //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
+        'driverMasterId': this.driversalarysearchlistmodel.driverSalarySearchList[i].driverMasterId,
+        'fromDt': this.driversalarysearchlistmodel.driverSalarySearchList[i].fromDt,
+        'toDt': this.driversalarysearchlistmodel.driverSalarySearchList[i].toDt,
+        'driverName': this.driversalarysearchlistmodel.driverSalarySearchList[i].driverName,
+        'salaryDays':this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryDays,
+        'salaryAmt':this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt,
+        'poolAmt':this.driversalarysearchlistmodel.driverSalarySearchList[i].poolAmt,
+        'netPayable':this.driversalarysearchlistmodel.driverSalarySearchList[i].netPayable,
+        'lastTripDt':this.driversalarysearchlistmodel.driverSalarySearchList[i].lastTripDt,
+        'lastTripBal':this.driversalarysearchlistmodel.driverSalarySearchList[i].lastTripBal,
+        'vehicleLedgerAc':this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleLedgerAc,
+        'vehicleNo':this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleNo,
+        //'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck.toString(),
+        //'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer.toString(),
+        //'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier.toString(),
+       // 'enrouteExpEmpty': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpEmpty.toString(),
+        //'enrouteExpRemarks': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpRemarks,
+       // 'definedTollExp': this.formDistanceMasterTrip.value.arrayList[i].defineTollExp.toString(),
+
+      })
+    
+  }
+
+ // this.driversalarystatementmodel.driverSalaryListData = this.driversalarysearchlistmodel.driverSalarySearchList;
   this.driverSalaryStatementService.saveDriverSalaryDetails(this.driversalarystatementmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     this.toasterService.success(this.responseDetails.message);

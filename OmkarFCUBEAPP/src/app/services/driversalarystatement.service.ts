@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Driversalarystatementmodel } from '../models/driversalarystatementmodel';
 import { Driversalarysearchlistrequestmodel } from '../models/driversalarysearchlistrequestmodel';
 import { Driversalarysearchlistmodel } from '../models/driversalarysearchlistmodel';
+import { Driversalaryinnergridrequest } from '../models/driversalaryinnergridrequest';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
@@ -47,4 +48,8 @@ export class DriversalarystatementService {
   saveDriverSalaryDetails(request: Driversalarystatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveDriverSalaryStatementDetails', request, this.httpOptions);
   }
+  getDriverSalaryInnerGridList(request: Driversalaryinnergridrequest): Observable<Driversalarysearchlistmodel> {
+    return this.httpClient.post<Driversalarysearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalaryInnerGridList', request, this.httpOptions);
+  }
+  
 }

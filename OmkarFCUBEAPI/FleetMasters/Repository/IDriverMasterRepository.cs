@@ -8,6 +8,6 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> DriverMasterSave(DriverMasterModel driverMasterModel);
         Task<ResponseModel> DriverMasterDetailsDelete(Request requestModel);
-        Task<DriverMasterList> GetDriverMasterList(PageRequest request);
+        Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
     }
 }

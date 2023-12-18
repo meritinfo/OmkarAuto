@@ -67,6 +67,7 @@ export class IntermediatescreenComponent {
     this.intermediateScreenSubmitted = true;
     if (this.formLogin.invalid) {
       this.toasterService.warning("Mandatory fields is required");
+      this.sharedService.loading = false;
       return;
     }
 
@@ -95,6 +96,7 @@ export class IntermediatescreenComponent {
       else {
         this.toasterService.warning(this.responseDetails.message);
       }
+      this.sharedService.loading = false;
     });
 
   }

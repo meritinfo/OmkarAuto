@@ -8,8 +8,9 @@ export class Driversalarydetailmodel {
     salaryAmt: string = "";
     poolAmt: string = "";
     lastTripBal: string = "";
+  //  lastTripBal: string = "";
     netPayable: string = "";
-    detRemarks: string = "";
+   // detRemarks: string = "";
    
    
 }
