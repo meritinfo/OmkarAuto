@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     this.sharedService.loading = true;
     this.loginSubmitted = true;
     if (this.formLogin.invalid) {
+      this.sharedService.loading = false;
       return;
     }
     this.loginModel.userName = this.formLogin.value.userName;
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
       else {
         console.log(this.selectedUserDetails.message);
       }
+      this.sharedService.loading = false;
       this.formLogin.reset(); 
     });
   }

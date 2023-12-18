@@ -5612,6 +5612,12 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before {
 .dataTables_paginate a.paginate_button{
     margin-right: 10px;
     font-size: 14px;
+    cursor: pointer;
+    color: #a9a9a9;
+}
+.dataTables_paginate a.current{
+    color: var(--bs-link-color);
+    font-weight: 500;
 }
 div.dataTables_wrapper div.dataTables_info {
     width: 50%;

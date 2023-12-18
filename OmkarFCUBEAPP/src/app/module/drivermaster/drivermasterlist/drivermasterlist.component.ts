@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
-import { Drivermasterlistmodel  } from 'src/app/models/drivermasterlistmodel';
+import { Drivermasterlistmodel } from 'src/app/models/drivermasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Drivermodel } from 'src/app/models/drivermodel';
-import {  DrivermasterService } from 'src/app/services/drivermaster.service';
+import { DrivermasterService } from 'src/app/services/drivermaster.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { Drivermasterlistrequestmodel } from 'src/app/models/drivermasterlistrequestmodel.model';
 
 
 @Component({
@@ -15,16 +17,17 @@ import {  DrivermasterService } from 'src/app/services/drivermaster.service';
 export class DrivermasterlistComponent {
   dtOptions: DataTables.Settings = {};
   allDriverMaster: Drivermasterlistmodel = new Drivermasterlistmodel();
-  filter: Filtermodel = {
+  filter: Drivermasterlistrequestmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'driverName',
     sortOrder: 'asc',
-    search: ''
+    search: '',
+    allData: false
   }
 
-    constructor(private drivermasterService: DrivermasterService, private route: Router) {  
-    }
+  constructor(private drivermasterService: DrivermasterService, private route: Router, private excelService: ExcelService) {
+  }
 
   ngOnInit(): void {
     this.drivermasterService.clearDriverMasterDetails();
@@ -42,11 +45,11 @@ export class DrivermasterlistComponent {
         this.filter.search = dataTablesParameters.search.value;
         this.drivermasterService.getDriverMasterList(this.filter)
           .subscribe(resp => {
-          this.allDriverMaster = resp;
+            this.allDriverMaster = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
               recordsFiltered: resp.pageMetaData.totalCount,
-              data: []  
+              data: []
             });
           });
       },
@@ -62,7 +65,7 @@ export class DrivermasterlistComponent {
         {
           title: 'DOA',
           data: 'dateOfAppoint',
-        },        
+        },
         {
           title: 'License No ',
           data: 'licenseNo',
@@ -70,7 +73,7 @@ export class DrivermasterlistComponent {
         {
           title: 'Lic Valid Upto ',
           data: 'licValidUpto',
-        },        
+        },
         {
           title: 'Driver Mobile ',
           data: 'driverMobile1',
@@ -78,28 +81,36 @@ export class DrivermasterlistComponent {
         {
           title: 'Intro By ',
           data: 'introBy',
-        }, 
+        },
         {
-        title: 'Action',
-        data: 'driverMasterID',
+          title: 'Action',
+          data: 'driverMasterID',
         },
 
       ],
     };
   }
-  
+
   //Open new driver master add screen
   drivermasterAdd(): void {
     this.route.navigate(['/drivermasteradd']);
   }
 
+  //Open user details screen
+  getDriverMasterDetails(Docrenewal: Drivermodel): void {
+    this.drivermasterService.setDriverMasterDetails(Docrenewal);
+    this.route.navigate(['/drivermasteredit']);
+  }
 
+  exportExcel(): void {
+    this.filter.allData = true;
+    this.drivermasterService.getDriverMasterList(this.filter)
+      .subscribe(resp => {
+        const allDataList = resp.driverList;
+        this.excelService.exportAsExcelFile(allDataList, 'DriverMaster');
+      });
 
-//Open user details screen
-getDriverMasterDetails(Docrenewal: Drivermodel): void {
-this.drivermasterService.setDriverMasterDetails(Docrenewal);
-this.route.navigate(['/drivermasteredit']);
-}
+  }
 
 }
 

@@ -184,7 +184,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDriverMasterList")]
-        public async Task<IActionResult> GetDriverMasterList(PageRequest request)
+        public async Task<IActionResult> GetDriverMasterList(DriverMasterListRequest request)
         {
             if (request == null)
             {

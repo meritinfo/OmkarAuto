@@ -21,7 +21,7 @@ namespace FleetMasters.Business
             return await driverMasterRepository.DriverMasterSave(driverMasterModel);
         }
 
-        public async Task<DriverMasterList> GetDriverMasterList(PageRequest request)
+        public async Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request)
         {
             return await driverMasterRepository.GetDriverMasterList(request);
         }
