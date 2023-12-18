@@ -25,7 +25,9 @@ namespace FleetTrans.Models
         public string? LastTripBal { get; set; }
         public string? LastTripDt { get; set; }
 
-        public string? VehicleLedgerAc { get; set; }
+      //  public string? VehicleLedgerAc { get; set; }
         public bool Selected { get; set; }
+        public string? Index { get; set; }
+
     }
 }
