@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
-import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Docrenewalmastermodel } from 'src/app/models/docrenewalmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { DocRenewalMasterService } from 'src/app/services/docrenewalmaster.service';
-import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 @Component({
   selector: 'app-adddocrenewalmaster',
@@ -19,72 +18,128 @@ export class AdddocrenewalmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   responseDetails = new Responsemodel();
+  debitAcList: Dropdownmodel[] = [];
 
 
   selectedDocRenewalMasterDetails = new Docrenewalmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private docRenewalMasterModel: Docrenewalmastermodel, private docrenewalmasterService: DocRenewalMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private docRenewalMasterModel: Docrenewalmastermodel, 
+    private toasterService: ToastrService,private requestmodel:Requestmodel,
+    private docrenewalmasterService: DocRenewalMasterService, 
+    private commonService: CommonService) {
     this.docRenewalMasterModel = new Docrenewalmastermodel();
-
-}
-ngOnInit(): void {
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
   }
 
-  this.selectedDocRenewalMasterDetails = this.docrenewalmasterService.getDocrenewalMasterDetails();
-  this.formUser = this.formBuilder.group({
-    docCode: new FormControl('',),
-    docDescription: new FormControl('',),
-    reminderDays: new FormControl('',),
-    debitType: new FormControl('',),
-    debitAc: new FormControl('',),
-  
+  ngOnInit(): void {
+    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
 
-  });
-  if (this.selectedDocRenewalMasterDetails.docRenewalID != '') {
-    this.formUser.patchValue(this.selectedDocRenewalMasterDetails);
-    debitType: this.selectedDocRenewalMasterDetails.debitType;
-    debitAc: this.selectedDocRenewalMasterDetails.debitAc;
-   
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    
+    this.getdebitAc();
+
+    this.selectedDocRenewalMasterDetails = this.docrenewalmasterService.getDocrenewalMasterDetails();
+    this.formUser = this.formBuilder.group({
+      docCode: new FormControl('',[Validators.required]),
+      docDescription: new FormControl('',[Validators.required]),
+      reminderDays: new FormControl('',[Validators.required]),
+      debitType: new FormControl('',[Validators.required]),
+      debitAc: new FormControl('',[Validators.required]), 
+      isActive: new FormControl('Y',[Validators.required]), 
+      recurring_Onetime: new FormControl('O',[Validators.required]), 
+    });
+    
+
+    if (this.selectedDocRenewalMasterDetails.docRenewalID != '') {
+      this.formUser.patchValue(this.selectedDocRenewalMasterDetails);      
+      this.editMode = true;
+    }
+    
+
+  }
+  // convenience getter for easy access to contact form fields
+  get f() { return this.formUser.controls; }
+
+  getdebitAc(): void {
+    this.docrenewalmasterService.getdebitAc().subscribe((res) => {
+      this.debitAcList = res;
+    });
   }
  
-
-}
-// convenience getter for easy access to contact form fields
-get f() { return this.formUser.controls; }
-
- 
-
-//Submit user form details //
-submitDocRenewalMasterForm(): void {
-  this.userSubmitted = true;
-  if (this.formUser.invalid) {
-    return;
+  deleteDocRenewalMasterForm(): void {
+    if(this.selectedDocRenewalMasterDetails.docRenewalID != '' ){
+     this.requestmodel.strRequest =this.selectedDocRenewalMasterDetails.docRenewalID 
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.docrenewalmasterService.DocrenewalmasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formUser.reset();
+            window.location.reload();
+        });
+      }
+    }
   }
-  this.docRenewalMasterModel.docRenewalID = this.docRenewalMasterModel.docRenewalID != '' ? this.selectedDocRenewalMasterDetails.docRenewalID : '';
-  this.docRenewalMasterModel.docCode= this.formUser.value.docCode;
-  this.docRenewalMasterModel.docDescription = this.formUser.value.docDescription;
-  this.docRenewalMasterModel.reminderDays = this.formUser.value.reminderDays;
-  this.docRenewalMasterModel.debitAc = this.formUser.value.debitAc;
-  this.docRenewalMasterModel.debitType = this.formUser.value.debitType;
+  exit(): void {
+    this.route.navigate(['/docrenewalmasterlist']);
+  }
 
+  //Submit user form details //
+  submitDocRenewalMasterForm(): void {
+    this.userSubmitted = true;
+    if (this.formUser.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is INvalid");   
+        }
+      }     
+      return;
+    }
+    var selectedDataVal =this.formUser.getRawValue();
+    this.docRenewalMasterModel.docRenewalID = this.selectedDocRenewalMasterDetails.docRenewalID != '' ? this.selectedDocRenewalMasterDetails.docRenewalID : '';
+    this.docRenewalMasterModel.docCode = selectedDataVal.docCode.toUpperCase();
+    this.docRenewalMasterModel.docDescription = selectedDataVal.docDescription.toUpperCase();
+    this.docRenewalMasterModel.reminderDays = selectedDataVal.reminderDays;
+    this.docRenewalMasterModel.debitAc = selectedDataVal.debitAc;
+    this.docRenewalMasterModel.debitType = selectedDataVal.debitType;
+    this.docRenewalMasterModel.isActive = selectedDataVal.isActive;
+    this.docRenewalMasterModel.recurring_Onetime = selectedDataVal.recurring_Onetime;  
+    this.docRenewalMasterModel.loggedInUser = this.loggedInUserID;  
 
-  this.docrenewalmasterService.docrenewalMasterDetailsSubmitted(this.docRenewalMasterModel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
-  });
-}
+    this.docrenewalmasterService.docrenewalMasterDetailsSubmitted(this.docRenewalMasterModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      console.log(this.responseDetails.message);
+      this.formUser.reset();
+      window.location.reload();
+    });
+  }
 }
 
 

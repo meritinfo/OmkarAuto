@@ -23,339 +23,383 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-body">
-                                 
+                                <div class="card-body">                                 
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Trans Date</label>
-                                                <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"formControlName="transDate"
-                                                class="form-control">
+                                                <label for="formrow-inputZip">Trans Date</label><span style="color: red">*</span>    
+                                                <input bsdatepicker="" type="date" autoclose="false" 
+                                                placeholder="dd-mm-yyyy" max="{{maxDate}}"   
+                                                formControlName="transDate" class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
+                                            </div>
+                                        </div>                                      
+                                          <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
+                                                <select id="formrow-inputState" class="form-control" 
+                                                formControlName="pmtType" (change)="changePmtType($event)"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                                    <option value="M">Cash</option>      
+                                                    <option value="B">Bank</option> 
+                                                    <option value="H">Happay</option>
+                                                    <option value="P">Petro</option>
+                                                    <option value="F">Fastag</option>
+                                                    <option value="D">Vendor</option>
+                                                    <option value="A">Adjust</option>                                           
+                                                </select>                                                
                                             </div>
                                         </div>
-                                      
-                                          <div class="col-lg-2">
-                                            <div class="mb-2"><label for="formrow-inputCity">Pmt Type</label>
-                                                <select id="formrow-inputState" class="form-control" formControlName="pmtType">
-                                                    <option selected="">Choose...</option>
-                                                    <option>1</option>
-                                                 
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Doc Renewal </label><span style="color: red">*</span>
+                                                <select id="formrow-inputState" class="form-control" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="docRenewalID"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['docRenewalID'].invalid) }"> 
+                                                   <option *ngFor="let doc of docRenewalList" value={{doc.dataId}}>
+                                                      {{doc.dataName}}
+                                                   </option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">                                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Vehicle No.</label><span style="color: red">*</span>                                                 
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleMasterID" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Valid From</label>                                             
+                                                <input type="date" autoclose="false" 
+                                                placeholder="dd-mm-yyyy" 
+                                                formControlName="validFromDt" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Valid Upto</label>                                                
+                                                <input type="date" autoclose="false" 
+                                                placeholder="dd-mm-yyyy"
+                                                formControlName="validToDt"  class="form-control">
                                                 
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2"><label for="formrow-inputCity">Vehicle No.</label>
-                                                <select id="formrow-inputState" class="form-control" formControlName="vehicleMasterID">
-                                                    <option selected="">Choose...</option>
-                                                    <option>1</option>
-                                                 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2"><label for="formrow-inputCity">DocRenewalID </label>
-                                                <select id="formrow-inputState" class="form-control" formControlName="docRenewalID">
-                                                    <option selected="">Choose...</option>
-                                                    <option>1</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        
-                                     
-                                       
-                                        
-                                        
-                                    
                                     </div>
-                                 
-                             
-          
-                                    
-                           
-                                     
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputZip">Valid From</label>
-                                                 
-                                                    <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"formControlName="validFromDt"
-                                                    class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                    <label for="formrow-inputCity">Valid Upto</label>
-                                                    
-                                                    <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"formControlName="validToDt"
-                                                    class="form-control">
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"> <label for="formrow-inputZip">Document RefNo</label>
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter RefNo  "formControlName="documentRefNo"
-                                                    [ngClass]=>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"> <label for="formrow-inputZip">RenewalCompany</label>
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  Renewal Company "formControlName="renewalCompany"
-                                                    [ngClass]=>
-                                                </div>
+                                    <div class="row"> 
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
+                                                <select class="form-control" formControlName="branchCode"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }"> 
+                                                    <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                        {{br.dataName}}
+                                                    </option>
+                                                </select>
                                             </div>
                                         </div>  
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">Basic Amoumt</label>
-                                                  
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  HsnCode1 "formControlName="basicAmt"
-                                                    [ngClass]=>
-                                                </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">Document RefNo</label><span style="color: red">*</span>                                                 
+                                                <input type="text" class="form-control"
+                                                formControlName="documentRefNo" uppercaseonly
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['documentRefNo'].invalid) }"> 
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                    <label for="formrow-inputZip">Sgst Pct</label>
-                                                   
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  HsnCode1 "formControlName="sgstPct"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">Renewal Company</label>
+                                                <input type="text" class="form-control" uppercaseonly
+                                                formControlName="renewalCompany" maxlength="50"
+                                                [ngClass]=>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">Sgst Amt</label>
-                                                   
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  HsnCode1 "formControlName="sgstAmt"
-                                                    [ngClass]=>
-
-                                                </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Basic Amount</label>                                              
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="basicAmt" maxlength="10"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['basicAmt'].invalid) }"> 
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">Cgst Pct</label>
-                                                   
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  HsnCode1 "formControlName="cgstPct"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">SGST Pct</label>                                               
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="sgstPct" maxlength="5"
+                                                [ngClass]=>
                                             </div>
-                                        </div>  
-                                        <div class="row">
-                                            
-                                            <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                    <label for="formrow-inputZip">Cgst Amt</label>
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter Cgst Amt "formControlName="cgstAmt"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">SGST Amount</label>                                               
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="sgstAmt" maxlength="10"
+                                                [ngClass]=>
+                                         </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">CGST Pct</label>                                               
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="cgstPct" maxlength="5"
+                                                [ngClass]=>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">igst Pct</label>
-                                                 
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter Cgst Amt "formControlName="igstPct"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">                                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">CGST Amount</label>
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="cgstAmt" maxlength="10"
+                                                [ngClass]=>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">IgstAmt </label>
-                                                  
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter Cgst Amt "formControlName="igstAmt"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">IGST Pct</label>                                             
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="igstPct" maxlength="5"
+                                                [ngClass]=>
                                             </div>
-                                            <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                    <label for="formrow-inputZip">HsnCode1</label>
-                                                    <input type="text" class="form-control"
-                                                    placeholder="Enter  HsnCode1 "formControlName="hsnCode1"
-                                                    [ngClass]=>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">IGST Amount </label>                                              
+                                                <input type="text" class="form-control" decimalonly
+                                                formControlName="igstAmt" maxlength="10"
+                                                [ngClass]=>
                                             </div>
-                                        </div>  
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">HSN Code</label>
+                                                <input type="text" class="form-control"
+                                                formControlName="hsnCode1" maxlength="15"
+                                                [ngClass]=>
+                                            </div>
+                                        </div>
+                                    </div>  
                                        
                                         <div class="row">
                                             <div class="col-lg-2">
-                                                <div class="mb-2"><label for="formrow-inputCity">BasicAmt2</label>
-                                                  
+                                                <div class="mb-2">
+                                                    <label for="formrow-inputCity">Basic Amount2</label>                                                  
                                                     <input type="text" class="form-control"
-                                                    placeholder="Enter  basicAmt2 "formControlName="basicAmt2"
+                                                    formControlName="basicAmt2" decimalonly maxlength="10"
                                                     [ngClass]=>
                                                 </div>
                                             </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">SgstPct2</label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter SgstPct2" formControlName="sgstPct2">
+                                                <label for="formrow-inputZip">SGST Pct2</label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="sgstPct2" decimalonly  maxlength="5"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">SgstAmt2</label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter SgstAmt2" formControlName="sgstAmt2">
+                                                <label for="formrow-inputZip">SGST Amount2</label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="sgstAmt2" decimalonly maxlength="10">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip"> CgstPct2</label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter CgstPct2" formControlName="cgstPct2">
+                                                <label for="formrow-inputZip">CGST Pct2</label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="cgstPct2" decimalonly maxlength="5"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                        
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">CgstAmt2 </label>
-                                                <input autoclose="false" class="form-control"  placeholder="Enter CgstAmt2 "  formControlName="cgstAmt2">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">CGST Amount2 </label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="cgstAmt2" decimalonly maxlength="10"
+                                                [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">IgstPct2 </label>
-                                                <input autoclose="false" class="form-control" placeholder="Enter IgstPct2 "  formControlName="igstPct2">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">IGST Pct2 </label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="igstPct2" decimalonly maxlength="5"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                       
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">IgstAmt2 </label>
-                                                <input autoclose="false" class="form-control"  placeholder="Enter IgstAmt2 " formControlName="igstAmt2">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">IGST Amount2 </label>
+                                                <input autoclose="false" class="form-control"  
+                                                formControlName="igstAmt2" decimalonly maxlength="10"
+                                                [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">HSN Code2</label>
+                                                <input autoclose="false" class="form-control"  
+                                                formControlName="hsnCode2" maxlength="15"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">HsnCode2</label>
-                                                <input autoclose="false" class="form-control"  placeholder="Enter HsnCode2 " formControlName="hsnCode2">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Non Gst Amount</label>
+                                                <input autoclose="false" class="form-control"  decimalonly
+                                                formControlName="nonGstAmount">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">NonGstAmount</label>
-                                                <input autoclose="false" class="form-control"  placeholder="Enter NonGstAmount "  formControlName="nonGstAmount">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">NonGstAmtDesc</label>
-                                                <input autoclose="false" class="form-control" placeholder=" Enter NonGstAmtDesc"  formControlName="nonGstAmtDesc">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Non Gst Amount Desc</label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="nonGstAmtDesc">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">SubTotal</label>
-                                                <input autoclose="false" class="form-control"  placeholder=" Enter SubTotal"  formControlName="subTotal">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Sub Total</label>
+                                                <input autoclose="false" class="form-control"  decimalonly
+                                                formControlName="subTotal">
                                             </div>
                                         </div>
                                       
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">RoundOff</label>
-                                                <input autoclose="false" class="form-control" placeholder=" Enter RoundOff" formControlName="roundOff">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Round Off</label>
+                                                <input autoclose="false" class="form-control" decimalonly
+                                                formControlName="roundOff">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">NetAmount</label>
-                                                <input autoclose="false" class="form-control" placeholder=" Enter NetAmount" formControlName="netAmount">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Net Amount</label>
+                                                <input autoclose="false" class="form-control" decimalonly
+                                                formControlName="netAmount">
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        
-                                        <div class="col-lg-3">
-                                            <div class="mb-3"><label for="formrow-inputCity">CreditAc</label>
-                                                <select id="formrow-inputState" class="form-control" placeholder=" Enter CreditAc" formControlName="creditAc">
-                                                    <option selected="">Choose...</option>
-                                                    <option>...</option>
+                                    <div class="row">                                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"><label for="formrow-inputCity">Credit Account</label>
+                                                <select class="form-control" formControlName="creditAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }"> 
+                                                    <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
+                                                        {{crd.dataName}}
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">NeftPmt </label>
-                                                <input autoclose="false" class="form-control" placeholder=" Entry NeftPmt" formControlName="neftPmt" >
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Neft Pmt </label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="neftPmt" >
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">ChequeNo</label>
-                                                <input autoclose="false" class="form-control" placeholder=" ChequeNo" formControlName="chequeNo" >
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Cheque No</label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="chequeNo" >
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                     
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">ChequeDt  </label>
-
-                                                <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"formControlName="chequeDt"
+                                        </div>                                   
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Cheque Date  </label>
+                                                <input bsdatepicker="" type="date" autoclose="false" 
+                                                placeholder="dd-mm-yyyy" formControlName="chequeDt"
                                                 class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">FinDocID </label>
-                                                <input autoclose="false" class="form-control" placeholder="FinDocID" formControlName="finDocID">
+                                    </div>
+                                    <div class="row">  
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Fin Doc ID </label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="finDocID">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
                                                 <label for="formrow-inputZip">Attach1 </label>
-                                                <input autoclose="false" class="form-control" placeholder=" Enter Attach1" formControlName="attach1">
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="attach1">
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                       
-                                       
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        </div> 
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
                                                 <label for="formrow-inputZip">Attach2 </label>
-                                                <input autoclose="false" class="form-control"  placeholder="Enter Attach1" formControlName="attach2" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Remarks </label>
-                                                <input autoclose="false" class="form-control" placeholder=" Enter Remarks" formControlName="remarks">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">BranchCode </label>
-                                                <input autoclose="false" class="form-control"formControlName="branchCode"  placeholder=" Enter BranchCode" >
+                                                <input autoclose="false" class="form-control"  
+                                                formControlName="attach2" >
                                             </div>
                                         </div>
                                     </div>
-                                  
+                                    <div class="row"> 
+                                        <div class="col-lg-4">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Remarks </label>
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="remarks">
+                                            </div>
+                                        </div>
+                                    </div>                                  
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-             
-           
+                </div>                           
                 <div class="row text-right">
                     <div class="col-lg-12">
-                        <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md"
-                            (click)="submitDocRenewalMasterForm()"     >Submit</button>
-            
-                           
-                        </div>
+                    <div class="tex">
+                        <button class="btn btn-primary w-md"
+                            (click)="submitDocRenewalEntryForm()">Save</button>&nbsp;
+                        <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDocRenewalEntryForm()">Delete</button>&nbsp;
+                        <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                     </div>
-                </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
             </form>
             <!-- end row -->
             <!-- end row -->

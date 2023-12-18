@@ -244,7 +244,13 @@ export class AddcashreceiptentryComponent {
   submitCashReceiptPaymentsForm(): void {
       this.userSubmitted = true;
       if (this.formCashRRecEntry.invalid) {
-        this.toasterService.warning("Please Enter Mandatory Fields ");   
+        this.toasterService.warning("Please Enter Mandatory Fields ");  
+        const controls = this.formCashRRecEntry.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toasterService.warning(name + " Fields is INvalid");   
+          }
+        }     
         return;
       }
       if (this.formArray.value.length == 0){

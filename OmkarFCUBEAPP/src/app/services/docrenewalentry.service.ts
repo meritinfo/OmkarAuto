@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Docrenewalentrylistmodel } from '../models/docrenewalentrylistmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -20,22 +22,36 @@ export class DocRenewalEntryService {
   }
   selectedDocrenewalentry = new Docrenewalentrymodel();
   constructor(private httpClient: HttpClient) { }
-  setDocRenewalEntryDetails(docrenewalmaster: Docrenewalentrymodel) {
- 
-      this.selectedDocrenewalentry = docrenewalmaster;
-    
-  
+
+  setDocRenewalEntryDetails(docrenewalmaster: Docrenewalentrymodel) { 
+      this.selectedDocrenewalentry = docrenewalmaster; 
   }
+
   getDocrenewalEntryDetails() {
     return this.selectedDocrenewalentry;
   }
+
   clearDocrenewalEntryDetails() {
     this.selectedDocrenewalentry = new Docrenewalentrymodel();
   }
+
   docrenewalEntryDetailsSubmitted(user: Docrenewalentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpOptions);
   }
+
   getDocrenewalEntryList(filter: Filtermodel): Observable<Docrenewalentrylistmodel> {
     return this.httpClient.post<Docrenewalentrylistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalEntryList', filter, this.httpOptions);
+  }
+
+  DocrenewalEntryDetailsDelete(request: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsDelete', request, this.httpOptions);
+  }
+
+  getDocRenewalList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalList', null, this.httpOptions);
+  }
+
+  getPaymentCreditAcList(request: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetPaymentCreditAcList', request, this.httpOptions);
   }
 }

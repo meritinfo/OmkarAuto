@@ -10,6 +10,7 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
+using FinanceMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -399,6 +400,21 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDocRenewalMasterList")]
+        public async Task<IActionResult> GetDocRenewalMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await docRenewalMasterBusiness.GetDocRenewalMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("DocRenewalMasterSave")]
         public async Task<IActionResult> DocRenewalMasterSave(DocRenewalMasterModel docRenewalMasterModel)
         {
@@ -417,6 +433,43 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("GetDebitAcList")]
+        public async Task<IActionResult> GetDebitAcList()
+        {
+            try
+            {
+                var result = await docRenewalMasterBusiness.GetDebitAcList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("DocRenewalMasterDetailsDelete")]
+        public async Task<IActionResult> DocRenewalMasterDetailsDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalMasterBusiness.DocRenewalMasterDetailsDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("BrandMasterSave")]
         public async Task<IActionResult> BrandMasterSave(BrandMasterModel brandMasterModel)
         {
@@ -480,20 +533,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetDocRenewalMasterList")]
-        public async Task<IActionResult> GetDocRenewalMasterList(PageRequest request)
-        {
-            try
-            {
-                var result = await docRenewalMasterBusiness.GetDocRenewalMasterList(request);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetVehicleTypeMasterList")]
         public async Task<IActionResult> GetVehicleTypeMasterList(PageRequest request)
         {

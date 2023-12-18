@@ -190,7 +190,13 @@ export class AddbankcashcontraComponent {
   submitBankCashContraForm(): void {
     this.userSubmitted = true;
     if (this.formBankContra.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields ");   
+      this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formBankContra.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is INvalid");   
+        }
+      }  
       return;
     }
 

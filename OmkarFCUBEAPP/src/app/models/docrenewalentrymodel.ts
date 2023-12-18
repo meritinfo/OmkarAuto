@@ -2,7 +2,9 @@ export class Docrenewalentrymodel {
     docRenewalEntryId: string = "";
     transDate: string = "";
     docRenewalID: string = "";
+    docDescription: string = "";
     vehicleMasterID: string = "";
+    vehicleNo: string = "";
     documentRefNo: string = "";
     renewalCompany: string = "";
     validFromDt: string = "";

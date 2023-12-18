@@ -8,7 +8,9 @@
         public string? DocRenewalEntryId { get; set; }
         public string? TransDate { get; set; }
         public string? DocRenewalID { get; set; }
+        public string? DocDescription { get; set; }
         public string? VehicleMasterID { get; set; }
+        public string? VehicleNo { get; set; }
         public string? DocumentRefNo { get; set; }
         public string? RenewalCompany { get; set; }
         public string? ValidFromDt { get; set; }

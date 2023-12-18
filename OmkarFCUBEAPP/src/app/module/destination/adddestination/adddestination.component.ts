@@ -125,6 +125,12 @@ export class AdddestinationComponent {
     this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is INvalid");   
+        }
+      } 
       return;
     }
 

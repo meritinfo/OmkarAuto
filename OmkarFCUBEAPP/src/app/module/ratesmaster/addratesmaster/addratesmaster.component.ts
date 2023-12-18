@@ -282,10 +282,18 @@ export class AddratesmasterComponent implements OnInit {
   submitRatesMasterForm(): void {
     this.formSubmitted = true;
     if (this.formRatesMaster.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields ");
-      if (this.formRatesMaster.controls['arrayList'].invalid) {
-        this.toasterService.warning("Details fields are mandatory");
-      }
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formRatesMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is INvalid");   
+        }
+      } 
+      return;
+    }
+              
+    if (this.formRatesMaster.controls['arrayList'].invalid) {
+      this.toasterService.warning("Details fields are mandatory");
       return;
     }
     var selectedDataVal=this.formRatesMaster.getRawValue();

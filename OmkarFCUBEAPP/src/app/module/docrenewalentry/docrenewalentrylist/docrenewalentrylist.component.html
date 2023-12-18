@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Driver Master</h4>
+                        <h4 class="mb-sm-0 font-size-18">Doc Renewal Entry</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Driver Master </li>
+                                <li class="breadcrumb-item active">Doc Renewal Entry</li>
                             </ol>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
                     <button class="btn btn-primary buttons-html5" type="button"
-                        (click)=" docrenewalEntryAdd()"><span>New</span></button>
+                        (click)="docrenewalEntryAdd()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
@@ -33,23 +33,22 @@
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
-                                <th>ReminderDays </th>
-                          
-                                <th>Doc Code </th>
-                             
+                                <th>transDate</th>                          
+                                <th>docDescription</th>                              
+                                <th>vehicleNo</th>                              
+                                <th>netAmount</th>                             
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allDocRenewalEntry.docRenewalList?.length != 0">
-                            <tr *ngFor="let renewalMaster of allDocRenewalEntry.docRenewalList">
-                                <td>{{ renewalMaster.vehicleMasterID }}</td>
-                        
-                                <td>{{ renewalMaster.docRenewalID }}</td>
-                             
+                            <tr *ngFor="let renentry of allDocRenewalEntry.docRenewalList">
+                                <td>{{ renentry.transDate }}</td>                        
+                                <td>{{ renentry.docDescription }}</td>                        
+                                <td>{{ renentry.vehicleNo }}</td>                        
+                                <td>{{ renentry.netAmount }}</td>                             
                                 <td>
-                                    <a (click)="getRenewalEntryDetails(renewalMaster)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
-                               
+                                    <a (click)="getRenewalEntryDetails(renentry)" class="actionicon"><i
+                                        class="bx bx-pencil"></i></a>                               
                                 </td>
                             </tr>
                         </tbody>
