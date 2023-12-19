@@ -192,7 +192,6 @@ export class TripsheetlistComponent {
   };
 
   search(): void {
-    debugger;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
