@@ -13,9 +13,10 @@ export class Driversalarysearchmodel {
     netPayable: string = "";
     lastTripDt: string = "";
     lastTripBal: string = "";
+    index: string = "";
    // netPayable: string = "";
-    vehicleLedgerAc : string = "";
-   // select: boolean;
+  //  vehicleLedgerAc : string = "";
+  selected: boolean = false;
 }
    
    

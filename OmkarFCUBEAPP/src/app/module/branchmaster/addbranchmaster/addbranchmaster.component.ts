@@ -163,6 +163,12 @@ export class AddbranchmasterComponent {
     this.userSubmitted = true;
     if (this.formBranchMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formBranchMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
     this.branchModel.centreid = this.selectedBranchMasterDetails.centreid != '' ? this.selectedBranchMasterDetails.centreid : '';

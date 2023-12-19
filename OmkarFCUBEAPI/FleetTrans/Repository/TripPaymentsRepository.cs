@@ -233,7 +233,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
+                            new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);
 
@@ -272,7 +276,8 @@ namespace FleetTrans.Repository
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
 
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                              
+                                BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
+
 
                             });
                         }

@@ -1,132 +1,155 @@
 <div class="main-content">
-    <div class="page-content">
-       <div class="container-fluid">
-          <!-- start page title -->
-          <div class="row">
-             <div class="col-12">
-                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">Doc Renewal  Master</h4>
-                   <div class="page-title-right">
-                      <ol class="breadcrumb m-0">
-                         <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                         <li class="breadcrumb-item active">Doc Renewal  Master</li>
-                      </ol>
-                   </div>
-                </div>
-             </div>
-          </div>
-          <!-- end page title -->
-          <form [formGroup]="formUser">
-             <div class="row">
-                <div class="col-lg-12">
-                   <div class="card">
-                      <div class="card-body">
-                        
-                         <div class="row">
-                            <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <div class="col-sm-2">
-                                           <label for="horizontal-firstname-input" class="col-form-label">Doc Code
-                                           </label>
-                                        </div>
-                                        <div class="col-sm-4">
-                                           <input type="text" class="form-control"
-                                           placeholder="Enter  doc code " formControlName="docCode"
-                                           [ngClass]=>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-                            </div>
-                            <div class="col-lg-12">
-                               <div class="card">
-                                  <div class="card-body">
-                                     <div class="row">
-                                        <div class="col-sm-2">
-                                           <label for="horizontal-firstname-input" class="col-form-label">Doc Description</label>
-                                        </div>
-                                        <div class="col-sm-4">
-                                           <input type="text" class="form-control"
-                                           placeholder="Enter Description " formControlName="docDescription"
-                                           [ngClass]=>
-                                        </div>
-                                     </div>
-                                  </div>
-                               </div>
-                            </div>
-                            <div class="col-lg-12">
-                              <div class="card">
-                                 <div class="card-body">
-                                    <div class="row">
-                                       <div class="col-sm-2">
-                                          <label for="horizontal-firstname-input" class="col-form-label">Reminder Days</label>
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <input type="text" class="form-control"
-                                          placeholder="Enter ReminderDays " formControlName="reminderDays"
-                                          [ngClass]=>
-                                       </div>
-                                    </div>
-                                 </div>
+   <div class="page-content">
+      <div class="container-fluid">
+         <!-- start page title -->
+         <div class="row">
+            <div class="col-12">
+               <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-sm-0 font-size-18">Doc Renewal  Master</h4>
+                  <div class="page-title-right">
+                     <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                        <li class="breadcrumb-item active">Doc Renewal  Master</li>
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- end page title -->
+         <form [formGroup]="formUser">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="card">
+                     <div class="card-body">  
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Doc Code</label><span style="color: red">*</span>    
                               </div>
                            </div>
-                           <div class="col-lg-12">
-                              <div class="card">
-                                 <div class="card-body">
-                                    <div class="row">
-                                       <div class="col-sm-2">
-                                          <label for="horizontal-firstname-input" class="col-form-label">Debit Ac
-                                          </label>
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <select id="scope" class="form-select" formControlName="debitAc">
-                                             <option value="4">Branch office</option>
-                                             <option value="3">Headoffice</option>
-                                         </select>
-                                       </div>
-                                    </div>
-                                 </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <input type="text" class="form-control"
+                                 formControlName="docCode" uppercaseonly maxlength="10"
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['docCode'].invalid) }">
                               </div>
                            </div>
-                           <div class="col-lg-12">
-                              <div class="card">
-                                 <div class="card-body">
-                                    <div class="row">
-                                       <div class="col-sm-2">
-                                          <label for="horizontal-firstname-input" class="col-form-label">Debit Type
-                                          </label>
-                                       </div>
-                                       <div class="col-sm-4">
-                                          <select id="scope" class="form-select" formControlName="debitType">
-                                             <option value="4">Branch office</option>
-                                             <option value="6">Headoffice</option>
-                                         </select>
-                                       </div>
-                                    </div>
-                                 </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label >Doc Description</label><span style="color: red">*</span>    
                               </div>
                            </div>
-                        
-                          
-               
-                 
-                         </div>
-                      </div>
-                      <!-- end card body -->
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <input type="text" class="form-control" maxlength="45"
+                                 formControlName="docDescription" uppercaseonly
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['docDescription'].invalid) }">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Recurring/One Time</label><span style="color: red">*</span>    
+                              </div>
+                           </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <select id="scope" class="form-select" formControlName="recurring_Onetime"
+                                    class="form-control form-select ng-pristine ng-touched"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['recurring_Onetime'].invalid) }">
+                                    <option value="R">Recurring</option>
+                                    <option value="O">One Time</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Reminder Days</label><span style="color: red">*</span>    
+                              </div>
+                           </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <input type="text" class="form-control" maxlength="3"
+                                 formControlName="reminderDays" numbersonly
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['reminderDays'].invalid) }">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Debit Ac</label><span style="color: red">*</span>    
+                              </div>
+                           </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <select id="scope" class="form-select" formControlName="debitAc"
+                                 class="form-control form-select ng-pristine ng-touched"
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['debitAc'].invalid) }">
+                                    <option *ngFor="let dbt of debitAcList" value={{dbt.dataId}}>
+                                       {{dbt.dataName}}
+                                    </option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Debit Type</label><span style="color: red">*</span>    
+                              </div>
+                           </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <select id="scope" class="form-select" formControlName="debitType"
+                                 class="form-control form-select ng-pristine ng-touched"
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['debitType'].invalid) }">
+                                    <option value="V">Vehicle Ledger</option>
+                                    <option value="I">Individual Ledger</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-sm-2">
+                              <div class="mb-3">
+                                 <label>Is Active</label><span style="color: red">*</span>    
+                              </div>
+                           </div>
+                           <div class="col-sm-4">
+                              <div class="mb-3">
+                                 <select id="scope" class="form-select" formControlName="isActive"
+                                 class="form-control form-select ng-pristine ng-touched"
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                 </select>
+                              </div>
+                           </div>
+                        </div> 
+                     </div>                  
+                     <!-- end card body -->
                    </div>                     
                    <!-- end card -->
                 </div>
-             </div>
+             </div>         
              <div class="row text-right">
                 <div class="col-lg-12">
                    <div class="tex">
-                      <button type="submit" class="btn btn-primary w-md"
-                         (click)="submitDocRenewalMasterForm()">Submit</button>
+                      <button class="btn btn-primary w-md"
+                           (click)="submitDocRenewalMasterForm()">Save</button>&nbsp;
+                      <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                           (click)="deleteDocRenewalMasterForm()">Delete</button>&nbsp;
+                      <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                    </div>
                 </div>
-             </div>
+                <!-- end col -->
+             </div> 
           </form>
           <!-- end row -->
           <!-- end row -->

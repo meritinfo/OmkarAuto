@@ -25,7 +25,7 @@ export class DriversalarystatementlistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'brandname',
+    sortColumn: 'masterid',
     sortOrder: 'asc',
     search: ''
 
@@ -44,8 +44,8 @@ this.dtOptions = {
     // Filter setting
     this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
     this.filter.pageSize = dataTablesParameters.length;
-    this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-    this.filter.sortOrder = dataTablesParameters.order[0].dir;
+    this.filter.sortColumn = 'masterid';// dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+    this.filter.sortOrder = 'desc';// dataTablesParameters.order[0].dir;
     this.filter.search = dataTablesParameters.search.value;
     this.driversalarystatementService.getDriverSalaryStatementList(this.filter)
       .subscribe(resp => {

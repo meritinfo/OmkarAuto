@@ -102,7 +102,7 @@
                                             *ngFor="let arrayData of driversalarysearchlistmodel.driverSalarySearchList; let i = index">
                                             <td>
                                                 <div class="mb-3">
-                                                    <input type="checkbox" name="select" class="form-check-input"
+                                                    <input type="checkbox" name="select" class="form-check-input" (change)="valueUpdate($event, i)"
                                                     >
                                                     <!-- {{arrayData.pmtId}} -->
                                                 </div>
@@ -135,7 +135,12 @@
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                   <!--   {{arrayData.lastTripBal}} -->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <!--  {{arrayData.lastTripDt}} -->
                                                 </div>
                                             </td>
                                             <td>
@@ -145,12 +150,7 @@
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    <!-- {{arrayData.gtotalRs}} -->
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <!-- {{arrayData.gtotalRs}} -->
+                                                  <!--    {{arrayData.netPayable}}  -->
                                                 </div>
                                             </td>
                                         </tr>

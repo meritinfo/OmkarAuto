@@ -23,10 +23,9 @@ export class FingroupService {
   selectedFingroup = new Fingroupmodel();
   constructor(private httpClient: HttpClient) { }
   setFinsgroupDetails(Fingroup: Fingroupmodel) { 
-
-      this.selectedFingroup = Fingroup;   
-  
+      this.selectedFingroup = Fingroup; 
   }
+  
   getFingroupDetails() {
     return this.selectedFingroup;
   }

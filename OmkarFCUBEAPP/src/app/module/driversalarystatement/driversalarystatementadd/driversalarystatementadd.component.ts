@@ -108,7 +108,7 @@ export class DriversalarystatementaddComponent implements OnInit {
         toDt:    this.commonService.formatDate(this.selectedDriverSalaryStatementDetails.toDt), 
     
     
-          pmtType :this.selectedDriverSalaryStatementDetails.pmtType, 
+        pmtType :this.selectedDriverSalaryStatementDetails.pmtType, 
      // toDt :this.selectedDriverSalaryStatementDetails.toDt, 
 
        
@@ -201,22 +201,24 @@ saveStatementDetails(): void {
     //if (this.formDistanceMasterTrip.value.arrayList[i].toLocation != '') {
       this.driversalarystatementmodel.driverSalaryListData.push({
         'detailId':'', //this.driversalarysearchlistmodel.driverSalarySearchList.length > i ? this.driversalarystatementmodel.driverSalaryListData[i].detailId : '',
-      //  'index': '',
+        'index': '',
         'masterId': '',
         'vehicleMasterId': this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleMasterId,
         //'toLocation': this.formDistanceMasterTrip.value.arrayList[i].toLocation.dataId,
         'driverMasterId': this.driversalarysearchlistmodel.driverSalarySearchList[i].driverMasterId,
-        'fromDt': this.driversalarysearchlistmodel.driverSalarySearchList[i].fromDt,
-        'toDt': this.driversalarysearchlistmodel.driverSalarySearchList[i].toDt,
+        'fromDt': selectedDataValue.fromDt,
+        'toDt': selectedDataValue.toDt,
         'driverName': this.driversalarysearchlistmodel.driverSalarySearchList[i].driverName,
         'salaryDays':this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryDays,
         'salaryAmt':this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt,
         'poolAmt':this.driversalarysearchlistmodel.driverSalarySearchList[i].poolAmt,
         'netPayable':this.driversalarysearchlistmodel.driverSalarySearchList[i].netPayable,
-        'lastTripDt':this.driversalarysearchlistmodel.driverSalarySearchList[i].lastTripDt,
         'lastTripBal':this.driversalarysearchlistmodel.driverSalarySearchList[i].lastTripBal,
-        'vehicleLedgerAc':this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleLedgerAc,
+        'lastTripDt':this.driversalarysearchlistmodel.driverSalarySearchList[i].lastTripDt,
+       
+        //'vehicleLedgerAc':this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleLedgerAc,
         'vehicleNo':this.driversalarysearchlistmodel.driverSalarySearchList[i].vehicleNo,
+        'selected':this.driversalarysearchlistmodel.driverSalarySearchList[i].selected,
         //'enrouteExpTruck': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTruck.toString(),
         //'enrouteExpTrailer': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpTrailer.toString(),
         //'enrouteExpCarCarrier': this.formDistanceMasterTrip.value.arrayList[i].enrouteExpCarCarrier.toString(),
@@ -236,6 +238,10 @@ saveStatementDetails(): void {
     window.location.reload();
   });
 
+}
+
+valueUpdate(event: any, i: number){
+  this.driversalarysearchlistmodel.driverSalarySearchList[i].selected = event.target.checked;
 }
 
 }

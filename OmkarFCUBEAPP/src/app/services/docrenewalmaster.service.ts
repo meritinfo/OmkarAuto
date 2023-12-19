@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Docrenewalmasterlistmodel } from '../models/docrenewalmasterlistmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +39,13 @@ export class DocRenewalMasterService {
   }
   getDocrenewalmasterList(filter: Filtermodel): Observable<Docrenewalmasterlistmodel> {
     return this.httpClient.post<Docrenewalmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetDocRenewalMasterList', filter, this.httpOptions);
+  }
+
+  DocrenewalmasterDetailsDelete(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DocRenewalMasterDetailsDelete', request, this.httpOptions);
+  }
+
+  getdebitAc():  Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetDebitAcList', null, this.httpOptions);
   }
 }

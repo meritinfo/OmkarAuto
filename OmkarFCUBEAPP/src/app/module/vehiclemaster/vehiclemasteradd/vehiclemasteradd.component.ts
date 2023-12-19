@@ -140,6 +140,8 @@ export class VehiclemasteraddComponent {
         regnDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.regnDate),
         soldDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.soldDate),
         tfrDate: this.commonService.formatDate(this.selectedVehicleMasterDetails.tfrDate),
+        vehicleLedgerAc: this.vehicleList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleLedgerAc),
+        vehicleAssetAc: this.vehicleList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
       })
       this.editMode=true;
       this.getVehicleInnerGridList();
@@ -354,64 +356,69 @@ export class VehiclemasteraddComponent {
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     if (this.formVehicleMaster.invalid) {      
       this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formVehicleMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
     
     var selectedDataValue = this.formVehicleMaster.getRawValue();
-    this.vehiclefltmastermodel.vehicleMasterID = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
-    this.vehiclefltmastermodel.vehicleNo = selectedDataValue.vehicleNo;
-    this.vehiclefltmastermodel.fleetStation = '1';
-    this.vehiclefltmastermodel.regnDate = selectedDataValue.regnDate;
-    this.vehiclefltmastermodel.regdOwner = selectedDataValue.regdOwner;
-    this.vehiclefltmastermodel.chasisNo = selectedDataValue.chasisNo;
-    this.vehiclefltmastermodel.engineNo = selectedDataValue.engineNo;
-    this.vehiclefltmastermodel.vehicleTypeID = selectedDataValue.vehicleTypeID;
+    this.vehiclefltmastermodel.vehicleMasterID    = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
+    this.vehiclefltmastermodel.vehicleNo          = selectedDataValue.vehicleNo;
+    this.vehiclefltmastermodel.fleetStation       = '1';
+    this.vehiclefltmastermodel.regnDate           = selectedDataValue.regnDate;
+    this.vehiclefltmastermodel.regdOwner          = selectedDataValue.regdOwner;
+    this.vehiclefltmastermodel.chasisNo           = selectedDataValue.chasisNo;
+    this.vehiclefltmastermodel.engineNo           = selectedDataValue.engineNo;
+    this.vehiclefltmastermodel.vehicleTypeID      = selectedDataValue.vehicleTypeID;
     this.vehiclefltmastermodel.vehicleTypeGroupId = '1';
-    this.vehiclefltmastermodel.vehMfrId = selectedDataValue.vehMfrId;
-    this.vehiclefltmastermodel.mfrModelName = selectedDataValue.mfrModelName;
-    this.vehiclefltmastermodel.fuelType = selectedDataValue.fuelType;
-    this.vehiclefltmastermodel.makeYear = selectedDataValue.makeYear;
-    this.vehiclefltmastermodel.tankCap = selectedDataValue.tankCap;
-    this.vehiclefltmastermodel.grossWt = selectedDataValue.grossWt;
-    this.vehiclefltmastermodel.unLadenWT = selectedDataValue.unLadenWT;
-    this.vehiclefltmastermodel.noOfTyres = selectedDataValue.noOfTyres;
-    this.vehiclefltmastermodel.mileageLt = selectedDataValue.mileageLt;
-    this.vehiclefltmastermodel.vehLength = selectedDataValue.vehLength;
-    this.vehiclefltmastermodel.vehBreadth = selectedDataValue.vehBreadth;
-    this.vehiclefltmastermodel.vehHeight = selectedDataValue.vehHeight;
-    this.vehiclefltmastermodel.vehVolumeCFT = selectedDataValue.vehVolumeCFT;
-    this.vehiclefltmastermodel.remarks = selectedDataValue.remarks;
-    this.vehiclefltmastermodel.ownershipType = selectedDataValue.ownershipType;
-    this.vehiclefltmastermodel.fastTagYN = selectedDataValue.fastTagYN;
-    this.vehiclefltmastermodel.fastTagCo = selectedDataValue.fastTagCo;
-    this.vehiclefltmastermodel.fastTagNo = selectedDataValue.fastTagNo;
-    this.vehiclefltmastermodel.petroCardYN = selectedDataValue.petroCardYN;
-    this.vehiclefltmastermodel.petroCo = selectedDataValue.petroCo;
-
-    this.vehiclefltmastermodel.petroCardNo = selectedDataValue.petroCardNo;
-    this.vehiclefltmastermodel.petroCardPin = selectedDataValue.petroCardPin;
-    this.vehiclefltmastermodel.happayCardYN = selectedDataValue.happayCardYN;
-    this.vehiclefltmastermodel.happayCardNo = selectedDataValue.happayCardNo;
-    this.vehiclefltmastermodel.happayCardPin = selectedDataValue.happayCardPin;
-    this.vehiclefltmastermodel.fipYN = selectedDataValue.fipYN;
-    this.vehiclefltmastermodel.fipNo = selectedDataValue.fipNo;
-    this.vehiclefltmastermodel.soldYN = selectedDataValue.soldYN;
-    this.vehiclefltmastermodel.soldTo = selectedDataValue.soldTo;
-    this.vehiclefltmastermodel.soldDate = selectedDataValue.soldDate;
-    this.vehiclefltmastermodel.soldValue = selectedDataValue.soldValue;
-    this.vehiclefltmastermodel.tfrYN = selectedDataValue.tfrYN;
-    this.vehiclefltmastermodel.tfrDate = selectedDataValue.tfrDate;
-    this.vehiclefltmastermodel.tfrVehicleNo = selectedDataValue.tfrVehicleNo;
-    this.vehiclefltmastermodel.tfrVehicleId = selectedDataValue.tfrVehicleId;
-    this.vehiclefltmastermodel.vehicleLedgerAc = selectedDataValue.vehicleLedgerAc;
-    this.vehiclefltmastermodel.vehicleAssetAc = selectedDataValue.vehicleAssetAc;
-    this.vehiclefltmastermodel.attach1Desc = selectedDataValue.attach1Desc;
-    this.vehiclefltmastermodel.attach1Link = selectedDataValue.attach1Link;
-    this.vehiclefltmastermodel.attach2Desc = selectedDataValue.attach2Desc;
-    this.vehiclefltmastermodel.attach2Link = selectedDataValue.attach2Link;
-    this.vehiclefltmastermodel.attach3Desc = selectedDataValue.attach3Desc;
-    this.vehiclefltmastermodel.attach3Link = selectedDataValue.attach3Link;
-    this.vehiclefltmastermodel.loggedInUser=this.loggedInUserID;
+    this.vehiclefltmastermodel.vehMfrId           = selectedDataValue.vehMfrId;
+    this.vehiclefltmastermodel.mfrModelName       = selectedDataValue.mfrModelName;
+    this.vehiclefltmastermodel.fuelType           = selectedDataValue.fuelType;
+    this.vehiclefltmastermodel.makeYear           = selectedDataValue.makeYear;
+    this.vehiclefltmastermodel.tankCap            = selectedDataValue.tankCap;
+    this.vehiclefltmastermodel.grossWt            = selectedDataValue.grossWt;
+    this.vehiclefltmastermodel.unLadenWT          = selectedDataValue.unLadenWT;
+    this.vehiclefltmastermodel.noOfTyres          = selectedDataValue.noOfTyres;
+    this.vehiclefltmastermodel.mileageLt          = selectedDataValue.mileageLt;
+    this.vehiclefltmastermodel.vehLength          = selectedDataValue.vehLength;
+    this.vehiclefltmastermodel.vehBreadth         = selectedDataValue.vehBreadth;
+    this.vehiclefltmastermodel.vehHeight          = selectedDataValue.vehHeight;
+    this.vehiclefltmastermodel.vehVolumeCFT       = selectedDataValue.vehVolumeCFT;
+    this.vehiclefltmastermodel.remarks            = selectedDataValue.remarks;
+    this.vehiclefltmastermodel.ownershipType      = selectedDataValue.ownershipType;
+    this.vehiclefltmastermodel.fastTagYN          = selectedDataValue.fastTagYN;
+    this.vehiclefltmastermodel.fastTagCo          = selectedDataValue.fastTagCo;
+    this.vehiclefltmastermodel.fastTagNo          = selectedDataValue.fastTagNo;
+    this.vehiclefltmastermodel.petroCardYN        = selectedDataValue.petroCardYN;
+    this.vehiclefltmastermodel.petroCo            = selectedDataValue.petroCo;
+    this.vehiclefltmastermodel.petroCardNo        = selectedDataValue.petroCardNo;
+    this.vehiclefltmastermodel.petroCardPin       = selectedDataValue.petroCardPin;
+    this.vehiclefltmastermodel.happayCardYN       = selectedDataValue.happayCardYN;
+    this.vehiclefltmastermodel.happayCardNo       = selectedDataValue.happayCardNo;
+    this.vehiclefltmastermodel.happayCardPin      = selectedDataValue.happayCardPin;
+    this.vehiclefltmastermodel.fipYN              = selectedDataValue.fipYN;
+    this.vehiclefltmastermodel.fipNo              = selectedDataValue.fipNo;
+    this.vehiclefltmastermodel.soldYN             = selectedDataValue.soldYN;
+    this.vehiclefltmastermodel.soldTo             = selectedDataValue.soldTo;
+    this.vehiclefltmastermodel.soldDate           = selectedDataValue.soldDate;
+    this.vehiclefltmastermodel.soldValue          = selectedDataValue.soldValue;
+    this.vehiclefltmastermodel.tfrYN              = selectedDataValue.tfrYN;
+    this.vehiclefltmastermodel.tfrDate            = selectedDataValue.tfrDate;
+    this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
+    this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
+    this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
+    this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
+    this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc;
+    this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
+    this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc;
+    this.vehiclefltmastermodel.attach2Link        = selectedDataValue.attach2Link;
+    this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc;
+    this.vehiclefltmastermodel.attach3Link        = selectedDataValue.attach3Link;
+    this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;
 
     this.vehiclefltmastermodel.vehiclefltDetailList = [];
 
