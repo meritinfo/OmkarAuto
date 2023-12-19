@@ -289,7 +289,7 @@ export class DrivermasteraddComponent {
       const controls = this.formDriverMaster.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is INvalid");   
+          this.toasterService.warning(name + " Fields is Invalid");   
         }
       }       
       return;

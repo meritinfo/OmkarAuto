@@ -379,7 +379,7 @@ export class AddothertripopenComponent {
       const controls = this.formOtherTripOpen.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is INvalid");   
+          this.toasterService.warning(name + " Fields is Invalid");   
         }
       }           
       return;
