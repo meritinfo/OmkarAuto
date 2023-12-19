@@ -35,23 +35,20 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>ReminderDays </th>
-                      
-                            <th>Doc Code </th>
-                         
+                            <th>docCode </th>                      
+                            <th>docDescription</th>
+                            <th>reminderDays</th>                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allDocRenewalMaster.docRenewalMasterList?.length != 0">
-                        <tr *ngFor="let renewalMaster of allDocRenewalMaster.docRenewalMasterList">
-                            <td>{{ renewalMaster.reminderDays }}</td>
-                    
-                            <td>{{ renewalMaster.docCode }}</td>
-                         
+                        <tr *ngFor="let ren of allDocRenewalMaster.docRenewalMasterList">
+                            <td>{{ ren.docCode }}</td>                    
+                            <td>{{ ren.docDescription }}</td>               
+                            <td>{{ ren.reminderDays }}</td>                         
                             <td>
-                                <a (click)="getRenewalMasterDetails(renewalMaster)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
-                           
+                                <a (click)="getRenewalMasterDetails(ren)" class="actionicon"><i
+                                    class="bx bx-pencil"></i></a>                           
                             </td>
                         </tr>
                     </tbody>

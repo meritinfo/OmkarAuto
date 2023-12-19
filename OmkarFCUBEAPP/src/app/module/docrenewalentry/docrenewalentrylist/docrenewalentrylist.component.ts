@@ -17,14 +17,14 @@ export class DocrenewalentrylistComponent {
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'doccode',
+    sortColumn: 'transDate',
     sortOrder: 'asc',
     search: ''
-
-
   }
+
   constructor(private docrenewalEntryService: DocRenewalEntryService, private route: Router) {
   }
+
   ngOnInit(): void {
     this.docrenewalEntryService.clearDocrenewalEntryDetails();
     this.dtOptions = {
@@ -50,25 +50,26 @@ export class DocrenewalentrylistComponent {
           });
       },
       columns: [
-
-
         {
-          title: 'vehicleMasterID ',
-          data: 'vehicleMasterID',
+          title: 'Trans Date',
+          data: 'transDate',
         },
-
         {
-          title: 'docRenewalID ',
-          data: 'docRenewalID',
+          title: 'Document ',
+          data: 'docDescription',
         },
-
-
-
-
+        {
+          title: 'Vehicle No',
+          data: 'vehicleNo',
+        },
+        {
+          title: 'Net Amount',
+          data: 'netAmount',
+        },
         {
           title: 'Action',
           data: 'docRenewalEntryId',
-        },
+        },  
 
       ],
     };
@@ -81,7 +82,7 @@ export class DocrenewalentrylistComponent {
   //Open user details screen
   getRenewalEntryDetails(Docrenewal: Docrenewalentrymodel): void {
     this.docrenewalEntryService.setDocRenewalEntryDetails(Docrenewal);
-    this.route.navigate(['/docrenewalmasteredit']);
+    this.route.navigate(['/docrenewalentryedit']);
   }
 
 }

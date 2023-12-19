@@ -250,7 +250,13 @@ export class AddbankreceiptentryComponent {
   submitBankReceiptPaymentsForm(): void {
     this.userSubmitted = true;
     if (this.formBankRecEntry.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields ");   
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formBankRecEntry.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      }    
       return;
     }
     if (this.formArray.value.length == 0){

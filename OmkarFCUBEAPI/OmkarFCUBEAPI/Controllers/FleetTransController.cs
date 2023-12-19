@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 
 using FleetTrans.Models;
+using FleetMasters.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -32,44 +33,8 @@ namespace OmkarFCUBEAPI.Controllers
             billStatementBusiness = _billStatementBusiness;
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
         }
-        /// <summary>
 
-        /// </summary>
-        /// <param name="FinAccountsMasterModel"></param>
-        [HttpPost("DocRenewalEntryDetailsSave")]
-        public async Task<IActionResult> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel)
-        {
-            if (docRenewalEntryModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsSave(docRenewalEntryModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetDocRenewalEntryList")]
-        public async Task<IActionResult> GetDocRenewalEntryList(PageRequest request)
-        {
-            try
-            {
-                var result = await docRenewalEntryBusiness.GetDocRenewalEntryList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
+       
         [HttpPost("GetDieselStatementList")]
         public async Task<IActionResult> GetDieselStatementList(PageRequest request)
         {
@@ -525,9 +490,93 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
 
+        /// <param name="FinAccountsMasterModel"></param>
+        [HttpPost("DocRenewalEntryDetailsSave")]
+        public async Task<IActionResult> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel)
+        {
+            if (docRenewalEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsSave(docRenewalEntryModel);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [HttpPost("DocRenewalEntryDetailsDelete")]
+        public async Task<IActionResult> DocRenewalEntryDetailsDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsDelete(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDocRenewalEntryList")]
+        public async Task<IActionResult> GetDocRenewalEntryList(PageRequest request)
+        {
+            try
+            {
+                var result = await docRenewalEntryBusiness.GetDocRenewalEntryList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDocRenewalList")]
+        public async Task<IActionResult> GetDocRenewalList()
+        {
+            try
+            {
+                var result = await docRenewalEntryBusiness.GetDocRenewalList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetPaymentCreditAcList")]
+        public async Task<IActionResult> GetPaymentCreditAcList(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalEntryBusiness.GetPaymentCreditAcList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

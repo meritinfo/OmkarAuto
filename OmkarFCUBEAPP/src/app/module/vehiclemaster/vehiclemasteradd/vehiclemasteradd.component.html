@@ -391,25 +391,53 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Ledger Account</label>
-                                                <select class="form-control" formControlName="vehicleLedgerAc"     
-                                                class="form-control form-select ng-pristine ng-touched" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleLedgerAc'].invalid) }">
-                                                    <option *ngFor="let ldg of vehicleLedgerAcList" value={{ldg.dataId}}>
-                                                       {{ldg.dataName}}
-                                                    </option>
-                                                 </select>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleLedgerAcList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleLedgerAc" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleLedgerAc'].invalid) }" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Asset Account</label>
-                                                <select class="form-control" formControlName="vehicleAssetAc"  
-                                                class="form-control form-select ng-pristine ng-touched"    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleAssetAc'].invalid) }">
-                                                    <option *ngFor="let ast of vehicleAssetAcList" value={{ast.dataId}}>
-                                                       {{ast.dataName}}
-                                                    </option>
-                                                 </select>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleAssetAcList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleAssetAc" [initialValue]=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleAssetAc'].invalid) }" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -547,11 +575,11 @@
                     <div class="row text-right">
                         <div class="col-lg-12">
                             <div class="tex">
-                                <button type="submit" class="btn btn-primary w-md"
+                                <button class="btn btn-primary w-md"
                                     (click)="submitVehicleMasterForm()">Save</button>&nbsp;
-                                    <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                     (click)="deleteVehicleMasterForm()">Delete</button>&nbsp;
-                                <button type="submit" class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                                <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                             </div>
                         </div>
                         <!-- end col -->

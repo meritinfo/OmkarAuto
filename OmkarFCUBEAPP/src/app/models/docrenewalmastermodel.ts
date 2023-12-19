@@ -5,4 +5,7 @@ export class Docrenewalmastermodel {
     reminderDays: string = "";
     debitType: string = "";
     debitAc: string = "";
+    isActive: string = "";
+    recurring_Onetime: string = "";
+    loggedInUser: string = "";
 }

@@ -13,7 +13,7 @@ namespace FleetMasters.Models
         public string? ReminderDays { get; set; }
         public string? DebitAc { get; set; }
         public string? IsActive { get; set; }
-   
+        public string? Recurring_Onetime { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

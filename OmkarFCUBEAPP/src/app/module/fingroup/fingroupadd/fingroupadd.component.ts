@@ -36,9 +36,11 @@ export class FingroupaddComponent {
 
   selectedFinGroupMasterDetails = new Fingroupmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private fingroupmodel: Fingroupmodel,
-     private finGroupService: FingroupService, private commonService: CommonService,private requestmodel:Requestmodel,
-     private toasterService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private fingroupmodel: Fingroupmodel,
+    private finGroupService: FingroupService, private commonService: CommonService,
+    private requestmodel:Requestmodel,
+    private toasterService: ToastrService) {
     this.fingroupmodel = new Fingroupmodel();
  
 }
@@ -161,7 +163,13 @@ accountTypeChange(e: any) {
 submitFinGroupMasterForm(): void {
   this.formSubmitted = true;
   if (this.formFinGroup.invalid) {
-    this.toasterService.warning("Please Enter Mandatory Fields ");   
+    this.toasterService.warning("Please Enter Mandatory Fields ");  
+    const controls = this.formFinGroup.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    }           
     return;
   }
 
