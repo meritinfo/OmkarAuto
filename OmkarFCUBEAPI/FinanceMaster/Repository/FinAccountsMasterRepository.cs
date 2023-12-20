@@ -128,8 +128,6 @@ namespace FinanceMasters.Repository
             List<FinAccountsMasterModel> finAccountsList = new();
             try
             {
-                if (request.Search.Length==0)
-                    request.Search = "0";
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =

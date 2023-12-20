@@ -6,6 +6,8 @@ import { Filtermodel } from 'src/app/models/filtermodel';
 import { Finaccountmodel  } from 'src/app/models/finaccountmodel';
 import { Finaccountlistmodel } from 'src/app/models/finaccountlistmodel';
 import { FinsaccountmasterService } from 'src/app/services/finaccountmaster.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -18,7 +20,6 @@ export class FinaccountsmasterlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
-
   dtOptions: DataTables.Settings = {};
   allFinaccounts: Finaccountlistmodel = new Finaccountlistmodel();
   filter: Filtermodel = {
@@ -27,14 +28,15 @@ export class FinaccountsmasterlistComponent {
     sortColumn: 'accountName',
     sortOrder: 'asc',
     search: ''
-}
-
-  constructor(private finsaccountmasterService: FinsaccountmasterService, private route: Router) {
   }
 
-  ngOnInit(): void {
+  formFilter!: FormGroup;
+  constructor(private finsaccountmasterService: FinsaccountmasterService, 
+    private formBuilder: FormBuilder,
+    private sharedService: SharedService, private route: Router) {
+  }
 
-    
+  ngOnInit(): void {    
     
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -49,6 +51,10 @@ export class FinaccountsmasterlistComponent {
   }
   
     this.finsaccountmasterService.clearFinsaccountsDetails();
+    this.formFilter = this.formBuilder.group({
+      accountName: new FormControl(''),
+    });
+
     this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
@@ -61,7 +67,8 @@ export class FinaccountsmasterlistComponent {
       this.filter.pageSize = dataTablesParameters.length;
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
+      this.filter.search = '';      
+      this.sharedService.loading = true;
       this.finsaccountmasterService.getFinsaccountsList(this.filter)
         .subscribe(resp => {
          this.allFinaccounts = resp;
@@ -70,7 +77,8 @@ export class FinaccountsmasterlistComponent {
             recordsFiltered: resp.pageMetaData.totalCount,
             data: []
           });
-        });
+        });  
+        this.sharedService.loading = false;
       },
        // Set column title and data field
        columns: [     
@@ -106,5 +114,15 @@ export class FinaccountsmasterlistComponent {
     this.route.navigate(['/finaccountedit']);
   }
 
+  search(): void {
+    debugger;
+    this.filter.search = this.formFilter.value.accountName;     
+    this.sharedService.loading = true;
+    this.finsaccountmasterService.getFinsaccountsList(this.filter)
+      .subscribe(resp => {
+        this.allFinaccounts = resp;
+      });           
+    this.sharedService.loading = false;
+  }
 }
 
