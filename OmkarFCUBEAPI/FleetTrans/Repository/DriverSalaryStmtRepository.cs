@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace FleetTrans.Repository
@@ -46,7 +47,7 @@ namespace FleetTrans.Repository
                                 // VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 DriverName = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
-                                VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
+                              //  VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
                                 FromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDt"]),
                                 ToDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDt"]),
                                 NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
@@ -108,6 +109,7 @@ namespace FleetTrans.Repository
                                 DriverMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterId"]),
 
                                 SalaryDays = Convert.ToString(dataSet.Tables[0].Rows[i]["SalaryDays"]),
+                                SalaryAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SalaryAmt"]),
                                 PoolAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["PoolAmt"]),
                                 // VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
@@ -117,7 +119,7 @@ namespace FleetTrans.Repository
                                 NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
                                 LastTripBal = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripBal"]),
                                 LastTripDt = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripDt"]),
-                                VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
+                              //  VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
                               
                                 Selected = false
                             });
@@ -246,46 +248,75 @@ namespace FleetTrans.Repository
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryStatement_Insert", param);
-
-                    string MasterID = "";
+                    string MasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
-                        // statement list insert
-                        if (request.DriverSalaryListData.Count > 0)
-                        {
-                            for (int i = 0; i < request.DriverSalaryListData.Count; i++)
-                            {
-                                if (request.DriverSalaryListData[i].Selected)
-                                {
-                                    SqlParameter[] paramMisc =
-                                    {
-                                        new SqlParameter("@MasterID", MasterID),
-                                        new SqlParameter("@DetailId", request.DriverSalaryListData[i].DetailId != "" ? request.DriverSalaryListData[i].DetailId : "0"),
-                                     //   new SqlParameter("@FreightRs", request.DriverSalaryListData[i].MasterId != "" ? request.DriverSalaryListData[i].MasterId : "0"),
-                                        new SqlParameter("@VehicleMasterId", request.DriverSalaryListData[i].VehicleMasterId != "" ? request.DriverSalaryListData[i].VehicleMasterId : "0"),
-                                        new SqlParameter("@DriverMasterId", request.DriverSalaryListData[i].DriverMasterId != "" ? request.DriverSalaryListData[i].DriverMasterId : "0"),
-                                        new SqlParameter("@FromDt", request.DriverSalaryListData[i].FromDt != "" ? request.DriverSalaryListData[i].FromDt : "0"),
-                                        new SqlParameter("@ToDt", request.DriverSalaryListData[i].ToDt != "" ? request.DriverSalaryListData[i].ToDt : "0"),
-                                        new SqlParameter("@SalaryDays", request.DriverSalaryListData[i].SalaryDays != "" ? request.DriverSalaryListData[i].SalaryDays : "0"),
-                                        new SqlParameter("@SalaryAmt", request.DriverSalaryListData[i].SalaryAmt != "" ? request.DriverSalaryListData[i].SalaryAmt : "0"),
-                                        new SqlParameter("@PoolAmt", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
-                                        new SqlParameter("@LastTripBal", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
-                                        new SqlParameter("@NetPayable", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
-                                      //  new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
-                                    };
-                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
-                                }
-                            }
-                        }
+                        MasterID = Convert.ToString(responseModel.Message);
                     }
                     else
                     {
                         responseModel.Status = false;
                         responseModel.Message = "Unable to process";
                     }
+
+                    if (responseModel.Status)
+                    {
+                        for (int i = 0; i < request.DriverSalaryListData.Count; i++)
+                        {
+                            if (request.DriverSalaryListData[i].Selected)
+                            {
+                                request.DriverSalaryListData[i].Index = i.ToString();
+                                request.DriverSalaryListData[i].MasterId = MasterID;
+                                responseModel = await DriverSalaryDetailSave(request.DriverSalaryListData[i]);
+                            }
+                        }
+                    }
+
+
+                    //string MasterID = "";
+                    //if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    //{
+                    //    MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                    //    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    //    // statement list insert
+                    //    if (request.DriverSalaryListData.Count > 0)
+                    //    {
+                    //        for (int i = 0; i < request.DriverSalaryListData.Count; i++)
+                    //        {
+                    //            if (request.DriverSalaryListData[i].Selected)
+                    //            {
+                    //                SqlParameter[] paramMisc =
+                    //                {
+
+                    //                    new SqlParameter("@DetailId", request.DriverSalaryListData[i].DetailId != "" ? request.DriverSalaryListData[i].DetailId : "0"),
+                    //                     new SqlParameter("@MasterID", MasterID),
+                    //                 //   new SqlParameter("@FreightRs", request.DriverSalaryListData[i].MasterId != "" ? request.DriverSalaryListData[i].MasterId : "0"),
+                    //                    new SqlParameter("@VehicleMasterId", request.DriverSalaryListData[i].VehicleMasterId != "" ? request.DriverSalaryListData[i].VehicleMasterId : "0"),
+                    //                    new SqlParameter("@DriverMasterId", request.DriverSalaryListData[i].DriverMasterId != "" ? request.DriverSalaryListData[i].DriverMasterId : "0"),
+                    //                    new SqlParameter("@FromDt", request.DriverSalaryListData[i].FromDt != "" ? request.DriverSalaryListData[i].FromDt : "0"),
+                    //                    new SqlParameter("@ToDt", request.DriverSalaryListData[i].ToDt != "" ? request.DriverSalaryListData[i].ToDt : "0"),
+                    //                    new SqlParameter("@SalaryDays", request.DriverSalaryListData[i].SalaryDays != "" ? request.DriverSalaryListData[i].SalaryDays : "0"),
+                    //                    new SqlParameter("@SalaryAmt", request.DriverSalaryListData[i].SalaryAmt != "" ? request.DriverSalaryListData[i].SalaryAmt : "0"),
+                    //                    new SqlParameter("@PoolAmt", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
+                    //                    new SqlParameter("@LastTripBal", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
+                    //                    new SqlParameter("@LastTripDt", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripDt : "0"),
+                    //                    new SqlParameter("@NetPayable", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
+                    //                     new SqlParameter("@Index", distanceDetailTripModel.Index),
+                    //                  //  new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
+                    //                };
+                    //                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    responseModel.Status = false;
+                    //    responseModel.Message = "Unable to process";
+                    //}
                 }
             }
             catch (Exception ex)
@@ -303,6 +334,61 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> DriverSalaryDetailSave(DriverSalarySearchModel driverSalarySearchModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterID", driverSalarySearchModel.MasterId == "" ? 0 : Convert.ToInt32(driverSalarySearchModel.MasterId)),
+                            new SqlParameter("@VehicleMasterId", driverSalarySearchModel.VehicleMasterId == "" ? 0 : Convert.ToInt32(driverSalarySearchModel.VehicleMasterId)),
+                            new SqlParameter("@DriverMasterId", driverSalarySearchModel.DriverMasterId == "" ? 0 : Convert.ToInt32(driverSalarySearchModel.DriverMasterId)),
+                            new SqlParameter("@FromDt", driverSalarySearchModel.FromDt),
+                            new SqlParameter("@ToDt", driverSalarySearchModel.ToDt),
+                            new SqlParameter("@SalaryDays", driverSalarySearchModel.SalaryDays ),
+                            new SqlParameter("@SalaryAmt", driverSalarySearchModel.SalaryAmt == "" ? 0 : Convert.ToDecimal(driverSalarySearchModel.SalaryAmt)),
+                            new SqlParameter("@PoolAmt", driverSalarySearchModel.PoolAmt == "" ? 0 : Convert.ToDecimal(driverSalarySearchModel.PoolAmt)),
+                            new SqlParameter("@LastTripBal", driverSalarySearchModel.LastTripBal == "" ? 0 : Convert.ToDecimal(driverSalarySearchModel.LastTripBal)),
+                            new SqlParameter("@LastTripDt", driverSalarySearchModel.LastTripDt),
+                            new SqlParameter("@NetPayable", driverSalarySearchModel.NetPayable == "" ? 0 : Convert.ToDecimal(driverSalarySearchModel.NetPayable)),
+                            new SqlParameter("@Index", driverSalarySearchModel.Index),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
     }
+ 
 
 }

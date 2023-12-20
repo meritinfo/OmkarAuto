@@ -22,7 +22,8 @@ namespace FleetTrans.Models
      //   public string DetRemarks { get; set; }
       //  public string FinDocldDtl{ get; set; }
         public string LastTripDt { get; set; }
-      
+        public string Index { get; set; }
+
         public bool Selected { get; set; }
     }
 }
