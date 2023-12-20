@@ -8,8 +8,8 @@
                   <h4 class="mb-sm-0 font-size-18">Fin Group Master</h4>
                   <div class="page-title-right">
                      <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Group Master</a></li>
-                        <li class="breadcrumb-item active">Fin Group Master</li>
+                        <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Group Master</a></li>
+                        <li class="breadcrumb-item active">Fin Group Master</li> -->
                      </ol>
                   </div>
                </div>
@@ -21,7 +21,6 @@
                <div class="col-lg-12">
                   <div class="card">
                      <div class="card-body">
-                        <h4 class="card-title mb-4">Fin Group Master</h4>
                            <div class="card-body">
                               <div class="row">
                                  <div class="col-lg-2">
@@ -32,7 +31,7 @@
                               </div>
                               <div class="col-lg-4">
                                  <div class="mb-3">
-                                    <input type="text" class="form-control"
+                                    <input type="text" class="form-control" uppercaseonly
                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['groupName'].invalid) }"
                                        placeholder="Enter Group Name" formControlName="groupName" 
                                        (change)="chkActName($event)">
@@ -107,7 +106,7 @@
             <div class="row text-right">
                <div class="col-lg-12">
                   <div class="tex">
-                     <button class="btn btn-primary w-md"
+                     <button class="btn btn-primary w-md" *ngIf="editStatus && createStatus"
                         (click)="submitFinGroupMasterForm()">Save</button>&nbsp;
                      <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                         (click)="deleteFinGroupMasterForm()">Delete</button>&nbsp;

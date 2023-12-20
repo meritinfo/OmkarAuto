@@ -128,8 +128,6 @@ namespace FinanceMasters.Repository
             List<FinAccountsMasterModel> finAccountsList = new();
             try
             {
-                if (request.Search.Length==0)
-                    request.Search = "0";
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
@@ -311,47 +309,6 @@ namespace FinanceMasters.Repository
             return EmpList;
         }
 
-        public async Task<ResponseModel> FinAccountsMasterDelete(Request req)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@AccountId", req.strRequest),
-
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinAccountDelete", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status    = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message   = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status    = false;
-                        responseModel.Message   = "Unable to process";
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
-            return responseModel;
-        }
 
 
     }

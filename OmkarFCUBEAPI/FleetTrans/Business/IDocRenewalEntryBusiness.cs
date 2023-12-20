@@ -10,6 +10,7 @@ namespace FleetTrans.Business
         Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request);
         Task<List<DropDownListModel>> GetDocRenewalList();
         Task<List<DropDownListModel>> GetPaymentCreditAcList(Request request);
+        Task<ResponseModel> ChkDocrenewalValidity(DocRenewalEntryModel docRenewalEntryModel);
     }
 }
 

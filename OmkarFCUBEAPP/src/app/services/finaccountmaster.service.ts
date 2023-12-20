@@ -41,8 +41,4 @@ export class FinsaccountmasterService {
   getledgerList():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinActLedgertype', null, this.httpOptions);
   }
-
-  FinGroupDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountsMasterDelete', req, this.httpOptions);
-  }
 }

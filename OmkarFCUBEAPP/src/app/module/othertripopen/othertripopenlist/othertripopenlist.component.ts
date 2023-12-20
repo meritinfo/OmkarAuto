@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
 import { Tripsheetmodel } from 'src/app/models/tripsheetmodel';
@@ -7,6 +7,8 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { SharedService } from 'src/app/services/shared.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-othertripopenlist',
@@ -15,6 +17,9 @@ import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model'
 })
 export class OthertripopenlistComponent {
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+
   allOtherTripOpenList: Tripsheetlistmodel = new Tripsheetlistmodel();
   filter: Typesheetfiltermodel = {
     pageNumber: 1,
@@ -37,7 +42,7 @@ export class OthertripopenlistComponent {
   minDate: string = '';
 
   constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, 
-    private route: Router, 
+    private route: Router, private sharedService: SharedService,
     private commonService: CommonService) {
 
   }

@@ -9,8 +9,8 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Destination</a></li>
-                                <li class="breadcrumb-item active">Destination</li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Destination</a></li>
+                                <li class="breadcrumb-item active">Destination</li> -->
                             </ol>
                         </div>
 
@@ -19,14 +19,32 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-12 col-md-12 text-right">
+                <div class="col-sm-8 col-md-8">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Destination</label>
+                                    <input type="text" class="form-control" formControlName="centreName">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" (click)="search()">
+                                        <span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                    <button class="btn btn-primary buttons-html5" type="button"
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                         (click)="adddestination()"><span>New</span></button>
                 </div>
             </div>
@@ -46,12 +64,11 @@
                         <tr *ngFor="let destination of allDestination.destinationList">
                             <td>{{ destination.centreName }}</td>
                             <td>{{ destination.stateName }}</td>
-                            <td>{{ destination.controlBranch}}</td>
-                         
+                            <td>{{ destination.controlBranch}}</td>                        
                             <td>
-                                <a (click)="destinationDetails(destination)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
-                            </td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="destinationDetails(destination)"></button>             
+                            </td>                           
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDestination.destinationList?.length == 0">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
@@ -29,11 +29,19 @@ export class AdddocrenewalentryComponent {
     viewStatus = false;
 
     responseDetails = new Responsemodel();
+    VehicalExistDetails = new Responsemodel();
     branchList: Dropdownmodel[] = [];
     vehicleList: Dropdownmodel[] = [];
     docRenewalList: Dropdownmodel[] = [];
     creditacList: Dropdownmodel[] = [];
     keywordLocation = 'dataName';
+
+    @ViewChild('attach1Input', {
+      static: true
+    }) attach1Input: any;
+    @ViewChild('attach2Input', {
+      static: true
+    }) attach2Input: any;
 
     selectedDocRenewalEntryDetails = new Docrenewalentrymodel();
 
@@ -97,33 +105,33 @@ export class AdddocrenewalentryComponent {
       pmtType: new FormControl('',[Validators.required]),
       renewalCompany: new FormControl('',),
       vehicleMasterID: new FormControl('',[Validators.required]),
-      validFromDt: new FormControl('',),
-      validToDt: new FormControl('',),
-      basicAmt: new FormControl('',[Validators.required]),
-      sgstPct: new FormControl('',),
-      sgstAmt: new FormControl('',),
-      cgstPct: new FormControl('',),
-      cgstAmt: new FormControl('',),
-      igstPct: new FormControl('',),
-      igstAmt: new FormControl('',),
+      validFromDt: new FormControl('',[Validators.required]),
+      validToDt: new FormControl('',[Validators.required]),
+      basicAmt: new FormControl('0',[Validators.required]),
+      sgstPct: new FormControl('0',),
+      sgstAmt: new FormControl('0',),
+      cgstPct: new FormControl('0',),
+      cgstAmt: new FormControl('0',),
+      igstPct: new FormControl('0',),
+      igstAmt: new FormControl('0',),
       hsnCode1: new FormControl('',),
-      basicAmt2: new FormControl('',),
-      sgstPct2: new FormControl('',),
-      sgstAmt2: new FormControl('',),
-      cgstPct2: new FormControl('',),
-      cgstAmt2: new FormControl('',),
-      igstPct2: new FormControl('',),
-      igstAmt2: new FormControl('',),
+      basicAmt2: new FormControl('0',),
+      sgstPct2: new FormControl('0',),
+      sgstAmt2: new FormControl('0',),
+      cgstPct2: new FormControl('0',),
+      cgstAmt2: new FormControl('0',),
+      igstPct2: new FormControl('0',),
+      igstAmt2: new FormControl('0',),
       hsnCode2: new FormControl('',),
-      nonGstAmount: new FormControl('',),
+      nonGstAmount: new FormControl('0',),
       nonGstAmtDesc: new FormControl('',),
-      subTotal: new FormControl('',),
-      roundOff: new FormControl('',),
-      netAmount: new FormControl('',),
+      subTotal: new FormControl('0',),
+      roundOff: new FormControl('0',),
+      netAmount: new FormControl('0',[Validators.required]),
       creditAc: new FormControl('',[Validators.required]),
       neftPmt: new FormControl('',),
-      chequeNo: new FormControl('',),
-      chequeDt: new FormControl('',),
+      chequeNo: new FormControl('',[Validators.required]),
+      chequeDt: new FormControl('',[Validators.required]),
       finDocID: new FormControl('',),
       attach1: new FormControl('',),
       attach2: new FormControl('',),
@@ -131,6 +139,19 @@ export class AdddocrenewalentryComponent {
       branchCode: new FormControl(this.branchid,[Validators.required]),
     });
     
+    this.formDocEntry.controls['sgstAmt'].disable();
+    this.formDocEntry.controls['cgstAmt'].disable();
+    this.formDocEntry.controls['igstAmt'].disable();
+    this.formDocEntry.controls['sgstAmt2'].disable();
+    this.formDocEntry.controls['cgstAmt2'].disable();
+    this.formDocEntry.controls['igstAmt2'].disable();
+    this.formDocEntry.controls['subTotal'].disable();
+    this.formDocEntry.controls['netAmount'].disable();
+    
+    this.formDocEntry.controls['chequeNo'].clearValidators();      
+    this.formDocEntry.controls['chequeDt'].clearValidators();  
+    this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
+    this.formDocEntry.controls['chequeDt'].updateValueAndValidity();
       
     setTimeout(() => {
       if (this.selectedDocRenewalEntryDetails.docRenewalEntryId != '') {
@@ -143,7 +164,18 @@ export class AdddocrenewalentryComponent {
           chequeDt:this.commonService.formatDate(this.selectedDocRenewalEntryDetails.chequeDt),
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedDocRenewalEntryDetails.vehicleMasterID),
         });    
-        this.editMode = true;    
+        this.editMode = true; 
+        if (this.selectedDocRenewalEntryDetails.neftPmt=='Y'){
+          this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
+          this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);
+        }
+        else {
+          this.formDocEntry.controls['chequeNo'].clearValidators();      
+          this.formDocEntry.controls['chequeDt'].clearValidators();   
+        }
+        this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
+        this.formDocEntry.controls['chequeDt'].updateValueAndValidity();    
+         
       } 
     }, 2000);
     
@@ -190,13 +222,168 @@ export class AdddocrenewalentryComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
+  onNeftChk(e: any) {
+    if (e.target.value=='Y'){
+      this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
+      this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);
+    }
+    else {
+      this.formDocEntry.controls['chequeNo'].clearValidators();      
+      this.formDocEntry.controls['chequeDt'].clearValidators();   
+    }
+    this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
+    this.formDocEntry.controls['chequeDt'].updateValueAndValidity();
+  }
   
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
     this.getPaymentCreditAcList(selectedValue);
   }
+
+  onBasic1Change(e: any) {
+    var selectedValue = e.target.value;
+    var selectedDataVal=this.formDocEntry.getRawValue();
+    if(parseFloat(selectedValue) > 0){
+      if(parseFloat(selectedDataVal.sgstPct)>0){
+        this.formDocEntry.patchValue({
+          sgstAmt:(selectedValue*parseFloat(selectedDataVal.sgstPct)/100),
+        });
+      }
+      if(parseFloat(selectedDataVal.cgstPct)>0){
+        this.formDocEntry.patchValue({
+          cgstAmt:(selectedValue*parseFloat(selectedDataVal.cgstPct)/100),
+        });
+      }
+      if(parseFloat(selectedDataVal.igstPct)>0){
+        this.formDocEntry.patchValue({
+          igstAmt:(selectedValue*parseFloat(selectedDataVal.igstPct)/100),
+        });
+      }
+      this.getTotal();    
+    }
+  }
+  onRounding(e: any) {
+    var selectedValue = e.target.value;
+    var selectedDataVal=this.formDocEntry.getRawValue();
+    var nettot = parseFloat(selectedDataVal.subTotal) + parseFloat(selectedValue) + 
+                  parseFloat(selectedDataVal.nonGstAmount)
+    this.formDocEntry.patchValue({
+      netAmount:nettot,
+    });
+  }
+
+  onNonGstChange(e: any) {
+    var selectedValue = e.target.value;
+    var selectedDataVal=this.formDocEntry.getRawValue();
+    var nettot = parseFloat(selectedDataVal.subTotal) + parseFloat(selectedValue) + 
+                  parseFloat(selectedDataVal.roundOff)
+    this.formDocEntry.patchValue({
+      netAmount:nettot,
+    });
+  }
+
+  getTotal(){    
+    var selectedDataVal=this.formDocEntry.getRawValue();
+    var subtot = parseFloat(selectedDataVal.basicAmt) +
+                parseFloat(selectedDataVal.sgstAmt)+
+                parseFloat(selectedDataVal.cgstAmt)+
+                parseFloat(selectedDataVal.igstAmt)+
+                parseFloat(selectedDataVal.basicAmt2)+
+                parseFloat(selectedDataVal.sgstAmt2)+
+                parseFloat(selectedDataVal.cgstAmt2)+
+                parseFloat(selectedDataVal.igstAmt2)
+    var nettot = subtot + parseFloat(selectedDataVal.roundOff)+ 
+                parseFloat(selectedDataVal.nonGstAmount)
+    this.formDocEntry.patchValue({
+      subTotal:subtot,
+      netAmount:nettot,
+    });
+  }
+
+  onSgst1Change(e: any) {
+    var selectedValue = e.target.value;   
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        sgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+      });
+      this.getTotal();    
+    }    
+  }
+
+  onCgst1Change(e: any) {
+    var selectedValue = e.target.value;
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        cgstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+      });
+      this.getTotal();    
+    }    
+  }
   
+  onIgst1Change(e: any) {
+    var selectedValue = e.target.value;
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        igstAmt:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt)/100),
+      });
+      this.getTotal();    
+    }    
+  }
+
+  onBasic2Change(e: any) {
+    var selectedValue = e.target.value;
+    var selectedDataVal=this.formDocEntry.getRawValue();
+    if(parseFloat(selectedValue) > 0){
+      if(parseFloat(selectedDataVal.sgstPct2)>0){
+        this.formDocEntry.patchValue({
+          sgstAmt2:(selectedValue*parseFloat(selectedDataVal.sgstPct2)/100),
+        });
+      }
+      if(parseFloat(selectedDataVal.cgstPct2)>0){
+        this.formDocEntry.patchValue({
+          cgstAmt2:(selectedValue*parseFloat(selectedDataVal.cgstPct2)/100),
+        });
+      }
+      if(parseFloat(selectedDataVal.igstPct2)>0){
+        this.formDocEntry.patchValue({
+          igstAmt2:(selectedValue*parseFloat(selectedDataVal.igstPct2)/100),
+        });
+      }
+      this.getTotal();    
+    }
+  }
+
+  onSgst2Change(e: any) {
+    var selectedValue = e.target.value;   
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        sgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+      });
+      this.getTotal();    
+    }    
+  }
+
+  onCgst2Change(e: any) {
+    var selectedValue = e.target.value;   
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        cgstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+      });
+      this.getTotal();    
+    } 
+  }
+  
+  onIgst2Change(e: any) {
+    var selectedValue = e.target.value;   
+    if(parseFloat(selectedValue) > 0){
+      this.formDocEntry.patchValue({
+        igstAmt2:(selectedValue*parseFloat(this.formDocEntry.value.basicAmt2)/100),
+      });
+      this.getTotal();    
+    } 
+  }
+
   getPaymentCreditAcList(e: any){
     this.requestmodel.strRequest= e.toString();
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
@@ -237,46 +424,73 @@ export class AdddocrenewalentryComponent {
     var selectedDataVal=this.formDocEntry.getRawValue();
     this.docRenewalentryModel.docRenewalEntryId = this.selectedDocRenewalEntryDetails.docRenewalEntryId  != '' ? this.selectedDocRenewalEntryDetails.docRenewalEntryId  : '';
     this.docRenewalentryModel.transDate         = selectedDataVal.transDate;
-    this.docRenewalentryModel.docRenewalID      = this.formDocEntry.value.docRenewalID;
-    this.docRenewalentryModel.vehicleMasterID   = this.formDocEntry.value.vehicleMasterID.dataId;
-    this.docRenewalentryModel.documentRefNo     = this.formDocEntry.value.documentRefNo;
-    this.docRenewalentryModel.renewalCompany    = this.formDocEntry.value.renewalCompany;
-    this.docRenewalentryModel.validFromDt       = this.formDocEntry.value.validFromDt;
-    this.docRenewalentryModel.validToDt         = this.formDocEntry.value.validToDt;
-    this.docRenewalentryModel.basicAmt          = this.formDocEntry.value.basicAmt;
-    this.docRenewalentryModel.sgstPct           = this.formDocEntry.value.sgstPct;
-    this.docRenewalentryModel.sgstAmt           = this.formDocEntry.value.sgstAmt;
-    this.docRenewalentryModel.cgstPct           = this.formDocEntry.value.cgstPct;
-    this.docRenewalentryModel.cgstAmt           = this.formDocEntry.value.cgstAmt;
-    this.docRenewalentryModel.igstPct           = this.formDocEntry.value.igstPct;
-    this.docRenewalentryModel.igstAmt           = this.formDocEntry.value.igstAmt;
-    this.docRenewalentryModel.hsnCode1          = this.formDocEntry.value.hsnCode1;
-    this.docRenewalentryModel.basicAmt2         = this.formDocEntry.value.basicAmt2;
-    this.docRenewalentryModel.sgstPct2          = this.formDocEntry.value.sgstPct2;
-    this.docRenewalentryModel.sgstAmt2          = this.formDocEntry.value.sgstAmt2;
-    this.docRenewalentryModel.cgstPct2          = this.formDocEntry.value.cgstPct2;
-    this.docRenewalentryModel.cgstAmt2          = this.formDocEntry.value.cgstAmt2;
-    this.docRenewalentryModel.igstPct2          = this.formDocEntry.value.igstPct2;
-    this.docRenewalentryModel.igstAmt2          = this.formDocEntry.value.igstAmt2;
-    this.docRenewalentryModel.hsnCode2          = this.formDocEntry.value.hsnCode2;
-    this.docRenewalentryModel.nonGstAmount      = this.formDocEntry.value.nonGstAmount;
-    this.docRenewalentryModel.nonGstAmtDesc     = this.formDocEntry.value.nonGstAmtDesc;
-    this.docRenewalentryModel.subTotal          = this.formDocEntry.value.subTotal;
-    this.docRenewalentryModel.roundOff          = this.formDocEntry.value.roundOff;
-    this.docRenewalentryModel.netAmount         = this.formDocEntry.value.netAmount;
-    this.docRenewalentryModel.pmtType           = this.formDocEntry.value.pmtType;
-    this.docRenewalentryModel.creditAc          = this.formDocEntry.value.creditAc;
-    this.docRenewalentryModel.neftPmt           = this.formDocEntry.value.neftPmt;
-    this.docRenewalentryModel.chequeNo          = this.formDocEntry.value.chequeNo;
-    this.docRenewalentryModel.chequeDt          = this.formDocEntry.value.chequeDt;
-    this.docRenewalentryModel.finDocID          = this.formDocEntry.value.finDocID;
-    this.docRenewalentryModel.attach1           = this.formDocEntry.value.attach1;
-    this.docRenewalentryModel.attach2           = this.formDocEntry.value.attach2;
-    this.docRenewalentryModel.remarks           = this.formDocEntry.value.remarks;
-    this.docRenewalentryModel.branchCode        = this.formDocEntry.value.branchCode;
+    this.docRenewalentryModel.docRenewalID      = selectedDataVal.docRenewalID;
+    this.docRenewalentryModel.vehicleMasterID   = selectedDataVal.vehicleMasterID.dataId;
+    this.docRenewalentryModel.documentRefNo     = selectedDataVal.documentRefNo;
+    this.docRenewalentryModel.renewalCompany    = selectedDataVal.renewalCompany;
+    this.docRenewalentryModel.validFromDt       = selectedDataVal.validFromDt;
+    this.docRenewalentryModel.validToDt         = selectedDataVal.validToDt;
+    this.docRenewalentryModel.basicAmt          = selectedDataVal.basicAmt;
+    this.docRenewalentryModel.sgstPct           = selectedDataVal.sgstPct;
+    this.docRenewalentryModel.sgstAmt           = selectedDataVal.sgstAmt;
+    this.docRenewalentryModel.cgstPct           = selectedDataVal.cgstPct;
+    this.docRenewalentryModel.cgstAmt           = selectedDataVal.cgstAmt;
+    this.docRenewalentryModel.igstPct           = selectedDataVal.igstPct;
+    this.docRenewalentryModel.igstAmt           = selectedDataVal.igstAmt;
+    this.docRenewalentryModel.hsnCode1          = selectedDataVal.hsnCode1;
+    this.docRenewalentryModel.basicAmt2         = selectedDataVal.basicAmt2;
+    this.docRenewalentryModel.sgstPct2          = selectedDataVal.sgstPct2;
+    this.docRenewalentryModel.sgstAmt2          = selectedDataVal.sgstAmt2;
+    this.docRenewalentryModel.cgstPct2          = selectedDataVal.cgstPct2;
+    this.docRenewalentryModel.cgstAmt2          = selectedDataVal.cgstAmt2;
+    this.docRenewalentryModel.igstPct2          = selectedDataVal.igstPct2;
+    this.docRenewalentryModel.igstAmt2          = selectedDataVal.igstAmt2;
+    this.docRenewalentryModel.hsnCode2          = selectedDataVal.hsnCode2;
+    this.docRenewalentryModel.nonGstAmount      = selectedDataVal.nonGstAmount;
+    this.docRenewalentryModel.nonGstAmtDesc     = selectedDataVal.nonGstAmtDesc;
+    this.docRenewalentryModel.subTotal          = selectedDataVal.subTotal;
+    this.docRenewalentryModel.roundOff          = selectedDataVal.roundOff;
+    this.docRenewalentryModel.netAmount         = selectedDataVal.netAmount;
+    this.docRenewalentryModel.pmtType           = selectedDataVal.pmtType;
+    this.docRenewalentryModel.creditAc          = selectedDataVal.creditAc;
+    this.docRenewalentryModel.neftPmt           = selectedDataVal.neftPmt;
+    this.docRenewalentryModel.chequeNo          = selectedDataVal.chequeNo;
+    this.docRenewalentryModel.chequeDt          = selectedDataVal.chequeDt == '' ? selectedDataVal.transDate:selectedDataVal.chequeDt;
+    this.docRenewalentryModel.finDocID          = selectedDataVal.finDocID;
+    this.docRenewalentryModel.remarks           = selectedDataVal.remarks;
+    this.docRenewalentryModel.branchCode        = selectedDataVal.branchCode;
     this.docRenewalentryModel.yearID            = this.year;
     this.docRenewalentryModel.loggedInUser      = this.loggedInUserID;
 
+    this.docRenewalentryModel.attach1           = this.attach1Input.nativeElement.files[0]?this.attach1Input.nativeElement.files[0]:'';
+    this.docRenewalentryModel.attach2           = this.attach2Input.nativeElement.files[0]?this.attach2Input.nativeElement.files[0]:'';
+
+    //Start date end date validation
+    if (parseFloat(this.docRenewalentryModel.netAmount) == 0) {
+      this.toasterService.warning("Net Amount should not be Zero");
+      return;
+    }
+    //Start date end date validation
+    if (Date.parse(this.docRenewalentryModel.validFromDt) > Date.parse(this.docRenewalentryModel.validToDt)) {
+      this.toasterService.warning("End date should be greater than start date");
+      return;
+    }
+    if(this.docRenewalentryModel.docRenewalEntryId==''){
+      this.docrenewalEntryService.chkDocrenewalValidity(this.docRenewalentryModel).subscribe((res: Responsemodel) => {
+        this.VehicalExistDetails = res;
+        if (this.VehicalExistDetails.status){        
+          console.log(this.VehicalExistDetails.message);
+        }
+        else{
+          this.toasterService.warning(this.VehicalExistDetails.message);
+          this.formDocEntry.patchValue({
+            validFromDt: '',
+            validToDt:''
+          });
+          return;
+        }
+      });
+    }
 
     this.docrenewalEntryService.docrenewalEntryDetailsSubmitted(this.docRenewalentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

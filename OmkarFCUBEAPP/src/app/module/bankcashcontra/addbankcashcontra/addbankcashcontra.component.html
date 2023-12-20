@@ -9,8 +9,8 @@
                         <h4 class="mb-sm-0 font-size-18">Bank Cash Contra</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item">Bank Cash Contra</li>
-                                <li class="breadcrumb-item active">Bank Cash Contra</li>
+                                <!-- <li class="breadcrumb-item">Bank Cash Contra</li>
+                                <li class="breadcrumb-item active">Bank Cash Contra</li> -->
                             </ol>
                         </div>
                     </div>
@@ -22,8 +22,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4">Details</h4>                                    
+                                <div class="card-body">                                  
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document Series</label>
@@ -53,7 +52,9 @@
                                                     {{branch.dataName}}
                                                 </option>
                                             </select>                
-                                        </div>                              
+                                        </div>            
+                                    </div>  <br />                                  
+                                    <div class="row">                                  
                                         <div class="col-lg-3">                                
                                             <div class="form-check">
                                                 <input type="checkbox" formControlName="neftPmt" 
@@ -61,9 +62,7 @@
                                                 <label for="neft" class="form-check-label"> NEFT / RTGS, Bank Charges, Bank Interest, EMI, ECS Payment
                                                 </label>
                                             </div>                          
-                                        </div>                
-                                    </div>  <br />                                  
-                                    <div class="row">                    
+                                        </div>                    
                                         <div class="col-lg-3">    
                                                 <label for="formrow-inputZip">Utr No</label>
                                                 <input uppercaseonly class="form-control" placeholder=""  formControlName="utrNo">
@@ -126,7 +125,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md"
+                            <button class="btn btn-primary w-md" *ngIf="editStatus && createStatus"
                                 (click)="submitBankCashContraForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteBankCashContraForm()">Delete</button>&nbsp;

@@ -72,25 +72,6 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("FinAccountsMasterDelete")]
-        public async Task<IActionResult> FinAccountsMasterDelete(Request req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await finAccountsMasterBusiness.FinAccountsMasterDelete(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
 
         [HttpPost("GetFinActLedgertype")]
         public async Task<IActionResult> GetFinActLedgertype()

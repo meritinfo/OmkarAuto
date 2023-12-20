@@ -38,10 +38,13 @@ namespace FleetTrans.Business
         {
             return await docRenewalEntryRepository.GetDocRenewalList();
         }
-
         public async Task<List<DropDownListModel>> GetPaymentCreditAcList(Request request) 
         { 
             return await docRenewalEntryRepository.GetPaymentCreditAcList(request);
+        }        
+        public async Task<ResponseModel> ChkDocrenewalValidity(DocRenewalEntryModel docRenewalEntryModel)
+        {
+            return await docRenewalEntryRepository.ChkDocrenewalValidity(docRenewalEntryModel);
         }
 
     }

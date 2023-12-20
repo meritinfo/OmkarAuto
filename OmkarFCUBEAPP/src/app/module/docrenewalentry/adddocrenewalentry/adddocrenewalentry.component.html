@@ -51,7 +51,7 @@
                                                 </select>                                                
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Doc Renewal </label><span style="color: red">*</span>
                                                 <select id="formrow-inputState" class="form-control" 
@@ -94,18 +94,20 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Valid From</label>                                             
+                                                <label for="formrow-inputZip">Valid From</label><span style="color: red">*</span>                                             
                                                 <input type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy" 
-                                                formControlName="validFromDt" class="form-control">
+                                                formControlName="validFromDt" class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['validFromDt'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Valid Upto</label>                                                
+                                                <label for="formrow-inputCity">Valid Upto</label><span style="color: red">*</span>                                                 
                                                 <input type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy"
-                                                formControlName="validToDt"  class="form-control">
+                                                formControlName="validToDt"  class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['validToDt'].invalid) }" >
                                                 
                                             </div>
                                         </div>
@@ -144,15 +146,25 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Basic Amount</label>                                              
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="basicAmt" maxlength="10"
+                                                formControlName="basicAmt" (change)="onBasic1Change($event)" 
+                                                maxlength="10"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['basicAmt'].invalid) }"> 
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">HSN Code</label>
+                                                <input type="text" class="form-control" uppercaseonly
+                                                formControlName="hsnCode1" maxlength="15"
+                                                [ngClass]=>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">SGST Pct</label>                                               
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="sgstPct" maxlength="5"
+                                                formControlName="sgstPct" (change)="onSgst1Change($event)" 
+                                                maxlength="5"
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -162,18 +174,19 @@
                                                 <input type="text" class="form-control" decimalonly
                                                 formControlName="sgstAmt" maxlength="10"
                                                 [ngClass]=>
-                                         </div>
+                                            </div>
                                         </div>
+                                    </div>  
+                                    <div class="row">                                            
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">CGST Pct</label>                                               
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="cgstPct" maxlength="5"
+                                                formControlName="cgstPct" (change)="onCgst1Change($event)" 
+                                                maxlength="5"
                                                 [ngClass]=>
                                             </div>
-                                        </div>
-                                    </div>  
-                                    <div class="row">                                        
+                                        </div>                                    
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">CGST Amount</label>
@@ -186,7 +199,8 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">IGST Pct</label>                                             
                                                 <input type="text" class="form-control" decimalonly
-                                                formControlName="igstPct" maxlength="5"
+                                                formControlName="igstPct" (change)="onIgst1Change($event)"
+                                                 maxlength="5"
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -198,30 +212,31 @@
                                                 [ngClass]=>
                                             </div>
                                         </div>
+                                    </div>                                         
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">HSN Code</label>
+                                                <label for="formrow-inputCity">Basic Amount2</label>                                                  
                                                 <input type="text" class="form-control"
-                                                formControlName="hsnCode1" maxlength="15"
+                                                formControlName="basicAmt2" decimalonly 
+                                                (change)="onBasic2Change($event)" maxlength="10"
                                                 [ngClass]=>
                                             </div>
                                         </div>
-                                    </div>  
-                                       
-                                        <div class="row">
-                                            <div class="col-lg-2">
-                                                <div class="mb-2">
-                                                    <label for="formrow-inputCity">Basic Amount2</label>                                                  
-                                                    <input type="text" class="form-control"
-                                                    formControlName="basicAmt2" decimalonly maxlength="10"
-                                                    [ngClass]=>
-                                                </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">HSN Code2</label>
+                                                <input autoclose="false" uppercaseonly class="form-control"  
+                                                formControlName="hsnCode2" maxlength="15"
+                                                [ngClass]=>
                                             </div>
+                                        </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">SGST Pct2</label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="sgstPct2" decimalonly  maxlength="5"
+                                                formControlName="sgstPct2" decimalonly  
+                                                (change)="onSgst2Change($event)" maxlength="5"
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -231,18 +246,18 @@
                                                 <input autoclose="false" class="form-control" 
                                                 formControlName="sgstAmt2" decimalonly maxlength="10">
                                             </div>
-                                        </div>
+                                        </div>                                     
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">CGST Pct2</label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="cgstPct2" decimalonly maxlength="5"
+                                                formControlName="cgstPct2" decimalonly 
+                                                (change)="onCgst2Change($event)" maxlength="5"
                                                 [ngClass]=>
                                             </div>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="row">
+                                        </div>  
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">CGST Amount2 </label>
@@ -255,7 +270,8 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">IGST Pct2 </label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="igstPct2" decimalonly maxlength="5"
+                                                formControlName="igstPct2" decimalonly 
+                                                (change)="onIgst2Change($event)" maxlength="5"
                                                 [ngClass]=>
                                             </div>
                                         </div>
@@ -268,30 +284,6 @@
                                                 [ngClass]=>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">HSN Code2</label>
-                                                <input autoclose="false" class="form-control"  
-                                                formControlName="hsnCode2" maxlength="15"
-                                                [ngClass]=>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">Non Gst Amount</label>
-                                                <input autoclose="false" class="form-control"  decimalonly
-                                                formControlName="nonGstAmount">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">Non Gst Amount Desc</label>
-                                                <input autoclose="false" class="form-control" 
-                                                formControlName="nonGstAmtDesc">
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-2">
@@ -300,13 +292,12 @@
                                                 <input autoclose="false" class="form-control"  decimalonly
                                                 formControlName="subTotal">
                                             </div>
-                                        </div>
-                                      
+                                        </div>                                      
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Round Off</label>
-                                                <input autoclose="false" class="form-control" decimalonly
-                                                formControlName="roundOff">
+                                                <input autoclose="false" class="form-control" negdecimalonly
+                                                (change)="onRounding($event)" formControlName="roundOff">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -317,10 +308,25 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">                                        
+                                    <div class="row">
                                         <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Non Gst Amount</label>
+                                                <input autoclose="false" class="form-control"  decimalonly
+                                                (change)="onNonGstChange($event)" formControlName="nonGstAmount">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Non Gst Amount Desc</label>
+                                                <input autoclose="false" class="form-control"  uppercaseonly
+                                                formControlName="nonGstAmtDesc">
+                                            </div>
+                                        </div>                                    
+                                        <div class="col-lg-4">
                                             <div class="mb-2"><label for="formrow-inputCity">Credit Account</label>
                                                 <select class="form-control" formControlName="creditAc"
+                                                class="form-control form-select ng-pristine ng-touched"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }"> 
                                                     <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
                                                         {{crd.dataName}}
@@ -328,18 +334,21 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">    
                                         <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">Neft Pmt </label>
-                                                <input autoclose="false" class="form-control" 
-                                                formControlName="neftPmt" >
+                                            <div class="mb-2"><br />
+                                                <input type="checkbox" formControlName="neftPmt" id="neft"
+                                                  value="Y" (change)="onNeftChk($event)"  name="neft" class="form-check-input" >
+                                                <label for="neft" class="form-check-label"> Neft Pmt </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Cheque No</label>
                                                 <input autoclose="false" class="form-control" 
-                                                formControlName="chequeNo" >
+                                                formControlName="chequeNo" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid) }"> 
                                             </div>
                                         </div>                                   
                                         <div class="col-lg-2">
@@ -347,30 +356,24 @@
                                                 <label for="formrow-inputZip">Cheque Date  </label>
                                                 <input bsdatepicker="" type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy" formControlName="chequeDt"
-                                                class="form-control">
+                                                class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDt'].invalid) }"> 
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">  
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Fin Doc ID </label>
-                                                <input autoclose="false" class="form-control" 
-                                                formControlName="finDocID">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">Attach1 </label>
-                                                <input autoclose="false" class="form-control" 
-                                                formControlName="attach1">
+                                                <label for="formrow-inputZip">Attach1 </label>                          
+                                                <input #attach1Input class="form-control" type="file" id="formAttach1File"
+                                                accept="image/*">
                                             </div>
                                         </div> 
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Attach2 </label>
-                                                <input autoclose="false" class="form-control"  
-                                                formControlName="attach2" >
+                                                <label for="formrow-inputZip">Attach2 </label>                            
+                                                <input #attach2Input class="form-control" type="file" id="formAttach2File"
+                                                accept="image/*">
                                             </div>
                                         </div>
                                     </div>

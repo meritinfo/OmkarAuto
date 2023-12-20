@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { bankreceiptentrylistmodel  } from 'src/app/models/bankreceiptentrylistmodel';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
@@ -6,6 +6,8 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
+import { SharedService } from 'src/app/services/shared.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-bankcashcontralist',
@@ -14,7 +16,15 @@ import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 })
 
 export class BankcashcontralistComponent {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+
   allBankCashcontra: bankreceiptentrylistmodel = new bankreceiptentrylistmodel();
   filter: Cashbankfiltermodel = {
     pageNumber: 1,
@@ -27,7 +37,6 @@ export class BankcashcontralistComponent {
     branch:'',
     receiptOrPayment: '',
   }
-
   
   formFilter!: FormGroup;
   year: string = '';
@@ -37,12 +46,27 @@ export class BankcashcontralistComponent {
   minDate: string = '';
   branch:string ='';
 
+
   constructor(private cashReceiptEntryService: CashReceiptEntryService, 
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
   }
   ngOnInit(): void {
+        
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Bank-Cash Contra Entry");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -75,18 +99,25 @@ export class BankcashcontralistComponent {
       receiptOrPayment: new FormControl('BC',[Validators.required]),  
     });
 
+    this.sharedService.loading=true;
+    this.bankContraList();
+    this.sharedService.loading=false;
+  }
+
+  bankContraList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
           // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
+        // this.filter.search = dataTablesParameters.search.value;
         this.filter.fromDate = this.fromDate;
         this.filter.toDate = this.loginDate;
         this.filter.branch = this.branch;
@@ -152,17 +183,21 @@ export class BankcashcontralistComponent {
      this.route.navigate(['/bankcashcontraedit']);
      }
   
+  
   search(): void {
-    debugger;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "BC" ;
     this.filter.search = selectedDataVal.docSeriesNo;
-    this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
-        this.allBankCashcontra = resp;
-      });
+    this.sharedService.loading=true;
+    this.bankContraList();
+    this.sharedService.loading=false;
+
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
 }
 

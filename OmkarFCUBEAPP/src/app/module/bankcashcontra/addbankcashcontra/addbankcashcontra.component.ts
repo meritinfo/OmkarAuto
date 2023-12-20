@@ -9,6 +9,7 @@ import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Bankdocnofiltermodel } from 'src/app/models/bankdocnofiltermodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addbankcashcontra',
@@ -37,17 +38,19 @@ export class AddbankcashcontraComponent {
 
   
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private bankreceiptentryModel: bankreceiptentrymodel, 
+    private bankreceiptentryModel: bankreceiptentrymodel,  private sharedService: SharedService,
     private cashreceiptentryService: CashReceiptEntryService,
     private toasterService: ToastrService, private commonService: CommonService) {
       this.bankreceiptentryModel = new bankreceiptentrymodel();
   }
 
   ngOnInit(): void {  
+    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Bank-Cash Contra Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -55,6 +58,7 @@ export class AddbankcashcontraComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -79,6 +83,9 @@ export class AddbankcashcontraComponent {
     else {
       this.route.navigate(['/']);
     }
+    
+    this.sharedService.loading=true;
+
     this.getCreditAcList();
     this.selectedBankCashContraDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
@@ -120,6 +127,8 @@ export class AddbankcashcontraComponent {
     else{
       this.getdocno("BC");
     }
+    
+    this.sharedService.loading=false;
   }
 
   getBankReceiptPaymentInnerGridList(): void {
@@ -170,7 +179,8 @@ export class AddbankcashcontraComponent {
   
   deleteBankCashContraForm(): void {
     if(this.selectedBankCashContraDetails.ftmID != '' ){
-     this.requestmodel.strRequest =this.selectedBankCashContraDetails.ftmID
+      this.sharedService.loading=true;
+      this.requestmodel.strRequest =this.selectedBankCashContraDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
@@ -179,6 +189,8 @@ export class AddbankcashcontraComponent {
             window.location.reload();
         });
       }
+      
+      this.sharedService.loading=false;
     }
   }
 
@@ -200,6 +212,7 @@ export class AddbankcashcontraComponent {
       return;
     }
 
+    this.sharedService.loading=true;
     var selectedDataValue=  this.formBankContra.getRawValue();
     this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID != '' ? this.selectedBankCashContraDetails.ftmID : '';
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
@@ -247,6 +260,8 @@ export class AddbankcashcontraComponent {
       this.formBankContra.reset();
       window.location.reload();
     });
+    
+    this.sharedService.loading=false;
   }
 }
 
