@@ -33,12 +33,6 @@ namespace FinanceMasters.Business
         {
             return await finAccountsMasterRepository.GetEmpList();
         }
-        public async Task<ResponseModel> FinAccountsMasterDelete(Request req)
-        {
-            return await finAccountsMasterRepository.FinAccountsMasterDelete(req);
-        }
-
-
 
     }
 }

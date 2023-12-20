@@ -9,7 +9,7 @@
                         <h4 class="mb-sm-0 font-size-18">Accounts/Ledger List</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Accounts/Ledger List</a></li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Accounts/Ledger List</a></li> -->
                                 <!-- <li class="breadcrumb-item active">Group Master</li> -->
                             </ol>
                         </div>
@@ -25,7 +25,7 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                   <button class="btn btn-primary buttons-html5" type="button"
+                   <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                         (click)="addfinaccount()"><span>New</span></button>
                 </div>
             </div>
@@ -43,11 +43,11 @@
                         <tr *ngFor="let actlist of allFinaccounts.finaccountList">
                             <td>{{ actlist.accountName }}</td>
                             <td>{{ actlist.ledgerName }}</td>
-                            <td>{{ actlist.subAccountName }}</td>                         
+                            <td>{{ actlist.subAccountName }}</td> 
                             <td>
-                                <a (click)="getFinsaccountsDetails(actlist)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>                           
-                            </td>
+                                <button type="button" class="btn btn-edit" *ngIf="editStatus"
+                                (click)="getFinsaccountsDetails(actlist)"></button>             
+                            </td>    
                         </tr>
                     </tbody>
                     <tbody *ngIf="allFinaccounts.finaccountList?.length == 0">

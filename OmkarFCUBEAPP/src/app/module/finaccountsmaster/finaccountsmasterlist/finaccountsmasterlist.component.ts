@@ -14,6 +14,11 @@ import { FinsaccountmasterService } from 'src/app/services/finaccountmaster.serv
   styleUrls:['./finaccountsmasterlist.component.css'],
 })
 export class FinaccountsmasterlistComponent {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
   allFinaccounts: Finaccountlistmodel = new Finaccountlistmodel();
   filter: Filtermodel = {
@@ -28,12 +33,28 @@ export class FinaccountsmasterlistComponent {
   }
 
   ngOnInit(): void {
+
+    
+    
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+  
     this.finsaccountmasterService.clearFinsaccountsDetails();
     this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
     serverSide: true,
     processing: true,
+    searching: false,
     ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;

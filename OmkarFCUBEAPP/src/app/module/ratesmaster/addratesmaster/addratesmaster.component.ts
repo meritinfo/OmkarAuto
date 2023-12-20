@@ -323,7 +323,7 @@ export class AddratesmasterComponent implements OnInit {
 
     //Start date end date validation
     if (Date.parse(this.ratesmastermodel.validUpto) < Date.parse(this.ratesmastermodel.validFrom)) {
-      this.toasterService.warning("End date should be greter than start date");
+      this.toasterService.warning("End date should be greater than start date");
       return;
     }
 

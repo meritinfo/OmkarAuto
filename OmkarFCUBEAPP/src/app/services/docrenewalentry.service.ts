@@ -35,6 +35,10 @@ export class DocRenewalEntryService {
     this.selectedDocrenewalentry = new Docrenewalentrymodel();
   }
 
+  chkDocrenewalValidity(user: Docrenewalentrymodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkDocrenewalValidity', user, this.httpOptions);
+  }
+
   docrenewalEntryDetailsSubmitted(user: Docrenewalentrymodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpOptions);
   }

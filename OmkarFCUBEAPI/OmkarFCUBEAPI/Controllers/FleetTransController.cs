@@ -578,6 +578,25 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ChkDocrenewalValidity")]
+        public async Task<IActionResult> ChkDocrenewalValidity(DocRenewalEntryModel docRenewalEntryModel)
+        {
+            if (docRenewalEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalEntryBusiness.ChkDocrenewalValidity(docRenewalEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
 

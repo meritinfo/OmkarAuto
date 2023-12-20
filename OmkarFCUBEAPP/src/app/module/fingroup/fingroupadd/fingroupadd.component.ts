@@ -11,6 +11,7 @@ import { FingroupService } from 'src/app/services/fingroup.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-fingroupadd',
@@ -37,7 +38,7 @@ export class FingroupaddComponent {
   selectedFinGroupMasterDetails = new Fingroupmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private fingroupmodel: Fingroupmodel,
+    private fingroupmodel: Fingroupmodel,private sharedService:SharedService,
     private finGroupService: FingroupService, private commonService: CommonService,
     private requestmodel:Requestmodel,
     private toasterService: ToastrService) {
@@ -79,7 +80,8 @@ ngOnInit(): void {
     subAccountType: new FormControl('',[Validators.required]),
     schID: new FormControl('',[Validators.required]),
   });  
- 
+    
+  this.sharedService.loading = true;
   this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
   
   if (this.selectedFinGroupMasterDetails.accountId != ''){
@@ -87,8 +89,7 @@ ngOnInit(): void {
   }
   this.getaccounttypes();
   this.getsubaccounttypes(this.requestmodel);
-  this.getschedulelist();  
-
+  this.getschedulelist();     
  
   setTimeout(() => {
     if (this.selectedFinGroupMasterDetails.accountId != '') {
@@ -97,6 +98,7 @@ ngOnInit(): void {
       }
   }, 2000);
   
+  this.sharedService.loading = false;
 }
 // convenience getter for easy access to contact form fields
 get f() { return this.formFinGroup.controls; }
@@ -104,6 +106,7 @@ get f() { return this.formFinGroup.controls; }
 chkActName(e: any) {
     if (this.selectedFinGroupMasterDetails.accountId == "")
     {
+      this.sharedService.loading = true;
       this.requestmodel.strRequest = e.target.value; 
       this.finGroupService.chkActName(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
@@ -114,20 +117,31 @@ chkActName(e: any) {
           });
         }
       });
+      this.sharedService.loading = false;
     }
   }
 
   deleteFinGroupMasterForm(): void {
-    if(this.selectedFinGroupMasterDetails.accountId != '' ){
+    if(this.selectedFinGroupMasterDetails.accountId != '' ){      
+    this.sharedService.loading = true;
      this.requestmodel.strRequest =this.selectedFinGroupMasterDetails.accountId
       if (confirm("Are you sure, you want to delete this?")) {
             this.finGroupService.FinGroupDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formFinGroup.reset();
-            window.location.reload();
+            this.responseDetails = res; 
+            if (this.responseDetails.status){              
+              console.log(this.responseDetails.message);
+              this.formFinGroup.reset();
+              window.location.reload();
+            } 
+            else{
+              console.log(this.responseDetails.message);  
+              this.toasterService.warning(this.responseDetails.message);  
+              return; 
+            }   
         });
       }
+      
+    this.sharedService.loading = false;
     }
   }
   exit(): void {
@@ -172,7 +186,7 @@ submitFinGroupMasterForm(): void {
     }           
     return;
   }
-
+  
   this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
   this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
   this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
@@ -180,12 +194,14 @@ submitFinGroupMasterForm(): void {
   this.fingroupmodel.schID= this.formFinGroup.value.schID;
   this.fingroupmodel.loggedInUserID= this.loggedInUserID;
 
+  this.sharedService.loading = true;
   this.finGroupService.fingroupDetailsSubmitted(this.fingroupmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     console.log(this.responseDetails.message);
     this.formFinGroup.reset();
     window.location.reload();
-  });
+  });  
+  this.sharedService.loading = false;
 }
 }
 

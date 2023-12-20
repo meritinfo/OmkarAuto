@@ -134,6 +134,7 @@ import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
 import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
 import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
+import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 
 @NgModule({
   declarations: [
@@ -220,6 +221,7 @@ import { OthertripopenlistComponent } from './module/othertripopen/othertripopen
     FinaccountsmasteraddComponent,
     AddothertripopenComponent,
     OthertripopenlistComponent,
+    NegdecimalonlyDirective,
   ],
   imports: [
     BrowserModule,

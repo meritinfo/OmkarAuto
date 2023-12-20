@@ -13,7 +13,6 @@ namespace FinanceMasters.Business
         Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetFinActLedgertype();
         Task<List<DropDownListModel>> GetEmpList();
-        Task<ResponseModel> FinAccountsMasterDelete(Request req);
     }
 
 }
