@@ -77,7 +77,7 @@ export class ConsignmentaddComponent implements OnInit {
   ivVehicleNo = '';
   billstation = '';
   editMode = false;
-  createmode  = false;
+  createmode  = true;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -89,6 +89,17 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Consignment/LR Entry");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -189,7 +200,10 @@ export class ConsignmentaddComponent implements OnInit {
     setTimeout(() => {
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
+
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
+      
+        this.formConsignment.controls['ewayBillNo'].disable();
         this.formConsignment.controls['bookingPlace'].disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
@@ -218,8 +232,10 @@ export class ConsignmentaddComponent implements OnInit {
           gcSeries: this.selectedConsignmentDetails.gcSeries,
           truckId: this.vehicleList.find(e => e.dataId == this.selectedConsignmentDetails.truckId),
           billingParty: this.partyList.find(e => e.dataId == this.selectedConsignmentDetails.billingParty),
+          
 
         })
+        this.editMode = true;
       }
     }, 2000);
 
@@ -243,6 +259,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.rateList = res;
     });
   }
+
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {

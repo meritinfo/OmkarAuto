@@ -63,6 +63,18 @@ export class AddtrippaymentsComponent {
 
   }
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Trip Payments");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -86,6 +98,7 @@ export class AddtrippaymentsComponent {
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
+    
    
     //this.changeEWay();
     this.getBranchList();
@@ -183,8 +196,9 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['pmtDate'].disable();
   }, 2000);
 
+
   }
-  
+ 
   getValidation(): void {
    // this.formTripPayment.controls['pmtBranch'].disable();
  //   this.formTripPayment.controls['pmtDate'].disable();
@@ -234,6 +248,7 @@ export class AddtrippaymentsComponent {
   exit(): void {
     this.route.navigate(['/trippaymentslist']);
   }
+  
   getCreditAcList(){
     //this.tripVehicleDetails.vehicleMasterId =  e;
      // this.ptype = e;
@@ -322,6 +337,7 @@ export class AddtrippaymentsComponent {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+  
 
   onFocused(e: any) {
     // do something
@@ -346,7 +362,11 @@ export class AddtrippaymentsComponent {
       this.locationList = res;
     });
   }
- 
+  deleteTripPaymentForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
+  }
   changeTransType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;

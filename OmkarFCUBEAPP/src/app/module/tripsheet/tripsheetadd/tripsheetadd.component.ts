@@ -84,6 +84,11 @@ export class TripsheetaddComponent {
   ivVehicleNo = '';
   billstation = '';
   ivFromPlace = '';
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   destinationid2 = '';
   destinationid3 = '';
   ivNewFromPlace = '';
@@ -103,6 +108,18 @@ export class TripsheetaddComponent {
   }
   ngOnInit(): void {
     this.sharedService.loading = true;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Trip Sheet");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -286,6 +303,7 @@ export class TripsheetaddComponent {
       this.editMode = true;
       // this.GetOpeningBal();
     }, 2000);
+    this.editMode = true;
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formTripsheet.controls; }
@@ -481,10 +499,16 @@ export class TripsheetaddComponent {
       this.locationList = res;
     });
   }
+  
   getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
       this.driverList = res;
     });
+  }
+  deleteTripsheetForm(): void {
+    if (confirm("Are you sure, you want to delete this?")) {
+
+    }
   }
   selectNewEvent(item: any) {
     this.driverid = item.dataId;
@@ -731,7 +755,8 @@ export class TripsheetaddComponent {
       this.kmsDetails.fromLocation = this.ivFromPlace;
       this.kmsDetails.toLocation = this.ivToPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
-      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+     // this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+     this.kmsDetails.transDate = selectedDataValue.newTripDate;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
         // if (this.tripkmsDetails.status) {
@@ -938,7 +963,8 @@ export class TripsheetaddComponent {
       this.kmsDetails.fromLocation = this.ivToPlace;
       this.kmsDetails.toLocation = this.ivNewFromPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
-      this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+     // this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+     this.kmsDetails.transDate = selectedDataValue.newTripDate;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
         //  // if (this.tripkmsDetails.status) {
@@ -1148,9 +1174,9 @@ export class TripsheetaddComponent {
     let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_1)
     let dt2 = this.commonService.formatDate(selectedDataValue.newTripDate)
     //calculation
-    var date1 = new Date(dt1);
-    var date2 = new Date(dt2);
-    var date3 = new Date(dt3);
+    var date1 = new Date(selectedDataValue.reportingDt_1);
+    var date2 = new Date(selectedDataValue.newTripDate);
+    var date3 = new Date( selectedDataValue.expectedReportingDt);
 
     // To calculate the time difference of two dates
     var Difference_In_Time = date2.getTime() - date1.getTime();
@@ -1236,11 +1262,11 @@ export class TripsheetaddComponent {
     //this.date1 = (date).toISOString();
     // this.date1 = this.date1.split("T")[0];
     // let currentDate = new Date();
-    let dt3 = this.commonService.formatDate(selectedDataValue.nextExpectedReportingDt)
+    let dt3 = selectedDataValue.nextExpectedReportingDt
     // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
-    let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
+    let dt1 = selectedDataValue.reportingDt_2
     // let dt2 = this.commonService.formatDate(selectedDataValue.newTripDate)
-    let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+    let dt2 = selectedDataValue.deliveryDate
     //calculation
     var date1 = new Date(dt1);
     var date2 = new Date(dt2);
@@ -1570,15 +1596,11 @@ export class TripsheetaddComponent {
       return
     }
     var selectedDataValue = this.formTripsheet.getRawValue();
-    //  let date = selectedDataValue.expectedReportingDt;
-    // date.setDate(date.getDate() )
-    //this.date1 = (date).toISOString();
-    // this.date1 = this.date1.split("T")[0];
-    // let currentDate = new Date();
-    //  let dt3= this.commonService.formatDate(selectedDataValue.expectedReportingDt)
-    // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
-    let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_1)
-    let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+
+  //  let dt1 = this.commonService.formatDate(selectedDataValue.reportingDt_1)
+  //  let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+  let dt1 = selectedDataValue.reportingDt_1
+    let dt2 = selectedDataValue.deliveryDate
     //calculation
     var date1 = new Date(dt1);
     var date2 = new Date(dt2);
@@ -1706,7 +1728,7 @@ export class TripsheetaddComponent {
     this.getAdBlueToBe();
     this.getDslToBe();
     this.getBhattaRate();
-    this.checkTripkMs();
+   // this.checkTripkMs();
     // this.commonDetailUpdate();
     // this.totalCal();
   }
