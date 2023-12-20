@@ -6,13 +6,12 @@ import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
-import { bankreceiptentrylistmodel } from 'src/app/models/bankreceiptentrylistmodel';
 import { CommonService } from 'src/app/services/common.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Bankdocnofiltermodel } from 'src/app/models/bankdocnofiltermodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addbankreceiptentry',
@@ -40,7 +39,7 @@ export class AddbankreceiptentryComponent {
   viewStatus = false; 
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private bankreceiptentryModel: bankreceiptentrymodel, 
+    private bankreceiptentryModel: bankreceiptentrymodel, private sharedService: SharedService,
     private cashreceiptentryService: CashReceiptEntryService,
     private toasterService: ToastrService, private commonService: CommonService) {
     this.bankreceiptentryModel = new bankreceiptentrymodel();
@@ -51,7 +50,8 @@ export class AddbankreceiptentryComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Bank Receipts & Payments Voucher Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -84,6 +84,9 @@ export class AddbankreceiptentryComponent {
     else {
       this.route.navigate(['/']);
     }
+    
+    this.sharedService.loading=true;
+
     this.getCreditAcList();
     this.selectedBankReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
@@ -124,6 +127,8 @@ export class AddbankreceiptentryComponent {
     else{
       this.getdocno("BP");
     }
+    
+    this.sharedService.loading=false;
   }
 
   
@@ -230,8 +235,9 @@ export class AddbankreceiptentryComponent {
 
   
   deleteBankRceiptPaymentsForm(): void {
-    if(this.selectedBankReceiptEntryDetails.ftmID != '' ){
-     this.requestmodel.strRequest =this.selectedBankReceiptEntryDetails.ftmID
+    if(this.selectedBankReceiptEntryDetails.ftmID != '' ){      
+      this.sharedService.loading=true;
+      this.requestmodel.strRequest =this.selectedBankReceiptEntryDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
@@ -240,6 +246,8 @@ export class AddbankreceiptentryComponent {
             window.location.reload();
         });
       }
+      
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -265,6 +273,7 @@ export class AddbankreceiptentryComponent {
     }
 
 
+    this.sharedService.loading=true;
     var selectedDataValue = this.formBankRecEntry.getRawValue();
     this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID != '' ? this.selectedBankReceiptEntryDetails.ftmID : '';
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
@@ -326,6 +335,8 @@ export class AddbankreceiptentryComponent {
       this.formBankRecEntry.reset();
       window.location.reload();
     });
+    
+    this.sharedService.loading=false;
   }
 }
 

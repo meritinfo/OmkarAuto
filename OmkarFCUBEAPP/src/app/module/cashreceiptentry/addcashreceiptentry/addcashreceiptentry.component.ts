@@ -9,6 +9,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addcashreceiptentry',
@@ -36,7 +37,7 @@ export class AddcashreceiptentryComponent {
   docNoFilter= new Bankdocnofiltermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private bankrecEntrymodel: bankreceiptentrymodel, 
+    private bankrecEntrymodel: bankreceiptentrymodel,  private sharedService: SharedService,
     private cashreceiptentryService: CashReceiptEntryService, private toasterService: ToastrService, 
     private commonService: CommonService) {
     this.bankrecEntrymodel = new bankreceiptentrymodel();  
@@ -47,7 +48,8 @@ export class AddcashreceiptentryComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Cash Receipts & Payments Voucher Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -55,6 +57,7 @@ export class AddcashreceiptentryComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
@@ -79,6 +82,7 @@ export class AddcashreceiptentryComponent {
       this.route.navigate(['/']);
     }
     
+    this.sharedService.loading=true;
     this.getCreditAcList();
     this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
@@ -119,6 +123,7 @@ export class AddcashreceiptentryComponent {
     else{
       this.getdocno("CP");
     }
+    this.sharedService.loading=false;
   }
 
 
@@ -224,7 +229,8 @@ export class AddcashreceiptentryComponent {
 
   
   deleteCashReceiptPaymentsForm(): void {
-    if(this.selectedCashReceiptEntryDetails.ftmID != '' ){
+    if(this.selectedCashReceiptEntryDetails.ftmID != '' ){      
+      this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedCashReceiptEntryDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -233,7 +239,8 @@ export class AddcashreceiptentryComponent {
             this.formCashRRecEntry.reset();
             window.location.reload();
         });
-      }
+      }      
+    this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -258,6 +265,7 @@ export class AddcashreceiptentryComponent {
         return;
       }
 
+      this.sharedService.loading=true;
     var selectedDataValue=  this.formCashRRecEntry.getRawValue();
     this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID != '' ? this.selectedCashReceiptEntryDetails.ftmID : '';
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
@@ -320,6 +328,8 @@ export class AddcashreceiptentryComponent {
       this.formCashRRecEntry.reset();
       window.location.reload();
     });
+    
+    this.sharedService.loading=false;
   }
 }
 

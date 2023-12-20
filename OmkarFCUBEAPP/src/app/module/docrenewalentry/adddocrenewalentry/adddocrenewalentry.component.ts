@@ -483,6 +483,10 @@ export class AdddocrenewalentryComponent {
         }
         else{
           this.toasterService.warning(this.VehicalExistDetails.message);
+          this.formDocEntry.patchValue({
+            validFromDt: '',
+            validToDt:''
+          });
           return;
         }
       });

@@ -16,6 +16,12 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./drivermasterlist.component.css']
 })
 export class DrivermasterlistComponent {
+  
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -31,10 +37,25 @@ export class DrivermasterlistComponent {
 
   formFilter!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private drivermasterService: DrivermasterService, private route: Router, private excelService: ExcelService, private pdfService: PdfService) {
+  constructor(private formBuilder: FormBuilder, private drivermasterService: DrivermasterService, 
+    private route: Router, private excelService: ExcelService, private pdfService: PdfService) {
   }
 
   ngOnInit(): void {
+    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Driver Master");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
     this.drivermasterService.clearDriverMasterDetails();
     this.formFilter = this.formBuilder.group({
       driverName: new FormControl(''),
@@ -119,7 +140,7 @@ export class DrivermasterlistComponent {
     this.filter.search = this.formFilter.value.driverName;
     this.driverMasterList();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();;
+      dtInstance.ajax.reload();
     });
   }
 

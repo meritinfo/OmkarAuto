@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { bankreceiptentrylistmodel  } from 'src/app/models/bankreceiptentrylistmodel';
 import { bankreceiptentrymodel } from 'src/app/models/bankreceiptentrymodel';
@@ -6,6 +6,8 @@ import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { DataTableDirective } from 'angular-datatables';
 
 
 
@@ -15,7 +17,16 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./cashreceiptentrylist.component.css']
 })
 export class CashreceiptentrylistComponent {
+  
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false; 
+
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  
   allCashReceiptEntry: bankreceiptentrylistmodel = new bankreceiptentrylistmodel();
   filter: Cashbankfiltermodel = {
     pageNumber: 1,
@@ -38,12 +49,26 @@ export class CashreceiptentrylistComponent {
   branch:string ='';
 
   constructor(private cashReceiptEntryService: CashReceiptEntryService, 
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
   }
 
   ngOnInit(): void {   
+
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Cash Receipts & Payments Voucher Entry");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
     var userData = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.branch = userData;
@@ -75,6 +100,13 @@ export class CashreceiptentrylistComponent {
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('CP',[Validators.required]),  
     });
+    
+    this.sharedService.loading=true;
+    this.cashReceiptEntry();
+    this.sharedService.loading=false;
+  }
+
+  cashReceiptEntry(){
 
     this.dtOptions = {
         pagingType: 'full_numbers',
@@ -153,15 +185,19 @@ export class CashreceiptentrylistComponent {
     this.route.navigate(['/cashreceiptentryedit']);
   }
 
+    
   search(): void {
-    debugger;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "CP" :selectedDataVal.receiptOrPayment ;
-    this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
-        this.allCashReceiptEntry = resp;
-      });
+    this.sharedService.loading=true;
+    this.cashReceiptEntry();
+    this.sharedService.loading=false;
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
 }

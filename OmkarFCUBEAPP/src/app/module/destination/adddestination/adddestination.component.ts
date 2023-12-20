@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Branchmodel } from 'src/app/models/branchmodel';
 import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Usermodel } from 'src/app/models/usermodel';
+import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DestinationService } from 'src/app/services/destination.service';
-import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-adddestination',
   templateUrl: './adddestination.component.html',
@@ -34,7 +32,8 @@ export class AdddestinationComponent {
   List: Dropdownmodel[] = [];
   selectedDestinationDetails = new Destinationmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, 
+  constructor(private route: Router, private formBuilder: FormBuilder,
+    private sharedService: SharedService, 
     private destinationModel: Destinationmodel, private destinationService: DestinationService, 
     private commonService: CommonService, private requestmodel:Requestmodel,
      private toasterService: ToastrService ) {
@@ -47,7 +46,8 @@ export class AdddestinationComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Create Destinations");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -67,6 +67,9 @@ export class AdddestinationComponent {
     else {
       this.route.navigate(['/']);
     }
+    
+    this.sharedService.loading=true;
+
     this.getBranchList();
     this.getStateList();
 
@@ -82,7 +85,9 @@ export class AdddestinationComponent {
     if (this.selectedDestinationDetails.centreid != '') {
       this.formUser.patchValue(this.selectedDestinationDetails);          
       this.editMode = true;
-    }   
+    }  
+    
+    this.sharedService.loading=false; 
   }
 
   // convenience getter for easy access to contact form fields
@@ -103,7 +108,8 @@ export class AdddestinationComponent {
   }
 
   deleteDestinationForm(): void {
-    if(this.selectedDestinationDetails.centreid != '' ){
+    if(this.selectedDestinationDetails.centreid != '' ){      
+    this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedDestinationDetails.centreid
       if (confirm("Are you sure, you want to delete this?")) {
             this.destinationService.destinationDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -113,6 +119,8 @@ export class AdddestinationComponent {
             window.location.reload();
         });
       }
+      
+    this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -134,6 +142,7 @@ export class AdddestinationComponent {
       return;
     }
 
+    this.sharedService.loading=true;
     this.destinationModel.centreid = this.selectedDestinationDetails.centreid != '' ? this.selectedDestinationDetails.centreid : '';
     var selectedDataValue = this.formUser.getRawValue();
     this.destinationModel.centreName      = selectedDataValue.centreName.toString().toUpperCase();
@@ -147,7 +156,8 @@ export class AdddestinationComponent {
       console.log(this.responseDetails.message);
       this.formUser.reset();
       window.location.reload();
-    });
+    });    
+    this.sharedService.loading=false;
   }
 }
 

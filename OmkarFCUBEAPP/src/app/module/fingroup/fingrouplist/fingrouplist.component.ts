@@ -7,6 +7,7 @@ import { Fingrouplistmodel } from 'src/app/models/fingrouplistmodel';
 import { FingroupService } from 'src/app/services/fingroup.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-fingrouplist',
@@ -20,6 +21,8 @@ export class FingrouplistComponent {
   deleteStatus = false;
   viewStatus = false;
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
 
   allFingrouplistTypes: Fingrouplistmodel = new Fingrouplistmodel();
   filter: Filtermodel = {
@@ -35,13 +38,12 @@ export class FingrouplistComponent {
     private sharedService: SharedService) {
   }
 
-  ngOnInit(): void {
-
-    
+  ngOnInit(): void {    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Group Master");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -50,11 +52,11 @@ export class FingrouplistComponent {
       }
     }
   
-    this.sharedService.loading = true;
     this.fingroupService.clearFingroupDetails();
     this.formFilter = this.formBuilder.group({
       groupName: new FormControl(''),
     });
+    this.sharedService.loading = true;
     this.fingrouplist();       
     this.sharedService.loading = false;
   }
@@ -73,7 +75,7 @@ export class FingrouplistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = '';      
+        // this.filter.search = '';      
         this.fingroupService.getfingroupList(this.filter)
           .subscribe(resp => {
             this.allFingrouplistTypes = resp;  
@@ -119,14 +121,13 @@ export class FingrouplistComponent {
   }
   
   search(): void {
-    debugger;
-    this.filter.search = this.formFilter.value.groupName;     
+    this.filter.search = this.formFilter.value.groupName;
     this.sharedService.loading = true;
-    this.fingroupService.getfingroupList(this.filter)
-      .subscribe(resp => {
-        this.allFingrouplistTypes = resp;
-      });           
+    this.fingrouplist();       
     this.sharedService.loading = false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
 
 }

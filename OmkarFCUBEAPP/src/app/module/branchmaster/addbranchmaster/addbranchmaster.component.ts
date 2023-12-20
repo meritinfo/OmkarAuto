@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { BranchMasterService } from 'src/app/services/branchmaster.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addbranchmaster',
@@ -36,6 +34,7 @@ export class AddbranchmasterComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private branchModel: Branchmodel, private branchmasterService: BranchMasterService, 
     private commonService: CommonService,private requestmodel:Requestmodel,
+    private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.branchModel = new Branchmodel();
   }
@@ -43,7 +42,8 @@ export class AddbranchmasterComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Create Branches");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -64,9 +64,9 @@ export class AddbranchmasterComponent {
       this.route.navigate(['/']);
     }
 
+    this.sharedService.loading = true;
 
     this.getBranchList();
-
     this.getStateList();
 
     this.selectedBranchMasterDetails = this.branchmasterService.getBranchMasterDetails();
@@ -102,7 +102,8 @@ export class AddbranchmasterComponent {
       this.formBranchMaster.controls['code'].disable();        
       this.editMode = true;
     }
-
+    
+    this.sharedService.loading = false;
 
   }
 
@@ -126,7 +127,8 @@ export class AddbranchmasterComponent {
   
   chkCodeExits(e: any) { 
     if (this.selectedBranchMasterDetails.centreid == "")
-    {
+    {      
+      this.sharedService.loading = true;
       this.requestmodel.strRequest = e.target.value; 
       this.branchmasterService.chkCodeExits(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
@@ -137,11 +139,13 @@ export class AddbranchmasterComponent {
           });
         }
       });
+      this.sharedService.loading = false;
     }
   }
 
   deleteBranchMasterForm(): void {
-    if(this.selectedBranchMasterDetails.centreid != '' ){
+    if(this.selectedBranchMasterDetails.centreid != '' ){      
+      this.sharedService.loading = true;
      this.requestmodel.strRequest =this.selectedBranchMasterDetails.centreid
       if (confirm("Are you sure, you want to delete this?")) {
             this.branchmasterService.branchMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -150,7 +154,8 @@ export class AddbranchmasterComponent {
             this.formBranchMaster.reset();
             window.location.reload();
         });
-      }
+      }      
+      this.sharedService.loading = false;
     }
   }
   exit(): void {
@@ -159,7 +164,8 @@ export class AddbranchmasterComponent {
 
 
   //Submit user form details //
-  submitBranchMasterForm(): void {
+  submitBranchMasterForm(): void {    
+    this.sharedService.loading = true;
     this.userSubmitted = true;
     if (this.formBranchMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
@@ -203,6 +209,7 @@ export class AddbranchmasterComponent {
       this.formBranchMaster.reset();
       window.location.reload();
     });
+    this.sharedService.loading = false;
   }
 }
 

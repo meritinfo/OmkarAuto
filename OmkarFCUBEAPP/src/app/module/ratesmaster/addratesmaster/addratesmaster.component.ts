@@ -8,6 +8,7 @@ import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ratesmastermodel } from 'src/app/models/ratesmastermodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class AddratesmasterComponent implements OnInit {
   viewStatus = false;
   responseDetails = new Responsemodel();
 
-  constructor(private ratesmastermodel: Ratesmastermodel,
+  constructor(private ratesmastermodel: Ratesmastermodel, private sharedService: SharedService,
     private requestmodel: Requestmodel, private route: Router, private formBuilder: FormBuilder,
     private commonService: CommonService, private ratesMasterService: RatesMasterService,
     private toasterService: ToastrService) {
@@ -47,7 +48,8 @@ export class AddratesmasterComponent implements OnInit {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Define Booking Rates");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -85,6 +87,7 @@ export class AddratesmasterComponent implements OnInit {
     this.formArray.controls[0].get("destState")?.disable();
     this.formRatesMaster.controls['rateMethod'].disable();
 
+    this.sharedService.loading=true;
     this.getLocationList();
     this.getStateList();
     this.getRateList();
@@ -117,6 +120,7 @@ export class AddratesmasterComponent implements OnInit {
         this.getFreightRateInnerGridList();
       }
     }, 2000);
+    this.sharedService.loading=false;
   }
 
   getFreightRateInnerGridList(): void {
@@ -263,6 +267,7 @@ export class AddratesmasterComponent implements OnInit {
 
   deleteRatesMasterForm(): void {
     if (this.selectedRatesMaster.masterID != '') {
+      this.sharedService.loading=true;
       this.requestmodel.strRequest = this.selectedRatesMaster.masterID;
       if (confirm("Are you sure, you want to delete this?")) {
         this.ratesMasterService.RatesMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -272,6 +277,7 @@ export class AddratesmasterComponent implements OnInit {
           window.location.reload();
         });
       }
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -296,6 +302,8 @@ export class AddratesmasterComponent implements OnInit {
       this.toasterService.warning("Details fields are mandatory");
       return;
     }
+    
+    this.sharedService.loading=true;
     var selectedDataVal=this.formRatesMaster.getRawValue();
     this.ratesmastermodel.masterID = this.selectedRatesMaster.masterID ;
     this.ratesmastermodel.accountid = selectedDataVal.accountid?selectedDataVal.accountid:this.selectedRatesMaster.accountid;
@@ -371,6 +379,9 @@ export class AddratesmasterComponent implements OnInit {
       this.formRatesMaster.reset();
       window.location.reload();
     });
+    
+    this.sharedService.loading=false;
   }
+  
 
 }

@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { Branchmodel } from 'src/app/models/branchmodel';
 import { ToastrService } from 'ngx-toastr';
-import { Vehiclefltmasterlistmodel } from 'src/app/models/vehiclefltmasterlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Vehiclefltmastermodel } from 'src/app/models/vehiclefltmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
-import { UserService } from 'src/app/services/user.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-vehiclemasteradd',
@@ -40,6 +37,7 @@ export class VehiclemasteraddComponent {
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private vehiclefltmastermodel: Vehiclefltmastermodel, 
+    private sharedService: SharedService,
     private toasterService: ToastrService,
     private vehiclefltmasterService: VehicleFltMasterService, private commonService: CommonService,
     private requestmodel:Requestmodel) {
@@ -50,7 +48,8 @@ export class VehiclemasteraddComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
+      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Vehicle Master");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -69,6 +68,8 @@ export class VehiclemasteraddComponent {
     else {
       this.route.navigate(['/']);
     }
+    
+    this.sharedService.loading=true;
     this.getBranchList();
     this.getVehicleNoList();
     this.getVehicleGrpList();
@@ -146,6 +147,8 @@ export class VehiclemasteraddComponent {
       this.editMode=true;
       this.getVehicleInnerGridList();
     }
+    
+    this.sharedService.loading=false;
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formVehicleMaster.controls; }
@@ -333,7 +336,8 @@ export class VehiclemasteraddComponent {
   }
   
   deleteVehicleMasterForm(): void {
-    if(this.selectedVehicleMasterDetails.vehicleMasterID != '' ){
+    if(this.selectedVehicleMasterDetails.vehicleMasterID != '' ){      
+    this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedVehicleMasterDetails.vehicleMasterID
       if (confirm("Are you sure, you want to delete this?")) {
             this.vehiclefltmasterService.vehicalMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -343,6 +347,7 @@ export class VehiclemasteraddComponent {
             window.location.reload();
         });
       }
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -365,6 +370,7 @@ export class VehiclemasteraddComponent {
       return;
     }
     
+    this.sharedService.loading=true;
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID    = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
     this.vehiclefltmastermodel.vehicleNo          = selectedDataValue.vehicleNo;
@@ -440,6 +446,8 @@ export class VehiclemasteraddComponent {
           'adBlue': selectedDataValue.arrayList[i].kms,
         })
       }
+      
+    this.sharedService.loading=false;
     }
 
     

@@ -9,8 +9,8 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/branchmasterlist">Branch Master</a></li>
-                                <li class="breadcrumb-item active">Branch master Add</li>
+                                <!-- <li class="breadcrumb-item"><a href="/#/branchmasterlist">Branch Master</a></li>
+                                <li class="breadcrumb-item active">Branch master Add</li> -->
                             </ol>
                         </div>
 
@@ -220,8 +220,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md"
-                            (click)="submitBranchMasterForm()" >Submit</button> &nbsp;  
+                            <button class="btn btn-primary w-md" *ngIf="editStatus && createStatus"
+                            (click)="submitBranchMasterForm()" >Save</button> &nbsp;  
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteBranchMasterForm()">Delete</button> &nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
