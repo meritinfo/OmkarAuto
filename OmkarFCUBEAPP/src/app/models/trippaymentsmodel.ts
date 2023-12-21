@@ -19,6 +19,7 @@ export class Trippaymentsmodel {
     qtyLtrs: string = "";
     ratePerLtr: string = "";
     bName: string = "";
+    vehicleNo: string = "";
     
     yearId: string = "";
     loggedInUser: string = "";

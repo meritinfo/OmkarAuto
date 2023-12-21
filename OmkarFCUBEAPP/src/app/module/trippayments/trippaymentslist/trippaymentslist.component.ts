@@ -109,7 +109,7 @@ export class TrippaymentslistComponent {
 
        {
         title: 'Vehicle No',
-        data: 'vehicleMasterID',
+        data: 'vehicleNo',
       },
       {
         title: 'tripNo',

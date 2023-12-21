@@ -65,6 +65,12 @@ export class Consignmentmodel {
     fPlace: string = "";
     tPlace: string = "";
     vehicleNo: string = "";
+    ewayBillNo2: string = "";
+    ewayBillDate2: string = "";
+    ewayBillExpDate2: string = "";
+    cnorInvNo2: string = "";
+    cnorInvDate2: string = "";
+    declaredValue2: string = "";
    // tripOpenBy: string = "";
   
   

@@ -110,7 +110,14 @@ namespace Consignment.Repository
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                               // TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
+                                EwayBillNo2 = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo2"]),
+                                EwayBillDate2 = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate2"]),
+                                EwayBillExpDate2 = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate2"]),
+                                CnorInvNo2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvNo2"]),
+                                CnorInvDate2 = Convert.ToString(dataSet.Tables[0].Rows[i]["CnorInvDate2"]),
+                                DeclaredValue2 = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclaredValue2"]),
+
+                                // TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
 
 
                             });
@@ -322,6 +329,12 @@ namespace Consignment.Repository
                             new SqlParameter("@GeneralRemarks ", ConsignmentModel.GeneralRemarks),
                             new SqlParameter("@Attachedfile ", ConsignmentModel.Attachedfile ),
                             new SqlParameter("@YearId ", ConsignmentModel.YearId ),
+                            new SqlParameter("@EwayBillNo2 ", ConsignmentModel.EwayBillNo2 ),
+                            new SqlParameter("@EwayBillDate2 ", ConsignmentModel.EwayBillDate2 ),
+                            new SqlParameter("@EwayBillExpDate2 ", ConsignmentModel.EwayBillExpDate2),
+                            new SqlParameter("@CnorInvNo2 ", ConsignmentModel.CnorInvNo2),
+                            new SqlParameter("@CnorInvDate2 ", ConsignmentModel.EwayBillExpDate2),
+                            new SqlParameter("@DeclaredValue2 ", ConsignmentModel.DeclaredValue2),
                        //     new SqlParameter("@TripOpenBy ", ConsignmentModel.LoggedInUser ),
 
 
