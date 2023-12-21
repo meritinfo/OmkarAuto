@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-adddocrenewalentry',
@@ -47,7 +48,7 @@ export class AdddocrenewalentryComponent {
 
     constructor(private route: Router, private formBuilder: FormBuilder, 
       private docRenewalentryModel: Docrenewalentrymodel, private requestmodel:Requestmodel,
-      private docrenewalEntryService: DocRenewalEntryService,      
+      private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,       
       private toasterService: ToastrService,
       private commonService: CommonService) {
       this.docRenewalentryModel = new Docrenewalentrymodel();
@@ -58,7 +59,8 @@ export class AdddocrenewalentryComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Document Service Renewal Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -93,6 +95,7 @@ export class AdddocrenewalentryComponent {
       this.year = useryear;
     }
 
+    this.sharedService.loading=true;
     this.getBranchList();
     this.getVehicleNoList();
     this.getDocRenewalList(); 
@@ -180,6 +183,7 @@ export class AdddocrenewalentryComponent {
     }, 2000);
     
     this.formDocEntry.controls['branchCode'].disable();
+    this.sharedService.loading=false;
   }
 
   // convenience getter for easy access to contact form fields
@@ -393,6 +397,7 @@ export class AdddocrenewalentryComponent {
  
   deleteDocRenewalEntryForm(): void {
     if(this.selectedDocRenewalEntryDetails.docRenewalEntryId != '' ){
+      this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedDocRenewalEntryDetails.docRenewalEntryId 
       if (confirm("Are you sure, you want to delete this?")) {
             this.docrenewalEntryService.DocrenewalEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -402,6 +407,7 @@ export class AdddocrenewalentryComponent {
             window.location.reload();
         });
       }
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -412,6 +418,7 @@ export class AdddocrenewalentryComponent {
   submitDocRenewalEntryForm(): void {
     this.userSubmitted = true;
     if (this.formDocEntry.invalid) {
+    this.sharedService.loading=true;
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formDocEntry.controls;
       for (const name in controls) {
@@ -421,6 +428,7 @@ export class AdddocrenewalentryComponent {
       }
       return;
     }
+    this.sharedService.loading=true;
     var selectedDataVal=this.formDocEntry.getRawValue();
     this.docRenewalentryModel.docRenewalEntryId = this.selectedDocRenewalEntryDetails.docRenewalEntryId  != '' ? this.selectedDocRenewalEntryDetails.docRenewalEntryId  : '';
     this.docRenewalentryModel.transDate         = selectedDataVal.transDate;
@@ -498,6 +506,7 @@ export class AdddocrenewalentryComponent {
       this.formDocEntry.reset();
       window.location.reload();
     });
+    this.sharedService.loading=false;
   }
 }
 

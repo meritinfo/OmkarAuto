@@ -49,8 +49,8 @@ export class AddbankcashcontraComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
-      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Bank-Cash Contra Entry");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Bank-Cash Contra Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

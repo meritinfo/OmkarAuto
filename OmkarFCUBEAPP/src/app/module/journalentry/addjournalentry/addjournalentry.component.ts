@@ -9,6 +9,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-addjournalentry',
@@ -38,6 +39,7 @@ export class AddjournalentryComponent{
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankrecEntrymodel: bankreceiptentrymodel, 
+    private sharedService: SharedService,
     private cashreceiptentryService: CashReceiptEntryService, private toasterService: ToastrService, 
     private commonService: CommonService) {
     this.bankrecEntrymodel = new bankreceiptentrymodel();  
@@ -48,7 +50,8 @@ export class AddjournalentryComponent{
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Journal Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -79,6 +82,7 @@ export class AddjournalentryComponent{
       this.route.navigate(['/']);
     }
       
+    this.sharedService.loading = true;
     this.getCreditAcList();
     this.selectedJournalEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
   
@@ -120,6 +124,7 @@ export class AddjournalentryComponent{
     else{
       this.getdocno("JV");
     }
+    this.sharedService.loading = false;
   }
   
   
@@ -226,6 +231,7 @@ export class AddjournalentryComponent{
     
   deleteJournalEntryForm(): void {
     if(this.selectedJournalEntryDetails.ftmID != '' ){
+      this.sharedService.loading = true;
      this.requestmodel.strRequest =this.selectedJournalEntryDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -235,6 +241,7 @@ export class AddjournalentryComponent{
             window.location.reload();
         });
       }
+      this.sharedService.loading = false;
     }
   }
 
@@ -266,6 +273,7 @@ export class AddjournalentryComponent{
       return;
     }
 
+    this.sharedService.loading = true;
 
     this.bankrecEntrymodel.ftmID          = this.selectedJournalEntryDetails.ftmID != '' ? this.selectedJournalEntryDetails.ftmID : '';
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
@@ -282,7 +290,6 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
     this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks;
-
     
     this.bankrecEntrymodel.detailList = [];
     
@@ -306,5 +313,6 @@ export class AddjournalentryComponent{
       this.formJournalEntry.reset();
       window.location.reload();
     });
+    this.sharedService.loading = false;
   }
 }

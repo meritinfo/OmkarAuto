@@ -5,12 +5,12 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">JournalEntry</h4>
+                        <h4 class="mb-sm-0 font-size-18">Journal Entry</h4>
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/">Fin Trans</a></li>
-                                <li class="breadcrumb-item active">Journal Entry</li>
+                                <!-- <li class="breadcrumb-item"><a href="/#/">Fin Trans</a></li>
+                                <li class="breadcrumb-item active">Journal Entry</li> -->
                             </ol>
                         </div>
 
@@ -24,7 +24,6 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4">Details</h4>
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document Series</label>
@@ -192,7 +191,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md"
+                            <button class="btn btn-primary w-md" *ngIf="editStatus && createStatus"
                                 (click)="submitJournalEntryForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteJournalEntryForm()">Delete</button>&nbsp;

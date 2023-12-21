@@ -8,6 +8,7 @@ import { DocRenewalMasterService } from 'src/app/services/docrenewalmaster.servi
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-adddocrenewalmaster',
@@ -32,7 +33,7 @@ export class AdddocrenewalmasterComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private docRenewalMasterModel: Docrenewalmastermodel, 
     private toasterService: ToastrService,private requestmodel:Requestmodel,
-    private docrenewalmasterService: DocRenewalMasterService, 
+    private docrenewalmasterService: DocRenewalMasterService, private sharedService: SharedService,
     private commonService: CommonService) {
     this.docRenewalMasterModel = new Docrenewalmastermodel();
   }
@@ -42,7 +43,8 @@ export class AdddocrenewalmasterComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Document Renewals Master");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -62,6 +64,7 @@ export class AdddocrenewalmasterComponent {
       this.route.navigate(['/']);
     }
     
+    this.sharedService.loading=true;
     this.getdebitAc();
 
     this.selectedDocRenewalMasterDetails = this.docrenewalmasterService.getDocrenewalMasterDetails();
@@ -82,6 +85,7 @@ export class AdddocrenewalmasterComponent {
     }
     
 
+    this.sharedService.loading=false;
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
@@ -93,7 +97,8 @@ export class AdddocrenewalmasterComponent {
   }
  
   deleteDocRenewalMasterForm(): void {
-    if(this.selectedDocRenewalMasterDetails.docRenewalID != '' ){
+    if(this.selectedDocRenewalMasterDetails.docRenewalID != '' ){      
+      this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedDocRenewalMasterDetails.docRenewalID 
       if (confirm("Are you sure, you want to delete this?")) {
             this.docrenewalmasterService.DocrenewalmasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -103,6 +108,8 @@ export class AdddocrenewalmasterComponent {
             window.location.reload();
         });
       }
+      
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -122,6 +129,7 @@ export class AdddocrenewalmasterComponent {
       }     
       return;
     }
+    this.sharedService.loading=true;
     var selectedDataVal =this.formUser.getRawValue();
     this.docRenewalMasterModel.docRenewalID = this.selectedDocRenewalMasterDetails.docRenewalID != '' ? this.selectedDocRenewalMasterDetails.docRenewalID : '';
     this.docRenewalMasterModel.docCode = selectedDataVal.docCode.toUpperCase();
@@ -139,6 +147,7 @@ export class AdddocrenewalmasterComponent {
       this.formUser.reset();
       window.location.reload();
     });
+    this.sharedService.loading=false;
   }
 }
 

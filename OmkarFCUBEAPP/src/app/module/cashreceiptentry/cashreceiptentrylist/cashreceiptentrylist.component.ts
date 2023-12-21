@@ -59,8 +59,8 @@ export class CashreceiptentrylistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
-      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Cash Receipts & Payments Voucher Entry");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Cash Receipts & Payments Voucher Entry");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -119,7 +119,7 @@ export class CashreceiptentrylistComponent {
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
           this.filter.sortOrder = dataTablesParameters.order[0].dir;
-          this.filter.search = dataTablesParameters.search.value;
+          // this.filter.search = dataTablesParameters.search.value;
           this.filter.fromDate = this.fromDate;
           this.filter.toDate = this.loginDate;
           this.filter.branch = this.branch;
