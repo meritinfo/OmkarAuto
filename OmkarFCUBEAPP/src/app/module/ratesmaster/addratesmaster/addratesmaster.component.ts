@@ -72,6 +72,7 @@ export class AddratesmasterComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    
     this.formRatesMaster = this.formBuilder.group({
       accountid: new FormControl('', [Validators.required]),
       fromPlace: new FormControl('', [Validators.required]),

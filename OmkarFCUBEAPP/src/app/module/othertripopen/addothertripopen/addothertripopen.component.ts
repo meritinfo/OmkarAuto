@@ -77,7 +77,8 @@ export class AddothertripopenComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Other Trip Open");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -135,6 +136,8 @@ export class AddothertripopenComponent {
       opBalAdblue: new FormControl('0',),
     });
     
+    this.sharedService.loading=true;
+
     this.getDriverList();
     this.getBranchList();
     this.getVehicleNoList();
@@ -173,6 +176,7 @@ export class AddothertripopenComponent {
     this.formOtherTripOpen.controls['opBalDsl'].disable();
     this.formOtherTripOpen.controls['opBalAdblue'].disable();
     
+    this.sharedService.loading=false;
   }
   
   get f() { return this.formOtherTripOpen.controls; }
@@ -357,8 +361,9 @@ export class AddothertripopenComponent {
   }
   
   deleteOtherTripOpenForm(): void {
-    if(this.selectedTripSheetDetails.tripId != '' ){
-     this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId
+    if(this.selectedTripSheetDetails.tripId != '' ){      
+      this.sharedService.loading=true;
+      this.requestmodel.strRequest =this.selectedTripSheetDetails.tripId
       if (confirm("Are you sure, you want to delete this?")) {
             this.tripSheetService.otherTripOpenDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
@@ -366,7 +371,8 @@ export class AddothertripopenComponent {
             this.formOtherTripOpen.reset();
             window.location.reload();
         });
-      }
+      }      
+      this.sharedService.loading=false;
     }
   }
   exit(): void {
@@ -385,6 +391,7 @@ export class AddothertripopenComponent {
       }           
       return;
     }
+    this.sharedService.loading=true;
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
@@ -416,5 +423,6 @@ export class AddothertripopenComponent {
       this.formOtherTripOpen.reset();
       this.route.navigate(['/othertripopenlist']);
     });
+    this.sharedService.loading=false;
   }
 }

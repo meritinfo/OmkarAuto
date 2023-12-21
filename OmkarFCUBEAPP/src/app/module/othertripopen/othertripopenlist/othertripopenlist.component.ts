@@ -16,6 +16,11 @@ import { DataTableDirective } from 'angular-datatables';
   styleUrls: ['./othertripopenlist.component.css']
 })
 export class OthertripopenlistComponent {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -49,6 +54,19 @@ export class OthertripopenlistComponent {
 
   ngOnInit(): void {
 
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Other Trip Open");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -67,19 +85,29 @@ export class OthertripopenlistComponent {
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
 
     this.tripSheetService.clearTripSheetDetails();
+    
+    this.sharedService.loading=true;
+    this.getBranchList();
+
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       branch: new FormControl('0',),
       vehicle: new FormControl('',)
     });
-    this.getBranchList();
 
+    this.otherTripList();
+    this.sharedService.loading=false;
+
+  }
+  
+  otherTripList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -146,16 +174,18 @@ export class OthertripopenlistComponent {
   }
 
   search(): void {
-    debugger;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
+    var selectedDataVal=this.formFilter.getRawValue();
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
+    this.filter.branch = selectedDataVal.branch === '0' ? '' : selectedDataVal.branch;
     this.filter.vehicle = '';
-    this.tripSheetService.getOtherTripOpenList(this.filter)
-      .subscribe(resp => {
-        this.allOtherTripOpenList = resp;
-      });
+    this.sharedService.loading=true;
+    this.otherTripList();
+    this.sharedService.loading=false;
+    
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
   }
-
 
 }
