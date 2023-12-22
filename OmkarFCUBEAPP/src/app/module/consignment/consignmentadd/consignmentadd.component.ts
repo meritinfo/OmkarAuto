@@ -89,6 +89,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -204,6 +205,7 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch3: new FormControl('1',),
     });
     setTimeout(() => {
+      
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
 
@@ -251,6 +253,7 @@ export class ConsignmentaddComponent implements OnInit {
 
         })
         this.editMode = true;
+        this.sharedService.loading = false;
       }
     }, 2000);
 

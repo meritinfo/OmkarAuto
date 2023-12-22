@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 
-
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Distancemastertriplistmodel } from 'src/app/models/distancemastertriplistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Distancemastertripmodel } from 'src/app/models/distancemastertripmodel';
 import { DistancemastertripService } from 'src/app/services/distancemastertrip.service';
+import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
 
 @Component({
   selector: 'app-distancemastertriplist',
@@ -88,6 +89,7 @@ export class DistancemastertriplistComponent {
       ],
     };
   }
+  
   //Open new destination add screen
 
 

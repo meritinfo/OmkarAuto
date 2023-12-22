@@ -7,6 +7,7 @@ import { Dropdownmodel } from '../../../models/dropdownmodel';
 import { CommonService } from '../../../services/common.service';
 import { Distancemastertripmodel } from 'src/app/models/distancemastertripmodel';
 import { DistancemastertripService } from 'src/app/services/distancemastertrip.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { Responsemodel } from 'src/app/models/responsemodel';
 
@@ -24,11 +25,13 @@ export class DistancemastertripaddComponent {
   formDistanceMasterTrip!: FormGroup;
   selectedDistancemastertripDetails = new Distancemastertripmodel();
   distancemsttripmodel = new Distancemastertripmodel();
+  
   keywordLocation = 'dataName';
   freighttripInnergridlistrequest = new FreighttripInnergridlistrequest();
 
   formSubmitted = false;
   responseDetails = new Responsemodel();
+  validationDetails = new Responsemodel();
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -37,7 +40,7 @@ export class DistancemastertripaddComponent {
   createmode =true;
   selectedLocation: string[] = [];
 
-  constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService) {
+  constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.distancemastertripmodel = new Distancemastertripmodel();
 
   }
@@ -211,6 +214,19 @@ export class DistancemastertripaddComponent {
       this.formArray.removeAt(index);
     }
   }
+  distanceMasterTripDelete(): void {
+    if(this.selectedDistancemastertripDetails.masterID != '' ){
+     this.requestmodel.strRequest =this.selectedDistancemastertripDetails.masterID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.distanceMastertripService.distanceMasterTripDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formDistanceMasterTrip.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
 
   //Submit form details //
   submitDistanceMasterFreightForm(): void {
@@ -275,13 +291,33 @@ export class DistancemastertripaddComponent {
       this.toasterService.warning("Duplicate destination in details grid not allowed");
       return;
     }
+    if(this.distancemastertripmodel.masterID==''){
+      this.distancemastertripmodel.validFrom = this.formDistanceMasterTrip.value.validFrom;
+      this.distancemastertripmodel.validUpto = this.formDistanceMasterTrip.value.validUpto;
+      this.distancemastertripmodel.fromLocation = this.formDistanceMasterTrip.value.fromLocation.dataId;
+      this.distanceMastertripService.chkdistanceTripValidity(this.distancemastertripmodel).subscribe((res: Responsemodel) => {
+        this.validationDetails = res;
+        if (this.validationDetails.status){        
+          console.log(this.validationDetails.message);
+          this.distanceMastertripService.distanceMastertripSubmitted(this.distancemastertripmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formDistanceMasterTrip.reset();
+            this.route.navigate(['/distancemastertriplist']);
+          });
+        }
+        else{
+          this.toasterService.warning(this.validationDetails.message);
+          this.formDistanceMasterTrip.patchValue({
+            validFrom: '',
+            validUpto:''
+          });
+          return;
+        }
+      });
+    }
 
-    this.distanceMastertripService.distanceMastertripSubmitted(this.distancemastertripmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formDistanceMasterTrip.reset();
-      this.route.navigate(['/distancemastertriplist']);
-    });
+   
   }
 
   deleteDistanceMasterFreightForm(): void {

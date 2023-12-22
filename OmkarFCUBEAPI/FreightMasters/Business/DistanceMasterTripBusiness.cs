@@ -32,6 +32,15 @@ namespace FreightMasters.Business
         {
             return await distanceMasterTripRepository.GetFreightTripInnerGridList(request);
         }
+        public async Task<ResponseModel> DistanceMasterTripDelete(Request req)
+        {
+            return await distanceMasterTripRepository.DistanceMasterTripDelete(req);
+        }
+        public async Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel distanceMasterTripModel)
+        {
+            return await distanceMasterTripRepository.ChkdistanceTripValidity(distanceMasterTripModel);
+        }
+
     }
 }
 

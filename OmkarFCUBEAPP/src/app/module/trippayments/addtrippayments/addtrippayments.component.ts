@@ -16,6 +16,7 @@ import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { UserService } from 'src/app/services/user.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -57,12 +58,13 @@ export class AddtrippaymentsComponent {
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, private commonService: CommonService, private toasterService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, private commonService: CommonService, private toasterService: ToastrService,private sharedService: SharedService,) {
     this.trippaymentsmodel = new Trippaymentsmodel();
 
 
   }
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -195,6 +197,7 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['pmtDate'].disable();
   }, 2000);
   this.editMode = true;
+  this.sharedService.loading = false;
 
   }
  

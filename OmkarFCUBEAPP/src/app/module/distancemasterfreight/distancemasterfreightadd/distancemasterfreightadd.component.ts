@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dropdownmodel } from '../../../models/dropdownmodel';
 import { CommonService } from '../../../services/common.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Distancemasterfreightmodel } from 'src/app/models/distancemasterfreightmodel';
 import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { DistancemasterfreightmasterService } from 'src/app/services/distancemasterfreightmaster.service';
@@ -35,8 +36,9 @@ export class DistancemasterfreightaddComponent implements OnInit {
   viewStatus = false;
   formSubmitted = false;
   responseDetails = new Responsemodel();
+  validationDetails = new Responsemodel();
 
-  constructor(private distancemasterfreightmodel: Distancemasterfreightmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMasterFreightService: DistancemasterfreightmasterService, private toasterService: ToastrService) {
+  constructor(private distancemasterfreightmodel: Distancemasterfreightmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMasterFreightService: DistancemasterfreightmasterService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.distancemasterfreightmodel = new Distancemasterfreightmodel();
   }
 
@@ -186,7 +188,19 @@ export class DistancemasterfreightaddComponent implements OnInit {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
-  
+   distanceMasterFrtDelete(): void {
+    if(this.selectedDistancemasterfreightDetails.masterID != '' ){
+     this.requestmodel.strRequest =this.selectedDistancemasterfreightDetails.masterID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.distanceMasterFreightService.distanceMasterFrtDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formDistanceMasterFreight.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
 
 
   onFocused(e: any) {
@@ -244,6 +258,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
       }
       return;
     }
+   
     var selectedDataValue = this.formDistanceMasterFreight.getRawValue();
     this.distancemasterfreightmodel.masterID = this.selectedDistancemasterfreightDetails.masterID != '' ? this.selectedDistancemasterfreightDetails.masterID : '';
     this.distancemasterfreightmodel.fromLocation = this.formDistanceMasterFreight.value.fromLocation.dataId;
@@ -291,13 +306,33 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.toasterService.warning("Duplicate destination in details grid not allowed");
       return;
     }
-
-    this.distanceMasterFreightService.distanceMasterFreightSubmitted(this.distancemasterfreightmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formDistanceMasterFreight.reset();
-      window.location.reload();
-    });
+    if(this.distancemasterfreightmodel.masterID==''){
+      this.distancemasterfreightmodel.validFrom = this.formDistanceMasterFreight.value.validFrom;
+      this.distancemasterfreightmodel.validUpto = this.formDistanceMasterFreight.value.validUpto;
+      this.distancemasterfreightmodel.fromLocation = this.formDistanceMasterFreight.value.fromLocation.dataId;
+      this.distanceMasterFreightService.chkdistanceFrtValidity(this.distancemasterfreightmodel).subscribe((res: Responsemodel) => {
+        this.validationDetails = res;
+        if (this.validationDetails.status){        
+          console.log(this.validationDetails.message);
+          this.distanceMasterFreightService.distanceMasterFreightSubmitted(this.distancemasterfreightmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formDistanceMasterFreight.reset();
+            window.location.reload();
+          });
+        }
+        else{
+          this.toasterService.warning(this.validationDetails.message);
+          this.formDistanceMasterFreight.patchValue({
+            validFrom: '',
+            validUpto:''
+          });
+          return;
+        }
+      });
+    }
+   
+    
   }
   
 

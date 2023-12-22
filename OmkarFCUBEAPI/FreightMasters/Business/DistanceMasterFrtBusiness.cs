@@ -22,6 +22,10 @@ namespace FreightMasters.Business
         {
             return await distanceMasterFrtRepository.DistanceMasterFrtSave(distanceMasterFrtModel);
         }
+        public async Task<ResponseModel> ChkdistanceFrtValidity(DistanceMasterFrtModel distanceMasterFrtModel)
+        {
+            return await distanceMasterFrtRepository.ChkdistanceFrtValidity(distanceMasterFrtModel);
+        }
         public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequest request)
         {
             return await distanceMasterFrtRepository.GetDistanceMasterFrtList(request);
@@ -29,6 +33,10 @@ namespace FreightMasters.Business
         public async Task<DistanceMasterFrtModel> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
         {
             return await distanceMasterFrtRepository.GetFreightInnerGridList(request);
+        }
+        public async Task<ResponseModel> DistanceMasterFrtDelete(Request req)
+        {
+            return await distanceMasterFrtRepository.DistanceMasterFrtDelete(req);
         }
     }
 }
