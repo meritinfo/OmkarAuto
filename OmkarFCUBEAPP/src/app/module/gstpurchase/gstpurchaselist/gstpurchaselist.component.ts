@@ -1,5 +1,14 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Gstpurchasemodel  } from 'src/app/models/gstpurchasemodel';
+import { Gstpurchaselistmodel } from 'src/app/models/gstpurchaselistmodel';
+import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-gstpurchaselist',
@@ -7,15 +16,161 @@ import { Router } from '@angular/router';
   styleUrls: ['./gstpurchaselist.component.css']
 })
 export class GstpurchaselistComponent {
+    createStatus = false;
+    editStatus = false;
+    deleteStatus = false;
+    viewStatus = false;
 
-  constructor(private route: Router) {
-  }
+    dtOptions: DataTables.Settings = {};
+    @ViewChild(DataTableDirective)
+    dtElement!: DataTableDirective;
+  
+    allGstpurchaselist: Gstpurchaselistmodel = new Gstpurchaselistmodel();
+    filter: Pagerequestwithdatesmodel = {
+      pageNumber: 1,
+      pageSize: 10,
+      sortColumn: 'vendorGstNo',
+      sortOrder: 'asc',
+      search: '',
+      fromDate:'',
+      toDate:'',
+      strRequest:'',
+    }
+    
+    keywordLocation = 'dataName';
+    year: string = '';
+    loginDate: string = '';
+    fromDate: string = '';
+    maxDate: string = '';
+    minDate: string = '';
 
-  ngOnInit(): void {
-  }
-  //Open new gst purchase add screen
-  gstpurchaseAdd(): void {
-    this.route.navigate(['/gstpurchaseadd']);
-  }
+    formFilter!: FormGroup;
+    constructor(private formBuilder: FormBuilder,
+      private gstpurchaseservice: GstpurchaseService, private route: Router,
+      private sharedService: SharedService,
+      private commonService: CommonService) {
+    }
+  
+    ngOnInit(): void {    
+      var menuData = sessionStorage.getItem('menulist')?.toString();
+      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+        var privilegeData = JSON.parse(menuData);
+        var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "GST Purchase Entry");
+        if (privilegeStatus) {
+          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        }
+      }
+    
+      var yearIDData = sessionStorage.getItem('yearID')?.toString();
+      if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+        this.year = yearIDData;
+      }
+      var loginDate = sessionStorage.getItem('loginDate')?.toString();
+      if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+        this.loginDate = loginDate;
+      }
+      const today = new Date();
+      const month = today.getMonth();
+      const year = today.getFullYear();
+      today.setMonth(month - 1);
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+  
+      this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+      this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  
+      this.gstpurchaseservice.clearGstPurchageDetails();
+      
+      this.sharedService.loading=true;
+  
+      this.formFilter = this.formBuilder.group({
+        fromDate: new FormControl(this.fromDate,),
+        toDate: new FormControl(this.loginDate,),
+        strRequest: new FormControl('',),
+      });
+  
+      this.gstPurchaselist();
+      this.sharedService.loading=false;
+      this.gstpurchaseservice.getGstPurchageList(this.filter)
+      .subscribe(resp => {
+        this.allGstpurchaselist = resp;  
+      });
+    }
 
-}
+  
+    gstPurchaselist(){      
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 10,
+        serverSide: true,
+        processing: true,
+        searching: false,
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+          this.filter.sortOrder = dataTablesParameters.order[0].dir;
+          // this.filter.search = '';      
+          this.gstpurchaseservice.getGstPurchageList(this.filter)
+            .subscribe(resp => {
+              this.allGstpurchaselist = resp;  
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
+              });
+            });
+          },
+           // Set column title and data field
+           columns: [    
+            {
+              title: 'Branch',
+              data: 'branchName',
+            },
+            {
+              title: 'Trans Date',
+              data: 'transDate',
+            },
+            {
+              title: 'Vendor Name',
+              data: 'vendorName',
+            },
+            {
+              title: 'Net Amount',
+              data: 'netAmount',
+            },
+            {
+              title: 'Action',
+              data: 'masterid',
+            },
+          ],
+        };
+    }
+    
+     
+    gstpurchaseAdd(): void {
+      this.route.navigate(['/gstpurchaseadd']);
+    }
+    
+    getGstPurchageDetails(gstpurchase: Gstpurchasemodel): void {
+      this.gstpurchaseservice.setGstPurchageDetails(gstpurchase);
+      this.route.navigate(['/gstpurchaseedit']);
+    }
+    
+    search(): void {
+      this.filter.fromDate = this.formFilter.value.fromDate;
+      this.filter.toDate = this.formFilter.value.toDate;
+      this.sharedService.loading = true;
+      this.gstPurchaselist();       
+      this.sharedService.loading = false;
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
+    }
+  
+  }
+  

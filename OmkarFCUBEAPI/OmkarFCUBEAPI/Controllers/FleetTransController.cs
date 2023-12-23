@@ -376,7 +376,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetOtherTripOpenList")]
-        public async Task<IActionResult> GetOtherTripOpenList(TripSheetListRequest request)
+        public async Task<IActionResult> GetOtherTripOpenList(PageFromDtToDtRequest request)
         {
             try
             {

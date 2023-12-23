@@ -6,6 +6,7 @@ using FinanceMasters.Models;
 using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using FleetTrans.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -19,19 +20,19 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
         readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
-        readonly IGstPurchaseDtlBusiness gstPurchaseDtlBusiness;
-        readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
 
 
-        public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, IFinAccountsMasterBusiness _finAccountsMasterBusiness, IFinScheduleMasterBusiness _finScheduleMasterBusiness, IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness, IGstPurchaseDtlBusiness _gstPurchaseDtlBusiness, IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
+        public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
+            IFinAccountsMasterBusiness _finAccountsMasterBusiness, 
+            IFinScheduleMasterBusiness _finScheduleMasterBusiness, 
+            IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
+            IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness)
         {
             finAccountsMasterBusiness = _finAccountsMasterBusiness;
             finGroupMasterBusiness = _finGroupMasterBusiness;
             finScheduleMasterBusiness = _finScheduleMasterBusiness;
             chequeAllotmentDtlBusiness = _chequeAllotmentDtlBusiness;
             chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
-            gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
-            gstPurchaseDtlBusiness = _gstPurchaseDtlBusiness;
 
         }
         /// <summary>
@@ -160,60 +161,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GstPurchaseDtlSave")]
-        public async Task<IActionResult> GstPurchaseDtlSave(GstPurchaseDtlModel gstPurchaseDtlModel)
-        {
-            if (gstPurchaseDtlModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await gstPurchaseDtlBusiness.GstPurchaseDtlSave(gstPurchaseDtlModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetGstPurchaseDtlList")]
-        public async Task<IActionResult> GetGstPurchaseDtlList(PageRequest request)
-        {
-            try
-            {
-                var result = await gstPurchaseDtlBusiness.GetGstPurchaseDtlList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("GstPurchaseMstSave")]
-        public async Task<IActionResult> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
-        {
-            if (gstPurchaseMstModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await gstPurchaseMstBusiness.GstPurchaseMstSave(gstPurchaseMstModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
 
         [HttpPost("FinGroupMasterSave")]
         public async Task<IActionResult> FinGroupMasterSave(FinGroupMasterModel finGroupMasterModel)

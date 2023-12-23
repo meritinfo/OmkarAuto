@@ -12,7 +12,7 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
-        Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request);
+        Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request);
         Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel);
         Task<ResponseModel> OtherTripOpenDelete(Request request);
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);

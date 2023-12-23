@@ -238,7 +238,7 @@ export class AddjournalentryComponent{
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formJournalEntry.reset();
-            window.location.reload();
+            this.route.navigate(['/journalentrylist']);
         });
       }
       this.sharedService.loading = false;
@@ -311,7 +311,7 @@ export class AddjournalentryComponent{
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formJournalEntry.reset();
-      window.location.reload();
+      this.route.navigate(['/journalentrylist']);
     });
     this.sharedService.loading = false;
   }

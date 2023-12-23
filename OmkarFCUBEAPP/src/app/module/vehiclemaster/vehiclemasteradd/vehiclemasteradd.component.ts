@@ -135,6 +135,9 @@ export class VehiclemasteraddComponent {
 
     });
 
+      this.formVehicleMaster.controls['vehicleLedgerAc'].clearValidators();   
+      this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
+
     if (this.selectedVehicleMasterDetails.vehicleMasterID != '') {
       this.formVehicleMaster.patchValue(this.selectedVehicleMasterDetails);
       this.formVehicleMaster.patchValue({        
@@ -144,7 +147,10 @@ export class VehiclemasteraddComponent {
         vehicleLedgerAc: this.vehicleList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleLedgerAc),
         vehicleAssetAc: this.vehicleList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
       })
-      this.editMode=true;
+      this.editMode=true;      
+      this.formVehicleMaster.controls['vehicleLedgerAc'].setValidators([Validators.required]);  
+      this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
+
       this.getVehicleInnerGridList();
     }
     
@@ -344,7 +350,7 @@ export class VehiclemasteraddComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formVehicleMaster.reset();
-            window.location.reload();
+            this.route.navigate(['/vehiclemasterlist']);
         });
       }
       this.sharedService.loading=false;
@@ -455,7 +461,7 @@ export class VehiclemasteraddComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formVehicleMaster.reset();
-      window.location.reload();
+      this.route.navigate(['/vehiclemasterlist']);
     });
   }
 

@@ -237,7 +237,7 @@ export class AddcashreceiptentryComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formCashRRecEntry.reset();
-            window.location.reload();
+            this.route.navigate(['/cashreceiptentrylist']);
         });
       }      
     this.sharedService.loading=false;
@@ -326,7 +326,7 @@ export class AddcashreceiptentryComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formCashRRecEntry.reset();
-      window.location.reload();
+      this.route.navigate(['/cashreceiptentrylist']);
     });
     
     this.sharedService.loading=false;

@@ -1,16 +1,14 @@
 ﻿
 
-namespace FinanceMaster.Models
+namespace FinTrans.Models
 {
     public class GstPurchaseDtlModel
     {
-        public string? Detailid { get; set; }
         public string? Masterid { get; set; }
         public string? DebitAc { get; set; }
         public string? Narration { get; set; }
         public string? SacHsnCode { get; set; }
         public string? SubLedger { get; set; }
-        public string? CostCode { get; set; }
         public string? ItemAmt { get; set; }
         public string? SgstPct { get; set; }
         public string? SgstAmt { get; set; }
@@ -19,8 +17,6 @@ namespace FinanceMaster.Models
         public string? IgstPct { get; set; }
         public string? IgstAmt { get; set; }
         public string? TotAmount { get; set; }
-        public string? RefDoc { get; set; }
         public string? RefDocNo { get; set; }
-        public string? LoggedInUser { get; set; }
     }
 }

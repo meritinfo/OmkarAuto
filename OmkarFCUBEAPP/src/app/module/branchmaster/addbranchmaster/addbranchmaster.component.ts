@@ -152,7 +152,7 @@ export class AddbranchmasterComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formBranchMaster.reset();
-            window.location.reload();
+            this.route.navigate(['/branchmasterlist']);
         });
       }      
       this.sharedService.loading = false;
@@ -207,7 +207,7 @@ export class AddbranchmasterComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formBranchMaster.reset();
-      window.location.reload();
+      this.route.navigate(['/branchmasterlist']);
     });
     this.sharedService.loading = false;
   }

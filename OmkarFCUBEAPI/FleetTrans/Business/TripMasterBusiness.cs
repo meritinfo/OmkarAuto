@@ -49,7 +49,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverList();
         }
-        public async Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request)
+        public async Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request)
         {
             return await tripMasterRepository.GetOtherTripOpenList(request);
         }

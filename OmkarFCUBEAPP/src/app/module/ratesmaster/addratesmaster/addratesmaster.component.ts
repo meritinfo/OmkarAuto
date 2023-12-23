@@ -245,6 +245,7 @@ export class AddratesmasterComponent implements OnInit {
     }
     else {
       this.toasterService.warning("Please select Required Fields ");
+      return;
     }
     
     var i=0;
@@ -275,7 +276,7 @@ export class AddratesmasterComponent implements OnInit {
           this.responseDetails = res;
           console.log(this.responseDetails.message);
           this.formRatesMaster.reset();
-          window.location.reload();
+          this.route.navigate(['/ratesmasterlist']);
         });
       }
       this.sharedService.loading=false;
@@ -378,7 +379,7 @@ export class AddratesmasterComponent implements OnInit {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formRatesMaster.reset();
-      window.location.reload();
+      this.route.navigate(['/ratesmasterlist']);
     });
     
     this.sharedService.loading=false;

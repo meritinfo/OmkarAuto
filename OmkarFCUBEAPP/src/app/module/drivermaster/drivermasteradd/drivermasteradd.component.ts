@@ -274,7 +274,7 @@ export class DrivermasteraddComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formDriverMaster.reset();
-            window.location.reload();
+            this.route.navigate(['/drivermasterlist']);
         });
       }
     }
@@ -296,7 +296,7 @@ export class DrivermasteraddComponent {
       return;
     }
     var selectedDataVal=this.formDriverMaster.getRawValue()
-    this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID != '' ? this.selectedDriverMasterDetails.driverMasterID : '';
+    this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID ;
     this.driverModel.driverName = selectedDataVal.driverName;
     this.driverModel.fatherName = selectedDataVal.fatherName;
     this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;

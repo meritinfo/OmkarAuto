@@ -132,7 +132,7 @@ chkActName(e: any) {
             if (this.responseDetails.status){              
               console.log(this.responseDetails.message);
               this.formFinGroup.reset();
-              window.location.reload();
+              this.route.navigate(['/fingrouplist']);
             } 
             else{
               console.log(this.responseDetails.message);  
@@ -200,7 +200,7 @@ submitFinGroupMasterForm(): void {
     this.responseDetails = res;
     console.log(this.responseDetails.message);
     this.formFinGroup.reset();
-    window.location.reload();
+    this.route.navigate(['/fingrouplist']);
   });  
   this.sharedService.loading = false;
 }

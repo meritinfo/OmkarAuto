@@ -24,9 +24,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
-
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
-import { DestinationdetailComponent } from './module/destination/destinationdetail/destinationdetail.component';
 import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
 import { Ratetypeslistmodel } from './models/ratetypeslistmodel';
 import { ProductgroupmasterlistComponent } from './module/productgroupmaster/productgroupmasterlist/productgroupmasterlist.component';
@@ -55,7 +53,6 @@ import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermode
 
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
-import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
 import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/confirmationdialog.component';
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
@@ -135,6 +132,8 @@ import { Driversalarystatementmodel } from './models/driversalarystatementmodel'
 import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
 import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
+import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
+import { Gstpurchasemodel } from './models/gstpurchasemodel';
 
 @NgModule({
   declarations: [
@@ -145,7 +144,6 @@ import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
     UserlistComponent,
     UserdetailsComponent,
     AdddestinationComponent,
-    DestinationdetailComponent,
     DestinationlistComponent,
     ProductgroupmasterlistComponent,
     AddproductgroupmasterComponent,
@@ -166,7 +164,6 @@ import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
     AddvehicletypemasterComponent,
     VehicletypegroupmasterlistComponent,
     AddvehicletypegroupmasterComponent,
-    GstdetailsComponent,
     ConfirmationdialogComponent,
     ConsignmentaddComponent,
     ConsignmentlistComponent,
@@ -248,7 +245,8 @@ import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
-    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel,Driversalarydetailmodel,Driversalarystatementmodel],
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

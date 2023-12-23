@@ -369,7 +369,7 @@ export class AddothertripopenComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formOtherTripOpen.reset();
-            window.location.reload();
+            this.route.navigate(['/othertripopenlist']);
         });
       }      
       this.sharedService.loading=false;
