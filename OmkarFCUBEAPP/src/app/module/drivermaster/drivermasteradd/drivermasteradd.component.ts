@@ -299,7 +299,7 @@ export class DrivermasteraddComponent {
     this.driverModel.driverName = selectedDataVal.driverName;
     this.driverModel.fatherName = selectedDataVal.fatherName;
     this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
-    this.driverModel.age = selectedDataVal.age;
+    this.driverModel.age = selectedDataVal.age.toString();
     this.driverModel.introBy = selectedDataVal.introBy;
     this.driverModel.introByMobileNo = selectedDataVal.introByMobileNo;
     this.driverModel.dateOfAppoint = selectedDataVal.dateOfAppoint;
@@ -349,12 +349,12 @@ export class DrivermasteraddComponent {
     this.driverModel.deleteFlag = selectedDataVal.deleteFlag;
 
     this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
-    this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0];
-    this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0];
-    this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0];
-    this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0];
-    this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0];
-    this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0];
+    this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
+    this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
+    this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0]?this.tempAddressProveInput.nativeElement.files[0]:"0";
+    this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0]?this.perAddressProveInput.nativeElement.files[0]:"0";
+    this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0]?this.aadharCardInput.nativeElement.files[0]:"0";
+    this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0]?this.bankPassbookInput.nativeElement.files[0]:"0";
  
     this.drivermasterService.driverMasterDetailsSubmitted(this.driverModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

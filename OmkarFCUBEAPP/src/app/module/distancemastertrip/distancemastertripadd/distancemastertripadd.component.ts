@@ -22,6 +22,7 @@ export class DistancemastertripaddComponent {
   ivToPlace = '';
   locationList: Dropdownmodel[] = [];
   allLocationList: Dropdownmodel[] = [];
+  
   formDistanceMasterTrip!: FormGroup;
   selectedDistancemastertripDetails = new Distancemastertripmodel();
   distancemsttripmodel = new Distancemastertripmodel();
@@ -71,6 +72,7 @@ export class DistancemastertripaddComponent {
     else {
       this.route.navigate(['/']);
     }
+    
     this.getLocationList();
 
     this.selectedDistancemastertripDetails = this.distanceMastertripService.getDistancemastertripDetails();
@@ -147,6 +149,7 @@ export class DistancemastertripaddComponent {
   onFocused(e: any) {
     // do something
   }
+
 
   startWithFilter = function (locationList: Dropdownmodel[], query: string): any[] {
     return locationList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));

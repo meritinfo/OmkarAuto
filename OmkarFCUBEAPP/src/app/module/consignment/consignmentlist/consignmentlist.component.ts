@@ -9,6 +9,7 @@ import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConsignmentService } from 'src/app/services/consignment.service';
+
 import { CommonService } from 'src/app/services/common.service';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
 
@@ -46,6 +47,8 @@ export class ConsignmentlistComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    
+
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -172,6 +175,7 @@ export class ConsignmentlistComponent implements OnInit  {
   onFocused(e: any) {
     // do something
   }
+  
   
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {

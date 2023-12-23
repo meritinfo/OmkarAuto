@@ -46,7 +46,7 @@
                         </thead>
                         <tbody *ngIf="allBillStatement.billList?.length != 0">
                             <tr *ngFor="let renewalMaster of allBillStatement.billList">
-                                <td>{{ renewalMaster.billStation }}</td>
+                                <td>{{ renewalMaster.fPlace }}</td>
                         
                                 <td>{{ renewalMaster.seriesCode}}</td>
                            
@@ -55,8 +55,9 @@
                              
                              
                                 <td>
-                                    <a (click)="getBillStatementDetails(renewalMaster)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
+                                    
+                                        <button type="button" class="btn btn-edit"
+                                        (click)="getBillStatementDetails(renewalMaster)"></button>
                                
                                 </td>
                             </tr>

@@ -54,8 +54,9 @@
                             <td>{{ trip.totalSalaryAmt }}</td>
                    
                             <td>
-                                <a (click)="getDriverSalaryDetails(trip)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                               
+                                    <button type="button" class="btn btn-edit"
+                                    (click)="getDriverSalaryDetails(trip)"></button>
                            
                             </td>
                         </tr>

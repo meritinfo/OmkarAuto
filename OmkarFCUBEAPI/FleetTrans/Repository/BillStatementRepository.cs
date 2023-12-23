@@ -133,7 +133,8 @@ namespace FleetTrans.Repository
                                 IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
                                 TotalBillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBillAmt"]),
-                            
+                                FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
+
 
                                 //BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),
                                 ////  Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),

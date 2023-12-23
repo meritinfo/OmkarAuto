@@ -280,6 +280,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
         public async Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request)
         {
             DistanceMasterTripModel tripSheetInnerGridList = new()
@@ -360,7 +361,10 @@ namespace FreightMasters.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DistanceMasterTripList_Select", param);
 

@@ -8,6 +8,7 @@ import { Driversalarystatementmodel } from 'src/app/models/driversalarystatement
 import { CommonService } from 'src/app/services/common.service';
 import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
 import { Driversalarysearchmodel } from 'src/app/models/driversalarysearchmodel';
+import { SharedService } from 'src/app/services/shared.service';
 import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergridrequest';
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
 import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
@@ -41,11 +42,12 @@ export class DriversalarystatementaddComponent implements OnInit {
   vehicleList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
 
-  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  private route: Router,private driverSalaryStatementService: DriversalarystatementService, private formBuilder: FormBuilder, private toasterService: ToastrService) {
+  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  private route: Router,private driverSalaryStatementService: DriversalarystatementService, private formBuilder: FormBuilder, private toasterService: ToastrService,private sharedService: SharedService,) {
     this.driversalarystatementmodel = new Driversalarystatementmodel();
   }
 
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -117,9 +119,11 @@ export class DriversalarystatementaddComponent implements OnInit {
       }
     
   }, 2000);
+
  // this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
  this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
        this.getTripSheetInnerGridList();
+       this.sharedService.loading = false;
 
 }
   
