@@ -12,7 +12,9 @@ namespace FreightMasters.Business
     {
         Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel);
        Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequest request);
+        Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel distanceMasterTripModel);
         Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request);
+        Task<ResponseModel> DistanceMasterTripDelete(Request requestModel);
 
     }
 }

@@ -7,6 +7,7 @@ import { FreighttripInnergridlistrequest } from '../models/freighttripInnergridl
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,14 @@ export class DistancemasterfreightmasterService {
   getDistanceMasterFreightList(filter: Filtermodel): Observable<Distancemasterfreightlistmodel> {
     return this.httpClient.post<Distancemasterfreightlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceMasterFrtList', filter, this.httpOptions);
   }
+  distanceMasterFrtDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DistanceMasterFrtDelete', req, this.httpOptions);
+  }
    getFreightInnerGridList(request: FreighttripInnergridlistrequest): Observable<Distancemasterfreightmodel> {
     return this.httpClient.post<Distancemasterfreightmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightInnerGridList', request, this.httpOptions);
+  }
+
+  chkdistanceFrtValidity(user: Distancemasterfreightmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ChkdistanceFrtValidity', user, this.httpOptions);
   }
 }

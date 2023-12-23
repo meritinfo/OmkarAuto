@@ -85,10 +85,11 @@ export class ConsignmentaddComponent implements OnInit {
   ivFromPlace = '';
   ivToPlace = '';
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService, private sharedService: SharedService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService, private sharedService: SharedService,private toastrService: ToastrService) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
+    this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -193,17 +194,26 @@ export class ConsignmentaddComponent implements OnInit {
       generalRemarks: new FormControl('',),
       attachedfile: new FormControl('',),
       yearId: new FormControl('',),
+      ewayBillNo2: new FormControl('',),
+      ewayBillDate2: new FormControl('',),
+      ewayBillExpDate2: new FormControl('',),
+      cnorInvNo2: new FormControl('',),
+      cnorInvDate2: new FormControl('',),
+      declaredValue2: new FormControl('',),
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
       userBranch3: new FormControl('1',),
     });
     setTimeout(() => {
+      
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
 
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
       
         this.formConsignment.controls['ewayBillNo'].disable();
+        this.formConsignment.controls['ewayBillNo2'].disable();
+       // this.formConsignment.controls.search2.disable();
         this.formConsignment.controls['bookingPlace'].disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
@@ -215,6 +225,10 @@ export class ConsignmentaddComponent implements OnInit {
         var shipmentDtConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt);
         var cnorInvDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate);
         var ewayBillExpDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate);
+        var ewayBillDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate2);
+      
+        var cnorInvDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate2);
+        var ewayBillExpDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate2);
         this.formConsignment.patchValue({
           userBranch: this.selectedConsignmentDetails.bookingPlace,
           bookingDate: bookingConvertatedDate,
@@ -222,10 +236,13 @@ export class ConsignmentaddComponent implements OnInit {
          // ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
           ewayBillDate:ewayBillDateConverted,
          ewayBillExpDate: ewayBillExpDateConverted,
+         ewayBillDate2:ewayBillDateConverted2,
+         ewayBillExpDate2: ewayBillExpDateConverted2,
           //shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
          // cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
                 shipmentDt:shipmentDtConverted,
           cnorInvDate: cnorInvDateConverted,
+          cnorInvDate2: cnorInvDateConverted2,
 
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
@@ -236,6 +253,7 @@ export class ConsignmentaddComponent implements OnInit {
 
         })
         this.editMode = true;
+        this.sharedService.loading = false;
       }
     }, 2000);
 
@@ -253,12 +271,25 @@ export class ConsignmentaddComponent implements OnInit {
       this.branchList = res;
     });
   }
+  checkBillno() {
+    var selectedDataValue = this.formConsignment.getRawValue();
+    var d1 = selectedDataValue.ewayBillNo;
+    var d2 = selectedDataValue.ewayBillNo2;
+    if (d1 > d2) {
+      this.formConsignment.patchValue({
+        reportingDt_1: ''
+      });
+      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
+      return
+    }
+  }
 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
       this.rateList = res;
     });
   }
+
 
 
   getLocationList(): void {
@@ -607,6 +638,13 @@ export class ConsignmentaddComponent implements OnInit {
         this.consignmentmodel.rateType = selectedDataValue.rateType;
         this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
         this.consignmentmodel.yearId = this.year;
+        this.consignmentmodel.ewayBillNo2 = selectedDataValue.ewayBillNo2;
+        this.consignmentmodel.ewayBillDate2 = selectedDataValue.ewayBillDate2;
+        this.consignmentmodel.ewayBillExpDate2 = selectedDataValue.ewayBillExpDate2;
+        this.consignmentmodel.cnorInvNo2 = selectedDataValue.cnorInvNo2;
+        this.consignmentmodel.cnorInvDate2 = selectedDataValue.cnorInvDate2;
+        this.consignmentmodel.declaredValue2 = selectedDataValue.declaredValue2;
+
         this.consignmentmodel.loggedInUser = this.loggedInUserID;
         //this.consignmentmodel.tripOpenBy = this.loggedInUserID;
 
@@ -674,6 +712,56 @@ export class ConsignmentaddComponent implements OnInit {
       }
     });
   }
+  searchGSTDetails2(): void {
+    var selectedDataValue = this.formConsignment.getRawValue();
+    var d1 = selectedDataValue.ewayBillNo;
+    var d2 = selectedDataValue.ewayBillNo2;
+    if (d1 == d2) {
+      this.formConsignment.patchValue({
+        ewayBillNo2: ''
+      });
+      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
+      return
+    }
+    else{
+    var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo2 }
+
+    this.commonService.billDetails(payload).subscribe((res: any) => {
+      var result = res.result;
+      if (result.code === 200) {
+        this.eWayBillDetails.result = result;
+
+        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
+        if (selectedVehicleID) {
+          //this.ivVehicleNo = ewayVNo;
+        } else {
+          this.ivVehicleNo = "";
+        }
+
+        this.formConsignment.patchValue({
+          ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+          ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+       
+
+  
+        //  invoiceDate: this.eWayBillDetails.result.message.document_date,
+          cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+          cnorInvNo2: this.eWayBillDetails.result.message.document_number,
+
+
+        
+
+
+          //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+          declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+          //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+        });
+        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+      }
+    });
+  }
+  }
   checkInvoiceDate() {
 
 
@@ -738,6 +826,8 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['kms'].disable();
       this.formConsignment.controls['ewayBillDate'].disable();
       this.formConsignment.controls['ewayBillExpDate'].disable();
+      this.formConsignment.controls['ewayBillDate2'].disable();
+      this.formConsignment.controls['ewayBillExpDate2'].disable();
       // this.formConsignment.controls['ewayBillNo'].disable();
       //  this.formConsignment.controls['fromPlace'].disable();
       //  this.formConsignment.controls['toPlace'].disable();
@@ -753,6 +843,9 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cneeGst'].disable();
       this.formConsignment.controls['declaredValue'].disable();
       this.formConsignment.controls['cnorInvDate'].disable();
+      this.formConsignment.controls['declaredValue2'].disable();
+      this.formConsignment.controls['cnorInvDate2'].disable();
+
 
       this.formConsignment.controls['noPackages'].disable();
     }
@@ -788,6 +881,9 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['kms'].enable();
       this.formConsignment.controls['ewayBillDate'].enable();
       this.formConsignment.controls['ewayBillExpDate'].enable();
+      this.formConsignment.controls['ewayBillNo2'].enable();
+      this.formConsignment.controls['ewayBillDate2'].enable();
+      this.formConsignment.controls['ewayBillExpDate2'].enable();
       this.formConsignment.controls['ewayBillNo'].enable();
       this.formConsignment.controls['cneeAdd1'].enable();
       this.formConsignment.controls['cneeAdd2'].enable();
@@ -806,6 +902,8 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cneeGst'].enable();
       this.formConsignment.controls['declaredValue'].enable();
       this.formConsignment.controls['cnorInvDate'].enable();
+      this.formConsignment.controls['declaredValue2'].enable();
+      this.formConsignment.controls['cnorInvDate2'].enable();
 
 
       this.formConsignment.controls['noPackages'].enable();

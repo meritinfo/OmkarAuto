@@ -241,7 +241,44 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("ChkdistanceFrtValidity")]
+        public async Task<IActionResult> ChkdistanceFrtValidity(DistanceMasterFrtModel distanceMasterFrtModel)
+        {
+            if (distanceMasterFrtModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtBusiness.ChkdistanceFrtValidity(distanceMasterFrtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChkdistanceTripValidity")]
+        public async Task<IActionResult> ChkdistanceTripValidity(DistanceMasterTripModel distanceMasterTripModel)
+        {
+            if (distanceMasterTripModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.ChkdistanceTripValidity(distanceMasterTripModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("DistanceMasterTripSave")]
         public async Task<IActionResult> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel)
         {
@@ -270,6 +307,43 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceDetailFrtBusiness.DistanceDetailFrtSave(distanceDetailFrtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DistanceMasterTripDelete")]
+        public async Task<IActionResult> DistanceMasterTripDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.DistanceMasterTripDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DistanceMasterFrtDelete")]
+        public async Task<IActionResult> DistanceMasterFrtDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtBusiness.DistanceMasterFrtDelete(request);
 
                 return Ok(result);
             }

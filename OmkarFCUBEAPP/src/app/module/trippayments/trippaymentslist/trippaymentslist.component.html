@@ -109,14 +109,16 @@
                     
                           
                             <td>{{ trip.pmtDate }}</td>
-                            <td>{{ trip.vehicleMasterID }}</td>
+                            <td>{{ trip.vehicleNo }}</td>
                             <td>{{ trip.tripNo }}</td>
                             <td>{{ trip.transType }}</td>
                             <td>{{ trip.amountPaid }}</td>
                          
                             <td>
-                                <a (click)="gettrippaymentsDetails(trip)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                               
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="gettrippaymentsDetails(trip)" ></button>
+
                            
                             </td>
                         </tr>

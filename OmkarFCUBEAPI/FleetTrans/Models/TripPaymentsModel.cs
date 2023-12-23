@@ -29,6 +29,7 @@ namespace FleetTrans.Models
         public string? RatePerLtr { get; set; }
         public string? YearId { get; set; }
         public string? BName { get; set; }
+        public string? VehicleNo { get; set; }
         public string? LoggedInUser { get; set; }
      
     }

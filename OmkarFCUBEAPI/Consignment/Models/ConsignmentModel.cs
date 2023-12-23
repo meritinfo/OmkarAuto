@@ -67,7 +67,13 @@
         public string? FPlace { get; set; }
         public string? TPlace { get; set; }
         public string? VehicleNo { get; set; }
-       // public string? TripOpenBy { get; set; }
+        public string? EwayBillNo2 { get; set; }
+        public string? EwayBillDate2 { get; set; }
+        public string? EwayBillExpDate2 { get; set; }
+        public string? CnorInvNo2 { get; set; }
+        public string? CnorInvDate2 { get; set; }
+        public string? DeclaredValue2 { get; set; }
+        // public string? TripOpenBy { get; set; }
 
 
 
