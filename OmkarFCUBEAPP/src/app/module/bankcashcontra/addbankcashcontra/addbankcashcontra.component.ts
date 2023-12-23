@@ -186,7 +186,7 @@ export class AddbankcashcontraComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formBankContra.reset();
-            window.location.reload();
+            this.route.navigate(['/bankcashcontralist']);
         });
       }
       
@@ -258,7 +258,7 @@ export class AddbankcashcontraComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formBankContra.reset();
-      window.location.reload();
+      this.route.navigate(['/bankcashcontralist']);
     });
     
     this.sharedService.loading=false;

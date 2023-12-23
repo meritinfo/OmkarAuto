@@ -1,6 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Fingroupmodel  } from 'src/app/models/fingroupmodel';
 import { Fingrouplistmodel } from 'src/app/models/fingrouplistmodel';
@@ -109,12 +108,12 @@ export class FingrouplistComponent {
       };
   }
   
-  //Open new driver master add screen
+  
   addfingroup(): void {
     this.route.navigate(['/fingroupadd']);
   }
 
-  //Open user details screen
+  
   getFingroupDetails(fingroup: Fingroupmodel): void {
     this.fingroupService.setFinsgroupDetails(fingroup);
     this.route.navigate(['/fingroupedit']);

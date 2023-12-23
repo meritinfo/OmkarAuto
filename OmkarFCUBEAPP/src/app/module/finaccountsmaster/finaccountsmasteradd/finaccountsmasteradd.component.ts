@@ -250,7 +250,7 @@ export class FinaccountsmasteraddComponent {
             if (this.responseDetails.status){              
               console.log(this.responseDetails.message);
               this.formAccountMaster.reset();
-              window.location.reload();
+              this.route.navigate(['/finaccountsmasterlist']);
             } 
             else{
               console.log(this.responseDetails.message);  
@@ -263,7 +263,7 @@ export class FinaccountsmasteraddComponent {
     }
   }
   exit(): void {
-    this.route.navigate(['/fingrouplist']);
+    this.route.navigate(['/finaccountsmasterlist']);
   }
   
   
@@ -348,7 +348,7 @@ export class FinaccountsmasteraddComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formAccountMaster.reset();
-      window.location.reload();
+      this.route.navigate(['/finaccountsmasterlist']);
     });
     this.sharedService.loading = false;
   }

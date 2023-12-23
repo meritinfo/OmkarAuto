@@ -116,7 +116,7 @@ export class AdddestinationComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formUser.reset();
-            window.location.reload();
+            this.route.navigate(['/destinationlist']);
         });
       }
       
@@ -155,7 +155,7 @@ export class AdddestinationComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formUser.reset();
-      window.location.reload();
+      this.route.navigate(['/destinationlist']);
     });    
     this.sharedService.loading=false;
   }

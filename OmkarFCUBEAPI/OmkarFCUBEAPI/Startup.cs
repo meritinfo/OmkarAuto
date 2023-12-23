@@ -8,7 +8,6 @@ using Consignment.Business;
 using Consignment.Repository;
 using FinanceMasters.Business;
 using FinanceMasters.Repository;
-using FinanceMaster.Repository;
 using HRMasters.Business;
 using HRMasters.Repository;
 using FinTrans.Business;
@@ -73,8 +72,6 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFreightRatesMstRepository, FreightRatesMstRepository>();
             services.AddScoped<IDriverMasterRepository, DriverMasterRepository>();
             services.AddScoped<IDriverMasterBusiness, DriverMasterBusiness>();
-            services.AddScoped<IGstPurchaseDtlRepository, GstPurchaseDtlRepository>();
-            services.AddScoped<IGstPurchaseDtlBusiness, GstPurchaseDtlBusiness>();
             services.AddScoped<IGstPurchaseMstRepository, GstPurchaseMstRepository>();
             services.AddScoped<IGstPurchaseMstBusiness, GstPurchaseMstBusiness>();
             services.AddScoped<IExpensesTypeMasterRepository, ExpensesTypeMasterRepository>();
@@ -89,8 +86,6 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDistanceMasterTripBusiness, DistanceMasterTripBusiness>();
             services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
             services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
-            services.AddScoped<IJournalEntryBusiness, JournalEntryBusiness>();
-            services.AddScoped<IJournalEntryRepository, JournalEntryRepository>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();

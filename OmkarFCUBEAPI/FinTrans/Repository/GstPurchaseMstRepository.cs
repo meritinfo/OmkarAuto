@@ -1,0 +1,370 @@
+﻿
+using FinTrans.Models;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
+using System.Data.SqlClient;
+using Shared.Models;
+
+namespace FinTrans.Repository
+{
+    public class GstPurchaseMstRepository : IGstPurchaseMstRepository
+    {
+        private readonly IOptions<DBModel> dbconnection;
+
+        public GstPurchaseMstRepository(IOptions<DBModel> _dbconnection)
+        {
+            dbconnection = _dbconnection;
+        }
+
+    
+        /// <param name="GstPurchaseDtlModel"></param>
+        /// <returns>ResponseModel</returns>
+        public async Task<ResponseModel> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@Masterid",       gstPurchaseMstModel.Masterid),
+                        new SqlParameter("@TransDate",      gstPurchaseMstModel.TransDate),
+                        new SqlParameter("@BranchCode",     gstPurchaseMstModel.BranchCode),
+                        new SqlParameter("@PmtType",        gstPurchaseMstModel.PmtType),
+                        new SqlParameter("@VendorId",       gstPurchaseMstModel.VendorId),
+                        new SqlParameter("@VendorInvNo",    gstPurchaseMstModel.VendorInvNo),
+                        new SqlParameter("@VendorInvDt",    gstPurchaseMstModel.VendorInvDt),
+                        new SqlParameter("@InputEligible",  gstPurchaseMstModel.InputEligible),
+                        new SqlParameter("@TotalItemAmt",   gstPurchaseMstModel.TotalItemAmt),
+                        new SqlParameter("@TotalSgstAmt",   gstPurchaseMstModel.TotalSgstAmt),
+                        new SqlParameter("@TotalCgstAmt",   gstPurchaseMstModel.TotalCgstAmt),
+                        new SqlParameter("@TotalIgstAmt",   gstPurchaseMstModel.TotalIgstAmt),
+                        new SqlParameter("@TotalAmount",    gstPurchaseMstModel.TotalAmount),
+                        new SqlParameter("@TDSAmt",         gstPurchaseMstModel.TDSAmt),
+                        new SqlParameter("@RoundOff",       gstPurchaseMstModel.RoundOff),
+                        new SqlParameter("@NetAmount",      gstPurchaseMstModel.NetAmount),
+                        new SqlParameter("@CreditAc",       gstPurchaseMstModel.CreditAc),
+                        new SqlParameter("@NeftPmt",        gstPurchaseMstModel.NeftPmt),
+                        new SqlParameter("@ChequeNo",       gstPurchaseMstModel.ChequeNo),
+                        new SqlParameter("@ChequeDate",     gstPurchaseMstModel.ChequeDate),
+                        new SqlParameter("@YearId",         gstPurchaseMstModel.YearId),
+                        new SqlParameter("@AttatchFile1",   gstPurchaseMstModel.AttatchFile1),
+                        new SqlParameter("@AttatchFile2",   gstPurchaseMstModel.AttatchFile2),
+                        new SqlParameter("@ModifyRemarks",  gstPurchaseMstModel.ModifyRemarks),
+                        new SqlParameter("@LoggedInUser",   gstPurchaseMstModel.LoggedInUser)
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseMstSave", param);
+                    string Masterid = "0";
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        Masterid = Convert.ToString(responseModel.Message);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                    if (responseModel.Status)
+                    {
+                        for (int i = 0; i < gstPurchaseMstModel.GstPurchaseDetailsList.Count; i++)
+                        {
+
+                            gstPurchaseMstModel.GstPurchaseDetailsList[i].Masterid = Masterid.ToString();
+                            responseModel = await GstPurchaseDtlSave(gstPurchaseMstModel.GstPurchaseDetailsList[i]);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GstPurchaseDtlSave(GstPurchaseDtlModel gstPurchaseDtlModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@Masterid",   gstPurchaseDtlModel.Masterid),
+                            new SqlParameter("@DebitAc",    gstPurchaseDtlModel.DebitAc),
+                            new SqlParameter("@Narration",  gstPurchaseDtlModel.Narration),
+                            new SqlParameter("@SacHsnCode", gstPurchaseDtlModel.SacHsnCode),
+                            new SqlParameter("@SubLedger",  gstPurchaseDtlModel.SubLedger),
+                            new SqlParameter("@ItemAmt",    gstPurchaseDtlModel.ItemAmt),
+                            new SqlParameter("@SgstPct",    gstPurchaseDtlModel.SgstPct),
+                            new SqlParameter("@SgstAmt",    gstPurchaseDtlModel.SgstAmt),
+                            new SqlParameter("@CgstPct",    gstPurchaseDtlModel.CgstPct),
+                            new SqlParameter("@CgstAmt",    gstPurchaseDtlModel.CgstAmt),
+                            new SqlParameter("@IgstPct",    gstPurchaseDtlModel.IgstPct),
+                            new SqlParameter("@IgstAmt",    gstPurchaseDtlModel.IgstAmt),
+                            new SqlParameter("@TotAmount",  gstPurchaseDtlModel.TotAmount),
+                            new SqlParameter("@RefDocNo",   gstPurchaseDtlModel.RefDocNo),
+
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseDtlsSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};  GetGstPurchageInnerGridList
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GstPurchageDelete(Request request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@Masterid", request.strRequest),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseMstDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+        public async Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request)
+        {
+            GstPurchaseMstList gstPurchaseMstList = new();
+            List<GstPurchaseMstModel> gstPurchaseList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstPurchaseMstList", new SqlParameter[]
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate)
+                        });
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            gstPurchaseList.Add(new GstPurchaseMstModel
+                            {
+                                Masterid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Masterid"]),
+                                TransDate       = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                BranchName      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
+                                PmtType         = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                VendorId        = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),
+                                VendorName      = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                VendorInvNo     = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvNo"]),
+                                VendorInvDt     = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorInvDt"]),
+                                TotalItemAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalItemAmt"]),
+                                TotalSgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalSgstAmt"]),
+                                TotalCgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCgstAmt"]),
+                                TotalIgstAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalIgstAmt"]),
+                                TotalAmount     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAmount"]),
+                                TDSAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["TDSAmt"]),
+                                RoundOff        = Convert.ToString(dataSet.Tables[0].Rows[i]["RoundOff"]),
+                                NetAmount       = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
+                                CreditAc        = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
+                                NeftPmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
+                                ChequeNo        = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
+                                ChequeDate      = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
+                                InputEligible   = Convert.ToString(dataSet.Tables[0].Rows[i]["InputEligible"]),
+                                AttatchFile1    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile1"]),
+                                AttatchFile2    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile2"]),
+                            });
+                        }
+
+                        gstPurchaseMstList.GstpurchaseList = gstPurchaseList;
+                            
+                        gstPurchaseMstList.PageMetaData = new PaginationMetaData
+                        {      
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return gstPurchaseMstList;
+        }
+
+        public async Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(Request req)
+        {
+            GstPurchaseMstModel gstPurchaseMst = new()
+            {
+                GstPurchaseDetailsList  = new List<GstPurchaseDtlModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterId", req.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstPurchaseInnerGridList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            gstPurchaseMst.GstPurchaseDetailsList.Add(new GstPurchaseDtlModel
+                            {
+                                Masterid    = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
+                                DebitAc     = Convert.ToString(dataSet.Tables[0].Rows[i]["DebitAc"]),
+                                Narration   = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
+                                SubLedger   = Convert.ToString(dataSet.Tables[0].Rows[i]["SubLedger"]),
+                                SacHsnCode  = Convert.ToString(dataSet.Tables[0].Rows[i]["SacHsnCode"]),
+                                ItemAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["ItemAmt"]),
+                                SgstPct     = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                SgstAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                CgstPct     = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                CgstAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                IgstPct     = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+                                IgstAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                TotAmount   = Convert.ToString(dataSet.Tables[0].Rows[i]["TotAmount"]),
+                                RefDocNo    = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocNo"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return gstPurchaseMst;
+        }
+
+        public async Task<List<DropDownListModel>> GetGstVendorList()
+        {
+            List<DropDownListModel> vendorList = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstVendorList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            vendorList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return vendorList;
+        }
+    }
+}

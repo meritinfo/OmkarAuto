@@ -16,16 +16,14 @@ namespace OmkarFCUBEAPI.Controllers
     public class FinTransController : ControllerBase
     {
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
-        readonly IJournalEntryBusiness journalEntryBusiness;
+        readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
 
 
-        public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness, IJournalEntryBusiness _journalEntryBusiness)
+        public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
+            IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
-            journalEntryBusiness = _journalEntryBusiness;
-
-
-
+            gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
         }
         /// <summary>
 
@@ -111,17 +109,16 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-
-        [HttpPost("JournalEntrySave")]
-        public async Task<IActionResult> JournalEntrySave(JournalEntryModel journalEntryModel)
+        [HttpPost("GstPurchageDelete")]
+        public async Task<IActionResult> GstPurchageDelete(Request request)
         {
-            if (journalEntryModel == null)
+            if (request == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await journalEntryBusiness.JournalEntrySave(journalEntryModel);
+                var result = await gstPurchaseMstBusiness.GstPurchageDelete(request);
 
                 return Ok(result);
             }
@@ -131,13 +128,70 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetGstPurchaseList")]
+        public async Task<IActionResult> GetGstPurchaseList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPurchaseMstBusiness.GetGstPurchaseList(request);
 
-        [HttpPost("GetJournalEntryList")]
-        public async Task<IActionResult> GetJournalEntryList(PageRequest request)
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        
+        [HttpPost("GetGstPurchaseInnerGridList")]
+        public async Task<IActionResult> GetGstPurchaseInnerGridList(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPurchaseMstBusiness.GetGstPurchaseInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GstPurchaseMstSave")]
+        public async Task<IActionResult> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
+        {
+            if (gstPurchaseMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstPurchaseMstBusiness.GstPurchaseMstSave(gstPurchaseMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetGstVendorList")]
+        public async Task<IActionResult> GetGstVendorList()
         {
             try
             {
-                var result = await journalEntryBusiness.GetJournalEntryList(request);
+                var result = await gstPurchaseMstBusiness.GetGstVendorList();
 
                 return Ok(result);
             }
@@ -146,8 +200,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
 
     }
 }

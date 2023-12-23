@@ -6,7 +6,7 @@ import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -26,7 +26,7 @@ export class OthertripopenlistComponent {
   dtElement!: DataTableDirective;
 
   allOtherTripOpenList: Tripsheetlistmodel = new Tripsheetlistmodel();
-  filter: Typesheetfiltermodel = {
+  filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'tripNo',
@@ -34,8 +34,7 @@ export class OthertripopenlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    strRequest: ''
   }
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -93,7 +92,6 @@ export class OthertripopenlistComponent {
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       branch: new FormControl('0',),
-      vehicle: new FormControl('',)
     });
 
     this.otherTripList();
@@ -117,8 +115,7 @@ export class OthertripopenlistComponent {
         this.filter.search = dataTablesParameters.search.value;
         this.filter.fromDate = this.formFilter.value.fromDate;
         this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.branch = "";
-        this.filter.vehicle = "";
+        this.filter.strRequest = "";
         this.tripSheetService.getOtherTripOpenList(this.filter)
           .subscribe(resp => {
             this.allOtherTripOpenList = resp;
@@ -177,8 +174,7 @@ export class OthertripopenlistComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.branch = selectedDataVal.branch === '0' ? '' : selectedDataVal.branch;
-    this.filter.vehicle = '';
+    this.filter.strRequest = selectedDataVal.branch === '0' ? '' : selectedDataVal.branch;
     this.sharedService.loading=true;
     this.otherTripList();
     this.sharedService.loading=false;

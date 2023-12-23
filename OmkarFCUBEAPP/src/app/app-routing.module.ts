@@ -26,7 +26,6 @@ import {AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaste
 
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
-import { GstdetailsComponent } from './module/gstdetails/gstdetails.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/addratesmaster.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
@@ -74,10 +73,6 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 
 
 
-
-
-
-
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -87,7 +82,6 @@ const routes: Routes = [
   { path: 'userdetails', component: UserdetailsComponent },
   { path: 'adddestination', component: AdddestinationComponent },
   { path: 'destinationedit', component: AdddestinationComponent },
-
   { path: 'destinationlist', component: DestinationlistComponent },
   { path: 'productgroupmasterlist', component: ProductgroupmasterlistComponent },
   { path: 'addproductgroupmaster', component: AddproductgroupmasterComponent },
@@ -122,7 +116,6 @@ const routes: Routes = [
   { path: 'vehicletypegroupmasteredit', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
   { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
-  { path: 'gstdetails', component: GstdetailsComponent },
   { path: 'consignmentlist', component: ConsignmentlistComponent },
   { path: 'consignmentadd', component: ConsignmentaddComponent },
   { path: 'consignmentedit', component: ConsignmentaddComponent },
@@ -146,6 +139,7 @@ const routes: Routes = [
   { path: 'trippaymentsedit', component: AddtrippaymentsComponent },
   { path: 'gstpurchaselist', component: GstpurchaselistComponent },
   { path: 'gstpurchaseadd', component: GstpurchaseaddComponent },
+  { path: 'gstpurchaseedit', component: GstpurchaseaddComponent },
   { path: 'cashreceiptentrylist', component: CashreceiptentrylistComponent },
   { path: 'addcashreceiptentry', component: AddcashreceiptentryComponent },
   { path: 'cashreceiptentryedit', component: AddcashreceiptentryComponent },

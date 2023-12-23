@@ -243,7 +243,7 @@ export class AddbankreceiptentryComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formBankRecEntry.reset();
-            window.location.reload();
+            this.route.navigate(['/bankreceiptentrylist']);
         });
       }
       
@@ -333,7 +333,7 @@ export class AddbankreceiptentryComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formBankRecEntry.reset();
-      window.location.reload();
+      this.route.navigate(['/bankreceiptentrylist']);
     });
     
     this.sharedService.loading=false;

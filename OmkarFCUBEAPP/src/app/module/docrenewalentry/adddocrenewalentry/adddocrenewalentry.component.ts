@@ -398,13 +398,13 @@ export class AdddocrenewalentryComponent {
   deleteDocRenewalEntryForm(): void {
     if(this.selectedDocRenewalEntryDetails.docRenewalEntryId != '' ){
       this.sharedService.loading=true;
-     this.requestmodel.strRequest =this.selectedDocRenewalEntryDetails.docRenewalEntryId 
+      this.requestmodel.strRequest =this.selectedDocRenewalEntryDetails.docRenewalEntryId 
       if (confirm("Are you sure, you want to delete this?")) {
             this.docrenewalEntryService.DocrenewalEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formDocEntry.reset();
-            window.location.reload();
+            this.route.navigate(['/docrenewalentrylist']);
         });
       }
       this.sharedService.loading=false;
@@ -504,7 +504,7 @@ export class AdddocrenewalentryComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formDocEntry.reset();
-      window.location.reload();
+      this.route.navigate(['/docrenewalentrylist']);
     });
     this.sharedService.loading=false;
   }

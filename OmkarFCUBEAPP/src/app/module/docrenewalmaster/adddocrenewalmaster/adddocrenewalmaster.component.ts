@@ -105,7 +105,7 @@ export class AdddocrenewalmasterComponent {
             this.responseDetails = res;
             console.log(this.responseDetails.message);
             this.formUser.reset();
-            window.location.reload();
+            this.route.navigate(['/docrenewalmasterlist']);
         });
       }
       
@@ -145,7 +145,7 @@ export class AdddocrenewalmasterComponent {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formUser.reset();
-      window.location.reload();
+      this.route.navigate(['/docrenewalmasterlist']);
     });
     this.sharedService.loading=false;
   }

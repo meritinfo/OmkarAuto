@@ -775,7 +775,7 @@ namespace FleetTrans.Repository
             return tripSheetInnerGridList;
         }
 
-        public async Task<TripSheetList> GetOtherTripOpenList(TripSheetListRequest request)
+        public async Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request)
         {
             TripSheetList otherTripSheetList = new();
             List<TripMasterModel> otherTripList = new();
@@ -792,7 +792,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Branch", request.Branch)
+                            new SqlParameter("@Branch", request.strRequest)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOtherTripOpenList", param);
 
