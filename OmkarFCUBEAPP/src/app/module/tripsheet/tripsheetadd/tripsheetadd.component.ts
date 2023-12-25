@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Constants } from 'src/app/common/constants';
 
 
 
@@ -20,6 +21,7 @@ import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 import { Dslmodel } from 'src/app/models/dslmodel';
 import { BhattaRateModel } from 'src/app/models/bhattaratemodel';
 import { Opbalmodel } from 'src/app/models/opbalmodel';
+import { Driverdetailmodel } from 'src/app/models/driverdetailmodel';
 import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
@@ -60,6 +62,8 @@ export class TripsheetaddComponent {
   nexttripkms: string = '';
   vehicleTypeGroupId: string = '';
   driverPhotoPreview: any;
+  licenceNo: any;
+  validUpto: any;
 
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';
@@ -67,6 +71,7 @@ export class TripsheetaddComponent {
   incentiveDetails = new IncentiveRateModel();
   penaltyDetails = new PenaltyRateModel();
   OpbalDetails = new Opbalmodel();
+  DriverDetails = new Driverdetailmodel();
   bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
 
@@ -513,6 +518,7 @@ export class TripsheetaddComponent {
   selectNewEvent(item: any) {
     this.driverid = item.dataId;
     // do something with selected item
+    this.getDriverDetails();
     this.GetOpeningBal();
   }
   selectEvent(item: any) {
@@ -551,8 +557,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.openThrough = selectedDataValue.openThrough;
     this.tripsheetmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
     this.tripsheetmodel.tripOpenBy = selectedDataValue.tripOpenBy;
-    this.tripsheetmodel.tripOpenDate = this.commonService.formatDate(this.loginDate);
-    // this.tripsheetmodel.tripOpenDate = selectedDataValue.tripOpenDate;
+   // this.tripsheetmodel.tripOpenDate = this.commonService.formatDate(this.loginDate);
+     this.tripsheetmodel.tripOpenDate = selectedDataValue.tripOpenDate;
     this.tripsheetmodel.tripStatus = selectedDataValue.tripStatus ? 'C' : 'O';
     this.tripsheetmodel.driverMasterID = selectedDataValue.driverMasterID ? selectedDataValue.driverMasterID.dataId : '';
     this.tripsheetmodel.consignorPayParty = selectedDataValue.consignorPayParty;
@@ -567,7 +573,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.distanceTripKM_2 = selectedDataValue.distanceTripKM_2.toString();
     this.tripsheetmodel.contents = selectedDataValue.contents;
     this.tripsheetmodel.loadEmptyType = selectedDataValue.loadEmptyType;
-    this.tripsheetmodel.expectedReportingDt = this.commonService.formatDate(selectedDataValue.expectedReportingDt);
+   // this.tripsheetmodel.expectedReportingDt = this.commonService.formatDate(selectedDataValue.expectedReportingDt);
+   this.tripsheetmodel.expectedReportingDt = selectedDataValue.expectedReportingDt;
     this.tripsheetmodel.expectedReportingDays = selectedDataValue.expectedReportingDays;
     this.tripsheetmodel.ltsDslToBe_2 = selectedDataValue.ltsDslToBe_2.toString();;
     this.tripsheetmodel.ltsDslToBe_1 = selectedDataValue.ltsDslToBe_1.toString();;
@@ -910,11 +917,28 @@ export class TripsheetaddComponent {
         });
       }
     });
-
-
-
+    this.getDriverDetails();
+   
 
   }
+  getDriverDetails(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+
+
+    this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+
+    this.commonService.getDriverDetail(this.OpbalDetails).subscribe((res: Driverdetailmodel) => {
+      this.DriverDetails = res;
+      this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
+      this.licenceNo = this.DriverDetails.licenseNo,
+      this.validUpto = this.DriverDetails.licValidUpto
+    });
+
+ 
+ 
+  }
+
+
 
   checkTripkMsSecond() {
     var selectedDataValue = this.formTripsheet.getRawValue();
