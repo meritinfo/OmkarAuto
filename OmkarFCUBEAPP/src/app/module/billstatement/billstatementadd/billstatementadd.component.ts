@@ -8,6 +8,7 @@ import { billstatementmodel } from 'src/app/models/billstatementmodel';
 import { Billstatementsearchlistmodel } from 'src/app/models/billstatementsearchlistmodel';
 import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -42,12 +43,25 @@ export class BillstatementaddComponent implements OnInit {
   billsstatementinnergridrequest = new Billstatementinnergridrequest();
   responseDetails = new Responsemodel();
 
-  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder, private toasterService: ToastrService) {
+  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder,private sharedService: SharedService, private toasterService: ToastrService) {
     this.billsstatementmodel = new billstatementmodel();
     
   }
 
+
   ngOnInit(): void {
+    this.sharedService.loading = true;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Bill Statement");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -103,6 +117,8 @@ export class BillstatementaddComponent implements OnInit {
     setTimeout(() => {
       this.createmode = true;
    ;
+ 
+  
      if (this.selectedBillstatementDetails.masterID != '') {
        this.formBillStatement.patchValue(this.selectedBillstatementDetails);
       
@@ -141,7 +157,7 @@ export class BillstatementaddComponent implements OnInit {
      
    }, 2000);
    this.getValidation();
- 
+   this.sharedService.loading = false;
    }
 getValidation():void {
   this.formBillStatement.controls['tatementBillStation'].disable();
@@ -150,6 +166,7 @@ getValidation():void {
   this.formBillStatement.controls['totSubTotal'].disable();
   
 }
+
 
 
   getBranchList(): void {
