@@ -8,6 +8,7 @@ import { Drivermasterlistrequestmodel } from 'src/app/models/drivermasterlistreq
 import { PdfService } from 'src/app/services/pdf.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class DrivermasterlistComponent {
   formFilter!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private drivermasterService: DrivermasterService,
+    private sharedService: SharedService,       
     private route: Router, private excelService: ExcelService, private pdfService: PdfService) {
   }
 
@@ -60,7 +62,9 @@ export class DrivermasterlistComponent {
     this.formFilter = this.formBuilder.group({
       driverName: new FormControl(''),
     });
+    this.sharedService.loading=true;
     this.driverMasterList();
+    this.sharedService.loading=false;
   }
 
   driverMasterList() {
@@ -138,7 +142,9 @@ export class DrivermasterlistComponent {
 
   search(): void {
     this.filter.search = this.formFilter.value.driverName;
+    this.sharedService.loading=true;
     this.driverMasterList();
+    this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
     });

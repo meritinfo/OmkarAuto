@@ -4,6 +4,7 @@ import { Dieselstatementsearchlistrequestmodel } from '../models/dieselstatement
 import { Dieselstatementsearchlistmodel } from '../models/dieselstatementsearchlistmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { Filtermodel } from '../models/filtermodel';
 import { Dieselstatementsaverequest } from '../models/dieselstatementsaverequest';
 import { Responsemodel } from '../models/responsemodel';
@@ -24,19 +25,17 @@ export class DieselstatementService {
   selectedDieselStatement = new Dieselstatementmodel();
 
   constructor(private httpClient: HttpClient) { }
-  setDieselStatementDetails(docrenewalmaster: Dieselstatementmodel) {
- 
-    this.selectedDieselStatement = docrenewalmaster;
-  
+  setDieselStatementDetails(docrenewalmaster: Dieselstatementmodel) { 
+    this.selectedDieselStatement = docrenewalmaster; 
+  }
 
-}
   clearDieselStatementDetails() {
     this.selectedDieselStatement= new Dieselstatementmodel();
   }
   getDieselStatementSearchList(request: Dieselstatementsearchlistrequestmodel): Observable<Dieselstatementsearchlistmodel> {
     return this.httpClient.post<Dieselstatementsearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementSearchList', request, this.httpOptions);
   }
-  getDieselStatementList(filter: Filtermodel): Observable<Dieselstatementlistmodel> {
+  getDieselStatementList(filter: Pagerequestwithdatesmodel): Observable<Dieselstatementlistmodel> {
     return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementList', filter, this.httpOptions);
   }
 

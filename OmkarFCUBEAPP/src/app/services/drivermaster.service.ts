@@ -31,7 +31,7 @@ export class DrivermasterService {
     this.selectedDriverMaster = new Drivermodel();
   }
   
-  driverMasterDetailsSubmitted(user: Driverdetailmodel): Observable<Responsemodel> {
+  driverMasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterSave', user, this.httpOptions);
   }
   getDriverMasterList(filter: Drivermasterlistrequestmodel): Observable<Drivermasterlistmodel> {

@@ -36,7 +36,7 @@ namespace OmkarFCUBEAPI.Controllers
 
        
         [HttpPost("GetDieselStatementList")]
-        public async Task<IActionResult> GetDieselStatementList(PageRequest request)
+        public async Task<IActionResult> GetDieselStatementList(PageFromDtToDtRequest request)
         {
             try
             {

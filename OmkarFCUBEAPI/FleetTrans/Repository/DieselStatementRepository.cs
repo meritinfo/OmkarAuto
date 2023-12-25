@@ -158,7 +158,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<DieselStatementList> GetDieselStatementList(PageRequest request)
+        public async Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request)
         {
             DieselStatementList dieselStatementList = new();
             List<DieselStatementModel> dieselList = new();
@@ -172,7 +172,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@fromDate", request.FromDate),
+                            new SqlParameter("@toDate", request.ToDate),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DieselStatementList_Select", param);
 
@@ -183,26 +185,18 @@ namespace FleetTrans.Repository
                         {
                             dieselList.Add(new DieselStatementModel
                             {
-                                DfVendor = Convert.ToString(dataSet.Tables[0].Rows[i]["DfVendor"]),
-                                BillStmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtNo"]),
-                                BillStmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
-
-                                FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
-
-                                ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
-                                Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
-                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
-                                TotalCashAdv = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
-                           
-                                TotalNetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-
-
-
-
-
+                                DfVendor        = Convert.ToString(dataSet.Tables[0].Rows[i]["DfVendor"]),
+                                BillStmtNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtNo"]),
+                                BillStmtDate    = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
+                                FromDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
+                                ToDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
+                                Location        = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
+                                Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                TotalDslLtrs    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
+                                TotalCashAdv    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
+                                TotalNetAmount  = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
+                                BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                                YearId          = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                             });
                         }
 
