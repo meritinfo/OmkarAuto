@@ -278,6 +278,7 @@ export class GstpurchaseaddComponent {
 
         this.formArray.controls[i].get("debitAc")?.setValue(this.debitAcList.find(e => e.dataId == res.gstPurchaseDetailsList[i].debitAc));
         this.formArray.controls[i].get("narration")?.setValue(res.gstPurchaseDetailsList[i].narration);
+        this.formArray.controls[i].get("itemAmt")?.setValue(res.gstPurchaseDetailsList[i].itemAmt);
         this.formArray.controls[i].get("sgstPct")?.setValue(res.gstPurchaseDetailsList[i].sgstPct);
         this.formArray.controls[i].get("sgstAmt")?.setValue(res.gstPurchaseDetailsList[i].sgstAmt);
         this.formArray.controls[i].get("cgstPct")?.setValue(res.gstPurchaseDetailsList[i].cgstPct);
