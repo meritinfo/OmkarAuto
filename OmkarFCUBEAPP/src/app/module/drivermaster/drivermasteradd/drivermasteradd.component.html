@@ -285,10 +285,10 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Driver Photo</label><span style="color: red">*</span>
-                                                <input #driverPhotoInput class="form-control" type="file"
+                                                <input #driverPhotoInput class="form-control" type="file" formControlName="drPhoto"
                                                     id="formDriverPhoto" accept="image/*"
                                                     (change)="onSelectDrivePhoto($event)"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['formDriverPhoto'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['drPhoto'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">

@@ -26,7 +26,7 @@ export class DrivermasteraddComponent {
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
   driverPhotoData: [] = [];
-  driverPhotoPreview:  any;
+  driverPhotoPreview: any;
   driverPhotoName: string = '';
 
   @ViewChild('driverPhotoInput', {
@@ -50,11 +50,11 @@ export class DrivermasteraddComponent {
   @ViewChild('bankPassbookInput', {
     static: true
   }) bankPassbookInput: any;
-  
-  constructor(private route: Router, private formBuilder: FormBuilder, 
+
+  constructor(private route: Router, private formBuilder: FormBuilder,
     private driverModel: Drivermodel, private drivermasterService: DrivermasterService,
-    private commonService :CommonService, 
-    private toasterService: ToastrService, private requestmodel:Requestmodel) {
+    private commonService: CommonService,
+    private toasterService: ToastrService, private requestmodel: Requestmodel) {
     this.driverModel = new Drivermodel();
   }
 
@@ -64,7 +64,7 @@ export class DrivermasteraddComponent {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Driver Master"));      
+        .find(((aa: { menuName: string; }) => aa.menuName === "Driver Master"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -87,22 +87,22 @@ export class DrivermasteraddComponent {
     this.formDriverMaster = this.formBuilder.group({
       driverMasterID: new FormControl('',),
       driverName: new FormControl('', [Validators.required]),
-      fatherName: new FormControl('',[Validators.required]),
-      dateOfBirth: new FormControl('',[Validators.required]),
-      age: new FormControl('',[Validators.required]),
-      introBy: new FormControl('',[Validators.required]),
-      introByMobileNo: new FormControl('',[Validators.required]),
-      dateOfAppoint: new FormControl('',[Validators.required]),
-      licenseNo: new FormControl('',[Validators.required]),
-      licValidUpto: new FormControl('',[Validators.required]),
-      licenseIssuAuth: new FormControl('',[Validators.required]),
+      fatherName: new FormControl('', [Validators.required]),
+      dateOfBirth: new FormControl('', [Validators.required]),
+      age: new FormControl('', [Validators.required]),
+      introBy: new FormControl('', [Validators.required]),
+      introByMobileNo: new FormControl('', [Validators.required]),
+      dateOfAppoint: new FormControl('', [Validators.required]),
+      licenseNo: new FormControl('', [Validators.required]),
+      licValidUpto: new FormControl('', [Validators.required]),
+      licenseIssuAuth: new FormControl('', [Validators.required]),
       isHazardousLicYN: new FormControl('',),
       hazLicenseIssuAuth: new FormControl('',),
       hazardousLicNo: new FormControl('',),
       hazLicValidUpto: new FormControl('',),
-      bloodGroup: new FormControl('',[Validators.required]),
+      bloodGroup: new FormControl('', [Validators.required]),
       typeOfLicence: new FormControl('',),
-      driverMobile1: new FormControl('',[Validators.required]),
+      driverMobile1: new FormControl('', [Validators.required]),
       driverMobile2: new FormControl('',),
       temporaryAddr: new FormControl('',),
       temporaryAddrCity: new FormControl('',),
@@ -112,7 +112,7 @@ export class DrivermasteraddComponent {
       permanentAddrCity: new FormControl('',),
       permanentAddrPin: new FormControl('',),
       permAddPhone: new FormControl('',),
-      driverAadharNo: new FormControl('',[Validators.required]),
+      driverAadharNo: new FormControl('', [Validators.required]),
       previousExpDetails: new FormControl('',),
       previousExpYears: new FormControl('',),
       isActive: new FormControl('',),
@@ -120,7 +120,7 @@ export class DrivermasteraddComponent {
       removedYN: new FormControl('',),
       removedDate: new FormControl('',),
       remarks: new FormControl('',),
-      groupName: new FormControl('',[Validators.required]),
+      groupName: new FormControl('', [Validators.required]),
       driverAcct: new FormControl('',),
       drPhoto: new FormControl('',),
       attachDrLic: new FormControl('',),
@@ -129,12 +129,12 @@ export class DrivermasteraddComponent {
       attachDrTempAddProof: new FormControl('',),
       attachDrPermAddProof: new FormControl('',),
       attachDrBankPassBook: new FormControl('',),
-      bankName: new FormControl('',[Validators.required]),
-      drBankAccountName: new FormControl('',[Validators.required]),
-      bankAcNo: new FormControl('',[Validators.required]),
-      bankBranch: new FormControl('',[Validators.required]),
-      bankIfsCode: new FormControl('',[Validators.required]),
-      bankAccountStatus: new FormControl('',[Validators.required]),
+      bankName: new FormControl('', [Validators.required]),
+      drBankAccountName: new FormControl('', [Validators.required]),
+      bankAcNo: new FormControl('', [Validators.required]),
+      bankBranch: new FormControl('', [Validators.required]),
+      bankIfsCode: new FormControl('', [Validators.required]),
+      bankAccountStatus: new FormControl('', [Validators.required]),
       createdBy: new FormControl('',),
       createdDate: new FormControl('',),
       modifiedBy: new FormControl('',),
@@ -142,7 +142,7 @@ export class DrivermasteraddComponent {
       loggedInUser: new FormControl('',),
       deleteFlag: new FormControl('',)
     });
-    
+
     this.formDriverMaster.controls['age'].disable();
 
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
@@ -152,11 +152,11 @@ export class DrivermasteraddComponent {
       this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
       this.formDriverMaster.patchValue({
         dateOfBirth: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfBirth),
-        dateOfAppoint:this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
-        licValidUpto:this.commonService.formatDate(this.selectedDriverMasterDetails.licValidUpto),
-        hazLicValidUpto:this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
-        inActiveDate:this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
-        removedDate:this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
+        dateOfAppoint: this.commonService.formatDate(this.selectedDriverMasterDetails.dateOfAppoint),
+        licValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.licValidUpto),
+        hazLicValidUpto: this.commonService.formatDate(this.selectedDriverMasterDetails.hazLicValidUpto),
+        inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
+        removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
       })
       this.editMode = true;
     }
@@ -164,8 +164,8 @@ export class DrivermasteraddComponent {
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formDriverMaster.controls; }
-  
-// Convert file to base64 string
+
+  // Convert file to base64 string
   convertDataUrlToBlob(dataUrl: any): Blob {
     const arr = dataUrl.split(',');
     const mime = arr[0].split(/[#?]/)[0].split('.').pop().trim();
@@ -173,24 +173,24 @@ export class DrivermasteraddComponent {
     let n = bstr.length;
     const u8arr = new Uint8Array(n);
     while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
+      u8arr[n] = bstr.charCodeAt(n);
     }
-    return new Blob([u8arr], {type: mime});
+    return new Blob([u8arr], { type: mime });
   }
 
-  onDOBChange(e: any) {     
+  onDOBChange(e: any) {
     this.formDriverMaster.controls['age'].disable();
-    var dob= e.target.value; 
-    if(dob){
+    var dob = e.target.value;
+    if (dob) {
       let todayDate = new Date();
       let sentOnDate = new Date(dob);
       sentOnDate.setDate(sentOnDate.getDate());
       let differenceInTime = todayDate.getTime() - sentOnDate.getTime();
-      var calage = Math.floor((differenceInTime / (1000 * 3600 * 24))/365); 
-        this.formDriverMaster.patchValue({
-          age:calage
-        })
-      }
+      var calage = Math.floor((differenceInTime / (1000 * 3600 * 24)) / 365);
+      this.formDriverMaster.patchValue({
+        age: calage
+      })
+    }
   }
 
   //On driver photo file select
@@ -220,10 +220,10 @@ export class DrivermasteraddComponent {
     }
   }
 
-  
+
   onHazardousChange(e: any) {
     var selectedValue = e.target.value;
-    if(selectedValue=="Y"){ 
+    if (selectedValue == "Y") {
       this.formDriverMaster.controls['hazardousLicNo'].setValidators([Validators.required]);
       this.formDriverMaster.controls['hazLicValidUpto'].setValidators([Validators.required]);
       this.formDriverMaster.controls['hazLicenseIssuAuth'].setValidators([Validators.required]);
@@ -232,7 +232,7 @@ export class DrivermasteraddComponent {
       this.formDriverMaster.controls['hazardousLicNo'].clearValidators();
       this.formDriverMaster.controls['hazLicValidUpto'].clearValidators();
       this.formDriverMaster.controls['hazLicenseIssuAuth'].clearValidators();
-      
+
     }
     this.formDriverMaster.controls['hazardousLicNo'].updateValueAndValidity();
     this.formDriverMaster.controls['hazLicValidUpto'].updateValueAndValidity();
@@ -242,38 +242,38 @@ export class DrivermasteraddComponent {
 
   onActiveChange(e: any) {
     var selectedValue = e.target.value;
-    if(selectedValue=="N"){ 
+    if (selectedValue == "N") {
       this.formDriverMaster.controls['inActiveDate'].setValidators([Validators.required]);
     }
     else {
       this.formDriverMaster.controls['inActiveDate'].clearValidators();
-      
+
     }
     this.formDriverMaster.controls['inActiveDate'].updateValueAndValidity();
   }
 
-  
+
   onRemovedChange(e: any) {
     var selectedValue = e.target.value;
-    if(selectedValue=="Y"){ 
+    if (selectedValue == "Y") {
       this.formDriverMaster.controls['removedDate'].setValidators([Validators.required]);
     }
     else {
       this.formDriverMaster.controls['removedDate'].clearValidators();
-      
+
     }
     this.formDriverMaster.controls['removedDate'].updateValueAndValidity();
   }
 
   deleteDriverMasterForm(): void {
-    if(this.selectedDriverMasterDetails.driverMasterID != '' ){
-     this.requestmodel.strRequest =this.selectedDriverMasterDetails.driverMasterID
+    if (this.selectedDriverMasterDetails.driverMasterID != '') {
+      this.requestmodel.strRequest = this.selectedDriverMasterDetails.driverMasterID
       if (confirm("Are you sure, you want to delete this?")) {
-            this.drivermasterService.driverMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formDriverMaster.reset();
-            this.route.navigate(['/drivermasterlist']);
+        this.drivermasterService.driverMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          console.log(this.responseDetails.message);
+          this.formDriverMaster.reset();
+          this.route.navigate(['/drivermasterlist']);
         });
       }
     }
@@ -285,17 +285,17 @@ export class DrivermasteraddComponent {
   submitDriverMasterForm() {
     this.userSubmitted = true;
     if (this.formDriverMaster.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formDriverMaster.controls;
       for (const name in controls) {
         if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
+          this.toasterService.warning(name + " Fields is Invalid");
         }
-      }       
+      }
       return;
     }
-    var selectedDataVal=this.formDriverMaster.getRawValue()
-    this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID ;
+    var selectedDataVal = this.formDriverMaster.getRawValue()
+    this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID;
     this.driverModel.driverName = selectedDataVal.driverName;
     this.driverModel.fatherName = selectedDataVal.fatherName;
     this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
@@ -327,7 +327,7 @@ export class DrivermasteraddComponent {
     this.driverModel.previousExpYears = selectedDataVal.previousExpYears;
     this.driverModel.isActive = selectedDataVal.isActive;
     this.driverModel.inActiveDate = selectedDataVal.inActiveDate;
-    this.driverModel.removedYN = selectedDataVal.removedYN?selectedDataVal.removedYN:'N';
+    this.driverModel.removedYN = selectedDataVal.removedYN ? selectedDataVal.removedYN : 'N';
     this.driverModel.removedDate = selectedDataVal.removedDate;
     this.driverModel.remarks = selectedDataVal.remarks;
     this.driverModel.groupName = selectedDataVal.groupName;
@@ -348,26 +348,36 @@ export class DrivermasteraddComponent {
     this.driverModel.loggedInUser = this.loggedInUserID;
     this.driverModel.deleteFlag = selectedDataVal.deleteFlag;
 
-    this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
-    this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-    this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
-    this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0]?this.tempAddressProveInput.nativeElement.files[0]:"0";
-    this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0]?this.perAddressProveInput.nativeElement.files[0]:"0";
-    this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0]?this.aadharCardInput.nativeElement.files[0]:"0";
-    this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0]?this.bankPassbookInput.nativeElement.files[0]:"0";
- 
-    this.drivermasterService.driverMasterDetailsSubmitted(this.driverModel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.toasterService.success(this.responseDetails.message);
-          this.formDriverMaster.reset();
-          this.route.navigate(['/drivermasterlist']);
-        } 
-        else {
-          this.toasterService.warning(this.responseDetails.message);
-        }
-      });
-    }
+    // this.driverModel.drPhoto = this.driverPhotoInput.nativeElement.files[0];
+    // this.driverModel.attachDrLic =this.drivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
+    // this.driverModel.attachDrHazLic =this.hazdrivingLicenseInput.nativeElement.files[0]?this.drivingLicenseInput.nativeElement.files[0]:"0";
+    // this.driverModel.attachDrTempAddProof = this.tempAddressProveInput.nativeElement.files[0]?this.tempAddressProveInput.nativeElement.files[0]:"0";
+    // this.driverModel.attachDrPermAddProof = this.perAddressProveInput.nativeElement.files[0]?this.perAddressProveInput.nativeElement.files[0]:"0";
+    // this.driverModel.attachDrAadhar = this.aadharCardInput.nativeElement.files[0]?this.aadharCardInput.nativeElement.files[0]:"0";
+    // this.driverModel.attachDrBankPassBook = this.bankPassbookInput.nativeElement.files[0]?this.bankPassbookInput.nativeElement.files[0]:"0";
 
-    
+    let formData = new FormData();
+    formData.append('driverPhoto', this.driverPhotoInput.nativeElement.files[0]);
+    formData.append('drivingLicense', this.drivingLicenseInput.nativeElement.files[0]);
+    formData.append('hazdrivingLicense', this.hazdrivingLicenseInput.nativeElement.files[0]);
+    formData.append('tempAddressProve', this.tempAddressProveInput.nativeElement.files[0]);
+    formData.append('perAddressProve', this.perAddressProveInput.nativeElement.files[0]);
+    formData.append('aadharCard', this.aadharCardInput.nativeElement.files[0]);
+    formData.append('bankPassbook', this.bankPassbookInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.driverModel));
+
+    this.drivermasterService.driverMasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formDriverMaster.reset();
+        this.route.navigate(['/drivermasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
+    });
+  }
+
+
 }

@@ -59,6 +59,7 @@ export class TripsheetaddComponent {
   tripkms: string = '';
   nexttripkms: string = '';
   vehicleTypeGroupId: string = '';
+  driverPhotoPreview: any;
 
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';

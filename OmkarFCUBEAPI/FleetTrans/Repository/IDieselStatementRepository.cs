@@ -7,6 +7,6 @@ namespace FleetTrans.Repository
     {
         Task<DieselStatementSearchListModel> GetDieselStatementSearchList(DieselStatementSearchListRequest request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request);
-        Task<DieselStatementList> GetDieselStatementList(PageRequest request);
+        Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
     }
 }
