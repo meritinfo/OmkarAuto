@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
+import { CommonService } from 'src/app/services/common.service';
 
 
 @Component({
@@ -25,7 +26,12 @@ export class DieselstatementlistComponent {
   viewStatus = false;
   vendorList: Dropdownmodel[] = [];
   formFilter!: FormGroup;
-  keywordLocation = 'dataName';
+  keywordLocation = 'dataName'; 
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
@@ -34,7 +40,7 @@ export class DieselstatementlistComponent {
   filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'dfVendor',
+    sortColumn: 'vendor',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -44,6 +50,7 @@ export class DieselstatementlistComponent {
 
   constructor(private formBuilder: FormBuilder, 
     private dieselStatementService: DieselstatementService, 
+    private commonService: CommonService, 
     private sharedService: SharedService, private gstpurchaseService: GstpurchaseService,      
     private route: Router) {
   }
@@ -54,7 +61,7 @@ export class DieselstatementlistComponent {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Driver Master"));
+      .find((( aa: { menuName: string; }) => aa.menuName === "Diesel Statement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -62,12 +69,30 @@ export class DieselstatementlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
 
     this.dieselStatementService.clearDieselStatementDetails();
     this.formFilter = this.formBuilder.group({
       dfVendor: new FormControl(''),
-      BillStmtDate: new FormControl(''),
-    });
+      fromDate: new FormControl(this.fromDate,),
+      toDate: new FormControl(this.loginDate,),
+    });     
 
     this.sharedService.loading=true;    
     this.getVendorList();
@@ -102,9 +127,8 @@ export class DieselstatementlistComponent {
       columns: [
         {
           title: 'Vendor ',
-          data: 'dfVendor',
+          data: 'vendor',
         },
-
         {
           title: 'bill Stmt No ',
           data: 'billStmtNo',
@@ -133,7 +157,6 @@ export class DieselstatementlistComponent {
   
   selectEvent(item: any) {
     // do something with selected item
-  // this.GetOpeningBal();
   }
 
   onChangeSearch(search: string) {
@@ -167,8 +190,9 @@ export class DieselstatementlistComponent {
   }
 
   search(): void {
-    this.filter.search = this.formFilter.value.vendorId.dataId;
-    this.filter.fromDate = this.formFilter.value.billStmtDate;
+    this.filter.search = this.formFilter.value.dfVendor.dataId;
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;
     this.dieselstateList();
     this.sharedService.loading=false;

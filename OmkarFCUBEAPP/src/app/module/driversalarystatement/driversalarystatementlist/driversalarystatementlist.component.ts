@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-
 import { Router } from '@angular/router';
-
-
-
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Driversalarystatementlistmodel  } from 'src/app/models/driversalarystatementlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';

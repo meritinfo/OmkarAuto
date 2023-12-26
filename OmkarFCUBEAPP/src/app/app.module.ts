@@ -103,8 +103,9 @@ import { bankreceiptentrymodel } from './models/bankreceiptentrymodel';
 import { JournalentrylistComponent } from './module/journalentry/journalentrylist/journalentrylist.component';
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
+import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
-import { Dieselstatementsearchlistrequestmodel } from './models/dieselstatementsearchlistrequestmodel';
+import { Dieselstatementlistmodel } from './models/dieselstatementlistmodel';
 import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { Distancemastertripmodel } from './models/distancemastertripmodel';
 import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
@@ -114,7 +115,6 @@ import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/add
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { Ratesmastermodel } from './models/ratesmastermodel';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
-import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
 import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { billstatementmodel } from './models/billstatementmodel';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
@@ -127,6 +127,7 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
 import { Requestmodel } from './models/requestmodel';
+import { Pagerequestwithdatesmodel } from './models/pagerequestwithdatesmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
 import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
@@ -235,8 +236,8 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     DataTablesModule,
     LayoutModule,
     AutocompleteLibModule
-
   ],
+  
   providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
     Brandmastermodel, Tyrepositionmastermodel, Docrenewalmastermodel, Ratetypesmodel, 
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
@@ -244,8 +245,10 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     Docrenewalmastermodel, Docrenewalentrymodel, 
     Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
-    Dieselstatementmodel,Dieselstatementsearchlistrequestmodel, Billstatementsearchlistrequestmodel, 
-    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,Requestmodel,
+    Dieselstatementlistmodel,  Dieselstatementmodel, 
+    Billstatementsearchlistrequestmodel, 
+    Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
+    Requestmodel,Pagerequestwithdatesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
   bootstrap: [AppComponent]
 })

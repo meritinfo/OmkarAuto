@@ -334,12 +334,14 @@ export class AddratesmasterComponent implements OnInit {
     //Start date end date validation
     if (Date.parse(this.ratesmastermodel.validUpto) < Date.parse(this.ratesmastermodel.validFrom)) {
       this.toasterService.warning("End date should be greater than start date");
+      this.sharedService.loading=false;
       return;
     }
 
     const found = this.ratesmastermodel.freightRatesDetailsList.some(el => el.rate === '');
       if (found) {
         this.toasterService.warning("Rate cannot be Empty in details grid");
+        this.sharedService.loading=false;
         return;
       }
 
@@ -347,6 +349,7 @@ export class AddratesmasterComponent implements OnInit {
       const found = this.ratesmastermodel.freightRatesDetailsList.some(el => el.toPlace === this.ratesmastermodel.fromPlace);
       if (found) {
         this.toasterService.warning("From Point cannot be same as To Place in details grid");
+        this.sharedService.loading=false;
         return;
       }
       //Duplicate destination check
@@ -355,6 +358,7 @@ export class AddratesmasterComponent implements OnInit {
       });
       if (foundDuplicateName) {
         this.toasterService.warning(" To place in details grid not allowed");
+        this.sharedService.loading=false;
         return;
       }
     }
@@ -362,6 +366,7 @@ export class AddratesmasterComponent implements OnInit {
       const found = this.ratesmastermodel.freightRatesDetailsList.some(el => el.destState === this.ratesmastermodel.fromPlace);
       if (found) {
         this.toasterService.warning("From Point cannot be same as State in details grid");
+        this.sharedService.loading=false;
         return;
       }
 
@@ -371,6 +376,7 @@ export class AddratesmasterComponent implements OnInit {
       });
       if (foundDuplicateName) {
         this.toasterService.warning(" State in details grid not allowed");
+        this.sharedService.loading=false;
         return;
       }
     }

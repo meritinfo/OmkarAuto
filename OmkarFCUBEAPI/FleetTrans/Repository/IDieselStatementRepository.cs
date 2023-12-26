@@ -5,8 +5,9 @@ namespace FleetTrans.Repository
 {
     public interface IDieselStatementRepository
     {
-        Task<DieselStatementSearchListModel> GetDieselStatementSearchList(DieselStatementSearchListRequest request);
-        Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request);
+        Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request);
+        Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request);
         Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
+        Task<ResponseModel> DieselStatementDetailsDelete(Request request);
     }
 }

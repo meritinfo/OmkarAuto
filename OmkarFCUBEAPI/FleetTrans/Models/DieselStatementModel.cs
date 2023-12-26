@@ -10,6 +10,7 @@ namespace FleetTrans.Models
     {
         public string? MasterID { get; set; }
         public string? DfVendor { get; set; }
+        public string? Vendor { get; set; }
         public string? BillStmtNo { get; set; }
         public string? BillStmtDate { get; set; }
         public string? FromDate { get; set; }
@@ -17,10 +18,12 @@ namespace FleetTrans.Models
         public string? Location { get; set; }
         public string? Remarks { get; set; }
         public string? TotalDslLtrs { get; set; }
-        public string? TotalCashAdv { get; set; }
         public string? TotalDslAmt { get; set; }
+        public string? TotalCashAdv { get; set; }
         public string? TotalNetAmount { get; set; }
         public string? BranchCode { get; set; }
         public string? YearId { get; set; }
+        public string? LoggedInUser { get; set; }
+        public List<DieselStatementSearchModel> DieselStatementListData { get; set; }
     }
 }

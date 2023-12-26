@@ -166,7 +166,6 @@ export class AddbranchmasterComponent {
   //Submit user form details //
   submitBranchMasterForm(): void {    
     this.sharedService.loading = true;
-    this.userSubmitted = true;
     if (this.formBranchMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formBranchMaster.controls;
@@ -180,7 +179,7 @@ export class AddbranchmasterComponent {
     this.branchModel.centreid = this.selectedBranchMasterDetails.centreid != '' ? this.selectedBranchMasterDetails.centreid : '';
 
     var selectedDataVal = this.formBranchMaster.getRawValue();
-
+    this.userSubmitted = true;
     this.branchModel.code             = selectedDataVal.code.toString().toUpperCase();
     this.branchModel.centreName       = selectedDataVal.userBranch.toString().toUpperCase();
     this.branchModel.zoneCode         = selectedDataVal.zoneCode.toString().toUpperCase();

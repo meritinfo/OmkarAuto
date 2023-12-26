@@ -8,6 +8,12 @@ using Shared.Models;
 
 using FleetTrans.Models;
 using FleetMasters.Business;
+using FinTrans.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -16,6 +22,7 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class FleetTransController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IDocRenewalEntryBusiness docRenewalEntryBusiness;
         readonly ITripPaymentsBusiness tripPaymentsBusiness;
         readonly ITripMasterBusiness tripMasterBusiness;
@@ -35,20 +42,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
        
-        [HttpPost("GetDieselStatementList")]
-        public async Task<IActionResult> GetDieselStatementList(PageFromDtToDtRequest request)
-        {
-            try
-            {
-                var result = await dieselStatementBusiness.GetDieselStatementList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        
         [HttpPost("GetBillStatementList")]
         public async Task<IActionResult> GetBillStatementList(PageRequest request)
         {
@@ -300,9 +294,32 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetDieselStatementSearchList")]
-        public async Task<IActionResult> GetDieselStatementSearchList(DieselStatementSearchListRequest request)
+        [HttpPost("GetDieselStatementList")]
+        public async Task<IActionResult> GetDieselStatementList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDieselStatementSearchList")]
+        public async Task<IActionResult> GetDieselStatementSearchList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await dieselStatementBusiness.GetDieselStatementSearchList(request);
@@ -317,8 +334,12 @@ namespace OmkarFCUBEAPI.Controllers
       
 
         [HttpPost("SaveDieselStatementDetails")]
-        public async Task<IActionResult> SaveDieselStatementDetails(DieselStatementSaveRequest request)
+        public async Task<IActionResult> SaveDieselStatementDetails(DieselStatementModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await dieselStatementBusiness.SaveDieselStatementDetails(request);
@@ -330,6 +351,25 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("DieselStatementDetailsDelete")]
+        public async Task<IActionResult> DieselStatementDetailsDelete(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.DieselStatementDetailsDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)
@@ -359,6 +399,8 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
 
         [HttpPost("SaveBillStatementDetails")]
         public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)
@@ -490,16 +532,40 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
 
-        /// <param name="FinAccountsMasterModel"></param>
         [HttpPost("DocRenewalEntryDetailsSave")]
-        public async Task<IActionResult> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel)
+        public async Task<IActionResult> DocRenewalEntryDetailsSave()
         {
-            if (docRenewalEntryModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var attach1 = HttpContext.Request.Form.Files["attach1"];
+                var attach2 = HttpContext.Request.Form.Files["attach2"];
+
+                DocRenewalEntryModel docRenewalEntryModel = JsonConvert.DeserializeObject<DocRenewalEntryModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attach1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach1.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach1/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach1.CopyToAsync(fileStream);
+                        docRenewalEntryModel.Attach1 = imageName;
+                    }
+                }
+                if (attach2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach2.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach2/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach2.CopyToAsync(fileStream);
+                        docRenewalEntryModel.Attach2 = imageName;
+                    }
+                }
+
+
                 var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsSave(docRenewalEntryModel);
 
                 return Ok(result);

@@ -15,7 +15,7 @@ namespace FleetTrans.Business
         /// Business method for Get Diesel Statement Search List
         /// </summary>
         /// <param name="DieselStatementSearchListRequest"></param>
-        public async Task<DieselStatementSearchListModel> GetDieselStatementSearchList(DieselStatementSearchListRequest request)
+        public async Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request)
         {
             return await dieselStatementRepository.GetDieselStatementSearchList(request);
         }
@@ -23,13 +23,18 @@ namespace FleetTrans.Business
         /// Business method for Save Diesel Statement Details
         /// </summary>
         /// <param name="DieselStatementSearchListRequest"></param>
-        public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementSaveRequest request)
+        public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request)
         {
             return await dieselStatementRepository.SaveDieselStatementDetails(request);
         }
         public async Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request)
         {
             return await dieselStatementRepository.GetDieselStatementList(request);
+        }
+
+        public async Task<ResponseModel> DieselStatementDetailsDelete(Request request)
+        {
+            return await dieselStatementRepository.DieselStatementDetailsDelete(request);
         }
 
     }

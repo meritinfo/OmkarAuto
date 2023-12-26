@@ -34,7 +34,7 @@ export class GstpurchaseService {
     this.selectedGstPurchage = new Gstpurchasemodel();
   }
 
-  gstPurchageDetailsSubmitted(gstpur: Gstpurchasemodel): Observable<Responsemodel> {
+  gstPurchageDetailsSubmitted(gstpur: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GstPurchaseMstSave', gstpur, this.httpOptions);
   }
 

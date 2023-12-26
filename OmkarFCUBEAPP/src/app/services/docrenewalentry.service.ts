@@ -39,7 +39,7 @@ export class DocRenewalEntryService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkDocrenewalValidity', user, this.httpOptions);
   }
 
-  docrenewalEntryDetailsSubmitted(user: Docrenewalentrymodel): Observable<Responsemodel> {
+  docrenewalEntryDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpOptions);
   }
 
