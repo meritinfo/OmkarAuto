@@ -38,8 +38,6 @@ export class AdddestinationComponent {
     private commonService: CommonService, private requestmodel:Requestmodel,
      private toasterService: ToastrService ) {
     this.destinationModel = new Destinationmodel();
-
-
   }
   ngOnInit(): void {
 

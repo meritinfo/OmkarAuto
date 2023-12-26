@@ -466,23 +466,26 @@ export class AdddocrenewalentryComponent {
     this.docRenewalentryModel.chequeDt          = selectedDataVal.chequeDt == '' ? selectedDataVal.transDate:selectedDataVal.chequeDt;
     this.docRenewalentryModel.finDocID          = selectedDataVal.finDocID;
     this.docRenewalentryModel.remarks           = selectedDataVal.remarks;
-    this.docRenewalentryModel.branchCode        = selectedDataVal.branchCode;
+    this.docRenewalentryModel.branchCode        = selectedDataVal.branchCode;    
+    this.docRenewalentryModel.attach1           = selectedDataVal.attach1;
+    this.docRenewalentryModel.attach2           = selectedDataVal.attach2;
     this.docRenewalentryModel.yearID            = this.year;
     this.docRenewalentryModel.loggedInUser      = this.loggedInUserID;
 
-    this.docRenewalentryModel.attach1           = this.attach1Input.nativeElement.files[0]?this.attach1Input.nativeElement.files[0]:'';
-    this.docRenewalentryModel.attach2           = this.attach2Input.nativeElement.files[0]?this.attach2Input.nativeElement.files[0]:'';
-
+       
     //Start date end date validation
     if (parseFloat(this.docRenewalentryModel.netAmount) == 0) {
       this.toasterService.warning("Net Amount should not be Zero");
+      this.sharedService.loading=false;
       return;
     }
     //Start date end date validation
     if (Date.parse(this.docRenewalentryModel.validFromDt) > Date.parse(this.docRenewalentryModel.validToDt)) {
       this.toasterService.warning("End date should be greater than start date");
+      this.sharedService.loading=false;
       return;
     }
+
     if(this.docRenewalentryModel.docRenewalEntryId==''){
       this.docrenewalEntryService.chkDocrenewalValidity(this.docRenewalentryModel).subscribe((res: Responsemodel) => {
         this.VehicalExistDetails = res;
@@ -499,8 +502,13 @@ export class AdddocrenewalentryComponent {
         }
       });
     }
+   
+    let formData = new FormData();
+    formData.append('attach1', this.attach1Input.nativeElement.files[0]);
+    formData.append('attach2', this.attach2Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.docRenewalentryModel));
 
-    this.docrenewalEntryService.docrenewalEntryDetailsSubmitted(this.docRenewalentryModel).subscribe((res: Responsemodel) => {
+    this.docrenewalEntryService.docrenewalEntryDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formDocEntry.reset();

@@ -543,9 +543,9 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.chequeNo      = selectedDataVal.chequeNo ;    
     this.gstpurchasemodel.chequeDate    = selectedDataVal.chequeDate ; 
     this.gstpurchasemodel.inputEligible = selectedDataVal.inputEligible;
+    this.gstpurchasemodel.attatchFile1  = selectedDataVal.attatchFile1; 
+    this.gstpurchasemodel.attatchFile2  = selectedDataVal.attatchFile2; 
     this.gstpurchasemodel.yearId        = this.year ;  
-    this.gstpurchasemodel.attatchFile1  = this.attach1Input.nativeElement.files[0]?this.attach1Input.nativeElement.files[0]:'';; 
-    this.gstpurchasemodel.attatchFile2  = this.attach2Input.nativeElement.files[0]?this.attach2Input.nativeElement.files[0]:'';; 
     this.gstpurchasemodel.modifyRemarks = selectedDataVal.modifyRemarks ; 
     this.gstpurchasemodel.loggedInUser  = this.loggedInUserID; 
 
@@ -571,8 +571,14 @@ export class GstpurchaseaddComponent {
         });
       }
     }
+
+    let formData = new FormData();
+    formData.append('attatchFile1', this.attach1Input.nativeElement.files[0]);
+    formData.append('attatchFile2', this.attach2Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.gstpurchasemodel));
+
    
-    this.gstpurchaseService.gstPurchageDetailsSubmitted(this.gstpurchasemodel).subscribe((res: Responsemodel) => {
+    this.gstpurchaseService.gstPurchageDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formGSTPurchase.reset();

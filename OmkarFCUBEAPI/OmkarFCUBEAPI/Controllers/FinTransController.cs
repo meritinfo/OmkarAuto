@@ -5,6 +5,13 @@ using FinTrans.Models;
 using FinTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using FleetMasters.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using System.Data;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 
 
@@ -15,6 +22,7 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class FinTransController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
 
@@ -168,14 +176,38 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GstPurchaseMstSave")]
-        public async Task<IActionResult> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
+        public async Task<IActionResult> GstPurchaseMstSave()
         {
-            if (gstPurchaseMstModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var attatchFile1 = HttpContext.Request.Form.Files["attatchFile1"];
+                var attatchFile2 = HttpContext.Request.Form.Files["attatchFile2"];
+
+                GstPurchaseMstModel gstPurchaseMstModel = JsonConvert.DeserializeObject<GstPurchaseMstModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attatchFile1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile1.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile1/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attatchFile1.CopyToAsync(fileStream);
+                        gstPurchaseMstModel.AttatchFile1 = imageName;
+                    }
+                }
+                if (attatchFile2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile2.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile2/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attatchFile2.CopyToAsync(fileStream);
+                        gstPurchaseMstModel.AttatchFile2 = imageName;
+                    }
+                }
+
                 var result = await gstPurchaseMstBusiness.GstPurchaseMstSave(gstPurchaseMstModel);
 
                 return Ok(result);

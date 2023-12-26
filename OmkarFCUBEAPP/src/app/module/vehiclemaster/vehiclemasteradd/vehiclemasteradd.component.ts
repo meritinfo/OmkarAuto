@@ -453,9 +453,7 @@ export class VehiclemasteraddComponent {
         })
       }
       
-    this.sharedService.loading=false;
     }
-
     
     this.vehiclefltmasterService.vehicleFltmasterDetailsSubmitted(this.vehiclefltmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -463,6 +461,7 @@ export class VehiclemasteraddComponent {
       this.formVehicleMaster.reset();
       this.route.navigate(['/vehiclemasterlist']);
     });
+    this.sharedService.loading=false;
   }
 
   

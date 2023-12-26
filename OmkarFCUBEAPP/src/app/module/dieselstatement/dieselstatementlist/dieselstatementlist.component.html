@@ -20,7 +20,7 @@
                 <div class="col-sm-8 col-md-8">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vendor</label>                                                
                                     <div class="ng-autocomplete">
@@ -32,7 +32,7 @@
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"
-                                            formControlName="vendorId" >
+                                            formControlName="dfVendor" >
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -47,10 +47,18 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
-                                    <label for="formrow-inputZip">Bill Stmt Date</label> 
+                                    <label for="formrow-inputZip">From Date</label> 
                                     <input bsdatepicker="" type="date" autoclose="false" 
-                                        placeholder="dd-mm-yyyy" 
-                                        formControlName="billStmtDate" class="form-control">
+                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="fromDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <label for="formrow-inputZip">To Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="toDate" class="form-control">
                                 </div>
                             </div>                           
                             <div class="col-lg-2">
