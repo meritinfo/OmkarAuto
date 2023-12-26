@@ -20,6 +20,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.ConsignmentSave(consignmentModel);
         }
+        public async Task<ResponseModel> ConsignmentDelete(Request requestModel)
+        {
+            return await consignmentRepository.ConsignmentDelete(requestModel);
+        }
         public async Task<ConsignmentList> GetConsignmentList(PageRequest request)
         {
             return await consignmentRepository.GetConsignmentList(request);

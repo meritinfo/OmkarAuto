@@ -297,6 +297,7 @@ export class TripsheetaddComponent {
         this.GetOpeningBal();
         this.getBhattaRate();
         this.totalCalculation();
+        this.getDriverDetails2(this.selectedTripSheetDetails.driverMasterID)
       } else {
         this.tripsheetinnergridrequest.tripId = 0;
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
@@ -917,13 +918,31 @@ export class TripsheetaddComponent {
         });
       }
     });
-    this.getDriverDetails();
+   // this.getDriverDetails();
    
 
   }
+  getDriverDetails2(e: any) {
+
+    //console.log(e.target.value);
+    var selectedValue = e;
+    var selectedDataValue = this.formTripsheet.getRawValue();
+ 
+
+    this.OpbalDetails.driverMasterID = selectedValue;
+
+    this.commonService.getDriverDetail(this.OpbalDetails).subscribe((res: Driverdetailmodel) => {
+      this.DriverDetails = res;
+      this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
+      this.licenceNo = this.DriverDetails.licenseNo,
+      this.validUpto = this.DriverDetails.licValidUpto
+    });
+
+  }
+
   getDriverDetails(){
     var selectedDataValue = this.formTripsheet.getRawValue();
-
+ 
 
     this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
 

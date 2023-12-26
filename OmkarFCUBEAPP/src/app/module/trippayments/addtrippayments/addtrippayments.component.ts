@@ -202,12 +202,14 @@ export class AddtrippaymentsComponent {
   }
  
   getValidation(): void {
-   // this.formTripPayment.controls['pmtBranch'].disable();
+    this.formTripPayment.controls['pmtBranch'].disable();
  //   this.formTripPayment.controls['pmtDate'].disable();
     this.formTripPayment.controls['tripNo'].disable();
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
     this.formTripPayment.controls['to'].disable();
+    this.formTripPayment.controls['dsltobe'].disable();
+    this.formTripPayment.controls['travel'].disable();
   // this.formTripPayment.controls['vehicleMasterID'].disable();
    this.formTripPayment.controls['vehicleMasterID'].updateValueAndValidity();
     this.formTripPayment.controls['pmtBranch'].updateValueAndValidity();
@@ -215,6 +217,7 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['tripNo'].updateValueAndValidity();
     this.formTripPayment.controls['loadorempty'].updateValueAndValidity();
     this.formTripPayment.controls['pmtfromDate'].updateValueAndValidity();
+
   
 
 

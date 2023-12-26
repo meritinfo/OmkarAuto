@@ -21,6 +21,7 @@ import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { GetDslmodel } from 'src/app/models/getdslmodel';
 import { Datemodel } from 'src/app/models/datemodel';
 import { Gcmodel } from 'src/app/models/gcmodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 
 @Component({
@@ -46,6 +47,7 @@ export class ConsignmentaddComponent implements OnInit {
   ExpectedReportingDays: number = 0;
   ExpectedReportingDt: string = '';
   DistanceTripKM_1: number = 0;
+  
 
   formConsignment!: FormGroup;
   formSubmitted = false;
@@ -85,7 +87,7 @@ export class ConsignmentaddComponent implements OnInit {
   ivFromPlace = '';
   ivToPlace = '';
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService, private sharedService: SharedService,private toastrService: ToastrService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService, private sharedService: SharedService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
@@ -283,6 +285,20 @@ export class ConsignmentaddComponent implements OnInit {
       return
     }
   }
+  consignmentDelete(): void {
+    if(this.selectedConsignmentDetails.consignmentID != '' ){
+     this.requestmodel.strRequest =this.selectedConsignmentDetails.consignmentID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.consignmentService.consignmentDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formConsignment.reset();
+            window.location.reload();
+        });
+      }
+    }
+  }
+
 
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
@@ -418,11 +434,7 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
-  deleteConsignmentForm(): void {
-    if (confirm("Are you sure, you want to delete this?")) {
-
-    }
-  }
+ 
   exit(): void {
     this.route.navigate(['/consignmentlist']);
   }
