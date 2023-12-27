@@ -262,46 +262,46 @@ namespace Consignment.Repository
             }
             return lrSeries;
         }
-        //public async Task<ResponseModel> ConsignmentDelete(Request req)
-        //{
-        //    ResponseModel responseModel = new();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@ConsignmentID", req.strRequest),
-        //                };
-        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ConsignmentDelete", param);
+        public async Task<ResponseModel> ConsignmentDelete(Request req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ConsignmentID", req.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ConsignmentDelete", param);
 
-        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-        //            {
-        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-        //            }
-        //            else
-        //            {
-        //                responseModel.Status = false;
-        //                responseModel.Message = "Unable to process";
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Log exception on database
-        //        //ExceptionModel exceptionModel = new()
-        //        //{
-        //        //    ExceptionMessage = Convert.ToString(ex.Message),
-        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
-        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
-        //        //};
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
 
-        //        //ExceptionRepository exception = new(dbconnection);
-        //        //await exception.SaveExceptionDetails(exceptionModel);
-        //    }
-        //    return responseModel;
-        //}
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> ConsignmentSave(ConsignmentModel ConsignmentModel)
         {
             ResponseModel responseModel = new();

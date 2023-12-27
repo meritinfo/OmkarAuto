@@ -193,4 +193,5 @@ export class ConsignmentlistComponent implements OnInit  {
     this.consignmentService.setConsignmentDetails(Consignment);
     this.route.navigate(['/consignmentedit']);
 }
+
 }

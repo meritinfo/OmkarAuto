@@ -59,6 +59,24 @@ namespace OmkarFCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("ConsignmentDelete")]
+        public async Task<IActionResult> ConsignmentDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.ConsignmentDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetConsignmentList")]
         public async Task<IActionResult> GetConsignmentList(PageRequest request)
         {

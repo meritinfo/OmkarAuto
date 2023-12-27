@@ -7,6 +7,8 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Consignmentlistmodel } from '../models/consignmentlistmodel';
 
+import { Requestmodel } from '../models/requestmodel';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -37,6 +39,9 @@ export class ConsignmentService {
   }
   consignmentTripDetailsSubmitted(user: Consignmentmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentTripSave', user, this.httpOptions);
+  }
+  consignmentDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentDelete', req, this.httpOptions);
   }
   getConsignmentList(filter: Filtermodel): Observable<Consignmentlistmodel> {
     return this.httpClient.post<Consignmentlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentList', filter, this.httpOptions);
