@@ -20,6 +20,14 @@ export class DocRenewalEntryService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+
+  
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
+
   selectedDocrenewalentry = new Docrenewalentrymodel();
   constructor(private httpClient: HttpClient) { }
 
@@ -40,7 +48,7 @@ export class DocRenewalEntryService {
   }
 
   docrenewalEntryDetailsSubmitted(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DocRenewalEntryDetailsSave', user, this.httpformOptions);
   }
 
   getDocrenewalEntryList(filter: Filtermodel): Observable<Docrenewalentrylistmodel> {

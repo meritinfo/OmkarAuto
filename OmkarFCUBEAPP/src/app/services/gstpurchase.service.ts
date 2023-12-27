@@ -19,7 +19,11 @@ export class GstpurchaseService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
   selectedGstPurchage = new Gstpurchasemodel();
   constructor(private httpClient: HttpClient) { }
   setGstPurchageDetails(Fingroup: Gstpurchasemodel) { 
@@ -35,7 +39,7 @@ export class GstpurchaseService {
   }
 
   gstPurchageDetailsSubmitted(gstpur: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GstPurchaseMstSave', gstpur, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GstPurchaseMstSave', gstpur, this.httpformOptions);
   }
 
   getGstPurchageList(filter: Pagerequestwithdatesmodel): Observable<Gstpurchaselistmodel> {
