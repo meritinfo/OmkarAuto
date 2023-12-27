@@ -197,7 +197,8 @@ export class GstpurchaseaddComponent {
   }
 
   getVendorList(){
-    this.gstpurchaseService.getVendorList().subscribe((res) => {
+    this.requestmodel.strRequest= 'D';
+    this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.vendorList = res;
     });
   }

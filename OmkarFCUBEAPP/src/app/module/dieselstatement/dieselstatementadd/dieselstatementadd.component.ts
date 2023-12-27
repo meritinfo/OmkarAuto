@@ -117,7 +117,10 @@ export class DieselstatementaddComponent implements OnInit {
     }, 2000);
 
     if (this.selectedDieselStmtDetails.masterID != '') {
-      this.searchStatement();    
+      this.searchStatement(); 
+      var arr=this.DieselStatementmodel.dieselStatementListData;
+      for (var i = 0; i < arr.length; i++) {
+      }         
     }
     this.formDieselStatement.controls['BranchCode'].disable();     
     this.formDieselStatement.controls['totalNetAmount'].disable(); 
