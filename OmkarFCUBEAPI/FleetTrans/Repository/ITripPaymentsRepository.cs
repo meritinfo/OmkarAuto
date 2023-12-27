@@ -13,6 +13,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
         Task<TripPaymentsList> GetTripPaymentsList(PageRequest request);
         Task<TripModel> GetTripDetail(TripVehicleModel request);
+        Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request);
         Task<List<DropDownListModel>> GetCreditAcList();
         Task<List<DropDownListModel>> GetCreditAcList2(AcModel request);
     }

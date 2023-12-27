@@ -52,6 +52,7 @@ export class DistancemastertriplistComponent {
 
   ngOnInit(): void {
     //Privilege check
+    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -71,7 +72,7 @@ export class DistancemastertriplistComponent {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    today.setMonth(month - 1);
+    today.setMonth(month - 10);
     this.fromDate = today.toLocaleDateString('en-CA').toString();
   
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -80,7 +81,7 @@ export class DistancemastertriplistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
+      branch: new FormControl('',),
      // vehicle: new FormControl('',)
     });
     

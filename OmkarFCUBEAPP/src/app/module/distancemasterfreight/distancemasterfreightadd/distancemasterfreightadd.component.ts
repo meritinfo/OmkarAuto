@@ -9,6 +9,7 @@ import { Distancemasterfreightmodel } from 'src/app/models/distancemasterfreight
 import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { DistancemasterfreightmasterService } from 'src/app/services/distancemasterfreightmaster.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-distancemasterfreightadd',
@@ -38,11 +39,12 @@ export class DistancemasterfreightaddComponent implements OnInit {
   responseDetails = new Responsemodel();
   validationDetails = new Responsemodel();
 
-  constructor(private distancemasterfreightmodel: Distancemasterfreightmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMasterFreightService: DistancemasterfreightmasterService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private distancemasterfreightmodel: Distancemasterfreightmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMasterFreightService: DistancemasterfreightmasterService, private toasterService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService,) {
     this.distancemasterfreightmodel = new Distancemasterfreightmodel();
   }
 
   ngOnInit(): void {
+    this.sharedService.loading = true;
      //Privilege check
      var menuData = sessionStorage.getItem('menulist')?.toString();
      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -94,7 +96,10 @@ export class DistancemasterfreightaddComponent implements OnInit {
       this.editMode = true;
       this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemasterfreightDetails.masterID);
       this.getFreightInnerGridList();
+      this.sharedService.loading = false;
+      
     }
+    this.sharedService.loading = false;
   
 }, 2000);
 
