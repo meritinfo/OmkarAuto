@@ -48,6 +48,7 @@ export class AddtrippaymentsComponent {
   createmode = false;
   dslIssued: any;
   advIssued: any;
+  neftvalue= "";
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
@@ -176,6 +177,7 @@ export class AddtrippaymentsComponent {
       //this.getCreditAcList();
       this.formTripPayment.controls['vehicleMasterID'].disable();
       this.formTripPayment.controls['vehicleMasterID'].setValidators([Validators.required]);
+    
       this.formTripPayment.patchValue({
       
         pmtBranch:  selectedDataValue.pmtBranch, 
@@ -187,7 +189,8 @@ export class AddtrippaymentsComponent {
       //creditAc: this.newList.find(e => e.dataId == selectedDataValue.creditAc),
       
     
-      // neftPmt:  selectedDataValue.neftPmt, 
+       //neftPmt:  "1", 
+      
    
       // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
       // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
@@ -322,12 +325,13 @@ export class AddtrippaymentsComponent {
            
               
            });
+           this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
          
         }
       });
     //  this.getTripDetails()
-    this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
-  
+   
+
   }
   getTripDslDetails(e: any,m: any) {
     
@@ -382,9 +386,10 @@ export class AddtrippaymentsComponent {
            
         });
      //   this.getValidation();
+     this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
      
     });
-  
+    
 }
 
   selectEvent(item: any) {
@@ -533,7 +538,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.remarks = selectedDataValue.remarks;
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
-    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "0";
+    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "";
   //this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt ;
     this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;

@@ -132,7 +132,7 @@
                                     </div>
                                         <div class ="row">
                                             <div class="col-lg-3">
-                                        <label style="color: red"> LicenceNo:  {{ licenceNo}}  </label><span ></span>
+                                        <label style="color: red"> Licence No:  {{ licenceNo}}  </label><span ></span>
                                     </div>
                                         <div class="col-lg-3">
                                         <label style="color: red">   Licence Validity : {{ validUpto}}   </label>
@@ -1129,7 +1129,8 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-4">
-                                        <input type="checkbox" name="tripLinkYN" id="formRadios1" value="Y"
+                                      <input type="checkbox" name="tripLinkYN" formControlName="tripLinkYN" 
+                                    
                                             class="form-check-input" />
                                         <label for="formrow-inputCity">TripLinkYN</label>
                                     </div>
