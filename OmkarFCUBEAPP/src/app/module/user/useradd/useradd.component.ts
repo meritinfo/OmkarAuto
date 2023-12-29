@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -26,6 +26,12 @@ export class UseraddComponent implements OnInit {
   imageData: [] = [];
   imagePreview: [] = [];
   imageName: string = '';
+  userPhotoData: [] = [];
+  userPhotoPreview: any;
+  userPhotoName: string = '';
+  @ViewChild('userPhotoInput', {
+    static: true
+  }) userPhotoInput: any;
 
   constructor(private route: Router, private formBuilder: FormBuilder, private userModel: Usermodel, private userService: UserService, private commonService: CommonService, private toastrService: ToastrService) {
     this.userModel = new Usermodel();
@@ -46,7 +52,7 @@ export class UseraddComponent implements OnInit {
     this.getBranchList();
     this.getModuleList();
     this.getRoleTypeList();
-
+   // this.userPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.getUserDetails.userPhoto;
     this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),
@@ -64,11 +70,17 @@ export class UseraddComponent implements OnInit {
     });
 
     if (this.selectedUserDetails.userId != '') {
+      setTimeout(() => {
       this.formUser.patchValue(this.selectedUserDetails);
       this.formUser.patchValue({
         userBranch: this.selectedUserDetails.branchList.split(','),
-        userModule: this.selectedUserDetails.moduleList.split(',')
+        userModule: this.selectedUserDetails.moduleList.split(','),
+       //role: this.roleTypeList.find(e => e.dataId == this.selectedUserDetails.roleId),
+    role: this.selectedUserDetails.roleId,
+    imageName:  this.selectedUserDetails.imageName,
+
       })
+    }, 2000);
     }
   }
 
@@ -136,6 +148,32 @@ export class UseraddComponent implements OnInit {
       reader.readAsDataURL(fileInput.target.files[0]);
     }
   }
+  onSelectUserPhoto(fileInput: any) {
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      var maxFileSize = 1024 * 1024;
+      var fileSize = fileInput.target.files[0].size;
+      if (fileSize > maxFileSize) {
+       // this.toasterService.warning("Maximum 1MB file size is allowed");
+        this.userPhotoInput.nativeElement.value = "";
+        this.userPhotoPreview = [];
+        this.userPhotoData = [];
+        this.userPhotoName = "";
+      } else {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const image = new Image();
+          image.src = e.target.result;
+          image.onload = rs => {
+            this.userPhotoPreview = e.target.result;
+            this.userPhotoData = e.target.result.split('base64,')[1];
+            this.userPhotoName = fileInput.target.files[0].name;
+          };
+        };
+        reader.readAsDataURL(fileInput.target.files[0]);
+      }
+    }
+  }
+
 
   //Submit user form details //
   submitUserForm(): void {
@@ -156,11 +194,19 @@ export class UseraddComponent implements OnInit {
     this.userModel.moduleList = this.formUser.value.userModule.toString();
     this.userModel.imageName = this.imageName;
     this.userModel.imageData = this.imageData;
+    this.userModel.roleId = this.formUser.value.role;
 
     if (this.userModel.userId === "") {
+   
       this.userService.usernameValidation(this.userModel).subscribe((resname: Responsemodel) => {
         if (resname.status) {
-          this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
+          //this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
+            let formData = new FormData();
+            formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
+        
+            formData.append('datadetails', JSON.stringify(this.userModel));
+        
+            this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if (this.responseDetails.status) {
               this.toastrService.success(this.responseDetails.message);
@@ -177,7 +223,11 @@ export class UseraddComponent implements OnInit {
       });
     }
     else {
-      this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
+      let formData = new FormData();
+      formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
+  
+      formData.append('datadetails', JSON.stringify(this.userModel));
+      this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);

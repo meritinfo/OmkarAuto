@@ -112,9 +112,10 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripCloseUpdateDt", tripMasterModel.TripCloseUpdateDt),
                             new SqlParameter("@TripLinkYN", tripMasterModel.TripLinkYN),
                             new SqlParameter("@TripSalDoneYN", tripMasterModel.TripSalDoneYN),
-                               new SqlParameter("@ActualDays_1", tripMasterModel.ActualDays_1),
-                            new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
                             new SqlParameter("@Findocid", tripMasterModel.Findocid),
+                            new SqlParameter("@ActualDays_1", tripMasterModel.ActualDays_1),
+                            new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
+                           
                             new SqlParameter("@CreatedBy", tripMasterModel.CreatedBy),
                             new SqlParameter("@CreatedDate", tripMasterModel.CreatedDate),
                             new SqlParameter("@ModifiedBy", tripMasterModel.ModifiedBy),

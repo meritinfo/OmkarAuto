@@ -14,5 +14,6 @@ export class Usermodel {
     loggedInUser: string = "";
     createdDate: string = "";
     imageName: string = "";
+    roleId : string = "";
     imageData: [] = [];
 }

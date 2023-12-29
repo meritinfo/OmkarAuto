@@ -668,7 +668,8 @@ export class ConsignmentaddComponent implements OnInit {
           this.responseDetails = res;
           this.toasterService.success(this.responseDetails.message);
           this.formConsignment.reset();
-          window.location.reload();
+          this.route.navigate(['/consignmentlist']);
+         // window.location.reload();
         });
 
       } else {

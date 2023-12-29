@@ -44,7 +44,7 @@ export class UserService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UsernameValidation', user, this.httpOptions);
   }
 
-  userDetailsSubmitted(userMasterModel: Usermodel): Observable<Responsemodel> {
+  userDetailsSubmitted(userMasterModel: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', userMasterModel, this.httpOptions);
   }
 
