@@ -22,6 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="upload\docrenewal\attach1\" />
+    <Folder Include="upload\docrenewal\attach2\" />
     <Folder Include="upload\driver\driverphoto\" />
     <Folder Include="upload\driver\drivinglicense\" />
     <Folder Include="upload\driver\hazdrivinglicense\" />
@@ -30,6 +32,8 @@
     <Folder Include="upload\driver\" />
     <Folder Include="upload\driver\peraddressprove\" />
     <Folder Include="upload\driver\tempaddressprove\" />
+    <Folder Include="upload\gstpurchase\attatchFile1\" />
+    <Folder Include="upload\gstpurchase\attatchFile2\" />
   </ItemGroup>
 
 </Project>
