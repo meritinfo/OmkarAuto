@@ -93,8 +93,7 @@ export class FinopenbalanceaddComponent {
   
     setTimeout(() => {
       if (this.selectedOpeningbalanceDetails.branchCode != '') {
-          this.formFinOpenBal.patchValue(this.selectedOpeningbalanceDetails);          
-          this.formFinOpenBal.controls['branchCode'].disable();
+          this.formFinOpenBal.patchValue(this.selectedOpeningbalanceDetails);   
           this.editMode=true;
           this.getOpeningBalDetailList(this.selectedOpeningbalanceDetails.branchCode);
         }
@@ -196,6 +195,8 @@ export class FinopenbalanceaddComponent {
   }
 
   getOpeningBalDetailList(brcode:string){
+    this.formArray.clear();
+
     this.openingbalancerequestmodel.branchCode = brcode;
     this.openingbalancerequestmodel.yearId = this.year;
 
@@ -207,10 +208,12 @@ export class FinopenbalanceaddComponent {
       var totcreditamount=0.00;
       for (var i = 0; i < res.openingBalDetailList.length; i++) {
         if(res.openingBalDetailList[i].openingBalanceCrDr=="C"){
+          debitamount="0.00"
           creditamount=res.openingBalDetailList[i].openingBalanceAmt;
           totcreditamount=totcreditamount+parseFloat(creditamount);
         }
         else{
+          creditamount="0.00";
           debitamount=res.openingBalDetailList[i].openingBalanceAmt;
           totdebitamount=totdebitamount+parseFloat(debitamount);
         }
@@ -222,7 +225,8 @@ export class FinopenbalanceaddComponent {
       this.formFinOpenBal.patchValue({
         totalDebit: totdebitamount,
         totalCredit: totcreditamount,
-      });
+      });             
+      this.formFinOpenBal.controls['branchCode'].disable();
     });
   }
 
@@ -274,10 +278,10 @@ export class FinopenbalanceaddComponent {
     }
 
     var selectedDataVal=this.formFinOpenBal.getRawValue();
-    if (parseFloat(selectedDataVal.totalDebit)!=parseFloat(selectedDataVal.totalCredit)) {
-      this.toasterService.warning("Total Credit Amount and Total Debit Amount");
-      return;
-    }
+    // if (parseFloat(selectedDataVal.totalDebit)!=parseFloat(selectedDataVal.totalCredit)) {
+    //   this.toasterService.warning("Total Credit Amount and Total Debit Amount");
+    //   return;
+    // }
 
     this.sharedService.loading=true;
     this.openbalancemodel.branchCode  = selectedDataVal.branchCode;
