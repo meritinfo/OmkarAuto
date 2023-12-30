@@ -1,0 +1,163 @@
+
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+             <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                   <h4 class="mb-sm-0 font-size-18">Fleet Card Master</h4>
+                   <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                         <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                         <li class="breadcrumb-item active">Fleet Card Master</li>
+                      </ol>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <!-- end page title -->
+          <form [formGroup]="formUser">
+             <div class="row">
+                <div class="col-lg-12">
+                   <div class="card">
+                      <div class="card-body">
+                         <h4 class="card-title mb-4">Fleet Card Master</h4>
+                      
+                            
+                               
+                               
+                                     <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Card Type</label>
+                                                <select id="formrow-inputState" class="form-control"
+                                                    formControlName="cardType"
+                                                    [ngClass]=""  
+                                                    >
+                                                  
+                                                    <option value="HP"> Happay</option>
+                                               
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Card Code</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="cardCode"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Card No</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="cardNo"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Card Pin</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="cardPin"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">CardLedgerAc</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="CardLedgerAc"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">Vehicle No</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="vehicleNo"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">DriverName</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="driverName"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">DriverLic No</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="driverLicNo"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">MobileNo</label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="mobileNo"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="basicpill-phoneno-input">IsActive </label>
+                                                <input type="text" class="form-control"
+                                                placeholder=" " formControlName="isActive"
+                                                [ngClass]=>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                        
+                          
+                        
+                                
+                             
+                       
+               
+                 
+                      </div>
+                      <!-- end card body -->
+                   </div>
+                   <!-- end card -->
+                </div>
+             </div>
+             <div class="row text-right">
+                <div class="col-lg-12">
+                   <div class="tex">
+                      <button type="submit" class="btn btn-primary w-md"
+                         (click)="submitFleetCardMasterForm()">Submit</button>
+                   </div>
+                </div>
+             </div>
+          </form>
+          <!-- end row -->
+          <!-- end row -->
+       </div>
+       <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+ </div>

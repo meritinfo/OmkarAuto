@@ -135,6 +135,9 @@ import { OthertripopenlistComponent } from './module/othertripopen/othertripopen
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
+import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
+import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
+import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
 
 @NgModule({
   declarations: [
@@ -220,6 +223,8 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     AddothertripopenComponent,
     OthertripopenlistComponent,
     NegdecimalonlyDirective,
+    AddfleetcardmasterComponent,
+    FleetcardmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -249,7 +254,7 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

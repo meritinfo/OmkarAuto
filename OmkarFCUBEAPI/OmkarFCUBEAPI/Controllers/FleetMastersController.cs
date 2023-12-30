@@ -25,10 +25,11 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IVehicleFltMasterBusiness vehicleFltMasterBusiness;
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
         readonly IBrandMasterBusiness brandMasterBusiness;
+        readonly IFleetCardMasterBusiness fleetCardMasterBusiness;
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
-        public FleetMastersController(IOptions<DBModel> _dbconnection, IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness)
+        public FleetMastersController(IOptions<DBModel> _dbconnection, IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,IFleetCardMasterBusiness _fleetCardMasterBusiness)
         {
             dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
@@ -39,6 +40,7 @@ namespace OmkarFCUBEAPI.Controllers
             tyrePositionMasterBusiness = _tyrePositionMasterBusiness;
             driverMasterBusiness = _driverMasterBusiness;
             expensestypeMasterBusiness = _expensesTypeMasterBusiness;
+            fleetCardMasterBusiness = _fleetCardMasterBusiness;
         }
 
         /// <summary>
@@ -488,6 +490,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
 
         [HttpPost("GetBrandMasterList")]
         public async Task<IActionResult> GetBrandMasterList(PageRequest request)
@@ -495,6 +498,38 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await brandMasterBusiness.GetBrandMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FleetCardMasterSave")]
+        public async Task<IActionResult> FleetCardMasterSave(FleetCardMasterModel fleetCardMasterModel)
+        {
+            if (fleetCardMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetCardMasterBusiness.FleetCardMasterSave(fleetCardMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFleetCardMasterList")]
+        public async Task<IActionResult> GetFleetCardMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await fleetCardMasterBusiness.GetFleetCardMasterList(request);
 
                 return Ok(result);
             }

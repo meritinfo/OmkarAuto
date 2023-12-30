@@ -216,6 +216,34 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDslOpeningBal")]
+        public async Task<IActionResult> GetDslOpeningBal(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDslOpeningBal(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetAdblueOpeningBal")]
+        public async Task<IActionResult> GetAdblueOpeningBal(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetAdblueOpeningBal(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetIncentiveRate")]
         public async Task<IActionResult> GetIncentiveRate(IncentiveRateModel request)
         {

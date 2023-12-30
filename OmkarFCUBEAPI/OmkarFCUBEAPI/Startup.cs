@@ -97,6 +97,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IProductGroupMasterRepository, ProductGroupMasterRepository>();
             services.AddScoped<IBranchMasterBusiness, BranchMasterBusiness>();
             services.AddScoped<IBranchMasterRepository, BranchMasterRepository>();
+            services.AddScoped<IFleetCardMasterBusiness, FleetCardMasterBusiness>();
+            services.AddScoped<IFleetCardMasterRepository, FleetCardMasterRepository>();
             services.AddScoped<IProductGroupMasterBusiness, ProductGroupMasterBusiness>();
             services.AddScoped<IVehicleTypeGroupMasterRepository, VehicleTypeGroupMasterRepository>();
             services.AddScoped<IVehicleTypeGroupMasterBusiness, VehicleTypeGroupMasterBusiness>();

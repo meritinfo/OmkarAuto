@@ -13,6 +13,8 @@ import { ProductmasterlistComponent } from './module/productmaster/productmaster
 import { AddproductmasterComponent } from './module/productmaster/addproductmaster/addproductmaster.component';
 import { AddbrandmasterComponent } from './module/brandmaster/addbrandmaster/addbrandmaster.component';
 import { BrandmasterlistComponent } from './module/brandmaster/brandmasterlist/brandmasterlist.component';
+import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
+import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
 import { TyrepositionmasterlistComponent } from './module/tyrepositionmaster/tyrepositionmasterlist/tyrepositionmasterlist.component';
 import { AddtyrepositionmasterComponent } from './module/tyrepositionmaster/addtyrepositionmaster/addtyrepositionmaster.component';
 import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrenewalmasterlist/docrenewalmasterlist.component';
@@ -121,6 +123,9 @@ const routes: Routes = [
   { path: 'consignmentedit', component: ConsignmentaddComponent },
   { path: 'branchmasterlist', component: BranchmasterlistComponent },
   { path: 'addbranchmaster', component: AddbranchmasterComponent },
+  { path: 'fleetcardmasterlist', component: FleetcardmasterlistComponent },
+  { path: 'addfleetcardmaster', component: AddfleetcardmasterComponent },
+  { path: 'editfleetcardmaster', component: AddfleetcardmasterComponent },
   { path: 'branchmasteredit', component: AddbranchmasterComponent },
   { path: 'vehiclemasterlist', component: VehiclemasterlistComponent },
   { path: 'vehiclemasteradd', component: VehiclemasteraddComponent },
