@@ -12,6 +12,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
 import { Tripmodel } from 'src/app/models/tripmodel';
+import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
@@ -34,6 +35,7 @@ export class AddtrippaymentsComponent {
   branch: string = '';
   year: string = '';
   ptype: string = '';
+  trip: string = '';
   formTripPayment!: FormGroup;
   formSubmitted = false;
   userSubmitted = false;
@@ -44,9 +46,13 @@ export class AddtrippaymentsComponent {
   deleteStatus = false;
   viewStatus = false;
   createmode = false;
+  dslIssued: any;
+  advIssued: any;
+  neftvalue= "";
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
+  tripDslDetails = new Tripdsldetail();
   tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
@@ -82,6 +88,10 @@ export class AddtrippaymentsComponent {
     }
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
     }
     else {
       this.route.navigate(['/']);
@@ -167,6 +177,7 @@ export class AddtrippaymentsComponent {
       //this.getCreditAcList();
       this.formTripPayment.controls['vehicleMasterID'].disable();
       this.formTripPayment.controls['vehicleMasterID'].setValidators([Validators.required]);
+    
       this.formTripPayment.patchValue({
       
         pmtBranch:  selectedDataValue.pmtBranch, 
@@ -178,7 +189,8 @@ export class AddtrippaymentsComponent {
       //creditAc: this.newList.find(e => e.dataId == selectedDataValue.creditAc),
       
     
-      // neftPmt:  selectedDataValue.neftPmt, 
+       //neftPmt:  "1", 
+      
    
       // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
       // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
@@ -199,6 +211,19 @@ export class AddtrippaymentsComponent {
   this.editMode = true;
   this.sharedService.loading = false;
 
+  }
+  onCleared(e: any) {
+    this.formTripPayment.patchValue({
+    // destination: undefined,
+            tripNo:  "",
+            from:   "",
+            to:    "",
+            loadorempty:   "",
+            travel:    "",
+            dsltobe:   "",
+            tripMasterId:  "",
+    });
+   // this.checkDestinationControlStatus();
   }
  
   getValidation(): void {
@@ -251,7 +276,7 @@ export class AddtrippaymentsComponent {
     }
   }
   exit(): void {
-    this.route.navigate(['/trippaymentslist']);
+    this.route.navigate(['/trippaymentlist']);
   }
   
   getCreditAcList(){
@@ -271,6 +296,7 @@ export class AddtrippaymentsComponent {
       
       this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
         this.tripDetails = res;
+        this.trip = res.tripNo;
       if (res.fp ==''|| res.fp == null ) {
         this.formTripPayment.patchValue({
           vehicleMasterID:''
@@ -299,11 +325,42 @@ export class AddtrippaymentsComponent {
            
               
            });
+           this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
          
         }
       });
-  
+    //  this.getTripDetails()
+   
+
   }
+  getTripDslDetails(e: any,m: any) {
+    
+    this.tripVehicleDetails.vehicleMasterId =  e;
+    this.tripVehicleDetails.tripNo =  m;
+    this.tripVehicleDetails.yearId=  this.year;
+    
+    this.commonService.getTripDslDetails(this.tripVehicleDetails).subscribe((res: Tripdsldetail) => {
+      this.tripDslDetails = res;
+
+  this.dslIssued = res.dslIssued;
+  this.advIssued = res.advIssued;
+
+   
+        
+       // this.formTripPayment.patchValue({
+          // cneeGst:  (this.ExpectedReportingDays).toString() 
+       //   tripNo:   this.tripDetails.tripNo,
+       //   from:   this.tripDetails.fp,
+     
+          
+         
+            
+      //   });
+       
+      
+    });
+
+}
   getTripDetailseditmode(e: any) {
     
     this.tripVehicleDetails.vehicleMasterId =  e;
@@ -329,9 +386,10 @@ export class AddtrippaymentsComponent {
            
         });
      //   this.getValidation();
+     this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
      
     });
-  
+    
 }
 
   selectEvent(item: any) {
@@ -357,6 +415,7 @@ export class AddtrippaymentsComponent {
       this.vehicleList = res;
     });
   }
+
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
@@ -479,7 +538,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.remarks = selectedDataValue.remarks;
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
-    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "0";
+    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "";
   //this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt ;
     this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
     this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;

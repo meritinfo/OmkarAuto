@@ -10,6 +10,8 @@ import { DistancemastertripService } from 'src/app/services/distancemastertrip.s
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { FreighttripInnergridlistrequest } from 'src/app/models/freighttripInnergridlistrequest';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { SharedService } from 'src/app/services/shared.service';
+
 
 @Component({
   selector: 'app-distancemastertripadd',
@@ -41,11 +43,12 @@ export class DistancemastertripaddComponent {
   createmode =true;
   selectedLocation: string[] = [];
 
-  constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private distancemastertripmodel: Distancemastertripmodel, private route: Router, private formBuilder: FormBuilder, private commonService: CommonService, private distanceMastertripService: DistancemastertripService, private toasterService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService,) {
     this.distancemastertripmodel = new Distancemastertripmodel();
 
   }
   ngOnInit(): void {
+    this.sharedService.loading = true;
     //Privilege check
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -84,6 +87,8 @@ export class DistancemastertripaddComponent {
     });
     setTimeout(() => {
       if (this.selectedDistancemastertripDetails.masterID != '') {
+        
+        this.formDistanceMasterTrip.controls['fromLocation'].disable();
         this.formDistanceMasterTrip.patchValue(this.selectedDistancemastertripDetails);
 
         this.formDistanceMasterTrip.patchValue({
@@ -95,8 +100,10 @@ export class DistancemastertripaddComponent {
         this.editMode = true;
         this.freighttripInnergridlistrequest.masterId = parseInt(this.selectedDistancemastertripDetails.masterID);
         this.getFreightTripInnerGridList();
+        this.sharedService.loading = false;
       }
     }, 2000);
+    this.sharedService.loading = false;
 
   }
 

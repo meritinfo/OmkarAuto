@@ -294,7 +294,7 @@ export class TripsheetaddComponent {
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
         this.getTripSheetInnerGridList();
-        this.GetOpeningBal();
+        this.GetOpeningBalForEdit(this.selectedTripSheetDetails.driverMasterID);
         this.getBhattaRate();
         this.totalCalculation();
         this.getDriverDetails2(this.selectedTripSheetDetails.driverMasterID)
@@ -628,7 +628,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.ticlRemarks = selectedDataValue.ticlRemarks;
     this.tripsheetmodel.tripCloseBy = selectedDataValue.tripCloseBy;
     this.tripsheetmodel.tripCloseUpdateDt = selectedDataValue.tripCloseUpdateDt ? selectedDataValue.tripCloseUpdateDt : '';
-    this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN ? "1" : "0";
+    this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN ? "Y" : "";
     this.tripsheetmodel.findocid = selectedDataValue.findocid;
     // this.tripsheetmodel.tripCloseDt = "";
     this.tripsheetmodel.tripCloseDt = selectedDataValue.tripCloseDt;
@@ -905,8 +905,8 @@ export class TripsheetaddComponent {
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      // if (this.responseDetails.status) {
-      if (this.responseDetails.message != undefined || this.responseDetails.message != '') {
+       if (this.responseDetails.status) {
+     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
         this.formTripsheet.patchValue({
           opBalDriver: this.responseDetails.message ? this.responseDetails.message : '0'
         });
@@ -918,6 +918,37 @@ export class TripsheetaddComponent {
         });
       }
     });
+ 
+   // this.getDriverDetails();
+   
+
+  }
+  GetOpeningBalForEdit(e:any) {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+    this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+    this.OpbalDetails.driverMasterID = e;
+    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+    // this.OpbalDetails.driverMasterID='1';
+    this.OpbalDetails.yearid = this.year;
+    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+    this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
+        this.formTripsheet.patchValue({
+          opBalDriver: this.responseDetails.message ? this.responseDetails.message : '0'
+        });
+        //  }
+        //else
+      } else {
+        this.formTripsheet.patchValue({
+          opBalDriver: '0'
+        });
+      }
+    });
+ 
    // this.getDriverDetails();
    
 

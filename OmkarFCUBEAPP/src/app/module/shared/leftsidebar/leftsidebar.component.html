@@ -8,16 +8,16 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li *ngFor="let menu of mainMenuList">
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <a href="javascript: void(0);" class="has-arrow waves-effect" oncontextmenu="return false">
                         <i class="bx bx-cog"></i>
                         <span key="t-ui-elements">{{menu.moduleName}}</span>
                     </a>
                     <ul *ngIf="menu.menuList" class="sub-menu" aria-expanded="false">
                         <li *ngFor="let subMenu of menu.menuList; let index = index">
                             <a *ngIf="!menu.menuList[index-1] || subMenu.menuType !== menu.menuList[index-1].menuType"
-                                href="javascript: void(0);" class="has-arrow">{{subMenu.menuType}}</a>
+                                href="javascript: void(0);" class="has-arrow" oncontextmenu="return false">{{subMenu.menuType}}</a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="#{{subMenu.menuCode}}">{{subMenu.menuName}}</a></li>
+                                <li><a href="#{{subMenu.menuCode}}" oncontextmenu="return false">{{subMenu.menuName}}</a></li>
                             </ul>
                         </li>
                     </ul>

@@ -9,7 +9,7 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/userlist">User</a></li>
+                                <li class="breadcrumb-item">User</li>
                                 <li class="breadcrumb-item active">User Add</li>
                             </ol>
                         </div>
@@ -103,8 +103,10 @@
                                     <div class="col-lg-12">
                                         <div class="mb-4">
                                             <label for="scope" class="col-form-label">User picture</label>
-                                            <input type='file' (change)="onSelectFile($event)">
-                                            <img [src]="imagePreview" height="100" width="120">
+                                            <input type='file' 
+                                            id="formUserPhoto" accept="image/*"
+                                            (change)="onSelectUserPhoto($event)">
+                                            <img [src]="userPhotoPreview" height="100" width="120">
                                         </div>
                                     </div>
                                 </div>

@@ -8,7 +8,7 @@
                         <h4 class="mb-sm-0 font-size-18">Trip Payments</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/#/drivermasterlist">Trip Payments</a></li>
+                                <li class="breadcrumb-item">Trip Payments</li>
                                 <li class="breadcrumb-item active">Trip Payments Add</li>
                             </ol>
                         </div>
@@ -60,7 +60,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }"
+                                                        (inputCleared)="onCleared($event)"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }"
                                                       >
 
                                                     </ng-autocomplete>
@@ -136,6 +137,15 @@
                                                                     formControlName="travel" [ngClass]=>
                                                             </div>
                                                         </div>
+                                                    
+                                                 
+                                                        <div class="col-lg-3">
+                                                            
+                                                    <label style="color: red"> <h5>Dsl Issued:  {{ this.dslIssued}} </h5> </label><span ></span>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <label style="color: red">  <h5>Adv Issued:{{this.advIssued }}</h5>  </label><span ></span>
+                                                </div>
 
                                                     </div>
 

@@ -45,6 +45,7 @@ constructor(private formBuilder: FormBuilder,private distancemasterfreightmaster
   }
   
 ngOnInit(): void {
+  
   var loginDate = sessionStorage.getItem('loginDate')?.toString();
   if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
     this.loginDate = loginDate;
@@ -53,7 +54,7 @@ ngOnInit(): void {
   const today = new Date();
   const month = today.getMonth();
   const year = today.getFullYear();
-  today.setMonth(month - 1);
+  today.setMonth(month - 10);
   this.fromDate = today.toLocaleDateString('en-CA').toString();
 
   this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
@@ -63,7 +64,7 @@ ngOnInit(): void {
   this.formFilter = this.formBuilder.group({
     fromDate: new FormControl(this.fromDate,),
     toDate: new FormControl(this.loginDate,),
-    branch: new FormControl('0',),
+    branch: new FormControl('',),
    // vehicle: new FormControl('',)
   });
   this. getLocationList();

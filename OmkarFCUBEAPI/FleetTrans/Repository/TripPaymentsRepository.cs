@@ -131,6 +131,53 @@ namespace FleetTrans.Repository
             }
             return tripModel;
         }
+        public async Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request)
+        {
+            TripDslDetail tripDslDetail = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                       {
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                              new SqlParameter("@TripNo", request.TripNo),
+                                new SqlParameter("@YearId", request.YearId),
+                                 
+
+
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripDslDetail", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        tripDslDetail.DslIssued = Convert.ToString(userData.Tables[0].Rows[0]["Message1"]);
+                        tripDslDetail.AdvIssued = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                  
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripDslDetail;
+        }
         public async Task<List<DropDownListModel>> GetCreditAcList()
         {
             List<DropDownListModel> creditacList = new();

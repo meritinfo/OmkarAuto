@@ -91,7 +91,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
-   // this.sharedService.loading = true;
+    this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -207,7 +207,7 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch3: new FormControl('1',),
     });
     setTimeout(() => {
-      
+     // this.sharedService.loading = true;
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
 
@@ -257,8 +257,9 @@ export class ConsignmentaddComponent implements OnInit {
         this.editMode = true;
         this.sharedService.loading = false;
       }
+      this.sharedService.loading = false;
     }, 2000);
-
+  
     //this.getGcSeries();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -266,6 +267,7 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.changeEWay('A');
   }
+  
   // convenience getter for easy access to contact form fields
   get f() { return this.formConsignment.controls; }
   getBranchList(): void {
@@ -348,6 +350,7 @@ export class ConsignmentaddComponent implements OnInit {
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
+      
     });
   }
   changeFromPlace(e: any) {
@@ -665,7 +668,8 @@ export class ConsignmentaddComponent implements OnInit {
           this.responseDetails = res;
           this.toasterService.success(this.responseDetails.message);
           this.formConsignment.reset();
-          window.location.reload();
+          this.route.navigate(['/consignmentlist']);
+         // window.location.reload();
         });
 
       } else {
