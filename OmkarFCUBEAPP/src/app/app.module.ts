@@ -135,6 +135,11 @@ import { OthertripopenlistComponent } from './module/othertripopen/othertripopen
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
+import { FinopenbalancelistComponent } from './module/finopenbalance/finopenbalancelist/finopenbalancelist.component';
+import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalanceadd/finopenbalanceadd.component';
+import { Openingbalancelistmodel } from './models/openingbalancelistmodel';
+import { Openingbalancemodel } from './models/openingbalancemodel';
+import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel';
 import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
 import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
 import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
@@ -223,6 +228,8 @@ import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
     AddothertripopenComponent,
     OthertripopenlistComponent,
     NegdecimalonlyDirective,
+    FinopenbalancelistComponent,
+    FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,
     FleetcardmasterlistComponent,
   ],
@@ -253,6 +260,7 @@ import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
     Dieselstatementlistmodel,  Dieselstatementmodel, 
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
+    Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Requestmodel,Pagerequestwithdatesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
   bootstrap: [AppComponent]

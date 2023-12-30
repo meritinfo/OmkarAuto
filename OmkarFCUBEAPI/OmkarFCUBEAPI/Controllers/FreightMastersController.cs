@@ -541,7 +541,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceMasterFrtList")]
-        public async Task<IActionResult> GetDistanceMasterFrtList(PageRequest request)
+        public async Task<IActionResult> GetDistanceMasterFrtList(PageRequestDtBrVh request)
         {
             try
             {
@@ -589,7 +589,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceMasterTripList")]
-        public async Task<IActionResult> GetDistanceMasterTripList(PageRequest request)
+        public async Task<IActionResult> GetDistanceMasterTripList(PageRequestDtBrVh request)
         {
             try
             {

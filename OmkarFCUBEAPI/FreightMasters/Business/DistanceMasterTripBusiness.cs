@@ -22,7 +22,7 @@ namespace FreightMasters.Business
         {
             return await distanceMasterTripRepository.DistanceMasterTripSave(distanceMasterTripModel);
         }
-        public async Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequest request)
+        public async Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequestDtBrVh request)
 
 
         {

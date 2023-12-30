@@ -347,7 +347,7 @@ namespace FreightMasters.Repository
             return tripSheetInnerGridList;
         }
 
-        public async Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequest request)
+        public async Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequestDtBrVh request)
         {
             DistanceMasterTripList distanceMasterTripList = new();
             List<DistanceMasterTripModel> distanceTripList = new();

@@ -9,7 +9,7 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> DistanceMasterFrtSave(DistanceMasterFrtModel DistanceMasterFrtModel);
         Task<ResponseModel> ChkdistanceFrtValidity(DistanceMasterFrtModel DistanceMasterFrtModel);
-        Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequest request);
+        Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequestDtBrVh request);
         Task<ResponseModel> DistanceMasterFrtDelete(Request requestModel);
         Task<DistanceMasterFrtModel> GetFreightInnerGridList(FreightTripInnerGridListRequest request);
     }

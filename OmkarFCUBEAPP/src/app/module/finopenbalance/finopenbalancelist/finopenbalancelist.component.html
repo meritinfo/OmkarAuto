@@ -1,4 +1,4 @@
-<p>fingroups works!</p>
+<p>finopenbalancelist works!</p>
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Fin Account Groups</h4>
+                        <h4 class="mb-sm-0 font-size-18">Fin Opening Balance Register</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Group Master</a></li> -->
@@ -18,56 +18,35 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-8 col-md-8">
-                    <form [formGroup]="formFilter">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Group Name</label>
-                                    <input type="text" class="form-control" formControlName="groupName">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-sm-4 col-md-4 text-right">
+                <div class="col-sm-12 col-md-12 text-right">
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                   <button class="btn btn-primary buttons-html5" type="button" *ngif="createStatus"
-                        (click)="addfingroup()"><span>New</span></button>
+                   <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus"
+                        (click)="addfinOpeningbalance()"><span>New</span></button>
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Group Name</th>  
-                            <th>Account Type</th>
-                            <th>Sub Account Type</th>
-                            <th>Action</th>
+                            <th>branchName</th>  
+                            <th>action</th>  
                         </tr>
                     </thead>
-                    <tbody *ngIf="allFingrouplistTypes.finGroupList">
-                        <tr *ngFor="let grp of allFingrouplistTypes.finGroupList">
-                            <td>{{ grp.groupName }}</td>
-                            <td>{{ grp.accountType }}</td>
-                            <td>{{ grp.subAccountName }}</td>                         
+                    <tbody *ngIf="allOpeningbalancelist.openbalList">
+                        <tr *ngFor="let opbl of allOpeningbalancelist.openbalList">
+                            <td>{{ opbl.branchName }}</td>                        
                             <td>
                                 <button type="button" class="btn btn-edit" 
-                                (click)="getFingroupDetails(grp)"></button>             
+                                (click)="getfinOpeningbalanceDetails(opbl)"></button>             
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allFingrouplistTypes.finGroupList?.length == 0">
+                    <tbody *ngIf="allOpeningbalancelist.openbalList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
@@ -79,3 +58,4 @@
     </div>
     <!-- End Page-content -->
 </div>
+

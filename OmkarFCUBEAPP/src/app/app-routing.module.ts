@@ -71,6 +71,8 @@ import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingroupli
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finaccountsmasterlist/finaccountsmasterlist.component';
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
+import { FinopenbalancelistComponent } from './module/finopenbalance/finopenbalancelist/finopenbalancelist.component';
+import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalanceadd/finopenbalanceadd.component';
 
 
 
@@ -179,6 +181,9 @@ const routes: Routes = [
   { path: 'finaccountsmasterlist', component:  FinaccountsmasterlistComponent },
   { path: 'finaccountadd', component: FinaccountsmasteraddComponent },
   { path: 'finaccountedit', component: FinaccountsmasteraddComponent },
+  { path: 'opbalancelist', component:  FinopenbalancelistComponent },
+  { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
+  { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
   
 ];
 

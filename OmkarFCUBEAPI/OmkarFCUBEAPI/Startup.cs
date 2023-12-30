@@ -58,6 +58,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
             services.AddScoped<IFinGroupMasterBusiness, FinGroupMasterBusiness>();
             services.AddScoped<IFinGroupMasterRepository, FinGroupMasterRepository>();
+            services.AddScoped<IOpeningBalanceMasterBusiness, OpeningBalanceMasterBusiness>();
+            services.AddScoped<IOpeningBalanceMasterRepository, OpeningBalanceMasterRepository>();
             services.AddScoped<IConsignmentBusiness, ConsignmentBusiness>();
             services.AddScoped<IConsignmentRepository, ConsignmentRepository>();
             services.AddScoped<IChequeAllotmentDtlBusiness, ChequeAllotmentDtlBusiness>();

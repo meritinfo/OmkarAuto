@@ -20,7 +20,7 @@ namespace Consignment.Repository
         /// <param name="ConsignmentModel"></param>
         /// <returns>ResponseModel</returns>
         /// 
-        public async Task<ConsignmentList> GetConsignmentList(PageRequest request)
+        public async Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request)
         {
             ConsignmentList cnList = new();
             List<ConsignmentModel> consignmentList = new();

@@ -6,7 +6,7 @@ namespace Consignment.Repository
     public interface IConsignmentRepository
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
-        Task<ConsignmentList> GetConsignmentList(PageRequest request);
+        Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request);
         Task<ResponseModel> ConsignmentDelete(Request requestModel);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
