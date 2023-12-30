@@ -258,7 +258,7 @@ namespace FleetTrans.Repository
         //    }
         //    return responseModel;
         //}
-        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequest request)
+        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequestDtBrVh request)
         {
             TripPaymentsList tripPaymentsList = new();
             List<TripPaymentsModel> tripPayList = new();

@@ -161,7 +161,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTripPaymentsList")]
-        public async Task<IActionResult> GetTripPaymentsList(PageRequest request)
+        public async Task<IActionResult> GetTripPaymentsList(PageRequestDtBrVh request)
         {
             try
             {

@@ -276,7 +276,7 @@ namespace FreightMasters.Repository
         }
 
 
-        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequest request)
+        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequestDtBrVh request)
         {
             DistanceMasterFrtList distanceMasterFreightList = new();
             List<DistanceMasterFrtModel> distanceFrtList = new();

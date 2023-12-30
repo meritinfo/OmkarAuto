@@ -78,7 +78,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetConsignmentList")]
-        public async Task<IActionResult> GetConsignmentList(PageRequest request)
+        public async Task<IActionResult> GetConsignmentList(PageRequestDtBrVh request)
         {
             try
             {

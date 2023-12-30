@@ -135,6 +135,11 @@ import { OthertripopenlistComponent } from './module/othertripopen/othertripopen
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
+import { FinopenbalancelistComponent } from './module/finopenbalance/finopenbalancelist/finopenbalancelist.component';
+import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalanceadd/finopenbalanceadd.component';
+import { Openingbalancelistmodel } from './models/openingbalancelistmodel';
+import { Openingbalancemodel } from './models/openingbalancemodel';
+import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel';
 
 @NgModule({
   declarations: [
@@ -220,6 +225,8 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     AddothertripopenComponent,
     OthertripopenlistComponent,
     NegdecimalonlyDirective,
+    FinopenbalancelistComponent,
+    FinopenbalanceaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -248,6 +255,7 @@ import { Gstpurchasemodel } from './models/gstpurchasemodel';
     Dieselstatementlistmodel,  Dieselstatementmodel, 
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
+    Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Requestmodel,Pagerequestwithdatesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
   bootstrap: [AppComponent]

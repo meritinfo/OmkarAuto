@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Fingrouplistmodel } from 'src/app/models/fingrouplistmodel';
 import { Fingroupmodel } from 'src/app/models/fingroupmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FingroupService } from 'src/app/services/fingroup.service';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -44,67 +41,67 @@ export class FingroupaddComponent {
     private toasterService: ToastrService) {
     this.fingroupmodel = new Fingroupmodel();
  
-}
-
-ngOnInit(): void {
-
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Group Master");
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-    }
   }
 
+  ngOnInit(): void {
 
-  var userData = sessionStorage.getItem('uid')?.toString();
-  var userlogindate =sessionStorage.getItem('loginDate')?.toString();
-  
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
-  }
-  
-  this.formFinGroup = this.formBuilder.group({
-    groupName: new FormControl('',[Validators.required]),
-    accountType: new FormControl('',[Validators.required]),
-    subAccountType: new FormControl('',[Validators.required]),
-    schID: new FormControl('',[Validators.required]),
-  });  
-    
-  this.sharedService.loading = true;
-  this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
-  
-  if (this.selectedFinGroupMasterDetails.accountId != ''){
-    this.requestmodel.strRequest=this.selectedFinGroupMasterDetails.accountType;
-  }
-  this.getaccounttypes();
-  this.getsubaccounttypes(this.requestmodel);
-  this.getschedulelist();     
- 
-  setTimeout(() => {
-    if (this.selectedFinGroupMasterDetails.accountId != '') {
-        this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
-        this.editMode=true;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Group Master");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-  }, 2000);
-  
-  this.sharedService.loading = false;
-}
-// convenience getter for easy access to contact form fields
-get f() { return this.formFinGroup.controls; }
+    }
 
-chkActName(e: any) {
+
+    var userData = sessionStorage.getItem('uid')?.toString();
+    var userlogindate =sessionStorage.getItem('loginDate')?.toString();
+    
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    
+    this.formFinGroup = this.formBuilder.group({
+      groupName: new FormControl('',[Validators.required]),
+      accountType: new FormControl('',[Validators.required]),
+      subAccountType: new FormControl('',[Validators.required]),
+      schID: new FormControl('',[Validators.required]),
+    });  
+      
+    this.sharedService.loading = true;
+    this.selectedFinGroupMasterDetails = this.finGroupService.getFingroupDetails(); 
+    
+    if (this.selectedFinGroupMasterDetails.accountId != ''){
+      this.requestmodel.strRequest=this.selectedFinGroupMasterDetails.accountType;
+    }
+    this.getaccounttypes();
+    this.getsubaccounttypes(this.requestmodel);
+    this.getschedulelist();     
+  
+    setTimeout(() => {
+      if (this.selectedFinGroupMasterDetails.accountId != '') {
+          this.formFinGroup.patchValue(this.selectedFinGroupMasterDetails);
+          this.editMode=true;
+        }
+    }, 2000);
+    
+    this.sharedService.loading = false;
+  }
+// convenience getter for easy access to contact form fields
+  get f() { return this.formFinGroup.controls; }
+
+  chkActName(e: any) {
     if (this.selectedFinGroupMasterDetails.accountId == "")
     {
       this.sharedService.loading = true;
@@ -149,61 +146,61 @@ chkActName(e: any) {
     this.route.navigate(['/fingrouplist']);
   }
 
-getaccounttypes(): void {
-  this.finGroupService.getaccounttypes().subscribe((res) => {
-    this.accountTypeList = res;
-  });
-}
+  getaccounttypes(): void {
+    this.finGroupService.getaccounttypes().subscribe((res) => {
+      this.accountTypeList = res;
+    });
+  }
 
-getsubaccounttypes(request:Requestmodel): void {
-  this.finGroupService.getsubaccounttypes(request).subscribe((res) => {
-    this.subAccountTypeList = res;
-  });
-}
+  getsubaccounttypes(request:Requestmodel): void {
+    this.finGroupService.getsubaccounttypes(request).subscribe((res) => {
+      this.subAccountTypeList = res;
+    });
+  }
 
-getschedulelist(): void {
-    this.finGroupService.getschedulelist().subscribe((res) => {
-    this.scheduleList = res;
-  });
-}
+  getschedulelist(): void {
+      this.finGroupService.getschedulelist().subscribe((res) => {
+      this.scheduleList = res;
+    });
+  }
 
-accountTypeChange(e: any) { 
-    console.log(e.target.value);
-    this.requestmodel.strRequest = e.target.value; 
-    this.getsubaccounttypes(this.requestmodel);
-}
+  accountTypeChange(e: any) { 
+      console.log(e.target.value);
+      this.requestmodel.strRequest = e.target.value; 
+      this.getsubaccounttypes(this.requestmodel);
+  }
 
 
 //Submit user form details //
-submitFinGroupMasterForm(): void {
-  this.formSubmitted = true;
-  if (this.formFinGroup.invalid) {
-    this.toasterService.warning("Please Enter Mandatory Fields ");  
-    const controls = this.formFinGroup.controls;
-    for (const name in controls) {
-      if (controls[name].invalid) {
-        this.toasterService.warning(name + " Fields is Invalid");   
-      }
-    }           
-    return;
-  }
-  
-  this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
-  this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
-  this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
-  this.fingroupmodel.subAccountType=this.formFinGroup.value.subAccountType;
-  this.fingroupmodel.schID= this.formFinGroup.value.schID;
-  this.fingroupmodel.loggedInUserID= this.loggedInUserID;
+  submitFinGroupMasterForm(): void {
+    this.formSubmitted = true;
+    if (this.formFinGroup.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");  
+      const controls = this.formFinGroup.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      }           
+      return;
+    }
+    
+    this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
+    this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
+    this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
+    this.fingroupmodel.subAccountType=this.formFinGroup.value.subAccountType;
+    this.fingroupmodel.schID= this.formFinGroup.value.schID;
+    this.fingroupmodel.loggedInUserID= this.loggedInUserID;
 
-  this.sharedService.loading = true;
-  this.finGroupService.fingroupDetailsSubmitted(this.fingroupmodel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formFinGroup.reset();
-    this.route.navigate(['/fingrouplist']);
-  });  
-  this.sharedService.loading = false;
-}
+    this.sharedService.loading = true;
+    this.finGroupService.fingroupDetailsSubmitted(this.fingroupmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      console.log(this.responseDetails.message);
+      this.formFinGroup.reset();
+      this.route.navigate(['/fingrouplist']);
+    });  
+    this.sharedService.loading = false;
+  }
 }
 
 

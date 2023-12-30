@@ -18,13 +18,15 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFinAccountsMasterBusiness finAccountsMasterBusiness;
         readonly IFinGroupMasterBusiness finGroupMasterBusiness;
         readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
+        readonly IOpeningBalanceMasterBusiness openingBalanceMasterBusiness;
         readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
         readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
 
 
         public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
             IFinAccountsMasterBusiness _finAccountsMasterBusiness, 
-            IFinScheduleMasterBusiness _finScheduleMasterBusiness, 
+            IFinScheduleMasterBusiness _finScheduleMasterBusiness,
+            IOpeningBalanceMasterBusiness _openingBalanceMasterBusiness,
             IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
             IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness)
         {
@@ -33,6 +35,7 @@ namespace OmkarFCUBEAPI.Controllers
             finScheduleMasterBusiness = _finScheduleMasterBusiness;
             chequeAllotmentDtlBusiness = _chequeAllotmentDtlBusiness;
             chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
+            openingBalanceMasterBusiness=_openingBalanceMasterBusiness;
 
         }
         /// <summary>
@@ -287,6 +290,100 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("OpeningBalanceSave")]
+        public async Task<IActionResult> OpeningBalanceSave(OpeningBalanceMasterModel openingBalanceMaster)
+        {
+            if (openingBalanceMaster == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.OpeningBalanceSave(openingBalanceMaster);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOpeningBalMasterList")]
+        public async Task<IActionResult> GetOpeningBalMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetOpeningBalMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOpeningBalDetailList")]
+        public async Task<IActionResult> GetOpeningBalDetailList(OpeningBalanceRequest req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetOpeningBalDetailList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetAccountList")]
+        public async Task<IActionResult> GetAccountList()
+        {
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetAccountList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("OpeningBalanceDelete")]
+        public async Task<IActionResult> OpeningBalanceDelete(OpeningBalanceRequest req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.OpeningBalanceDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
 
