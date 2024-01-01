@@ -24,6 +24,14 @@ namespace FleetMasters.Business
         {
             return await fleetCardMasterRepository.GetFleetCardMasterList(request);
         }
+        public async Task<List<DropDownListModel>> GetCardledgerAcList()
+        {
+            return await fleetCardMasterRepository.GetCardledgerAcList();
+        }
+        public async Task<ResponseModel> FleetCardMasterDelete(Request requestModel)
+        {
+            return await fleetCardMasterRepository.FleetCardMasterDelete(requestModel);
+        }
 
     }
 }

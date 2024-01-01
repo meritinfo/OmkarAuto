@@ -112,12 +112,16 @@ export class TrippaymentslistComponent {
         data: 'vehicleNo',
       },
       {
-        title: 'tripNo',
+        title: 'Trip No',
         data: 'tripNo',
       },
       {
         title: 'Trans Type',
         data: 'transType',
+      },
+      {
+        title: 'Qty Ltrs',
+        data: 'qtyLtrs',
       },
       {
         title: 'Amount',

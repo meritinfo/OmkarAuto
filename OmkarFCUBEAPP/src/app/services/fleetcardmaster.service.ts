@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Fleetcardmasterlistmodel } from '../models/fleetcardmasterlistmodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,8 @@ export class FleetCardMasterService {
   }
   getFleetCardMasterList(filter: Filtermodel): Observable<Fleetcardmasterlistmodel> {
     return this.httpClient.post<Fleetcardmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetFleetCardMasterList', filter, this.httpOptions);
+  }
+  fleetCardMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/FleetCardMasterDelete', req, this.httpOptions);
   }
 }

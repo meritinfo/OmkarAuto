@@ -11,6 +11,8 @@ using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
 using FinanceMasters.Business;
+using FleetTrans.Business;
+using Consignment.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -490,7 +492,24 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("FleetCardMasterDelete")]
+        public async Task<IActionResult> FleetCardMasterDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await fleetCardMasterBusiness.FleetCardMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetBrandMasterList")]
         public async Task<IActionResult> GetBrandMasterList(PageRequest request)
@@ -524,12 +543,27 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetFleetCardMasterList")]
         public async Task<IActionResult> GetFleetCardMasterList(PageRequest request)
         {
             try
             {
                 var result = await fleetCardMasterBusiness.GetFleetCardMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCardledgerAcList")]
+        public async Task<IActionResult> GetCardledgerAcList()
+        {
+            try
+            {
+                var result = await fleetCardMasterBusiness.GetCardledgerAcList();
 
                 return Ok(result);
             }

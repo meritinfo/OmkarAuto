@@ -33,7 +33,7 @@
                                                 <label for="basicpill-phoneno-input">Card Type</label>
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="cardType"
-                                                    [ngClass]=""  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['cardType'].invalid) }"  
                                                     >
                                                   
                                                     <option value="HP"> Happay</option>
@@ -46,7 +46,7 @@
                                                 <label for="basicpill-phoneno-input">Card Code</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardCode"
-                                                [ngClass]=>
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardCode'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                                 <label for="basicpill-phoneno-input">Card No</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardNo"
-                                                [ngClass]=>
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardNo'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -66,7 +66,7 @@
                                                 <label for="basicpill-phoneno-input">Card Pin</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardPin"
-                                                [ngClass]=>
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardPin'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -75,9 +75,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">CardLedgerAc</label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" " formControlName="CardLedgerAc"
-                                                [ngClass]=>
+                                                <select class="form-control" formControlName="cardLedgerAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardLedgerAc'].invalid) }">
+
+                                                <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
+
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
                                                 
                                             </div>
                                         </div>
@@ -117,7 +122,7 @@
                                                 <label for="basicpill-phoneno-input">MobileNo</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="mobileNo"
-                                                [ngClass]=>
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['mobileNo'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -149,7 +154,10 @@
                 <div class="col-lg-12">
                    <div class="tex">
                       <button type="submit" class="btn btn-primary w-md"
-                         (click)="submitFleetCardMasterForm()">Submit</button>
+                         (click)="submitFleetCardMasterForm()">Save</button>
+                          <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="fleetCardMasterDelete()">Delete</button>
+                                <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                    </div>
                 </div>
              </div>

@@ -12,5 +12,7 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> FleetCardMasterSave(FleetCardMasterModel fleetCardMasterModel);
         Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
+        Task<List<DropDownListModel>> GetCardledgerAcList();
+        Task<ResponseModel> FleetCardMasterDelete(Request requestModel);
     }
 }
