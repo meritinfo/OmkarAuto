@@ -12,6 +12,7 @@ using System.IO;
 using System.Data;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using System.Collections.Generic;
 
 
 
@@ -25,13 +26,16 @@ namespace OmkarFCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
+        readonly IBankReconcilationBusiness bankReconcilationBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
-            IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
+            IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
+            IBankReconcilationBusiness _bankReconcilationBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
+            bankReconcilationBusiness =_bankReconcilationBusiness;
         }
         /// <summary>
 
@@ -232,6 +236,63 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("BankReconcilationSave")]
+        public async Task<IActionResult> BankReconcilationSave(BankReconcilationListModel bankRecListModel)
+        {
+            if (bankRecListModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankReconcilationBusiness.BankReconcilationSave(bankRecListModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetBankReconcileGridList")]
+        public async Task<IActionResult> GetBankReconcileGridList(BankRecFilterModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankReconcilationBusiness.GetBankReconcileGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetBankacList")]
+        public async Task<IActionResult> GetBankacList()
+        {
+            try
+            {
+                var result = await bankReconcilationBusiness.GetBankacList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
     }
 }

@@ -53,7 +53,7 @@ namespace OmkarFCUBEAPI
             //services.AddScoped<IDriverSalaryStatementRepository, DriverSalaryStatementRepository>();
             //  services.AddScoped<IDriverSalaryStatementBusiness, DriverSalaryStatementBusiness>();
             services.AddScoped<IDriverSalaryStmtRepository, DriverSalaryStmtRepository>();
-             services.AddScoped<IDriverSalaryStmtBusiness, DriverSalaryStmtBusiness>();
+            services.AddScoped<IDriverSalaryStmtBusiness, DriverSalaryStmtBusiness>();
             services.AddScoped<IFinAccountsMasterBusiness, FinAccountsMasterBusiness>();
             services.AddScoped<IFinAccountsMasterRepository, FinAccountsMasterRepository>();
             services.AddScoped<IFinGroupMasterBusiness, FinGroupMasterBusiness>();
@@ -74,8 +74,6 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IFreightRatesMstRepository, FreightRatesMstRepository>();
             services.AddScoped<IDriverMasterRepository, DriverMasterRepository>();
             services.AddScoped<IDriverMasterBusiness, DriverMasterBusiness>();
-            services.AddScoped<IGstPurchaseMstRepository, GstPurchaseMstRepository>();
-            services.AddScoped<IGstPurchaseMstBusiness, GstPurchaseMstBusiness>();
             services.AddScoped<IExpensesTypeMasterRepository, ExpensesTypeMasterRepository>();
             services.AddScoped<IExpensesTypeMasterBusiness, ExpensesTypeMasterBusiness>();
             services.AddScoped<IDistanceMasterFrtRepository, DistanceMasterFrtRepository>();
@@ -88,6 +86,12 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDistanceMasterTripBusiness, DistanceMasterTripBusiness>();
             services.AddScoped<ICashReceiptPaymentsBusiness, CashReceiptPaymentsBusiness>();
             services.AddScoped<ICashReceiptPaymentsRepository, CashReceiptPaymentsRepository>();
+            services.AddScoped<IGstPurchaseMstRepository, GstPurchaseMstRepository>();
+            services.AddScoped<IGstPurchaseMstBusiness, GstPurchaseMstBusiness>();
+            services.AddScoped<IBankReconcilationRepository, BankReconcilationRepository>();
+            services.AddScoped<IBankReconcilationBusiness, BankReconcilationBusiness>();
+            services.AddScoped<IBillStatementRepository, BillStatementRepository>();
+            services.AddScoped<IBillStatementBusiness, BillStatementBusiness>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();

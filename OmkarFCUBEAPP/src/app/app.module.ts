@@ -140,6 +140,10 @@ import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalan
 import { Openingbalancelistmodel } from './models/openingbalancelistmodel';
 import { Openingbalancemodel } from './models/openingbalancemodel';
 import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel';
+import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
+import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
+import { Bankreconcilationlist } from './models/bankreconcilationlist';
+import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
 
 @NgModule({
   declarations: [
@@ -227,6 +231,7 @@ import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel'
     NegdecimalonlyDirective,
     FinopenbalancelistComponent,
     FinopenbalanceaddComponent,
+    BankreconcilationComponent,
   ],
   imports: [
     BrowserModule,
@@ -256,6 +261,7 @@ import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel'
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
+    Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
   bootstrap: [AppComponent]
