@@ -244,6 +244,8 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
+    this.GetDslOpeningBal();
+    this.GetAdblueOpeningBal();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -295,6 +297,8 @@ export class TripsheetaddComponent {
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
         this.getTripSheetInnerGridList();
         this.GetOpeningBalForEdit(this.selectedTripSheetDetails.driverMasterID);
+        this.GetDslOpeningBal();
+        this.GetAdblueOpeningBal();
         this.getBhattaRate();
         this.totalCalculation();
         this.getDriverDetails2(this.selectedTripSheetDetails.driverMasterID)
@@ -521,6 +525,7 @@ export class TripsheetaddComponent {
     // do something with selected item
     this.getDriverDetails();
     this.GetOpeningBal();
+
   }
   selectEvent(item: any) {
     // do something with selected item
@@ -915,6 +920,66 @@ export class TripsheetaddComponent {
       } else {
         this.formTripsheet.patchValue({
           opBalDriver: '0'
+        });
+      }
+    });
+ 
+   // this.getDriverDetails();
+   
+
+  }
+  GetDslOpeningBal() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+    this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+  //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+    // this.OpbalDetails.driverMasterID='1';
+    this.OpbalDetails.yearid = this.year;
+    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+    this.commonService.getDslOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
+        this.formTripsheet.patchValue({
+          opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
+        });
+        //  }
+        //else
+      } else {
+        this.formTripsheet.patchValue({
+          opBalDriver: '0'
+        });
+      }
+    });
+ 
+   // this.getDriverDetails();
+   
+
+  }
+  GetAdblueOpeningBal() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+    this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+  //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+    // this.OpbalDetails.driverMasterID='1';
+    this.OpbalDetails.yearid = this.year;
+    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+    this.commonService.getAdblueOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
+        this.formTripsheet.patchValue({
+          opBalAdblue: this.responseDetails.message ? this.responseDetails.message : '0'
+        });
+        //  }
+        //else
+      } else {
+        this.formTripsheet.patchValue({
+          opBalAdblue: '0'
         });
       }
     });
@@ -1516,16 +1581,19 @@ export class TripsheetaddComponent {
     var netTripBalance = 0;
     var tripBalance = 0;
     var totalDriverAc = 0;
-    let opbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
+   // let opbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
+    let opDslbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
     let issuedDslLtrs = selectedDataValue.issuedDslLtrs ? parseFloat(selectedDataValue.issuedDslLtrs) : 0
     let totaldsl = selectedDataValue.totaldsl ? parseFloat(selectedDataValue.totaldsl) : 0
     let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
 
+   // Dls Cl Bal =  Total dsl to be -  Dsl Open Bal -Dsl Ltrs Issued -Cash Dsl Ltrs  
+   // clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
+   clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
 
-    clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
     totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver + totalpayable + cashDslAmt - penaltyChargedToDr;
-    clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue ;
+    clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
     tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
@@ -1583,20 +1651,23 @@ export class TripsheetaddComponent {
     var netTripBalance = 0;
     var tripBalance = 0;
     var totalDriverAc = 0;
-    let opbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
+    let opDslbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
     let issuedDslLtrs = selectedDataValue.issuedDslLtrs ? parseFloat(selectedDataValue.issuedDslLtrs) : 0
     let totaldsl = selectedDataValue.totaldsl ? parseFloat(selectedDataValue.totaldsl) : 0
     let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
     var totalpayable  = selectedDataValue.totalpayable ? parseFloat(selectedDataValue.totalpayable) : 0;
 
 
-    clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
+   // clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
+   clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
     totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt + tollExpByDriver 
     + totalpayable + cashDslAmt - penaltyChargedToDr;
-    clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
+   // clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
+   clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
-    tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
+    //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
+    tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
     netTripBalance = tripBalance - recdFromDriver;
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({

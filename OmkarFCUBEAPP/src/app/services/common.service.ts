@@ -68,6 +68,9 @@ export class CommonService {
   getDriverList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverList', null, this.httpOptions);
   }
+  getCardledgerAcList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetCardledgerAcList', null, this.httpOptions);
+  }
   getCreditAcList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetCreditAcList', null, this.httpOptions);
   }
@@ -82,6 +85,12 @@ export class CommonService {
   }
   getOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetOpeningBal', payload, this.httpOptions);
+  }
+  getDslOpeningBal(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslOpeningBal', payload, this.httpOptions);
+  }
+  getAdblueOpeningBal(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetAdblueOpeningBal', payload, this.httpOptions);
   }
   getDriverDetail(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverDetail', payload, this.httpOptions);

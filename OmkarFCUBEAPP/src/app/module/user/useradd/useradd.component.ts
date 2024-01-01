@@ -7,6 +7,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-useradd',
@@ -52,7 +53,7 @@ export class UseraddComponent implements OnInit {
     this.getBranchList();
     this.getModuleList();
     this.getRoleTypeList();
-   // this.userPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.getUserDetails.userPhoto;
+   this.userPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedUserDetails.imageName;
     this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),

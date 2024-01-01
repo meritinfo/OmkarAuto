@@ -21,9 +21,18 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.TripMasterSave(tripMasterModel);
         }
+
         public async Task<ResponseModel> GetOpeningBal(OpBalModel request)
         {
             return await tripMasterRepository.GetOpeningBal(request);
+        }
+        public async Task<ResponseModel> GetDslOpeningBal(OpBalModel request)
+        {
+            return await tripMasterRepository.GetDslOpeningBal(request);
+        }
+        public async Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request)
+        {
+            return await tripMasterRepository.GetAdblueOpeningBal(request);
         }
         public async Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request)
         {

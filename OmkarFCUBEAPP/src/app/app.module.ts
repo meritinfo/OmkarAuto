@@ -140,6 +140,9 @@ import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalan
 import { Openingbalancelistmodel } from './models/openingbalancelistmodel';
 import { Openingbalancemodel } from './models/openingbalancemodel';
 import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel';
+import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
+import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
+import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
 import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
 import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
 import { Bankreconcilationlist } from './models/bankreconcilationlist';
@@ -231,6 +234,8 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     NegdecimalonlyDirective,
     FinopenbalancelistComponent,
     FinopenbalanceaddComponent,
+    AddfleetcardmasterComponent,
+    FleetcardmasterlistComponent,
     BankreconcilationComponent,
   ],
   imports: [
@@ -263,7 +268,7 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
