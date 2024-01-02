@@ -13,6 +13,7 @@ using Shared.Models;
 using FinanceMasters.Business;
 using FleetTrans.Business;
 using Consignment.Business;
+using Consignment.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -510,6 +511,36 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicateCardNo")]
+        public async Task<IActionResult> CheckDuplicateCardNo(CardModel request)
+        {
+            try
+            {
+                var result = await fleetCardMasterBusiness.CheckDuplicateCardNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateCardCode")]
+        public async Task<IActionResult> CheckDuplicateCardCode(CardModel request)
+        {
+            try
+            {
+                var result = await fleetCardMasterBusiness.CheckDuplicateCardCode(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("GetBrandMasterList")]
         public async Task<IActionResult> GetBrandMasterList(PageRequest request)

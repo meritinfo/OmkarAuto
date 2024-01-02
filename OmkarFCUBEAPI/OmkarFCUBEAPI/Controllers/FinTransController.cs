@@ -25,13 +25,15 @@ namespace OmkarFCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
+        readonly IOpBrsEntryBusiness opBrsEntryBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
-            IGstPurchaseMstBusiness _gstPurchaseMstBusiness)
+            IGstPurchaseMstBusiness _gstPurchaseMstBusiness, IOpBrsEntryBusiness _opBrsEntryBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
+            opBrsEntryBusiness = _opBrsEntryBusiness;
         }
         /// <summary>
 
@@ -70,7 +72,38 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetOpBrsEntryList")]
+        public async Task<IActionResult> GetOpBrsEntryList(PageRequest request)
+        {
+            try
+            {
+                var result = await opBrsEntryBusiness.GetOpBrsEntryList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("OpBrsEntrySave")]
+        public async Task<IActionResult> OpBrsEntrySave(BrsEntryModel brsEntryModel)
+        {
+            if (brsEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await opBrsEntryBusiness.OpBrsEntrySave(brsEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CashReceiptPaymentsDelete")]
         public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
         {

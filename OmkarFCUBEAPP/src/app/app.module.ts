@@ -143,6 +143,8 @@ import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel'
 import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
 import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
 import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
+import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
+import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 
 @NgModule({
   declarations: [
@@ -232,6 +234,8 @@ import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
     FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,
     FleetcardmasterlistComponent,
+    AddbrsentryComponent,
+    OpbrsentrylistComponent,
   ],
   imports: [
     BrowserModule,
