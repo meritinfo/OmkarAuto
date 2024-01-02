@@ -115,12 +115,14 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
 
-    if (this.selectedBankReceiptEntryDetails.ftmID != '') {        
-      var selectedDataValue = this.formBankRecEntry.getRawValue();
+    if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
       this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
       this.formBankRecEntry.patchValue({
         ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
-      }); 
+      });       
+      if(this.selectedBankReceiptEntryDetails.linkedYN=="Y"){
+        this.deleteStatus=false;
+      }
       this.editMode=true;
       this.formBankRecEntry.controls['modifyRemarks'].enable();
       this.getBankReceiptPaymentInnerGridList();

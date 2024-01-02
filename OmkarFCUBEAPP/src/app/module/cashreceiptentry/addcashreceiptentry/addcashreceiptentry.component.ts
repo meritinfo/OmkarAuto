@@ -112,12 +112,14 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();
     setTimeout(() => {
-    if (this.selectedCashReceiptEntryDetails.ftmID != '') {        
-      var selectedDataValue = this.formCashRRecEntry.getRawValue();
+    if (this.selectedCashReceiptEntryDetails.ftmID != '') {   
       this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
       this.formCashRRecEntry.patchValue({
         ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),
       }); 
+      if(this.selectedCashReceiptEntryDetails.linkedYN=="Y"){
+        this.deleteStatus=false;
+      }
       this.editMode=true;
       this.formCashRRecEntry.controls['modifyRemarks'].enable();
       this.getCashReceiptPaymentInnerGridList();
