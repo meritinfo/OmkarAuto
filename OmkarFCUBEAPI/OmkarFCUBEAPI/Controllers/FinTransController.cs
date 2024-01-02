@@ -12,6 +12,7 @@ using System.IO;
 using System.Data;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using System.Collections.Generic;
 
 
 
@@ -25,14 +26,17 @@ namespace OmkarFCUBEAPI.Controllers
         private readonly IOptions<DBModel> dbconnection;
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
+        readonly IBankReconcilationBusiness bankReconcilationBusiness;
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
-            IGstPurchaseMstBusiness _gstPurchaseMstBusiness, IOpBrsEntryBusiness _opBrsEntryBusiness)
+            IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
+            IBankReconcilationBusiness _bankReconcilationBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
+            bankReconcilationBusiness =_bankReconcilationBusiness;
             opBrsEntryBusiness = _opBrsEntryBusiness;
         }
         /// <summary>
@@ -61,6 +65,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetCashReceiptPaymentsList")]
         public async Task<IActionResult> GetCashReceiptPaymentsList(BankCashListFilterModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentsList(request);
@@ -107,6 +115,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("CashReceiptPaymentsDelete")]
         public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.CashReceiptPaymentsDelete(req);
@@ -122,9 +134,32 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetCashReceiptPaymentInnerGridList")]
         public async Task<IActionResult> GetCashReceiptPaymentInnerGridList(Request req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetCashBankAccountList")]
+        public async Task<IActionResult> GetCashBankAccountList(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashBankAccountList(request);
 
                 return Ok(result);
             }
@@ -138,6 +173,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetNextDocNo")]
         public async Task<IActionResult> GetNextDocNo(DocNoFilterModel docNoFilter)
         {
+            if (docNoFilter == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetNextDocNo(docNoFilter);
@@ -265,6 +304,63 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("BankReconcilationSave")]
+        public async Task<IActionResult> BankReconcilationSave(BankReconcilationListModel bankRecListModel)
+        {
+            if (bankRecListModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankReconcilationBusiness.BankReconcilationSave(bankRecListModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetBankReconcileGridList")]
+        public async Task<IActionResult> GetBankReconcileGridList(BankRecFilterModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankReconcilationBusiness.GetBankReconcileGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetBankacList")]
+        public async Task<IActionResult> GetBankacList()
+        {
+            try
+            {
+                var result = await bankReconcilationBusiness.GetBankacList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
     }
 }

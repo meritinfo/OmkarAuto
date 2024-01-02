@@ -96,7 +96,8 @@ export class BankcashcontralistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      receiptOrPayment: new FormControl('BC',[Validators.required]),  
+      receiptOrPayment: new FormControl('BC',[Validators.required]), 
+      docSeriesNo: new FormControl('',),
     });
 
     this.sharedService.loading=true;
@@ -135,15 +136,15 @@ export class BankcashcontralistComponent {
       },
       columns: [ 
         {
-          title: 'Doc No ',
-          data: 'docNo',
+          title: 'Doc Series No ',
+          data: 'seriesDoc',
         },    
         {
           title: 'Date',
           data: 'ftmDate',
         },
         {
-          title: 'A/c Header',
+          title: 'Debit Account',
           data: 'acHeader',
         },       
         {
@@ -159,7 +160,7 @@ export class BankcashcontralistComponent {
           data: 'refNo',
         },
         {
-          title: 'On Account Of',
+          title: 'Credit Account',
           data: 'accountOf',
         },
         {

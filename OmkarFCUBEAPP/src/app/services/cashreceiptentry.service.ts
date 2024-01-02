@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 import { Constants } from '../common/constants';
 import { bankreceiptentrylistmodel } from '../models/bankreceiptentrylistmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,9 @@ export class CashReceiptEntryService {
   }
   cashReceiptPaymentsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CashReceiptPaymentsDelete', req, this.httpOptions);
+  }
+
+  getAccountList(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetCashBankAccountList', req, this.httpOptions);
   }
 }

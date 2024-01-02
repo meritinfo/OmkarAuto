@@ -192,7 +192,7 @@ namespace FinTrans.Repository
                                 DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
                                 DocSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["DocSeries"]),
                                 DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
-                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
+                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["seriesDoc"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
                                 RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),
@@ -332,7 +332,52 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
-       
+        
+
+        public async Task<List<DropDownListModel>> GetCashBankAccountList(Request request)
+        {
+            List<DropDownListModel> accountList = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = 
+                    {
+                        new SqlParameter("@Page", request.strRequest),
+                    };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashBankAccountList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            accountList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return accountList;
+        }
+
     }
 
 

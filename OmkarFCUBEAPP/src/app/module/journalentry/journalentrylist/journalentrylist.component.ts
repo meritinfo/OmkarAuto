@@ -141,8 +141,8 @@ export class JournalentrylistComponent {
       },
         columns: [         
           {
-            title: 'Doc No ',
-            data: 'docNo',
+            title: 'Doc Series No ',
+            data: 'seriesDoc',
           },    
           {
             title: 'Date',

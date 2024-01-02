@@ -145,6 +145,10 @@ import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcard
 import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
+import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
+import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
+import { Bankreconcilationlist } from './models/bankreconcilationlist';
+import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
 
 @NgModule({
   declarations: [
@@ -234,6 +238,7 @@ import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbr
     FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,
     FleetcardmasterlistComponent,
+    BankreconcilationComponent,
     AddbrsentryComponent,
     OpbrsentrylistComponent,
   ],
@@ -265,6 +270,7 @@ import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbr
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
+    Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
   bootstrap: [AppComponent]

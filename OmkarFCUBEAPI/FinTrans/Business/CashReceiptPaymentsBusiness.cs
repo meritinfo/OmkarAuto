@@ -41,5 +41,10 @@ namespace FinTrans.Business
             return await cashReceiptPaymentsRepository.GetCashReceiptPaymentInnerGridList(req);
         }
 
+        public async Task<List<DropDownListModel>> GetCashBankAccountList(Request request)
+        {
+            return await cashReceiptPaymentsRepository.GetCashBankAccountList(request);
+        }
+
     }
 }

@@ -31,7 +31,9 @@ export class AddcashreceiptentryComponent {
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
-  creditacList: Dropdownmodel[] = [];
+  mainAcList: Dropdownmodel[] = [];
+  gridAccountList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
   selectedCashReceiptEntryDetails = new bankreceiptentrymodel();
   docNoFilter= new Bankdocnofiltermodel();
@@ -83,7 +85,8 @@ export class AddcashreceiptentryComponent {
     }
     
     this.sharedService.loading=true;
-    this.getCreditAcList();
+    this.getMainAcList();
+    this.getGridAcList();
     this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formCashRRecEntry = this.formBuilder.group({
@@ -108,21 +111,24 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docNo'].disable(); 
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();
-     
-    if (this.selectedCashReceiptEntryDetails.ftmID != '') {        
-      var selectedDataValue = this.formCashRRecEntry.getRawValue();
+    setTimeout(() => {
+    if (this.selectedCashReceiptEntryDetails.ftmID != '') {   
       this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
       this.formCashRRecEntry.patchValue({
         ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),
       }); 
+      if(this.selectedCashReceiptEntryDetails.linkedYN=="Y"){
+        this.deleteStatus=false;
+      }
       this.editMode=true;
       this.formCashRRecEntry.controls['modifyRemarks'].enable();
       this.getCashReceiptPaymentInnerGridList();
 
-    }
-    else{
-      this.getdocno("CP");
-    }
+      }
+      else{
+        this.getdocno("CP");
+      }
+    }, 2000);
     this.sharedService.loading=false;
   }
 
@@ -157,6 +163,26 @@ export class AddcashreceiptentryComponent {
   }
 
 
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+
   get formArray() {
     return this.formCashRRecEntry.get("arrayList") as FormArray;
   }
@@ -177,7 +203,10 @@ export class AddcashreceiptentryComponent {
 
   removeItem(index: number) {
     this.formArray.removeAt(index);
-    this.updateAmount(0, '', '');
+    this.updateAmount(0, '', ''); 
+    // if(this.formArray.value.length==0){
+    //   this.formArray.push(this.createInitialArray());
+    // }
   }
 
   changePType(selectedValue: string) { 
@@ -215,9 +244,18 @@ export class AddcashreceiptentryComponent {
     });
   }
 
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
+  getMainAcList(): void {    
+    this.requestmodel.strRequest="C"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.mainAcList = res;
+    });
+  }
+
+  
+  getGridAcList(): void {
+    this.requestmodel.strRequest="G"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.gridAccountList = res;
     });
   }
 
@@ -267,21 +305,21 @@ export class AddcashreceiptentryComponent {
 
       this.sharedService.loading=true;
     var selectedDataValue=  this.formCashRRecEntry.getRawValue();
-    this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID != '' ? this.selectedCashReceiptEntryDetails.ftmID : '';
+    this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID ;
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
-    this.bankrecEntrymodel.docType        = selectedDataValue.docType;
-    this.bankrecEntrymodel.docSeries      = selectedDataValue.docSeries;
+    this.bankrecEntrymodel.docType        = selectedDataValue.docType.toString().toUpperCase();
+    this.bankrecEntrymodel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
     this.bankrecEntrymodel.docNo          = selectedDataValue.docNo;
     this.bankrecEntrymodel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
-    this.bankrecEntrymodel.remarks        = selectedDataValue.remarks;
-    this.bankrecEntrymodel.refType        = selectedDataValue.refType;
+    this.bankrecEntrymodel.remarks        = selectedDataValue.remarks.toString().toUpperCase();
+    this.bankrecEntrymodel.refType        = selectedDataValue.refType.toString().toUpperCase();
     this.bankrecEntrymodel.refNo          = selectedDataValue.refNo;
     this.bankrecEntrymodel.docAmount      = selectedDataValue.docAmount;
     this.bankrecEntrymodel.linkedYN       = 'N';
     this.bankrecEntrymodel.yearID         = this.year;
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
-    this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
     
     this.bankrecEntrymodel.detailList = [];
 
@@ -300,7 +338,7 @@ export class AddcashreceiptentryComponent {
       'slNo': '0' ,
       'typeSign': tpfirstsign,
       'amount': selectedDataValue.docAmount,
-      'narration': selectedDataValue.remarks,
+      'narration': selectedDataValue.remarks.toString().toUpperCase(),
       'chequeNo': '',
       'chequeDate': '',
       'accountID': selectedDataValue.accountid2,
@@ -309,19 +347,38 @@ export class AddcashreceiptentryComponent {
 
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-          this.bankrecEntrymodel.detailList.push({
-          'slNo': (i+1).toString() ,
-          'typeSign': tpfirstsign,
-          'amount': this.formArray.value[i].amount,
-          'narration': this.formArray.value[i].narration,
-          'chequeNo': '',
-          'chequeDate': '',
-          'accountID': this.formArray.value[i].accountID ,
-          'reference': this.formArray.value[i].reference,
-        })
+        if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
+            this.bankrecEntrymodel.detailList.push({
+            'slNo': (i+1).toString() ,
+            'typeSign': tpfirstsign,
+            'amount': this.formArray.value[i].amount,
+            'narration': this.formArray.value[i].narration.toString().toUpperCase(),
+            'chequeNo': '',
+            'chequeDate': '',
+            'accountID': this.formArray.value[i].accountID ,
+            'reference': this.formArray.value[i].reference.toString().toUpperCase(),
+          })
+        }
       }
     }
-
+    if(this.bankrecEntrymodel.detailList.length<2) {
+      this.toasterService.warning("Grid Should Not be Empty");
+      this.sharedService.loading=false;
+      return;
+    }
+    
+    const found = this.bankrecEntrymodel.detailList.some(el => el.accountID === '');
+    if (found) {
+      this.toasterService.warning("Account cannot be Empty in details grid");
+      this.sharedService.loading=false;
+      return;
+    }
+    const found1 = this.bankrecEntrymodel.detailList.some(el => parseFloat(el.amount)  === 0);
+    if (found1) {
+      this.toasterService.warning("Amount cannot be Zero in details grid");
+      this.sharedService.loading=false;
+      return;
+    }
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);

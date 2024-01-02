@@ -73,6 +73,7 @@ import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finac
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
 import { FinopenbalancelistComponent } from './module/finopenbalance/finopenbalancelist/finopenbalancelist.component';
 import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalanceadd/finopenbalanceadd.component';
+import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
 
 
 
@@ -184,6 +185,7 @@ const routes: Routes = [
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
   { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
+  { path: 'opbankrecoentry', component: BankreconcilationComponent },
   
 ];
 
