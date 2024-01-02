@@ -245,10 +245,6 @@ export class BankreconcilationComponent {
       }    
       return;
     }
-    if (this.formArray.value.length == 0){
-      this.toasterService.warning("Grid Should Not be Empty");
-      return;
-    }
 
 
     this.sharedService.loading=true;
@@ -258,7 +254,7 @@ export class BankreconcilationComponent {
 
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-        if (this.formArray.value[i].clearDate != ""){
+        if (this.formArray.value[i].clearDate != "" && this.formArray.value[i].ftdID!=""){
           this.bankreclist.bankreconcilationList.push({
             'ftdID':this.formArray.value[i].ftdID,
             'ftmDate':'',
@@ -273,6 +269,11 @@ export class BankreconcilationComponent {
           })
         }
       }
+    }
+    
+    if (this.bankreclist.bankreconcilationList.length == 0){
+      this.toasterService.warning("No Records To save");
+      return;
     }
 
     this.bankreconcilationService.bankreconcilationSubmitted(this.bankreclist).subscribe((res: Responsemodel) => {

@@ -93,15 +93,37 @@
                                                     <tr formArrayName="arrayList" 
                                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
-                                                            <td class="col-lg-3">
+                                                            <td class="col-lg-3">                                                 
+                                                                <!-- <div class="ng-autocomplete">
+                                                                    <ng-autocomplete [data]="gridAccountList"
+                                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                                        (selected)='selectEvent($event)'
+                                                                        (inputChanged)='onChangeSearch($event)'
+                                                                        (inputFocused)='onFocused($event)'
+                                                                        [itemTemplate]="itemTemplate"
+                                                                        [notFoundTemplate]="notFoundTemplate"
+                                                                        [customFilter]="startWithFilter"
+                                                                        formControlName="accountID" 
+                                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['accountID'].invalid) }">
+                                                                    </ng-autocomplete>
+        
+                                                                    <ng-template #itemTemplate let-item>
+                                                                        <a [innerHTML]="item.dataName"></a>
+                                                                    </ng-template>
+        
+                                                                    <ng-template #notFoundTemplate let-notFound>
+                                                                        <div [innerHTML]="notFound"></div>
+                                                                    </ng-template> 
+                                                                </div>                          -->
+                                                                
                                                                 <select class="form-control"
                                                                     formControlName="accountID" [ngClass]="">
-                                                                    <option *ngFor="let branch of creditacList"
+                                                                    <option *ngFor="let branch of gridAccountList"
                                                                         style="font-size:small; "
                                                                         value={{branch.dataId}}>
-                                                                                {{branch.dataName}}
+                                                                        {{branch.dataName}}
                                                                     </option>
-                                                                </select>
+                                                                </select>    
                                                             </td>
                                                             <td class="col-lg-2">
                                                                 <select id="role" class="form-select"
@@ -169,8 +191,7 @@
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Remark</label>
                                                 <input class="form-control" placeholder="" 
-                                                formControlName="remarks"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
+                                                formControlName="remarks">
                                             </div>
                                         </div>
                                     </div>

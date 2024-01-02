@@ -31,7 +31,8 @@ export class AddjournalentryComponent{
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
-  creditacList: Dropdownmodel[] = [];
+  gridAccountList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
 
   selectedJournalEntryDetails = new bankreceiptentrymodel();
@@ -83,7 +84,7 @@ export class AddjournalentryComponent{
     }
       
     this.sharedService.loading = true;
-    this.getCreditAcList();
+    this.getGridAcList();
     this.selectedJournalEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
   
     this.formJournalEntry = this.formBuilder.group({
@@ -91,7 +92,7 @@ export class AddjournalentryComponent{
       docType: new FormControl('JV',),
       docSeries: new FormControl('JV',),
       docNo: new FormControl('',[Validators.required]),
-      remarks: new FormControl('',[Validators.required]),
+      remarks: new FormControl('',),
       refType: new FormControl('',),
       refNo: new FormControl('',),
       credit: new FormControl('',[Validators.required]),
@@ -140,7 +141,7 @@ export class AddjournalentryComponent{
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("typeSign")?.setValue(res.detailList[i].typeSign);
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
+        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -157,6 +158,26 @@ export class AddjournalentryComponent{
     });
   }
   
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
   
   get formArray() {
     return this.formJournalEntry.get("arrayList") as FormArray;
@@ -166,7 +187,7 @@ export class AddjournalentryComponent{
   get f() { return this.formJournalEntry.controls; }
 
   addItem(i: number): void { 
-    if (this.formArray.value[i].accountID != "" && this.formArray.value[i].typeSign != "" && 
+    if (this.formArray.value[i].accountID.dataId != "" && this.formArray.value[i].typeSign != "" && 
     this.formArray.value[i].amount != "" && this.formArray.value[i].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 
@@ -216,9 +237,10 @@ export class AddjournalentryComponent{
     });    
   }
   
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
+  getGridAcList(): void {
+    this.requestmodel.strRequest="G"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.gridAccountList = res;
     });
   }
   
@@ -273,6 +295,14 @@ export class AddjournalentryComponent{
       return;
     }
 
+    if (parseFloat(selectedDataValue.credit)>0){
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Credit Amount and Debit Amount should not be Zero");
+      return;
+    }
+
     this.sharedService.loading = true;
 
     this.bankrecEntrymodel.ftmID          = this.selectedJournalEntryDetails.ftmID != '' ? this.selectedJournalEntryDetails.ftmID : '';
@@ -295,18 +325,34 @@ export class AddjournalentryComponent{
     
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-        this.bankrecEntrymodel.detailList.push({
-        'slNo': (i+1).toString() ,
-        'typeSign': this.formArray.value[i].typeSign,
-        'amount': this.formArray.value[i].amount,
-        'chequeDate': this.formArray.value[i].chequeDate,
-        'chequeNo': this.formArray.value[i].chequeNo,
-        'narration': this.formArray.value[i].narration,
-        'accountID': this.formArray.value[i].accountID ,
-        'reference': this.formArray.value[i].reference,
-        })
+        if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
+          this.bankrecEntrymodel.detailList.push({
+          'slNo': (i+1).toString() ,
+          'typeSign': this.formArray.value[i].typeSign,
+          'amount': this.formArray.value[i].amount,
+          'chequeDate': this.formArray.value[i].chequeDate,
+          'chequeNo': this.formArray.value[i].chequeNo,
+          'narration': this.formArray.value[i].narration,
+          'accountID': this.formArray.value[i].accountID.dataId ,
+          'reference': this.formArray.value[i].reference,
+          })
+        }
       }
     }
+    const found = this.bankrecEntrymodel.detailList.some(el => el.accountID === '');
+    if (found) {
+      this.toasterService.warning("Account cannot be Empty in details grid");
+      this.sharedService.loading=false;
+      return;
+    }
+    const found1 = this.bankrecEntrymodel.detailList.some(el => parseFloat(el.amount)  === 0);
+    if (found1) {
+      this.toasterService.warning("Amount cannot be Zero in details grid");
+      this.sharedService.loading=false;
+      return;
+    }
+
+
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);

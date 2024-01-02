@@ -192,7 +192,7 @@ namespace FinTrans.Repository
                                 DocType = Convert.ToString(dataSet.Tables[0].Rows[i]["DocType"]),
                                 DocSeries = Convert.ToString(dataSet.Tables[0].Rows[i]["DocSeries"]),
                                 DocNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
-                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
+                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["seriesDoc"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 RefType = Convert.ToString(dataSet.Tables[0].Rows[i]["RefType"]),
                                 RefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["RefNo"]),

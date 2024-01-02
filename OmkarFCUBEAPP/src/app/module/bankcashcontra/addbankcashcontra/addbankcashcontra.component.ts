@@ -99,13 +99,13 @@ export class AddbankcashcontraComponent {
       docNo: new FormControl('',[Validators.required]),
       refType: new FormControl('',),
       refNo: new FormControl('',),
-      chequeNo: new FormControl('',),
-      chequeDate: new FormControl('',),
-      narration: new FormControl('',),
+      chequeNo: new FormControl('',[Validators.required]),
+      chequeDate: new FormControl('',[Validators.required]),
+      narration: new FormControl('',[Validators.required]),
       remarks:new FormControl('',),
       utrNo: new FormControl('',), 
       linkedYN: new FormControl('',),
-      modifyRemarks: new FormControl('',),
+      modifyRemarks: new FormControl('',[Validators.required]),
       yearID: new FormControl('',),
       amount: new FormControl('',[Validators.required]),
       neftPmt: new FormControl('',), 
@@ -115,7 +115,13 @@ export class AddbankcashcontraComponent {
 
     this.formBankContra.controls['docSeries'].disable(); 
     this.formBankContra.controls['docNo'].disable(); 
-    this.formBankContra.controls['modifyRemarks'].disable();
+    this.formBankContra.controls['modifyRemarks'].disable();    
+    this.formBankContra.controls['modifyRemarks'].clearValidators();
+    this.formBankContra.controls['chequeNo'].clearValidators();
+    this.formBankContra.controls['chequeDate'].clearValidators();
+    this.formBankContra.controls['modifyRemarks'].updateValueAndValidity();
+    this.formBankContra.controls['chequeNo'].updateValueAndValidity();
+    this.formBankContra.controls['chequeDate'].updateValueAndValidity();
 
     setTimeout(() => {
       if (this.selectedBankCashContraDetails.ftmID != '') {        
@@ -126,6 +132,8 @@ export class AddbankcashcontraComponent {
         }); 
         this.editMode=true;
         this.formBankContra.controls['modifyRemarks'].enable();
+        this.formBankContra.controls['modifyRemarks'].setValidators([Validators.required]);
+        this.formBankContra.controls['modifyRemarks'].updateValueAndValidity();    
         this.getBankReceiptPaymentInnerGridList();
       }
       else{
@@ -211,6 +219,19 @@ export class AddbankcashcontraComponent {
     });
   }
 
+  onneftChange(e:any){
+    if(e.target.checked){
+      this.formBankContra.controls['chequeNo'].setValidators([Validators.required]);
+      this.formBankContra.controls['chequeDate'].setValidators([Validators.required]);
+    }
+    else {
+      this.formBankContra.controls['chequeNo'].clearValidators();      
+      this.formBankContra.controls['chequeDate'].clearValidators();   
+    }
+    this.formBankContra.controls['chequeNo'].updateValueAndValidity();
+    this.formBankContra.controls['chequeDate'].updateValueAndValidity();
+  }
+
   
   deleteBankCashContraForm(): void {
     if(this.selectedBankCashContraDetails.ftmID != '' ){
@@ -246,9 +267,14 @@ export class AddbankcashcontraComponent {
       return;
     }
 
-    this.sharedService.loading=true;
     var selectedDataValue=  this.formBankContra.getRawValue();
-    this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID != '' ? this.selectedBankCashContraDetails.ftmID : '';
+    if (selectedDataValue.narration.toString().trim().length < 5) {
+      this.toasterService.warning("Narration should be atleast 5 characters");   
+    }
+    if (this.selectedBankCashContraDetails.ftmID!="" && selectedDataValue.modifyRemarks.toString().trim().length < 10) {
+      this.toasterService.warning("Modification Remarks should be atleast 10 characters");   
+    }
+    this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID;
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
     this.bankreceiptentryModel.docType        = selectedDataValue.docType.toString().toUpperCase();
     this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
@@ -270,7 +296,7 @@ export class AddbankcashcontraComponent {
       'slNo': '0' ,
       'typeSign': 'D',
       'amount': selectedDataValue.amount,
-      'chequeDate': selectedDataValue.chequeDate,
+      'chequeDate': selectedDataValue.chequeDate?selectedDataValue.chequeDate:selectedDataValue.ftmDate,
       'chequeNo': selectedDataValue.chequeNo,
       'narration': selectedDataValue.narration.toString().toUpperCase(),
       'accountID': selectedDataValue.accountid2,
@@ -281,20 +307,20 @@ export class AddbankcashcontraComponent {
       'slNo': '1' ,
       'typeSign': 'C',
       'amount': selectedDataValue.amount,
-      'chequeDate': selectedDataValue.chequeDate,
+      'chequeDate': selectedDataValue.chequeDate?selectedDataValue.chequeDate:selectedDataValue.ftmDate,
       'chequeNo': selectedDataValue.chequeNo,
       'narration': selectedDataValue.narration.toString().toUpperCase(),
       'accountID': selectedDataValue.accountID.dataId,
       'reference': selectedDataValue.refNo,
     })
-
+    
+    this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
       this.formBankContra.reset();
       this.route.navigate(['/bankcashcontralist']);
-    });
-    
+    });    
     this.sharedService.loading=false;
   }
 }

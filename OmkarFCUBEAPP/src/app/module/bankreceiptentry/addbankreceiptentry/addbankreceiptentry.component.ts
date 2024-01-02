@@ -37,6 +37,7 @@ export class AddbankreceiptentryComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
+  neft: string="";
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel, private sharedService: SharedService,
@@ -108,28 +109,26 @@ export class AddbankreceiptentryComponent {
       accountid2: new FormControl('',[Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()]), 
     });
-    
+    this.neft="N";
     this.formBankRecEntry.controls['docSeries'].disable(); 
     this.formBankRecEntry.controls['docNo'].disable(); 
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
 
-    setTimeout(() => {
-      if (this.selectedBankReceiptEntryDetails.ftmID != '') {        
-        var selectedDataValue = this.formBankRecEntry.getRawValue();
-        this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
-        this.formBankRecEntry.patchValue({
-          ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
-        }); 
-        this.editMode=true;
-        this.formBankRecEntry.controls['modifyRemarks'].enable();
-        this.getBankReceiptPaymentInnerGridList();
+    if (this.selectedBankReceiptEntryDetails.ftmID != '') {        
+      var selectedDataValue = this.formBankRecEntry.getRawValue();
+      this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
+      this.formBankRecEntry.patchValue({
+        ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
+      }); 
+      this.editMode=true;
+      this.formBankRecEntry.controls['modifyRemarks'].enable();
+      this.getBankReceiptPaymentInnerGridList();
 
-      }
-      else{
-        this.getdocno("BP");
-      }
-    }, 2000);
+    }
+    else{
+      this.getdocno("BP");
+    }
     
     this.sharedService.loading=false;
   }
@@ -148,9 +147,9 @@ export class AddbankreceiptentryComponent {
       for (var i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
+        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
         this.formArray.controls[i-1].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
-        this.formArray.controls[i-1].get("chequeDate")?.setValue(this.commonService.formatDate(res.detailList[i].chequeDate) );
+        this.formArray.controls[i-1].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -164,29 +163,8 @@ export class AddbankreceiptentryComponent {
       accountID: [''],
       chequeNo: [''],
       chequeDate: [''],
-      narration: [''],
     });
   }
-
-  
-  selectEvent(item: any) {
-    // do something with selected item
-  // this.GetOpeningBal();
-  }
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-  
-
-  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
   
   get formArray() {  
     return this.formBankRecEntry.get("arrayList") as FormArray;
@@ -194,9 +172,10 @@ export class AddbankreceiptentryComponent {
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formBankRecEntry.controls; }
-
+  
+  
   addItem(index: number): void { 
-    if (this.formArray.value[index].accountID != "" && this.formArray.value[index].amount != "" 
+    if (this.formArray.value[index].accountId != "" && this.formArray.value[index].amount != "" 
       && this.formArray.value[index].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 
@@ -207,7 +186,10 @@ export class AddbankreceiptentryComponent {
 
   removeItem(index: number) {
     this.formArray.removeAt(index);
-    this.updateAmount(0, '', '');
+    this.updateAmount(0, '', ''); 
+    if(this.formArray.value.length==0){
+      this.formArray.push(this.createInitialArray());
+    }
   }
 
   changePType(selectedValue: string) { 
@@ -260,10 +242,40 @@ export class AddbankreceiptentryComponent {
     });
   }
 
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
     });
+  }
+
+  onneftChange(e:any){
+    if(e.target.checked){
+      this.neft="Y";
+    }
+    else{      
+    this.neft="N";
+    }
   }
 
   
@@ -306,23 +318,22 @@ export class AddbankreceiptentryComponent {
     }
 
 
-    this.sharedService.loading=true;
     var selectedDataValue = this.formBankRecEntry.getRawValue();
     this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID != '' ? this.selectedBankReceiptEntryDetails.ftmID : '';
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
-    this.bankreceiptentryModel.docType        = selectedDataValue.docType.toString().toUpperCase();
-    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
-    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo.toString().toUpperCase();
+    this.bankreceiptentryModel.docType        = selectedDataValue.docType;
+    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries;
+    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo;
     this.bankreceiptentryModel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
     this.bankreceiptentryModel.remarks        = '';
-    this.bankreceiptentryModel.refType        = selectedDataValue.refType.toString().toUpperCase();
+    this.bankreceiptentryModel.refType        = selectedDataValue.refType;
     this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
     this.bankreceiptentryModel.docAmount      = selectedDataValue.docAmount;
     this.bankreceiptentryModel.linkedYN       = 'N';
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
-    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
+    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
 
     this.bankreceiptentryModel.detailList = [];
 
@@ -349,19 +360,49 @@ export class AddbankreceiptentryComponent {
     })
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-        this.bankreceiptentryModel.detailList.push({
-        'slNo': (i+1).toString() ,
-        'typeSign': tpfirstsign,
-        'amount': this.formArray.value[i].amount,
-        'chequeDate': this.formArray.value[i].chequeDate,
-        'chequeNo': this.formArray.value[i].chequeNo,
-        'narration': this.formArray.value[i].narration.toString().toUpperCase(),
-        'accountID': this.formArray.value[i].accountID.dataId ,
-        'reference': this.formArray.value[i].reference.toString().toUpperCase(),
-        })
+        if (this.formArray.value[i].accountID!="" && parseFloat(this.formArray.value[i].amount)>0 ){
+          this.bankreceiptentryModel.detailList.push({
+          'slNo': (i+1).toString() ,
+          'typeSign': tpfirstsign,
+          'amount': this.formArray.value[i].amount,
+          'chequeDate': this.formArray.value[i].chequeDate,
+          'chequeNo': this.formArray.value[i].chequeNo,
+          'narration': this.formArray.value[i].narration,
+          'accountID': this.formArray.value[i].accountID ,
+          'reference': this.formArray.value[i].reference,
+          })
+        }
       }
     }
 
+    if(this.bankreceiptentryModel.detailList.length<2){
+      this.toasterService.warning("Grid Should Not be Empty");
+      return;
+    }    
+    const found = this.bankreceiptentryModel.detailList.some(el => el.accountID === '');
+    if (found) {
+      this.toasterService.warning("Account cannot be Empty in details grid");
+      return;
+    }
+    const found1 = this.bankreceiptentryModel.detailList.some(el => parseFloat(el.amount)  === 0);
+    if (found1) {
+      this.toasterService.warning("Amount cannot be Zero in details grid");
+      return;
+    }
+    if(this.neft=="Y"){
+      const foundcheq = this.bankreceiptentryModel.detailList.some(el => el.chequeNo === '');
+      if (foundcheq) {
+        this.toasterService.warning("Cheque No cannot be Empty in details grid");
+        return;
+      }
+      const founddt = this.bankreceiptentryModel.detailList.some(el => el.chequeDate === '');
+      if (founddt) {
+        this.toasterService.warning("Cheque Date cannot be Empty in details grid");
+        return;
+      }
+    }
+
+    this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
@@ -372,9 +413,5 @@ export class AddbankreceiptentryComponent {
     this.sharedService.loading=false;
   }
 }
-
-
-
-
 
 

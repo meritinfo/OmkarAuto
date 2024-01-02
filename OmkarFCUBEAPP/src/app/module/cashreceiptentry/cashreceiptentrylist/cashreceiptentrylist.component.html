@@ -78,7 +78,7 @@
                     </thead>
                     <tbody *ngIf="allCashReceiptEntry.recPaymentsList">
                         <tr *ngFor="let cr of allCashReceiptEntry.recPaymentsList">
-                            <td>{{ cr.docNo }}</td>                    
+                            <td>{{ cr.seriesDoc }}</td>                    
                             <td>{{ cr.ftmDate }}</td>                   
                             <td style="width:80px; word-wrap:break-word;">{{ cr.acHeader }}</td>                   
                             <td>{{ cr.docAmount }}</td>                   

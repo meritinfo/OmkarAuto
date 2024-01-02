@@ -77,7 +77,7 @@
                     </thead>
                     <tbody *ngIf="allJournalEntry.recPaymentsList?.length != 0">
                         <tr *ngFor="let jv of allJournalEntry.recPaymentsList">
-                            <td>{{ jv.docNo }}</td>                    
+                            <td>{{ jv.seriesDoc }}</td>                    
                             <td>{{ jv.ftmDate }}</td>                                 
                             <td>{{ jv.docAmount }}</td>                   
                             <td>{{ jv.refType }}</td>                   
