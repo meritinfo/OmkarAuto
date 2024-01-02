@@ -63,6 +63,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetCashReceiptPaymentsList")]
         public async Task<IActionResult> GetCashReceiptPaymentsList(BankCashListFilterModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentsList(request);
@@ -78,6 +82,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("CashReceiptPaymentsDelete")]
         public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.CashReceiptPaymentsDelete(req);
@@ -93,9 +101,32 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetCashReceiptPaymentInnerGridList")]
         public async Task<IActionResult> GetCashReceiptPaymentInnerGridList(Request req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetCashReceiptPaymentInnerGridList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetCashBankAccountList")]
+        public async Task<IActionResult> GetCashBankAccountList(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetCashBankAccountList(request);
 
                 return Ok(result);
             }
@@ -109,6 +140,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetNextDocNo")]
         public async Task<IActionResult> GetNextDocNo(DocNoFilterModel docNoFilter)
         {
+            if (docNoFilter == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await cashReceiptPaymentsBusiness.GetNextDocNo(docNoFilter);

@@ -18,11 +18,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./bankreconcilation.component.css']
 })
 export class BankreconcilationComponent {
-
   loggedInUserID: string = '';
   formBankRecEntry!: FormGroup;
   userSubmitted = false;
-  branchname: string = '';
+  branchCode: string = '';
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -73,6 +72,10 @@ export class BankreconcilationComponent {
     var userData2 = sessionStorage.getItem('yearID')?.toString();
     if (typeof userData2 !== 'undefined' && userData2!== null && userData2 !== '') {
       this.year = userData2;
+    }    
+    var userbranchcode = sessionStorage.getItem('userBranch')?.toString();  
+    if (typeof userbranchcode !== 'undefined' && userbranchcode !== null && userbranchcode !== '') {
+      this.branchCode = userbranchcode;
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -109,7 +112,8 @@ export class BankreconcilationComponent {
   
   createInitialArray() {
     return this.formBuilder.group({
-      transDate: [''],
+      ftdID: [''],
+      ftmDate: [''],
       docNo: [''],
       debit: [''],
       credit:[''],
@@ -134,22 +138,23 @@ export class BankreconcilationComponent {
       return;
     }
     var selectedfilterVal=this.formBankRecEntry.getRawValue();
+    this.bankrecfilter.branchCode   = this.branchCode;
     this.bankrecfilter.fromDate     = selectedfilterVal.fromDate;
     this.bankrecfilter.toDate       = selectedfilterVal.toDate;
     this.bankrecfilter.accountid    = selectedfilterVal.accountid;
-    this.bankrecfilter.reconcile    = selectedfilterVal.reconcile;
+    this.bankrecfilter.reconcile    = selectedfilterVal.reconcile?selectedfilterVal.reconcile:'N';
     this.bankrecfilter.inclopening  = selectedfilterVal.inclopening?selectedfilterVal.inclopening:"N";
-
+    this.formArray.clear();
     this.sharedService.loading=true;
     this.bankreconcilationService.getBankReconcileGridList(this.bankrecfilter).subscribe((res) => {
       if (this.formArray.controls.length>0){
         this.formArray.removeAt(0);
       }
       this.bankreclist=res;
-      for (var i = 1; i < res.bankreconcilationList.length; i++) {
+      for (var i = 0; i < res.bankreconcilationList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("ftdID")?.setValue(res.bankreconcilationList[i].ftdID);
-        this.formArray.controls[i].get("transDate")?.setValue(res.bankreconcilationList[i].transDate);
+        this.formArray.controls[i].get("ftmDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].ftmDate));
         this.formArray.controls[i].get("docNo")?.setValue(res.bankreconcilationList[i].docNo);
         this.formArray.controls[i].get("debit")?.setValue(res.bankreconcilationList[i].debit);
         this.formArray.controls[i].get("credit")?.setValue(res.bankreconcilationList[i].credit);
@@ -160,7 +165,7 @@ export class BankreconcilationComponent {
         this.formArray.controls[i].get("clearDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].clearDate));
         
         this.formArray.controls[i].get("chequeNo")?.disable();
-        this.formArray.controls[i].get("transDate")?.disable();
+        this.formArray.controls[i].get("ftmDate")?.disable();
         this.formArray.controls[i].get("docNo")?.disable();
         this.formArray.controls[i].get("debit")?.disable();
         this.formArray.controls[i].get("credit")?.disable();
@@ -175,7 +180,22 @@ export class BankreconcilationComponent {
   }
 
   search(){
-
+    var selectedfilterVal=this.formBankRecEntry.getRawValue();
+    var searchby=selectedfilterVal.searchby;
+    var searchbyfield="";
+    if(searchby=="Q"){
+      searchbyfield = 'chequeNo'
+    }
+    else if (searchby=="N"){
+      searchbyfield = 'Narration'
+    }
+    else if (searchby=="D"){
+      searchbyfield = 'Debit'
+    }
+    else if (searchby=="C"){
+      searchbyfield = 'Credit'
+    }
+    // var found= this.formArray.controls.map((c) => { id: c.value[0].narration});
   }
   
   get formArray() {  
@@ -238,26 +258,28 @@ export class BankreconcilationComponent {
 
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-        this.bankreclist.bankreconcilationList.push({
-          'ftdID':selectedDataValue.array[i].ftdID,
-          'transDate':'',
-          'docNo': '',
-          'debit': '',
-          'credit':'',
-          'chequeNo': '',
-          'chequeDate': '',
-          'narration': '',
-          'subAccountName': '',
-          'clearDate': selectedDataValue.array[i].clearDate,
-        })
+        if (this.formArray.value[i].clearDate != ""){
+          this.bankreclist.bankreconcilationList.push({
+            'ftdID':this.formArray.value[i].ftdID,
+            'ftmDate':'',
+            'docNo': '',
+            'debit': '',
+            'credit':'',
+            'chequeNo': '',
+            'chequeDate': '',
+            'narration': '',
+            'subAccountName': '',
+            'clearDate': this.formArray.value[i].clearDate,
+          })
+        }
       }
     }
 
     this.bankreconcilationService.bankreconcilationSubmitted(this.bankreclist).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
-      this.formBankRecEntry.reset();
-      this.route.navigate(['/opbankrecoentry']);
+      this.formBankRecEntry.reset();   
+      window.location.reload();
     });
     
     this.sharedService.loading=false;

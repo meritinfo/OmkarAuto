@@ -8,6 +8,7 @@ namespace FinTrans.Models
 {
     public class BankRecFilterModel
     {
+        public string BranchCode { get; set; }
         public string FromDate{ get; set; }
         public string ToDate { get; set; }
         public string Accountid{ get; set; }

@@ -78,7 +78,8 @@ namespace FinTrans.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                    {
+                    { 
+                        new SqlParameter("@BranchCode", req.BranchCode),
                         new SqlParameter("@FromDate", req.FromDate),
                         new SqlParameter("@ToDate", req.ToDate),
                         new SqlParameter("@Accountid", req.Accountid),
@@ -95,7 +96,7 @@ namespace FinTrans.Repository
                             bankReconcilationListModel.BankreconcilationList.Add(new BankReconcilationModel
                             {
                                 FtdID           = Convert.ToString(dataSet.Tables[0].Rows[i]["FtdID"]),
-                                TransDate       = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
+                                FtmDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["FtmDate"]),
                                 DocNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNo"]),
                                 Debit           = Convert.ToString(dataSet.Tables[0].Rows[i]["Debit"]),
                                 Credit          = Convert.ToString(dataSet.Tables[0].Rows[i]["Credit"]),

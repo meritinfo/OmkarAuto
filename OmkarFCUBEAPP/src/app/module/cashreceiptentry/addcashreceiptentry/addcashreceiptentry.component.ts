@@ -31,7 +31,9 @@ export class AddcashreceiptentryComponent {
   locationList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
-  creditacList: Dropdownmodel[] = [];
+  mainAcList: Dropdownmodel[] = [];
+  gridAccountList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
 
   selectedCashReceiptEntryDetails = new bankreceiptentrymodel();
   docNoFilter= new Bankdocnofiltermodel();
@@ -83,7 +85,8 @@ export class AddcashreceiptentryComponent {
     }
     
     this.sharedService.loading=true;
-    this.getCreditAcList();
+    this.getMainAcList();
+    this.getGridAcList();
     this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formCashRRecEntry = this.formBuilder.group({
@@ -108,7 +111,7 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docNo'].disable(); 
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();
-     
+    setTimeout(() => {
     if (this.selectedCashReceiptEntryDetails.ftmID != '') {        
       var selectedDataValue = this.formCashRRecEntry.getRawValue();
       this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
@@ -119,10 +122,11 @@ export class AddcashreceiptentryComponent {
       this.formCashRRecEntry.controls['modifyRemarks'].enable();
       this.getCashReceiptPaymentInnerGridList();
 
-    }
-    else{
-      this.getdocno("CP");
-    }
+      }
+      else{
+        this.getdocno("CP");
+      }
+    }, 2000);
     this.sharedService.loading=false;
   }
 
@@ -140,7 +144,7 @@ export class AddcashreceiptentryComponent {
       for (var i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
+        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -155,6 +159,26 @@ export class AddcashreceiptentryComponent {
       narration: [''],
     });
   }
+
+
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
 
 
   get formArray() {
@@ -215,9 +239,18 @@ export class AddcashreceiptentryComponent {
     });
   }
 
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
+  getMainAcList(): void {    
+    this.requestmodel.strRequest="C"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.mainAcList = res;
+    });
+  }
+
+  
+  getGridAcList(): void {
+    this.requestmodel.strRequest="G"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.gridAccountList = res;
     });
   }
 
@@ -269,19 +302,19 @@ export class AddcashreceiptentryComponent {
     var selectedDataValue=  this.formCashRRecEntry.getRawValue();
     this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID != '' ? this.selectedCashReceiptEntryDetails.ftmID : '';
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
-    this.bankrecEntrymodel.docType        = selectedDataValue.docType;
-    this.bankrecEntrymodel.docSeries      = selectedDataValue.docSeries;
+    this.bankrecEntrymodel.docType        = selectedDataValue.docType.toString().toUpperCase();
+    this.bankrecEntrymodel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
     this.bankrecEntrymodel.docNo          = selectedDataValue.docNo;
     this.bankrecEntrymodel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
-    this.bankrecEntrymodel.remarks        = selectedDataValue.remarks;
-    this.bankrecEntrymodel.refType        = selectedDataValue.refType;
+    this.bankrecEntrymodel.remarks        = selectedDataValue.remarks.toString().toUpperCase();
+    this.bankrecEntrymodel.refType        = selectedDataValue.refType.toString().toUpperCase();
     this.bankrecEntrymodel.refNo          = selectedDataValue.refNo;
     this.bankrecEntrymodel.docAmount      = selectedDataValue.docAmount;
     this.bankrecEntrymodel.linkedYN       = 'N';
     this.bankrecEntrymodel.yearID         = this.year;
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
-    this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    this.bankrecEntrymodel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
     
     this.bankrecEntrymodel.detailList = [];
 
@@ -300,7 +333,7 @@ export class AddcashreceiptentryComponent {
       'slNo': '0' ,
       'typeSign': tpfirstsign,
       'amount': selectedDataValue.docAmount,
-      'narration': selectedDataValue.remarks,
+      'narration': selectedDataValue.remarks.toString().toUpperCase(),
       'chequeNo': '',
       'chequeDate': '',
       'accountID': selectedDataValue.accountid2,
@@ -313,11 +346,11 @@ export class AddcashreceiptentryComponent {
           'slNo': (i+1).toString() ,
           'typeSign': tpfirstsign,
           'amount': this.formArray.value[i].amount,
-          'narration': this.formArray.value[i].narration,
+          'narration': this.formArray.value[i].narration.toString().toUpperCase(),
           'chequeNo': '',
           'chequeDate': '',
-          'accountID': this.formArray.value[i].accountID ,
-          'reference': this.formArray.value[i].reference,
+          'accountID': this.formArray.value[i].accountID.dataId ,
+          'reference': this.formArray.value[i].reference.toString().toUpperCase(),
         })
       }
     }

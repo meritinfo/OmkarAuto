@@ -23,9 +23,11 @@ export class AddbankcashcontraComponent {
   branchname: string = '';
   year: string = '';
   loginDate: string = '';
+  keywordLocation = 'dataName';
   locationList: Dropdownmodel[] = [];
   ledgerList: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
+  mainAcList: Dropdownmodel[] = [];
+  gridAccountList: Dropdownmodel[] = [];
   requestmodel = new Requestmodel();
   docNoFilter= new Bankdocnofiltermodel();
   selectedBankCashContraDetails = new bankreceiptentrymodel();
@@ -86,7 +88,8 @@ export class AddbankcashcontraComponent {
     
     this.sharedService.loading=true;
 
-    this.getCreditAcList();
+    this.getMainAcList();
+    this.getGridAcList();
     this.selectedBankCashContraDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formBankContra = this.formBuilder.group({
@@ -114,19 +117,21 @@ export class AddbankcashcontraComponent {
     this.formBankContra.controls['docNo'].disable(); 
     this.formBankContra.controls['modifyRemarks'].disable();
 
-    if (this.selectedBankCashContraDetails.ftmID != '') {        
-      var selectedDataValue = this.formBankContra.getRawValue();
-      this.formBankContra.patchValue(this.selectedBankCashContraDetails); 
-      this.formBankContra.patchValue({
-        ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate),
-      }); 
-      this.editMode=true;
-      this.formBankContra.controls['modifyRemarks'].enable();
-      this.getBankReceiptPaymentInnerGridList();
-    }
-    else{
-      this.getdocno("BC");
-    }
+    setTimeout(() => {
+      if (this.selectedBankCashContraDetails.ftmID != '') {        
+        var selectedDataValue = this.formBankContra.getRawValue();
+        this.formBankContra.patchValue(this.selectedBankCashContraDetails); 
+        this.formBankContra.patchValue({
+          ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate),
+        }); 
+        this.editMode=true;
+        this.formBankContra.controls['modifyRemarks'].enable();
+        this.getBankReceiptPaymentInnerGridList();
+      }
+      else{
+        this.getdocno("BC");
+      }
+    }, 2000);
     
     this.sharedService.loading=false;
   }
@@ -135,6 +140,7 @@ export class AddbankcashcontraComponent {
     this.requestmodel.strRequest = this.selectedBankCashContraDetails.ftmID;
     this.cashreceiptentryService.getCashReceiptInnerGridList(this.requestmodel).subscribe((res) => {
       this.bankreceiptentryModel = res;
+      
       this.formBankContra.patchValue({
         accountid2: res.detailList[0].accountID,
         chequeNo: res.detailList[0].chequeNo,
@@ -142,10 +148,30 @@ export class AddbankcashcontraComponent {
         amount: res.detailList[0].amount,
         reference: res.detailList[0].reference,
         narration: res.detailList[0].narration,
-        accountID: res.detailList[1].accountID,
+        accountID: this.gridAccountList.find(e => e.dataId ==res.detailList[1].accountID),
       });       
     });
   }
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formBankContra.controls; }
@@ -164,9 +190,18 @@ export class AddbankcashcontraComponent {
     });
   }
 
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
+  getMainAcList(): void {    
+    this.requestmodel.strRequest="BC"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.mainAcList = res;
+    });
+  }
+
+  
+  getGridAcList(): void {
+    this.requestmodel.strRequest="G"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.gridAccountList = res;
     });
   }
 
@@ -215,19 +250,19 @@ export class AddbankcashcontraComponent {
     var selectedDataValue=  this.formBankContra.getRawValue();
     this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID != '' ? this.selectedBankCashContraDetails.ftmID : '';
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
-    this.bankreceiptentryModel.docType        = selectedDataValue.docType;
-    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries;
-    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo;
+    this.bankreceiptentryModel.docType        = selectedDataValue.docType.toString().toUpperCase();
+    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
+    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo.toString().toUpperCase();
     this.bankreceiptentryModel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
     this.bankreceiptentryModel.remarks        = '';
     this.bankreceiptentryModel.refType        = selectedDataValue.refType;
-    this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
+    this.bankreceiptentryModel.refNo          = selectedDataValue.refNo.toString().toUpperCase();
     this.bankreceiptentryModel.docAmount      = selectedDataValue.amount;
     this.bankreceiptentryModel.linkedYN       = 'N';
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
-    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
 
     this.bankreceiptentryModel.detailList = [];
     
@@ -237,7 +272,7 @@ export class AddbankcashcontraComponent {
       'amount': selectedDataValue.amount,
       'chequeDate': selectedDataValue.chequeDate,
       'chequeNo': selectedDataValue.chequeNo,
-      'narration': selectedDataValue.narration,
+      'narration': selectedDataValue.narration.toString().toUpperCase(),
       'accountID': selectedDataValue.accountid2,
       'reference': selectedDataValue.refNo,
     })
@@ -248,8 +283,8 @@ export class AddbankcashcontraComponent {
       'amount': selectedDataValue.amount,
       'chequeDate': selectedDataValue.chequeDate,
       'chequeNo': selectedDataValue.chequeNo,
-      'narration': selectedDataValue.narration,
-      'accountID': selectedDataValue.accountID,
+      'narration': selectedDataValue.narration.toString().toUpperCase(),
+      'accountID': selectedDataValue.accountID.dataId,
       'reference': selectedDataValue.refNo,
     })
 

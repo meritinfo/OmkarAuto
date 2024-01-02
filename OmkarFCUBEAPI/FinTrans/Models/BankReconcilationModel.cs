@@ -9,7 +9,7 @@ namespace FinTrans.Models
     public class BankReconcilationModel
     {
         public string FtdID { get; set; }
-        public string TransDate { get; set; }
+        public string FtmDate { get; set; }
         public string DocNo { get; set; }
         public string Debit { get; set; }
         public string Credit { get; set; }

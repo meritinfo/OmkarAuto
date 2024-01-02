@@ -13,6 +13,7 @@ namespace FinTrans.Business
         Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter);
         Task<ResponseModel> CashReceiptPaymentsDelete(Request req);
         Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req);
+        Task<List<DropDownListModel>> GetCashBankAccountList(Request request);
 
     }
 }

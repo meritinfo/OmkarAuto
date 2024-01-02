@@ -28,7 +28,9 @@ export class AddbankreceiptentryComponent {
   docNoFilter= new Bankdocnofiltermodel();
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
-  creditacList: Dropdownmodel[] = [];
+  mainAcList: Dropdownmodel[] = [];
+  gridAccountList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
   editMode = false;
   createmode = true;
   createStatus = false;
@@ -85,7 +87,8 @@ export class AddbankreceiptentryComponent {
     
     this.sharedService.loading=true;
 
-    this.getCreditAcList();
+    this.getMainAcList();
+    this.getGridAcList();
     this.selectedBankReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formBankRecEntry = this.formBuilder.group({
@@ -111,20 +114,22 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
 
-    if (this.selectedBankReceiptEntryDetails.ftmID != '') {        
-      var selectedDataValue = this.formBankRecEntry.getRawValue();
-      this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
-      this.formBankRecEntry.patchValue({
-        ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
-      }); 
-      this.editMode=true;
-      this.formBankRecEntry.controls['modifyRemarks'].enable();
-      this.getBankReceiptPaymentInnerGridList();
+    setTimeout(() => {
+      if (this.selectedBankReceiptEntryDetails.ftmID != '') {        
+        var selectedDataValue = this.formBankRecEntry.getRawValue();
+        this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
+        this.formBankRecEntry.patchValue({
+          ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
+        }); 
+        this.editMode=true;
+        this.formBankRecEntry.controls['modifyRemarks'].enable();
+        this.getBankReceiptPaymentInnerGridList();
 
-    }
-    else{
-      this.getdocno("BP");
-    }
+      }
+      else{
+        this.getdocno("BP");
+      }
+    }, 2000);
     
     this.sharedService.loading=false;
   }
@@ -143,9 +148,9 @@ export class AddbankreceiptentryComponent {
       for (var i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
+        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
-        this.formArray.controls[i-1].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
+        this.formArray.controls[i-1].get("chequeDate")?.setValue(this.commonService.formatDate(res.detailList[i].chequeDate) );
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -159,8 +164,29 @@ export class AddbankreceiptentryComponent {
       accountID: [''],
       chequeNo: [''],
       chequeDate: [''],
+      narration: [''],
     });
   }
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+  
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
   
   get formArray() {  
     return this.formBankRecEntry.get("arrayList") as FormArray;
@@ -219,9 +245,18 @@ export class AddbankreceiptentryComponent {
     });
   }
 
-  getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
+  getMainAcList(): void {    
+    this.requestmodel.strRequest="B"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.mainAcList = res;
+    });
+  }
+
+  
+  getGridAcList(): void {
+    this.requestmodel.strRequest="G"
+    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+      this.gridAccountList = res;
     });
   }
 
@@ -275,19 +310,19 @@ export class AddbankreceiptentryComponent {
     var selectedDataValue = this.formBankRecEntry.getRawValue();
     this.bankreceiptentryModel.ftmID          = this.selectedBankReceiptEntryDetails.ftmID != '' ? this.selectedBankReceiptEntryDetails.ftmID : '';
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
-    this.bankreceiptentryModel.docType        = selectedDataValue.docType;
-    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries;
-    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo;
+    this.bankreceiptentryModel.docType        = selectedDataValue.docType.toString().toUpperCase();
+    this.bankreceiptentryModel.docSeries      = selectedDataValue.docSeries.toString().toUpperCase();
+    this.bankreceiptentryModel.docNo          = selectedDataValue.docNo.toString().toUpperCase();
     this.bankreceiptentryModel.seriesDoc      = selectedDataValue.docSeries + selectedDataValue.docNo;
     this.bankreceiptentryModel.remarks        = '';
-    this.bankreceiptentryModel.refType        = selectedDataValue.refType;
+    this.bankreceiptentryModel.refType        = selectedDataValue.refType.toString().toUpperCase();
     this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
     this.bankreceiptentryModel.docAmount      = selectedDataValue.docAmount;
     this.bankreceiptentryModel.linkedYN       = 'N';
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
-    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks;
+    this.bankreceiptentryModel.modifyRemarks  = selectedDataValue.modifyRemarks.toString().toUpperCase();
 
     this.bankreceiptentryModel.detailList = [];
 
@@ -320,9 +355,9 @@ export class AddbankreceiptentryComponent {
         'amount': this.formArray.value[i].amount,
         'chequeDate': this.formArray.value[i].chequeDate,
         'chequeNo': this.formArray.value[i].chequeNo,
-        'narration': this.formArray.value[i].narration,
-        'accountID': this.formArray.value[i].accountID ,
-        'reference': this.formArray.value[i].reference,
+        'narration': this.formArray.value[i].narration.toString().toUpperCase(),
+        'accountID': this.formArray.value[i].accountID.dataId ,
+        'reference': this.formArray.value[i].reference.toString().toUpperCase(),
         })
       }
     }

@@ -1,6 +1,6 @@
 export class Bankreconcilationmodel {    
     ftdID: string="";
-    transDate:string="";
+    ftmDate:string="";
     docNo:string="";
     debit:string="";
     credit:string="";
