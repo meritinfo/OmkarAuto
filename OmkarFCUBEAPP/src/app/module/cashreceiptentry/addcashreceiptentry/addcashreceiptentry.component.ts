@@ -204,9 +204,9 @@ export class AddcashreceiptentryComponent {
   removeItem(index: number) {
     this.formArray.removeAt(index);
     this.updateAmount(0, '', ''); 
-    if(this.formArray.value.length==0){
-      this.formArray.push(this.createInitialArray());
-    }
+    // if(this.formArray.value.length==0){
+    //   this.formArray.push(this.createInitialArray());
+    // }
   }
 
   changePType(selectedValue: string) { 
