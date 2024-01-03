@@ -143,6 +143,8 @@ import { Openingbalancerequestmodel } from './models/openingbalancerequestmodel'
 import { AddfleetcardmasterComponent } from './module/fleetcardmaster/addfleetcardmaster/addfleetcardmaster.component';
 import { FleetcardmasterlistComponent } from './module/fleetcardmaster/fleetcardmasterlist/fleetcardmasterlist.component';
 import { Fleetcardmastermodel } from './models/fleetcardmastermodel';
+import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
+import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
 import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
 import { Bankreconcilationlist } from './models/bankreconcilationlist';
@@ -237,6 +239,8 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     AddfleetcardmasterComponent,
     FleetcardmasterlistComponent,
     BankreconcilationComponent,
+    AddbrsentryComponent,
+    OpbrsentrylistComponent,
   ],
   imports: [
     BrowserModule,

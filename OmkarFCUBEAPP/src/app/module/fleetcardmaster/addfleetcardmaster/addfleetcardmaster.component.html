@@ -46,7 +46,7 @@
                                                 <label for="basicpill-phoneno-input">Card Code</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardCode"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardCode'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardCode'].invalid) }"  (change)="checkDuplicateCardCode()">
                                                 
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                                 <label for="basicpill-phoneno-input">Card No</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="cardNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardNo'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cardNo'].invalid) }"  (change)="checkDuplicateCardNo()">
                                                 
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">CardLedgerAc</label>
+                                                <label for="basicpill-phoneno-input">CardLedger Ac</label>
                                                 <select class="form-control" formControlName="cardLedgerAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['cardLedgerAc'].invalid) }">
 
@@ -99,7 +99,7 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">DriverName</label>
+                                                <label for="basicpill-phoneno-input">Driver Name</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="driverName"
                                                 [ngClass]=>
@@ -129,10 +129,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">IsActive </label>
-                                                <input type="text" class="form-control"
-                                                placeholder=" " formControlName="isActive"
-                                                [ngClass]=>
-                                                
+                                                <select id="formrow-inputState" class="form-control"
+                                                formControlName="isActive"
+                                              >
+                                                <option selected="">Choose...</option>
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                               
+                                            </select>
                                             </div>
                                         </div>
                                     </div>

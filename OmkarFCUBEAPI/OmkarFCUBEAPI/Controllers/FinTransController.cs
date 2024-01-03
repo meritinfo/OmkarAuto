@@ -27,6 +27,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly ICashReceiptPaymentsBusiness cashReceiptPaymentsBusiness;
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
         readonly IBankReconcilationBusiness bankReconcilationBusiness;
+        readonly IOpBrsEntryBusiness opBrsEntryBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
@@ -36,6 +37,7 @@ namespace OmkarFCUBEAPI.Controllers
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
             bankReconcilationBusiness =_bankReconcilationBusiness;
+            opBrsEntryBusiness = _opBrsEntryBusiness;
         }
         /// <summary>
 
@@ -78,7 +80,38 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetOpBrsEntryList")]
+        public async Task<IActionResult> GetOpBrsEntryList(PageRequest request)
+        {
+            try
+            {
+                var result = await opBrsEntryBusiness.GetOpBrsEntryList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("OpBrsEntrySave")]
+        public async Task<IActionResult> OpBrsEntrySave(BrsEntryModel brsEntryModel)
+        {
+            if (brsEntryModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await opBrsEntryBusiness.OpBrsEntrySave(brsEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CashReceiptPaymentsDelete")]
         public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
         {

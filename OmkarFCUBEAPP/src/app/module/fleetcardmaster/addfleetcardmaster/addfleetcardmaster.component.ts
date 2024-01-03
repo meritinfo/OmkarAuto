@@ -13,6 +13,7 @@ import { FleetCardMasterService } from 'src/app/services/fleetcardmaster.service
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Cardmodel } from 'src/app/models/cardmodel';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AddfleetcardmasterComponent {
   formUser!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
+  cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];
   editMode = false;
   createmode  = true;
@@ -98,6 +100,37 @@ getCardledgerAcList(): void {
   this.commonService.getCardledgerAcList().subscribe((res) => {
     this.ledgerAcList = res;
   });
+}
+checkDuplicateCardCode() {
+
+
+  this.cardDetails.cardCode = this.formUser.value.cardCode;
+  this.commonService.checkDuplicateCardCode(this.cardDetails).subscribe((res: Responsemodel) => {
+    this.responseDetails = res;
+    if (!this.responseDetails.status) {
+      this.toastrService.warning(this.responseDetails.message);
+      this.formUser.patchValue({
+        cardCode: ''
+      });
+    }
+  });
+
+
+}
+checkDuplicateCardNo() {
+
+
+  this.cardDetails.cardNo = this.formUser.value.cardNo;
+  this.commonService.checkDuplicateCardNo(this.cardDetails).subscribe((res: Responsemodel) => {
+    this.responseDetails = res;
+    if (!this.responseDetails.status) {
+      this.toastrService.warning(this.responseDetails.message);
+      this.formUser.patchValue({
+        cardNo: ''
+      });
+    }
+  });
+
 }
 fleetCardMasterDelete(): void {
   if(this.selectedFleetCardMasterDetails.cardId!= '' ){

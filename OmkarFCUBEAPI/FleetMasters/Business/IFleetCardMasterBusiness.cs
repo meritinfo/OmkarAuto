@@ -9,5 +9,7 @@ namespace FleetMasters.Business
         Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetCardledgerAcList();
         Task<ResponseModel> FleetCardMasterDelete(Request requestModel);
+        Task<ResponseModel> CheckDuplicateCardNo(CardModel request);
+        Task<ResponseModel> CheckDuplicateCardCode(CardModel request);
     }
 }

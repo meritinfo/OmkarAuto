@@ -134,6 +134,12 @@ export class CommonService {
   checkDuplicateLr(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', payload, this.httpOptions);
   }
+  checkDuplicateCardNo(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateCardNo', payload, this.httpOptions);
+  }
+  checkDuplicateCardCode(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateCardCode', payload, this.httpOptions);
+  }
 
   formatDate(date: string) {
     if(date == ''){
