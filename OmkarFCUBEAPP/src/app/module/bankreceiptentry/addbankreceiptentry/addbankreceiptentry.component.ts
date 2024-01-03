@@ -165,6 +165,7 @@ export class AddbankreceiptentryComponent {
       accountID: [''],
       chequeNo: [''],
       chequeDate: [''],
+      narration:[],
     });
   }
   
@@ -177,7 +178,7 @@ export class AddbankreceiptentryComponent {
   
   
   addItem(index: number): void { 
-    if (this.formArray.value[index].accountId != "" && this.formArray.value[index].amount != "" 
+    if (this.formArray.value[index].accountID != "" && this.formArray.value[index].amount != "" 
       && this.formArray.value[index].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 

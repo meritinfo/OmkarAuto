@@ -189,7 +189,7 @@ const routes: Routes = [
   { path: 'opbrsentrylist', component:  OpbrsentrylistComponent },
   { path: 'addbrsentry', component: AddbrsentryComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
-  { path: 'opbankrecoentry', component: BankreconcilationComponent },
+  { path: 'bankreco', component: BankreconcilationComponent },
   
 ];
 
