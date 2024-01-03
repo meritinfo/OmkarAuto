@@ -149,6 +149,7 @@ import { BankreconcilationComponent } from './module/bankreconcilation/bankrecon
 import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
 import { Bankreconcilationlist } from './models/bankreconcilationlist';
 import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
+import { Brsentrymodel } from './models/brsentrymodel';
 
 @NgModule({
   declarations: [
@@ -272,7 +273,7 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

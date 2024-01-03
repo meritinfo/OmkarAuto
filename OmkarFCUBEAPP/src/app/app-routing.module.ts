@@ -21,6 +21,8 @@ import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrene
 import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
 import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
+import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
+import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
 import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
@@ -184,6 +186,8 @@ const routes: Routes = [
   { path: 'finaccountedit', component: FinaccountsmasteraddComponent },
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
   { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
+  { path: 'opbrsentrylist', component:  OpbrsentrylistComponent },
+  { path: 'addbrsentry', component: AddbrsentryComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
   { path: 'opbankrecoentry', component: BankreconcilationComponent },
   
