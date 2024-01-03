@@ -153,6 +153,7 @@ import { DistancefreighteditComponent } from './module/distancemasterfreight/dis
 import { Distancefreighteditmodel } from './models/distancefreighteditmodel';
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 import { Distancetripeditmodel } from './models/distancetripeditmodel';
+import { Brsentrymodel } from './models/brsentrymodel';
 
 @NgModule({
   declarations: [
@@ -280,7 +281,7 @@ import { Distancetripeditmodel } from './models/distancetripeditmodel';
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
