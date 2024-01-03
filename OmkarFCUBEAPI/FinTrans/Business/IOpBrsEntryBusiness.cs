@@ -14,5 +14,7 @@ namespace FinTrans.Business
     {
         Task<OpBrsEntryList> GetOpBrsEntryList(PageRequest request);
         Task<ResponseModel> OpBrsEntrySave(BrsEntryModel brsEntryModel);
+        Task<List<DropDownListModel>> GetBankAcList();
+        Task<List<DropDownListModel>> GetBankDebitAcList();
     }
 }

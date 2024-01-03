@@ -25,6 +25,14 @@ namespace FinTrans.Business
         {
             return await opBrsEntryRepository.GetOpBrsEntryList(request);
         }
+        public async Task<List<DropDownListModel>> GetBankAcList()
+        {
+            return await opBrsEntryRepository.GetBankAcList();
+        }
+        public async Task<List<DropDownListModel>> GetBankDebitAcList()
+        {
+            return await opBrsEntryRepository.GetBankDebitAcList();
+        }
 
     }
 }
