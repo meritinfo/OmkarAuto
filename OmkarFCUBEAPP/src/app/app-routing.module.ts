@@ -185,7 +185,7 @@ const routes: Routes = [
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
   { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
-  { path: 'opbankrecoentry', component: BankreconcilationComponent },
+  { path: 'bankreco', component: BankreconcilationComponent },
   
 ];
 
