@@ -149,6 +149,10 @@ import { BankreconcilationComponent } from './module/bankreconcilation/bankrecon
 import { Bankrecfiltermodel } from './models/bankrecfiltermodel';
 import { Bankreconcilationlist } from './models/bankreconcilationlist';
 import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
+import { DistancefreighteditComponent } from './module/distancemasterfreight/distancefreightedit/distancefreightedit.component';
+import { Distancefreighteditmodel } from './models/distancefreighteditmodel';
+import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
+import { Distancetripeditmodel } from './models/distancetripeditmodel';
 
 @NgModule({
   declarations: [
@@ -241,6 +245,8 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     BankreconcilationComponent,
     AddbrsentryComponent,
     OpbrsentrylistComponent,
+    DistancefreighteditComponent,
+    DistancetripeditComponent,
   ],
   imports: [
     BrowserModule,
@@ -264,7 +270,9 @@ import { Bankreconcilationmodel } from './models/bankreconcilationmodel';
     Lrbillseriesmodel, Vehicletypemastermodel, Vehicletypegroupmastermodel, Consignmentmodel, 
     Branchmodel, Vehiclefltmastermodel, Cnorcneemastermodel, Trippaymentsmodel, Drivermodel, 
     Docrenewalmastermodel, Docrenewalentrymodel, 
-    Intermediatescreenmodel,Tripsheetmodel,Distancemasterfreightmodel,Distancemastertripmodel,
+    Intermediatescreenmodel,Tripsheetmodel,
+    Distancemasterfreightmodel,Distancefreighteditmodel,
+    Distancemastertripmodel,Distancetripeditmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementlistmodel,  Dieselstatementmodel, 
     Billstatementsearchlistrequestmodel, 

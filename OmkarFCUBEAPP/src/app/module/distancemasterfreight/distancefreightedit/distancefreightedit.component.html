@@ -1,0 +1,124 @@
+<p>distancefreightedit works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Add/Edit Distance-FREIGHT</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
+                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formDistanceFreight">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">From Location</label>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="fromlocationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="fromLocation"
+                                                           
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Valid To</label>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="validUpto">
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">To Location</label>
+                                                    <div class="ng-autocomplete">
+                                                        <ng-autocomplete [data]="tolocationList"
+                                                            [searchKeyword]="keywordLocation" placeholder=""
+                                                            (selected)='selectToEvent($event)'
+                                                            (inputChanged)='onChangeSearch($event)'
+                                                            (inputFocused)='onFocused($event)'
+                                                            [itemTemplate]="itemTemplate"
+                                                            [notFoundTemplate]="notFoundTemplate"
+                                                            [customFilter]="startWithFilter"
+                                                            formControlName="toLocation"                                                           
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['toLocation'].invalid) }">
+                                                        </ng-autocomplete>
+
+                                                        <ng-template #itemTemplate let-item>
+                                                            <a [innerHTML]="item.dataName"></a>
+                                                        </ng-template>
+
+                                                        <ng-template #notFoundTemplate let-notFound>
+                                                            <div [innerHTML]="notFound"></div>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>                                                
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">KMS</label>
+                                                    <input autoclose="false" numbersonly  maxlength="6"
+                                                        class="form-control" formControlName="kms">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>  
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button type="submit" class="btn btn-primary w-md" *ngIf="createStatus" 
+                                (click)="submitDistanceFreightForm()">Save</button>                                
+                            <button type="submit" class="btn btn-secondary w-md m-2" 
+                            (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

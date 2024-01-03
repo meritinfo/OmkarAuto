@@ -2,12 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Distancemasterfreightmodel } from '../models/distancemasterfreightmodel';
 import { Distancemasterfreightlistmodel } from '../models/distancemasterfreightlistmodel';
+import { Distancefreighteditmodel } from 'src/app/models/distancefreighteditmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { FreighttripInnergridlistrequest } from '../models/freighttripInnergridlistrequest';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Requestmodel } from '../models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +44,23 @@ export class DistancemasterfreightmasterService {
   distanceMasterFrtDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DistanceMasterFrtDelete', req, this.httpOptions);
   }
-   getFreightInnerGridList(request: FreighttripInnergridlistrequest): Observable<Distancemasterfreightmodel> {
+  getFreightInnerGridList(request: FreighttripInnergridlistrequest): Observable<Distancemasterfreightmodel> {
     return this.httpClient.post<Distancemasterfreightmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightInnerGridList', request, this.httpOptions);
   }
 
   chkdistanceFrtValidity(user: Distancemasterfreightmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ChkdistanceFrtValidity', user, this.httpOptions);
+  }
+  getFromLocationList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetDistancefrtFromLocationList', null, this.httpOptions);
+  }
+  getDistanceFrtMasterDtls(req: Requestmodel): Observable<Distancefreighteditmodel> {
+    return this.httpClient.post<Distancefreighteditmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceFrtDtls', req, this.httpOptions);
+  }
+  getDistanceFrtDetails(distancefreightedit:Distancefreighteditmodel): Observable<Distancefreighteditmodel> {
+    return this.httpClient.post<Distancefreighteditmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceFrtEditDetails', distancefreightedit, this.httpOptions);
+  }
+  distanceFrtEditSubmit(distancefreightedit:Distancefreighteditmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DistanceFrtEditDetailsSave', distancefreightedit, this.httpOptions);
   }
 }
