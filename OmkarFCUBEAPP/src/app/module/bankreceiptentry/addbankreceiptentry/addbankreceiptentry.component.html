@@ -146,7 +146,7 @@
                                             *ngFor="let arrayData of formArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">                                          
                                                     <td  class="col-lg-2">
-                                                         <!-- <div class="ng-autocomplete">
+                                                         <div class="ng-autocomplete">
                                                             <ng-autocomplete [data]="gridAccountList"
                                                                 [searchKeyword]="keywordLocation" placeholder=""
                                                                 (selected)='selectEvent($event)'
@@ -155,8 +155,7 @@
                                                                 [itemTemplate]="itemTemplate"
                                                                 [notFoundTemplate]="notFoundTemplate"
                                                                 [customFilter]="startWithFilter"
-                                                                formControlName="accountID" 
-                                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['accountID'].invalid) }">
+                                                                formControlName="accountID">
                                                             </ng-autocomplete>
                                                              <ng-template #itemTemplate let-item>
                                                                 <a [innerHTML]="item.dataName"></a>
@@ -164,15 +163,15 @@
                                                              <ng-template #notFoundTemplate let-notFound>
                                                                 <div [innerHTML]="notFound"></div>
                                                             </ng-template> 
-                                                        </div>               -->
-                                                        <select class="form-control"
+                                                        </div>              
+                                                        <!-- <select class="form-control"
                                                             formControlName="accountID" [ngClass]="">
                                                             <option *ngFor="let branch of gridAccountList"
                                                                 style="font-size:small; "
                                                                 value={{branch.dataId}}>
                                                                 {{branch.dataName}}
                                                             </option>
-                                                        </select>                                                            
+                                                        </select>                                                             -->
                                                     </td>
                                                     <td class="col-lg-1">
                                                         <input decimalonly class="form-control" placeholder=""  
