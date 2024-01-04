@@ -78,6 +78,84 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
+        public async Task<List<DropDownListModel>> GetBankAcList()
+        {
+            List<DropDownListModel> bankAcList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankAcList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            bankAcList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return bankAcList;
+        }
+        public async Task<List<DropDownListModel>> GetBankDebitAcList()
+        {
+            List<DropDownListModel> bankDebitAcList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BankDebitAcList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            bankDebitAcList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return bankDebitAcList;
+        }
         public async Task<OpBrsEntryList> GetOpBrsEntryList(PageRequest request)
         {
             OpBrsEntryList opBrsEntryList = new();
@@ -119,8 +197,8 @@ namespace FinTrans.Repository
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 OtherAc = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAc"]),
                                 AmountRs = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountRs"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                Typesign = Convert.ToString(dataSet.Tables[0].Rows[i]["Typesign"]),
+                               // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 
 

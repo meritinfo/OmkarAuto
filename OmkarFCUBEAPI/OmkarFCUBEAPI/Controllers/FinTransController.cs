@@ -345,7 +345,35 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("GetBankAcList2")]
+        public async Task<IActionResult> GetBankAcList()
+        {
+            try
+            {
+                var result = await opBrsEntryBusiness.GetBankAcList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBankDebitAcList")]
+        public async Task<IActionResult> GetBankDebitAcList()
+        {
+            try
+            {
+                var result = await opBrsEntryBusiness.GetBankDebitAcList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetBankacList")]
         public async Task<IActionResult> GetBankacList()
         {

@@ -188,8 +188,10 @@ const routes: Routes = [
   { path: 'finaccountedit', component: FinaccountsmasteraddComponent },
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
   { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
+  
   { path: 'opbrsentrylist', component:  OpbrsentrylistComponent },
   { path: 'addbrsentry', component: AddbrsentryComponent },
+  { path: 'editbrsentry', component: AddbrsentryComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
   { path: 'bankreco', component: BankreconcilationComponent },
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},

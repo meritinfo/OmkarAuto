@@ -12,5 +12,8 @@ namespace FinTrans.Repository
     {
         Task<ResponseModel> OpBrsEntrySave(BrsEntryModel fleetCardMasterModel);
         Task<OpBrsEntryList> GetOpBrsEntryList(PageRequest request);
+        Task<List<DropDownListModel>> GetBankAcList();
+        Task<List<DropDownListModel>> GetBankDebitAcList();
+
     }
 }
