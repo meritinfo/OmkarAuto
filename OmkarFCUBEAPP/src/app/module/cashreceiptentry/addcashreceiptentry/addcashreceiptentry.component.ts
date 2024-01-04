@@ -146,7 +146,7 @@ export class AddcashreceiptentryComponent {
       for (var i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
+        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -192,7 +192,7 @@ export class AddcashreceiptentryComponent {
 
 
   addItem(index: number): void { 
-    if (this.formArray.value[index].accountId != "" && this.formArray.value[index].amount != "" 
+    if (this.formArray.value[index].accountId.dataId != "" && this.formArray.value[index].amount != "" 
       && this.formArray.value[index].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 
@@ -355,7 +355,7 @@ export class AddcashreceiptentryComponent {
             'narration': this.formArray.value[i].narration.toString().toUpperCase(),
             'chequeNo': '',
             'chequeDate': '',
-            'accountID': this.formArray.value[i].accountID ,
+            'accountID': this.formArray.value[i].accountID.dataId ,
             'reference': this.formArray.value[i].reference.toString().toUpperCase(),
           })
         }

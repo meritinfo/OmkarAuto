@@ -32,7 +32,8 @@ namespace OmkarFCUBEAPI.Controllers
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
             IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
-            IBankReconcilationBusiness _bankReconcilationBusiness,IOpBrsEntryBusiness _opBrsEntryBusiness)
+            IBankReconcilationBusiness _bankReconcilationBusiness,
+            IOpBrsEntryBusiness _opBrsEntryBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;

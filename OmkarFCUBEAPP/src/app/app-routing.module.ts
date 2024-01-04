@@ -76,6 +76,8 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { FinopenbalancelistComponent } from './module/finopenbalance/finopenbalancelist/finopenbalancelist.component';
 import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalanceadd/finopenbalanceadd.component';
 import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
+import { DistancefreighteditComponent } from './module/distancemasterfreight/distancefreightedit/distancefreightedit.component';
+import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 
 
 
@@ -192,6 +194,8 @@ const routes: Routes = [
   { path: 'editbrsentry', component: AddbrsentryComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
   { path: 'bankreco', component: BankreconcilationComponent },
+  { path: 'addeditdistfrt', component: DistancefreighteditComponent},
+  { path: 'addeditdisttrip', component: DistancetripeditComponent},
   
 ];
 

@@ -78,11 +78,6 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        /// <summary>
-        /// Service method for save destination details
-        /// </summary>
-        /// <param name="distanceDetailFrtModel"></param>
-        /// <returns>ResponseModel</returns>
         public async Task<ResponseModel> DistanceDetailFrtSave(DistanceDetailFrtModel distanceDetailFrtModel)
         {
             ResponseModel responseModel = new();
@@ -92,10 +87,9 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                                new SqlParameter("@DistanceDtlID", distanceDetailFrtModel.DistanceDtlID),
-                                  new SqlParameter("@MasterID", distanceDetailFrtModel.MasterID
+                            new SqlParameter("@DistanceDtlID", distanceDetailFrtModel.DistanceDtlID),
+                            new SqlParameter("@MasterID", distanceDetailFrtModel.MasterID
                              == "" ? 0 : Convert.ToInt32(distanceDetailFrtModel.MasterID)),
-                           // new SqlParameter("@MasterID", distanceDetailFrtModel.MasterID),
                             new SqlParameter("@FromLocation", distanceDetailFrtModel.FromLocation),
                             new SqlParameter("@ToLocation", distanceDetailFrtModel.ToLocation),
                             new SqlParameter("@KMS", distanceDetailFrtModel.KMS),
@@ -172,7 +166,7 @@ namespace FreightMasters.Repository
                 }
                 return responseModel;
             }
-            public async Task<ResponseModel> DistanceMasterFrtDelete(Request req)
+        public async Task<ResponseModel> DistanceMasterFrtDelete(Request req)
         {
             ResponseModel responseModel = new();
             try
@@ -340,6 +334,171 @@ namespace FreightMasters.Repository
             }
             return distanceMasterFreightList;
         }
+
+
+
+        public async Task<List<DropDownListModel>> GetDistancefrtFromLocationList()
+        {
+            List<DropDownListModel> list = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFrtFromLocationList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            list.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return list;
+        }
+
+        public async Task<DistanceFrtEditModel> GetDistanceFrtDtls(Request request)
+        {
+            DistanceFrtEditModel distanceFrtEdit = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          new SqlParameter("@FromLocation", request.strRequest)                          
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDistanceFrtDtls", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        distanceFrtEdit.MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["MasterID"]);
+                        distanceFrtEdit.ValidUpto = Convert.ToString(statusData.Tables[0].Rows[0]["ValidUpto"]);
+                        distanceFrtEdit.FromLocation = Convert.ToString(statusData.Tables[0].Rows[0]["FromLocation"]);
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return distanceFrtEdit;
+        }
+
+        public async Task<DistanceFrtEditModel> GetDistanceFrtEditDetails(DistanceFrtEditModel distanceFrtEdit)
+        {
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          new SqlParameter("@MasterID", distanceFrtEdit.MasterID),
+                          new SqlParameter("@FromLocation", distanceFrtEdit.FromLocation),
+                          new SqlParameter("@ToLocation",   distanceFrtEdit.ToLocation)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDistanceFrtEditDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        distanceFrtEdit.DistanceDtlID = Convert.ToString(statusData.Tables[0].Rows[0]["DistanceDtlID"]);
+                        distanceFrtEdit.MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["MasterID"]);
+                        distanceFrtEdit.FromLocation = Convert.ToString(statusData.Tables[0].Rows[0]["FromLocation"]);
+                        distanceFrtEdit.ToLocation = Convert.ToString(statusData.Tables[0].Rows[0]["ToLocation"]);
+                        distanceFrtEdit.Kms = Convert.ToString(statusData.Tables[0].Rows[0]["Kms"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return distanceFrtEdit;
+        }
+        public async Task<ResponseModel> DistanceFrtEditDetailsSave(DistanceFrtEditModel distanceFrtEdit)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@DistanceDtlID",  distanceFrtEdit.DistanceDtlID),
+                            new SqlParameter("@MasterID",       distanceFrtEdit.MasterID),
+                            new SqlParameter("@FromLocation",   distanceFrtEdit.FromLocation),
+                            new SqlParameter("@ToLocation",     distanceFrtEdit.ToLocation),
+                            new SqlParameter("@Kms",            distanceFrtEdit.Kms),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DistanceFrtEditDetailsSave", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
+
     }
 }
 

@@ -40,6 +40,29 @@ namespace FreightMasters.Business
         {
             return await distanceMasterTripRepository.ChkdistanceTripValidity(distanceMasterTripModel);
         }
+        public async Task<ResponseModel> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel)
+        {
+            return await distanceMasterTripRepository.DistanceDetailTripSave(distanceDetailTripModel);
+        }
+        public async Task<List<DropDownListModel>> GetDistanceTripFromLocationList()
+        {
+            return await distanceMasterTripRepository.GetDistanceTripFromLocationList();
+        }
+        public async Task<DistanceTripEditModel> GetDistanceTripDtls(Request request)
+        {
+            return await distanceMasterTripRepository.GetDistanceTripDtls(request);
+        }
+        public async Task<DistanceTripEditModel> GetDistanceTripEditDetails(DistanceTripEditModel distanceFrtEdit)
+        {
+            return await distanceMasterTripRepository.GetDistanceTripEditDetails(distanceFrtEdit);
+        }
+        public async Task<ResponseModel> DistanceTripEditDetailsSave(DistanceTripEditModel distanceFrtEdit)
+        {
+            return await distanceMasterTripRepository.DistanceTripEditDetailsSave(distanceFrtEdit);
+        }
+       
+         
+
 
     }
 }

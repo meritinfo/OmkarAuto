@@ -6,6 +6,7 @@ using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using FleetMasters.Business;
+using FreightMasters.Repository;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -25,14 +26,20 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
 
-        readonly IDistanceDetailFrtBusiness distanceDetailFrtBusiness;
-        readonly IDistanceDetailTripBusiness distanceDetailTripBusiness;
-
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         
 
 
-        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, IBranchMasterBusiness _branchMastersBusiness, IProductGroupMasterBusiness _productGroupMasterBusiness, IProductMasterBusiness _productMasterBusiness, ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, IRatetypesBusiness _ratetypesBusiness, IFreightRatesMstBusiness _freightRatesMstBusiness,IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , IDistanceMasterTripBusiness _distanceMasterTripBusiness, IDistanceDetailFrtBusiness _distanceDetailFrtBusiness, IDistanceDetailTripBusiness _distanceDetailTripBusiness, IConsigneeMasterBusiness _consigneeMasterBusiness)
+        public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, 
+            IBranchMasterBusiness _branchMastersBusiness, 
+            IProductGroupMasterBusiness _productGroupMasterBusiness, 
+            IProductMasterBusiness _productMasterBusiness, 
+            ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, 
+            IRatetypesBusiness _ratetypesBusiness, 
+            IFreightRatesMstBusiness _freightRatesMstBusiness,
+            IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
+            IDistanceMasterTripBusiness _distanceMasterTripBusiness, 
+            IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -41,8 +48,6 @@ namespace OmkarFCUBEAPI.Controllers
             lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
             ratetypesBusiness = _ratetypesBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
-            distanceDetailFrtBusiness = _distanceDetailFrtBusiness;
-            distanceDetailTripBusiness = _distanceDetailTripBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
@@ -306,7 +311,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceDetailFrtBusiness.DistanceDetailFrtSave(distanceDetailFrtModel);
+                var result = await distanceMasterFrtBusiness.DistanceDetailFrtSave(distanceDetailFrtModel);
 
                 return Ok(result);
             }
@@ -361,7 +366,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
             try
             {
-                var result = await distanceDetailTripBusiness.DistanceDetailTripSave(distanceDetailTripModel);
+                var result = await distanceMasterTripBusiness.DistanceDetailTripSave(distanceDetailTripModel);
 
                 return Ok(result);
             }
@@ -664,6 +669,152 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await ratetypesBusiness.GetRateTypesList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDistancefrtFromLocationList")]
+        public async Task<IActionResult> GetDistancefrtFromLocationList()
+        {
+            try
+            {
+                var result = await distanceMasterFrtBusiness.GetDistancefrtFromLocationList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDistanceFrtDtls")]
+        public async Task<IActionResult> GetDistanceFrtDtls(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtBusiness.GetDistanceFrtDtls(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDistanceFrtEditDetails")]
+        public async Task<IActionResult> GetDistanceFrtEditDetails(DistanceFrtEditModel distanceFrtEdit)
+        {
+            if (distanceFrtEdit == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtBusiness.GetDistanceFrtEditDetails(distanceFrtEdit);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpPost("DistanceFrtEditDetailsSave")]
+        public async Task<IActionResult> DistanceFrtEditDetailsSave(DistanceFrtEditModel distanceFrtEdit)
+        {
+            if (distanceFrtEdit == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtBusiness.DistanceFrtEditDetailsSave(distanceFrtEdit);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        [HttpPost("GetDistanceTripFromLocationList")]
+        public async Task<IActionResult> GetDistanceTripFromLocationList()
+        {
+            try
+            {
+                var result = await distanceMasterTripBusiness.GetDistanceTripFromLocationList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDistanceTripDtls")]
+        public async Task<IActionResult> GetDistanceTripDtls(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.GetDistanceTripDtls(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDistanceTripEditDetails")]
+        public async Task<IActionResult> GetDistanceTripEditDetails(DistanceTripEditModel distanceTripEdit)
+        {
+            if (distanceTripEdit == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.GetDistanceTripEditDetails(distanceTripEdit);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DistanceTripEditDetailsSave")]
+        public async Task<IActionResult> DistanceTripEditDetailsSave(DistanceTripEditModel distanceTripEdit)
+        {
+            if (distanceTripEdit == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripBusiness.DistanceTripEditDetailsSave(distanceTripEdit);
 
                 return Ok(result);
             }

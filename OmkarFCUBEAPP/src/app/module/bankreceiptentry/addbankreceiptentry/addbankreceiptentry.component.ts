@@ -149,7 +149,7 @@ export class AddbankreceiptentryComponent {
       for (var i = 1; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(res.detailList[i].accountID);
+        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
         this.formArray.controls[i-1].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
@@ -178,7 +178,7 @@ export class AddbankreceiptentryComponent {
   
   
   addItem(index: number): void { 
-    if (this.formArray.value[index].accountID != "" && this.formArray.value[index].amount != "" 
+    if (this.formArray.value[index].accountID.dataId != "" && this.formArray.value[index].amount != "" 
       && this.formArray.value[index].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 
@@ -363,7 +363,7 @@ export class AddbankreceiptentryComponent {
     })
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
-        if (this.formArray.value[i].accountID!="" && parseFloat(this.formArray.value[i].amount)>0 ){
+        if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           this.bankreceiptentryModel.detailList.push({
           'slNo': (i+1).toString() ,
           'typeSign': tpfirstsign,
@@ -371,7 +371,7 @@ export class AddbankreceiptentryComponent {
           'chequeDate': this.formArray.value[i].chequeDate,
           'chequeNo': this.formArray.value[i].chequeNo,
           'narration': this.formArray.value[i].narration,
-          'accountID': this.formArray.value[i].accountID ,
+          'accountID': this.formArray.value[i].accountID.dataId ,
           'reference': this.formArray.value[i].reference,
           })
         }
