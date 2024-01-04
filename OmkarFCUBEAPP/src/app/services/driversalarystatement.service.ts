@@ -10,6 +10,7 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Trippaymentslistmodel } from '../models/trippaymentslistmodel';
 import { Driversalarystatementlistmodel } from '../models/driversalarystatementlistmodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +48,9 @@ export class DriversalarystatementService {
   }
   saveDriverSalaryDetails(request: Driversalarystatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveDriverSalaryStatementDetails', request, this.httpOptions);
+  }
+  driverSalaryDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DriverSalaryDelete', req, this.httpOptions);
   }
   getDriverSalaryInnerGridList(request: Driversalaryinnergridrequest): Observable<Driversalarysearchlistmodel> {
     return this.httpClient.post<Driversalarysearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalaryInnerGridList', request, this.httpOptions);

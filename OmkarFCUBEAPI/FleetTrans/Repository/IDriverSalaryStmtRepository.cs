@@ -14,5 +14,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request);
         Task<DriverSalarySearchListModel> GetDriverSalarySearchList(DriverSalarySearchListRequest request);
         Task<DriverSalarySearchListModel> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request);
+        Task<ResponseModel> DriverSalaryDelete(Request requestModel);
     }
 }

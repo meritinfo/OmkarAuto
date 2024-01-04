@@ -14,6 +14,7 @@ namespace FinTrans.Repository
         Task<OpBrsEntryList> GetOpBrsEntryList(PageRequest request);
         Task<List<DropDownListModel>> GetBankAcList();
         Task<List<DropDownListModel>> GetBankDebitAcList();
+        Task<ResponseModel> OpBrsEntryDelete(Request requestModel);
 
     }
 }

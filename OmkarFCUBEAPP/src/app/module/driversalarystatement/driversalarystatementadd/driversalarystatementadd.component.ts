@@ -13,6 +13,7 @@ import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergr
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
 import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 
 import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
@@ -41,13 +42,30 @@ export class DriversalarystatementaddComponent implements OnInit {
   creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
+  editMode = false;
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
-  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  private route: Router,private driverSalaryStatementService: DriversalarystatementService, private formBuilder: FormBuilder, private toasterService: ToastrService,private sharedService: SharedService,) {
+  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  private route: Router,private driverSalaryStatementService: DriversalarystatementService, private formBuilder: FormBuilder, private toasterService: ToastrService,private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.driversalarystatementmodel = new Driversalarystatementmodel();
   }
 
   ngOnInit(): void {
     this.sharedService.loading = true;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList).menuList.find((aa: { menuName: string; }) => aa.menuName === "Driver Salary Statement");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -82,9 +100,10 @@ export class DriversalarystatementaddComponent implements OnInit {
       creditAc: new FormControl(''),
      pmtType: new FormControl('')
     });
+    this.editMode = true;
     this.getCreditAcList2("B");
     setTimeout(() => {
-      //this.createmode = true;
+      this.createmode = true;
      if (this.selectedDriverSalaryStatementDetails.masterId != '') {
        this.formDriverSalaryStatement.patchValue(this.selectedDriverSalaryStatementDetails);
 
@@ -127,7 +146,9 @@ export class DriversalarystatementaddComponent implements OnInit {
 
 }
   
-
+exit(): void {
+  this.route.navigate(['/driversalarystatementlist']);
+}
    
   
 
@@ -180,6 +201,19 @@ export class DriversalarystatementaddComponent implements OnInit {
      // this.calculateTotal();
     //  this.totalCalculation();
     });
+  }
+  driverSalaryDelete(): void {
+    if(this.selectedDriverSalaryStatementDetails.masterId != '' ){
+     this.requestmodel.strRequest =this.selectedDriverSalaryStatementDetails.masterId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.driverSalaryStatementService.driverSalaryDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formDriverSalaryStatement.reset();
+            window.location.reload();
+        });
+      }
+    }
   }
   
 
@@ -243,6 +277,7 @@ saveStatementDetails(): void {
   });
 
 }
+
 
 valueUpdate(event: any, i: number){
   this.driversalarysearchlistmodel.driverSalarySearchList[i].selected = event.target.checked;

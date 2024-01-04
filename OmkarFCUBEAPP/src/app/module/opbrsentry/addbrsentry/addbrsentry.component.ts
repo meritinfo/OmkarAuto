@@ -85,19 +85,19 @@ ngOnInit(): void {
   this.getBankDebitAcList();
   this.selectedBrsEntryDetails = this.OpbrsentryService.getOpBrsEntryDetails();
   this.formUser = this.formBuilder.group({
-    transDate: new FormControl('',),
+    transDate: new FormControl('',[Validators.required]),
    // cardNo: new FormControl('',[Validators.required]),
-    bankAc: new FormControl('',),
+    bankAc: new FormControl('',[Validators.required]),
     docNo: new FormControl('',),
     debitRs: new FormControl('',),
     creditRs: new FormControl('',),
-    chequeNo: new FormControl('',),
-    chequeDate: new FormControl('',),
-    narration: new FormControl('',),
+    chequeNo: new FormControl('',[Validators.required]),
+    chequeDate: new FormControl('',[Validators.required]),
+    narration: new FormControl('',[Validators.required]),
     clearDate: new FormControl('',),
-    amountRs: new FormControl('',),
-    typesign: new FormControl('',),
-    otherAc: new FormControl('',),
+    amountRs: new FormControl('',[Validators.required]),
+    typesign: new FormControl('',[Validators.required]),
+    otherAc: new FormControl('',[Validators.required]),
 
   });
   setTimeout(() => {
@@ -123,12 +123,12 @@ opBrsEntryDelete(): void {
   if(this.selectedBrsEntryDetails.transId!= '' ){
    this.requestmodel.strRequest =this.selectedBrsEntryDetails.transId
     if (confirm("Are you sure, you want to delete this?")) {
-       //   this.OpbrsentryService.fleetCardMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-       //   this.responseDetails = res;
-     //     console.log(this.responseDetails.message);
-     //     this.formUser.reset();
-       //   window.location.reload();
-   //   });
+         this.OpbrsentryService.opBrsEntryDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+         console.log(this.responseDetails.message);
+         this.formUser.reset();
+         window.location.reload();
+     });
     }
   }
 }

@@ -15,6 +15,7 @@ import { Tripmodel } from 'src/app/models/tripmodel';
 import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { UserService } from 'src/app/services/user.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -64,7 +65,7 @@ export class AddtrippaymentsComponent {
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, private commonService: CommonService, private toasterService: ToastrService,private sharedService: SharedService,) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, private commonService: CommonService, private toasterService: ToastrService,private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.trippaymentsmodel = new Trippaymentsmodel();
 
 
@@ -211,6 +212,19 @@ export class AddtrippaymentsComponent {
   this.editMode = true;
   this.sharedService.loading = false;
 
+  }
+  tripPaymentsDelete(): void {
+    if(this.selectedTripPaymentsDetails.pmtId != '' ){
+     this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formTripPayment.reset();
+            window.location.reload();
+        });
+      }
+    }
   }
   onCleared(e: any) {
     this.formTripPayment.patchValue({

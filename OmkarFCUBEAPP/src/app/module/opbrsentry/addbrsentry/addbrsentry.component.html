@@ -33,7 +33,7 @@
                                                 <label for="basicpill-phoneno-input">TransDate</label>
                                                 <input type="date" class="form-control"
                                                 placeholder=" " formControlName="transDate"
-                                                [ngClass]="" >
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }" >
                                                
                                             </div>
                                         </div>
@@ -41,7 +41,7 @@
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">bank Ac</label>
                                                 <select class="form-control" formControlName="bankAc"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAc'].invalid) }">
 
                                                 <option *ngFor="let branch of ledgerAcList" value={{branch.dataId}}>
 
@@ -59,7 +59,7 @@
                                                 <label for="basicpill-phoneno-input">Cheque No</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="chequeNo"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -68,7 +68,7 @@
                                                 <label for="basicpill-phoneno-input">ChequeDate</label>
                                                 <input type="date" class="form-control"
                                                 placeholder=" " formControlName="chequeDate"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDate'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -80,7 +80,7 @@
                                             <label for="basicpill-phoneno-input">Narration</label>
                                             <input type="" class="form-control"
                                             placeholder=" " formControlName="narration"
-                                            [ngClass]="">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['narration'].invalid) }">
                                             
                                         </div>
                                     </div>
@@ -91,7 +91,7 @@
                                         <label for="basicpill-phoneno-input">Amount Rs</label>
                                         <input type="text" class="form-control"
                                         placeholder=" " formControlName="amountRs"
-                                        [ngClass]="">
+                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['amountRs'].invalid) }">
                                         
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                     <div class="mb-3">
                                         <label for="basicpill-phoneno-input">Bank Db/Cr</label>
                                         <select id="formrow-inputState" class="form-control"
-                                        formControlName="typesign"
+                                        formControlName="typesign"   [ngClass]="{ 'is-invalid': userSubmitted && (f['typesign'].invalid) }"
                                       >
                                         <option selected="">Choose...</option>
                                         <option value="C">Credit</option>
@@ -115,7 +115,7 @@
                                     <div class="mb-6">
                                         <label for="basicpill-phoneno-input">Db/Cr Ac</label>
                                         <select class="form-control" formControlName="otherAc"
-                                                [ngClass]="">
+                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc'].invalid) }">
 
                                                 <option *ngFor="let branch of debitAcList" value={{branch.dataId}}>
 

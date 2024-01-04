@@ -12,6 +12,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -43,7 +44,7 @@ export class BillstatementaddComponent implements OnInit {
   billsstatementinnergridrequest = new Billstatementinnergridrequest();
   responseDetails = new Responsemodel();
 
-  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder,private sharedService: SharedService, private toasterService: ToastrService) {
+  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder,private sharedService: SharedService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsstatementmodel = new billstatementmodel();
     
   }
@@ -151,13 +152,14 @@ export class BillstatementaddComponent implements OnInit {
        })
        this.billsstatementinnergridrequest.masterID = parseInt(this.selectedBillstatementDetails.masterID);
        this.getTripSheetInnerGridList();
+       this.sharedService.loading = false;
      }
    
-   
+     this.sharedService.loading = false;
      
    }, 2000);
    this.getValidation();
-   this.sharedService.loading = false;
+  
    }
 getValidation():void {
   this.formBillStatement.controls['tatementBillStation'].disable();
@@ -199,6 +201,19 @@ getValidation():void {
     this.commonService.getlrSeriesForBillList().subscribe((res) => {
       this.lrSeries = res;
     });
+  }
+  billsStatementDelete(): void {
+    if(this.selectedBillstatementDetails.masterID != '' ){
+     this.requestmodel.strRequest =this.selectedBillstatementDetails.masterID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.billstatementService.billsStatementDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            console.log(this.responseDetails.message);
+            this.formBillStatement.reset();
+            window.location.reload();
+        });
+      }
+    }
   }
 
   onChangeSearch(search: string) {
