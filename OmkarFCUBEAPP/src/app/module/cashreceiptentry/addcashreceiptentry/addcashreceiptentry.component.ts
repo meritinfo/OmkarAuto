@@ -326,12 +326,12 @@ export class AddcashreceiptentryComponent {
     var tpsign =''
     var tpfirstsign =''
     if (selectedDataValue.docType == "CP") {
-      var tpsign ='D'
-      var tpfirstsign ='C'
-    }
-    else{
       var tpsign ='C'
       var tpfirstsign ='D'
+    }
+    else{
+      var tpsign ='D'
+      var tpfirstsign ='C'
     }
 
     this.bankrecEntrymodel.detailList.push({
@@ -350,7 +350,7 @@ export class AddcashreceiptentryComponent {
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
             this.bankrecEntrymodel.detailList.push({
             'slNo': (i+1).toString() ,
-            'typeSign': tpfirstsign,
+            'typeSign': tpsign,
             'amount': this.formArray.value[i].amount,
             'narration': this.formArray.value[i].narration.toString().toUpperCase(),
             'chequeNo': '',

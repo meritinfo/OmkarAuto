@@ -76,7 +76,7 @@
                                         </div>    
                                     </div>   <br />                                        
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <label for="formrow-inputState">Select Credit Account</label><span style="color:red">*</span>
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="gridAccountList"
@@ -106,10 +106,12 @@
                                                 formControlName="amount"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['amount'].invalid) }">
                                         </div>
-                                        <div class="col-lg-2">                                            
+                                    </div>                                      
+                                    <div class="row">
+                                        <div class="col-lg-3">                                            
                                             <label for="formrow-inputState">Cheque No</label>
                                             <input numbersonly class="form-control" placeholder=""  
-                                                formControlName="chequeNo"
+                                                formControlName="chequeNo" maxlength="6" 
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid) }">
                                         </div>                 
                                         <div class="col-lg-3">                             

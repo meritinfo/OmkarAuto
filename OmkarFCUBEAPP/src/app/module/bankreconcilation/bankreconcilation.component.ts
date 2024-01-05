@@ -27,6 +27,7 @@ export class BankreconcilationComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
+  IncOpn:string ="";
   locationList: Dropdownmodel[] = [];
   bankreclist: Bankreconcilationlist = new Bankreconcilationlist();
   bankrecfilter= new Bankrecfiltermodel();
@@ -143,7 +144,7 @@ export class BankreconcilationComponent {
     this.bankrecfilter.toDate       = selectedfilterVal.toDate;
     this.bankrecfilter.accountid    = selectedfilterVal.accountid;
     this.bankrecfilter.reconcile    = selectedfilterVal.reconcile?selectedfilterVal.reconcile:'N';
-    this.bankrecfilter.inclopening  = selectedfilterVal.inclopening?selectedfilterVal.inclopening:"N";
+    this.bankrecfilter.inclopening  = this.IncOpn==""?"N":this.IncOpn;
     this.formArray.clear();
     this.sharedService.loading=true;
     this.bankreconcilationService.getBankReconcileGridList(this.bankrecfilter).subscribe((res) => {
@@ -160,8 +161,8 @@ export class BankreconcilationComponent {
         this.formArray.controls[i].get("credit")?.setValue(res.bankreconcilationList[i].credit);
         this.formArray.controls[i].get("chequeNo")?.setValue(res.bankreconcilationList[i].chequeNo);
         this.formArray.controls[i].get("chequeDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].chequeDate));
-        this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].debit);
-        this.formArray.controls[i].get("subAccountName")?.setValue(res.bankreconcilationList[i].credit);
+        this.formArray.controls[i].get("narration")?.setValue(res.bankreconcilationList[i].narration);
+        this.formArray.controls[i].get("subAccountName")?.setValue(res.bankreconcilationList[i].subAccountName);
         this.formArray.controls[i].get("clearDate")?.setValue(this.commonService.formatDate(res.bankreconcilationList[i].clearDate));
         
         this.formArray.controls[i].get("chequeNo")?.disable();
@@ -208,16 +209,13 @@ export class BankreconcilationComponent {
   
   onIncOpenChange(e:any) { 
     var sel = e.target.checked;
-    var IncOpn="";
+    this.IncOpn="";
     if(sel){
-      IncOpn="Y"
+      this.IncOpn="Y"
     }
     else{
-      IncOpn="N"
+      this.IncOpn="N"
     }
-    this.formBankRecEntry.patchValue({
-      inclopening: IncOpn,
-    }); 
   }
 
 

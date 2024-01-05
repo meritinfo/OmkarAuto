@@ -114,24 +114,25 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docNo'].disable(); 
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
+    setTimeout(() => {
+      if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
+        this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
+        this.formBankRecEntry.patchValue({
+          ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
+        });       
+        if(this.selectedBankReceiptEntryDetails.linkedYN=="Y"){
+          this.deleteStatus=false;
+        }
+        this.editMode=true;
+        this.formBankRecEntry.controls['modifyRemarks'].enable();
+        this.getBankReceiptPaymentInnerGridList();
 
-    if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
-      this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
-      this.formBankRecEntry.patchValue({
-        ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
-      });       
-      if(this.selectedBankReceiptEntryDetails.linkedYN=="Y"){
-        this.deleteStatus=false;
       }
-      this.editMode=true;
-      this.formBankRecEntry.controls['modifyRemarks'].enable();
-      this.getBankReceiptPaymentInnerGridList();
-
-    }
-    else{
-      this.getdocno("BP");
-    }
+      else{
+        this.getdocno("BP");
+      }
     
+    }, 2000);
     this.sharedService.loading=false;
   }
 
@@ -151,7 +152,7 @@ export class AddbankreceiptentryComponent {
         this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
         this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
         this.formArray.controls[i-1].get("chequeNo")?.setValue(res.detailList[i].chequeNo);
-        this.formArray.controls[i-1].get("chequeDate")?.setValue(res.detailList[i].chequeDate);
+        this.formArray.controls[i-1].get("chequeDate")?.setValue(this.commonService.formatDate(res.detailList[i].chequeDate));
         this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
         this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
       }
@@ -366,11 +367,11 @@ export class AddbankreceiptentryComponent {
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           this.bankreceiptentryModel.detailList.push({
           'slNo': (i+1).toString() ,
-          'typeSign': tpfirstsign,
+          'typeSign': tpsign,
           'amount': this.formArray.value[i].amount,
           'chequeDate': this.formArray.value[i].chequeDate,
           'chequeNo': this.formArray.value[i].chequeNo,
-          'narration': this.formArray.value[i].narration,
+          'narration': this.formArray.value[i].narration.toString().toUpperCase(),
           'accountID': this.formArray.value[i].accountID.dataId ,
           'reference': this.formArray.value[i].reference,
           })

@@ -100,7 +100,8 @@ export class BankreceiptentrylistComponent {
       receiptOrPayment: new FormControl('BP',[Validators.required]),  
     });
     
-    this.sharedService.loading=true;
+    this.sharedService.loading=true;    
+    this.filter.search = 'BP';
     this.bankReceiptEntry();
     this.sharedService.loading=false;
 
@@ -123,7 +124,6 @@ export class BankreceiptentrylistComponent {
         this.filter.fromDate = this.fromDate;
         this.filter.toDate = this.loginDate;
         this.filter.branch = this.branch;
-        this.filter.receiptOrPayment = 'BP';
 
         this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
           .subscribe(resp => {
