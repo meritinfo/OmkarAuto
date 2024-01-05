@@ -102,6 +102,7 @@ export class CashreceiptentrylistComponent {
     });
     
     this.sharedService.loading=true;
+    this.filter.search = 'CP';
     this.cashReceiptEntry();
     this.sharedService.loading=false;
   }
@@ -124,7 +125,6 @@ export class CashreceiptentrylistComponent {
           this.filter.fromDate = this.fromDate;
           this.filter.toDate = this.loginDate;
           this.filter.branch = this.branch;
-          this.filter.receiptOrPayment = 'CP';
           this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
              this.allCashReceiptEntry = resp;
               callback({

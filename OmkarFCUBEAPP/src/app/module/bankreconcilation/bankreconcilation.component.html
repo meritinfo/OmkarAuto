@@ -71,7 +71,7 @@
                                                 <br />
                                                 <input type="checkbox" formControlName="inclopening" id="neft"
                                                     (change)="onIncOpenChange($event)"
-                                                            value="Y" class="form-check-input" >
+                                                            class="form-check-input" >
                                                 <label for="inclopening" ><h5> Include Opening</h5> 
                                                 </label>
                                             </div>          
@@ -122,32 +122,32 @@
                                         <h4 class="card-title mb-4" style="color: red;"> Details</h4>
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Trans. Date</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Document No.</h6>
+                                                        <h6>Doc No.</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Debit Rs.</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputCity">
                                                         <h6>Credit Rs.</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputCity">
                                                         <h6>Cheque No</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputCity">
                                                         <h6>Cheque Date</h6>
                                                     </label>
@@ -162,7 +162,7 @@
                                                          <h6>Account Head</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputCity">
                                                          <h6>Clear Date</h6>
                                                     </label>
@@ -171,33 +171,41 @@
                                             <tr formArrayName="arrayList"
                                                 *ngFor="let miscData of formArray.controls; let k = index">
                                                 <div [formGroupName]="k" class="grid-table">                                             
-                                                    <td  class="col-lg-2">   
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="ftmDate"> 
-                                                        <input autoclose="false" type="hidden" class="form-control" formControlName="ftdID">                                                                                                    
+                                                    <td  class="col-lg-1">   
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="ftmDate"> 
+                                                        <input autoclose="false" type="hidden" class="form-control" 
+                                                        formControlName="ftdID">                                                                                                    
                                                     </td>
-                                                    <td  class="col-lg-2"> 
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="docNo">                                                        
+                                                    <td  class="col-lg-1"> 
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="docNo">                                                        
                                                     </td>
-                                                    <td  class="col-lg-2">   
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="debit">                                                        
+                                                    <td  class="col-lg-1">   
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="debit">                                                        
                                                     </td>
-                                                    <td  class="col-lg-2"> 
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="credit">                                                        
+                                                    <td  class="col-lg-1"> 
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="credit">                                                        
                                                     </td>
-                                                    <td  class="col-lg-2">   
+                                                    <td  class="col-lg-1">   
                                                         <input autoclose="false" type="text" class="form-control" 
                                                         #cheqInputs formControlName="chequeNo">                                                        
                                                     </td>
-                                                    <td  class="col-lg-2"> 
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="chequeDate">                                                        
+                                                    <td  class="col-lg-1"> 
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="chequeDate">                                                        
                                                     </td>
                                                     <td  class="col-lg-3">   
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="narration">                                                        
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="narration">                                                        
                                                     </td>
                                                     <td  class="col-lg-2">
-                                                        <input autoclose="false" type="text" class="form-control" formControlName="subAccountName">                                                     
+                                                        <input autoclose="false" type="text" class="form-control" 
+                                                        formControlName="subAccountName">                                                     
                                                     </td>
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-1">
                                                         <input type="date" class="form-control" placeholder="dd/mm/yyyy" 
                                                             formControlName="clearDate">                                                
                                                     </td>                                   

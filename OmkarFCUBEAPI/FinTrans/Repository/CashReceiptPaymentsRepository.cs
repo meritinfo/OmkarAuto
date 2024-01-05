@@ -74,6 +74,7 @@ namespace FinTrans.Repository
                                     new SqlParameter("@CostRefNo"       , ""),
                                     new SqlParameter("@Reference"       , cashReceiptPaymentsModel.DetailList[i].Reference),
                                     new SqlParameter("@BranchCode"      , cashReceiptPaymentsModel.BranchCode),
+                                    new SqlParameter("@YearID"          , cashReceiptPaymentsModel.YearID),
 
                                 };
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
@@ -83,7 +84,7 @@ namespace FinTrans.Repository
 
                         if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                         {
-                           // responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                             responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                           //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
                         }
@@ -206,7 +207,7 @@ namespace FinTrans.Repository
                                 AcHeader = Convert.ToString(dataSet.Tables[0].Rows[i]["AcHeader"]),
                                 AccountOf = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountOf"]),
                                 Narration = Convert.ToString(dataSet.Tables[0].Rows[i]["Narration"]),
-                            });
+                            }) ;
                         }
 
                         CashRecPaymentsList.RecPaymentsList = cashReceiptPayList;
