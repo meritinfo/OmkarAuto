@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Trippaymentslistmodel } from '../models/trippaymentslistmodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,9 @@ export class TripPaymentsService {
   }
   clearTripPaymentsDetails() {
     this.selectedTripPayments = new Trippaymentsmodel();
+  }
+  tripPaymentsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsDelete', req, this.httpOptions);
   }
   trippaymentDetailsSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSave', user, this.httpOptions);

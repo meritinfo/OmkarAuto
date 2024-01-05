@@ -14,6 +14,7 @@ namespace FleetTrans.Business
         Task<TripPaymentsList> GetTripPaymentsList(PageRequestDtBrVh request);
         Task<TripModel> GetTripDetail(TripVehicleModel request);
         Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request);
+        Task<ResponseModel> TripPaymentsDelete(Request requestModel);
         Task<List<DropDownListModel>> GetCreditAcList();
        Task<List<DropDownListModel>> GetCreditAcList2(AcModel request);
 

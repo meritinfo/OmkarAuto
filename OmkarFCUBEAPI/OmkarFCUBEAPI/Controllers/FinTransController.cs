@@ -359,6 +359,25 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("OpBrsEntryDelete")]
+        public async Task<IActionResult> OpBrsEntryDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await opBrsEntryBusiness.OpBrsEntryDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         [HttpPost("GetBankDebitAcList")]
         public async Task<IActionResult> GetBankDebitAcList()
         {

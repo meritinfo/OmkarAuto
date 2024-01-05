@@ -14,6 +14,7 @@ using System.Data.Common;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using Consignment.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -120,6 +121,60 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await tripPaymentsBusiness.GetCreditAcList2(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TripPaymentsDelete")]
+        public async Task<IActionResult> TripPaymentsDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsBusiness.TripPaymentsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsStatementDelete")]
+        public async Task<IActionResult> BillsStatementDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billStatementBusiness.BillsStatementDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DriverSalaryDelete")]
+        public async Task<IActionResult> DriverSalaryDelete(Request req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverSalaryStmtBusiness.DriverSalaryDelete(req);
 
                 return Ok(result);
             }

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { BrsEntrylistmodel } from '../models/brsentrylistmodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,9 @@ export class OpbrsentryService {
   }
   getOpBrsEntryDetails() {
     return this.selectedBrsEntry;
+  }
+  opBrsEntryDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/OpBrsEntryDelete', req, this.httpOptions);
   }
   clearOpBrsEntryDetails() {
     this.selectedBrsEntry = new Brsentrymodel();

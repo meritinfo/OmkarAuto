@@ -31,5 +31,9 @@ namespace FleetTrans.Business
         {
             return await driverSalaryStmtRepository.GetDriverSalaryInnerGridList(request);
         }
+        public async Task<ResponseModel> DriverSalaryDelete(Request requestModel)
+        {
+            return await driverSalaryStmtRepository.DriverSalaryDelete(requestModel);
+        }
     }
 }
