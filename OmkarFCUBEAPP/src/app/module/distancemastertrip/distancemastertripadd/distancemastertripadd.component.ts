@@ -102,8 +102,9 @@ export class DistancemastertripaddComponent {
         this.getFreightTripInnerGridList();
         this.sharedService.loading = false;
       }
+      this.sharedService.loading = false;
     }, 2000);
-    this.sharedService.loading = false;
+   
 
   }
 

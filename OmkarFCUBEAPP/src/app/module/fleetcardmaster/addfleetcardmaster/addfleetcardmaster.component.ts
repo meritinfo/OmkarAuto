@@ -14,6 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Cardmodel } from 'src/app/models/cardmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -39,11 +40,12 @@ export class AddfleetcardmasterComponent {
 
   selectedFleetCardMasterDetails = new Fleetcardmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private fleetcardMasterModel: Fleetcardmastermodel, private fleetcardmasterService: FleetCardMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private fleetcardMasterModel: Fleetcardmastermodel, private fleetcardmasterService: FleetCardMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService) {
     this.fleetcardMasterModel = new Fleetcardmastermodel();
 
 }
 ngOnInit(): void {
+  this.sharedService.loading = true;
   this.editMode = false;
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -83,6 +85,7 @@ ngOnInit(): void {
     isActive: new FormControl('',),
 
   });
+ 
   if (this.selectedFleetCardMasterDetails.cardId != '') {
     this.formUser.patchValue(this.selectedFleetCardMasterDetails);
     this.formUser.patchValue({
@@ -90,7 +93,9 @@ ngOnInit(): void {
       
     })
       this.editMode = true;
+      this.sharedService.loading = false;
   }
+  this.sharedService.loading = false;
 
 
 }

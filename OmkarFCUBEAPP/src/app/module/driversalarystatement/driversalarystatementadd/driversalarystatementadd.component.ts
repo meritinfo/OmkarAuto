@@ -134,15 +134,16 @@ export class DriversalarystatementaddComponent implements OnInit {
 
        
        });
-      
+       this.sharedService.loading = false;
       }
+      this.sharedService.loading = false;
     
   }, 2000);
 
  // this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
  this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
        this.getTripSheetInnerGridList();
-       this.sharedService.loading = false;
+     
 
 }
   

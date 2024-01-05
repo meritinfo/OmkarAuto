@@ -16,6 +16,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Cardmodel } from 'src/app/models/cardmodel';
+import { SharedService } from 'src/app/services/shared.service';
 
 
 @Component({
@@ -43,12 +44,13 @@ export class AddbrsentryComponent {
 
   selectedBrsEntryDetails = new Brsentrymodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private brsEntryModel: Brsentrymodel, private OpbrsentryService: OpbrsentryService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private brsEntryModel: Brsentrymodel, private OpbrsentryService: OpbrsentryService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService) {
     this.brsEntryModel = new Brsentrymodel();
 
 
 }
 ngOnInit(): void {
+  this.sharedService.loading = false;
   this.editMode = false;
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -112,7 +114,9 @@ ngOnInit(): void {
     
   
       this.editMode = true;
+      this.sharedService.loading = false;
   }
+  this.sharedService.loading = false;
  }, 2000);
 
 
