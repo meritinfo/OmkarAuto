@@ -170,7 +170,7 @@
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                 *ngFor="let miscData of formArray.controls; let k = index">
-                                                <div [formGroupName]="k" class="grid-table">                                             
+                                                <div [formGroupName]="k" class="grid-table">   
                                                     <td  class="col-lg-1">   
                                                         <input autoclose="false" type="text" class="form-control" 
                                                         formControlName="ftmDate"> 
@@ -183,15 +183,15 @@
                                                     </td>
                                                     <td  class="col-lg-1">   
                                                         <input autoclose="false" type="text" class="form-control" 
-                                                        formControlName="debit">                                                        
+                                                        formControlName="debit" [class.bg-highlight]="searchbyfield === 'Debit' && miscData.get('debit')?.value === searchValue">                                                        
                                                     </td>
                                                     <td  class="col-lg-1"> 
                                                         <input autoclose="false" type="text" class="form-control" 
-                                                        formControlName="credit">                                                        
+                                                        formControlName="credit" [class.bg-highlight]="searchbyfield === 'Credit' && miscData.get('credit')?.value === searchValue">                                                        
                                                     </td>
                                                     <td  class="col-lg-1">   
                                                         <input autoclose="false" type="text" class="form-control" 
-                                                        #cheqInputs formControlName="chequeNo">                                                        
+                                                        #cheqInputs formControlName="chequeNo" [class.bg-highlight]="searchbyfield === 'ChequeNo' && miscData.get('chequeNo')?.value === searchValue">                                                        
                                                     </td>
                                                     <td  class="col-lg-1"> 
                                                         <input autoclose="false" type="text" class="form-control" 
@@ -199,7 +199,7 @@
                                                     </td>
                                                     <td  class="col-lg-3">   
                                                         <input autoclose="false" type="text" class="form-control" 
-                                                        formControlName="narration">                                                        
+                                                        formControlName="narration" [class.bg-highlight]="searchbyfield === 'Narration' && miscData.get('narration')?.value === searchValue">                                                        
                                                     </td>
                                                     <td  class="col-lg-2">
                                                         <input autoclose="false" type="text" class="form-control" 
