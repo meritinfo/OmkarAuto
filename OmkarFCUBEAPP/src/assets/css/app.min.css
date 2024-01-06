@@ -5868,3 +5868,7 @@ table td .btn {
 table.no-padding td{
     padding: 0rem 0.50rem;
 }
+
+.bg-highlight{
+background-color: #fbff00 !important
+}
