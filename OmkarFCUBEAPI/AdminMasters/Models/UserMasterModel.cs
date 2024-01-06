@@ -29,7 +29,7 @@
         public string? ModuleList { get; set; }
         public string? CreatedDate { get; set; }
         public string? ImageName { get; set; }
-        public byte[]? ImageData { get; set; }
+      //  public byte[]? ImageData { get; set; }
     }
 
     public class Details

@@ -45,7 +45,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@UserMobile", userMasterModel.UserMobile),
                             new SqlParameter("@UserEmail", userMasterModel.UserEmail),
                             new SqlParameter("@UserScope", userMasterModel.UserScope),
-                            new SqlParameter("@UserImage", userMasterModel.UserImage),
+                          new SqlParameter("@UserImage", userMasterModel.UserImage),
                             new SqlParameter("@RoleId", userMasterModel.RoleId),
                             new SqlParameter("@Remarks", userMasterModel.Remarks),
                             new SqlParameter("@Employeeid", userMasterModel.Employeeid),
@@ -58,7 +58,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@BranchList", userMasterModel.BranchList),
                             new SqlParameter("@ModuleList", userMasterModel.ModuleList),
                             new SqlParameter("@ImageName", userMasterModel.ImageName),
-                            new SqlParameter("@ImageData", userMasterModel.ImageData){ SqlDbType = SqlDbType.VarBinary},
+                         //  new SqlParameter("@ImageData", userMasterModel.ImageData){ SqlDbType = SqlDbType.VarBinary},
                             new SqlParameter("@LoggedInUser", userMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserDetails_Insert", param);
@@ -169,13 +169,13 @@ namespace AdminMasters.Repository
                                 UserMobile = Convert.ToString(dataSet.Tables[0].Rows[i]["UserMobile"]),
                                 UserEmail = Convert.ToString(dataSet.Tables[0].Rows[i]["UserEmail"]),
                                 UserScope = Convert.ToString(dataSet.Tables[0].Rows[i]["UserScope"]),
-                                UserImage = Convert.IsDBNull(dataSet.Tables[0].Rows[i]["UserImage"]) ? null : (byte[])dataSet.Tables[0].Rows[i]["UserImage"],
+                             //   UserImage = Convert.IsDBNull(dataSet.Tables[0].Rows[i]["UserImage"]) ? null : (byte[])dataSet.Tables[0].Rows[i]["UserImage"],
                                 RoleId = Convert.ToString(dataSet.Tables[0].Rows[i]["RoleId"]),
                                 UserRoleType = Convert.ToString(dataSet.Tables[0].Rows[i]["UserRoleType"]),
                                 CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
-                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                             //  CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 BranchList = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
                                 ModuleList = Convert.ToString(dataSet.Tables[0].Rows[i]["ModuleList"]),
                             });
