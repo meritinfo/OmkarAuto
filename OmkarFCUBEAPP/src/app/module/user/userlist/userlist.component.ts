@@ -75,10 +75,7 @@ export class UserlistComponent implements OnInit {
           title: 'Active',
           data: 'activeYN',
         },
-        {
-          title: 'Created Date',
-          data: 'createdDate',
-        },
+      
         {
           title: 'Action',
           data: 'userId',

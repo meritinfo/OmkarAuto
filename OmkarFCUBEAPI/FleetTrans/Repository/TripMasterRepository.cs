@@ -48,7 +48,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Destination", tripMasterModel.Destination),
                             new SqlParameter("@Destination2", tripMasterModel.Destination2),
 
-                                new SqlParameter("@Destination3", tripMasterModel.Destination3),
+                            new SqlParameter("@Destination3", tripMasterModel.Destination3),
                             new SqlParameter("@DistanceTripKM_1", tripMasterModel.DistanceTripKM_1),
                             new SqlParameter("@Contents", tripMasterModel.Contents),
                             new SqlParameter("@LoadEmptyType", tripMasterModel.LoadEmptyType),

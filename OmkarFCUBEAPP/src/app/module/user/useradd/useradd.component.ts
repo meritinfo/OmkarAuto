@@ -53,7 +53,7 @@ export class UseraddComponent implements OnInit {
     this.getBranchList();
     this.getModuleList();
     this.getRoleTypeList();
-   this.userPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedUserDetails.imageName;
+   this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
     this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),
@@ -68,6 +68,7 @@ export class UseraddComponent implements OnInit {
       activeYN: new FormControl('Y', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
       userModule: new FormControl([], [Validators.required]),
+      imageName: new FormControl([], ),
     });
 
     if (this.selectedUserDetails.userId != '') {
@@ -193,13 +194,22 @@ export class UseraddComponent implements OnInit {
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.branchList = this.formUser.value.userBranch.toString();
     this.userModel.moduleList = this.formUser.value.userModule.toString();
-    this.userModel.imageName = this.imageName;
-    this.userModel.imageData = this.imageData;
-    this.userModel.roleId = this.formUser.value.role;
-
-    if (this.userModel.userId === "") {
+ //  this.userModel.imageName = this.formUser.value.imageName;
+     this.userModel.imageName = this.userPhotoName;
+ 
    
-      this.userService.usernameValidation(this.userModel).subscribe((resname: Responsemodel) => {
+ // this.userModel.imageName= //this.userPhotoInput.nativeElement.files[0]
+   // this.userModel.imageData = this.imageData;
+    this.userModel.roleId = this.formUser.value.role;
+  
+    if (this.userModel.userId === "") {
+      let formData = new FormData();
+      formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
+  
+      formData.append('datadetails', JSON.stringify(this.userModel));
+  
+   
+      this.userService.usernameValidation(this.formUser.value).subscribe((resname: Responsemodel) => {
         if (resname.status) {
           //this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
             let formData = new FormData();
@@ -207,7 +217,7 @@ export class UseraddComponent implements OnInit {
         
             formData.append('datadetails', JSON.stringify(this.userModel));
         
-            this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+            this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if (this.responseDetails.status) {
               this.toastrService.success(this.responseDetails.message);
@@ -228,7 +238,7 @@ export class UseraddComponent implements OnInit {
       formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
   
       formData.append('datadetails', JSON.stringify(this.userModel));
-      this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+      this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);

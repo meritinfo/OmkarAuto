@@ -39,7 +39,7 @@
                         <th>Role Type</th>
                         <th>Centre Name</th>
                         <th>Active</th>
-                        <th>Created Date</th>
+                 
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -51,10 +51,10 @@
                         <td>{{ user.userRoleType }}</td>
                         <td>{{ user.centreName }}</td>
                         <td>{{ user.activeYN }}</td>
-                        <td>{{ user.createdDate }}</td>
+                      
                         <td>
                           <a (click)="userDetails(user)" class="actionicon"><i class="bx bx-pencil"></i></a>
-                          <a (click)="deleteUser(user)" class="actionicon"><i class="bx bx-trash"></i></a>
+                        <!--  <a (click)="deleteUser(user)" class="actionicon"><i class="bx bx-trash"></i></a>-->
                         </td>
                       </tr>
                     </tbody>
