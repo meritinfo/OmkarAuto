@@ -154,6 +154,10 @@ import { Distancefreighteditmodel } from './models/distancefreighteditmodel';
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 import { Distancetripeditmodel } from './models/distancetripeditmodel';
 import { Brsentrymodel } from './models/brsentrymodel';
+import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewaybillextensionlist/ewaybillextensionlist.component';
+import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
+import { Ewaybillextlistmodel } from './models/ewaybillextlistmodel';
+import { Ewaybillextmodel } from './models/ewaybillextmodel';
 
 @NgModule({
   declarations: [
@@ -248,6 +252,8 @@ import { Brsentrymodel } from './models/brsentrymodel';
     OpbrsentrylistComponent,
     DistancefreighteditComponent,
     DistancetripeditComponent,
+    EwaybillextensionlistComponent,
+    EwaybillextensionaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -281,7 +287,9 @@ import { Brsentrymodel } from './models/brsentrymodel';
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel],
+    Ewaybillextlistmodel,Ewaybillextmodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
+    Fleetcardmastermodel,Brsentrymodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

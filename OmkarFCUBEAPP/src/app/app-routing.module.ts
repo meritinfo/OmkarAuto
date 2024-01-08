@@ -78,6 +78,8 @@ import { FinopenbalanceaddComponent } from './module/finopenbalance/finopenbalan
 import { BankreconcilationComponent } from './module/bankreconcilation/bankreconcilation.component';
 import { DistancefreighteditComponent } from './module/distancemasterfreight/distancefreightedit/distancefreightedit.component';
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
+import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewaybillextensionlist/ewaybillextensionlist.component';
+import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 
 
 
@@ -196,6 +198,9 @@ const routes: Routes = [
   { path: 'bankreco', component: BankreconcilationComponent },
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},
   { path: 'addeditdisttrip', component: DistancetripeditComponent},
+  { path: 'ewaybillext',component:EwaybillextensionlistComponent},
+  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent}
+
   
 ];
 
