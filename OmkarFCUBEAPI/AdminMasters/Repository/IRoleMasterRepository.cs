@@ -9,5 +9,6 @@ namespace AdminMasters.Repository
     public interface IRoleMasterRepository
     {
         Task<ResponseModel> RoleMasterSave(RoleMasterModel roleMasterModel);
+        Task<RoleTypeList> GetRoleTypeList(PageRequest request);
     }
 }

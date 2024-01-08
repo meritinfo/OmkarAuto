@@ -154,6 +154,11 @@ import { Distancefreighteditmodel } from './models/distancefreighteditmodel';
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 import { Distancetripeditmodel } from './models/distancetripeditmodel';
 import { Brsentrymodel } from './models/brsentrymodel';
+import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.component';
+import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
+import { Roletypemodel } from './models/roletypemodel';
+import { Passwordmodel } from './models/passwordmodel';
+import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
 
 @NgModule({
   declarations: [
@@ -248,6 +253,9 @@ import { Brsentrymodel } from './models/brsentrymodel';
     OpbrsentrylistComponent,
     DistancefreighteditComponent,
     DistancetripeditComponent,
+    AddroletypeComponent,
+    RoletypelistComponent,
+    ChangepasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -281,7 +289,7 @@ import { Brsentrymodel } from './models/brsentrymodel';
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

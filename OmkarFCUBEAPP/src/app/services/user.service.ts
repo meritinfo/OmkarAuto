@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Filtermodel } from '../models/filtermodel';
 import { Userlistmodel } from '../models/userlistmodel';
+import { Passwordmodel } from '../models/passwordmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +28,18 @@ export class UserService {
   }
 
   selectedUser = new Usermodel();
+  selectedUserPwd = new Passwordmodel();
 
   constructor(private httpClient: HttpClient) { }
 
   setUserDetails(user: Usermodel) {
     this.selectedUser = user;
+  }
+  setUserPassword(user: Passwordmodel) {
+    this.selectedUserPwd = user;
+  }
+  getUserPwdDetails() {
+    return this.selectedUserPwd;
   }
   getUserDetails() {
     return this.selectedUser;
@@ -46,6 +54,9 @@ export class UserService {
 
   userDetailsSubmitted(userMasterModel: Usermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', userMasterModel, this.httpOptions);
+  }
+  userPasswordSubmitted(userMasterModel: Passwordmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChangePassword', userMasterModel, this.httpOptions);
   }
 
   getUserMasterList(filter: Filtermodel): Observable<Userlistmodel> {

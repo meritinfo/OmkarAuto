@@ -23,6 +23,14 @@ namespace AdminMasters.Business
         {
             return await userRepository.UserMasterDetailsSave(userMasterModel);
         }
+        public async Task<ResponseModel> ChangePassword(PasswordModel passwordModel)
+        {
+            return await userRepository.ChangePassword(passwordModel);
+        }
+        public async Task<ResponseModel> CheckPassword(PasswordModel request)
+        {
+            return await userRepository.CheckPassword(request);
+        }
 
         /// <summary>
         /// Business method for Module list details

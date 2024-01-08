@@ -1,0 +1,152 @@
+import { Component } from '@angular/core';
+import { Responsemodel } from 'src/app/models/responsemodel';
+
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+
+import { Usermodel } from 'src/app/models/usermodel';
+import { Passwordmodel } from 'src/app/models/passwordmodel';
+import { CommonService } from 'src/app/services/common.service';
+import { UserService } from 'src/app/services/user.service';
+import { Constants } from 'src/app/common/constants';
+
+@Component({
+  selector: 'app-changepassword',
+  templateUrl: './changepassword.component.html',
+  styleUrls: ['./changepassword.component.css']
+})
+export class ChangepasswordComponent {
+  loggedInUserID: string = '';
+  formUser!: FormGroup;
+  userSubmitted = false;
+  responseDetails = new Responsemodel();
+  branchList: Dropdownmodel[] = [];
+  moduleList: Dropdownmodel[] = [];
+  roleTypeList: Dropdownmodel[] = [];
+  selectedUserDetails = new Usermodel();
+  selectedUserPwdDetails = new Passwordmodel();
+  imageData: [] = [];
+  imagePreview: [] = [];
+  imageName: string = '';
+  userPhotoData: [] = [];
+  userPhotoPreview: any;
+  userPhotoName: string = '';
+  editMode = false;
+  createmode  = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
+
+
+constructor(private route: Router, private formBuilder: FormBuilder, private pwdModel: Passwordmodel, private userService: UserService, private commonService: CommonService, private toastrService: ToastrService) {
+  this.pwdModel = new Passwordmodel();
+}
+ngOnInit(): void {
+ 
+
+
+  var userData = sessionStorage.getItem('uid')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.loggedInUserID = userData;
+  }
+  if (this.loggedInUserID) {
+    console.log(this.loggedInUserID);
+  }
+  else {
+    this.route.navigate(['/']);
+  }
+
+
+
+  this.selectedUserPwdDetails = this.userService.getUserPwdDetails();
+  this.formUser = this.formBuilder.group({
+    userName: new FormControl('', [Validators.required]),
+    userPassword: new FormControl('', Validators.required),
+    oldPassword: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required]),
+
+  });
+
+  if (this.selectedUserDetails.userId != '') {
+    setTimeout(() => {
+    this.formUser.patchValue(this.selectedUserDetails);
+    this.formUser.patchValue({
+
+
+    })
+  }, 2000);
+  }
+}
+get f() { return this.formUser.controls; }
+
+  //Get Branch List details //
+
+
+  //Get Module List details //
+
+
+
+  // alphanumericOnly
+  alphaNumberOnly(e: any) {  // Accept only alpha numerics, not special characters 
+    var regex = new RegExp("[a-zA-Z0-9]");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+      return true;
+    } else {
+      e.preventDefault();
+      return false;
+    }
+  }
+  checkPassword() {
+
+
+    this.pwdModel.oldPassword = this.formUser.value.oldPassword;
+    this.commonService.checkPassword(this.pwdModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (!this.responseDetails.status) {
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          oldPassword: ''
+        });
+      }
+    });
+  
+  }
+
+  /* Set County as Required based on Country Selected */
+
+ 
+  exit(): void {
+    this.route.navigate(['/userlist']);
+  }
+  
+
+  //Submit user form details //
+  submitUserPwdForm(): void {
+   // this.userSubmitted = true;
+  //  if (this.formUser.invalid) {
+   //   return;
+  //  }
+ //   this.pwdModel.userId = this.selectedUserPwdDetails.userId != '' ? this.selectedUserPwdDetails.userId : '';
+ this.pwdModel.userId= this.loggedInUserID
+    this.pwdModel.userPassword= this.formUser.value.userPassword;
+   // this.pwdModel.roleDesc = this.formRoleType.value.roleDesc;
+
+   // this.roletypemodel.loggedInUser = this.formRoleType.value.loggedInUser;
+  
+  
+    this.userService.userPasswordSubmitted(this.pwdModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      console.log(this.responseDetails.message);
+      this.formUser.reset();
+      window.location.reload();
+    });
+  
+    }
+  
+}
+
