@@ -154,6 +154,10 @@ import { Distancefreighteditmodel } from './models/distancefreighteditmodel';
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 import { Distancetripeditmodel } from './models/distancetripeditmodel';
 import { Brsentrymodel } from './models/brsentrymodel';
+import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewaybillextensionlist/ewaybillextensionlist.component';
+import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
+import { Ewaybillextlistmodel } from './models/ewaybillextlistmodel';
+import { Ewaybillextmodel } from './models/ewaybillextmodel';
 import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.component';
 import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
 import { Roletypemodel } from './models/roletypemodel';
@@ -253,6 +257,8 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
     OpbrsentrylistComponent,
     DistancefreighteditComponent,
     DistancetripeditComponent,
+    EwaybillextensionlistComponent,
+    EwaybillextensionaddComponent,
     AddroletypeComponent,
     RoletypelistComponent,
     ChangepasswordComponent,
@@ -289,6 +295,9 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
+    Ewaybillextlistmodel,Ewaybillextmodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
+    Fleetcardmastermodel,Brsentrymodel],
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

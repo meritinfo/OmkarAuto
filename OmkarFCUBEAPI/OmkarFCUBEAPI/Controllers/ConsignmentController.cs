@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using Shared.Models;
+using Consignment.Repository;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace OmkarFCUBEAPI.Controllers
     public class ConsignmentController : ControllerBase
     {
         readonly IConsignmentBusiness consignmentBusiness;
-  
-        public ConsignmentController(IConsignmentBusiness _consignmentBusiness)
+        readonly IEwayBillBusiness ewayBillBusiness;
+        public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
+            IEwayBillBusiness _ewayBillBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
+            ewayBillBusiness = _ewayBillBusiness;
         }
         /// <summary>
 
@@ -284,6 +287,42 @@ namespace OmkarFCUBEAPI.Controllers
             {
                 var result = await consignmentBusiness.GetLocationList();
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEWayBillExtList")]
+        public async Task<IActionResult> GetEWayBillExtList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillBusiness.GetEWayBillExtList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EWayBillExtend")]
+        public async Task<IActionResult> EWayBillExtend(EwayBillExtModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillBusiness.EWayBillExtend(request);
                 return Ok(result);
             }
             catch (Exception ex)
