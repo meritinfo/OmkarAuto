@@ -21,6 +21,9 @@ import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrene
 import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
 import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
+import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.component';
+import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
+
 import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
@@ -80,6 +83,7 @@ import { DistancefreighteditComponent } from './module/distancemasterfreight/dis
 import { DistancetripeditComponent } from './module/distancemastertrip/distancetripedit/distancetripedit.component';
 import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewaybillextensionlist/ewaybillextensionlist.component';
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
+import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 
 
@@ -116,6 +120,9 @@ const routes: Routes = [
   { path: 'addratetypes', component: AddratetypesComponent },
   { path: 'ratetypesedit', component: AddratetypesComponent },
   { path: 'ratetypeslist', component: RatetypeslistComponent },
+  { path: 'addroletype', component: AddroletypeComponent },
+  { path: 'roletypeedit', component: AddroletypeComponent },
+  { path: 'roletypelist', component: RoletypelistComponent },
   { path: 'addlrbillseries', component: AddlrbillseriesComponent },
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },
@@ -203,6 +210,7 @@ const routes: Routes = [
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
   { path: 'roleprivileges',component:RoleprivilegesComponent}
 
+  { path: 'changepassword', component: ChangepasswordComponent},
   
 ];
 

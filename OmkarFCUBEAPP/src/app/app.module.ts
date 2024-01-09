@@ -158,6 +158,11 @@ import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewayb
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 import { Ewaybillextlistmodel } from './models/ewaybillextlistmodel';
 import { Ewaybillextmodel } from './models/ewaybillextmodel';
+import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.component';
+import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
+import { Roletypemodel } from './models/roletypemodel';
+import { Passwordmodel } from './models/passwordmodel';
+import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 import { Roleprivilegeslistmodel } from './models/roleprivilegeslistmodel';
 import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
@@ -257,6 +262,9 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     DistancetripeditComponent,
     EwaybillextensionlistComponent,
     EwaybillextensionaddComponent,
+    AddroletypeComponent,
+    RoletypelistComponent,
+    ChangepasswordComponent,
     RoleprivilegesComponent,
   ],
   imports: [
@@ -295,6 +303,7 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
     Fleetcardmastermodel,Brsentrymodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

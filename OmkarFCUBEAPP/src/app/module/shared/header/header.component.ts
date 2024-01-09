@@ -64,6 +64,11 @@ export class HeaderComponent {
     sessionStorage.clear();
     this.route.navigate(['']);
   }
+  changePwd(): void {
+ 
+    this.route.navigate(['/changepassword']);
+  }
+    
 
   // don't forget to unsubscribe when the Observable is not necessary anymore 
   ngOnDestroy(): void {

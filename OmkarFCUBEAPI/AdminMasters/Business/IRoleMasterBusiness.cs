@@ -9,5 +9,6 @@ namespace AdminMasters.Business
     public interface IRoleMasterBusiness
     {
         Task<ResponseModel> RoleMasterSave(RoleMasterModel roleMasterModel);
+        Task<RoleTypeList> GetRoleTypeList(PageRequest request);
     }
 }

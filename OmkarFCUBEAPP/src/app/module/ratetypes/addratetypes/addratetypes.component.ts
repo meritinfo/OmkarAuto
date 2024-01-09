@@ -23,6 +23,7 @@ export class AddratetypesComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+
   responseDetails = new Responsemodel();
 
 

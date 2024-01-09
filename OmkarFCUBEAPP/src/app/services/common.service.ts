@@ -143,6 +143,9 @@ export class CommonService {
   checkDuplicateCardNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateCardNo', payload, this.httpOptions);
   }
+  checkPassword(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Admin/CheckPassword', payload, this.httpOptions);
+  }
   checkDuplicateCardCode(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateCardCode', payload, this.httpOptions);
   }

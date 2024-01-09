@@ -53,7 +53,9 @@
                         <td>{{ user.activeYN }}</td>
                       
                         <td>
-                          <a (click)="userDetails(user)" class="actionicon"><i class="bx bx-pencil"></i></a>
+                         
+                          <button type="button" class="btn btn-edit" 
+                          (click)="userDetails(user)"></button>    
                         <!--  <a (click)="deleteUser(user)" class="actionicon"><i class="bx bx-trash"></i></a>-->
                         </td>
                       </tr>

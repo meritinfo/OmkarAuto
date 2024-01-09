@@ -23,5 +23,9 @@ namespace AdminMasters.Business
         {
             return await roleMasterRepository.RoleMasterSave(roleMasterModel);
         }
+        public async Task<RoleTypeList> GetRoleTypeList(PageRequest request)
+        {
+            return await roleMasterRepository.GetRoleTypeList(request);
+        }
     }
 }

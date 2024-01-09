@@ -9,6 +9,8 @@ namespace AdminMasters.Business
     public interface IUserBusiness
     {
         Task<ResponseModel> UserMasterDetailsSave(UserMasterModel userMasterModel);
+        Task<ResponseModel> ChangePassword(PasswordModel passwordModel);
+        Task<ResponseModel> CheckPassword(PasswordModel request);
         Task<List<DropDownListModel>> GetModuleList();
         Task<UserMasterList> GetUserMasterList(PageRequest request);
         Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);

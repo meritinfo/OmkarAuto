@@ -5,6 +5,8 @@ using System;
 using AdminMasters.Business;
 using AdminMasters.Models;
 using Shared.Models;
+using FleetMasters.Business;
+using FleetMasters.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -42,6 +44,38 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await userBusiness.UserMasterDetailsSave(userMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(PasswordModel passwordModel)
+        {
+            if (passwordModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await userBusiness.ChangePassword(passwordModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckPassword")]
+        public async Task<IActionResult> CheckPassword(PasswordModel request)
+        {
+            try
+            {
+                var result = await userBusiness.CheckPassword(request);
 
                 return Ok(result);
             }
@@ -122,6 +156,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await userBusiness.GetUserMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetRoleMasterList")]
+        public async Task<IActionResult> GetRoleTypeList(PageRequest request)
+        {
+            try
+            {
+                var result = await roleMasterBusiness.GetRoleTypeList(request);
 
                 return Ok(result);
             }
