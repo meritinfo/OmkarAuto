@@ -193,9 +193,9 @@ export class RoleprivilegesComponent {
     for (var i = 0; i < selectedDataVal.masterList.length; i++) {
       
       var view = selectedDataVal.masterList[i].viewYN;
-      if(selectedDataVal.masterList[i].createYN=="Y"|| 
+      if(view=="N" && (selectedDataVal.masterList[i].createYN=="Y"|| 
         selectedDataVal.masterList[i].editYN=="Y"|| 
-        selectedDataVal.masterList[i].deleteYN=="Y")
+        selectedDataVal.masterList[i].deleteYN=="Y"))
       {
         view = "Y";
       }
