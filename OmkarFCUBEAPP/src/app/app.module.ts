@@ -297,7 +297,7 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
     Requestmodel,Pagerequestwithdatesmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
-    Fleetcardmastermodel,Brsentrymodel],
+    Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

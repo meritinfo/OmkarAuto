@@ -142,7 +142,7 @@ namespace AdminMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@UserPassword", request.UserPassword),
+                            new SqlParameter("@UserPassword", request.OldPassword),
                            //  new SqlParameter("@ConfirmPassword", request.ConfirmPassword),
 
 

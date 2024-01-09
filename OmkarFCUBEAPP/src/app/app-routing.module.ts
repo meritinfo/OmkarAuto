@@ -206,9 +206,9 @@ const routes: Routes = [
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},
   { path: 'addeditdisttrip', component: DistancetripeditComponent},
   { path: 'ewaybillext',component:EwaybillextensionlistComponent},
-  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent}
+  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
 
-  { path: 'changepassword', component: ChangepasswordComponent},
+  { path: 'changepassword', component: ChangepasswordComponent}
   
 ];
 
