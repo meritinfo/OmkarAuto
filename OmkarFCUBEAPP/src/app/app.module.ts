@@ -301,9 +301,8 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     Requestmodel,Pagerequestwithdatesmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
-    Fleetcardmastermodel,Brsentrymodel],
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
+    Driversalarydetailmodel,Driversalarystatementmodel,
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
