@@ -211,7 +211,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()">Save</button>
+                            <button type="submit" class="btn btn-primary w-md" (click)="saveStatementDetails()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
                               <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="driverSalaryDelete()">Delete</button>
                                 <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>

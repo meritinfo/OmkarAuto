@@ -81,7 +81,7 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                    <button class="btn btn-primary buttons-html5" type="button" (click)="consignmentAdd()"><span>New</span></button>
+                    <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus" (click)="consignmentAdd()"><span>New</span></button>
                 </div>
             </div>
           
