@@ -116,6 +116,12 @@ export class RoleprivilegesComponent {
     this.getRolePrivileges(selectedValue);
   }
 
+  onDropDownChange(i:number,e: any) {
+    var selectedValue = e.target.value;
+    if (selectedValue=="Y"){
+      this.formMasterArray.controls[i].get("viewYN")?.setValue("Y")
+    }
+  }
 
   getRolePrivileges(roleid: string)
   {
@@ -185,13 +191,22 @@ export class RoleprivilegesComponent {
     this.roleprivilegeslistmodel.rolePrivilegesReportList = [];
 
     for (var i = 0; i < selectedDataVal.masterList.length; i++) {
+      
+      var view = selectedDataVal.masterList[i].viewYN;
+      if(selectedDataVal.masterList[i].createYN=="Y"|| 
+        selectedDataVal.masterList[i].editYN=="Y"|| 
+        selectedDataVal.masterList[i].deleteYN=="Y")
+      {
+        view = "Y";
+      }
+
       this.roleprivilegeslistmodel.rolePrivilegesMasterList.push({
         'roleId': selectedDataVal.roleId,
         'moduleId': selectedDataVal.masterList[i].moduleId,
         'menuId' : selectedDataVal.masterList[i].menuId,
         'createYN': selectedDataVal.masterList[i].createYN,
         'editYN': selectedDataVal.masterList[i].editYN,
-        'viewYN': selectedDataVal.masterList[i].viewYN,
+        'viewYN': view,
         'deleteYN': selectedDataVal.masterList[i].deleteYN,
         'printYN': selectedDataVal.masterList[i].printYN,
         'moduleName': '',
