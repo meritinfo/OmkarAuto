@@ -158,6 +158,9 @@ import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewayb
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 import { Ewaybillextlistmodel } from './models/ewaybillextlistmodel';
 import { Ewaybillextmodel } from './models/ewaybillextmodel';
+import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
+import { Roleprivilegeslistmodel } from './models/roleprivilegeslistmodel';
+import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
 
 @NgModule({
   declarations: [
@@ -254,6 +257,7 @@ import { Ewaybillextmodel } from './models/ewaybillextmodel';
     DistancetripeditComponent,
     EwaybillextensionlistComponent,
     EwaybillextensionaddComponent,
+    RoleprivilegesComponent,
   ],
   imports: [
     BrowserModule,
@@ -288,6 +292,7 @@ import { Ewaybillextmodel } from './models/ewaybillextmodel';
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
     Requestmodel,Pagerequestwithdatesmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
+    Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
     Fleetcardmastermodel,Brsentrymodel],
   bootstrap: [AppComponent]

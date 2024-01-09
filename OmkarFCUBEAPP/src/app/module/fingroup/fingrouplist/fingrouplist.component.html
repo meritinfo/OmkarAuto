@@ -42,7 +42,7 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
                     </div>
-                   <button class="btn btn-primary buttons-html5" type="button" *ngif="createStatus"
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                         (click)="addfingroup()"><span>New</span></button>
                 </div>
             </div>
@@ -60,7 +60,7 @@
                         <tr *ngFor="let grp of allFingrouplistTypes.finGroupList">
                             <td>{{ grp.groupName }}</td>
                             <td>{{ grp.accountType }}</td>
-                            <td>{{ grp.subAccountName }}</td>                         
+                            <td>{{ grp.subAccountName }}</td>  
                             <td>
                                 <button type="button" class="btn btn-edit" 
                                 (click)="getFingroupDetails(grp)"></button>             

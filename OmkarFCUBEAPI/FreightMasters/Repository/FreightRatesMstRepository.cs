@@ -61,11 +61,10 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < freightRatesMstModel.freightRatesDetailsList.Count; i++)
                         {
-
                             freightRatesMstModel.freightRatesDetailsList[i].Index = i.ToString();
                             freightRatesMstModel.freightRatesDetailsList[i].MasterID=MasterID.ToString();
                             freightRatesMstModel.freightRatesDetailsList[i].RateTypeId=freightRatesMstModel.RateTypeId.ToString();
-                           responseModel = await FreightRatesDtlSave(freightRatesMstModel.freightRatesDetailsList[i]);
+                            responseModel = await FreightRatesDtlSave(freightRatesMstModel.freightRatesDetailsList[i]);
                         }
                     }
                 }
@@ -94,12 +93,12 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DtlId", freightRatesDtlModel.DtlId),
-                            new SqlParameter("@MasterID", freightRatesDtlModel.MasterID),
-                            new SqlParameter("@DestState", freightRatesDtlModel.DestState),
-                            new SqlParameter("@ToPlace", freightRatesDtlModel.ToPlace),
+                            new SqlParameter("@DtlId",      freightRatesDtlModel.DtlId),
+                            new SqlParameter("@MasterID",   freightRatesDtlModel.MasterID),
+                            new SqlParameter("@DestState",  freightRatesDtlModel.DestState),
+                            new SqlParameter("@ToPlace",    freightRatesDtlModel.ToPlace),
                             new SqlParameter("@RateTypeId", freightRatesDtlModel.RateTypeId),
-                            new SqlParameter("@Rate", freightRatesDtlModel.Rate),
+                            new SqlParameter("@Rate",       freightRatesDtlModel.Rate),
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FreightRatesDtlsSave", param);
@@ -131,8 +130,6 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
-
 
         public async Task<FreightRatesMstList> GetFreightRatesList(PageRequest request)
         {

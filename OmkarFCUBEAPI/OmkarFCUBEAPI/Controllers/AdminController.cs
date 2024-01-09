@@ -15,12 +15,17 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IUserBusiness userBusiness;
         readonly IRoleMasterBusiness roleMasterBusiness;
+        readonly IRolePrivilegesBusiness rolePrivilegesBusiness;
         readonly IMenuFormTypesBusiness menuFormTypesBusiness;
-        public AdminController(IUserBusiness _userBusiness,IRoleMasterBusiness _roleMasterBusiness, IMenuFormTypesBusiness _menuFormTypeBusiness)
+        public AdminController(IUserBusiness _userBusiness,
+            IRoleMasterBusiness _roleMasterBusiness, 
+            IMenuFormTypesBusiness _menuFormTypeBusiness,
+            IRolePrivilegesBusiness _rolePrivilegesBusiness)
         {
             userBusiness = _userBusiness;
             roleMasterBusiness = _roleMasterBusiness;
             menuFormTypesBusiness = _menuFormTypeBusiness;
+            rolePrivilegesBusiness = _rolePrivilegesBusiness;
         }
 
         /// <summary>
@@ -197,5 +202,45 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetRolePrivileges")]
+        public async Task<IActionResult> GetRolePrivileges(Request request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rolePrivilegesBusiness.GetRolePrivileges(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("RolePrivilegesListSave")]
+        public async Task<IActionResult> RolePrivilegesListSave(RolePrivilegesListModel rolePrivilegesList)
+        {
+            if (rolePrivilegesList == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await rolePrivilegesBusiness.RolePrivilegesListSave(rolePrivilegesList);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }      
+
     }
 }
