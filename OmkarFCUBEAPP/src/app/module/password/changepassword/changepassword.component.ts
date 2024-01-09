@@ -12,6 +12,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
 import { Constants } from 'src/app/common/constants';
 
+
 @Component({
   selector: 'app-changepassword',
   templateUrl: './changepassword.component.html',
@@ -64,7 +65,7 @@ ngOnInit(): void {
 
   this.selectedUserPwdDetails = this.userService.getUserPwdDetails();
   this.formUser = this.formBuilder.group({
-    userName: new FormControl('', [Validators.required]),
+    userName: new FormControl('', ),
     userPassword: new FormControl('', Validators.required),
     oldPassword: new FormControl('', [Validators.required]),
     confirmPassword: new FormControl('', [Validators.required]),
@@ -116,6 +117,25 @@ get f() { return this.formUser.controls; }
     });
   
   }
+  checkCnfPassword() {
+
+
+    this.pwdModel.userPassword = this.formUser.value.userPassword;
+    this.pwdModel.confirmPassword = this.formUser.value.confirmPassword;
+   if( this.pwdModel.userPassword != this.pwdModel.confirmPassword){
+
+   
+    
+     
+        this.toastrService.warning("password does not match to confirm password");
+        this.formUser.patchValue({
+          confirmPassword: ''
+        });
+      }
+    
+  
+  
+  }
 
   /* Set County as Required based on Country Selected */
 
@@ -127,10 +147,11 @@ get f() { return this.formUser.controls; }
 
   //Submit user form details //
   submitUserPwdForm(): void {
-   // this.userSubmitted = true;
-  //  if (this.formUser.invalid) {
-   //   return;
-  //  }
+    this.userSubmitted = true;
+    if (this.formUser.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields ");
+     return;
+    }
  //   this.pwdModel.userId = this.selectedUserPwdDetails.userId != '' ? this.selectedUserPwdDetails.userId : '';
  this.pwdModel.userId= this.loggedInUserID
     this.pwdModel.userPassword= this.formUser.value.userPassword;
@@ -142,6 +163,7 @@ get f() { return this.formUser.controls; }
     this.userService.userPasswordSubmitted(this.pwdModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       console.log(this.responseDetails.message);
+      this.toastrService.success(this.responseDetails.message);
       this.formUser.reset();
       window.location.reload();
     });
