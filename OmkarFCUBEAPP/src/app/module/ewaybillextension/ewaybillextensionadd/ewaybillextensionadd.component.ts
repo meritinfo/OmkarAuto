@@ -44,7 +44,7 @@ export class EwaybillextensionaddComponent {
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Document Renewals Master");
+        .find((aa: { menuName: string; }) => aa.menuName === "Ewaybill Extention");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -124,7 +124,7 @@ export class EwaybillextensionaddComponent {
           this.formUser.controls['accountAddress1'].disable();
           this.formUser.controls['accountAddress2'].disable();
           this.formUser.controls['accountAddress3'].disable();
-          
+
           this.editMode = true;
         }          
       }, 2000);

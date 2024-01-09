@@ -84,6 +84,7 @@ import { DistancetripeditComponent } from './module/distancemastertrip/distancet
 import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewaybillextensionlist/ewaybillextensionlist.component';
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
+import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 
 
 
@@ -206,6 +207,8 @@ const routes: Routes = [
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},
   { path: 'addeditdisttrip', component: DistancetripeditComponent},
   { path: 'ewaybillext',component:EwaybillextensionlistComponent},
+  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
+  { path: 'roleprivileges',component:RoleprivilegesComponent}
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
 
   { path: 'changepassword', component: ChangepasswordComponent}

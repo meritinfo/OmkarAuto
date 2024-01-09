@@ -575,7 +575,7 @@
                     <div class="row text-right">
                         <div class="col-lg-12">
                             <div class="tex">
-                                <button class="btn btn-primary w-md" *ngIf="editStatus || createStatus"
+                                <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                     (click)="submitVehicleMasterForm()">Save</button>&nbsp;
                                 <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                     (click)="deleteVehicleMasterForm()">Delete</button>&nbsp;
