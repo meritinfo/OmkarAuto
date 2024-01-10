@@ -219,9 +219,7 @@ const routes: Routes = [
   { path: 'ewaybillext',component:EwaybillextensionlistComponent},
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
   { path: 'roleprivileges',component:RoleprivilegesComponent},
-  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
-
-  { path: 'changepassword', component: ChangepasswordComponent}
+  { path: 'changepassword', component: ChangepasswordComponent},
   
 ];
 
