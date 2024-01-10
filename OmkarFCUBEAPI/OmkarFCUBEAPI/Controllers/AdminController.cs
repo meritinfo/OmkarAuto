@@ -17,15 +17,21 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IUserBusiness userBusiness;
         readonly IRoleMasterBusiness roleMasterBusiness;
+        readonly IHrMasterBusiness hrMasterBusiness;
+        readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IRolePrivilegesBusiness rolePrivilegesBusiness;
         readonly IMenuFormTypesBusiness menuFormTypesBusiness;
         public AdminController(IUserBusiness _userBusiness,
-            IRoleMasterBusiness _roleMasterBusiness, 
+            IRoleMasterBusiness _roleMasterBusiness,
+             IHrMasterBusiness _hrMasterBusiness,
+              IPtSlabMasterBusiness _ptSlabMasterBusiness,
             IMenuFormTypesBusiness _menuFormTypeBusiness,
             IRolePrivilegesBusiness _rolePrivilegesBusiness)
         {
             userBusiness = _userBusiness;
             roleMasterBusiness = _roleMasterBusiness;
+            hrMasterBusiness = _hrMasterBusiness;
+            ptSlabMasterBusiness = _ptSlabMasterBusiness;
             menuFormTypesBusiness = _menuFormTypeBusiness;
             rolePrivilegesBusiness = _rolePrivilegesBusiness;
         }
@@ -98,6 +104,70 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await roleMasterBusiness.RoleMasterSave(roleMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("HrMasterSave")]
+        public async Task<IActionResult> HrMasterSave(HrMasterModel hrMasterModel)
+        {
+            if (hrMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await hrMasterBusiness.HrMasterSave(hrMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("PtSlabMasterSave")]
+        public async Task<IActionResult> PtSlabMasterSave(PtSlabMasterModel ptSlabMasterModel)
+        {
+            if (ptSlabMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ptSlabMasterBusiness.PtSlabMasterSave(ptSlabMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetHrMasterList")]
+        public async Task<IActionResult> GetHrMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await hrMasterBusiness.GetHrMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPtSlabMasterList")]
+        public async Task<IActionResult> GetPtSlabMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await ptSlabMasterBusiness.GetPtSlabMasterList(request);
 
                 return Ok(result);
             }

@@ -23,6 +23,8 @@ import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetyp
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
 import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.component';
 import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
+import { AddhrmasterComponent } from './module/hrmaster/addhrmaster/addhrmaster.component';
+import { HrmasterlistComponent } from './module/hrmaster/hrmasterlist/hrmasterlist.component';
 
 import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
@@ -85,6 +87,8 @@ import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewayb
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
+import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
+import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 
 
 
@@ -123,6 +127,12 @@ const routes: Routes = [
   { path: 'addroletype', component: AddroletypeComponent },
   { path: 'roletypeedit', component: AddroletypeComponent },
   { path: 'roletypelist', component: RoletypelistComponent },
+  { path: 'addhrmaster', component: AddhrmasterComponent },
+  { path: 'hrmasteredit', component: AddhrmasterComponent },
+  { path: 'ptslabmasterlist', component: PtslabmasterlistComponent },
+  { path: 'addptslabmaster', component: AddptslabmasterComponent },
+  { path: 'ptslabmasteredit', component: AddptslabmasterComponent },
+  { path: 'hrmasterlist', component: HrmasterlistComponent },
   { path: 'addlrbillseries', component: AddlrbillseriesComponent },
   { path: 'lrbillseriesedit', component: AddlrbillseriesComponent },
   { path: 'lrbillserieslist', component: LrbillserieslistComponent },

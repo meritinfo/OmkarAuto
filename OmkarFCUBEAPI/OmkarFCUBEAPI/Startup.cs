@@ -92,6 +92,10 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IBillStatementBusiness, BillStatementBusiness>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
+            services.AddScoped<IHrMasterBusiness, HrMasterBusiness>();
+            services.AddScoped<IHrMasterRepository, HrMasterRepository>();
+            services.AddScoped<IPtSlabMasterBusiness, PtSlabMasterBusiness>();
+            services.AddScoped<IPtSlabmasterRepository, PtSlabmasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();
             services.AddScoped<IMenuFormTypesRepository, MenuFormTypesRepository>();
             services.AddScoped<IHRMasterBusiness, HRMasterBusiness>();
