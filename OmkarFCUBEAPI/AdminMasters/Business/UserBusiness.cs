@@ -39,6 +39,10 @@ namespace AdminMasters.Business
         {
             return await userRepository.GetModuleList();
         }
+        public async Task<List<DropDownListModel>> GetHrTypeList()
+        {
+            return await userRepository.GetHrTypeList();
+        }
 
         /// <summary>
         /// Business method for Module list details

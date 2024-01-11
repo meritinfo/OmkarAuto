@@ -7,6 +7,12 @@ using AdminMasters.Models;
 using Shared.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
+using System.Data;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -15,19 +21,21 @@ namespace OmkarFCUBEAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IUserBusiness userBusiness;
         readonly IRoleMasterBusiness roleMasterBusiness;
         readonly IHrMasterBusiness hrMasterBusiness;
         readonly IPtSlabMasterBusiness ptSlabMasterBusiness;
         readonly IRolePrivilegesBusiness rolePrivilegesBusiness;
         readonly IMenuFormTypesBusiness menuFormTypesBusiness;
-        public AdminController(IUserBusiness _userBusiness,
+        public AdminController(IOptions<DBModel> _dbconnection, IUserBusiness _userBusiness,
             IRoleMasterBusiness _roleMasterBusiness,
              IHrMasterBusiness _hrMasterBusiness,
               IPtSlabMasterBusiness _ptSlabMasterBusiness,
             IMenuFormTypesBusiness _menuFormTypeBusiness,
             IRolePrivilegesBusiness _rolePrivilegesBusiness)
         {
+            dbconnection = _dbconnection;
             userBusiness = _userBusiness;
             roleMasterBusiness = _roleMasterBusiness;
             hrMasterBusiness = _hrMasterBusiness;
@@ -41,16 +49,32 @@ namespace OmkarFCUBEAPI.Controllers
         /// </summary>
         /// <param name="userMasterModel"></param>
         [HttpPost("UserMasterDetailsSave")]
-        public async Task<IActionResult> UserMasterDetailsSave(UserMasterModel userMasterModel)
+        public async Task<IActionResult> UserMasterDetailsSave()
         {
-            if (userMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
-                var result = await userBusiness.UserMasterDetailsSave(userMasterModel);
+                var userPhoto = HttpContext.Request.Form.Files["userPhoto"];
 
+            UserMasterModel userMasterModel = JsonConvert.DeserializeObject<UserMasterModel>(HttpContext.Request.Form["datadetails"]);
+            if (userPhoto != null)
+            {
+                string imageName = new String(Path.GetFileNameWithoutExtension(userPhoto.FileName)).Replace(" ", "-");
+                imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(userPhoto.FileName);
+                     var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/user/userphoto/" + imageName);
+                    //  var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "D:/OmkarFcube_New/OmkarFCUBEAPP/src/assets/upload/user/userphoto/" + imageName);
+                  //  var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/user/userphoto/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await userPhoto.CopyToAsync(fileStream);
+                    userMasterModel.ImageName = imageName;
+                }
+            }
+        //    if (userMasterModel == null)
+           // {
+            //    return BadRequest("Invalid request data");
+       //     }
+          
+                var result = await userBusiness.UserMasterDetailsSave(userMasterModel);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -208,6 +232,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await userBusiness.GetModuleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetHrTypeList")]
+        public async Task<IActionResult> GetHrTypeList()
+        {
+            try
+            {
+                var result = await userBusiness.GetHrTypeList();
 
                 return Ok(result);
             }

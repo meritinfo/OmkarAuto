@@ -8,6 +8,7 @@ import { Hrmastermodel } from 'src/app/models/hrmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { HrMasterService } from 'src/app/services/hrmaster.service';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { HrMasterService } from 'src/app/services/hrmaster.service';
 export class AddhrmasterComponent {
   loggedInUserID: string = '';
   formHrMaster!: FormGroup;
+  hrList: Dropdownmodel[] = [];
   userSubmitted = false;
   responseDetails = new Responsemodel();
   editMode = false;
@@ -57,7 +59,7 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
-
+  this.getHrTypeList();
   this.selectedHrMasterDetails = this.hrMasterService.getHrmasterDetails();
   this.formHrMaster = this.formBuilder.group({
     hrCode: new FormControl('',),
@@ -78,6 +80,11 @@ ngOnInit(): void {
   }
  
 
+}
+getHrTypeList(): void {
+  this.commonService.getHrTypeList().subscribe((res) => {
+    this.hrList = res;
+  });
 }
 exit(): void {
   this.route.navigate(['/hrmasterlist']);

@@ -29,6 +29,7 @@ export class UseraddComponent implements OnInit {
   imageName: string = '';
   userPhotoData: [] = [];
   userPhotoPreview: any;
+  userPhotoPreview1: any;
   userPhotoName: string = '';
   editMode = false;
   createmode  = true;
@@ -49,7 +50,7 @@ export class UseraddComponent implements OnInit {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Driver Master"));
+      .find((( aa: { menuName: string; }) => aa.menuName === "Create Users"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -73,6 +74,7 @@ export class UseraddComponent implements OnInit {
     this.getModuleList();
     this.getRoleTypeList();
    this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
+
     this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
       userName: new FormControl('', [Validators.required]),
@@ -92,11 +94,13 @@ export class UseraddComponent implements OnInit {
 
     if (this.selectedUserDetails.userId != '') {
       setTimeout(() => {
+        this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
+       // this.userPhotoPreview = '../upload/user/userphoto/'+this.selectedUserDetails.imageName;
       this.formUser.patchValue(this.selectedUserDetails);
       this.formUser.patchValue({
         userBranch: this.selectedUserDetails.branchList.split(','),
         userModule: this.selectedUserDetails.moduleList.split(','),
-       //role: this.roleTypeList.find(e => e.dataId == this.selectedUserDetails.roleId),
+  // role: this.roleTypeList.find(e => e.dataId == this.selectedUserDetails.roleId),
     role: this.selectedUserDetails.roleId,
     imageName:  this.selectedUserDetails.imageName,
 
@@ -223,23 +227,15 @@ export class UseraddComponent implements OnInit {
  // this.userModel.imageName= //this.userPhotoInput.nativeElement.files[0]
    // this.userModel.imageData = this.imageData;
     this.userModel.roleId = this.formUser.value.role;
-  
+    let formData = new FormData();
+    formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.userModel));
     if (this.userModel.userId === "") {
-      let formData = new FormData();
-      formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
-  
-      formData.append('datadetails', JSON.stringify(this.userModel));
-  
    
       this.userService.usernameValidation(this.formUser.value).subscribe((resname: Responsemodel) => {
         if (resname.status) {
           //this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
-            let formData = new FormData();
-            formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
-        
-            formData.append('datadetails', JSON.stringify(this.userModel));
-        
-            this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
+            this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if (this.responseDetails.status) {
               this.toastrService.success(this.responseDetails.message);
@@ -256,11 +252,7 @@ export class UseraddComponent implements OnInit {
       });
     }
     else {
-      let formData = new FormData();
-      formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
-  
-      formData.append('datadetails', JSON.stringify(this.userModel));
-      this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
+      this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.toastrService.success(this.responseDetails.message);

@@ -50,7 +50,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ISharedRepository, SharedRepository>();
             services.AddScoped<IDestinationMasterBusiness, DestinationMasterBusiness>();
             services.AddScoped<IDestinationMasterRepository, DestinationMasterRepository>();
-            //services.AddScoped<IDriverSalaryStatementRepository, DriverSalaryStatementRepository>();
+            //services.AddScoped<I
+            //SalaryStatementRepository, DriverSalaryStatementRepository>();
             //  services.AddScoped<IDriverSalaryStatementBusiness, DriverSalaryStatementBusiness>();
             services.AddScoped<IDriverSalaryStmtRepository, DriverSalaryStmtRepository>();
             services.AddScoped<IDriverSalaryStmtBusiness, DriverSalaryStmtBusiness>();

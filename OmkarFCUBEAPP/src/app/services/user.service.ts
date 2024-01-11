@@ -22,7 +22,6 @@ export class UserService {
 
   formDataOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
@@ -52,8 +51,8 @@ export class UserService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UsernameValidation', user, this.httpOptions);
   }
 
-  userDetailsSubmitted(userMasterModel: Usermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', userMasterModel, this.httpOptions);
+  userDetailsSubmitted(userMasterModel: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UserMasterDetailsSave', userMasterModel, this.formDataOptions);
   }
   userPasswordSubmitted(userMasterModel: Passwordmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/ChangePassword', userMasterModel, this.httpOptions);

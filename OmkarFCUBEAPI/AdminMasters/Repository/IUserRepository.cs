@@ -12,6 +12,7 @@ namespace AdminMasters.Repository
         Task<ResponseModel> ChangePassword(PasswordModel passwordModel);
         Task<ResponseModel> CheckPassword(PasswordModel request);
         Task<List<DropDownListModel>> GetModuleList();
+        Task<List<DropDownListModel>> GetHrTypeList();
         Task<UserMasterList> GetUserMasterList(PageRequest request);
         Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);
         Task<ResponseModel> DeleteUserDetails(string request);

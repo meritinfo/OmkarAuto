@@ -1554,6 +1554,7 @@ export class TripsheetaddComponent {
     }
 
   }
+  //drivercalaculation
   totalCalculation() {
     var selectedDataValue = this.formTripsheet.getRawValue();
     var repairsByDriver = selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0;
@@ -1596,7 +1597,8 @@ export class TripsheetaddComponent {
     clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
-    tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
+   // tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
+   tripBalance =  paidDriverAdvance-opBalDriver - totalDriverAc ;
     netTripBalance = tripBalance - recdFromDriver;
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({
@@ -1621,6 +1623,7 @@ export class TripsheetaddComponent {
 
 
   }
+  //drivercalculation
   totalCalculationForTicl(e: any) {
     var incentivechange = e;
 
@@ -1667,7 +1670,7 @@ export class TripsheetaddComponent {
    clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
-    tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
+  tripBalance = paidDriverAdvance-opBalDriver - totalDriverAc ;
     netTripBalance = tripBalance - recdFromDriver;
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({

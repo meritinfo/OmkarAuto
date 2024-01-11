@@ -59,14 +59,12 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="basicpill-phoneno-input">Hr type</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                formControlName="hrType"
-                                              >
-                                                <option selected="">Choose...</option>
-                                                <option value="1">Yes</option>
-                                                <option value="2">No</option>
-                                               
-                                            </select>
+                                                <select class="form-control" formControlName="hrType" autoclose="false"
+                                                [ngClass]="">
+                                                <option *ngFor="let state of hrList" value={{state.dataId}}>
+                                                    {{state.dataName}}
+                                                </option>
+                                             </select>
                                             </div>
                                         </div>
                                     </div>
