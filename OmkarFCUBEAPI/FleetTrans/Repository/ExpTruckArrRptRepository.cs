@@ -262,6 +262,8 @@ namespace FleetTrans.Repository
 
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
+                response.Status = false;
+                response.Message = ex.Message;
             }
             return response;
         }
