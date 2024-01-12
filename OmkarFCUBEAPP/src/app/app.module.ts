@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
+import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
 import { Destinationmodel } from './models/destinationmodel';
 import { Distancemasterfreightmodel } from './models/distancemasterfreightmodel';
@@ -166,10 +167,18 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 import { Roleprivilegeslistmodel } from './models/roleprivilegeslistmodel';
 import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
+import { AddhrmasterComponent } from './module/hrmaster/addhrmaster/addhrmaster.component';
+import { HrmasterlistComponent } from './module/hrmaster/hrmasterlist/hrmasterlist.component';
+import { Hrmastermodel } from './models/hrmastermodel';
+import { AddhrtypeComponent } from './module/hrtype/addhrtype/addhrtype.component';
 import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
 import { Reportmodel } from './models/reportmodel';
 import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
 import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
+
+import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
+import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
+import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 
 @NgModule({
   declarations: [
@@ -270,6 +279,12 @@ import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
     RoletypelistComponent,
     ChangepasswordComponent,
     RoleprivilegesComponent,
+    AddhrmasterComponent,
+    HrmasterlistComponent,
+    AddhrtypeComponent,
+    HrtypelistComponent,
+    PtslabmasterlistComponent,
+    AddptslabmasterComponent,
     ExptruckarrivalreportComponent,
   ],
   imports: [
@@ -306,6 +321,9 @@ import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
     Requestmodel,Pagerequestwithdatesmodel,Reportmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
+    Fleetcardmastermodel,Brsentrymodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],

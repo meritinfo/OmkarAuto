@@ -36,6 +36,7 @@
     <Folder Include="upload\driver\tempaddressprove\" />
     <Folder Include="upload\gstpurchase\attatchFile1\" />
     <Folder Include="upload\gstpurchase\attatchFile2\" />
+    <Folder Include="upload\user\userphoto\" />
   </ItemGroup>
 
   <ItemGroup>
