@@ -238,8 +238,12 @@ export class ExptruckarrivalreportComponent {
     this.exptruckarrivalService.getExptruckarrivalExcel(this.filter).subscribe(resp => {
       this.responseDetails=resp;
       if(resp.status){
-        var filename=this.responseDetails.message
-        //here code for Downloading Excel file 
+        var filename = this.responseDetails.message;
+        //here code for Downloading Excel file         
+        this.toastrService.success( "File Generated Successfully at " + filename );   
+      }
+      else{        
+        this.toastrService.warning(this.responseDetails.message);   
       }
     });
   }
