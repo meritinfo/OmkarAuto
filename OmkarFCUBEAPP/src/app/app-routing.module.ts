@@ -220,7 +220,7 @@ const routes: Routes = [
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
   { path: 'roleprivileges',component:RoleprivilegesComponent},
   { path: 'changepassword', component: ChangepasswordComponent},
-  { path: 'exptruckarrivalrpt', component: ExptruckarrivalreportComponent}, 
+  { path: 'exparrivals', component: ExptruckarrivalreportComponent}, 
   
 ];
 

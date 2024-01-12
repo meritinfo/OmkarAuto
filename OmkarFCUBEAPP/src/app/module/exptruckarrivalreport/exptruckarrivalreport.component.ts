@@ -71,7 +71,7 @@ export class ExptruckarrivalreportComponent {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Expected Truck Arrival Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Expected Arrivals Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -237,7 +237,11 @@ export class ExptruckarrivalreportComponent {
     this.filter.filterStr3 = "1";
     this.exptruckarrivalService.getExptruckarrivalExcel(this.filter).subscribe(resp => {
       this.responseDetails=resp;
-      });
+      if(resp.status){
+        var filename=this.responseDetails.message
+        //here code for Downloading Excel file 
+      }
+    });
   }
 
     
