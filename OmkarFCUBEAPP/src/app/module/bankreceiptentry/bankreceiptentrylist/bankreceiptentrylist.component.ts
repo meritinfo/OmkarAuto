@@ -101,7 +101,10 @@ export class BankreceiptentrylistComponent {
     });
     
     this.sharedService.loading=true;    
-    this.filter.search = 'BP';
+    this.filter.receiptOrPayment = 'BP';
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.branch = this.branch;
     this.bankReceiptEntry();
     this.sharedService.loading=false;
 
@@ -120,10 +123,7 @@ export class BankreceiptentrylistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.fromDate;
-        this.filter.toDate = this.loginDate;
-        this.filter.branch = this.branch;
+        this.filter.search="";
 
         this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
           .subscribe(resp => {
@@ -191,6 +191,7 @@ export class BankreceiptentrylistComponent {
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
+    this.filter.search="";
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "BP" :selectedDataVal.receiptOrPayment ;
     this.sharedService.loading=true;
     this.bankReceiptEntry();

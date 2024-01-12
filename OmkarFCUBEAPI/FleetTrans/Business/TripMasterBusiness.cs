@@ -50,7 +50,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverDetail(request);
         }
-        public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
+        public async Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request)
         {
             return await tripMasterRepository.GetTripSheetList(request);
         }

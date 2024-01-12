@@ -166,6 +166,10 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 import { Roleprivilegeslistmodel } from './models/roleprivilegeslistmodel';
 import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
+import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
+import { Reportmodel } from './models/reportmodel';
+import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
+import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
 
 @NgModule({
   declarations: [
@@ -266,6 +270,7 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     RoletypelistComponent,
     ChangepasswordComponent,
     RoleprivilegesComponent,
+    ExptruckarrivalreportComponent,
   ],
   imports: [
     BrowserModule,
@@ -298,10 +303,11 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
-    Requestmodel,Pagerequestwithdatesmodel,
+    Requestmodel,Pagerequestwithdatesmodel,Reportmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })
