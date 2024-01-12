@@ -192,7 +192,7 @@ export class AddcashreceiptentryComponent {
 
 
   addItem(index: number): void { 
-    if (this.formArray.value[index].accountId.dataId != "" && this.formArray.value[index].amount != "" 
+    if (this.formArray.value[index].accountID.dataId != "" && this.formArray.value[index].amount != "" 
       && this.formArray.value[index].narration != "" ) {
       this.formArray.push(this.createInitialArray());
     } 

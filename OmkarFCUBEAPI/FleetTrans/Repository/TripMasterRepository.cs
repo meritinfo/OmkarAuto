@@ -282,7 +282,7 @@ namespace FleetTrans.Repository
             }
             return driverList;
         }
-        public async Task<TripSheetList> GetTripSheetList(TripSheetListRequest request)
+        public async Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request)
         {
             TripSheetList tripSheetList = new();
             List<TripMasterModel> tripList = new();

@@ -37,7 +37,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@PinCode", destinationMasterModel.PinCode),
                             new SqlParameter("@LoggedInUser", destinationMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DestinationMasterDetails_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DestinationDetailsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

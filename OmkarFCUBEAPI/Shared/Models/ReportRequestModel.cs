@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace FleetTrans.Models
+namespace Shared.Models
 {
-    public class TripSheetListRequest
+    public class ReportRequestModel
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
@@ -15,7 +11,9 @@ namespace FleetTrans.Models
         public string Search { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
-        public string Branch { get; set; }
-        public string Vehicle { get; set; }
+        public string FilterStr { get; set; }
+        public string FilterStr1 { get; set; }
+        public string FilterStr2 { get; set; }
+        public string FilterStr3 { get; set; }
     }
 }

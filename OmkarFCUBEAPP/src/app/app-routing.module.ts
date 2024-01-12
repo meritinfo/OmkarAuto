@@ -89,6 +89,7 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
+import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
 
 
 
@@ -207,8 +208,7 @@ const routes: Routes = [
   { path: 'finaccountadd', component: FinaccountsmasteraddComponent },
   { path: 'finaccountedit', component: FinaccountsmasteraddComponent },
   { path: 'opbalancelist', component:  FinopenbalancelistComponent },
-  { path: 'opbalanceadd', component: FinopenbalanceaddComponent },
-  
+  { path: 'opbalanceadd', component: FinopenbalanceaddComponent },  
   { path: 'opbrsentrylist', component:  OpbrsentrylistComponent },
   { path: 'addbrsentry', component: AddbrsentryComponent },
   { path: 'editbrsentry', component: AddbrsentryComponent },
@@ -220,6 +220,7 @@ const routes: Routes = [
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
   { path: 'roleprivileges',component:RoleprivilegesComponent},
   { path: 'changepassword', component: ChangepasswordComponent},
+  { path: 'exptruckarrivalrpt', component: ExptruckarrivalreportComponent}, 
   
 ];
 

@@ -15,6 +15,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Consignment.Business;
+using System.Xml.Linq;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -31,8 +32,14 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IBillStatementBusiness billStatementBusiness;
         //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
+        readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, IDieselStatementBusiness _dieselStatementBusiness, IBillStatementBusiness _billStatementBusiness, IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness)
+        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
+            ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
+            IDieselStatementBusiness _dieselStatementBusiness, 
+            IBillStatementBusiness _billStatementBusiness, 
+            IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
+            IExpTruckArrRptBusiness _expTruckArrRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -40,6 +47,7 @@ namespace OmkarFCUBEAPI.Controllers
             dieselStatementBusiness = _dieselStatementBusiness;
             billStatementBusiness = _billStatementBusiness;
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
+            expTruckArrRptBusiness = _expTruckArrRptBusiness;
         }
 
        
@@ -87,7 +95,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTripSheetList")]
-        public async Task<IActionResult> GetTripSheetList(TripSheetListRequest request)
+        public async Task<IActionResult> GetTripSheetList(PageRequestDtBrVh request)
         {
             try
             {
@@ -751,6 +759,44 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await docRenewalEntryBusiness.ChkDocrenewalValidity(docRenewalEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetExpTruckArrRPTList")]
+        public async Task<IActionResult> GetExpTruckArrRPTList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await expTruckArrRptBusiness.GetExpTruckArrRPTList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ExcelExpTruckArrRPTList")]
+        public async Task<IActionResult> ExcelExpTruckArrRPTList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await expTruckArrRptBusiness.ExcelExpTruckArrRPTList(request);
 
                 return Ok(result);
             }
