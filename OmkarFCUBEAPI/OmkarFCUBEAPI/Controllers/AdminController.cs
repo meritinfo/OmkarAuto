@@ -63,7 +63,7 @@ namespace OmkarFCUBEAPI.Controllers
                      var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/user/userphoto/" + imageName);
                     //  var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "D:/OmkarFcube_New/OmkarFCUBEAPP/src/assets/upload/user/userphoto/" + imageName);
                   //  var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/user/userphoto/" + imageName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await userPhoto.CopyToAsync(fileStream);
                     userMasterModel.ImageName = imageName;
