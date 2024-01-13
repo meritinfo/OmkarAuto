@@ -39,6 +39,12 @@ export class TripPaymentsService {
   trippaymentDetailsSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSave', user, this.httpOptions);
   }
+  trippaymentEditSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsEdit', user, this.httpOptions);
+  }
+  trippaymentSaveSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSaveNew', user, this.httpOptions);
+  }
   getTripPaymentsList(filter: Filtermodel): Observable<Trippaymentslistmodel> {
     return this.httpClient.post<Trippaymentslistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPaymentsList', filter, this.httpOptions);
   }

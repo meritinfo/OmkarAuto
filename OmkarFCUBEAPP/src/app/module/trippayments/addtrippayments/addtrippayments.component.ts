@@ -565,8 +565,15 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.yearId = this.year;
     this.ttype = this.formTripPayment.value.transType;
     this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
-    
-    this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+    if( this.trippaymentsmodel.pmtId!=''){
+      this.tripPaymentsService.trippaymentEditSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+  
+
+    });
+    }
+ //   this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+  this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
 
       console.log(this.responseDetails.message);
