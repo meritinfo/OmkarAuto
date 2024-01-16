@@ -139,7 +139,8 @@ export class AddtrippaymentsComponent {
       pmtType: new FormControl('', [Validators.required]),
       neftPmt: new FormControl('',),
       creditAc: new FormControl('', [Validators.required]),
-      chequeNo: new FormControl('', [Validators.required]),
+     // chequeNo: new FormControl('', [Validators.required]),
+     chequeNo: new FormControl(''),
       chequeDate: new FormControl(this.loginDate , [Validators.required]),
       findocid: new FormControl('',),
       adjInTrip: new FormControl('',),
@@ -208,8 +209,9 @@ export class AddtrippaymentsComponent {
        this.formTripPayment.controls['pmtBranch'].disable();
 
     this.formTripPayment.controls['pmtDate'].disable();
+    this.editMode = true;
   }, 2000);
-  this.editMode = true;
+
   this.sharedService.loading = false;
 
   }
@@ -505,7 +507,7 @@ export class AddtrippaymentsComponent {
 
     }
     else{
-      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+    //  this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
      // this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
     }
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
@@ -572,15 +574,17 @@ export class AddtrippaymentsComponent {
 
     });
     }
+    else{
  //   this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
   this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
 
       console.log(this.responseDetails.message);
-    
+  
       this.formTripPayment.reset();
    
       window.location.reload();
     });
   }
+}
 }
