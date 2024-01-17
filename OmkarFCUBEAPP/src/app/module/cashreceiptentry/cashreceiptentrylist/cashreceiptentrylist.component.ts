@@ -102,7 +102,10 @@ export class CashreceiptentrylistComponent {
     });
     
     this.sharedService.loading=true;
-    this.filter.search = 'CP';
+    this.filter.receiptOrPayment = 'CP';
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.branch = this.branch;
     this.cashReceiptEntry();
     this.sharedService.loading=false;
   }
@@ -121,10 +124,7 @@ export class CashreceiptentrylistComponent {
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
           this.filter.sortOrder = dataTablesParameters.order[0].dir;
-          // this.filter.search = dataTablesParameters.search.value;
-          this.filter.fromDate = this.fromDate;
-          this.filter.toDate = this.loginDate;
-          this.filter.branch = this.branch;
+          this.filter.search = '';
           this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
              this.allCashReceiptEntry = resp;
               callback({
@@ -192,6 +192,7 @@ export class CashreceiptentrylistComponent {
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.branch = this.branch === '0' ? '' : this.branch;
+    this.filter.search = "" ;
     this.filter.receiptOrPayment = selectedDataVal.receiptOrPayment == '' ? "CP" :selectedDataVal.receiptOrPayment ;
     this.sharedService.loading=true;
     this.cashReceiptEntry();

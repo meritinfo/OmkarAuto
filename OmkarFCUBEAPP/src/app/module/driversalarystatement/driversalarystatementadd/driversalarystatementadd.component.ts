@@ -101,7 +101,7 @@ export class DriversalarystatementaddComponent implements OnInit {
       creditAc: new FormControl(''),
      pmtType: new FormControl('')
     });
-    this.editMode = true;
+  
     this.getCreditAcList2("B");
     setTimeout(() => {
       this.createmode = true;
@@ -136,6 +136,7 @@ export class DriversalarystatementaddComponent implements OnInit {
        
        });
        this.sharedService.loading = false;
+       this.editMode = true;
       }
       this.sharedService.loading = false;
     

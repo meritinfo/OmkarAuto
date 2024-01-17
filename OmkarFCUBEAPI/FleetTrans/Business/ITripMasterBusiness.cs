@@ -6,7 +6,7 @@ namespace FleetTrans.Business
     public interface ITripMasterBusiness
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
-        Task<TripSheetList> GetTripSheetList(TripSheetListRequest request);
+        Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request);
         Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel>GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetDslOpeningBal(OpBalModel request);

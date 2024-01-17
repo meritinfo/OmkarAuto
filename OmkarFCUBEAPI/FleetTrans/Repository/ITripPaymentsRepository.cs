@@ -11,6 +11,8 @@ namespace FleetTrans.Repository
     public interface ITripPaymentsRepository
     {
         Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel);
+        Task<ResponseModel> TripPaymentsSaveNew(TripPaymentsModel tripPaymentsModel);
+        Task<ResponseModel> TripPaymentsEdit(TripPaymentsModel tripPaymentsModel);
         Task<TripPaymentsList> GetTripPaymentsList(PageRequestDtBrVh request);
         Task<TripModel> GetTripDetail(TripVehicleModel request);
         Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request);
