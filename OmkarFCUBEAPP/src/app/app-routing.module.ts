@@ -85,6 +85,7 @@ import { EwaybillextensionlistComponent } from './module/ewaybillextension/ewayb
 import { EwaybillextensionaddComponent } from './module/ewaybillextension/ewaybillextensionadd/ewaybillextensionadd.component';
 import { ChangepasswordComponent } from './module/password/changepassword/changepassword.component';
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
+import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 
 
@@ -211,7 +212,8 @@ const routes: Routes = [
   { path: 'roleprivileges',component:RoleprivilegesComponent},
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
 
-  { path: 'changepassword', component: ChangepasswordComponent}
+  { path: 'changepassword', component: ChangepasswordComponent},
+  { path: 'cashbookrpt', component: CashbookreportComponent}
   
 ];
 

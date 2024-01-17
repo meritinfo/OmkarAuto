@@ -9,10 +9,10 @@ namespace FleetTrans.Repository
     public interface IDocRenewalEntryRepository
     {
         Task<ResponseModel> DocRenewalEntryDetailsSave(DocRenewalEntryModel docRenewalEntryModel);
-        Task<ResponseModel> DocRenewalEntryDetailsDelete(Request request);
+        Task<ResponseModel> DocRenewalEntryDetailsDelete(RequestModel request);
         Task<DocRenewalEntryList> GetDocRenewalEntryList(PageRequest request);
         Task<List<DropDownListModel>> GetDocRenewalList();
-        Task<List<DropDownListModel>> GetPaymentCreditAcList(Request request);
+        Task<List<DropDownListModel>> GetPaymentCreditAcList(RequestModel request);
         Task<ResponseModel> ChkDocrenewalValidity(DocRenewalEntryModel docRenewalEntryModel);
     }
 }

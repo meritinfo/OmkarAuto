@@ -25,7 +25,7 @@ namespace FleetTrans.Business
             return await docRenewalEntryRepository.DocRenewalEntryDetailsSave(docRenewalEntryModel);
         }
 
-        public async Task<ResponseModel> DocRenewalEntryDetailsDelete(Request request)
+        public async Task<ResponseModel> DocRenewalEntryDetailsDelete(RequestModel request)
         {
             return await docRenewalEntryRepository.DocRenewalEntryDetailsDelete(request);
         }
@@ -38,7 +38,7 @@ namespace FleetTrans.Business
         {
             return await docRenewalEntryRepository.GetDocRenewalList();
         }
-        public async Task<List<DropDownListModel>> GetPaymentCreditAcList(Request request) 
+        public async Task<List<DropDownListModel>> GetPaymentCreditAcList(RequestModel request) 
         { 
             return await docRenewalEntryRepository.GetPaymentCreditAcList(request);
         }        

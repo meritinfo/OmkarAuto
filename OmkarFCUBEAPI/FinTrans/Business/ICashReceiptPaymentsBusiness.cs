@@ -11,9 +11,9 @@ namespace FinTrans.Business
         Task<ResponseModel> CashReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel);
         Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request);
         Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter);
-        Task<ResponseModel> CashReceiptPaymentsDelete(Request req);
-        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req);
-        Task<List<DropDownListModel>> GetCashBankAccountList(Request request);
-
+        Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel req);
+        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req);
+        Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request);
+        Task<ResponseModel> CashBookReport(CashBookReportRequestModel request);
     }
 }

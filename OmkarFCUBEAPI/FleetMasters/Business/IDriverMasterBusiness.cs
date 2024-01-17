@@ -6,7 +6,7 @@ namespace FleetMasters.Business
     public interface IDriverMasterBusiness
     {
         Task<ResponseModel> DriverMasterSave(DriverMasterModel DriverMasterModel);
-        Task<ResponseModel> DriverMasterDetailsDelete(Request requestModel);
+        Task<ResponseModel> DriverMasterDetailsDelete(RequestModel requestModel);
         Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
     }
 }

@@ -9,9 +9,9 @@ namespace FinTrans.Business
     public interface IGstPurchaseMstBusiness
     {
         Task<ResponseModel> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel);
-        Task<ResponseModel> GstPurchageDelete(Request request);
+        Task<ResponseModel> GstPurchageDelete(RequestModel request);
         Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request);
-        Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(Request req);
+        Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetGstVendorList();
     }
 

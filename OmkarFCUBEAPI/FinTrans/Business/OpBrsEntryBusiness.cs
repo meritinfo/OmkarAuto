@@ -29,7 +29,7 @@ namespace FinTrans.Business
         {
             return await opBrsEntryRepository.GetBankAcList();
         }
-        public async Task<ResponseModel> OpBrsEntryDelete(Request requestModel)
+        public async Task<ResponseModel> OpBrsEntryDelete(RequestModel requestModel)
         {
             return await opBrsEntryRepository.OpBrsEntryDelete(requestModel);
         }

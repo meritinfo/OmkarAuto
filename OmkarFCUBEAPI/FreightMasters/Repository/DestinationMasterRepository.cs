@@ -66,7 +66,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> DestinationDetailsDelete(Request requestModel)
+        public async Task<ResponseModel> DestinationDetailsDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try

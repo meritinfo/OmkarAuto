@@ -24,11 +24,11 @@ namespace FreightMasters.Business
         {
             return await freightRatesMstRepository.GetFreightRatesList(request);
         }
-        public async Task<ResponseModel> FreightRatesMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req)
         {
             return await freightRatesMstRepository.FreightRatesMasterDetailsDelete(req);
         }
-        public async Task<FreightRatesMstModel> GetFreightRateInnerGridList(Request req)
+        public async Task<FreightRatesMstModel> GetFreightRateInnerGridList(RequestModel req)
         {
             return await freightRatesMstRepository.GetFreightRateInnerGridList(req);
         }

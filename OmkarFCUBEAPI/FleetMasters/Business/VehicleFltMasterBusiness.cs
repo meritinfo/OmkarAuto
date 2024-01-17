@@ -24,7 +24,7 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetVehicleFltMasterList(request);
         }
-        public async Task<ResponseModel> VehicalMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> VehicalMasterDetailsDelete(RequestModel req)
         {
             return await vehicleFltMasterRepository.VehicalMasterDetailsDelete(req);
         }
@@ -44,11 +44,11 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetVehicalMfrList();
         }
-        public async Task<ResponseModel> ChkVehicalNoExist(Request req)
+        public async Task<ResponseModel> ChkVehicalNoExist(RequestModel req)
         {
             return await vehicleFltMasterRepository.ChkVehicalNoExist(req);
         }
-        public async Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(Request req)
+        public async Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(RequestModel req)
         {
             return await vehicleFltMasterRepository.GetVehicleFltInnerGridList(req);
         }

@@ -176,7 +176,7 @@ namespace FleetMasters.Repository
 
 
 
-        public async Task<ResponseModel> VehicalMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> VehicalMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try
@@ -497,7 +497,7 @@ namespace FleetMasters.Repository
             return VehicalMfrList;
         }
         
-        public async Task<ResponseModel> ChkVehicalNoExist(Request req)
+        public async Task<ResponseModel> ChkVehicalNoExist(RequestModel req)
         {
             ResponseModel responseModel = new();
             try
@@ -539,7 +539,7 @@ namespace FleetMasters.Repository
         }
 
 
-        public async Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(Request request)
+        public async Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(RequestModel request)
         {
             VehicleFltMasterModel vehicleFltMasterModel = new()
             {

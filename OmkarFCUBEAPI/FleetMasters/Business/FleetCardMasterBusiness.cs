@@ -28,7 +28,7 @@ namespace FleetMasters.Business
         {
             return await fleetCardMasterRepository.GetCardledgerAcList();
         }
-        public async Task<ResponseModel> FleetCardMasterDelete(Request requestModel)
+        public async Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel)
         {
             return await fleetCardMasterRepository.FleetCardMasterDelete(requestModel);
         }

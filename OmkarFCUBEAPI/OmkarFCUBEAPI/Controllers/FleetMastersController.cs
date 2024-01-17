@@ -209,7 +209,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("DriverMasterDetailsDelete")]
-        public async Task<IActionResult> DriverMasterDetailsDelete(Request request)
+        public async Task<IActionResult> DriverMasterDetailsDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -290,7 +290,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetVehicleFltInnerGridList")]
-        public async Task<IActionResult> GetVehicleFltInnerGridList(Request req)
+        public async Task<IActionResult> GetVehicleFltInnerGridList(RequestModel req)
         {
             if (req == null)
             {
@@ -309,7 +309,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("VehicalMasterDetailsDelete")]
-        public async Task<IActionResult> VehicalMasterDetailsDelete(Request req)
+        public async Task<IActionResult> VehicalMasterDetailsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -391,7 +391,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("ChkVehicalNoExist")]
-        public async Task<IActionResult> ChkVehicalNoExist(Request req)
+        public async Task<IActionResult> ChkVehicalNoExist(RequestModel req)
         {
             try
             {
@@ -457,7 +457,7 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("DocRenewalMasterDetailsDelete")]
-        public async Task<IActionResult> DocRenewalMasterDetailsDelete(Request request)
+        public async Task<IActionResult> DocRenewalMasterDetailsDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -494,7 +494,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("FleetCardMasterDelete")]
-        public async Task<IActionResult> FleetCardMasterDelete(Request req)
+        public async Task<IActionResult> FleetCardMasterDelete(RequestModel req)
         {
             if (req == null)
             {

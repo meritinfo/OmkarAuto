@@ -7,7 +7,7 @@ namespace Consignment.Repository
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
         Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request);
-        Task<ResponseModel> ConsignmentDelete(Request requestModel);
+        Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();

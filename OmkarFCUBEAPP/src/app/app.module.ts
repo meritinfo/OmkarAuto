@@ -166,6 +166,7 @@ import { ChangepasswordComponent } from './module/password/changepassword/change
 import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.component';
 import { Roleprivilegeslistmodel } from './models/roleprivilegeslistmodel';
 import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
+import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 @NgModule({
   declarations: [
@@ -266,6 +267,7 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
     RoletypelistComponent,
     ChangepasswordComponent,
     RoleprivilegesComponent,
+    CashbookreportComponent,
   ],
   imports: [
     BrowserModule,

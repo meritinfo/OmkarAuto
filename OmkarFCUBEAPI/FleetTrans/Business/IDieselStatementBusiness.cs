@@ -8,6 +8,6 @@ namespace FleetTrans.Business
         Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request);
         Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
-        Task<ResponseModel> DieselStatementDetailsDelete(Request request);
+        Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request);
     }
 }

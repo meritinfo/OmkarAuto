@@ -81,7 +81,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// </summary>
         /// <param name="Request"></param>
         [HttpPost("DestinationDetailsDelete")]
-        public async Task<IActionResult> DestinationDetailsDelete(Request req)
+        public async Task<IActionResult> DestinationDetailsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -126,7 +126,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// </summary>
         /// <param name="Request"></param>
         [HttpPost("BranchMasterDetailsDelete")]
-        public async Task<IActionResult> BranchMasterDetailsDelete(Request req)
+        public async Task<IActionResult> BranchMasterDetailsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -145,7 +145,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("ChkCodeExits")]
-        public async Task<IActionResult> ChkCodeExits(Request req)
+        public async Task<IActionResult> ChkCodeExits(RequestModel req)
         {
             if (req == null)
             {
@@ -322,7 +322,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("DistanceMasterTripDelete")]
-        public async Task<IActionResult> DistanceMasterTripDelete(Request request)
+        public async Task<IActionResult> DistanceMasterTripDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -340,7 +340,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("DistanceMasterFrtDelete")]
-        public async Task<IActionResult> DistanceMasterFrtDelete(Request request)
+        public async Task<IActionResult> DistanceMasterFrtDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -392,7 +392,7 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("GetFreightRateInnerGridList")]
-        public async Task<IActionResult> GetFreightRateInnerGridList(Request request)
+        public async Task<IActionResult> GetFreightRateInnerGridList(RequestModel request)
         {
             try
             {
@@ -575,7 +575,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("FreightRatesMasterDetailsDelete")]
-        public async Task<IActionResult> FreightRatesMasterDetailsDelete(Request req)
+        public async Task<IActionResult> FreightRatesMasterDetailsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -694,7 +694,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceFrtDtls")]
-        public async Task<IActionResult> GetDistanceFrtDtls(Request request)
+        public async Task<IActionResult> GetDistanceFrtDtls(RequestModel request)
         {
             if (request == null)
             {
@@ -768,7 +768,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceTripDtls")]
-        public async Task<IActionResult> GetDistanceTripDtls(Request request)
+        public async Task<IActionResult> GetDistanceTripDtls(RequestModel request)
         {
             if (request == null)
             {

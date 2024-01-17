@@ -13,7 +13,7 @@ namespace FleetMasters.Repository
         Task<ResponseModel> FleetCardMasterSave(FleetCardMasterModel fleetCardMasterModel);
         Task<FleetCardMasterList> GetFleetCardMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetCardledgerAcList();
-        Task<ResponseModel> FleetCardMasterDelete(Request requestModel);
+        Task<ResponseModel> FleetCardMasterDelete(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateCardNo(CardModel request);
         Task<ResponseModel> CheckDuplicateCardCode(CardModel request);
     }

@@ -24,7 +24,7 @@ namespace FleetMasters.Business
         {
             return await docRenewalMasterRepository.GetDocRenewalMasterList(request);
         }
-        public async Task<ResponseModel> DocRenewalMasterDetailsDelete(Request request)
+        public async Task<ResponseModel> DocRenewalMasterDetailsDelete(RequestModel request)
         {
             return await docRenewalMasterRepository.DocRenewalMasterDetailsDelete(request);
         }

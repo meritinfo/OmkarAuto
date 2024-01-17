@@ -32,7 +32,7 @@ namespace FleetTrans.Business
             return await dieselStatementRepository.GetDieselStatementList(request);
         }
 
-        public async Task<ResponseModel> DieselStatementDetailsDelete(Request request)
+        public async Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request)
         {
             return await dieselStatementRepository.DieselStatementDetailsDelete(request);
         }

@@ -32,7 +32,7 @@ namespace FleetTrans.Business
         {
             return await billStatementRepository.GetBillStatementList(request);
         }
-        public async Task<ResponseModel> BillsStatementDelete(Request requestModel)
+        public async Task<ResponseModel> BillsStatementDelete(RequestModel requestModel)
         {
             return await billStatementRepository.BillsStatementDelete(requestModel);
         }

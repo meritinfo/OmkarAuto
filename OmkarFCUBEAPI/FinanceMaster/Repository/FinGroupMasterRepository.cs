@@ -134,7 +134,7 @@ namespace FinanceMasters.Repository
             return finGroupMasterList;
         }
 
-        public async Task<ResponseModel> FinGroupDetailsDelete(Request req)
+        public async Task<ResponseModel> FinGroupDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try
@@ -223,7 +223,7 @@ namespace FinanceMasters.Repository
         /// Service method for get Sub Account Type List
         /// </summary>
         /// <returns>List<DropDownListModel></returns>
-        public async Task<List<DropDownListModel>> GetSubAccountTypeList(Request req)
+        public async Task<List<DropDownListModel>> GetSubAccountTypeList(RequestModel req)
         {
             List<DropDownListModel> SubAccountTypeList = new();
             try
@@ -308,7 +308,7 @@ namespace FinanceMasters.Repository
         }
 
   
-        public async Task<ResponseModel> chkActName(Request req)
+        public async Task<ResponseModel> chkActName(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

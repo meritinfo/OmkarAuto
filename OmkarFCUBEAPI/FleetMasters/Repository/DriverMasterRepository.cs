@@ -112,7 +112,7 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> DriverMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> DriverMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

@@ -334,7 +334,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> DriverSalaryDelete(Request req)
+        public async Task<ResponseModel> DriverSalaryDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

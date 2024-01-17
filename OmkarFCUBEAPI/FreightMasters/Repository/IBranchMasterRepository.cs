@@ -12,10 +12,10 @@ namespace FreightMasters.Repository
     public interface IBranchMasterRepository
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel BranchMasterModel);
-        Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel);
+        Task<ResponseModel> BranchMasterDetailsDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetBranchList();
         Task<BranchMasterList> GetBranchMasterList(PageRequest request);
-        Task<ResponseModel> ChkCodeExits(Request req);
+        Task<ResponseModel> ChkCodeExits(RequestModel req);
 
     }
 }
