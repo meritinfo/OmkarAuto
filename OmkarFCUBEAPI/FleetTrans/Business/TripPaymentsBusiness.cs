@@ -38,7 +38,7 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetTripPaymentsList(request);
         }
-        public async Task<ResponseModel> TripPaymentsDelete(Request requestModel)
+        public async Task<ResponseModel> TripPaymentsDelete(RequestModel requestModel)
         {
             return await tripPaymentsRepository.TripPaymentsDelete(requestModel);
         }

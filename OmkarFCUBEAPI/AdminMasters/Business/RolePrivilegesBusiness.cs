@@ -15,7 +15,7 @@ namespace AdminMasters.Business
             rolePrivilegesRepository = _rolePrivilegesRepository;
         }
 
-        public async Task<RolePrivilegesListModel> GetRolePrivileges(Request request)
+        public async Task<RolePrivilegesListModel> GetRolePrivileges(RequestModel request)
         {
             return await rolePrivilegesRepository.GetRolePrivileges(request);
         }

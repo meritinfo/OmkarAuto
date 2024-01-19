@@ -8,7 +8,7 @@ namespace AdminMasters.Repository
     /// </summary>
     public interface IRolePrivilegesRepository
     {
-        Task<RolePrivilegesListModel> GetRolePrivileges(Request request);
+        Task<RolePrivilegesListModel> GetRolePrivileges(RequestModel request);
         Task<ResponseModel> RolePrivilegesListSave(RolePrivilegesListModel rolePrivilegesList);
     }
 }

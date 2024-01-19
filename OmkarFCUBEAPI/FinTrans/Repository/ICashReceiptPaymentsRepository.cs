@@ -1,5 +1,7 @@
 ﻿using FinTrans.Models;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Shared.Models;
+using System.Data;
 
 namespace FinTrans.Repository
 {
@@ -11,9 +13,9 @@ namespace FinTrans.Repository
         Task<ResponseModel> CashReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsSave);
         Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request);
         Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter);
-        Task<ResponseModel> CashReceiptPaymentsDelete(Request req);
-        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req);
-        Task<List<DropDownListModel>> GetCashBankAccountList(Request request);
-
+        Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel req);
+        Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req);
+        Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request);
+        Task<DataSet> CashBookReport(CashBookReportRequestModel request);
     }
 }

@@ -239,7 +239,7 @@ namespace FreightMasters.Repository
             return stateList;
         }
 
-        public async Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel)
+        public async Task<ResponseModel> BranchMasterDetailsDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
             try
@@ -280,7 +280,7 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> ChkCodeExits(Request req)
+        public async Task<ResponseModel> ChkCodeExits(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

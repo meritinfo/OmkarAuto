@@ -66,7 +66,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> FleetCardMasterDelete(Request req)
+        public async Task<ResponseModel> FleetCardMasterDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

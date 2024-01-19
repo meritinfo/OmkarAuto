@@ -22,7 +22,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
         Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request);
         Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel);
-        Task<ResponseModel> OtherTripOpenDelete(Request request);
+        Task<ResponseModel> OtherTripOpenDelete(RequestModel request);
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }

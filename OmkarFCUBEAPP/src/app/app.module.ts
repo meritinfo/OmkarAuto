@@ -175,6 +175,7 @@ import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/e
 import { Reportmodel } from './models/reportmodel';
 import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
 import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
+import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
@@ -286,6 +287,7 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
     PtslabmasterlistComponent,
     AddptslabmasterComponent,
     ExptruckarrivalreportComponent,
+    CashbookreportComponent,
   ],
   imports: [
     BrowserModule,

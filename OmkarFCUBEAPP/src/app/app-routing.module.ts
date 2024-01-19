@@ -90,6 +90,7 @@ import { RoleprivilegesComponent } from './module/roleprivileges/roleprivileges.
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
+import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 
 
@@ -221,6 +222,8 @@ const routes: Routes = [
   { path: 'roleprivileges',component:RoleprivilegesComponent},
   { path: 'changepassword', component: ChangepasswordComponent},
   { path: 'exparrivals', component: ExptruckarrivalreportComponent}, 
+  { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
+  { path: 'cashbookrpt', component: CashbookreportComponent}
   
 ];
 

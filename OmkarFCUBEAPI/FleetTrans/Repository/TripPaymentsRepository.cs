@@ -298,7 +298,7 @@ namespace FleetTrans.Repository
             }
             return tripDslDetail;
         }
-        public async Task<ResponseModel> TripPaymentsDelete(Request req)
+        public async Task<ResponseModel> TripPaymentsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

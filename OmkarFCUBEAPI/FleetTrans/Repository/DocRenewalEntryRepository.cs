@@ -103,7 +103,7 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> DocRenewalEntryDetailsDelete(Request request)
+        public async Task<ResponseModel> DocRenewalEntryDetailsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -283,7 +283,7 @@ namespace FleetTrans.Repository
             }
             return DebitAcList;
         }
-        public async Task<List<DropDownListModel>> GetPaymentCreditAcList(Request request)
+        public async Task<List<DropDownListModel>> GetPaymentCreditAcList(RequestModel request)
         {
             List<DropDownListModel> creditacList = new();
 

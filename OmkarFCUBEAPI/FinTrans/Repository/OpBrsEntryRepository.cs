@@ -156,7 +156,7 @@ namespace FinTrans.Repository
             }
             return bankDebitAcList;
         }
-        public async Task<ResponseModel> OpBrsEntryDelete(Request req)
+        public async Task<ResponseModel> OpBrsEntryDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

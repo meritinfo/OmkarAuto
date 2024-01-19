@@ -1,19 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="reports\**" />
-    <Content Remove="reports\**" />
-    <EmbeddedResource Remove="reports\**" />
-    <None Remove="reports\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.13" />
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
@@ -30,9 +22,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Excel">
-      <HintPath>..\..\..\..\Suni_Proj\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
+    <Folder Include="Reports\CashBook\" />
+    <Folder Include="upload\docrenewal\attach1\" />
+    <Folder Include="upload\docrenewal\attach2\" />
+    <Folder Include="upload\driver\driverphoto\" />
+    <Folder Include="upload\driver\drivinglicense\" />
+    <Folder Include="upload\driver\hazdrivinglicense\" />
+    <Folder Include="upload\driver\aadharcard\" />
+    <Folder Include="upload\driver\bankpassbook\" />
+    <Folder Include="upload\driver\" />
+    <Folder Include="upload\driver\peraddressprove\" />
+    <Folder Include="upload\driver\tempaddressprove\" />
+    <Folder Include="upload\gstpurchase\attatchFile1\" />
+    <Folder Include="upload\gstpurchase\attatchFile2\" />
   </ItemGroup>
 
 </Project>

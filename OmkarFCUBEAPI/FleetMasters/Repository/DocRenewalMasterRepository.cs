@@ -68,7 +68,7 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> DocRenewalMasterDetailsDelete(Request request)
+        public async Task<ResponseModel> DocRenewalMasterDetailsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try

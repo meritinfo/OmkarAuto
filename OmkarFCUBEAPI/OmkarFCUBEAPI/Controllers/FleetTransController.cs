@@ -138,7 +138,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("TripPaymentsDelete")]
-        public async Task<IActionResult> TripPaymentsDelete(Request req)
+        public async Task<IActionResult> TripPaymentsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -156,7 +156,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("BillsStatementDelete")]
-        public async Task<IActionResult> BillsStatementDelete(Request req)
+        public async Task<IActionResult> BillsStatementDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -174,7 +174,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("DriverSalaryDelete")]
-        public async Task<IActionResult> DriverSalaryDelete(Request req)
+        public async Task<IActionResult> DriverSalaryDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -493,7 +493,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("DieselStatementDetailsDelete")]
-        public async Task<IActionResult> DieselStatementDetailsDelete(Request request)
+        public async Task<IActionResult> DieselStatementDetailsDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -593,7 +593,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
          [HttpPost("OtherTripOpenDelete")]
-        public async Task<IActionResult> OtherTripOpenDelete(Request request)
+        public async Task<IActionResult> OtherTripOpenDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -718,7 +718,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("DocRenewalEntryDetailsDelete")]
-        public async Task<IActionResult> DocRenewalEntryDetailsDelete(Request request)
+        public async Task<IActionResult> DocRenewalEntryDetailsDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -767,7 +767,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetPaymentCreditAcList")]
-        public async Task<IActionResult> GetPaymentCreditAcList(Request request)
+        public async Task<IActionResult> GetPaymentCreditAcList(RequestModel request)
         {
             if (request == null)
             {

@@ -63,7 +63,7 @@ namespace OmkarFCUBEAPI.Controllers
         //    }
         //}
         [HttpPost("ConsignmentDelete")]
-        public async Task<IActionResult> ConsignmentDelete(Request req)
+        public async Task<IActionResult> ConsignmentDelete(RequestModel req)
         {
             if (req == null)
             {

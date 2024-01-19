@@ -204,7 +204,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("FinGroupDetailsDelete")]
-        public async Task<IActionResult> FinGroupDetailsDelete(Request req)
+        public async Task<IActionResult> FinGroupDetailsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -238,7 +238,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetSubAccountTypeList")]
-        public async Task<IActionResult> GetSubAccountTypeList(Request req)
+        public async Task<IActionResult> GetSubAccountTypeList(RequestModel req)
         {
             if (req == null)
             {
@@ -273,7 +273,7 @@ namespace OmkarFCUBEAPI.Controllers
 
 
         [HttpPost("chkActName")]
-        public async Task<IActionResult> chkActName(Request req)
+        public async Task<IActionResult> chkActName(RequestModel req)
         {
             if (req == null)
             {

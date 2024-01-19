@@ -20,7 +20,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.ConsignmentSave(consignmentModel);
         }
-        public async Task<ResponseModel> ConsignmentDelete(Request requestModel)
+        public async Task<ResponseModel> ConsignmentDelete(RequestModel requestModel)
         {
             return await consignmentRepository.ConsignmentDelete(requestModel);
         }

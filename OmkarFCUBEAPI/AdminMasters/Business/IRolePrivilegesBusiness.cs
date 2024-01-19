@@ -8,7 +8,7 @@ namespace AdminMasters.Business
     /// </summary>
     public interface IRolePrivilegesBusiness
     {
-        Task<RolePrivilegesListModel> GetRolePrivileges(Request request);
+        Task<RolePrivilegesListModel> GetRolePrivileges(RequestModel request);
         Task<ResponseModel> RolePrivilegesListSave(RolePrivilegesListModel rolePrivilegesList);
     }
 }

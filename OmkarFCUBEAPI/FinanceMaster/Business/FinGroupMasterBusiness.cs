@@ -31,7 +31,7 @@ namespace FinanceMasters.Business
             return await finGroupMasterRepository.GetAccountTypeList();
         }
 
-        public async Task<List<DropDownListModel>> GetSubAccountTypeList(Request req)
+        public async Task<List<DropDownListModel>> GetSubAccountTypeList(RequestModel req)
         {
             return await finGroupMasterRepository.GetSubAccountTypeList(req);
         }
@@ -41,11 +41,11 @@ namespace FinanceMasters.Business
             return await finGroupMasterRepository.GetScheduleList();
         }
 
-        public async Task<ResponseModel> chkActName(Request req)
+        public async Task<ResponseModel> chkActName(RequestModel req)
         {
             return await finGroupMasterRepository.chkActName(req);
         }
-        public async Task<ResponseModel> FinGroupDetailsDelete(Request req)
+        public async Task<ResponseModel> FinGroupDetailsDelete(RequestModel req)
         {
             return await finGroupMasterRepository.FinGroupDetailsDelete(req);
         }

@@ -243,7 +243,7 @@ namespace FleetTrans.Repository
         }
 
 
-        public async Task<ResponseModel> DieselStatementDetailsDelete(Request request)
+        public async Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
