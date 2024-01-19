@@ -570,6 +570,11 @@ export class AddtrippaymentsComponent {
     if( this.trippaymentsmodel.pmtId!=''){
       this.tripPaymentsService.trippaymentEditSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
+        console.log(this.responseDetails.message);
+  
+        this.formTripPayment.reset();
+     
+        window.location.reload();
   
 
     });
