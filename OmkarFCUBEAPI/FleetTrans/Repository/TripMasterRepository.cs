@@ -1013,7 +1013,7 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> OtherTripOpenDelete(Request request)
+        public async Task<ResponseModel> OtherTripOpenDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try

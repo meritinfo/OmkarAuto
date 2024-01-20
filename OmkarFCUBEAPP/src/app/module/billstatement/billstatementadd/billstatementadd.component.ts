@@ -119,7 +119,7 @@ export class BillstatementaddComponent implements OnInit {
   
     setTimeout(() => {
       this.createmode = true;
-   ;
+   
  
   
      if (this.selectedBillstatementDetails.masterID != '') {
@@ -155,10 +155,11 @@ export class BillstatementaddComponent implements OnInit {
        this.billsstatementinnergridrequest.masterID = parseInt(this.selectedBillstatementDetails.masterID);
        this.getTripSheetInnerGridList();
        this.sharedService.loading = false;
+       this.editMode = true;
      }
    
      this.sharedService.loading = false;
-     
+    
    }, 2000);
    this.getValidation();
   

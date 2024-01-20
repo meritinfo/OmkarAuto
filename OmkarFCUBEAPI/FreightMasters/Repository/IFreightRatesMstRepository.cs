@@ -10,7 +10,7 @@ namespace FreightMasters.Repository
     {
         Task<ResponseModel> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel);
         Task<FreightRatesMstList> GetFreightRatesList(PageRequest request);
-        Task<ResponseModel> FreightRatesMasterDetailsDelete(Request req);
-        Task<FreightRatesMstModel> GetFreightRateInnerGridList(Request req);
+        Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req);
+        Task<FreightRatesMstModel> GetFreightRateInnerGridList(RequestModel req);
     }
 }

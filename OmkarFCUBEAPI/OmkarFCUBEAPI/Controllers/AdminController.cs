@@ -360,7 +360,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetRolePrivileges")]
-        public async Task<IActionResult> GetRolePrivileges(Request request)
+        public async Task<IActionResult> GetRolePrivileges(RequestModel request)
         {
             if (request == null)
             {

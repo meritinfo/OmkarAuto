@@ -14,7 +14,7 @@ namespace Consignment.Business
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
-        Task<ResponseModel> ConsignmentDelete(Request requestModel);
+        Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
         Task<ResponseModel> GetKms(KmsModel request);
         Task<ResponseModel> GetTripKms(KmsModel request);
         Task<TripKmsModel> GetTripKms2(KmsModel request);

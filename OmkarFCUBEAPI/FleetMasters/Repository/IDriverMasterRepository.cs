@@ -7,7 +7,7 @@ namespace FleetMasters.Repository
     public interface IDriverMasterRepository
     {
         Task<ResponseModel> DriverMasterSave(DriverMasterModel driverMasterModel);
-        Task<ResponseModel> DriverMasterDetailsDelete(Request requestModel);
+        Task<ResponseModel> DriverMasterDetailsDelete(RequestModel requestModel);
         Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
     }
 }

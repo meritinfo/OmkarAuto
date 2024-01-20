@@ -117,7 +117,7 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> CashReceiptPaymentsDelete(Request request)
+        public async Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -236,7 +236,7 @@ namespace FinTrans.Repository
             return CashRecPaymentsList;
         }
 
-        public async Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(Request req)
+        public async Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req)
         {
             CashReceiptPaymentsModel cashReceiptPaymentsModel = new()
             {
@@ -335,7 +335,7 @@ namespace FinTrans.Repository
 
         
 
-        public async Task<List<DropDownListModel>> GetCashBankAccountList(Request request)
+        public async Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request)
         {
             List<DropDownListModel> accountList = new();
 
@@ -379,6 +379,37 @@ namespace FinTrans.Repository
             return accountList;
         }
 
+        public async Task<DataSet> CashBookReport(CashBookReportRequestModel request)
+        {
+            DataSet reportData = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@StartDate", ""),
+                            new SqlParameter("@EndDate", ""),
+                        };
+
+                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CashBookReport_Select", param);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return reportData;
+        }
     }
 
 

@@ -23,7 +23,7 @@ namespace FinTrans.Business
             return await gstPurchaseMstRepository.GstPurchaseMstSave(gstPurchaseMstModel);
         }
 
-        public async Task<ResponseModel> GstPurchageDelete(Request request)
+        public async Task<ResponseModel> GstPurchageDelete(RequestModel request)
         {
             return await gstPurchaseMstRepository.GstPurchageDelete(request);
         }
@@ -33,7 +33,7 @@ namespace FinTrans.Business
             return await gstPurchaseMstRepository.GetGstPurchaseList(request);
         }
 
-        public async Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(Request req)
+        public async Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req)
         {
             return await gstPurchaseMstRepository.GetGstPurchaseInnerGridList(req);
         }

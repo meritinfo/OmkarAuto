@@ -292,7 +292,7 @@ namespace FreightMasters.Repository
         }
 
 
-        public async Task<ResponseModel> DistanceMasterTripDelete(Request req)
+        public async Task<ResponseModel> DistanceMasterTripDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try
@@ -502,7 +502,7 @@ namespace FreightMasters.Repository
             return list;
         }
 
-        public async Task<DistanceTripEditModel> GetDistanceTripDtls(Request request)
+        public async Task<DistanceTripEditModel> GetDistanceTripDtls(RequestModel request)
         {
             DistanceTripEditModel distanceTripEdit = new();
             try

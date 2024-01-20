@@ -262,7 +262,7 @@ namespace Consignment.Repository
             }
             return lrSeries;
         }
-        public async Task<ResponseModel> ConsignmentDelete(Request req)
+        public async Task<ResponseModel> ConsignmentDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

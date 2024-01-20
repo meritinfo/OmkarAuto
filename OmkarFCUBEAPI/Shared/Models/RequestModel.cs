@@ -1,7 +1,7 @@
 ﻿
 namespace Shared.Models
 {
-    public class Request
+    public class RequestModel
     {
         public string? strRequest { get; set; }
     }

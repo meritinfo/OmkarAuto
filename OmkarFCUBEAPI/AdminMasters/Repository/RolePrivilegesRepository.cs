@@ -16,7 +16,7 @@ namespace AdminMasters.Repository
             dbconnection = _dbconnection;
         }
 
-        public async Task<RolePrivilegesListModel> GetRolePrivileges(Request request)
+        public async Task<RolePrivilegesListModel> GetRolePrivileges(RequestModel request)
         {
             RolePrivilegesListModel rolePrivilegesList = new();
             List<RolePrivilegesModel> masterList = new();

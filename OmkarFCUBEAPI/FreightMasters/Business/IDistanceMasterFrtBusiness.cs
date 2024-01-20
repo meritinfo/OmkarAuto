@@ -11,10 +11,10 @@ namespace FreightMasters.Business
         Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequestDtBrVh request);
         //  Task<DistanceMasterFrtList> GetDistanceMasterFrtList(DistanceMasterFreightListRequest request);
         Task<DistanceMasterFrtModel> GetFreightInnerGridList(FreightTripInnerGridListRequest request);
-        Task<ResponseModel> DistanceMasterFrtDelete(Request requestModel);
+        Task<ResponseModel> DistanceMasterFrtDelete(RequestModel requestModel);
         Task<ResponseModel> DistanceDetailFrtSave(DistanceDetailFrtModel distanceDetailFrtModel);
         Task<List<DropDownListModel>> GetDistancefrtFromLocationList();
-        Task<DistanceFrtEditModel> GetDistanceFrtDtls(Request request);
+        Task<DistanceFrtEditModel> GetDistanceFrtDtls(RequestModel request);
         Task<DistanceFrtEditModel> GetDistanceFrtEditDetails(DistanceFrtEditModel distanceFrtEdit);
         Task<ResponseModel> DistanceFrtEditDetailsSave(DistanceFrtEditModel distanceFrtEdit);
 

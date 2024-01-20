@@ -9,10 +9,10 @@ namespace FreightMasters.Business
     public interface IBranchMasterBusiness
     {
         Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel);
-        Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel);
+        Task<ResponseModel> BranchMasterDetailsDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetBranchList();
         Task<BranchMasterList> GetBranchMasterList(PageRequest request);
-        Task<ResponseModel> ChkCodeExits(Request req);
+        Task<ResponseModel> ChkCodeExits(RequestModel req);
 
     }
 }

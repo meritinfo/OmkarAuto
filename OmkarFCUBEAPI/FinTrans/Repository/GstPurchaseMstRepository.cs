@@ -149,7 +149,7 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GstPurchageDelete(Request request)
+        public async Task<ResponseModel> GstPurchageDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -268,7 +268,7 @@ namespace FinTrans.Repository
             return gstPurchaseMstList;
         }
 
-        public async Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(Request req)
+        public async Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req)
         {
             GstPurchaseMstModel gstPurchaseMst = new()
             {

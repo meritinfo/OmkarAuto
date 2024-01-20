@@ -23,7 +23,7 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.BranchMasterDetailsSave(branchMasterModel);
         }
-        public async Task<ResponseModel> BranchMasterDetailsDelete(Request requestModel)
+        public async Task<ResponseModel> BranchMasterDetailsDelete(RequestModel requestModel)
         {
             return await freightMastersRepository.BranchMasterDetailsDelete(requestModel);
         }
@@ -41,7 +41,7 @@ namespace FreightMasters.Business
             return await freightMastersRepository.GetBranchMasterList(request);
         }
 
-        public async Task<ResponseModel> ChkCodeExits(Request req)
+        public async Task<ResponseModel> ChkCodeExits(RequestModel req)
         {
             return await freightMastersRepository.ChkCodeExits(req);
         }

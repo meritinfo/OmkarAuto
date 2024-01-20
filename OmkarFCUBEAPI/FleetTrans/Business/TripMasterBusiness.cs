@@ -66,7 +66,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.OtherTripOpenSave(tripMasterModel);
         }
-        public async Task<ResponseModel> OtherTripOpenDelete(Request request)
+        public async Task<ResponseModel> OtherTripOpenDelete(RequestModel request)
         {
             return await tripMasterRepository.OtherTripOpenDelete(request);
         }

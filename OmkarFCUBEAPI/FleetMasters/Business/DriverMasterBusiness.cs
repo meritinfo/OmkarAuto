@@ -25,7 +25,7 @@ namespace FleetMasters.Business
         {
             return await driverMasterRepository.GetDriverMasterList(request);
         }
-        public async Task<ResponseModel> DriverMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> DriverMasterDetailsDelete(RequestModel req)
         {
             return await driverMasterRepository.DriverMasterDetailsDelete(req);
         }

@@ -179,7 +179,7 @@ namespace FleetTrans.Repository
             }
             return billStatementList;
         }
-        public async Task<ResponseModel> BillsStatementDelete(Request req)
+        public async Task<ResponseModel> BillsStatementDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try

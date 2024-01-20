@@ -114,7 +114,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("CashReceiptPaymentsDelete")]
-        public async Task<IActionResult> CashReceiptPaymentsDelete(Request req)
+        public async Task<IActionResult> CashReceiptPaymentsDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -133,7 +133,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetCashReceiptPaymentInnerGridList")]
-        public async Task<IActionResult> GetCashReceiptPaymentInnerGridList(Request req)
+        public async Task<IActionResult> GetCashReceiptPaymentInnerGridList(RequestModel req)
         {
             if (req == null)
             {
@@ -152,7 +152,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetCashBankAccountList")]
-        public async Task<IActionResult> GetCashBankAccountList(Request request)
+        public async Task<IActionResult> GetCashBankAccountList(RequestModel request)
         {
             if (request == null)
             {
@@ -191,7 +191,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GstPurchageDelete")]
-        public async Task<IActionResult> GstPurchageDelete(Request request)
+        public async Task<IActionResult> GstPurchageDelete(RequestModel request)
         {
             if (request == null)
             {
@@ -230,7 +230,7 @@ namespace OmkarFCUBEAPI.Controllers
 
         
         [HttpPost("GetGstPurchaseInnerGridList")]
-        public async Task<IActionResult> GetGstPurchaseInnerGridList(Request request)
+        public async Task<IActionResult> GetGstPurchaseInnerGridList(RequestModel request)
         {
             if (request == null)
             {
@@ -360,7 +360,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("OpBrsEntryDelete")]
-        public async Task<IActionResult> OpBrsEntryDelete(Request req)
+        public async Task<IActionResult> OpBrsEntryDelete(RequestModel req)
         {
             if (req == null)
             {
@@ -408,7 +408,20 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("CashBookReport")]
+        public async Task<IActionResult> CashBookReport(CashBookReportRequestModel request)
+        {
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.CashBookReport(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

@@ -13,7 +13,7 @@ namespace FleetTrans.Business
     {
         Task<DriverSalaryStatementList> GetDriverSalaryStatementList(PageRequest request);
         Task<ResponseModel> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request);
-        Task<ResponseModel> DriverSalaryDelete(Request requestModel);
+        Task<ResponseModel> DriverSalaryDelete(RequestModel requestModel);
         Task<DriverSalarySearchListModel> GetDriverSalarySearchList(DriverSalarySearchListRequest request);
         Task<DriverSalarySearchListModel> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request);
     }

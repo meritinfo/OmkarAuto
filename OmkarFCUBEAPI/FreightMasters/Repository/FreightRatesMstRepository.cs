@@ -197,7 +197,7 @@ namespace FreightMasters.Repository
         }
       
        
-        public async Task<FreightRatesMstModel> GetFreightRateInnerGridList(Request req)
+        public async Task<FreightRatesMstModel> GetFreightRateInnerGridList(RequestModel req)
         {
             FreightRatesMstModel FreightRatesMstModel = new()
             {
@@ -246,7 +246,7 @@ namespace FreightMasters.Repository
             return FreightRatesMstModel;
         }
 
-        public async Task<ResponseModel> FreightRatesMasterDetailsDelete(Request req)
+        public async Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
             try
