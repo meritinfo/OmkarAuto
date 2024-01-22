@@ -42,6 +42,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetPenaltyRate(request);
         }
+        public async Task<PenaltyModel> GetPenaltyRateNew(PenaltyRateModel request)
+        {
+            return await tripMasterRepository.GetPenaltyRateNew(request);
+        }
         public async Task<ResponseModel> GetBhattaRate(BhattaRateModel request)
         {
             return await tripMasterRepository.GetBhattaRate(request);
