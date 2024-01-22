@@ -111,6 +111,9 @@ export class CommonService {
   getPenaltyRate(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetPenaltyRate', payload, this.httpOptions);
   }
+  getPenaltyRateNew(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetPenaltyRateNew', payload, this.httpOptions);
+  }
   getBhattaRate(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetBhattaRate', payload, this.httpOptions);
   }
