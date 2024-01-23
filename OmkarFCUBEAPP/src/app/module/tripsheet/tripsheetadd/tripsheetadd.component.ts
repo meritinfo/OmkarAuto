@@ -1481,7 +1481,7 @@ export class TripsheetaddComponent {
 
     }
     this.getBhattaRate();
-   // this.getPenaltyRate();
+    this.getPenaltyRate();
     //this.commonDetailUpdate();
     //this.checkDaysNew();
 
@@ -2221,25 +2221,53 @@ export class TripsheetaddComponent {
   }
   getPenaltyRate() {
 
-   // console.log(e.target.value);
+     // console.log(e.target.value);
     // var selectedValue = e.target.value;
     var selectedDataValue = this.formTripsheet.getRawValue();
     // if (selectedValue == "OK") {
     this.penaltyDetails.transDate = selectedDataValue.newTripDate;
     //  this.penaltyDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
 
-    this.commonService.getPenaltyRate(this.penaltyDetails).subscribe((res: Responsemodel) => {
-      this.penaltyRate = res.message;
+    this.commonService.getPenaltyRateNew(this.penaltyDetails).subscribe((res: PenaltyModel) => {
+      this.penaltyNewDetails = res ;
       let ir = 0;
+      let ir2 = 0;
+      let dd1 = 0;
+      let dd2 = 0;
+      var totalval = 0;
+      var t1 = 0;
+      let multi =0;
+      let multi2 =0;
       let rptdt = this.commonService.formatDate(selectedDataValue.reportingDt_1)
       let expdt = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
-      if (selectedDataValue.delayedDays_1 != '0' && this.penaltyRate != '') {
+      if (selectedDataValue.delayedDays_1 != '0' && this.penaltyNewDetails.loadPenalty != '' ||selectedDataValue.delayedDays_2 != '0' && this.penaltyNewDetails.loadPenalty != '') {
+       // totalval=  selectedDataValue.delayedDays_1+ selectedDataValue.delayedDays_2
+       if(selectedDataValue.loadEmptyType =='L'|| selectedDataValue.loadType =='L'){
+      let totalval=0;
 
-        ir = parseInt(this.penaltyRate) * selectedDataValue.delayedDays_1;
+        ir = parseInt(this.penaltyNewDetails.emptyPenalty) 
+        ir2 = parseInt(this.penaltyNewDetails.loadPenalty) 
+      dd2= parseInt(selectedDataValue.delayedDays_2);
+      dd1= parseInt(selectedDataValue.delayedDays_1);
+        multi = dd1*ir2;
+
+        multi2 =dd2*ir;
+        t1 = multi + multi2;
+
+       }else{
+       ir = parseInt(this.penaltyNewDetails.emptyPenalty) 
+        ir2 = parseInt(this.penaltyNewDetails.loadPenalty) 
+      dd2= parseInt(selectedDataValue.delayedDays_2);
+      dd1= parseInt(selectedDataValue.delayedDays_1);
+        multi = dd1*ir;
+
+        multi2 =dd2*ir;
+        t1 = multi + multi2;
         //ir = parseInt(this.penaltyRate)
+       }
       }
-      else if (selectedDataValue.delayedDays_1 = '0') {
-        ir = 0;
+      else if (selectedDataValue.delayedDays_1 == '0' && selectedDataValue.delayedDays_2 == '0') {
+        totalval = 0;
       }
       // ir = parseInt(this.incentiveRate)
       // if (this.tripkmsDetails.status) {
@@ -2247,7 +2275,7 @@ export class TripsheetaddComponent {
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
         // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
-        penaltyChargedToDr: (ir).toString()
+        penaltyChargedToDr: (t1).toString()
       });
       // this.getMultiIncentiveRate();
       // }
@@ -2265,6 +2293,14 @@ export class TripsheetaddComponent {
     this.totalCalculation();
 
     });
+    //} else {
+    // this.formTripsheet.patchValue({
+    // cneeGst:  (this.ExpectedReportingDays).toString() 
+    // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+    //   onTimeIncentiveAmt: ""
+    //    });
+
+    //   }
     //} else {
     // this.formTripsheet.patchValue({
     // cneeGst:  (this.ExpectedReportingDays).toString() 

@@ -914,6 +914,7 @@ namespace FleetTrans.Repository
         public async Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request)
         {
             TripSheetList otherTripSheetList = new();
+
             List<TripMasterModel> otherTripList = new();
             try
             {
