@@ -1,7 +1,26 @@
 <div id="layout-wrapper">
-    <div class="loader"  *ngIf="sharedService.loading">
+    <div class="loader" *ngIf="sharedService.loading">
         <div class="spinner"></div>
     </div>
     <app-theme *ngIf="sharedService.loggedInStatus"></app-theme>
     <router-outlet></router-outlet>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+[ngStyle]="{'display': showModalBox ? 'block' : 'none', 'opacity': 1}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+        </div>
+        <div class="modal-body">
+            Please confirm your presence in the application
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" (click)="logout()">Logout</button>
+          <button type="button" class="btn btn-primary" (click)="stay()">Stay</button>
+        </div>
+      </div>
+    </div>
+  </div>

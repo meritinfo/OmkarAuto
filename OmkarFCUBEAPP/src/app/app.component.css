@@ -1,0 +1,17 @@
+.modal{
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 20%;
+    margin: 0 auto;
+}
+.modal-header{
+    background-color: #0d84a5;
+    color: #fff;
+}
+.modal-content {
+    overflow:hidden;
+}
