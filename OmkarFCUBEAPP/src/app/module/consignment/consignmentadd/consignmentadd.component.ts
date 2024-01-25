@@ -44,6 +44,7 @@ export class ConsignmentaddComponent implements OnInit {
   gcno: string = '';
   branchid: string = '';
   loginDate: string = '';
+  transporter_doc_number: string = '';
   ExpectedReportingDays: number = 0;
   ExpectedReportingDt: string = '';
   DistanceTripKM_1: number = 0;
@@ -180,7 +181,7 @@ export class ConsignmentaddComponent implements OnInit {
       noPackages: new FormControl('',),
       actualWt: new FormControl('',),
       chargewt: new FormControl('',),
-      rateType: new FormControl('',),
+      rateType: new FormControl('1',),
       qtypkgs: new FormControl('',),
       rateRs: new FormControl('0',),
       freightRs: new FormControl('0',),
@@ -211,7 +212,7 @@ export class ConsignmentaddComponent implements OnInit {
      // this.sharedService.loading = true;
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
-
+         this.searchGSTForEdit();
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
       
         this.formConsignment.controls['ewayBillNo'].disable();
@@ -246,7 +247,7 @@ export class ConsignmentaddComponent implements OnInit {
                 shipmentDt:shipmentDtConverted,
           cnorInvDate: cnorInvDateConverted,
           cnorInvDate2: cnorInvDateConverted2,
-
+         
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
           gcSeries: this.selectedConsignmentDetails.gcSeries,
@@ -357,6 +358,7 @@ export class ConsignmentaddComponent implements OnInit {
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
     this.checkMs();
+   // this.checkLocation();
     //  this.checkTripkMs();
     //  this.getAdBlueToBe();
     //  this.getDslToBe();
@@ -364,6 +366,7 @@ export class ConsignmentaddComponent implements OnInit {
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
     this.checkMs();
+    //this.checkLocation();
     //   this.checkTripkMs();
     //  this.getDslToBe();
     //   this.getAdBlueToBe();
@@ -726,6 +729,7 @@ export class ConsignmentaddComponent implements OnInit {
           //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
         });
         //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+        this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
       }
     });
   }
@@ -779,6 +783,48 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
   }
+  checkLocation() {
+
+    var selectedDataValue = this.formConsignment.getRawValue();
+    let fp = selectedDataValue.fromPlace.dataId;
+   let tp = selectedDataValue.toPlace.dataId;
+   if( fp == tp){
+
+   
+    
+     
+        this.toastrService.warning("From and to location should not be the same");
+        this.formConsignment.patchValue({
+          fromPlace: '',
+          toPlace: ''
+        });
+      }
+    
+  
+  
+  }
+  searchGSTForEdit(): void {
+    var payload = { 'eWayBillNumber': this.selectedConsignmentDetails.ewayBillNo }
+
+    this.commonService.billDetails(payload).subscribe((res: any) => {
+      var result = res.result;
+      if (result.code === 200) {
+        this.eWayBillDetails.result = result;
+
+        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
+        if (selectedVehicleID) {
+          //this.ivVehicleNo = ewayVNo;
+        } else {
+          this.ivVehicleNo = "";
+        }
+
+
+        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+        this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
+      }
+    });
+  }
   checkInvoiceDate() {
 
 
@@ -791,10 +837,12 @@ export class ConsignmentaddComponent implements OnInit {
 
   onChangeSearchFromPlace(search: string) {
     this.ivFromPlace = '';
+  
   }
 
   onChangeSearchToPlace(search: string) {
     this.ivToPlace = '';
+  
   }
 
   onChangeSearch(search: string) {

@@ -115,7 +115,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Findocid", tripMasterModel.Findocid),
                             new SqlParameter("@ActualDays_1", tripMasterModel.ActualDays_1),
                             new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
-                           
+                            new SqlParameter("@IdleDays", tripMasterModel.IdleDays),
+
                             new SqlParameter("@CreatedBy", tripMasterModel.CreatedBy),
                             new SqlParameter("@CreatedDate", tripMasterModel.CreatedDate),
                             new SqlParameter("@ModifiedBy", tripMasterModel.ModifiedBy),
@@ -353,6 +354,9 @@ namespace FleetTrans.Repository
                                 ReportingDt_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDt_1"]),
                                 AdvanceDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceDays_1"]),
                                 DelayedDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayedDays_1"]),
+                                DelayedDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayedDays_2"]),
+                                AdvanceDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceDays_2"]),
+
                                 GraceDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["GraceDays_1"]),
                                 DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
                                 DetentionDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionDays"]),
@@ -409,7 +413,8 @@ namespace FleetTrans.Repository
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
                                 VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
-                                ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"])
+                                ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
+                                IdleDays = Convert.ToString(dataSet.Tables[0].Rows[i]["IdleDays"])
 
                             });
                         }

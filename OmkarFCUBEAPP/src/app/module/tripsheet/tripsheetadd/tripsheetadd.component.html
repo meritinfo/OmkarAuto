@@ -39,24 +39,31 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Last Trip Close</label>
+                                                <label for="formrow-inputState">Last Trip Close(Bhatta From )</label>
                                                 <input type="date" class="form-control"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['lastTripCloseDate'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['lastTripCloseDate'].invalid) }"  (change)="getIdleDays()"
                                                     placeholder="" formControlName="lastTripCloseDate">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
                                                 <label for="formrow-inputState">New Trip Date</label>
                                                 <input type="date" class="form-control" formControlName="newTripDate"
                                                     placeholder="newTripDate">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
                                                 <label for="formrow-inputZip">Time</label>
                                                 <input bsdatepicker="" autoclose="false" placeholder=""
                                                     formControlName="tripTime" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Idle Bhatta Days</label>
+                                                <input bsdatepicker="" autoclose="false" placeholder=""
+                                                    formControlName="idleDays" class="form-control">
                                             </div>
                                         </div>
                                     </div>

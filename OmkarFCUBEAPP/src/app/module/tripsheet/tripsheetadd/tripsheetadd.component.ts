@@ -155,6 +155,7 @@ export class TripsheetaddComponent {
       newTripDate: new FormControl('',),
       openThrough: new FormControl('',),
       tripOpenBy: new FormControl('',),
+      idleDays: new FormControl('',),
 
       tripOpenDate: new FormControl('',),
       tripStatus: new FormControl('',),
@@ -595,7 +596,8 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.reportingDt_1 = selectedDataValue.reportingDt_1;
     this.tripsheetmodel.advanceDays_2 = selectedDataValue.advanceDays_2 ? selectedDataValue.advanceDays_2 : '';
     this.tripsheetmodel.advanceDays_1 = selectedDataValue.advanceDays_1;
-    this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2 ? selectedDataValue.delayedDays_2 : '';
+   // this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2 ? selectedDataValue.delayedDays_2 : '';
+   this.tripsheetmodel.delayedDays_2 = selectedDataValue.delayedDays_2;
     this.tripsheetmodel.delayedDays_1 = selectedDataValue.delayedDays_1;
     this.tripsheetmodel.deliveryDate = selectedDataValue.deliveryDate;
     this.tripsheetmodel.graceDays_2 = selectedDataValue.graceDays_2;
@@ -643,6 +645,7 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.ticlStatus = selectedDataValue.ticlStatus;
     this.tripsheetmodel.actualDays_1 = selectedDataValue.actualDays_1.toString();
     this.tripsheetmodel.actualDays_2 = selectedDataValue.actualDays_2.toString();
+    this.tripsheetmodel.idleDays = selectedDataValue.idleDays.toString();
     this.tripsheetmodel.tripSheetInnerGridList = this.tripsheetinnergridmodel;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
     if (this.formMiscArray.value != undefined) {
@@ -681,6 +684,7 @@ export class TripsheetaddComponent {
   // }
   getValidation(): void {
     this.formTripsheet.controls['tripBranch'].disable();
+    this.formTripsheet.controls['idleDays'].disable();
     this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['newTripDate'].disable();
@@ -764,6 +768,38 @@ export class TripsheetaddComponent {
   }
   findKMs() {
 
+  }
+  getIdleDays(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+ 
+    //calculation
+    var date1 = new Date(selectedDataValue.lastTripCloseDate);
+    var date2 = new Date(selectedDataValue.newTripDate);
+   
+    // To calculate the time difference of two dates
+    var Difference_In_Time = date2.getTime() - date1.getTime();
+ 
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+   // var DiffDays = difftime / (1000 * 3600 * 24);
+    Difference_In_Days = Math.abs(Difference_In_Days)
+    if (!Number.isNaN(Difference_In_Days)) {
+      this.formTripsheet.patchValue({
+        idleDays: (Difference_In_Days).toString()
+
+      });
+    }
+    else {
+      this.formTripsheet.patchValue({
+        idleDays: '0'
+
+      });
+    
+
+    }
+    this.getBhattaRate();
+
+    
   }
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
@@ -2323,10 +2359,11 @@ export class TripsheetaddComponent {
       let ad1 = selectedDataValue.actualDays_1 ? parseInt(selectedDataValue.actualDays_1) : 0;
       let ad2 = selectedDataValue.actualDays_2 ? parseInt(selectedDataValue.actualDays_2) : 0;
       let ad3 = selectedDataValue.detentionDays ? parseInt(selectedDataValue.detentionDays) : 0;
+      let ad4 = selectedDataValue.idleDays ? parseInt(selectedDataValue.idleDays) : 0;
 
 
       // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
-      bd = ad1 + ad2 + ad3;
+      bd = ad1 + ad2 + ad3 + ad4;
       //bd = ad1 + ad2
       br = parseInt(this.bhattaRate) * bd;
       this.formTripsheet.patchValue({
