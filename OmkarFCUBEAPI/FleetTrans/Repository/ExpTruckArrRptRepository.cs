@@ -219,19 +219,27 @@ namespace FleetTrans.Repository
 
                         app.EnableEvents = false;
                         app.DisplayAlerts = false;
-                        string imageName = "ExpectedTruckArrival" + request.Search + "_" + request.FromDate + "-" + request.ToDate;
-                        var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "reports/ExpTruckArrRPT/" + imageName);
+                        var folderName = System.IO.Path.Combine("Reports", "ExpTruckArrRPT");
+                        var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
+                        string fileName = "ExpectedTruckArrival_"+ request.Search +"_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".xlsx";
+                        var filePath = folderName + "//" + fileName;
+                        var fullPath = System.IO.Path.Combine(pathToSave, fileName);
+                        bool exists = System.IO.Directory.Exists(pathToSave);
+                        if (!exists)
+                        {
+                            Directory.CreateDirectory(pathToSave);
+                        }  
+                        
+                        if (File.Exists(fullPath))
+                            File.Delete(fullPath);
 
-                        if (File.Exists(filePath+ ".xlsx"))
-                            File.Delete(filePath+ ".xlsx");
 
-
-                        workbook.SaveAs(filePath+ ".xlsx",
+                        workbook.SaveAs(fullPath,
                                         XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing,
                                         false, false, XlSaveAsAccessMode.xlNoChange,
                                         Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-                        workbook.Close(false, filePath+ ".xlsx", Type.Missing);
+                        workbook.Close(false, fullPath, Type.Missing);
                         app.Workbooks.Close();
                         app.Application.Quit();
                         app.Quit();
@@ -245,7 +253,7 @@ namespace FleetTrans.Repository
                         app = null;
 
                         response.Status = true;
-                        response.Message = filePath;
+                        response.Message = fileName;
 
                     }
                 }

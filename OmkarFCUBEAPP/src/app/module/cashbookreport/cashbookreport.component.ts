@@ -25,7 +25,8 @@ export class CashbookreportComponent {
       .subscribe((resp: any) => {
         let link = document.createElement("a");
         link.download = "CashbookReport" + "_" + new Date().getTime() + '.pdf';
-        link.href = "assets/" + resp.message;
+        //link.href = "assets/" + resp.message;
+        link.href = "assets/reports/CashBook/" + resp.message;
         link.click();
         //window.open("assets/" + resp.message);
       });

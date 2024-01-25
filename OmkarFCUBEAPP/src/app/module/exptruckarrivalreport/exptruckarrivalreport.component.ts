@@ -236,14 +236,16 @@ export class ExptruckarrivalreportComponent {
   exportExcel(): void {
     this.filter.filterStr3 = "1";
     this.exptruckarrivalService.getExptruckarrivalExcel(this.filter).subscribe(resp => {
-      this.responseDetails=resp;
       if(resp.status){
-        var filename = this.responseDetails.message;
-        //here code for Downloading Excel file         
-        this.toastrService.success( "File Generated Successfully at " + filename );   
+        //here code for Downloading Excel file          
+        let link = document.createElement("a");
+        link.download = "Exptruckarrival" + "_" + new Date().getTime() + '.xlsx';
+        // link.href = "assets/" + resp.message;
+        link.href = "assets/reports/ExpTruckArrRPT/" + resp.message;
+        link.click();
       }
       else{        
-        this.toastrService.warning(this.responseDetails.message);   
+        this.toastrService.warning(resp.message);   
       }
     });
   }

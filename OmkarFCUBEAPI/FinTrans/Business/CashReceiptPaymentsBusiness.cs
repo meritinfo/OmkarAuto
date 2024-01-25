@@ -161,7 +161,8 @@ namespace FinTrans.Business
 
             document.Close();
 
-            return filePath;
+            //return filePath;
+            return fileName;
         }
 
         protected class Footer : IEventHandler
