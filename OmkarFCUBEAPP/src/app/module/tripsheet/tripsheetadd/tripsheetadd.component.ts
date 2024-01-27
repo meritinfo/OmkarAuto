@@ -440,6 +440,28 @@ export class TripsheetaddComponent {
 
     }
   }
+  checkLocation() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    let fp =  this.ivFromPlace ? this.ivFromPlace :0;
+    let tp = this.ivToPlace ?this.ivToPlace :0;;
+    if(fp!='0' && tp!='0' ){
+     //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
+    // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
+     if( fp == tp){
+  
+     
+      
+       
+          this.toastrService.warning("From and to location should not be the same");
+          this.formTripsheet.patchValue({
+            fromPlace: '',
+            toPlace: ''
+          });
+        }
+  }
+      
+    
+    }
 
   calculateTotal(): void {
     var totalDslLtr = 0;
@@ -1906,6 +1928,7 @@ export class TripsheetaddComponent {
     this.getAdBlueToBe1();
     this.getBhattaRate();
     this.checkTripkMsNext();
+    this.checkLocation();
     //this.commonDetailUpdate();
   }
   changeFromPlace2(e: any) {
@@ -2465,6 +2488,7 @@ export class TripsheetaddComponent {
     this.checkTripkMs();
     this.getBhattaRate();
     this.checkDestinationControlStatus();
+    this.checkLocation();
 
     // this.checkTripkMsNext();
     // this.commonDetailUpdate();

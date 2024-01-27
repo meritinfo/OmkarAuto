@@ -248,7 +248,7 @@ export class ConsignmentaddComponent implements OnInit {
          ewayBillExpDate2: ewayBillExpDateConverted2,
           //shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
          // cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
-                shipmentDt:shipmentDtConverted,
+          shipmentDt:shipmentDtConverted,
           cnorInvDate: cnorInvDateConverted,
           cnorInvDate2: cnorInvDateConverted2,
          
@@ -294,6 +294,8 @@ export class ConsignmentaddComponent implements OnInit {
       return
     }
   }
+ 
+
   consignmentDelete(): void {
     if(this.selectedConsignmentDetails.consignmentID != '' ){
      this.requestmodel.strRequest =this.selectedConsignmentDetails.consignmentID
@@ -363,7 +365,7 @@ export class ConsignmentaddComponent implements OnInit {
   changeFromPlace(e: any) {
     this.ivFromPlace = e.dataId;
     this.checkMs();
-   // this.checkLocation();
+    this.checkLocation();
     //  this.checkTripkMs();
     //  this.getAdBlueToBe();
     //  this.getDslToBe();
@@ -371,7 +373,7 @@ export class ConsignmentaddComponent implements OnInit {
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
     this.checkMs();
-    //this.checkLocation();
+    this.checkLocation();
     //   this.checkTripkMs();
     //  this.getDslToBe();
     //   this.getAdBlueToBe();
@@ -789,10 +791,12 @@ export class ConsignmentaddComponent implements OnInit {
   }
   }
   checkLocation() {
-
-    var selectedDataValue = this.formConsignment.getRawValue();
-    let fp = selectedDataValue.fromPlace.dataId;
-   let tp = selectedDataValue.toPlace.dataId;
+  var selectedDataValue = this.formConsignment.getRawValue();
+  let fp =  this.ivFromPlace ? this.ivFromPlace :0;
+  let tp = this.ivToPlace ?this.ivToPlace :0;;
+  if(fp!='0' && tp!='0' ){
+   //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
+  // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
    if( fp == tp){
 
    
@@ -804,8 +808,8 @@ export class ConsignmentaddComponent implements OnInit {
           toPlace: ''
         });
       }
+}
     
-  
   
   }
 /*  searchGSTForEdit(): void {
