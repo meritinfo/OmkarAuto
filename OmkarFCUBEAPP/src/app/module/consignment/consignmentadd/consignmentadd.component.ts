@@ -36,6 +36,7 @@ export class ConsignmentaddComponent implements OnInit {
   transDate: string = '';
   ltsDslToBe: string = '';
   tripOpenBy: string = '';
+
   adBlueToBe: string = '';
   fromLocation: string = '';
   toLocation: string = '';
@@ -80,11 +81,13 @@ export class ConsignmentaddComponent implements OnInit {
   ivVehicleNo = '';
   billstation = '';
   editMode = false;
+  display= true;
   createmode  = true;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
   ivFromPlace = '';
   ivToPlace = '';
 
@@ -212,7 +215,7 @@ export class ConsignmentaddComponent implements OnInit {
      // this.sharedService.loading = true;
       this.createmode= true;
       if (this.selectedConsignmentDetails.consignmentID != '') {
-         this.searchGSTForEdit();
+       //  this.searchGSTForEdit();
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
       
         this.formConsignment.controls['ewayBillNo'].disable();
@@ -223,6 +226,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formConsignment.controls['truckId'].disable();
         this.formConsignment.controls['ewayBillEntryType'].disable();
         this.formConsignment.controls['gcSlNo'].disable();
+       // this.formConsignment.controls['transport'].disable();
 
         var bookingConvertatedDate = this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate);
         var ewayBillDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate);
@@ -257,6 +261,7 @@ export class ConsignmentaddComponent implements OnInit {
 
         })
         this.editMode = true;
+       
         this.sharedService.loading = false;
       }
       this.sharedService.loading = false;
@@ -803,7 +808,7 @@ export class ConsignmentaddComponent implements OnInit {
   
   
   }
-  searchGSTForEdit(): void {
+/*  searchGSTForEdit(): void {
     var payload = { 'eWayBillNumber': this.selectedConsignmentDetails.ewayBillNo }
 
     this.commonService.billDetails(payload).subscribe((res: any) => {
@@ -824,7 +829,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
       }
     });
-  }
+  }*/
   checkInvoiceDate() {
 
 
