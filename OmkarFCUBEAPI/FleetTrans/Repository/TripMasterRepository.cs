@@ -116,6 +116,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ActualDays_1", tripMasterModel.ActualDays_1),
                             new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
                             new SqlParameter("@IdleDays", tripMasterModel.IdleDays),
+                            new SqlParameter("@PenaltyExtra", tripMasterModel.PenaltyExtra),
 
                             new SqlParameter("@CreatedBy", tripMasterModel.CreatedBy),
                             new SqlParameter("@CreatedDate", tripMasterModel.CreatedDate),
@@ -414,7 +415,8 @@ namespace FleetTrans.Repository
                                 VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
-                                IdleDays = Convert.ToString(dataSet.Tables[0].Rows[i]["IdleDays"])
+                                IdleDays = Convert.ToString(dataSet.Tables[0].Rows[i]["IdleDays"]),
+                                PenaltyExtra = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyExtra"])
 
                             });
                         }

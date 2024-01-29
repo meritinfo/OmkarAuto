@@ -33,13 +33,15 @@ namespace OmkarFCUBEAPI.Controllers
         //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
+        readonly IDocRenewalRptBusiness docRenewalRptBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
             IDieselStatementBusiness _dieselStatementBusiness, 
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
-            IExpTruckArrRptBusiness _expTruckArrRptBusiness)
+            IExpTruckArrRptBusiness _expTruckArrRptBusiness,
+             IDocRenewalRptBusiness _docRenewalRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -48,6 +50,7 @@ namespace OmkarFCUBEAPI.Controllers
             billStatementBusiness = _billStatementBusiness;
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
             expTruckArrRptBusiness = _expTruckArrRptBusiness;
+            docRenewalRptBusiness = _docRenewalRptBusiness;
         }
 
        
@@ -847,6 +850,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await expTruckArrRptBusiness.ExcelExpTruckArrRPTList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDocRenewalRPTList")]
+        public async Task<IActionResult> GetDocRenewalRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalRptBusiness.GetDocRenewalRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDocRenewalRptList")]
+        public async Task<IActionResult> ExcelDocRenewalRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalRptBusiness.ExcelDocRenewalRptList(request);
 
                 return Ok(result);
             }

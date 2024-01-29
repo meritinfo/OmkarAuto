@@ -180,6 +180,7 @@ import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.
 import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
+import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
 
 @NgModule({
   declarations: [
@@ -288,6 +289,7 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
     AddptslabmasterComponent,
     ExptruckarrivalreportComponent,
     CashbookreportComponent,
+    DocrenewalrptComponent,
   ],
   imports: [
     BrowserModule,

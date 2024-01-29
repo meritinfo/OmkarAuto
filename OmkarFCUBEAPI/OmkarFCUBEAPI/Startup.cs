@@ -143,6 +143,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IRolePrivilegesBusiness, RolePrivilegesBusiness>();
             services.AddScoped<IExpTruckArrRptRepository, ExpTruckArrRptRepository>();
             services.AddScoped<IExpTruckArrRptBusiness, ExpTruckArrRptBusiness>();
+            services.AddScoped<IDocRenewalRptRepository, DocRenewalRptRepository>();
+            services.AddScoped<IDocRenewalRptBusiness, DocRenewalRptBusiness>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
