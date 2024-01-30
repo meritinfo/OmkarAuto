@@ -63,6 +63,9 @@ export class CommonService {
   getlrSeriesForBillList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLRSeriesForBill', null, this.httpOptions);
   }
+  getDocRefNoList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalList', null, this.httpOptions);
+  }
   getBillingPartyList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetBillingPartyList', null, this.httpOptions);
   }

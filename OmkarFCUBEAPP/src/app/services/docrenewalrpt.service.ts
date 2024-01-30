@@ -32,11 +32,11 @@ export class DocRenewalRptService {
 //  clearCashReceiptEntryDetails() {
    // this.selectedExptruckarrival = new Exptruckarrivalmodel();
  // }
-//  getExptruckarrivalList(filter: Reportmodel): Observable<Exptruckarrivallistmodel> {
- //   return this.httpClient.post<Exptruckarrivallistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetExpTruckArrRPTList', filter, this.httpOptions);
-//  }  
-  getExptruckarrivalExcel(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelExpTruckArrRPTList', filter, this.httpOptions);
+ getDocRenewalRptList(filter: Reportmodel): Observable<Docrenewalrptlistmodel> {
+    return this.httpClient.post<Docrenewalrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalRptList', filter, this.httpOptions);
+  }  
+  getDocRenewalRptListExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelDocRenewalRptList', filter, this.httpOptions);
   }    
 
 }

@@ -181,6 +181,7 @@ import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.compo
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
+import { Docrenewalrptmodel } from './models/docrenewalrptmodel';
 
 @NgModule({
   declarations: [
@@ -329,7 +330,7 @@ import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/doc
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

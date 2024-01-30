@@ -41,12 +41,12 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@Branch",             request.FilterStr),
-                            new SqlParameter("@ConsignorPayParty",  request.FilterStr1),
+                          //  new SqlParameter("@Branch",             request.FilterStr),
+                            new SqlParameter("@DocRenewalID",  request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
                             new SqlParameter("@flag",               request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getExpTruckArrRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -100,19 +100,19 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@PageNumber",         request.PageNumber),
+                             new SqlParameter("@PageNumber",         request.PageNumber),
                             new SqlParameter("@PageSize",           request.PageSize),
                             new SqlParameter("@SortColumn",         request.SortColumn),
                             new SqlParameter("@SortOrder",          request.SortOrder),
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@Branch",             request.FilterStr),
-                            new SqlParameter("@ConsignorPayParty",  request.FilterStr1),
+                          //  new SqlParameter("@Branch",             request.FilterStr),
+                            new SqlParameter("@DocRenewalID",  request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
                             new SqlParameter("@flag",               request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getExpTruckArrRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -127,7 +127,7 @@ namespace FleetTrans.Repository
                         Worksheets = (Worksheet)app.ActiveSheet;
 
 
-                        Excel.Range R1 = Worksheets.get_Range("A1:J1", misvalue);
+                        Excel.Range R1 = Worksheets.get_Range("A1:H1", misvalue);
 
                         R1.MergeCells = true;
                         R1.HorizontalAlignment = Constants.xlCenter;
@@ -136,7 +136,7 @@ namespace FleetTrans.Repository
                         R1.Font.Color = 255;
                         Worksheets.Cells[1, 1] = "OMKAR CARRIERS";
 
-                        Excel.Range R2 = Worksheets.get_Range("A2:J2", misvalue);
+                        Excel.Range R2 = Worksheets.get_Range("A2:H2", misvalue);
 
                         R2.MergeCells = true;
                         R2.HorizontalAlignment = Constants.xlRight;
@@ -145,7 +145,7 @@ namespace FleetTrans.Repository
                         R2.Font.Bold = true;
                         Worksheets.Cells[2, 1] = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
-                        Excel.Range R3 = Worksheets.get_Range("A3:J3", misvalue);
+                        Excel.Range R3 = Worksheets.get_Range("A3:H3", misvalue);
 
                         R3.MergeCells = true;
                         R3.HorizontalAlignment = Constants.xlCenter;
@@ -153,9 +153,9 @@ namespace FleetTrans.Repository
                         R3.Font.Size = 13;
                         R3.Font.Color = 16711680;
                         R3.Font.Underline = true;
-                        Worksheets.Cells[3, 1] = "EXPECTED TRUCK ARRIVAL REPORT";
+                        Worksheets.Cells[3, 1] = "Document Renewal Report";
 
-                        Excel.Range R4 = Worksheets.get_Range("A4:J4", misvalue);
+                        Excel.Range R4 = Worksheets.get_Range("A4:H4", misvalue);
 
                         R4.MergeCells = true;
                         R4.HorizontalAlignment = Constants.xlCenter;
@@ -165,7 +165,7 @@ namespace FleetTrans.Repository
                         Worksheets.Cells[4, 1] = "From " + request.FromDate + " To " + request.ToDate;
 
                         // for column name (HEADER)
-                        Excel.Range R5 = Worksheets.get_Range("A5:J5", misvalue);
+                        Excel.Range R5 = Worksheets.get_Range("A5:H5", misvalue);
 
                         R5.Font.Bold = true;
                         R5.Font.Color = 8519755;
@@ -205,7 +205,7 @@ namespace FleetTrans.Repository
                         }
                         //RF6.NumberFormat = "dd-MMM-yyyy";
 
-                        Excel.Range Rn6 = Worksheets.get_Range("A5:J" + (r - 1).ToString(), misvalue);
+                        Excel.Range Rn6 = Worksheets.get_Range("A5:H" + (r - 1).ToString(), misvalue);
                         Rn6.Borders.LineStyle = XlLineStyle.xlContinuous;
 
                         Worksheets.UsedRange.EntireColumn.AutoFit();
