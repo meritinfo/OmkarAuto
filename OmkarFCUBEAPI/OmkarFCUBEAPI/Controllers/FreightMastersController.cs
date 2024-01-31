@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using FleetMasters.Business;
 using FreightMasters.Repository;
+using FleetTrans.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -25,6 +26,8 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
+        readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
+
 
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         
@@ -38,7 +41,8 @@ namespace OmkarFCUBEAPI.Controllers
             IRatetypesBusiness _ratetypesBusiness, 
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
-            IDistanceMasterTripBusiness _distanceMasterTripBusiness, 
+            IDistanceMasterTripBusiness _distanceMasterTripBusiness,
+            IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -50,6 +54,7 @@ namespace OmkarFCUBEAPI.Controllers
             freightRatesMstBusiness = _freightRatesMstBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
+            distanceMasterFrtRptBusiness = _distanceMasterFrtRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
         }
 
@@ -67,6 +72,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await freightMastersBusiness.DestinationMasterDetailsSave(destinationMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDistanceMasterFrtRPTList")]
+        public async Task<IActionResult> GetDistanceMasterFrtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtRptBusiness.GetDistanceMasterFrtRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDistanceMasterFrtRptList")]
+        public async Task<IActionResult> ExcelDistanceMasterFrtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtRptBusiness.ExcelDistanceMasterFrtRptList(request);
 
                 return Ok(result);
             }

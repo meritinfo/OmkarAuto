@@ -1,33 +1,25 @@
-﻿using FleetTrans.Models;
+﻿
 using Microsoft.Extensions.Options;
-using Microsoft.Office.Interop.Excel;
-using Shared.Models;
-using SqlHelper.Models;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using FleetTrans.Models;
-using Microsoft.Extensions.Options;
+using FreightMasters.Models;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 
-
-namespace FleetTrans.Repository
+namespace FreightMasters.Repository
 {
-    public class DocRenewalRptRepository: IDocRenewalRptRepository
+    public class DistanceMasterFrtRptRepository : IDistanceMasterFrtRptRepository
     {
         private readonly IOptions<DBModel> dbconnection;
-        public DocRenewalRptRepository(IOptions<DBModel> _dbconnection)
+        public DistanceMasterFrtRptRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
-
-        public async Task<DocRenewalRptListModel> GetDocRenewalRptList(ReportRequestModel request)
+        public async Task<DistanceMasterFrtRptListModel> GetDistanceMasterFrtRptList(ReportRequestModel request)
         {
-            DocRenewalRptListModel docRenewalRpt = new();
-            List<DocRenewalRptModel> docRenewalRptList = new();
+            DistanceMasterFrtRptListModel distanceMasterRpt = new();
+            List<DistanceMasterFrtRptModel> distanceMasterRptList = new();
             try
             {
                 if (dbconnection != null)
@@ -39,36 +31,36 @@ namespace FleetTrans.Repository
                             new SqlParameter("@SortColumn",         request.SortColumn),
                             new SqlParameter("@SortOrder",          request.SortOrder),
                             new SqlParameter("@Search",             request.Search),
-                            new SqlParameter("@FromDate",           request.FromDate),
-                            new SqlParameter("@ToDate",             request.ToDate),
-                          //  new SqlParameter("@Branch",             request.FilterStr),
-                            new SqlParameter("@DocRenewalID",  request.FilterStr1),
-                            new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                            new SqlParameter("@flag",               request.FilterStr3),
+                           // new SqlParameter("@FromDate",           request.FromDate),
+                         //   new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@FromLocation",             request.FilterStr),
+                          new SqlParameter("@ToLocation",  request.FilterStr1),
+                         //   new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                        //    new SqlParameter("@flag",               request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDistanceMasterFrtRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            docRenewalRptList.Add(new DocRenewalRptModel
+                            distanceMasterRptList.Add(new DistanceMasterFrtRptModel
                             {
-                                RenewalDocName = Convert.ToString(dataSet.Tables[0].Rows[i]["RenewalDocName"]),
-                                TransDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDate"]),
-                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                ValidFromDt = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFromDt"]),
-                                NetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["NetAmount"]),
-                                DocumentRefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DocumentRefNo"]),
-                        
+                                OriginPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["OriginPlace"]),
+                                Destination = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
+                                KMS = Convert.ToString(dataSet.Tables[0].Rows[i]["KMS"]),
+                                ValidFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFrom"]),
+                                ValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidUpto"]),
+                              
+
 
                             });
                         }
 
-                        docRenewalRpt.DocRenewalRptlist = docRenewalRptList;
+                        distanceMasterRpt.DistanceMasterRptList = distanceMasterRptList;
 
-                        docRenewalRpt.PageMetaData = new PaginationMetaData
+                        distanceMasterRpt.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -89,9 +81,9 @@ namespace FleetTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return docRenewalRpt;
+            return distanceMasterRpt;
         }
-        public async Task<ResponseModel> ExcelDocRenewalRptList(ReportRequestModel request)
+        public async Task<ResponseModel> ExcelDistanceMasterFrtRptList(ReportRequestModel request)
         {
             ResponseModel response = new();
             try
@@ -99,20 +91,19 @@ namespace FleetTrans.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                             new SqlParameter("@PageNumber",         request.PageNumber),
+                        {   new SqlParameter("@PageNumber",         request.PageNumber),
                             new SqlParameter("@PageSize",           request.PageSize),
                             new SqlParameter("@SortColumn",         request.SortColumn),
                             new SqlParameter("@SortOrder",          request.SortOrder),
                             new SqlParameter("@Search",             request.Search),
-                            new SqlParameter("@FromDate",           request.FromDate),
-                            new SqlParameter("@ToDate",             request.ToDate),
-                          //  new SqlParameter("@Branch",             request.FilterStr),
-                            new SqlParameter("@DocRenewalID",  request.FilterStr1),
-                            new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                            new SqlParameter("@flag",               request.FilterStr3),
+                           // new SqlParameter("@FromDate",           request.FromDate),
+                         //   new SqlParameter("@ToDate",             request.ToDate),
+                            new SqlParameter("@FromLocation",             request.FilterStr),
+                          new SqlParameter("@ToLocation",  request.FilterStr1),
+                         //   new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                        //    new SqlParameter("@flag",               request.FilterStr3),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDocRenewalRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDistanceMasterFrtRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -127,7 +118,7 @@ namespace FleetTrans.Repository
                         Worksheets = (Worksheet)app.ActiveSheet;
 
 
-                        Excel.Range R1 = Worksheets.get_Range("A1:H1", misvalue);
+                        Excel.Range R1 = Worksheets.get_Range("A1:F1", misvalue);
 
                         R1.MergeCells = true;
                         R1.HorizontalAlignment = Constants.xlCenter;
@@ -136,7 +127,7 @@ namespace FleetTrans.Repository
                         R1.Font.Color = 255;
                         Worksheets.Cells[1, 1] = "OMKAR CARRIERS";
 
-                        Excel.Range R2 = Worksheets.get_Range("A2:H2", misvalue);
+                        Excel.Range R2 = Worksheets.get_Range("A2:F2", misvalue);
 
                         R2.MergeCells = true;
                         R2.HorizontalAlignment = Constants.xlRight;
@@ -145,7 +136,7 @@ namespace FleetTrans.Repository
                         R2.Font.Bold = true;
                         Worksheets.Cells[2, 1] = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
-                        Excel.Range R3 = Worksheets.get_Range("A3:H3", misvalue);
+                        Excel.Range R3 = Worksheets.get_Range("A3:F3", misvalue);
 
                         R3.MergeCells = true;
                         R3.HorizontalAlignment = Constants.xlCenter;
@@ -153,33 +144,32 @@ namespace FleetTrans.Repository
                         R3.Font.Size = 13;
                         R3.Font.Color = 16711680;
                         R3.Font.Underline = true;
-                        Worksheets.Cells[3, 1] = "Document Renewal Report";
+                        Worksheets.Cells[3, 1] = "Distance Master Freight Report";
 
-                        Excel.Range R4 = Worksheets.get_Range("A4:H4", misvalue);
+                        Excel.Range R4 = Worksheets.get_Range("A4:F4", misvalue);
 
                         R4.MergeCells = true;
                         R4.HorizontalAlignment = Constants.xlCenter;
                         R4.Font.Name = "Georgia";
                         R4.Font.Size = 10;
                         R4.Font.Bold = true;
-                        Worksheets.Cells[4, 1] = "From " + Convert.ToDateTime(request.FromDate).ToString("dd-MMM-yyyy") + " To " +Convert.ToDateTime(request.ToDate).ToString("dd-MMM-yyyy");
+                        Worksheets.Cells[4, 1] = "From " + Convert.ToDateTime(request.FromDate).ToString("dd-MMM-yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd-MMM-yyyy");
 
                         // for column name (HEADER)
-                        Excel.Range R5 = Worksheets.get_Range("A5:H5", misvalue);
+                        Excel.Range R5 = Worksheets.get_Range("A5:F5", misvalue);
 
                         R5.Font.Bold = true;
                         R5.Font.Color = 8519755;
                         R5.HorizontalAlignment = Constants.xlCenter;
 
                         Worksheets.Cells[5, 1] = "Sl. No.";
-                        Worksheets.Cells[5, 2] = "RenewalDocName";
-                        Worksheets.Cells[5, 3] = "TransDate";
-                        Worksheets.Cells[5, 4] = "VehicleNo";
-                        Worksheets.Cells[5, 5] = "ValidFromDt";
-                        Worksheets.Cells[5, 6] = "ValidToDt";
-                        Worksheets.Cells[5, 7] = "NetAmount";
-                        Worksheets.Cells[5, 8] = "DocumentRefNo";
-               
+                        Worksheets.Cells[5, 2] = "OriginPlace";
+                        Worksheets.Cells[5, 3] = "Destination";
+                        Worksheets.Cells[5, 4] = "KMS";
+                        Worksheets.Cells[5, 5] = "ValidFrom";
+                        Worksheets.Cells[5, 6] = "ValidUpto";
+                    
+
 
                         v = 0;
                         int r = v + 6;
@@ -187,34 +177,33 @@ namespace FleetTrans.Repository
 
                         while (v < dataSet.Tables[0].Rows.Count)
                         {
-                           
+
 
                             Worksheets.Cells[r, 1] = v + 1;
                             Excel.Range RA6 = Worksheets.get_Range("A" + r + ":A" + r, misvalue);
                             RA6.HorizontalAlignment = Constants.xlRight;
-                            Worksheets.Cells[r, 2] = dataSet.Tables[0].Rows[v]["RenewalDocName"].ToString();
-                            Worksheets.Cells[r, 3] = dataSet.Tables[0].Rows[v]["TransDate"].ToString();
-                            Worksheets.Cells[r, 4] = dataSet.Tables[0].Rows[v]["VehicleNo"].ToString();
-                            Worksheets.Cells[r, 5] = dataSet.Tables[0].Rows[v]["ValidFromDt"].ToString();
-                            Worksheets.Cells[r, 6] = dataSet.Tables[0].Rows[v]["ValidToDt"].ToString();
-                            Worksheets.Cells[r, 7] = dataSet.Tables[0].Rows[v]["NetAmount"].ToString();
-                            Worksheets.Cells[r, 8] = dataSet.Tables[0].Rows[v]["DocumentRefNo"].ToString();
-                        
+                            Worksheets.Cells[r, 2] = dataSet.Tables[0].Rows[v]["OriginPlace"].ToString();
+                            Worksheets.Cells[r, 3] = dataSet.Tables[0].Rows[v]["Destination"].ToString();
+                            Worksheets.Cells[r, 4] = dataSet.Tables[0].Rows[v]["KMS"].ToString();
+                            Worksheets.Cells[r, 5] = dataSet.Tables[0].Rows[v]["ValidFrom"].ToString();
+                            Worksheets.Cells[r, 6] = dataSet.Tables[0].Rows[v]["ValidUpto"].ToString();
+
+
                             r++;
                             v++;
                         }
                         //RF6.NumberFormat = "dd-MMM-yyyy";
 
-                        Excel.Range Rn6 = Worksheets.get_Range("A5:H" + (r - 1).ToString(), misvalue);
+                        Excel.Range Rn6 = Worksheets.get_Range("A5:F" + (r - 1).ToString(), misvalue);
                         Rn6.Borders.LineStyle = XlLineStyle.xlContinuous;
 
                         Worksheets.UsedRange.EntireColumn.AutoFit();
 
                         app.EnableEvents = false;
                         app.DisplayAlerts = false;
-                        var folderName = System.IO.Path.Combine("Reports", "DocRenewalRPT");
+                        var folderName = System.IO.Path.Combine("Reports", "DistanceMasterFrtRPT");
                         var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
-                        string fileName = "DocRenewal_" + request.Search + "_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".xlsx";
+                        string fileName = "DistanceMasterFrt_" + request.Search + "_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".xlsx";
                         var filePath = folderName + "//" + fileName;
                         var fullPath = System.IO.Path.Combine(pathToSave, fileName);
                         bool exists = System.IO.Directory.Exists(pathToSave);

@@ -182,6 +182,8 @@ import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlis
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
 import { Docrenewalrptmodel } from './models/docrenewalrptmodel';
+import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
+import { Distancemasterfrtrptmodel } from './models/distancemasterfrtrptmodel';
 
 @NgModule({
   declarations: [
@@ -291,6 +293,7 @@ import { Docrenewalrptmodel } from './models/docrenewalrptmodel';
     ExptruckarrivalreportComponent,
     CashbookreportComponent,
     DocrenewalrptComponent,
+    DistancemasterfrtrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -328,7 +331,7 @@ import { Docrenewalrptmodel } from './models/docrenewalrptmodel';
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
     Fleetcardmastermodel,Brsentrymodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],

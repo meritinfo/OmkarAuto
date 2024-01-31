@@ -7,20 +7,20 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Docrenewalrptlistmodel  } from 'src/app/models/docrenewalrptlistmodel';
-import { Docrenewalrptmodel } from 'src/app/models/docrenewalrptmodel';
-import { DocRenewalRptService } from 'src/app/services/docrenewalrpt.service';
+import { Distancemasterfrtrptlistmodel  } from 'src/app/models/distancemasterfrtrptlistmodel';
+import { Distancemasterfrtrptmodel } from 'src/app/models/distancemasterfrtrptmodel';
+import { DistanceMasterFrtRptService } from 'src/app/services/distancemasterfrtrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
-  selector: 'app-docrenewalrpt',
-  templateUrl: './docrenewalrpt.component.html',
-  styleUrls: ['./docrenewalrpt.component.css']
+  selector: 'app-distancemasterfrtrpt',
+  templateUrl: './distancemasterfrtrpt.component.html',
+  styleUrls: ['./distancemasterfrtrpt.component.css']
 })
-export class DocrenewalrptComponent {
+export class DistancemasterfrtrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -28,7 +28,7 @@ export class DocrenewalrptComponent {
   viewStatus = false; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -36,7 +36,7 @@ export class DocrenewalrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allDocRenewalRptlist: Docrenewalrptlistmodel = new Docrenewalrptlistmodel();
+  allDistanceMasterFrtRptlist: Distancemasterfrtrptlistmodel = new Distancemasterfrtrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -61,13 +61,12 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private docRenewalRptService: DocRenewalRptService, 
+  constructor(private distanceMasterFrtRptService: DistanceMasterFrtRptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-
     ngOnInit(): void {   
   
       var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -117,8 +116,8 @@ formFilter!: FormGroup;
         fromDate: new FormControl(this.loginDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
-        vehicleMasterID: new FormControl('',),  
-        docRenewalID: new FormControl('',),  
+        fromPlace: new FormControl('',[Validators.required]),  
+        toPlace: new FormControl('',),  
       });
       this.filter.fromDate = this.loginDate;
       this.filter.toDate = this.loginDate;
@@ -127,10 +126,10 @@ formFilter!: FormGroup;
       this.filter.filterStr3  = "0";
   
       this.sharedService.loading=true;
-      this.getBranchList();
+      this.getLocationList()
       this.getVehicleNoList(); 
-      this.getDocRefNoList();   
-      this.expDocRenewal();
+     // this.getDocRefNoList();   
+      this.expDistanceMasterFrt();
       this.sharedService.loading=false;
     }
     getBranchList(): void {
@@ -143,11 +142,12 @@ formFilter!: FormGroup;
         this.vehicleList = res;
       });
     }
-    getDocRefNoList(): void {
-      this.commonService.getDocRefNoList().subscribe((res) => {
-        this.docRenewalList = res;
+    getLocationList(): void {
+      this.commonService.getLocationList().subscribe((res) => {
+        this.locationList = res;
       });
     }
+   
     get f() { return this.formFilter.controls; }
   
     selectEvent(item: any) {
@@ -167,7 +167,7 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
-    expDocRenewal(){
+    expDistanceMasterFrt(){
       this.dtOptions = {
           pagingType: 'full_numbers',
           pageLength: 10,
@@ -178,11 +178,11 @@ formFilter!: FormGroup;
             // Filter setting
             this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
             this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'RenewalDocName';
+            this.filter.sortColumn = 'OriginPlace';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
-            this.docRenewalRptService.getDocRenewalRptList(this.filter).subscribe(resp => {
-               this.allDocRenewalRptlist = resp;
+            this.distanceMasterFrtRptService.getDistancemMsterFrtRptList(this.filter).subscribe(resp => {
+               this.allDistanceMasterFrtRptlist = resp;
                 callback({
                   recordsTotal: resp.pageMetaData.totalCount,
                   recordsFiltered: resp.pageMetaData.totalCount,
@@ -192,33 +192,26 @@ formFilter!: FormGroup;
           }, 
           columns: [ 
           {
-            title: 'Renewal DocName',
-            data: 'renewalDocName',
+            title: 'OriginPlace',
+            data: 'originPlace',
           },  
           {
-            title: 'vehicle No',
-            data: 'vehicleNo',
+            title: 'Destination',
+            data: 'destination',
           },    
           {
-            title: 'Trans Date',
-            data: 'transDate',
+            title: 'KMS',
+            data: 'kms',
           },
           {
             title: 'Valid FromDt',
-            data: 'validFromDt',
+            data: 'validFrom',
           },       
           {
             title: 'Valid ToDt',
-            data: 'validToDt',
+            data: 'validUpto',
           },
-          {
-            title: 'Net Amount',
-            data: 'netAmount',
-          },
-          {
-            title: 'Document RefNo',
-            data: 'documentRefNo',
-          },
+ 
       
         ],
       };
@@ -227,13 +220,13 @@ formFilter!: FormGroup;
     //Open user details screen
     exportExcel(): void {
       this.filter.filterStr3 = "1";
-      this.docRenewalRptService.getDocRenewalRptListExcel(this.filter).subscribe(resp => {
+      this.distanceMasterFrtRptService.getDistanceMasterFrtRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){
           //here code for Downloading Excel file          
           let link = document.createElement("a");
-          link.download = "DocRenewal" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "DistanceMasterFrt" + "_" + new Date().getTime() + '.xlsx';
           // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/DocRenewalRPT/" + resp.message;
+          link.href = "assets/reports/DistanceMasterFrtRPT/" + resp.message;
           link.click();
         }
         else{        
@@ -255,15 +248,15 @@ formFilter!: FormGroup;
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
+   // this.filter.fromDate    = selectedDataVal.fromLocation;
+   // this.filter.toDate      = selectedDataVal.toLocation;
     this.filter.search      = this.loggedInUserID;
-   // this.filter.filterStr   = selectedDataVal.tripBranch?selectedDataVal.tripBranch.dataId:"";
-    this.filter.filterStr1  = selectedDataVal.docRenewalID?selectedDataVal.docRenewalID:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "0";
+   this.filter.filterStr   = selectedDataVal.fromPlace.dataId;
+    this.filter.filterStr1  =selectedDataVal.toPlace.dataId;
+  // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+   // this.filter.filterStr3  = "0";
     this.sharedService.loading=true;
-    this.expDocRenewal();
+    this.expDistanceMasterFrt();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -271,3 +264,8 @@ formFilter!: FormGroup;
     });
   }
 } 
+
+
+
+
+

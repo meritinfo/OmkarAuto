@@ -92,6 +92,7 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
 import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
 import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
+import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
 
 
 
@@ -225,7 +226,8 @@ const routes: Routes = [
   { path: 'exparrivals', component: ExptruckarrivalreportComponent}, 
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
   { path: 'cashbookrpt', component: CashbookreportComponent},
-  { path: 'docrenewalrpt', component: DocrenewalrptComponent}
+  { path: 'docrenewalrpt', component: DocrenewalrptComponent},
+  { path: 'distancemasterfrtrpt', component: DistancemasterfrtrptComponent}
   
 ];
 
