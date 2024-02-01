@@ -27,6 +27,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
         readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
+        readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
 
 
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
@@ -43,6 +44,7 @@ namespace OmkarFCUBEAPI.Controllers
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
             IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
+            IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
@@ -55,6 +57,7 @@ namespace OmkarFCUBEAPI.Controllers
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
             distanceMasterFrtRptBusiness = _distanceMasterFrtRptBusiness;
+            distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
         }
 
@@ -108,6 +111,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterFrtRptBusiness.ExcelDistanceMasterFrtRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDistanceMasterTripRPTList")]
+        public async Task<IActionResult> GetDistanceMasterTripRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripRptBusiness.GetDistanceMasterTripRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDistanceMasterTripRptList")]
+        public async Task<IActionResult> ExcelDistanceMasterTripRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripRptBusiness.ExcelDistanceMasterTripRptList(request);
 
                 return Ok(result);
             }
