@@ -42,7 +42,8 @@ namespace OmkarFCUBEAPI.Controllers
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
-             IDocRenewalRptBusiness _docRenewalRptBusiness)
+             IDocRenewalRptBusiness _docRenewalRptBusiness,
+                ITripPaymentsRptBusiness _trippaymentsRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -52,6 +53,7 @@ namespace OmkarFCUBEAPI.Controllers
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
             expTruckArrRptBusiness = _expTruckArrRptBusiness;
             docRenewalRptBusiness = _docRenewalRptBusiness;
+                 docRenewalRptBusiness = _docRenewalRptBusiness;
         }
 
        
