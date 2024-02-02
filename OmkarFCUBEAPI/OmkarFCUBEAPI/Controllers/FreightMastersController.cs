@@ -28,6 +28,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
         readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
         readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
+        readonly IDriverLicRptBusiness driverLicRptBusiness;
 
 
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
@@ -45,7 +46,8 @@ namespace OmkarFCUBEAPI.Controllers
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
             IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
             IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
-            IConsigneeMasterBusiness _consigneeMasterBusiness)
+            IConsigneeMasterBusiness _consigneeMasterBusiness,
+             IDriverLicRptBusiness _driverLicRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -59,6 +61,7 @@ namespace OmkarFCUBEAPI.Controllers
             distanceMasterFrtRptBusiness = _distanceMasterFrtRptBusiness;
             distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
+            driverLicRptBusiness = _driverLicRptBusiness;
         }
 
         /// <summary>
@@ -155,7 +158,42 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDriverLicRPTList")]
+        public async Task<IActionResult> GetDriverLicRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverLicRptBusiness.GetDriverLicRptList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDriverLicRptList")]
+        public async Task<IActionResult> ExcelDriverLicRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverLicRptBusiness.ExcelDriverLicRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         /// <summary>
         /// Controller method for DESTINATION MASTER
         /// </summary>

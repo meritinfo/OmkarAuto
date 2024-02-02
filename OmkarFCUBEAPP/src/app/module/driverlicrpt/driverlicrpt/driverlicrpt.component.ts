@@ -1,3 +1,4 @@
+
 import { Component,ViewChild } from '@angular/core';
 
 import { Router } from '@angular/router';
@@ -7,19 +8,19 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Trippaymentsrptlistmodel  } from 'src/app/models/trippaymentsrptlistmodel';
-import { Trippaymentsrptmodel } from 'src/app/models/trippaymentsrptmodel';
-import { TripPaymentsRptService } from 'src/app/services/trippaymentsrpt.service';
+import { Driverlicrptlistmodel  } from 'src/app/models/driverlicrptlistmodel';
+import { Driverlicrptmodel } from 'src/app/models/driverlicrptmodel';
+import { DriverLicRptService } from 'src/app/services/driverlicrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-trippaymentsrpt',
-  templateUrl: './trippaymentsrpt.component.html',
-  styleUrls: ['./trippaymentsrpt.component.css']
+  selector: 'app-driverlicrpt',
+  templateUrl: './driverlicrpt.component.html',
+  styleUrls: ['./driverlicrpt.component.css']
 })
-export class TrippaymentsrptComponent {
+export class DriverlicrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -35,7 +36,7 @@ export class TrippaymentsrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTripPaymentsRptlist: Trippaymentsrptlistmodel = new Trippaymentsrptlistmodel();
+  allDriverLicRptlist: Driverlicrptlistmodel = new Driverlicrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -60,7 +61,7 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private tripPaymentsRptService: TripPaymentsRptService, 
+  constructor(private driverLicRptService: DriverLicRptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
@@ -117,8 +118,9 @@ formFilter!: FormGroup;
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
-        transType: new FormControl('',),  
-        pmtType: new FormControl('',),  
+        expiryLic: new FormControl('',),  
+        active: new FormControl('',),  
+        search: new FormControl('',),  
       });
       this.filter.fromDate = this.loginDate;
       this.filter.toDate = this.loginDate;
@@ -130,7 +132,7 @@ formFilter!: FormGroup;
       this.getBranchList();
       this.getVehicleNoList(); 
       this.getDocRefNoList();   
-      this.expTripPayments();
+      this.expDriverLic();
       this.sharedService.loading=false;
     }
     getBranchList(): void {
@@ -167,7 +169,7 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
-    expTripPayments(){
+    expDriverLic(){
       this.dtOptions = {
           pagingType: 'full_numbers',
           pageLength: 10,
@@ -178,11 +180,11 @@ formFilter!: FormGroup;
             // Filter setting
             this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
             this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'RenewalDocName';
+            this.filter.sortColumn = 'licenseNo';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
-            this.tripPaymentsRptService.getTripPaymentsRptList(this.filter).subscribe(resp => {
-               this.allTripPaymentsRptlist = resp;
+            this.driverLicRptService.getDriverLicRptList(this.filter).subscribe(resp => {
+               this.allDriverLicRptlist = resp;
                 callback({
                   recordsTotal: resp.pageMetaData.totalCount,
                   recordsFiltered: resp.pageMetaData.totalCount,
@@ -192,49 +194,95 @@ formFilter!: FormGroup;
           }, 
           columns: [ 
           {
-            title: 'PaymentBr ',
-            data: 'paymentBr',
+            title: 'DriverName ',
+            data: 'driverName',
           },  
           {
-            title: 'PmtDate ',
-            data: 'pmtDate',
+            title: 'FatherName ',
+            data: 'fatherName',
           },    
           {
-            title: 'VehicleNo',
-            data: 'vehicleNo',
+            title: 'DateOfBirth',
+            data: 'dateOfBirth',
           },
           {
-            title: 'TripNo ',
-            data: 'tripNo',
+            title: 'IntroBy ',
+            data: 'introBy',
           },       
           {
-            title: 'OriginPlace',
-            data: 'originPlace',
+            title: 'IntroByMobileNo',
+            data: 'introByMobileNo',
           },
           {
-            title: ' Destination',
-            data: 'Destination',
+            title: 'DateOfAppoint',
+            data: 'dateOfAppoint',
           },
           {
-            title: 'TransType ',
-            data: 'transType',
+            title: 'LicenseNo ',
+            data: 'licenseNo',
           },
           {
-            title: 'QtyLtrs ',
-            data: 'qtyLtrs',
+            title: 'LicenseIssuAuth ',
+            data: 'licenseIssuAuth',
           },
           {
-            title: 'AmountPaid ',
-            data: 'amountPaid',
+            title: 'LicValidUpto ',
+            data: 'licValidUpto',
           },
           {
-            title: 'PmtType ',
-            data: 'pmtType',
+            title: 'BloodGroup ',
+            data: 'bloodGroup',
           },
           {
-            title: 'creditAffect ',
-            data: 'creditAffect',
+            title: 'DriverMobile1 ',
+            data: 'driverMobile1',
           },
+          {
+            title: 'DriverMobile2 ',
+            data: 'driverMobile2',
+          },
+          {
+            title: 'TempAddPhone ',
+            data: 'tempAddPhone',
+          },
+          {
+            title: 'PermanentAddr ',
+            data: 'permanentAddr',
+          },
+          {
+            title: 'PermAddPhone ',
+            data: 'permAddPhone',
+          },
+          {
+            title: 'DriverAadharNo ',
+            data: 'driverAadharNo',
+          },
+          {
+            title: 'IsActive ',
+            data: 'isActive',
+          },
+        /*  {
+            title: 'GroupName ',
+            data: 'groupName',
+          },
+          {
+            title: 'DrBankAccountName ',
+            data: 'drBankAccountName',
+          },
+          {
+            title: 'BankName ',
+            data: 'bankName',
+          },
+          {
+            title: 'BankAcNo ',
+            data: 'bankAcNo',
+          },
+          {
+            title: 'BankIfsCode ',
+            data: 'bankIfsCode',
+          },*/
+      
+      
       
         ],
       };
@@ -243,7 +291,7 @@ formFilter!: FormGroup;
     //Open user details screen
     exportExcel(): void {
       this.filter.filterStr3 = "1";
-      this.tripPaymentsRptService.getTripPaymentsRptListExcel(this.filter).subscribe(resp => {
+      this.driverLicRptService.getDriverLicRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){
           //here code for Downloading Excel file          
           let link = document.createElement("a");
@@ -257,33 +305,36 @@ formFilter!: FormGroup;
         }
       });
     }
-  
-  search(): void {
-    this.userSubmitted = true;
-    if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields");   
-      const controls = this.formFilter.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");   
-        }
-      }     
-      return;
+    search(): void {
+      this.userSubmitted = true;
+      if (this.formFilter.invalid) {
+        this.toastrService.warning("Please Enter Mandatory Fields");   
+        const controls = this.formFilter.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toastrService.warning(name + " Fields is Invalid");   
+          }
+        }     
+        return;
+      }
+      var selectedDataVal=this.formFilter.getRawValue();
+      this.filter.fromDate    = selectedDataVal.fromDate;
+      this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.search      = this.loggedInUserID;
+      this.filter.filterStr   = selectedDataVal.active?selectedDataVal.active:"";
+      this.filter.filterStr1  = selectedDataVal.expiryLic?selectedDataVal.expiryLic:"";
+     // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr3  = "0";
+      this.sharedService.loading=true;
+      this.expDriverLic();
+      this.sharedService.loading=false;
+      
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.ajax.reload();
+      });
     }
-    var selectedDataVal=this.formFilter.getRawValue();
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.search      = this.loggedInUserID;
-    this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
-    this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "0";
-    this.sharedService.loading=true;
-    this.expTripPayments();
-    this.sharedService.loading=false;
-    
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
-    });
-  }
-} 
+  } 
+  
+
+
+

@@ -176,6 +176,8 @@ import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/e
 import { Reportmodel } from './models/reportmodel';
 import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
 import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
+import { Driverlicrptmodel } from './models/driverlicrptmodel';
+
 import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
@@ -188,6 +190,7 @@ import { DistancemastertriprptComponent } from './module/distancemastertriprpt/d
 import { Distancemasterfrtrptmodel } from './models/distancemasterfrtrptmodel';
 import { Distancemastertriprptmodel } from './models/distancemastertriprptmodel';
 import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
+import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
 
 @NgModule({
   declarations: [
@@ -300,6 +303,7 @@ import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsr
     DistancemasterfrtrptComponent,
     DistancemastertriprptComponent,
     TrippaymentsrptComponent,
+    DriverlicrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -339,7 +343,7 @@ import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsr
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

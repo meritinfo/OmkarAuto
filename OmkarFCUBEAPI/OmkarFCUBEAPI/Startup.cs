@@ -151,7 +151,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDistanceMasterFrtRptBusiness, DistanceMasterFrtRptBusiness>();
             services.AddScoped<IDistanceMasterTripRptRepository, DistanceMasterTripRptRepository>();
             services.AddScoped<IDistanceMasterTripRptBusiness, DistanceMasterTripRptBusiness>();
-            services.AddScoped<IDistanceMasterTripRptBusiness, DistanceMasterTripRptBusiness>();
+            services.AddScoped<IDriverLicRptBusiness, DriverLicRptBusiness>();
+            services.AddScoped<IDriverLicRptRepository, DriverLicRptRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
