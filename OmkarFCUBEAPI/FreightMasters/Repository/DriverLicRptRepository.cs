@@ -35,8 +35,8 @@ namespace FreightMasters.Repository
                          //   new SqlParameter("@ToDate",             request.ToDate),
                            new SqlParameter("@Active",             request.FilterStr),
                             new SqlParameter("@ExpiryLic",  request.FilterStr1),
-                         //   new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                        //    new SqlParameter("@flag",               request.FilterStr3),
+                           new SqlParameter("@DriverName",    request.FilterStr2),
+                           new SqlParameter("@flag",               request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverLicRptList", param);
 
@@ -53,7 +53,8 @@ namespace FreightMasters.Repository
                                 IntroBy = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroBy"]),
                                 IntroByMobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["IntroByMobileNo"]),
                                 DateOfAppoint = Convert.ToString(dataSet.Tables[0].Rows[i]["DateOfAppoint"]),
-                                LicenseNo = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseIssuAuth"]),
+                                LicenseNo = Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseNo"]),
+                                LicenseIssuAuth= Convert.ToString(dataSet.Tables[0].Rows[i]["LicenseIssuAuth"]),
                                 LicValidUpto = Convert.ToString(dataSet.Tables[0].Rows[i]["LicValidUpto"]),
                                 BloodGroup = Convert.ToString(dataSet.Tables[0].Rows[i]["BloodGroup"]),
                                 DriverMobile1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMobile1"]),
@@ -115,8 +116,8 @@ namespace FreightMasters.Repository
                          //   new SqlParameter("@ToDate",             request.ToDate),
                            new SqlParameter("@Active",             request.FilterStr),
                             new SqlParameter("@ExpiryLic",  request.FilterStr1),
-                         //   new SqlParameter("@VehicleMasterid",    request.FilterStr2),
-                        //    new SqlParameter("@flag",               request.FilterStr3),
+                           new SqlParameter("@DriverName",    request.FilterStr2),
+                            new SqlParameter("@flag",               1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDriverLicRptList", param);
 
@@ -133,7 +134,7 @@ namespace FreightMasters.Repository
                         Worksheets = (Worksheet)app.ActiveSheet;
 
 
-                        Excel.Range R1 = Worksheets.get_Range("A1:I1", misvalue);
+                        Excel.Range R1 = Worksheets.get_Range("A1:W1", misvalue);
 
                         R1.MergeCells = true;
                         R1.HorizontalAlignment = Constants.xlCenter;
@@ -142,7 +143,7 @@ namespace FreightMasters.Repository
                         R1.Font.Color = 255;
                         Worksheets.Cells[1, 1] = "OMKAR CARRIERS";
 
-                        Excel.Range R2 = Worksheets.get_Range("A2:I2", misvalue);
+                        Excel.Range R2 = Worksheets.get_Range("A2:W2", misvalue);
 
                         R2.MergeCells = true;
                         R2.HorizontalAlignment = Constants.xlRight;
@@ -151,7 +152,7 @@ namespace FreightMasters.Repository
                         R2.Font.Bold = true;
                         Worksheets.Cells[2, 1] = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
 
-                        Excel.Range R3 = Worksheets.get_Range("A3:I3", misvalue);
+                        Excel.Range R3 = Worksheets.get_Range("A3:W3", misvalue);
 
                         R3.MergeCells = true;
                         R3.HorizontalAlignment = Constants.xlCenter;
@@ -161,7 +162,7 @@ namespace FreightMasters.Repository
                         R3.Font.Underline = true;
                         Worksheets.Cells[3, 1] = "Driver Lic Report";
 
-                        Excel.Range R4 = Worksheets.get_Range("A4:I4", misvalue);
+                        Excel.Range R4 = Worksheets.get_Range("A4:W4", misvalue);
 
                         R4.MergeCells = true;
                         R4.HorizontalAlignment = Constants.xlCenter;
@@ -171,7 +172,7 @@ namespace FreightMasters.Repository
                         Worksheets.Cells[4, 1] = "From " + Convert.ToDateTime(request.FromDate).ToString("dd-MMM-yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd-MMM-yyyy");
 
                         // for column name (HEADER)
-                        Excel.Range R5 = Worksheets.get_Range("A5:I5", misvalue);
+                        Excel.Range R5 = Worksheets.get_Range("A5:W5", misvalue);
 
                         R5.Font.Bold = true;
                         R5.Font.Color = 8519755;
@@ -221,21 +222,21 @@ namespace FreightMasters.Repository
                             Worksheets.Cells[r, 6] = dataSet.Tables[0].Rows[v]["IntroByMobileNo"].ToString();
                             Worksheets.Cells[r, 7] = dataSet.Tables[0].Rows[v]["DateOfAppoint"].ToString();
                             Worksheets.Cells[r, 8] = dataSet.Tables[0].Rows[v]["LicenseNo"].ToString();
-                            Worksheets.Cells[r, 10] = dataSet.Tables[0].Rows[v]["LicenseIssuAuth"].ToString();
-                            Worksheets.Cells[r, 11] = dataSet.Tables[0].Rows[v]["LicValidUpto"].ToString();
-                            Worksheets.Cells[r, 12] = dataSet.Tables[0].Rows[v]["BloodGroup"].ToString();
-                            Worksheets.Cells[r, 13] = dataSet.Tables[0].Rows[v]["DriverMobile1"].ToString();
-                            Worksheets.Cells[r, 14] = dataSet.Tables[0].Rows[v]["DriverMobile2"].ToString();
-                            Worksheets.Cells[r, 15] = dataSet.Tables[0].Rows[v]["TempAddPhone"].ToString();
-                            Worksheets.Cells[r, 16] = dataSet.Tables[0].Rows[v]["PermanentAddr"].ToString();
-                            Worksheets.Cells[r, 17] = dataSet.Tables[0].Rows[v]["PermAddPhone"].ToString();
-                            Worksheets.Cells[r, 18] = dataSet.Tables[0].Rows[v]["DriverAadharNo"].ToString();
-                            Worksheets.Cells[r, 19] = dataSet.Tables[0].Rows[v]["IsActive"].ToString();
-                            Worksheets.Cells[r, 20] = dataSet.Tables[0].Rows[v]["GroupName"].ToString();
-                            Worksheets.Cells[r, 21] = dataSet.Tables[0].Rows[v]["DrBankAccountName"].ToString();
-                            Worksheets.Cells[r, 22] = dataSet.Tables[0].Rows[v]["BankName"].ToString();
-                            Worksheets.Cells[r, 23] = dataSet.Tables[0].Rows[v]["BankAcNo"].ToString();
-                            Worksheets.Cells[r, 24] = dataSet.Tables[0].Rows[v]["BankIfsCode"].ToString();
+                            Worksheets.Cells[r, 9] = dataSet.Tables[0].Rows[v]["LicenseIssuAuth"].ToString();
+                            Worksheets.Cells[r, 10] = dataSet.Tables[0].Rows[v]["LicValidUpto"].ToString();
+                            Worksheets.Cells[r, 11] = dataSet.Tables[0].Rows[v]["BloodGroup"].ToString();
+                            Worksheets.Cells[r, 12] = dataSet.Tables[0].Rows[v]["DriverMobile1"].ToString();
+                            Worksheets.Cells[r, 13] = dataSet.Tables[0].Rows[v]["DriverMobile2"].ToString();
+                            Worksheets.Cells[r, 14] = dataSet.Tables[0].Rows[v]["TempAddPhone"].ToString();
+                            Worksheets.Cells[r, 15] = dataSet.Tables[0].Rows[v]["PermanentAddr"].ToString();
+                            Worksheets.Cells[r, 16] = dataSet.Tables[0].Rows[v]["PermAddPhone"].ToString();
+                            Worksheets.Cells[r, 17] = dataSet.Tables[0].Rows[v]["DriverAadharNo"].ToString();
+                            Worksheets.Cells[r, 18] = dataSet.Tables[0].Rows[v]["IsActive"].ToString();
+                            Worksheets.Cells[r, 19] = dataSet.Tables[0].Rows[v]["GroupName"].ToString();
+                            Worksheets.Cells[r, 20] = dataSet.Tables[0].Rows[v]["DrBankAccountName"].ToString();
+                            Worksheets.Cells[r, 21] = dataSet.Tables[0].Rows[v]["BankName"].ToString();
+                            Worksheets.Cells[r, 22] = dataSet.Tables[0].Rows[v]["BankAcNo"].ToString();
+                            Worksheets.Cells[r, 23] = dataSet.Tables[0].Rows[v]["BankIfsCode"].ToString();
 
 
                             r++;
@@ -243,16 +244,16 @@ namespace FreightMasters.Repository
                         }
                         //RF6.NumberFormat = "dd-MMM-yyyy";
 
-                        Excel.Range Rn6 = Worksheets.get_Range("A5:I" + (r - 1).ToString(), misvalue);
+                        Excel.Range Rn6 = Worksheets.get_Range("A5:W" + (r - 1).ToString(), misvalue);
                         Rn6.Borders.LineStyle = XlLineStyle.xlContinuous;
 
                         Worksheets.UsedRange.EntireColumn.AutoFit();
 
                         app.EnableEvents = false;
                         app.DisplayAlerts = false;
-                        var folderName = System.IO.Path.Combine("Reports", "DistanceMasterTripRPT");
+                        var folderName = System.IO.Path.Combine("Reports", "DriverLicRPT");
                         var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
-                        string fileName = "DistanceMasterTrip_" + request.Search + "_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".xlsx";
+                        string fileName = "DriverLic_" + request.Search + "_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".xlsx";
                         var filePath = folderName + "//" + fileName;
                         var fullPath = System.IO.Path.Combine(pathToSave, fileName);
                         bool exists = System.IO.Directory.Exists(pathToSave);

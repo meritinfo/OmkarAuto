@@ -209,7 +209,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+        [HttpPost("GetBillSeries")]
+        public async Task<IActionResult> GetBillSeries(GcModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetBillSeries(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetContentList")]
         public async Task<IActionResult> GetContentList()
         {

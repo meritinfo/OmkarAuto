@@ -56,18 +56,38 @@
                                         formControlName="expiryLic"
                                         [ngClass]=""
                                       >
-                                        <option selected="">Choose...</option>
-                                        <option value="o"> Expiry in One Month</option>
-                                        <option value="E">  Expired </option>
-                                        <option value="E">  Valid </option>
+                                      
+                                        <option selected value="M"> Expire in One Month</option>
+                                        <option value="A"> All</option>
+                                        <option value="V">Valid </option>
+                                        <option value="E"> Expired </option>
+                                       
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Search</label>
-                                    <input type="text" class="form-control" placeholder=" "
-                                    formControlName="search" [ngClass]="">
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="driverList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="driverName" [initialValue]=""
+                                          
+                                          
+                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"  [ngClass]="">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                        
+                                    </div>
                                     
                                 </div>
                             </div>
@@ -78,9 +98,9 @@
                                         formControlName="active"
                                         [ngClass]=""  
                                        >
-                                        <option selected="">Choose...</option>
-                                        <option value="I">Active</option>
-                                        <option value="A"> InActive</option>
+                                        <option value ="">Choose...</option>
+                                        <option value="Y">Active</option>
+                                        <option value="N"> InActive</option>
                                        
                                     </select>
                                 </div>
@@ -115,21 +135,21 @@
                             <th>IntroByMobileNo</th>
                             <th>DateOfAppoint </th>   
                             <th>LicenseNo</th>
-                             <!--  <th>LicenseIssuAuth</th>
-                            <th>LicValidUpto</th>-->
+                            <th>LicenseIssuAuth</th>
+                            <th>LicValidUpto</th>
                             <th>BloodGroup</th>
-                            <th>DriverMobile1</th>
+                            <!-- <th>DriverMobile1</th>
                             <th>DriverMobile2</th>
                             <th>TempAddPhone</th>
                             <th>PermanentAddr</th>
                             <th>PermAddPhone</th>
                             <th>DriverAadharNo</th>
                             <th>IsActive</th>
-                            <th>GroupName</th>
+                           <th>GroupName</th>
                             <th>DrBankAccountName</th>
                             <th>BankName</th>
                             <th>BankAcNo</th>
-                            <th>BankIfsCode</th>
+                            <th>BankIfsCode</th>-->
                           
                        
 
@@ -144,21 +164,21 @@
                             <td>{{ eta.introByMobileNo }}</td>
                              <td>{{ eta.dateOfAppoint }}</td> 
                             <td>{{ eta.licenseNo }}</td> 
-                             <!--  <td>{{ eta.iicenseIssuAuth }}</td> 
-                         <td>{{ eta.iicValidUpto }}</td> -->
+                              <td>{{ eta.licenseIssuAuth }}</td> 
+                         <td>{{ eta.licValidUpto }}</td> 
                             <td>{{ eta.bloodGroup }}</td> 
-                            <td>{{ eta.driverMobile1 }}</td> 
+                              <!--  <td>{{ eta.driverMobile1 }}</td> 
                             <td>{{ eta.driverMobile2 }}</td> 
                             <td>{{ eta.tempAddPhone }}</td> 
                             <td>{{ eta.permanentAddr }}</td> 
                             <td>{{ eta.permAddPhone }}</td> 
                             <td>{{ eta.driverAadharNo }}</td> 
                             <td>{{ eta.isActive }}</td> 
-                            <td>{{ eta.groupName }}</td> 
+                           <td>{{ eta.groupName }}</td> 
                             <td>{{ eta.drBankAccountName }}</td> 
                             <td>{{ eta.bankName }}</td> 
                             <td>{{ eta.bankAcNo }}</td> 
-                            <td>{{ eta.bankIfsCode }}</td> 
+                            <td>{{ eta.bankIfsCode }}</td> -->
                         
                         
                        

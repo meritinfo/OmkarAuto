@@ -144,6 +144,9 @@ export class CommonService {
   getGcSeries(payload: any):  Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries', payload, this.httpOptions);
   }
+  getBillSeries(payload: any):  Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetBillSeries', payload, this.httpOptions);
+  }
   getAdBlueToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetAdBlueToBe', payload, this.httpOptions);
   }

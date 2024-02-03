@@ -28,7 +28,7 @@ export class DriverlicrptComponent {
   viewStatus = false; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
+  driverList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -120,7 +120,7 @@ formFilter!: FormGroup;
         vehicleMasterID: new FormControl('',),  
         expiryLic: new FormControl('',),  
         active: new FormControl('',),  
-        search: new FormControl('',),  
+        driverName: new FormControl('',),  
       });
       this.filter.fromDate = this.loginDate;
       this.filter.toDate = this.loginDate;
@@ -130,6 +130,7 @@ formFilter!: FormGroup;
   
       this.sharedService.loading=true;
       this.getBranchList();
+      this.getDriverList();
       this.getVehicleNoList(); 
       this.getDocRefNoList();   
       this.expDriverLic();
@@ -229,8 +230,8 @@ formFilter!: FormGroup;
             title: 'LicValidUpto ',
             data: 'licValidUpto',
           },
-          {
-            title: 'BloodGroup ',
+       /*    {
+             title: 'BloodGroup ',
             data: 'bloodGroup',
           },
           {
@@ -261,7 +262,7 @@ formFilter!: FormGroup;
             title: 'IsActive ',
             data: 'isActive',
           },
-        /*  {
+        {
             title: 'GroupName ',
             data: 'groupName',
           },
@@ -287,6 +288,11 @@ formFilter!: FormGroup;
         ],
       };
     }
+    getDriverList(): void {
+      this.commonService.getDriverList().subscribe((res) => {
+        this.driverList = res;
+      });
+    }
       
     //Open user details screen
     exportExcel(): void {
@@ -295,9 +301,9 @@ formFilter!: FormGroup;
         if(resp.status){
           //here code for Downloading Excel file          
           let link = document.createElement("a");
-          link.download = "TripPayments" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "DriverLic" + "_" + new Date().getTime() + '.xlsx';
           // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/TripPaymentsRPT/" + resp.message;
+          link.href = "assets/reports/DriverLicRPT/" + resp.message;
           link.click();
         }
         else{        
@@ -321,9 +327,9 @@ formFilter!: FormGroup;
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.search      = this.loggedInUserID;
-      this.filter.filterStr   = selectedDataVal.active?selectedDataVal.active:"";
+      this.filter.filterStr   = selectedDataVal.active;
       this.filter.filterStr1  = selectedDataVal.expiryLic?selectedDataVal.expiryLic:"";
-     // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr2  = selectedDataVal.driverName.dataName;
       this.filter.filterStr3  = "0";
       this.sharedService.loading=true;
       this.expDriverLic();
