@@ -282,6 +282,7 @@ getGcSeries(gcSeries: any): void {
 
   selectedData(index: number, event: any) {
     this.billstatementsearchlistmodel.billStatementSearchList[index].selected = event.target.checked;
+   
     this.calculateTotal();
   }
   
@@ -399,6 +400,9 @@ getGcSeries(gcSeries: any): void {
       
 
   }
+  valueUpdate(event: any, i: number){
+   this.billstatementsearchlistmodel.billStatementSearchList[i].selected = event.target.checked;
+  }
   getTripSheetInnerGridList(): void {
     this.billstatementService.getBillStatementInnerGridList(this.billsstatementinnergridrequest).subscribe((res) => {
       this.billstatementsearchlistmodel = res;
@@ -437,17 +441,17 @@ getGcSeries(gcSeries: any): void {
   //  this.saveData.cnorPlantCode = this.formBillStatement.value.cnorPlantCode ? this.formBillStatement.value.cnorPlantCode : '';
    // this.saveData.productId = this.formBillStatement.value.productId ? this.formBillStatement.value.productId : '';
    // this.billsstatementmodel.totFreight = this.formBillStatement.value.totFreight;
-    this.billsstatementmodel.totFreight =this.formBillStatement.value.totFreight.toString();;
-    this.billsstatementmodel.totExtraChrg = this.formBillStatement.value.totExtraChrg.toString();;
-    this.billsstatementmodel.totSubTotal =  this.formBillStatement.value.totSubTotal.toString();;
-    this.billsstatementmodel.gstType =  this.formBillStatement.value.gstType.toString();
-    this.billsstatementmodel.sgstPct =  this.formBillStatement.value.sgstPct.toString();;
-    this.billsstatementmodel.sgstAmt = this.formBillStatement.value.sgstAmt.toString();;
-    this.billsstatementmodel.cgstPct =  this.formBillStatement.value.cgstPct.toString();;
-    this.billsstatementmodel.cgstAmt =  this.formBillStatement.value.cgstAmt.toString();;
-    this.billsstatementmodel.igstPct = this.formBillStatement.value.igstPct.toString();;
-    this.billsstatementmodel.igstAmt =  this.formBillStatement.value.igstAmt.toString();;
-    this.billsstatementmodel.totalBillAmt =  this.formBillStatement.value.totalBillAmt.toString();;
+    this.billsstatementmodel.totFreight =selectedDataValue.totFreight.toString();;
+    this.billsstatementmodel.totExtraChrg = selectedDataValue.totExtraChrg.toString();;
+    this.billsstatementmodel.totSubTotal =  selectedDataValue.totSubTotal.toString();;
+    this.billsstatementmodel.gstType =  selectedDataValue.gstType.toString();
+    this.billsstatementmodel.sgstPct =  selectedDataValue.sgstPct.toString();;
+    this.billsstatementmodel.sgstAmt = selectedDataValue.sgstAmt.toString();;
+    this.billsstatementmodel.cgstPct =  selectedDataValue.cgstPct.toString();;
+    this.billsstatementmodel.cgstAmt =  selectedDataValue.cgstAmt.toString();;
+    this.billsstatementmodel.igstPct = selectedDataValue.igstPct.toString();;
+    this.billsstatementmodel.igstAmt =  selectedDataValue.igstAmt.toString();;
+    this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();;
     this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
     this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;

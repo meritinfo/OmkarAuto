@@ -200,7 +200,11 @@ exit(): void {
        // miscDetailsList: this.tripsheetinnergridmodel.miscList,
       //  adblueDetailsList: this.tripsheetinnergridmodel.adblueList
       });
-
+    //  valueUpdate(event: any, i: number){
+      
+     //this.driversalarysearchlistmodel.driverSalarySearchList[0].selected = selected.checked;
+    // this.driversalarysearchlistmodel.driverSalarySearchList[0].selected.Checked = true };
+   //   }
      // this.calculateTotal();
     //  this.totalCalculation();
     });
