@@ -4,6 +4,7 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using System.Numerics;
+using System.Data;
 
 namespace FleetTrans.Repository
 {
@@ -33,7 +34,7 @@ namespace FleetTrans.Repository
         {
             DieselStatementModel dieselStatementModel = new()
             {
-                DieselStatementListData =new List<DieselStatementSearchModel>(),
+                DieselStatementListData = new List<DieselStatementSearchModel>(),
             };
             try
             {
@@ -85,14 +86,134 @@ namespace FleetTrans.Repository
             }
             return dieselStatementModel;
         }
-    
+        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        {
+            DieselStatementModel dieselStatementModel = new()
+            {
+                DieselStatementListData = new List<DieselStatementSearchModel>(),
+
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                          //  new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@MasterId", request.MasterID)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselInnergrid", param);
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            dieselStatementModel.DieselStatementListData.Add(new DieselStatementSearchModel
+                            {
+                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvType"]),
+                                TransDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDesc"]),
+                                QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+                                RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
+                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                Selected = false
+                            });
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return dieselStatementModel;
+        }
+
+        //public async Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        //{
+
+        //    DieselStatementSearchListModel dieselStatementSearchList = new();
+        //    List<DieselStatementSearchModel> dieselStatementSearchModels = new();
+        //    try
+        //    {
+        //        if (dbconnection != null)
+        //        {
+        //            SqlParameter[] param =
+        //                {
+        //                    new SqlParameter("@MasterId", request.MasterID),
+
+        //                };
+        //            var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetDriverSalaryInnerGridList_Select", param);
+
+        //            if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+        //            {
+        //                //int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+        //                for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+        //                {
+        //                    dieselStatementSearchModels.Add(new DieselStatementSearchModel
+        //                    {
+        //                        PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+        //                        Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+        //                        PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+        //                        VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+        //                        HsdAdvType = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvType"]),
+        //                        TransDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["TransDesc"]),
+        //                        QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
+        //                        RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
+        //                        AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
+        //                        Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+        //                        Selected = false
+        //                    });
+        //                }
+        //                dieselStatementSearchList.DieselStatementSearchList = dieselStatementSearchModels;
+        //            }
+        //        }
+
+
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Log exception on database
+        //        //ExceptionModel exceptionModel = new()
+        //        //{
+        //        //    ExceptionMessage = Convert.ToString(ex.Message),
+        //        //    ExceptionType = Convert.ToString(ex.GetType().Name),
+        //        //    ExceptionSource = Convert.ToString(ex.StackTrace)
+        //        //};
+
+        //        //ExceptionRepository exception = new(dbconnection);
+        //        //await exception.SaveExceptionDetails(exceptionModel);
+        //    }
+        //    return driverSalarySearchList;
+        //}
+
+
+
         /// <summary>
         /// Service method for save Diesel Statement details
         /// </summary>
         /// <returns>ResponseModel</returns>
         /// 
 
-    public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel dieselStatementModel)
+        public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel dieselStatementModel)
         {
             ResponseModel responseModel = new();
             try

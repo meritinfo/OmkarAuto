@@ -11,6 +11,8 @@ import { DieselstatementService } from 'src/app/services/dieselstatement.service
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergridrequest';
+import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
 
 @Component({
   selector: 'app-dieselstatementadd',
@@ -25,6 +27,9 @@ export class DieselstatementaddComponent implements OnInit {
   vendorList:Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
+  dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
+
+  driversalaryinnergridrequest = new Driversalaryinnergridrequest();
   keywordLocation = 'dataName';
   editMode = false;
   createmode = true;
@@ -117,7 +122,9 @@ export class DieselstatementaddComponent implements OnInit {
     }, 2000);
 
     if (this.selectedDieselStmtDetails.masterID != '') {
-      this.searchStatement(); 
+     // this.searchStatement(); 
+      this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDieselStmtDetails.masterID);
+      this.getDieselStatementInnerGridList()
       var arr=this.DieselStatementmodel.dieselStatementListData;
       for (var i = 0; i < arr.length; i++) {
       }         
@@ -269,6 +276,40 @@ export class DieselstatementaddComponent implements OnInit {
       
     this.sharedService.loading=false;
     }
+  }
+  getDieselStatementInnerGridList(): void {
+    this.dieselstatementService.getDieselStatementInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
+      this.dieselstatementsearchlistmodel = res;
+      for (var i = 0; i < this.formArray.length; i++) {
+        this.formArray.removeAt(i);
+      }     
+      
+      for (var i = 0; i < res.dieselStaementSearchList.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("branch")?.setValue(res.dieselStaementSearchList[i].branch);
+        this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStaementSearchList[i].pmtDate));
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStaementSearchList[i].vehicleNo);
+        this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStaementSearchList[i].hsdAdvType);
+        this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStaementSearchList[i].transDesc);
+        this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStaementSearchList[i].qtyLtrs);
+        this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStaementSearchList[i].ratePerLtr);
+        this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStaementSearchList[i].amountPaid);
+        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStaementSearchList[i].remarks);        
+        
+        this.formArray.controls[i].get("branch")?.disable();      
+        this.formArray.controls[i].get("pmtDate")?.disable();      
+        this.formArray.controls[i].get("vehicleNo")?.disable();      
+        this.formArray.controls[i].get("hsdAdvType")?.disable();      
+        this.formArray.controls[i].get("transDesc")?.disable();      
+        this.formArray.controls[i].get("qtyLtrs")?.disable();   
+        this.formArray.controls[i].get("ratePerLtr")?.disable();
+        this.formArray.controls[i].get("amountPaid")?.disable();
+        this.formArray.controls[i].get("remarks")?.disable();
+      }
+    });
+    
+
+    
   }
 
   saveStatementDetails(): void {

@@ -16,6 +16,8 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Consignment.Business;
 using System.Xml.Linq;
+using FreightMasters.Business;
+using FreightMasters.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -691,7 +693,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDieselStatementInnerGridList")]
+        public async Task<IActionResult> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementInnerGridList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("DocRenewalEntryDetailsSave")]
         public async Task<IActionResult> DocRenewalEntryDetailsSave()

@@ -27,6 +27,10 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.SaveDieselStatementDetails(request);
         }
+        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        {
+            return await dieselStatementRepository.GetDieselStatementInnerGridList(request);
+        }
         public async Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request)
         {
             return await dieselStatementRepository.GetDieselStatementList(request);
