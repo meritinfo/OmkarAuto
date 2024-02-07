@@ -50,7 +50,7 @@ export class DieselstatementService {
   dieselStatementDetailsDelete(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementDetailsDelete', request, this.httpOptions);
   }
-  getDieselStatementInnerGridList(request: Driversalaryinnergridrequest): Observable<Dieselstatementsearchlistmodel> {
-    return this.httpClient.post<Dieselstatementsearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementInnerGridList', request, this.httpOptions);
+  getDieselStatementInnerGridList(request: Driversalaryinnergridrequest): Observable<Dieselstatementmodel> {
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementInnerGridList', request, this.httpOptions);
   }
 }

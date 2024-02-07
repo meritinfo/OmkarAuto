@@ -1,5 +1,5 @@
-import { Dieselstatementsearchmodel } from "./dieselstatementmodel";
+import { Dieselstatementmodel } from "./dieselstatementmodel";
 
 export class Dieselstatementsearchlistmodel {
-    dieselStaementSearchList: Dieselstatementsearchmodel[] = [];
+    dieselStaementSearchList: Dieselstatementmodel[] = [];
 }

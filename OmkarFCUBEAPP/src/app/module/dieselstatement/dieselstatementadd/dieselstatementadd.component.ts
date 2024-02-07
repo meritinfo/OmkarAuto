@@ -14,6 +14,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergridrequest';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
 
+
 @Component({
   selector: 'app-dieselstatementadd',
   templateUrl: './dieselstatementadd.component.html',
@@ -124,7 +125,7 @@ export class DieselstatementaddComponent implements OnInit {
     if (this.selectedDieselStmtDetails.masterID != '') {
      // this.searchStatement(); 
       this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDieselStmtDetails.masterID);
-      this.getDieselStatementInnerGridList()
+      this.getDieselStatementInnerGridList();
       var arr=this.DieselStatementmodel.dieselStatementListData;
       for (var i = 0; i < arr.length; i++) {
       }         
@@ -279,22 +280,22 @@ export class DieselstatementaddComponent implements OnInit {
   }
   getDieselStatementInnerGridList(): void {
     this.dieselstatementService.getDieselStatementInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
-      this.dieselstatementsearchlistmodel = res;
+      this.DieselStatementmodel = res;
       for (var i = 0; i < this.formArray.length; i++) {
         this.formArray.removeAt(i);
-      }     
+     }     
       
-      for (var i = 0; i < res.dieselStaementSearchList.length; i++) {
+      for (var i = 0; i < res.dieselStatementListData.length; i++) {
         this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("branch")?.setValue(res.dieselStaementSearchList[i].branch);
-        this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStaementSearchList[i].pmtDate));
-        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStaementSearchList[i].vehicleNo);
-        this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStaementSearchList[i].hsdAdvType);
-        this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStaementSearchList[i].transDesc);
-        this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStaementSearchList[i].qtyLtrs);
-        this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStaementSearchList[i].ratePerLtr);
-        this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStaementSearchList[i].amountPaid);
-        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStaementSearchList[i].remarks);        
+        this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
+        this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStatementListData[i].vehicleNo);
+        this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
+        this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
+        this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
+        this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
+        this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
+        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);        
         
         this.formArray.controls[i].get("branch")?.disable();      
         this.formArray.controls[i].get("pmtDate")?.disable();      
