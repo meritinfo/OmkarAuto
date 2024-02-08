@@ -26,6 +26,8 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                            // new SqlParameter("@NewTripDate", request.NewTripDate),
+                         //  new SqlParameter("@FromDate", request.FromDate),
+                        //  new SqlParameter("@ToDate", request.ToDate),
                             new SqlParameter("@VehicleMasterID", request.VehicleMasterID),
                             new SqlParameter("@DriverMasterID", request.DriverMasterID),
                           

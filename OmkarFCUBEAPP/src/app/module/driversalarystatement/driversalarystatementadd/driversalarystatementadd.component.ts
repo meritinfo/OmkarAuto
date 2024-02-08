@@ -171,6 +171,11 @@ exit(): void {
 
   }
   searchStatement(): void {
+    var selectedDataValue = this.formDriverSalaryStatement.getRawValue();
+   // this.Driversalarysearchlistrequestmodel.fromDate =  selectedDataValue.fromDt;
+   // this.Driversalarysearchlistrequestmodel.toDate = selectedDataValue.toDt;
+
+
     this.driverSalaryStatementService.getDriverSalarySearchList(this.Driversalarysearchlistrequestmodel).subscribe((res: Driversalarysearchlistmodel) => {
       this.driversalarysearchlistmodel = res;
     });
