@@ -289,10 +289,37 @@ saveStatementDetails(): void {
   });
 
 }
+calculateTotal() {
+  //var totalDslLeters = 0;
+  var totalSalAmount = 0;
+//  var totalDriverAdvAmount = 0;
+ // var totalStatementAmount = 0;
+  var diesellistarray=this.driversalarystatementmodel.driverSalaryListData;
+
+  for (var i = 0; i <  this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
+    if (this.driversalarysearchlistmodel.driverSalarySearchList[i].selected) {
+      if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt !== "") {
+        totalSalAmount = totalSalAmount + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt);
+     }
+    //  if (diesellistarray[i].hsdAdvType === "A") {
+       // totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
+    //  }
+     // totalDslLeters=totalDslLeters + parseFloat(diesellistarray[i].qtyLtrs);
+      //totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
+    }
+  }
+
+  this.formDriverSalaryStatement.patchValue({
+   // totalDslLtrs:totalDslLeters.toFixed(2),
+    totalSalAmt: totalSalAmount.toFixed(2),
+   
+  });
+}
 
 
 valueUpdate(event: any, i: number){
   this.driversalarysearchlistmodel.driverSalarySearchList[i].selected = event.target.checked;
+  this.calculateTotal();
 }
 
 }

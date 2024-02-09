@@ -53,6 +53,7 @@ export class ConsignmentlistComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+   
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
