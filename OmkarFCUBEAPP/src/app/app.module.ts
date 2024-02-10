@@ -23,7 +23,6 @@ import { Productgroupmastermodel } from './models/productgroupmastermodel';
 import { Productmastermodel } from './models/productmastermodel';
 import { DataTablesModule } from 'angular-datatables';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
-import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
 import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
@@ -188,7 +187,6 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
     DashboardComponent,
     UseraddComponent,
     UserlistComponent,
-    UserdetailsComponent,
     AdddestinationComponent,
     DestinationlistComponent,
     ProductgroupmasterlistComponent,

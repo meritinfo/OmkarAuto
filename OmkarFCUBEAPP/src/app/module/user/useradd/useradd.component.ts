@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { UserService } from 'src/app/services/user.service';
@@ -24,6 +25,7 @@ export class UseraddComponent implements OnInit {
   moduleList: Dropdownmodel[] = [];
   roleTypeList: Dropdownmodel[] = [];
   selectedUserDetails = new Usermodel();
+  request = new Requestmodel();
   imageData: [] = [];
   imagePreview: [] = [];
   imageName: string = '';
@@ -37,6 +39,7 @@ export class UseraddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
   @ViewChild('userPhotoInput', {
     static: true
   }) userPhotoInput: any;
@@ -73,7 +76,7 @@ export class UseraddComponent implements OnInit {
     this.getBranchList();
     this.getModuleList();
     this.getRoleTypeList();
-   this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
+    this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
 
     this.selectedUserDetails = this.userService.getUserDetails();
     this.formUser = this.formBuilder.group({
@@ -84,8 +87,7 @@ export class UseraddComponent implements OnInit {
       userEmail: new FormControl('', [Validators.required]),
       userScope: new FormControl('BO', Validators.required),
       role: new FormControl('', [Validators.required]),
-      employee: new FormControl({ value: '', disabled: true }),
-      branch: new FormControl({ value: '', disabled: true }),
+      branch: new FormControl(''),
       activeYN: new FormControl('Y', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
       userModule: new FormControl([], [Validators.required]),
@@ -95,17 +97,16 @@ export class UseraddComponent implements OnInit {
     if (this.selectedUserDetails.userId != '') {
       setTimeout(() => {
         this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
-       // this.userPhotoPreview = '../upload/user/userphoto/'+this.selectedUserDetails.imageName;
-      this.formUser.patchValue(this.selectedUserDetails);
-      this.formUser.patchValue({
-        userBranch: this.selectedUserDetails.branchList.split(','),
-        userModule: this.selectedUserDetails.moduleList.split(','),
-  // role: this.roleTypeList.find(e => e.dataId == this.selectedUserDetails.roleId),
-    role: this.selectedUserDetails.roleId,
-    imageName:  this.selectedUserDetails.imageName,
-
-      })
-    }, 2000);
+        // this.userPhotoPreview = '../upload/user/userphoto/'+this.selectedUserDetails.imageName;
+        this.formUser.patchValue(this.selectedUserDetails);
+        this.formUser.patchValue({
+          userBranch: this.selectedUserDetails.branchList.split(','),
+          userModule: this.selectedUserDetails.moduleList.split(','),
+          role: this.selectedUserDetails.roleId,
+          imageName:  this.selectedUserDetails.imageName,
+        })
+      }, 2000);
+      this.editMode=true;
     }
   }
 
@@ -142,6 +143,22 @@ export class UseraddComponent implements OnInit {
     } else {
       e.preventDefault();
       return false;
+    }
+  }
+
+  chkUsername(e: any) {  
+    var usrnm = e.target.value;
+    this.request.strRequest = usrnm;
+    if (this.selectedUserDetails.userId == '') {
+      this.userService.usernameValidation(this.request).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //nothing
+        }
+        else {
+          this.toastrService.warning(this.responseDetails.message);
+        }
+      });
     }
   }
 
@@ -207,61 +224,47 @@ export class UseraddComponent implements OnInit {
   submitUserForm(): void {
     this.userSubmitted = true;
     if (this.formUser.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
+    var selecteddata = this.formUser.getRawValue();
     this.userModel.userId = this.selectedUserDetails.userId != '' ? this.selectedUserDetails.userId : '';
-    this.userModel.userName = this.formUser.value.userName;
-    this.userModel.userPassword = this.formUser.value.userPassword;
-    this.userModel.userDescription = this.formUser.value.userDescription;
-    this.userModel.userMobile = this.formUser.value.userMobile;
-    this.userModel.userEmail = this.formUser.value.userEmail;
-    this.userModel.userScope = this.formUser.value.userScope;
-    this.userModel.activeYN = this.formUser.value.activeYN;
+    this.userModel.userName = selecteddata.userName;
+    this.userModel.userPassword = selecteddata.userPassword;
+    this.userModel.userDescription = selecteddata.userDescription.toString().touppercase();
+    this.userModel.userMobile = selecteddata.userMobile;
+    this.userModel.userEmail = selecteddata.userEmail;
+    this.userModel.userScope = selecteddata.userScope;
+    this.userModel.activeYN = selecteddata.activeYN;
     this.userModel.loggedInUser = this.loggedInUserID;
-    this.userModel.branchList = this.formUser.value.userBranch.toString();
-    this.userModel.moduleList = this.formUser.value.userModule.toString();
- //  this.userModel.imageName = this.formUser.value.imageName;
+    this.userModel.empbranch = selecteddata.branch;
+    this.userModel.branchList = selecteddata.userBranch.toString();
+    this.userModel.moduleList = selecteddata.userModule.toString();
+    //  this.userModel.imageName = this.formUser.value.imageName;
      this.userModel.imageName = this.userPhotoName;
  
    
- // this.userModel.imageName= //this.userPhotoInput.nativeElement.files[0]
-   // this.userModel.imageData = this.imageData;
     this.userModel.roleId = this.formUser.value.role;
     let formData = new FormData();
     formData.append('userPhoto', this.userPhotoInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.userModel));
-    if (this.userModel.userId === "") {
-   
-      this.userService.usernameValidation(this.formUser.value).subscribe((resname: Responsemodel) => {
-        if (resname.status) {
-          //this.userService.userDetailsSubmitted(this.userModel).subscribe((res: Responsemodel) => {
-            this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toastrService.success(this.responseDetails.message);
-              this.formUser.reset();
-              this.route.navigate(['/userlist']);
-            } else {
-              this.toastrService.warning(this.responseDetails.message);
-            }
-          });
-        }
-        else {
-          this.toastrService.warning(resname.message);
-        }
-      });
-    }
-    else {
-      this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.toastrService.success(this.responseDetails.message);
-          this.formUser.reset();
-          this.route.navigate(['/userlist']);
-        } else {
-          this.toastrService.warning(this.responseDetails.message);
-        }
-      });
-    }
+
+    this.userService.userDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toastrService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/userlist']);
+      } 
+      else {
+        this.toastrService.warning(this.responseDetails.message);
+      }
+    });   
   }
 }

@@ -15,5 +15,6 @@ export class Usermodel {
     createdDate: string = "";
     imageName: string = "";
     roleId : string = "";
+    empbranch : string = "";
   //  imageData: [] = [];
 }

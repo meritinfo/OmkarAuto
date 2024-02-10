@@ -7,6 +7,7 @@ import { Constants } from '../common/constants';
 import { Filtermodel } from '../models/filtermodel';
 import { Userlistmodel } from '../models/userlistmodel';
 import { Passwordmodel } from '../models/passwordmodel';
+import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class UserService {
     this.selectedUser = new Usermodel();
   }
 
-  usernameValidation(user: Usermodel): Observable<Responsemodel> {
+  usernameValidation(user: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/UsernameValidation', user, this.httpOptions);
   }
 

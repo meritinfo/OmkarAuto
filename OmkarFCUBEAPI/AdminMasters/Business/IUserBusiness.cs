@@ -16,7 +16,7 @@ namespace AdminMasters.Business
         Task<UserMasterList> GetUserMasterList(PageRequest request);
         Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request);
         Task<ResponseModel> DeleteUserDetails(string request);
-        Task<ResponseModel> UsernameValidation(string request);
+        Task<ResponseModel> UsernameValidation(RequestModel request);
         Task<List<DropDownListModel>> GetRoleTypeList();
     }
 }

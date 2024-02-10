@@ -12,6 +12,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./userlist.component.css']
 })
 export class UserlistComponent implements OnInit {
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
   allUsers: Userlistmodel = new Userlistmodel();
   filter: Filtermodel = {
@@ -26,6 +31,20 @@ export class UserlistComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Create Users"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
+    
     this.userService.clearUserDetails();
     this.dtOptions = {
       pagingType: 'full_numbers',

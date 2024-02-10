@@ -4,7 +4,6 @@ import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { LoginComponent } from './module/login/login.component';
 import { UserlistComponent } from './module/user/userlist/userlist.component';
 import { UseraddComponent } from './module/user/useradd/useradd.component';
-import { UserdetailsComponent } from './module/user/userdetails/userdetails.component';
 import { AdddestinationComponent } from './module/destination/adddestination/adddestination.component';
 import { DestinationlistComponent } from './module/destination/destinationlist/destinationlist.component';
 import { ProductgroupmasterlistComponent } from './module/productgroupmaster/productgroupmasterlist/productgroupmasterlist.component';
@@ -101,7 +100,6 @@ const routes: Routes = [
   { path: 'userlist', component: UserlistComponent },
   { path: 'useradd', component: UseraddComponent },
   { path: 'useredit', component: UseraddComponent },
-  { path: 'userdetails', component: UserdetailsComponent },
   { path: 'adddestination', component: AdddestinationComponent },
   { path: 'destinationedit', component: AdddestinationComponent },
   { path: 'destinationlist', component: DestinationlistComponent },
