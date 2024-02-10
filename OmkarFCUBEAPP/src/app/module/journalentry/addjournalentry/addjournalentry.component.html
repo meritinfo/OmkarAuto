@@ -31,13 +31,14 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document No</label>
-                                            <label for="formrow-inputState">.</label>
+                                            <span style="color: red">*</span>
                                             <input class="form-control" placeholder="" formControlName="docNo"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['docNo'].invalid) }">
                                            
                                         </div>
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState"> Trans Date</label>
+                                            <span style="color: red">*</span>
                                             <input type="date" class="form-control" placeholder=""
                                                 formControlName="ftmDate"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">

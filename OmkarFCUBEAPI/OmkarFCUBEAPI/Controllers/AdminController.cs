@@ -327,11 +327,11 @@ namespace OmkarFCUBEAPI.Controllers
         /// Controller method for validate username
         /// </summary>
         [HttpPost("UsernameValidation")]
-        public async Task<IActionResult> UsernameValidation(UserMasterModel userMasterModel)
+        public async Task<IActionResult> UsernameValidation(RequestModel request)
         {
             try
             {
-                var result = await userBusiness.UsernameValidation(userMasterModel.UserName);
+                var result = await userBusiness.UsernameValidation(request);
 
                 return Ok(result);
             }

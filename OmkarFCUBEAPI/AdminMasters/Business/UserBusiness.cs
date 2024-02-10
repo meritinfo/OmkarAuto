@@ -71,7 +71,7 @@ namespace AdminMasters.Business
         /// <summary>
         /// Business method for validate username
         /// </summary>
-        public async Task<ResponseModel> UsernameValidation(string request)
+        public async Task<ResponseModel> UsernameValidation(RequestModel request)
         {
             return await userRepository.UsernameValidation(request);
         }

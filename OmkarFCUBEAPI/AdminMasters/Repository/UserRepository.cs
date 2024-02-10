@@ -45,7 +45,7 @@ namespace AdminMasters.Repository
                             new SqlParameter("@UserMobile", userMasterModel.UserMobile),
                             new SqlParameter("@UserEmail", userMasterModel.UserEmail),
                             new SqlParameter("@UserScope", userMasterModel.UserScope),
-                          new SqlParameter("@UserImage", userMasterModel.UserImage),
+                            new SqlParameter("@UserImage", userMasterModel.UserImage),
                             new SqlParameter("@RoleId", userMasterModel.RoleId),
                             new SqlParameter("@Remarks", userMasterModel.Remarks),
                             new SqlParameter("@Employeeid", userMasterModel.Employeeid),
@@ -496,7 +496,7 @@ namespace AdminMasters.Repository
         /// </summary>
         /// <param name="string"></param>
         /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> UsernameValidation(string request)
+        public async Task<ResponseModel> UsernameValidation(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -505,7 +505,7 @@ namespace AdminMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@UserName", request)
+                            new SqlParameter("@UserName", request.strRequest)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "UserValidation_Select", param);
 
