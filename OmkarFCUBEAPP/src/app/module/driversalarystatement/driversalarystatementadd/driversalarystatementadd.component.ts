@@ -292,8 +292,8 @@ saveStatementDetails(): void {
 calculateTotal() {
   //var totalDslLeters = 0;
   var totalSalAmount = 0;
-//  var totalDriverAdvAmount = 0;
- // var totalStatementAmount = 0;
+  var totalPoolAmount = 0;
+  var netpay = 0;
   var diesellistarray=this.driversalarystatementmodel.driverSalaryListData;
 
   for (var i = 0; i <  this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
@@ -301,6 +301,12 @@ calculateTotal() {
       if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt !== "") {
         totalSalAmount = totalSalAmount + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt);
      }
+     if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].poolAmt !== "") {
+      totalPoolAmount = totalPoolAmount + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].poolAmt);
+   }
+   if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].netPayable !== "") {
+    netpay = netpay + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].netPayable);
+ }
     //  if (diesellistarray[i].hsdAdvType === "A") {
        // totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
     //  }
@@ -310,9 +316,9 @@ calculateTotal() {
   }
 
   this.formDriverSalaryStatement.patchValue({
-   // totalDslLtrs:totalDslLeters.toFixed(2),
+    totalPoolAmt:totalPoolAmount.toFixed(2),
     totalSalAmt: totalSalAmount.toFixed(2),
-   
+    totalNetPayAmt: netpay.toFixed(2),
   });
 }
 
