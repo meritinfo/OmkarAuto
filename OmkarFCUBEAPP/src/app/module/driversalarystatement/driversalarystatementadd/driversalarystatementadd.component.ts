@@ -171,6 +171,11 @@ exit(): void {
 
   }
   searchStatement(): void {
+    var selectedDataValue = this.formDriverSalaryStatement.getRawValue();
+   // this.Driversalarysearchlistrequestmodel.fromDate =  selectedDataValue.fromDt;
+   // this.Driversalarysearchlistrequestmodel.toDate = selectedDataValue.toDt;
+
+
     this.driverSalaryStatementService.getDriverSalarySearchList(this.Driversalarysearchlistrequestmodel).subscribe((res: Driversalarysearchlistmodel) => {
       this.driversalarysearchlistmodel = res;
     });
@@ -200,7 +205,11 @@ exit(): void {
        // miscDetailsList: this.tripsheetinnergridmodel.miscList,
       //  adblueDetailsList: this.tripsheetinnergridmodel.adblueList
       });
-
+    //  valueUpdate(event: any, i: number){
+      
+     //this.driversalarysearchlistmodel.driverSalarySearchList[0].selected = selected.checked;
+    // this.driversalarysearchlistmodel.driverSalarySearchList[0].selected.Checked = true };
+   //   }
      // this.calculateTotal();
     //  this.totalCalculation();
     });
@@ -280,10 +289,37 @@ saveStatementDetails(): void {
   });
 
 }
+calculateTotal() {
+  //var totalDslLeters = 0;
+  var totalSalAmount = 0;
+//  var totalDriverAdvAmount = 0;
+ // var totalStatementAmount = 0;
+  var diesellistarray=this.driversalarystatementmodel.driverSalaryListData;
+
+  for (var i = 0; i <  this.driversalarysearchlistmodel.driverSalarySearchList.length; i++) {
+    if (this.driversalarysearchlistmodel.driverSalarySearchList[i].selected) {
+      if ( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt !== "") {
+        totalSalAmount = totalSalAmount + parseFloat( this.driversalarysearchlistmodel.driverSalarySearchList[i].salaryAmt);
+     }
+    //  if (diesellistarray[i].hsdAdvType === "A") {
+       // totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
+    //  }
+     // totalDslLeters=totalDslLeters + parseFloat(diesellistarray[i].qtyLtrs);
+      //totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
+    }
+  }
+
+  this.formDriverSalaryStatement.patchValue({
+   // totalDslLtrs:totalDslLeters.toFixed(2),
+    totalSalAmt: totalSalAmount.toFixed(2),
+   
+  });
+}
 
 
 valueUpdate(event: any, i: number){
   this.driversalarysearchlistmodel.driverSalarySearchList[i].selected = event.target.checked;
+  this.calculateTotal();
 }
 
 }

@@ -117,6 +117,7 @@ get f() { return this.formUser.controls; }
     });
   
   }
+  
   checkCnfPassword() {
 
 

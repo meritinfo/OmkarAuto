@@ -106,12 +106,16 @@
                                                 <input type="radio" name="ewayBillEntryType"
                                                     formControlName="ewayBillEntryType" id="formRadios3" value="E"
                                                     class="form-check-input" name="ewayBillEntryType"
-                                                    (change)="changeEWay('E')">
+                                                    (change)="changeEWay('E')" >
                                                 <label for="formRadios3" class="form-check-label" style="color:green">
                                                     No EWay Bill Exemption
                                                 </label>
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <label style="color: red" > Transporter Document No.:  {{ transporter_doc_number}}  </label><span ></span>
+                                        </div>
+                                        
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">

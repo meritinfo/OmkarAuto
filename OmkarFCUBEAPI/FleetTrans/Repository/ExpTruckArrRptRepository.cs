@@ -159,7 +159,7 @@ namespace FleetTrans.Repository
                         R4.Font.Name = "Georgia";
                         R4.Font.Size = 10;
                         R4.Font.Bold = true;
-                        Worksheets.Cells[4, 1] = "From " + request.FromDate + " To " + request.ToDate;
+                        Worksheets.Cells[4, 1] = "From " + Convert.ToDateTime(request.FromDate).ToString("dd-MMM-yyyy") + " To " + Convert.ToDateTime(request.ToDate).ToString("dd-MMM-yyyy");
 
                         // for column name (HEADER)
                         Excel.Range R5 = Worksheets.get_Range("A5:J5", misvalue);
@@ -189,6 +189,7 @@ namespace FleetTrans.Repository
                             {
                                 Expdt = dataSet.Tables[0].Rows[v]["ExpectedDate"].ToString();
                                 Excel.Range R6 = Worksheets.get_Range("A"+ r +":J"+ r, misvalue);
+                                R6.HorizontalAlignment = Constants.xlLeft;
                                 R6.MergeCells = true;
                                 R6.Font.Bold = true;
                                 Worksheets.Cells[r, 1] = Expdt;

@@ -884,6 +884,44 @@ namespace Consignment.Repository
             }
             return content;
         }
+        public async Task<ResponseModel> GetBillSeries(GcModel request)
+        {
+            ResponseModel content = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillNo", request.GcSlNo),
+
+
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        content.Message = Convert.ToString(statusData.Tables[0].Rows[0]["message"]);
+                        content.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return content;
+        }
         public async Task<List<DropDownListModel>> GetBillingPartyList()
         {
             List<DropDownListModel> partyList = new();

@@ -24,6 +24,7 @@ namespace Consignment.Business
         Task<List<DropDownListModel>> GetLRSeries();
         Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(GcModel request);
+        Task<ResponseModel> GetBillSeries(GcModel request);
         Task<List<DropDownListModel>> GetBillingPartyList();
     }
 

@@ -5,7 +5,9 @@ import { Constants } from '../common/constants';
 import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Dieselstatementlistmodel } from '../models/dieselstatementlistmodel';
+import { Dieselstatementsearchlistmodel } from '../models/dieselstatementsearchlistmodel';
 import { Dieselstatementmodel } from '../models/dieselstatementmodel';
+import { Driversalaryinnergridrequest } from '../models/driversalaryinnergridrequest';
 import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
@@ -47,5 +49,8 @@ export class DieselstatementService {
 
   dieselStatementDetailsDelete(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementDetailsDelete', request, this.httpOptions);
+  }
+  getDieselStatementInnerGridList(request: Driversalaryinnergridrequest): Observable<Dieselstatementmodel> {
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementInnerGridList', request, this.httpOptions);
   }
 }

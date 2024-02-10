@@ -115,7 +115,9 @@ namespace FleetTrans.Models
         public string? VehicleTypeGroupId { get; set; }
         public string? ActualDays_1 { get; set; }
         public string? ActualDays_2 { get; set; }
-     
+        public string? IdleDays { get; set; }
+        public string? PenaltyExtra { get; set; }
+
 
         public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
         public List<MiscListModel>? MiscList { get; set; }

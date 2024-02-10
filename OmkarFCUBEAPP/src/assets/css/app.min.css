@@ -888,11 +888,11 @@ body[data-sidebar=dark] #sidebar-menu ul li a:hover i {
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a {
-    color: #79829c
+    color:  #fff
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li ul.sub-menu li a:hover {
-    color: #fff
+    color: #79829c 
 }
 
 body[data-sidebar=dark].vertical-collpsed {

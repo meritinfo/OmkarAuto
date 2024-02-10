@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
 using FleetMasters.Business;
 using FreightMasters.Repository;
+using FleetTrans.Business;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -25,6 +26,10 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
         readonly IDistanceMasterFrtBusiness distanceMasterFrtBusiness;
         readonly IDistanceMasterTripBusiness distanceMasterTripBusiness;
+        readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
+        readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
+        readonly IDriverLicRptBusiness driverLicRptBusiness;
+
 
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         
@@ -38,8 +43,11 @@ namespace OmkarFCUBEAPI.Controllers
             IRatetypesBusiness _ratetypesBusiness, 
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
-            IDistanceMasterTripBusiness _distanceMasterTripBusiness, 
-            IConsigneeMasterBusiness _consigneeMasterBusiness)
+            IDistanceMasterTripBusiness _distanceMasterTripBusiness,
+            IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
+            IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
+            IConsigneeMasterBusiness _consigneeMasterBusiness,
+             IDriverLicRptBusiness _driverLicRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -50,7 +58,10 @@ namespace OmkarFCUBEAPI.Controllers
             freightRatesMstBusiness = _freightRatesMstBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
+            distanceMasterFrtRptBusiness = _distanceMasterFrtRptBusiness;
+            distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
+            driverLicRptBusiness = _driverLicRptBusiness;
         }
 
         /// <summary>
@@ -75,7 +86,114 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDistanceMasterFrtRPTList")]
+        public async Task<IActionResult> GetDistanceMasterFrtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtRptBusiness.GetDistanceMasterFrtRptList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDistanceMasterFrtRptList")]
+        public async Task<IActionResult> ExcelDistanceMasterFrtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterFrtRptBusiness.ExcelDistanceMasterFrtRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDistanceMasterTripRPTList")]
+        public async Task<IActionResult> GetDistanceMasterTripRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripRptBusiness.GetDistanceMasterTripRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDistanceMasterTripRptList")]
+        public async Task<IActionResult> ExcelDistanceMasterTripRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await distanceMasterTripRptBusiness.ExcelDistanceMasterTripRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDriverLicRPTList")]
+        public async Task<IActionResult> GetDriverLicRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverLicRptBusiness.GetDriverLicRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDriverLicRptList")]
+        public async Task<IActionResult> ExcelDriverLicRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverLicRptBusiness.ExcelDriverLicRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         /// <summary>
         /// Controller method for DESTINATION MASTER
         /// </summary>

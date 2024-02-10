@@ -16,6 +16,8 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Consignment.Business;
 using System.Xml.Linq;
+using FreightMasters.Business;
+using FreightMasters.Models;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -33,13 +35,17 @@ namespace OmkarFCUBEAPI.Controllers
         //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
+        readonly IDocRenewalRptBusiness docRenewalRptBusiness;
+        readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
             IDieselStatementBusiness _dieselStatementBusiness, 
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
-            IExpTruckArrRptBusiness _expTruckArrRptBusiness)
+            IExpTruckArrRptBusiness _expTruckArrRptBusiness,
+             IDocRenewalRptBusiness _docRenewalRptBusiness,
+                ITripPaymentsRptBusiness _tripPaymentsRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -48,6 +54,8 @@ namespace OmkarFCUBEAPI.Controllers
             billStatementBusiness = _billStatementBusiness;
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
             expTruckArrRptBusiness = _expTruckArrRptBusiness;
+            docRenewalRptBusiness = _docRenewalRptBusiness;
+                 tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
         }
 
        
@@ -685,7 +693,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDieselStatementInnerGridList")]
+        public async Task<IActionResult> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementInnerGridList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("DocRenewalEntryDetailsSave")]
         public async Task<IActionResult> DocRenewalEntryDetailsSave()
@@ -855,6 +876,79 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDocRenewalRPTList")]
+        public async Task<IActionResult> GetDocRenewalRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalRptBusiness.GetDocRenewalRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDocRenewalRptList")]
+        public async Task<IActionResult> ExcelDocRenewalRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalRptBusiness.ExcelDocRenewalRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTripPaymentsRPTList")]
+        public async Task<IActionResult> GetTripPaymentsRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsRptBusiness.GetTripPaymentsRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelTripPaymentsRptList")]
+        public async Task<IActionResult> ExcelTripPaymentsRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripPaymentsRptBusiness.ExcelTripPaymentsRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }

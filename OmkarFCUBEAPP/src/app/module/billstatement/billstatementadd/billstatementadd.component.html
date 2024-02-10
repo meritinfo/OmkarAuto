@@ -39,7 +39,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Bill Series</label>
-                                                    <select class="form-control" formControlName="billSeries" 
+                                                    <select class="form-control" formControlName="billSeries"  (change)="lrSeriesChange()"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['billSeries'].invalid) }">
                                                     <option *ngFor="let branch of lrSeries" value={{branch.dataName}}>
                                                         {{branch.dataName}}
@@ -154,11 +154,19 @@
                                                     <div [innerHTML]="notFound"></div>
                                                 </ng-template>
                                             </div>
-                                                    
+                                        </div> 
+                                            <div class="col-lg-2">
+                                                <div class="mb-2">
+                                                    <label for="formrow-inputCity">Plant Code</label>
+                                                    <input autoclose="false" type="text" placeholder=""
+                                                        class="form-control" formControlName="plantCode"
+                                                        [ngClass]="">
+                                                </div>
+                                            </div>    
                                                    
                                                 
-                                            </div>
-                                            <div class="col-lg-2">
+                                           
+                                            <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <button type="submit" (click)="searchStatement()"
                                                         class="btn btn-primary w-md mt-4">Show</button>
@@ -235,7 +243,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Freight</label>
                                                 <input autoclose="false" type="text" class="form-control"  (change)="calSubTotalBill()"
-                                                    formControlName="totFreight">
+                                                    formControlName="totFreight" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -261,7 +269,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
                                                     <option selected="">Choose...</option>
                                                     <option value="N">Not Application</option>
-                                                    <option value="B">B/CGST</option>
+                                                    <option value="B">S/CGST</option>
                                                     <option value="I">IGST</option>
                                                 </select>
                                             </div>
@@ -316,7 +324,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Bill Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalBillAmt">
+                                                    formControlName="totalBillAmt"  [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmt'].invalid) }">
                                             </div>
                                         </div>
                                     </div>

@@ -55,5 +55,6 @@ export class DriversalarystatementService {
   getDriverSalaryInnerGridList(request: Driversalaryinnergridrequest): Observable<Driversalarysearchlistmodel> {
     return this.httpClient.post<Driversalarysearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverSalaryInnerGridList', request, this.httpOptions);
   }
+ 
   
 }

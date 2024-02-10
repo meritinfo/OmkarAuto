@@ -22,5 +22,6 @@ namespace Consignment.Repository
         Task<List<DropDownListModel>> GetLRSeries();
         Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(GcModel request);
+        Task<ResponseModel> GetBillSeries(GcModel request);
     }
 }

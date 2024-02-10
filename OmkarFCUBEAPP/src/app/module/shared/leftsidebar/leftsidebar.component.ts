@@ -31,7 +31,8 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
     this.sharedService.getMenuList(selectedUserID).subscribe((res: any) => {
       this.mainMenuList = res;
       for (let i = 0; i < this.mainMenuList.length; i++) {
-        this.mainMenuList[i].menuList = this.mainMenuList[i].menuList.sort((a, b) => a.menuType > b.menuType ? 1 : -1);
+       // this.mainMenuList[i].menuList = this.mainMenuList[i].menuList.sort((a, b) => a.menuType > b.menuType ? 1 : -1);
+     
       }
       sessionStorage.setItem("menulist", JSON.stringify(this.mainMenuList));
     });

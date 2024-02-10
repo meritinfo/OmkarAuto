@@ -92,6 +92,8 @@ export class Tripsheetmodel {
     vehicleTypeGroupId : string = "";
     actualDays_1: string = "";
     actualDays_2: string = "";
+    idleDays: string = "";
+    penaltyExtra: string = "";
     loggedInUser: string = "";
    tripSheetInnerGridList: Tripsheetinnergridmodel = new Tripsheetinnergridmodel();
     miscList: MiscListmodel[] = [];

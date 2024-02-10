@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
 import { LayoutModule } from './module/shared';
 import { Usermodel } from './models/usermodel';
+import { Trippaymentsrptmodel } from './models/trippaymentsrptmodel';
 import { Ptslabmastermodel } from './models/ptslabmastermodel';
 import { Lrbillseriesmodel } from './models/lrbillseriesmodel';
 import { Destinationmodel } from './models/destinationmodel';
@@ -174,11 +175,21 @@ import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/e
 import { Reportmodel } from './models/reportmodel';
 import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
 import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
+import { Driverlicrptmodel } from './models/driverlicrptmodel';
+
 import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
 
 import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
+import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
+import { Docrenewalrptmodel } from './models/docrenewalrptmodel';
+import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
+import { DistancemastertriprptComponent } from './module/distancemastertriprpt/distancemastertriprpt/distancemastertriprpt.component';
+import { Distancemasterfrtrptmodel } from './models/distancemasterfrtrptmodel';
+import { Distancemastertriprptmodel } from './models/distancemastertriprptmodel';
+import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
+import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
 
 @NgModule({
   declarations: [
@@ -286,6 +297,11 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
     AddptslabmasterComponent,
     ExptruckarrivalreportComponent,
     CashbookreportComponent,
+    DocrenewalrptComponent,
+    DistancemasterfrtrptComponent,
+    DistancemastertriprptComponent,
+    TrippaymentsrptComponent,
+    DriverlicrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -323,9 +339,9 @@ import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
     Fleetcardmastermodel,Brsentrymodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

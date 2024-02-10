@@ -90,6 +90,11 @@ import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlis
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
 import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
+import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
+import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
+import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
+import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
+import { DistancemastertriprptComponent } from './module/distancemastertriprpt/distancemastertriprpt/distancemastertriprpt.component';
 
 
 
@@ -221,7 +226,12 @@ const routes: Routes = [
   { path: 'changepassword', component: ChangepasswordComponent},
   { path: 'exparrivals', component: ExptruckarrivalreportComponent}, 
   { path: 'ewaybillextedit',component:EwaybillextensionaddComponent},
-  { path: 'cashbookrpt', component: CashbookreportComponent}
+  { path: 'cashbookrpt', component: CashbookreportComponent},
+  { path: 'docrenewalrpt', component: DocrenewalrptComponent},
+  { path: 'distancemasterfrtrpt', component: DistancemasterfrtrptComponent},
+  { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
+  { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
+  { path: 'driverlicrpt', component: DriverlicrptComponent}
   
 ];
 
