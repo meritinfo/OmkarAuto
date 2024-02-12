@@ -306,6 +306,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
+                           new SqlParameter("@MasterID", request.MasterID == "" ? 0 : Convert.ToInt32(request.MasterID)),
                             new SqlParameter("@BillStation", request.BillStation),
                             new SqlParameter("@SeriesCode", request.SeriesCode),
                             new SqlParameter("@Bill_StmtNo", request.Bill_StmtNo),
