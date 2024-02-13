@@ -23,6 +23,11 @@ export class DashboardComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
-
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
   }
 }
