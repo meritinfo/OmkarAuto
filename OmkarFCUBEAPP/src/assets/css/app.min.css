@@ -613,7 +613,7 @@ body[data-layout=horizontal] .footer {
 #sidebar-menu ul li a {
     display: block;
     padding: .625rem 1.5rem;
-    color: #545a6d;
+    color: #fff;
     position: relative;
     font-size: 13px;
     -webkit-transition: all .4s;
@@ -651,7 +651,7 @@ body[data-layout=horizontal] .footer {
 #sidebar-menu ul li ul.sub-menu li a {
     padding: .4rem 1.5rem .4rem 3.5rem;
     font-size: 13px;
-    color: #545a6d
+    color: #fff
 }
 
 #sidebar-menu ul li ul.sub-menu li a:hover {
@@ -832,7 +832,7 @@ body[data-layout=horizontal] .footer {
     position: relative;
     width: 190px;
     z-index: 6;
-    color: #545a6d
+    color: #fff
 }
 
 .vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a:hover {
@@ -872,11 +872,11 @@ body[data-sidebar=dark] .vertical-menu {
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a {
-    color: #a6b0cf
+    color: #fff
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a i {
-    color: #6a7187
+    color:#fff
 }
 
 body[data-sidebar=dark] #sidebar-menu ul li a:hover {
@@ -909,7 +909,7 @@ body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hov
 }
 
 body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a {
-    color: #79829c
+    color: #fff
 }
 
 body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>ul a:hover {
@@ -953,7 +953,7 @@ body[data-sidebar=dark] .mm-active .active i {
 }
 
 body[data-sidebar=dark] .menu-title {
-    color: #6a7187
+    color: #fff
 }
 
 body[data-layout=horizontal] .main-content {
@@ -1370,7 +1370,7 @@ body[data-layout=horizontal][data-topbar=colored] .navbar-header .dropdown .show
 }
 
 body[data-layout=horizontal][data-topbar=colored] .navbar-header .waves-effect .waves-ripple {
-    background: rgba(255, 255, 255, .4)
+    background: rgba(255, 255, 255, 0.897)
 }
 
 body[data-layout=horizontal][data-topbar=colored] .noti-icon i {
