@@ -291,6 +291,19 @@ export class TripsheetaddComponent {
           totalpayable: parseInt(this.selectedTripSheetDetails.advPayable_1) + parseInt(this.selectedTripSheetDetails.advPayable_2),
           yearid: this.year
         });
+        if(this.selectedTripSheetDetails.loadEmptyType =='L'){
+          this.formTripsheet.patchValue({
+          
+         // advPayable_1: (this.advancePay).toString(),
+         advPayable_1: this.selectedTripSheetDetails.advPayable_1
+        });}
+        else{
+          this.formTripsheet.patchValue({
+          
+            advPayable_1: '0'
+          });
+
+        }
         this.vehicleTypeGroupId = this.selectedTripSheetDetails.vehicleTypeGroupId;
         this.ivFromPlace = this.selectedTripSheetDetails.loadingFrom;
         this.ivToPlace = this.selectedTripSheetDetails.destination;
@@ -888,8 +901,22 @@ if(selectedValue > 1){
           expectedReportingDt: date2.split("T")[0],
           distanceTripKM_1: (this.dTripKM_1).toString(),
           expectedReportingDays: (this.ExpReportingDays).toString(),
-          advPayable_1: (this.advancePay).toString(),
+        // advPayable_1: (this.advancePay).toString(),
+          
         });
+        if(this.selectedTripSheetDetails.loadEmptyType =='L'){
+          this.formTripsheet.patchValue({
+          
+          advPayable_1: (this.advancePay).toString(),
+        });}
+        else{
+          this.formTripsheet.patchValue({
+          
+            advPayable_1: '0'
+          });
+
+        }
+
         //  this.checkTripkMsNext();
         this.checkDays();
         this.getDslToBe1();
@@ -1368,7 +1395,7 @@ if(selectedValue > 1){
     var selectedDataValue = this.formTripsheet.getRawValue();
     const d1 = Date.parse(selectedDataValue.deliveryDate);
     const d2 = Date.parse(selectedDataValue.reportingDt_1);
-    if (d1 > d2) {
+    if (d1 > d2 && d1!=0 && d2!=0 ) {
       this.formTripsheet.patchValue({
         reportingDt_2: ''
       });
@@ -1391,7 +1418,7 @@ if(selectedValue > 1){
     const d2 = selectedDataValue.reportingDt_1?Date.parse(selectedDataValue.reportingDt_1):0;
     if (d1 > d2) {
       this.formTripsheet.patchValue({
-        reportingDt_1: ''
+       reportingDt_1: ''
       });
       this.toastrService.warning("Actual Reported Date should be same or greater than New Trip Date");
       return
@@ -1477,29 +1504,32 @@ if(selectedValue > 1){
 
   }
   checkDaysNew() {
+    
     var selectedDataValue = this.formTripsheet.getRawValue();
     
     const d1 = selectedDataValue.deliveryDate?Date.parse(selectedDataValue.deliveryDate):0;
    const d2 = selectedDataValue.reportingDt_2?Date.parse(selectedDataValue.reportingDt_2):0;
-
-    if (d1 > d2) {
+   if (d1 != 0 && d2!= 0   ){
+    if (d1 > d2   ) {
       this.formTripsheet.patchValue({
         reportingDt_2: ''
       });
       this.toastrService.warning("Actual Reported Date 2 should be same or greater than delivery Date");
       return
     }
-
+else{
     //  let date = selectedDataValue.expectedReportingDt;
     // date.setDate(date.getDate() )
     //this.date1 = (date).toISOString();
     // this.date1 = this.date1.split("T")[0];
     // let currentDate = new Date();
-    let dt3 = selectedDataValue.nextExpectedReportingDt
+    let dt3 = selectedDataValue.nextExpectedReportingDt?selectedDataValue.nextExpectedReportingDt:0
     // let dt2 = this.commonService.formatDate(selectedDataValue.reportingDt_2)
-    let dt1 = selectedDataValue.reportingDt_2
+    let dt1 = selectedDataValue.reportingDt_2?selectedDataValue.reportingDt_2:0
     // let dt2 = this.commonService.formatDate(selectedDataValue.newTripDate)
-    let dt2 = selectedDataValue.deliveryDate
+    let dt2 = selectedDataValue.deliveryDate?selectedDataValue.deliveryDate:0
+        // let dt2 = this.commonService.formatDate(selectedDataValue.deliveryDate)
+    
     //calculation
     var date1 = new Date(dt1);
     var date2 = new Date(dt2);
@@ -1520,7 +1550,7 @@ if(selectedValue > 1){
     }
     else {
       this.formTripsheet.patchValue({
-        actualDays_2: ''
+        actualDays_2: '0'
 
       });
 
@@ -1530,7 +1560,7 @@ if(selectedValue > 1){
       this.day1 = (DiffDays).toString();
       this.formTripsheet.patchValue({
         advanceDays_2: this.day1,
-        delayedDays_2: '',
+        delayedDays_2: '0',
         actualDays_2: (Difference_In_Days).toString()
 
 
@@ -1539,18 +1569,19 @@ if(selectedValue > 1){
       //do something with negative values 
       DiffDays = Math.abs(DiffDays)
       this.day2 = (DiffDays).toString();
+     // if (!Number.isNaN(this.day2)) {
       if (!Number.isNaN(this.day2)) {
         this.formTripsheet.patchValue({
           delayedDays_2: this.day2,
-          advanceDays_2: '',
+          advanceDays_2: '0',
           // actualDays_2:  Difference_In_Days
 
         });
       }
       else {
         this.formTripsheet.patchValue({
-          delayedDays_2: '',
-          advanceDays_2: '',
+          delayedDays_2: '0',
+          advanceDays_2: '0',
 
         });
 
@@ -1580,7 +1611,8 @@ if(selectedValue > 1){
     // this.totalCalculation();
 
 
-
+  }
+}
 
   }
 
@@ -1834,7 +1866,7 @@ if(selectedValue > 1){
     var selectedDataValue = this.formTripsheet.getRawValue();
     const d3 = selectedDataValue.deliveryDate?Date.parse(selectedDataValue.deliveryDate):0;
     const d4 = selectedDataValue.reportingDt_1?Date.parse(selectedDataValue.reportingDt_1):0;
-    if (d3 < d4) {
+    if (d3 < d4 && d3!= 0 && d4!= 0 ) {
       this.formTripsheet.patchValue({
         deliveryDate: ''
       });
