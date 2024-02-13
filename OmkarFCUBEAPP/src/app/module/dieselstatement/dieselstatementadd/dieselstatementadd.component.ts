@@ -203,7 +203,7 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
         this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
         this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
-        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);        
+        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);     
         
         this.formArray.controls[i].get("branch")?.disable();      
         this.formArray.controls[i].get("pmtDate")?.disable();      
@@ -295,7 +295,8 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
         this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
         this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
-        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);        
+        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);  
+        this.formArray.controls[i].get("selected")?.setValue(res.dieselStatementListData[i].selected);            
         
         this.formArray.controls[i].get("branch")?.disable();      
         this.formArray.controls[i].get("pmtDate")?.disable();      
@@ -306,6 +307,7 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("ratePerLtr")?.disable();
         this.formArray.controls[i].get("amountPaid")?.disable();
         this.formArray.controls[i].get("remarks")?.disable();
+        this.formArray.controls[i].get("selected")?.disable();
       }
     });
     

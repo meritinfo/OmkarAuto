@@ -120,7 +120,7 @@ namespace FleetTrans.Repository
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                Selected = false
+                                Selected = true
                             });
                         }
                     }

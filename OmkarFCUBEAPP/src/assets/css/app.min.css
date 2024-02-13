@@ -5872,3 +5872,7 @@ table.no-padding td{
 .bg-highlight{
 background-color: #fbff00 !important
 }
+
+.overflow-x{
+    overflow-x: scroll;
+}

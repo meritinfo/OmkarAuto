@@ -24,13 +24,15 @@
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
-                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}"
+                                        max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
-                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}"
+                                        max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -66,7 +68,8 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
+                                    <button class="btn btn-primary" type="submit"
+                                        (click)="search()"><span>Search</span></button>
                                 </div>
                             </div>
                         </div>
@@ -84,59 +87,61 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
-                        <tr>
-                            <th>vehicleNo </th>
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>vehicleNo </th>
 
 
-                            <th>NewTripDate </th>
+                                <th>NewTripDate </th>
 
 
-                            <th>TripNo </th>
-                            <th>FrPlace </th>
-                            <th>TPlace </th>
+                                <th>TripNo </th>
+                                <th>FrPlace </th>
+                                <th>TPlace </th>
 
-                            <th>expectedReportingDt </th>
+                                <th>expectedReportingDt </th>
 
-                            <th>DriverMasterID </th>
-                            <th>lastTripCloseDate </th>
-                            <th>tripLinkYN </th>
-
-
+                                <th>DriverMasterID </th>
+                                <th>lastTripCloseDate </th>
+                                <th>tripLinkYN </th>
 
 
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
-                        <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
-                            <td>{{ trip.vehicleNo }}</td>
 
-                            <td>{{ trip.newTripDate }}</td>
-                            <td>{{ trip.tripNo }}</td>
-                            <td>{{ trip.frPlace }}</td>
-                            <td>{{ trip.tPlace }}</td>
-                            <td>{{ trip.expectedReportingDt }}</td>
 
-                            <td>{{ trip.drName }}</td>
-                            <td>{{ trip.lastTripCloseDate }}</td>
-                            <td>{{ trip.tripLinkYN }}</td>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allTripSheetTypes.tripSheetList?.length != 0">
+                            <tr *ngFor="let trip of allTripSheetTypes.tripSheetList">
+                                <td>{{ trip.vehicleNo }}</td>
 
-                            <td>
-                               
-                                        <button type="button" class="btn btn-edit" 
-                                        (click)="gettripSheetDetails(trip)" ></button>
+                                <td>{{ trip.newTripDate }}</td>
+                                <td>{{ trip.tripNo }}</td>
+                                <td>{{ trip.frPlace }}</td>
+                                <td>{{ trip.tPlace }}</td>
+                                <td>{{ trip.expectedReportingDt }}</td>
 
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="allTripSheetTypes.tripSheetList?.length == 0">
-                        <tr>
-                            <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td>{{ trip.drName }}</td>
+                                <td>{{ trip.lastTripCloseDate }}</td>
+                                <td>{{ trip.tripLinkYN }}</td>
+
+                                <td>
+
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="gettripSheetDetails(trip)"></button>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allTripSheetTypes.tripSheetList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- container-fluid -->
