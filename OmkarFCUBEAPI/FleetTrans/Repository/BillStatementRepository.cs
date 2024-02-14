@@ -266,7 +266,7 @@ namespace FleetTrans.Repository
                                 DetentionRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionRs"]),
                                 OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                               Selected = false
+                               Selected = true
                             });
                         }
                         billStatementSearchList.BillStatementSearchList = billStatementSearchModels;

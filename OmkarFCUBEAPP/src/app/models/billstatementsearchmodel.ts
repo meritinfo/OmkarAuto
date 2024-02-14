@@ -1,4 +1,8 @@
+
+import { Billstatementsearchlistmodel } from "./billstatementsearchlistmodel";
+
 export class Billstatementsearchmodel {
+
     consignmentID: string = "";
     bookedAt: string = "";
     gcNoteNo: string = "";
@@ -7,5 +11,6 @@ export class Billstatementsearchmodel {
     productName: string = "";
     noPackages: string = "";
     gtotalRs: string = "";
-    selected: boolean = false;
+    selected: boolean = true;
+    billStatementListData: Billstatementsearchmodel[]=[];
 }

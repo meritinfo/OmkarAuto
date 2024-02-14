@@ -1717,8 +1717,9 @@ else{
     let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
 
    // Dls Cl Bal =  Total dsl to be -  Dsl Open Bal -Dsl Ltrs Issued -Cash Dsl Ltrs  
-   // clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
-   clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
+  
+  // clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
+  clBalDsl = totaldsl - issuedDslLtrs- cashDslLtrs  + opDslbal
 
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
    // totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver + totalpayable + cashDslAmt - penaltyChargedToDr;
@@ -1792,7 +1793,8 @@ else{
 
 
    // clBalDsl = opbal + issuedDslLtrs + cashDslLtrs - totaldsl
-   clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
+  // clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
+   clBalDsl = totaldsl - issuedDslLtrs- cashDslLtrs  + opDslbal
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
     totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt + tollExpByDriver 
     + totalpayable + cashDslAmt - penaltyChargedToDr - penaltyExtra;
@@ -2163,6 +2165,7 @@ else{
         if (rptdt <= expdt && this.incentiveRate != '') {
           //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
           ir = parseInt(this.incentiveRate)
+          this.getDslToBe1();
           this.totalCalculationForTicl(ir);
           //this.totalCalculation();
         }
@@ -2195,6 +2198,7 @@ else{
         // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
         onTimeIncentiveAmt: "0"
       });
+      this.getDslToBe1();
       this.totalCalculationForTicl(0);
       // this.totalCalculation();
 
@@ -2580,6 +2584,7 @@ else{
     this.ivToPlace = e.dataId;
     // this.checkMs();
     this.checkTripkMs();
+    
     this.getBhattaRate();
     this.checkDestinationControlStatus();
     this.checkLocation();

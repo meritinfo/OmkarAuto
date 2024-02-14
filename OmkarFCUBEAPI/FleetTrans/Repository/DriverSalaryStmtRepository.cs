@@ -123,7 +123,7 @@ namespace FleetTrans.Repository
                                 LastTripDt = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripDt"]),
                               //  VehicleLedgerAc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleLedgerAc"]),
                               
-                                Selected = false
+                                Selected = true
                             });
                         }
                         driverSalarySearchList.DriverSalarySearchList = driverSalarySearchModels;

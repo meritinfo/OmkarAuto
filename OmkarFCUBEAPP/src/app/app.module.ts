@@ -118,6 +118,7 @@ import { Ratesmastermodel } from './models/ratesmastermodel';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { billstatementmodel } from './models/billstatementmodel';
+import { Billstatementsearchmodel } from './models/billstatementsearchmodel';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
 import { FingroupaddComponent } from './module/fingroup/fingroupadd/fingroupadd.component';
 import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
@@ -341,7 +342,7 @@ import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driver
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

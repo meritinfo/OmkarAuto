@@ -161,10 +161,23 @@ export class AddothertripopenComponent {
           contents: this.contentList.find(e => e.dataId == this.selectedTripSheetDetails.contents),
           yearid: this.year
         });
+        if(this.selectedTripSheetDetails.loadEmptyType =='L'){
+          this.formOtherTripOpen.patchValue({
+          
+         // advPayable_1: (this.advancePay).toString(),
+         advPayable_1: this.selectedTripSheetDetails.advPayable_1
+        });}
+        else{
+          this.formOtherTripOpen.patchValue({
+          
+            advPayable_1: '0'
+          });
+    
+        }
       } 
       this.editMode = true;
     }, 2000);
-
+    
     this.formOtherTripOpen.controls['tripNo'].disable();
     this.formOtherTripOpen.controls['distanceTripKM_1'].disable();    
     this.formOtherTripOpen.controls['expectedReportingDt'].disable();

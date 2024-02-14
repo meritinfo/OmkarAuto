@@ -201,10 +201,7 @@ exit(): void {
     this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
       this.driversalarysearchlistmodel = res;
      
-      this.formDriverSalaryStatement.patchValue({
-       // miscDetailsList: this.tripsheetinnergridmodel.miscList,
-      //  adblueDetailsList: this.tripsheetinnergridmodel.adblueList
-      });
+     
     //  valueUpdate(event: any, i: number){
       
      //this.driversalarysearchlistmodel.driverSalarySearchList[0].selected = selected.checked;

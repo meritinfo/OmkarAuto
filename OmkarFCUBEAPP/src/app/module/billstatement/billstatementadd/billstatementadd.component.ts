@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
@@ -32,6 +32,7 @@ export class BillstatementaddComponent implements OnInit {
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
+  
   saveData = new Billstatementsaverequest();
   billstatementsearchlistrequestmodel = new Billstatementsearchlistrequestmodel();
   editMode = false;
@@ -237,7 +238,25 @@ getGcSeries(gcSeries: any): void {
   }
   
 
-  get f() { return this.formBillStatement.controls; }
+  get f() { return this.formBillStatement.controls;}
+    get formArray() {
+      return this.formBillStatement.get("arrayList") as FormArray;
+    }
+    
+  
+  
+    createInitialArray() {
+      return this.formBuilder.group({
+        gcNoteNo:  ['', []],
+        bookingDate:  ['', []],
+        vehicleNo:  ['', []],
+        productName:  ['', []],
+        noPackages:  ['', []],
+        gtotalRs:  ['', []],
+   
+        selected:  ['', []],
+      }); }
+
 
   selectEvent(item: any) {
     // do something with selected item
@@ -399,6 +418,8 @@ getGcSeries(gcSeries: any): void {
        
       
 
+  
+  
   }
   valueUpdate(event: any, i: number){
    this.billstatementsearchlistmodel.billStatementSearchList[i].selected = event.target.checked;
@@ -407,13 +428,23 @@ getGcSeries(gcSeries: any): void {
     this.billstatementService.getBillStatementInnerGridList(this.billsstatementinnergridrequest).subscribe((res) => {
       this.billstatementsearchlistmodel = res;
      
-      this.formBillStatement.patchValue({
-       // miscDetailsList: this.tripsheetinnergridmodel.miscList,
-      //  adblueDetailsList: this.tripsheetinnergridmodel.adblueList
-      });
+      for (var i = 0; i < this.formArray.length; i++) {
+        this.formArray.removeAt(i);
+     }     
+      
+      for (var i = 0; i < res.billStatementSearchList.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billStatementSearchList[i].gcNoteNo);
+       this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.billStatementSearchList[i].vehicleNo);
+        this.formArray.controls[i].get("productName")?.setValue(res.billStatementSearchList[i].productName);
+        this.formArray.controls[i].get("noPackages")?.setValue(res.billStatementSearchList[i].noPackages);
+        this.formArray.controls[i].get("gtotalRs")?.setValue(res.billStatementSearchList[i].gtotalRs);
 
-     // this.calculateTotal();
-    //  this.totalCalculation();
+        this.formArray.controls[i].get("selected")?.setValue(res.billStatementSearchList[i].selected);            
+        
+
+      }
     });
   }
   
