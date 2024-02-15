@@ -39,7 +39,7 @@ export class TrippaymentsrptComponent {
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'ExpectedReportingDt',
+    sortColumn: 'paymentBr',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -113,18 +113,17 @@ formFilter!: FormGroup;
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.loginDate,[Validators.required]),
+        fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
         transType: new FormControl('',),  
         pmtType: new FormControl('',),  
       });
-      this.filter.fromDate = this.loginDate;
+      this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
-      this.filter.filterStr3  = "0";
   
       this.sharedService.loading=true;
       this.getBranchList();
@@ -178,7 +177,7 @@ formFilter!: FormGroup;
             // Filter setting
             this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
             this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'RenewalDocName';
+            this.filter.sortColumn = 'paymentBr';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
             this.tripPaymentsRptService.getTripPaymentsRptList(this.filter).subscribe(resp => {
@@ -241,15 +240,29 @@ formFilter!: FormGroup;
     }
       
     //Open user details screen
-    exportExcel(): void {
-      this.filter.filterStr3 = "1";
+    exportExcel(): void {      
+      this.userSubmitted = true;
+      if (this.formFilter.invalid) {
+        this.toastrService.warning("Please Enter Mandatory Fields");   
+        const controls = this.formFilter.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toastrService.warning(name + " Fields is Invalid");   
+          }
+        }     
+        return;
+      }
+      var selectedDataVal=this.formFilter.getRawValue();
+      this.filter.fromDate    = selectedDataVal.fromDate;
+      this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
+      this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
+      this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
       this.tripPaymentsRptService.getTripPaymentsRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){
-          //here code for Downloading Excel file          
+        if(resp.status){      
           let link = document.createElement("a");
           link.download = "TripPayments" + "_" + new Date().getTime() + '.xlsx';
-          // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/TripPaymentsRPT/" + resp.message;
+          link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
         else{        
@@ -273,11 +286,9 @@ formFilter!: FormGroup;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.search      = this.loggedInUserID;
     this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
     this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
     this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "0";
     this.sharedService.loading=true;
     this.expTripPayments();
     this.sharedService.loading=false;

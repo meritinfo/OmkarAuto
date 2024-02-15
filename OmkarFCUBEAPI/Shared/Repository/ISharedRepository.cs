@@ -1,6 +1,7 @@
 ﻿using Shared.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace Shared.Repository
 {
@@ -16,5 +17,6 @@ namespace Shared.Repository
         Task<List<YearListModel>> GetYearList();
         Task<List<YearListModel>> GetServerDate();
         Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();
+        Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter);
     }
 }

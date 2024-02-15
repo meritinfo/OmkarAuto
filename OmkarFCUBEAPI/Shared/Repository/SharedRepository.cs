@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
+using System.Data;
+using System.IO;
 
 namespace Shared.Repository
 {
@@ -327,5 +330,99 @@ namespace Shared.Repository
             }
             return configModel;
         }
+        public async Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                using (XLWorkbook wb = new XLWorkbook())
+                {
+                    int colcnt = dt.Columns.Count;
+
+                    var ws = wb.Worksheets.Add("worksheet");
+                    ws.Range(1, 1, 1, colcnt).Merge();
+                    ws.Range(1, 1, 1, colcnt).Value = "OMKAR";
+                    ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                    ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                    ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(2, 1, 2, colcnt).Merge();
+                    ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                    ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                    ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                    ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                    ws.Range(3, 1, 3, colcnt).Merge();
+                    ws.Range(3, 1, 3, colcnt).Value = rptheader;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                    ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                    ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    ws.Range(4, 1, 4, colcnt).Merge();
+                    ws.Range(4, 1, 4, colcnt).Value = filter;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                    ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    for (int i = 0; i < colcnt; i++)
+                    {
+                        ws.Cell(5, i+1).Value = dt.Columns[i].ColumnName;
+                    }
+
+                    ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                    ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                    int j = 0;
+
+                    for (j = 0; j < dt.Rows.Count; j++)
+                    {
+                        for (int i = 0; i < colcnt; i++)
+                        {
+                            ws.Cell(j + 6, i + 1).Value = Convert.ToString(dt.Rows[j][i]);
+                        }
+
+                    }
+                    for (int k = 1; k <= colcnt; k++)
+                    {
+                        ws.Column(k).AdjustToContents();
+                    }
+
+                    ws.Range(5, 1, j + 5, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                    ws.Range(5, 1, j + 5, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                    var foldername = System.IO.Path.Combine("Reports", "Download");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                    var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+                    var filePath = foldername + "//" + filename;
+                    var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    if (File.Exists(fullPath))
+                        File.Delete(fullPath);
+
+                    wb.SaveAs(fullPath);
+
+                    responseModel.Status = true;
+                    responseModel.Message = filename;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+                responseModel.Message = ex.Message;
+            }
+            return responseModel;
+        }
+
     }
 }

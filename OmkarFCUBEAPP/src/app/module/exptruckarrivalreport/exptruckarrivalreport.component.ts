@@ -111,7 +111,7 @@ export class ExptruckarrivalreportComponent {
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
   
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.loginDate,[Validators.required]),
+      fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
       tripBranch: new FormControl('',),  
       vehicleMasterID: new FormControl('',),  
@@ -232,16 +232,13 @@ export class ExptruckarrivalreportComponent {
     };
   }
     
-  //Open user details screen
   exportExcel(): void {
     this.filter.filterStr3 = "1";
     this.exptruckarrivalService.getExptruckarrivalExcel(this.filter).subscribe(resp => {
-      if(resp.status){
-        //here code for Downloading Excel file          
+      if(resp.status){        
         let link = document.createElement("a");
         link.download = "Exptruckarrival" + "_" + new Date().getTime() + '.xlsx';
-        // link.href = "assets/" + resp.message;
-        link.href = "assets/reports/ExpTruckArrRPT/" + resp.message;
+        link.href = "assets\\reports\\Download\\" + resp.message;
         link.click();
       }
       else{        

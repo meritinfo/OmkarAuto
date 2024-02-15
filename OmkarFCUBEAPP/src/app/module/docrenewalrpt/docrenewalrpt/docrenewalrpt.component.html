@@ -23,7 +23,8 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <label for="formrow-inputState">From Date </label>
+                                    <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
@@ -31,37 +32,13 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <label for="formrow-inputState">To Date </label>
+                                    <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
-                            </div>
-                           <!-- <div class="col-md-2">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Loading Branch</label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="branchList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="tripBranch" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>-->
+                            </div>    
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Vehicle No</label>  
@@ -114,9 +91,7 @@
                     <div class="dt-buttons btn-group flex-wrap export-button">
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
-                            (click)="exportExcel()"><span>Excel</span></button>
-                       <!--<button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>--> 
+                            (click)="exportExcel()"><span>Excel</span></button>                      
                     </div>
                 </div>
             </div>
@@ -130,9 +105,7 @@
                             <th>ValidFromDt</th>
                             <th>ValidToDt</th>
                             <th>NetAmount</th>   
-                            <th>DocumentRefNo</th>
-                       
-
+                            <th>DocumentRefNo</th>  
                         </tr>
                     </thead>
                     <tbody *ngIf="allDocRenewalRptlist.docRenewalRptlist?.length != 0">
@@ -142,10 +115,8 @@
                             <td>{{ eta.transDate }}</td>
                             <td>{{ eta.validFromDt }}</td>
                             <td>{{ eta.validToDt }}</td>
-                             <td>{{ eta.netAmount }}</td> 
+                            <td>{{ eta.netAmount }}</td> 
                             <td>{{ eta.documentRefNo }}</td> 
-                        
-                       
                         </tr>
                     </tbody>
                     <tbody *ngIf="allDocRenewalRptlist.docRenewalRptlist?.length == 0">

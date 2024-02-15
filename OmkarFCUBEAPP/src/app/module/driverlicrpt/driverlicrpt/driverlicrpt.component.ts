@@ -1,6 +1,5 @@
 
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +8,6 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Driverlicrptlistmodel  } from 'src/app/models/driverlicrptlistmodel';
-import { Driverlicrptmodel } from 'src/app/models/driverlicrptmodel';
 import { DriverLicRptService } from 'src/app/services/driverlicrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -40,7 +38,7 @@ export class DriverlicrptComponent {
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'ExpectedReportingDt',
+    sortColumn: 'driverName',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -118,7 +116,7 @@ formFilter!: FormGroup;
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
-        expiryLic: new FormControl('',),  
+        expiryLic: new FormControl('M',),  
         active: new FormControl('',),  
         driverName: new FormControl('',),  
       });
@@ -126,7 +124,6 @@ formFilter!: FormGroup;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
-      this.filter.filterStr3  = "0";
   
       this.sharedService.loading=true;
       this.getBranchList();
@@ -181,7 +178,7 @@ formFilter!: FormGroup;
             // Filter setting
             this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
             this.filter.pageSize = dataTablesParameters.length;
-            this.filter.sortColumn = 'licenseNo';
+            this.filter.sortColumn = 'driverName';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
             this.driverLicRptService.getDriverLicRptList(this.filter).subscribe(resp => {
@@ -296,14 +293,22 @@ formFilter!: FormGroup;
       
     //Open user details screen
     exportExcel(): void {
-      this.filter.filterStr3 = "1";
+      this.userSubmitted = true;
+      if (this.formFilter.invalid) {
+        this.toastrService.warning("Please Enter Mandatory Fields");   
+        const controls = this.formFilter.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toastrService.warning(name + " Fields is Invalid");   
+          }
+        }     
+        return;
+      }
       this.driverLicRptService.getDriverLicRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){
-          //here code for Downloading Excel file          
+        if(resp.status){     
           let link = document.createElement("a");
           link.download = "DriverLic" + "_" + new Date().getTime() + '.xlsx';
-          // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/DriverLicRPT/" + resp.message;
+          link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
         else{        
@@ -324,13 +329,9 @@ formFilter!: FormGroup;
         return;
       }
       var selectedDataVal=this.formFilter.getRawValue();
-      this.filter.fromDate    = selectedDataVal.fromDate;
-      this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.search      = this.loggedInUserID;
       this.filter.filterStr   = selectedDataVal.active;
       this.filter.filterStr1  = selectedDataVal.expiryLic?selectedDataVal.expiryLic:"";
-      this.filter.filterStr2  = selectedDataVal.driverName.dataName;
-      this.filter.filterStr3  = "0";
+      this.filter.filterStr2  = selectedDataVal.driverName?selectedDataVal.driverName.dataName:"";
       this.sharedService.loading=true;
       this.expDriverLic();
       this.sharedService.loading=false;
