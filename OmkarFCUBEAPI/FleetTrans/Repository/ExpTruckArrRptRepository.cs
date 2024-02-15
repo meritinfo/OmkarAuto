@@ -188,8 +188,8 @@ namespace FleetTrans.Repository
                                 ws.Column(k).AdjustToContents();
                             }
 
-                            ws.Range(5, 1, r, 10).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
-                            ws.Range(5, 1, r, 10).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, r-1, 10).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, r-1, 10).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
 
                             var foldername = System.IO.Path.Combine("reports", "Download");
                             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
