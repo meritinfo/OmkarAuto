@@ -49,17 +49,15 @@
                                 </div>
                             </div>-->
                    
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-2">                                    
                                     <label for="basicpill-phoneno-input">Expiry Lic</label>
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="expiryLic"
-                                        [ngClass]=""
-                                      >
-                                      
-                                        <option selected value="M"> Expire in One Month</option>
+                                        [ngClass]="">                                      
+                                        <option value="M"> Expire in One Month</option>
                                         <option value="A"> All</option>
-                                        <option value="V">Valid </option>
+                                        <option value="V"> Valid </option>
                                         <option value="E"> Expired </option>
                                        
                                     </select>
@@ -71,9 +69,7 @@
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="driverList"
                                             [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="driverName" [initialValue]=""
-                                          
-                                          
+                                            formControlName="driverName" [initialValue]=""  
                                             (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"  [ngClass]="">
@@ -96,8 +92,7 @@
                                     <label for="basicpill-phoneno-input">Active</label>
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="active"
-                                        [ngClass]=""  
-                                       >
+                                        [ngClass]="" >
                                         <option value ="">Choose...</option>
                                         <option value="Y">Active</option>
                                         <option value="N"> InActive</option>

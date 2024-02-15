@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -40,7 +39,7 @@ export class DocrenewalrptComponent {
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'ExpectedReportingDt',
+    sortColumn: 'renewalDocName',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -49,8 +48,8 @@ export class DocrenewalrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-
 }
+
 formFilter!: FormGroup;
   userSubmitted = false;
   year: string = '';
@@ -114,13 +113,13 @@ formFilter!: FormGroup;
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.loginDate,[Validators.required]),
+        fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
         docRenewalID: new FormControl('',),  
       });
-      this.filter.fromDate = this.loginDate;
+      this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
@@ -224,16 +223,12 @@ formFilter!: FormGroup;
       };
     }
       
-    //Open user details screen
     exportExcel(): void {
-      this.filter.filterStr3 = "1";
       this.docRenewalRptService.getDocRenewalRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){
-          //here code for Downloading Excel file          
+        if(resp.status){      
           let link = document.createElement("a");
           link.download = "DocRenewal" + "_" + new Date().getTime() + '.xlsx';
-          // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/DocRenewalRPT/" + resp.message;
+          link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
         else{        
@@ -254,14 +249,13 @@ formFilter!: FormGroup;
       }     
       return;
     }
-    var selectedDataVal=this.formFilter.getRawValue();
+    var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.search      = this.loggedInUserID;
-   // this.filter.filterStr   = selectedDataVal.tripBranch?selectedDataVal.tripBranch.dataId:"";
     this.filter.filterStr1  = selectedDataVal.docRenewalID?selectedDataVal.docRenewalID:"";
     this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "0";
+
     this.sharedService.loading=true;
     this.expDocRenewal();
     this.sharedService.loading=false;

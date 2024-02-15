@@ -1,5 +1,4 @@
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -40,7 +39,7 @@ export class DistancemasterfrtrptComponent {
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'ExpectedReportingDt',
+    sortColumn: 'OriginPlace',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -113,22 +112,20 @@ formFilter!: FormGroup;
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.loginDate,[Validators.required]),
+        fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         fromPlace: new FormControl('',[Validators.required]),  
         toPlace: new FormControl('',),  
       });
-      this.filter.fromDate = this.loginDate;
+      this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
-      this.filter.filterStr3  = "0";
   
       this.sharedService.loading=true;
       this.getLocationList()
-      this.getVehicleNoList(); 
-     // this.getDocRefNoList();   
+      this.getVehicleNoList();  
       this.expDistanceMasterFrt();
       this.sharedService.loading=false;
     }
@@ -219,14 +216,25 @@ formFilter!: FormGroup;
       
     //Open user details screen
     exportExcel(): void {
-      this.filter.filterStr3 = "1";
+      this.userSubmitted = true;
+      if (this.formFilter.invalid) {
+        this.toastrService.warning("Please Enter Mandatory Fields");   
+        const controls = this.formFilter.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toastrService.warning(name + " Fields is Invalid");   
+          }
+        }     
+        return;
+      }
+      var selectedDataVal=this.formFilter.getRawValue();
+      this.filter.filterStr   = selectedDataVal.fromPlace.dataId;
+      this.filter.filterStr1 = selectedDataVal.toPlace?selectedDataVal.toPlace.dataId:"";
       this.distanceMasterFrtRptService.getDistanceMasterFrtRptListExcel(this.filter).subscribe(resp => {
-        if(resp.status){
-          //here code for Downloading Excel file          
+        if(resp.status){     
           let link = document.createElement("a");
           link.download = "DistanceMasterFrt" + "_" + new Date().getTime() + '.xlsx';
-          // link.href = "assets/" + resp.message;
-          link.href = "assets/reports/DistanceMasterFrtRPT/" + resp.message;
+          link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
         else{        
@@ -248,13 +256,8 @@ formFilter!: FormGroup;
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-   // this.filter.fromDate    = selectedDataVal.fromLocation;
-   // this.filter.toDate      = selectedDataVal.toLocation;
-    this.filter.search      = this.loggedInUserID;
-   this.filter.filterStr   = selectedDataVal.fromPlace.dataId;
-    this.filter.filterStr1  =selectedDataVal.toPlace.dataId;
-  // this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-   // this.filter.filterStr3  = "0";
+    this.filter.filterStr   = selectedDataVal.fromPlace.dataId;
+    this.filter.filterStr1 = selectedDataVal.toPlace?selectedDataVal.toPlace.dataId:"";
     this.sharedService.loading=true;
     this.expDistanceMasterFrt();
     this.sharedService.loading=false;

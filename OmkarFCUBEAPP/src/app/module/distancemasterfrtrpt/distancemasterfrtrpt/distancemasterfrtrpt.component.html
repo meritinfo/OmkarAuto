@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Distance Master Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Distance Freight Report</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
@@ -43,15 +43,12 @@
                                     <label for="formrow-inputCity">From Location</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                           
-                                      
-                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
+                                            [searchKeyword]="keywordLocation" placeholder="" 
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate" 
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"
-                                            [ngClass]="{'is-invalid': userSubmitted && (f['fromPlace'].invalid)}"
-                                        
-                                          >
+                                            [ngClass]="{'is-invalid': userSubmitted && (f['fromPlace'].invalid)}" >
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -69,15 +66,12 @@
                                     <label for="formrow-inputCity">To Location</label>  
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                          
-                                         
-                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
+                                            [searchKeyword]="keywordLocation" placeholder="" 
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate" 
                                             [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter"
-                                            [ngClass]=""
-                                            
-                                          >
+                                            [ngClass]="">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -87,11 +81,9 @@
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
-                                    </div>
-                                
+                                    </div>                                
+                                </div>                         
                             </div>
-                         
-                        </div>
                             <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
