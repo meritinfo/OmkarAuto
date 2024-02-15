@@ -638,7 +638,8 @@ namespace Consignment.Repository
                             new SqlParameter("@TransDate", request.TransDate),
                             new SqlParameter("@FromLocation", request.FromLocation),
                             new SqlParameter("@ToLocation", request.ToLocation),
-                            new SqlParameter("@VehicleTypeGroupId", request.VehicleTypeGroupId)
+                            new SqlParameter("@VehicleTypeGroupId", request.VehicleTypeGroupId),
+                           new SqlParameter("@LoadOrEmpty", request.LoadOrEmpty)
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripKms", param);
 

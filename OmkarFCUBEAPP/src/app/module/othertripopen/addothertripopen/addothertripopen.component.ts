@@ -161,19 +161,19 @@ export class AddothertripopenComponent {
           contents: this.contentList.find(e => e.dataId == this.selectedTripSheetDetails.contents),
           yearid: this.year
         });
-        if(this.selectedTripSheetDetails.loadEmptyType =='L'){
-          this.formOtherTripOpen.patchValue({
+      //  if(this.selectedTripSheetDetails.loadEmptyType =='L'){
+        //  this.formOtherTripOpen.patchValue({
           
          // advPayable_1: (this.advancePay).toString(),
-         advPayable_1: this.selectedTripSheetDetails.advPayable_1
-        });}
-        else{
-          this.formOtherTripOpen.patchValue({
+     //    advPayable_1: this.selectedTripSheetDetails.advPayable_1
+    //    });}
+    //    else{
+     //     this.formOtherTripOpen.patchValue({
           
-            advPayable_1: '0'
-          });
+        //    advPayable_1: '0'
+     //     });
     
-        }
+    //    }
       } 
       this.editMode = true;
     }, 2000);
@@ -238,6 +238,7 @@ export class AddothertripopenComponent {
       this.kmsDetails.toLocation = this.toplc.toString();
       this.kmsDetails.transDate = selectedDataValue.newTripDate;
       this.kmsDetails.vehicleTypeGroupId = '1';
+      this.kmsDetails.loadOrEmpty = this.selectedTripSheetDetails.loadEmptyType;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';

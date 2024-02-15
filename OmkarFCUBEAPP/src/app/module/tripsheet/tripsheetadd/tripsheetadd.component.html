@@ -280,7 +280,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Opening Bal. Dsl</label>
-                                                <input class="form-control" placeholder="" formControlName="opBalDsl">
+                                                <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="updateDslOp()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -477,7 +477,7 @@
                                                 <label for="formrow-inputCity"> Actual Reported Date</label>
 
                                                 <input type="date" class="form-control" placeholder=""
-                                                    (change)="checkDays()" formControlName="reportingDt_1">
+                                                    (change)="checkDays()" formControlName="reportingDt_1"  >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -533,7 +533,8 @@
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]="">
+                                                        [customFilter]="startWithFilter" [ngClass]=""
+                                                        (inputCleared)="onClearedFromPlace2($event)">>
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>

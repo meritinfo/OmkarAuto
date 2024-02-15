@@ -3,4 +3,5 @@ export class kmsmodel {
   fromLocation : string = '';
   toLocation  : string = '';
   vehicleTypeGroupId  : string = '';
+  loadOrEmpty  : string = '';
 }
