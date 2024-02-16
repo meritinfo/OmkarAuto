@@ -1477,6 +1477,8 @@ if(selectedValue > 1){
         actualDays_2: '0',
         advanceDays_2: '0',
         delayedDays_2: '0',
+        
+       
       });}
       else{
     const d1 = selectedDataValue.newTripDate?Date.parse(selectedDataValue.newTripDate):0;
@@ -1835,6 +1837,8 @@ else{
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
    // tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
    tripBalance =  paidDriverAdvance-opBalDriver - totalDriverAc ;
+
+
     netTripBalance = tripBalance - recdFromDriver;
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({
@@ -2345,7 +2349,7 @@ else{
     
     // this.tstatus =  e.target.value;;
     // if (selectedValue == "OK"  && rptdt == expdt || rptdt < expdt) {
-    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt) {
+    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt && selectedDataValue.reportingDt_1!='') {
       //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
