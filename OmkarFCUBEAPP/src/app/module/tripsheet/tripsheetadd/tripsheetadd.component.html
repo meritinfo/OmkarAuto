@@ -55,7 +55,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Time</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder=""
+                                                <input type="time" autoclose="false" placeholder=""
                                                     formControlName="tripTime" class="form-control">
                                             </div>
                                         </div>
@@ -274,20 +274,21 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Opening Balance</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="opBalDriver">
+                                                    formControlName="opBalDriver" (change)="totalCalculation()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Opening Bal. Dsl</label>
-                                                <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="updateDslOp()">
+                                             <!--   <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="updateDslOp()">-->
+                                             <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="totalCalculation()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Opening Bal. Adblue</label>
                                                 <input class="form-control" placeholder=""
-                                                    formControlName="opBalAdblue">
+                                                    formControlName="opBalAdblue" (change)="totalCalculation()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
