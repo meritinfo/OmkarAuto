@@ -11,6 +11,6 @@ export class Billstatementsearchmodel {
     productName: string = "";
     noPackages: string = "";
     gtotalRs: string = "";
-    selected: boolean = true;
+    selected: boolean = false;
     billStatementListData: Billstatementsearchmodel[]=[];
 }

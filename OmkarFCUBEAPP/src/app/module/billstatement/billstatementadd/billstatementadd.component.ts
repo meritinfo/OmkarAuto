@@ -118,7 +118,8 @@ export class BillstatementaddComponent implements OnInit {
       igstPct: new FormControl(''),
       igstAmt: new FormControl(''),
       totalBillAmt: new FormControl('',[Validators.required]),
-      plantCode: new FormControl('')
+      plantCode: new FormControl(''),
+      arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
   
     setTimeout(() => {
@@ -253,7 +254,6 @@ getGcSeries(gcSeries: any): void {
         productName:  ['', []],
         noPackages:  ['', []],
         gtotalRs:  ['', []],
-   
         selected:  ['', []],
       }); }
 
@@ -441,11 +441,9 @@ getGcSeries(gcSeries: any): void {
         this.formArray.controls[i].get("noPackages")?.setValue(res.billStatementSearchList[i].noPackages);
         this.formArray.controls[i].get("gtotalRs")?.setValue(res.billStatementSearchList[i].gtotalRs);
 
-        this.formArray.controls[i].get("selected")?.setValue(res.billStatementSearchList[i].selected);            
-        
-
+        this.formArray.controls[i].get("selected")?.setValue(res.billStatementSearchList[i].selected);  
       }
-    });
+     });
   }
   
   

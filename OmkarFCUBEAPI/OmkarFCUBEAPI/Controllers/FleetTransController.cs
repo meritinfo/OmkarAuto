@@ -36,6 +36,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
         readonly IDocRenewalRptBusiness docRenewalRptBusiness;
+        readonly IDieselStatementRptBusiness dieselStatementRptBusiness;
         readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -45,6 +46,7 @@ namespace OmkarFCUBEAPI.Controllers
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
              IDocRenewalRptBusiness _docRenewalRptBusiness,
+              IDieselStatementRptBusiness _dieselStatementRptBusiness,
                 ITripPaymentsRptBusiness _tripPaymentsRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -55,7 +57,8 @@ namespace OmkarFCUBEAPI.Controllers
             driverSalaryStmtBusiness = _driverSalaryStmtBusiness;
             expTruckArrRptBusiness = _expTruckArrRptBusiness;
             docRenewalRptBusiness = _docRenewalRptBusiness;
-                 tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
+            dieselStatementRptBusiness = _dieselStatementRptBusiness;
+            tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
         }
 
        
@@ -876,6 +879,24 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetDieselStatementRPTList")]
+        public async Task<IActionResult> GetDieselStatementRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementRptBusiness.GetDieselStatementRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetDocRenewalRPTList")]
         public async Task<IActionResult> GetDocRenewalRptList(ReportRequestModel request)
         {
@@ -886,6 +907,24 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await docRenewalRptBusiness.GetDocRenewalRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelDieselStatementRptList")]
+        public async Task<IActionResult> GetDieselStatementRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementRptBusiness.GetDieselStatementRptExcel(request);
 
                 return Ok(result);
             }
