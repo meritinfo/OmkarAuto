@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup,FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -99,7 +99,9 @@ export class DriversalarystatementaddComponent implements OnInit {
      // netPayable: new FormControl(''),
       totalNetPayAmt: new FormControl(''),
       creditAc: new FormControl(''),
-     pmtType: new FormControl('')
+     pmtType: new FormControl(''),
+    // selected: new FormControl(''),
+     arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
   
     this.getCreditAcList2("B");
@@ -156,6 +158,10 @@ exit(): void {
   
 
   get f() { return this.formDriverSalaryStatement.controls; }
+
+    get formArray() {
+      return this.formDriverSalaryStatement.get("arrayList") as FormArray;
+    }
   getCreditAcList2(e:any){
     this.ptype = e;
     var data = {
@@ -197,20 +203,52 @@ exit(): void {
     this.getCreditAcList2(this.ptype);
   
   }
+  createInitialArray() {
+    return this.formBuilder.group({
+      vehicleNo:  ['', []],
+      driverMasterId:  ['', []],
+      driverName:  ['', []],
+      salaryDays:  ['', []],
+      salaryAmt:  ['', []],
+     
+    
+      vehicleMasterId:  ['', []],
+      poolAmt: ['', []],
+      netPayable:['', []],
+      lastTripDt:['', []],
+      lastTripBal: ['', []],
+      selected: ['', []],
+      
+     // netPayable: string = "";
+    //  vehicleLedgerAc : string = "";
+
+    }); }
+
   getTripSheetInnerGridList(): void {
     this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
       this.driversalarysearchlistmodel = res;
      
-     
-    //  valueUpdate(event: any, i: number){
+      for (var i = 0; i < this.formArray.length; i++) {
+        this.formArray.removeAt(i);
+     }     
       
-     //this.driversalarysearchlistmodel.driverSalarySearchList[0].selected = selected.checked;
-    // this.driversalarysearchlistmodel.driverSalarySearchList[0].selected.Checked = true };
-   //   }
-     // this.calculateTotal();
-    //  this.totalCalculation();
-    });
+      for (var i = 0; i < res.driverSalarySearchList.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.driverSalarySearchList[i].vehicleNo);
+       this.formArray.controls[i].get("driverName")?.setValue(this.commonService.formatDate(res.driverSalarySearchList[i].driverName));
+        this.formArray.controls[i].get("salaryDays")?.setValue(res.driverSalarySearchList[i].salaryDays);
+        this.formArray.controls[i].get("salaryAmt")?.setValue(res.driverSalarySearchList[i].salaryAmt);
+        this.formArray.controls[i].get("poolAmt")?.setValue(res.driverSalarySearchList[i].poolAmt);
+        this.formArray.controls[i].get("lastTripBal")?.setValue(res.driverSalarySearchList[i].lastTripBal);
+        this.formArray.controls[i].get("lastTripDt")?.setValue(res.driverSalarySearchList[i].lastTripDt);
+        this.formArray.controls[i].get("netPayable")?.setValue(res.driverSalarySearchList[i].netPayable);
+
+        this.formArray.controls[i].get("selected")?.setValue(res.driverSalarySearchList[i].selected);  
+      }
+     });
+    
   }
+  
   driverSalaryDelete(): void {
     if(this.selectedDriverSalaryStatementDetails.masterId != '' ){
      this.requestmodel.strRequest =this.selectedDriverSalaryStatementDetails.masterId
@@ -314,7 +352,7 @@ calculateTotal() {
 
   this.formDriverSalaryStatement.patchValue({
     totalPoolAmt:totalPoolAmount.toFixed(2),
-    totalSalAmt: totalSalAmount.toFixed(2),
+    totalSalaryAmt: totalSalAmount.toFixed(2),
     totalNetPayAmt: netpay.toFixed(2),
   });
 }

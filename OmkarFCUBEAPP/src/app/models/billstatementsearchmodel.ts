@@ -2,7 +2,9 @@
 import { Billstatementsearchlistmodel } from "./billstatementsearchlistmodel";
 
 export class Billstatementsearchmodel {
-
+    dtlId: string = "";
+    masterId: string = "";
+    
     consignmentID: string = "";
     bookedAt: string = "";
     gcNoteNo: string = "";
@@ -11,6 +13,7 @@ export class Billstatementsearchmodel {
     productName: string = "";
     noPackages: string = "";
     gtotalRs: string = "";
+   // index: string = "";
     selected: boolean = false;
-    billStatementListData: Billstatementsearchmodel[]=[];
+    //billStatementListData: Billstatementsearchmodel[]=[];
 }

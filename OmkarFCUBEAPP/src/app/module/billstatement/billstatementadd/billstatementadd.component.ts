@@ -189,6 +189,7 @@ export class BillstatementaddComponent implements OnInit {
    this.getValidation();
   
    }
+ 
 getValidation():void {
   this.formBillStatement.controls['tatementBillStation'].disable();
   this.formBillStatement.controls['totalBillAmt'].disable();
@@ -249,6 +250,9 @@ getGcSeries(gcSeries: any): void {
     createInitialArray() {
       return this.formBuilder.group({
         gcNoteNo:  ['', []],
+        consignmentID:  ['', []],
+        dtlId:  ['', []],
+        index:  ['', []],
         bookingDate:  ['', []],
         vehicleNo:  ['', []],
         productName:  ['', []],
@@ -483,7 +487,12 @@ getGcSeries(gcSeries: any): void {
     this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();;
     this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
+   
     this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
+   // this.billsstatementmodel.billStatementListData = [];
+   
+  
+    
     this.billstatementService.saveBillStatementDetails(this.billsstatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.toasterService.success(this.responseDetails.message);
