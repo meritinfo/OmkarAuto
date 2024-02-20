@@ -332,7 +332,14 @@ getGcSeries(gcSeries: any): void {
     this.formBillStatement.patchValue({
       totFreight: totalFrtAmount.toFixed(2),
      // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
-     // totalStatementAmount: totalStatementAmount.toFixed(2)
+     // totalBillAmt: totalStatementAmount.toFixed(2)
+    });
+    var selectedDataValue = this.formBillStatement.getRawValue();
+    if(selectedDataValue.totSubTotal == '')
+    this.formBillStatement.patchValue({
+      totalBillAmt: totalFrtAmount.toFixed(2),
+     // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
+     // totalBillAmt: totalStatementAmount.toFixed(2)
     });
   }
   changeGstType(e: any) {

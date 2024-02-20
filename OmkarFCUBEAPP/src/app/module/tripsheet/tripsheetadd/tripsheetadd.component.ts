@@ -1638,8 +1638,8 @@ else{
       });
 
     }
-
-    if (DiffDays > 0) {
+if(selectedDataValue.nextExpectedReportingDt!=''){
+    if (DiffDays > 0 ) {
       this.day1 = (DiffDays).toString();
       this.formTripsheet.patchValue({
         advanceDays_2: this.day1,
@@ -1648,7 +1648,7 @@ else{
 
 
       });
-    } else {
+    } else  {
       //do something with negative values 
       DiffDays = Math.abs(DiffDays)
       this.day2 = (DiffDays).toString();
@@ -1670,7 +1670,7 @@ else{
 
 
       }}
-
+    }
 
     if (dt1 == dt2) {
       this.formTripsheet.patchValue({
