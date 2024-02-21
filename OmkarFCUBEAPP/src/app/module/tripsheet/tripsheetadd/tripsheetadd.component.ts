@@ -608,6 +608,7 @@ export class TripsheetaddComponent {
     if (this.formTripsheet.invalid) {
       return;
     }
+    this.validationForDslPlace();
     var selectedDataValue = this.formTripsheet.getRawValue();
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
@@ -1156,6 +1157,21 @@ if(selectedValue > 1){
  
    // this.getDriverDetails();
    
+
+  }
+  validationForDslPlace(){
+    var selectedDataValue = this.formTripsheet.getRawValue();
+    if(selectedDataValue.cashDslLtrs!=''&& selectedDataValue.cashDslPlace==''){
+     
+      this.formTripsheet.controls['cashDslPlace'].setValidators([Validators.required]);
+    
+     
+
+    }
+    else{
+    //  this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+     // this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
+    }
 
   }
   getDriverDetails2(e: any) {
@@ -1739,10 +1755,11 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     var tp1 = selectedDataValue.advPayable_1 ? parseFloat(selectedDataValue.advPayable_1) : 0
     var tp2 = selectedDataValue.advPayable_2 ? parseFloat(selectedDataValue.advPayable_2) : 0
     let dsl = e
-
+    dsl = parseInt(dsl);
     this.totalAdblue = parseFloat(selectedDataValue.ltsAdblueToBe_2) + parseFloat(selectedDataValue.ltsAdblueToBe_1);
     // this.totaldsl = parseFloat(selectedDataValue.ltsDslToBe_2) + parseFloat(selectedDataValue.ltsDslToBe_1);
-    this.totaldsl = dl1 + dl2;
+   // this.totaldsl = dl1 + dl2;
+   this.totaldsl = dl1 + dsl;
     this.totalpayable = tp1 + tp2;
     this.totalCalculation2(this.totaldsl)
     if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
@@ -2713,6 +2730,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         ltsDslToBe_2: '0'
       });
     }
+    this.totalCal();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
@@ -2760,10 +2778,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       expectedReportingDays: '0',
       advPayable_1:'0',
       ltsDslToBe_1:'0'
-
+      
     
     });
     this.checkDestinationControlStatus();
+    this.totalCal();
+    
   }
   onClearedFromPlace(e: any) {
     this.formTripsheet.patchValue({
@@ -2775,6 +2795,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     
 
     });
+    this.totalCal();
   }
   onClearedFromPlace2(e: any) {
     this.formTripsheet.patchValue({
@@ -2791,6 +2812,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     
 
     });
+    this.totalCal();
+    
   }
 
   onClearedDestination2(e: any) {
