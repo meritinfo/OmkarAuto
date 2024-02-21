@@ -118,7 +118,8 @@ export class BillstatementaddComponent implements OnInit {
       igstPct: new FormControl(''),
       igstAmt: new FormControl(''),
       totalBillAmt: new FormControl('',[Validators.required]),
-      plantCode: new FormControl('')
+      plantCode: new FormControl(''),
+      arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
   
     setTimeout(() => {
@@ -188,6 +189,7 @@ export class BillstatementaddComponent implements OnInit {
    this.getValidation();
   
    }
+ 
 getValidation():void {
   this.formBillStatement.controls['tatementBillStation'].disable();
   this.formBillStatement.controls['totalBillAmt'].disable();
@@ -248,12 +250,14 @@ getGcSeries(gcSeries: any): void {
     createInitialArray() {
       return this.formBuilder.group({
         gcNoteNo:  ['', []],
+        consignmentID:  ['', []],
+        dtlId:  ['', []],
+        index:  ['', []],
         bookingDate:  ['', []],
         vehicleNo:  ['', []],
         productName:  ['', []],
         noPackages:  ['', []],
         gtotalRs:  ['', []],
-   
         selected:  ['', []],
       }); }
 
@@ -328,7 +332,14 @@ getGcSeries(gcSeries: any): void {
     this.formBillStatement.patchValue({
       totFreight: totalFrtAmount.toFixed(2),
      // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
-     // totalStatementAmount: totalStatementAmount.toFixed(2)
+     // totalBillAmt: totalStatementAmount.toFixed(2)
+    });
+    var selectedDataValue = this.formBillStatement.getRawValue();
+    if(selectedDataValue.totSubTotal == '')
+    this.formBillStatement.patchValue({
+      totalBillAmt: totalFrtAmount.toFixed(2),
+     // totalDriverAdvAmount: totalDriverAdvAmount.toFixed(2),
+     // totalBillAmt: totalStatementAmount.toFixed(2)
     });
   }
   changeGstType(e: any) {
@@ -441,11 +452,9 @@ getGcSeries(gcSeries: any): void {
         this.formArray.controls[i].get("noPackages")?.setValue(res.billStatementSearchList[i].noPackages);
         this.formArray.controls[i].get("gtotalRs")?.setValue(res.billStatementSearchList[i].gtotalRs);
 
-        this.formArray.controls[i].get("selected")?.setValue(res.billStatementSearchList[i].selected);            
-        
-
+        this.formArray.controls[i].get("selected")?.setValue(res.billStatementSearchList[i].selected);  
       }
-    });
+     });
   }
   
   
@@ -485,7 +494,12 @@ getGcSeries(gcSeries: any): void {
     this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();;
     this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
+   
     this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
+   // this.billsstatementmodel.billStatementListData = [];
+   
+  
+    
     this.billstatementService.saveBillStatementDetails(this.billsstatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.toasterService.success(this.responseDetails.message);

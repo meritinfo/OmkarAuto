@@ -35,7 +35,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VehicleMasterID", tripMasterModel.VehicleMasterID),
                             new SqlParameter("@TripNo", tripMasterModel.TripNo),
                             new SqlParameter("@LastTripCloseDate", tripMasterModel.LastTripCloseDate),
-                            new SqlParameter("@NewTripDate", tripMasterModel.NewTripDate),
+                            new SqlParameter("@NewTripDate", tripMasterModel.NewTripDate + " " + tripMasterModel.TripTime ),
                             new SqlParameter("@OpenThrough", tripMasterModel.OpenThrough),
                             new SqlParameter("@TripOpenBy", tripMasterModel.TripOpenBy),
                             new SqlParameter("@TripOpenDate", tripMasterModel.TripOpenDate),
@@ -66,7 +66,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@NextReportingBranch", tripMasterModel.NextReportingBranch),
                             new SqlParameter("@DistanceTripKM_2", tripMasterModel.DistanceTripKM_2),
                             new SqlParameter("@NextExpectedReportingDt", tripMasterModel.NextExpectedReportingDt),
-                                new SqlParameter("@NextExpectedReportingDays", tripMasterModel.NextExpectedReportingDays),
+                            new SqlParameter("@NextExpectedReportingDays", tripMasterModel.NextExpectedReportingDays),
 
                             new SqlParameter("@LtsDslToBe_2", tripMasterModel.LtsDslToBe_2),
                             new SqlParameter("@LtsAdblueToBe_2", tripMasterModel.LtsAdblueToBe_2),

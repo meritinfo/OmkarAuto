@@ -32,8 +32,10 @@ export class AddothertripopenComponent {
   dTripKM_1: number = 0;
   ltsdsl1:string = '';
   adblue1:string = '';
-  frmplc: number = 0;
-  toplc: number = 0;
+ // frmplc: number = 0;
+ // toplc: number = 0;
+   frmplc: string = '';
+  toplc: string = '';
   maxDate: string = '';
 
   ExpReportingDays: number = 0;
@@ -74,6 +76,7 @@ export class AddothertripopenComponent {
 
   }
   ngOnInit(): void {
+
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -148,6 +151,8 @@ export class AddothertripopenComponent {
     this.formOtherTripOpen.controls['challanNo'].updateValueAndValidity();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
+    this.frmplc = this.selectedTripSheetDetails.loadingFrom;
+    this.toplc = this.selectedTripSheetDetails.destination;
     setTimeout(() => {
       if (this.selectedTripSheetDetails.tripId != '') {
         this.formOtherTripOpen.patchValue(this.selectedTripSheetDetails);
@@ -161,19 +166,21 @@ export class AddothertripopenComponent {
           contents: this.contentList.find(e => e.dataId == this.selectedTripSheetDetails.contents),
           yearid: this.year
         });
-        if(this.selectedTripSheetDetails.loadEmptyType =='L'){
-          this.formOtherTripOpen.patchValue({
+      //  if(this.selectedTripSheetDetails.loadEmptyType =='L'){
+        //  this.formOtherTripOpen.patchValue({
           
          // advPayable_1: (this.advancePay).toString(),
-         advPayable_1: this.selectedTripSheetDetails.advPayable_1
-        });}
-        else{
-          this.formOtherTripOpen.patchValue({
+     //    advPayable_1: this.selectedTripSheetDetails.advPayable_1
+    //    });}
+    //    else{
+     //     this.formOtherTripOpen.patchValue({
           
-            advPayable_1: '0'
-          });
+        //    advPayable_1: '0'
+     //     });
     
-        }
+    //    }
+   // this.vehicleTypeGroupId = this.selectedTripSheetDetails.vehicleTypeGroupId;
+
       } 
       this.editMode = true;
     }, 2000);
@@ -233,11 +240,13 @@ export class AddothertripopenComponent {
 
   checkTripkMs() {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
-    if (this.frmplc != 0 && this.toplc != 0 && selectedDataValue.newTripDate!='' ) {
+    if (this.frmplc != '0 '&& this.toplc != '0' && selectedDataValue.newTripDate!='' ) {
       this.kmsDetails.fromLocation = this.frmplc.toString() ;
       this.kmsDetails.toLocation = this.toplc.toString();
       this.kmsDetails.transDate = selectedDataValue.newTripDate;
       this.kmsDetails.vehicleTypeGroupId = '1';
+     this.kmsDetails.loadOrEmpty = selectedDataValue.loadEmptyType
+     // this.kmsDetails.loadOrEmpty = this.selectedTripSheetDetails.loadEmptyType?this.selectedTripSheetDetails.loadEmptyType: selectedDataValue.loadEmptyType;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';

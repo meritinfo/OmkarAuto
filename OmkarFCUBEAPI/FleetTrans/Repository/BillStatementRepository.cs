@@ -306,7 +306,8 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                           new SqlParameter("@MasterID", request.MasterID == "" ? 0 : Convert.ToInt32(request.MasterID)),
+                          // new SqlParameter("@MasterID", request.MasterID == "" ? 0 : Convert.ToInt32(request.MasterID)),
+                          new SqlParameter("@MasterID", request.MasterID),
                             new SqlParameter("@BillStation", request.BillStation),
                             new SqlParameter("@SeriesCode", request.SeriesCode),
                             new SqlParameter("@Bill_StmtNo", request.Bill_StmtNo),
@@ -338,7 +339,8 @@ namespace FleetTrans.Repository
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                         MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        //MasterID= Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         // statement list insert

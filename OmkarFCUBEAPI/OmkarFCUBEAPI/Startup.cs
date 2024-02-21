@@ -147,6 +147,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDocRenewalRptBusiness, DocRenewalRptBusiness>();
             services.AddScoped<ITripPaymentsRptRepository, TripPaymentsRptRepository>();
             services.AddScoped<ITripPaymentsRptBusiness, TripPaymentsRptBusiness>();
+            services.AddScoped<IDieselStatementRptRepository, DieselStatementRptRepository>();
+            services.AddScoped<IDieselStatementRptBusiness, DieselStatementRptBusiness>();
             services.AddScoped<IDistanceMasterFrtRptRepository, DistanceMasterFrtRptRepository>();
             services.AddScoped<IDistanceMasterFrtRptBusiness, DistanceMasterFrtRptBusiness>();
             services.AddScoped<IDistanceMasterTripRptRepository, DistanceMasterTripRptRepository>();

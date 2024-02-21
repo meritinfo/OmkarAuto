@@ -191,6 +191,8 @@ import { Distancemasterfrtrptmodel } from './models/distancemasterfrtrptmodel';
 import { Distancemastertriprptmodel } from './models/distancemastertriprptmodel';
 import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
 import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
+import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
+import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
 
 @NgModule({
   declarations: [
@@ -303,6 +305,7 @@ import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driver
     DistancemastertriprptComponent,
     TrippaymentsrptComponent,
     DriverlicrptComponent,
+    DieselstatementrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -342,7 +345,7 @@ import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driver
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

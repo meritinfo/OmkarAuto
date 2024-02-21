@@ -93,6 +93,7 @@ import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.
 import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
 import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
 import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsrpt/trippaymentsrpt.component';
+import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
 import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
 import { DistancemastertriprptComponent } from './module/distancemastertriprpt/distancemastertriprpt/distancemastertriprpt.component';
 
@@ -231,7 +232,8 @@ const routes: Routes = [
   { path: 'distancemasterfrtrpt', component: DistancemasterfrtrptComponent},
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
-  { path: 'driverlicrpt', component: DriverlicrptComponent}
+  { path: 'driverlicrpt', component: DriverlicrptComponent},
+  { path: 'dieselstatementrpt', component: DieselstatementrptComponent}
   
 ];
 
