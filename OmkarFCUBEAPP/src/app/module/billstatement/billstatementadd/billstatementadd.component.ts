@@ -466,7 +466,8 @@ getGcSeries(gcSeries: any): void {
       return;
     }
     var selectedDataValue = this.formBillStatement.getRawValue();
-    this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID != '' ? this.selectedBillstatementDetails.masterID : '';
+   // this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID != '' ? this.selectedBillstatementDetails.masterID : '';
+    this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID ;
     this.billsstatementmodel.billStation = selectedDataValue.statementBillStation;
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;
     this.billsstatementmodel.bill_StmtNo = selectedDataValue.billNo;

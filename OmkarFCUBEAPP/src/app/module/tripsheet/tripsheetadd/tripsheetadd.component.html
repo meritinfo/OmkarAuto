@@ -560,7 +560,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity"> Next Exp Reported Date</label>
                                                 <input type="date" class="form-control" placeholder=""
-                                                    formControlName="nextExpectedReportingDt">
+                                                    formControlName="nextExpectedReportingDt" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -598,7 +598,7 @@
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputCity">Reporting Date</label>
+                                                <label for="formrow-inputCity"> Next Reporting Date</label>
                                                 <input type="date" class="form-control" placeholder=""
                                                     (change)="checkDaysNew()" formControlName="reportingDt_2">
                                             </div>
@@ -1006,7 +1006,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash Dsl Ltrs</label>
-                                            <input class="form-control"  placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation()"  decimalonly>
+                                          <!--  <input class="form-control"  placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation();validationForDslPlace();"  decimalonly   [ngClass]="{ 'is-invalid': userSubmitted && (f['cashDslLtrs'].invalid) }">-->
+                                          <input class="form-control"  placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation();"  decimalonly  >
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
