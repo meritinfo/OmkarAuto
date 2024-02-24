@@ -171,16 +171,12 @@ import { Roleprivilegesmodel } from './models/roleprivilegesmodel';
 import { AddhrmasterComponent } from './module/hrmaster/addhrmaster/addhrmaster.component';
 import { HrmasterlistComponent } from './module/hrmaster/hrmasterlist/hrmasterlist.component';
 import { Hrmastermodel } from './models/hrmastermodel';
-import { AddhrtypeComponent } from './module/hrtype/addhrtype/addhrtype.component';
 import { ExptruckarrivalreportComponent } from './module/exptruckarrivalreport/exptruckarrivalreport.component';
 import { Reportmodel } from './models/reportmodel';
 import { Exptruckarrivallistmodel } from './models/exptruckarrivallistmodel';
 import { Exptruckarrivalmodel } from './models/exptruckarrivalmodel';
 import { Driverlicrptmodel } from './models/driverlicrptmodel';
-
 import { CashbookreportComponent } from './module/cashbookreport/cashbookreport.component';
-
-import { HrtypelistComponent } from './module/hrtype/hrtypelist/hrtypelist.component';
 import { PtslabmasterlistComponent } from './module/ptslabmaster/ptslabmasterlist/ptslabmasterlist.component';
 import { AddptslabmasterComponent } from './module/ptslabmaster/addptslabmaster/addptslabmaster.component';
 import { DocrenewalrptComponent } from './module/docrenewalrpt/docrenewalrpt/docrenewalrpt.component';
@@ -193,6 +189,15 @@ import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsr
 import { DriverlicrptComponent } from './module/driverlicrpt/driverlicrpt/driverlicrpt.component';
 import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
 import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
+import { EmpmasterlistComponent } from './module/empmaster/empmasterlist/empmasterlist.component';
+import { EmpmasteraddComponent } from './module/empmaster/empmasteradd/empmasteradd.component';
+import { Employeemodel } from './models/employeemodel';
+import { Empmasterlistmodel } from './models/empmasterlistmodel';
+import { EmpsalarylistComponent } from './module/empsalary/empsalarylist/empsalarylist.component';
+import { EmpsalaryaddComponent } from './module/empsalary/empsalaryadd/empsalaryadd.component';
+import { Empsalarymstlistmodel } from './models/empsalarymstlistmodel';
+import { Empsalarymstmodel } from './models/empsalarymstmodel';
+import { Empsalarydtlmodel } from './models/empsalarydtlmodel';
 
 @NgModule({
   declarations: [
@@ -294,8 +299,6 @@ import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
     RoleprivilegesComponent,
     AddhrmasterComponent,
     HrmasterlistComponent,
-    AddhrtypeComponent,
-    HrtypelistComponent,
     PtslabmasterlistComponent,
     AddptslabmasterComponent,
     ExptruckarrivalreportComponent,
@@ -306,6 +309,10 @@ import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
     TrippaymentsrptComponent,
     DriverlicrptComponent,
     DieselstatementrptComponent,
+    EmpmasterlistComponent,
+    EmpmasteraddComponent,
+    EmpsalarylistComponent,
+    EmpsalaryaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -345,6 +352,8 @@ import { Dieselstatementrptmodel } from './models/dieselstatementrptmodel';
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
+    Employeemodel,Empmasterlistmodel,
+    Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]

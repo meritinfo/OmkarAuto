@@ -34,7 +34,21 @@ export class HrmasterlistComponent {
   viewStatus = false;
 constructor(private hrmasterService: HrMasterService, private route: Router) {
 }
+
 ngOnInit(): void {
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "HR Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
 this.hrmasterService.clearHrmasterDetails();
 this.dtOptions = {
   pagingType: 'full_numbers',
@@ -59,21 +73,19 @@ this.dtOptions = {
       });
   },
    // Set column title and data field
-  columns: [
-    
-
-      {
-        title: 'HRCode',
-        data: 'hrCode',
-      },
-
-     {
+  columns: [  
+    {
+      title: 'HR Code',
+      data: 'hrCode',
+    },
+    {
       title: 'Description',
       data: 'description',
-    },
-   
-  
-  
+    }, 
+    {
+      title: 'HR Type',
+      data: 'hrTypeDesc',
+    }, 
     {
       title: 'Action',
       data: 'hrId',

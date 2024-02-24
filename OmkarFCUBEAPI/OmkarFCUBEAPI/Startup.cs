@@ -99,8 +99,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IPtSlabmasterRepository, PtSlabmasterRepository>();
             services.AddScoped<IMenuFormTypesBusiness, MenuFormTypesBusiness>();
             services.AddScoped<IMenuFormTypesRepository, MenuFormTypesRepository>();
-            services.AddScoped<IHRMasterBusiness, HRMasterBusiness>();
-            services.AddScoped<IHRMasterRepository, HRMasterRepository>();
+            services.AddScoped<IEmpMasterBusiness, EmpMasterBusiness>();
+            services.AddScoped<IEmpMasterRepository, EmpMasterRepository>();
             services.AddScoped<IFinScheduleMasterBusiness, FinScheduleMasterBusiness>();
             services.AddScoped<IFinScheduleMasterRepository, FinScheduleMasterRepository>();
             services.AddScoped<IProductGroupMasterRepository, ProductGroupMasterRepository>();
@@ -155,6 +155,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDistanceMasterTripRptBusiness, DistanceMasterTripRptBusiness>();
             services.AddScoped<IDriverLicRptBusiness, DriverLicRptBusiness>();
             services.AddScoped<IDriverLicRptRepository, DriverLicRptRepository>();
+            services.AddScoped<IEmpSalaryBusiness, EmpSalaryBusiness>();
+            services.AddScoped<IEmpSalaryRepository, EmpSalaryRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

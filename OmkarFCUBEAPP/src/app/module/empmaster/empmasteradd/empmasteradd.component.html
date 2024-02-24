@@ -1,0 +1,521 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Employee Master</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="/#/drivermasterlist">Driver Master</a></li>
+                                <li class="breadcrumb-item active">Driver Master Add</li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formEmployee">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Personal Details -->
+                                <h4 class="card-title mb-4">Personal Details</h4>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Employee Code</label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="empPrefix"
+                                                    (change)="empprefixchange($event)"   
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['empPrefix'].invalid) }"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="OC">On Roll Employees</option>
+                                                        <option value="OCL">Labours</option>
+                                                        <option value="OCD">Directors</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label> </label>
+                                                <input numbersonly type="text" class="form-control" 
+                                                    formControlName="empNo" (change)="empnochange($event)"                          
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['empNo'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label> </label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="empCode" placeholder=""                               
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['empCode'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Employee Status</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="empStatus" placeholder=""                               
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['empStatus'].invalid) }">
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label>Employee Name</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="empName"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['empName'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label>Father Name</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="fsName"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fsName'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Branch</label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="branchCode"
+                                                    class="form-control form-select ng-pristine ng-touched" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                                    <option *ngFor="let branch of branchList"
+                                                        value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Gender</label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="gender"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['gender'].invalid) }"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="M">Male</option>
+                                                        <option value="F">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Date of Birth</label><span style="color: red">*</span>
+                                                <input type="date" class="form-control" formControlName="dateOfBirth"
+                                                    (change)="onDOBChange($event)"  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['dateOfBirth'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Age</label><span style="color: red">*</span>
+                                                <input numbersonly type="text" class="form-control" formControlName="age"
+                                                    placeholder="" maxlength="2"    
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['age'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>PF Account No</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="pfAcNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>ESI Account No</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="esiAcNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>PAN No</label>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="panAcNo">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="mb-3">
+                                                <label>Present Address</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="presentAdd"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['presentAdd'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Phone</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="phone">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Mobile</label><span style="color: red">*</span>
+                                                <input numbersonly type="text" class="form-control" 
+                                                    formControlName="mobile" maxlength="10"   
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mobile'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label>Mobile1</label>
+                                                <input numbersonly type="text" class="form-control" 
+                                                    formControlName="mobile1"  maxlength="10" >
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Religion</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="religion">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Mother Tongue</label>
+                                                <select class="form-control" formControlName="motherTongue"
+                                                class="form-control form-select ng-pristine ng-touched" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['motherTongue'].invalid) }">
+                                                <option *ngFor="let lang of languageList"
+                                                    value={{lang.dataId}}>
+                                                    {{lang.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>School</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="schoolMedium" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>College</label><span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="collegeMedium" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Two Wheeler Lic Y/N </label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="twoWheelLic"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Two Wheeler Licence No</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="twoWheelLicenceNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>You Own 2 Wheeler Y/N </label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="youOwn2Wheeler"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Four Wheeler Lic Y/N </label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="fourWheelLic"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Four Wheeler Licence No</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="fourWheelLicenceNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>You Own 4 Wheeler Y/N </label><span style="color: red">*</span>
+                                                <select class="form-control" formControlName="youOwn4Wheeler"
+                                                    class="form-control form-select ng-pristine ng-touched" >
+                                                        <option value="Y">Yes</option>
+                                                        <option value="N">NO</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label>Date of Appointment</label><span style="color: red">*</span>
+                                                <input type="date" class="form-control" formControlName="dateOfAppoint"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['dateOfAppoint'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>Designation</label>
+                                                <select class="form-control" formControlName="designAtJoining"
+                                                    class="form-control form-select ng-pristine ng-touched" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['designAtJoining'].invalid) }">
+                                                    <option *ngFor="let branch of designList"
+                                                        value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>Depatment</label>
+                                                <select class="form-control" formControlName="deptCode"
+                                                    class="form-control form-select ng-pristine ng-touched" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['deptCode'].invalid) }">
+                                                    <option *ngFor="let branch of deptList"
+                                                        value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>Manager</label>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="empList"
+                                                        formControlName="managersUnder"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>                                               
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>Supervisor</label>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="empList"
+                                                        formControlName="supervisorsUnder"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label>Other Head</label>
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="empList"
+                                                        formControlName="othersUnder"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter" >
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Bank Details -->
+                                    <h4 class="card-title mb-4">Bank Details</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label>Bank Name</label><span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="bankCode"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['bankCode'].invalid) }">
+                                                        <option *ngFor="let bank of bankList"
+                                                            value={{bank.dataId}}>
+                                                            {{bank.dataName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label>Bank Account No</label><span style="color: red">*</span>
+                                                    <input numbersonly type="text" class="form-control" formControlName="bankAcNo"
+                                                        maxlength="20"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAcNo'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div class="mb-3">
+                                                    <label>IFSC Code</label><span style="color: red">*</span>
+                                                    <input uppercaseonly type="text" class="form-control"
+                                                        formControlName="bankIFSC" placeholder=""
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['bankIFSC'].invalid) }">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Salary Details</h4>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Basic</label>
+                                                    <input decimalonly type="text" class="form-control" formControlName="lastBasic"
+                                                        maxlength="15" (change)="calcGross('B', $event)">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>HRA</label>
+                                                    <input decimalonly type="text" class="form-control" formControlName="lastHRA"
+                                                        maxlength="15" (change)="calcGross('H', $event)">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Others</label>
+                                                    <input decimalonly type="text" class="form-control" formControlName="lastOthers" 
+                                                        maxlength="15" (change)="calcGross('O', $event)">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Perks</label>
+                                                    <input decimalonly type="text" class="form-control" formControlName="lastPerks" 
+                                                        maxlength="15" (change)="calcGross('P', $event)">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Gross Salary</label>
+                                                    <input decimalonly type="text" class="form-control"
+                                                        formControlName="lastGrossSalary" maxlength="15">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Resignation Date</label>
+                                                    <input type="date" class="form-control" formControlName="removeDate">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label>Full & Final</label>
+                                                    <select class="form-control" formControlName="fullFinal"
+                                                        class="form-control form-select ng-pristine ng-touched" >
+                                                            <option value="Y">Yes</option>
+                                                            <option value="N">NO</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitEmployeeMasterForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteEmployeeMasterForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>                
+                <!-- end row -->
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

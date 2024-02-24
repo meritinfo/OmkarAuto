@@ -3,6 +3,7 @@ export class Hrmastermodel {
     hrCode : string = '';
     description : string = '';
     hrType : string = '';
+    hrTypeDesc :string = '';
     loggedInUser:       string = "";
 
 

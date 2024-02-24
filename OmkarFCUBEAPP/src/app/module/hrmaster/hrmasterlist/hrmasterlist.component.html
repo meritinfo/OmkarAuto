@@ -27,7 +27,7 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
                     </div>
-                    <button class="btn btn-primary buttons-html5" type="button" 
+                    <button class="btn btn-primary buttons-html5" type="button" *ngIf="createStatus"
                     (click)="addHrMaster()"><span>New</span></button>
                 </div>
             </div>
@@ -35,24 +35,21 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Centre Name</th>
-                      
-                            <th>rateMethod </th>
-                         
+                            <th>hrCode</th>                      
+                            <th>description</th>                         
+                            <th>hrType</th>                        
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allHrmaster.hrList?.length != 0">
                         <tr *ngFor="let ratetype of allHrmaster.hrList">
-                            <td>{{ ratetype.hrCode }}</td>
-                    
-                            <td>{{ ratetype.description }}</td>
-                         
+                            <td>{{ ratetype.hrCode }}</td>                    
+                            <td>{{ ratetype.description }}</td>  
+                            <td>{{ ratetype.hrTypeDesc}}</td>      
                             <td>
-                                <a (click)="getHrMasterDetails(ratetype)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
-                           
-                            </td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getHrMasterDetails(ratetype)"></button>             
+                            </td>  
                         </tr>
                     </tbody>
                     <tbody *ngIf="allHrmaster.hrList?.length == 0">
