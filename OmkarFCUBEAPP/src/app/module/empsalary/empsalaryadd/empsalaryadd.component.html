@@ -1,0 +1,191 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Employee Salary Master</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Group Master</a></li>
+                            <li class="breadcrumb-item active">Fin Group Master</li> -->
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+           <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Employee name</label>
+                                            <span style="color: red">*</span>
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="empList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="empId">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">From Date</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                class="form-control" formControlName="fromDate"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Gross Salary</label>
+                                            <span style="color: red">*</span>
+                                            <input decimalonly autoclose="false" type="text" maxlength="15"
+                                                class="form-control" formControlName="grossSalary"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['grossSalary'].invalid) }">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Earnings </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Earning Type</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Amount</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayErnList"
+                                                        *ngFor="let mst of formErnArray.controls; let e = index">
+                                                        <div [formGroupName]="e" class="grid-table">
+                                                            <td  class="col-lg-2">   
+                                                                <select id="scope" class="form-select" formControlName="edCode"
+                                                                class="form-control form-select ng-pristine ng-touched"
+                                                                (change)="earningSelect(e,$event)">
+                                                                    <option *ngFor="let ern of earningList" 
+                                                                        value={{ern.dataId}}> {{ern.dataName}}
+                                                                    </option>
+                                                                </select>                                                                                                
+                                                            </td>
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edAmt">                                                         
+                                                            </td>
+                                                            <td class="col-lg-2">
+                                                                <div class="col-lg-4 details-button">
+                                                                    <button *ngIf="e === formErnArray.controls.length-1" type="button"
+                                                                        class="btn btn-add" (click)="addErnItem(e)"></button>
+                                                                    <button *ngIf="formErnArray.controls.length > 1"
+                                                                        (click)="removeErnItem(e)" class="btn btn-delete"></button>
+                                                                </div>                                        
+                                                            </td>                        
+                                                        </div>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Deductions </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Deduction Type</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Amount</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayDedList"
+                                                        *ngFor="let mst of formDedArray.controls; let d = index">
+                                                        <div [formGroupName]="d" class="grid-table">
+                                                            <td  class="col-lg-2">   
+                                                                <select id="scope" class="form-select" formControlName="edCode"
+                                                                (change)="deductionSelect(d,$event)">
+                                                                class="form-control form-select ng-pristine ng-touched">
+                                                                    <option *ngFor="let ded of deductionList" 
+                                                                        value={{ded.dataId}}> {{ded.dataName}}
+                                                                    </option>
+                                                                </select>                                                                                                
+                                                            </td>
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edAmt">                                                         
+                                                            </td>
+                                                            <td class="col-lg-2">
+                                                                <div class="col-lg-4 details-button">
+                                                                    <button *ngIf="d === formDedArray.controls.length-1" type="button"
+                                                                        class="btn btn-add" (click)="addDedItem(d)"></button>
+                                                                    <button *ngIf="formDedArray.controls.length > 1"
+                                                                        (click)="removeDedItem(d)" class="btn btn-delete"></button>
+                                                                </div>                                        
+                                                            </td>                        
+                                                        </div>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>              
+                                </div>
+                            </div>  
+                        </div>  
+                      <!-- end card body -->
+                    </div>
+                   <!-- end card -->
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitEmpSalaryMasterForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteEmpSalaryMasterForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>  
+            </form>
+          <!-- end row -->
+        </div>
+       <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+ </div>
+ 

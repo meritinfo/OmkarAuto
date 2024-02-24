@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HrtypelistComponent } from './hrtypelist.component';
+import { EmpmasterlistComponent } from './empmasterlist.component';
 
-describe('HrtypelistComponent', () => {
-  let component: HrtypelistComponent;
-  let fixture: ComponentFixture<HrtypelistComponent>;
+describe('EmpmasterlistComponent', () => {
+  let component: EmpmasterlistComponent;
+  let fixture: ComponentFixture<EmpmasterlistComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HrtypelistComponent ]
+      declarations: [ EmpmasterlistComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(HrtypelistComponent);
+    fixture = TestBed.createComponent(EmpmasterlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

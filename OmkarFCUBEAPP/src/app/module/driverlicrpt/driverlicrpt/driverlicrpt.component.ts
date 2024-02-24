@@ -71,7 +71,7 @@ formFilter!: FormGroup;
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Doc Renewal Report");
+        .find((aa: { menuName: string; }) => aa.menuName === "Driver License Expiry");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

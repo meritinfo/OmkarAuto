@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddhrtypeComponent } from './addhrtype.component';
+import { EmpmasteraddComponent } from './empmasteradd.component';
 
-describe('AddhrtypeComponent', () => {
-  let component: AddhrtypeComponent;
-  let fixture: ComponentFixture<AddhrtypeComponent>;
+describe('EmpmasteraddComponent', () => {
+  let component: EmpmasteraddComponent;
+  let fixture: ComponentFixture<EmpmasteraddComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddhrtypeComponent ]
+      declarations: [ EmpmasteraddComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AddhrtypeComponent);
+    fixture = TestBed.createComponent(EmpmasteraddComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

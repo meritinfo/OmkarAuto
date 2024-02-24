@@ -6,7 +6,6 @@ import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
-import { Trippaymentslistmodel } from '../models/trippaymentslistmodel';
 import { Finaccountlistmodel } from '../models/finaccountlistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 

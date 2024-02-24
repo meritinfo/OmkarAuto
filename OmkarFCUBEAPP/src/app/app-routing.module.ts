@@ -96,6 +96,11 @@ import { TrippaymentsrptComponent } from './module/trippaymentsrpt/trippaymentsr
 import { DieselstatementrptComponent } from './module/dieselstatementrpt/dieselstatementrpt/dieselstatementrpt.component';
 import { DistancemasterfrtrptComponent } from './module/distancemasterfrtrpt/distancemasterfrtrpt/distancemasterfrtrpt.component';
 import { DistancemastertriprptComponent } from './module/distancemastertriprpt/distancemastertriprpt/distancemastertriprpt.component';
+import { EmpmasterlistComponent } from './module/empmaster/empmasterlist/empmasterlist.component';
+import { EmpmasteraddComponent } from './module/empmaster/empmasteradd/empmasteradd.component';
+import { EmpsalarylistComponent } from './module/empsalary/empsalarylist/empsalarylist.component';
+import { EmpsalaryaddComponent } from './module/empsalary/empsalaryadd/empsalaryadd.component';
+
 
 
 
@@ -233,7 +238,13 @@ const routes: Routes = [
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
   { path: 'driverlicrpt', component: DriverlicrptComponent},
-  { path: 'dieselstatementrpt', component: DieselstatementrptComponent}
+  { path: 'dieselstatementrpt', component: DieselstatementrptComponent},
+  { path: 'employeemstlist', component:  EmpmasterlistComponent },
+  { path: 'employeemstadd', component: EmpmasteraddComponent },  
+  { path: 'employeemstedit', component:  EmpmasteraddComponent },
+  { path: 'empsalmstlist', component:  EmpsalarylistComponent },
+  { path: 'empsalmstadd', component: EmpsalaryaddComponent },  
+  { path: 'empsalmstedit', component:  EmpsalaryaddComponent },
   
 ];
 

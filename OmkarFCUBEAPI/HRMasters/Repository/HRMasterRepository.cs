@@ -1,27 +1,71 @@
-﻿
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using HRMasters.Models;
-using HRMasters.Repository;
 using Shared.Models;
 
-namespace FreightMasters.Repository
+namespace HRMasters.Repository
 {
-    public class HRMasterRepository : IHRMasterRepository
+    public class HrMasterRepository : IHrMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public HRMasterRepository(IOptions<DBModel> _dbconnection)
+        public HrMasterRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
-        /// <summary>
-        /// Service method for save HR master details
-        /// </summary>
-        /// <param name="HRMasterModel"></param>
-        /// <returns>ResponseModel</returns>
-        public async Task<ResponseModel> HRMasterSave(HRMasterModel hrMasterModel)
+        
+        public async Task<HrMasterList> GetHrMasterList(PageRequest request)
+        {
+            HrMasterList hrMasterList = new();
+            List<HrMasterModel> hrList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getHrMasterList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            hrList.Add(new HrMasterModel                            {
+                                HRId        = Convert.ToString(dataSet.Tables[0].Rows[i]["HRId"]),
+                                HRCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["HRCode"]),
+                                Description = Convert.ToString(dataSet.Tables[0].Rows[i]["Description"]),
+                                HrType      = Convert.ToString(dataSet.Tables[0].Rows[i]["HrType"]),
+                                HrTypeDesc  = Convert.ToString(dataSet.Tables[0].Rows[i]["HrTypeDesc"]),
+                            });
+                        }
+
+                        hrMasterList.HrList = hrList;
+
+                        hrMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return hrMasterList;
+        }
+          
+
+        public async Task<ResponseModel> HrMasterSave(HrMasterModel hrMasterModel)
         {
             ResponseModel responseModel = new();
             try
@@ -30,16 +74,76 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@HRId", hrMasterModel.HRId),
-                            new SqlParameter("@@HRCode", hrMasterModel.HRCode),
+                            new SqlParameter("@HrId", hrMasterModel.HRId),
+                            new SqlParameter("@HRCode", hrMasterModel.HRCode),
                             new SqlParameter("@Description", hrMasterModel.Description),
-                            new SqlParameter("@HRType", hrMasterModel.HRType),
-                            new SqlParameter("@@LwfYN", hrMasterModel.@LwfYN),
-                            new SqlParameter("@Grade", hrMasterModel.Grade),
-                            new SqlParameter("@LoggedInUser", hrMasterModel.LoggedInUser)
+                            new SqlParameter("@HrType", hrMasterModel.HrType),
+                             new SqlParameter("@LoggedInUser", hrMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "HRMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "HrMasterNew_Insert", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckHrcode(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@HrCode",  request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ChkHrMasterHrCode", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> HrMasterDelete(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@HrId", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "HrMasterNew_Delete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -68,7 +172,10 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
+
+
     }
 
-
+   
 }

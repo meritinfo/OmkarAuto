@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdminMasters.Models
+namespace HRMasters.Models
 {
-    public class HrMasterList
+    public class EmpMasterList
     {
-        public List<HrMasterModel> HrList { get; set; }
+        public List<EmpMasterModel> EmpList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 }
