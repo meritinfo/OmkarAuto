@@ -29,5 +29,9 @@ namespace AdminMasters.Business
         {
             return await ptSlabmasterRepository.GetPtSlabMasterList(request);
         }
+        public async Task<ResponseModel> PtSlabMasterDelete(RequestModel requestModel)
+        {
+            return await ptSlabmasterRepository.PtSlabMasterDelete(requestModel);
+        }
     }
 }

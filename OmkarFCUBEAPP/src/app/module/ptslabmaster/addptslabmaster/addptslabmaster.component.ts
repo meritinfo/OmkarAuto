@@ -3,12 +3,15 @@ import { Component } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Roletypelistmodel  } from 'src/app/models/roletypelistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Roletypemodel } from 'src/app/models/roletypemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+
 import { Ptslabmastermodel } from 'src/app/models/ptslabmastermodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
@@ -38,7 +41,7 @@ export class AddptslabmasterComponent {
 
   selectedPtSlabMasterDetails = new Ptslabmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private ptslabmastermodel: Ptslabmastermodel, private ptSlabMasterService: PtSlabMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private ptslabmastermodel: Ptslabmastermodel, private ptSlabMasterService: PtSlabMasterService, private commonService: CommonService,private requestmodel:Requestmodel,private toasterService: ToastrService) {
     this.ptslabmastermodel = new Ptslabmastermodel();
 
 
@@ -48,7 +51,7 @@ ngOnInit(): void {
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
     var privilegeData = JSON.parse(menuData);
     const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Create Role Types"));
+      .find(((aa: { menuName: string; }) => aa.menuName === "Prof. Tax Slab Master"));
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -69,10 +72,10 @@ ngOnInit(): void {
   this.getStateList();
   this.selectedPtSlabMasterDetails = this.ptSlabMasterService.getPtSlabmasterDetails();
   this.formRoleType = this.formBuilder.group({
-    stateCode: new FormControl('',),
-    rangeFrom: new FormControl('',),
-    rangeTo: new FormControl('',),
-    ptDedAmt: new FormControl('',),
+    stateCode: new FormControl('',[Validators.required]),
+    rangeFrom: new FormControl('',[Validators.required]),
+    rangeTo: new FormControl('',[Validators.required]),
+    ptDedAmt: new FormControl('',[Validators.required]),
 
   
 
@@ -84,13 +87,27 @@ ngOnInit(): void {
 
      
       
-    })
+    });
+    this.editMode = true;
   }
  
 
 }
+ptSlabMasterDelete(): void {
+  if(this.selectedPtSlabMasterDetails.ptId!= '' ){
+   this.requestmodel.strRequest =this.selectedPtSlabMasterDetails.ptId
+    if (confirm("Are you sure, you want to delete this?")) {
+          this.ptSlabMasterService.ptSlabMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          console.log(this.responseDetails.message);
+          this.formRoleType.reset();
+          window.location.reload();
+      });
+    }
+  }
+}
 exit(): void {
-  this.route.navigate(['/roletypelist']);
+  this.route.navigate(['/ptslabmasterlist']);
 }
 getStateList(): void {
   this.commonService.getStateList().subscribe((res) => {
@@ -106,9 +123,10 @@ get f() { return this.formRoleType.controls; }
 ptSlabMasterSubmitted(): void {
   this.userSubmitted = true;
   if (this.formRoleType.invalid) {
+    this.toasterService.warning("Mandatory fields is required");
     return;
   }
-  this.ptslabmastermodel.ptId = this.ptslabmastermodel.ptId != '' ? this.ptslabmastermodel.ptId : '';
+  this.ptslabmastermodel.ptId = this.selectedPtSlabMasterDetails.ptId != '' ? this.selectedPtSlabMasterDetails.ptId : '';
   this.ptslabmastermodel.stateCode= this.formRoleType.value.stateCode;
   this.ptslabmastermodel.rangeFrom = this.formRoleType.value.rangeFrom;
   this.ptslabmastermodel.rangeTo = this.formRoleType.value.rangeTo;

@@ -12,5 +12,6 @@ namespace AdminMasters.Repository
     {
         Task<ResponseModel> PtSlabMasterSave(PtSlabMasterModel ptSlabMasterModel);
         Task<PtSlabList> GetPtSlabMasterList(PageRequest request);
+        Task<ResponseModel> PtSlabMasterDelete(RequestModel requestModel);
     }
 }

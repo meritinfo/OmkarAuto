@@ -76,12 +76,12 @@ columns: [
       
 
   {
-    title: 'StateCode',
+    title: 'State Code',
     data: 'stateCode',
   },
 
  {
-  title: 'RangeFrom',
+  title: 'Range From',
   data: 'rangeFrom',
 },
 

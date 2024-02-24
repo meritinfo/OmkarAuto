@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Ptslabmasterlistmodel } from '../models/ptslabmasterlistmodel';
 
 @Injectable({
@@ -28,6 +29,9 @@ export class PtSlabMasterService {
   }
   getPtSlabmasterDetails() {
     return this.selectedPtslabmaster;
+  }
+  ptSlabMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Admin/PtSlabMasterDelete', req, this.httpOptions);
   }
   clearPtSlabMasterDetails() {
     this.selectedPtslabmaster = new Ptslabmastermodel();

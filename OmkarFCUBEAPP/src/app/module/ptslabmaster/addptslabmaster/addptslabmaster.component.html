@@ -6,11 +6,11 @@
           <div class="row">
              <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                   <h4 class="mb-sm-0 font-size-18">Role Type Master</h4>
+                   <h4 class="mb-sm-0 font-size-18">Pt Slab Master</h4>
                    <div class="page-title-right">
                       <ol class="breadcrumb m-0">
-                         <li class="breadcrumb-item"><a href="javascript: void(0);">Admin</a></li>
-                         <li class="breadcrumb-item active">Role Type Master</li>
+                         <li class="breadcrumb-item"><a href="javascript: void(0);">Pt Slab Master</a></li>
+                         <li class="breadcrumb-item active">Pt Slab Master</li>
                       </ol>
                    </div>
                 </div>
@@ -31,9 +31,9 @@
                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">StateCode </label>
+                                                <label for="basicpill-phoneno-input">State Code </label>
                                                 <select class="form-control" formControlName="stateCode" autoclose="false"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['stateCode'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                     {{state.dataName}}
                                                 </option>
@@ -44,10 +44,10 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">RangeFrom</label>
+                                                <label for="basicpill-phoneno-input">Range From</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="rangeFrom"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['rangeFrom'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                                 <label for="basicpill-phoneno-input">Range To</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="rangeTo"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['rangeTo'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -68,10 +68,10 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="basicpill-phoneno-input">PtDedAmt</label>
+                                                <label for="basicpill-phoneno-input">Pt DedAmt</label>
                                                 <input type="text" class="form-control"
                                                 placeholder=" " formControlName="ptDedAmt"
-                                                [ngClass]="">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['ptDedAmt'].invalid) }">
                                                 
                                             </div>
                                         </div>
@@ -97,13 +97,13 @@
              </div>
              <div class="row text-right">
                 <div class="col-lg-12">
-                   <div class="tex">
+
                       <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                          (click)="ptSlabMasterSubmitted()">Save</button>
-                         <!--<button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="fleetCardMasterDelete()">Delete</button>--> 
+                         <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="ptSlabMasterDelete()">Delete</button>
                                 <button  class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
-                   </div>
+                  
                 </div>
              </div>
           </form>
