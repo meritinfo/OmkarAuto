@@ -60,6 +60,7 @@ import { ConsignmentlistComponent } from './module/consignment/consignmentlist/c
 
 import { Consignmentmodel } from './models/consignmentmodel';
 import { Trippaymentsmodel } from './models/trippaymentsmodel';
+import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
@@ -198,6 +199,7 @@ import { EmpsalaryaddComponent } from './module/empsalary/empsalaryadd/empsalary
 import { Empsalarymstlistmodel } from './models/empsalarymstlistmodel';
 import { Empsalarymstmodel } from './models/empsalarymstmodel';
 import { Empsalarydtlmodel } from './models/empsalarydtlmodel';
+import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
 
 @NgModule({
   declarations: [
@@ -313,6 +315,7 @@ import { Empsalarydtlmodel } from './models/empsalarydtlmodel';
     EmpmasteraddComponent,
     EmpsalarylistComponent,
     EmpsalaryaddComponent,
+    TripstatusrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -354,7 +357,7 @@ import { Empsalarydtlmodel } from './models/empsalarydtlmodel';
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

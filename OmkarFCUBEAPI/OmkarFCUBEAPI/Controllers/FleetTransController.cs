@@ -38,6 +38,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDocRenewalRptBusiness docRenewalRptBusiness;
         readonly IDieselStatementRptBusiness dieselStatementRptBusiness;
         readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
+        readonly ITripStatusRptBusiness tripStatusRptBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -47,7 +48,8 @@ namespace OmkarFCUBEAPI.Controllers
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
              IDocRenewalRptBusiness _docRenewalRptBusiness,
               IDieselStatementRptBusiness _dieselStatementRptBusiness,
-                ITripPaymentsRptBusiness _tripPaymentsRptBusiness)
+                ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
+                 ITripStatusRptBusiness _tripStatusRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -59,6 +61,7 @@ namespace OmkarFCUBEAPI.Controllers
             docRenewalRptBusiness = _docRenewalRptBusiness;
             dieselStatementRptBusiness = _dieselStatementRptBusiness;
             tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
+            tripStatusRptBusiness = _tripStatusRptBusiness;
         }
 
        
@@ -871,6 +874,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await expTruckArrRptBusiness.ExcelExpTruckArrRPTList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTripStatusRPTList")]
+        public async Task<IActionResult> GetTripStatusRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripStatusRptBusiness.GetTripStatusRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ExcelTripStatusRptList")]
+        public async Task<IActionResult> GetTripStatusRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripStatusRptBusiness.GetTripStatusRptExcel(request);
 
                 return Ok(result);
             }
