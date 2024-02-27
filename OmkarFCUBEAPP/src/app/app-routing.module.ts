@@ -101,6 +101,10 @@ import { EmpmasterlistComponent } from './module/empmaster/empmasterlist/empmast
 import { EmpmasteraddComponent } from './module/empmaster/empmasteradd/empmasteradd.component';
 import { EmpsalarylistComponent } from './module/empsalary/empsalarylist/empsalarylist.component';
 import { EmpsalaryaddComponent } from './module/empsalary/empsalaryadd/empsalaryadd.component';
+import { EmploanlistComponent } from './module/emploan/emploanlist/emploanlist.component';
+import { EmploanaddComponent } from './module/emploan/emploanadd/emploanadd.component';
+import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
+import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
 
 
 
@@ -247,6 +251,12 @@ const routes: Routes = [
   { path: 'empsalmstlist', component:  EmpsalarylistComponent },
   { path: 'empsalmstadd', component: EmpsalaryaddComponent },  
   { path: 'empsalmstedit', component:  EmpsalaryaddComponent },
+  { path: 'loansentrylist', component:  EmploanlistComponent },
+  { path: 'loansentryadd', component: EmploanaddComponent },  
+  { path: 'loansentryedit', component:  EmploanaddComponent },
+  { path: 'loansrepaylist', component:  EmploanrepaylistComponent },
+  { path: 'loansrepayadd', component: EmploanrepayaddComponent },  
+  { path: 'loansrepayedit', component:  EmploanrepayaddComponent },
   
 ];
 

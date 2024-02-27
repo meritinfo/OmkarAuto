@@ -857,8 +857,6 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@GcSlNo", request.GcSlNo),
-
-
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetGcSeries_Select", param);

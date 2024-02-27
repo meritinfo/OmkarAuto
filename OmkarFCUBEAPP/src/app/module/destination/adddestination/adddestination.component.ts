@@ -9,6 +9,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DestinationService } from 'src/app/services/destination.service';
+import { BranchMasterService } from 'src/app/services/branchmaster.service';
 
 @Component({
   selector: 'app-adddestination',
@@ -33,7 +34,7 @@ export class AdddestinationComponent {
   selectedDestinationDetails = new Destinationmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder,
-    private sharedService: SharedService, 
+    private sharedService: SharedService, private branchmasterService: BranchMasterService, 
     private destinationModel: Destinationmodel, private destinationService: DestinationService, 
     private commonService: CommonService, private requestmodel:Requestmodel,
      private toasterService: ToastrService ) {
@@ -105,16 +106,40 @@ export class AdddestinationComponent {
     });
   }
 
+  
+  chkBranchNameExits(e: any) { 
+    if (this.selectedDestinationDetails.centreid == "")
+    {      
+      this.sharedService.loading = true;
+      this.requestmodel.strRequest = e.target.value; 
+      this.branchmasterService.chkBranchNameExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            centreName: ''
+          });
+        }
+      });
+      this.sharedService.loading = false;
+    }
+  }
+
   deleteDestinationForm(): void {
     if(this.selectedDestinationDetails.centreid != '' ){      
     this.sharedService.loading=true;
      this.requestmodel.strRequest =this.selectedDestinationDetails.centreid
       if (confirm("Are you sure, you want to delete this?")) {
-            this.destinationService.destinationDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.branchmasterService.branchMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formUser.reset();
-            this.route.navigate(['/destinationlist']);
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formUser.reset();
+              this.route.navigate(['/destinationlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }      
         });
       }
       
@@ -151,9 +176,14 @@ export class AdddestinationComponent {
 
     this.destinationService.destinationDetailsSubmitted(this.destinationModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formUser.reset();
-      this.route.navigate(['/destinationlist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/destinationlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
     });    
     this.sharedService.loading=false;
   }

@@ -9,7 +9,6 @@ namespace FreightMasters.Business
     public interface IDestinationMasterBusiness
     {
         Task<ResponseModel> DestinationMasterDetailsSave(DestinationMasterModel destinationMasterModel);
-        Task<ResponseModel> DestinationDetailsDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetStateList();
         Task<DestinationMasterList> GetDestinationMasterList(PageRequest request);
     }

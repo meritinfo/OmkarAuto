@@ -199,6 +199,12 @@ import { EmpsalaryaddComponent } from './module/empsalary/empsalaryadd/empsalary
 import { Empsalarymstlistmodel } from './models/empsalarymstlistmodel';
 import { Empsalarymstmodel } from './models/empsalarymstmodel';
 import { Empsalarydtlmodel } from './models/empsalarydtlmodel';
+import { EmploanlistComponent } from './module/emploan/emploanlist/emploanlist.component';
+import { EmploanaddComponent } from './module/emploan/emploanadd/emploanadd.component';
+import { Emploanmodel } from './models/emploanmodel';
+import { Emploanlistmodel } from './models/emploanlistmodel';
+import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
+import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
 import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
 
 @NgModule({
@@ -315,6 +321,10 @@ import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.com
     EmpmasteraddComponent,
     EmpsalarylistComponent,
     EmpsalaryaddComponent,
+    EmploanlistComponent,
+    EmploanaddComponent,
+    EmploanrepaylistComponent,
+    EmploanrepayaddComponent,
     TripstatusrptComponent,
   ],
   imports: [
@@ -355,7 +365,7 @@ import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.com
     Fleetcardmastermodel,Brsentrymodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
-    Employeemodel,Empmasterlistmodel,
+    Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],

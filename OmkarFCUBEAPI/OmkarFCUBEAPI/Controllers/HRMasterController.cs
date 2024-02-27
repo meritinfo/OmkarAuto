@@ -5,8 +5,6 @@ using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using HRMasters.Repository;
-using System.Collections.Generic;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -19,15 +17,18 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IHrMasterBusiness hrMasterBusiness;
         readonly IEmpMasterBusiness empMasterBusiness;
         readonly IEmpSalaryBusiness empSalaryBusiness;
+        readonly ILoanBusiness loanBusiness;
 
 
         public HRMasterController(IHrMasterBusiness _hrMasterBusiness, 
             IEmpMasterBusiness _empMasterBusiness,
-            IEmpSalaryBusiness _empSalaryBusiness)
+            IEmpSalaryBusiness _empSalaryBusiness,
+            ILoanBusiness _loanBusiness)
         {
             hrMasterBusiness = _hrMasterBusiness;
             empMasterBusiness = _empMasterBusiness;
             empSalaryBusiness = _empSalaryBusiness;
+            loanBusiness = _loanBusiness;
         }
        
 
@@ -376,6 +377,159 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await empSalaryBusiness.EmpSalaryMasterDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpLoanList")]
+        public async Task<IActionResult> GetEmpLoanList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.GetEmpLoanList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpLoanSave")]
+        public async Task<IActionResult> EmpLoanSave(LoanModel loanModel)
+        {
+            if (loanModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.EmpLoanSave(loanModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpLoanDelete")]
+        public async Task<IActionResult> EmpLoanDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.EmpLoanDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpLoanRepayList")]
+        public async Task<IActionResult> GetEmpLoanRepayList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.GetEmpLoanRepayList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpLoanRepaySave")]
+        public async Task<IActionResult> EmpLoanRepaySave(LoanModel loanModel)
+        {
+            if (loanModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.EmpLoanRepaySave(loanModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpLoanRepayDelete")]
+        public async Task<IActionResult> EmpLoanRepayDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.EmpLoanRepayDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLoanList")]
+        public async Task<IActionResult> GetLoanList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.GetLoanList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetLoanAmountDetails")]
+        public async Task<IActionResult> GetLoanAmountDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await loanBusiness.GetLoanAmountDetails(request);
 
                 return Ok(result);
             }

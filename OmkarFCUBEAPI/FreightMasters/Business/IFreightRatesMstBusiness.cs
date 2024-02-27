@@ -12,5 +12,6 @@ namespace FreightMasters.Business
         Task<FreightRatesMstList> GetFreightRatesList(PageRequest request);
         Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req);
         Task<FreightRatesMstModel> GetFreightRateInnerGridList(RequestModel req);
+        Task<List<DropDownListModel>> GetPartyList();
     }
 }

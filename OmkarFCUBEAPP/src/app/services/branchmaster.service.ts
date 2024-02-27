@@ -47,4 +47,7 @@ export class BranchMasterService {
   chkCodeExits(request: Requestmodel ): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ChkCodeExits', request, this.httpOptions);
   }
+  chkBranchNameExits(request: Requestmodel ): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ChkBranchNameExits', request, this.httpOptions);
+  }
 }

@@ -159,6 +159,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IDriverLicRptRepository, DriverLicRptRepository>();
             services.AddScoped<IEmpSalaryBusiness, EmpSalaryBusiness>();
             services.AddScoped<IEmpSalaryRepository, EmpSalaryRepository>();
+            services.AddScoped<ILoanBusiness, LoanBusiness>();
+            services.AddScoped<ILoanRepository, LoanRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

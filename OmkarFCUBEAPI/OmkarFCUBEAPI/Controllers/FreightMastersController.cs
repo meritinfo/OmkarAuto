@@ -194,31 +194,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /// <summary>
-        /// Controller method for DESTINATION MASTER
-        /// </summary>
-        /// <param name="Request"></param>
-        [HttpPost("DestinationDetailsDelete")]
-        public async Task<IActionResult> DestinationDetailsDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await freightMastersBusiness.DestinationDetailsDelete(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-
+        
         [HttpPost("BranchMasterDetailsSave")]
         public async Task<IActionResult> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)
         {
@@ -272,6 +248,24 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await branchMastersBusiness.ChkCodeExits(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChkBranchNameExits")]
+        public async Task<IActionResult> ChkBranchNameExits(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await branchMastersBusiness.ChkBranchNameExits(req);
 
                 return Ok(result);
             }
@@ -557,6 +551,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetPartyList")]
+        public async Task<IActionResult> GetPartyList()
+        { 
+            try
+            {
+                var result = await freightRatesMstBusiness.GetPartyList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        
         [HttpPost("ConsigneeMasterSave")]
         public async Task<IActionResult> ConsigneeMasterSave(ConsigneeMasterModel consigneeMasterModel)
         {

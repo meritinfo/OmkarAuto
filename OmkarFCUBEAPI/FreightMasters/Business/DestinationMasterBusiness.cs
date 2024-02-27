@@ -23,11 +23,7 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.DestinationMasterDetailsSave(destinationMasterModel);
         }
-        public async Task<ResponseModel> DestinationDetailsDelete(RequestModel requestModel)
-        {
-            return await freightMastersRepository.DestinationDetailsDelete(requestModel);
-        }
-        
+               
         public async Task<List<DropDownListModel>> GetStateList()
         {
             return await freightMastersRepository.GetStateList();
