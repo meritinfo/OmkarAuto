@@ -68,7 +68,7 @@
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['validUpto'].invalid) }">
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3">
                                                 <div class="mb-2">                                                 
                                                     <label for="formrow-inputCity">Rate Type</label>
                                                     <span style="color: red">*</span>
@@ -92,24 +92,16 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
-                                                <div class="form-check mb-3"><br /><br />
-                                                    <input type="radio"formControlName="rateForStateOrToPlace" value="P" 
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }"
-                                                        class="form-check-input" (change)="onStateorPlaceChange($event)" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> 
-                                                        <h6> To Place</h6>
-                                                    </label>
-    
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div class="form-check mb-3"><br /><br />
-                                                    <input type="radio"formControlName="rateForStateOrToPlace" value="S"  
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }"
-                                                        class="form-check-input" (change)="onStateorPlaceChange($event)" />
-                                                    <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>State</h6>
-                                                    </label>
-    
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">State Or ToPlace</label>
+                                                    <span style="color: red">*</span>
+                                                    <select class="form-control" formControlName="rateForStateOrToPlace"   
+                                                    class="form-control form-select ng-pristine ng-touched" 
+                                                    (change)="onStateorPlaceChange($event)"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['rateForStateOrToPlace'].invalid) }">
+                                                        <option value="P" >To Place</option>
+                                                        <option value="S" >State</option>
+                                                     </select>
                                                 </div>
                                             </div>
                                         </div>

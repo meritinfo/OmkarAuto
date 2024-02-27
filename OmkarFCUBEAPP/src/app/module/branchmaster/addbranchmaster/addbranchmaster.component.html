@@ -30,7 +30,8 @@
                                                 <label for="formrow-inputZip">Code</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text"  autofocus="autofocus" class="form-control"
-                                                placeholder="" formControlName="code" maxlength="6" (change)="chkCodeExits($event)"                              
+                                                placeholder="" formControlName="code" maxlength="6" 
+                                                (change)="chkCodeExits($event)"                              
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['code'].invalid) }">
                                             </div>
                                         </div>
@@ -41,6 +42,7 @@
                                                 <label for="formrow-inputZip">Branch Name</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                (change)="chkBranchNameExits($event)"                       
                                                 formControlName="userBranch"    maxlength="49"       
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid) }">
                                             </div>

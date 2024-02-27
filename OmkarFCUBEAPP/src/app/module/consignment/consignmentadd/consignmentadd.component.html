@@ -60,8 +60,9 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Booking Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="bookingDate"  max="{{maxDate}}"
+                                                   formControlName="bookingDate"
                                                     class="form-control"
+                                                    min="{{minDate}}" max="{{maxDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                             </div>
                                         </div>
@@ -122,9 +123,12 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill No</label>
                                                 <div class="hstack gap-1">
-                                                    <input type="text" class="form-control" placeholder=" "
-                                                        formControlName="ewayBillNo" [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
+                                                    <input numbersonly type="text" class="form-control" 
+                                                        formControlName="ewayBillNo" 
+                                                        maxlength="12"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
                                                     <button type="button" class="btn btn-primary"
+                                                        *ngIf="searchEnable"
                                                         (click)="searchGSTDetails()">Search</button>
                                                 </div>
                                             </div>
@@ -133,15 +137,16 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd"  max="{{maxDate}}" formControlName="ewayBillDate"
+                                                    min="{{minDate}}" max="{{maxDate}}"
+                                                 formControlName="ewayBillDate"
                                                     class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EWay Bill Exp Date</label>
-                                                <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="ewayBillExpDate"  max="{{maxDate}}"
+                                                <input bsdatepicker="" type="date" autoclose="false"                                                    
+                                                    formControlName="ewayBillExpDate" min="{{minDate}}" max="{{maxDate}}"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -182,7 +187,7 @@
                                                     <ng-autocomplete [data]="locationList" formControlName="fromPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeFromPlace($event)'
-                                                        (inputChanged)='onChangeSearchFromPlace($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" 
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
@@ -216,7 +221,7 @@
                                                     <ng-autocomplete [data]="locationList" formControlName="toPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeToPlace($event)'
-                                                        (inputChanged)='onChangeSearchToPlace($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
@@ -283,7 +288,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
-                                                    placeholder="" formControlName="cnorInvNo" [ngClass]= "{ 'is-invalid': formSubmitted && (f['cnorInvNo'].invalid) }">
+                                                uppercaseonly formControlName="cnorInvNo" [ngClass]= "{ 'is-invalid': formSubmitted && (f['cnorInvNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -297,7 +302,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Invoice Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="cnorInvDate"  max="{{maxDate}}"
+                                                    formControlName="cnorInvDate" min="{{minDate}}" max="{{maxDate}}"
                                                     class="form-control"  [ngClass]= "{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
                                             </div>
                                         </div>
@@ -308,7 +313,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">CnorPlantCode </label>
-                                                <input type="text" id="formrow-inputCity" class="form-control"
+                                                <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="cnorPlantCode" [ngClass]= >
 
                                             </div>
@@ -390,7 +395,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Shipment Dt</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
-                                                    placeholder="yyyy-mm-dd" formControlName="shipmentDt"  max="{{maxDate}}"
+                                                    formControlName="shipmentDt" min="{{minDate}}" max="{{maxDate}}"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -412,18 +417,15 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Qty/Pkgs</label>
                                                 <input numbersonly autoclose="false" formControlName="noPackages"
-                                                    placeholder=" " class="form-control"    [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
+                                                    class="form-control"    
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['noPackages'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-
-
-
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Rate Type</label>
-
                                                 <select class="form-control" formControlName="rateType"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['rateType'].invalid) }">
                                                     <option *ngFor="let branch of rateList" value={{branch.dataId}}>
@@ -436,7 +438,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">CneeDealrCode </label>
 
-                                                <input autoclose="false" placeholder=" " formControlName="cneeDealrCode"
+                                                <input autoclose="false" uppercaseonly formControlName="cneeDealrCode"
                                                     class="form-control">
                                             </div>
                                         </div>
@@ -458,9 +460,11 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">EwayBillNo</label>
                                                 <div class="hstack gap-1">
-                                                <input type="text" numbersonly class="form-control" placeholder=" "
+                                                <input type="text" numbersonly class="form-control"
+                                                    maxlength="12"
                                                     formControlName="ewayBillNo2" >
                                                     <button  type="button" class="btn btn-primary" 
+                                                    *ngIf="searchEnable"
                                                     (click)="searchGSTDetails2()">Search</button>
                                                 </div>
                                             </div>
@@ -482,7 +486,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">CnorInv No</label>
-                                                <input type="text" decimalonly class="form-control" placeholder=" "
+                                                <input type="text" decimalonly class="form-control" uppercaseonly
                                                     formControlName="cnorInvNo2">
                                             </div>
                                         </div>

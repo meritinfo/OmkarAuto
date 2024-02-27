@@ -98,6 +98,7 @@ export class AddratesmasterComponent implements OnInit {
     if (this.selectedRatesMaster.masterID != '') {   
       this.formRatesMaster.controls['accountid'].disable();
       this.formRatesMaster.controls['fromPlace'].disable();
+      this.formRatesMaster.controls['rateForStateOrToPlace'].disable();
     }
 
     setTimeout(() => {
@@ -166,7 +167,7 @@ export class AddratesmasterComponent implements OnInit {
     });
   }
   getCreditAcList(): void {
-    this.commonService.getCreditAcList().subscribe((res) => {
+    this.ratesMasterService.getPartyList().subscribe((res) => {
       this.creditacList = res;
     });
   }
@@ -240,7 +241,8 @@ export class AddratesmasterComponent implements OnInit {
         return;
       }
       else {
-        this.formArray.push(this.createInitialArray());  
+        this.formArray.push(this.createInitialArray()); 
+        this.formRatesMaster.controls['rateForStateOrToPlace'].disable();
       }    
     }
     else {
@@ -264,6 +266,9 @@ export class AddratesmasterComponent implements OnInit {
 
   removeItem(index: number) {
     this.formArray.removeAt(index);
+    if (this.formArray.length==1){
+      this.formRatesMaster.controls['rateForStateOrToPlace'].enable();
+    }
   }
 
 
@@ -274,9 +279,14 @@ export class AddratesmasterComponent implements OnInit {
       if (confirm("Are you sure, you want to delete this?")) {
         this.ratesMasterService.RatesMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formRatesMaster.reset();
-          this.route.navigate(['/ratesmasterlist']);
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formRatesMaster.reset();
+            this.route.navigate(['/ratesmasterlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }    
         });
       }
       this.sharedService.loading=false;
@@ -383,11 +393,16 @@ export class AddratesmasterComponent implements OnInit {
 
     this.ratesMasterService.ratesMasterSubmitted(this.ratesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formRatesMaster.reset();
-      this.route.navigate(['/ratesmasterlist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formRatesMaster.reset();
+        this.route.navigate(['/ratesmasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }    
     });
-    
+        
     this.sharedService.loading=false;
   }
   

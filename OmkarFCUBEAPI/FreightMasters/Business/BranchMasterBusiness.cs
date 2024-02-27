@@ -9,10 +9,10 @@ namespace FreightMasters.Business
     /// </summary>
     public class BranchMasterBusiness : IBranchMasterBusiness
     {
-        readonly IBranchMasterRepository freightMastersRepository;
-        public BranchMasterBusiness(IBranchMasterRepository _freightMastersRepository)
+        readonly IBranchMasterRepository branchMasterRepository;
+        public BranchMasterBusiness(IBranchMasterRepository _branchMasterRepository)
         {
-            freightMastersRepository = _freightMastersRepository;
+            branchMasterRepository = _branchMasterRepository;
         }
 
         /// <summary>
@@ -21,11 +21,11 @@ namespace FreightMasters.Business
         /// <param name="BranchMasterModel"></param>
         public async Task<ResponseModel> BranchMasterDetailsSave(BranchMasterModel branchMasterModel)
         {
-            return await freightMastersRepository.BranchMasterDetailsSave(branchMasterModel);
+            return await branchMasterRepository.BranchMasterDetailsSave(branchMasterModel);
         }
         public async Task<ResponseModel> BranchMasterDetailsDelete(RequestModel requestModel)
         {
-            return await freightMastersRepository.BranchMasterDetailsDelete(requestModel);
+            return await branchMasterRepository.BranchMasterDetailsDelete(requestModel);
         }
 
 
@@ -34,17 +34,22 @@ namespace FreightMasters.Business
         /// </summary>
         public async Task<List<DropDownListModel>> GetBranchList()
         {
-            return await freightMastersRepository.GetBranchList();
+            return await branchMasterRepository.GetBranchList();
         }
         public async Task<BranchMasterList> GetBranchMasterList(PageRequest request)
         {
-            return await freightMastersRepository.GetBranchMasterList(request);
+            return await branchMasterRepository.GetBranchMasterList(request);
         }
 
         public async Task<ResponseModel> ChkCodeExits(RequestModel req)
         {
-            return await freightMastersRepository.ChkCodeExits(req);
+            return await branchMasterRepository.ChkCodeExits(req);
         }
+        public async Task<ResponseModel> ChkBranchNameExits(RequestModel req)
+        {
+            return await branchMasterRepository.ChkBranchNameExits(req);
+        }
+
 
     }
 }

@@ -22,16 +22,18 @@
                 <div class="col-sm-8 col-md-8">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
-                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
-                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-lg-3">

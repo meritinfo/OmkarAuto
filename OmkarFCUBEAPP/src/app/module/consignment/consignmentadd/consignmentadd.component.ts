@@ -36,7 +36,7 @@ export class ConsignmentaddComponent implements OnInit {
   transDate: string = '';
   ltsDslToBe: string = '';
   tripOpenBy: string = '';
-
+  searchEnable = true;
   adBlueToBe: string = '';
   fromLocation: string = '';
   toLocation: string = '';
@@ -63,6 +63,8 @@ export class ConsignmentaddComponent implements OnInit {
 
 
   dateDetails = new Datemodel();
+  fromDate: string = '';
+  minDate:string = '';
   maxDate: string = '';
   newDate: string = '';
   branchList: Dropdownmodel[] = [];
@@ -118,6 +120,15 @@ export class ConsignmentaddComponent implements OnInit {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
@@ -183,7 +194,7 @@ export class ConsignmentaddComponent implements OnInit {
       shipmentDt: new FormControl('',),
       productId: new FormControl('',),
       productDesc: new FormControl('',),
-      noPackages: new FormControl('',),
+      noPackages: new FormControl('',[Validators.required]),
       actualWt: new FormControl('',),
       chargewt: new FormControl('',),
       rateType: new FormControl('1',),
@@ -216,14 +227,16 @@ export class ConsignmentaddComponent implements OnInit {
     setTimeout(() => {
      // this.sharedService.loading = true;
       this.createmode= true;
+      
+      this.formConsignment.controls['bookingPlace'].disable();
+
       if (this.selectedConsignmentDetails.consignmentID != '') {
        //  this.searchGSTForEdit();
         this.formConsignment.patchValue(this.selectedConsignmentDetails);
       
-        this.formConsignment.controls['ewayBillNo'].disable();
-        this.formConsignment.controls['ewayBillNo2'].disable();
+        //this.formConsignment.controls['ewayBillNo'].disable();
+        //this.formConsignment.controls['ewayBillNo2'].disable();
        // this.formConsignment.controls.search2.disable();
-        this.formConsignment.controls['bookingPlace'].disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
         this.formConsignment.controls['ewayBillEntryType'].disable();
@@ -263,15 +276,14 @@ export class ConsignmentaddComponent implements OnInit {
 
         })
         this.editMode = true;
-       
+        this.ivFromPlace=this.selectedConsignmentDetails.fromPlace;
+        this.ivToPlace=this.selectedConsignmentDetails.toPlace;
         this.sharedService.loading = false;
       }
       this.sharedService.loading = false;
     }, 2000);
   
     //this.getGcSeries();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    console.log(this.maxDate);
     //this.ivVehicleNo = 'TS07UF3495';
 
     this.changeEWay('A');
@@ -364,8 +376,11 @@ export class ConsignmentaddComponent implements OnInit {
       
     });
   }
+
   changeFromPlace(e: any) {
+    var selectedDataValue = this.formConsignment.getRawValue();
     this.ivFromPlace = e.dataId;
+    this.ivToPlace = selectedDataValue.toPlace.dataId;
     this.checkMs();
     this.checkLocation();
     //  this.checkTripkMs();
@@ -373,6 +388,8 @@ export class ConsignmentaddComponent implements OnInit {
     //  this.getDslToBe();
   }
   changeToPlace(e: any) {
+    var selectedDataValue = this.formConsignment.getRawValue();
+    this.ivFromPlace = selectedDataValue.fromPlace.dataId;
     this.ivToPlace = e.dataId;
     this.checkMs();
     this.checkLocation();
@@ -380,6 +397,24 @@ export class ConsignmentaddComponent implements OnInit {
     //  this.getDslToBe();
     //   this.getAdBlueToBe();
   }
+
+  // onChangeFromSearch(e: any) {
+  //   this.ivFromPlace = e.dataId;
+  //   this.checkMs();
+  //   this.checkLocation();
+  //   //  this.checkTripkMs();
+  //   //  this.getAdBlueToBe();
+  //   //  this.getDslToBe();
+  // }
+  // onChangeToSearch(e: any) {
+  //   this.ivToPlace = e.dataId;
+  //   this.checkMs();
+  //   this.checkLocation();
+  //   //   this.checkTripkMs();
+  //   //  this.getDslToBe();
+  //   //   this.getAdBlueToBe();
+  // }
+
   popupClosedToPlace() {
     if (!this.ivToPlace) {
       this.formConsignment.patchValue({
@@ -693,12 +728,20 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
 
-  searchGSTDetails(): void {
+  searchGSTDetails(): void {   
+
+    if(this.formConsignment.value.ewayBillNo.toString().length!=12){
+      this.toastrService.warning("Please Enter Valid Eway bill no ");
+      return
+    }
+
     var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
 
     this.commonService.billDetails(payload).subscribe((res: any) => {
       var result = res.result;
       if (result.code === 200) {
+        this.formConsignment.controls['ewayBillEntryType'].disable();
+
         this.eWayBillDetails.result = result;
 
         var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
@@ -746,6 +789,12 @@ export class ConsignmentaddComponent implements OnInit {
     var selectedDataValue = this.formConsignment.getRawValue();
     var d1 = selectedDataValue.ewayBillNo;
     var d2 = selectedDataValue.ewayBillNo2;
+    
+    if(d2.toString().length!=12){
+      this.toastrService.warning("Please Enter Valid Eway bill no2  ");
+      return
+    }
+
     if (d1 == d2) {
       this.formConsignment.patchValue({
         ewayBillNo2: ''
@@ -759,6 +808,9 @@ export class ConsignmentaddComponent implements OnInit {
     this.commonService.billDetails(payload).subscribe((res: any) => {
       var result = res.result;
       if (result.code === 200) {
+        
+        this.formConsignment.controls['ewayBillEntryType'].disable();
+
         this.eWayBillDetails.result = result;
 
         var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
@@ -846,18 +898,18 @@ export class ConsignmentaddComponent implements OnInit {
     // do something with selected item
   }
 
-  onChangeSearchFromPlace(search: string) {
-    this.ivFromPlace = '';
-  
-  }
+  // onChangeSearchFromPlace(search: string) {
+  //   this.ivFromPlace = '';
+  //   this.checkMs();    
+  // }
 
-  onChangeSearchToPlace(search: string) {
-    this.ivToPlace = '';
-  
-  }
+  // onChangeSearchToPlace(search: string) {
+  //   this.ivToPlace = '';
+  //   this.checkMs();  
+  // }
 
   onChangeSearch(search: string) {
-    this.ivToPlace = '';
+    //this.ivToPlace = '';
   }
 
   onFocused(e: any) {
@@ -923,7 +975,9 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cnorInvDate2'].disable();
 
 
-      this.formConsignment.controls['noPackages'].disable();
+      //this.formConsignment.controls['noPackages'].disable();
+
+      this.searchEnable = true;
     }
     if (selectedValue === "M" || selectedValue === "E") {
       //Add field validation
@@ -945,7 +999,6 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
       this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formConsignment.controls['truckId'].setValidators([Validators.required]);
-      this.formConsignment.controls['noPackages'].setValidators([Validators.required]);
       //Enable field
 
       this.formConsignment.controls['fromPlace'].enable();
@@ -982,8 +1035,8 @@ export class ConsignmentaddComponent implements OnInit {
       this.formConsignment.controls['cnorInvDate2'].enable();
 
 
-      this.formConsignment.controls['noPackages'].enable();
-
+      //this.formConsignment.controls['noPackages'].enable();
+      this.searchEnable = false;
     }
 
     this.formConsignment.controls['fromPlace'].updateValueAndValidity();

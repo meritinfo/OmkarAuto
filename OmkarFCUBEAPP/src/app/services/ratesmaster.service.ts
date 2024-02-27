@@ -49,4 +49,8 @@ export class RatesMasterService {
   getFreightRateInnerGridList(req: Requestmodel): Observable<Ratesmastermodel> {
     return this.httpClient.post<Ratesmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightRateInnerGridList', req, this.httpOptions);
   }
+
+  getPartyList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetPartyList', null, this.httpOptions);
+  }
 }

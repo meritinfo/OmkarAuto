@@ -71,7 +71,6 @@ export class AddbranchmasterComponent {
 
     this.selectedBranchMasterDetails = this.branchmasterService.getBranchMasterDetails();
     this.formBranchMaster = this.formBuilder.group({
-
       code: new FormControl('',[Validators.required]),
       userBranch: new FormControl('',[Validators.required]),
       zoneCode: new FormControl('',[Validators.required]),
@@ -143,16 +142,39 @@ export class AddbranchmasterComponent {
     }
   }
 
+  chkBranchNameExits(e: any) { 
+    if (this.selectedBranchMasterDetails.centreid == "")
+    {      
+      this.sharedService.loading = true;
+      this.requestmodel.strRequest = e.target.value; 
+      this.branchmasterService.chkBranchNameExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formBranchMaster.patchValue({
+            userBranch: ''
+          });
+        }
+      });
+      this.sharedService.loading = false;
+    }
+  }
+
   deleteBranchMasterForm(): void {
     if(this.selectedBranchMasterDetails.centreid != '' ){      
       this.sharedService.loading = true;
-     this.requestmodel.strRequest =this.selectedBranchMasterDetails.centreid
+      this.requestmodel.strRequest =this.selectedBranchMasterDetails.centreid
       if (confirm("Are you sure, you want to delete this?")) {
             this.branchmasterService.branchMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formBranchMaster.reset();
-            this.route.navigate(['/branchmasterlist']);
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formBranchMaster.reset();
+              this.route.navigate(['/branchmasterlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }    
         });
       }      
       this.sharedService.loading = false;
@@ -164,8 +186,7 @@ export class AddbranchmasterComponent {
 
 
   //Submit user form details //
-  submitBranchMasterForm(): void {    
-    this.sharedService.loading = true;
+  submitBranchMasterForm(): void {  
     if (this.formBranchMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formBranchMaster.controls;
@@ -176,10 +197,12 @@ export class AddbranchmasterComponent {
       } 
       return;
     }
-    this.branchModel.centreid = this.selectedBranchMasterDetails.centreid != '' ? this.selectedBranchMasterDetails.centreid : '';
+      
+    this.sharedService.loading = true;
 
     var selectedDataVal = this.formBranchMaster.getRawValue();
     this.userSubmitted = true;
+    this.branchModel.centreid = this.selectedBranchMasterDetails.centreid ;
     this.branchModel.code             = selectedDataVal.code.toString().toUpperCase();
     this.branchModel.centreName       = selectedDataVal.userBranch.toString().toUpperCase();
     this.branchModel.zoneCode         = selectedDataVal.zoneCode.toString().toUpperCase();
@@ -204,9 +227,14 @@ export class AddbranchmasterComponent {
   
     this.branchmasterService.branchMasterDetailsSubmitted(this.branchModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formBranchMaster.reset();
-      this.route.navigate(['/branchmasterlist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formBranchMaster.reset();
+        this.route.navigate(['/branchmasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
     });
     this.sharedService.loading = false;
   }

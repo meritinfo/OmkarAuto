@@ -13,6 +13,7 @@ namespace FreightMasters.Business
         Task<List<DropDownListModel>> GetBranchList();
         Task<BranchMasterList> GetBranchMasterList(PageRequest request);
         Task<ResponseModel> ChkCodeExits(RequestModel req);
+        Task<ResponseModel> ChkBranchNameExits(RequestModel req);
 
     }
 }

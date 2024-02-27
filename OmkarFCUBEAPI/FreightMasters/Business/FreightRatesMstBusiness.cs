@@ -32,6 +32,10 @@ namespace FreightMasters.Business
         {
             return await freightRatesMstRepository.GetFreightRateInnerGridList(req);
         }
+        public async Task<List<DropDownListModel>> GetPartyList()
+        {
+            return await freightRatesMstRepository.GetPartyList();
+        }
 
     }
 }
