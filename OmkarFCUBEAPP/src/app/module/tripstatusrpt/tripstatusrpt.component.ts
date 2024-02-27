@@ -207,10 +207,7 @@ formFilter!: FormGroup;
             title: 'TripNo ',
             data: 'tripNo',
           },       
-          {
-            title: 'TripNo',
-            data: 'tripNo',
-          },
+        
           {
             title: 'ExUlDate',
             data: 'exUlDate',
@@ -227,26 +224,26 @@ formFilter!: FormGroup;
             title: 'ToPoint   ',
             data: 'toPoint  ',
           },
-          {
-            title: 'PmtType ',
-            data: 'pmtType',
-          },
-          {
-            title: 'TripStatus ',
-            data: 'tripStatus',
-          },
-          {
-            title: 'TripCloseDt ',
-            data: 'tripCloseDt',
-          },
-          {
-            title: 'TripLinkYN ',
-            data: 'tripLinkYN',
-          },
-          {
-            title: 'LoadType',
-            data: 'loadType',
-          },
+         // {
+        //    title: 'PmtType ',
+          //  data: 'pmtType',
+       //   },
+         // {
+          //   title: 'TripStatus ',
+          //   data: 'tripStatus',
+          // },
+          // {
+          //   title: 'TripCloseDt ',
+          //   data: 'tripCloseDt',
+          // },
+          // {
+          //   title: 'TripLinkYN ',
+          //   data: 'tripLinkYN',
+          // },
+          // {
+          //   title: 'LoadType',
+          //   data: 'loadType',
+          // },
       
       
         ],

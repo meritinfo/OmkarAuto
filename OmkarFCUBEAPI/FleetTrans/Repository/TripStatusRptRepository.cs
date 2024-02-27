@@ -38,10 +38,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@AccountID",       request.FilterStr1),
+                         //  new SqlParameter("@TripLink",          request.FilterStr),
+                        //   new SqlParameter("@Status",          request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripStatusRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -58,10 +59,10 @@ namespace FleetTrans.Repository
                                 DistanceTripKM_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM_1"]),
                                 FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
                                 ToPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
-                                TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
-                                TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
-                                TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
-                                LoadType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadType"]),
+                              //  TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
+                              //  TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
+                              //  TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
+                             //   LoadType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadType"]),
                             });
                         }
 
@@ -93,8 +94,9 @@ namespace FleetTrans.Repository
 
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@AccountID",          request.FilterStr1),
-                            new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                              new SqlParameter("@TripLink",          request.FilterStr),
+                         //  new SqlParameter("@Status",          request.FilterStr1),
+                          //  new SqlParameter("@VehicleMasterid",    request.FilterStr2),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripStatusRptExcel", param);
 

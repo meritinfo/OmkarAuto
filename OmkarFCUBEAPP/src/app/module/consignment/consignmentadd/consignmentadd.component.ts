@@ -389,10 +389,23 @@ export class ConsignmentaddComponent implements OnInit {
   }
   popupClosedFromPlace() {
     if (!this.ivFromPlace) {
+      
       this.formConsignment.patchValue({
         fromPlace: ''
       });
     }
+  }
+  onClearedFromPlace(e: any){
+    this.ivFromPlace='0';
+    this.formConsignment.patchValue({
+      kms: '0'
+    });
+  }
+  onClearedToPlace(e: any){
+    this.ivToPlace='0';
+    this.formConsignment.patchValue({
+      kms: '0'
+    });
   }
   popupClosedVehicle() {
     // if(!this.ivVehicleNo){
@@ -799,12 +812,14 @@ export class ConsignmentaddComponent implements OnInit {
   if(fp!='0' && tp!='0' ){
    //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
   // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
-   if( fp == tp){
+   if( fp == tp ){
 
    
     
      
         this.toastrService.warning("From and to location should not be the same");
+        this.ivFromPlace='0';
+        this.ivToPlace='0';
         this.formConsignment.patchValue({
           fromPlace: '',
           toPlace: ''

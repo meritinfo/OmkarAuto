@@ -36,7 +36,7 @@ export class TripStatusRptService {
     return this.httpClient.post<Tripstatusrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripStatusRptList', filter, this.httpOptions);
   }  
   getTripStatusRptListExcel(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripStatusRptListExcel', filter, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelTripStatusRptList', filter, this.httpOptions);
   }    
 
 }
