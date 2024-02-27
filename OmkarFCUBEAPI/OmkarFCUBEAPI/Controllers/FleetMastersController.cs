@@ -226,6 +226,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+      
 
         /// <summary>
         /// Controller method for vehicle type master
