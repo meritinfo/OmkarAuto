@@ -60,6 +60,7 @@ import { ConsignmentlistComponent } from './module/consignment/consignmentlist/c
 
 import { Consignmentmodel } from './models/consignmentmodel';
 import { Trippaymentsmodel } from './models/trippaymentsmodel';
+import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
 import { BranchmasterlistComponent } from './module/branchmaster/branchmasterlist/branchmasterlist.component';
 import { Branchmodel } from './models/branchmodel';
@@ -204,6 +205,7 @@ import { Emploanmodel } from './models/emploanmodel';
 import { Emploanlistmodel } from './models/emploanlistmodel';
 import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
 import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
+import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
 
 @NgModule({
   declarations: [
@@ -323,6 +325,7 @@ import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/
     EmploanaddComponent,
     EmploanrepaylistComponent,
     EmploanrepayaddComponent,
+    TripstatusrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -364,7 +367,7 @@ import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

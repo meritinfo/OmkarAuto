@@ -164,6 +164,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckId'].invalid) }"
+                                                     
                                                         >
 
                                                     </ng-autocomplete>
@@ -193,6 +194,7 @@
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{'is-invalid': formSubmitted && (f['fromPlace'].invalid)}"
                                                         (closed) = "popupClosedFromPlace()"
+                                                        (inputCleared)="onClearedFromPlace($event)"
                                                       >
                                                     </ng-autocomplete>
 
@@ -226,6 +228,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }"
+                                                        (inputCleared)="onClearedToPlace($event)"
                                                          
                                                        >
                                                     </ng-autocomplete>
