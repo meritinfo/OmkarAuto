@@ -78,6 +78,7 @@ export class TripsheetlistComponent {
       pageLength: 10,
       serverSide: true,
       processing: true,
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -127,24 +128,18 @@ export class TripsheetlistComponent {
           title: 'Expected UL. Dt.',
           data: 'expectedReportingDt',
         },
-
-
-
         {
           title: 'Driver',
           data: 'drName',
         },
         {
-          title: 'CloseDate',
+          title: 'Trip Close Date',
           data: 'lastTripCloseDate',
         },
         {
           title: 'LinkYN',
           data: 'tripLinkYN',
         },
-
-
-
         {
           title: 'Action',
           data: 'tripId',

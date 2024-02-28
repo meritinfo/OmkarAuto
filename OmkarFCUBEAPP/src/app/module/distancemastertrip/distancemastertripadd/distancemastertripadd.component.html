@@ -8,8 +8,8 @@
                         <h4 class="mb-sm-0 font-size-18">Distance Master Trip</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Trip</a></li>
-                                <li class="breadcrumb-item active">Distance Master Trip </li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Trip</a></li>
+                                <li class="breadcrumb-item active">Distance Master Trip </li> -->
                             </ol>
                         </div>
                     </div>
@@ -38,7 +38,6 @@
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
                                                             formControlName="fromLocation"
-                                                            (closed)="popupClosedToPlace()"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['fromLocation'].invalid) }">
                                                         </ng-autocomplete>
 
@@ -143,15 +142,13 @@
                                                     <div class="ng-autocomplete">
                                                         <ng-autocomplete [data]="locationList"
                                                             [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
+                                                            (selected)='selectToLocationEvent($event,i)'
                                                             (inputChanged)='onChangeSearch($event)'
                                                             (inputFocused)='onFocused($event)'
                                                             [itemTemplate]="itemTemplate"
                                                             [notFoundTemplate]="notFoundTemplate"
                                                             [customFilter]="startWithFilter"
-                                                            formControlName="toLocation"
-                                                            (inputCleared)="clearLocation($event, i)">
-
+                                                            formControlName="toLocation">
                                                         </ng-autocomplete>
 
                                                         <ng-template #itemTemplate let-item>

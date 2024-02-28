@@ -9,13 +9,8 @@ export class Distancemasterfreightmodel {
 }
 
 export class Distancedetailsfreightmodel {
-
-    distanceDtlID: string = "";
     masterID: string = "";
-    toLocationName: string = "";
-    fromLocationName: string = "";
     fromLocation: string = "";
     toLocation: string = "";
     kms: string = "";
-    index: string = "";
 }

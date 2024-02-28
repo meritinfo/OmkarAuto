@@ -577,6 +577,8 @@ export class TripsheetaddComponent {
 
     }
   }
+
+  
   selectNewEvent(item: any) {
     this.driverid = item.dataId;
     // do something with selected item
@@ -726,8 +728,14 @@ export class TripsheetaddComponent {
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      this.formTripsheet.reset();
-      this.route.navigate(['/tripsheetlist']);
+      if (this.responseDetails.status) {
+        this.toastrService.success(this.responseDetails.message);
+        this.formTripsheet.reset();
+        this.route.navigate(['/tripsheetlist']);
+      }
+      else {
+        this.toastrService.warning(this.responseDetails.message);
+      }   
     });
   }
 

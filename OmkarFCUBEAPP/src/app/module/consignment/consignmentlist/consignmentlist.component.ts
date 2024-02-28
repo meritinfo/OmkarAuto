@@ -104,7 +104,8 @@ export class ConsignmentlistComponent implements OnInit  {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
-      processing: true,
+      processing: true,      
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
