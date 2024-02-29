@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-
-
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';

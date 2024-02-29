@@ -5,6 +5,8 @@ import { Destinationmodel } from '../models/destinationmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
+import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
+import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 
 @Injectable({
   providedIn: 'root'
@@ -133,8 +135,8 @@ export class CommonService {
   getTripDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDetail', payload, this.httpOptions);
   }
-  getTripDslDetails(payload: any): Observable<any> {
-    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDslDetail', payload, this.httpOptions);
+  getTripDslDetails(payload: Tripvehiclemodel): Observable<Tripdsldetail> {
+    return this.httpClient.post<Tripdsldetail>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDslDetail', payload, this.httpOptions);
   }
   getDslToBe(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/GetDslToBe', payload, this.httpOptions);

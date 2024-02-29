@@ -61,7 +61,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@NetAmount"           , docRenewalEntryModel.NetAmount),
                             new SqlParameter("@PmtType"             , docRenewalEntryModel.PmtType),
                             new SqlParameter("@CreditAc"            , docRenewalEntryModel.CreditAc),
-                            new SqlParameter("@NeftPmt"             , docRenewalEntryModel.NeftPmt),
+                            new SqlParameter("@NeftPmt"             , docRenewalEntryModel.NeftPmt=="true"?"Y":"N"),
                             new SqlParameter("@ChequeNo"            , docRenewalEntryModel.ChequeNo),
                             new SqlParameter("@ChequeDt"            , docRenewalEntryModel.ChequeDt),
                             new SqlParameter("@FinDocID"            , docRenewalEntryModel.FinDocID),

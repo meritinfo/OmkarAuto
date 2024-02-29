@@ -73,7 +73,6 @@ export class DistancemastertriplistComponent {
       this.loginDate = loginDate;
     }
 
-    this.distanceMastertripService.clearDistanceMasterTripDetails();
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -82,6 +81,7 @@ export class DistancemastertriplistComponent {
   
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+
     this.distanceMastertripService.clearDistanceMasterTripDetails();
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
