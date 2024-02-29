@@ -8,27 +8,25 @@
                         <h4 class="mb-sm-0 font-size-18">Trip Payments</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Trip Payments </li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Trip Payments </li> -->
                             </ol>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- end page title -->
-             
-              <div class="row top-controls">
+            </div>            
+            <!-- end page title -->             
+            <div class="row top-controls">
                 <div class="col-sm-8 col-md-8">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
@@ -48,7 +46,6 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
-
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList" [searchKeyword]="keywordLocation"
                                             placeholder="" formControlName="vehicle" (selected)='selectEvent($event)'
@@ -92,36 +89,26 @@
                         <tr>
                             <th>PmtBranch </th>
                             <th>Date </th>
-                            <th>Vehicle No. </th>
-                      
+                            <th>Vehicle No. </th>                      
                             <th>TripNo </th>
                             <th>Trans Type</th>
                             <th>Trans Type</th>
-                            <th>Amount</th>
-                            
-                         
-                         
+                            <th>Amount</th>  
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTripPaymentsTypes.tripPaymentsList?.length != 0">
                         <tr *ngFor="let trip of allTripPaymentsTypes.tripPaymentsList">
                             <td>{{ trip.bName }}</td>
-                    
-                          
                             <td>{{ trip.pmtDate }}</td>
                             <td>{{ trip.vehicleNo }}</td>
                             <td>{{ trip.tripNo }}</td>
                             <td>{{ trip.transType }}</td>
                             <td>{{ trip.qtyLtrs }}</td>
-                            <td>{{ trip.amountPaid }}</td>
-                         
-                            <td>
-                               
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="gettrippaymentsDetails(trip)" ></button>
-
-                           
+                            <td>{{ trip.amountPaid }}</td>                         
+                            <td>                               
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="gettrippaymentsDetails(trip)" ></button>                           
                             </td>
                         </tr>
                     </tbody>

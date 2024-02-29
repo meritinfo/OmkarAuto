@@ -488,7 +488,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetFreightTripInnerGridList")]
-        public async Task<IActionResult> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request)
+        public async Task<IActionResult> GetFreightTripInnerGridList(RequestModel request)
         {
             try
             {
@@ -518,7 +518,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetFreightInnerGridList")]
-        public async Task<IActionResult> GetFreightInnerGridList(FreightTripInnerGridListRequest request)
+        public async Task<IActionResult> GetFreightInnerGridList(RequestModel request)
         {
             try
             {

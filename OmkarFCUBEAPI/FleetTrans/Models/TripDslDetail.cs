@@ -10,5 +10,6 @@ namespace FleetTrans.Models
     {
         public string DslIssued { get; set; }
         public string AdvIssued { get; set; }
+        public string TripStatus { get; set; }
     }
 }

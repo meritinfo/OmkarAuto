@@ -29,7 +29,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Trans Date</label><span style="color: red">*</span>    
                                                 <input bsdatepicker="" type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy" max="{{maxDate}}"   
+                                                min="{{minDate}}" max="{{maxDate}}"
                                                 formControlName="transDate" class="form-control"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                             </div>
@@ -44,8 +44,8 @@
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
-                                                    <option value="P">Petro</option>
-                                                    <option value="F">Fastag</option>
+                                                    <!-- <option value="P">Petro</option> -->
+                                                    <!-- <option value="F">Fastag</option> -->
                                                     <option value="D">Vendor</option>
                                                     <option value="A">Adjust</option>                                           
                                                 </select>                                                
@@ -340,7 +340,9 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2"><br />
                                                 <input type="checkbox" formControlName="neftPmt" id="neft"
-                                                  value="Y" (change)="onNeftChk($event)"  name="neft" class="form-check-input" >
+                                                    [checked]="checkselected"
+                                                  value="Y" (change)="onNeftChk($event)"  
+                                                  name="neft" class="form-check-input" >
                                                 <label for="neft" class="form-check-label"> Neft Pmt </label>
                                             </div>
                                         </div>

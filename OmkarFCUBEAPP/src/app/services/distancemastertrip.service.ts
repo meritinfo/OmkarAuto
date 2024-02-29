@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Distancemastertripmodel } from '../models/distancemastertripmodel';
-import { FreighttripInnergridlistrequest } from '../models/freighttripInnergridlistrequest';
 import { Distancemastertriplistmodel } from '../models/distancemastertriplistmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
@@ -44,7 +43,7 @@ export class DistancemastertripService {
   distanceMasterTripDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/DistanceMasterTripDelete', req, this.httpOptions);
   }
-  getFreightTripInnerGridList(request: FreighttripInnergridlistrequest): Observable<Distancemastertripmodel> {
+  getFreightTripInnerGridList(request: Requestmodel): Observable<Distancemastertripmodel> {
     return this.httpClient.post<Distancemastertripmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightTripInnerGridList', request, this.httpOptions);
   }
   chkdistanceTripValidity(user: Distancemastertripmodel): Observable<Responsemodel> {

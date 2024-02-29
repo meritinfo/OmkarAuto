@@ -10,7 +10,7 @@ namespace FreightMasters.Repository
         Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequestDtBrVh request);
         Task<ResponseModel> DistanceMasterTripDelete(RequestModel requestModel);
         Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel DistanceMasterTripModel);
-        Task<DistanceMasterTripModel> GetFreightTripInnerGridList(FreightTripInnerGridListRequest request);
+        Task<DistanceMasterTripModel> GetFreightTripInnerGridList(RequestModel request);
         Task<ResponseModel> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel);
         Task<List<DropDownListModel>> GetDistanceTripFromLocationList();
         Task<DistanceTripEditModel> GetDistanceTripDtls(RequestModel request);   

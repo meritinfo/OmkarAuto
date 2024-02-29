@@ -8,8 +8,8 @@
                         <h4 class="mb-sm-0 font-size-18">Distance Master Freight</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Distance Master Freight </li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
+                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
                             </ol>
                         </div>
                     </div>
@@ -36,15 +36,10 @@
                                     <label for="formrow-inputCity">From Location</label>
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="locationList" formControlName="branch"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                         
-                                         
+                                            [searchKeyword]="keywordLocation" 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter"
-                                            [ngClass]=""
-                                             
-                                           >
+                                            [customFilter]="startWithFilter">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -86,26 +81,20 @@
                         
                         <thead>
                             <tr>
-                                <th>ReminderDays </th>
-                          
+                                <th>ReminderDays </th>                          
                                 <th>Doc Code </th>
-                                <th>Doc Code </th>
-                             
+                                <th>Doc Code </th>                             
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allDistanceFreightMaster.distanceFrtList?.length != 0">
                             <tr *ngFor="let renewalMaster of allDistanceFreightMaster.distanceFrtList">
-                                <td>{{ renewalMaster.validFrom }}</td>
-                        
-                                <td>{{ renewalMaster.validUpto }}</td>
-                                <td>{{ renewalMaster.fromPoint }}</td>
-                             
-                                <td>
-                                  
-                                        <button type="button" class="btn btn-edit"
-                                        (click)="getDistanceMasterFreightDetails(renewalMaster)"></button>
-                               
+                                <td>{{ renewalMaster.fromPoint }}</td>  
+                                <td>{{ renewalMaster.validFrom }}</td>                        
+                                <td>{{ renewalMaster.validUpto }}</td>                           
+                                <td>                                  
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getDistanceMasterFreightDetails(renewalMaster)"></button>                               
                                 </td>
                             </tr>
                         </tbody>

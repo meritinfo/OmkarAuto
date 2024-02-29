@@ -71,12 +71,10 @@ export class DestinationlistComponent {
       processing: true,
       searching: false,
       ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        // this.filter.search = '';
         this.destinationService.getDestinationList(this.filter)
           .subscribe(resp => {
             this.allDestination = resp;

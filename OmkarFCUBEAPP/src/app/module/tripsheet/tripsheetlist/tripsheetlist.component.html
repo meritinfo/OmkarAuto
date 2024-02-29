@@ -9,8 +9,8 @@
                         <h4 class="mb-sm-0 font-size-18">Trip Sheet</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Trip Sheet</li>
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Trip Sheet</li> -->
                             </ol>
                         </div>
                     </div>
@@ -24,14 +24,16 @@
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
-                                    <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}"
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}"
                                         max="{{maxDate}}">
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
-                                    <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}"
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}"
                                         max="{{maxDate}}">
                                 </div>
                             </div>
@@ -92,24 +94,14 @@
                         <thead>
                             <tr>
                                 <th>vehicleNo </th>
-
-
                                 <th>NewTripDate </th>
-
-
                                 <th>TripNo </th>
                                 <th>FrPlace </th>
                                 <th>TPlace </th>
-
                                 <th>expectedReportingDt </th>
-
                                 <th>DriverMasterID </th>
                                 <th>lastTripCloseDate </th>
                                 <th>tripLinkYN </th>
-
-
-
-
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -122,13 +114,10 @@
                                 <td>{{ trip.frPlace }}</td>
                                 <td>{{ trip.tPlace }}</td>
                                 <td>{{ trip.expectedReportingDt }}</td>
-
                                 <td>{{ trip.drName }}</td>
                                 <td>{{ trip.lastTripCloseDate }}</td>
                                 <td>{{ trip.tripLinkYN }}</td>
-
                                 <td>
-
                                     <button type="button" class="btn btn-edit"
                                         (click)="gettripSheetDetails(trip)"></button>
 

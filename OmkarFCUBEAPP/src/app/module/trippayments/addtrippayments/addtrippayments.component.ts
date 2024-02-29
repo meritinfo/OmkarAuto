@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
-
-
-
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -17,7 +11,6 @@ import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
-import { UserService } from 'src/app/services/user.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -28,7 +21,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddtrippaymentsComponent {
   loggedInUserID: string = '';
-  ttype: string = '';
   amount: string = '';
   maxDate: string = '';
   minDate: string = '';
@@ -49,7 +41,9 @@ export class AddtrippaymentsComponent {
   createmode = false;
   dslIssued: any;
   advIssued: any;
+  tripStatus: string = "";
   neftvalue= "";
+  checkselected = false;
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
@@ -65,17 +59,20 @@ export class AddtrippaymentsComponent {
 
   selectedTripPaymentsDetails = new Trippaymentsmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, private commonService: CommonService, private toasterService: ToastrService,private sharedService: SharedService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, 
+    private commonService: CommonService, private toasterService: ToastrService,
+    private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.trippaymentsmodel = new Trippaymentsmodel();
-
-
   }
+
   ngOnInit(): void {
     this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList).find((( aa: { menuName: string; }) => aa.menuName === "Trip Payments"));
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Trip Payments"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -113,9 +110,8 @@ export class AddtrippaymentsComponent {
     
    
     //this.changeEWay();
-    this.getBranchList();
-   
-   // this.getVehicleList();
+    this.getBranchList();   
+    // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
     //this.getCreditAcList2('');
@@ -131,17 +127,15 @@ export class AddtrippaymentsComponent {
       pmtDate: new FormControl(this.loginDate , [Validators.required]),
       vehicleMasterID: new FormControl('', [Validators.required]),
       tripNo: new FormControl('',),
-      tripMasterId: new FormControl('',),
-   
+      tripMasterId: new FormControl('',),   
       transType: new FormControl('', [Validators.required]),
       amountPaid: new FormControl('', [Validators.required]),
       remarks: new FormControl('',),
-      pmtType: new FormControl('', [Validators.required]),
+      pmtType: new FormControl('C', [Validators.required]),
       neftPmt: new FormControl('',),
       creditAc: new FormControl('', [Validators.required]),
-     // chequeNo: new FormControl('', [Validators.required]),
-     chequeNo: new FormControl(''),
-      chequeDate: new FormControl(this.loginDate , [Validators.required]),
+      chequeNo: new FormControl(''),
+      chequeDate: new FormControl('', [Validators.required]),
       findocid: new FormControl('',),
       adjInTrip: new FormControl('',),
       yearId: new FormControl('',),
@@ -154,115 +148,85 @@ export class AddtrippaymentsComponent {
       qtyLtrs: new FormControl('',),
       ratePerLtr: new FormControl('',),
       travel: new FormControl('',),
-
-
     });
+
     setTimeout(() => {
      this.createmode = true;
-    if (this.selectedTripPaymentsDetails.pmtId != '') {
-      this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
+      if (this.selectedTripPaymentsDetails.pmtId != '') {
+        this.editMode = true;
+        this.formTripPayment.controls['pmtBranch'].disable();
+        this.formTripPayment.controls['transType'].disable();
+        this.formTripPayment.controls['pmtDate'].disable();
+        this.formTripPayment.controls['tripNo'].disable();
+        this.formTripPayment.controls['loadorempty'].disable();
+        this.formTripPayment.controls['loadorempty'].disable();
+        this.formTripPayment.controls['loadorempty'].disable();
+        this.formTripPayment.controls['pmtBranch'].disable();
+        this.formTripPayment.controls['dsltobe'].disable();
+        this.formTripPayment.controls['travel'].disable();
+        this.formTripPayment.controls['vehicleMasterID'].disable();
+        
+        this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
+        this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)         
+        this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
+        this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
+        this.formTripPayment.patchValue({
+          pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
+          chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
+          vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+        })  
+        if (this.selectedTripPaymentsDetails.neftPmt=='Y'){
+          this.checkselected = true;
+          this.formTripPayment.controls['chequeNo'].clearValidators();      
+          this.formTripPayment.controls['chequeDt'].clearValidators(); 
+          this.formTripPayment.controls['chequeNo'].disable();      
+          this.formTripPayment.controls['chequeDt'].disable(); 
+        }
+        else {
+          this.checkselected = false;
+          this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+          this.formTripPayment.controls['chequeDt'].setValidators([Validators.required]);  
+        }
+        this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+        this.formTripPayment.controls['chequeDt'].updateValueAndValidity();  
+      }
+  
+      this.getValidation();    
       this.formTripPayment.controls['pmtBranch'].disable();
       this.formTripPayment.controls['pmtDate'].disable();
-      this.formTripPayment.controls['tripNo'].disable();
-      this.formTripPayment.controls['loadorempty'].disable();
-      this.formTripPayment.controls['loadorempty'].disable();
-      this.formTripPayment.controls['loadorempty'].disable();
-      this.formTripPayment.controls['pmtBranch'].disable();
-      this.formTripPayment.controls['dsltobe'].disable();
-      this.formTripPayment.controls['travel'].disable();
-     // this.formTripPayment.controls['vehicleMasterID'].disable();
-     
- 
-      var selectedDataValue = this.formTripPayment.getRawValue();
-      this. getTripDetailseditmode(selectedDataValue.vehicleMasterID) 
-      this.getCreditAcList2(selectedDataValue.pmtType);
-      //this.getCreditAcList();
-      this.formTripPayment.controls['vehicleMasterID'].disable();
-      this.formTripPayment.controls['vehicleMasterID'].setValidators([Validators.required]);
-    
-      this.formTripPayment.patchValue({
-      
-        pmtBranch:  selectedDataValue.pmtBranch, 
-        pmtDate:   this.commonService.formatDate(selectedDataValue.pmtDate), 
-        chequeDate:  this.commonService.formatDate(selectedDataValue.chequeDate), 
-        tripNo:  selectedDataValue.tripNo, 
-        loadorempty:  selectedDataValue.loadorempty, 
-       vehicleMasterID: this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID),
-      //creditAc: this.newList.find(e => e.dataId == selectedDataValue.creditAc),
-      
-    
-       //neftPmt:  "1", 
-      
-   
-      // from: this.locationList.find(e => e.dataId == selectedDataValue.from),
-      // to: this.locationList.find(e => e.dataId == selectedDataValue.to),
-      //  vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
-        
-       
-    // vehicleMasterID: this.selectedTripPaymentsDetails.vehicleMasterID,
-      
-      })
-    }
+    }, 2000);
+    this.sharedService.loading = false;
+  }
+
   
-    this.getValidation();
-    
-       this.formTripPayment.controls['pmtBranch'].disable();
-
-    this.formTripPayment.controls['pmtDate'].disable();
-    this.editMode = true;
-  }, 2000);
-
-  this.sharedService.loading = false;
-
-  }
-  tripPaymentsDelete(): void {
-    if(this.selectedTripPaymentsDetails.pmtId != '' ){
-     this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
-      if (confirm("Are you sure, you want to delete this?")) {
-            this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formTripPayment.reset();
-            window.location.reload();
-        });
-      }
-    }
-  }
   onCleared(e: any) {
     this.formTripPayment.patchValue({
-    // destination: undefined,
-            tripNo:  "",
-            from:   "",
-            to:    "",
-            loadorempty:   "",
-            travel:    "",
-            dsltobe:   "",
-            tripMasterId:  "",
+      tripNo:  "",
+      from:   "",
+      to:    "",
+      loadorempty:   "",
+      travel:    "",
+      dsltobe:   "",
+      tripMasterId:  "",
     });
-   // this.checkDestinationControlStatus();
   }
  
   getValidation(): void {
     this.formTripPayment.controls['pmtBranch'].disable();
- //   this.formTripPayment.controls['pmtDate'].disable();
+    // this.formTripPayment.controls['pmtDate'].disable();
     this.formTripPayment.controls['tripNo'].disable();
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
     this.formTripPayment.controls['to'].disable();
     this.formTripPayment.controls['dsltobe'].disable();
     this.formTripPayment.controls['travel'].disable();
-  // this.formTripPayment.controls['vehicleMasterID'].disable();
-   this.formTripPayment.controls['vehicleMasterID'].updateValueAndValidity();
+    // this.formTripPayment.controls['vehicleMasterID'].disable();
+    this.formTripPayment.controls['vehicleMasterID'].updateValueAndValidity();
     this.formTripPayment.controls['pmtBranch'].updateValueAndValidity();
     this.formTripPayment.controls['pmtDate'].updateValueAndValidity();
     this.formTripPayment.controls['tripNo'].updateValueAndValidity();
     this.formTripPayment.controls['loadorempty'].updateValueAndValidity();
     this.formTripPayment.controls['pmtfromDate'].updateValueAndValidity();
-
-  
-
-
-  
   }
 
   // convenience getter for easy access to contact form fields
@@ -275,138 +239,108 @@ export class AddtrippaymentsComponent {
   }
   getCreditAcList2(e: any){
     //this.tripVehicleDetails.vehicleMasterId =  e;
-      this.ptype = e;
-      var data = {
-        'pType' : this.ptype
-      }
+    this.ptype = e;
+    var data = {
+      'pType' : this.ptype
+    }
     this.commonService.getCreditAcList2(data).subscribe((res) => {
       this.creditacList = res;
       this.newList = this.creditacList;
     });
-
-
   }
-  deleteTripPaymentsForm(): void {
-    if (confirm("Are you sure, you want to delete this?")) {
 
+  tripPaymentsDelete(): void {
+    if(this.tripStatus=="Closed"){
+      this.toasterService.warning("Trip already  Closed, Can not Delete ");
+      return;
+    }
+    else{
+      if(this.selectedTripPaymentsDetails.pmtId != '' ){
+      this.requestmodel.strRequest =this.selectedTripPaymentsDetails.pmtId
+        if (confirm("Are you sure, you want to delete this?")) {
+              this.tripPaymentsService.tripPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+              this.responseDetails = res;
+              if (this.responseDetails.status) {
+                this.toasterService.success(this.responseDetails.message);
+                this.formTripPayment.reset();
+                this.route.navigate(['/trippaymentlist']);
+              }
+              else {
+                this.toasterService.warning(this.responseDetails.message);
+              }
+          });
+        }
+      }
     }
   }
+
   exit(): void {
     this.route.navigate(['/trippaymentlist']);
   }
   
   getCreditAcList(){
-    //this.tripVehicleDetails.vehicleMasterId =  e;
-     // this.ptype = e;
     this.commonService.getCreditAcList().subscribe((res) => {
-      this.creditacList = res;
-    
-    });
-  
-
+      this.creditacList = res;    
+    }); 
   }
  
-  getTripDetails(e: any) {
-    
-      this.tripVehicleDetails.vehicleMasterId =  e.dataId;
-      
-      this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
-        this.tripDetails = res;
-        this.trip = res.tripNo;
+  getTripDetails(e: any) {    
+    this.tripVehicleDetails.vehicleMasterId =  e.dataId;      
+    this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
+      this.tripDetails = res;
+      this.trip = res.tripNo;
       if (res.fp ==''|| res.fp == null ) {
         this.formTripPayment.patchValue({
           vehicleMasterID:''
         });
         this.toasterService.warning("there is no Open trip for this vehicle");
-          return;
-         
+        return;          
+      }        
+      else{
+        this.formTripPayment.patchValue({
+          tripNo: this.tripDetails.tripNo,
+          from: this.tripDetails.fp,
+          to: this.tripDetails.tp,
+          loadorempty: this.tripDetails.loadEmptyType,
+          travel: this.tripDetails.travelAllowance,
+          dsltobe: this.tripDetails.ltsDslToBe_1,
+          tripMasterId: this.tripDetails.tripId,  
+        });
+        this.getTripDslDetails(this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
       }
-//date2 =this.commonService.formatDate(date2)
-//const myFormattedDate = this.commonService.formatDate(date2);
-
-       //   this.getValidation();
-        
-        else{
-          
-          this.formTripPayment.patchValue({
-            // cneeGst:  (this.ExpectedReportingDays).toString() 
-            tripNo:   this.tripDetails.tripNo,
-            from:   this.tripDetails.fp,
-            to:   this.tripDetails.tp,
-            loadorempty:   this.tripDetails.loadEmptyType,
-            travel:   this.tripDetails.travelAllowance,
-            dsltobe:   this.tripDetails.ltsDslToBe_1,
-            tripMasterId:  this.tripDetails.tripId,
-            
-           
-              
-           });
-           this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
-         
-        }
-      });
-    //  this.getTripDetails()
-   
-
+    });
   }
-  getTripDslDetails(e: any,m: any) {
-    
+
+  getTripDslDetails(e: any,m: any) {    
     this.tripVehicleDetails.vehicleMasterId =  e;
     this.tripVehicleDetails.tripNo =  m;
-    this.tripVehicleDetails.yearId=  this.year;
-    
+    this.tripVehicleDetails.yearId=  this.year;    
     this.commonService.getTripDslDetails(this.tripVehicleDetails).subscribe((res: Tripdsldetail) => {
       this.tripDslDetails = res;
-
-  this.dslIssued = res.dslIssued;
-  this.advIssued = res.advIssued;
-
-   
-        
-       // this.formTripPayment.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-       //   tripNo:   this.tripDetails.tripNo,
-       //   from:   this.tripDetails.fp,
-     
-          
-         
-            
-      //   });
-       
-      
+      this.dslIssued = res.dslIssued;
+      this.advIssued = res.advIssued;      
+      this.tripStatus = res.tripStatus;  
     });
 
-}
+  }
+
   getTripDetailseditmode(e: any) {
-    
     this.tripVehicleDetails.vehicleMasterId =  e;
-    
     this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
       this.tripDetails = res;
-     // if (this.tripkmsDetails.status) {
-     
-//date2 =this.commonService.formatDate(date2)
-//const myFormattedDate = this.commonService.formatDate(date2);
-
-        this.formTripPayment.patchValue({
-         // cneeGst:  (this.ExpectedReportingDays).toString() 
-         tripNo:   this.tripDetails.tripNo,
-         from:   this.tripDetails.fp,
-         to:   this.tripDetails.tp,
-         loadorempty:   this.tripDetails.loadEmptyType,
-         travel:   this.tripDetails.travelAllowance,
-         dsltobe:   this.tripDetails.ltsDslToBe_1,
-         tripMasterId:  this.tripDetails.tripId,
-         
-        
-           
-        });
-     //   this.getValidation();
-     this.getTripDslDetails( this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
-     
-    });
-    
-}
+      this.formTripPayment.patchValue({
+        // cneeGst:  (this.ExpectedReportingDays).toString() 
+        tripNo:   this.tripDetails.tripNo,
+        from:   this.tripDetails.fp,
+        to:   this.tripDetails.tp,
+        loadorempty:   this.tripDetails.loadEmptyType,
+        travel:   this.tripDetails.travelAllowance,
+        dsltobe:   this.tripDetails.ltsDslToBe_1,
+        tripMasterId:  this.tripDetails.tripId,           
+      });
+      // this.getValidation();
+    });    
+  }
 
   selectEvent(item: any) {
     // do something with selected item
@@ -415,8 +349,7 @@ export class AddtrippaymentsComponent {
   onChangeSearch(search: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
-  }
-  
+  }  
 
   onFocused(e: any) {
     // do something
@@ -437,159 +370,172 @@ export class AddtrippaymentsComponent {
       this.vehicleList = res;
     });
   }
+  
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
     });
   }
-  deleteTripPaymentForm(): void {
-    if (confirm("Are you sure, you want to delete this?")) {
 
-    }
-  }
   changeTransType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
- 
-
     if (selectedValue == "DL") {
+      this.formTripPayment.controls['qtyLtrs'].enable();
+      this.formTripPayment.controls['ratePerLtr'].enable();
       this.formTripPayment.controls['qtyLtrs'].setValidators([Validators.required]);
-     // this.formTripPayment.controls['ratePerLtr'].setValidators([Validators.required]);
+      this.formTripPayment.controls['amountPaid'].clearValidators();
     }
     else {
+      this.formTripPayment.controls['qtyLtrs'].disable();
+      this.formTripPayment.controls['ratePerLtr'].disable();
       this.formTripPayment.controls['qtyLtrs'].clearValidators();
-     // this.formTripPayment.controls['ratePerLtr'].clearValidators();
+      this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
     }
     this.formTripPayment.controls['qtyLtrs'].updateValueAndValidity();
-   // this.formTripPayment.controls['ratePerLtr'].updateValueAndValidity();
+    this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
   }
+
   calculateTotalAmount() {
-    let total = 0;
+    let total = '';
     if (this.formTripPayment.value.qtyLtrs!= "" && this.formTripPayment.value.ratePerLtr!= "") {
-    var qtyLtrs = this.formTripPayment.value.qtyLtrs ? parseFloat(this.formTripPayment.value.qtyLtrs) : 0;
-    var ratePerLtr = this.formTripPayment.value.ratePerLtr ? parseFloat(this.formTripPayment.value.ratePerLtr) : 0;
-    var amountPaid = this.formTripPayment.value.paidAmount ? parseFloat(this.formTripPayment.value.paidAmount) : 0;
-
-    total = qtyLtrs * ratePerLtr ;
-
-    this.formTripPayment.patchValue({
-      amountPaid: total,
-      
-      
-    });
-  }
-  else{
-    
-    this.formTripPayment.patchValue({
-      amountPaid: '',
-      
-      
-    });
-   
-  }
-  }
-
- 
-    
-  
-
-  changeNEFTValue(e: any){
-    console.log(e.target.checked);
-    var selectedValue = e.target.checked;
-    if(selectedValue){
-      this.formTripPayment.controls['chequeNo'].clearValidators();
-     // this.formTripPayment.controls['chequeDate'].clearValidators();
-     this.formTripPayment.patchValue({
-      chequeDate:  this.loginDate ,
-      
-      
-    });
-
+      var qtyLtrs = this.formTripPayment.value.qtyLtrs ? parseFloat(this.formTripPayment.value.qtyLtrs) : 0;
+      var ratePerLtr = this.formTripPayment.value.ratePerLtr ? parseFloat(this.formTripPayment.value.ratePerLtr) : 0;
+      var amountPaid = this.formTripPayment.value.paidAmount ? parseFloat(this.formTripPayment.value.paidAmount) : 0;
+      total = (qtyLtrs * ratePerLtr).toString() ;      
     }
-    else{
-    //  this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
-     // this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
+    this.formTripPayment.patchValue({
+      amountPaid: total,    
+    });
+  }
+ 
+  onNeftChk(e: any) {
+    this.checkselected=!this.checkselected;
+    if (this.checkselected){
+      this.formTripPayment.controls['chequeNo'].clearValidators();      
+      this.formTripPayment.controls['chequeDt'].clearValidators();   
+      this.formTripPayment.controls['chequeNo'].disable();
+      this.formTripPayment.controls['chequeDt'].disable();
+      this.formTripPayment.patchValue({
+        chequeNo:'',
+        chequeDt:'',
+      });   
+    }
+    else {
+      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeDt'].setValidators([Validators.required]);
+      this.formTripPayment.controls['chequeNo'].enable();
+      this.formTripPayment.controls['chequeDt'].enable();
     }
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
-    this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
+    this.formTripPayment.controls['chequeDt'].updateValueAndValidity();
   }
+
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
-    this.ptype = e.target.value;
-    this.getCreditAcList2(this.ptype);
-    if (selectedValue == "2") {
-      
-      this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
-      this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);
+    if (selectedValue == 'B'){
+      this.formTripPayment.controls['neftPmt'].enable();
+      this.formTripPayment.controls['chequeNo'].enable();
+      this.formTripPayment.controls['chequeDt'].enable();
     }
     else {
-      this.formTripPayment.controls['chequeNo'].clearValidators();
-      this.formTripPayment.controls['chequeDate'].clearValidators();
-      
+      this.checkselected = false;  
+      this.formTripPayment.controls['neftPmt'].disable();
     }
-    this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
-    this.formTripPayment.controls['chequeDate'].updateValueAndValidity();
+    this.ptype = e.target.value;
+    this.getCreditAcList2(this.ptype);   
   }
-  
-
-  //Submit user form details //
+   
   submitTripPaymentsForm(): void {
-    this.userSubmitted = true;
-    if (this.formTripPayment.invalid) {
-      this.toasterService.warning("Mandatory fields is required");
+    if(this.tripStatus=="Closed"){
+      this.toasterService.warning("Trip already Closed, Can not Save ");
       return;
     }
-    var selectedDataValue = this.formTripPayment.getRawValue();
-    this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId != '' ? this.selectedTripPaymentsDetails.pmtId : '';
-    this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
-    this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
-
-    this.trippaymentsmodel.tripNo = selectedDataValue.tripNo;
-    this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-   // this.trippaymentsmodel.tripMasterId = selectedDataValue.tripId;tripMasterId
-   this.trippaymentsmodel.tripMasterId = selectedDataValue.tripMasterId;
-
-    this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
-    this.trippaymentsmodel.remarks = selectedDataValue.remarks;
-    this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
-    this.trippaymentsmodel.transType = selectedDataValue.transType;
-    this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt  ? "1" : "";
-  //this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt ;
-    this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
-    this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
-    this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;
-    this.trippaymentsmodel.findocid = selectedDataValue.findocid;
-    this.trippaymentsmodel.adjInTrip = selectedDataValue.adjInTrip;
-    this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
-    this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr;
-    
-    this.trippaymentsmodel.yearId = this.year;
-    this.ttype = this.formTripPayment.value.transType;
-    this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
-    if( this.trippaymentsmodel.pmtId!=''){
-      this.tripPaymentsService.trippaymentEditSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        console.log(this.responseDetails.message);
-  
-        this.formTripPayment.reset();
-     
-        window.location.reload();
-  
-
-    });
-    }
     else{
- //   this.tripPaymentsService.trippaymentDetailsSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
-  this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
+      this.userSubmitted = true;
+      if (this.formTripPayment.invalid) {
+        this.toasterService.warning("Please Enter Mandatory Fields ");   
+        const controls = this.formTripPayment.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toasterService.warning(name + " Fields is Invalid");   
+          }
+        }
+        return;
+      }
 
-      console.log(this.responseDetails.message);
-  
-      this.formTripPayment.reset();
-   
-      window.location.reload();
-    });
+      var selectedDataValue = this.formTripPayment.getRawValue();
+      if (selectedDataValue.transType == "DA") {
+        if(parseFloat(selectedDataValue.amountPaid)>0){
+          //ignore
+        }
+        else{
+          this.toasterService.warning("Please Enter Advcance Amount ");           
+          return;
+        }
+      }
+      else{
+        if(parseFloat(selectedDataValue.qtyLtrs)>0){
+          //ignore
+        }
+        else{
+          this.toasterService.warning("Please Enter Qty Liters ");          
+          return;
+        }
+      }   
+
+      var chqDt = this.loginDate;
+      if (selectedDataValue.pmtType=="B"){
+        chqDt = selectedDataValue.chequeDt == '' ? this.loginDate:selectedDataValue.chequeDt;
+      }
+      this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId ;
+      this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
+      this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
+      this.trippaymentsmodel.tripNo = selectedDataValue.tripNo;
+      this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+      this.trippaymentsmodel.tripMasterId = selectedDataValue.tripMasterId;
+      this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
+      this.trippaymentsmodel.remarks = selectedDataValue.remarks;
+      this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
+      this.trippaymentsmodel.transType = selectedDataValue.transType;
+      this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt;
+      this.trippaymentsmodel.creditAc = selectedDataValue.creditAc;
+      this.trippaymentsmodel.chequeNo =selectedDataValue.chequeNo;
+      this.trippaymentsmodel.chequeDate = selectedDataValue.chequeDate;
+      this.trippaymentsmodel.findocid = selectedDataValue.findocid;
+      this.trippaymentsmodel.adjInTrip = selectedDataValue.adjInTrip;
+      this.trippaymentsmodel.qtyLtrs = selectedDataValue.qtyLtrs;
+      this.trippaymentsmodel.ratePerLtr = selectedDataValue.ratePerLtr;    
+      this.trippaymentsmodel.yearId = this.year;
+      this.trippaymentsmodel.loggedInUser = this.loggedInUserID;
+
+      if( this.trippaymentsmodel.pmtId!=''){
+        this.tripPaymentsService.trippaymentEditSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formTripPayment.reset();
+            this.route.navigate(['/trippaymentlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          } 
+        });
+      }
+      else{
+        this.tripPaymentsService.trippaymentSaveSubmitted(this.trippaymentsmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formTripPayment.reset();
+            this.route.navigate(['/trippaymentlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+        });
+      }
+    }
   }
-}
 }

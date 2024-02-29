@@ -21,13 +21,17 @@ export class AdddocrenewalentryComponent {
     branchid:string = '';
     year:string = '';
     formDocEntry!: FormGroup;
+    fromDate: string = '';
+    minDate: string = '';
     maxDate: string = '';
+    loginDate: string = '';
     userSubmitted = false;
     editMode = false;
     createStatus = false;
     editStatus = false;
     deleteStatus = false;
     viewStatus = false;
+    checkselected: boolean = false;
 
     responseDetails = new Responsemodel();
     VehicalExistDetails = new Responsemodel();
@@ -81,7 +85,20 @@ export class AdddocrenewalentryComponent {
       this.route.navigate(['/']);
     }
     
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 10);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+  
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+
     var userbranchcode = sessionStorage.getItem('userBranch')?.toString();
     
     if (typeof userbranchcode !== 'undefined' && userbranchcode !== null && userbranchcode !== '') {
@@ -102,7 +119,7 @@ export class AdddocrenewalentryComponent {
 
     this.selectedDocRenewalEntryDetails = this.docrenewalEntryService.getDocrenewalEntryDetails();
     this.formDocEntry = this.formBuilder.group({
-      transDate: new FormControl('',[Validators.required]),
+      transDate: new FormControl(this.loginDate,[Validators.required]),
       docRenewalID: new FormControl('',[Validators.required]),
       documentRefNo: new FormControl('',[Validators.required]),
       pmtType: new FormControl('',[Validators.required]),
@@ -168,13 +185,19 @@ export class AdddocrenewalentryComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedDocRenewalEntryDetails.vehicleMasterID),
         });    
         this.editMode = true; 
+        this.formDocEntry.controls['docRenewalID'].disable();
+        this.formDocEntry.controls['vehicleMasterID'].disable();
         if (this.selectedDocRenewalEntryDetails.neftPmt=='Y'){
-          this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
-          this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);
+          this.checkselected = true;
+          this.formDocEntry.controls['chequeNo'].clearValidators();      
+          this.formDocEntry.controls['chequeDt'].clearValidators(); 
+          this.formDocEntry.controls['chequeNo'].disable();      
+          this.formDocEntry.controls['chequeDt'].disable(); 
         }
         else {
-          this.formDocEntry.controls['chequeNo'].clearValidators();      
-          this.formDocEntry.controls['chequeDt'].clearValidators();   
+          this.checkselected = false;
+          this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
+          this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);  
         }
         this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
         this.formDocEntry.controls['chequeDt'].updateValueAndValidity();    
@@ -227,13 +250,22 @@ export class AdddocrenewalentryComponent {
   };
 
   onNeftChk(e: any) {
-    if (e.target.value=='Y'){
-      this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
-      this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);
-    }
-    else {
+    this.checkselected=!this.checkselected;
+    if (this.checkselected){
       this.formDocEntry.controls['chequeNo'].clearValidators();      
       this.formDocEntry.controls['chequeDt'].clearValidators();   
+      this.formDocEntry.controls['chequeNo'].disable();
+      this.formDocEntry.controls['chequeDt'].disable();
+      this.formDocEntry.patchValue({
+        chequeNo:'',
+        chequeDt:'',
+      });   
+    }
+    else {
+      this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
+      this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);
+      this.formDocEntry.controls['chequeNo'].enable();
+      this.formDocEntry.controls['chequeDt'].enable();
     }
     this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
     this.formDocEntry.controls['chequeDt'].updateValueAndValidity();
@@ -242,6 +274,15 @@ export class AdddocrenewalentryComponent {
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
+    if (selectedValue == 'B'){
+      this.formDocEntry.controls['neftPmt'].enable();
+      this.formDocEntry.controls['chequeNo'].enable();
+      this.formDocEntry.controls['chequeDt'].enable();
+    }
+    else {
+      this.checkselected = false;  
+      this.formDocEntry.controls['neftPmt'].disable();
+    }
     this.getPaymentCreditAcList(selectedValue);
   }
 
@@ -402,9 +443,14 @@ export class AdddocrenewalentryComponent {
       if (confirm("Are you sure, you want to delete this?")) {
             this.docrenewalEntryService.DocrenewalEntryDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formDocEntry.reset();
-            this.route.navigate(['/docrenewalentrylist']);
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formDocEntry.reset();
+              this.route.navigate(['/docrenewalentrylist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
         });
       }
       this.sharedService.loading=false;
@@ -418,7 +464,6 @@ export class AdddocrenewalentryComponent {
   submitDocRenewalEntryForm(): void {
     this.userSubmitted = true;
     if (this.formDocEntry.invalid) {
-    this.sharedService.loading=true;
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formDocEntry.controls;
       for (const name in controls) {
@@ -430,12 +475,16 @@ export class AdddocrenewalentryComponent {
     }
     this.sharedService.loading=true;
     var selectedDataVal=this.formDocEntry.getRawValue();
+    var chqDt = this.loginDate;
+    if (selectedDataVal.pmtType=="B"){
+      chqDt = selectedDataVal.chequeDt == '' ? this.loginDate:selectedDataVal.chequeDt;
+    }
     this.docRenewalentryModel.docRenewalEntryId = this.selectedDocRenewalEntryDetails.docRenewalEntryId  != '' ? this.selectedDocRenewalEntryDetails.docRenewalEntryId  : '';
     this.docRenewalentryModel.transDate         = selectedDataVal.transDate;
     this.docRenewalentryModel.docRenewalID      = selectedDataVal.docRenewalID;
     this.docRenewalentryModel.vehicleMasterID   = selectedDataVal.vehicleMasterID.dataId;
-    this.docRenewalentryModel.documentRefNo     = selectedDataVal.documentRefNo;
-    this.docRenewalentryModel.renewalCompany    = selectedDataVal.renewalCompany;
+    this.docRenewalentryModel.documentRefNo     = selectedDataVal.documentRefNo.toString().toUpperCase();
+    this.docRenewalentryModel.renewalCompany    = selectedDataVal.renewalCompany.toString().toUpperCase();
     this.docRenewalentryModel.validFromDt       = selectedDataVal.validFromDt;
     this.docRenewalentryModel.validToDt         = selectedDataVal.validToDt;
     this.docRenewalentryModel.basicAmt          = selectedDataVal.basicAmt;
@@ -445,7 +494,7 @@ export class AdddocrenewalentryComponent {
     this.docRenewalentryModel.cgstAmt           = selectedDataVal.cgstAmt;
     this.docRenewalentryModel.igstPct           = selectedDataVal.igstPct;
     this.docRenewalentryModel.igstAmt           = selectedDataVal.igstAmt;
-    this.docRenewalentryModel.hsnCode1          = selectedDataVal.hsnCode1;
+    this.docRenewalentryModel.hsnCode1          = selectedDataVal.hsnCode1.toString().toUpperCase();
     this.docRenewalentryModel.basicAmt2         = selectedDataVal.basicAmt2;
     this.docRenewalentryModel.sgstPct2          = selectedDataVal.sgstPct2;
     this.docRenewalentryModel.sgstAmt2          = selectedDataVal.sgstAmt2;
@@ -453,9 +502,9 @@ export class AdddocrenewalentryComponent {
     this.docRenewalentryModel.cgstAmt2          = selectedDataVal.cgstAmt2;
     this.docRenewalentryModel.igstPct2          = selectedDataVal.igstPct2;
     this.docRenewalentryModel.igstAmt2          = selectedDataVal.igstAmt2;
-    this.docRenewalentryModel.hsnCode2          = selectedDataVal.hsnCode2;
+    this.docRenewalentryModel.hsnCode2          = selectedDataVal.hsnCode2.toString().toUpperCase();
     this.docRenewalentryModel.nonGstAmount      = selectedDataVal.nonGstAmount;
-    this.docRenewalentryModel.nonGstAmtDesc     = selectedDataVal.nonGstAmtDesc;
+    this.docRenewalentryModel.nonGstAmtDesc     = selectedDataVal.nonGstAmtDesc.toString().toUpperCase();
     this.docRenewalentryModel.subTotal          = selectedDataVal.subTotal;
     this.docRenewalentryModel.roundOff          = selectedDataVal.roundOff;
     this.docRenewalentryModel.netAmount         = selectedDataVal.netAmount;
@@ -463,9 +512,9 @@ export class AdddocrenewalentryComponent {
     this.docRenewalentryModel.creditAc          = selectedDataVal.creditAc;
     this.docRenewalentryModel.neftPmt           = selectedDataVal.neftPmt;
     this.docRenewalentryModel.chequeNo          = selectedDataVal.chequeNo;
-    this.docRenewalentryModel.chequeDt          = selectedDataVal.chequeDt == '' ? selectedDataVal.transDate:selectedDataVal.chequeDt;
+    this.docRenewalentryModel.chequeDt          = chqDt;
     this.docRenewalentryModel.finDocID          = selectedDataVal.finDocID;
-    this.docRenewalentryModel.remarks           = selectedDataVal.remarks;
+    this.docRenewalentryModel.remarks           = selectedDataVal.remarks.toString().toUpperCase();
     this.docRenewalentryModel.branchCode        = selectedDataVal.branchCode;    
     this.docRenewalentryModel.attach1           = selectedDataVal.attach1;
     this.docRenewalentryModel.attach2           = selectedDataVal.attach2;
@@ -510,9 +559,14 @@ export class AdddocrenewalentryComponent {
 
     this.docrenewalEntryService.docrenewalEntryDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formDocEntry.reset();
-      this.route.navigate(['/docrenewalentrylist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formDocEntry.reset();
+        this.route.navigate(['/docrenewalentrylist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
     });
     this.sharedService.loading=false;
   }

@@ -278,12 +278,13 @@ export class DieselstatementaddComponent implements OnInit {
     this.sharedService.loading=false;
     }
   }
+
   getDieselStatementInnerGridList(): void {
     this.dieselstatementService.getDieselStatementInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
       this.DieselStatementmodel = res;
       for (var i = 0; i < this.formArray.length; i++) {
         this.formArray.removeAt(i);
-     }     
+      }     
       
       for (var i = 0; i < res.dieselStatementListData.length; i++) {
         this.formArray.push(this.createInitialArray());
@@ -309,10 +310,7 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("remarks")?.disable();
         this.formArray.controls[i].get("selected")?.disable();
       }
-    });
-    
-
-    
+    });  
   }
 
   saveStatementDetails(): void {
