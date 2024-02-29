@@ -118,8 +118,8 @@ formFilter!: FormGroup;
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
-        transType: new FormControl('',),  
-        pmtType: new FormControl('',),  
+        tripLink: new FormControl('',),  
+        status: new FormControl('',),  
       });
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
@@ -266,9 +266,9 @@ formFilter!: FormGroup;
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
-      this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-      this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.tripLink:"";
+      this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.status:"";
+      this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
       this.tripStatusRptService.getTripStatusRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
@@ -297,9 +297,10 @@ formFilter!: FormGroup;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
-    this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
+    this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
+   //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+ this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
     this.sharedService.loading=true;
     this.expTripStatus();
     this.sharedService.loading=false;
