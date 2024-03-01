@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System;
 using Shared.Models;
 using Consignment.Repository;
+using Org.BouncyCastle.Asn1.Ocsp;
+using Org.BouncyCastle.Ocsp;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -83,6 +85,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetConsignmentList")]
         public async Task<IActionResult> GetConsignmentList(PageRequestDtBrVh request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await consignmentBusiness.GetConsignmentList(request);
@@ -113,6 +119,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetKms")]
         public async Task<IActionResult> GetKms(KmsModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await consignmentBusiness.GetKms(request);
@@ -124,6 +134,25 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        public async Task<IActionResult> CheckEwaybillExits(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.CheckEwaybillExits(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetTripKms")]
         public async Task<IActionResult> GetTripKms(KmsModel request)
         {
@@ -152,6 +181,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetDslToBe")]
         public async Task<IActionResult> GetDslToBe(DslModel request)
         {
@@ -181,7 +211,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("CheckDuplicateLr")]
-        public async Task<IActionResult> CheckDuplicateLr(GcModel request)
+        public async Task<IActionResult> CheckDuplicateLr(RequestModel request)
         {
             try
             {
@@ -196,7 +226,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetGcSeries")]
-        public async Task<IActionResult> GetGcSeries(GcModel request)
+        public async Task<IActionResult> GetGcSeries(RequestModel request)
         {
             try
             {
@@ -210,7 +240,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillSeries")]
-        public async Task<IActionResult> GetBillSeries(GcModel request)
+        public async Task<IActionResult> GetBillSeries(RequestModel request)
         {
             try
             {

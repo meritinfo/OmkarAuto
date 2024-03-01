@@ -228,9 +228,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }"
-                                                        (inputCleared)="onClearedToPlace($event)"
-                                                         
-                                                       >
+                                                        (inputCleared)="onClearedToPlace($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -274,7 +272,6 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="mb-3"><label for="formrow-inputCity">Consignor</label>
-
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="cnorCode" uppercaseonly
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorCode'].invalid) }">
@@ -337,10 +334,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="mb-4">
@@ -354,12 +347,7 @@
                                                 <input uppercaseonly class="form-control" formControlName="cneeAdd3">
                                             </div>
                                         </div>
-
-
                                     </div>
-
-
-
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3">

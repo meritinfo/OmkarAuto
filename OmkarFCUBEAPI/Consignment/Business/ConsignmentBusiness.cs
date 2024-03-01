@@ -44,6 +44,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetKms(request);
         }
+        public async Task<ResponseModel> CheckEwaybillExits(RequestModel req)
+        {
+            return await consignmentRepository.CheckEwaybillExits(req);
+        }
         public async Task<ResponseModel> GetTripKms(KmsModel request)
         {
             return await consignmentRepository.GetTripKms(request);
@@ -60,7 +64,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetAdBlueToBe(request);
         }
-        public async Task<ResponseModel> CheckDuplicateLr(GcModel request)
+        public async Task<ResponseModel> CheckDuplicateLr(RequestModel request)
         {
             return await consignmentRepository.CheckDuplicateLr(request);
         }
@@ -82,11 +86,11 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetLRSeriesForBill();
         }
-        public async Task<ResponseModel> GetGcSeries(GcModel request)
+        public async Task<ResponseModel> GetGcSeries(RequestModel request)
         {
             return await consignmentRepository.GetGcSeries(request);
         }
-        public async Task<ResponseModel> GetBillSeries(GcModel request)
+        public async Task<ResponseModel> GetBillSeries(RequestModel request)
         {
             return await consignmentRepository.GetBillSeries(request);
         }

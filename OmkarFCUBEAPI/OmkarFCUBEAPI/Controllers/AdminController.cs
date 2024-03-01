@@ -276,7 +276,7 @@ namespace OmkarFCUBEAPI.Controllers
         /// Controller method for User Master List
         /// </summary>
         [HttpPost("GetEWayBillDetails")]
-        public async Task<IActionResult> GetEWayBillDetails(EWayBillRequest request)
+        public async Task<IActionResult> GetEWayBillDetails(RequestModel request)
         {
             try
             {

@@ -384,7 +384,7 @@ namespace AdminMasters.Repository
         /// Service method for get eway bill details
         /// </summary>
         /// <returns>EWayBillModel</returns>
-        public async Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request)
+        public async Task<EWayBillModel> GetEWayBillDetails(RequestModel request)
         {
             EWayBillModel eWayBill = new();
             Root root = new();
@@ -398,7 +398,7 @@ namespace AdminMasters.Repository
 
                 string token = await GetAccessToken(ewayapiConfigurtion);
 
-                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ ewayapiConfigurtion.EwayBillApiGstId + "&eway_bill_number=" + request.EWayBillNumber;
+                string urlParameters = "?access_token=" + token + "&action=GetEwayBill&gstin="+ ewayapiConfigurtion.EwayBillApiGstId + "&eway_bill_number=" + request.strRequest;
 
                 HttpClient client = new()
                 {

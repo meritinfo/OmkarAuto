@@ -33,7 +33,7 @@
                                  <div class="col-lg-2">
                                    <div class="mb-4">
                                        <input uppercaseonly type="text"  autofocus="autofocus"  class="form-control"
-                                           placeholder="" formControlName="centreName"  autoclose="false"                                      
+                                           (change)="chkBranchNameExits($event)" formControlName="centreName"  autoclose="false"                                      
                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['centreName'].invalid) }">
                                     </div>
                                  </div>

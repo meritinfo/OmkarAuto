@@ -13,7 +13,6 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Gcmodel } from 'src/app/models/gcmodel';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -24,7 +23,6 @@ export class BillstatementaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
-  gcDetails = new Gcmodel();
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
@@ -47,7 +45,10 @@ export class BillstatementaddComponent implements OnInit {
   billsstatementinnergridrequest = new Billstatementinnergridrequest();
   responseDetails = new Responsemodel();
 
-  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, private billstatementService: BillstatementService, private route: Router, private formBuilder: FormBuilder,private sharedService: SharedService, private toasterService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, 
+    private billstatementService: BillstatementService, private route: Router, 
+    private formBuilder: FormBuilder,private sharedService: SharedService, 
+    private toasterService: ToastrService,private requestmodel:Requestmodel) {
     this.billsstatementmodel = new billstatementmodel();
     
   }
@@ -209,8 +210,8 @@ getGcSeries(gcSeries: any): void {
   //this.commonService.getGcSeries().subscribe((res) => {
   // this.gcno = res.dataName;
   // });
-  this.gcDetails.gcSlNo = gcSeries;
-  this.commonService.getBillSeries(this.gcDetails).subscribe((res: Responsemodel) => {
+  this.requestmodel.strRequest = gcSeries;
+  this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     this.formBillStatement.patchValue({
       billNo: res.message

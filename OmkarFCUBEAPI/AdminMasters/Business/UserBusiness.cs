@@ -55,7 +55,7 @@ namespace AdminMasters.Business
         /// <summary>
         /// Business method for EBill details
         /// </summary>
-        public async Task<EWayBillModel> GetEWayBillDetails(EWayBillRequest request)
+        public async Task<EWayBillModel> GetEWayBillDetails(RequestModel request)
         {
             return await userRepository.GetEWayBillDetails(request);
         }

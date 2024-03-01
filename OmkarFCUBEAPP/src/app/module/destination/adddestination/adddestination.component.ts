@@ -40,6 +40,7 @@ export class AdddestinationComponent {
      private toasterService: ToastrService ) {
     this.destinationModel = new Destinationmodel();
   }
+  
   ngOnInit(): void {
 
     var menuData = sessionStorage.getItem('menulist')?.toString();

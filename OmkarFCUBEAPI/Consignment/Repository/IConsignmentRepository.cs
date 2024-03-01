@@ -7,6 +7,7 @@ namespace Consignment.Repository
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
         Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request);
+        Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
@@ -17,11 +18,11 @@ namespace Consignment.Repository
         Task<TripKmsModel> GetTripKms2(KmsModel request);
         Task<ResponseModel> GetDslToBe(DslModel request);
         Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
-        Task<ResponseModel> CheckDuplicateLr(GcModel request);
+        Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<List<DropDownListModel>> GetBillingPartyList();
         Task<List<DropDownListModel>> GetLRSeries();
         Task<List<DropDownListModel>> GetLRSeriesForBill();
-        Task<ResponseModel> GetGcSeries(GcModel request);
-        Task<ResponseModel> GetBillSeries(GcModel request);
+        Task<ResponseModel> GetGcSeries(RequestModel request);
+        Task<ResponseModel> GetBillSeries(RequestModel request);
     }
 }

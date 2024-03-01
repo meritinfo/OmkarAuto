@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Getkmsmodel } from 'src/app/models/getkmsmodel';
-
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -20,7 +19,6 @@ import { Dslmodel } from 'src/app/models/dslmodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { GetDslmodel } from 'src/app/models/getdslmodel';
 import { Datemodel } from 'src/app/models/datemodel';
-import { Gcmodel } from 'src/app/models/gcmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
 
@@ -48,8 +46,7 @@ export class ConsignmentaddComponent implements OnInit {
   transporter_doc_number: string = '';
   ExpectedReportingDays: number = 0;
   ExpectedReportingDt: string = '';
-  DistanceTripKM_1: number = 0;
-  
+  DistanceTripKM_1: number = 0;  
 
   formConsignment!: FormGroup;
   formSubmitted = false;
@@ -59,8 +56,6 @@ export class ConsignmentaddComponent implements OnInit {
   dslDetails = new Dslmodel();
   adBlueDetails = new Adbluetobemodel();
   getdslDetails = new GetDslmodel();
-  gcDetails = new Gcmodel();
-
 
   dateDetails = new Datemodel();
   fromDate: string = '';
@@ -97,9 +92,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
-    
-    this.sharedService.loading = true;
-  
+     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -146,6 +139,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
     ////this.ivVehicleNo = "Hyderabad";
 
+    this.sharedService.loading = true;
     this.getBranchList();
     this.getRateList();
     this.getContentList();
@@ -224,78 +218,52 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch2: new FormControl('',),
       userBranch3: new FormControl('1',),
     });
-    setTimeout(() => {
-     // this.sharedService.loading = true;
-      this.createmode= true;
-      
+    setTimeout(() => {      
       this.formConsignment.controls['bookingPlace'].disable();
-
       if (this.selectedConsignmentDetails.consignmentID != '') {
-       //  this.searchGSTForEdit();
-        this.formConsignment.patchValue(this.selectedConsignmentDetails);
-      
-        //this.formConsignment.controls['ewayBillNo'].disable();
-        //this.formConsignment.controls['ewayBillNo2'].disable();
-       // this.formConsignment.controls.search2.disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
         this.formConsignment.controls['ewayBillEntryType'].disable();
         this.formConsignment.controls['gcSlNo'].disable();
-       // this.formConsignment.controls['transport'].disable();
+        this.formConsignment.patchValue(this.selectedConsignmentDetails); 
 
-        var bookingConvertatedDate = this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate);
-        var ewayBillDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate);
-        var shipmentDtConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt);
-        var cnorInvDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate);
-        var ewayBillExpDateConverted =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate);
-        var ewayBillDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate2);
-      
-        var cnorInvDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate2);
-        var ewayBillExpDateConverted2 =  this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate2);
         this.formConsignment.patchValue({
           userBranch: this.selectedConsignmentDetails.bookingPlace,
-          bookingDate: bookingConvertatedDate,
-        //  ewayBillDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
-         // ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
-          ewayBillDate:ewayBillDateConverted,
-         ewayBillExpDate: ewayBillExpDateConverted,
-         ewayBillDate2:ewayBillDateConverted2,
-         ewayBillExpDate2: ewayBillExpDateConverted2,
-          //shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
-         // cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
-          shipmentDt:shipmentDtConverted,
-          cnorInvDate: cnorInvDateConverted,
-          cnorInvDate2: cnorInvDateConverted2,
-         
+          bookingDate: this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate),
+          ewayBillDate:this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
+          ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
+          ewayBillDate2:this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate2),
+          ewayBillExpDate2: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate2),
+          shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
+          cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
+          cnorInvDate2:  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate2),         
           fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
           gcSeries: this.selectedConsignmentDetails.gcSeries,
           truckId: this.vehicleList.find(e => e.dataId == this.selectedConsignmentDetails.truckId),
-          billingParty: this.partyList.find(e => e.dataId == this.selectedConsignmentDetails.billingParty),
-          
-
+          billingParty: this.partyList.find(e => e.dataId == this.selectedConsignmentDetails.billingParty),   
         })
+
         this.editMode = true;
         this.ivFromPlace=this.selectedConsignmentDetails.fromPlace;
         this.ivToPlace=this.selectedConsignmentDetails.toPlace;
-        this.sharedService.loading = false;
       }
-      this.sharedService.loading = false;
     }, 2000);
   
     //this.getGcSeries();
     //this.ivVehicleNo = 'TS07UF3495';
 
+    this.sharedService.loading = false;
     this.changeEWay('A');
   }
   
-  // convenience getter for easy access to contact form fields
   get f() { return this.formConsignment.controls; }
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
+
   checkBillno() {
     var selectedDataValue = this.formConsignment.getRawValue();
     var d1 = selectedDataValue.ewayBillNo;
@@ -307,8 +275,7 @@ export class ConsignmentaddComponent implements OnInit {
       this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
       return
     }
-  }
- 
+  } 
 
   consignmentDelete(): void {
     if(this.selectedConsignmentDetails.consignmentID != '' ){
@@ -324,14 +291,11 @@ export class ConsignmentaddComponent implements OnInit {
     }
   }
 
-
   getRateList(): void {
     this.commonService.getRateList().subscribe((res) => {
       this.rateList = res;
     });
   }
-
-
 
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
@@ -344,32 +308,34 @@ export class ConsignmentaddComponent implements OnInit {
       this.vehicleList = res;
     });
   }
+
   getlrSeriesList(): void {
     this.commonService.getlrSeriesList().subscribe((res) => {
       this.lrSeries = res;
     });
   }
+
   lrSeriesChange(): void {
     var selectedData = this.formConsignment.value.gcSeries;
     this.getGcSeries(selectedData);
   }
+
   getGcSeries(gcSeries: any): void {
-    //this.commonService.getGcSeries().subscribe((res) => {
-    // this.gcno = res.dataName;
-    // });
-    this.gcDetails.gcSlNo = gcSeries;
-    this.commonService.getGcSeries(this.gcDetails).subscribe((res: Responsemodel) => {
+    this.requestmodel.strRequest = gcSeries;
+    this.commonService.getGcSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formConsignment.patchValue({
         gcSlNo: res.message
       });
     });
   }
+
   getContentList(): void {
     this.commonService.getContentList().subscribe((res) => {
       this.contentList = res;
     });
   }
+
   getBillingPartyList(): void {
     this.commonService.getBillingPartyList().subscribe((res) => {
       this.partyList = res;
@@ -387,6 +353,7 @@ export class ConsignmentaddComponent implements OnInit {
     //  this.getAdBlueToBe();
     //  this.getDslToBe();
   }
+
   changeToPlace(e: any) {
     var selectedDataValue = this.formConsignment.getRawValue();
     this.ivFromPlace = selectedDataValue.fromPlace.dataId;
@@ -422,6 +389,7 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
+
   popupClosedFromPlace() {
     if (!this.ivFromPlace) {
       
@@ -430,18 +398,21 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
+
   onClearedFromPlace(e: any){
     this.ivFromPlace='0';
     this.formConsignment.patchValue({
       kms: '0'
     });
   }
+
   onClearedToPlace(e: any){
     this.ivToPlace='0';
     this.formConsignment.patchValue({
       kms: '0'
     });
   }
+
   popupClosedVehicle() {
     // if(!this.ivVehicleNo){
     //  this.formConsignment.patchValue({
@@ -458,11 +429,10 @@ export class ConsignmentaddComponent implements OnInit {
     }
     this.ivVehicleNo = '';
   }
+
   checkDuplicateLr() {
-
-
-    this.gcDetails.gcSlNo = this.formConsignment.value.gcSlNo;
-    this.commonService.checkDuplicateLr(this.gcDetails).subscribe((res: Responsemodel) => {
+    this.requestmodel.strRequest = this.formConsignment.value.gcSlNo;
+    this.commonService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (!this.responseDetails.status) {
         this.toasterService.warning(this.responseDetails.message);
@@ -471,7 +441,6 @@ export class ConsignmentaddComponent implements OnInit {
         });
       }
     });
-
   }
 
   checkMs() {
@@ -502,6 +471,7 @@ export class ConsignmentaddComponent implements OnInit {
   exit(): void {
     this.route.navigate(['/consignmentlist']);
   }
+
   checkTripkMs() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.kmsDetails.fromLocation = this.ivFromPlace;
@@ -509,25 +479,14 @@ export class ConsignmentaddComponent implements OnInit {
       this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
-        // if (this.tripkmsDetails.status) {
-        this.tripKms = this.tripkmsDetails.kms
-        this.DistanceTripKM_1 = parseInt(this.tripkmsDetails.kms)
-        this.ExpectedReportingDays
-          = this.DistanceTripKM_1 / 400
-        this.ExpectedReportingDays = Math.round(this.ExpectedReportingDays) + 1
+        this.tripKms = this.tripkmsDetails.kms;
+        this.DistanceTripKM_1 = parseInt(this.tripkmsDetails.kms);
+        this.ExpectedReportingDays = this.DistanceTripKM_1 / 400;
+        this.ExpectedReportingDays = Math.round(this.ExpectedReportingDays) + 1;
         let date: Date = new Date(this.formConsignment.value.bookingDate);
 
-
-        date.setDate(date.getDate() + this.ExpectedReportingDays)
-        let date2 = (date).toISOString()
-        //date2 =this.commonService.formatDate(date2)
-        //const myFormattedDate = this.commonService.formatDate(date2);
-
-        this.formConsignment.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          //  cneeGst:  date2.split("T")[0]
-
-        });
+        date.setDate(date.getDate() + this.ExpectedReportingDays);
+        let date2 = (date).toISOString()  ;    
 
       });
     }
@@ -537,6 +496,7 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
+
   getDslToBe() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.dslDetails.transDate = this.formConsignment.value.bookingDate;
@@ -545,20 +505,9 @@ export class ConsignmentaddComponent implements OnInit {
       this.dslDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsDslToBe = res.message;
-        // if (this.tripkmsDetails.status) {
-
-
-
-        //date2 =this.commonService.formatDate(date2)
-        //const myFormattedDate = this.commonService.formatDate(date2);
-
         this.formConsignment.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
           cneeGst: this.ltsDslToBe
-
-
         });
-
       });
     }
     else {
@@ -567,28 +516,14 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
+
   getAdBlueToBe() {
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.adBlueDetails.transDate = this.formConsignment.value.bookingDate;
       this.adBlueDetails.tripKms = this.tripKms//this.formConsignment.value.kms;
-
       this.adBlueDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
       this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
-        this.adBlueToBe = res.message;
-        // if (this.tripkmsDetails.status) {
-
-
-
-        //date2 =this.commonService.formatDate(date2)
-        //const myFormattedDate = this.commonService.formatDate(date2);
-
-        this.formConsignment.patchValue({
-          // cneeGst:  (this.ExpectedReportingDays).toString() 
-          //   cneeGst:   this.adBlueToBe
-
-
-        });
-
+        this.adBlueToBe = res.message;        
       });
     }
     else {
@@ -597,15 +532,14 @@ export class ConsignmentaddComponent implements OnInit {
       });
     }
   }
-  checkDate() {
 
+  checkDate() {
     this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
     this.dateDetails.yearId = this.year;
-
     this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
-
+          //IGONRE
       }
       else {
         this.toasterService.warning("booking date is invalid");
@@ -614,12 +548,6 @@ export class ConsignmentaddComponent implements OnInit {
       }
     });
   }
-
-
-
-
-
-
 
   //Submit user form details //
   submitConsignmentForm(): void {
@@ -748,15 +676,28 @@ export class ConsignmentaddComponent implements OnInit {
       return
     }
 
-    var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
+    //var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
+    this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo2;
+      
+    this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        //ignore
+      }
+      else{
+        this.formConsignment.patchValue({
+          ewayBillNo:"",
+        });
+        this.toastrService.warning("Please Enter Valid Eway bill no ");
+        return
+      }
+    });
 
-    this.commonService.billDetails(payload).subscribe((res: any) => {
+    this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
       var result = res.result;
       if (result.code === 200) {
         this.formConsignment.controls['ewayBillEntryType'].disable();
-
         this.eWayBillDetails.result = result;
-
         var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
         var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
         if (selectedVehicleID) {
@@ -786,9 +727,6 @@ export class ConsignmentaddComponent implements OnInit {
           //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
           // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
           truckId: selectedVehicleID ? selectedVehicleID : "",
-
-
-
           //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
           declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
           //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
@@ -798,6 +736,7 @@ export class ConsignmentaddComponent implements OnInit {
       }
     });
   }
+
   searchGSTDetails2(): void {
     var selectedDataValue = this.formConsignment.getRawValue();
     var d1 = selectedDataValue.ewayBillNo;
@@ -816,69 +755,69 @@ export class ConsignmentaddComponent implements OnInit {
       return
     }
     else{
-    var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo2 }
-
-    this.commonService.billDetails(payload).subscribe((res: any) => {
-      var result = res.result;
-      if (result.code === 200) {
-        
-        this.formConsignment.controls['ewayBillEntryType'].disable();
-
-        this.eWayBillDetails.result = result;
-
-        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-        if (selectedVehicleID) {
-          //this.ivVehicleNo = ewayVNo;
-        } else {
-          this.ivVehicleNo = "";
+      //var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo2 }
+      this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo2;
+      
+      this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          //ignore
         }
+        else{
+          this.formConsignment.patchValue({
+            ewayBillNo2:"",
+          });
+          this.toastrService.warning("Please Enter Valid Eway bill no ");
+          return
+        }
+      });
 
-        this.formConsignment.patchValue({
-          ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
-          ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-       
+      this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
+        var result = res.result;
+        if (result.code === 200) {        
+          this.formConsignment.controls['ewayBillEntryType'].disable();
+          this.eWayBillDetails.result = result;
+          var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+          var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
+          if (selectedVehicleID) {
+            //this.ivVehicleNo = ewayVNo;
+          } else {
+            this.ivVehicleNo = "";
+          }
 
-  
-        //  invoiceDate: this.eWayBillDetails.result.message.document_date,
-          cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
-          cnorInvNo2: this.eWayBillDetails.result.message.document_number,
-
-
-        
-
-
-          //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-          declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
-          //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-        });
-        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-      }
-    });
+          this.formConsignment.patchValue({
+            ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+            ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+            //  invoiceDate: this.eWayBillDetails.result.message.document_date,
+            cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+            cnorInvNo2: this.eWayBillDetails.result.message.document_number, 
+            //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+            declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+            //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+          });
+          //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+        }
+      });
+    }
   }
-  }
+
   checkLocation() {
-  var selectedDataValue = this.formConsignment.getRawValue();
-  let fp =  this.ivFromPlace ? this.ivFromPlace :0;
-  let tp = this.ivToPlace ?this.ivToPlace :0;;
-  if(fp!='0' && tp!='0' ){
-   //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
-  // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
-   if( fp == tp ){
-
-   
-    
-     
-        this.toastrService.warning("From and to location should not be the same");
-        this.ivFromPlace='0';
-        this.ivToPlace='0';
-        this.formConsignment.patchValue({
-          fromPlace: '',
-          toPlace: ''
-        });
-      }
-}
-    
+    var selectedDataValue = this.formConsignment.getRawValue();
+    let fp =  this.ivFromPlace ? this.ivFromPlace :0;
+    let tp = this.ivToPlace ?this.ivToPlace :0;;
+    if(fp!='0' && tp!='0' ){
+    //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
+    // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
+    if( fp == tp ){ 
+      this.toastrService.warning("From and to location should not be the same");
+      this.ivFromPlace='0';
+      this.ivToPlace='0';
+      this.formConsignment.patchValue({
+        fromPlace: '',
+        toPlace: ''
+      });
+    }
+  }   
   
   }
 /*  searchGSTForEdit(): void {
@@ -903,25 +842,10 @@ export class ConsignmentaddComponent implements OnInit {
       }
     });
   }*/
-  checkInvoiceDate() {
-
-
-
-
-  }
+  
   selectEvent(item: any) {
     // do something with selected item
   }
-
-  // onChangeSearchFromPlace(search: string) {
-  //   this.ivFromPlace = '';
-  //   this.checkMs();    
-  // }
-
-  // onChangeSearchToPlace(search: string) {
-  //   this.ivToPlace = '';
-  //   this.checkMs();  
-  // }
 
   onChangeSearch(search: string) {
     //this.ivToPlace = '';

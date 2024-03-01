@@ -262,6 +262,38 @@ namespace Consignment.Repository
             }
             return lrSeries;
         }
+        public async Task<ResponseModel> CheckEwaybillExits(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@EwayBillNo", req.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_ChkEwaybillExists", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return responseModel;
+        }
+
         public async Task<ResponseModel> ConsignmentDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
@@ -326,15 +358,15 @@ namespace Consignment.Repository
                             new SqlParameter("@EwayBillExpExtDate", ConsignmentModel.EwayBillExpExtDate),
                             new SqlParameter("@FromPlace", ConsignmentModel.FromPlace),
                             new SqlParameter("@ToPlace", ConsignmentModel.ToPlace),
-                             new SqlParameter("@FromPin", ConsignmentModel.FromPin),
-                              new SqlParameter("@ToPin", ConsignmentModel.ToPin),
+                            new SqlParameter("@FromPin", ConsignmentModel.FromPin),
+                            new SqlParameter("@ToPin", ConsignmentModel.ToPin),
                             new SqlParameter("@Kms", ConsignmentModel.Kms),
                             new SqlParameter("@OwnTruck", ConsignmentModel.OwnTruck ),
                             new SqlParameter("@TruckId", ConsignmentModel.TruckId ),
                             new SqlParameter("@TruckNo", ConsignmentModel.TruckNo ),
-                              new SqlParameter("@BillingParty ", ConsignmentModel.BillingParty ),
-                                new SqlParameter("@BillingBranch ", ConsignmentModel.BillingBranch ),
-                                  new SqlParameter("@CnorCode ", ConsignmentModel.CnorCode ),
+                            new SqlParameter("@BillingParty ", ConsignmentModel.BillingParty ),
+                            new SqlParameter("@BillingBranch ", ConsignmentModel.BillingBranch ),
+                            new SqlParameter("@CnorCode ", ConsignmentModel.CnorCode ),
                             new SqlParameter("@CnorGst ", ConsignmentModel.CnorGst ),
                             new SqlParameter("@CnorPlantCode ", ConsignmentModel.CnorPlantCode ),
                             new SqlParameter("@CnorInvNo ", ConsignmentModel.CnorInvNo ),
@@ -427,12 +459,7 @@ namespace Consignment.Repository
                             new SqlParameter("@DistanceTripKM_1", tripModel.DistanceTripKM_1),
                             new SqlParameter("@ExpectedReportingDt", tripModel.ExpectedReportingDt),
                             new SqlParameter("@ExpectedReportingDays", tripModel.ExpectedReportingDays),
-                        
-
-
-                        
-
-                         };
+                        };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "Consignment_Insert", param);
 
@@ -722,7 +749,7 @@ namespace Consignment.Repository
         }
 
 
-        public async Task<ResponseModel> CheckDuplicateLr(GcModel request)
+        public async Task<ResponseModel> CheckDuplicateLr(RequestModel request)
         {
             ResponseModel responseModel = new();
             try
@@ -731,7 +758,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@GcSlNo", request.GcSlNo),
+                            new SqlParameter("@GcSlNo", request.strRequest),
                            
                  
                         };
@@ -847,7 +874,7 @@ namespace Consignment.Repository
             }
             return contentList;
         }
-        public async Task<ResponseModel> GetGcSeries(GcModel request)
+        public async Task<ResponseModel> GetGcSeries(RequestModel request)
         {
             ResponseModel content = new();
             try
@@ -856,7 +883,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@GcSlNo", request.GcSlNo),
+                            new SqlParameter("@GcSlNo", request.strRequest),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetGcSeries_Select", param);
@@ -883,7 +910,7 @@ namespace Consignment.Repository
             }
             return content;
         }
-        public async Task<ResponseModel> GetBillSeries(GcModel request)
+        public async Task<ResponseModel> GetBillSeries(RequestModel request)
         {
             ResponseModel content = new();
             try
@@ -892,7 +919,7 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillNo", request.GcSlNo),
+                            new SqlParameter("@BillNo", request.strRequest),
 
 
                         };
