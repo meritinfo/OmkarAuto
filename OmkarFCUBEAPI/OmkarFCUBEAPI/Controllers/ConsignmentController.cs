@@ -134,7 +134,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [HttpPost("CheckEwaybillExits")]
         public async Task<IActionResult> CheckEwaybillExits(RequestModel req)
         {
             if (req == null)

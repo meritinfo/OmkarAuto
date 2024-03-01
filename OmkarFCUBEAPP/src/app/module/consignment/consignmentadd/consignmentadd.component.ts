@@ -677,7 +677,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
 
     //var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
-    this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo2;
+    this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo;
       
     this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
