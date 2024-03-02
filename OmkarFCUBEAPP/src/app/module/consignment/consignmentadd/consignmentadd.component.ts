@@ -671,18 +671,71 @@ export class ConsignmentaddComponent implements OnInit {
 
   searchGSTDetails(): void {   
 
-    if(this.formConsignment.value.ewayBillNo.toString().length!=12){
-      this.toastrService.warning("Please Enter Valid Eway bill no ");
+    var selectedDataValue = this.formConsignment.getRawValue();
+    var d1 = selectedDataValue.ewayBillNo;
+    var d2 = selectedDataValue.ewayBillNo2;
+    
+    if(d1.toString().length!=12){
+      this.toastrService.warning("Please Enter Valid Eway bill no  ");
       return
     }
 
+    if (d1 == d2) {
+      this.formConsignment.patchValue({
+        ewayBillNo: ''
+      });
+      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
+      return
+    }
+    else {
     //var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo }
     this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo;
       
     this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
-        //ignore
+        this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
+          var result = res.result;
+          if (result.code === 200) {
+            this.formConsignment.controls['ewayBillEntryType'].disable();
+            this.eWayBillDetails.result = result;
+            var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+            var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
+            if (selectedVehicleID) {
+              //this.ivVehicleNo = ewayVNo;
+            } else {
+              this.ivVehicleNo = "";
+            }
+    
+            this.formConsignment.patchValue({
+              ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+              ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+              fromPin: this.eWayBillDetails.result.message.pincode_of_consignor.toString(),
+              toPin: this.eWayBillDetails.result.message.pincode_of_consignee.toString(),
+              cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
+              cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
+              kms: this.eWayBillDetails.result.message.transportation_distance.toString(),
+              consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
+              cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
+              cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
+              cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
+              invoiceDate: this.eWayBillDetails.result.message.document_date,
+              cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+              cnorInvNo: this.eWayBillDetails.result.message.document_number,
+              cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,
+              cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
+              noPackages: this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
+              //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
+              // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
+              truckId: selectedVehicleID ? selectedVehicleID : "",
+              //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+              declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+              //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+            });
+            //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+            this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
+          }
+        });
       }
       else{
         this.formConsignment.patchValue({
@@ -692,49 +745,8 @@ export class ConsignmentaddComponent implements OnInit {
         return
       }
     });
-
-    this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
-      var result = res.result;
-      if (result.code === 200) {
-        this.formConsignment.controls['ewayBillEntryType'].disable();
-        this.eWayBillDetails.result = result;
-        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-        if (selectedVehicleID) {
-          //this.ivVehicleNo = ewayVNo;
-        } else {
-          this.ivVehicleNo = "";
-        }
-
-        this.formConsignment.patchValue({
-          ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
-          ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-          fromPin: this.eWayBillDetails.result.message.pincode_of_consignor.toString(),
-          toPin: this.eWayBillDetails.result.message.pincode_of_consignee.toString(),
-          cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
-          cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
-          kms: this.eWayBillDetails.result.message.transportation_distance.toString(),
-          consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
-          cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
-          cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
-          cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
-          invoiceDate: this.eWayBillDetails.result.message.document_date,
-          cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
-          cnorInvNo: this.eWayBillDetails.result.message.document_number,
-          cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,
-          cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
-          noPackages: this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
-          //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
-          // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
-          truckId: selectedVehicleID ? selectedVehicleID : "",
-          //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-          declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
-          //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-        });
-        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
-      }
-    });
+    }
+    
   }
 
   searchGSTDetails2(): void {
@@ -761,43 +773,41 @@ export class ConsignmentaddComponent implements OnInit {
       this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if(this.responseDetails.status){
-          //ignore
+          this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
+            var result = res.result;
+            if (result.code === 200) {        
+              this.formConsignment.controls['ewayBillEntryType'].disable();
+              this.eWayBillDetails.result = result;
+              var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+              var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
+              if (selectedVehicleID) {
+                //this.ivVehicleNo = ewayVNo;
+              } else {
+                this.ivVehicleNo = "";
+              }
+    
+              this.formConsignment.patchValue({
+                ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+                ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+                //  invoiceDate: this.eWayBillDetails.result.message.document_date,
+                cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+                cnorInvNo2: this.eWayBillDetails.result.message.document_number, 
+                //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
+                declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+                //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+              });
+              //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
+            }
+          });
         }
         else{
           this.formConsignment.patchValue({
             ewayBillNo2:"",
           });
-          this.toastrService.warning("Please Enter Valid Eway bill no ");
+          this.toastrService.warning("Please Enter Valid Eway bill no2 ");
           return
         }
-      });
-
-      this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
-        var result = res.result;
-        if (result.code === 200) {        
-          this.formConsignment.controls['ewayBillEntryType'].disable();
-          this.eWayBillDetails.result = result;
-          var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-          var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-          if (selectedVehicleID) {
-            //this.ivVehicleNo = ewayVNo;
-          } else {
-            this.ivVehicleNo = "";
-          }
-
-          this.formConsignment.patchValue({
-            ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
-            ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-            //  invoiceDate: this.eWayBillDetails.result.message.document_date,
-            cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
-            cnorInvNo2: this.eWayBillDetails.result.message.document_number, 
-            //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-            declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
-            //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-          });
-          //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        }
-      });
+      });      
     }
   }
 

@@ -252,19 +252,28 @@ export class AddothertripopenComponent {
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
         this.advancePay = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
-        this.ExpReportingDays = this.dTripKM_1 / 400;
-        this.ExpReportingDays = Math.round(this.ExpReportingDays) 
-        let date: Date = new Date(selectedDataValue.newTripDate);
+        if( this.dTripKM_1 >0){
+          this.ExpReportingDays = this.dTripKM_1 / 400;
+          this.ExpReportingDays = Math.round(this.ExpReportingDays) 
+          let date: Date = new Date(selectedDataValue.newTripDate);
 
-        date.setDate(date.getDate() + this.ExpReportingDays)
-        let date2 = (date).toISOString()
+          date.setDate(date.getDate() + this.ExpReportingDays)
+          let date2 = (date).toISOString()
 
+          this.formOtherTripOpen.patchValue({
+            expectedReportingDt: date2.split("T")[0],
+            expectedReportingDays: (this.ExpReportingDays).toString(),
+            distanceTripKM_1: (this.dTripKM_1).toString(),
+            advPayable_1: (this.advancePay).toString(),
+          });
+          
+        }
+        else{
         this.formOtherTripOpen.patchValue({
-          expectedReportingDt: date2.split("T")[0],
-          expectedReportingDays: (this.ExpReportingDays).toString(),
           distanceTripKM_1: (this.dTripKM_1).toString(),
           advPayable_1: (this.advancePay).toString(),
         });
+        }
         this.getDslToBe1();
         this.getAdBlueToBe1();
       });
@@ -432,8 +441,8 @@ export class AddothertripopenComponent {
     this.tripsheetmodel.loadEmptyType = selectedDataValue.loadEmptyType;
     this.tripsheetmodel.expectedReportingDt = selectedDataValue.expectedReportingDt;
     this.tripsheetmodel.expectedReportingDays = selectedDataValue.expectedReportingDays;
-    this.tripsheetmodel.ltsDslToBe_1 = selectedDataValue.ltsDslToBe_1.toString();;
-    this.tripsheetmodel.ltsAdblueToBe_1 = selectedDataValue.ltsAdblueToBe_1.toString();;
+    this.tripsheetmodel.ltsDslToBe_1 = selectedDataValue.ltsDslToBe_1.toString();
+    this.tripsheetmodel.ltsAdblueToBe_1 = selectedDataValue.ltsAdblueToBe_1.toString();
     this.tripsheetmodel.advPayable_1 = selectedDataValue.advPayable_1; 
     this.tripsheetmodel.opBalDriver = selectedDataValue.opBalDriver;
     this.tripsheetmodel.opBalDsl = selectedDataValue.opBalDsl;
