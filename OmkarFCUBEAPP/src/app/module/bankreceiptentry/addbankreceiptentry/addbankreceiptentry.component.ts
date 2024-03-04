@@ -288,11 +288,16 @@ export class AddbankreceiptentryComponent {
       this.sharedService.loading=true;
       this.requestmodel.strRequest =this.selectedBankReceiptEntryDetails.ftmID
       if (confirm("Are you sure, you want to delete this?")) {
-            this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            console.log(this.responseDetails.message);
+          this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message); 
             this.formBankRecEntry.reset();
             this.route.navigate(['/bankreceiptentrylist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          } 
         });
       }
       
@@ -409,11 +414,15 @@ export class AddbankreceiptentryComponent {
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formBankRecEntry.reset();
-      this.route.navigate(['/bankreceiptentrylist']);
-    });
-    
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message); 
+        this.formBankRecEntry.reset();
+        this.route.navigate(['/bankreceiptentrylist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      } 
+    });    
     this.sharedService.loading=false;
   }
 }

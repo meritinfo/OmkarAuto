@@ -240,9 +240,14 @@ export class AddbankcashcontraComponent {
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formBankContra.reset();
-            this.route.navigate(['/bankcashcontralist']);
+            if(this.responseDetails.status){
+              this.toasterService.success(this.responseDetails.message);
+              this.formBankContra.reset();
+              this.route.navigate(['/bankcashcontralist']);
+            }
+            else{
+              this.toasterService.warning(this.responseDetails.message);        
+            }  
         });
       }
       
@@ -270,10 +275,13 @@ export class AddbankcashcontraComponent {
     var selectedDataValue=  this.formBankContra.getRawValue();
     if (selectedDataValue.narration.toString().trim().length < 5) {
       this.toasterService.warning("Narration should be atleast 5 characters");   
+      return;
     }
     if (this.selectedBankCashContraDetails.ftmID!="" && selectedDataValue.modifyRemarks.toString().trim().length < 10) {
       this.toasterService.warning("Modification Remarks should be atleast 10 characters");   
+      return;
     }
+
     this.bankreceiptentryModel.ftmID          = this.selectedBankCashContraDetails.ftmID;
     this.bankreceiptentryModel.ftmDate        = selectedDataValue.ftmDate;
     this.bankreceiptentryModel.docType        = selectedDataValue.docType.toString().toUpperCase();
@@ -317,9 +325,14 @@ export class AddbankcashcontraComponent {
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formBankContra.reset();
-      this.route.navigate(['/bankcashcontralist']);
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formBankContra.reset();
+        this.route.navigate(['/bankcashcontralist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }  
     });    
     this.sharedService.loading=false;
   }

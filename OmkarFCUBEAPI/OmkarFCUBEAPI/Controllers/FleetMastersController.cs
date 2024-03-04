@@ -388,8 +388,6 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-
-
         [HttpPost("GetVehicalTypeList")]
         public async Task<IActionResult> GetVehicalTypeList()
         {

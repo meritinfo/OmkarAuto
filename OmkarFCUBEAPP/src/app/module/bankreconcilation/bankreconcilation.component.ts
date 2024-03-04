@@ -277,9 +277,14 @@ export class BankreconcilationComponent {
 
     this.bankreconcilationService.bankreconcilationSubmitted(this.bankreclist).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formBankRecEntry.reset();
-      window.location.reload();
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message); 
+        this.formBankRecEntry.reset();
+        window.location.reload();
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      } 
     });
 
     this.sharedService.loading = false;
