@@ -252,14 +252,14 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Experience</label>
-                                                        <input type="text" class="form-control"
+                                                        <input uppercaseonly type="text" class="form-control"
                                                             formControlName="previousExpDetails" placeholder="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Years</label>
-                                                        <input type="text" class="form-control"
+                                                        <input numbersonly maxlength="4" type="text" class="form-control"
                                                             formControlName="previousExpYears" placeholder="">
                                                     </div>
                                                 </div>
@@ -397,10 +397,12 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Account Status</label><span style="color: red">*</span>
-                                                    <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="bankAccountStatus"
-                                                        placeholder=""
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAccountStatus'].invalid) }">
+                                                    <select class="form-control" formControlName="bankAccountStatus"
+                                                        class="form-control form-select ng-pristine ng-touched" 
+                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAccountStatus'].invalid) }">
+                                                            <option value="S">Savings Ac</option>
+                                                            <option value="C">Current Ac</option>
+                                                    </select>                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -448,8 +450,7 @@
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
                                                         <label for="formPerAddFile" class="form-label">Permanent
-                                                            Address
-                                                            Prove</label>
+                                                            Address Prove</label>
                                                         <input #perAddressProveInput class="form-control" type="file" id="formPerAddFile"
                                                             accept="image/*">
                                                     </div>

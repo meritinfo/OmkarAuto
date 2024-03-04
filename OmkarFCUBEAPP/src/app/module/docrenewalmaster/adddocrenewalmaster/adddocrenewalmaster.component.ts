@@ -95,17 +95,54 @@ export class AdddocrenewalmasterComponent {
       this.debitAcList = res;
     });
   }
+
+  chkDocRenewalCode(e: any){
+    var selectedValue = e.target.value;
+    if (this.selectedDocRenewalMasterDetails.docRenewalID == ''){ 
+      this.requestmodel.strRequest = e.target.value; 
+      this.docrenewalmasterService.chkDocrenewalCode(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            docCode: ''
+          });
+        }
+      });
+    }
+  }
+
+  chkDocRenewalDesc(e: any){
+    var selectedValue = e.target.value;
+    if (this.selectedDocRenewalMasterDetails.docRenewalID == ''){ 
+      this.requestmodel.strRequest = e.target.value; 
+      this.docrenewalmasterService.chkDocrenewalCode(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            docDescription: ''
+          });
+        }
+      });
+    }
+  }
  
   deleteDocRenewalMasterForm(): void {
     if(this.selectedDocRenewalMasterDetails.docRenewalID != '' ){      
       this.sharedService.loading=true;
-     this.requestmodel.strRequest =this.selectedDocRenewalMasterDetails.docRenewalID 
+      this.requestmodel.strRequest =this.selectedDocRenewalMasterDetails.docRenewalID 
       if (confirm("Are you sure, you want to delete this?")) {
-            this.docrenewalmasterService.DocrenewalmasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            console.log(this.responseDetails.message);
+          this.docrenewalmasterService.DocrenewalmasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
             this.formUser.reset();
             this.route.navigate(['/docrenewalmasterlist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
         });
       }
       
@@ -143,9 +180,14 @@ export class AdddocrenewalmasterComponent {
 
     this.docrenewalmasterService.docrenewalMasterDetailsSubmitted(this.docRenewalMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formUser.reset();
-      this.route.navigate(['/docrenewalmasterlist']);
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['/docrenewalmasterlist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
     });
     this.sharedService.loading=false;
   }

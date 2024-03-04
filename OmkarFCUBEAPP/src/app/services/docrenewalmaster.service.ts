@@ -45,6 +45,9 @@ export class DocRenewalMasterService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DocRenewalMasterDetailsDelete', request, this.httpOptions);
   }
 
+  chkDocrenewalCode(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkDocrenewalCode', req, this.httpOptions);
+  }
   getdebitAc():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetDebitAcList', null, this.httpOptions);
   }

@@ -14,6 +14,7 @@ using FinanceMasters.Business;
 using FleetTrans.Business;
 using Consignment.Business;
 using Consignment.Models;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -475,6 +476,26 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("ChkDocrenewalCode")]
+        public async Task<IActionResult> ChkDocrenewalCode(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await docRenewalMasterBusiness.ChkDocrenewalCode(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("BrandMasterSave")]
         public async Task<IActionResult> BrandMasterSave(BrandMasterModel brandMasterModel)
