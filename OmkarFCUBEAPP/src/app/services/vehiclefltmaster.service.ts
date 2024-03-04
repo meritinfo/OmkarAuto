@@ -16,7 +16,6 @@ export class VehicleFltMasterService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
@@ -34,7 +33,7 @@ export class VehicleFltMasterService {
   clearVehiclefltmasterDetails() {
     this.selectedVehicleFltMaster= new Vehiclefltmastermodel();
   }
-  vehicleFltmasterDetailsSubmitted(user: Vehiclefltmastermodel): Observable<Responsemodel> {
+  vehicleFltmasterDetailsSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicleFltMasterSave', user, this.httpOptions);
   }
   getVehicleFltMasterList(filter: Filtermodel): Observable<Vehiclefltmasterlistmodel> {

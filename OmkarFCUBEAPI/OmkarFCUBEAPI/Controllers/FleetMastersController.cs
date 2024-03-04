@@ -272,16 +272,73 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        //[HttpPost("VehicleFltMasterSave")]
+        //public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
+        //{
+        //    if (vehicleFltMasterModel == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("VehicleFltMasterSave")]
-        public async Task<IActionResult> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
+        public async Task<IActionResult> VehicleFltMasterSave()
         {
-            if (vehicleFltMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
-                var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMasterModel);
+                var attach1Link = HttpContext.Request.Form.Files["attach1Link"];
+                var attach2Link = HttpContext.Request.Form.Files["attach2Link"];
+                var attach3Link = HttpContext.Request.Form.Files["attach3Link"];
+
+                VehicleFltMasterModel vehicleFltMaster = JsonConvert.DeserializeObject<VehicleFltMasterModel>(HttpContext.Request.Form["datadetails"]);
+                vehicleFltMaster.Attach1Link = "";
+                vehicleFltMaster.Attach2Link = "";
+                vehicleFltMaster.Attach3Link = "";
+
+                if (attach1Link != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach1Link.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach1Link.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment1/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach1Link.CopyToAsync(fileStream);
+                        vehicleFltMaster.Attach1Link = imageName;
+                    }
+                }
+                if (attach2Link != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach2Link.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach2Link.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment2/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach2Link.CopyToAsync(fileStream);
+                        vehicleFltMaster.Attach2Link = imageName;
+                    }
+                }
+                if (attach3Link != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attach3Link.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach3Link.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment3/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attach3Link.CopyToAsync(fileStream);
+                        vehicleFltMaster.Attach3Link = imageName;
+                    }
+                }
+
+                var result = await vehicleFltMasterBusiness.VehicleFltMasterSave(vehicleFltMaster);
 
                 return Ok(result);
             }
@@ -290,6 +347,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
 
         [HttpPost("GetVehicleFltInnerGridList")]
         public async Task<IActionResult> GetVehicleFltInnerGridList(RequestModel req)

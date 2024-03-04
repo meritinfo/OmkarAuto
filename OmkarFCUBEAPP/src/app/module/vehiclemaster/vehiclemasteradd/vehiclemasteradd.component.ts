@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -34,6 +34,16 @@ export class VehiclemasteraddComponent {
   vehicleMfrList: Dropdownmodel[] = [];
   vehicleLedgerAcList: Dropdownmodel[] = [];
   vehicleAssetAcList: Dropdownmodel[] = [];
+
+  @ViewChild('attachment1Input', {
+    static: true
+  }) attachment1Input: any;
+  @ViewChild('attachment2Input', {
+    static: true
+  }) attachment2Input: any;
+  @ViewChild('attachment3Input', {
+    static: true
+  }) attachment3Input: any;
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private vehiclefltmastermodel: Vehiclefltmastermodel, 
@@ -163,6 +173,7 @@ export class VehiclemasteraddComponent {
     return this.formVehicleMaster.get("arrayList") as FormArray;
   }
 
+   
   getVehicleInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedVehicleMasterDetails.vehicleMasterID;
     this.vehiclefltmasterService.getVehiclefltMstInnerGridList(this.requestmodel).subscribe((res) => {
@@ -437,7 +448,7 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.attach2Link        = selectedDataValue.attach2Link;
     this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc;
     this.vehiclefltmastermodel.attach3Link        = selectedDataValue.attach3Link;
-    this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;
+    this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
 
     this.vehiclefltmastermodel.vehiclefltDetailList = [];
 
@@ -460,8 +471,13 @@ export class VehiclemasteraddComponent {
         })
       }      
     }
-    
-    this.vehiclefltmasterService.vehicleFltmasterDetailsSubmitted(this.vehiclefltmastermodel).subscribe((res: Responsemodel) => {
+    let formData = new FormData();
+    formData.append('attach1Link', this.attachment1Input.nativeElement.files[0]);
+    formData.append('attach2Link', this.attachment2Input.nativeElement.files[0]);
+    formData.append('attach3Link', this.attachment3Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.vehiclefltmastermodel));
+
+    this.vehiclefltmasterService.vehicleFltmasterDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
