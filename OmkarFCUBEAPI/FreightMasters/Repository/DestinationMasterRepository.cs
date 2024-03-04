@@ -35,7 +35,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@AcctBranch", destinationMasterModel.AcctBranch),
                             new SqlParameter("@StateCode", destinationMasterModel.StateCode),
                             new SqlParameter("@PinCode", destinationMasterModel.PinCode),
-                            new SqlParameter("@LoggedInUser", destinationMasterModel.LoggedInUser)
+                            new SqlParameter("@LoggedInUser", destinationMasterModel.LoggedInUserID)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DestinationDetailsSave", param);
 

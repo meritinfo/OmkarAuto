@@ -97,7 +97,7 @@ export class CommonService {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Admin/GetEWayBillDetails', req, this.httpOptions);
   }
   checkEwaybillExits(req: Requestmodel): Observable<any> {
-    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Admin/CheckEwaybillExits', req, this.httpOptions);
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/CheckEwaybillExits', req, this.httpOptions);
   }
   getKms(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Consignment/getKms', payload, this.httpOptions);

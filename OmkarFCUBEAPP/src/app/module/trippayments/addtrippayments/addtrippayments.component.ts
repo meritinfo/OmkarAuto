@@ -51,7 +51,6 @@ export class AddtrippaymentsComponent {
   tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
-  creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   newList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -149,6 +148,8 @@ export class AddtrippaymentsComponent {
       ratePerLtr: new FormControl('',),
       travel: new FormControl('',),
     });
+    
+    this.getCreditAcList2('C');   
 
     setTimeout(() => {
      this.createmode = true;
@@ -166,6 +167,7 @@ export class AddtrippaymentsComponent {
         this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable();
         
+        this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
         this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)         
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);

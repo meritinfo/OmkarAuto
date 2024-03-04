@@ -14,7 +14,7 @@
         public string? ZoneCode { get; set; }
         public string? StateName { get; set; }
         public string? ControlBranch { get; set; }
-        public string? LoggedInUser { get; set; }
+        public string? LoggedInUserID { get; set; }
  
     }
 }
