@@ -115,9 +115,9 @@ export class DrivermasteraddComponent {
       driverAadharNo: new FormControl('', [Validators.required]),
       previousExpDetails: new FormControl('',),
       previousExpYears: new FormControl('',),
-      isActive: new FormControl('',),
+      isActive: new FormControl('Y',),
       inActiveDate: new FormControl('',),
-      removedYN: new FormControl('',),
+      removedYN: new FormControl('N',),
       removedDate: new FormControl('',),
       remarks: new FormControl('',),
       groupName: new FormControl('', [Validators.required]),
@@ -134,7 +134,7 @@ export class DrivermasteraddComponent {
       bankAcNo: new FormControl('', [Validators.required]),
       bankBranch: new FormControl('', [Validators.required]),
       bankIfsCode: new FormControl('', [Validators.required]),
-      bankAccountStatus: new FormControl('', [Validators.required]),
+      bankAccountStatus: new FormControl('S', [Validators.required]),
       createdBy: new FormControl('',),
       createdDate: new FormControl('',),
       modifiedBy: new FormControl('',),
@@ -271,9 +271,14 @@ export class DrivermasteraddComponent {
       if (confirm("Are you sure, you want to delete this?")) {
         this.drivermasterService.driverMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formDriverMaster.reset();
-          this.route.navigate(['/drivermasterlist']);
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
+            this.formDriverMaster.reset();
+            this.route.navigate(['/drivermasterlist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
         });
       }
     }

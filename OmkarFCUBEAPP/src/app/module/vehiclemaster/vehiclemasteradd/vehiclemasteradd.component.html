@@ -76,9 +76,9 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Type</label>
                                                 <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="vehicleTypeID"   
+                                                <select class="form-control" formControlName="vehicleTypeGroupId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleTypeID'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleTypeGroupId'].invalid) }">
                                                     <option *ngFor="let vehi of vehicleGrpList" value={{vehi.dataId}}>
                                                        {{vehi.dataName}}
                                                     </option>

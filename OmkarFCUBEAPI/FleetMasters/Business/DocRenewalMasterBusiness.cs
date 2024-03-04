@@ -32,5 +32,9 @@ namespace FleetMasters.Business
         {
             return await docRenewalMasterRepository.GetDebitAcList();
         }
+        public async Task<ResponseModel> ChkDocrenewalCode(RequestModel request)
+        {
+            return await docRenewalMasterRepository.ChkDocrenewalCode(request);
+        }
     }
 }

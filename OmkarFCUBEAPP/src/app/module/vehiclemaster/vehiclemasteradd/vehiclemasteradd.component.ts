@@ -84,7 +84,7 @@ export class VehiclemasteraddComponent {
       regdOwner: new FormControl('',[Validators.required]),
       chasisNo: new FormControl('',[Validators.required]),
       engineNo: new FormControl('',[Validators.required]),
-      vehicleTypeID: new FormControl('',[Validators.required]),
+      vehicleTypeGroupId: new FormControl('',[Validators.required]),
       vehMfrId: new FormControl('',[Validators.required]),
       mfrModelName: new FormControl('',[Validators.required]),
       fuelType: new FormControl('',[Validators.required]),
@@ -392,8 +392,8 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.regdOwner          = selectedDataValue.regdOwner;
     this.vehiclefltmastermodel.chasisNo           = selectedDataValue.chasisNo;
     this.vehiclefltmastermodel.engineNo           = selectedDataValue.engineNo;
-    this.vehiclefltmastermodel.vehicleTypeID      = selectedDataValue.vehicleTypeID;
-    this.vehiclefltmastermodel.vehicleTypeGroupId = '1';
+    this.vehiclefltmastermodel.vehicleTypeID      = '';
+    this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId;
     this.vehiclefltmastermodel.vehMfrId           = selectedDataValue.vehMfrId;
     this.vehiclefltmastermodel.mfrModelName       = selectedDataValue.mfrModelName;
     this.vehiclefltmastermodel.fuelType           = selectedDataValue.fuelType;

@@ -9,6 +9,7 @@ namespace FleetMasters.Business
         Task<DocRenewalMasterList> GetDocRenewalMasterList(PageRequest request);
         Task<ResponseModel> DocRenewalMasterDetailsDelete(RequestModel request);
         Task<List<DropDownListModel>> GetDebitAcList();
+        Task<ResponseModel> ChkDocrenewalCode(RequestModel request);
 
     }
 }
