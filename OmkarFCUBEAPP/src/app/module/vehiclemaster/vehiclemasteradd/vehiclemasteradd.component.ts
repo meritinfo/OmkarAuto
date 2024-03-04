@@ -397,16 +397,16 @@ export class VehiclemasteraddComponent {
     this.sharedService.loading=true;
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     this.vehiclefltmastermodel.vehicleMasterID    = this.selectedVehicleMasterDetails.vehicleMasterID != '' ? this.selectedVehicleMasterDetails.vehicleMasterID : '';
-    this.vehiclefltmastermodel.vehicleNo          = selectedDataValue.vehicleNo;
+    this.vehiclefltmastermodel.vehicleNo          = selectedDataValue.vehicleNo.toString().toUpperCase();
     this.vehiclefltmastermodel.fleetStation       = '1';
     this.vehiclefltmastermodel.regnDate           = selectedDataValue.regnDate;
-    this.vehiclefltmastermodel.regdOwner          = selectedDataValue.regdOwner;
-    this.vehiclefltmastermodel.chasisNo           = selectedDataValue.chasisNo;
-    this.vehiclefltmastermodel.engineNo           = selectedDataValue.engineNo;
+    this.vehiclefltmastermodel.regdOwner          = selectedDataValue.regdOwner.toString().toUpperCase();
+    this.vehiclefltmastermodel.chasisNo           = selectedDataValue.chasisNo.toString().toUpperCase();;
+    this.vehiclefltmastermodel.engineNo           = selectedDataValue.engineNo.toString().toUpperCase();;
     this.vehiclefltmastermodel.vehicleTypeID      = '';
     this.vehiclefltmastermodel.vehicleTypeGroupId = selectedDataValue.vehicleTypeGroupId;
     this.vehiclefltmastermodel.vehMfrId           = selectedDataValue.vehMfrId;
-    this.vehiclefltmastermodel.mfrModelName       = selectedDataValue.mfrModelName;
+    this.vehiclefltmastermodel.mfrModelName       = selectedDataValue.mfrModelName.toString().toUpperCase();
     this.vehiclefltmastermodel.fuelType           = selectedDataValue.fuelType;
     this.vehiclefltmastermodel.makeYear           = selectedDataValue.makeYear;
     this.vehiclefltmastermodel.tankCap            = selectedDataValue.tankCap;
@@ -418,7 +418,7 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.vehBreadth         = selectedDataValue.vehBreadth;
     this.vehiclefltmastermodel.vehHeight          = selectedDataValue.vehHeight;
     this.vehiclefltmastermodel.vehVolumeCFT       = selectedDataValue.vehVolumeCFT;
-    this.vehiclefltmastermodel.remarks            = selectedDataValue.remarks;
+    this.vehiclefltmastermodel.remarks            = selectedDataValue.remarks.toString().toUpperCase();
     this.vehiclefltmastermodel.ownershipType      = selectedDataValue.ownershipType;
     this.vehiclefltmastermodel.fastTagYN          = selectedDataValue.fastTagYN;
     this.vehiclefltmastermodel.fastTagCo          = selectedDataValue.fastTagCo;
@@ -442,11 +442,11 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
     this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
     this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
-    this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc;
+    this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
-    this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc;
+    this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach2Link        = selectedDataValue.attach2Link;
-    this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc;
+    this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach3Link        = selectedDataValue.attach3Link;
     this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
 
