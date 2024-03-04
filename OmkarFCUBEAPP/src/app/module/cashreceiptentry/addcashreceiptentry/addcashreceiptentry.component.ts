@@ -273,9 +273,14 @@ export class AddcashreceiptentryComponent {
       if (confirm("Are you sure, you want to delete this?")) {
             this.cashreceiptentryService.cashReceiptPaymentsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formCashRRecEntry.reset();
-            this.route.navigate(['/cashreceiptentrylist']);
+            if(this.responseDetails.status){
+              this.toasterService.success(this.responseDetails.message); 
+              this.formCashRRecEntry.reset();
+              this.route.navigate(['/cashreceiptentrylist']);
+            }
+            else{
+              this.toasterService.warning(this.responseDetails.message);        
+            } 
         });
       }      
     this.sharedService.loading=false;
@@ -381,9 +386,14 @@ export class AddcashreceiptentryComponent {
     }
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formCashRRecEntry.reset();
-      this.route.navigate(['/cashreceiptentrylist']);
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message); 
+        this.formCashRRecEntry.reset();
+        this.route.navigate(['/cashreceiptentrylist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      } 
     });
     
     this.sharedService.loading=false;

@@ -232,9 +232,14 @@ export class RoleprivilegesComponent {
 
     this.roleprivilegesService.rolePrivilegesSubmitted(this.roleprivilegeslistmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formUser.reset();
-      window.location.reload();
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message); 
+        this.formUser.reset();
+        window.location.reload();
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      } 
     });
     
     this.sharedService.loading=false;
