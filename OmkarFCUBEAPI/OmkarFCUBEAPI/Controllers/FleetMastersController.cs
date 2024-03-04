@@ -116,7 +116,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(drivingLicense.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(drivingLicense.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/drivinglicense/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/drivinglicense/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await drivingLicense.CopyToAsync(fileStream);
@@ -127,7 +127,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(hazdrivingLicense.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(hazdrivingLicense.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/hazdrivinglicense/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/hazdrivinglicense/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await hazdrivingLicense.CopyToAsync(fileStream);
@@ -138,7 +138,8 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(tempAddressProve.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(tempAddressProve.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/tempaddressprove/" + imageName);
+                    // var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/tempaddressprove/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/tempaddressprove/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await tempAddressProve.CopyToAsync(fileStream);
@@ -149,7 +150,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(perAddressProve.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(perAddressProve.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/peraddressprove/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/peraddressprove/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await perAddressProve.CopyToAsync(fileStream);
@@ -160,7 +161,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(aadharCard.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(aadharCard.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/aadharcard/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/aadharcard/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await aadharCard.CopyToAsync(fileStream);
@@ -171,7 +172,7 @@ namespace OmkarFCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(bankPassbook.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(bankPassbook.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/bankpassbook/" + imageName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/bankpassbook/" + imageName);
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await bankPassbook.CopyToAsync(fileStream);
