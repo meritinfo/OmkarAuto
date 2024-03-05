@@ -23,6 +23,10 @@ export class DrivermasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  minDate:string = '';
+  maxDate: string = '';
+  loginDate:string = '';
+  fromDate: string = '';
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
   driverPhotoData: [] = [];
@@ -72,6 +76,19 @@ export class DrivermasteraddComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    const today = new Date();
+    const today2 = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    today2.setMonth(month - 2);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+   // this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+   
+   this.maxDate = today2.toLocaleDateString('en-CA').toString();
+  
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
