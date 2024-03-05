@@ -9,6 +9,8 @@ export class Usermodel {
     userRoleType: string = "";
     centreName: string = "";
     activeYN: string = "";
+    canEditTripAfterClose:string = "";
+    canLinkTrip:string = "";
     branchList: string = "";
     moduleList: string = "";
     loggedInUser: string = "";
