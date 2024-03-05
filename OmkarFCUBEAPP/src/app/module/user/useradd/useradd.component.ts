@@ -89,6 +89,8 @@ export class UseraddComponent implements OnInit {
       role: new FormControl('', [Validators.required]),
       branch: new FormControl(''),
       activeYN: new FormControl('Y', [Validators.required]),
+      canEditTripAfterClose:new FormControl('N', [Validators.required]),
+      canLinkTrip :new FormControl('N', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
       userModule: new FormControl([], [Validators.required]),
       imageName: new FormControl([], ),
@@ -241,7 +243,9 @@ export class UseraddComponent implements OnInit {
     this.userModel.userMobile = selecteddata.userMobile;
     this.userModel.userEmail = selecteddata.userEmail;
     this.userModel.userScope = selecteddata.userScope;
-    this.userModel.activeYN = selecteddata.activeYN;
+    this.userModel.activeYN = selecteddata.activeYN?selecteddata.activeYN:'Y';
+    this.userModel.canEditTripAfterClose = selecteddata.canEditTripAfterClose?selecteddata.canEditTripAfterClose:'N';
+    this.userModel.canLinkTrip = selecteddata.canLinkTrip?selecteddata.canLinkTrip:'N';
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.branch;
     this.userModel.branchList = selecteddata.userBranch.toString();

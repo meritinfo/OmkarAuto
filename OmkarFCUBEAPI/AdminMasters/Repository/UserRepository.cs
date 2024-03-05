@@ -51,6 +51,8 @@ namespace AdminMasters.Repository
                             new SqlParameter("@Employeeid", userMasterModel.Employeeid),
                             new SqlParameter("@Empbranch", userMasterModel.Empbranch),
                             new SqlParameter("@ActiveYN", userMasterModel.ActiveYN),
+                            new SqlParameter("@CanEditTripAfterClose", userMasterModel.CanEditTripAfterClose),
+                            new SqlParameter("@CanLinkTrip", userMasterModel.CanLinkTrip),
                             new SqlParameter("@LastLoginDateTime_Success", userMasterModel.LastLoginDateTime_Success),
                             new SqlParameter("@LastLoginIP_Success", userMasterModel.LastLoginIP_Success),
                             new SqlParameter("@LastLoginDateTime_Fail", userMasterModel.LastLoginDateTime_Fail),

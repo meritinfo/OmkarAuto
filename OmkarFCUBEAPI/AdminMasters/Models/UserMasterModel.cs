@@ -20,6 +20,8 @@
         public string? Employeeid { get; set; }
         public string? Empbranch { get; set; }
         public string? ActiveYN { get; set; }
+        public string? CanEditTripAfterClose { get; set; }
+        public string? CanLinkTrip { get; set; }
         public DateTime? LastLoginDateTime_Success { get; set; }
         public string? LastLoginIP_Success { get; set; }
         public DateTime? LastLoginDateTime_Fail { get; set; }
