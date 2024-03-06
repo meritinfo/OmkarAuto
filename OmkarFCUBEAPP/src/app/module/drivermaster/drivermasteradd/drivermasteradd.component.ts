@@ -32,6 +32,12 @@ export class DrivermasteraddComponent {
   driverPhotoData: [] = [];
   driverPhotoPreview: any;
   driverPhotoName: string = '';
+  uploadedDrLic: string = "";
+  uploadedDrHazLic: string = "";
+  uploadedDrAadhar: string = "";
+  uploadedDrTempAddProof: string = "";
+  uploadedDrPermAddProof: string = "";
+  uploadedDrBankPassBook: string = "";
 
   @ViewChild('driverPhotoInput', {
     static: true
@@ -165,6 +171,12 @@ export class DrivermasteraddComponent {
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
+      this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
+      this.uploadedDrHazLic = Constants.UploadFolderPath + 'driver/hazdrivinglicense/' + this.selectedDriverMasterDetails.attachDrHazLic;
+      this.uploadedDrAadhar = Constants.UploadFolderPath + 'driver/aadharcard/' + this.selectedDriverMasterDetails.attachDrAadhar;
+      this.uploadedDrTempAddProof = Constants.UploadFolderPath + 'driver/tempaddressprove/' + this.selectedDriverMasterDetails.attachDrTempAddProof;
+      this.uploadedDrPermAddProof = Constants.UploadFolderPath + 'driver/peraddressprove/' + this.selectedDriverMasterDetails.attachDrPermAddProof;
+      this.uploadedDrBankPassBook = Constants.UploadFolderPath + 'driver/bankpassbook/' + this.selectedDriverMasterDetails.attachDrBankPassBook;
       //this.driverPhotoPreview = this.selectedDriverMasterDetails.drPhoto;
       this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
       this.formDriverMaster.patchValue({
