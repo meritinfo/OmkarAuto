@@ -303,6 +303,8 @@ namespace AdminMasters.Repository
                                 CentreName = Convert.ToString(dataSet.Tables[0].Rows[i]["CentreName"]),
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
+                                CanEditTripAfterClose = Convert.ToString(dataSet.Tables[0].Rows[i]["CanEditTripAfterClose"]),
+                                CanLinkTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["CanLinkTrip"]),
                                 ImageName = Convert.ToString(dataSet.Tables[0].Rows[i]["ImageName"]),
                                 BranchList = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchList"]),
                                 ModuleList = Convert.ToString(dataSet.Tables[0].Rows[i]["ModuleList"]),
