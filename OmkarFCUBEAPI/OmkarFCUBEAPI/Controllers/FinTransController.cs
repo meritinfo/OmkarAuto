@@ -257,6 +257,8 @@ namespace OmkarFCUBEAPI.Controllers
                 var attatchFile2 = HttpContext.Request.Form.Files["attatchFile2"];
 
                 GstPurchaseMstModel gstPurchaseMstModel = JsonConvert.DeserializeObject<GstPurchaseMstModel>(HttpContext.Request.Form["datadetails"]);
+                gstPurchaseMstModel.AttatchFile1="";
+                gstPurchaseMstModel.AttatchFile2="";
 
                 if (attatchFile1 != null)
                 {
