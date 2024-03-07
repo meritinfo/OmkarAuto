@@ -47,7 +47,7 @@ export class TripsheetaddComponent {
   bhattaRate: string = '';
   advancePay2: string = '';
   day2: string = '';
-  adblue: string = '';
+  adblue: string = '0';
   dsl2: number = 0;
   driverid: string = '';
   ltsdsl: string = '';
@@ -194,8 +194,8 @@ export class TripsheetaddComponent {
       delayedDays_2: new FormControl('',),
       graceDays_2: new FormControl('',),
       opBalDriver: new FormControl('0',),
-      opBalDsl: new FormControl('',),
-      opBalAdblue: new FormControl('',),
+      opBalDsl: new FormControl('0',),
+      opBalAdblue: new FormControl('0',),
       paidDriverAdvance: new FormControl('',),
       freightCollByDriver: new FormControl('',),
       issuedDslLtrs: new FormControl('',),
@@ -1059,7 +1059,7 @@ if(selectedValue > 1){
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-       if (this.responseDetails.status) {
+       if (this.responseDetails.status && selectedDataValue.tripNo!= 1 ) {
      // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
         this.formTripsheet.patchValue({
           opBalDriver: this.responseDetails.message ? this.responseDetails.message : '0'
@@ -1078,6 +1078,8 @@ if(selectedValue > 1){
 
   }
   GetDslOpeningBal() {
+    var selectedDataValue = this.formTripsheet.getRawValue();
+if(selectedDataValue.tripNo!=1){
     var selectedDataValue = this.formTripsheet.getRawValue();
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
@@ -1104,11 +1106,13 @@ if(selectedValue > 1){
     });
  
    // this.getDriverDetails();
-   
+  }
 
   }
   GetAdblueOpeningBal() {
     var selectedDataValue = this.formTripsheet.getRawValue();
+    if(selectedDataValue.tripNo!=1){
+  
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
     //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
@@ -1134,11 +1138,13 @@ if(selectedValue > 1){
     });
  
    // this.getDriverDetails();
-   
-
+ // }
+  }
   }
   GetOpeningBalForEdit(e:any) {
     var selectedDataValue = this.formTripsheet.getRawValue();
+    if( selectedDataValue.tripNo!=1){
+
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
     this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
     //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
@@ -1149,6 +1155,7 @@ if(selectedValue > 1){
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
+   
        if (this.responseDetails.status) {
      // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
         this.formTripsheet.patchValue({
@@ -1161,12 +1168,14 @@ if(selectedValue > 1){
           opBalDriver: '0'
         });
       }
+ 
     });
  
    // this.getDriverDetails();
    
 
-  }
+ }
+}
   validationForDslPlace(){
     var selectedDataValue = this.formTripsheet.getRawValue();
     if(selectedDataValue.cashDslLtrs!=''&& selectedDataValue.cashDslPlace==''){
@@ -2209,7 +2218,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     else {
 
       this.formTripsheet.patchValue({
-        ltsAdblueToBe_2: ''
+        ltsAdblueToBe_2: '0'
       });
     }
   }
@@ -2251,7 +2260,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     else {
 
       this.formTripsheet.patchValue({
-        ltsAdblueToBe_2: ''
+        ltsAdblueToBe_2: '0'
       });
     }
   }
@@ -2722,7 +2731,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         else {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
-            ltsDslToBe_1: 0
+            ltsDslToBe_1: '0'
           });
 
         }

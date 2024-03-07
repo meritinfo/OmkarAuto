@@ -134,7 +134,7 @@ export class TripsheetlistComponent {
         },
         {
           title: 'Trip Close Date',
-          data: 'lastTripCloseDate',
+          data: 'tripCloseDt',
         },
         {
           title: 'LinkYN',
