@@ -10,6 +10,7 @@ import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-gstpurchaseadd',
@@ -37,6 +38,8 @@ export class GstpurchaseaddComponent {
   vendorList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   selectedGstpurchaseDetails = new Gstpurchasemodel(); 
+  attach1: string = "";
+  attach2: string = "";
   
   @ViewChild('attach1Input', {
     static: true
@@ -150,6 +153,8 @@ export class GstpurchaseaddComponent {
 
     setTimeout(() => {
       if (this.selectedGstpurchaseDetails.masterid != '') {    
+        this.attach1 = Constants.UploadFolderPath + 'gstpurchase/attatchFile1/' + this.selectedGstpurchaseDetails.attatchFile1;
+        this.attach2 = Constants.UploadFolderPath + 'gstpurchase/attatchFile2/' + this.selectedGstpurchaseDetails.attatchFile2;
         this.formGSTPurchase.controls['modifyRemarks'].enable();  
         this.formGSTPurchase.patchValue(this.selectedGstpurchaseDetails);
         this.formGSTPurchase.patchValue({

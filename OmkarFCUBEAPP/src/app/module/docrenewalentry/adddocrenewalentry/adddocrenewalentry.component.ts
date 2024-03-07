@@ -9,6 +9,8 @@ import { DocRenewalEntryService } from 'src/app/services/docrenewalentry.service
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
+import { Constants } from 'src/app/common/constants';
+
 
 @Component({
   selector: 'app-adddocrenewalentry',
@@ -32,6 +34,8 @@ export class AdddocrenewalentryComponent {
     deleteStatus = false;
     viewStatus = false;
     checkselected: boolean = false;
+    attach1: string = "";
+    attach2: string = "";
 
     responseDetails = new Responsemodel();
     VehicalExistDetails = new Responsemodel();
@@ -58,6 +62,7 @@ export class AdddocrenewalentryComponent {
       this.docRenewalentryModel = new Docrenewalentrymodel();
 
   }
+
   ngOnInit(): void {
     
     var menuData = sessionStorage.getItem('menulist')?.toString();
@@ -175,6 +180,8 @@ export class AdddocrenewalentryComponent {
       
     setTimeout(() => {
       if (this.selectedDocRenewalEntryDetails.docRenewalEntryId != '') {
+        this.attach1 = Constants.UploadFolderPath + 'docrenewal/attach1/' + this.selectedDocRenewalEntryDetails.attach1;
+        this.attach2 = Constants.UploadFolderPath + 'docrenewal/attach2/' + this.selectedDocRenewalEntryDetails.attach2;
         this.getPaymentCreditAcList(this.selectedDocRenewalEntryDetails.pmtType);
         this.formDocEntry.patchValue(this.selectedDocRenewalEntryDetails);    
         this.formDocEntry.patchValue({

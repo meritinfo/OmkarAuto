@@ -723,6 +723,8 @@ namespace OmkarFCUBEAPI.Controllers
                 var attach2 = HttpContext.Request.Form.Files["attach2"];
 
                 DocRenewalEntryModel docRenewalEntryModel = JsonConvert.DeserializeObject<DocRenewalEntryModel>(HttpContext.Request.Form["datadetails"]);
+                docRenewalEntryModel.Attach1 = "";
+                docRenewalEntryModel.Attach2 = "";
 
                 if (attach1 != null)
                 {
