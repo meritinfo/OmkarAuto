@@ -417,6 +417,8 @@ namespace FleetTrans.Repository
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
                                 IdleDays = Convert.ToString(dataSet.Tables[0].Rows[i]["IdleDays"]),
                                 PenaltyExtra = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyExtra"])
+                            
+                                       
 
                             });
                         }
