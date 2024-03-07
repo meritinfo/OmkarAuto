@@ -1,10 +1,9 @@
 export class LoggedinUsermodel {
-    userId: string = "";
-
- 
+    userId: string = ""; 
     userName: string = "";
     status: boolean = false;
     message: string = "";
+    scope: string = "";
     token: string = "";
 }
 

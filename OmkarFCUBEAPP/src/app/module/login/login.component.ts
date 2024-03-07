@@ -45,9 +45,9 @@ export class LoginComponent implements OnInit {
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
-        sessionStorage.setItem("uid", this.selectedUserDetails.userId);
-     
-        sessionStorage.setItem("token", this.selectedUserDetails.token);
+        sessionStorage.setItem("uid", this.selectedUserDetails.userId);     
+        sessionStorage.setItem("token", this.selectedUserDetails.token);    
+        sessionStorage.setItem("scope", this.selectedUserDetails.scope);
         sessionStorage.setItem("user", this.selectedUserDetails.userName);
       
         this.sharedService.loggedInStatus = true;

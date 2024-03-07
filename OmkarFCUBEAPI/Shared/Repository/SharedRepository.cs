@@ -42,17 +42,19 @@ namespace Shared.Repository
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
-                        userModel.UserId = Convert.ToString(userData.Tables[0].Rows[0]["UserId"]);
-                        userModel.UserName = Convert.ToString(userData.Tables[0].Rows[0]["UserName"]);
-                        userModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
-                        userModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                        userModel.UserId    = Convert.ToString(userData.Tables[0].Rows[0]["UserId"]);
+                        userModel.UserName  = Convert.ToString(userData.Tables[0].Rows[0]["UserName"]);
+                        userModel.Status    = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        userModel.Scope     = Convert.ToString(userData.Tables[0].Rows[0]["UserScope"]);
+                        userModel.Message   = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
                     }
                     else
                     {
-                        userModel.UserId = "0";
-                        userModel.UserName = "";
-                        userModel.Status = false;
-                        userModel.Message = "Account not found";
+                        userModel.UserId    = "0";
+                        userModel.UserName  = "";
+                        userModel.Status    = false;
+                        userModel.Scope     = "";
+                        userModel.Message   = "Account not found";
                     }
                 }
             }

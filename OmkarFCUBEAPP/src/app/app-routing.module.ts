@@ -105,6 +105,7 @@ import { EmploanlistComponent } from './module/emploan/emploanlist/emploanlist.c
 import { EmploanaddComponent } from './module/emploan/emploanadd/emploanadd.component';
 import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
 import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
+import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
 
 
 
@@ -257,6 +258,7 @@ const routes: Routes = [
   { path: 'loansrepaylist', component:  EmploanrepaylistComponent },
   { path: 'loansrepayadd', component: EmploanrepayaddComponent },  
   { path: 'loansrepayedit', component:  EmploanrepayaddComponent },
+  { path: 'changebranch', component:  ChangebranchComponent },
   
 ];
 

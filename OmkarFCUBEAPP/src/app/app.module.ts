@@ -206,6 +206,7 @@ import { Emploanlistmodel } from './models/emploanlistmodel';
 import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
 import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
 import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
+import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
 
 @NgModule({
   declarations: [
@@ -326,6 +327,7 @@ import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.com
     EmploanrepaylistComponent,
     EmploanrepayaddComponent,
     TripstatusrptComponent,
+    ChangebranchComponent,
   ],
   imports: [
     BrowserModule,
