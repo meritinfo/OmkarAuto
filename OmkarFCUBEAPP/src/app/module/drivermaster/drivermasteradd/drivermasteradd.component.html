@@ -28,16 +28,17 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Driver name</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" id="basicpill-firstname-input"
-                                                    formControlName="driverName" placeholder=""                               
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    id="basicpill-firstname-input" formControlName="driverName"
+                                                    placeholder=""
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['driverName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Father name</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="fatherName"
-                                                    placeholder=""    
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="fatherName" placeholder=""
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fatherName'].invalid) }">
                                             </div>
                                         </div>
@@ -45,16 +46,17 @@
                                             <div class="mb-3">
                                                 <label>Date of Birth</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfBirth"
-                                                    placeholder="" (change)="onDOBChange($event)"  
+                                                    min="{{minDate}}" max="{{maxDate}}" placeholder=""
+                                                    (change)="onDOBChange($event)"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['dateOfBirth'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Age</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control" formControlName="age"
-                                                placeholder="" maxlength="2"    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['age'].invalid) }">
+                                                <input numbersonly type="text" class="form-control"
+                                                    formControlName="age" placeholder="" maxlength="2"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['age'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -63,7 +65,7 @@
                                             <div class="mb-3">
                                                 <label>Blood Group</label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="bloodGroup"
-                                                class="form-control form-select ng-pristine ng-touched"
+                                                    class="form-control form-select ng-pristine ng-touched"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['bloodGroup'].invalid) }">
                                                     <option value="A+">A+</option>
                                                     <option value="A-">A-</option>
@@ -79,17 +81,16 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Introduced By</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="introBy"
-                                                placeholder=""    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['introBy'].invalid) }">
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="introBy" placeholder=""
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['introBy'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Mobile No</label><span style="color: red">*</span>
                                                 <input numbersonly type="text" class="form-control"
-                                                    formControlName="introByMobileNo" 
-                                                    placeholder=""  maxlength="10"  
+                                                    formControlName="introByMobileNo" placeholder="" maxlength="10"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['introByMobileNo'].invalid) }">
                                             </div>
                                         </div>
@@ -97,8 +98,8 @@
                                             <div class="mb-3">
                                                 <label>Date of Appointment</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="dateOfAppoint"
-                                                placeholder=""    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['dateOfAppoint'].invalid) }">
+                                                    placeholder=""
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['dateOfAppoint'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -106,43 +107,42 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Group Name</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="groupName"
-                                                placeholder=""    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['groupName'].invalid) }">
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="groupName" placeholder=""
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['groupName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Aadhar No</label><span style="color: red">*</span>
-                                                <input numbersonly type="text" class="form-control" formControlName="driverAadharNo"
-                                                placeholder="" maxlength="20"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['driverAadharNo'].invalid) }">
+                                                <input numbersonly type="text" class="form-control"
+                                                    formControlName="driverAadharNo" placeholder="" maxlength="20"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['driverAadharNo'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Licence No</label><span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="licenseNo"
-                                                placeholder=""    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['licenseNo'].invalid) }">
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="licenseNo" placeholder=""
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['licenseNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Valid Upto</label><span style="color: red">*</span>
                                                 <input type="date" class="form-control" formControlName="licValidUpto"
-                                                placeholder=""    
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['licValidUpto'].invalid) }">
+                                                    placeholder=""
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['licValidUpto'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Issue Auth</label><span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                    formControlName="licenseIssuAuth" 
-                                                    placeholder=""    
+                                                    formControlName="licenseIssuAuth" placeholder=""
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['licenseIssuAuth'].invalid) }">
                                             </div>
                                         </div>
@@ -153,19 +153,19 @@
                                                 <label>Hazardous Lic Y/N </label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="isHazardousLicYN"
                                                     class="form-control form-select ng-pristine ng-touched"
-                                                    (change)="onHazardousChange($event)"                        
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['isHazardousLicYN'].invalid) }">
-                                                        <option value="Y">Yes</option>
-                                                        <option value="N">NO</option>
+                                                    (change)="onHazardousChange($event)"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['isHazardousLicYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">NO</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Hazardous Licence No</label>
-                                                <input uppercaseonly type="text" class="form-control" 
-                                                formControlName="hazardousLicNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['hazardousLicNo'].invalid) }"
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="hazardousLicNo"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['hazardousLicNo'].invalid) }"
                                                     placeholder="">
                                             </div>
                                         </div>
@@ -173,7 +173,7 @@
                                             <div class="mb-3">
                                                 <label>hazardous Valid Upto</label>
                                                 <input type="date" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['hazLicValidUpto'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['hazLicValidUpto'].invalid) }"
                                                     formControlName="hazLicValidUpto" placeholder="">
                                             </div>
                                         </div>
@@ -181,7 +181,7 @@
                                             <div class="mb-3">
                                                 <label>HazLicense Issue Auth</label>
                                                 <input uppercaseonly type="text" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['hazLicenseIssuAuth'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['hazLicenseIssuAuth'].invalid) }"
                                                     formControlName="hazLicenseIssuAuth" placeholder="">
                                             </div>
                                         </div>
@@ -190,8 +190,8 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label>Temporary Address</label>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="temporaryAddr"
-                                                    placeholder="">
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="temporaryAddr" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -211,8 +211,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
-                                                <input numbersonly type="text" maxlength="10" class="form-control" formControlName="tempAddPhone"
-                                                    placeholder="">
+                                                <input numbersonly type="text" maxlength="10" class="form-control"
+                                                    formControlName="tempAddPhone" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -220,8 +220,8 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label>Permanent Address</label>
-                                                <input uppercaseonly type="text" class="form-control" formControlName="permanentAddr"
-                                                    placeholder="">
+                                                <input uppercaseonly type="text" class="form-control"
+                                                    formControlName="permanentAddr" placeholder="">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -241,8 +241,8 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label>Phone</label>
-                                                <input numbersonly type="text" class="form-control" maxlength="10" 
-                                                formControlName="permAddPhone" placeholder="">
+                                                <input numbersonly type="text" class="form-control" maxlength="10"
+                                                    formControlName="permAddPhone" placeholder="">
                                             </div>
                                         </div>
                                     </div>
@@ -259,8 +259,9 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Years</label>
-                                                        <input numbersonly maxlength="4" type="text" class="form-control"
-                                                            formControlName="previousExpYears" placeholder="">
+                                                        <input numbersonly maxlength="4" type="text"
+                                                            class="form-control" formControlName="previousExpYears"
+                                                            placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,16 +269,18 @@
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Mobile 1</label><span style="color: red">*</span>
-                                                        <input numbersonly type="text" class="form-control" placeholder="" 
-                                                            formControlName="driverMobile1" maxlength="10"
+                                                        <input numbersonly type="text" class="form-control"
+                                                            placeholder="" formControlName="driverMobile1"
+                                                            maxlength="10"
                                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMobile1'].invalid) }">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="mb-3">
                                                         <label>Mobile 2</label>
-                                                        <input numbersonly type="text" maxlength="10" formControlName="driverMobile2"
-                                                        class="form-control" placeholder="">
+                                                        <input numbersonly type="text" maxlength="10"
+                                                            formControlName="driverMobile2" class="form-control"
+                                                            placeholder="">
                                                     </div>
                                                 </div>
                                             </div>
@@ -285,8 +288,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Driver Photo</label><span style="color: red">*</span>
-                                                <input #driverPhotoInput class="form-control" type="file" formControlName="drPhoto"
-                                                    id="formDriverPhoto" accept="image/*"
+                                                <input #driverPhotoInput class="form-control" type="file"
+                                                    formControlName="drPhoto" id="formDriverPhoto" accept="image/*"
                                                     (change)="onSelectDrivePhoto($event)"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['drPhoto'].invalid) }">
                                             </div>
@@ -294,17 +297,17 @@
                                         <div class="col-lg-3">
                                             <img [src]="driverPhotoPreview" height="120" width="120">
                                         </div>
-                                    </div>      
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label>Active Y/N </label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="isActive"
                                                     class="form-control form-select ng-pristine ng-touched"
-                                                    (change)="onActiveChange($event)"                        
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
-                                                        <option value="Y">Yes</option>
-                                                        <option value="N">NO</option>
+                                                    (change)="onActiveChange($event)"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">NO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -312,7 +315,7 @@
                                             <div class="mb-3">
                                                 <label>InActive Date</label>
                                                 <input type="date" class="form-control" formControlName="inActiveDate"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['inActiveDate'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['inActiveDate'].invalid) }"
                                                     placeholder="">
                                             </div>
                                         </div>
@@ -320,11 +323,11 @@
                                             <div class="mb-3">
                                                 <label>Removed Y/N </label><span style="color: red">*</span>
                                                 <select class="form-control" formControlName="removedYN"
-                                                        class="form-control form-select ng-pristine ng-touched"
-                                                        (change)="onRemovedChange($event)"                        
-                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['removedYN'].invalid) }">
-                                                            <option value="Y">Yes</option>
-                                                            <option value="N">NO</option>
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    (change)="onRemovedChange($event)"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['removedYN'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">NO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -332,7 +335,7 @@
                                             <div class="mb-3">
                                                 <label>Removed Date</label>
                                                 <input type="date" class="form-control" formControlName="removedDate"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['removedDate'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['removedDate'].invalid) }"
                                                     placeholder="">
                                             </div>
                                         </div>
@@ -355,24 +358,23 @@
                                                 <div class="mb-3">
                                                     <label>Bank Account Name</label><span style="color: red">*</span>
                                                     <input uppercaseonly type="text" class="form-control"
-                                                        formControlName="drBankAccountName"
-                                                        placeholder=""
+                                                        formControlName="drBankAccountName" placeholder=""
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['drBankAccountName'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Bank Name</label><span style="color: red">*</span>
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="bankName"
-                                                        placeholder=""
+                                                    <input uppercaseonly type="text" class="form-control"
+                                                        formControlName="bankName" placeholder=""
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['bankName'].invalid) }">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Bank Account No</label><span style="color: red">*</span>
-                                                    <input numbersonly type="text" class="form-control" formControlName="bankAcNo"
-                                                        placeholder=""
+                                                    <input numbersonly type="text" class="form-control"
+                                                        formControlName="bankAcNo" placeholder=""
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAcNo'].invalid) }">
                                                 </div>
                                             </div>
@@ -389,8 +391,8 @@
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label>Branch Name</label><span style="color: red">*</span>
-                                                    <input uppercaseonly type="text" class="form-control" formControlName="bankBranch"
-                                                        placeholder=""
+                                                    <input uppercaseonly type="text" class="form-control"
+                                                        formControlName="bankBranch" placeholder=""
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['bankBranch'].invalid) }">
                                                 </div>
                                             </div>
@@ -398,11 +400,11 @@
                                                 <div class="mb-3">
                                                     <label>Account Status</label><span style="color: red">*</span>
                                                     <select class="form-control" formControlName="bankAccountStatus"
-                                                        class="form-control form-select ng-pristine ng-touched" 
-                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAccountStatus'].invalid) }">
-                                                            <option value="S">Savings Ac</option>
-                                                            <option value="C">Current Ac</option>
-                                                    </select>                                                   
+                                                        class="form-control form-select ng-pristine ng-touched"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['bankAccountStatus'].invalid) }">
+                                                        <option value="S">Savings Ac</option>
+                                                        <option value="C">Current Ac</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -428,6 +430,8 @@
                                                             License</label>
                                                         <input #drivingLicenseInput class="form-control" type="file"
                                                             id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedDriverMasterDetails.attachDrLic" target="_blank"
+                                                            href={{uploadedDrLic}}>Download</a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -435,6 +439,8 @@
                                                         <label for="formLicFile" class="form-label">Haz License</label>
                                                         <input #hazdrivingLicenseInput class="form-control" type="file"
                                                             id="formLicFile" accept="image/*">
+                                                        <a *ngIf="selectedDriverMasterDetails.attachDrHazLic" target="_blank"
+                                                            href={{uploadedDrHazLic}}>Download</a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -443,6 +449,8 @@
                                                             Address Prove</label>
                                                         <input #tempAddressProveInput class="form-control" type="file"
                                                             id="formTempAddFile" accept="image/*">
+                                                            <a *ngIf="selectedDriverMasterDetails.attachDrTempAddProof" target="_blank"
+                                                            href={{uploadedDrTempAddProof}}>Download</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -451,24 +459,30 @@
                                                     <div class="mt-3">
                                                         <label for="formPerAddFile" class="form-label">Permanent
                                                             Address Prove</label>
-                                                        <input #perAddressProveInput class="form-control" type="file" id="formPerAddFile"
-                                                            accept="image/*">
+                                                        <input #perAddressProveInput class="form-control" type="file"
+                                                            id="formPerAddFile" accept="image/*">
+                                                            <a *ngIf="selectedDriverMasterDetails.attachDrPermAddProof" target="_blank"
+                                                            href={{uploadedDrPermAddProof}}>Download</a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
                                                         <label for="formAadharFile" class="form-label">Aadhar
                                                             Card</label>
-                                                        <input #aadharCardInput class="form-control" type="file" id="formAadharFile"
-                                                            accept="image/*">
+                                                        <input #aadharCardInput class="form-control" type="file"
+                                                            id="formAadharFile" accept="image/*">
+                                                            <a *ngIf="selectedDriverMasterDetails.attachDrAadhar" target="_blank"
+                                                            href={{uploadedDrAadhar}}>Download</a>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mt-3">
                                                         <label for="formPassbookFile" class="form-label">Bank
                                                             Passbook</label>
-                                                        <input #bankPassbookInput class="form-control" type="file" id="formPassbookFile"
-                                                            accept="image/*">
+                                                        <input #bankPassbookInput class="form-control" type="file"
+                                                            id="formPassbookFile" accept="image/*">
+                                                            <a *ngIf="selectedDriverMasterDetails.attachDrBankPassBook" target="_blank"
+                                                            href={{uploadedDrBankPassBook}}>Download</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -482,7 +496,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md"
+                                *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                 (click)="submitDriverMasterForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteDriverMasterForm()">Delete</button>&nbsp;
@@ -490,7 +505,7 @@
                         </div>
                     </div>
                     <!-- end col -->
-                </div>                
+                </div>
                 <!-- end row -->
             </form>
             <!-- end row -->

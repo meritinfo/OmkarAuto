@@ -23,11 +23,21 @@ export class DrivermasteraddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  minDate:string = '';
+  maxDate: string = '';
+  loginDate:string = '';
+  fromDate: string = '';
   responseDetails = new Responsemodel();
   selectedDriverMasterDetails = new Drivermodel();
   driverPhotoData: [] = [];
   driverPhotoPreview: any;
   driverPhotoName: string = '';
+  uploadedDrLic: string = "";
+  uploadedDrHazLic: string = "";
+  uploadedDrAadhar: string = "";
+  uploadedDrTempAddProof: string = "";
+  uploadedDrPermAddProof: string = "";
+  uploadedDrBankPassBook: string = "";
 
   @ViewChild('driverPhotoInput', {
     static: true
@@ -72,6 +82,19 @@ export class DrivermasteraddComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    const today = new Date();
+    const today2 = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    today2.setMonth(month - 2);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+   // this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+   
+   this.maxDate = today2.toLocaleDateString('en-CA').toString();
+  
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -148,6 +171,12 @@ export class DrivermasteraddComponent {
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto;
+      this.uploadedDrLic = Constants.UploadFolderPath + 'driver/drivinglicense/' + this.selectedDriverMasterDetails.attachDrLic;
+      this.uploadedDrHazLic = Constants.UploadFolderPath + 'driver/hazdrivinglicense/' + this.selectedDriverMasterDetails.attachDrHazLic;
+      this.uploadedDrAadhar = Constants.UploadFolderPath + 'driver/aadharcard/' + this.selectedDriverMasterDetails.attachDrAadhar;
+      this.uploadedDrTempAddProof = Constants.UploadFolderPath + 'driver/tempaddressprove/' + this.selectedDriverMasterDetails.attachDrTempAddProof;
+      this.uploadedDrPermAddProof = Constants.UploadFolderPath + 'driver/peraddressprove/' + this.selectedDriverMasterDetails.attachDrPermAddProof;
+      this.uploadedDrBankPassBook = Constants.UploadFolderPath + 'driver/bankpassbook/' + this.selectedDriverMasterDetails.attachDrBankPassBook;
       //this.driverPhotoPreview = this.selectedDriverMasterDetails.drPhoto;
       this.formDriverMaster.patchValue(this.selectedDriverMasterDetails);
       this.formDriverMaster.patchValue({
