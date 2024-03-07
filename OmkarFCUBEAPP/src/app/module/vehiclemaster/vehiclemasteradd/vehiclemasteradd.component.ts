@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { SharedService } from 'src/app/services/shared.service';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-vehiclemasteradd',
@@ -34,6 +35,9 @@ export class VehiclemasteraddComponent {
   vehicleMfrList: Dropdownmodel[] = [];
   vehicleLedgerAcList: Dropdownmodel[] = [];
   vehicleAssetAcList: Dropdownmodel[] = [];
+  attach1: string = "";
+  attach2: string = "";
+  attach3: string = "";
 
   @ViewChild('attachment1Input', {
     static: true
@@ -149,6 +153,10 @@ export class VehiclemasteraddComponent {
       this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
     setTimeout(() => {
       if (this.selectedVehicleMasterDetails.vehicleMasterID != '') {
+        this.attach1 = Constants.UploadFolderPath + 'vehical/attachment1/' + this.selectedVehicleMasterDetails.attach1Link;
+        this.attach2 = Constants.UploadFolderPath + 'vehical/attachment2/' + this.selectedVehicleMasterDetails.attach2Link;
+        this.attach3 = Constants.UploadFolderPath + 'vehical/attachment3/' + this.selectedVehicleMasterDetails.attach3Link;
+        
         this.formVehicleMaster.controls['vehicleNo'].disable();
         this.formVehicleMaster.patchValue(this.selectedVehicleMasterDetails);
         this.formVehicleMaster.patchValue({        
