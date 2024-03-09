@@ -287,7 +287,8 @@ export class AddothertripopenComponent {
      && selectedDataValue.newTripDate!='' && selectedDataValue.vehicleMasterID.dataId !='' ) {
       this.dslDetails.transDate = selectedDataValue.newTripDate;
       this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
-      this.dslDetails.loadType = "L";
+    //  this.dslDetails.loadType = "L";
+    this.dslDetails.loadType= selectedDataValue.loadEmptyType;
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl1 = res.message;
@@ -342,6 +343,14 @@ export class AddothertripopenComponent {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
     });
+  }
+  onClearedFromPlace(e: any){
+    this.frmplc='0';
+   
+  }
+  onClearedToPlace(e: any){
+    this.toplc='0';
+   
   }
   getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {

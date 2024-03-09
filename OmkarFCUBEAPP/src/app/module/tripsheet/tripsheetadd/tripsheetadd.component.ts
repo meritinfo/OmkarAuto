@@ -1870,7 +1870,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
    // tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
-   tripBalance =  paidDriverAdvance-opBalDriver - totalDriverAc ;
+  // tripBalance =  paidDriverAdvance-opBalDriver - totalDriverAc ;
+  tripBalance =  paidDriverAdvance + opBalDriver - totalDriverAc ;
 
 
     netTripBalance = tripBalance - recdFromDriver;
@@ -1947,7 +1948,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
    clBalAdblue = totalAdblue - issuedAdblueLtrs + opBalAdblue 
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
-  tripBalance = paidDriverAdvance-opBalDriver - totalDriverAc ;
+ // tripBalance = paidDriverAdvance-opBalDriver - totalDriverAc ;
+ tripBalance = paidDriverAdvance + opBalDriver - totalDriverAc ;
     netTripBalance = tripBalance - recdFromDriver;
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({
@@ -2270,7 +2272,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       this.dslDetails.transDate = selectedDataValue.newTripDate;
       //  this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString(); this.dTripKM_1 
       this.dslDetails.tripKms = this.nexttripkms
-      this.dslDetails.loadType = "L";
+     // this.dslDetails.loadType = "L";
+     this.dslDetails.loadType = this.selectedTripSheetDetails.loadEmptyType;
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl = res.message;
@@ -2716,7 +2719,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     if (this.ivFromPlace != "" && this.ivToPlace != "") {
       this.dslDetails.transDate = selectedDataValue.newTripDate;
       this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
-      this.dslDetails.loadType = "L";
+     // this.dslDetails.loadType = "L";
+      this.dslDetails.loadType= this.selectedTripSheetDetails.loadEmptyType;
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl1 = res.message;
