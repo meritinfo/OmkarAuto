@@ -43,7 +43,7 @@ export class BillstatementlistComponent {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Statement"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -79,20 +79,20 @@ export class BillstatementlistComponent {
   
   
         {
-          title: 'BillStation ',
+          title: 'Bill Station ',
           data: 'fPlace',
         },
   
         {
-          title: 'SeriesCode ',
+          title: 'Series Code ',
           data: 'seriesCode',
         },
         {
-          title: 'Bill_StmtNo ',
+          title: 'Bill StmtNo ',
           data: 'bill_StmtNo',
         },
         {
-          title: 'BillDate ',
+          title: 'Bill Date ',
           data: 'billDate'
         },
        

@@ -23,6 +23,10 @@ import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementse
 export class DieselstatementaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  minDate: string = '';
+  maxDate: string = '';
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   vendorList:Dropdownmodel[] = [];
@@ -75,6 +79,10 @@ export class DieselstatementaddComponent implements OnInit {
       this.branch = branchData;
 
     }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -85,17 +93,26 @@ export class DieselstatementaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
-    this.sharedService.loading=true;    
+    this.sharedService.loading=true;   
+ 
     this.getBranchList();
     this.getVendorList();
 
     this.selectedDieselStmtDetails = this.dieselstatementService.getDieselStatementDetails();
     this.formDieselStatement = this.formBuilder.group({
       BranchCode: new FormControl(this.branch, [Validators.required]),
-      billStmtDate: new FormControl('', [Validators.required]),
-      fromDate: new FormControl('', [Validators.required]),
-      toDate: new FormControl('', [Validators.required]),
+      billStmtDate: new FormControl(this.loginDate, [Validators.required]),
+      fromDate: new FormControl(this.fromDate, [Validators.required]),
+      toDate: new FormControl(this.loginDate, [Validators.required]),
       location: new FormControl('', [Validators.required]),
       vendorId: new FormControl('', [Validators.required]),
       totalDslLtrs: new FormControl(''),
@@ -130,7 +147,11 @@ export class DieselstatementaddComponent implements OnInit {
       for (var i = 0; i < arr.length; i++) {
       }         
     }
-    this.formDieselStatement.controls['BranchCode'].disable();     
+    this.formDieselStatement.controls['BranchCode'].disable();   
+    this.formDieselStatement.controls["totalDslLtrs"].disable();
+    this.formDieselStatement.controls["totalDslAmt"].disable();
+    this.formDieselStatement.controls["totalCashAdv"].disable();
+
     this.formDieselStatement.controls['totalNetAmount'].disable(); 
   }
 
@@ -178,7 +199,8 @@ export class DieselstatementaddComponent implements OnInit {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  searchStatement(): void {  
+  searchStatement(): void { 
+
     var selectedDataVal=this.formDieselStatement.getRawValue();
     if (this.formDieselStatement.controls["fromDate"].invalid) {
       this.toasterService.warning(" Please Select From Date");  
@@ -204,10 +226,12 @@ export class DieselstatementaddComponent implements OnInit {
       this.dieselstatementService.getDieselStatementSearchList(this.Pagerequestwithdatesmodel)
       .subscribe((res: Dieselstatementmodel) => {
         this.DieselStatementmodel = res;
+        if(res.dieselStatementListData.length>0){
         this.formDieselStatement.controls["fromDate"].disable();
         this.formDieselStatement.controls["toDate"].disable();
         this.formDieselStatement.controls["location"].disable();
         this.formDieselStatement.controls["vendorId"].disable();
+        }
         this.formArray.clear();
         for (var i = 0; i < res.dieselStatementListData.length; i++) {
           this.formArray.push(this.createInitialArray());
@@ -231,8 +255,17 @@ export class DieselstatementaddComponent implements OnInit {
           this.formArray.controls[i].get("amountPaid")?.disable();
           this.formArray.controls[i].get("remarks")?.disable();
         }
-      });      
+      });  
+      this.formDieselStatement.patchValue({
+        totalDslLtrs:0,
+        totalDslAmt: 0,
+        totalCashAdv: 0,
+        totalNetAmount: 0,
+      });    
     } 
+  }
+  disableBottom(){
+   
   }
 
   selectedData(index: number, event: any) {
