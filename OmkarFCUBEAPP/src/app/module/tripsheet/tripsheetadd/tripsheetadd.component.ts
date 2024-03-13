@@ -1252,15 +1252,27 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
 
-        this.formTripsheet.patchValue({
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
-          distanceTripKM_2: this.dTripKM_1,
+          distanceTripKM_2: (this.dTripKM_1).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
-          advPayable_2: this.advancePay2
+          advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
       });
     }
     else {
@@ -1310,23 +1322,48 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
 
 
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
 
-        this.formTripsheet.patchValue({
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
-         // nextExpectedReportingDt: date2.split("T")[0],
+          nextExpectedReportingDt: date2.split("T")[0],
           distanceTripKM_2: (this.dTripKM_1).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
+      }
         //////test
         if(this.dTripKM_1!=0){
-        this.formTripsheet.patchValue({
+       
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+    
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
-        
-        });}
+       
+        });
+      }
+    }
       
 
 
@@ -1383,7 +1420,19 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
 
-        this.formTripsheet.patchValue({
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
@@ -1391,7 +1440,7 @@ if(selectedDataValue.tripNo!=1){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
         // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
@@ -1434,8 +1483,19 @@ if(selectedDataValue.tripNo!=1){
 
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
 
-        this.formTripsheet.patchValue({
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
@@ -1443,7 +1503,7 @@ if(selectedDataValue.tripNo!=1){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
         // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
@@ -2790,6 +2850,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.commonDetailUpdate();
   }
   onClearedDestination(e: any) {
+    this.ivToPlace = "0"
     this.formTripsheet.patchValue({
     // destination: undefined,
     destination: "",
@@ -2807,6 +2868,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     
   }
   onClearedFromPlace(e: any) {
+   this.ivFromPlace  = '0';
     this.formTripsheet.patchValue({
       distanceTripKM_1: '0',
       advPayable_1:'0',
@@ -2819,6 +2881,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.totalCal();
   }
   onClearedFromPlace2(e: any) {
+    this.ivNewFromPlace="0";
     this.formTripsheet.patchValue({
       distanceTripKM_2: '0',
       nextExpectedReportingDt: '',
@@ -2838,6 +2901,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   }
 
   onClearedDestination2(e: any) {
+    this.destinationid2="0";
     this.formTripsheet.patchValue({
       destination2: undefined,
       distanceTripKM_1: '0',
@@ -2848,6 +2912,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.checkDestinationControlStatus();
   }
   onClearedDestination3(e: any) {
+    this.destinationid3= "0";
     this.formTripsheet.patchValue({
       destination3: undefined,
       distanceTripKM_1: '0',
