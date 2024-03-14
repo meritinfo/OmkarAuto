@@ -130,7 +130,7 @@ export class AddtrippaymentsComponent {
       transType: new FormControl('', [Validators.required]),
       amountPaid: new FormControl('', [Validators.required]),
       remarks: new FormControl('',),
-      pmtType: new FormControl('C', [Validators.required]),
+      pmtType: new FormControl('', [Validators.required]),
       neftPmt: new FormControl('',),
       creditAc: new FormControl('', [Validators.required]),
       chequeNo: new FormControl(''),
@@ -439,14 +439,25 @@ export class AddtrippaymentsComponent {
     if (selectedValue == 'B'){
       this.formTripPayment.controls['neftPmt'].enable();
       this.formTripPayment.controls['chequeNo'].enable();
-      this.formTripPayment.controls['chequeDt'].enable();
+     this.formTripPayment.controls['chequeDate'].enable();
+     // this.getCreditAcList2(selectedValue); 
     }
     else {
       this.checkselected = false;  
       this.formTripPayment.controls['neftPmt'].disable();
+    //  this.getCreditAcList2(selectedValue); 
     }
     this.ptype = e.target.value;
-    this.getCreditAcList2(this.ptype);   
+    if (selectedValue == 'B' ||selectedValue == 'C' ||selectedValue == 'A'){
+      this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
+      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+    }
+    else{
+      this.formTripPayment.controls['amountPaid'].clearValidators();  
+      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
+    }
+    //this.getCreditAcList2(this.ptype);   
+    this.getCreditAcList2(selectedValue);   
   }
    
   submitTripPaymentsForm(): void {
