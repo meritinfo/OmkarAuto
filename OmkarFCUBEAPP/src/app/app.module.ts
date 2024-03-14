@@ -207,6 +207,8 @@ import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylis
 import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
 import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.component';
 import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -343,7 +345,9 @@ import { ChangebranchComponent } from './module/branch/changebranch/changebranch
     ReactiveFormsModule,
     DataTablesModule,
     LayoutModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    NgIdleKeepaliveModule.forRoot(),
+    MomentModule,
   ],
   
   providers: [Loginmodel, Usermodel, Destinationmodel, Productgroupmastermodel, Productmastermodel, 
