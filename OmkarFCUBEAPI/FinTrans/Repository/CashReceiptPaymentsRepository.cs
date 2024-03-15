@@ -80,8 +80,6 @@ namespace FinTrans.Repository
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
                             }
                         }
-
-
                         if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                         {
                             responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
