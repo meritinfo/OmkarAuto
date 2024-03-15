@@ -212,7 +212,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"  
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['loadingFrom'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['loadingFrom'].invalid) }"
+                                                        (inputCleared)="onClearedFromPlace($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -236,7 +237,8 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"  
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['destination'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['destination'].invalid) }"
+                                                        (inputCleared)="onClearedToPlace($event)">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>

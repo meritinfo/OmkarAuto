@@ -61,7 +61,7 @@ export class BillstatementaddComponent implements OnInit {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Statement"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -299,6 +299,13 @@ getGcSeries(gcSeries: any): void {
   };
 
   searchStatement(): void {
+    var selectedDataVal=this.formBillStatement.getRawValue();
+   // this.billstatementsearchlistrequestmodel.billingParty =  selectedDataVal.billingParty.dataId;
+  //  this.billstatementsearchlistrequestmodel.fromPlace =  selectedDataVal.fromPoint.dataId;
+  // this.billstatementsearchlistrequestmodel.toPlace =  selectedDataVal.toPoint.dataId;
+   // this.billstatementsearchlistrequestmodel.productId =  selectedDataVal.productId;
+   // this.billstatementsearchlistrequestmodel.cnorPlantCode=  selectedDataVal.cnorPlantCode;
+
     this.billstatementService.getBillStatementSearchList(this.billstatementsearchlistrequestmodel).subscribe((res: Billstatementsearchlistmodel) => {
       this.billstatementsearchlistmodel = res;
     });

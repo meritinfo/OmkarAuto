@@ -27,6 +27,10 @@ export class DriversalarystatementaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  minDate: string = '';
+  maxDate: string = '';
   ptype: string = '';
   formDriverSalaryStatement!: FormGroup;
   keywordLocation = 'dataName';
@@ -67,6 +71,15 @@ export class DriversalarystatementaddComponent implements OnInit {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -83,15 +96,19 @@ export class DriversalarystatementaddComponent implements OnInit {
     if (this.loggedInUserID) {
       console.log(this.loggedInUserID);
     }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     else {
       this.route.navigate(['/']);
     }
       
     this.selectedDriverSalaryStatementDetails = this.driverSalaryStatementService.getDriverSalaryStatementDetails();
     this.formDriverSalaryStatement = this.formBuilder.group({
-      transDt: new FormControl(''),
-      fromDt: new FormControl(''),
-      toDt: new FormControl(''),
+      transDt: new FormControl(this.loginDate),
+      fromDt: new FormControl(this.fromDate),
+      toDt: new FormControl(this.loginDate),
     //  pmtType: new FormControl(''),
       remarks: new FormControl(''),
       totalSalaryAmt: new FormControl(''),
