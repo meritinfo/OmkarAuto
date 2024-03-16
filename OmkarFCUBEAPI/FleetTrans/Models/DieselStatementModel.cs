@@ -16,6 +16,8 @@ namespace FleetTrans.Models
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }
         public string? Location { get; set; }
+        public string? Rate { get; set; }
+        public string? StatementFlag { get; set; }
         public string? Remarks { get; set; }
         public string? TotalDslLtrs { get; set; }
         public string? TotalDslAmt { get; set; }

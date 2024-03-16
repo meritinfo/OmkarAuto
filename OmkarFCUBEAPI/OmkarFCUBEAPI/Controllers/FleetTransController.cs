@@ -539,7 +539,44 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetHappayDieselSearchList")]
+        public async Task<IActionResult> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetHappayDieselSearchList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetHappayDieselList")]
+        public async Task<IActionResult> GetHappayDieselList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetHappayDieselList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+      
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)
         {
@@ -672,7 +709,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillStatementInnerGridList")]
-        public async Task<IActionResult> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        public async Task<IActionResult> GetBillStatementInnerGridList(RequestModel request)
         {
             try
             {
@@ -686,7 +723,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDriverSalaryInnerGridList")]
-        public async Task<IActionResult> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<IActionResult> GetDriverSalaryInnerGridList(RequestModel request)
         {
             try
             {
@@ -700,7 +737,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDieselStatementInnerGridList")]
-        public async Task<IActionResult> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<IActionResult> GetDieselStatementInnerGridList(RequestModel request)
         {
             try
             {

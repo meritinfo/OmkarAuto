@@ -9,7 +9,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { Driversalarydetailmodel } from 'src/app/models/driversalarydetailmodel';
 import { Driversalarysearchmodel } from 'src/app/models/driversalarysearchmodel';
 import { SharedService } from 'src/app/services/shared.service';
-import { Driversalaryinnergridrequest } from 'src/app/models/driversalaryinnergridrequest';
 import { Driversalarysearchlistmodel } from 'src/app/models/driversalarysearchlistmodel';
 import { Driversalarysearchlistrequestmodel } from 'src/app/models/driversalarysearchlistrequestmodel';
 import { DriversalarystatementService } from 'src/app/services/driversalarystatement.service';
@@ -41,7 +40,6 @@ export class DriversalarystatementaddComponent implements OnInit {
   Driversalarydetailmodel = new Driversalarydetailmodel();
   selectedDriverSalaryStatementDetails = new Driversalarystatementmodel();
   Driversalarysearchlistrequestmodel = new Driversalarysearchlistrequestmodel();
-  driversalaryinnergridrequest = new Driversalaryinnergridrequest();
   creditacList: Dropdownmodel[] = [];
   creditacListNew: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -53,7 +51,10 @@ export class DriversalarystatementaddComponent implements OnInit {
   deleteStatus = false;
   viewStatus = false;
 
-  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  private route: Router,private driverSalaryStatementService: DriversalarystatementService, private formBuilder: FormBuilder, private toasterService: ToastrService,private sharedService: SharedService,private requestmodel:Requestmodel) {
+  constructor(private driversalarystatementmodel: Driversalarystatementmodel, private commonService: CommonService,  
+    private route: Router,private driverSalaryStatementService: DriversalarystatementService, 
+    private formBuilder: FormBuilder, private toasterService: ToastrService,
+    private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.driversalarystatementmodel = new Driversalarystatementmodel();
   }
 
@@ -162,7 +163,6 @@ export class DriversalarystatementaddComponent implements OnInit {
   }, 2000);
 
  // this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
- this.driversalaryinnergridrequest.masterID = parseInt(this.selectedDriverSalaryStatementDetails.masterId);
        this.getTripSheetInnerGridList();
      
 
@@ -242,7 +242,8 @@ exit(): void {
     }); }
 
   getTripSheetInnerGridList(): void {
-    this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.driversalaryinnergridrequest).subscribe((res) => {
+    this.requestmodel.strRequest = this.selectedDriverSalaryStatementDetails.masterId;
+    this.driverSalaryStatementService.getDriverSalaryInnerGridList(this.requestmodel).subscribe((res) => {
       this.driversalarysearchlistmodel = res;
      
       for (var i = 0; i < this.formArray.length; i++) {
@@ -252,7 +253,7 @@ exit(): void {
       for (var i = 0; i < res.driverSalarySearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.driverSalarySearchList[i].vehicleNo);
-       this.formArray.controls[i].get("driverName")?.setValue(this.commonService.formatDate(res.driverSalarySearchList[i].driverName));
+        this.formArray.controls[i].get("driverName")?.setValue(this.commonService.formatDate(res.driverSalarySearchList[i].driverName));
         this.formArray.controls[i].get("salaryDays")?.setValue(res.driverSalarySearchList[i].salaryDays);
         this.formArray.controls[i].get("salaryAmt")?.setValue(res.driverSalarySearchList[i].salaryAmt);
         this.formArray.controls[i].get("poolAmt")?.setValue(res.driverSalarySearchList[i].poolAmt);

@@ -166,23 +166,13 @@ export class AddothertripopenComponent {
           contents: this.contentList.find(e => e.dataId == this.selectedTripSheetDetails.contents),
           yearid: this.year
         });
-      //  if(this.selectedTripSheetDetails.loadEmptyType =='L'){
-        //  this.formOtherTripOpen.patchValue({
-          
-         // advPayable_1: (this.advancePay).toString(),
-     //    advPayable_1: this.selectedTripSheetDetails.advPayable_1
-    //    });}
-    //    else{
-     //     this.formOtherTripOpen.patchValue({
-          
-        //    advPayable_1: '0'
-     //     });
-    
-    //    }
-   // this.vehicleTypeGroupId = this.selectedTripSheetDetails.vehicleTypeGroupId;
-
       } 
       this.editMode = true;
+      this.formOtherTripOpen.controls['tripBranch'].disable();
+      this.formOtherTripOpen.controls['vehicleMasterID'].disable();
+      this.formOtherTripOpen.controls['compNonCompStatus'].disable();       
+      this.formOtherTripOpen.controls['challanNo'].disable();     
+
     }, 2000);
     
     this.formOtherTripOpen.controls['tripNo'].disable();
@@ -231,9 +221,11 @@ export class AddothertripopenComponent {
     var selectedValue = e.target.value;
     if(selectedValue=="R"){ 
       this.formOtherTripOpen.controls['challanNo'].setValidators([Validators.required]);
+      this.formOtherTripOpen.controls['challanNo'].enable();
     }
     else {
-      this.formOtherTripOpen.controls['challanNo'].clearValidators();      
+      this.formOtherTripOpen.controls['challanNo'].clearValidators();    
+      this.formOtherTripOpen.controls['challanNo'].disable();  
     }
     this.formOtherTripOpen.controls['challanNo'].updateValueAndValidity();
   }

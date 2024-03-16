@@ -13,13 +13,12 @@ import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
 
-
 @Component({
-  selector: 'app-dieselstatementadd',
-  templateUrl: './dieselstatementadd.component.html',
-  styleUrls: ['./dieselstatementadd.component.css']
+  selector: 'app-happaystatementadd',
+  templateUrl: './happaystatementadd.component.html',
+  styleUrls: ['./happaystatementadd.component.css']
 })
-export class DieselstatementaddComponent implements OnInit {
+export class HappaystatementaddComponent implements OnInit {
   loggedInUserID: string = '';
   year: string = '';
   loginDate: string = '';
@@ -27,12 +26,11 @@ export class DieselstatementaddComponent implements OnInit {
   minDate: string = '';
   maxDate: string = '';
   branch: string = '';
-  branchList: Dropdownmodel[] = [];
-  vendorList:Dropdownmodel[] = [];
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
   dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
 
+  branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   editMode = false;
   createmode = true;
@@ -52,14 +50,12 @@ export class DieselstatementaddComponent implements OnInit {
       this.DieselStatementmodel= new Dieselstatementmodel();
   }
 
-  ngOnInit(): void {
-
-    
+  ngOnInit(): void {    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Diesel Statement"));
+      .find((( aa: { menuName: string; }) => aa.menuName === "Happay Statement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -100,20 +96,16 @@ export class DieselstatementaddComponent implements OnInit {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
+    this.getBranchList();
+
     this.sharedService.loading=true;   
  
-    this.getBranchList();
-    this.getVendorList();
-
     this.selectedDieselStmtDetails = this.dieselstatementService.getDieselStatementDetails();
     this.formDieselStatement = this.formBuilder.group({
       BranchCode: new FormControl(this.branch, [Validators.required]),
       billStmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      location: new FormControl('', [Validators.required]),
-      vendorId: new FormControl('', [Validators.required]),
-      rate:new FormControl('0', [Validators.required]),
       totalDslLtrs: new FormControl(''),
       totalDslAmt: new FormControl(''),
       totalCashAdv: new FormControl(''),
@@ -130,8 +122,6 @@ export class DieselstatementaddComponent implements OnInit {
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          location: this.branchList.find(e => e.dataId == this.selectedDieselStmtDetails.location),  
-          vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),     
         })
         this.editMode=true;
         this.getDieselStatementInnerGridList();
@@ -155,6 +145,12 @@ export class DieselstatementaddComponent implements OnInit {
   }
 
   
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+
   createInitialArray() {
     return this.formBuilder.group({
       branch:  ['', []],
@@ -167,12 +163,6 @@ export class DieselstatementaddComponent implements OnInit {
       amountPaid:  ['', []],
       remarks:  ['', []],
       selected:  ['', []],
-    });
-  }
-
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
     });
   }
 
@@ -193,33 +183,6 @@ export class DieselstatementaddComponent implements OnInit {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  ratechange(e: any){
-    var rate= e.target.value;
-    if (rate=='')
-    {
-      this.toasterService.warning(" Rate can not be empty");  
-      return; 
-    }
-    if (parseFloat(rate)>0){
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Rate can not be zero");  
-      return; 
-    }
-
-    for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
-      if(this.DieselStatementmodel.dieselStatementListData[i].transDesc == "DIESEL"){
-        var qtyLtrs = this.DieselStatementmodel.dieselStatementListData[i].qtyLtrs;      
-        var amount = (parseFloat(rate) * parseFloat(qtyLtrs)).toString();
-        this.DieselStatementmodel.dieselStatementListData[i].ratePerLtr = rate;
-        this.DieselStatementmodel.dieselStatementListData[i].amountPaid = amount ;
-        this.formArray.controls[i].get("ratePerLtr")?.setValue(rate);
-        this.formArray.controls[i].get("amountPaid")?.setValue(amount);
-      }
-    }  
-  }
-
   searchStatement(): void { 
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
@@ -231,27 +194,17 @@ export class DieselstatementaddComponent implements OnInit {
       this.toasterService.warning(" Please Select To Date");  
       return; 
     }
-    else if (this.formDieselStatement.controls["location"].invalid) {
-      this.toasterService.warning(" Please Select Location");  
-      return; 
-    }
-    else if (this.formDieselStatement.controls["vendorId"].invalid) {
-      this.toasterService.warning(" Please Select Vendor");  
-      return; 
-    }   
     else{
-      this.Pagerequestwithdatesmodel.search= selectedDataVal.location?selectedDataVal.location.dataId:'';
+      this.Pagerequestwithdatesmodel.search= '';
       this.Pagerequestwithdatesmodel.fromDate=selectedDataVal.fromDate;
       this.Pagerequestwithdatesmodel.toDate=selectedDataVal.toDate;
-      this.Pagerequestwithdatesmodel.strRequest=selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
-      this.dieselstatementService.getDieselStatementSearchList(this.Pagerequestwithdatesmodel)
+      this.Pagerequestwithdatesmodel.strRequest='';
+      this.dieselstatementService.getHappayDieselSearchList(this.Pagerequestwithdatesmodel)
       .subscribe((res: Dieselstatementmodel) => {
         this.DieselStatementmodel = res;
         if(res.dieselStatementListData.length>0){
         this.formDieselStatement.controls["fromDate"].disable();
         this.formDieselStatement.controls["toDate"].disable();
-        this.formDieselStatement.controls["location"].disable();
-        this.formDieselStatement.controls["vendorId"].disable();
         }
         this.formArray.clear();
         for (var i = 0; i < res.dieselStatementListData.length; i++) {
@@ -291,12 +244,6 @@ export class DieselstatementaddComponent implements OnInit {
     this.calculateTotal();
   }
   
-  getVendorList(){
-    this.gstpurchaseService.getVendorList().subscribe((res) => {
-      this.vendorList = res;
-    });
-  }
-
   calculateTotal() {
     var totalDslLeters = 0;
     var totalDslAmount = 0;
@@ -325,7 +272,7 @@ export class DieselstatementaddComponent implements OnInit {
     });
   }
   exit(): void {
-    this.route.navigate(['/dieselstatementlist']);
+    this.route.navigate(['/happaystatementlist']);
   }
 
   deleteDieselStatementForm(): void {
@@ -338,7 +285,7 @@ export class DieselstatementaddComponent implements OnInit {
             if(this.responseDetails.status){
               this.toasterService.success(this.responseDetails.message);
               this.formDieselStatement.reset();
-              this.route.navigate(['/dieselstatementlist']);
+              this.route.navigate(['/happaystatementlist']);
             }
             else{
               this.toasterService.warning(this.responseDetails.message);        
@@ -405,19 +352,6 @@ export class DieselstatementaddComponent implements OnInit {
       }
     }
 
-    if (selectedDataVal.rate=='')
-    {
-      this.toasterService.warning(" Rate can not be empty");  
-      return; 
-    }
-    if (parseFloat(selectedDataVal.rate)>0){
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" Rate can not be zero");  
-      return; 
-    }     
-
     if (!IsItemSelected){
       this.toasterService.warning("Select Atleast one Trip Details");
       return;
@@ -432,7 +366,7 @@ export class DieselstatementaddComponent implements OnInit {
     this.DieselStatementmodel.location        = selectedDataVal.location?selectedDataVal.location.dataId:'';
     this.DieselStatementmodel.dfVendor        = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
     this.DieselStatementmodel.rate            = selectedDataVal.rate;
-    this.DieselStatementmodel.statementFlag   = 'D'  ;       
+    this.DieselStatementmodel.statementFlag   = 'H'  ;       
     this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
     this.DieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.DieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
@@ -447,7 +381,7 @@ export class DieselstatementaddComponent implements OnInit {
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
         this.formDieselStatement.reset();
-        this.route.navigate(['/dieselstatementlist']);
+        this.route.navigate(['/happaystatementlist']);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        
