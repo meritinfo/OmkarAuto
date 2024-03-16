@@ -61,16 +61,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return dieselStatementModel;
         }
@@ -86,7 +77,6 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                          //  new SqlParameter("@TripId", request.TripId),
                             new SqlParameter("@MasterId", request.strRequest)
                         };
 
@@ -118,16 +108,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return dieselStatementModel;
         }
@@ -165,7 +146,6 @@ namespace FleetTrans.Repository
                     {
                         MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        // statement list insert
                         if (dieselStatementModel.DieselStatementListData.Count > 0)
                         {
                             for (int i = 0; i < dieselStatementModel.DieselStatementListData.Count; i++)
@@ -199,16 +179,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return responseModel;
         }
@@ -271,16 +242,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return dieselStatementList;
         }
@@ -311,16 +273,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
         }
@@ -383,16 +336,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return dieselStatementList;
         }
@@ -440,16 +384,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return dieselStatementModel;
         }

@@ -625,7 +625,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request)
+        public async Task<DriverDetailModel> GetDriverDetail(RequestModel request)
         {
             DriverDetailModel driverDetailModel = new();
             try
@@ -634,7 +634,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DriverMasterID", request.DriverMasterID),
+                            new SqlParameter("@DriverMasterID", request.strRequest),
 
                  
                         };

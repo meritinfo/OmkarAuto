@@ -414,7 +414,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDriverDetail")]
-        public async Task<IActionResult> GetDriverDetail(DriverRequestModel request)
+        public async Task<IActionResult> GetDriverDetail(RequestModel request)
         {
             try
             {
