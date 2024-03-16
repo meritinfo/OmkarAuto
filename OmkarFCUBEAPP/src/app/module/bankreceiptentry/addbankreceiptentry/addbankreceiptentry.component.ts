@@ -432,7 +432,7 @@ export class AddbankreceiptentryComponent {
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
-        this.toasterService.success(this.responseDetails.message); 
+        this.toasterService.success("Saved Successfully"); 
         this.formBankRecEntry.reset();
         this.route.navigate(['/bankreceiptentrylist']);
       }

@@ -16,7 +16,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetDslOpeningBal(OpBalModel request);
         Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request);
-        Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request);
+        Task<DriverDetailModel> GetDriverDetail(RequestModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<PenaltyModel> GetPenaltyRateNew(PenaltyRateModel request);

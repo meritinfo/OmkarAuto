@@ -209,7 +209,7 @@ export class DieselstatementaddComponent implements OnInit {
     }
 
     for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
-      if(this.DieselStatementmodel.dieselStatementListData[i].transDesc == "DIESEL"){
+      if(this.DieselStatementmodel.dieselStatementListData[i].hsdAdvType == "D"){
         var qtyLtrs = this.DieselStatementmodel.dieselStatementListData[i].qtyLtrs;      
         var amount = (parseFloat(rate) * parseFloat(qtyLtrs)).toString();
         this.DieselStatementmodel.dieselStatementListData[i].ratePerLtr = rate;
@@ -218,6 +218,8 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("amountPaid")?.setValue(amount);
       }
     }  
+    
+    this.calculateTotal();
   }
 
   searchStatement(): void { 

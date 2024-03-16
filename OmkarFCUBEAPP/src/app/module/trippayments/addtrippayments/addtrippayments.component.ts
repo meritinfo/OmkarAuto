@@ -44,6 +44,7 @@ export class AddtrippaymentsComponent {
   tripStatus: string = "";
   neftvalue= "";
   checkselected = false;
+  seriesDoc: string = "";
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
@@ -166,7 +167,7 @@ export class AddtrippaymentsComponent {
         this.formTripPayment.controls['dsltobe'].disable();
         this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable();
-        
+        this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc;
         this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
         this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)         

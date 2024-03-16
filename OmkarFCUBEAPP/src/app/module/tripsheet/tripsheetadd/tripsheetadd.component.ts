@@ -1200,9 +1200,9 @@ if(selectedDataValue.tripNo!=1){
     var selectedDataValue = this.formTripsheet.getRawValue();
  
 
-    this.OpbalDetails.driverMasterID = selectedValue;
+    this.requestmodel.strRequest = selectedValue;
 
-    this.commonService.getDriverDetail(this.OpbalDetails).subscribe((res: Driverdetailmodel) => {
+    this.commonService.getDriverDetail(this.requestmodel).subscribe((res: Driverdetailmodel) => {
       this.DriverDetails = res;
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
       this.licenceNo = this.DriverDetails.licenseNo,
@@ -1215,9 +1215,9 @@ if(selectedDataValue.tripNo!=1){
     var selectedDataValue = this.formTripsheet.getRawValue();
  
 
-    this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+    this.requestmodel.strRequest = this.driverid ? this.driverid : '0';
 
-    this.commonService.getDriverDetail(this.OpbalDetails).subscribe((res: Driverdetailmodel) => {
+    this.commonService.getDriverDetail(this.requestmodel).subscribe((res: Driverdetailmodel) => {
       this.DriverDetails = res;
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
       this.licenceNo = this.DriverDetails.licenseNo,
