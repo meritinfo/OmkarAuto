@@ -20,6 +20,7 @@ namespace FleetTrans.Business
         Task<ResponseModel> OtherTripOpenDelete(RequestModel request);
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);
         Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request);
+        Task<UserTripRightsModel> GetUserDetails(RequestModel request);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

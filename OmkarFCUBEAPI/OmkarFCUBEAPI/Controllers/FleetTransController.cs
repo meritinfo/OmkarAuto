@@ -760,6 +760,25 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetUserDetails")]
+        public async Task<IActionResult> GetUserDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetUserDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("DocRenewalEntryDetailsDelete")]
         public async Task<IActionResult> DocRenewalEntryDetailsDelete(RequestModel request)
         {

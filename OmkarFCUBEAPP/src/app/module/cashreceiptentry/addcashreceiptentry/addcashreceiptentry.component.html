@@ -94,8 +94,8 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Remark</label>
-                                                <input uppercaseonly class="form-control" placeholder="" formControlName="remarks"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
+                                                <input uppercaseonly class="form-control" placeholder="" 
+                                                formControlName="remarks">
                                             </div>
                                         </div>                                        
                                     </div>
@@ -204,7 +204,9 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState">Modify Del Remark</label>
-                                                <input uppercaseonly class="form-control" placeholder="" formControlName="modifyRemarks">
+                                                <input uppercaseonly class="form-control" 
+                                                formControlName="modifyRemarks"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['modifyRemarks'].invalid) }">
                                             </div>
                                         </div>
                                     </div>

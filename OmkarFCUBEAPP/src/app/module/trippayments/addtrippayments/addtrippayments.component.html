@@ -149,7 +149,7 @@
                                                         formControlName="transType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
-                                                        <option selected="">Choose...</option>
+                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="DA"> Driver Adv</option>
                                                         <option value="DL"> Diesel </option>
                                                     </select>
@@ -197,12 +197,11 @@
                                                         formControlName="pmtType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"  
                                                          (change)="changePmtType($event)">
-                                                        <option selected="">Choose...</option>
+                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="C"> Cash</option>
                                                         <option value="B"> Bank</option>
                                                         <option value="H"> Happay</option>
                                                         <option value="P"> Petro</option>
-                                                        <option value="F"> Fastag</option>
                                                         <option value="V"> Vendor</option>
                                                         <option value="A"> Adjust </option>
                                                     </select>

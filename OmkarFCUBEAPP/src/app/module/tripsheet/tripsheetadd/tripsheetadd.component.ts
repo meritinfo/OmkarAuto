@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { Constants } from 'src/app/common/constants';
-
-
-
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
@@ -27,6 +24,8 @@ import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
 import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -77,10 +76,14 @@ export class TripsheetaddComponent {
   DriverDetails = new Driverdetailmodel();
   bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
+  usertriprightsmodel = new Usertriprightsmodel();
+  canEditTripAfterClose: boolean = false;
+  canLinkTrip: boolean = false;
 
   formTripsheet!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
+  requestmodel = new Requestmodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
@@ -252,6 +255,7 @@ export class TripsheetaddComponent {
     this.getLocationList();
     this.GetDslOpeningBal();
     this.GetAdblueOpeningBal();
+    this.getUserDetails();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -291,6 +295,24 @@ export class TripsheetaddComponent {
           totalpayable: parseInt(this.selectedTripSheetDetails.advPayable_1) + parseInt(this.selectedTripSheetDetails.advPayable_2),
           yearid: this.year
         });
+        this.formTripsheet.controls['tripLinkYN'].disable();
+
+        if(this.selectedTripSheetDetails.tripStatus == "C"){
+          if(this.canEditTripAfterClose){
+            this.formTripsheet.controls['tripStatus'].enable();    
+          }
+          else{            
+            this.formTripsheet.controls['tripStatus'].disable();    
+          }
+          if(this.canLinkTrip){
+            this.formTripsheet.controls['tripLinkYN'].enable();
+          }
+          else{
+            this.formTripsheet.controls['tripLinkYN'].disable();
+          }
+        }
+        
+        
       
         ///////check load or empty
       //  if(this.selectedTripSheetDetails.loadEmptyType =='L'
@@ -330,6 +352,8 @@ export class TripsheetaddComponent {
       }
 
       this.checkDestinationControlStatus();
+
+     
 
       // this.getTripSheetInnerGridList();
       this.editMode = true;
@@ -1220,12 +1244,18 @@ if(selectedDataValue.tripNo!=1){
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
       this.licenceNo = this.DriverDetails.licenseNo,
       this.validUpto = this.DriverDetails.licValidUpto
-    });
-
- 
- 
+    }); 
   }
 
+  
+  getUserDetails(){
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;      
+      this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose,
+      this.canLinkTrip = this.usertriprightsmodel.canLinkTrip
+    }); 
+  }
 
 
   checkTripkMsSecond() {
@@ -1252,15 +1282,27 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
 
-        this.formTripsheet.patchValue({
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
-          distanceTripKM_2: this.dTripKM_1,
+          distanceTripKM_2: (this.dTripKM_1).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
-          advPayable_2: this.advancePay2
+          advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
       });
     }
     else {
@@ -1310,23 +1352,48 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
 
 
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
 
-        this.formTripsheet.patchValue({
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
-         // nextExpectedReportingDt: date2.split("T")[0],
+          nextExpectedReportingDt: date2.split("T")[0],
           distanceTripKM_2: (this.dTripKM_1).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
+      }
         //////test
         if(this.dTripKM_1!=0){
-        this.formTripsheet.patchValue({
+       
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+    
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
-        
-        });}
+       
+        });
+      }
+    }
       
 
 
@@ -1383,7 +1450,19 @@ if(selectedDataValue.tripNo!=1){
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
 
-        this.formTripsheet.patchValue({
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
+
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
@@ -1391,7 +1470,7 @@ if(selectedDataValue.tripNo!=1){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
         // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
@@ -1434,8 +1513,19 @@ if(selectedDataValue.tripNo!=1){
 
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
+        if(this.dTripKM_1<=100){
+          this.formTripsheet.patchValue({
+            //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+            //   //  cneeGst:  date2.split("T")[0]
+            nextExpectedReportingDt: selectedDataValue.deliveryDate,
+            distanceTripKM_2: (this.dTripKM_1).toString(),
+            nextExpectedReportingDays: '0',
+            advPayable_2: (this.advancePay2).toString(),
+          });
 
-        this.formTripsheet.patchValue({
+        }
+        else{
+             this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
@@ -1443,7 +1533,7 @@ if(selectedDataValue.tripNo!=1){
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
-
+      }
         // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
@@ -2645,6 +2735,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   changeTripCloseValue(e: any) {
     console.log(e.target.checked);
     var selectedValue = e.target.checked;
+    
     if (selectedValue) {
       // this.formTripPayment.controls['chequeNo'].clearValidators();
       // this.formTripPayment.controls['chequeDate'].clearValidators();
@@ -2654,6 +2745,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       //  });
+      if(this.canLinkTrip){
+        this.formTripsheet.controls['tripLinkYN'].enable();
+      }
+      else{
+        this.formTripsheet.controls['tripLinkYN'].disable();
+      }
 
     }
     else {
@@ -2790,6 +2887,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.commonDetailUpdate();
   }
   onClearedDestination(e: any) {
+    this.ivToPlace = "0"
     this.formTripsheet.patchValue({
     // destination: undefined,
     destination: "",
@@ -2807,6 +2905,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     
   }
   onClearedFromPlace(e: any) {
+   this.ivFromPlace  = '0';
     this.formTripsheet.patchValue({
       distanceTripKM_1: '0',
       advPayable_1:'0',
@@ -2819,6 +2918,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.totalCal();
   }
   onClearedFromPlace2(e: any) {
+    this.ivNewFromPlace="0";
     this.formTripsheet.patchValue({
       distanceTripKM_2: '0',
       nextExpectedReportingDt: '',
@@ -2838,6 +2938,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   }
 
   onClearedDestination2(e: any) {
+    this.destinationid2="0";
     this.formTripsheet.patchValue({
       destination2: undefined,
       distanceTripKM_1: '0',
@@ -2848,6 +2949,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.checkDestinationControlStatus();
   }
   onClearedDestination3(e: any) {
+    this.destinationid3= "0";
     this.formTripsheet.patchValue({
       destination3: undefined,
       distanceTripKM_1: '0',
