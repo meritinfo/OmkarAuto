@@ -79,7 +79,7 @@ namespace FleetTrans.Repository
             }
             return driverSalarySearchList;
         }
-        public async Task<DriverSalarySearchListModel> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<DriverSalarySearchListModel> GetDriverSalaryInnerGridList(RequestModel request)
         {
 
             //BillStatementModel billstatementInnerGridList = new()
@@ -95,7 +95,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterId", request.MasterID),
+                            new SqlParameter("@MasterId", request.strRequest),
 
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetDriverSalaryInnerGridList_Select", param);

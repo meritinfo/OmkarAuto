@@ -27,7 +27,7 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.SaveDieselStatementDetails(request);
         }
-        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request)
         {
             return await dieselStatementRepository.GetDieselStatementInnerGridList(request);
         }
@@ -35,10 +35,17 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetDieselStatementList(request);
         }
-
         public async Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request)
         {
             return await dieselStatementRepository.DieselStatementDetailsDelete(request);
+        }
+        public async Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request)
+        {
+            return await dieselStatementRepository.GetHappayDieselList(request);
+        }
+        public async Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        {
+            return await dieselStatementRepository.GetHappayDieselSearchList(request);
         }
 
     }

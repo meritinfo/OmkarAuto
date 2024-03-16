@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angu
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
-import { Billstatementinnergridrequest } from 'src/app/models/billstatementinnergridrequest';
 import { billstatementmodel } from 'src/app/models/billstatementmodel';
 import { Billstatementsearchlistmodel } from 'src/app/models/billstatementsearchlistmodel';
 import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
@@ -42,7 +41,6 @@ export class BillstatementaddComponent implements OnInit {
 
   formSubmitted = false;
   selectedBillstatementDetails = new billstatementmodel();
-  billsstatementinnergridrequest = new Billstatementinnergridrequest();
   responseDetails = new Responsemodel();
 
   constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, 
@@ -178,8 +176,7 @@ export class BillstatementaddComponent implements OnInit {
 
        
        })
-       this.billsstatementinnergridrequest.masterID = parseInt(this.selectedBillstatementDetails.masterID);
-       this.getTripSheetInnerGridList();
+        this.getTripSheetInnerGridList();
        this.sharedService.loading = false;
        this.editMode = true;
      }
@@ -444,7 +441,8 @@ getGcSeries(gcSeries: any): void {
    this.billstatementsearchlistmodel.billStatementSearchList[i].selected = event.target.checked;
   }
   getTripSheetInnerGridList(): void {
-    this.billstatementService.getBillStatementInnerGridList(this.billsstatementinnergridrequest).subscribe((res) => {
+    this.requestmodel.strRequest= this.selectedBillstatementDetails.masterID;
+    this.billstatementService.getBillStatementInnerGridList(this.requestmodel).subscribe((res) => {
       this.billstatementsearchlistmodel = res;
      
       for (var i = 0; i < this.formArray.length; i++) {
@@ -454,7 +452,7 @@ getGcSeries(gcSeries: any): void {
       for (var i = 0; i < res.billStatementSearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billStatementSearchList[i].gcNoteNo);
-       this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
+        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.billStatementSearchList[i].bookingDate));
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.billStatementSearchList[i].vehicleNo);
         this.formArray.controls[i].get("productName")?.setValue(res.billStatementSearchList[i].productName);
         this.formArray.controls[i].get("noPackages")?.setValue(res.billStatementSearchList[i].noPackages);

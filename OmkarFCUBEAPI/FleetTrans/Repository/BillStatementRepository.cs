@@ -220,7 +220,7 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(RequestModel request)
         {
            
             //BillStatementModel billstatementInnerGridList = new()
@@ -236,7 +236,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterId", request.MasterID),
+                            new SqlParameter("@MasterId", request.strRequest),
                          
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillStatementInnerGridList_Select", param);

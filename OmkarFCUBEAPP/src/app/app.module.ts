@@ -209,6 +209,8 @@ import { TripstatusrptComponent } from './module/tripstatusrpt/tripstatusrpt.com
 import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { MomentModule } from 'angular2-moment';
+import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
+import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
 
 @NgModule({
   declarations: [
@@ -330,6 +332,8 @@ import { MomentModule } from 'angular2-moment';
     EmploanrepayaddComponent,
     TripstatusrptComponent,
     ChangebranchComponent,
+    HappaystatementlistComponent,
+    HappaystatementaddComponent,
   ],
   imports: [
     BrowserModule,

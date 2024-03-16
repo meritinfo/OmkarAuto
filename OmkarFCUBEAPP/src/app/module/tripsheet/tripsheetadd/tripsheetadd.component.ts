@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { Constants } from 'src/app/common/constants';
-
-
-
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
@@ -27,6 +24,8 @@ import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
 import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -77,10 +76,14 @@ export class TripsheetaddComponent {
   DriverDetails = new Driverdetailmodel();
   bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
+  usertriprightsmodel = new Usertriprightsmodel();
+  canEditTripAfterClose: boolean = false;
+  canLinkTrip: boolean = false;
 
   formTripsheet!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
+  requestmodel = new Requestmodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
@@ -252,6 +255,7 @@ export class TripsheetaddComponent {
     this.getLocationList();
     this.GetDslOpeningBal();
     this.GetAdblueOpeningBal();
+    this.getUserDetails();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -291,6 +295,24 @@ export class TripsheetaddComponent {
           totalpayable: parseInt(this.selectedTripSheetDetails.advPayable_1) + parseInt(this.selectedTripSheetDetails.advPayable_2),
           yearid: this.year
         });
+        this.formTripsheet.controls['tripLinkYN'].disable();
+
+        if(this.selectedTripSheetDetails.tripStatus == "C"){
+          if(this.canEditTripAfterClose){
+            this.formTripsheet.controls['tripStatus'].enable();    
+          }
+          else{            
+            this.formTripsheet.controls['tripStatus'].disable();    
+          }
+          if(this.canLinkTrip){
+            this.formTripsheet.controls['tripLinkYN'].enable();
+          }
+          else{
+            this.formTripsheet.controls['tripLinkYN'].disable();
+          }
+        }
+        
+        
       
         ///////check load or empty
       //  if(this.selectedTripSheetDetails.loadEmptyType =='L'
@@ -330,6 +352,8 @@ export class TripsheetaddComponent {
       }
 
       this.checkDestinationControlStatus();
+
+     
 
       // this.getTripSheetInnerGridList();
       this.editMode = true;
@@ -1220,12 +1244,18 @@ if(selectedDataValue.tripNo!=1){
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
       this.licenceNo = this.DriverDetails.licenseNo,
       this.validUpto = this.DriverDetails.licValidUpto
-    });
-
- 
- 
+    }); 
   }
 
+  
+  getUserDetails(){
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;      
+      this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose,
+      this.canLinkTrip = this.usertriprightsmodel.canLinkTrip
+    }); 
+  }
 
 
   checkTripkMsSecond() {
@@ -2711,6 +2741,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   changeTripCloseValue(e: any) {
     console.log(e.target.checked);
     var selectedValue = e.target.checked;
+    
     if (selectedValue) {
       // this.formTripPayment.controls['chequeNo'].clearValidators();
       // this.formTripPayment.controls['chequeDate'].clearValidators();
@@ -2720,6 +2751,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       //  });
+      if(this.canLinkTrip){
+        this.formTripsheet.controls['tripLinkYN'].enable();
+      }
+      else{
+        this.formTripsheet.controls['tripLinkYN'].disable();
+      }
 
     }
     else {

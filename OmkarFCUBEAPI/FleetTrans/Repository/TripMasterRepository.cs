@@ -1152,6 +1152,47 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
+        public async Task<UserTripRightsModel> GetUserDetails(RequestModel request)
+        {
+            UserTripRightsModel userTrip = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@UserId", request.strRequest),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getUserTripDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        userTrip.CanEditTripAfterClose = Convert.ToBoolean(statusData.Tables[0].Rows[0]["CanEditTripAfterClose"]);
+                        userTrip.CanLinkTrip = Convert.ToBoolean(statusData.Tables[0].Rows[0]["CanLinkTrip"]);
+                    }
+                    else
+                    {
+                        userTrip.CanEditTripAfterClose = false;
+                        userTrip.CanLinkTrip =false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return userTrip;
+        }
 
 
     }

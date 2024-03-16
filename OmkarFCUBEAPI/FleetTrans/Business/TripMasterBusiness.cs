@@ -78,6 +78,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetNextTripNo(tripNoFilter);
         }
+        public async Task<UserTripRightsModel> GetUserDetails(RequestModel request)
+        {
+            return await tripMasterRepository.GetUserDetails(request);
+        }
         public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {
             return await tripMasterRepository.GetTripSheetInnerGridList(request);

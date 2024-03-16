@@ -7,6 +7,9 @@ export class Dieselstatementmodel {
     fromDate: string = "";
     toDate: string = "";
     location: string = "";
+    transType:string = "";
+    rate: string = "";
+    statementFlag: string = "";
     remarks: string = "";
     totalDslLtrs: string = "";
     totalDslAmt: string = "";
