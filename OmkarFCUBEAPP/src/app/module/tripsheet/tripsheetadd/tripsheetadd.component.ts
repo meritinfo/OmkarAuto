@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Constants } from 'src/app/common/constants';
+
+
+
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
@@ -24,8 +27,6 @@ import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
 import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
 import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
-import { Requestmodel } from 'src/app/models/requestmodel';
-import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -76,14 +77,10 @@ export class TripsheetaddComponent {
   DriverDetails = new Driverdetailmodel();
   bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
-  usertriprightsmodel = new Usertriprightsmodel();
-  canEditTripAfterClose: boolean = false;
-  canLinkTrip: boolean = false;
 
   formTripsheet!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
-  requestmodel = new Requestmodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   driverList: Dropdownmodel[] = [];
@@ -97,6 +94,7 @@ export class TripsheetaddComponent {
   ivVehicleNo = '';
   billstation = '';
   ivFromPlace = '';
+  companyStatus = '';
   createmode  = true;
   createStatus = false;
   editStatus = false;
@@ -255,13 +253,13 @@ export class TripsheetaddComponent {
     this.getLocationList();
     this.GetDslOpeningBal();
     this.GetAdblueOpeningBal();
-    this.getUserDetails();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
       if (this.selectedTripSheetDetails.tripId != '') {
         this.getValidationForOpening(this.selectedTripSheetDetails.tripNo);
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
+        this.companyStatus = this.selectedTripSheetDetails.compNonCompStatus;
         //this.getTripSheetInnerGridList();
         this.formTripsheet.patchValue({
           // newTripDate: this.loginDate,
@@ -295,24 +293,6 @@ export class TripsheetaddComponent {
           totalpayable: parseInt(this.selectedTripSheetDetails.advPayable_1) + parseInt(this.selectedTripSheetDetails.advPayable_2),
           yearid: this.year
         });
-        this.formTripsheet.controls['tripLinkYN'].disable();
-
-        if(this.selectedTripSheetDetails.tripStatus == "C"){
-          if(this.canEditTripAfterClose){
-            this.formTripsheet.controls['tripStatus'].enable();    
-          }
-          else{            
-            this.formTripsheet.controls['tripStatus'].disable();    
-          }
-          if(this.canLinkTrip){
-            this.formTripsheet.controls['tripLinkYN'].enable();
-          }
-          else{
-            this.formTripsheet.controls['tripLinkYN'].disable();
-          }
-        }
-        
-        
       
         ///////check load or empty
       //  if(this.selectedTripSheetDetails.loadEmptyType =='L'
@@ -353,8 +333,6 @@ export class TripsheetaddComponent {
 
       this.checkDestinationControlStatus();
 
-     
-
       // this.getTripSheetInnerGridList();
       this.editMode = true;
       // this.GetOpeningBal();
@@ -380,7 +358,7 @@ export class TripsheetaddComponent {
   get formAdblueArray() {
     return this.formTripsheet.get("adblueDetailsList") as FormArray;
   }
-  exit(): void {
+  exit(): void {    
     this.route.navigate(['/tripsheetlist']);
   }
 
@@ -753,7 +731,7 @@ export class TripsheetaddComponent {
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
-        this.toastrService.success(this.responseDetails.message);
+        this.toastrService.success("Saved succsessfully");
         this.formTripsheet.reset();
         this.route.navigate(['/tripsheetlist']);
       }
@@ -1244,18 +1222,12 @@ if(selectedDataValue.tripNo!=1){
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
       this.licenceNo = this.DriverDetails.licenseNo,
       this.validUpto = this.DriverDetails.licValidUpto
-    }); 
+    });
+
+ 
+ 
   }
 
-  
-  getUserDetails(){
-    this.requestmodel.strRequest = this.loggedInUserID;
-    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
-      this.usertriprightsmodel = res;      
-      this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose,
-      this.canLinkTrip = this.usertriprightsmodel.canLinkTrip
-    }); 
-  }
 
 
   checkTripkMsSecond() {
@@ -2411,7 +2383,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     let expdt = this.commonService.formatDate(selectedDataValue.expectedReportingDt)
     // this.tstatus =  e.target.value;;
     //if (selectedDataValue.ticlStatus == "OK" && rptdt == expdt || rptdt < expdt) {
-    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt) {
+    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt && this.companyStatus!='R') {
       //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
@@ -2450,7 +2422,14 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       });
-    } else {
+    } 
+    else if ( this.companyStatus =='R'&& selectedDataValue.ticlStatus == "OK" ){
+    this.formTripsheet.patchValue({
+      // cneeGst:  (this.ExpectedReportingDays).toString() 
+      // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+      onTimeIncentiveAmt: "1000"
+    });
+  }else {
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
         // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
@@ -2476,7 +2455,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     
     // this.tstatus =  e.target.value;;
     // if (selectedValue == "OK"  && rptdt == expdt || rptdt < expdt) {
-    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt && selectedDataValue.reportingDt_1!='') {
+    if (selectedDataValue.ticlStatus == "OK" && rptdt <= expdt && selectedDataValue.reportingDt_1!=''&& this.companyStatus!='R') {
       //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
@@ -2494,11 +2473,13 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         // ir = parseInt(this.incentiveRate)
         // if (this.tripkmsDetails.status) {
         // if (this.ltsdsl != undefined) {
+     
         this.formTripsheet.patchValue({
           // cneeGst:  (this.ExpectedReportingDays).toString() 
           // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
           onTimeIncentiveAmt: ir
         });
+   
         // this.getMultiIncentiveRate();
         // }
         //  else {
@@ -2514,11 +2495,11 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       });
-    } else if (selectedDataValue.compNonCompStatus='R'&& selectedDataValue.ticlStatus == "OK"){
+    } else if ( this.companyStatus =='R'&& selectedDataValue.ticlStatus == "OK" ){
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
         // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
-       // onTimeIncentiveAmt: "1000"
+        onTimeIncentiveAmt: "1000"
       });
     } else {
       this.formTripsheet.patchValue({
@@ -2741,7 +2722,6 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   changeTripCloseValue(e: any) {
     console.log(e.target.checked);
     var selectedValue = e.target.checked;
-    
     if (selectedValue) {
       // this.formTripPayment.controls['chequeNo'].clearValidators();
       // this.formTripPayment.controls['chequeDate'].clearValidators();
@@ -2751,12 +2731,6 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       //  });
-      if(this.canLinkTrip){
-        this.formTripsheet.controls['tripLinkYN'].enable();
-      }
-      else{
-        this.formTripsheet.controls['tripLinkYN'].disable();
-      }
 
     }
     else {
