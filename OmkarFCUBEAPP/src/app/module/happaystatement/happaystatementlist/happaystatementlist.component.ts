@@ -23,7 +23,6 @@ export class HappaystatementlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
-  vendorList: Dropdownmodel[] = [];
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -88,13 +87,11 @@ export class HappaystatementlistComponent {
 
     this.dieselStatementService.clearDieselStatementDetails();
     this.formFilter = this.formBuilder.group({
-      dfVendor: new FormControl(''),
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
     });     
 
-    this.sharedService.loading=true;    
-    this.getVendorList();
+    this.sharedService.loading=true; 
     this.dieselstateList();
     this.sharedService.loading=false;
   }
@@ -112,7 +109,7 @@ export class HappaystatementlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        // this.filter.search = dataTablesParameters.search.value;
+        this.filter.search = "";
         this.dieselStatementService.getHappayDieselList(this.filter)
           .subscribe(resp => {
             this.allDieselStatement = resp;
@@ -172,12 +169,6 @@ export class HappaystatementlistComponent {
   };
 
   
-  getVendorList(){
-    this.gstpurchaseService.getVendorList().subscribe((res) => {
-      this.vendorList = res;
-    });
-  }
-
   dieselStatementAdd(): void {
     this.route.navigate(['/happaystatementadd']);
   }
@@ -189,7 +180,6 @@ export class HappaystatementlistComponent {
   }
 
   search(): void {
-    this.filter.search = this.formFilter.value.dfVendor.dataId;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;

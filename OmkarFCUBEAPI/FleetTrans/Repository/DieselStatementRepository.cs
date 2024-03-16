@@ -32,7 +32,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Location", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Vendor", request.strRequest)
+                            new SqlParameter("@Vendor", request.strRequest),
+                            new SqlParameter("@PmtType", "")
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselSearchGridList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
@@ -228,6 +229,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@fromDate", request.FromDate),
                             new SqlParameter("@toDate", request.ToDate),
+                            new SqlParameter("@StatementFlag", "D"),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementMstList", param);
 
