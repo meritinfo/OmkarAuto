@@ -468,26 +468,19 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                                 PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
-
                                 VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
-
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
                                 TripMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripMasterId"]),
-                           
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
-
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-
                                 PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
                                 NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
-
                                 ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
-
                                 ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
-
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
                                 AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
