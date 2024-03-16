@@ -2484,6 +2484,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
       });
+    } else if (selectedDataValue.compNonCompStatus='R'&& selectedDataValue.ticlStatus == "OK"){
+      this.formTripsheet.patchValue({
+        // cneeGst:  (this.ExpectedReportingDays).toString() 
+        // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
+       // onTimeIncentiveAmt: "1000"
+      });
     } else {
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
