@@ -130,8 +130,9 @@ namespace FleetTrans.Repository
                     string TripID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                         // Miss Details insert or update
                         //if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" )

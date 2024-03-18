@@ -111,6 +111,7 @@ export class DistancemastertriplistComponent {
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.fromDate = this.formFilter.value.fromDate;
         this.filter.toDate = this.formFilter.value.toDate;
+        this.filter.search = this.formFilter.value.branch.dataId;
         this.distanceMastertripService.getDistanceMasterTripList(this.filter)
           .subscribe(resp => {
             this.allDistanceTripMaster = resp;
