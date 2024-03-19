@@ -154,6 +154,7 @@
                                         <tr>
                                             <th><label for="formrow-inputCity">GC Note No</label></th>
                                             <th><label for="formrow-inputCity">Consignee</label></th>
+                                            <th><label for="formrow-inputCity">Destination</label></th>
                                             <th><label for="formrow-inputZip">Invoice No</label></th>
                                             <th><label for="formrow-inputZip">EWay Bill No</label></th>
                                             <th><label for="formrow-inputZip">EWay Bill Date</label></th>
@@ -172,6 +173,13 @@
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         {{lrData.cneeCode}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-lg-12">
+                                                    <div class="mb-3">
+                                                        {{lrData.cnDest}}
                                                     </div>
                                                 </div>
                                             </td>
@@ -1063,7 +1071,7 @@
                                         <div class="col-lg-2">
 
                                             <div class="mb-2">
-                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"  (change)="changeTripCloseValue($event)"
+                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"  (change)="changeTripCloseValue($event)" [ngClass]="{ 'is-invalid': userSubmitted && (f['tripStatus'].invalid) }"
                                                     class="form-check-input" />
                                                 <label for="tripStatus">Trip Close</label>
 
@@ -1072,7 +1080,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Trip Close Date </label>
-                                                <input type="date" class="form-control" placeholder=""  [ngClass]="{ 'is-invalid': userSubmitted && (f['tripCloseDt'].invalid) }"
+                                                <input type="date" class="form-control" placeholder=""  
                                                     formControlName="tripCloseDt">
                                             </div>
                                         </div>

@@ -11,6 +11,7 @@ export class Tripsheetinnergridmodel {
 export class Lrdetailsmodel {
     cneeCode: string = "";
     cnorInvNo: string = "";
+    cnDest: string = "";
     consignmentID: string = "";
     ewayBillDate: string = "";
     ewayBillExpDate: string = "";
