@@ -398,16 +398,69 @@ export class TripsheetaddComponent {
     this.tripSheetService.getTripSheetInnerGridList(this.tripsheetinnergridrequest).subscribe((res) => {
       this.tripsheetinnergridmodel = res;
       /////////// for multi delivery incentive
-     if( this.tripsheetinnergridmodel.lrDetailsList.length>1)
-      {
-          this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
-          this.lrCount = this.lrCount-1
-          let incentval=    this.lrCount*1000
+    //  if( this.tripsheetinnergridmodel.lrDetailsList.length>1 )
+    //   {
+
+    //       this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
+    //       this.lrCount = this.lrCount-1
+    //       let incentval=    this.lrCount*1000
           
-          this.formTripsheet.patchValue({
-           multiDelIncentiveAmt:  incentval
-            });
+    //       this.formTripsheet.patchValue({
+    //        multiDelIncentiveAmt:  incentval
+    //         });
+    //    }
+       
+       if( this.tripsheetinnergridmodel.lrDetailsList.length>1 ){
+       let dest: string = "";
+       let cneecheck: string = "";
+       let cneeold: string = "";
+       let destold: string = "";
+       var m = 0;
+       for (let i = 0; i < this.tripsheetinnergridmodel.lrDetailsList.length; i++) {
+        dest =  this.tripsheetinnergridmodel.lrDetailsList[i].cnDest;
+        cneecheck = this.tripsheetinnergridmodel.lrDetailsList[i].cneeCode;
+        if(i==m){
+          cneeold = this.tripsheetinnergridmodel.lrDetailsList[i].cneeCode;
+          destold = this.tripsheetinnergridmodel.lrDetailsList[i].cnDest;
+          m= i-1;
+
+        }
+       // if(i==i-1){
+         // destold = this.tripsheetinnergridmodel.lrDetailsList[i].cnDest;
+
+       // }
+       if( cneeold == cneecheck && i>=1){ //if consignee are same
+       if( destold!=dest ){ // and destination is different
+        if( this.tripsheetinnergridmodel.lrDetailsList.length>1 )
+        {
+  
+            this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
+            this.lrCount = this.lrCount-1
+            let incentval=    this.lrCount*1000
+            
+            this.formTripsheet.patchValue({
+             multiDelIncentiveAmt:  incentval
+              });
+         }
+
        }
+
+      }
+      else if( cneeold!=cneecheck && i>=1){ //if consignee are different 
+        this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
+        this.lrCount = this.lrCount-1
+        let incentval=    this.lrCount*1000
+        
+        this.formTripsheet.patchValue({
+         multiDelIncentiveAmt:  incentval
+          });
+
+      }
+    }
+    }
+       
+ 
+
 
       //////////
       for (let misc = 1; misc < this.tripsheetinnergridmodel.miscList.length; misc++) {

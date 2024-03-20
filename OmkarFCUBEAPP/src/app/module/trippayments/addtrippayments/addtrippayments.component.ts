@@ -42,6 +42,7 @@ export class AddtrippaymentsComponent {
   dslIssued: any;
   advIssued: any;
   tripStatus: string = "";
+  tripNumber: string = "";
   neftvalue= "";
   checkselected = false;
   seriesDoc: string = "";
@@ -170,9 +171,11 @@ export class AddtrippaymentsComponent {
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc;
         this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
-        this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)         
+      //  this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)  
+        this.tripNumber =   this.selectedTripPaymentsDetails.tripNo ;   
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
         this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
+        this.getFromAndToDetail();
         this.formTripPayment.patchValue({
           pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
           chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
@@ -201,6 +204,23 @@ export class AddtrippaymentsComponent {
     this.sharedService.loading = false;
   }
 
+  getFromAndToDetail(){
+    this.requestmodel.strRequest = this.selectedTripPaymentsDetails.tripMasterId;
+    this.commonService.getTripFromAndToDetails(this.requestmodel).subscribe((res: Tripmodel) => {
+      this.tripDetails = res;
+      this.formTripPayment.patchValue({
+        // cneeGst:  (this.ExpectedReportingDays).toString() 
+        tripNo:   this.tripDetails.tripNo,
+        from:   this.tripDetails.fp,
+        to:   this.tripDetails.tp,
+        loadorempty:   this.tripDetails.loadEmptyType,
+        travel:   this.tripDetails.travelAllowance,
+        dsltobe:   this.tripDetails.ltsDslToBe_1,
+        tripMasterId:  this.tripDetails.tripId,           
+      });
+      // this.getValidation();
+    });    
+  }
   
   onCleared(e: any) {
     this.formTripPayment.patchValue({
@@ -291,7 +311,9 @@ export class AddtrippaymentsComponent {
   }
  
   getTripDetails(e: any) {    
-    this.tripVehicleDetails.vehicleMasterId =  e.dataId;      
+    this.tripVehicleDetails.vehicleMasterId =  e.dataId;    
+    this.tripVehicleDetails.tripStatus =  this.tripStatus; 
+    this.tripVehicleDetails.tripNo =  this.tripStatus;       
     this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
       this.tripDetails = res;
       this.trip = res.tripNo;

@@ -47,6 +47,10 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetTripDetail(request);
         }
+        public async Task<TripModel> GetTripFromAndToDetail(RequestModel request)
+        {
+            return await tripPaymentsRepository.GetTripFromAndToDetail(request);
+        }
         public async Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request)
         {
             return await tripPaymentsRepository.GetTripDslDetail(request);

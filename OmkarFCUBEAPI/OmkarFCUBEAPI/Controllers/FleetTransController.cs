@@ -301,6 +301,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripFromAndToDetail")]
+        public async Task<IActionResult> GetTripFromAndToDetail(RequestModel request)
+        {
+            try
+            {
+                var result = await tripPaymentsBusiness.GetTripFromAndToDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTripDslDetail")]
         public async Task<IActionResult> GetTripDslDetail(TripVehicleModel request)
         {
