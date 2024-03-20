@@ -1,6 +1,7 @@
 import { AdblueListmodel, MiscListmodel } from "./tripsheetmodel";
 
 export class Tripsheetinnergridmodel {
+    incentive: string="";
     lrDetailsList: Lrdetailsmodel[] = [];
     dieselDetailsList: Dieseldetailsmodel[] = [];
     driverAdvanceList: Driveradvancemodel[] = [];

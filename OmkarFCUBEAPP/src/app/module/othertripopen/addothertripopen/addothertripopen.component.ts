@@ -166,13 +166,12 @@ export class AddothertripopenComponent {
           contents: this.contentList.find(e => e.dataId == this.selectedTripSheetDetails.contents),
           yearid: this.year
         });
+        this.editMode = true;
+        this.formOtherTripOpen.controls['tripBranch'].disable();
+        this.formOtherTripOpen.controls['vehicleMasterID'].disable();
+        this.formOtherTripOpen.controls['compNonCompStatus'].disable();       
+        this.formOtherTripOpen.controls['challanNo'].disable();     
       } 
-      this.editMode = true;
-      this.formOtherTripOpen.controls['tripBranch'].disable();
-      this.formOtherTripOpen.controls['vehicleMasterID'].disable();
-      this.formOtherTripOpen.controls['compNonCompStatus'].disable();       
-      this.formOtherTripOpen.controls['challanNo'].disable();     
-
     }, 2000);
     
     this.formOtherTripOpen.controls['tripNo'].disable();
@@ -205,15 +204,13 @@ export class AddothertripopenComponent {
 
   changeFromPlace(e: any) {
     this.frmplc = e.dataId 
-    this.checkTripkMs();
-    
+    this.checkTripkMs();    
     this.GetOpeningBal();
   }
   
   changeToPlace(e: any) {
     this.toplc= e.dataId 
     this.checkTripkMs();
-
     this.GetOpeningBal();
   }
 

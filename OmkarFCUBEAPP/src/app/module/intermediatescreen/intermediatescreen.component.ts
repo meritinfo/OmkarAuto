@@ -104,6 +104,9 @@ export class IntermediatescreenComponent {
     this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
+      this.formLogin.patchValue({
+        yearID:this.yearList[0].dataId,
+      })      
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
         this.sharedService.loading = false;

@@ -890,7 +890,7 @@ namespace FleetTrans.Repository
                         }
                     }
 
-                    //Adblue Details
+                    //Adblue Details 
                     if (resultData != null && resultData.Tables[4].Rows.Count > 0)
                     {
                         for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
@@ -902,6 +902,10 @@ namespace FleetTrans.Repository
                                 AdbluedieselAmount = Convert.ToString(resultData.Tables[4].Rows[i]["AdbluedieselAmount"]),
                             });
                         }
+                    }
+                    if (resultData != null && resultData.Tables[5].Rows.Count > 0)
+                    {
+                        tripSheetInnerGridList.Incentive = ((resultData.Tables[5].Rows.Count-1) * 1000).ToString();
                     }
                 }
             }

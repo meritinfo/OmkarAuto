@@ -111,7 +111,7 @@ export class DieselstatementaddComponent implements OnInit {
       billStmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      location: new FormControl('', [Validators.required]),
+      //location: new FormControl('', [Validators.required]),
       vendorId: new FormControl('', [Validators.required]),
       rate:new FormControl('0', [Validators.required]),
       totalDslLtrs: new FormControl(''),
@@ -130,14 +130,14 @@ export class DieselstatementaddComponent implements OnInit {
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          location: this.branchList.find(e => e.dataId == this.selectedDieselStmtDetails.location),  
+          //location: this.branchList.find(e => e.dataId == this.selectedDieselStmtDetails.location),  
           vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),     
         })
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
         this.formDieselStatement.controls['toDate'].disable();  
-        this.formDieselStatement.controls['location'].disable();   
+        //this.formDieselStatement.controls['location'].disable();   
         this.formDieselStatement.controls['vendorId'].disable();     
       }    
     }, 2000);
@@ -165,7 +165,6 @@ export class DieselstatementaddComponent implements OnInit {
       qtyLtrs:  ['', []],
       ratePerLtr:  ['', []],
       amountPaid:  ['', []],
-      remarks:  ['', []],
       selected:  ['', []],
     });
   }
@@ -233,16 +232,16 @@ export class DieselstatementaddComponent implements OnInit {
       this.toasterService.warning(" Please Select To Date");  
       return; 
     }
-    else if (this.formDieselStatement.controls["location"].invalid) {
-      this.toasterService.warning(" Please Select Location");  
-      return; 
-    }
+    // else if (this.formDieselStatement.controls["location"].invalid) {
+    //   this.toasterService.warning(" Please Select Location");  
+    //   return; 
+    // }
     else if (this.formDieselStatement.controls["vendorId"].invalid) {
       this.toasterService.warning(" Please Select Vendor");  
       return; 
     }   
     else{
-      this.Pagerequestwithdatesmodel.search= selectedDataVal.location?selectedDataVal.location.dataId:'';
+      //this.Pagerequestwithdatesmodel.search= selectedDataVal.location?selectedDataVal.location.dataId:'';
       this.Pagerequestwithdatesmodel.fromDate=selectedDataVal.fromDate;
       this.Pagerequestwithdatesmodel.toDate=selectedDataVal.toDate;
       this.Pagerequestwithdatesmodel.strRequest=selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
@@ -252,7 +251,7 @@ export class DieselstatementaddComponent implements OnInit {
         if(res.dieselStatementListData.length>0){
         this.formDieselStatement.controls["fromDate"].disable();
         this.formDieselStatement.controls["toDate"].disable();
-        this.formDieselStatement.controls["location"].disable();
+        //this.formDieselStatement.controls["location"].disable();
         this.formDieselStatement.controls["vendorId"].disable();
         }
         this.formArray.clear();
@@ -266,7 +265,6 @@ export class DieselstatementaddComponent implements OnInit {
           this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
           this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
           this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
-          this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);     
           
           this.formArray.controls[i].get("branch")?.disable();      
           this.formArray.controls[i].get("pmtDate")?.disable();      
@@ -276,15 +274,9 @@ export class DieselstatementaddComponent implements OnInit {
           this.formArray.controls[i].get("qtyLtrs")?.disable();   
           this.formArray.controls[i].get("ratePerLtr")?.disable();
           this.formArray.controls[i].get("amountPaid")?.disable();
-          this.formArray.controls[i].get("remarks")?.disable();
         }
+        this.calculateTotal();
       });  
-      this.formDieselStatement.patchValue({
-        totalDslLtrs:0,
-        totalDslAmt: 0,
-        totalCashAdv: 0,
-        totalNetAmount: 0,
-      });    
     } 
   }
 
@@ -368,7 +360,6 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
         this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
         this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
-        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);  
         this.formArray.controls[i].get("selected")?.setValue(res.dieselStatementListData[i].selected);            
         
         this.formArray.controls[i].get("branch")?.disable();      
@@ -379,7 +370,6 @@ export class DieselstatementaddComponent implements OnInit {
         this.formArray.controls[i].get("qtyLtrs")?.disable();   
         this.formArray.controls[i].get("ratePerLtr")?.disable();
         this.formArray.controls[i].get("amountPaid")?.disable();
-        this.formArray.controls[i].get("remarks")?.disable();
         this.formArray.controls[i].get("selected")?.disable();
       }
     });  

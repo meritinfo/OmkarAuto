@@ -3,6 +3,7 @@ namespace FleetTrans.Models
 {
     public class TripSheetInnerGridListModel
     {
+        public string? Incentive { get; set; }
         public List<LRDetailsModel>? LRDetailsList { get; set; }
         public List<DieselDetailsModel>? DieselDetailsList { get; set; }
         public List<DriverAdvanceModel>? DriverAdvanceList { get; set; }

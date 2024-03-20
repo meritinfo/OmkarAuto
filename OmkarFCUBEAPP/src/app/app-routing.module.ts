@@ -108,6 +108,8 @@ import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/
 import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
 import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
+import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
+import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 
 
 
@@ -264,6 +266,10 @@ const routes: Routes = [
   { path: 'happaystatementadd', component: HappaystatementaddComponent },  
   { path: 'happaystatementedit', component:  HappaystatementaddComponent },
   { path: 'changebranch', component:  ChangebranchComponent },
+  { path: 'salcalclist', component:  EmpsalcalculationlistComponent },
+  { path: 'salcalcadd', component: EmpsalcalculationaddComponent },  
+  { path: 'salcalcedd', component:  EmpsalcalculationaddComponent },
+  
   
 ];
 

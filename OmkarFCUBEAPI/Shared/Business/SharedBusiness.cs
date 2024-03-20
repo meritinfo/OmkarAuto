@@ -94,11 +94,11 @@ namespace Shared.Business
         {
             return await sharedRepository.CheckBookingDate(request);
         }
-        public async Task<List<YearListModel>> GetYearList()
+        public async Task<List<DropDownListModel>> GetYearList()
         {
             return await sharedRepository.GetYearList();
         }
-        public async Task<List<YearListModel>> GetServerDate()
+        public async Task<List<DropDownListModel>> GetServerDate()
         {
             return await sharedRepository.GetYearList();
         }

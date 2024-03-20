@@ -194,18 +194,30 @@ export class AdddocrenewalentryComponent {
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();
         this.formDocEntry.controls['vehicleMasterID'].disable();
-        if (this.selectedDocRenewalEntryDetails.neftPmt=='Y'){
-          this.checkselected = true;
-          this.formDocEntry.controls['chequeNo'].clearValidators();      
-          this.formDocEntry.controls['chequeDt'].clearValidators(); 
-          this.formDocEntry.controls['chequeNo'].disable();      
-          this.formDocEntry.controls['chequeDt'].disable(); 
+
+        if (this.selectedDocRenewalEntryDetails.pmtType == 'B'){
+          this.formDocEntry.controls['neftPmt'].enable();
+          this.formDocEntry.controls['chequeNo'].enable();
+          this.formDocEntry.controls['chequeDt'].enable();
+          if (this.selectedDocRenewalEntryDetails.neftPmt=='Y'){
+            this.formDocEntry.controls['chequeNo'].clearValidators();      
+            this.formDocEntry.controls['chequeDt'].clearValidators(); 
+            this.formDocEntry.controls['chequeNo'].disable();      
+            this.formDocEntry.controls['chequeDt'].disable(); 
+          }
+          else {
+            this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
+            this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);  
+          }
         }
         else {
-          this.checkselected = false;
-          this.formDocEntry.controls['chequeNo'].setValidators([Validators.required]);
-          this.formDocEntry.controls['chequeDt'].setValidators([Validators.required]);  
+          this.formDocEntry.controls['neftPmt'].disable();
+          this.formDocEntry.controls['chequeNo'].disable();
+          this.formDocEntry.controls['chequeDt'].disable();
+          this.formDocEntry.controls['chequeNo'].clearValidators();      
+          this.formDocEntry.controls['chequeDt'].clearValidators(); 
         }
+        
         this.formDocEntry.controls['chequeNo'].updateValueAndValidity();
         this.formDocEntry.controls['chequeDt'].updateValueAndValidity();    
          
@@ -289,6 +301,8 @@ export class AdddocrenewalentryComponent {
     else {
       this.checkselected = false;  
       this.formDocEntry.controls['neftPmt'].disable();
+      this.formDocEntry.controls['chequeNo'].disable();
+      this.formDocEntry.controls['chequeDt'].disable();
     }
     this.getPaymentCreditAcList(selectedValue);
   }
@@ -440,6 +454,9 @@ export class AdddocrenewalentryComponent {
     this.requestmodel.strRequest= e.toString();
     this.docrenewalEntryService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
+      this.formDocEntry.patchValue({
+        creditAc: this.creditacList[0].dataId ,
+      });
     });
   }
  

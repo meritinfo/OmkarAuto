@@ -30,7 +30,6 @@ export class AddtrippaymentsComponent {
   ptype: string = '';
   trip: string = '';
   formTripPayment!: FormGroup;
-  formSubmitted = false;
   userSubmitted = false;
   keywordLocation = 'dataName';
   editMode = false;
@@ -178,20 +177,26 @@ export class AddtrippaymentsComponent {
           chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
         })  
-        if (this.selectedTripPaymentsDetails.neftPmt=='Y'){
-          this.checkselected = true;
-          this.formTripPayment.controls['chequeNo'].clearValidators();      
-          this.formTripPayment.controls['chequeDt'].clearValidators(); 
-          this.formTripPayment.controls['chequeNo'].disable();      
-          this.formTripPayment.controls['chequeDt'].disable(); 
+        if (this.selectedTripPaymentsDetails.pmtType == 'B'){
+          this.formTripPayment.controls['neftPmt'].enable();
+          if (this.selectedTripPaymentsDetails.neftPmt=='Y'){
+            this.formTripPayment.controls['chequeNo'].clearValidators();      
+            this.formTripPayment.controls['chequeDate'].clearValidators(); 
+            this.formTripPayment.controls['chequeNo'].disable();      
+            this.formTripPayment.controls['chequeDate'].disable(); 
+          }
+          else {
+            this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
+            this.formTripPayment.controls['chequeDate'].setValidators([Validators.required]);  
+          }
+          this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
+          this.formTripPayment.controls['chequeDate'].updateValueAndValidity();  
         }
         else {
-          this.checkselected = false;
-          this.formTripPayment.controls['chequeNo'].setValidators([Validators.required]);
-          this.formTripPayment.controls['chequeDt'].setValidators([Validators.required]);  
-        }
-        this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
-        this.formTripPayment.controls['chequeDt'].updateValueAndValidity();  
+          this.formTripPayment.controls['neftPmt'].disable();
+          this.formTripPayment.controls['chequeNo'].disable();      
+          this.formTripPayment.controls['chequeDate'].disable(); 
+        }   
       }
   
       this.getValidation();    
@@ -223,13 +228,6 @@ export class AddtrippaymentsComponent {
     this.formTripPayment.controls['to'].disable();
     this.formTripPayment.controls['dsltobe'].disable();
     this.formTripPayment.controls['travel'].disable();
-    // this.formTripPayment.controls['vehicleMasterID'].disable();
-    this.formTripPayment.controls['vehicleMasterID'].updateValueAndValidity();
-    this.formTripPayment.controls['pmtBranch'].updateValueAndValidity();
-    this.formTripPayment.controls['pmtDate'].updateValueAndValidity();
-    this.formTripPayment.controls['tripNo'].updateValueAndValidity();
-    this.formTripPayment.controls['loadorempty'].updateValueAndValidity();
-    this.formTripPayment.controls['pmtfromDate'].updateValueAndValidity();
   }
 
   // convenience getter for easy access to contact form fields
@@ -424,7 +422,7 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['chequeDate'].disable();
       this.formTripPayment.patchValue({
         chequeNo:'',
-        chequeDt:'',
+        chequeDate:'',
       });   
     }
     else {
@@ -465,12 +463,11 @@ export class AddtrippaymentsComponent {
     this.ptype = e.target.value;
     if (selectedValue == 'B' ||selectedValue == 'C' ||selectedValue == 'A'){
       this.formTripPayment.controls['amountPaid'].setValidators([Validators.required]);
-      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
     }
     else{
       this.formTripPayment.controls['amountPaid'].clearValidators();  
-      this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
     }
+    this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
     //this.getCreditAcList2(this.ptype);   
     this.getCreditAcList2(selectedValue);   
   }
@@ -515,7 +512,7 @@ export class AddtrippaymentsComponent {
 
       var chqDt = this.loginDate;
       if (selectedDataValue.pmtType=="B"){
-        chqDt = selectedDataValue.chequeDt == '' ? this.loginDate:selectedDataValue.chequeDt;
+        chqDt = selectedDataValue.chequeDate == '' ? this.loginDate:selectedDataValue.chequeDate;
       }
       this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId ;
       this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;

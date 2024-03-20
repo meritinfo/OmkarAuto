@@ -53,10 +53,12 @@ namespace FinTrans.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         FtmID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                        
                         // Miss Details insert or update
-                        if (cashReceiptPaymentsModel.DetailList.Count > 0)
+                        if (responseModel.Status)
                         {
                             for (int i = 0; i < cashReceiptPaymentsModel.DetailList.Count; i++)
                             {
@@ -78,19 +80,10 @@ namespace FinTrans.Repository
 
                                 };
                                 var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
+                                responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
                             }
-                        }
-                        if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                        {
-                            responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                            responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                          //  var Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
-                        }
-                        else
-                        {
-                           // responseModel.Status = false;
-                            responseModel.Message = "Unable to process";
-                        }
+                        }                        
                     }
                     else
                     {

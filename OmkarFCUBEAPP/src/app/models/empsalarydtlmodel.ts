@@ -4,5 +4,6 @@ export class Empsalarydtlmodel {
     fromDate    : string = "";
     edType      : string = "";
     edCode      : string = "";
-    edAmt       : string = "";    
+    edAmt       : string = ""; 
+    edName      : string = "";   
 }

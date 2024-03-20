@@ -209,9 +209,9 @@ namespace Shared.Repository
             }
             return menuList;
         }
-        public async Task<List<YearListModel>> GetYearList()
+        public async Task<List<DropDownListModel>> GetYearList()
         {
-            List<YearListModel> yearList = new();
+            List<DropDownListModel> yearList = new();
             try
             {
                 if (dbconnection != null)
@@ -223,7 +223,7 @@ namespace Shared.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            yearList.Add(new YearListModel
+                            yearList.Add(new DropDownListModel
                             {
                                 DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
@@ -247,9 +247,9 @@ namespace Shared.Repository
             }
             return yearList;
         }
-        public async Task<List<YearListModel>> GetServerDate()
+        public async Task<List<DropDownListModel>> GetServerDate()
         {
-            List<YearListModel> yearList = new();
+            List<DropDownListModel> yearList = new();
             try
             {
                 if (dbconnection != null)
@@ -261,7 +261,7 @@ namespace Shared.Repository
                     {
                         for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
                         {
-                            yearList.Add(new YearListModel
+                            yearList.Add(new DropDownListModel
                             {
                         
                                 DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),

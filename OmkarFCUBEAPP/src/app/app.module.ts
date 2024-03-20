@@ -211,6 +211,13 @@ import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { MomentModule } from 'angular2-moment';
 import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
+import { EmppaygenerationlistComponent } from './module/emppaygeneration/emppaygenerationlist/emppaygenerationlist.component';
+import { EmppaygenerationaddComponent } from './module/emppaygeneration/emppaygenerationadd/emppaygenerationadd.component';
+import { Emppaycalcmodel } from './models/emppaycalcmodel';
+import { Emploanpaymodel } from './models/emploanpaymodel';
+import { Empleavemodel } from './models/empleavemodel';
+import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
+import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 
 @NgModule({
   declarations: [
@@ -334,6 +341,10 @@ import { HappaystatementaddComponent } from './module/happaystatement/happaystat
     ChangebranchComponent,
     HappaystatementlistComponent,
     HappaystatementaddComponent,
+    EmppaygenerationlistComponent,
+    EmppaygenerationaddComponent,
+    EmpsalcalculationlistComponent,
+    EmpsalcalculationaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -377,6 +388,7 @@ import { HappaystatementaddComponent } from './module/happaystatement/happaystat
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
+    Emppaycalcmodel,Emploanpaymodel,Empleavemodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]

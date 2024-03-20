@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <!-- <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Location</label><span style="color: red"> * </span>
                                                     <div class="ng-autocomplete">
@@ -86,7 +86,7 @@
                                                         </ng-template>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputZip">Vendor</label> <span style="color: red"> * </span>                                               
@@ -152,8 +152,7 @@
                                             <th><label for="formrow-inputZip">Trans Desc</label></th>
                                             <th><label for="formrow-inputZip">Qty Ltrs</label></th>
                                             <th><label for="formrow-inputZip">Rate Per Ltr</label></th>
-                                            <th><label for="formrow-inputZip">Amount Paid</label></th>
-                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                            <th><label for="formrow-inputZip">Total Amount</label></th>
                                         </tr>                                        
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
@@ -203,11 +202,6 @@
                                             <td>
                                                 <div class="mb-3">
                                                     <input class="form-control" formControlName="amountPaid">
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="mb-3">
-                                                    <input class="form-control" formControlName="remarks">
                                                 </div>
                                             </td>
                                             </div>

@@ -28,6 +28,7 @@ import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-tripsheetadd',
@@ -78,6 +79,7 @@ export class TripsheetaddComponent {
   DriverDetails = new Driverdetailmodel();
   bhattaDetails = new BhattaRateModel();
   adBlueDetails = new Adbluetobemodel();
+  usertriprightsmodel = new Usertriprightsmodel();
 
   formTripsheet!: FormGroup;
   userSubmitted = false;
@@ -111,6 +113,8 @@ export class TripsheetaddComponent {
   selectedDestination2: boolean = false;
   selectedDestination3: boolean = false;
 
+  canEditTripAfterClose: boolean = false;
+  canLinkTrip: boolean = false;
 
   selectedTripSheetDetails = new Tripsheetmodel();
 
@@ -142,9 +146,6 @@ export class TripsheetaddComponent {
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
-    }
-    if (this.loggedInUserID) {
-      console.log(this.loggedInUserID);
     }
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
@@ -321,6 +322,18 @@ export class TripsheetaddComponent {
         //  this.destinationid2= this.selectedTripSheetDetails.destination2;
         //  this.destinationid3= this.selectedTripSheetDetails.destination3;
         // this.ivNewFromPlace= this.selectedTripSheetDetails.nextReportingBranch;
+      
+        this.formTripsheet.controls['tripLinkYN'].disable();
+
+        if(this.selectedTripSheetDetails.tripStatus=='C'){
+          this.getUserTripRights();
+          if(!this.canEditTripAfterClose){
+            this.editStatus=false;
+          }
+          if(this.canLinkTrip){            
+            this.formTripsheet.controls['tripLinkYN'].enable();
+          }
+        }
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
@@ -383,18 +396,21 @@ export class TripsheetaddComponent {
     this.tripSheetService.getTripSheetInnerGridList(this.tripsheetinnergridrequest).subscribe((res) => {
       this.tripsheetinnergridmodel = res;
       /////////// for multi delivery incentive
-     if( this.tripsheetinnergridmodel.lrDetailsList.length>1)
-      {
-          this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
-          this.lrCount = this.lrCount-1
-          let incentval=    this.lrCount*1000
+   
+      this.formTripsheet.patchValue({
+        multiDelIncentiveAmt:  this.tripsheetinnergridmodel.incentive
+       });
+    //  if( this.tripsheetinnergridmodel.lrDetailsList.length>1)
+    //   {
+    //       this.lrCount= this.tripsheetinnergridmodel.lrDetailsList.length
+    //       this.lrCount = this.lrCount-1
+    //       let incentval= this.lrCount*1000
           
-          this.formTripsheet.patchValue({
-           multiDelIncentiveAmt:  incentval
-            });
-       }
+    //       this.formTripsheet.patchValue({
+    //        multiDelIncentiveAmt:  incentval
+    //       });
+    //    }
 
-      //////////
       for (let misc = 1; misc < this.tripsheetinnergridmodel.miscList.length; misc++) {
         this.addMiscItem();
       }
@@ -486,18 +502,13 @@ export class TripsheetaddComponent {
      //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
     // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
      if( fp == tp){
-  
-     
-      
-       
           this.toastrService.warning("From and to location should not be the same");
           this.formTripsheet.patchValue({
             fromPlace: '',
             toPlace: ''
           });
         }
-  }
-      
+      }   
     
     }
 
@@ -571,6 +582,14 @@ export class TripsheetaddComponent {
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res) => {
       this.locationList = res;
+    });
+  }
+  getUserTripRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;
+      this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose;
+      this.canLinkTrip = this.usertriprightsmodel.canLinkTrip;
     });
   }
   
