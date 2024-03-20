@@ -62,7 +62,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false"
                                                    formControlName="bookingDate"
                                                     class="form-control"
-                                                    min="{{minDate}}" max="{{maxDate}}"
+                                                    min="{{minDate}}" max="{{maxNewDate}}"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                             </div>
                                         </div>
@@ -673,7 +673,7 @@
                                 (click)="submitConsignmentForm()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
                                <!-- <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="consignmentDelete()">Delete</button>-->
-                            <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
+                            <button  class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

@@ -839,6 +839,7 @@ namespace FleetTrans.Repository
                                 ConsignmentID = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
                                 GcNoteNo = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
                                 CneeCode = Convert.ToString(resultData.Tables[0].Rows[i]["CneeCode"]),
+                                CnDest = Convert.ToString(resultData.Tables[0].Rows[i]["CnDest"]),
                                 CnorInvNo = Convert.ToString(resultData.Tables[0].Rows[i]["CnorInvNo"]),
                                 EwayBillNo = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillNo"]),
                                 EwayBillDate = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillDate"]),

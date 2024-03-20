@@ -15,6 +15,7 @@ namespace FleetTrans.Models
     {
         public string? ConsignmentID { get; set; }
         public string? GcNoteNo { get; set; }
+        public string? CnDest { get; set; }
         public string? CneeCode { get; set; }
         public string? CnorInvNo { get; set; }
         public string? EwayBillNo { get; set; }

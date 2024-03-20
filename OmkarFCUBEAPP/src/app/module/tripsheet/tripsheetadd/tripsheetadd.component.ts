@@ -44,6 +44,7 @@ export class TripsheetaddComponent {
   bhatta: string = '';
   clBalDsl: string = '';
   advancePay: string = '';
+  load : string = '';
   incentiveRate: string = '';
   penaltyRate: string = '';
   bhattaRate: string = '';
@@ -103,6 +104,7 @@ export class TripsheetaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  checkselected = false;
   destinationid2 = '';
   destinationid3 = '';
   ivNewFromPlace = '';
@@ -266,6 +268,8 @@ export class TripsheetaddComponent {
         this.getValidationForOpening(this.selectedTripSheetDetails.tripNo);
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.companyStatus = this.selectedTripSheetDetails.compNonCompStatus;
+        this.load = this.selectedTripSheetDetails.loadEmptyType;
+        this.ticlvalidation();
         //this.getTripSheetInnerGridList();
         this.formTripsheet.patchValue({
           // newTripDate: this.loginDate,
@@ -384,6 +388,17 @@ export class TripsheetaddComponent {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
+  }
+  closeDateChange(): void{
+    //this.checkselected=!this.checkselected;
+  //  if (this.checkselected){
+      this.formTripsheet.controls['tripStatus'].setValidators([Validators.required]);
+  
+     
+  //  }
+  
+    this.formTripsheet.controls['tripStatus'].updateValueAndValidity();
+    
   }
 
   getVehicleNoList(): void {
@@ -791,6 +806,7 @@ if(selectedValue > 1){
     this.formTripsheet.controls['tripBranch'].disable();
     this.formTripsheet.controls['idleDays'].disable();
     this.formTripsheet.controls['vehicleMasterID'].disable();
+    this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['tripNo'].disable();
     this.formTripsheet.controls['newTripDate'].disable();
     this.formTripsheet.controls['nextExpectedReportingDt'].disable();
@@ -907,6 +923,15 @@ if(selectedValue > 1){
 
     
   }
+  ticlvalidation(){
+   // this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
+    if( this.load == "E" ){
+      this.formTripsheet.controls['ticlStatus'].disable();
+
+    }
+
+  }
+  
   checkTripkMs() {
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivFromPlace != "" && this.ivToPlace != ""  && selectedDataValue.destination2== undefined ||this.ivFromPlace != "" && this.ivToPlace != ""  && selectedDataValue.destination2== "" ) {
@@ -2358,8 +2383,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       this.dslDetails.transDate = selectedDataValue.newTripDate;
       //  this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString(); this.dTripKM_1 
       this.dslDetails.tripKms = this.nexttripkms
-     // this.dslDetails.loadType = "L";
-     this.dslDetails.loadType = this.selectedTripSheetDetails.loadEmptyType;
+      this.dslDetails.loadType = "E";
+  //  this.dslDetails.loadType = this.selectedTripSheetDetails.loadEmptyType;
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl = res.message;
@@ -2749,6 +2774,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     if (selectedValue) {
       // this.formTripPayment.controls['chequeNo'].clearValidators();
       // this.formTripPayment.controls['chequeDate'].clearValidators();
+      this.formTripsheet.controls['tripCloseDt'].enable();
       this.formTripsheet.controls['tripCloseDt'].setValidators([Validators.required]);
       // this.formTripsheet.patchValue({
       // chequeDate:  this.loginDate ,

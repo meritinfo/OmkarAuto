@@ -177,8 +177,10 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),                         
-               
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                           // new SqlParameter("@TripStatus", request.TripStatus),
+                           // new SqlParameter("@TripNo", request.TripNo),
+
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripDetail", param);
 
@@ -206,6 +208,49 @@ namespace FleetTrans.Repository
             catch (Exception ex)
             {
                 
+            }
+            return tripModel;
+        }
+        public async Task<TripModel> GetTripFromAndToDetail(RequestModel request)
+        {
+            TripModel tripModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", request.strRequest),
+                           // new SqlParameter("@TripStatus", request.TripStatus),
+                           // new SqlParameter("@TripNo", request.TripNo),
+
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripFromAndToDetail", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        tripModel.TripNo = Convert.ToString(userData.Tables[0].Rows[0]["TripNo"]);
+                        tripModel.LoadEmptyType = Convert.ToString(userData.Tables[0].Rows[0]["LoadEmptyType"]);
+                        tripModel.FP = Convert.ToString(userData.Tables[0].Rows[0]["FP"]);
+                        tripModel.TP = Convert.ToString(userData.Tables[0].Rows[0]["TP"]);
+                        tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
+                        //tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
+                        tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
+                        tripModel.TripId = Convert.ToString(userData.Tables[0].Rows[0]["TripId"]);
+                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return tripModel;
         }

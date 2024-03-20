@@ -8,6 +8,7 @@ namespace FleetTrans.Models
         public string? TripNo { get; set; }
         public string? YearId { get; set; }
         public string? TransType { get; set; }
+        public string? TripStatus { get; set; }
 
 
     }

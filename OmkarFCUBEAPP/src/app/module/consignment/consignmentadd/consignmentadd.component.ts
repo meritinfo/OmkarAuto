@@ -61,6 +61,7 @@ export class ConsignmentaddComponent implements OnInit {
   fromDate: string = '';
   minDate:string = '';
   maxDate: string = '';
+  maxNewDate: string = '';
   newDate: string = '';
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -124,6 +125,11 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    var nxtdate = new Date();
+
+// add a day
+    nxtdate.setDate(nxtdate.getDate() + 1);
+    this.maxNewDate = nxtdate.toLocaleDateString('en-CA').toString();;
   
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
