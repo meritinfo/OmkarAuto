@@ -39,6 +39,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ValidUpto", freightRatesMstModel.ValidUpto),
                             new SqlParameter("@RateTypeId", freightRatesMstModel.RateTypeId),
                             new SqlParameter("@RateMethod", freightRatesMstModel.RateMethod),
+                             new SqlParameter("@VehicleTypeGroupId", freightRatesMstModel.VehicleTypeGroupId),
+
                             new SqlParameter("@RateForStateOrToPlace", freightRatesMstModel.RateForStateOrToPlace),
                             new SqlParameter("@LoggedInUser", freightRatesMstModel.LoggedInUser)
 

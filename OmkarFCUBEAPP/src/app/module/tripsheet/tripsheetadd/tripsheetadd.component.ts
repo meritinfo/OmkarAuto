@@ -222,7 +222,7 @@ export class TripsheetaddComponent {
       bhattaRate: new FormControl('',),
       allowedBhatta: new FormControl('',),
       onTimeIncentiveAmt: new FormControl('',),
-      multiDelIncentiveAmt: new FormControl('',),
+      multiDelIncentiveAmt: new FormControl('0',),
       penaltyChargedToDr: new FormControl('',),
       poolAcAmt: new FormControl('',),
       totalDriverAc: new FormControl('',),
@@ -1151,7 +1151,7 @@ if(selectedDataValue.tripNo!=1){
         //else
       } else {
         this.formTripsheet.patchValue({
-          opBalDriver: '0'
+          opBalDsl: '0'
         });
       }
     });
@@ -2473,6 +2473,10 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       });
     } 
     else if ( this.companyStatus =='R'&& selectedDataValue.ticlStatus == "OK" ){
+      let ir = 0;
+      ir = parseInt(this.incentiveRate)
+      this.getDslToBe1();
+      this.totalCalculationForTicl(ir);
     this.formTripsheet.patchValue({
       // cneeGst:  (this.ExpectedReportingDays).toString() 
       // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
@@ -2490,7 +2494,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
     }
     // this.totalCalculation();
-
+    
   }
   getIncentiveRate(e: any) {
 
@@ -2545,6 +2549,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
       });
     } else if ( this.companyStatus =='R'&& selectedDataValue.ticlStatus == "OK" ){
+      this.totalCalculationForTicl(1000);
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
         // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()

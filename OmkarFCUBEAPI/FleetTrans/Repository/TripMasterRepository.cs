@@ -539,6 +539,51 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> GetDslOpeningBalforPmt(OpBalModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                           //new SqlParameter("@Tripdate", request.Tripdate),
+                            new SqlParameter("@VehicleMasterID", request.VehicleMasterID),
+                         //   new SqlParameter("@DriverMasterID", request.DriverMasterID),
+                            new SqlParameter("@Yearid", request.Yearid),
+                            new SqlParameter("@TripNo", request.TripNo)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetDslOpeningBalforPmt", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request)
         {
             ResponseModel responseModel = new();
@@ -828,7 +873,7 @@ namespace FleetTrans.Repository
                         };
 
                     var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", param);
-
+                    tripSheetInnerGridList.Incentive = "0";
                     //LR Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {

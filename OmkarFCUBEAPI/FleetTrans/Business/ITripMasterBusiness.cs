@@ -10,6 +10,7 @@ namespace FleetTrans.Business
         Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel>GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetDslOpeningBal(OpBalModel request);
+        Task<ResponseModel> GetDslOpeningBalforPmt(OpBalModel request);
         Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);

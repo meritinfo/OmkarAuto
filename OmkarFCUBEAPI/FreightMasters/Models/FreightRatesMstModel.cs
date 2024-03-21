@@ -13,6 +13,7 @@
         public string? AccountName { get; set; }
         public string? FromPoint { get; set; }
         public string? RateForStateOrToPlace { get; set; }
+        public string?  VehicleTypeGroupId { get; set; }
         public string? LoggedInUser { get; set; }
         public List<FreightRatesDtlModel> freightRatesDetailsList { get; set; }
     }
