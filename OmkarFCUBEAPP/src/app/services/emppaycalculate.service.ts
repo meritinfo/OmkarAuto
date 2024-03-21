@@ -52,11 +52,11 @@ export class EmppaycalculateService {
   empPayCalSubmitted(user: Emppaycalcmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpPayCalSave', user, this.httpOptions);
   }
-
-
-  empSalaryDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpSalaryMasterDelete', req, this.httpOptions);
+  empPayCalDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpPayCalDelete', req, this.httpOptions);
   } 
+
+  
   getSalaryEarningList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetSalaryEarningList', null, this.httpOptions);
   } 

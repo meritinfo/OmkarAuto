@@ -22,7 +22,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Branch</label>
                                             <select class="form-control" formControlName="branchCode"
@@ -64,8 +64,8 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Month</label>
                                             <span style="color: red">*</span>
-                                            <input autoclose="false" type="date" onclick="dateformat($event)"
-                                                placeholder="MMM/yyyy"
+                                            <input autoclose="false" type="date" 
+                                                (change)="onchangeMonth($event)"
                                                 class="form-control" formControlName="monthYear"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['monthYear'].invalid) }">
                                         </div>
@@ -82,12 +82,12 @@
                                             </select>
                                         </div>
                                     </div>                                    
-                                    <div class="col-lg-2">
+                                    <!-- <div class="col-lg-2">
                                         <div class="mb-3">
                                             <button type="submit" (click)="searchSalary()" *ngIf="!editMode"
                                                 class="btn btn-primary w-md mt-4">Search</button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -106,7 +106,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Holidays + Sundays</label>
-                                                            <input autoclose="false" numbersonly maxlength="2" max="31"
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
                                                             class="form-control" formControlName="holSun"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['holSun'].invalid) }">
                                                         </div>
@@ -114,15 +114,16 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Total Leaves</label>
-                                                            <input autoclose="false" numbersonly maxlength="2" max="31"
-                                                            class="form-control" formControlName="totLeaves"
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            class="form-control" formControlName="totLeaves" 
+                                                            (change)="onchangeLeaves($event)"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['totLeaves'].invalid) }">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Loss of Pay Days </label>
-                                                            <input autoclose="false" numbersonly maxlength="2" max="31"
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
                                                             class="form-control" formControlName="absentDays"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['absentDays'].invalid) }">
                                                         </div>
@@ -130,7 +131,7 @@
                                                     <div class="col-lg-2">
                                                         <div class="mb-3">
                                                             <label for="formrow-inputCity">Total Pay Days</label>
-                                                            <input autoclose="false" numbersonly maxlength="2"  max="31"
+                                                            <input autoclose="false" decimalonly maxlength="2"  max="31"
                                                             class="form-control" formControlName="payDays"
                                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['payDays'].invalid) }">
                                                         </div>
@@ -171,7 +172,7 @@
                                                     <tr formArrayName="arrayLeaveList"
                                                         *ngFor="let mst of formLeaveArray.controls; let e = index">
                                                         <div [formGroupName]="e" class="grid-table">
-                                                            <td  class="col-lg-2">   
+                                                            <td  class="col-lg-3">   
                                                                 <input autoclose="false" type="hidden" class="form-control" 
                                                                 formControlName="leaveId">  
                                                                 <input autoclose="false" type="hidden" class="form-control" 
@@ -188,20 +189,19 @@
                                                                 formControlName="totalLeaves">                                                         
                                                             </td>
                                                             <td class="col-lg-1">
-                                                                <input numbersonly autoclose="false" type="text" 
+                                                                <input decimalonly autoclose="false" type="text" 
                                                                 class="form-control" maxlength="2" max="31"
-                                                                formControlName="adjLeaves">                                 
+                                                                formControlName="adjLeaves" (change)="onAdjLeaveChange(e,$event)">                                 
                                                             </td>                        
                                                         </div>
                                                     </tr>                                                    
                                                     <tr >
-                                                        <td  class="col-lg-2"> </td>
-                                                        <td  class="col-lg-2">
+                                                        <td  class="col-lg-3" colspan="3">
                                                             <label for="formrow-inputZip">
                                                                 <h6>Tot Adjusted Leaves</h6>
                                                             </label>
                                                         </td>                                                            
-                                                        <td  class="col-lg-2"> 
+                                                        <td  class="col-lg-1"> 
                                                             <input autoclose="false" type="text" class="form-control" 
                                                             formControlName="totadjLeaves">  
                                                     </tr>

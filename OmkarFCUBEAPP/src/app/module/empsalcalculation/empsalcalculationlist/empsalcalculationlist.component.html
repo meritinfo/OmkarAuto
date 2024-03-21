@@ -23,8 +23,8 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Month</label>
-                                    <input type="date" class="form-control" onchange="dateformat($event)" 
-                                        formControlName="monthYear">
+                                    <input type="date" class="form-control" 
+                                    formControlName="monthYear" >
                                 </div>                                
                             </div>
                             <div class="col-lg-3">
@@ -58,36 +58,34 @@
                 </div>
             </div>
            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
-                        <thead>
-                            <tr>
-                                <th>monthYear </th>
-                                <th>empCode</th>
-                                <th>empName</th>
-                                <th>netPay </th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody *ngIf="allEmpsalaryMaster.empPayCalcMstList?.length != 0">
-                            <tr *ngFor="let es of allEmpsalaryMaster.empPayCalcMstList">
-                                <td>{{ es.monthYear}}</td>
-                                <td>{{ es.empCode }}</td>
-                                <td>{{ es.empName }}</td>
-                                <td>{{ es.netPay }}</td>                  
-                                <td>
-                                    <button type="button" class="btn btn-edit" 
-                                    (click)="getEmpsalarymstDetails(es)" ></button>             
-                                </td> 
-                            </tr>
-                        </tbody>
-                        <tbody *ngIf="allEmpsalaryMaster.empPayCalcMstList?.length == 0">
-                            <tr>
-                                <td colspan="3" class="no-data-available">No data!</td>
-                            </tr>
-                        </tbody>
-                    </table> 
-                </div>
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>monthYear </th>
+                            <th>empCode</th>
+                            <th>empName</th>
+                            <th>netPay </th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allEmpsalaryMaster.empPayCalcMstList?.length != 0">
+                        <tr *ngFor="let es of allEmpsalaryMaster.empPayCalcMstList">
+                            <td>{{ es.monthYear}}</td>
+                            <td>{{ es.empCode }}</td>
+                            <td>{{ es.empName }}</td>
+                            <td>{{ es.netPay }}</td>                  
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getEmpsalarymstDetails(es)" ></button>             
+                            </td> 
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allEmpsalaryMaster.empPayCalcMstList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table> 
             </div>
         <!-- container-fluid -->
     </div>

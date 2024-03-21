@@ -33,7 +33,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
                             new SqlParameter("@Vendor", request.strRequest),
-                            new SqlParameter("@PmtType", "")
+                            new SqlParameter("@PmtType", "V")
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselSearchGridList", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)

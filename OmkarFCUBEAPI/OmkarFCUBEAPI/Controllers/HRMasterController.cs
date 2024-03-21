@@ -5,6 +5,7 @@ using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using System.Collections.Generic;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -388,7 +389,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+       
         [HttpPost("GetEmpLoanList")]
         public async Task<IActionResult> GetEmpLoanList(PageRequest request)
         {
@@ -543,7 +544,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("GetEmpPayCalList")]
-        public async Task<IActionResult> GetEmpPayCalList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetEmpPayCalList(PageFromDtToDtRequest request)
         {
             if (request == null)
             {
@@ -628,6 +629,25 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await empSalaryCalcBusiness.GetEmpLoanDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetBranchEmpList")]
+        public async Task<IActionResult> GetBranchEmpList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetBranchEmpList(request);
 
                 return Ok(result);
             }

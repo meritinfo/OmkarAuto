@@ -10,7 +10,7 @@ namespace HRMasters.Repository
 {
     public interface IEmpSalaryCalcRepository
     {
-        Task<EmpPayCalcList> GetEmpPayCalList(PageRequestDtBrVh request);
+        Task<EmpPayCalcList> GetEmpPayCalList(PageFromDtToDtRequest request);
         Task<EmpPayCalcModel> GetEmpSalEarnList(EmpSalaryMstModel empPayCalc);
         Task<EmpPayCalcModel> GetEmpSalDedList(EmpSalaryMstModel empPayCalc);
         Task<EmpPayCalcModel> GetEmpLeaveDetails(EmpLeaveModel empLeave);
