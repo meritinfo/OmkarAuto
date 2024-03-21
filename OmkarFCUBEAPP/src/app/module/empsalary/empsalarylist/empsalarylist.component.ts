@@ -103,7 +103,6 @@ export class EmpsalarylistComponent {
           title: 'Employee Name',
           data: 'empName',
         },
-
         {
           title: 'Gross Salary',
           data: 'grossSalary',

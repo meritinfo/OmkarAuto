@@ -16,7 +16,7 @@ namespace HRMasters.Repository
             dbconnection = _dbconnection;
         }
         
-        public async Task<EmpPayCalcList> GetEmpPayCalList(PageRequestDtBrVh request)
+        public async Task<EmpPayCalcList> GetEmpPayCalList(PageFromDtToDtRequest request)
         {
             EmpPayCalcList empPayCalcList = new();
             List<EmpPayCalcModel> payCalcList = new();
@@ -31,7 +31,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@BranchCode", request.Branch),
+                            new SqlParameter("@BranchCode", request.strRequest),
                             new SqlParameter("@MonthYear",  request.FromDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayCalMstList", param);
@@ -436,6 +436,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@EmpId",      loanModel.EmpId),
                             new SqlParameter("@LoanId",     loanModel.LoanId),
                             new SqlParameter("@MonthYear",  loanModel.MonthYear),
+                            new SqlParameter("@LoanType",   loanModel.LoanType),
                             new SqlParameter("@LoanAdjAmt", loanModel.LoanAdjAmt),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpPayLoanDtlSave", param);

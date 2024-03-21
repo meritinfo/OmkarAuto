@@ -158,8 +158,6 @@ export class HappaystatementaddComponent implements OnInit {
       vehicleNo:  ['', []],
       hsdAdvType:  ['', []],
       transDesc:  ['', []],
-      qtyLtrs:  ['', []],
-      ratePerLtr:  ['', []],
       amountPaid:  ['', []],
       remarks:  ['', []],
       selected:  ['', []],
@@ -214,8 +212,6 @@ export class HappaystatementaddComponent implements OnInit {
           this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStatementListData[i].vehicleNo);
           this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
           this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
-          this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
-          this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
           this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
           this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);     
           
@@ -223,9 +219,7 @@ export class HappaystatementaddComponent implements OnInit {
           this.formArray.controls[i].get("pmtDate")?.disable();      
           this.formArray.controls[i].get("vehicleNo")?.disable();      
           this.formArray.controls[i].get("hsdAdvType")?.disable();      
-          this.formArray.controls[i].get("transDesc")?.disable();      
-          this.formArray.controls[i].get("qtyLtrs")?.disable();   
-          this.formArray.controls[i].get("ratePerLtr")?.disable();
+          this.formArray.controls[i].get("transDesc")?.disable();  
           this.formArray.controls[i].get("amountPaid")?.disable();
           this.formArray.controls[i].get("remarks")?.disable();
         }
@@ -253,13 +247,9 @@ export class HappaystatementaddComponent implements OnInit {
 
     for (var i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
-        if (diesellistarray[i].hsdAdvType === "D") {
-          totalDslAmount = totalDslAmount + parseFloat(diesellistarray[i].amountPaid);
-        }
         if (diesellistarray[i].hsdAdvType === "A") {
           totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
         }
-        totalDslLeters=totalDslLeters + parseFloat(diesellistarray[i].qtyLtrs);
         totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
       }
     }
@@ -310,8 +300,6 @@ export class HappaystatementaddComponent implements OnInit {
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStatementListData[i].vehicleNo);
         this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
         this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
-        this.formArray.controls[i].get("qtyLtrs")?.setValue(res.dieselStatementListData[i].qtyLtrs);
-        this.formArray.controls[i].get("ratePerLtr")?.setValue(res.dieselStatementListData[i].ratePerLtr);
         this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
         this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);  
         this.formArray.controls[i].get("selected")?.setValue(res.dieselStatementListData[i].selected);            
@@ -320,9 +308,7 @@ export class HappaystatementaddComponent implements OnInit {
         this.formArray.controls[i].get("pmtDate")?.disable();      
         this.formArray.controls[i].get("vehicleNo")?.disable();      
         this.formArray.controls[i].get("hsdAdvType")?.disable();      
-        this.formArray.controls[i].get("transDesc")?.disable();      
-        this.formArray.controls[i].get("qtyLtrs")?.disable();   
-        this.formArray.controls[i].get("ratePerLtr")?.disable();
+        this.formArray.controls[i].get("transDesc")?.disable();  
         this.formArray.controls[i].get("amountPaid")?.disable();
         this.formArray.controls[i].get("remarks")?.disable();
         this.formArray.controls[i].get("selected")?.disable();

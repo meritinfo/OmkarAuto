@@ -17,6 +17,8 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./empsalcalculationlist.component.css']
 })
 export class EmpsalcalculationlistComponent {
+  year: string = '';
+  loginDate: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -61,28 +63,26 @@ export class EmpsalcalculationlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    
-    this.getBranchList();
-    
-    setTimeout(() => {
-      this.emppaycalculateService.clearEmpPayCalDetails();
-      this.formFilter = this.formBuilder.group({
-        monthYear: new FormControl(''),
-        branch: new FormControl(''),
-      });
-    }, 2000);
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
 
-    const formatter = new Intl.DateTimeFormat('fr', { month: 'short' });
-    var mnt = formatter.format(this.dt);
-    var yr = this.dt.getFullYear();
-    this.formFilter.patchValue({
-      monthYear: mnt + "-" + yr.toString(),
-    })     
+    this.getBranchList();    
+          
+    this.emppaycalculateService.clearEmpPayCalDetails();
+    this.formFilter = this.formBuilder.group({
+      monthYear: new FormControl(this.loginDate,),
+      branch: new FormControl(''),
+    });
 
     this.sharedService.loading=true;
-    var selecteddata = this.formFilter.getRawValue();
-    this.filter.fromDate= this.dt.toLocaleDateString('en-CA').toString();
-    this.filter.strRequest= selecteddata.branch;
+    this.filter.fromDate= this.loginDate;
+    this.filter.strRequest= '';
     this.empSalaryList();
     this.sharedService.loading=false;
   }
@@ -91,17 +91,8 @@ export class EmpsalcalculationlistComponent {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
-  }
+  } 
   
-  dateformat(e:any):void{
-    this.dt = new Date(e.target.value);
-    const formatter = new Intl.DateTimeFormat('fr', { month: 'short' });
-    var mnt = formatter.format(this.dt);
-    var yr = this.dt.getFullYear();
-    this.formFilter.patchValue({
-      monthYear: mnt + "-" + yr.toString(),
-    })     
-  }
   
   empSalaryList(){
     this.dtOptions = {
@@ -136,6 +127,7 @@ export class EmpsalcalculationlistComponent {
           title: 'Emp Code',
           data: 'empCode',
         },
+
         {
           title: 'Employee Name',
           data: 'empName',
@@ -163,7 +155,7 @@ export class EmpsalcalculationlistComponent {
 
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
-    this.filter.fromDate= this.dt.toLocaleDateString('en-CA').toString();
+    this.filter.fromDate= selecteddata.monthYear;
     this.filter.strRequest= selecteddata.branch;
     this.sharedService.loading=true;
     this.empSalaryList();
