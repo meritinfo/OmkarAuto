@@ -223,7 +223,29 @@ export class AddratesmasterComponent implements OnInit {
   }
 
   selectEvent(item: any) {
-    // do something with selected item
+    
+
+ 
+  }
+  selectNewEvent(item: any,index:number) {
+    var ToPlace = item.dataId;
+    var selectedDataValue=this.formRatesMaster.getRawValue();
+  //  if(ToPlace == selectedDataValue.fromLocation.dataId)
+   // {
+    //  this.toasterService.warning("To location can not be same as From Location");
+     // this.formArray.controls[index].get("toLocation")?.setValue("");
+    //  return;
+   // }
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(ToPlace == selectedDataValue.arrayList[i].toPlace.dataId)
+      {
+        this.toasterService.warning("To location already exits in grid");
+        this.formArray.controls[index].get("toPlace")?.setValue("");
+        return;
+      }
+    }
+
+ 
   }
 
   onChangeSearch(search: string) {
@@ -336,6 +358,7 @@ export class AddratesmasterComponent implements OnInit {
     this.ratesmastermodel.rateTypeId = selectedDataVal.rateTypeId;
     this.ratesmastermodel.rateMethod = selectedDataVal.rateMethod;
     this.ratesmastermodel.rateForStateOrToPlace = selectedDataVal.rateForStateOrToPlace;
+    this.ratesmastermodel.vehicleTypeGroupId = selectedDataVal.vehicleTypeGroupId;
     this.ratesmastermodel.loggedInUser = this.loggedInUserID; 
 
     this.ratesmastermodel.freightRatesDetailsList = [];

@@ -26,6 +26,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetOpeningBal(request);
         }
+        public async Task<ResponseModel> GetLastTripDriver(OpBalModel request)
+        {
+            return await tripMasterRepository.GetLastTripDriver(request);
+        }
         public async Task<ResponseModel> GetDslOpeningBal(OpBalModel request)
         {
             return await tripMasterRepository.GetDslOpeningBal(request);
