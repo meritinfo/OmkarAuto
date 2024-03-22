@@ -34,10 +34,11 @@ export class AddothertripopenComponent {
   ltsdsl1:string = '';
   adblue1:string = '';
  // frmplc: number = 0;
- // toplc: number = 0;
+ vehid:string = '';
    frmplc: string = '';
   toplc: string = '';
   maxDate: string = '';
+  tripNumber: string = '';
 
   ExpReportingDays: number = 0;
   ExpReportingDt: string = '';
@@ -153,6 +154,7 @@ export class AddothertripopenComponent {
     this.getVehicleNoList();
     this.getLocationList();
     this.getContentList();
+   
     
     this.formOtherTripOpen.controls['challanNo'].clearValidators(); 
     this.formOtherTripOpen.controls['challanNo'].updateValueAndValidity();
@@ -174,14 +176,17 @@ export class AddothertripopenComponent {
           yearid: this.year
         });        
         this.editMode = true;
+       this.vehid= this.selectedTripSheetDetails.vehicleMasterID;
+       this.tripNumber = this.selectedTripSheetDetails.tripNo;
         this.formOtherTripOpen.controls['tripBranch'].disable();
         this.formOtherTripOpen.controls['vehicleMasterID'].disable();
         this.formOtherTripOpen.controls['compNonCompStatus'].disable();       
         this.formOtherTripOpen.controls['challanNo'].disable();    
 
       } 
+      this.GetDslOpeningBalEdit();
     }, 2000);
-    
+  
     this.formOtherTripOpen.controls['tripNo'].disable();
     this.formOtherTripOpen.controls['distanceTripKM_1'].disable();    
     this.formOtherTripOpen.controls['expectedReportingDt'].disable();
@@ -239,7 +244,39 @@ if(selectedDataValue.tripNo!=1){
     // this.OpbalDetails.driverMasterID='1';
     this.OpbalDetails.yearid = this.year;
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
-    this.commonService.getDslOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
+    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
+        this.formOtherTripOpen.patchValue({
+          opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
+        });
+        //  }
+        //else
+      } else {
+        this.formOtherTripOpen.patchValue({
+          opBalDriver: '0'
+        });
+      }
+    });
+ 
+   // this.getDriverDetails();
+  }
+
+  }
+  GetDslOpeningBalEdit() {
+    var selectedDataValue = this.formOtherTripOpen.getRawValue();
+if(selectedDataValue.tripNo!=1){
+    var selectedDataValue = this.formOtherTripOpen.getRawValue();
+    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID;
+    
+     this.OpbalDetails.vehicleMasterID =  this.vehid;
+  
+    this.OpbalDetails.yearid = this.year;
+    //this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+    this.OpbalDetails.tripNo =  this.tripNumber ;
+    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
        if (this.responseDetails.status) {
      // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {

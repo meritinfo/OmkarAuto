@@ -13,6 +13,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
+import { Opbalmodel } from 'src/app/models/opbalmodel';
 
 @Component({
   selector: 'app-addtrippayments',
@@ -41,6 +42,7 @@ export class AddtrippaymentsComponent {
   dslIssued: any;
   advIssued: any;
   tripStatus: string = "";
+  dslOpening: string = "";
   tripNumber: string = "";
   neftvalue= "";
   checkselected = false;
@@ -48,6 +50,7 @@ export class AddtrippaymentsComponent {
 
   responseDetails = new Responsemodel();
   tripDetails = new Tripmodel();
+  OpbalDetails = new Opbalmodel();
   tripDslDetails = new Tripdsldetail();
   tripVehicleDetails = new Tripvehiclemodel();
   branchList: Dropdownmodel[] = [];
@@ -158,7 +161,7 @@ export class AddtrippaymentsComponent {
         this.editMode = true;
         this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['transType'].disable();
-        this.formTripPayment.controls['pmtDate'].disable();
+       // this.formTripPayment.controls['pmtDate'].disable();
         this.formTripPayment.controls['tripNo'].disable();
         this.formTripPayment.controls['loadorempty'].disable();
         this.formTripPayment.controls['loadorempty'].disable();
@@ -174,6 +177,7 @@ export class AddtrippaymentsComponent {
         this.tripNumber =   this.selectedTripPaymentsDetails.tripNo ;   
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
         this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
+        this.GetDslOpeningBalforPmt();
         this.getFromAndToDetail();
         this.formTripPayment.patchValue({
           pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
@@ -204,9 +208,53 @@ export class AddtrippaymentsComponent {
   
       this.getValidation();    
       this.formTripPayment.controls['pmtBranch'].disable();
-      this.formTripPayment.controls['pmtDate'].disable();
+     // this.formTripPayment.controls['pmtDate'].disable();
     }, 2000);
     this.sharedService.loading = false;
+  }
+  GetDslOpeningBalforPmt() {
+    var selectedDataValue = this.formTripPayment.getRawValue();
+if(selectedDataValue.tripNo!=1){
+    var selectedDataValue = this.formTripPayment.getRawValue();
+   
+   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+   this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID
+
+ 
+    this.OpbalDetails.yearid = this.year;
+    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     this.dslOpening = res.message;
+      } 
+    });
+ 
+  
+  }
+
+  }
+  GetDslOpeningBalforPmtCreate(e: any,m: any) {
+    var selectedDataValue = this.formTripPayment.getRawValue();
+if(selectedDataValue.tripNo!=1){
+    var selectedDataValue = this.formTripPayment.getRawValue();
+   
+   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+   this.OpbalDetails.vehicleMasterID = e;
+
+ 
+    this.OpbalDetails.yearid = this.year;
+    this.OpbalDetails.tripNo = m;
+    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+       if (this.responseDetails.status) {
+     this.dslOpening = res.message;
+      } 
+    });
+ 
+  
+  }
+
   }
 
   getFromAndToDetail(){
@@ -333,6 +381,7 @@ export class AddtrippaymentsComponent {
           tripMasterId: this.tripDetails.tripId,  
         });
         this.getTripDslDetails(this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
+        this.GetDslOpeningBalforPmtCreate(this.tripVehicleDetails.vehicleMasterId,this.tripDetails.tripNo);
       }
     });
   }
@@ -349,6 +398,7 @@ export class AddtrippaymentsComponent {
     });
 
   }
+  
 
   getTripDetailseditmode(e: any) {
     this.tripVehicleDetails.vehicleMasterId =  e;

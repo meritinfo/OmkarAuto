@@ -24,6 +24,7 @@ export class AddratesmasterComponent implements OnInit {
   stateList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
+  vehicleGrpList: Dropdownmodel[] = [];
   formRatesMaster!: FormGroup;
   selectedRatesMaster = new Ratesmastermodel();
   ratesmstmodel = new Ratesmastermodel();
@@ -80,6 +81,7 @@ export class AddratesmasterComponent implements OnInit {
       validUpto: new FormControl('', [Validators.required]),
       rateTypeId: new FormControl('', [Validators.required]),
       rateMethod: new FormControl('', [Validators.required]),
+      vehicleTypeGroupId: new FormControl('', [Validators.required]),
       rateForStateOrToPlace: new FormControl('P', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])          
 
@@ -87,11 +89,13 @@ export class AddratesmasterComponent implements OnInit {
 
     this.formArray.controls[0].get("destState")?.disable();
     this.formRatesMaster.controls['rateMethod'].disable();
+    
 
     this.sharedService.loading=true;
     this.getLocationList();
     this.getStateList();
     this.getRateList();
+    this.getVehicleGrpList();
     this.getCreditAcList();
     this.selectedRatesMaster = this.ratesMasterService.getRatesMasterDetails();
 
@@ -119,6 +123,8 @@ export class AddratesmasterComponent implements OnInit {
           validUpto: this.commonService.formatDate(this.selectedRatesMaster.validUpto), 
         });
         this.editMode = true;
+        this.formRatesMaster.controls['rateTypeId'].disable();
+        this.formRatesMaster.controls['vehicleTypeGroupId'].disable();
         this.getFreightRateInnerGridList();
       }
     }, 2000);
@@ -152,6 +158,11 @@ export class AddratesmasterComponent implements OnInit {
       destState: ['', []],
       toPlace: ['', []],
       rate: ['', []],
+    });
+  }
+  getVehicleGrpList(): void {
+    this.commonService.getVehicleList().subscribe((res) => {
+      this.vehicleGrpList = res;
     });
   }
 
