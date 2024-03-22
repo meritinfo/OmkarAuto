@@ -156,12 +156,20 @@ export class EmpsalcalculationaddComponent {
         this.formLeaveArray.controls[i].get("leaveCode")?.setValue(res.empLeavesList[i].leaveCode);
         this.formLeaveArray.controls[i].get("leaveName")?.setValue(res.empLeavesList[i].leaveName);
         this.formLeaveArray.controls[i].get("totalLeaves")?.setValue(res.empLeavesList[i].totalLeaves);
+        if(res.empLeavesList[i].leaveCode == "CL" ){          
+          this.formLeaveArray.controls[i].get("accumLeaves")?.setValue("1"); 
+        }
+        else if(res.empLeavesList[i].leaveCode == "EL" ){          
+          this.formLeaveArray.controls[i].get("accumLeaves")?.setValue("1.25"); 
+        }
+        else if(res.empLeavesList[i].leaveCode == "SL" ){          
+          this.formLeaveArray.controls[i].get("accumLeaves")?.setValue("1"); 
+        }
         this.formLeaveArray.controls[i].get("leaveId")?.disable();
         this.formLeaveArray.controls[i].get("leaveCode")?.disable();
         this.formLeaveArray.controls[i].get("leaveName")?.disable();   
         this.formLeaveArray.controls[i].get("totalLeaves")?.disable();   
-        this.formLeaveArray.controls[i].get("accumLeaves")?.disable();  
-        
+        this.formLeaveArray.controls[i].get("accumLeaves")?.disable();          
       }
     });
   }
@@ -183,8 +191,8 @@ export class EmpsalcalculationaddComponent {
         this.formLoanArray.controls[i].get("loanNumber")?.disable();
         this.formLoanArray.controls[i].get("loanDate")?.disable();   
         this.formLoanArray.controls[i].get("loanAmt")?.disable();   
-        this.formLoanArray.controls[i].get("balAmt")?.disable();        
-      }
+        this.formLoanArray.controls[i].get("balAmt")?.disable();          
+      }    
     });
   }
 

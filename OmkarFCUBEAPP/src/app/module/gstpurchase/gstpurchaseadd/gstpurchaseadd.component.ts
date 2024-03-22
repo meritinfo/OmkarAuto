@@ -23,6 +23,7 @@ export class GstpurchaseaddComponent {
   neftPmtSelected: boolean=false;
   loggedInUserID: string = '';
   year: string = '';
+  loginDate: string = '';
   branchid:string = '';
   maxDate: string = '';
   keywordLocation = 'dataName';
@@ -61,8 +62,8 @@ export class GstpurchaseaddComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.find((item: { menuList: any; }) => item.menuList)
-      .menuList.find((aa: { menuName: string; }) => aa.menuName === "Define Booking Rates");
+      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "GST Purchase Entry");     
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -89,6 +90,10 @@ export class GstpurchaseaddComponent {
       this.route.navigate(['/']);
     }   
 
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -97,12 +102,13 @@ export class GstpurchaseaddComponent {
     
     this.formGSTPurchase = this.formBuilder.group({
       branchCode: new FormControl(this.branchid,[Validators.required]),
-      transDate: new FormControl('', [Validators.required]),
+      transDate: new FormControl(this.loginDate, [Validators.required]),
+      gstType: new FormControl('NA', [Validators.required]),
       pmtType: new FormControl('', [Validators.required]),
       noVender: new FormControl('',),
       vendorId: new FormControl('',[Validators.required]),
       vendorInvNo: new FormControl('',[Validators.required]),
-      vendorInvDt: new FormControl('',[Validators.required]),
+      vendorInvDt: new FormControl(this.loginDate,[Validators.required]),
       totalItemAmt: new FormControl('0',[Validators.required]),
       totalSgstAmt: new FormControl('0',),
       totalCgstAmt: new FormControl('0',),
@@ -120,6 +126,10 @@ export class GstpurchaseaddComponent {
 
       arrayList: this.formBuilder.array([this.createInitialArray()])      
     });
+
+    this.formArray.controls[0].get("sgstPct")?.disable();      
+    this.formArray.controls[0].get("cgstPct")?.disable();   
+    this.formArray.controls[0].get("igstPct")?.disable();
 
     this.formArray.controls[0].get("sgstAmt")?.disable();      
     this.formArray.controls[0].get("cgstAmt")?.disable();   
@@ -273,10 +283,27 @@ export class GstpurchaseaddComponent {
 
   getGstPurchageInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedGstpurchaseDetails.masterid;
+    var gsttype = this.formGSTPurchase.value.gstType;
     this.gstpurchaseService.getGstPurchageInnerGridList(this.requestmodel).subscribe((res) => {
       this.gstpurchasemodel = res;
       for (var i = 0; i < res.gstPurchaseDetailsList.length; i++) {
-        this.formArray.push(this.createInitialArray());
+        this.formArray.push(this.createInitialArray()); 
+        if(gsttype=='NA'){    
+          this.formArray.controls[i].get("sgstPct")?.disable();      
+          this.formArray.controls[i].get("cgstPct")?.disable();   
+          this.formArray.controls[i].get("igstPct")?.disable();
+        }
+        else if(gsttype=='SC'){    
+          this.formArray.controls[i].get("sgstPct")?.enable();      
+          this.formArray.controls[i].get("cgstPct")?.enable();   
+          this.formArray.controls[i].get("igstPct")?.disable();
+        }
+        else if(gsttype=='IG'){    
+          this.formArray.controls[i].get("sgstPct")?.disable();      
+          this.formArray.controls[i].get("cgstPct")?.disable();   
+          this.formArray.controls[i].get("igstPct")?.enable();
+        }
+        
         this.formArray.controls[i].get("sgstAmt")?.disable();
         this.formArray.controls[i].get("cgstAmt")?.disable();
         this.formArray.controls[i].get("igstAmt")?.disable();
@@ -300,6 +327,27 @@ export class GstpurchaseaddComponent {
   get f() { return this.formGSTPurchase.controls; }
   get formArray() {
     return this.formGSTPurchase.get("arrayList") as FormArray;
+  }
+
+  changeGstType(e:any){
+    var gsttype= e.target.value;
+    for (var i=0; i<this.formArray.controls.length;i++){
+      if(gsttype=='NA'){    
+        this.formArray.controls[i].get("sgstPct")?.disable();      
+        this.formArray.controls[i].get("cgstPct")?.disable();   
+        this.formArray.controls[i].get("igstPct")?.disable();
+      }
+      else if(gsttype=='SC'){    
+        this.formArray.controls[i].get("sgstPct")?.enable();      
+        this.formArray.controls[i].get("cgstPct")?.enable();   
+        this.formArray.controls[i].get("igstPct")?.disable();
+      }
+      else if(gsttype=='IG'){    
+        this.formArray.controls[i].get("sgstPct")?.disable();      
+        this.formArray.controls[i].get("cgstPct")?.disable();   
+        this.formArray.controls[i].get("igstPct")?.enable();
+      }
+    }
   }
 
  
@@ -468,20 +516,34 @@ export class GstpurchaseaddComponent {
 
   addItem(i: number): void {
     var selectedDataVal=this.formGSTPurchase.getRawValue();
-    if (selectedDataVal.arrayList[i].debitAc?selectedDataVal.arrayList[i].debitAc.dataId:"" != "" && parseFloat(selectedDataVal.arrayList[i].totAmount) > 0) {
+    if (selectedDataVal.arrayList[i].debitAc?selectedDataVal.arrayList[i].debitAc.dataId:"" != "" &&
+     parseFloat(selectedDataVal.arrayList[i].totAmount) > 0) {
       this.formArray.push(this.createInitialArray());  
     }
     else {
       this.toasterService.warning("Please select Required Fields ");
       return;
     }
-      
-    for (var i=0; i<this.formArray.controls.length;i++){
-        this.formArray.controls[i].get("sgstAmt")?.disable();      
-        this.formArray.controls[i].get("cgstAmt")?.disable();   
-        this.formArray.controls[i].get("igstAmt")?.disable();
-        this.formArray.controls[i].get("totAmount")?.disable();
+
+    if(selectedDataVal.gstType=='NA'){    
+      this.formArray.controls[i].get("sgstPct")?.disable();      
+      this.formArray.controls[i].get("cgstPct")?.disable();   
+      this.formArray.controls[i].get("igstPct")?.disable();
     }
+    else if(selectedDataVal.gstType=='SC'){    
+      this.formArray.controls[i].get("sgstPct")?.enable();      
+      this.formArray.controls[i].get("cgstPct")?.enable();   
+      this.formArray.controls[i].get("igstPct")?.disable();
+    }
+    else if(selectedDataVal.gstType=='IG'){    
+      this.formArray.controls[i].get("sgstPct")?.disable();      
+      this.formArray.controls[i].get("cgstPct")?.disable();   
+      this.formArray.controls[i].get("igstPct")?.enable();
+    }
+    this.formArray.controls[i].get("sgstAmt")?.disable();      
+    this.formArray.controls[i].get("cgstAmt")?.disable();   
+    this.formArray.controls[i].get("igstAmt")?.disable();
+    this.formArray.controls[i].get("totAmount")?.disable();
   }
 
   removeItem(index: number) {
