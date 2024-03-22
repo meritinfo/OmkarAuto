@@ -1265,8 +1265,8 @@ namespace FleetTrans.Repository
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                        userTrip.CanEditTripAfterClose = Convert.ToBoolean(statusData.Tables[0].Rows[0]["CanEditTripAfterClose"]);
-                        userTrip.CanLinkTrip = Convert.ToBoolean(statusData.Tables[0].Rows[0]["CanLinkTrip"]);
+                        userTrip.CanEditTripAfterClose = statusData.Tables[0].Rows[0]["CanEditTripAfterClose"].ToString()=="Y"?true:false;
+                        userTrip.CanLinkTrip = statusData.Tables[0].Rows[0]["CanLinkTrip"].ToString()=="Y" ? true : false;
                     }
                     else
                     {

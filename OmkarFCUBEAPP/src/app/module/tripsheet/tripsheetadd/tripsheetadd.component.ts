@@ -133,7 +133,8 @@ export class TripsheetaddComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList).find((( aa: { menuName: string; }) => aa.menuName === "Trip Sheet"));
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Trip Sheet"));      
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -270,21 +271,17 @@ export class TripsheetaddComponent {
         this.companyStatus = this.selectedTripSheetDetails.compNonCompStatus;
         this.load = this.selectedTripSheetDetails.loadEmptyType;
         this.ticlvalidation();
-        //this.getTripSheetInnerGridList();
         this.formTripsheet.patchValue({
-          // newTripDate: this.loginDate,
           newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
           reportingDt_1: this.commonService.formatDate(this.selectedTripSheetDetails.reportingDt_1),
           reportingDt_2: this.commonService.formatDate(this.selectedTripSheetDetails.reportingDt_2),
           nextExpectedReportingDt: this.commonService.formatDate(this.selectedTripSheetDetails.nextExpectedReportingDt),
           expectedReportingDt: this.commonService.formatDate(this.selectedTripSheetDetails.expectedReportingDt),
           deliveryDate: this.commonService.formatDate(this.selectedTripSheetDetails.deliveryDate),
-          // deliveryDate:this.selectedTripSheetDetails.deliveryDate,
           ticlStatus: this.selectedTripSheetDetails.ticlStatus,
           tripLinkYN: this.selectedTripSheetDetails.tripLinkYN,
           compNonCompStatus: this.selectedTripSheetDetails.compNonCompStatus,
           tripTime: this.selectedTripSheetDetails.tripTime,
-          //  compNonCompStatus:  "C",
           loadType: this.selectedTripSheetDetails.loadEmptyType,
           lastTripCloseDate: this.commonService.formatDate(this.selectedTripSheetDetails.lastTripCloseDate),
           tripCloseDt: this.commonService.formatDate(this.selectedTripSheetDetails.tripCloseDt),
@@ -296,47 +293,22 @@ export class TripsheetaddComponent {
           driverMasterID: this.driverList.find(e => e.dataId == this.selectedTripSheetDetails.driverMasterID),
           nextReportingBranch: this.locationList.find(e => e.dataId == this.selectedTripSheetDetails.nextReportingBranch),
           tripStatus: this.selectedTripSheetDetails.tripStatus == "O" ? false : true,
-          // totaldsl: this.selectedTripSheetDetails.ltsDslToBe_1 ?this.selectedTripSheetDetails.ltsDslToBe_1 :0+ this.selectedTripSheetDetails.ltsDslToBe_2? this.selectedTripSheetDetails.ltsDslToBe_2:0,
           totaldsl: parseInt(this.selectedTripSheetDetails.ltsDslToBe_1) + parseInt(this.selectedTripSheetDetails.ltsDslToBe_2),
           totalAdblue: parseInt(this.selectedTripSheetDetails.ltsAdblueToBe_1) + parseInt(this.selectedTripSheetDetails.ltsAdblueToBe_2),
-          // totalpayable:  this.selectedTripSheetDetails.advPayable_1 ?this.selectedTripSheetDetails.advPayable_1:0 + this.selectedTripSheetDetails.advPayable_2 ?this.selectedTripSheetDetails.advPayable_2:0,
           totalpayable: parseInt(this.selectedTripSheetDetails.advPayable_1) + parseInt(this.selectedTripSheetDetails.advPayable_2),
           yearid: this.year
         });
       
-        ///////check load or empty
-      //  if(this.selectedTripSheetDetails.loadEmptyType =='L'
-         // this.formTripsheet.patchValue({
-          
-         // advPayable_1: (this.advancePay).toString(),
-       //  advPayable_1: this.selectedTripSheetDetails.advPayable_1
-     //   });}
-      //  else{
-     //     this.formTripsheet.patchValue({
-          
-      //      advPayable_1: '0'
-     //     });
-//
-    //    }
         this.vehicleTypeGroupId = this.selectedTripSheetDetails.vehicleTypeGroupId;
         this.ivFromPlace = this.selectedTripSheetDetails.loadingFrom;
         this.ivToPlace = this.selectedTripSheetDetails.destination;
         this.ivNewFromPlace = this.selectedTripSheetDetails.nextReportingBranch;
         this.tstatus = this.selectedTripSheetDetails.ticlStatus;
-        //  this.destinationid2= this.selectedTripSheetDetails.destination2;
-        //  this.destinationid3= this.selectedTripSheetDetails.destination3;
-        // this.ivNewFromPlace= this.selectedTripSheetDetails.nextReportingBranch;
       
         this.formTripsheet.controls['tripLinkYN'].disable();
 
         if(this.selectedTripSheetDetails.tripStatus=='C'){
-          this.getUserTripRights();
-          if(!this.canEditTripAfterClose){
-            this.editStatus=false;
-          }
-          if(this.canLinkTrip){            
-            this.formTripsheet.controls['tripLinkYN'].enable();
-          }
+          this.getUserTripRights();          
         }
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
@@ -600,6 +572,7 @@ export class TripsheetaddComponent {
       this.locationList = res;
     });
   }
+
   getUserTripRights(): void {
     this.requestmodel.strRequest = this.loggedInUserID;
     this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
@@ -607,6 +580,12 @@ export class TripsheetaddComponent {
       this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose;
       this.canLinkTrip = this.usertriprightsmodel.canLinkTrip;
     });
+    if(!this.canEditTripAfterClose){
+      this.editStatus=false;
+    }
+    if(this.canLinkTrip){            
+      this.formTripsheet.controls['tripLinkYN'].enable();
+    }
   }
   
   getDriverList(): void {

@@ -3,6 +3,7 @@ export class Gstpurchasemodel {
     transDate:          string = "";
     branchCode:         string = "";
     branchName:         string = "";
+    gstType:            string = "";
     pmtType:            string = "";
     vendorId:           string = "";
     vendorName:         string = "";

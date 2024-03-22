@@ -418,6 +418,7 @@ export class DieselstatementaddComponent implements OnInit {
     this.sharedService.loading=true;
     this.DieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.DieselStatementmodel.branchCode      = selectedDataVal.statementBranch;
+    this.DieselStatementmodel.billStmtNo      = '';
     this.DieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
     this.DieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.DieselStatementmodel.toDate          = selectedDataVal.toDate;
