@@ -225,6 +225,8 @@ namespace HRMasters.Repository
                                 EmpId = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpId"]),
                                 LoanDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanDate"]),
                                 LoanType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanType"]),
+                                LoanDedId = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanDedId"]),
+                                DedName= Convert.ToString(dataSet.Tables[0].Rows[i]["DedName"]),
                                 LoanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAmt"]),
                                 BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
                             });

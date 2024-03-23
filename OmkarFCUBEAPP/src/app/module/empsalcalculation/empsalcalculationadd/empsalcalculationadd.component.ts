@@ -101,10 +101,11 @@ export class EmpsalcalculationaddComponent {
       daysOfMonth: new FormControl('', [Validators.required]),
       holSun: new FormControl('0', [Validators.required]),
       totLeaves: new FormControl('0', ),
-      totadjLeaves: new FormControl('0', ),
       absentDays : new FormControl('0',),
       payDays: new FormControl('0', [Validators.required]),
       affectYear : new FormControl('0', [Validators.required]),
+      totadjLeaves: new FormControl('0', ),
+      totalLoanAdjAmt : new FormControl('0', ),
       totalEarnings : new FormControl('0', [Validators.required]),
       totalDeductions: new FormControl('0', [Validators.required]),
       netPay: new FormControl('0', [Validators.required]),
@@ -124,6 +125,7 @@ export class EmpsalcalculationaddComponent {
     }
     this.formUser.controls['daysOfMonth'].disable();
     this.formUser.controls['totadjLeaves'].disable();
+    this.formUser.controls['totalLoanAdjAmt'].disable();
     this.formUser.controls['totalEarnings'].disable();
     this.formUser.controls['totalDeductions'].disable();
     this.formUser.controls['netPay'].disable();
@@ -184,10 +186,12 @@ export class EmpsalcalculationaddComponent {
         this.formLoanArray.push(this.createLoanArray());
         this.formLoanArray.controls[i].get("loanId")?.setValue(res.empLoanDtlList[i].loanId);
         this.formLoanArray.controls[i].get("loanNumber")?.setValue(res.empLoanDtlList[i].loanNumber);
+        this.formLoanArray.controls[i].get("loanDedId")?.setValue(res.empLoanDtlList[i].loanDedId);
+        this.formLoanArray.controls[i].get("dedName")?.setValue(res.empLoanDtlList[i].dedName);
+        this.formLoanArray.controls[i].get("loanType")?.setValue(res.empLoanDtlList[i].loanType);
         this.formLoanArray.controls[i].get("loanDate")?.setValue(res.empLoanDtlList[i].loanDate);
         this.formLoanArray.controls[i].get("loanAmt")?.setValue(res.empLoanDtlList[i].loanAmt);
         this.formLoanArray.controls[i].get("balAmt")?.setValue(res.empLoanDtlList[i].balAmt);
-        this.formLoanArray.controls[i].get("loanId")?.disable();
         this.formLoanArray.controls[i].get("loanNumber")?.disable();
         this.formLoanArray.controls[i].get("loanDate")?.disable();   
         this.formLoanArray.controls[i].get("loanAmt")?.disable();   
@@ -260,6 +264,8 @@ export class EmpsalcalculationaddComponent {
       loanNumber: ['', []],
       loanDate: ['', []],
       loanType: ['', []],
+      loanDedId: ['', []],
+      dedName: ['', []],
       loanAmt: ['', []],
       balAmt: ['', []],
       loanAdjAmt: ['', []],
@@ -294,6 +300,7 @@ export class EmpsalcalculationaddComponent {
       payDays:payDay,
     })
     this.calLeaves();
+    this.calNetPay()
   }
 
   calLeaves(){
@@ -328,6 +335,67 @@ export class EmpsalcalculationaddComponent {
     }     
   }
 
+  calNetPay(){
+    var selectedDataVal=this.formUser.getRawValue();    
+    var totdays = selectedDataVal.daysOfMonth;
+    var payDay = selectedDataVal.payDays;
+    if(totdays==''){
+      totdays='0'
+    }
+    if(payDay==''){
+      payDay='0'
+    }
+
+    var ern = 0;
+    var ded = 0;
+    var basic = 0;
+    var grossern = 0;
+    var grossded = 0;
+    var netpay = 0;
+
+    //earning cal
+    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+      if(parseFloat(payDay)==parseFloat(totdays)){ 
+        ern = parseFloat(selectedDataVal.arrayErnList[i].actAmt);   
+      }
+      else{
+        ern = Math.round(payDay * parseFloat(selectedDataVal.arrayErnList[i].actAmt) / totdays)        
+      }
+      grossern = grossern + ern;
+      this.formErnArray.controls[i].get("edAmt")?.setValue(ern.toString()); 
+      if(selectedDataVal.arrayErnList[i].edCode=='1'){
+        basic=ern;
+      }
+    } 
+
+    //deduction cal
+    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+      ded = parseFloat(selectedDataVal.arrayDedList[i].actAmt); 
+      if(selectedDataVal.arrayDedList[i].edCode=='3') {
+        ded = Math.round(basic * 12 / 100)       
+      }
+      else if(selectedDataVal.arrayDedList[i].edCode=='4') {
+        if(grossern > 15000){
+          ded = parseFloat(selectedDataVal.arrayDedList[i].actAmt); 
+        } 
+        else{
+          ded = 0;
+        }  
+      }
+      grossded = grossded + ded ;
+      this.formDedArray.controls[i].get("edAmt")?.setValue(ded.toString()); 
+    } 
+
+    netpay = grossern - grossded;
+
+    this.formUser.patchValue({
+      totalEarnings:grossern,
+      totalDeductions:grossded,
+      netPay:netpay,
+    })
+  }
+    
+
   calTotAdjLeaves(){
     var selectedDataVal = this.formUser.getRawValue();
     var totAdjLv = 0;
@@ -351,6 +419,7 @@ export class EmpsalcalculationaddComponent {
       totadjLeaves:totAdjLv,
     })
     this.calLeaves();
+    this.calNetPay();
   }
 
   onAdjLeaveChange(i:number,e:any){
@@ -365,7 +434,32 @@ export class EmpsalcalculationaddComponent {
       return;
     }
     this.calTotAdjLeaves();
+  }
 
+  onLoanadj(i:number,e:any){
+    var adjloan = e.target.value;
+    var selectedDataVal = this.formUser.getRawValue();
+    var totadjloan = 0;
+    var index = selectedDataVal.arrayDedList.length ;
+    this.formDedArray.push(this.createInitialArray());
+    this.formDedArray.controls[index].get("edName")?.setValue(selectedDataVal.arrayLoanList[i].dedName);
+    this.formDedArray.controls[index].get("edCode")?.setValue(selectedDataVal.arrayLoanList[i].loanDedId);
+    this.formDedArray.controls[index].get("actAmt")?.setValue(adjloan);
+    this.formDedArray.controls[index].get("edAmt")?.setValue(adjloan);
+    this.formDedArray.controls[index].get("edName")?.disable();
+    this.formDedArray.controls[index].get("edCode")?.disable();
+    this.formDedArray.controls[index].get("actAmt")?.disable();   
+    this.formDedArray.controls[index].get("edAmt")?.disable();
+    
+    if(selectedDataVal.totalLoanAdjAmt=='' || selectedDataVal.totalLoanAdjAmt=='0') {
+        totadjloan =parseFloat(adjloan);
+    }
+    else {
+        totadjloan = parseFloat(selectedDataVal.totalLoanAdjAmt) + parseFloat(adjloan);
+    }
+    this.formUser.patchValue({
+      totalLoanAdjAmt:totadjloan,
+    })
   }
 
   onchangeMonth(e:any){
@@ -429,11 +523,6 @@ export class EmpsalcalculationaddComponent {
       this.empList = res;
     });
   }
-
-  PayCalc(){
-
-  }
-
   
   get f() { return this.formUser.controls; }
 
@@ -643,6 +732,8 @@ export class EmpsalcalculationaddComponent {
           'loanDate': '',
           'loanAmt': '',
           'loanType': selectedDataVal.arrayLoanList[i].loanType.toString(),
+          'loanDedId': selectedDataVal.arrayLoanList[i].loanDedId.toString(),
+          'dedName': selectedDataVal.arrayLoanList[i].dedName.toString(),
           'balAmt': "",
           'monthYear': "",
           'loanAdjAmt': selectedDataVal.arrayLoanList[i].loanAdjAmt.toString(),

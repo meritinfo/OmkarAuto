@@ -106,9 +106,6 @@ export class HappaystatementaddComponent implements OnInit {
       billStmtDate: new FormControl(this.loginDate, [Validators.required]),
       fromDate: new FormControl(this.fromDate, [Validators.required]),
       toDate: new FormControl(this.loginDate, [Validators.required]),
-      totalDslLtrs: new FormControl(''),
-      totalDslAmt: new FormControl(''),
-      totalCashAdv: new FormControl(''),
       totalNetAmount: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
@@ -133,9 +130,6 @@ export class HappaystatementaddComponent implements OnInit {
     }, 2000);
 
     this.formDieselStatement.controls['BranchCode'].disable();  
-    this.formDieselStatement.controls["totalDslLtrs"].disable();
-    this.formDieselStatement.controls["totalDslAmt"].disable();
-    this.formDieselStatement.controls["totalCashAdv"].disable();
     this.formDieselStatement.controls['totalNetAmount'].disable(); 
   }
 
@@ -225,9 +219,6 @@ export class HappaystatementaddComponent implements OnInit {
         }
       });  
       this.formDieselStatement.patchValue({
-        totalDslLtrs:0,
-        totalDslAmt: 0,
-        totalCashAdv: 0,
         totalNetAmount: 0,
       });    
     } 
@@ -239,28 +230,20 @@ export class HappaystatementaddComponent implements OnInit {
   }
   
   calculateTotal() {
-    var totalDslLeters = 0;
-    var totalDslAmount = 0;
-    var totalDriverAdvAmount = 0;
     var totalStatementAmount = 0;
     var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
 
     for (var i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
-        if (diesellistarray[i].hsdAdvType === "A") {
-          totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
-        }
         totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
       }
     }
 
     this.formDieselStatement.patchValue({
-      totalDslLtrs:totalDslLeters.toFixed(2),
-      totalDslAmt: totalDslAmount.toFixed(2),
-      totalCashAdv: totalDriverAdvAmount.toFixed(2),
       totalNetAmount: totalStatementAmount.toFixed(2)
     });
   }
+  
   exit(): void {
     this.route.navigate(['/happaystatementlist']);
   }
@@ -354,9 +337,9 @@ export class HappaystatementaddComponent implements OnInit {
     this.DieselStatementmodel.rate            = selectedDataVal.rate;
     this.DieselStatementmodel.statementFlag   = 'H'  ;       
     this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
-    this.DieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
-    this.DieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
-    this.DieselStatementmodel.totalCashAdv    = selectedDataVal.totalCashAdv;
+    this.DieselStatementmodel.totalDslLtrs    = "0";
+    this.DieselStatementmodel.totalDslAmt     = "0";
+    this.DieselStatementmodel.totalCashAdv    = selectedDataVal.totalNetAmount;
     this.DieselStatementmodel.totalNetAmount  = selectedDataVal.totalNetAmount;
     this.DieselStatementmodel.branchCode      = this.branch;
     this.DieselStatementmodel.yearId          = this.year;
