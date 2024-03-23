@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 
 
@@ -12,6 +12,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
 
 import { CommonService } from 'src/app/services/common.service';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-consignmentlist',
@@ -48,6 +49,8 @@ export class ConsignmentlistComponent implements OnInit  {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private consignmentService: ConsignmentService, private route: Router,private commonService: CommonService,) {
   }
@@ -98,8 +101,11 @@ export class ConsignmentlistComponent implements OnInit  {
       branch: new FormControl('0',),
       vehicle: new FormControl('',)
     });
+    this.getConsignmentList();
     this.getBranchList();
     this.getVehicleNoList();
+  }
+    getConsignmentList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -115,8 +121,8 @@ export class ConsignmentlistComponent implements OnInit  {
         this.filter.search = dataTablesParameters.search.value;
         this.filter.fromDate = this.formFilter.value.fromDate;
         this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.branch = "";
-        this.filter.vehicle = "";
+        this.filter.branch = this.formFilter.value.branch.dataId;
+      this.filter.vehicle =  this.formFilter.value.vehicle.dataId;
 
        this.consignmentService.getConsignmentList(this.filter)
           .subscribe(resp => {
@@ -168,6 +174,7 @@ export class ConsignmentlistComponent implements OnInit  {
       ],
     };
   }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -179,10 +186,14 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
     this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-    this.consignmentService.getConsignmentList(this.filter)
-      .subscribe(resp => {
-        this.allConsignment = resp;
-      });
+   // this.consignmentService.getConsignmentList(this.filter)
+     // .subscribe(resp => {
+     //   this.allConsignment = resp;
+     // });
+     this.getConsignmentList();
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+     });
   }
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));

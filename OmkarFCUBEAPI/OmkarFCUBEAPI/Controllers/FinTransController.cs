@@ -28,17 +28,19 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IGstPurchaseMstBusiness gstPurchaseMstBusiness;
         readonly IBankReconcilationBusiness bankReconcilationBusiness;
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
+        readonly ICustWizardBusiness custWizardBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
             IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
             IBankReconcilationBusiness _bankReconcilationBusiness,
-            IOpBrsEntryBusiness _opBrsEntryBusiness)
+            IOpBrsEntryBusiness _opBrsEntryBusiness, ICustWizardBusiness _custWizardBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
             bankReconcilationBusiness =_bankReconcilationBusiness;
             opBrsEntryBusiness = _opBrsEntryBusiness;
+            custWizardBusiness = _custWizardBusiness;
         }
         /// <summary>
 
@@ -105,6 +107,24 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await opBrsEntryBusiness.OpBrsEntrySave(brsEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CustWizardSave")]
+        public async Task<IActionResult> CustWizardSave(CustWizardModel custWizardModel)
+        {
+            if (custWizardModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await custWizardBusiness.CustWizardSave(custWizardModel);
 
                 return Ok(result);
             }
