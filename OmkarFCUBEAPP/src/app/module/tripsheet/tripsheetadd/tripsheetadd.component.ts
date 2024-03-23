@@ -44,7 +44,7 @@ export class TripsheetaddComponent {
   bhatta: string = '';
   clBalDsl: string = '';
   advancePay: string = '';
-  load : string = '';
+  load : string = '';  
   incentiveRate: string = '';
   penaltyRate: string = '';
   bhattaRate: string = '';
@@ -319,6 +319,7 @@ export class TripsheetaddComponent {
         this.GetAdblueOpeningBal();
         this.getBhattaRate();
         this.totalCalculation();
+        this.getIdleDays();
         this.getDriverDetails2(this.selectedTripSheetDetails.driverMasterID)
       } else {
         this.tripsheetinnergridrequest.tripId = 0;
@@ -1205,6 +1206,41 @@ if(selectedDataValue.tripNo!=1){
    
 
  }
+}
+GetLastTripDriver(e:any) {
+  var selectedDataValue = this.formTripsheet.getRawValue();
+  if( selectedDataValue.tripNo!=1){
+
+  this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+  this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+  //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+  this.OpbalDetails.driverMasterID = e;
+  // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+  // this.OpbalDetails.driverMasterID='1';
+  this.OpbalDetails.yearid = this.year;
+  this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+  this.commonService.getLastTripDriver(this.OpbalDetails).subscribe((res: Responsemodel) => {
+    this.responseDetails = res;
+ 
+     if (this.responseDetails.status) {
+   // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
+      this.formTripsheet.patchValue({
+        driverMasterId: this.responseDetails.message ? this.responseDetails.message : '0'
+      });
+      //  }
+      //else
+    } else {
+      this.formTripsheet.patchValue({
+        opBalDriver: '0'
+      });
+    }
+
+  });
+
+ // this.getDriverDetails();
+ 
+
+}
 }
   validationForDslPlace(){
     var selectedDataValue = this.formTripsheet.getRawValue();

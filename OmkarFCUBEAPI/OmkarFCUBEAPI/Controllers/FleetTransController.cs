@@ -357,6 +357,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetLastTripDriver")]
+        public async Task<IActionResult> GetLastTripDriver(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetLastTripDriver(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetDslOpeningBalforPmt")]
         public async Task<IActionResult> GetDslOpeningBalforPmt(OpBalModel request)
         {
