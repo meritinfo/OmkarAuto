@@ -218,6 +218,7 @@ import { Emploanpaymodel } from './models/emploanpaymodel';
 import { Empleavemodel } from './models/empleavemodel';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
+import { Emppaycallistmodel } from './models/emppaycallistmodel';
 
 @NgModule({
   declarations: [
@@ -388,7 +389,7 @@ import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsal
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
-    Emppaycalcmodel,Emploanpaymodel,Empleavemodel,
+    Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]

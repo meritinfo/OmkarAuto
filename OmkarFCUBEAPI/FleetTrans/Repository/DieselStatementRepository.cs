@@ -1,10 +1,12 @@
 ﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using System.Data.SqlClient;
 using Shared.Models;
 using System.Numerics;
 using System.Data;
+using System.Data.SqlClient;
+using DocumentFormat.OpenXml.Spreadsheet;
+using System.Transactions;
 
 namespace FleetTrans.Repository
 {
@@ -115,6 +117,10 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel dieselStatementModel)
         {
             ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -138,11 +144,12 @@ namespace FleetTrans.Repository
                             new SqlParameter("@BranchCode"      , dieselStatementModel.BranchCode),
                             new SqlParameter("@YearID"          , dieselStatementModel.YearId),
                             new SqlParameter("@LoggedInUser"    , dieselStatementModel.LoggedInUser)
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DieselStatementMstSave", param);
+                        };                    
+                    
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementMstSave", param);                                                               
 
                     string MasterID = "";
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 && Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
                     {
                         MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
@@ -163,15 +170,27 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@Amount"      , dieselStatementModel.DieselStatementListData[i].AmountPaid),
                                     };
                                     var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DieselStatementDtlsSave", paramMisc);
-                                    responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
-                                    responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                    if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0&& Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]))
+                                    {
+                                        responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                        responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                    }
+                                    else
+                                    {
+                                        i = dieselStatementModel.DieselStatementListData.Count;
+                                        transaction.Rollback();
+                                    }
                                 }
                             }
-                           
+                            if (responseModel.Status)
+                            {
+                                transaction.Commit();
+                            }
                         }
                     }
                     else
                     {
+                        transaction.Rollback();
                         responseModel.Status = false;
                         responseModel.Message = "Unable to process";
                     }
@@ -179,7 +198,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                
+                transaction.Rollback();
             }
             return responseModel;
         }

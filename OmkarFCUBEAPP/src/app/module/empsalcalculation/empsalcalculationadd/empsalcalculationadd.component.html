@@ -248,7 +248,13 @@
                                                                 <input autoclose="false" type="text" class="form-control" 
                                                                 formControlName="loanNumber">  
                                                                 <input autoclose="false" type="hidden" class="form-control" 
-                                                                formControlName="loanId">                                                                                               
+                                                                formControlName="loanId"> 
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="loanType"> 
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="loanDedId">  
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="dedName">                                                                                                                                                              
                                                             </td>
                                                             <td  class="col-lg-1"> 
                                                                 <input autoclose="false" type="date"  type="text" class="form-control" 
@@ -266,10 +272,21 @@
                                                             </td>  
                                                             <td class="col-lg-1">
                                                                 <input decimalonly autoclose="false" type="text" 
-                                                                class="form-control" 
+                                                                class="form-control" (change)="onLoanadj(d,$event)"
                                                                 formControlName="loanAdjAmt">                                 
                                                             </td>                        
                                                         </div>
+                                                    </tr>
+                                                    <tr >
+                                                        <td  class="col-lg-2"> </td>
+                                                        <td  class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Total Loan Adj Amt</h6>
+                                                            </label>
+                                                        </td>                                                            
+                                                        <td  class="col-lg-2"> 
+                                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="totalLoanAdjAmt">  
                                                     </tr>
                                                 </table>
                                             </div>
@@ -322,7 +339,7 @@
                                                         <td  class="col-lg-2"> </td>
                                                         <td  class="col-lg-2">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Tot earnings</h6>
+                                                                <h6>Total earnings</h6>
                                                             </label>
                                                         </td>                                                            
                                                         <td  class="col-lg-2"> 
@@ -360,6 +377,8 @@
                                                         <div [formGroupName]="d" class="grid-table">
                                                             <td  class="col-lg-2"> 
                                                                 <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edName">    
+                                                                <input autoclose="false" type="hidden" class="form-control" 
                                                                 formControlName="edCode">                                                                                                   
                                                             </td>
                                                             <td  class="col-lg-2"> 
@@ -375,7 +394,7 @@
                                                         <td  class="col-lg-2"> </td>
                                                         <td  class="col-lg-2">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Tot Deductions</h6>
+                                                                <h6>Total Deductions</h6>
                                                             </label>
                                                         </td>                                                            
                                                         <td  class="col-lg-2"> 
@@ -391,7 +410,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <button class="btn btn-primary w-md" 
-                                                (click)="PayCalc()">Calculate Pay</button>&nbsp;
+                                                (click)="calNetPay()">Calculate Pay</button>&nbsp;
                                         </div>
                                     </div>
                                     <div class="col-lg-3">

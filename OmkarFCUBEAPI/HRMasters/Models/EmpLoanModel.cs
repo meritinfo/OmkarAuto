@@ -15,6 +15,8 @@ namespace HRMasters.Models
         public string? EmpId { get; set; }
         public string? LoanAmt { get; set; }
         public string? LoanType { get; set; }
+        public string? LoanDedId { get; set; }
+        public string? DedName { get; set; }
         public string? BalAmt { get; set; }
         public string? MonthYear { get; set; }
         public string? LoanAdjAmt { get; set; }

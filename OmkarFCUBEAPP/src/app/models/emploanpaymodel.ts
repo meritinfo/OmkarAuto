@@ -6,6 +6,8 @@ export class Emploanpaymodel {
     empId :string = "";
     loanAmt :string = "";
     loanType :string = "";
+    loanDedId:string = "";
+    dedName:string = "";
     balAmt :string = "";
     monthYear :string = "";
     loanAdjAmt :string = "";
