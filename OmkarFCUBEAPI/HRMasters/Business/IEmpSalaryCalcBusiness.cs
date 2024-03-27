@@ -17,5 +17,10 @@ namespace HRMasters.Business
         Task<EmpPayCalcModel> GetEmpLoanDetails(RequestModel request);
         Task<List<DropDownListModel>> GetBranchEmpList(RequestModel request);
         Task<ResponseModel> EmpPayCalSave(EmpPayCalcModel empPayCalc);
+        Task<ResponseModel> EmpPayCalDelete(RequestModel request);
+        Task<EmpPayCalcModel> GetEmpPayEarnDetails(RequestModel request);
+        Task<EmpPayCalcModel> GetEmpPayDedDetails(RequestModel request);
+        Task<EmpPayCalcModel> GetEmpPayLeaveDetails(RequestModel request);
+        Task<EmpPayCalcModel> GetEmpPayLoanDetails(RequestModel request);
     }
 }

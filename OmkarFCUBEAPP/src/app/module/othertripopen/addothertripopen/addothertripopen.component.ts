@@ -235,99 +235,83 @@ export class AddothertripopenComponent {
 
   GetDslOpeningBal() {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
-if(selectedDataValue.tripNo!=1){
-    var selectedDataValue = this.formOtherTripOpen.getRawValue();
-    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
-    this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
-  //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
-    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-    // this.OpbalDetails.driverMasterID='1';
-    this.OpbalDetails.yearid = this.year;
-    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
-    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-       if (this.responseDetails.status) {
-     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
-        this.formOtherTripOpen.patchValue({
-          opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
-        });
-        //  }
-        //else
-      } else {
-        this.formOtherTripOpen.patchValue({
-          opBalDriver: '0'
-        });
-      }
-    });
- 
-   // this.getDriverDetails();
-  }
+    if(selectedDataValue.tripNo!=1){
+      var selectedDataValue = this.formOtherTripOpen.getRawValue();
+      this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+      this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+      //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+      //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+      // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+      // this.OpbalDetails.driverMasterID='1';
+      this.OpbalDetails.yearid = this.year;
+      this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+      this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formOtherTripOpen.patchValue({
+            opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
+          });
+        } else {
+          this.formOtherTripOpen.patchValue({
+            opBalDriver: '0'
+          });
+        }
+      }); 
+      // this.getDriverDetails();
+    }
 
   }
   GetDslOpeningBalEdit() {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
-if(selectedDataValue.tripNo!=1){
-    var selectedDataValue = this.formOtherTripOpen.getRawValue();
-    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
-   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID;
-    
-     this.OpbalDetails.vehicleMasterID =  this.vehid;
-  
-    this.OpbalDetails.yearid = this.year;
-    //this.OpbalDetails.tripNo = selectedDataValue.tripNo;
-    this.OpbalDetails.tripNo =  this.tripNumber ;
-    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-       if (this.responseDetails.status) {
-     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
-        this.formOtherTripOpen.patchValue({
-          opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
-        });
-        //  }
-        //else
-      } else {
-        this.formOtherTripOpen.patchValue({
-          opBalDriver: '0'
-        });
-      }
-    });
- 
-   // this.getDriverDetails();
-  }
+    if(selectedDataValue.tripNo!=1){
+      this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+      // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID;    
+      this.OpbalDetails.vehicleMasterID =  this.vehid;  
+      this.OpbalDetails.yearid = this.year;
+      //this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+      this.OpbalDetails.tripNo =  this.tripNumber ;
+      this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formOtherTripOpen.patchValue({
+            opBalDsl: this.responseDetails.message ? this.responseDetails.message : '0'
+          });
+        } else {
+          this.formOtherTripOpen.patchValue({
+            opBalDriver: '0'
+          });
+        }
+      }); 
+      // this.getDriverDetails();
+    }
 
   }
+
   GetAdblueOpeningBal() {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
-    if(selectedDataValue.tripNo!=1){
-  
-    this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
-    this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
-  //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
-    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-    // this.OpbalDetails.driverMasterID='1';
-    this.OpbalDetails.yearid = this.year;
-    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
-    this.commonService.getAdblueOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-       if (this.responseDetails.status) {
-     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
-        this.formOtherTripOpen.patchValue({
-          opBalAdblue: this.responseDetails.message ? this.responseDetails.message : '0'
-        });
-        //  }
-        //else
-      } else {
-        this.formOtherTripOpen.patchValue({
-          opBalAdblue: '0'
-        });
-      }
-    });
- 
-   // this.getDriverDetails();
- // }
-  }
+    if(selectedDataValue.tripNo!=1){  
+      this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
+      this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+      //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
+      //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
+      // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
+      // this.OpbalDetails.driverMasterID='1';
+      this.OpbalDetails.yearid = this.year;
+      this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+      this.commonService.getAdblueOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.formOtherTripOpen.patchValue({
+            opBalAdblue: this.responseDetails.message ? this.responseDetails.message : '0'
+          });
+        } else {
+          this.formOtherTripOpen.patchValue({
+            opBalAdblue: '0'
+          });
+        }
+      }); 
+      // this.getDriverDetails();
+    }
   }
 
   onChange(e: any) {

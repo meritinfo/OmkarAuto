@@ -25,6 +25,12 @@ namespace FinanceMasters.Repository
         public async Task<ResponseModel> ChequeAllotmentMstSave(ChequeAllotmentMstModel chequeAllotmentMstModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -38,38 +44,36 @@ namespace FinanceMasters.Repository
                             new SqlParameter("@StartSeries", chequeAllotmentMstModel.StartSeries),
                             new SqlParameter("@NoOfBooks", chequeAllotmentMstModel.NoOfBooks),
                             new SqlParameter("@NoOfLeavesBook", chequeAllotmentMstModel.NoOfLeavesBook),
-                               new SqlParameter("@EndSeries", chequeAllotmentMstModel.EndSeries),
+                            new SqlParameter("@EndSeries", chequeAllotmentMstModel.EndSeries),
                             new SqlParameter("@StatusComplete", chequeAllotmentMstModel.StatusComplete),
-                            new SqlParameter("@YearID", chequeAllotmentMstModel.YearID),
-                         
+                            new SqlParameter("@YearID", chequeAllotmentMstModel.YearID),                         
                             new SqlParameter("@LoggedInUser", chequeAllotmentMstModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ChequeAllotmentMst_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "ChequeAllotmentMst_Insert", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }

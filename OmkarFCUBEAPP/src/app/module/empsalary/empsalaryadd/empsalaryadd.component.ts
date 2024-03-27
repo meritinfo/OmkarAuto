@@ -330,7 +330,8 @@ export class EmpsalaryaddComponent {
           'edType': 'E',
           'edCode': selectedDataVal.arrayErnList[i].edCode.toString(),
           'edAmt': selectedDataVal.arrayErnList[i].edAmt.toString(),
-          'edName': ""
+          'edName': "",
+          'actAmt':""
         });
       }
     }
@@ -344,7 +345,8 @@ export class EmpsalaryaddComponent {
           'edType': 'D',
           'edCode': selectedDataVal.arrayDedList[i].edCode.toString(),
           'edAmt': selectedDataVal.arrayDedList[i].edAmt.toString(),
-          'edName': ""
+          'edName': "",
+          'actAmt':""
         });
       }
     }

@@ -134,7 +134,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate"        , dieselStatementModel.FromDate),
                             new SqlParameter("@ToDate"          , dieselStatementModel.ToDate),
                             new SqlParameter("@Location"        , dieselStatementModel.Location),
-                            new SqlParameter("@StatementFlag"   , dieselStatementModel.StatementFlag),
+                            new SqlParameter("@StatementFlag"   , "D"),
                             new SqlParameter("@Rate"            , dieselStatementModel.Rate),
                             new SqlParameter("@Remarks"         , dieselStatementModel.Remarks),
                             new SqlParameter("@TotalDslLtrs"    , dieselStatementModel.TotalDslLtrs),
@@ -149,11 +149,14 @@ namespace FleetTrans.Repository
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementMstSave", param);                                                               
 
                     string MasterID = "";
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 && Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
                         MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        if (dieselStatementModel.DieselStatementListData.Count > 0)
+                        if (responseModel.Status)
                         {
                             for (int i = 0; i < dieselStatementModel.DieselStatementListData.Count; i++)
                             {
@@ -169,30 +172,39 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@DslRate"     , dieselStatementModel.DieselStatementListData[i].RatePerLtr),
                                         new SqlParameter("@Amount"      , dieselStatementModel.DieselStatementListData[i].AmountPaid),
                                     };
-                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DieselStatementDtlsSave", paramMisc);
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDtlsSave", paramMisc);
                                     if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0&& Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]))
                                     {
                                         responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                                         responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                        if (!responseModel.Status)
+                                        {
+                                            i = dieselStatementModel.DieselStatementListData.Count;
+                                            transaction.Rollback();
+                                        }
                                     }
                                     else
                                     {
                                         i = dieselStatementModel.DieselStatementListData.Count;
                                         transaction.Rollback();
                                     }
+                                   
                                 }
-                            }
-                            if (responseModel.Status)
-                            {
-                                transaction.Commit();
-                            }
+                            }                           
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
                         }
                     }
                     else
                     {
                         transaction.Rollback();
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -202,6 +214,8 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+
+
         public async Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request)
         {
             DieselStatementList dieselStatementList = new();
@@ -268,6 +282,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -276,7 +295,7 @@ namespace FleetTrans.Repository
                     {
                             new SqlParameter("@MasterID", request.strRequest),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DieselStatementDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DieselStatementDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -286,13 +305,13 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -406,6 +425,107 @@ namespace FleetTrans.Repository
                
             }
             return dieselStatementModel;
+        }
+
+        public async Task<ResponseModel> SaveHappayStatementDetails(DieselStatementModel dieselStatementModel)
+        {
+            ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterID"        , dieselStatementModel.MasterID),
+                            new SqlParameter("@DfVendor"        , dieselStatementModel.DfVendor),
+                            new SqlParameter("@BillStmtNo"      , dieselStatementModel.BillStmtNo),
+                            new SqlParameter("@BillStmtDate"    , dieselStatementModel.BillStmtDate),
+                            new SqlParameter("@FromDate"        , dieselStatementModel.FromDate),
+                            new SqlParameter("@ToDate"          , dieselStatementModel.ToDate),
+                            new SqlParameter("@Location"        , dieselStatementModel.Location),
+                            new SqlParameter("@StatementFlag"   , "H"),
+                            new SqlParameter("@Rate"            , dieselStatementModel.Rate),
+                            new SqlParameter("@Remarks"         , dieselStatementModel.Remarks),
+                            new SqlParameter("@TotalDslLtrs"    , dieselStatementModel.TotalDslLtrs),
+                            new SqlParameter("@TotalDslAmt"     , dieselStatementModel.TotalDslAmt),
+                            new SqlParameter("@TotalCashAdv"    , dieselStatementModel.TotalCashAdv),
+                            new SqlParameter("@TotalNetAmount"  , dieselStatementModel.TotalNetAmount),
+                            new SqlParameter("@BranchCode"      , dieselStatementModel.BranchCode),
+                            new SqlParameter("@YearID"          , dieselStatementModel.YearId),
+                            new SqlParameter("@LoggedInUser"    , dieselStatementModel.LoggedInUser)
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HappayStatementMstSave", param);
+
+                    string MasterID = "";
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 && Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                        if (responseModel.Status)
+                        {
+                            for (int i = 0; i < dieselStatementModel.DieselStatementListData.Count; i++)
+                            {
+                                if (dieselStatementModel.DieselStatementListData[i].Selected)
+                                {
+                                    SqlParameter[] paramMisc =
+                                    {
+                                        new SqlParameter("@MasterID"    , MasterID),
+                                        new SqlParameter("@TripPmtId"   , dieselStatementModel.DieselStatementListData[i].PmtId),
+                                        new SqlParameter("@VehicleNo"   , dieselStatementModel.DieselStatementListData[i].VehicleNo),
+                                        new SqlParameter("@HsdAdvTyps"  , dieselStatementModel.DieselStatementListData[i].HsdAdvType),
+                                        new SqlParameter("@DslQty"      , dieselStatementModel.DieselStatementListData[i].QtyLtrs),
+                                        new SqlParameter("@DslRate"     , dieselStatementModel.DieselStatementListData[i].RatePerLtr),
+                                        new SqlParameter("@Amount"      , dieselStatementModel.DieselStatementListData[i].AmountPaid),
+                                    };
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HappayStatementDtlsSave", paramMisc);
+                                    if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0&& Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]))
+                                    {
+                                        responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                        responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                        if (!responseModel.Status)
+                                        {
+                                            i = dieselStatementModel.DieselStatementListData.Count;
+                                            transaction.Rollback();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        i = dieselStatementModel.DieselStatementListData.Count;
+                                        transaction.Rollback();
+                                    }
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
 
     }

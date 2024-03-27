@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using HRMasters.Models;
 using Shared.Models;
 using DocumentFormat.OpenXml.Drawing;
+using System.Transactions;
 
 namespace HRMasters.Repository
 {
@@ -45,6 +46,8 @@ namespace HRMasters.Repository
                             {
                                 TransId         = Convert.ToString(dataSet.Tables[0].Rows[i]["TransId"]),
                                 EmpId           = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpId"]),
+                                EmpCode         = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpCode"]),
+                                EmpName         = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpName"]),
                                 MonthYear       = Convert.ToString(dataSet.Tables[0].Rows[i]["MonthYear"]),
                                 DaysOfMonth     = Convert.ToString(dataSet.Tables[0].Rows[i]["DaysOfMonth"]),
                                 HolSun          = Convert.ToString(dataSet.Tables[0].Rows[i]["HolSun"]),
@@ -275,9 +278,54 @@ namespace HRMasters.Repository
             }
             return earnList;
         }
+
+        public async Task<ResponseModel> EmpPayCalDelete(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@MasterId", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPaycalcMstDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                       if(responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else {  transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false; 
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> EmpPayCalSave(EmpPayCalcModel empPayCalc)
         {
             ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -294,7 +342,6 @@ namespace HRMasters.Repository
                             new SqlParameter("@AdjLeaves",      empPayCalc.AdjLeaves),
                             new SqlParameter("@AbsentDays",     empPayCalc.AbsentDays),
                             new SqlParameter("@PayDays",        empPayCalc.PayDays),
-                            new SqlParameter("@AbsentDays",     empPayCalc.AbsentDays),
                             new SqlParameter("@TotalEarnings",  empPayCalc.TotalEarnings),
                             new SqlParameter("@TotalDeductions",empPayCalc.TotalDeductions),
                             new SqlParameter("@NetPay",         empPayCalc.NetPay),
@@ -303,19 +350,23 @@ namespace HRMasters.Repository
                             new SqlParameter("@LoggedInUser",   empPayCalc.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpPaycalcMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPaycalcMstSave", param);
                     string TransId = "0";
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         TransId = Convert.ToString(responseModel.Message);
+                        if (!responseModel.Status)
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
+                        transaction.Rollback();
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                     if (responseModel.Status)
                     {
@@ -324,33 +375,58 @@ namespace HRMasters.Repository
                             empPayCalc.empSalaryDtlList[i].MasterId   = TransId.ToString();
                             empPayCalc.empSalaryDtlList[i].EmpId      = empPayCalc.EmpId;
                             empPayCalc.empSalaryDtlList[i].FromDate   = empPayCalc.MonthYear;
-                            responseModel = await EmpPayDetailSave(empPayCalc.empSalaryDtlList[i]);
+                            responseModel = await EmpPayDetailSave(transaction,empPayCalc.empSalaryDtlList[i]);
+                            if (!responseModel.Status)
+                            {
+                                transaction.Rollback();
+                                i = empPayCalc.empSalaryDtlList.Count;
+                            }
                         }
-
-                        for (int i = 0; i < empPayCalc.empLeavesList.Count; i++)
+                        if (responseModel.Status)
                         {
-                            empPayCalc.empLeavesList[i].TransId = TransId.ToString();
-                            empPayCalc.empLeavesList[i].EmpId   = empPayCalc.EmpId;
-                            empPayCalc.empLeavesList[i].YearId  = empPayCalc.AffectYear;
-                            responseModel = await EmpLeaveDetailSave(empPayCalc.empLeavesList[i]);
+                            for (int i = 0; i < empPayCalc.empLeavesList.Count; i++)
+                            {
+                                empPayCalc.empLeavesList[i].TransId     = TransId.ToString();
+                                empPayCalc.empLeavesList[i].EmpId       = empPayCalc.EmpId;
+                                empPayCalc.empLeavesList[i].YearId      = empPayCalc.AffectYear;
+                                empPayCalc.empLeavesList[i].MonthYear   = empPayCalc.MonthYear;
+                                responseModel = await EmpLeaveDetailSave(transaction,empPayCalc.empLeavesList[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = empPayCalc.empLeavesList.Count;
+                                }
+                            }
+                            if (responseModel.Status)
+                            {
+                                for (int i = 0; i < empPayCalc.empLoanDtlList.Count; i++)
+                                {
+                                    empPayCalc.empLoanDtlList[i].TransId    = TransId.ToString();
+                                    empPayCalc.empLoanDtlList[i].EmpId      = empPayCalc.EmpId;
+                                    empPayCalc.empLoanDtlList[i].MonthYear  = empPayCalc.MonthYear;
+                                    responseModel = await EmpLoanDetailSave(transaction,empPayCalc.empLoanDtlList[i]);
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = empPayCalc.empLoanDtlList.Count;
+                                    }
+                                }
+                            }
                         }
-                        for (int i = 0; i < empPayCalc.empLoanDtlList.Count; i++)
-                        {
-                            empPayCalc.empLoanDtlList[i].TransId    = TransId.ToString();
-                            empPayCalc.empLoanDtlList[i].EmpId      = empPayCalc.EmpId;
-                            empPayCalc.empLoanDtlList[i].MonthYear  = empPayCalc.MonthYear;
-                            responseModel = await EmpLoanDetailSave(empPayCalc.empLoanDtlList[i]);
-                        }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                transaction.Rollback();
             }
             return responseModel;
         }
-        public async Task<ResponseModel> EmpPayDetailSave(EmpSalaryDtlModel empSalaryDtl)
+        public async Task<ResponseModel> EmpPayDetailSave(SqlTransaction transaction, EmpSalaryDtlModel empSalaryDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -361,13 +437,13 @@ namespace HRMasters.Repository
                         {
                             new SqlParameter("@TransId",    empSalaryDtl.MasterId),
                             new SqlParameter("@EmpId",      empSalaryDtl.EmpId),
-                            new SqlParameter("@FromDate",   empSalaryDtl.FromDate),
+                            new SqlParameter("@MonthYear",  empSalaryDtl.FromDate),
                             new SqlParameter("@EdType",     empSalaryDtl.EdType),
                             new SqlParameter("@EdCode",     empSalaryDtl.EdCode),
                             new SqlParameter("@EdAmt",      empSalaryDtl.EdAmt),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpPayDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPayDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -377,17 +453,16 @@ namespace HRMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
             catch (Exception ex)
             {
-               
+                responseModel.Status = false;
             }
             return responseModel;
         }
-        public async Task<ResponseModel> EmpLeaveDetailSave(EmpLeaveModel empLeave)
+        public async Task<ResponseModel> EmpLeaveDetailSave(SqlTransaction transaction, EmpLeaveModel empLeave)
         {
             ResponseModel responseModel = new();
             try
@@ -399,13 +474,14 @@ namespace HRMasters.Repository
                             new SqlParameter("@TransId",        empLeave.TransId),
                             new SqlParameter("@EmpId",          empLeave.EmpId),
                             new SqlParameter("@YearId",         empLeave.YearId),
+                            new SqlParameter("@MonthYear",      empLeave.MonthYear),
                             new SqlParameter("@LeaveId",        empLeave.LeaveId),
                             new SqlParameter("@LeaveCode",      empLeave.LeaveCode),
                             new SqlParameter("@TotalLeaves",    empLeave.TotalLeaves),
                             new SqlParameter("@LeavesAdj",      empLeave.LeavesAdj),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpLaeveDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPayLeaveDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -415,17 +491,16 @@ namespace HRMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                responseModel.Status = false;
             }
             return responseModel;
         }
-        public async Task<ResponseModel> EmpLoanDetailSave(EmpLoanModel loanModel)
+        public async Task<ResponseModel> EmpLoanDetailSave(SqlTransaction transaction, EmpLoanModel loanModel)
         {
             ResponseModel responseModel = new();
             try
@@ -436,12 +511,12 @@ namespace HRMasters.Repository
                         {
                             new SqlParameter("@TransId",    loanModel.TransId),
                             new SqlParameter("@EmpId",      loanModel.EmpId),
-                            new SqlParameter("@LoanId",     loanModel.LoanId),
                             new SqlParameter("@MonthYear",  loanModel.MonthYear),
+                            new SqlParameter("@LoanId",     loanModel.LoanId),
                             new SqlParameter("@LoanType",   loanModel.LoanType),
                             new SqlParameter("@LoanAdjAmt", loanModel.LoanAdjAmt),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpPayLoanDtlSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPayLoanDtlSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -451,7 +526,45 @@ namespace HRMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responseModel.Status = false;
+            }
+            return responseModel;
+        }
+
+        public async Task<EmpPayCalcModel> GetEmpPayEarnDetails(RequestModel request)
+        {
+            EmpPayCalcModel empSalary = new()
+            {
+                empSalaryDtlList  = new List<EmpSalaryDtlModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TransId",  request.strRequest),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayEarnDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            empSalary.empSalaryDtlList.Add(new EmpSalaryDtlModel
+                            {
+                                MasterId = request.strRequest,
+                                EdCode = Convert.ToString(dataSet.Tables[0].Rows[i]["EdCode"]),
+                                EdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["EdAmt"]),
+                                EdName =Convert.ToString(dataSet.Tables[0].Rows[i]["EdName"]),
+                            });
+                        }
                     }
                 }
             }
@@ -459,40 +572,134 @@ namespace HRMasters.Repository
             {
 
             }
-            return responseModel;
+            return empSalary;
+
         }
+        public async Task<EmpPayCalcModel> GetEmpPayDedDetails(RequestModel request)
+        {
+            EmpPayCalcModel empSalary = new()
+            {
+                empSalaryDtlList  = new List<EmpSalaryDtlModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TransId",  request.strRequest),
+                    };
 
-        //public async Task<ResponseModel> EmpSalaryMasterDelete(RequestModel request)
-        //{
-        //    ResponseModel responseModel = new();
-        //    try
-        //    {
-        //        if (dbconnection != null)
-        //        {
-        //            SqlParameter[] param =
-        //                {
-        //                    new SqlParameter("@MasterId", request.strRequest),
-        //                };
-        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpSalaryMstDelete", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayDedDetails", param);
 
-        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-        //            {
-        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-        //            }
-        //            else
-        //            {
-        //                responseModel.Status = false;
-        //                responseModel.Message = "Unable to process";
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            empSalary.empSalaryDtlList.Add(new EmpSalaryDtlModel
+                            {
+                                MasterId = request.strRequest,
+                                EdCode = Convert.ToString(dataSet.Tables[0].Rows[i]["EdCode"]),
+                                EdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["EdAmt"]),
+                                EdName =Convert.ToString(dataSet.Tables[0].Rows[i]["EdName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //    }
-        //    return responseModel;
-        //}
+            }
+            return empSalary;
+
+        }
+        public async Task<EmpPayCalcModel> GetEmpPayLeaveDetails(RequestModel request)
+        {
+            EmpPayCalcModel empSalary = new()
+            {
+                empLeavesList  = new List<EmpLeaveModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TransId",  request.strRequest),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayLeaveDetail", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            empSalary.empLeavesList.Add(new EmpLeaveModel
+                            {
+                                LeaveId = Convert.ToString(dataSet.Tables[0].Rows[i]["LeaveId"]),
+                                LeaveCode = Convert.ToString(dataSet.Tables[0].Rows[i]["LeaveCode"]),
+                                LeaveName =Convert.ToString(dataSet.Tables[0].Rows[i]["LeaveName"]),
+                                TotalLeaves =Convert.ToString(dataSet.Tables[0].Rows[i]["TotalLeaves"]),
+                                LeavesAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjLeaves"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return empSalary;
+
+
+        }
+        public async Task<EmpPayCalcModel> GetEmpPayLoanDetails(RequestModel request)
+        {
+            EmpPayCalcModel empSalary = new()
+            {
+                empLoanDtlList  = new List<EmpLoanModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@TransId",  request.strRequest),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayLoanDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            empSalary.empLoanDtlList.Add(new EmpLoanModel
+                            {
+                                LoanId = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanId"]),
+                                LoanNumber = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanNumber"]),
+                                EmpId = Convert.ToString(dataSet.Tables[0].Rows[i]["EmpId"]),
+                                LoanDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanDate"]),
+                                LoanType = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanType"]),
+                                LoanDedId = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanDedId"]),
+                                DedName= Convert.ToString(dataSet.Tables[0].Rows[i]["DedName"]),
+                                LoanAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAmt"]),
+                                BalAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                                LoanAdjAmt =Convert.ToString(dataSet.Tables[0].Rows[i]["LoanAdjAmt"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return empSalary;
+
+        }
 
     }
 

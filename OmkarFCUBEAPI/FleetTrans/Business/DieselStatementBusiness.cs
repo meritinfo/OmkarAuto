@@ -17,7 +17,14 @@ namespace FleetTrans.Business
         }
         public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request)
         {
-            return await dieselStatementRepository.SaveDieselStatementDetails(request);
+            if (request.StatementFlag=="D")
+            {
+                return await dieselStatementRepository.SaveDieselStatementDetails(request);
+            }
+            else
+            {
+                return await dieselStatementRepository.SaveHappayStatementDetails(request);
+            }
         }
         public async Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request)
         {

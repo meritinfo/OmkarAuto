@@ -182,6 +182,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> BillsStatementDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -190,32 +195,25 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@MasterId", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_BillsStatementDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsStatementDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -300,6 +298,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> SaveBillStatementDetails(BillStatementModel request)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -334,17 +337,17 @@ namespace FleetTrans.Repository
 
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BilStatementMaster_Insert2", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BilStatementMaster_Insert2", param);
 
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                         MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
-                        //MasterID= Convert.ToString(statusData.Tables[0].Rows[0]["Message2"]);
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
 
                         // statement list insert
-                        if (request.BillStatementListData.Count > 0)
+                        if (responseModel.Status)
                         {
                             for (int i = 0; i < request.BillStatementListData.Count; i++)
                             {
@@ -366,30 +369,35 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@OthersRs", request.BillStatementListData[i].OthersRs != "" ? request.BillStatementListData[i].OthersRs : "0"),
                                         new SqlParameter("@TotalRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0")
                                     };
-                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementDetails_Insert", paramMisc);
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BillStatementDetails_Insert", paramMisc);
+                                    if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0)
+                                    {
+                                        responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                        responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                    }
+
+                                    if (!responseModel.Status) { 
+                                        transaction.Rollback();
+                                        i = request.BillStatementListData.Count;
+                                    }
                                 }
                             }
+                        }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
                         }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }

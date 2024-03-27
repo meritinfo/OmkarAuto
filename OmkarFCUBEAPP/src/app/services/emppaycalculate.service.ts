@@ -36,34 +36,40 @@ export class EmppaycalculateService {
   
   getEmpPayCalMstList(filter: Filtermodel): Observable<Emppaycallistmodel> {
     return this.httpClient.post<Emppaycallistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayCalList', filter, this.httpOptions);
-  }   
+  }  
+  getEmpSalaryEarnList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpSalEarnList', req, this.httpOptions);
+  } 
+  getEmpSalaryDedList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpSalDedList', req, this.httpOptions);
+  }  
   getEmpLeaveList(req:Empleavemodel): Observable<Emppaycalcmodel> {
     return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpLeaveDetails', req, this.httpOptions);
   } 
   getEmpLoanList(req:Requestmodel): Observable<Emppaycalcmodel> {
     return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpLoanDetails', req, this.httpOptions);
   } 
-  getEmpSalaryEarnList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {
-    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpSalEarnList', req, this.httpOptions);
+  
+  getEmpPayEarnList(req: Requestmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayEarnDetails', req, this.httpOptions);
   } 
-  getEmpSalaryDedList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {
-    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpSalDedList', req, this.httpOptions);
+  getEmpPayDedList(req: Requestmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayDedDetails', req, this.httpOptions);
+  }  
+  getEmpPayLeaveList(req:Requestmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayLeaveDetails', req, this.httpOptions);
   } 
+  getEmpPayLoanList(req:Requestmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayLoanDetails', req, this.httpOptions);
+  } 
+
   empPayCalSubmitted(user: Emppaycalcmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpPayCalSave', user, this.httpOptions);
   }
   empPayCalDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'HRMaster/EmpPayCalDelete', req, this.httpOptions);
   } 
-
   
-  getSalaryEarningList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetSalaryEarningList', null, this.httpOptions);
-  } 
-  getSalaryDeductionList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetSalaryDeductionList', null, this.httpOptions);
-  } 
-
   getBranchEmpList(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetBranchEmpList', req, this.httpOptions);
   }

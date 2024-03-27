@@ -97,6 +97,132 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckPassword")]
+        public async Task<IActionResult> CheckPassword(PasswordModel request)
+        {
+            try
+            {
+                var result = await userBusiness.CheckPassword(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetModuleList")]
+        public async Task<IActionResult> GetModuleList()
+        {
+            try
+            {
+                var result = await userBusiness.GetModuleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetHrTypeList")]
+        public async Task<IActionResult> GetHrTypeList()
+        {
+            try
+            {
+                var result = await userBusiness.GetHrTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Controller method for User Master List
+        /// </summary>
+        [HttpPost("GetUserMasterList")]
+        public async Task<IActionResult> GetUserMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await userBusiness.GetUserMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        [HttpPost("GetEWayBillDetails")]
+        public async Task<IActionResult> GetEWayBillDetails(RequestModel request)
+        {
+            try
+            {
+                var result = await userBusiness.GetEWayBillDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DeleteUserDetails")]
+        public async Task<IActionResult> DeleteUserDetails(string request)
+        {
+            try
+            {
+                var result = await userBusiness.DeleteUserDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("UsernameValidation")]
+        public async Task<IActionResult> UsernameValidation(RequestModel request)
+        {
+            try
+            {
+                var result = await userBusiness.UsernameValidation(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetRoleTypeList")]
+        public async Task<IActionResult> GetRoleTypeList()
+        {
+            try
+            {
+                var result = await userBusiness.GetRoleTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("PtSlabMasterDelete")]
         public async Task<IActionResult> PtSlabMasterDelete(RequestModel request)
         {
@@ -115,43 +241,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("CheckPassword")]
-        public async Task<IActionResult> CheckPassword(PasswordModel request)
-        {
-            try
-            {
-                var result = await userBusiness.CheckPassword(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        /// <summary>
-        /// Controller method for rolemaster details save
-        /// </summary>
-        /// <param name="roleMasterModel"></param>
-        [HttpPost("RoleMasterSave")]
-        public async Task<IActionResult> RoleMasterSave(RoleMasterModel roleMasterModel)
-        {
-            if (roleMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await roleMasterBusiness.RoleMasterSave(roleMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-       
+               
         [HttpPost("PtSlabMasterSave")]
         public async Task<IActionResult> PtSlabMasterSave(PtSlabMasterModel ptSlabMasterModel)
         {
@@ -208,47 +298,17 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Controller method for Module List
-        /// </summary>
-        [HttpPost("GetModuleList")]
-        public async Task<IActionResult> GetModuleList()
+
+        [HttpPost("RoleMasterSave")]
+        public async Task<IActionResult> RoleMasterSave(RoleMasterModel roleMasterModel)
         {
+            if (roleMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
-                var result = await userBusiness.GetModuleList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetHrTypeList")]
-        public async Task<IActionResult> GetHrTypeList()
-        {
-            try
-            {
-                var result = await userBusiness.GetHrTypeList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Controller method for User Master List
-        /// </summary>
-        [HttpPost("GetUserMasterList")]
-        public async Task<IActionResult> GetUserMasterList(PageRequest request)
-        {
-            try
-            {
-                var result = await userBusiness.GetUserMasterList(request);
+                var result = await roleMasterBusiness.RoleMasterSave(roleMasterModel);
 
                 return Ok(result);
             }
@@ -272,77 +332,6 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Controller method for User Master List
-        /// </summary>
-        [HttpPost("GetEWayBillDetails")]
-        public async Task<IActionResult> GetEWayBillDetails(RequestModel request)
-        {
-            try
-            {
-                var result = await userBusiness.GetEWayBillDetails(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Controller method for delete user details
-        /// </summary>
-        [HttpPost("DeleteUserDetails")]
-        public async Task<IActionResult> DeleteUserDetails(string request)
-        {
-            try
-            {
-                var result = await userBusiness.DeleteUserDetails(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Controller method for validate username
-        /// </summary>
-        [HttpPost("UsernameValidation")]
-        public async Task<IActionResult> UsernameValidation(RequestModel request)
-        {
-            try
-            {
-                var result = await userBusiness.UsernameValidation(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// Controller method for Role Type List
-        /// </summary>
-        [HttpPost("GetRoleTypeList")]
-        public async Task<IActionResult> GetRoleTypeList()
-        {
-            try
-            {
-                var result = await userBusiness.GetRoleTypeList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("GetRolePrivileges")]
         public async Task<IActionResult> GetRolePrivileges(RequestModel request)

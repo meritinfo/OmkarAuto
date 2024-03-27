@@ -44,10 +44,26 @@ namespace HRMasters.Business
         {
             return await empSalaryCalcRepository.EmpPayCalSave(empPayCalc);
         }
-        //public async Task<ResponseModel> EmpSalaryMasterDelete(RequestModel request)
-        //{
-        //    return await empSalaryCalcRepository.EmpSalaryMasterDelete(request);
-        //}
+        public async Task<ResponseModel> EmpPayCalDelete(RequestModel request)
+        {
+            return await empSalaryCalcRepository.EmpPayCalDelete(request);
+        }
 
+        public async Task<EmpPayCalcModel> GetEmpPayEarnDetails(RequestModel request)
+        {
+            return await empSalaryCalcRepository.GetEmpPayEarnDetails(request);
+        }
+        public async Task<EmpPayCalcModel> GetEmpPayDedDetails(RequestModel request)
+        {
+            return await empSalaryCalcRepository.GetEmpPayDedDetails(request);
+        }
+        public async Task<EmpPayCalcModel> GetEmpPayLeaveDetails(RequestModel request)
+        {
+            return await empSalaryCalcRepository.GetEmpPayLeaveDetails(request);
+        }
+        public async Task<EmpPayCalcModel> GetEmpPayLoanDetails(RequestModel request)
+        {
+            return await empSalaryCalcRepository.GetEmpPayLoanDetails(request);
+        }
     }
 }

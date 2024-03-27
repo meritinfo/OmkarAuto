@@ -23,6 +23,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -125,7 +130,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripMaster_Insert", param);
 
                     string TripID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -133,7 +138,7 @@ namespace FleetTrans.Repository
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
+                        
                         // Miss Details insert or update
                         //if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" )
                         if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" && TripID!="0")
@@ -148,7 +153,15 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
                                     new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
                                 };
-                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripDrExpDetails_Insert", paramMisc);
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripDrExpDetails_Insert", paramMisc);
+                                responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+
+                                if (!responseModel.Status) 
+                                { 
+                                    transaction.Rollback();
+                                    i = tripMasterModel.MiscList.Count;
+                                }
                             }
                         }
 
@@ -166,8 +179,20 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
                                     new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
                                 };
-                                var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripAdblueDetails_Insert", paramAdBlue);
+                                var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripAdblueDetails_Insert", paramAdBlue);
+                                responseModel.Status = Convert.ToBoolean(statusAdBlue.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message = Convert.ToString(statusAdBlue.Tables[0].Rows[0]["Message"]);
+
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = tripMasterModel.MiscList.Count;
+                                }
                             }
+                        }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
                         }
 
                         //// LR Details insert or update
@@ -226,23 +251,14 @@ namespace FleetTrans.Repository
                     }
                     else
                     {
+                        transaction.Rollback();
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -272,7 +288,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -520,7 +535,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -566,7 +580,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -611,7 +624,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -656,7 +668,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -698,7 +709,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -792,7 +802,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -879,7 +888,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -1102,6 +1110,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -1134,33 +1147,25 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser"            , tripMasterModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_OtherTripOpenSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_OtherTripOpenSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                      
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -1168,6 +1173,12 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> OtherTripOpenDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -1176,33 +1187,25 @@ namespace FleetTrans.Repository
                     {
                         new SqlParameter("@OthTripOpenId", request.strRequest),                           
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_OtherTripOpenDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_OtherTripOpenDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -1229,7 +1232,6 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }

@@ -11,6 +11,7 @@ namespace HRMasters.Models
         public string? TransId { get; set; }
         public string? EmpId { get; set; }
         public string? YearId { get; set; }
+        public string? MonthYear { get; set; }
         public string? LeaveId { get; set; }
         public string? LeaveCode { get; set; }
         public string? LeaveName { get; set; }

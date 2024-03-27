@@ -134,17 +134,143 @@ export class EmpsalcalculationaddComponent {
       if (this.selectedEmpSalary.transId != '') {    
         this.formUser.patchValue(this.selectedEmpSalary);
         this.formUser.patchValue({
-          //mo: this.commonService.formatDate(this.selectedEmpSalary.fromDate),
           empId: this.empList.find(e => e.dataId == this.selectedEmpSalary.empId),
+          monthYear: this.commonService.formatDate(this.selectedEmpSalary.monthYear),
+          totadjLeaves: this.selectedEmpSalary.adjLeaves,
         });
         this.editMode = true;  
-        this.getEmpSalaryEarnList();
-        this.getEmpSalaryDedList();
+        this.getEmpPayEarnList();
+        this.getEmpPayDedList();
+        this.getEmpPayLeaveList();
+        this.getEmpPayLoanList();
       }
     }, 2000);
     this.sharedService.loading=false;
   }
 
+  getEmpPayEarnList() {
+    this.requestmodel.strRequest = this.selectedEmpSalary.transId;
+    this.emppaycalculateService.getEmpPayEarnList(this.requestmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formErnArray.clear();
+      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+        this.formErnArray.push(this.createInitialArray());
+        this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
+        this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
+        this.formErnArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formErnArray.controls[i].get("edName")?.disable();
+        this.formErnArray.controls[i].get("edCode")?.disable();
+        this.formErnArray.controls[i].get("edAmt")?.disable();  
+        this.formDedArray.controls[i].get("actAmt")?.disable();            
+      }
+    });
+  }
+
+  getEmpPayDedList() {
+    this.requestmodel.strRequest = this.selectedEmpSalary.transId;
+    this.emppaycalculateService.getEmpPayDedList(this.requestmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formDedArray.clear();
+      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+        this.formDedArray.push(this.createInitialArray());
+        this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
+        this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
+        this.formDedArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formDedArray.controls[i].get("edName")?.disable();
+        this.formDedArray.controls[i].get("edCode")?.disable();
+        this.formDedArray.controls[i].get("edAmt")?.disable();   
+        this.formDedArray.controls[i].get("actAmt")?.disable();        
+      }
+    });
+  }
+
+  getEmpPayLeaveList(){
+    this.requestmodel.strRequest = this.selectedEmpSalary.transId;
+    this.emppaycalculateService.getEmpPayLeaveList(this.requestmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formLeaveArray.clear();
+      for (var i = 0; i < res.empLeavesList.length; i++) {
+        this.formLeaveArray.push(this.createLeaveArray());
+        this.formLeaveArray.controls[i].get("leaveId")?.setValue(res.empLeavesList[i].leaveId);
+        this.formLeaveArray.controls[i].get("leaveCode")?.setValue(res.empLeavesList[i].leaveCode);
+        this.formLeaveArray.controls[i].get("leaveName")?.setValue(res.empLeavesList[i].leaveName);
+        this.formLeaveArray.controls[i].get("totalLeaves")?.setValue(res.empLeavesList[i].totalLeaves);
+        this.formLeaveArray.controls[i].get("adjLeaves")?.setValue(res.empLeavesList[i].leavesAdj);        
+        this.formLeaveArray.controls[i].get("leaveId")?.disable();
+        this.formLeaveArray.controls[i].get("leaveCode")?.disable();
+        this.formLeaveArray.controls[i].get("leaveName")?.disable();   
+        this.formLeaveArray.controls[i].get("totalLeaves")?.disable();   
+        this.formLeaveArray.controls[i].get("accumLeaves")?.disable();   
+        this.formLeaveArray.controls[i].get("adjLeaves")?.disable();              
+      }
+    });
+  }
+
+  getEmpPayLoanList(){
+    this.requestmodel.strRequest = this.selectedEmpSalary.transId;
+    this.emppaycalculateService.getEmpPayLoanList(this.requestmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formLoanArray.clear();
+      for (var i = 0; i < res.empLoanDtlList.length; i++) {
+        this.formLoanArray.push(this.createLoanArray());
+        this.formLoanArray.controls[i].get("loanId")?.setValue(res.empLoanDtlList[i].loanId);
+        this.formLoanArray.controls[i].get("loanNumber")?.setValue(res.empLoanDtlList[i].loanNumber);
+        this.formLoanArray.controls[i].get("loanDedId")?.setValue(res.empLoanDtlList[i].loanDedId);
+        this.formLoanArray.controls[i].get("dedName")?.setValue(res.empLoanDtlList[i].dedName);
+        this.formLoanArray.controls[i].get("loanType")?.setValue(res.empLoanDtlList[i].loanType);
+        this.formLoanArray.controls[i].get("loanDate")?.setValue(res.empLoanDtlList[i].loanDate);
+        this.formLoanArray.controls[i].get("loanAmt")?.setValue(res.empLoanDtlList[i].loanAmt);
+        this.formLoanArray.controls[i].get("balAmt")?.setValue(res.empLoanDtlList[i].balAmt);
+        this.formLoanArray.controls[i].get("loanAdjAmt")?.setValue(res.empLoanDtlList[i].loanAdjAmt);
+        this.formLoanArray.controls[i].get("loanNumber")?.disable();
+        this.formLoanArray.controls[i].get("loanDate")?.disable();   
+        this.formLoanArray.controls[i].get("loanAmt")?.disable();   
+        this.formLoanArray.controls[i].get("balAmt")?.disable(); 
+        this.formLoanArray.controls[i].get("loanAdjAmt")?.disable();    
+      }    
+    });
+  }
+
+ 
+  getEmpSalaryEarnList() {
+    var selectedDataVal=this.formUser.getRawValue();
+    this.empsalarymstmodel.empId = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
+    this.empsalarymstmodel.fromDate =selectedDataVal.monthYear;
+    this.emppaycalculateService.getEmpSalaryEarnList(this.empsalarymstmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formErnArray.clear();
+      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+        this.formErnArray.push(this.createInitialArray());
+        this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
+        this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
+        this.formErnArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formErnArray.controls[i].get("edName")?.disable();
+        this.formErnArray.controls[i].get("edCode")?.disable();
+        this.formErnArray.controls[i].get("actAmt")?.disable();        
+      }
+    });
+  }
+
+  getEmpSalaryDedList() {
+    var selectedDataVal=this.formUser.getRawValue();
+    this.empsalarymstmodel.empId = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
+    this.empsalarymstmodel.fromDate = selectedDataVal.monthYear;
+    this.emppaycalculateService.getEmpSalaryDedList(this.empsalarymstmodel).subscribe((res) => {
+      this.emppaycalcmodel = res;
+      this.formDedArray.clear();
+      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
+        this.formDedArray.push(this.createInitialArray());
+        this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
+        this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
+        this.formDedArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formDedArray.controls[i].get("edName")?.disable();
+        this.formDedArray.controls[i].get("edCode")?.disable();
+        this.formDedArray.controls[i].get("actAmt")?.disable();        
+      }
+    });
+  }
+
+  
   getEmpLeavesList(){
     var selectedDataVal=this.formUser.getRawValue();
     this.empleave.empId = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
@@ -197,44 +323,6 @@ export class EmpsalcalculationaddComponent {
         this.formLoanArray.controls[i].get("loanAmt")?.disable();   
         this.formLoanArray.controls[i].get("balAmt")?.disable();          
       }    
-    });
-  }
-
-  getEmpSalaryEarnList() {
-    var selectedDataVal=this.formUser.getRawValue();
-    this.empsalarymstmodel.empId = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
-    this.empsalarymstmodel.fromDate =selectedDataVal.monthYear;
-    this.emppaycalculateService.getEmpSalaryEarnList(this.empsalarymstmodel).subscribe((res) => {
-      this.emppaycalcmodel = res;
-      this.formErnArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
-        this.formErnArray.push(this.createInitialArray());
-        this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
-        this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
-        this.formErnArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
-        this.formErnArray.controls[i].get("edName")?.disable();
-        this.formErnArray.controls[i].get("edCode")?.disable();
-        this.formErnArray.controls[i].get("actAmt")?.disable();        
-      }
-    });
-  }
-
-  getEmpSalaryDedList() {
-    var selectedDataVal=this.formUser.getRawValue();
-    this.empsalarymstmodel.empId = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
-    this.empsalarymstmodel.fromDate = selectedDataVal.monthYear;
-    this.emppaycalculateService.getEmpSalaryDedList(this.empsalarymstmodel).subscribe((res) => {
-      this.emppaycalcmodel = res;
-      this.formDedArray.clear();
-      for (var i = 0; i < res.empSalaryDtlList.length; i++) {
-        this.formDedArray.push(this.createInitialArray());
-        this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
-        this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
-        this.formDedArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
-        this.formDedArray.controls[i].get("edName")?.disable();
-        this.formDedArray.controls[i].get("edCode")?.disable();
-        this.formDedArray.controls[i].get("actAmt")?.disable();        
-      }
     });
   }
 
@@ -488,29 +576,6 @@ export class EmpsalcalculationaddComponent {
     this.calLeaves();
   }
 
-
-  // getNoOfDays(){
-  //   var month=0;
-  //   var selectedDataVal=this.formUser.getRawValue();
-  //   var dt = new Date(selectedDataVal.monthYear);
-
-  //   if(dt.getMonth()==12){
-  //     month = 1;
-  //   }
-  //   else{
-  //     month = dt.getMonth() + 1;      
-  //   }
-  //   var year = dt.getFullYear();
-  //   var days = new Date(year, month, 0).getDate();
-  //   this.formUser.patchValue({
-  //     daysOfMonth:days,
-  //     holSun:'0',
-  //     totLeaves:'0',
-  //     absentDays:'0',
-  //     payDays:days,
-  //   })
-  // }
-
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -640,21 +705,21 @@ export class EmpsalcalculationaddComponent {
     this.sharedService.loading=true;
     var selectedDataVal=this.formUser.getRawValue();
 
-    this.emppaycalcmodel.transId      = this.selectedEmpSalary.transId ;
-    this.emppaycalcmodel.empId        = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
-    this.emppaycalcmodel.monthYear    = selectedDataVal.monthYear.toString();
-    this.emppaycalcmodel.daysOfMonth  = selectedDataVal.daysOfMonth.toString(),
-    this.emppaycalcmodel.holSun  = selectedDataVal.holSun.toString(),
-    this.emppaycalcmodel.totLeaves  = selectedDataVal.totLeaves.toString(),
-    this.emppaycalcmodel.adjLeaves  = selectedDataVal.adjLeaves.toString(),
-    this.emppaycalcmodel.absentDays  = selectedDataVal.absentDays.toString(),
-    this.emppaycalcmodel.payDays  = selectedDataVal.payDays.toString(),
-    this.emppaycalcmodel.affectYear  = selectedDataVal.affectYear.toString(),
-    this.emppaycalcmodel.totalEarnings  = selectedDataVal.totalEarnings.toString(),
+    this.emppaycalcmodel.transId          = this.selectedEmpSalary.transId ;
+    this.emppaycalcmodel.empId            = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
+    this.emppaycalcmodel.monthYear        = selectedDataVal.monthYear.toString();
+    this.emppaycalcmodel.daysOfMonth      = selectedDataVal.daysOfMonth.toString(),
+    this.emppaycalcmodel.holSun           = selectedDataVal.holSun.toString(),
+    this.emppaycalcmodel.totLeaves        = selectedDataVal.totLeaves.toString(),
+    this.emppaycalcmodel.adjLeaves        = selectedDataVal.totadjLeaves.toString(),
+    this.emppaycalcmodel.absentDays       = selectedDataVal.absentDays.toString(),
+    this.emppaycalcmodel.payDays          = selectedDataVal.payDays.toString(),
+    this.emppaycalcmodel.affectYear       = selectedDataVal.affectYear.toString(),
+    this.emppaycalcmodel.totalEarnings    = selectedDataVal.totalEarnings.toString(),
     this.emppaycalcmodel.totalDeductions  = selectedDataVal.totalDeductions.toString(),
-    this.emppaycalcmodel.netPay  = selectedDataVal.netPay.toString(),
-    this.emppaycalcmodel.branchCode  = selectedDataVal.branchCode.toString(),
-    this.emppaycalcmodel.loggedInUser = this.loggedInUserID,
+    this.emppaycalcmodel.netPay           = selectedDataVal.netPay.toString(),
+    this.emppaycalcmodel.branchCode       = selectedDataVal.branchCode.toString(),
+    this.emppaycalcmodel.loggedInUser     = this.loggedInUserID,
 
     this.emppaycalcmodel.empSalaryDtlList = [];
 
@@ -667,7 +732,8 @@ export class EmpsalcalculationaddComponent {
           'edType': 'E',
           'edCode': selectedDataVal.arrayErnList[i].edCode.toString(),
           'edAmt': selectedDataVal.arrayErnList[i].edAmt.toString(),
-          'edName': ""
+          'edName': "",
+          'actAmt':""
         });
       }
     }
@@ -681,7 +747,8 @@ export class EmpsalcalculationaddComponent {
           'edType': 'D',
           'edCode': selectedDataVal.arrayDedList[i].edCode.toString(),
           'edAmt': selectedDataVal.arrayDedList[i].edAmt.toString(),
-          'edName': ""
+          'edName': "",
+          'actAmt':""
         });
       }
     }
@@ -711,18 +778,19 @@ export class EmpsalcalculationaddComponent {
           'transId': '',
           'empId': '',
           'yearId': '',
+          'monthYear':'',
           'leaveId': selectedDataVal.arrayLeaveList[i].leaveId.toString(),
           'leaveCode': selectedDataVal.arrayLeaveList[i].leaveCode.toString(),
           'leaveName': "",
           'totalLeaves': totleave.toString(),
-          'leavesAdj': selectedDataVal.arrayLeaveList[i].accumLeaves.toString(),
+          'leavesAdj': selectedDataVal.arrayLeaveList[i].adjLeaves.toString(),
         });
       }
     }
 
     this.emppaycalcmodel.empLoanDtlList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
+    for (var i = 0; i < selectedDataVal.arrayLoanList.length; i++) {
       if(selectedDataVal.arrayLoanList[i].leaveId != "" ){
         this.emppaycalcmodel.empLoanDtlList.push({
           'transId': '',

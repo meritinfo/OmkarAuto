@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using System.Transactions;
 
 namespace FinTrans.Repository
 {
@@ -22,6 +23,10 @@ namespace FinTrans.Repository
         public async Task<ResponseModel> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel)
         {
             ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -55,7 +60,7 @@ namespace FinTrans.Repository
                         new SqlParameter("@ModifyRemarks",  gstPurchaseMstModel.ModifyRemarks),
                         new SqlParameter("@LoggedInUser",   gstPurchaseMstModel.LoggedInUser)
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseMstSave", param);
                     string Masterid = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -66,7 +71,6 @@ namespace FinTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                     if (responseModel.Status)
                     {
@@ -74,28 +78,28 @@ namespace FinTrans.Repository
                         {
 
                             gstPurchaseMstModel.GstPurchaseDetailsList[i].Masterid = Masterid.ToString();
-                            responseModel = await GstPurchaseDtlSave(gstPurchaseMstModel.GstPurchaseDetailsList[i]);
+                            responseModel = await GstPurchaseDtlSave(transaction, gstPurchaseMstModel.GstPurchaseDetailsList[i]);
+                            if (!responseModel.Status) 
+                            { 
+                                transaction.Rollback();
+                                i = gstPurchaseMstModel.GstPurchaseDetailsList.Count;
+                            }
                         }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
 
-        public async Task<ResponseModel> GstPurchaseDtlSave(GstPurchaseDtlModel gstPurchaseDtlModel)
+        public async Task<ResponseModel> GstPurchaseDtlSave(SqlTransaction transaction,GstPurchaseDtlModel gstPurchaseDtlModel)
         {
             ResponseModel responseModel = new();
             try
@@ -120,7 +124,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@RefDocNo",   gstPurchaseDtlModel.RefDocNo),
 
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -130,22 +134,12 @@ namespace FinTrans.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};  GetGstPurchageInnerGridList
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -153,6 +147,11 @@ namespace FinTrans.Repository
         public async Task<ResponseModel> GstPurchageDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -161,32 +160,26 @@ namespace FinTrans.Repository
                     {
                             new SqlParameter("@Masterid", request.strRequest),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GstPurchaseMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseMstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }

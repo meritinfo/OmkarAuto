@@ -5876,3 +5876,12 @@ background-color: #fbff00 !important
 .overflow-x{
     overflow-x: scroll;
 }
+.full-width{
+    width: 1600px !important;
+}
+.full-width tr td {
+    width: fit-content;
+}
+.narration-input{
+    width: 200px;
+}

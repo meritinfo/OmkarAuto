@@ -94,6 +94,12 @@ namespace AdminMasters.Repository
         public async Task<ResponseModel> RolePrivilegesListSave(RolePrivilegesListModel rolePrivilegesList)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -102,8 +108,8 @@ namespace AdminMasters.Repository
                     {
                             new SqlParameter("@RoleId", rolePrivilegesList.RoleId),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_RolePrivilegesDelete", param);
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RolePrivilegesDelete", param);
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 && Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
@@ -111,38 +117,43 @@ namespace AdminMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                     if (responseModel.Status)
                     {
                         for (int i = 0; i < rolePrivilegesList.RolePrivilegesMasterList.Count; i++)
                         {
-                           responseModel = await RolePrivilegesDtlSave(rolePrivilegesList.RolePrivilegesMasterList[i]);
+                            responseModel = await RolePrivilegesDtlSave(transaction, rolePrivilegesList.RolePrivilegesMasterList[i]);
+                            if (!responseModel.Status)
+                            {
+                                i = rolePrivilegesList.RolePrivilegesMasterList.Count;
+                                transaction.Rollback();
+                            }
                         }
                         for (int i = 0; i < rolePrivilegesList.RolePrivilegesReportList.Count; i++)
                         {
-                            responseModel = await RolePrivilegesDtlSave(rolePrivilegesList.RolePrivilegesReportList[i]);
+                            responseModel = await RolePrivilegesDtlSave(transaction, rolePrivilegesList.RolePrivilegesReportList[i]);
+                            if (!responseModel.Status)
+                            {
+                                i = rolePrivilegesList.RolePrivilegesReportList.Count;
+                                transaction.Rollback();
+                            }
                         }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
 
-        public async Task<ResponseModel> RolePrivilegesDtlSave(RolePrivilegesModel rolePrivileges)
+        public async Task<ResponseModel> RolePrivilegesDtlSave(SqlTransaction transaction, RolePrivilegesModel rolePrivileges)
         {
             ResponseModel responseModel = new();
             try
@@ -161,9 +172,9 @@ namespace AdminMasters.Repository
                             new SqlParameter("@PrintYN",    rolePrivileges.PrintYN),
 
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_RolePrivilegesSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_RolePrivilegesSave", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
@@ -171,7 +182,6 @@ namespace AdminMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }

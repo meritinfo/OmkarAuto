@@ -14,14 +14,14 @@ namespace FleetMasters.Repository
         {
             dbconnection = _dbconnection;
         }
-        /// <summary>
-        /// Service method for save vehicle type master details
-        /// </summary>
-        /// <param name="TyrePositionMasterModel"></param>
-        /// <returns>ResponseModel</returns>
         public async Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -32,35 +32,28 @@ namespace FleetMasters.Repository
                             new SqlParameter("@PositionDesc", tyrePositionMasterModel.PositionDesc),
                             new SqlParameter("@ActiveYN", tyrePositionMasterModel.ActiveYN),
                             new SqlParameter("@DeleteFlag", tyrePositionMasterModel.DeleteFlag),
-                             new SqlParameter("@LoggedInUser", tyrePositionMasterModel.LoggedInUser)                             
+                            new SqlParameter("@LoggedInUser", tyrePositionMasterModel.LoggedInUser)                             
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyrePositionMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TyrePositionMaster_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -91,11 +84,6 @@ namespace FleetMasters.Repository
                             {
                                 TyrePosID = Convert.ToString(dataSet.Tables[0].Rows[i]["TyrePosID"]),
                                 PositionDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["PositionDesc"]),
-
-                           
-
-
-
                             });
                         }
 

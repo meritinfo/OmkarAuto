@@ -152,7 +152,6 @@ export class AddratesmasterComponent implements OnInit {
     });
   }
 
-
   createInitialArray() {
     return this.formBuilder.group({
       destState: ['', []],
@@ -165,8 +164,6 @@ export class AddratesmasterComponent implements OnInit {
       this.vehicleGrpList = res;
     });
   }
-
-
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
       this.locationList = res;
@@ -223,19 +220,13 @@ export class AddratesmasterComponent implements OnInit {
   }
 
   selectEvent(item: any) {
-    
-
- 
+     
   }
+
   selectNewEvent(item: any,index:number) {
     var ToPlace = item.dataId;
     var selectedDataValue=this.formRatesMaster.getRawValue();
-  //  if(ToPlace == selectedDataValue.fromLocation.dataId)
-   // {
-    //  this.toasterService.warning("To location can not be same as From Location");
-     // this.formArray.controls[index].get("toLocation")?.setValue("");
-    //  return;
-   // }
+
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
       if(ToPlace == selectedDataValue.arrayList[i].toPlace.dataId)
       {
@@ -243,9 +234,7 @@ export class AddratesmasterComponent implements OnInit {
         this.formArray.controls[index].get("toPlace")?.setValue("");
         return;
       }
-    }
-
- 
+    } 
   }
 
   onChangeSearch(search: string) {
@@ -270,7 +259,7 @@ export class AddratesmasterComponent implements OnInit {
         return;
       }
       else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace){
-        this.toasterService.warning("From Point cannot be same as Destination State in details grid");
+        this.toasterService.warning("From Point cannot be same as State in details grid");
         return;
       }
       else {
@@ -362,6 +351,11 @@ export class AddratesmasterComponent implements OnInit {
     this.ratesmastermodel.loggedInUser = this.loggedInUserID; 
 
     this.ratesmastermodel.freightRatesDetailsList = [];
+    if(selectedDataVal.arrayList.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
+    }
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].destState!='' || selectedDataVal.arrayList[i].toPlace !=''){

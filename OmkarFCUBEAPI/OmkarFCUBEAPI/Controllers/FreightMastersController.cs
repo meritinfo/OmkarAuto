@@ -414,25 +414,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("DistanceDetailFrtSave")]
-        public async Task<IActionResult> DistanceDetailFrtSave(DistanceDetailFrtModel distanceDetailFrtModel)
-        {
-            if (distanceDetailFrtModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await distanceMasterFrtBusiness.DistanceDetailFrtSave(distanceDetailFrtModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
+       
         [HttpPost("DistanceMasterTripDelete")]
         public async Task<IActionResult> DistanceMasterTripDelete(RequestModel request)
         {
@@ -461,24 +443,6 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterFrtBusiness.DistanceMasterFrtDelete(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("DistanceDetailTripSave")]
-        public async Task<IActionResult> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel)
-        {
-            if (distanceDetailTripModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await distanceMasterTripBusiness.DistanceDetailTripSave(distanceDetailTripModel);
 
                 return Ok(result);
             }

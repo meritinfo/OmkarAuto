@@ -12,5 +12,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request);
         Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request);
         Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request);
+        Task<ResponseModel> SaveHappayStatementDetails(DieselStatementModel request);
     }
 }
