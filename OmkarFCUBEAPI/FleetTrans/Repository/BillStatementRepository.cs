@@ -253,6 +253,8 @@ namespace FleetTrans.Repository
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
+                                Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
+                                Rate = Convert.ToString(dataSet.Tables[0].Rows[i]["Rate"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
                                 Selected = true
                             });
