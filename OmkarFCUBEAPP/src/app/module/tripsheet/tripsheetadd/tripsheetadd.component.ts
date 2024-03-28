@@ -54,6 +54,8 @@ export class TripsheetaddComponent {
   dsl2: number = 0;
   driverid: string = '';
   ltsdsl: string = '';
+  ltsadbnew: number = 0;
+  ltsadbnew1: number = 0;
   adblue1: string = '';
   ltsdsl1: string = '';
   bDays: number = 0;
@@ -579,13 +581,13 @@ export class TripsheetaddComponent {
       this.usertriprightsmodel = res;
       this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose;
       this.canLinkTrip = this.usertriprightsmodel.canLinkTrip;
-    });
-    if(!this.canEditTripAfterClose){
-      this.editStatus=false;
-    }
-    if(this.canLinkTrip){            
-      this.formTripsheet.controls['tripLinkYN'].enable();
-    }
+      if(!this.canEditTripAfterClose){
+        this.editStatus=false;
+      }
+      if(this.canLinkTrip){            
+        this.formTripsheet.controls['tripLinkYN'].enable();
+      }
+    });   
   }
   
   getDriverList(): void {
@@ -884,7 +886,7 @@ if(selectedValue > 1){
     // To calculate the no. of days between two dates
     var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
    // var DiffDays = difftime / (1000 * 3600 * 24);
-    Difference_In_Days = Math.abs(Difference_In_Days)
+   // Difference_In_Days = Math.abs(Difference_In_Days)
     if (!Number.isNaN(Difference_In_Days)) {
       this.formTripsheet.patchValue({
         idleDays: (Difference_In_Days).toString()
@@ -1439,6 +1441,7 @@ GetLastTripDriver(e:any) {
           // this.totalCal();
           this.getBhattaRate();
         this.getDslToBe();
+        this.getAdBlueToBe();
         this.totalCal();
         this.getPenaltyRate();
 
@@ -2321,7 +2324,9 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
-        let adb = parseFloat(this.adblue).toFixed(2);
+        this.ltsadbnew = parseInt(this.adblue);
+        this.ltsadbnew = Math.ceil(this.ltsadbnew)
+        let adb = (this.ltsadbnew).toFixed(2);
         if (this.adblue != undefined) {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
@@ -2360,16 +2365,21 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
         this.adblue1 = res.message;
+      //  this.adblue1 = parseFloat( this.adblue1);
+       // this.adblue1 = Math.round(this.adblue1);
         // if (this.tripkmsDetails.status) {
 
-
+     //  let adbluenew string  = parseFloat(this.adblue1).toFixed(2)
+    // ltsadbnew = Math.ceil(ltsadbnew)
+     this.ltsadbnew = parseInt(this.adblue1);
+     this.ltsadbnew = Math.ceil(this.ltsadbnew)
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
         if (this.adblue1 != undefined) {
           this.formTripsheet.patchValue({
             // cneeGst:  (this.ExpectedReportingDays).toString() 
-            ltsAdblueToBe_1: parseFloat(this.adblue1).toFixed(2).toString()
+            ltsAdblueToBe_1: this.ltsadbnew.toFixed(2).toString()
 
 
           });
@@ -2460,6 +2470,9 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
           //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
           ir = parseInt(this.incentiveRate)
           this.getDslToBe1();
+         // this.getAdblueToBe1();
+
+
           this.totalCalculationForTicl(ir);
           //this.totalCalculation();
         }
