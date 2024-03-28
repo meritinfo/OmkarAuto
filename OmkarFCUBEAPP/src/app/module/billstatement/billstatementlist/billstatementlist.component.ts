@@ -5,6 +5,7 @@ import { Billstatementlistmodel } from 'src/app/models/billstatementlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { billstatementmodel } from 'src/app/models/billstatementmodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-billstatementlist',
@@ -28,13 +29,19 @@ export class BillstatementlistComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  formFilter!: FormGroup;
+  keywordLocation = 'dataName'; 
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+
   constructor(private billStatementService: BillstatementService, private route: Router) {
   }
   selectedBillStatement = new billstatementmodel();
-  setBillStatementDetails(docrenewalmaster: billstatementmodel) {
- 
-    this.selectedBillStatement = docrenewalmaster;
-  
+  setBillStatementDetails(docrenewalmaster: billstatementmodel) { 
+    this.selectedBillStatement = docrenewalmaster;  
 
 }
   
@@ -58,6 +65,7 @@ export class BillstatementlistComponent {
       pageLength: 10,
       serverSide: true,
       processing: true,
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -116,4 +124,18 @@ export class BillstatementlistComponent {
     this.billStatementService.setBillStatementDetails(Docrenewal);
     this.route.navigate(['/billstatementedit']);
   }
+
+  
+  search(): void {
+    // this.filter.search = this.formFilter.value.dfVendor.dataId;
+    // this.filter.fromDate = this.formFilter.value.fromDate;
+    // this.filter.toDate = this.formFilter.value.toDate;
+    // //this.filter.dfVendor = this.formFilter.value.dfVendor;
+    // this.sharedService.loading=true;
+    // this.dieselstateList();
+    // this.sharedService.loading=false;
+    // this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    //   dtInstance.ajax.reload();
+    // });
   }
+}

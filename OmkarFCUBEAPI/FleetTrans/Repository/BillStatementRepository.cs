@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using System.Data;
 
 namespace FleetTrans.Repository
 {
@@ -36,11 +37,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ToPlace",        request.ToPlace),
                             new SqlParameter("@CnorPlantCode",  request.CnorPlantCode),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementSearchList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillStatementSearchList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        int totalRecords =0;
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             billStatementSearchModels.Add(new BillStatementSearchModel
@@ -108,14 +109,14 @@ namespace FleetTrans.Repository
                                 BillStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStation"]),
                                 SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
                                 Bill_StmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["Bill_StmtNo"]),
-
                                 BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
-
                                 PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
                                 FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
                                 ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
                                 FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
                                 ToPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
+                                SuppYN = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppYN"]),
+                                PartyRefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyRefNo"]),
                                 TotFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),
                                 TotExtraChrg = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtraChrg"]),
                                 TotSubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
@@ -128,22 +129,6 @@ namespace FleetTrans.Repository
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
                                 TotalBillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBillAmt"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
-
-
-                                //BillStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStatus"]),
-                                ////  Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
-                                // // Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                //  TotalDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
-                                //  TotalCashAdv = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
-
-                                //  TotalNetAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
-                                //  BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                //  YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-
-
-
-
-
                             });
                         }
 
@@ -289,31 +274,34 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@MasterID", request.MasterID),
-                            new SqlParameter("@BillStation", request.BillStation),
-                            new SqlParameter("@SeriesCode", request.SeriesCode),
-                            new SqlParameter("@Bill_StmtNo", request.Bill_StmtNo),
-                            new SqlParameter("@BillDate", request.BillDate),
-                            new SqlParameter("@PartyCode", request.PartyCode),
-                            new SqlParameter("@FromDate", request.FromDate),
-                            new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@FromPoint", request.FromPoint),
-                            new SqlParameter("@ToPoint", request.ToPoint),
-                            new SqlParameter("@TotFreight", request.TotFreight == "" ? "0" : request.TotFreight),
-                            new SqlParameter("@TotExtraChrg", request.TotExtraChrg== "" ? "0" : request.TotExtraChrg),
-                            new SqlParameter("@TotSubTotal", request.TotSubTotal == "" ? "0" : request.TotSubTotal),
-                            new SqlParameter("@GstType", request.GstType ),
-                            new SqlParameter("@SgstPct", request.SgstPct == "" ? "0" : request.SgstPct),
-                            new SqlParameter("@SgstAmt", request.SgstAmt == "" ? "0" : request.SgstAmt),
-                            new SqlParameter("@CgstPct", request.CgstPct == "" ? "0" : request.CgstPct),
-                            new SqlParameter("@CgstAmt", request.CgstAmt == "" ? "0" : request.CgstAmt),
-                            new SqlParameter("@IgstPct", request.IgstPct == "" ? "0" : request.IgstPct),
-                            new SqlParameter("@IgstAmt", request.IgstAmt == "" ? "0" : request.IgstAmt),
-                            new SqlParameter("@TotalBillAmt", request.TotalBillAmt),
-                            new SqlParameter("@YearId", request.YearId),
-                            new SqlParameter("@LoggedInUser", request.LoggedInUser)     
+                            new SqlParameter("@MasterID",       request.MasterID),
+                            new SqlParameter("@BillStation",    request.BillStation),
+                            new SqlParameter("@SeriesCode",     request.SeriesCode),
+                            new SqlParameter("@Bill_StmtNo",    request.Bill_StmtNo),
+                            new SqlParameter("@BillDate",       request.BillDate),
+                            new SqlParameter("@PartyCode",      request.PartyCode),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@FromPoint",      request.FromPoint),
+                            new SqlParameter("@ToPoint",        request.ToPoint),
+                            new SqlParameter("@SuppYN",         request.SuppYN),
+                            new SqlParameter("@PartyRefNo",     request.PartyRefNo),
+                            new SqlParameter("@TotFreight",     request.TotFreight),
+                            new SqlParameter("@TotExtraChrg",   request.TotExtraChrg),
+                            new SqlParameter("@TotSubTotal",    request.TotSubTotal),
+                            new SqlParameter("@GstType",        request.GstType ),
+                            new SqlParameter("@SgstPct",        request.SgstPct),
+                            new SqlParameter("@SgstAmt",        request.SgstAmt),
+                            new SqlParameter("@CgstPct",        request.CgstPct),
+                            new SqlParameter("@CgstAmt",        request.CgstAmt),
+                            new SqlParameter("@IgstPct",        request.IgstPct),
+                            new SqlParameter("@IgstAmt",        request.IgstAmt),
+                            new SqlParameter("@TotalBillAmt",   request.TotalBillAmt),
+                            new SqlParameter("@Remarks",        request.Remarks),
+                            new SqlParameter("@YearId",         request.YearId),
+                            new SqlParameter("@LoggedInUser",   request.LoggedInUser)     
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BilStatementMaster_Insert2", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillStatementMstSave", param);
 
                     string MasterID = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -325,6 +313,7 @@ namespace FleetTrans.Repository
                         // statement list insert
                         if (responseModel.Status)
                         {
+                            responseModel.Message ="Bill Statement Saved ";
                             for (int i = 0; i < request.BillStatementListData.Count; i++)
                             {
                                 if (request.BillStatementListData[i].Selected)
@@ -335,7 +324,7 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@ConsignmentID", request.BillStatementListData[i].ConsignmentID != "" ? request.BillStatementListData[i].ConsignmentID : "0"),
                                         new SqlParameter("@TotalRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0")
                                     };
-                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BillStatementDetails_Insert", paramMisc);
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillStatementDtlsSave", paramMisc);
                                     if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0)
                                     {
                                         responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
@@ -353,6 +342,7 @@ namespace FleetTrans.Repository
                         {
                             transaction.Commit();
                         }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
