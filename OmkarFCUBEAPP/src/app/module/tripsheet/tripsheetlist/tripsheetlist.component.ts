@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
@@ -9,6 +9,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { DataTableDirective } from 'angular-datatables';
 
 
 @Component({
@@ -45,6 +46,8 @@ export class TripsheetlistComponent {
   tstoDate: string = '';
   tsbranch: string = '';
   tsvehicle: string = '';
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   
 
   constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, private route: Router, private sharedService: SharedService, private commonService: CommonService) {
@@ -126,7 +129,9 @@ export class TripsheetlistComponent {
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch=== '0' ? '' : this.formFilter.value.branch;
-   
+    this.getTripMaster();
+}
+getTripMaster(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -140,6 +145,8 @@ export class TripsheetlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
+        this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
+        this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
         this.tripSheetService.getTripSheetList(this.filter)
           .subscribe(resp => {
             this.allTripSheetTypes = resp;
@@ -246,16 +253,20 @@ export class TripsheetlistComponent {
   };
 
   search(): void {
-
+    
     
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
     this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-    this.tripSheetService.getTripSheetList(this.filter)
-      .subscribe(resp => {
-        this.allTripSheetTypes = resp;
-      });
+   // this.tripSheetService.getTripSheetList(this.filter)
+      //.subscribe(resp => {
+      //  this.allTripSheetTypes = resp;
+     // });
+     this.getTripMaster();
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+     });
   }
 
   getCurrentFiscalYear(date: string) {

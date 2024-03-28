@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
@@ -9,6 +9,7 @@ import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
 @Component({
   selector: 'app-trippaymentslist',
   templateUrl: './trippaymentslist.component.html',
@@ -44,6 +45,9 @@ export class TrippaymentslistComponent {
   deleteStatus = false;
   viewStatus = false;
   createmode = false;
+ // dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   constructor(private formBuilder: FormBuilder,private trippaymentService: TripPaymentsService, private commonService: CommonService, private route: Router) {
   }
   
@@ -81,6 +85,9 @@ export class TrippaymentslistComponent {
     });
     this.getBranchList();
     this.getVehicleNoList();
+    this.tripPaymentList();
+  }
+tripPaymentList(){
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
@@ -96,8 +103,8 @@ export class TrippaymentslistComponent {
       this.filter.search = dataTablesParameters.search.value;
       this.filter.fromDate = this.formFilter.value.fromDate;
       this.filter.toDate = this.formFilter.value.toDate;
-      this.filter.branch = "";
-      this.filter.vehicle = "";
+      this.filter.branch = this.formFilter.value.branch.dataId;
+      this.filter.vehicle =  this.formFilter.value.vehicle.dataId;
       this.trippaymentService.getTripPaymentsList(this.filter)
         .subscribe(resp => {
          this.allTripPaymentsTypes = resp;
@@ -191,11 +198,16 @@ onChangeSearch(search: string) {
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
     this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-    this.trippaymentService.getTripPaymentsList(this.filter)
-      .subscribe(resp => {
-        this.allTripPaymentsTypes = resp;
+   // this.trippaymentService.getTripPaymentsList(this.filter)
+     // .subscribe(resp => {
+   //     this.allTripPaymentsTypes = resp;
+   //   });
+      this.tripPaymentList();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+       dtInstance.ajax.reload(); 
       });
   }
+
   //Open user details screen
 gettrippaymentsDetails(trippayments: Trippaymentsmodel): void {
   this.trippaymentService.setTripPaymentsDetails(trippayments);

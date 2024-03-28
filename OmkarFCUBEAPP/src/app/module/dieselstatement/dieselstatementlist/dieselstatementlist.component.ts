@@ -113,6 +113,7 @@ export class DieselstatementlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = this.formFilter.value.dfVendor.dataId;
         // this.filter.search = dataTablesParameters.search.value;
         this.dieselStatementService.getDieselStatementList(this.filter)
           .subscribe(resp => {
@@ -193,6 +194,7 @@ export class DieselstatementlistComponent {
     this.filter.search = this.formFilter.value.dfVendor.dataId;
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
+    //this.filter.dfVendor = this.formFilter.value.dfVendor;
     this.sharedService.loading=true;
     this.dieselstateList();
     this.sharedService.loading=false;
