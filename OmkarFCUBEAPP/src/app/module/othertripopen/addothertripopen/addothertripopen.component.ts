@@ -334,7 +334,7 @@ export class AddothertripopenComponent {
       this.kmsDetails.toLocation = this.toplc.toString();
       this.kmsDetails.transDate = selectedDataValue.newTripDate;
       this.kmsDetails.vehicleTypeGroupId = '1';
-     this.kmsDetails.loadOrEmpty = selectedDataValue.loadEmptyType
+      this.kmsDetails.loadOrEmpty = selectedDataValue.loadEmptyType
      // this.kmsDetails.loadOrEmpty = this.selectedTripSheetDetails.loadEmptyType?this.selectedTripSheetDetails.loadEmptyType: selectedDataValue.loadEmptyType;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
@@ -376,14 +376,19 @@ export class AddothertripopenComponent {
      && selectedDataValue.newTripDate!='' && selectedDataValue.vehicleMasterID.dataId !='' ) {
       this.dslDetails.transDate = selectedDataValue.newTripDate;
       this.dslDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
-    //  this.dslDetails.loadType = "L";
-    this.dslDetails.loadType= selectedDataValue.loadEmptyType;
+      //  this.dslDetails.loadType = "L";
+      this.dslDetails.loadType= selectedDataValue.loadEmptyType;
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl1 = res.message;
-        if (this.ltsdsl1 != undefined) {
+        if (res.status) {
           this.formOtherTripOpen.patchValue({
             ltsDslToBe_1: parseFloat(this.ltsdsl1).toFixed(2).toString()
+          });
+        }
+        else{
+          this.formOtherTripOpen.patchValue({
+            ltsDslToBe_1: '0'
           });
         }
       });
@@ -391,43 +396,28 @@ export class AddothertripopenComponent {
   }
   getLastTripDriver(e:any) {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
-   // if( selectedDataValue.tripNo!=1){
-  
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
-   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-    //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
     this.OpbalDetails.vehicleMasterID = e;
-    // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-    // this.OpbalDetails.driverMasterID='1';
     this.OpbalDetails.yearid = this.year;
     this.OpbalDetails.tripNo = selectedDataValue.tripNo;
     this.commonService.getLastTripDriver(this.OpbalDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-     
-      this.GetOpeningBal1( this.responseDetails.message);
-      this.GetDslOpeningBal();
-      this.getAdBlueToBe1();
-       if (this.responseDetails.status) {
-        let driverMID= this.driverList.find(e => e.dataId ==  this.responseDetails.message);
-     // if (this.responseDetails.message != undefined || this.responseDetails.message != '' || this.responseDetails.message != 'Unable to process') {
-        this.formOtherTripOpen.patchValue({
-         // driverMasterId: this.responseDetails.message
-          driverMasterID: driverMID?.dataName
-        });
-        //  }
-        //else
-      } else {
-        this.formOtherTripOpen.patchValue({
-          driverMasterID: ''
-        });
-      }
-  
+      if (res.status) {    
+        if (this.responseDetails.status) {
+          let driverMID= this.driverList.find(e => e.dataId ==  this.responseDetails.message);
+          this.formOtherTripOpen.patchValue({
+            driverMasterID: driverMID?.dataName
+          });
+        } else {
+          this.formOtherTripOpen.patchValue({
+            driverMasterID: ''
+          });
+        }         
+        this.GetOpeningBal1(this.responseDetails.message);
+        this.GetDslOpeningBal();
+        this.getAdBlueToBe1();
+      }  
     });
-    //this.GetOpeningBal() ;  
-   // this.getDriverDetails();
-   
-  
-  //}
   }
 
   getAdBlueToBe1() {
@@ -439,11 +429,16 @@ export class AddothertripopenComponent {
       this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
         this.adblue1 = res.message;
-        if (this.adblue1 != undefined) {
+        if (res.status) {
           this.formOtherTripOpen.patchValue({
             ltsAdblueToBe_1: parseFloat(this.adblue1).toFixed(2).toString()
           });
         } 
+        else{
+          this.formOtherTripOpen.patchValue({
+            ltsAdblueToBe_1:'0'
+          });
+        }
       });
     }
   }
@@ -454,19 +449,21 @@ export class AddothertripopenComponent {
       selectedDataValue.driverMasterID.dataId !='' && selectedDataValue.tripNo!=''  ) {
       this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
       this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-     // let dmId =this.driverList.find(e => e.dataName ==  selectedDataValue.driverMasterID);
-    
       this.OpbalDetails.driverMasterID =  selectedDataValue.driverMasterID.dataId;
-      //this.OpbalDetails.driverMasterID = dmId?.dataId;
       this.OpbalDetails.yearid = this.year;
       this.OpbalDetails.tripNo = selectedDataValue.tripNo;
       this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if (this.responseDetails.message != undefined || this.responseDetails.message != '') {
+        if (res.status) {
           this.formOtherTripOpen.patchValue({
             opBalDriver: this.responseDetails.message? this.responseDetails.message:'0'
           });
         } 
+        else{
+          this.formOtherTripOpen.patchValue({
+            opBalDriver: '0'
+          });
+        }
       });
     }
   } 
@@ -476,17 +473,19 @@ export class AddothertripopenComponent {
       selectedDataValue.driverMasterID.dataId !='' && selectedDataValue.tripNo!=''  ) {
       this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
       this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-     // let dmId =this.driverList.find(e => e.dataName ==  selectedDataValue.driverMasterID);
-    
       this.OpbalDetails.driverMasterID =e;
-      //this.OpbalDetails.driverMasterID = dmId?.dataId;
       this.OpbalDetails.yearid = this.year;
       this.OpbalDetails.tripNo = selectedDataValue.tripNo;
       this.commonService.getOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if (this.responseDetails.message != undefined || this.responseDetails.message != '') {
+        if (res.status) {
           this.formOtherTripOpen.patchValue({
             opBalDriver: this.responseDetails.message? this.responseDetails.message:'0'
+          });
+        } 
+        else{
+          this.formOtherTripOpen.patchValue({
+            opBalDriver: '0'
           });
         } 
       });
@@ -550,8 +549,7 @@ export class AddothertripopenComponent {
       else{
         console.log(this.responseDetails.message);  
         this.toasterService.warning(this.responseDetails.message);     
-        this.getVehicleNoList();  
-        
+        this.getVehicleNoList();          
       } 
       this.getLastTripDriver(selectedValue);  
      
@@ -565,9 +563,14 @@ export class AddothertripopenComponent {
       if (confirm("Are you sure, you want to delete this?")) {
             this.tripSheetService.otherTripOpenDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formOtherTripOpen.reset();
-            this.route.navigate(['/othertripopenlist']);
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formOtherTripOpen.reset();
+              this.route.navigate(['/othertripopenlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }    
         });
       }      
       this.sharedService.loading=false;
@@ -618,8 +621,14 @@ export class AddothertripopenComponent {
 
     this.tripSheetService.otherTripOpenDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      this.formOtherTripOpen.reset();
-      this.route.navigate(['/othertripopenlist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formOtherTripOpen.reset();
+        this.route.navigate(['/othertripopenlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }    
     });
     this.sharedService.loading=false;
   }

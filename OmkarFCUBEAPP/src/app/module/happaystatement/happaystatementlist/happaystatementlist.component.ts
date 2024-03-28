@@ -122,11 +122,7 @@ export class HappaystatementlistComponent {
       },
       columns: [
         {
-          title: 'Vendor ',
-          data: 'vendor',
-        },
-        {
-          title: 'bill Stmt No ',
+          title: 'Bill Stmt No ',
           data: 'billStmtNo',
         },
         {

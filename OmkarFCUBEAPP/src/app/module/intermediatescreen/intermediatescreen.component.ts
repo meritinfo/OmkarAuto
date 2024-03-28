@@ -54,7 +54,8 @@ export class IntermediatescreenComponent {
     this.sharedService.loggedInStatus = false;
     this.getDropdownList();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    console.log(this.maxDate);
+    console.log(this.maxDate);    
+    this.sharedService.loading = false;
   }
 
   // convenience getter for easy access to contact form fields

@@ -334,7 +334,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@toDate", request.ToDate),
                             new SqlParameter("@StatementFlag", "H"),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementMstList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getHappayStatementMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -462,7 +462,7 @@ namespace FleetTrans.Repository
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HappayStatementMstSave", param);
 
                     string MasterID = "";
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 && Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
@@ -486,7 +486,7 @@ namespace FleetTrans.Repository
                                         new SqlParameter("@Amount"      , dieselStatementModel.DieselStatementListData[i].AmountPaid),
                                     };
                                     var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_HappayStatementDtlsSave", paramMisc);
-                                    if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0&& Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]))
+                                    if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0)
                                     {
                                         responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                                         responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);

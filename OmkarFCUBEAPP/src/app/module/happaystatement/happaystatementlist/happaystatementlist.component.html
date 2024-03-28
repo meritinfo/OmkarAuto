@@ -60,8 +60,7 @@
                 <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
-                            <tr>
-                                <th>dfVendor </th>                          
+                            <tr>                  
                                 <th>billStmtNo</th>                             
                                 <th>billStmtDate</th>
                                 <th>fromDate</th>
@@ -71,7 +70,6 @@
                         </thead>
                         <tbody *ngIf="allDieselStatement.dieselList?.length != 0">
                             <tr *ngFor="let dsl of allDieselStatement.dieselList">
-                                <td>{{ dsl.vendor }}</td>                        
                                 <td>{{ dsl.billStmtNo}}</td>
                                 <td>{{ dsl.billStmtDate}}</td>
                                 <td>{{ dsl.fromDate}}</td>

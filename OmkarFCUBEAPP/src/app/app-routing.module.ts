@@ -150,7 +150,7 @@ const routes: Routes = [
   { path: 'roletypelist', component: RoletypelistComponent },
   { path: 'addhrmaster', component: AddhrmasterComponent },
   { path: 'hrmasteredit', component: AddhrmasterComponent },
-  { path: 'ptslabmasterlist', component: PtslabmasterlistComponent },
+  { path: 'proftaxmstlist', component: PtslabmasterlistComponent },
   { path: 'addptslabmaster', component: AddptslabmasterComponent },
   { path: 'ptslabmasteredit', component: AddptslabmasterComponent },
   { path: 'hrmasterlist', component: HrmasterlistComponent },

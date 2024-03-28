@@ -39,8 +39,8 @@ constructor(private ptSlabMasterService: PtSlabMasterService, private route: Rou
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
     var privilegeData = JSON.parse(menuData);
-    const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Pt SlabMaster"));
+    var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName ===  "Prof. Tax Slab Master");
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -72,27 +72,21 @@ constructor(private ptSlabMasterService: PtSlabMasterService, private route: Rou
         });
     },
 
-columns: [
-      
-
-  {
-    title: 'State Code',
-    data: 'stateCode',
-  },
-
- {
-  title: 'Range From',
-  data: 'rangeFrom',
-},
-
-
-
-{
-  title: 'Action',
-  data: 'ptId',
-},
-],
-};
+    columns: [   
+      {
+        title: 'State',
+        data: 'stateCode',
+      },
+      {
+        title: 'Range From',
+        data: 'rangeFrom',
+      },
+      {
+        title: 'Action',
+        data: 'ptId',
+      },
+    ],
+  };
 }
 
 addPtSlabMaster(): void {

@@ -131,7 +131,7 @@ export class DieselstatementlistComponent {
           data: 'vendor',
         },
         {
-          title: 'bill Stmt No ',
+          title: 'Bill Stmt No ',
           data: 'billStmtNo',
         },
         {
@@ -141,10 +141,6 @@ export class DieselstatementlistComponent {
         {
           title: 'From Date ',
           data: 'fromDate'
-        },
-        {
-          title: 'Location ',
-          data: 'location',
         },
         {
           title: 'Action',

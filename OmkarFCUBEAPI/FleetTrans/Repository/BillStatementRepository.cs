@@ -29,11 +29,12 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillingParty", request.BillingParty),
-                            new SqlParameter("@FromPlace", request.FromPlace),
-                            new SqlParameter("@ToPlace", request.ToPlace),
-                            new SqlParameter("@CnorPlantCode", request.CnorPlantCode),
-                            new SqlParameter("@ProductId", request.ProductId)
+                            new SqlParameter("@BillingParty",   request.BillingParty),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@FromPlace",      request.FromPlace),
+                            new SqlParameter("@ToPlace",        request.ToPlace),
+                            new SqlParameter("@CnorPlantCode",  request.CnorPlantCode),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementSearchList_Select", param);
 
@@ -241,7 +242,6 @@ namespace FleetTrans.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        //int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             billStatementSearchModels.Add(new BillStatementSearchModel
@@ -253,27 +253,13 @@ namespace FleetTrans.Repository
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
-                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
-                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
-                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
-                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
-                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
-                                ExtrasRs = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRs"]),
-                                UnloadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingRs"]),
-                                DetentionRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionRs"]),
-                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-                               Selected = true
+                                Selected = true
                             });
                         }
                         billStatementSearchList.BillStatementSearchList = billStatementSearchModels;
-                        }
                     }
-
-
-
-                
+                }                
             }
             catch (Exception ex)
             {
@@ -309,8 +295,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                          // new SqlParameter("@MasterID", request.MasterID == "" ? 0 : Convert.ToInt32(request.MasterID)),
-                          new SqlParameter("@MasterID", request.MasterID),
+                            new SqlParameter("@MasterID", request.MasterID),
                             new SqlParameter("@BillStation", request.BillStation),
                             new SqlParameter("@SeriesCode", request.SeriesCode),
                             new SqlParameter("@Bill_StmtNo", request.Bill_StmtNo),
@@ -332,10 +317,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@IgstAmt", request.IgstAmt == "" ? "0" : request.IgstAmt),
                             new SqlParameter("@TotalBillAmt", request.TotalBillAmt),
                             new SqlParameter("@YearId", request.YearId),
-                            new SqlParameter("@LoggedInUser", request.LoggedInUser)
-                       
-
-
+                            new SqlParameter("@LoggedInUser", request.LoggedInUser)     
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BilStatementMaster_Insert2", param);
 

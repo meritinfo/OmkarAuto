@@ -90,7 +90,6 @@
                                 <th>billStmtNo</th>                             
                                 <th>billStmtDate</th>
                                 <th>fromDate</th>
-                                <th>location</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -99,8 +98,7 @@
                                 <td>{{ dsl.vendor }}</td>                        
                                 <td>{{ dsl.billStmtNo}}</td>
                                 <td>{{ dsl.billStmtDate}}</td>
-                                <td>{{ dsl.fromDate}}</td>
-                                <td>{{ dsl.location}}</td>                       
+                                <td>{{ dsl.fromDate}}</td>                    
                                 <td>
                                     <button type="button" class="btn btn-edit" 
                                     (click)="getDieselStatementDetails(dsl)"></button>    
