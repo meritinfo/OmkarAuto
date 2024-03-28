@@ -52,16 +52,8 @@ namespace FleetTrans.Repository
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
                                 NoPackages = Convert.ToString(dataSet.Tables[0].Rows[i]["NoPackages"]),
-                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
-                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
-                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
-                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
-                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
-                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
-                                ExtrasRs = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRs"]),
-                                UnloadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingRs"]),
-                                DetentionRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionRs"]),
-                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
+                                Rate = Convert.ToString(dataSet.Tables[0].Rows[i]["Rate"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
                                 Selected = false
                             });
@@ -341,16 +333,6 @@ namespace FleetTrans.Repository
                                     {
                                         new SqlParameter("@MasterID", MasterID),
                                         new SqlParameter("@ConsignmentID", request.BillStatementListData[i].ConsignmentID != "" ? request.BillStatementListData[i].ConsignmentID : "0"),
-                                        new SqlParameter("@FreightRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0"),
-                                        new SqlParameter("@StatisticalRs", request.BillStatementListData[i].StatisticalRs != "" ? request.BillStatementListData[i].StatisticalRs : "0"),
-                                        new SqlParameter("@HandlingRs", request.BillStatementListData[i].HandlingRs != "" ? request.BillStatementListData[i].HandlingRs : "0"),
-                                        new SqlParameter("@LoadingDetnRs", request.BillStatementListData[i].LoadingDetnRs != "" ? request.BillStatementListData[i].LoadingDetnRs : "0"),
-                                        new SqlParameter("@EnrouteRs", request.BillStatementListData[i].EnrouteRs != "" ? request.BillStatementListData[i].EnrouteRs : "0"),
-                                        new SqlParameter("@MiscRs", request.BillStatementListData[i].MiscRs != "" ? request.BillStatementListData[i].MiscRs : "0"),
-                                        new SqlParameter("@ExtrasRS", request.BillStatementListData[i].ExtrasRs != "" ? request.BillStatementListData[i].ExtrasRs : "0"),
-                                        new SqlParameter("@UnLoadingRs", request.BillStatementListData[i].UnloadingRs != "" ? request.BillStatementListData[i].UnloadingRs : "0"),
-                                        new SqlParameter("@DetentionRs", request.BillStatementListData[i].DetentionRs != "" ? request.BillStatementListData[i].DetentionRs : "0"),
-                                        new SqlParameter("@OthersRs", request.BillStatementListData[i].OthersRs != "" ? request.BillStatementListData[i].OthersRs : "0"),
                                         new SqlParameter("@TotalRs", request.BillStatementListData[i].GtotalRs != "" ? request.BillStatementListData[i].GtotalRs : "0")
                                     };
                                     var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "BillStatementDetails_Insert", paramMisc);
