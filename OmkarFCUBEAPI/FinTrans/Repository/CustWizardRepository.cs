@@ -93,6 +93,7 @@ namespace FinTrans.Repository
             }
             return custWizardList;
         }
+
     
     public async Task<ResponseModel> CustWizardSave(CustWizardModel custWizardModel)
         {
