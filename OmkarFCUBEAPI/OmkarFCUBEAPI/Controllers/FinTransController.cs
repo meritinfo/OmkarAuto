@@ -97,6 +97,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCustWizardList")]
+        public async Task<IActionResult> GetCustWizardList(PageRequest request)
+        {
+            try
+            {
+                var result = await custWizardBusiness.GetCustWizardList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("OpBrsEntrySave")]
         public async Task<IActionResult> OpBrsEntrySave(BrsEntryModel brsEntryModel)
         {
