@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from './services/shared.service';
 import { timer } from 'rxjs';
 import { Router } from '@angular/router';
@@ -99,5 +99,12 @@ export class AppComponent implements OnInit {
     this.sharedService.refreshToken(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       sessionStorage.setItem("token", res.token);
     });
+  }
+
+  //Shortcut key for tripsheet list -> Ctrl + t
+  @HostListener('window:keydown.control.t', ['$event'])
+  bigFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/tripsheetlist']);
   }
 }

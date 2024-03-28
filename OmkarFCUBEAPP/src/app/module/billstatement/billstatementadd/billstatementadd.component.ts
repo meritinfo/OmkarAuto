@@ -32,6 +32,7 @@ export class BillstatementaddComponent implements OnInit {
   lrSeries: Dropdownmodel[] = [];
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
+  supp = false;
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
   
   saveData = new Billstatementsaverequest();
@@ -42,6 +43,7 @@ export class BillstatementaddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  showButton = true;
 
   formSubmitted = false;
   selectedBillstatementDetails = new billstatementmodel();
@@ -117,6 +119,9 @@ export class BillstatementaddComponent implements OnInit {
       lrTo: new FormControl(this.maxDate,[Validators.required]),
       fromPoint: new FormControl('',[Validators.required]),
       toPoint: new FormControl(''),
+      suppYN: new FormControl(''),
+      partyRefNo: new FormControl(''),
+      plantCode: new FormControl(''),
       totFreight: new FormControl('',[Validators.required]),
       totExtraChrg: new FormControl(''),
       totSubTotal: new FormControl(''),
@@ -128,7 +133,7 @@ export class BillstatementaddComponent implements OnInit {
       igstPct: new FormControl(''),
       igstAmt: new FormControl(''),
       totalBillAmt: new FormControl('',[Validators.required]),
-      plantCode: new FormControl(''),
+      remarks: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()]) 
     });
   
@@ -159,7 +164,7 @@ export class BillstatementaddComponent implements OnInit {
           fromPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.fromPoint),
           toPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.toPoint),   
         })
-        this.getTripSheetInnerGridList();
+        this.getBillStatementInnerGridList();
         this.editMode = true;
       }   
     }, 2000);
@@ -206,6 +211,19 @@ export class BillstatementaddComponent implements OnInit {
     return this.formBillStatement.get("arrayList") as FormArray;
   }  
 
+  onSuppYNChange(e:any){
+    if(e.target.checked){
+      this.supp = true;
+      this.showButton = false;
+      this.formBillStatement.controls['totFreight'].enable();
+    }
+    else{
+      this.supp = false;
+      this.showButton = true;
+      this.formBillStatement.controls['totFreight'].disable();
+    }
+  }
+
   createInitialArray() {
     return this.formBuilder.group({
       gcNoteNo:  ['', []],
@@ -246,14 +264,14 @@ export class BillstatementaddComponent implements OnInit {
 
   searchStatement(): void {
     var selectedDataVal=this.formBillStatement.getRawValue();
-    this.billstatesearchrequest.billingParty =  selectedDataVal.billingParty?selectedDataVal.billingParty.dataId:"";
+    this.billstatesearchrequest.billingParty =  selectedDataVal.party?selectedDataVal.party.dataId:"";
     this.billstatesearchrequest.fromDate =  selectedDataVal.lrFrom?selectedDataVal.lrFrom:"";
     this.billstatesearchrequest.toDate =  selectedDataVal.lrTo?selectedDataVal.lrTo:"";
     this.billstatesearchrequest.fromPlace = selectedDataVal.fromPoint? selectedDataVal.fromPoint.dataId:"";
     this.billstatesearchrequest.toPlace =  selectedDataVal.toPoint?selectedDataVal.toPoint.dataId:"";
     this.billstatesearchrequest.cnorPlantCode=  selectedDataVal.cnorPlantCode?selectedDataVal.cnorPlantCode:"";
     if(this.billstatesearchrequest.billingParty==""){
-      this.toasterService.warning("Please Select Billing Party");   
+      this.toasterService.warning("Please Select Party");   
       return;
     }
     if(this.billstatesearchrequest.fromDate==""){
@@ -272,92 +290,196 @@ export class BillstatementaddComponent implements OnInit {
       this.billstatementsearchlistmodel = res;
     });
   } 
-  
-
+   
   calculateTotal() {
     var totalFrtAmount = 0;
-    var totalDriverAdvAmount = 0;
-    var totalStatementAmount = 0;
+    var totalExtraAmount = 0;
+    var totalSubAmount = 0;
+    var totalBillAmount = 0;
+    var selectedDate = this.formBillStatement.getRawValue();
+
     for (var i = 0; i < this.billstatementsearchlistmodel.billStatementSearchList.length; i++) {
       if (this.billstatementsearchlistmodel.billStatementSearchList[i].selected) {
           totalFrtAmount = totalFrtAmount + parseFloat(this.billstatementsearchlistmodel.billStatementSearchList[i].gtotalRs);
       }
     }
+    if(selectedDate.totExtraChrg!=""){
+      totalExtraAmount = parseFloat(selectedDate.totExtraChrg)
+    }
+    totalSubAmount = totalFrtAmount + totalExtraAmount
+   
+    var igst = 0;
+    var sgst = 0;
+    var cgst = 0;
+    if(selectedDate.igstPct!=0){
+      igst = parseFloat(selectedDate.igstPct)
+    }
+    if(selectedDate.sgstPct!=0){
+      sgst = parseFloat(selectedDate.sgstPct)
+    }
+    if(selectedDate.cgstPct!=0){
+      cgst = parseFloat(selectedDate.cgstPct)
+    }
+
+    if (selectedDate.gstType == "IG") {   
+      selectedDate.igstPct 
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct: igst,
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt: ((totalSubAmount * igst)/100).toFixed(2)
+      });   
+    }    
+    else if (selectedDate.gstType == "SC")  {    
+      this.formBillStatement.patchValue({
+        sgstPct: sgst,
+        cgstPct: cgst,
+        igstPct: "",
+        sgstAmt: ((totalSubAmount * sgst)/100).toFixed(2),
+        cgstAmt: ((totalSubAmount * cgst)/100).toFixed(2),
+        igstAmt: "",
+      });     
+    }
+    else{
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"",
+      });   
+    }    
+    totalBillAmount = totalSubAmount + 
+                ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
       totFreight: totalFrtAmount.toFixed(2),
+      totExtraChrg: totalExtraAmount.toFixed(2),
+      totSubTotal: totalSubAmount.toFixed(2),
+      totalBillAmt: totalBillAmount.toFixed(2),
     });
-    var selectedDataValue = this.formBillStatement.getRawValue();
-    if(selectedDataValue.totSubTotal == ''){
-      this.formBillStatement.patchValue({
-        totalBillAmt: totalFrtAmount.toFixed(2),
-      });
-    }
   }
 
   changeGstType(e: any) {
     console.log(e.target.value);
-    var selectedValue = e.target.value; 
-    if (selectedValue == "IG") {   
+    var gsttype = e.target.value; 
+   
+    if (gsttype == "IG") {   
       this.formBillStatement.controls['sgstPct'].disable();
       this.formBillStatement.controls['cgstPct'].disable();  
-      this.formBillStatement.controls['igstPct'].enable();       
-    }
-    else if (selectedValue == "SC")  {      
+      this.formBillStatement.controls['igstPct'].enable();    
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"0",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"0",
+      });   
+    }    
+    else if (gsttype == "SC")  {      
       this.formBillStatement.controls['sgstPct'].enable();
       this.formBillStatement.controls['cgstPct'].enable();  
-      this.formBillStatement.controls['igstPct'].disable();     
+      this.formBillStatement.controls['igstPct'].disable();   
+      this.formBillStatement.patchValue({
+        sgstPct:"0",
+        cgstPct:"0",
+        igstPct:"",
+        sgstAmt:"0",
+        cgstAmt:"0",
+        igstAmt:"",
+      });     
     }
     else{
       this.formBillStatement.controls['sgstPct'].disable();
       this.formBillStatement.controls['cgstPct'].disable();  
-      this.formBillStatement.controls['igstPct'].disable();    
+      this.formBillStatement.controls['igstPct'].disable();   
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"",
+      });   
     }    
+    this.onPctChange()
   }
 
-  calTotalBill(){
-    var selectedDataValue = this.formBillStatement.getRawValue();
-    var sgstPct = selectedDataValue.sgstPct ? parseFloat(selectedDataValue.sgstPct) : 0;
-    var sgstAmt = selectedDataValue.sgstAmt ? parseFloat(selectedDataValue.sgstAmt) : 0;
-    var cgstPct = selectedDataValue.cgstPct ? parseFloat(selectedDataValue.cgstPct) : 0;
-    var cgstAmt = selectedDataValue.cgstAmt ? parseFloat(selectedDataValue.cgstAmt) : 0;
-    var igstPct = selectedDataValue.igstPct ? parseFloat(selectedDataValue.igstPct) : 0;
-    var igstAmt = selectedDataValue.igstAmt ? parseFloat(selectedDataValue.igstAmt) : 0;
-    var totExtraChrg = selectedDataValue.totExtraChrg ? parseFloat(selectedDataValue.totExtraChrg) : 0;
-    var totSubTotal = selectedDataValue.totSubTotal ? parseFloat(selectedDataValue.totSubTotal) : 0;
-    var totFreight = selectedDataValue.totFreight ? parseFloat(selectedDataValue.totFreight) : 0;
-    var allgst = 0;
-    var totSub = 0;
-    var totalBillAmt = 0;
-    totSub = totFreight+ totExtraChrg;
-    allgst =  sgstAmt + cgstAmt  + igstAmt;
-    totalBillAmt = allgst +  totSubTotal;
+  onPctChange(){
+    var totalFrtAmount = 0;
+    var totalExtraAmount = 0;
+    var totalSubAmount = 0;
+    var totalBillAmount = 0;
+    var selectedDate = this.formBillStatement.getRawValue();
+
+    if (selectedDate.totFreight!="") {
+      totalFrtAmount = parseFloat(selectedDate.totFreight);
+    }
+    if(selectedDate.totExtraChrg!=""){
+      totalExtraAmount = parseFloat(selectedDate.totExtraChrg)
+    }
+    totalSubAmount = totalFrtAmount + totalExtraAmount
+   
+    var igst = 0;
+    var sgst = 0;
+    var cgst = 0;
+    if(selectedDate.igstPct!=0){
+      igst = parseFloat(selectedDate.igstPct)
+    }
+    if(selectedDate.sgstPct!=0){
+      sgst = parseFloat(selectedDate.sgstPct)
+    }
+    if(selectedDate.cgstPct!=0){
+      cgst = parseFloat(selectedDate.cgstPct)
+    }
+
+    if (selectedDate.gstType == "IG") {   
+      selectedDate.igstPct 
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct: igst,
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt: ((totalSubAmount * igst)/100).toFixed(2),
+      });   
+    }    
+    else if (selectedDate.gstType == "SC")  {    
+      this.formBillStatement.patchValue({
+        sgstPct: sgst,
+        cgstPct: cgst,
+        igstPct: "",
+        sgstAmt: ((totalSubAmount * sgst)/100).toFixed(2),
+        cgstAmt: ((totalSubAmount * cgst)/100).toFixed(2),
+        igstAmt: "",
+      });     
+    }
+    else{
+      this.formBillStatement.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"",
+      });   
+    }    
+    totalBillAmount = totalSubAmount + 
+                ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
-      totalBillAmt:totalBillAmt.toFixed(2)   
+      totFreight: totalFrtAmount.toFixed(2),
+      totExtraChrg: totalExtraAmount.toFixed(2),
+      totSubTotal: totalSubAmount.toFixed(2),
+      totalBillAmt: totalBillAmount.toFixed(2),
     });
-  }
+  }  
 
-  calSubTotalBill(){
-    var selectedDataValue = this.formBillStatement.getRawValue();  
-    var totExtraChrg = selectedDataValue.totExtraChrg ? parseFloat(selectedDataValue.totExtraChrg) : 0;
-    var totSubTotal = selectedDataValue.totSubTotal ? parseFloat(selectedDataValue.totSubTotal) : 0;
-    var totFreight = selectedDataValue.totFreight ? parseFloat(selectedDataValue.totFreight) : 0;
-    var allgst = 0;
-    var totSub = 0;
-    var totalBillAmt = 0;
-    totSub = totFreight+ totExtraChrg;
-    this.formBillStatement.patchValue({
-     totSubTotal:totSub.toFixed(2),   
-    });
-    this.calTotalBill(); 
-  }
-
-  valueUpdate(event: any, i: number){
-   this.billstatementsearchlistmodel.billStatementSearchList[i].selected = event.target.checked;
-  }
-
-  getTripSheetInnerGridList(): void {
+  getBillStatementInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillstatementDetails.masterID;
     this.billstatementService.getBillStatementInnerGridList(this.requestmodel).subscribe((res) => {
       this.billstatementsearchlistmodel = res;     
@@ -405,11 +527,16 @@ export class BillstatementaddComponent implements OnInit {
   saveStatementDetails(): void {
     this.formSubmitted = true;
     if (this.formBillStatement.invalid) {
-      this.toasterService.warning("Mandatory fields is required");
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formBillStatement.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
     var selectedDataValue = this.formBillStatement.getRawValue();
-   // this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID != '' ? this.selectedBillstatementDetails.masterID : '';
     this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID ;
     this.billsstatementmodel.billStation = selectedDataValue.statementBillStation;
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;
@@ -420,29 +547,24 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.toDate = selectedDataValue.lrTo;
     this.billsstatementmodel.fromPoint = selectedDataValue.fromPoint.dataId;
     this.billsstatementmodel.toPoint = selectedDataValue.toPoint.dataId;
-  //  this.saveData.fromPlace = this.formBillStatement.value.fromPlace ? this.formBillStatement.value.fromPlace.dataId : '';
-  //  this.saveData.toPlace = this.formBillStatement.value.toPlace ? this.formBillStatement.value.toPlace.dataId : '';
-  //  this.saveData.cnorPlantCode = this.formBillStatement.value.cnorPlantCode ? this.formBillStatement.value.cnorPlantCode : '';
-   // this.saveData.productId = this.formBillStatement.value.productId ? this.formBillStatement.value.productId : '';
-   // this.billsstatementmodel.totFreight = this.formBillStatement.value.totFreight;
-    this.billsstatementmodel.totFreight =selectedDataValue.totFreight.toString();;
-    this.billsstatementmodel.totExtraChrg = selectedDataValue.totExtraChrg.toString();;
-    this.billsstatementmodel.totSubTotal =  selectedDataValue.totSubTotal.toString();;
-    this.billsstatementmodel.gstType =  selectedDataValue.gstType.toString();
-    this.billsstatementmodel.sgstPct =  selectedDataValue.sgstPct.toString();;
-    this.billsstatementmodel.sgstAmt = selectedDataValue.sgstAmt.toString();;
-    this.billsstatementmodel.cgstPct =  selectedDataValue.cgstPct.toString();;
-    this.billsstatementmodel.cgstAmt =  selectedDataValue.cgstAmt.toString();;
-    this.billsstatementmodel.igstPct = selectedDataValue.igstPct.toString();;
-    this.billsstatementmodel.igstAmt =  selectedDataValue.igstAmt.toString();;
-    this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();;
+    this.billsstatementmodel.suppYN = this.supp?"Y":"N";
+    this.billsstatementmodel.partyRefNo = selectedDataValue.partyRefNo;
+    this.billsstatementmodel.totFreight = selectedDataValue.totFreight.toString();
+    this.billsstatementmodel.totExtraChrg = selectedDataValue.totExtraChrg.toString();
+    this.billsstatementmodel.totSubTotal =  selectedDataValue.totSubTotal.toString();
+    this.billsstatementmodel.gstType = selectedDataValue.gstType.toString();
+    this.billsstatementmodel.sgstPct = selectedDataValue.sgstPct.toString();
+    this.billsstatementmodel.sgstAmt = selectedDataValue.sgstAmt.toString();
+    this.billsstatementmodel.cgstPct = selectedDataValue.cgstPct.toString();
+    this.billsstatementmodel.cgstAmt = selectedDataValue.cgstAmt.toString();
+    this.billsstatementmodel.igstPct = selectedDataValue.igstPct.toString();
+    this.billsstatementmodel.igstAmt = selectedDataValue.igstAmt.toString();
+    this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();
+    this.billsstatementmodel.remarks = selectedDataValue.remarks;
     this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
    
-    this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;
-   // this.billsstatementmodel.billStatementListData = [];
-   
-  
+    this.billsstatementmodel.billStatementListData = this.billstatementsearchlistmodel.billStatementSearchList;  
     
     this.billstatementService.saveBillStatementDetails(this.billsstatementmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

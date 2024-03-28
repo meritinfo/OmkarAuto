@@ -329,12 +329,13 @@ export class HappaystatementaddComponent implements OnInit {
     this.sharedService.loading=true;
     this.DieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.DieselStatementmodel.branchCode      = selectedDataVal.statementBranch;
+    this.DieselStatementmodel.billStmtNo      = "";
     this.DieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
     this.DieselStatementmodel.fromDate        = selectedDataVal.fromDate;
     this.DieselStatementmodel.toDate          = selectedDataVal.toDate;
     this.DieselStatementmodel.location        = selectedDataVal.location?selectedDataVal.location.dataId:'';
     this.DieselStatementmodel.dfVendor        = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
-    this.DieselStatementmodel.rate            = selectedDataVal.rate;
+    this.DieselStatementmodel.rate            = "";
     this.DieselStatementmodel.statementFlag   = 'H'  ;       
     this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
     this.DieselStatementmodel.totalDslLtrs    = "0";

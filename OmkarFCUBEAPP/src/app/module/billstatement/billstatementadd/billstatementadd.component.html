@@ -155,9 +155,16 @@
                                                     [ngClass]="">
                                             </div>
                                         </div> 
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <input type="checkbox" formControlName="suppYN" id="suppYN"
+                                                    value="Y" (change)="onSuppYNChange($event)" class="form-check-input" >
+                                                <label for="without" >  <h5>Without LR</h5></label>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <button type="submit" (click)="searchStatement()"
+                                                <button type="submit" (click)="searchStatement()" *ngIf="showButton"
                                                     class="btn btn-primary w-md mt-4">Show</button>
                                             </div>
                                         </div>
@@ -242,28 +249,30 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Total Freight</label>
-                                                <input autoclose="false" type="text" class="form-control"  (change)="calSubTotalBill()"
-                                                    formControlName="totFreight" >
+                                                <label for="formrow-inputCity">Total Freight</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="totFreight" (change)="onPctChange()" 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totFreight'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Total Extra</label>
-                                                <input autoclose="false" type="text" class="form-control" (change)="calSubTotalBill()"
+                                                <input autoclose="false" type="text" class="form-control" 
+                                                    (change)="onPctChange()"
                                                     formControlName="totExtraChrg">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Total Sub Total</label>
-                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
+                                                <label for="formrow-inputCity">Total Sub Total</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control"
                                                     formControlName="totSubTotal" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">GST Type</label>                                              
+                                                <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="gstType"  (change)="changeGstType($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
@@ -278,52 +287,68 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Pct</label>
-                                                <input autoclose="false" type="text" class="form-control"(change)="calTotalBill()"
-                                                    formControlName="sgstPct">
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="sgstPct" (change)="onPctChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">SGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="sgstAmt" (change)="calTotalBill()">
+                                                    formControlName="sgstAmt" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control" 
-                                                    formControlName="cgstPct" (change)="calTotalBill()">
+                                                    formControlName="cgstPct" (change)="onPctChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">CGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control" 
-                                                    formControlName="cgstAmt" (change)="calTotalBill()">
+                                                    formControlName="cgstAmt" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Pct</label>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="igstPct" (change)="calTotalBill()" >
+                                                    formControlName="igstPct" (change)="onPctChange()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">IGST Amount</label>
                                                 <input autoclose="false" type="text" class="form-control" 
-                                                    formControlName="igstAmt" (change)="calTotalBill()">
+                                                    formControlName="igstAmt" >
+                                            </div>
+                                        </div>                                                                           
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Party Ref No</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="partyRefNo">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Total Bill Amount</label>
+                                                <label for="formrow-inputCity">Total Bill Amount</label><span style="color: red"> * </span>
                                                 <input autoclose="false" type="text" class="form-control"
-                                                    formControlName="totalBillAmt"  [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmt'].invalid) }">
+                                                    formControlName="totalBillAmt"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmt'].invalid) }">
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Remarks</label><span style="color: red"> * </span>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="remarks"  
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['remarks'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
