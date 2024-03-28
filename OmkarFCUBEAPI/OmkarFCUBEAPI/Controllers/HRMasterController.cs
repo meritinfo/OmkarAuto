@@ -5,6 +5,7 @@ using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
+using System.Collections.Generic;
 
 
 namespace OmkarFCUBEAPI.Controllers
@@ -18,17 +19,20 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IEmpMasterBusiness empMasterBusiness;
         readonly IEmpSalaryBusiness empSalaryBusiness;
         readonly ILoanBusiness loanBusiness;
+        readonly IEmpSalaryCalcBusiness empSalaryCalcBusiness;
 
 
         public HRMasterController(IHrMasterBusiness _hrMasterBusiness, 
             IEmpMasterBusiness _empMasterBusiness,
             IEmpSalaryBusiness _empSalaryBusiness,
-            ILoanBusiness _loanBusiness)
+            ILoanBusiness _loanBusiness,
+            IEmpSalaryCalcBusiness _empSalaryCalcBusiness)
         {
             hrMasterBusiness = _hrMasterBusiness;
             empMasterBusiness = _empMasterBusiness;
             empSalaryBusiness = _empSalaryBusiness;
             loanBusiness = _loanBusiness;
+            empSalaryCalcBusiness = _empSalaryCalcBusiness;
         }
        
 
@@ -385,7 +389,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+       
         [HttpPost("GetEmpLoanList")]
         public async Task<IActionResult> GetEmpLoanList(PageRequest request)
         {
@@ -530,6 +534,231 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await loanBusiness.GetLoanAmountDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpPayCalList")]
+        public async Task<IActionResult> GetEmpPayCalList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpPayCalList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpSalEarnList")]
+        public async Task<IActionResult> GetEmpSalEarnList(EmpSalaryMstModel empPayCalc)
+        {
+            if (empPayCalc == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpSalEarnList(empPayCalc);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpSalDedList")]
+        public async Task<IActionResult> GetEmpSalDedList(EmpSalaryMstModel empPayCalc)
+        {
+            if (empPayCalc == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpSalDedList(empPayCalc);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpLeaveDetails")]
+        public async Task<IActionResult> GetEmpLeaveDetails(EmpLeaveModel empLeave)
+        {
+            if (empLeave == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpLeaveDetails(empLeave);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpLoanDetails")]
+        public async Task<IActionResult> GetEmpLoanDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpLoanDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetBranchEmpList")]
+        public async Task<IActionResult> GetBranchEmpList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetBranchEmpList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("EmpPayCalSave")]
+        public async Task<IActionResult> EmpPayCalSave(EmpPayCalcModel empPayCalc)
+        {
+            if (empPayCalc == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.EmpPayCalSave(empPayCalc);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("EmpPayCalDelete")]
+        public async Task<IActionResult> EmpPayCalDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.EmpPayCalDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpPayEarnDetails")]
+        public async Task<IActionResult> GetEmpPayEarnDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpPayEarnDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEmpPayDedDetails")]
+        public async Task<IActionResult> GetEmpPayDedDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpPayDedDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetEmpPayLeaveDetails")]
+        public async Task<IActionResult> GetEmpPayLeaveDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpPayLeaveDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetEmpPayLoanDetails")]
+        public async Task<IActionResult> GetEmpPayLoanDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await empSalaryCalcBusiness.GetEmpPayLoanDetails(request);
 
                 return Ok(result);
             }

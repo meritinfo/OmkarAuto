@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using System.Transactions;
 
 namespace FreightMasters.Repository
 {
@@ -115,6 +116,11 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -127,7 +133,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@FromLocation",   distanceMasterTripModel.FromLocation),
                             new SqlParameter("@LoggedInUser",   distanceMasterTripModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DistanceMasterTripSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DistanceMasterTripSave", param);
                     string MasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -138,7 +144,7 @@ namespace FreightMasters.Repository
                     else
                     {
                         responseModel.Status    = false;
-                        responseModel.Message   = "Unable to process";
+                        transaction.Rollback();
                     }
 
                     if (responseModel.Status)
@@ -148,20 +154,29 @@ namespace FreightMasters.Repository
                             if (Convert.ToString(distanceMasterTripModel.DistanceDetailsTripList[i].ToLocation) != "")
                             {
                                 distanceMasterTripModel.DistanceDetailsTripList[i].MasterID = MasterID;
-                                responseModel = await DistanceDetailTripSave(distanceMasterTripModel.DistanceDetailsTripList[i]);
+                                responseModel = await DistanceDetailTripSave(transaction, distanceMasterTripModel.DistanceDetailsTripList[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i= distanceMasterTripModel.DistanceDetailsTripList.Count;
+                                }
                             }
                         }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
                     }
                 }
             }
             catch (Exception ex)
             {
-               
+                transaction.Rollback();
             }
             return responseModel;
         }
-       
-        public async Task<ResponseModel> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel)
+        public async Task<ResponseModel> DistanceDetailTripSave(SqlTransaction transaction, DistanceDetailTripModel distanceDetailTripModel)
         {
             ResponseModel responseModel = new();
             try
@@ -181,7 +196,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@EnrouteExpRemarks",      distanceDetailTripModel.EnrouteExpRemarks),
                             new SqlParameter("@DefinedTollExp",         distanceDetailTripModel.DefinedTollExp),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DistanceTripDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DistanceTripDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -191,7 +206,6 @@ namespace FreightMasters.Repository
                     else
                     {
                         responseModel.Status    = false;
-                        responseModel.Message   = "Unable to process";
                     }
                 }
             }
@@ -224,7 +238,6 @@ namespace FreightMasters.Repository
                     else
                     {
                         responseModel.Status    = false;
-                        responseModel.Message   = "Unable to process";
                     }
 
                 }
@@ -240,6 +253,11 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> DistanceMasterTripDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -248,23 +266,28 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@MasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DistanceMasterTripDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DistanceMasterTripDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status    = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message   = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status    = false;
-                        responseModel.Message   = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-               
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -368,6 +391,11 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> DistanceTripEditDetailsSave(DistanceTripEditModel distanceTripEdit)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -386,23 +414,28 @@ namespace FreightMasters.Repository
                             new SqlParameter("@EnrouteExpRemarks",      distanceTripEdit.EnrouteExpRemarks),
                             new SqlParameter("@DefinedTollExp",         distanceTripEdit.DefinedTollExp),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DistanceTripEditDetailsSave", paramdata);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DistanceTripEditDetailsSave", paramdata);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-               
+                transaction.Rollback();
             }
             return responseModel;
         }

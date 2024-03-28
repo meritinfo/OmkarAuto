@@ -24,6 +24,7 @@ export class AddratesmasterComponent implements OnInit {
   stateList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
+  vehicleGrpList: Dropdownmodel[] = [];
   formRatesMaster!: FormGroup;
   selectedRatesMaster = new Ratesmastermodel();
   ratesmstmodel = new Ratesmastermodel();
@@ -80,6 +81,7 @@ export class AddratesmasterComponent implements OnInit {
       validUpto: new FormControl('', [Validators.required]),
       rateTypeId: new FormControl('', [Validators.required]),
       rateMethod: new FormControl('', [Validators.required]),
+      vehicleTypeGroupId: new FormControl('', [Validators.required]),
       rateForStateOrToPlace: new FormControl('P', [Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()])          
 
@@ -87,11 +89,13 @@ export class AddratesmasterComponent implements OnInit {
 
     this.formArray.controls[0].get("destState")?.disable();
     this.formRatesMaster.controls['rateMethod'].disable();
+    
 
     this.sharedService.loading=true;
     this.getLocationList();
     this.getStateList();
     this.getRateList();
+    this.getVehicleGrpList();
     this.getCreditAcList();
     this.selectedRatesMaster = this.ratesMasterService.getRatesMasterDetails();
 
@@ -119,6 +123,8 @@ export class AddratesmasterComponent implements OnInit {
           validUpto: this.commonService.formatDate(this.selectedRatesMaster.validUpto), 
         });
         this.editMode = true;
+        this.formRatesMaster.controls['rateTypeId'].disable();
+        this.formRatesMaster.controls['vehicleTypeGroupId'].disable();
         this.getFreightRateInnerGridList();
       }
     }, 2000);
@@ -146,7 +152,6 @@ export class AddratesmasterComponent implements OnInit {
     });
   }
 
-
   createInitialArray() {
     return this.formBuilder.group({
       destState: ['', []],
@@ -154,8 +159,11 @@ export class AddratesmasterComponent implements OnInit {
       rate: ['', []],
     });
   }
-
-
+  getVehicleGrpList(): void {
+    this.commonService.getVehicleList().subscribe((res) => {
+      this.vehicleGrpList = res;
+    });
+  }
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
       this.locationList = res;
@@ -212,7 +220,21 @@ export class AddratesmasterComponent implements OnInit {
   }
 
   selectEvent(item: any) {
-    // do something with selected item
+     
+  }
+
+  selectNewEvent(item: any,index:number) {
+    var ToPlace = item.dataId;
+    var selectedDataValue=this.formRatesMaster.getRawValue();
+
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(ToPlace == selectedDataValue.arrayList[i].toPlace.dataId)
+      {
+        this.toasterService.warning("To location already exits in grid");
+        this.formArray.controls[index].get("toPlace")?.setValue("");
+        return;
+      }
+    } 
   }
 
   onChangeSearch(search: string) {
@@ -237,7 +259,7 @@ export class AddratesmasterComponent implements OnInit {
         return;
       }
       else if (selectedDataVal.rateForStateOrToPlace == "S" && this.formArray.value[index].destState.dataId==selectedDataVal.fromPlace){
-        this.toasterService.warning("From Point cannot be same as Destination State in details grid");
+        this.toasterService.warning("From Point cannot be same as State in details grid");
         return;
       }
       else {
@@ -325,9 +347,15 @@ export class AddratesmasterComponent implements OnInit {
     this.ratesmastermodel.rateTypeId = selectedDataVal.rateTypeId;
     this.ratesmastermodel.rateMethod = selectedDataVal.rateMethod;
     this.ratesmastermodel.rateForStateOrToPlace = selectedDataVal.rateForStateOrToPlace;
+    this.ratesmastermodel.vehicleTypeGroupId = selectedDataVal.vehicleTypeGroupId;
     this.ratesmastermodel.loggedInUser = this.loggedInUserID; 
 
     this.ratesmastermodel.freightRatesDetailsList = [];
+    if(selectedDataVal.arrayList.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
+    }
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
       if(selectedDataVal.arrayList[i].destState!='' || selectedDataVal.arrayList[i].toPlace !=''){

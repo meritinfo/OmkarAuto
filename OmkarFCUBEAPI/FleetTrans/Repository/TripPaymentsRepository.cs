@@ -18,6 +18,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -46,38 +51,36 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPayments_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripPayments_Insert", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
         public async Task<ResponseModel> TripPaymentsSaveNew(TripPaymentsModel tripPaymentsModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -106,38 +109,36 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPayments_InsertNew", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripPayments_InsertNew", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
         public async Task<ResponseModel> TripPaymentsEdit(TripPaymentsModel tripPaymentsModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -166,32 +167,25 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoggedInUser", tripPaymentsModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPayments_Modify", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripPayments_Modify", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                //Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -204,8 +198,10 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),                         
-               
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
+                           // new SqlParameter("@TripStatus", request.TripStatus),
+                           // new SqlParameter("@TripNo", request.TripNo),
+
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripDetail", param);
 
@@ -233,6 +229,49 @@ namespace FleetTrans.Repository
             catch (Exception ex)
             {
                 
+            }
+            return tripModel;
+        }
+        public async Task<TripModel> GetTripFromAndToDetail(RequestModel request)
+        {
+            TripModel tripModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", request.strRequest),
+                           // new SqlParameter("@TripStatus", request.TripStatus),
+                           // new SqlParameter("@TripNo", request.TripNo),
+
+                        };
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripFromAndToDetail", param);
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        tripModel.TripNo = Convert.ToString(userData.Tables[0].Rows[0]["TripNo"]);
+                        tripModel.LoadEmptyType = Convert.ToString(userData.Tables[0].Rows[0]["LoadEmptyType"]);
+                        tripModel.FP = Convert.ToString(userData.Tables[0].Rows[0]["FP"]);
+                        tripModel.TP = Convert.ToString(userData.Tables[0].Rows[0]["TP"]);
+                        tripModel.LtsDslToBe_1 = Convert.ToString(userData.Tables[0].Rows[0]["LtsDslToBe_1"]);
+                        //tripModel.AdvPayable_1 = Convert.ToString(userData.Tables[0].Rows[0]["AdvPayable_1"]);
+                        tripModel.TravelAllowance = Convert.ToString(userData.Tables[0].Rows[0]["TravelAllowance"]);
+                        tripModel.TripId = Convert.ToString(userData.Tables[0].Rows[0]["TripId"]);
+                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+
+                        //tripKmsModel.Status = false;
+                        // tripKmsModel.Message = "data not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
             return tripModel;
         }
@@ -272,6 +311,11 @@ namespace FleetTrans.Repository
         public async Task<ResponseModel> TripPaymentsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -280,32 +324,25 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@PmtId", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_TripPaymentsDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripPaymentsDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -335,16 +372,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return creditacList;
         }
@@ -379,16 +407,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return creditacList;
         }
@@ -468,35 +487,25 @@ namespace FleetTrans.Repository
                                 PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                                 PmtBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtBranch"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
-
                                 VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
-
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
                                 TripMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripMasterId"]),
-                           
                                 TransType = Convert.ToString(dataSet.Tables[0].Rows[i]["TransType"]),
                                 AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
-
                                 Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-
                                 PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
                                 NeftPmt = Convert.ToString(dataSet.Tables[0].Rows[i]["NeftPmt"]),
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
-
                                 ChequeNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeNo"]),
-
                                 ChequeDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ChequeDate"]),
-
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                SeriesDoc = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesDoc"]),
                                 AdjInTrip = Convert.ToString(dataSet.Tables[0].Rows[i]["AdjInTrip"]),
                                 QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
                                 RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
-
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 BName = Convert.ToString(dataSet.Tables[0].Rows[i]["BName"]),
                                 VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-
-
                             });
                         }
 
@@ -512,16 +521,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return tripPaymentsList;
         }

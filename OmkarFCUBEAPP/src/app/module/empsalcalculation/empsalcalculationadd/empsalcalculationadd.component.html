@@ -1,0 +1,451 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Employee Salary Calculation</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Group Master</a></li>
+                            <li class="breadcrumb-item active">Fin Group Master</li> -->
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+           <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Branch</label>
+                                            <select class="form-control" formControlName="branchCode"
+                                                (change)="onChangeBranch($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
+                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Employee</label>
+                                            <span style="color: red">*</span>
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="empList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="empId">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Month</label>
+                                            <span style="color: red">*</span>
+                                            <input autoclose="false" type="date" 
+                                                (change)="onchangeMonth($event)"
+                                                class="form-control" formControlName="monthYear"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['monthYear'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputCity">Year to Affect</label>
+                                            <span style="color: red">*</span>
+                                            <select class="form-control" formControlName="affectYear"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['affectYear'].invalid) }">
+                                                <option *ngFor="let yr of yearList" value={{yr.dataId}}>
+                                                    {{yr.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>                                    
+                                    <!-- <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <button type="submit" (click)="searchSalary()" *ngIf="!editMode"
+                                                class="btn btn-primary w-md mt-4">Search</button>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Attendance Details </h4>
+                                                <div class="row">
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Days Of Month</label>
+                                                            <input autoclose="false"
+                                                            class="form-control" formControlName="daysOfMonth"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['daysOfMonth'].invalid) }">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Holidays + Sundays</label>
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            class="form-control" formControlName="holSun"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['holSun'].invalid) }">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Total Leaves</label>
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            class="form-control" formControlName="totLeaves" 
+                                                            (change)="onchangeLeaves($event)"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['totLeaves'].invalid) }">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Loss of Pay Days </label>
+                                                            <input autoclose="false" decimalonly maxlength="2" max="31"
+                                                            class="form-control" formControlName="absentDays"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['absentDays'].invalid) }">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2">
+                                                        <div class="mb-3">
+                                                            <label for="formrow-inputCity">Total Pay Days</label>
+                                                            <input autoclose="false" decimalonly maxlength="2"  max="31"
+                                                            class="form-control" formControlName="payDays"
+                                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['payDays'].invalid) }">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-5">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Leaves </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Type Of Leave</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Accumulated</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Available</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Adjusted</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayLeaveList"
+                                                        *ngFor="let mst of formLeaveArray.controls; let e = index">
+                                                        <div [formGroupName]="e" class="grid-table">
+                                                            <td  class="col-lg-3">   
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="leaveId">  
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="leaveCode">    
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="leaveName">                                                                                                
+                                                            </td>
+                                                            <td  class="col-lg-1"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="accumLeaves">                                                         
+                                                            </td>
+                                                            <td  class="col-lg-1"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="totalLeaves">                                                         
+                                                            </td>
+                                                            <td class="col-lg-1">
+                                                                <input decimalonly autoclose="false" type="text" 
+                                                                class="form-control" maxlength="2" max="31"
+                                                                formControlName="adjLeaves" (change)="onAdjLeaveChange(e,$event)">                                 
+                                                            </td>                        
+                                                        </div>
+                                                    </tr>                                                    
+                                                    <tr >
+                                                        <td  class="col-lg-3" colspan="3">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Tot Adjusted Leaves</h6>
+                                                            </label>
+                                                        </td>                                                            
+                                                        <td  class="col-lg-1"> 
+                                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="totadjLeaves">  
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-7">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Loan Adjustment(If Any) </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Loan No</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Loan Date</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Loan Amt</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Bal Amt</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-1">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Adj Amt</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayLoanList"
+                                                        *ngFor="let mst of formLoanArray.controls; let d = index">
+                                                        <div [formGroupName]="d" class="grid-table">
+                                                            <td  class="col-lg-2">   
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="loanNumber">  
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="loanId"> 
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="loanType"> 
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="loanDedId">  
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="dedName">                                                                                                                                                              
+                                                            </td>
+                                                            <td  class="col-lg-1"> 
+                                                                <input autoclose="false" type="date"  type="text" class="form-control" 
+                                                                formControlName="loanDate">                                                         
+                                                            </td>
+                                                            <td  class="col-lg-1"> 
+                                                                <input decimalonly autoclose="false" type="text" 
+                                                                class="form-control" 
+                                                                formControlName="loanAmt">                                                         
+                                                            </td>
+                                                            <td class="col-lg-1">
+                                                                <input decimalonly autoclose="false" type="text" 
+                                                                class="form-control" 
+                                                                formControlName="balAmt">                                 
+                                                            </td>  
+                                                            <td class="col-lg-1">
+                                                                <input decimalonly autoclose="false" type="text" 
+                                                                class="form-control" (change)="onLoanadj(d,$event)"
+                                                                formControlName="loanAdjAmt">                                 
+                                                            </td>                        
+                                                        </div>
+                                                    </tr>
+                                                    <tr >
+                                                        <td  class="col-lg-2"> </td>
+                                                        <td  class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Total Loan Adj Amt</h6>
+                                                            </label>
+                                                        </td>                                                            
+                                                        <td  class="col-lg-2"> 
+                                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="totalLoanAdjAmt">  
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>              
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Earnings </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Earning Type</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Act Amt</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Amount</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayErnList"
+                                                        *ngFor="let mst of formErnArray.controls; let e = index">
+                                                        <div [formGroupName]="e" class="grid-table">
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edName">    
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="edCode">                                                                                                   
+                                                            </td>
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="actAmt">                                                         
+                                                            </td>                                                            
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edAmt">                                                         
+                                                            </td>                   
+                                                        </div>
+                                                    </tr>
+                                                    <tr >
+                                                        <td  class="col-lg-2"> </td>
+                                                        <td  class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Total earnings</h6>
+                                                            </label>
+                                                        </td>                                                            
+                                                        <td  class="col-lg-2"> 
+                                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="totalEarnings">  
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-4" style="color: red;"> Deductions </h4>
+                                                <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                                    <tr>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Deduction Type</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Act Amt</h6>
+                                                            </label>
+                                                        </td>
+                                                        <td class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Amount</h6>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                    <tr formArrayName="arrayDedList"
+                                                        *ngFor="let mst of formDedArray.controls; let d = index">
+                                                        <div [formGroupName]="d" class="grid-table">
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edName">    
+                                                                <input autoclose="false" type="hidden" class="form-control" 
+                                                                formControlName="edCode">                                                                                                   
+                                                            </td>
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="actAmt">                                                         
+                                                            </td>                                                            
+                                                            <td  class="col-lg-2"> 
+                                                                <input autoclose="false" type="text" class="form-control" 
+                                                                formControlName="edAmt">     
+                                                        </div>
+                                                    </tr>
+                                                    <tr >
+                                                        <td  class="col-lg-2"> </td>
+                                                        <td  class="col-lg-2">
+                                                            <label for="formrow-inputZip">
+                                                                <h6>Total Deductions</h6>
+                                                            </label>
+                                                        </td>                                                            
+                                                        <td  class="col-lg-2"> 
+                                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="totalDeductions">  
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>              
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary w-md" 
+                                                (click)="calNetPay()">Calculate Pay</button>&nbsp;
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">                                          
+                                            <label for="formrow-inputCity">Net Pay</label> 
+                                            <input autoclose="false" type="text" class="form-control" 
+                                                            formControlName="netPay">  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>  
+                      <!-- end card body -->
+                    </div>
+                   <!-- end card -->
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="!editMode && createStatus"
+                                (click)="submitEmpPayCalcForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteEmpPayCalcForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>  
+            </form>
+          <!-- end row -->
+        </div>
+       <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+ </div>
+ 
+
+

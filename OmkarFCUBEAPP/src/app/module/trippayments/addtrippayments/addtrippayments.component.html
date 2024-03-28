@@ -111,6 +111,13 @@
                                                         </label>                                                 
                                                     </div>
                                                 </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label style="color: red"> 
+                                                            <h5>Dsl Opening: {{ this.dslOpening}} </h5> 
+                                                        </label>                                                 
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3">
@@ -149,7 +156,7 @@
                                                         formControlName="transType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
-                                                        <option selected="">Choose...</option>
+                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="DA"> Driver Adv</option>
                                                         <option value="DL"> Diesel </option>
                                                     </select>
@@ -197,18 +204,17 @@
                                                         formControlName="pmtType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"  
                                                          (change)="changePmtType($event)">
-                                                        <option selected="">Choose...</option>
+                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="C"> Cash</option>
                                                         <option value="B"> Bank</option>
                                                         <option value="H"> Happay</option>
                                                         <option value="P"> Petro</option>
-                                                        <option value="F"> Fastag</option>
                                                         <option value="V"> Vendor</option>
                                                         <option value="A"> Adjust </option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">CreditAc </label>          
                                                     <select class="form-control" formControlName="creditAc"
@@ -217,6 +223,13 @@
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
+                                                </div>
+                                            </div>                                            
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label style="color: red"> 
+                                                        <h5>Fin Doc Series: {{ this.seriesDoc}} </h5> 
+                                                    </label>                                                 
                                                 </div>
                                             </div>
                                         </div>

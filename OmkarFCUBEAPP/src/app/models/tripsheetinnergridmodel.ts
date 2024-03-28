@@ -1,6 +1,7 @@
 import { AdblueListmodel, MiscListmodel } from "./tripsheetmodel";
 
 export class Tripsheetinnergridmodel {
+    incentive: string="";
     lrDetailsList: Lrdetailsmodel[] = [];
     dieselDetailsList: Dieseldetailsmodel[] = [];
     driverAdvanceList: Driveradvancemodel[] = [];
@@ -11,6 +12,7 @@ export class Tripsheetinnergridmodel {
 export class Lrdetailsmodel {
     cneeCode: string = "";
     cnorInvNo: string = "";
+    cnDest: string = "";
     consignmentID: string = "";
     ewayBillDate: string = "";
     ewayBillExpDate: string = "";

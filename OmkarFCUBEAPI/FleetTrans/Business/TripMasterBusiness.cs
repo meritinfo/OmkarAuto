@@ -26,9 +26,17 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetOpeningBal(request);
         }
+        public async Task<ResponseModel> GetLastTripDriver(OpBalModel request)
+        {
+            return await tripMasterRepository.GetLastTripDriver(request);
+        }
         public async Task<ResponseModel> GetDslOpeningBal(OpBalModel request)
         {
             return await tripMasterRepository.GetDslOpeningBal(request);
+        }
+        public async Task<ResponseModel> GetDslOpeningBalforPmt(OpBalModel request)
+        {
+            return await tripMasterRepository.GetDslOpeningBalforPmt(request);
         }
         public async Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request)
         {
@@ -50,7 +58,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetBhattaRate(request);
         }
-        public async Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request)
+        public async Task<DriverDetailModel> GetDriverDetail(RequestModel request)
         {
             return await tripMasterRepository.GetDriverDetail(request);
         }
@@ -77,6 +85,10 @@ namespace FleetTrans.Business
         public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
         {
             return await tripMasterRepository.GetNextTripNo(tripNoFilter);
+        }
+        public async Task<UserTripRightsModel> GetUserDetails(RequestModel request)
+        {
+            return await tripMasterRepository.GetUserDetails(request);
         }
         public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {

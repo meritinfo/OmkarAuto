@@ -26,6 +26,12 @@ namespace FinanceMasters.Repository
         public async Task<ResponseModel> FinGroupMasterSave(FinGroupMasterModel finGroupMasterModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -42,32 +48,31 @@ namespace FinanceMasters.Repository
                         new SqlParameter("@DeleteFlag"          , "N"                               ),
                         new SqlParameter("@SchID"               , finGroupMasterModel.SchID         ),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinGroupSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinGroupSave", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -137,6 +142,12 @@ namespace FinanceMasters.Repository
         public async Task<ResponseModel> FinGroupDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -145,32 +156,31 @@ namespace FinanceMasters.Repository
                     {
                         new SqlParameter("@AccountID", req.strRequest),
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FinGroupDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinGroupDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -330,7 +340,6 @@ namespace FinanceMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }

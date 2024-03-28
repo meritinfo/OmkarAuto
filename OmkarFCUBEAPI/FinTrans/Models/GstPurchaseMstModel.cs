@@ -8,6 +8,7 @@ namespace FinTrans.Models
         public string? TransDate { get; set; }
         public string? BranchCode { get; set; }
         public string? BranchName { get; set; }
+        public string? GstType { get; set; }
         public string? PmtType { get; set; }
         public string? VendorId { get; set; }
         public string? VendorName { get; set; }

@@ -50,8 +50,8 @@ ngOnInit(): void {
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
     var privilegeData = JSON.parse(menuData);
-    const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Prof. Tax Slab Master"));
+    var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName ===  "Prof. Tax Slab Master");
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -107,7 +107,7 @@ ptSlabMasterDelete(): void {
   }
 }
 exit(): void {
-  this.route.navigate(['/ptslabmasterlist']);
+  this.route.navigate(['/proftaxmstlist']);
 }
 getStateList(): void {
   this.commonService.getStateList().subscribe((res) => {

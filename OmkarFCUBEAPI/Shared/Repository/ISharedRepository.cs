@@ -14,8 +14,8 @@ namespace Shared.Repository
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<List<MenuModel>> MenuDetails(string userID);
-        Task<List<YearListModel>> GetYearList();
-        Task<List<YearListModel>> GetServerDate();
+        Task<List<DropDownListModel>> GetYearList();
+        Task<List<DropDownListModel>> GetServerDate();
         Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();
         Task<ResponseModel> GetExcelReport(DataTable dt, string rptheader, string filter);
     }

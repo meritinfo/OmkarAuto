@@ -23,6 +23,11 @@ namespace FleetMasters.Repository
         public async Task<ResponseModel> VehicleFltMasterSave(VehicleFltMasterModel vehicleFltMasterModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -85,43 +90,43 @@ namespace FleetMasters.Repository
                            new SqlParameter("@LoggedInUser", vehicleFltMasterModel.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_VehicleFltMasterSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltMasterSave", param);
                     string VehiMasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         VehiMasterID = Convert.ToString(responseModel.Message);
+                        if (!responseModel.Status) { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                     if (responseModel.Status)
                     {
                         for (int i = 0; i < vehicleFltMasterModel.VehiclefltDetailList.Count; i++)
                         {
-
                             vehicleFltMasterModel.VehiclefltDetailList[i].Index = i.ToString();
                             vehicleFltMasterModel.VehiclefltDetailList[i].VehicleMasterID=VehiMasterID.ToString();
                             responseModel = await VehicleFltDtlsSave(vehicleFltMasterModel.VehiclefltDetailList[i]);
+                            if (!responseModel.Status) 
+                            { 
+                                transaction.Rollback();
+                                i = vehicleFltMasterModel.VehiclefltDetailList.Count;
+                            }
                         }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -154,7 +159,6 @@ namespace FleetMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -179,6 +183,11 @@ namespace FleetMasters.Repository
         public async Task<ResponseModel> VehicalMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -187,32 +196,25 @@ namespace FleetMasters.Repository
                         {
                            new SqlParameter("@VehicleMasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_VehicleFltDetailsDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltDetailsDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -518,7 +520,6 @@ namespace FleetMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }

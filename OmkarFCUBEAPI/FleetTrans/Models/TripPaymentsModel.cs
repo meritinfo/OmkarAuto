@@ -24,6 +24,7 @@ namespace FleetTrans.Models
         public string? ChequeNo { get; set; }
         public string? ChequeDate { get; set; }
         public string? Findocid { get; set; }
+        public string? SeriesDoc { get; set; }
         public string? AdjInTrip { get; set; }
         public string? QtyLtrs { get; set; }
         public string? RatePerLtr { get; set; }

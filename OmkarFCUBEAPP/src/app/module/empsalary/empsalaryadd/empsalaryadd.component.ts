@@ -316,8 +316,8 @@ export class EmpsalaryaddComponent {
     this.empsalarymstmodel.masterId     = this.selectedEmpSalary.masterId ;
     this.empsalarymstmodel.empId        = selectedDataVal.empId?selectedDataVal.empId.dataId:"";
     this.empsalarymstmodel.fromDate     = selectedDataVal.fromDate;
-    this.empsalarymstmodel.grossSalary  = selectedDataVal.grossSalary;
-    this.empsalarymstmodel.loggedInUser = this.loggedInUserID; 
+    this.empsalarymstmodel.grossSalary  = selectedDataVal.grossSalary.toString(),
+    this.empsalarymstmodel.loggedInUser = this.loggedInUserID,
 
     this.empsalarymstmodel.empSalaryDtlList = [];
 
@@ -328,8 +328,10 @@ export class EmpsalaryaddComponent {
           'empId': '',
           'fromDate': '',
           'edType': 'E',
-          'edCode': selectedDataVal.arrayErnList[i].edCode,
-          'edAmt': selectedDataVal.arrayErnList[i].edAmt,
+          'edCode': selectedDataVal.arrayErnList[i].edCode.toString(),
+          'edAmt': selectedDataVal.arrayErnList[i].edAmt.toString(),
+          'edName': "",
+          'actAmt':""
         });
       }
     }
@@ -341,8 +343,10 @@ export class EmpsalaryaddComponent {
           'empId': '',
           'fromDate': '',
           'edType': 'D',
-          'edCode': selectedDataVal.arrayDedList[i].edCode,
-          'edAmt': selectedDataVal.arrayDedList[i].edAmt,
+          'edCode': selectedDataVal.arrayDedList[i].edCode.toString(),
+          'edAmt': selectedDataVal.arrayDedList[i].edAmt.toString(),
+          'edName': "",
+          'actAmt':""
         });
       }
     }
@@ -353,6 +357,11 @@ export class EmpsalaryaddComponent {
     });
     if (foundDuplicateName) {
       this.toasterService.warning(" Duplicate Salary Earning/Deduction ");
+      this.sharedService.loading=false;
+      return;
+    }
+    if(selectedDataVal.arrayDedList.length == 0){
+      this.toasterService.warning(" Select Salary Earning/Deduction ");
       this.sharedService.loading=false;
       return;
     }

@@ -63,6 +63,7 @@ export class CommonService {
   getlrSeriesList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLRSeries', null, this.httpOptions);
   }
+  
   getlrSeriesForBillList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetLRSeriesForBill', null, this.httpOptions);
   }
@@ -105,14 +106,23 @@ export class CommonService {
   getOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetOpeningBal', payload, this.httpOptions);
   }
+  getLastTripDriver(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetLastTripDriver', payload, this.httpOptions);
+  }
   getDslOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslOpeningBal', payload, this.httpOptions);
+  }
+  getDslOpeningBalforPmt(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDslOpeningBalforPmt', payload, this.httpOptions);
   }
   getAdblueOpeningBal(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetAdblueOpeningBal', payload, this.httpOptions);
   }
   getDriverDetail(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverDetail', payload, this.httpOptions);
+  }
+  getUserDetails(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetUserDetails', payload, this.httpOptions);
   }
   getIncentiveRate(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetIncentiveRate', payload, this.httpOptions);
@@ -138,6 +148,9 @@ export class CommonService {
   }
   getTripDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDetail', payload, this.httpOptions);
+  }
+  getTripFromAndToDetails(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripFromAndToDetail', payload, this.httpOptions);
   }
   getTripDslDetails(payload: Tripvehiclemodel): Observable<Tripdsldetail> {
     return this.httpClient.post<Tripdsldetail>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDslDetail', payload, this.httpOptions);

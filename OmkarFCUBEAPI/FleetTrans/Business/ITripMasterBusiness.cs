@@ -9,7 +9,9 @@ namespace FleetTrans.Business
         Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request);
         Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel>GetOpeningBal(OpBalModel request);
+        Task<ResponseModel> GetLastTripDriver(OpBalModel request);
         Task<ResponseModel> GetDslOpeningBal(OpBalModel request);
+        Task<ResponseModel> GetDslOpeningBalforPmt(OpBalModel request);
         Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request);
         Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request);
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
@@ -19,7 +21,8 @@ namespace FleetTrans.Business
         Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel);
         Task<ResponseModel> OtherTripOpenDelete(RequestModel request);
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);
-        Task<DriverDetailModel> GetDriverDetail(DriverRequestModel request);
+        Task<DriverDetailModel> GetDriverDetail(RequestModel request);
+        Task<UserTripRightsModel> GetUserDetails(RequestModel request);
         Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }

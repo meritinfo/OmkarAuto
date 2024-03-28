@@ -38,10 +38,6 @@ namespace FreightMasters.Business
         {
             return await distanceMasterFrtRepository.DistanceMasterFrtDelete(req);
         }
-        public async Task<ResponseModel> DistanceDetailFrtSave(DistanceDetailFrtModel distanceDetailFrtModel)
-        {
-            return await distanceMasterFrtRepository.DistanceDetailFrtSave(distanceDetailFrtModel);
-        }
         public async Task<List<DropDownListModel>> GetDistancefrtFromLocationList()
         {
             return await distanceMasterFrtRepository.GetDistancefrtFromLocationList();

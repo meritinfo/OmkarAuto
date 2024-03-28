@@ -15,7 +15,6 @@ namespace FreightMasters.Business
         Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel distanceMasterTripModel);
         Task<DistanceMasterTripModel> GetFreightTripInnerGridList(RequestModel request);
         Task<ResponseModel> DistanceMasterTripDelete(RequestModel requestModel);
-        Task<ResponseModel> DistanceDetailTripSave(DistanceDetailTripModel distanceDetailTripModel);
         Task<List<DropDownListModel>> GetDistanceTripFromLocationList();
         Task<DistanceTripEditModel> GetDistanceTripDtls(RequestModel request);
         Task<DistanceTripEditModel> GetDistanceTripEditDetails(DistanceTripEditModel distanceFrtEdit);

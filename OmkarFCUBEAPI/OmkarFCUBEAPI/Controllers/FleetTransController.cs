@@ -301,6 +301,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTripFromAndToDetail")]
+        public async Task<IActionResult> GetTripFromAndToDetail(RequestModel request)
+        {
+            try
+            {
+                var result = await tripPaymentsBusiness.GetTripFromAndToDetail(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTripDslDetail")]
         public async Task<IActionResult> GetTripDslDetail(TripVehicleModel request)
         {
@@ -335,6 +349,34 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await tripMasterBusiness.GetDslOpeningBal(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLastTripDriver")]
+        public async Task<IActionResult> GetLastTripDriver(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetLastTripDriver(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDslOpeningBalforPmt")]
+        public async Task<IActionResult> GetDslOpeningBalforPmt(OpBalModel request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDslOpeningBalforPmt(request);
 
                 return Ok(result);
             }
@@ -414,7 +456,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDriverDetail")]
-        public async Task<IActionResult> GetDriverDetail(DriverRequestModel request)
+        public async Task<IActionResult> GetDriverDetail(RequestModel request)
         {
             try
             {
@@ -539,7 +581,44 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetHappayDieselSearchList")]
+        public async Task<IActionResult> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetHappayDieselSearchList(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetHappayDieselList")]
+        public async Task<IActionResult> GetHappayDieselList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetHappayDieselList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+      
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)
         {
@@ -672,7 +751,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillStatementInnerGridList")]
-        public async Task<IActionResult> GetBillStatementInnerGridList(BillStatementInnerGridRequest request)
+        public async Task<IActionResult> GetBillStatementInnerGridList(RequestModel request)
         {
             try
             {
@@ -686,7 +765,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDriverSalaryInnerGridList")]
-        public async Task<IActionResult> GetDriverSalaryInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<IActionResult> GetDriverSalaryInnerGridList(RequestModel request)
         {
             try
             {
@@ -700,7 +779,7 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDieselStatementInnerGridList")]
-        public async Task<IActionResult> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<IActionResult> GetDieselStatementInnerGridList(RequestModel request)
         {
             try
             {
@@ -751,6 +830,25 @@ namespace OmkarFCUBEAPI.Controllers
 
 
                 var result = await docRenewalEntryBusiness.DocRenewalEntryDetailsSave(docRenewalEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetUserDetails")]
+        public async Task<IActionResult> GetUserDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetUserDetails(request);
 
                 return Ok(result);
             }

@@ -12,7 +12,6 @@ namespace FreightMasters.Repository
         Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequestDtBrVh request);
         Task<ResponseModel> DistanceMasterFrtDelete(RequestModel requestModel);
         Task<DistanceMasterFrtModel> GetFreightInnerGridList(RequestModel request);
-        Task<ResponseModel> DistanceDetailFrtSave(DistanceDetailFrtModel DistanceDetailFrtModel);
         Task<List<DropDownListModel>> GetDistancefrtFromLocationList();
         Task<DistanceFrtEditModel> GetDistanceFrtDtls(RequestModel request);
         Task<DistanceFrtEditModel> GetDistanceFrtEditDetails(DistanceFrtEditModel distanceFrtEdit);

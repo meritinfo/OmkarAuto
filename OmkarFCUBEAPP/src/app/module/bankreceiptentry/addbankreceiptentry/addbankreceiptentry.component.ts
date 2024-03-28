@@ -367,8 +367,29 @@ export class AddbankreceiptentryComponent {
       'accountID': selectedDataValue.accountid2,
       'reference': selectedDataValue.refNo,
     })
+    
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
+        if (this.formArray.value[i].accountID.dataId!="" ){
+          if ((this.formArray.value[i].amount=="") ){
+            this.toasterService.warning("Amount cannot be Empty in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+          if (parseFloat(this.formArray.value[i].amount)==0) {
+            this.toasterService.warning("Amount cannot be Zero in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        if (parseFloat(this.formArray.value[i].amount)>0) {
+          if (this.formArray.value[i].accountID.dataId=="") {
+            this.toasterService.warning("Account cannot be Empty in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           this.bankreceiptentryModel.detailList.push({
           'slNo': (i+1).toString() ,
@@ -388,17 +409,8 @@ export class AddbankreceiptentryComponent {
       this.toasterService.warning("Grid Should Not be Empty");
       return;
     }    
-    const found = this.bankreceiptentryModel.detailList.some(el => el.accountID === '');
-    if (found) {
-      this.toasterService.warning("Account cannot be Empty in details grid");
-      return;
-    }
-    const found1 = this.bankreceiptentryModel.detailList.some(el => parseFloat(el.amount)  === 0);
-    if (found1) {
-      this.toasterService.warning("Amount cannot be Zero in details grid");
-      return;
-    }
-    if(this.neft=="Y"){
+
+    if(this.neft=="N"){
       const foundcheq = this.bankreceiptentryModel.detailList.some(el => el.chequeNo === '');
       if (foundcheq) {
         this.toasterService.warning("Cheque No cannot be Empty in details grid");
@@ -410,12 +422,17 @@ export class AddbankreceiptentryComponent {
         return;
       }
     }
+    else{
+      for (var i = 0; i < this.formArray.value.length; i++) {      
+        this.bankreceiptentryModel.detailList[i].chequeDate=selectedDataValue.ftmDate;
+      }
+    }
 
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
-        this.toasterService.success(this.responseDetails.message); 
+        this.toasterService.success("Saved Successfully"); 
         this.formBankRecEntry.reset();
         this.route.navigate(['/bankreceiptentrylist']);
       }

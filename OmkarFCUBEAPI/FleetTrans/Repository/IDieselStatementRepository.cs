@@ -8,7 +8,10 @@ namespace FleetTrans.Repository
         Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request);
         Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
-        Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request);
+        Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request);
         Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request);
+        Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request);
+        Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request);
+        Task<ResponseModel> SaveHappayStatementDetails(DieselStatementModel request);
     }
 }

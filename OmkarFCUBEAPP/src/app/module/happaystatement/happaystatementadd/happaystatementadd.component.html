@@ -1,0 +1,184 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Happay Statement</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                                <li class="breadcrumb-item active">Diesel Statement </li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formDieselStatement">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Statement Branch</label><span style="color: red"> * </span>
+                                                    <select class="form-control" formControlName="BranchCode"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['BranchCode'].invalid) }"> 
+                                                        <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                            {{br.dataName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Statement Date</label><span style="color: red"> * </span>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="billStmtDate"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billStmtDate'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Valid From</label><span style="color: red"> * </span>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="fromDate" 
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label for="formrow-inputCity">Valid To</label><span style="color: red"> * </span>
+                                                    <input autoclose="false" type="date" placeholder="dd/MM/yyyy"
+                                                        class="form-control" formControlName="toDate"
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <button type="submit" (click)="searchStatement()" *ngIf="!editMode"
+                                                        class="btn btn-primary w-md mt-4">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <th><label for="formrow-inputCity"></label></th>
+                                            <th><label for="formrow-inputCity">Branch</label></th>
+                                            <th><label for="formrow-inputZip">Pmt Date</label></th>
+                                            <th><label for="formrow-inputZip">Vehicle No</label></th>
+                                            <th><label for="formrow-inputZip">Hsd Adv Type</label></th>
+                                            <th><label for="formrow-inputZip">Trans Desc</label></th>
+                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
+                                        </tr>                                        
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input type="checkbox" name="select" 
+                                                         class="form-check-input"
+                                                        (change)="selectedData(i, $event)" formControlName="selected">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="branch">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input  class="form-control" type="date" formControlName="pmtDate">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="vehicleNo">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="hsdAdvType">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="transDesc">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="amountPaid">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    <input class="form-control" formControlName="remarks">
+                                                </div>
+                                            </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                    <div class="row mt-1">
+                                        <div class="col-lg-10 text-right">
+                                            <label for="formrow-inputCity">Total Statement Amount</label><span style="color: red"> * </span>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <input autoclose="false" type="text" class="form-control"
+                                                formControlName="totalNetAmount"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalNetAmount'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-1">
+                                        <div class="col-lg-1 text-right">
+                                            <label for="formrow-inputCity">Remarks</label>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <input autoclose="false" type="text" class="form-control"
+                                                formControlName="remarks">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="saveStatementDetails()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDieselStatementForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

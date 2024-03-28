@@ -24,10 +24,8 @@ namespace OmkarFCUBEAPI.Controllers
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
         }
-        /// <summary>
+        
 
-        /// </summary>
-        /// <param name="FinAccountsMasterModel"></param>
         [HttpPost("ConsignmentSave")]
         public async Task<IActionResult> ConsignmentSave(ConsignmentModel consignmentModel)
         {
@@ -46,24 +44,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPost("TripSave")]
-        //public async Task<IActionResult> TripSave(TripModel tripModel)
-        //{
-        //    if (tripModel == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await consignmentBusiness.ConsignmentSave(tripModel);
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
         [HttpPost("ConsignmentDelete")]
         public async Task<IActionResult> ConsignmentDelete(RequestModel req)
         {

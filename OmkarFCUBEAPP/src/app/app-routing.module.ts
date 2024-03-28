@@ -106,6 +106,10 @@ import { EmploanaddComponent } from './module/emploan/emploanadd/emploanadd.comp
 import { EmploanrepaylistComponent } from './module/emploanrepay/emploanrepaylist/emploanrepaylist.component';
 import { EmploanrepayaddComponent } from './module/emploanrepay/emploanrepayadd/emploanrepayadd.component';
 import { ChangebranchComponent } from './module/branch/changebranch/changebranch.component';
+import { HappaystatementlistComponent } from './module/happaystatement/happaystatementlist/happaystatementlist.component';
+import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
+import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
+import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 
 
 
@@ -146,7 +150,7 @@ const routes: Routes = [
   { path: 'roletypelist', component: RoletypelistComponent },
   { path: 'addhrmaster', component: AddhrmasterComponent },
   { path: 'hrmasteredit', component: AddhrmasterComponent },
-  { path: 'ptslabmasterlist', component: PtslabmasterlistComponent },
+  { path: 'proftaxmstlist', component: PtslabmasterlistComponent },
   { path: 'addptslabmaster', component: AddptslabmasterComponent },
   { path: 'ptslabmasteredit', component: AddptslabmasterComponent },
   { path: 'hrmasterlist', component: HrmasterlistComponent },
@@ -258,7 +262,14 @@ const routes: Routes = [
   { path: 'loansrepaylist', component:  EmploanrepaylistComponent },
   { path: 'loansrepayadd', component: EmploanrepayaddComponent },  
   { path: 'loansrepayedit', component:  EmploanrepayaddComponent },
+  { path: 'happaystatementlist', component:  HappaystatementlistComponent },
+  { path: 'happaystatementadd', component: HappaystatementaddComponent },  
+  { path: 'happaystatementedit', component:  HappaystatementaddComponent },
   { path: 'changebranch', component:  ChangebranchComponent },
+  { path: 'salcalclist', component:  EmpsalcalculationlistComponent },
+  { path: 'salcalcadd', component: EmpsalcalculationaddComponent },  
+  { path: 'salcalcedd', component:  EmpsalcalculationaddComponent },
+  
   
 ];
 

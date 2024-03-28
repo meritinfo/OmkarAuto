@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tripsheetlistmodel } from 'src/app/models/tripsheetlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
@@ -9,6 +9,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { DataTableDirective } from 'angular-datatables';
 
 
 @Component({
@@ -41,12 +42,19 @@ export class TripsheetlistComponent {
   maxDate: string = '';
   minDate: string = '';
 
+  tsfromDate: string = '';
+  tstoDate: string = '';
+  tsbranch: string = '';
+  tsvehicle: string = '';
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  
+
   constructor(private formBuilder: FormBuilder, private tripSheetService: TripSheetService, private route: Router, private sharedService: SharedService, private commonService: CommonService) {
 
   }
 
   ngOnInit(): void {
-    this.sharedService.loading = true;
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -55,6 +63,23 @@ export class TripsheetlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    var fromdatedata = sessionStorage.getItem('tsfromDate')?.toString();
+    if (typeof fromdatedata !== 'undefined' && fromdatedata !== null && fromdatedata !== '') {
+      this.tsfromDate = fromdatedata;
+    }
+    var todatedata = sessionStorage.getItem('tstoDate')?.toString();
+    if (typeof todatedata !== 'undefined' && todatedata !== null && todatedata !== '') {
+      this.tstoDate = todatedata;
+    }
+    var branchdata = sessionStorage.getItem('tsbranch')?.toString();
+    if (typeof branchdata !== 'undefined' && branchdata !== null && branchdata !== '') {
+      this.tsbranch = branchdata;
+    }
+    var vehicledata = sessionStorage.getItem('tsvehicle')?.toString();
+    if (typeof vehicledata !== 'undefined' && vehicledata !== null && vehicledata !== '') {
+      this.tsvehicle = vehicledata;
+    }
+      
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -71,8 +96,42 @@ export class TripsheetlistComponent {
       branch: new FormControl('0',),
       vehicle: new FormControl('',)
     });
+
     this.getBranchList();
     this.getVehicleNoList();
+
+    if(this.tsfromDate!=""){
+      this.formFilter.patchValue({
+        fromDate:  this.tsfromDate
+      });
+    }
+    if(this.tstoDate!=""){
+      this.formFilter.patchValue({
+        toDate:  this.tstoDate
+      });
+    }
+    if(this.tsbranch!=""){
+      this.formFilter.patchValue({
+        branch:  this.tsbranch
+      });
+    }
+    this.filter.vehicle ="";
+    setTimeout(() => {
+    if(this.tsvehicle!=""){
+      this.formFilter.patchValue({
+        vehicle: this.vehicleList.find(e => e.dataId == this.tsvehicle),
+      });
+      this.filter.vehicle =this.tsvehicle;
+    }
+    this.search();
+    
+  }, 2000);
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.branch = this.formFilter.value.branch=== '0' ? '' : this.formFilter.value.branch;
+    this.getTripMaster();
+}
+getTripMaster(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -86,10 +145,8 @@ export class TripsheetlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.formFilter.value.fromDate;
-        this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.branch = "";
-        this.filter.vehicle = "";
+        this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
+        this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
         this.tripSheetService.getTripSheetList(this.filter)
           .subscribe(resp => {
             this.allTripSheetTypes = resp;
@@ -156,6 +213,15 @@ export class TripsheetlistComponent {
   //Open user details screen
   gettripSheetDetails(tripsheet: Tripsheetmodel): void {
     this.tripSheetService.setTripSheetDetails(tripsheet);
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
+    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
+ 
+    sessionStorage.setItem("tsfromDate", this.filter.fromDate);
+    sessionStorage.setItem("tstoDate",  this.filter.toDate);
+    sessionStorage.setItem("tsbranch", this.formFilter.value.branch);
+    sessionStorage.setItem("tsvehicle", this.filter.vehicle);
     this.route.navigate(['/tripsheetedit']);
   }
 
@@ -187,14 +253,20 @@ export class TripsheetlistComponent {
   };
 
   search(): void {
+    
+    
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
     this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-    this.tripSheetService.getTripSheetList(this.filter)
-      .subscribe(resp => {
-        this.allTripSheetTypes = resp;
-      });
+   // this.tripSheetService.getTripSheetList(this.filter)
+      //.subscribe(resp => {
+      //  this.allTripSheetTypes = resp;
+     // });
+     this.getTripMaster();
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+     });
   }
 
   getCurrentFiscalYear(date: string) {

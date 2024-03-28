@@ -11,23 +11,22 @@ namespace FleetTrans.Business
         {
             dieselStatementRepository = _dieselStatementRepository;
         }
-        /// <summary>
-        /// Business method for Get Diesel Statement Search List
-        /// </summary>
-        /// <param name="DieselStatementSearchListRequest"></param>
         public async Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request)
         {
             return await dieselStatementRepository.GetDieselStatementSearchList(request);
         }
-        /// <summary>
-        /// Business method for Save Diesel Statement Details
-        /// </summary>
-        /// <param name="DieselStatementSearchListRequest"></param>
         public async Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request)
         {
-            return await dieselStatementRepository.SaveDieselStatementDetails(request);
+            if (request.StatementFlag=="D")
+            {
+                return await dieselStatementRepository.SaveDieselStatementDetails(request);
+            }
+            else
+            {
+                return await dieselStatementRepository.SaveHappayStatementDetails(request);
+            }
         }
-        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(DriverSalaryInnerGridRequest request)
+        public async Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request)
         {
             return await dieselStatementRepository.GetDieselStatementInnerGridList(request);
         }
@@ -35,10 +34,17 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetDieselStatementList(request);
         }
-
         public async Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request)
         {
             return await dieselStatementRepository.DieselStatementDetailsDelete(request);
+        }
+        public async Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request)
+        {
+            return await dieselStatementRepository.GetHappayDieselList(request);
+        }
+        public async Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        {
+            return await dieselStatementRepository.GetHappayDieselSearchList(request);
         }
 
     }

@@ -8,6 +8,7 @@ export class Ratesmastermodel {
     fromPoint: string = "";
     accountName: string = "";
     rateTypeId: string = "";
+    vehicleTypeGroupId : string = "";
     rateDesc: string = "";
     rateForStateOrToPlace: string = "";   
     loggedInUser: string = "";

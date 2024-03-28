@@ -211,6 +211,11 @@ namespace HRMasters.Repository
         public async Task<ResponseModel> EmpSalaryMasterSave(EmpSalaryMstModel empSalaryMst)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -224,7 +229,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@LoggedInUser",   empSalaryMst.LoggedInUser)
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpSalaryMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpSalaryMstSave", param);
                     string MasterID = "0";
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -232,11 +237,15 @@ namespace HRMasters.Repository
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         MasterID = Convert.ToString(responseModel.Message);
+                        if (!responseModel.Status)
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                     if (responseModel.Status)
                     {
@@ -245,18 +254,27 @@ namespace HRMasters.Repository
                             empSalaryMst.empSalaryDtlList[i].MasterId   = MasterID.ToString();
                             empSalaryMst.empSalaryDtlList[i].EmpId      = empSalaryMst.EmpId;
                             empSalaryMst.empSalaryDtlList[i].FromDate   = empSalaryMst.FromDate;
-                            responseModel = await EmpSalaryDetailSave(empSalaryMst.empSalaryDtlList[i]);
+                            responseModel = await EmpSalaryDetailSave(transaction,empSalaryMst.empSalaryDtlList[i]);
+                            if (!responseModel.Status)
+                            {
+                                transaction.Rollback();
+                                i = empSalaryMst.empSalaryDtlList.Count;
+                            }
                         }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
                     }
                 }
             }
             catch (Exception ex)
             {
-
+                transaction.Rollback();
             }
             return responseModel;
         }
-        public async Task<ResponseModel> EmpSalaryDetailSave(EmpSalaryDtlModel empSalaryDtl)
+        public async Task<ResponseModel> EmpSalaryDetailSave(SqlTransaction transaction, EmpSalaryDtlModel empSalaryDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -273,7 +291,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@EdAmt",      empSalaryDtl.EdAmt),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpSalaryDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpSalaryDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -283,7 +301,6 @@ namespace HRMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -298,6 +315,11 @@ namespace HRMasters.Repository
         public async Task<ResponseModel> EmpSalaryMasterDelete(RequestModel request)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -306,23 +328,31 @@ namespace HRMasters.Repository
                         {
                             new SqlParameter("@MasterId", request.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_EmpSalaryMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpSalaryMstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                
+                transaction.Rollback();
             }
             return responseModel;
         }

@@ -14,7 +14,7 @@ namespace Shared.Business
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
-        Task<List<YearListModel>> GetYearList();
-        Task<List<YearListModel>> GetServerDate();
+        Task<List<DropDownListModel>> GetYearList();
+        Task<List<DropDownListModel>> GetServerDate();
     }
 }

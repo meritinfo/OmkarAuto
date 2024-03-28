@@ -94,13 +94,13 @@ export class AddcashreceiptentryComponent {
       docType: new FormControl('CP',),
       docSeries: new FormControl('CP',),
       docNo: new FormControl('',[Validators.required]),
-      remarks: new FormControl('',[Validators.required]),
+      remarks: new FormControl('',),
       refType: new FormControl('',),
       refNo: new FormControl('',),
       docAmount: new FormControl('',[Validators.required]),
       utrNo: new FormControl('',), 
       linkedYN: new FormControl('',),
-      modifyRemarks: new FormControl('',),
+      modifyRemarks: new FormControl('',[Validators.required]),
       yearID: new FormControl('',),
       accountid2: new FormControl('',[Validators.required]),
       arrayList: this.formBuilder.array([this.createInitialArray()]),   
@@ -110,20 +110,24 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docSeries'].disable(); 
     this.formCashRRecEntry.controls['docNo'].disable(); 
     this.formCashRRecEntry.controls['docAmount'].disable(); 
-    this.formCashRRecEntry.controls['modifyRemarks'].disable();
+    this.formCashRRecEntry.controls['modifyRemarks'].disable();    
+    this.formCashRRecEntry.controls['modifyRemarks'].clearValidators();
+    this.formCashRRecEntry.controls['modifyRemarks'].updateValueAndValidity();
+    
     setTimeout(() => {
-    if (this.selectedCashReceiptEntryDetails.ftmID != '') {   
-      this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
-      this.formCashRRecEntry.patchValue({
-        ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),
-      }); 
-      if(this.selectedCashReceiptEntryDetails.linkedYN=="Y"){
-        this.deleteStatus=false;
-      }
-      this.editMode=true;
-      this.formCashRRecEntry.controls['modifyRemarks'].enable();
-      this.getCashReceiptPaymentInnerGridList();
-
+      if (this.selectedCashReceiptEntryDetails.ftmID != '') {   
+        this.formCashRRecEntry.patchValue(this.selectedCashReceiptEntryDetails); 
+        this.formCashRRecEntry.patchValue({
+          ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),
+        }); 
+        if(this.selectedCashReceiptEntryDetails.linkedYN=="Y"){
+          this.deleteStatus=false;
+        }
+        this.editMode=true;
+        this.formCashRRecEntry.controls['modifyRemarks'].enable();
+        this.getCashReceiptPaymentInnerGridList();
+        this.formCashRRecEntry.controls['modifyRemarks'].setValidators([Validators.required]);  
+        this.formCashRRecEntry.controls['modifyRemarks'].updateValueAndValidity();
       }
       else{
         this.getdocno("CP");
@@ -308,8 +312,15 @@ export class AddcashreceiptentryComponent {
         return;
       }
 
-      this.sharedService.loading=true;
     var selectedDataValue=  this.formCashRRecEntry.getRawValue();
+    
+    if(this.selectedCashReceiptEntryDetails.ftmID!=""){
+      if(selectedDataValue.modifyRemarks.toString().length < 10){
+        this.toasterService.warning("Modify Remarks should be atleast 10 characters");
+        return;
+      }
+    }    
+
     this.bankrecEntrymodel.ftmID          = this.selectedCashReceiptEntryDetails.ftmID ;
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
     this.bankrecEntrymodel.docType        = selectedDataValue.docType.toString().toUpperCase();
@@ -352,6 +363,26 @@ export class AddcashreceiptentryComponent {
 
     if (this.formArray.value != undefined) {
       for (var i = 0; i < this.formArray.value.length; i++) {
+        if (this.formArray.value[i].accountID.dataId!="" ){
+          if ((this.formArray.value[i].amount=="") ){
+            this.toasterService.warning("Amount cannot be Empty in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+          if (parseFloat(this.formArray.value[i].amount)==0) {
+            this.toasterService.warning("Amount cannot be Zero in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        if (parseFloat(this.formArray.value[i].amount)>0) {
+          if (this.formArray.value[i].accountID.dataId=="") {
+            this.toasterService.warning("Account cannot be Empty in details grid");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+         
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
             this.bankrecEntrymodel.detailList.push({
             'slNo': (i+1).toString() ,
@@ -372,30 +403,18 @@ export class AddcashreceiptentryComponent {
       return;
     }
     
-    const found = this.bankrecEntrymodel.detailList.some(el => el.accountID === '');
-    if (found) {
-      this.toasterService.warning("Account cannot be Empty in details grid");
-      this.sharedService.loading=false;
-      return;
-    }
-    const found1 = this.bankrecEntrymodel.detailList.some(el => parseFloat(el.amount)  === 0);
-    if (found1) {
-      this.toasterService.warning("Amount cannot be Zero in details grid");
-      this.sharedService.loading=false;
-      return;
-    }
+    this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
-        this.toasterService.success(this.responseDetails.message); 
+        this.toasterService.success("Saved Successfully"); 
         this.formCashRRecEntry.reset();
         this.route.navigate(['/cashreceiptentrylist']);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        
       } 
-    });
-    
+    });    
     this.sharedService.loading=false;
   }
 }

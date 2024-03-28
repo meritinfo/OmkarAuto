@@ -45,7 +45,7 @@
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                             </div>
                                         </div>            
-                                        <div class="col-lg-2">
+                                        <!-- <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
                                                     <input type="checkbox" (change)="onChkNoVender($event)"
@@ -53,8 +53,8 @@
                                                     <label for="formrow-inputZip"> No Vendor </label>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-3">
+                                        </div> -->
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vendor</label>                                                
                                                 <div class="ng-autocomplete">
@@ -82,6 +82,19 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">GST Type</label><span style="color: red">*</span>    
+                                                <select id="formrow-inputState" class="form-control" 
+                                                    formControlName="gstType" (change)="changeGstType($event)"
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['gstType'].invalid) }"> 
+                                                        <option value="NA">NA</option>      
+                                                        <option value="SC">S/CGST</option> 
+                                                        <option value="IG">IGST</option>                                      
+                                                </select>   
+                                            </div>
+                                        </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span> 
@@ -111,168 +124,162 @@
                     </div>
                 </div>
                 <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        <tr>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputZip">
-                                                    <h6>Account Name</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputZip">
-                                                    <h6>Narration</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">                                            
-                                                <label for="formrow-inputCity">
-                                                    <h6>Sub Ledger</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>HSN/SAC</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>Amount</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>SGST %</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>SGST Amt</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>CGST %</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>CGST Amt</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>IGST %</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>IGST Amt</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>Net Total</h6>
-                                                </label>
-                                            </td>
-                                            <td class="col-lg-1">
-                                                <label for="formrow-inputCity">
-                                                    <h6>Ref No</h6>
-                                                </label>
-                                            </td>
-                                        </tr>                                        
-                                        <tr formArrayName="arrayList"
-                                            *ngFor="let arrayData of formArray.controls; let i = index">
-                                            <div [formGroupName]="i" class="grid-table">
-                                                <td class="col-lg-2">
-                                                    <div class="ng-autocomplete">
-                                                        <ng-autocomplete [data]="debitAcList"
-                                                            [searchKeyword]="keywordLocation" placeholder=""
-                                                            (selected)='selectEvent($event)'
-                                                            (inputChanged)='onChangeSearch($event)'
-                                                            (inputFocused)='onFocused($event)'
-                                                            [itemTemplate]="itemTemplate"
-                                                            [notFoundTemplate]="notFoundTemplate"
-                                                            [customFilter]="startWithFilter"
-                                                            formControlName="debitAc">
-                                                        </ng-autocomplete>
-
-                                                        <ng-template #itemTemplate let-item>
-                                                            <a [innerHTML]="item.dataName"></a>
-                                                        </ng-template>
-
-                                                        <ng-template #notFoundTemplate let-notFound>
-                                                            <div [innerHTML]="notFound"></div>
-                                                        </ng-template>
-                                                    </div>
-                                                </td>
-                                                <td class="col-lg-1">   
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="narration">
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="subLedger">
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="sacHsnCode">
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="itemAmt" maxlength="12" 
-                                                        (change)="onAmtChange($event, i)">
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="sgstPct" maxlength="5" 
-                                                        (change)="onSgstChange($event, i)" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="sgstAmt" maxlength="12" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="cgstPct" maxlength="5"  
-                                                        (change)="onCgstChange($event, i)" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="cgstAmt" maxlength="12" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="igstPct" maxlength="5"  
-                                                        (change)="onIgstChange($event, i)" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="igstAmt" maxlength="12" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="totAmount" maxlength="15" >
-                                                </td>
-                                                <td class="col-lg-1">
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="refDocNo" >
-                                                </td>
-                                                <td class="col-lg-4">
-                                                    <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
-                                                            class="btn btn-add" (click)="addItem(i)"></button>
-                                                        <button *ngIf="formArray.controls.length > 1"
-                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
-                                                    </div>                                        
-                                                </td>
+                    <div class="row">                                 
+                        <div class="overflow-x">
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
+                                <tr>
+                                    <td class="col-lg-3">
+                                        <label for="formrow-inputZip">
+                                            <h6>Account Name</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-3">
+                                        <label for="formrow-inputZip">
+                                            <h6>Narration</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-2">                                            
+                                        <label for="formrow-inputCity">
+                                            <h6>Sub Ledger</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-2">                
+                                        <label for="formrow-inputCity">
+                                            <h6>HSN/SAC</h6>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label for="formrow-inputCity">
+                                            <h6>Amount</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">                
+                                        <label for="formrow-inputCity">
+                                            <h6>SGST %</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>SGST Amt</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>CGST %</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>CGST Amt</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>IGST %</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>IGST Amt</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-1">     
+                                        <label for="formrow-inputCity">
+                                            <h6>Net Total</h6>
+                                        </label>
+                                    </td>
+                                    <td class="col-lg-2">     
+                                        <label for="formrow-inputCity">
+                                            <h6>Ref No</h6>
+                                        </label>
+                                    </td>
+                                </tr>                                        
+                                <tr formArrayName="arrayList"
+                                    *ngFor="let arrayData of formArray.controls; let i = index">
+                                    <div [formGroupName]="i" class="grid-table">
+                                        <td>
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="debitAcList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="debitAc">
+                                                </ng-autocomplete>
+                                     <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                     <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
                                             </div>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                                        </td>
+                                        <td>   
+                                            <input autoclose="false" class="form-control narration-input"
+                                                formControlName="narration">
+                                        </td>
+                                        <td>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="subLedger">
+                                        </td>
+                                        <td>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="sacHsnCode">
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="itemAmt" maxlength="12" 
+                                                (change)="onAmtChange($event, i)">
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="sgstPct" maxlength="5" 
+                                                (change)="onSgstChange($event, i)" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="sgstAmt" maxlength="12" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="cgstPct" maxlength="5"  
+                                                (change)="onCgstChange($event, i)" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="cgstAmt" maxlength="12" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="igstPct" maxlength="5"  
+                                                (change)="onIgstChange($event, i)" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="igstAmt" maxlength="12" >
+                                        </td>
+                                        <td>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totAmount" maxlength="15" >
+                                        </td>
+                                        <td>
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="refDocNo" >
+                                        </td>
+                                        <td>
+                                            <div class="col-lg-4 details-button">
+                                                <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addItem(i)"></button>
+                                                <button *ngIf="formArray.controls.length > 1"
+                                                    (click)="removeItem(i)" class="btn btn-delete"></button>
+                                            </div>                                        
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>

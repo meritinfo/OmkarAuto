@@ -26,6 +26,11 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> FreightRatesMstSave(FreightRatesMstModel freightRatesMstModel)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -40,10 +45,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@RateTypeId", freightRatesMstModel.RateTypeId),
                             new SqlParameter("@RateMethod", freightRatesMstModel.RateMethod),
                             new SqlParameter("@RateForStateOrToPlace", freightRatesMstModel.RateForStateOrToPlace),
+                            new SqlParameter("@VehicleTypeGroupId", freightRatesMstModel.VehicleTypeGroupId),
                             new SqlParameter("@LoggedInUser", freightRatesMstModel.LoggedInUser)
 
                     };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FreightRatesMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FreightRatesMstSave", param);
                     string MasterID = "0";
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -55,7 +61,7 @@ namespace FreightMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                     if (responseModel.Status)
                     {
@@ -64,27 +70,27 @@ namespace FreightMasters.Repository
                             freightRatesMstModel.freightRatesDetailsList[i].Index = i.ToString();
                             freightRatesMstModel.freightRatesDetailsList[i].MasterID=MasterID.ToString();
                             freightRatesMstModel.freightRatesDetailsList[i].RateTypeId=freightRatesMstModel.RateTypeId.ToString();
-                            responseModel = await FreightRatesDtlSave(freightRatesMstModel.freightRatesDetailsList[i]);
+                            responseModel = await FreightRatesDtlSave(transaction, freightRatesMstModel.freightRatesDetailsList[i]);
+                            if (!responseModel.Status) { 
+                                transaction.Rollback();
+                                i = freightRatesMstModel.freightRatesDetailsList.Count;
+                            }
                         }
                     }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else { transaction.Rollback(); }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
-        public async Task<ResponseModel> FreightRatesDtlSave(FreightRatesDtlModel freightRatesDtlModel)
+        public async Task<ResponseModel> FreightRatesDtlSave(SqlTransaction transaction, FreightRatesDtlModel freightRatesDtlModel)
         {
             ResponseModel responseModel = new();
             try
@@ -101,7 +107,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Rate",       freightRatesDtlModel.Rate),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FreightRatesDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FreightRatesDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -111,7 +117,6 @@ namespace FreightMasters.Repository
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
                     }
                 }
             }
@@ -167,6 +172,7 @@ namespace FreightMasters.Repository
                                 RateDesc                = Convert.ToString(dataSet.Tables[0].Rows[i]["RateDesc"]),
                                 Accountid               = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountID"]),
                                 RateForStateOrToPlace   = Convert.ToString(dataSet.Tables[0].Rows[i]["RateForStateOrToPlace"]),
+                                VehicleTypeGroupId      = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
                             });
                         }
 
@@ -249,6 +255,11 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> FreightRatesMasterDetailsDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -257,32 +268,25 @@ namespace FreightMasters.Repository
                         {
                            new SqlParameter("@MasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_FreightRatesMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FreightRatesMstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }

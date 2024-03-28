@@ -5,9 +5,7 @@ import { Constants } from '../common/constants';
 import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Dieselstatementlistmodel } from '../models/dieselstatementlistmodel';
-import { Dieselstatementsearchlistmodel } from '../models/dieselstatementsearchlistmodel';
 import { Dieselstatementmodel } from '../models/dieselstatementmodel';
-import { Driversalaryinnergridrequest } from '../models/driversalaryinnergridrequest';
 import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
@@ -43,6 +41,13 @@ export class DieselstatementService {
     return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementList', filter, this.httpOptions);
   }
 
+  getHappayDieselSearchList(request: Pagerequestwithdatesmodel): Observable<Dieselstatementmodel> {
+    return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetHappayDieselSearchList', request, this.httpOptions);
+  }
+  getHappayDieselList(filter: Pagerequestwithdatesmodel): Observable<Dieselstatementlistmodel> {
+    return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetHappayDieselList', filter, this.httpOptions);
+  }
+
   saveDieselStatementDetails(request: Dieselstatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveDieselStatementDetails', request, this.httpOptions);
   }
@@ -50,7 +55,7 @@ export class DieselstatementService {
   dieselStatementDetailsDelete(request: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DieselStatementDetailsDelete', request, this.httpOptions);
   }
-  getDieselStatementInnerGridList(request: Driversalaryinnergridrequest): Observable<Dieselstatementmodel> {
+  getDieselStatementInnerGridList(request: Requestmodel): Observable<Dieselstatementmodel> {
     return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementInnerGridList', request, this.httpOptions);
   }
 }

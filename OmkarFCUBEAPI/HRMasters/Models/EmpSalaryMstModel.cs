@@ -16,5 +16,6 @@ namespace HRMasters.Models
         public string? GrossSalary { get; set; }
         public string? LoggedInUser { get; set; }
         public List<EmpSalaryDtlModel> empSalaryDtlList { get; set; }
+
     }
 }

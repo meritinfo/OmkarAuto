@@ -326,7 +326,7 @@ export class AddbankcashcontraComponent {
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
-        this.toasterService.success(this.responseDetails.message);
+        this.toasterService.success("Saved Successfully"); 
         this.formBankContra.reset();
         this.route.navigate(['/bankcashcontralist']);
       }

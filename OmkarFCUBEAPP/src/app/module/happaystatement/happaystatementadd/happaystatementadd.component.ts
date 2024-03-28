@@ -1,0 +1,363 @@
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Responsemodel } from 'src/app/models/responsemodel';
+import { CommonService } from 'src/app/services/common.service';
+import { DieselstatementService } from 'src/app/services/dieselstatement.service';
+import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
+import { SharedService } from 'src/app/services/shared.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
+
+@Component({
+  selector: 'app-happaystatementadd',
+  templateUrl: './happaystatementadd.component.html',
+  styleUrls: ['./happaystatementadd.component.css']
+})
+export class HappaystatementaddComponent implements OnInit {
+  loggedInUserID: string = '';
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  minDate: string = '';
+  maxDate: string = '';
+  branch: string = '';
+  formDieselStatement!: FormGroup;
+  selectedDieselStmtDetails = new Dieselstatementmodel()
+  dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
+
+  branchList: Dropdownmodel[] = [];
+  keywordLocation = 'dataName';
+  editMode = false;
+  createmode = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
+  formSubmitted = false;
+  responseDetails = new Responsemodel();
+ 
+  constructor(private Pagerequestwithdatesmodel: Pagerequestwithdatesmodel, 
+    private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
+    private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
+    private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
+    private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
+      this.DieselStatementmodel= new Dieselstatementmodel();
+  }
+
+  ngOnInit(): void {    
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Happay Statement"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
+
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    this.getBranchList();
+
+    this.sharedService.loading=true;   
+ 
+    this.selectedDieselStmtDetails = this.dieselstatementService.getDieselStatementDetails();
+    this.formDieselStatement = this.formBuilder.group({
+      BranchCode: new FormControl(this.branch, [Validators.required]),
+      billStmtDate: new FormControl(this.loginDate, [Validators.required]),
+      fromDate: new FormControl(this.fromDate, [Validators.required]),
+      toDate: new FormControl(this.loginDate, [Validators.required]),
+      totalNetAmount: new FormControl('',[Validators.required]),
+      remarks: new FormControl(''),
+      arrayList: this.formBuilder.array([this.createInitialArray()])        
+    });
+    
+    this.sharedService.loading=false;       
+    setTimeout(() => {
+      if (this.selectedDieselStmtDetails.masterID != '') {
+        this.formDieselStatement.patchValue(this.selectedDieselStmtDetails);
+        this.formDieselStatement.patchValue({
+          billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
+          fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
+          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
+        })
+        this.editMode=true;
+        this.getDieselStatementInnerGridList();
+        this.formDieselStatement.controls['fromDate'].disable();  
+        this.formDieselStatement.controls['toDate'].disable();  
+        this.formDieselStatement.controls['location'].disable();   
+        this.formDieselStatement.controls['vendorId'].disable();     
+      }    
+    }, 2000);
+
+    this.formDieselStatement.controls['BranchCode'].disable();  
+    this.formDieselStatement.controls['totalNetAmount'].disable(); 
+  }
+
+  get f() { return this.formDieselStatement.controls; }
+  get formArray() {
+    return this.formDieselStatement.get("arrayList") as FormArray;
+  }
+
+  
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
+
+  createInitialArray() {
+    return this.formBuilder.group({
+      branch:  ['', []],
+      pmtDate:  ['', []],
+      vehicleNo:  ['', []],
+      hsdAdvType:  ['', []],
+      transDesc:  ['', []],
+      amountPaid:  ['', []],
+      remarks:  ['', []],
+      selected:  ['', []],
+    });
+  }
+
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
+    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+  searchStatement(): void { 
+
+    var selectedDataVal=this.formDieselStatement.getRawValue();
+    if (this.formDieselStatement.controls["fromDate"].invalid) {
+      this.toasterService.warning(" Please Select From Date");  
+      return; 
+    }
+    else if (this.formDieselStatement.controls["toDate"].invalid) {
+      this.toasterService.warning(" Please Select To Date");  
+      return; 
+    }
+    else{
+      this.Pagerequestwithdatesmodel.search= '';
+      this.Pagerequestwithdatesmodel.fromDate=selectedDataVal.fromDate;
+      this.Pagerequestwithdatesmodel.toDate=selectedDataVal.toDate;
+      this.Pagerequestwithdatesmodel.strRequest='';
+      this.dieselstatementService.getHappayDieselSearchList(this.Pagerequestwithdatesmodel)
+      .subscribe((res: Dieselstatementmodel) => {
+        this.DieselStatementmodel = res;
+        if(res.dieselStatementListData.length>0){
+        this.formDieselStatement.controls["fromDate"].disable();
+        this.formDieselStatement.controls["toDate"].disable();
+        }
+        this.formArray.clear();
+        for (var i = 0; i < res.dieselStatementListData.length; i++) {
+          this.formArray.push(this.createInitialArray());
+          this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
+          this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
+          this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStatementListData[i].vehicleNo);
+          this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
+          this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
+          this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
+          this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);     
+          
+          this.formArray.controls[i].get("branch")?.disable();      
+          this.formArray.controls[i].get("pmtDate")?.disable();      
+          this.formArray.controls[i].get("vehicleNo")?.disable();      
+          this.formArray.controls[i].get("hsdAdvType")?.disable();      
+          this.formArray.controls[i].get("transDesc")?.disable();  
+          this.formArray.controls[i].get("amountPaid")?.disable();
+          this.formArray.controls[i].get("remarks")?.disable();
+        }
+      });  
+      this.formDieselStatement.patchValue({
+        totalNetAmount: 0,
+      });    
+    } 
+  }
+
+  selectedData(index: number, event: any) {
+    this.DieselStatementmodel.dieselStatementListData[index].selected = event.target.checked;
+    this.calculateTotal();
+  }
+  
+  calculateTotal() {
+    var totalStatementAmount = 0;
+    var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
+
+    for (var i = 0; i < diesellistarray.length; i++) {
+      if (diesellistarray[i].selected) {
+        totalStatementAmount = totalStatementAmount + parseFloat(diesellistarray[i].amountPaid);
+      }
+    }
+
+    this.formDieselStatement.patchValue({
+      totalNetAmount: totalStatementAmount.toFixed(2)
+    });
+  }
+  
+  exit(): void {
+    this.route.navigate(['/happaystatementlist']);
+  }
+
+  deleteDieselStatementForm(): void {
+    if(this.selectedDieselStmtDetails.masterID != '' ){      
+    this.sharedService.loading=true;
+     this.requestmodel.strRequest =this.selectedDieselStmtDetails.masterID
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.dieselstatementService.dieselStatementDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if(this.responseDetails.status){
+              this.toasterService.success(this.responseDetails.message);
+              this.formDieselStatement.reset();
+              this.route.navigate(['/happaystatementlist']);
+            }
+            else{
+              this.toasterService.warning(this.responseDetails.message);        
+            }   
+        });
+      }
+      
+    this.sharedService.loading=false;
+    }
+  }
+
+  getDieselStatementInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedDieselStmtDetails.masterID;
+    this.dieselstatementService.getDieselStatementInnerGridList(this.requestmodel).subscribe((res) => {
+      this.DieselStatementmodel = res;
+      this.formArray.clear();
+      
+      for (var i = 0; i < res.dieselStatementListData.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("branch")?.setValue(res.dieselStatementListData[i].branch);
+        this.formArray.controls[i].get("pmtDate")?.setValue(this.commonService.formatDate(res.dieselStatementListData[i].pmtDate));
+        this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStatementListData[i].vehicleNo);
+        this.formArray.controls[i].get("hsdAdvType")?.setValue(res.dieselStatementListData[i].hsdAdvType);
+        this.formArray.controls[i].get("transDesc")?.setValue(res.dieselStatementListData[i].transDesc);
+        this.formArray.controls[i].get("amountPaid")?.setValue(res.dieselStatementListData[i].amountPaid);
+        this.formArray.controls[i].get("remarks")?.setValue(res.dieselStatementListData[i].remarks);  
+        this.formArray.controls[i].get("selected")?.setValue(res.dieselStatementListData[i].selected);            
+        
+        this.formArray.controls[i].get("branch")?.disable();      
+        this.formArray.controls[i].get("pmtDate")?.disable();      
+        this.formArray.controls[i].get("vehicleNo")?.disable();      
+        this.formArray.controls[i].get("hsdAdvType")?.disable();      
+        this.formArray.controls[i].get("transDesc")?.disable();  
+        this.formArray.controls[i].get("amountPaid")?.disable();
+        this.formArray.controls[i].get("remarks")?.disable();
+        this.formArray.controls[i].get("selected")?.disable();
+      }
+    });  
+  }
+
+  saveStatementDetails(): void {
+    this.formSubmitted = true;
+    if (this.formDieselStatement.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formDieselStatement.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
+      return;
+    }
+
+    var selectedDataVal=this.formDieselStatement.getRawValue();
+    var diesellistarray = this.DieselStatementmodel.dieselStatementListData;
+    var IsItemSelected = false;
+    for (var i = 0; i < diesellistarray.length; i++) {
+      if (diesellistarray[i].selected) {
+        IsItemSelected = true;
+      }
+    }
+
+    if (!IsItemSelected){
+      this.toasterService.warning("Select Atleast one Trip Details");
+      return;
+    }
+          
+    this.sharedService.loading=true;
+    this.DieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
+    this.DieselStatementmodel.branchCode      = selectedDataVal.statementBranch;
+    this.DieselStatementmodel.billStmtNo      = "";
+    this.DieselStatementmodel.billStmtDate    = selectedDataVal.billStmtDate;
+    this.DieselStatementmodel.fromDate        = selectedDataVal.fromDate;
+    this.DieselStatementmodel.toDate          = selectedDataVal.toDate;
+    this.DieselStatementmodel.location        = selectedDataVal.location?selectedDataVal.location.dataId:'';
+    this.DieselStatementmodel.dfVendor        = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
+    this.DieselStatementmodel.rate            = "";
+    this.DieselStatementmodel.statementFlag   = 'H'  ;       
+    this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
+    this.DieselStatementmodel.totalDslLtrs    = "0";
+    this.DieselStatementmodel.totalDslAmt     = "0";
+    this.DieselStatementmodel.totalCashAdv    = selectedDataVal.totalNetAmount;
+    this.DieselStatementmodel.totalNetAmount  = selectedDataVal.totalNetAmount;
+    this.DieselStatementmodel.branchCode      = this.branch;
+    this.DieselStatementmodel.yearId          = this.year;
+    this.DieselStatementmodel.loggedInUser    = this.loggedInUserID;
+
+    this.dieselstatementService.saveDieselStatementDetails(this.DieselStatementmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message);
+        this.formDieselStatement.reset();
+        this.route.navigate(['/happaystatementlist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      } 
+    });
+        
+    this.sharedService.loading=false;
+  }
+}

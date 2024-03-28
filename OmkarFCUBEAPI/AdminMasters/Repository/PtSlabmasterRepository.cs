@@ -26,54 +26,63 @@ namespace AdminMasters.Repository
   
     public async Task<ResponseModel> PtSlabMasterSave(PtSlabMasterModel hrTypeModel)
     {
-        ResponseModel responseModel = new();
+        ResponseModel responseModel = new();            
+
+        var connection = new SqlConnection(dbconnection.Value.DBConnection);
+        connection.Open();
+        SqlTransaction transaction;
+        transaction = connection.BeginTransaction();
+
         try
         {
             if (dbconnection != null)
             {
                 SqlParameter[] param =
                     {
-                            new SqlParameter("@PtId", hrTypeModel.PtId),
-                            new SqlParameter("@StateCode", hrTypeModel.StateCode),
-                            new SqlParameter("@RangeFrom", hrTypeModel.RangeFrom),
-                              new SqlParameter("@RangeTo", hrTypeModel.RangeTo),
-                                new SqlParameter("@PtDedAmt", hrTypeModel.PtDedAmt),
+                        new SqlParameter("@PtId", hrTypeModel.PtId),
+                        new SqlParameter("@StateCode", hrTypeModel.StateCode),
+                        new SqlParameter("@RangeFrom", hrTypeModel.RangeFrom),
+                        new SqlParameter("@RangeTo", hrTypeModel.RangeTo),
+                        new SqlParameter("@PtDedAmt", hrTypeModel.PtDedAmt),
+                        new SqlParameter("@LoggedInUser", hrTypeModel.LoggedInUser)
+                    };
+                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "PtSlabmaster_Insert", param);
 
-                             new SqlParameter("@LoggedInUser", hrTypeModel.LoggedInUser)
-
-                        };
-                var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "PtSlabmaster_Insert", param);
-
-                if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                 {
                     responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                     responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
                 }
                 else
                 {
                     responseModel.Status = false;
-                    responseModel.Message = "Unable to process";
+                    transaction.Rollback();
                 }
             }
         }
         catch (Exception ex)
         {
-            // Log exception on database
-            //ExceptionModel exceptionModel = new()
-            //{
-            //    ExceptionMessage = Convert.ToString(ex.Message),
-            //    ExceptionType = Convert.ToString(ex.GetType().Name),
-            //    ExceptionSource = Convert.ToString(ex.StackTrace)
-            //};
-
-            //ExceptionRepository exception = new(dbconnection);
-            //await exception.SaveExceptionDetails(exceptionModel);
+            transaction.Rollback();
         }
         return responseModel;
     }
         public async Task<ResponseModel> PtSlabMasterDelete(RequestModel req)
         {
             ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
             try
             {
                 if (dbconnection != null)
@@ -82,32 +91,31 @@ namespace AdminMasters.Repository
                         {
                             new SqlParameter("@PtId", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_PtSlabMasterDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PtSlabMasterDelete", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0 )
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
                     }
                     else
                     {
                         responseModel.Status = false;
-                        responseModel.Message = "Unable to process";
+                        transaction.Rollback();
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                transaction.Rollback();
             }
             return responseModel;
         }
@@ -138,14 +146,9 @@ namespace AdminMasters.Repository
                             {
                                 PtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PtId"]),
                                 StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
-
                                 RangeFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["RangeFrom"]),
                                 RangeTo = Convert.ToString(dataSet.Tables[0].Rows[i]["RangeTo"]),
                                 PtDedAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["PtDedAmt"]),
-
-
-
-
                             });
                         }
 

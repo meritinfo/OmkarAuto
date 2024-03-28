@@ -7,7 +7,6 @@ import { Filtermodel } from '../models/filtermodel';
 import { Observable } from 'rxjs';
 import { Responsemodel } from '../models/responsemodel';
 import { Billstatementsaverequest } from '../models/billstatementsaverequest';
-import { Billstatementinnergridrequest } from '../models/billstatementinnergridrequest';
 import { Billstatementlistmodel } from '../models/billstatementlistmodel';
 import { Requestmodel } from '../models/requestmodel';
 
@@ -54,7 +53,7 @@ getBillStatementDetails() {
   saveBillStatementDetails(request: billstatementmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SaveBillStatementDetails', request, this.httpOptions);
   }
-  getBillStatementInnerGridList(request: Billstatementinnergridrequest): Observable<Billstatementsearchlistmodel> {
+  getBillStatementInnerGridList(request: Requestmodel): Observable<Billstatementsearchlistmodel> {
     return this.httpClient.post<Billstatementsearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementInnerGridList', request, this.httpOptions);
   }
   

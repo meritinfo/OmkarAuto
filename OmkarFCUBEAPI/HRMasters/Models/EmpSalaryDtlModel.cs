@@ -14,5 +14,6 @@ namespace HRMasters.Models
         public string? EdType { get; set; }
         public string? EdCode { get; set; }
         public string? EdAmt { get; set; }
+        public string? EdName { get; set; }
     }
 }
