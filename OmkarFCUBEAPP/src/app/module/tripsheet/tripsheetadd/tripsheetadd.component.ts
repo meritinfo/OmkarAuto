@@ -402,7 +402,7 @@ export class TripsheetaddComponent {
     //    }
 
       for (let misc = 1; misc < this.tripsheetinnergridmodel.miscList.length; misc++) {
-        this.addMiscItem();
+        this.addMiscItem(misc-1);
       }
       for (let misc = 1; misc < this.tripsheetinnergridmodel.adblueList.length; misc++) {
         this.addAdblueItem();
@@ -631,6 +631,13 @@ export class TripsheetaddComponent {
   submitTripSheetForm(): void {
     this.userSubmitted = true;
     if (this.formTripsheet.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formTripsheet.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
     this.validationForDslPlace();
@@ -729,13 +736,23 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripSheetInnerGridList = this.tripsheetinnergridmodel;
     this.tripsheetmodel.loggedInUser = this.loggedInUserID;
     this.tripsheetmodel.tripTime = selectedDataValue.tripTime;
-    if (this.formMiscArray.value != undefined) {
-      for (var i = 0; i < this.formMiscArray.value.length; i++) {
-        this.tripsheetmodel.miscList.push({
-          'expType': this.formMiscArray.value[i].expType,
-          'miscAmount': this.formMiscArray.value[i].miscAmount,
-          'narration': this.formMiscArray.value[i].narration
-        })
+    for (var i = 0; i < this.formMiscArray.value.length; i++) {
+      if(this.formMiscArray.value[i].expType!=''||  this.formMiscArray.value[i].miscAmount!=''){
+        if(this.formMiscArray.value[i].expType!=''&&  this.formMiscArray.value[i].miscAmount!=''){
+          this.tripsheetmodel.miscList.push({
+            'expType': this.formMiscArray.value[i].expType,
+            'miscAmount': this.formMiscArray.value[i].miscAmount,
+            'narration': this.formMiscArray.value[i].narration
+          })
+        }
+        else if(this.formMiscArray.value[i].expType==''){
+          this.toastrService.warning( "Exp Type Cannot be Empty");  
+          return;
+        }
+        else if(this.formMiscArray.value[i].miscAmount==''){
+          this.toastrService.warning( "Misc Amount Cannot be Empty");  
+          return;
+        }
       }
     }
 
@@ -3092,8 +3109,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   //   });
   // }
 
-  addMiscItem(): void {
-    this.formMiscArray.push(this.createMiscArray());
+  addMiscItem(index: number): void {
+    //if (this.formMiscArray.value[index].expType != "" && this.formMiscArray.value[index].miscAmount != "") {
+      this.formMiscArray.push(this.createMiscArray());
+    // } else {
+    //   this.toastrService.warning("Please Enter Current record  ");
+    // }
   }
 
   removeMiscItem(index: number) {
