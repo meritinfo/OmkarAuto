@@ -103,8 +103,31 @@ export class AppComponent implements OnInit {
 
   //Shortcut key for tripsheet list -> Ctrl + S
   @HostListener('window:keydown.control.s', ['$event'])
-  bigFont(event: KeyboardEvent) {
+  tripFont(event: KeyboardEvent) {
     event.preventDefault();
     this.route.navigate(['/tripsheetlist']);
   }
+  //Shortcut key for Consignment -> Ctrl + L
+  @HostListener('window:keydown.control.l', ['$event'])
+  conFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/consignmentlist']);
+  }
+  //Shortcut key for Trip Payments -> Ctrl + P
+  @HostListener('window:keydown.control.p', ['$event'])
+  trippayFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/trippaymentlist']);
+  }
+  //Shortcut key for OTHER Trip Payments -> Ctrl + O
+  @HostListener('window:keydown.control.o', ['$event'])
+  othertripFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/othertripopenlist']);
+  }
+
+
+// Others Trip Open:  Ctrl + O
+// Tripsheet:  Ctrl + S
+
 }
