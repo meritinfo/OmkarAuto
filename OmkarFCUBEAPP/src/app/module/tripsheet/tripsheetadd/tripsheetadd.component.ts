@@ -262,8 +262,8 @@ export class TripsheetaddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getLocationList();
-    this.GetDslOpeningBal();
-    this.GetAdblueOpeningBal();
+   // this.GetDslOpeningBal();
+   // this.GetAdblueOpeningBal();
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     setTimeout(() => {
@@ -402,10 +402,12 @@ export class TripsheetaddComponent {
     //    }
 
       for (let misc = 1; misc < this.tripsheetinnergridmodel.miscList.length; misc++) {
-        this.addMiscItem(misc-1);
+        this.formMiscArray.push(this.createMiscArray());
+        //this.addMiscItem(misc-1);
       }
       for (let misc = 1; misc < this.tripsheetinnergridmodel.adblueList.length; misc++) {
-        this.addAdblueItem();
+       // this.addAdblueItem();
+        this.formAdblueArray.push(this.createAdblueArray());
       }
       this.formTripsheet.patchValue({
         miscDetailsList: this.tripsheetinnergridmodel.miscList,
@@ -452,7 +454,7 @@ export class TripsheetaddComponent {
       this.tripsheetinnergridmodel.adblueList.push({
         'adbluefillingStation': '',
         'adbluedieselLiter': '',
-        'adbluedieselAmount': ''
+       // 'adbluedieselAmount': ''
       })
     }
     this.tripsheetinnergridmodel.adblueList[index].adbluedieselLiter = event.target.value;
@@ -566,6 +568,7 @@ export class TripsheetaddComponent {
       otherExpByDriver: totalotherExpByDriver.toFixed(2),
       tollExpByDriver: totalToll.toFixed(2),
     });
+   this.totalCalculation();
     this.sharedService.loading = false;
   }
 
@@ -758,13 +761,25 @@ export class TripsheetaddComponent {
 
     if (this.formAdblueArray.value != undefined) {
       for (var i = 0; i < this.formAdblueArray.value.length; i++) {
+        if(this.formAdblueArray.value[i].adbluedieselLiter!=''||  this.formAdblueArray.value[i].adbluefillingStation!=''){
+          if(this.formAdblueArray.value[i].adbluedieselLiter!=''&&  this.formAdblueArray.value[i].adbluefillingStation!=''){
         this.tripsheetmodel.adblueList.push({
           'adbluefillingStation': this.formAdblueArray.value[i].adbluefillingStation,
-          'adbluedieselLiter': this.formAdblueArray.value[i].adbluedieselLiter,
-          'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
-        })
+          'adbluedieselLiter': this.formAdblueArray.value[i].adbluedieselLiter
+         // 'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
+        }) 
+       }
+        else if(this.formAdblueArray.value[i].adbluefillingStation==''){
+          this.toastrService.warning( "Fill Station Cannot be Empty");  
+          return;
+        }
+        else if(this.formAdblueArray.value[i].adbluedieselLiter==''){
+          this.toastrService.warning( "Ltr Cannot be Empty");  
+          return;
+        }
       }
     }
+  }
 
     this.tripSheetService.tripSheetDetailsSubmitted(this.tripsheetmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -1287,7 +1302,9 @@ GetLastTripDriver(e:any) {
 
     this.commonService.getDriverDetail(this.requestmodel).subscribe((res: Driverdetailmodel) => {
       this.DriverDetails = res;
+     if( this.DriverDetails.drPhoto!=''){
       this.driverPhotoPreview = Constants.UploadFolderPath + 'driver/driverphoto/' + this.DriverDetails.drPhoto;
+      }
       this.licenceNo = this.DriverDetails.licenseNo,
       this.validUpto = this.DriverDetails.licValidUpto
     });
@@ -2013,6 +2030,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
      totalDriverAc = repairsByDriver + parkingByDriver + accidentByDriver + weighmentByDriver + challanByDriver + otherExpByDriver + allowedBhatta + onTimeIncentiveAmt + multiDelIncentiveAmt +tollExpByDriver + totalpayable + cashDslAmt - penaltyChargedToDr-penaltyExtra;
    // clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
    clBalAdblue = totalAdblue - issuedAdblueLtrs + opBalAdblue 
+   clBalAdblue = Math.ceil(clBalAdblue);
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
    // tripBalance = - paidDriverAdvance-opBalDriver - totalDriverAc ;
@@ -2024,7 +2042,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({
         clBalDsl: (clBalDsl).toString(),
-        clBalAdBlue: (clBalAdblue).toString(),
+        clBalAdBlue: (clBalAdblue).toFixed(2).toString(),
         netTripBalance: (netTripBalance).toString(),
         totalDriverAc: (totalDriverAc).toString(),
         tripBalance: (tripBalance).toString(),
@@ -2092,6 +2110,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
    // clBalAdblue = opBalAdblue + issuedAdblueLtrs - totalAdblue;
    //clBalAdblue = totalAdblue - opBalAdblue - issuedAdblueLtrs;
    clBalAdblue = totalAdblue - issuedAdblueLtrs + opBalAdblue 
+   clBalAdblue = Math.ceil(clBalAdblue);
     // netTripBalance = selectedDataValue.opBalDriver?parseFloat(selectedDataValue.opBalDriver) :0+ selectedDataValue.paidDriverAdvance?parseFloat(selectedDataValue.paidDriverAdvance):0 - selectedDataValue.totalpayable?parseFloat(selectedDataValue.totalpayable):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.repairsByDriver?parseFloat(selectedDataValue.repairsByDriver):0-selectedDataValue.parkingByDriver?parseFloat(selectedDataValue.parkingByDriver):0- selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.accidentByDriver?parseFloat(selectedDataValue.accidentByDriver):0-selectedDataValue.weighmentByDriver?parseFloat(selectedDataValue.weighmentByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0-selectedDataValue.challanByDriver?parseFloat(selectedDataValue.challanByDriver):0- selectedDataValue.otherExpByDriver?parseFloat(selectedDataValue.otherExpByDriver):0- selectedDataValue.allowedBhatta?parseFloat(selectedDataValue.allowedBhatta):0-selectedDataValue.onTimeIncentiveAmt?parseFloat(selectedDataValue.onTimeIncentiveAmt):0-selectedDataValue.penaltyChargedToDr?parseFloat(selectedDataValue.penaltyChargedToDr):0-selectedDataValue.poolAcAmt?parseFloat(selectedDataValue.poolAcAmt):0
     //tripBalance = opBalDriver + totalDriverAc - paidDriverAdvance;
  // tripBalance = paidDriverAdvance-opBalDriver - totalDriverAc ;
@@ -2100,7 +2119,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
       this.formTripsheet.patchValue({
         clBalDsl: (clBalDsl).toString(),
-        clBalAdBlue: (clBalAdblue).toString(),
+        clBalAdBlue: (clBalAdblue).toFixed(2).toString(),
         netTripBalance: (netTripBalance).toString(),
         totalDriverAc: (totalDriverAc).toString(),
         tripBalance: (tripBalance).toString(),
@@ -2389,7 +2408,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
      //  let adbluenew string  = parseFloat(this.adblue1).toFixed(2)
     // ltsadbnew = Math.ceil(ltsadbnew)
      this.ltsadbnew = parseInt(this.adblue1);
-     this.ltsadbnew = Math.ceil(this.ltsadbnew)
+    // this.ltsadbnew = Math.ceil(this.ltsadbnew)
+    this.ltsadbnew = Math.ceil(this.ltsadbnew)
 
         //date2 =this.commonService.formatDate(date2)
         //const myFormattedDate = this.commonService.formatDate(date2);
@@ -2487,7 +2507,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
           //ir = parseInt(this.incentiveRate) * selectedDataValue.advanceDays_1;
           ir = parseInt(this.incentiveRate)
           this.getDslToBe1();
-         // this.getAdblueToBe1();
+          this.getAdBlueToBe1();
 
 
           this.totalCalculationForTicl(ir);
@@ -2521,6 +2541,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       let ir = 0;
       ir = parseInt(this.incentiveRate)
       this.getDslToBe1();
+      this.getAdBlueToBe1();
       this.totalCalculationForTicl(ir);
     this.formTripsheet.patchValue({
       // cneeGst:  (this.ExpectedReportingDays).toString() 
@@ -2534,6 +2555,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         onTimeIncentiveAmt: "0"
       });
       this.getDslToBe1();
+      this.getAdBlueToBe1();
       this.totalCalculationForTicl(0);
       // this.totalCalculation();
 
@@ -2976,7 +2998,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       expectedReportingDt: '',
       expectedReportingDays: '0',
       advPayable_1:'0',
-      ltsDslToBe_1:'0'
+      ltsDslToBe_1:'0',
+      ltsAdblueToBe_1:'0',
       
     
     });
@@ -2990,6 +3013,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       distanceTripKM_1: '0',
       advPayable_1:'0',
       ltsDslToBe_1:'0',
+      ltsAdblueToBe_1:'0',
       expectedReportingDt: '',
       expectedReportingDays: '0',
     
@@ -3110,11 +3134,11 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   // }
 
   addMiscItem(index: number): void {
-    //if (this.formMiscArray.value[index].expType != "" && this.formMiscArray.value[index].miscAmount != "") {
+    if (this.formMiscArray.value[index].expType != "" && this.formMiscArray.value[index].miscAmount != "") {
       this.formMiscArray.push(this.createMiscArray());
-    // } else {
-    //   this.toastrService.warning("Please Enter Current record  ");
-    // }
+    } else {
+      this.toastrService.warning("Please Enter Current record  ");
+    }
   }
 
   removeMiscItem(index: number) {
@@ -3148,8 +3172,14 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   //   });
   // }
 
-  addAdblueItem(): void {
-    this.formAdblueArray.push(this.createAdblueArray());
+  addAdblueItem(index: number): void {
+   // this.formAdblueArray.push(this.createAdblueArray());
+
+    if (this.formAdblueArray.value[index].adbluefillingStation != "" && this.formAdblueArray.value[index].adbluedieselLiter != "") {
+      this.formAdblueArray.push(this.createAdblueArray());
+    } else {
+      this.toastrService.warning("Please Enter Current record  ");
+    }
   }
 
   removeAdblueItem(index: number) {
@@ -3163,7 +3193,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     return this.formBuilder.group({
       adbluefillingStation: [''],
       adbluedieselLiter: [''],
-      adbluedieselAmount: ['']
+      //adbluedieselAmount: ['']
     });
   }
 }
