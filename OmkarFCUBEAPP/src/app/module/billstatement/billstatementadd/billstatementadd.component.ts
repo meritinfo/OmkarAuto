@@ -125,7 +125,7 @@ export class BillstatementaddComponent implements OnInit {
       totFreight: new FormControl('',[Validators.required]),
       totExtraChrg: new FormControl(''),
       totSubTotal: new FormControl(''),
-      gstType: new FormControl('NA'),
+      gstType: new FormControl('N'),
       sgstPct: new FormControl(''),
       sgstAmt: new FormControl(''),
       cgstPct: new FormControl(''),
@@ -153,6 +153,26 @@ export class BillstatementaddComponent implements OnInit {
   
       if (this.selectedBillstatementDetails.masterID != '') {
         this.formBillStatement.controls['billSeries'].disable();
+        this.formBillStatement.controls['party'].disable();
+        this.formBillStatement.controls['suppYN'].disable();
+        this.formBillStatement.controls['lrFrom'].disable();
+        this.formBillStatement.controls['lrTo'].disable();
+        this.formBillStatement.controls['fromPoint'].disable();
+
+        if(this.selectedBillstatementDetails.suppYN=="Y"){
+          this.supp = true;
+          this.showButton = false;
+          this.formBillStatement.controls['totFreight'].enable();
+          this.formBillStatement.controls['lrFrom'].enable();
+          this.formBillStatement.controls['lrTo'].enable();
+          this.formBillStatement.controls['fromPoint'].enable();
+        }
+        else{
+          this.supp = false;
+          this.showButton = true;
+          this.formBillStatement.controls['totFreight'].disable();
+        }
+
         this.formBillStatement.patchValue(this.selectedBillstatementDetails); 
         this.formBillStatement.patchValue({
           billNo:  this.selectedBillstatementDetails.bill_StmtNo, 
@@ -164,7 +184,14 @@ export class BillstatementaddComponent implements OnInit {
           fromPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.fromPoint),
           toPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.toPoint),   
         })
-        this.getBillStatementInnerGridList();
+
+        if(this.selectedBillstatementDetails.suppYN=="N"){          
+          this.formBillStatement.patchValue({
+            suppYN:  ""
+          })
+          this.getBillStatementInnerGridList();
+        }
+        
         this.editMode = true;
       }   
     }, 2000);
@@ -321,7 +348,7 @@ export class BillstatementaddComponent implements OnInit {
       cgst = parseFloat(selectedDate.cgstPct)
     }
 
-    if (selectedDate.gstType == "IG") {   
+    if (selectedDate.gstType == "I") {   
       selectedDate.igstPct 
       this.formBillStatement.patchValue({
         sgstPct:"",
@@ -332,7 +359,7 @@ export class BillstatementaddComponent implements OnInit {
         igstAmt: ((totalSubAmount * igst)/100).toFixed(2)
       });   
     }    
-    else if (selectedDate.gstType == "SC")  {    
+    else if (selectedDate.gstType == "S")  {    
       this.formBillStatement.patchValue({
         sgstPct: sgst,
         cgstPct: cgst,
@@ -367,7 +394,7 @@ export class BillstatementaddComponent implements OnInit {
     console.log(e.target.value);
     var gsttype = e.target.value; 
    
-    if (gsttype == "IG") {   
+    if (gsttype == "I") {   
       this.formBillStatement.controls['sgstPct'].disable();
       this.formBillStatement.controls['cgstPct'].disable();  
       this.formBillStatement.controls['igstPct'].enable();    
@@ -380,7 +407,7 @@ export class BillstatementaddComponent implements OnInit {
         igstAmt:"0",
       });   
     }    
-    else if (gsttype == "SC")  {      
+    else if (gsttype == "S")  {      
       this.formBillStatement.controls['sgstPct'].enable();
       this.formBillStatement.controls['cgstPct'].enable();  
       this.formBillStatement.controls['igstPct'].disable();   
@@ -437,7 +464,7 @@ export class BillstatementaddComponent implements OnInit {
       cgst = parseFloat(selectedDate.cgstPct)
     }
 
-    if (selectedDate.gstType == "IG") {   
+    if (selectedDate.gstType == "I") {   
       selectedDate.igstPct 
       this.formBillStatement.patchValue({
         sgstPct:"",
@@ -448,7 +475,7 @@ export class BillstatementaddComponent implements OnInit {
         igstAmt: ((totalSubAmount * igst)/100).toFixed(2),
       });   
     }    
-    else if (selectedDate.gstType == "SC")  {    
+    else if (selectedDate.gstType == "S")  {    
       this.formBillStatement.patchValue({
         sgstPct: sgst,
         cgstPct: cgst,
@@ -536,7 +563,17 @@ export class BillstatementaddComponent implements OnInit {
       } 
       return;
     }
+
     var selectedDataValue = this.formBillStatement.getRawValue();
+
+    if (parseFloat(selectedDataValue.totalBillAmt)>0) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Total Bill Amount Should Not be Zero "); 
+      return;
+    }
+
     this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID ;
     this.billsstatementmodel.billStation = selectedDataValue.statementBillStation;
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;

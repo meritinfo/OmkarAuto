@@ -101,8 +101,8 @@ export class AppComponent implements OnInit {
     });
   }
 
-  //Shortcut key for tripsheet list -> Ctrl + t
-  @HostListener('window:keydown.control.t', ['$event'])
+  //Shortcut key for tripsheet list -> Ctrl + S
+  @HostListener('window:keydown.control.s', ['$event'])
   bigFont(event: KeyboardEvent) {
     event.preventDefault();
     this.route.navigate(['/tripsheetlist']);

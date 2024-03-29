@@ -80,7 +80,7 @@ namespace FleetTrans.Repository
             return billStatementSearchList;
         }
 
-        public async Task<BillStatementList> GetBillStatementList(PageRequest request)
+        public async Task<BillStatementList> GetBillStatementList(PageFromDtToDtRequest request)
         {
             BillStatementList billStatementList = new();
             List<BillStatementModel> billList = new();
@@ -91,12 +91,14 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@PageSize",   request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "BillStatementList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillStatementMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -105,30 +107,30 @@ namespace FleetTrans.Repository
                         {
                             billList.Add(new BillStatementModel
                             {
-                                MasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["MasteriD"]),
-                                BillStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStation"]),
-                                SeriesCode = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
-                                Bill_StmtNo = Convert.ToString(dataSet.Tables[0].Rows[i]["Bill_StmtNo"]),
-                                BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
-                                PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
-                                FromDate = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
-                                ToDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
-                                FromPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
-                                ToPoint = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
-                                SuppYN = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppYN"]),
-                                PartyRefNo = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyRefNo"]),
-                                TotFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),
-                                TotExtraChrg = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtraChrg"]),
-                                TotSubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
-                                GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
-                                SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
-                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
-                                CgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
-                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
-                                IgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
-                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
-                                TotalBillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBillAmt"]),
-                                FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
+                                MasterID        = Convert.ToString(dataSet.Tables[0].Rows[i]["MasteriD"]),
+                                BillStation     = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStation"]),
+                                SeriesCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["SeriesCode"]),
+                                Bill_StmtNo     = Convert.ToString(dataSet.Tables[0].Rows[i]["Bill_StmtNo"]),
+                                BillDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
+                                PartyCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
+                                FromDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
+                                ToDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
+                                FromPoint       = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
+                                ToPoint         = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
+                                SuppYN          = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppYN"]),
+                                PartyRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyRefNo"]),
+                                TotFreight      = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),
+                                TotExtraChrg    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtraChrg"]),
+                                TotSubTotal     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
+                                GstType         = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
+                                SgstPct         = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
+                                SgstAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                CgstPct         = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstPct"]),
+                                CgstAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                IgstPct         = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstPct"]),
+                                IgstAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                TotalBillAmt    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBillAmt"]),
+                                FPlace          = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                             });
                         }
 
@@ -198,12 +200,6 @@ namespace FleetTrans.Repository
 
         public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(RequestModel request)
         {
-           
-            //BillStatementModel billstatementInnerGridList = new()
-            //{
-            //    BillStatementListData = new List<BillStatementSearchModel>(),
-
-            //};
             BillStatementSearchListModel billStatementSearchList = new();
             List<BillStatementSearchModel> billStatementSearchModels = new();
             try
@@ -215,7 +211,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@MasterId", request.strRequest),
                          
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillStatementInnerGridList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillStatementInnergrid", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
