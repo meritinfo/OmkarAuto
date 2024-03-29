@@ -391,13 +391,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">KMs</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="distanceTripKM_1">
-                                            </div>
-                                        </div>
+                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Expected Rpt</label>
@@ -438,6 +432,9 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
+                                                <label for="formrow-inputState"  [hidden]="true">KMs</label>
+                                                <input class="form-control" placeholder="" [hidden]="true"
+                                                    formControlName="distanceTripKM_1">
                                             </div>
                                         </div>
                                     </div>
@@ -526,13 +523,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">KMs</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="distanceTripKM_2">
-                                            </div>
-                                        </div>
+                                      
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity"> Next Exp Reported Date</label>
@@ -554,8 +545,6 @@
                                                     formControlName="ltsAdblueToBe_2">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Dsl To Be</label>
@@ -563,6 +552,9 @@
                                                     formControlName="ltsDslToBe_2">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                      
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Travel Adv Payable</label>
@@ -597,7 +589,14 @@
                                                 <input class="form-control" placeholder=""
                                                     formControlName="delayedDays_2">
                                             </div>
-                                        </div>    
+                                        </div>  
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity" [hidden]="true">KMs</label>
+                                                <input class="form-control" placeholder=""
+                                                    formControlName="distanceTripKM_2" [hidden]="true">
+                                            </div>
+                                        </div>  
                                 </div>
                             </div>
                         </div>
@@ -670,9 +669,10 @@
                                             *ngFor="let miscData of formMiscArray.controls; let k = index">
                                             <div [formGroupName]="k">
                                                 <td class="col-lg-4">
-                                                    <select id="role" class="form-select" formControlName="expType" style="font-size: small;"
+                                                    <select id="role" class="form-select" formControlName="expType" 
+                                                    style="font-size: small;"
                                                         (change)="changeMisc(k, $event)">
-                                                        <option value="">Choose...</option>
+                                                        <!-- <option value="">Choose...</option> -->
                                                         <option value="R">REPAIR</option>
                                                         <option value="P">PARKING</option>
                                                         <option value="M">M.CHALLAN</option>
@@ -693,7 +693,7 @@
                                                 <td>
                                                     <div class="col-lg-12 details-button">
                                                         <button type="button" class="btn btn-primary"
-                                                            (click)="addMiscItem()">Add</button>
+                                                            (click)="addMiscItem(k)">Add</button>
                                                         <button *ngIf="formMiscArray.controls.length > 1"
                                                             (click)="removeMiscItem(k)"
                                                             class="btn btn-danger">Delete</button>
@@ -755,25 +755,21 @@
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Filling Branch</h6>
+                                                        <h5>Filling Branch</h5>
                                                     </label>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Adblue</h6>
+                                                        <h5>Adblue Ltrs</h5>
                                                     </label>
                                                 </div>
-                                                <div class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Amount</h6>
-                                                    </label>
-                                                </div>
+                                               
                                             </div>
                                         </tr>
                                         <tr formArrayName="adblueDetailsList"
                                             *ngFor="let adblueData of formAdblueArray.controls; let m = index">
                                             <div [formGroupName]="m">
-                                                <td class="col-lg-3">
+                                                <td >
                                                     <select class="form-control" formControlName="adbluefillingStation"
                                                         [ngClass]="" (change)="changeAdBlue(m, $event)">
                                                         <option *ngFor="let branch of branchList"
@@ -783,20 +779,17 @@
                                                         </option>
                                                     </select>
                                                 </td>
-                                                <td>
+                                                <td class="col-lg-2">
                                                     <input autoclose="false" type="text" placeholder=""
                                                         class="form-control" decimalonly
                                                         formControlName="adbluedieselLiter"
                                                         (change)="updateAdBlue(m, $event)">
                                                 </td>
-                                                <td>
-                                                    <input class="form-control" placeholder=""
-                                                        formControlName="adbluedieselAmount" decimalonly>
-                                                </td>
+                                                
                                                 <td>
                                                     <div class="col-lg-12 details-button">
                                                         <button type="button" class="btn btn-primary"
-                                                            (click)="addAdblueItem()">Add</button>
+                                                            (click)="addAdblueItem(m)">Add</button>
                                                         <button *ngIf="formAdblueArray.controls.length > 1"
                                                             (click)="removeAdblueItem(m)"
                                                             class="btn btn-danger">Delete</button>
@@ -856,7 +849,7 @@
                                 </div>
                                 <div class="col-lg-2">
                                      <div class="mb-2">
-                                         <label for="formrow-inputCity">Dsl AdBlue Issued</label>
+                                         <label for="formrow-inputCity"> AdBlue Issued</label>
                                          <input class="form-control" placeholder=""
                                              formControlName="issuedAdblueLtrs" decimalonly>
                                      </div>

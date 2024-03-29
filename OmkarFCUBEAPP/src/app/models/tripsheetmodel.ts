@@ -109,5 +109,5 @@ export class MiscListmodel {
 export class AdblueListmodel {
     adbluefillingStation: string = "";
     adbluedieselLiter: string = "";
-    adbluedieselAmount: string = "";
+   // adbluedieselAmount: string = "";
 }

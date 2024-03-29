@@ -176,7 +176,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@TripId", TripID),
                                     new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].AdbluefillingStation),
                                     new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdbluedieselLiter),
-                                    new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
+                                  //  new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
                                     new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
                                 };
                                 var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripAdblueDetails_Insert", paramAdBlue);
