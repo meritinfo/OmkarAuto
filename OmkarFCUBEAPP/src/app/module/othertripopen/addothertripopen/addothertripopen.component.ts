@@ -33,6 +33,7 @@ export class AddothertripopenComponent {
   dTripKM_1: number = 0;
   ltsdsl1:string = '';
   adblue1:string = '';
+  ltsadbnew: number =0;
  // frmplc: number = 0;
  vehid:string = '';
    frmplc: string = '';
@@ -429,9 +430,13 @@ export class AddothertripopenComponent {
       this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
         this.adblue1 = res.message;
+        this.ltsadbnew = parseInt(this.adblue1);
+        this.ltsadbnew = Math.ceil(this.ltsadbnew)
+   
+
         if (res.status) {
           this.formOtherTripOpen.patchValue({
-            ltsAdblueToBe_1: parseFloat(this.adblue1).toFixed(2).toString()
+            ltsAdblueToBe_1: (this.ltsadbnew).toFixed(2).toString()
           });
         } 
         else{
