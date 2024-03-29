@@ -66,20 +66,7 @@ namespace OmkarFCUBEAPI.Controllers
 
        
         
-        [HttpPost("GetBillStatementList")]
-        public async Task<IActionResult> GetBillStatementList(PageRequest request)
-        {
-            try
-            {
-                var result = await billStatementBusiness.GetBillStatementList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
         //[HttpPost("GetDriverSalaryStatementList")]
         //public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
         //{
@@ -94,48 +81,7 @@ namespace OmkarFCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
-        [HttpPost("GetDriverSalaryStmtList")]
-        public async Task<IActionResult> GetDriverSalaryStatementList(PageRequest request)
-        {
-            try
-            {
-                var result = await driverSalaryStmtBusiness.GetDriverSalaryStatementList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetTripSheetList")]
-        public async Task<IActionResult> GetTripSheetList(PageRequestDtBrVh request)
-        {
-            try
-            {
-                var result = await tripMasterBusiness.GetTripSheetList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetDriverList")]
-        public async Task<IActionResult> GetDriverList()
-        {
-            try
-            {
-                var result = await tripMasterBusiness.GetDriverList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
        
         [HttpPost("GetCreditAcList2")]
         public async Task<IActionResult> GetCreditAcList2(AcModel request)
@@ -151,6 +97,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("TripPaymentsDelete")]
         public async Task<IActionResult> TripPaymentsDelete(RequestModel req)
         {
@@ -169,42 +116,8 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("BillsStatementDelete")]
-        public async Task<IActionResult> BillsStatementDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await billStatementBusiness.BillsStatementDelete(req);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("DriverSalaryDelete")]
-        public async Task<IActionResult> DriverSalaryDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await driverSalaryStmtBusiness.DriverSalaryDelete(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
         [HttpPost("GetCreditAcList")]
         public async Task<IActionResult> GetCreditAcList()
         {
@@ -329,6 +242,38 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("GetTripSheetList")]
+        public async Task<IActionResult> GetTripSheetList(PageRequestDtBrVh request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDriverList")]
+        public async Task<IActionResult> GetDriverList()
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetDriverList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetOpeningBal")]
         public async Task<IActionResult> GetOpeningBal(OpBalModel request)
         {
@@ -505,6 +450,22 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetDieselStatementInnerGridList")]
+        public async Task<IActionResult> GetDieselStatementInnerGridList(RequestModel request)
+        {
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStatementInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDieselStatementList")]
         public async Task<IActionResult> GetDieselStatementList(PageFromDtToDtRequest request)
         {
@@ -633,12 +594,13 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetDriverSalarySearchList")]
-        public async Task<IActionResult> GetDriverSalarySearchList(DriverSalarySearchListRequest request)
+
+        [HttpPost("GetBillStatementList")]
+        public async Task<IActionResult> GetBillStatementList(PageFromDtToDtRequest request)
         {
             try
             {
-                var result = await driverSalaryStmtBusiness.GetDriverSalarySearchList(request);
+                var result = await billStatementBusiness.GetBillStatementList(request);
 
                 return Ok(result);
             }
@@ -647,8 +609,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
 
         [HttpPost("SaveBillStatementDetails")]
         public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)
@@ -665,50 +625,17 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetOtherTripOpenList")]
-        public async Task<IActionResult> GetOtherTripOpenList(PageFromDtToDtRequest request)
+
+        [HttpPost("BillsStatementDelete")]
+        public async Task<IActionResult> BillsStatementDelete(RequestModel req)
         {
-            try
-            {
-                var result = await tripMasterBusiness.GetOtherTripOpenList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("OtherTripOpenSave")]
-        public async Task<IActionResult> OtherTripOpenSave(TripMasterModel tripMasterModel)
-        {
-            if (tripMasterModel == null)
+            if (req == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await tripMasterBusiness.OtherTripOpenSave(tripMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-         [HttpPost("OtherTripOpenDelete")]
-        public async Task<IActionResult> OtherTripOpenDelete(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.OtherTripOpenDelete(request);
+                var result = await billStatementBusiness.BillsStatementDelete(req);
 
                 return Ok(result);
             }
@@ -718,38 +645,6 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetNextTripNo")]
-        public async Task<IActionResult> GetNextTripNo(OpBalModel tripNoFilter)
-        {
-            if (tripNoFilter == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetNextTripNo(tripNoFilter);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("SaveDriverSalaryStatementDetails")]
-        public async Task<IActionResult> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request)
-        {
-            try
-            {
-                var result = await driverSalaryStmtBusiness.SaveDriverSalaryStatementDetails(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetBillStatementInnerGridList")]
         public async Task<IActionResult> GetBillStatementInnerGridList(RequestModel request)
         {
@@ -764,6 +659,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("SaveDriverSalaryStatementDetails")]
+        public async Task<IActionResult> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.SaveDriverSalaryStatementDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDriverSalaryInnerGridList")]
         public async Task<IActionResult> GetDriverSalaryInnerGridList(RequestModel request)
         {
@@ -778,12 +690,14 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetDieselStatementInnerGridList")]
-        public async Task<IActionResult> GetDieselStatementInnerGridList(RequestModel request)
+
+
+        [HttpPost("GetDriverSalarySearchList")]
+        public async Task<IActionResult> GetDriverSalarySearchList(DriverSalarySearchListRequest request)
         {
             try
             {
-                var result = await dieselStatementBusiness.GetDieselStatementInnerGridList(request);
+                var result = await driverSalaryStmtBusiness.GetDriverSalarySearchList(request);
 
                 return Ok(result);
             }
@@ -792,6 +706,41 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("DriverSalaryDelete")]
+        public async Task<IActionResult> DriverSalaryDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverSalaryStmtBusiness.DriverSalaryDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDriverSalaryStmtList")]
+        public async Task<IActionResult> GetDriverSalaryStatementList(PageRequest request)
+        {
+            try
+            {
+                var result = await driverSalaryStmtBusiness.GetDriverSalaryStatementList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("DocRenewalEntryDetailsSave")]
         public async Task<IActionResult> DocRenewalEntryDetailsSave()
@@ -857,6 +806,79 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetNextTripNo")]
+        public async Task<IActionResult> GetNextTripNo(OpBalModel tripNoFilter)
+        {
+            if (tripNoFilter == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetNextTripNo(tripNoFilter);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOtherTripOpenList")]
+        public async Task<IActionResult> GetOtherTripOpenList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await tripMasterBusiness.GetOtherTripOpenList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("OtherTripOpenSave")]
+        public async Task<IActionResult> OtherTripOpenSave(TripMasterModel tripMasterModel)
+        {
+            if (tripMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.OtherTripOpenSave(tripMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("OtherTripOpenDelete")]
+        public async Task<IActionResult> OtherTripOpenDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.OtherTripOpenDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("DocRenewalEntryDetailsDelete")]
         public async Task<IActionResult> DocRenewalEntryDetailsDelete(RequestModel request)
