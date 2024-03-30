@@ -46,7 +46,7 @@ namespace FinanceMasters.Repository
                         new SqlParameter("@AccountLedgerType"   , "O"                               ),
                         new SqlParameter("@CreatedBy"           , finGroupMasterModel.LoggedInUserID),
                         new SqlParameter("@DeleteFlag"          , "N"                               ),
-                        new SqlParameter("@SchID"               , finGroupMasterModel.SchID         ),
+                        //new SqlParameter("@SchID"               , finGroupMasterModel.SchID         ),
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinGroupSave", param);
 

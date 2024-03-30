@@ -30,7 +30,7 @@ export class FingroupaddComponent {
 
   accountTypeList: Dropdownmodel[] = [];
   subAccountTypeList: Dropdownmodel[] = []; 
-  scheduleList: Dropdownmodel[] = [];
+  // scheduleList: Dropdownmodel[] = [];
 
   selectedFinGroupMasterDetails = new Fingroupmodel();
 
@@ -87,7 +87,7 @@ export class FingroupaddComponent {
     }
     this.getaccounttypes();
     this.getsubaccounttypes(this.requestmodel);
-    this.getschedulelist();     
+    //this.getschedulelist();     
   
     setTimeout(() => {
       if (this.selectedFinGroupMasterDetails.accountId != '') {
@@ -158,11 +158,11 @@ export class FingroupaddComponent {
     });
   }
 
-  getschedulelist(): void {
-      this.finGroupService.getschedulelist().subscribe((res) => {
-      this.scheduleList = res;
-    });
-  }
+  // getschedulelist(): void {
+  //     this.finGroupService.getschedulelist().subscribe((res) => {
+  //     this.scheduleList = res;
+  //   });
+  // }
 
   accountTypeChange(e: any) { 
       console.log(e.target.value);
@@ -189,7 +189,7 @@ export class FingroupaddComponent {
     this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
     this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
     this.fingroupmodel.subAccountType=this.formFinGroup.value.subAccountType;
-    this.fingroupmodel.schID= this.formFinGroup.value.schID;
+    //this.fingroupmodel.schID= this.formFinGroup.value.schID;
     this.fingroupmodel.loggedInUserID= this.loggedInUserID;
 
     this.sharedService.loading = true;

@@ -32,7 +32,7 @@ export class FinaccountsmasteraddComponent {
     responseDetails = new Responsemodel();
     accountTypeList: Dropdownmodel[] = [];
     subAccountTypeList: Dropdownmodel[] = []; 
-    scheduleList: Dropdownmodel[] = [];
+    // scheduleList: Dropdownmodel[] = [];
     ledgerList: Dropdownmodel[] = [];
     statelist: Dropdownmodel[] = [];
 
@@ -146,7 +146,7 @@ export class FinaccountsmasteraddComponent {
     }
     this.getaccounttypes();
     this.getsubaccounttypes(this.requestmodel);
-    this.getschedulelist(); 
+    // this.getschedulelist(); 
     this.getledgerList();  
     this.getstatelist(); 
     
@@ -176,11 +176,11 @@ export class FinaccountsmasteraddComponent {
     });
   }
   
-  getschedulelist(): void {
-      this.fingroupService.getschedulelist().subscribe((res) => {
-      this.scheduleList = res;
-    });
-  }
+  // getschedulelist(): void {
+  //     this.fingroupService.getschedulelist().subscribe((res) => {
+  //     this.scheduleList = res;
+  //   });
+  // }
   
   getstatelist(): void {
       this.commonService.getStateList().subscribe((res) => {

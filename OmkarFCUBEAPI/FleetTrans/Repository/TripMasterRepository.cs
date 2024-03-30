@@ -52,7 +52,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@LoadingFrom", tripMasterModel.LoadingFrom),
                             new SqlParameter("@Destination", tripMasterModel.Destination),
                             new SqlParameter("@Destination2", tripMasterModel.Destination2),
-
                             new SqlParameter("@Destination3", tripMasterModel.Destination3),
                             new SqlParameter("@DistanceTripKM_1", tripMasterModel.DistanceTripKM_1),
                             new SqlParameter("@Contents", tripMasterModel.Contents),
@@ -72,7 +71,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@DistanceTripKM_2", tripMasterModel.DistanceTripKM_2),
                             new SqlParameter("@NextExpectedReportingDt", tripMasterModel.NextExpectedReportingDt),
                             new SqlParameter("@NextExpectedReportingDays", tripMasterModel.NextExpectedReportingDays),
-
                             new SqlParameter("@LtsDslToBe_2", tripMasterModel.LtsDslToBe_2),
                             new SqlParameter("@LtsAdblueToBe_2", tripMasterModel.LtsAdblueToBe_2),
                             new SqlParameter("@AdvPayable_2", tripMasterModel.AdvPayable_2),
@@ -122,11 +120,6 @@ namespace FleetTrans.Repository
                             new SqlParameter("@ActualDays_2", tripMasterModel.ActualDays_2),
                             new SqlParameter("@IdleDays", tripMasterModel.IdleDays),
                             new SqlParameter("@PenaltyExtra", tripMasterModel.PenaltyExtra),
-
-                            new SqlParameter("@CreatedBy", tripMasterModel.CreatedBy),
-                            new SqlParameter("@CreatedDate", tripMasterModel.CreatedDate),
-                            new SqlParameter("@ModifiedBy", tripMasterModel.ModifiedBy),
-                            new SqlParameter("@ModifiedDate", tripMasterModel.ModifiedDate),
                             new SqlParameter("@LoggedInUser", tripMasterModel.LoggedInUser),
 
                         };
@@ -138,58 +131,60 @@ namespace FleetTrans.Repository
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         TripID = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        
-                        // Miss Details insert or update
-                        //if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" )
-                        if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "" && TripID!="0")
+                        if (responseModel.Status)
                         {
-                            for (int i = 0; i < tripMasterModel.MiscList.Count; i++)
+                            if (tripMasterModel.MiscList.Count > 0 && tripMasterModel.MiscList[0].ExpType != "")
                             {
-                                SqlParameter[] paramMisc =
+                                for (int i = 0; i < tripMasterModel.MiscList.Count; i++)
                                 {
-                                    new SqlParameter("@TripId", TripID),
-                                    new SqlParameter("@ExpType", tripMasterModel.MiscList[i].ExpType),
-                                    new SqlParameter("@ExpParticulars", tripMasterModel.MiscList[i].Narration),
-                                    new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
-                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
-                                };
-                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripDrExpDetails_Insert", paramMisc);
-                                responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
-                                responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+                                    SqlParameter[] paramMisc =
+                                    {
+                                        new SqlParameter("@TripId", TripID),
+                                        new SqlParameter("@ExpType", tripMasterModel.MiscList[i].ExpType),
+                                        new SqlParameter("@ExpParticulars", tripMasterModel.MiscList[i].Narration),
+                                        new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
+                                        new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                    };
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripDrExpDetails_Insert", paramMisc);
+                                    responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
 
-                                if (!responseModel.Status) 
-                                { 
-                                    transaction.Rollback();
-                                    i = tripMasterModel.MiscList.Count;
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = tripMasterModel.MiscList.Count;
+                                    }
+                                }
+                            }
+
+                            // AdBlue Details insert or update
+                            //  if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
+                            if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "" )
+                            {
+                                for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
+                                {
+                                    SqlParameter[] paramAdBlue =
+                                    {
+                                        new SqlParameter("@TripId", TripID),
+                                        new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].AdbluefillingStation),
+                                        new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdbluedieselLiter),
+                                      //  new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
+                                        new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
+                                    };
+                                    var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripAdblueDetails_Insert", paramAdBlue);
+                                    responseModel.Status = Convert.ToBoolean(statusAdBlue.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusAdBlue.Tables[0].Rows[0]["Message"]);
+
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = tripMasterModel.MiscList.Count;
+                                    }
                                 }
                             }
                         }
+                        else { transaction.Rollback(); }
 
-                        // AdBlue Details insert or update
-                        //  if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
-                        if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "" && TripID != "0")
-                        {
-                            for (int i = 0; i < tripMasterModel.AdblueList.Count; i++)
-                            {
-                                SqlParameter[] paramAdBlue =
-                                {
-                                    new SqlParameter("@TripId", TripID),
-                                    new SqlParameter("@IssueBranch", tripMasterModel.AdblueList[i].AdbluefillingStation),
-                                    new SqlParameter("@AdblueLtrs", tripMasterModel.AdblueList[i].AdbluedieselLiter),
-                                  //  new SqlParameter("@AdblueAmt", tripMasterModel.AdblueList[i].AdbluedieselAmount),
-                                    new SqlParameter("@DeleteFlag", i == 0 ? "1" : "0")
-                                };
-                                var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TripAdblueDetails_Insert", paramAdBlue);
-                                responseModel.Status = Convert.ToBoolean(statusAdBlue.Tables[0].Rows[0]["Status"]);
-                                responseModel.Message = Convert.ToString(statusAdBlue.Tables[0].Rows[0]["Message"]);
-
-                                if (!responseModel.Status)
-                                {
-                                    transaction.Rollback();
-                                    i = tripMasterModel.MiscList.Count;
-                                }
-                            }
-                        }
                         if (responseModel.Status)
                         {
                             transaction.Commit();
