@@ -43,8 +43,8 @@
                             <td>{{ ratetype.stateCode }}</td>                    
                             <td>{{ ratetype.rangeFrom }}</td>                         
                             <td>
-                                <a (click)="getPtSlabMasterDetails(ratetype)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>                           
+                                <button type="button" class="btn btn-edit" 
+                                (click)="getPtSlabMasterDetails(ratetype)"></button>    
                             </td>
                         </tr>
                     </tbody>
