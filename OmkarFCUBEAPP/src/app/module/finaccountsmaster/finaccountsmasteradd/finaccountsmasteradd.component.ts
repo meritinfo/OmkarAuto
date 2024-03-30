@@ -346,9 +346,14 @@ export class FinaccountsmasteraddComponent {
 
     this.finsaccountmasterService.finsaccountsDetailsSubmitted(this.finaccountmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formAccountMaster.reset();
-      this.route.navigate(['/finaccountsmasterlist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formAccountMaster.reset();
+        this.route.navigate(['/finaccountsmasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
     });
     this.sharedService.loading = false;
   }
