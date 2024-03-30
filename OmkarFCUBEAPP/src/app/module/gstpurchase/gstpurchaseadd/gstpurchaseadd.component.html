@@ -129,7 +129,7 @@
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
                                 <tr>
                                     <td class="col-lg-3">
-                                        <label for="formrow-inputZip">
+                                        <label for="formrow-inputZip" class="narration-input">
                                             <h6>Account Name</h6>
                                         </label>
                                     </td>
@@ -189,7 +189,7 @@
                                         </label>
                                     </td>
                                     <td class="col-lg-2">     
-                                        <label for="formrow-inputCity">
+                                        <label for="formrow-inputCity" >
                                             <h6>Ref No</h6>
                                         </label>
                                     </td>
@@ -199,7 +199,7 @@
                                     <div [formGroupName]="i" class="grid-table">
                                         <td>
                                             <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="debitAcList"
+                                                <ng-autocomplete [data]="debitAcList" 
                                                     [searchKeyword]="keywordLocation" placeholder=""
                                                     (selected)='selectEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
@@ -209,10 +209,10 @@
                                                     [customFilter]="startWithFilter"
                                                     formControlName="debitAc">
                                                 </ng-autocomplete>
-                                     <ng-template #itemTemplate let-item>
+                                                <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
                                                 </ng-template>
-                                     <ng-template #notFoundTemplate let-notFound>
+                                                <ng-template #notFoundTemplate let-notFound>
                                                     <div [innerHTML]="notFound"></div>
                                                 </ng-template>
                                             </div>
@@ -266,7 +266,7 @@
                                                 formControlName="totAmount" maxlength="15" >
                                         </td>
                                         <td>
-                                            <input autoclose="false" class="form-control"
+                                            <input autoclose="false" class="form-control narration-input"
                                                 formControlName="refDocNo" >
                                         </td>
                                         <td>
