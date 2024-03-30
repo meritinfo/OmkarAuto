@@ -6,14 +6,12 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Journal Entry</h4>
-
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="/#/">Fin Trans</a></li>
                                 <li class="breadcrumb-item active">Journal Entry</li> -->
                             </ol>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -43,12 +41,16 @@
                                                 formControlName="ftmDate"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">
                                                
-                                        </div>
+                                        </div>                                        
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputCity">Ref Type </label>
-                                            <select class="form-control" formControlName="refType">
-                                                <option selected="">Choose...</option>
-                                                <option selected="">1</option>
+                                            <label for="formrow-inputCity">Ref Type </label> 
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="refType"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['refType'].invalid) }">
+                                                <option *ngFor="let branch of finRefTypes"
+                                                    value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="col-lg-2">
@@ -95,7 +97,7 @@
                                                     *ngFor="let arrayData of formArray.controls; let i = index">
                                                         <div [formGroupName]="i" class="grid-table">
                                                             <td class="col-lg-3">                                                 
-                                                                <!-- <div class="ng-autocomplete">
+                                                                <div class="ng-autocomplete">
                                                                     <ng-autocomplete [data]="gridAccountList"
                                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                                         (selected)='selectEvent($event)'
@@ -115,16 +117,16 @@
                                                                     <ng-template #notFoundTemplate let-notFound>
                                                                         <div [innerHTML]="notFound"></div>
                                                                     </ng-template> 
-                                                                </div>                          -->
+                                                                </div>                         
                                                                 
-                                                                <select class="form-control"
+                                                                <!-- <select class="form-control"
                                                                     formControlName="accountID" [ngClass]="">
                                                                     <option *ngFor="let branch of gridAccountList"
                                                                         style="font-size:small; "
                                                                         value={{branch.dataId}}>
                                                                         {{branch.dataName}}
                                                                     </option>
-                                                                </select>    
+                                                                </select>     -->
                                                             </td>
                                                             <td class="col-lg-2">
                                                                 <select id="role" class="form-select"

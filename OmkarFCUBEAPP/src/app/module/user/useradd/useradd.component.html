@@ -73,7 +73,7 @@
                                             <label for="horizontal-email-input"
                                                 class="col-form-label">Name </label>
                                             <span style="color: red">*</span>
-                                            <input type="text" class="form-control" placeholder="Enter user description"
+                                            <input type="text" class="form-control" 
                                                 formControlName="userDescription" maxlength="50" uppercaseonly
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['userDescription'].invalid) }">
                                         </div>
@@ -100,7 +100,8 @@
                                         <div class="mb-4">
                                             <label for="role" class="col-form-label">Role</label>
                                             <span style="color: red">*</span>
-                                            <select id="role" class="form-select" formControlName="role"
+                                            <select id="role"   class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="role"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['role'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let roleType of roleTypeList" value={{roleType.dataId}}>
@@ -115,27 +116,29 @@
                                         <div class="mb-4">
                                             <label for="active" class="col-form-label">Active</label>
                                             <span style="color: red">*</span>
-                                            <select id="active" class="form-select" formControlName="activeYN">
+                                            <select id="active"   class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="activeYN">
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-4">
                                             <label for="active" class="col-form-label">Can Edit Trip After Close</label>
                                             <span style="color: red">*</span>
-                                            <select id="active" class="form-select" formControlName="canEditTripAfterClose ">
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="canEditTripAfterClose ">
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                         <div class="mb-4">
                                             <label for="active" class="col-form-label">Can Link Trip</label>
                                             <span style="color: red">*</span>
-                                            <select id="active" class="form-select" formControlName="canLinkTrip ">
+                                            <select class="form-select" formControlName="canLinkTrip ">
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>
                                             </select>

@@ -27,6 +27,7 @@ export class AddbankcashcontraComponent {
   locationList: Dropdownmodel[] = [];
   ledgerList: Dropdownmodel[] = [];
   mainAcList: Dropdownmodel[] = [];
+  finRefTypes: Dropdownmodel[] = [];
   gridAccountList: Dropdownmodel[] = [];
   requestmodel = new Requestmodel();
   docNoFilter= new Bankdocnofiltermodel();
@@ -90,14 +91,15 @@ export class AddbankcashcontraComponent {
 
     this.getMainAcList();
     this.getGridAcList();
+    this.getFinRefTypes();
     this.selectedBankCashContraDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formBankContra = this.formBuilder.group({
       ftmDate: new FormControl(this.loginDate,[Validators.required]),
       docType: new FormControl('BC',),
       docSeries: new FormControl('BC',),
-      docNo: new FormControl('',[Validators.required]),
-      refType: new FormControl('',),
+      docNo: new FormControl('',[Validators.required]),      
+      refType: new FormControl('OTHERS',),
       refNo: new FormControl('',),
       chequeNo: new FormControl('',[Validators.required]),
       chequeDate: new FormControl('',[Validators.required]),
@@ -115,7 +117,9 @@ export class AddbankcashcontraComponent {
 
     this.formBankContra.controls['docSeries'].disable(); 
     this.formBankContra.controls['docNo'].disable(); 
-    this.formBankContra.controls['modifyRemarks'].disable();    
+    this.formBankContra.controls['modifyRemarks'].disable();     
+    this.formBankContra.controls['refType'].disable();
+
     this.formBankContra.controls['modifyRemarks'].clearValidators();
     this.formBankContra.controls['chequeNo'].clearValidators();
     this.formBankContra.controls['chequeDate'].clearValidators();
@@ -162,6 +166,12 @@ export class AddbankcashcontraComponent {
   }
 
   
+  getFinRefTypes(): void {    
+    this.cashreceiptentryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
+  }
+
   selectEvent(item: any) {
     // do something with selected item
   // this.GetOpeningBal();

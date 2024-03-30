@@ -64,10 +64,14 @@
                                                
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputCity">Ref Type </label>
-                                            <select class="form-control" formControlName="refType">
-                                                <option selected="">Choose...</option>
-                                                <option selected="">1</option>
+                                            <label for="formrow-inputCity">Ref Type </label> 
+                                            <select class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="refType"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['refType'].invalid) }">
+                                                <option *ngFor="let branch of finRefTypes"
+                                                    value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
                                             </select>
                                         </div>
                                         <div class="col-lg-2">

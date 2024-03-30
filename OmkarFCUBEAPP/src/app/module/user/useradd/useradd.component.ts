@@ -239,7 +239,7 @@ export class UseraddComponent implements OnInit {
     this.userModel.userId = this.selectedUserDetails.userId != '' ? this.selectedUserDetails.userId : '';
     this.userModel.userName = selecteddata.userName;
     this.userModel.userPassword = selecteddata.userPassword;
-    this.userModel.userDescription = selecteddata.userDescription.toString().touppercase();
+    this.userModel.userDescription = selecteddata.userDescription.toString().toUpperCase();
     this.userModel.userMobile = selecteddata.userMobile;
     this.userModel.userEmail = selecteddata.userEmail;
     this.userModel.userScope = selecteddata.userScope;

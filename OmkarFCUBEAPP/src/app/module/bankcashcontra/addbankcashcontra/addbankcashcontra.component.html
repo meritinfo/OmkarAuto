@@ -41,9 +41,29 @@
                                             <input type="date" class="form-control" placeholder="" 
                                                 formControlName="ftmDate"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-4">
+                                                <label for="formrow-inputCity">Ref Type </label> 
+                                                <select class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="refType"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['refType'].invalid) }">
+                                                    <option *ngFor="let branch of finRefTypes"
+                                                        value={{branch.dataId}}>
+                                                        {{branch.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">                                    
+                                            <label for="formrow-inputZip">Ref No </label>
+                                            <input bsdatepicker="" autoclose="false" placeholder="" formControlName="refNo"
+                                                class="form-control">                                
                                         </div>                 
+                                    </div>
+                                    <div class="row">                 
                                         <div class="col-lg-3">  
-                                            <label for="formrow-inputZip">Select Debit Account</label><span style="color:red">*</span>
+                                            <label for="formrow-inputZip">Debit Account</label><span style="color:red">*</span>
                                             <select class="form-control"
                                                 formControlName="accountid2"  
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['accountid2'].invalid) }">
@@ -52,9 +72,7 @@
                                                     {{branch.dataName}}
                                                 </option>
                                             </select>                
-                                        </div>            
-                                    </div>  <br />                                  
-                                    <div class="row">                                  
+                                        </div>                                  
                                         <div class="col-lg-2">                                
                                             <div class="form-check">
                                                 <input type="checkbox" formControlName="neftPmt" 
@@ -63,7 +81,9 @@
                                                 <label for="neft" class="form-check-label">Neft/Rtgs/ATM/Online
                                                 </label>
                                             </div>                          
-                                        </div>                    
+                                        </div>          
+                                    </div>                               
+                                    <div class="row">                      
                                         <div class="col-lg-3">    
                                                 <label for="formrow-inputZip">Utr No</label>
                                                 <input uppercaseonly class="form-control" placeholder=""  formControlName="utrNo">
@@ -77,7 +97,7 @@
                                     </div>   <br />                                        
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            <label for="formrow-inputState">Select Credit Account</label><span style="color:red">*</span>
+                                            <label for="formrow-inputState">Credit Account</label><span style="color:red">*</span>
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="gridAccountList"
                                                     [searchKeyword]="keywordLocation" placeholder=""

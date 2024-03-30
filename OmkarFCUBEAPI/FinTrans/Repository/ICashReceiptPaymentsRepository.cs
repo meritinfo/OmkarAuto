@@ -16,6 +16,7 @@ namespace FinTrans.Repository
         Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel req);
         Task<CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request);
+        Task<List<DropDownListModel>> GetFinRefTypes();
         Task<DataSet> CashBookReport(CashBookReportRequestModel request);
     }
 }
