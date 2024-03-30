@@ -5,6 +5,7 @@ export class LoggedinUsermodel {
     message: string = "";
     scope: string = "";
     token: string = "";
+    companyName: string = "";
 }
 
 export class Menumodel {

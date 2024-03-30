@@ -13,6 +13,7 @@ namespace Shared.Business
         Task<UserModel> RefreshToken(LoginModel request);
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
+         Task<CompanyModel> GetCompanyDetail(RequestModel request);
         Task<List<MenuListModel>> MenuDetails(string userID);
         Task<List<DropDownListModel>> GetYearList();
         Task<List<DropDownListModel>> GetServerDate();
