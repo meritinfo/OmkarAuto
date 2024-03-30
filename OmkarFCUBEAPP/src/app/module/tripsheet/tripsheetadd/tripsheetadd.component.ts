@@ -592,6 +592,21 @@ export class TripsheetaddComponent {
       }
     });   
   }
+
+  onTripLink(e: any): void {
+    // var chk = e.target.checked;
+    // if(!chk){
+    //   const controls = this.formTripsheet.controls;
+    //   for (const name in controls) {
+    //     if (name=="tripLinkYN") {
+    //       //ignore
+    //     }
+    //     else{        
+    //       controls[name].disable();  
+    //     }
+    //   } 
+    // }
+  }
   
   getDriverList(): void {
     this.commonService.getDriverList().subscribe((res) => {
