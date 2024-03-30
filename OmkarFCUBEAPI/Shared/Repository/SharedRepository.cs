@@ -296,7 +296,7 @@ namespace Shared.Repository
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
-                        companyModel.CompanyName = Convert.ToString(userData.Tables[0].Rows[0]["CompanyName"]);
+                        companyModel.CompanyName = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
 
                         //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
                         //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);

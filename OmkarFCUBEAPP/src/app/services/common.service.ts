@@ -121,6 +121,9 @@ export class CommonService {
   getDriverDetail(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverDetail', payload, this.httpOptions);
   }
+  getCompanyDetail(): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail', this.httpOptions);
+  }
   getUserDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetUserDetails', payload, this.httpOptions);
   }
