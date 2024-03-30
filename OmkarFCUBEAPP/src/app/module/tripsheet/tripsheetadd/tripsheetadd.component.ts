@@ -2079,7 +2079,12 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   }
   //drivercalculation
   totalCalculationForTicl(e: any) {
-    var incentivechange = e;
+    if(isNaN(e)){
+    var incentivechange = 0;
+    }
+    else{
+       incentivechange = e;
+    }
 
     var selectedDataValue = this.formTripsheet.getRawValue();
     var repairsByDriver = selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0;
@@ -2563,6 +2568,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       // onTimeIncentiveAmt: parseFloat(this.incentiveRate).toFixed(2).toString()
       onTimeIncentiveAmt: "1000"
     });
+    this.totalCalculationForTicl(1000);
+
   }else {
       this.formTripsheet.patchValue({
         // cneeGst:  (this.ExpectedReportingDays).toString() 
