@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Companydetailmodel } from 'src/app/models/companydetailmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -32,6 +33,8 @@ export class IntermediatescreenComponent {
   responseDetails = new Responsemodel();
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
+  companyDetail = new Companydetailmodel();
+  companyname: string = '';
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toasterService: ToastrService) {
     this.intermediateScreenModel = new Intermediatescreenmodel();
@@ -43,6 +46,8 @@ export class IntermediatescreenComponent {
 
     this.formLogin = this.formBuilder.group({
       yearID: new FormControl('22', [Validators.required]),
+
+      // loginDate: new FormControl(''),
       userBranch: new FormControl('', [Validators.required]),
       loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
     });
@@ -58,6 +63,8 @@ export class IntermediatescreenComponent {
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formLogin.controls; }
+
+  // Send partner details //
 
   submitIntermediateForm(): void {
     this.sharedService.loading = true;
@@ -79,6 +86,7 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
       if (this.responseDetails.status) {
+          this.getCompanyDetails();
         sessionStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
@@ -97,17 +105,25 @@ export class IntermediatescreenComponent {
     });
 
   }
+  getCompanyDetails(){
+    this.commonService.getCompanyDetail().subscribe((res: Companydetailmodel) => {
+       this.companyDetail = res;
+        this.companyname = this.companyDetail.companyName
+        sessionStorage.setItem("companyname", this.companyname );
+      });
+     
+    }
   getDropdownList() {
     this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
       this.yearList = res;
       this.formLogin.patchValue({
         yearID:this.yearList[0].dataId,
-      })   
-    });      
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-      this.sharedService.loading = false;
-    });
+      })      
+      this.commonService.getBranchList().subscribe((res) => {
+        this.branchList = res;
+        this.sharedService.loading = false;
+      });
+   });
   }
 }
