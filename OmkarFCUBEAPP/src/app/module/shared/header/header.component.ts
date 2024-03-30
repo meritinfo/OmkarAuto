@@ -16,6 +16,7 @@ export class HeaderComponent {
   logindate: string = '';
   branch: string = '';
   user: string = '';
+  company: string = '';
   branchname: string = '';
   selectedScreenDetails = new Intermediatescreenmodel();
   timerSubscription !: Subscription;
@@ -44,6 +45,11 @@ export class HeaderComponent {
     if (typeof userData4 !== 'undefined' && userData4 !== null && userData4 !== '') {
       this.user = userData4;
     }
+    var userData5 = sessionStorage.getItem('companyname')?.toString();
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData !== '') {
+      this.company = userData5;
+    }
+
 
     // timer(0, 1200000) call the function immediately and every 1200 seconds 
     this.timerSubscription = timer(0, 1200000).pipe(

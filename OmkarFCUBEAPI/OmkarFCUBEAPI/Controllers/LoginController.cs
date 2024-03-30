@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetTrans.Business;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Business;
 using Shared.Models;
 using System;
@@ -109,6 +110,20 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await sharedBusiness.GetServerDate();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetCompanyDetail")]
+        public async Task<IActionResult> GetCompanyDetail(RequestModel request)
+        {
+            try
+            {
+                var result = await sharedBusiness.GetCompanyDetail(request);
 
                 return Ok(result);
             }
