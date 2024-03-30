@@ -12,6 +12,7 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using Microsoft.Extensions.Options;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Shared.Models;
 using SqlHelper.Models;
 using System.Collections;
@@ -62,6 +63,10 @@ namespace FinTrans.Business
         public async Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request)
         {
             return await cashReceiptPaymentsRepository.GetCashBankAccountList(request);
+        }
+        public async Task<List<DropDownListModel>> GetFinRefTypes()
+        {
+            return await cashReceiptPaymentsRepository.GetFinRefTypes();
         }
 
         public async Task<ResponseModel> CashBookReport(CashBookReportRequestModel request)

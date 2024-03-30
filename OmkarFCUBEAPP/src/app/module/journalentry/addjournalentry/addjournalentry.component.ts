@@ -29,6 +29,7 @@ export class AddjournalentryComponent{
   loginDate: string = '';
   year: string = '';
   locationList: Dropdownmodel[] = [];
+  finRefTypes: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
   gridAccountList: Dropdownmodel[] = [];
@@ -85,6 +86,7 @@ export class AddjournalentryComponent{
       
     this.sharedService.loading = true;
     this.getGridAcList();
+    this.getFinRefTypes();
     this.selectedJournalEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
   
     this.formJournalEntry = this.formBuilder.group({
@@ -92,8 +94,8 @@ export class AddjournalentryComponent{
       docType: new FormControl('JV',),
       docSeries: new FormControl('JV',),
       docNo: new FormControl('',[Validators.required]),
-      remarks: new FormControl('',),
-      refType: new FormControl('',),
+      remarks: new FormControl('',),     
+      refType: new FormControl('OTHERS',),
       refNo: new FormControl('',),
       credit: new FormControl('',[Validators.required]),
       debit: new FormControl('',[Validators.required]),
@@ -108,7 +110,8 @@ export class AddjournalentryComponent{
     this.formJournalEntry.controls['docNo'].disable(); 
     this.formJournalEntry.controls['credit'].disable(); 
     this.formJournalEntry.controls['debit'].disable(); 
-    this.formJournalEntry.controls['modifyRemarks'].disable();
+    this.formJournalEntry.controls['modifyRemarks'].disable(); 
+    this.formJournalEntry.controls['refType'].disable();
        
     if (this.selectedJournalEntryDetails.ftmID != '') {        
       var selectedDataValue = this.formJournalEntry.getRawValue();
@@ -129,6 +132,12 @@ export class AddjournalentryComponent{
   }
   
   
+  getFinRefTypes(): void {    
+    this.cashreceiptentryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
+  }
+
   getCashReceiptPaymentInnerGridList(): void {
     this.requestmodel.strRequest = this.selectedJournalEntryDetails.ftmID;
     this.cashreceiptentryService.getCashReceiptInnerGridList(this.requestmodel).subscribe((res) => {

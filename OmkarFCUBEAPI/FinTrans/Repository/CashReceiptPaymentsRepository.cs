@@ -84,7 +84,7 @@ namespace FinTrans.Repository
                                     new SqlParameter("@YearID"          , cashReceiptPaymentsModel.YearID),
 
                                 };
-                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
+                                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CashReceiptPaymentsDetailsSave", paramMisc);
                                 responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                                 responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
                                 if (!responseModel.Status)
@@ -332,9 +332,39 @@ namespace FinTrans.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
-        }
+        }       
 
-        
+        public async Task<List<DropDownListModel>> GetFinRefTypes()
+        {
+            List<DropDownListModel> accountList = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = {  };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFinRefTypes", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            accountList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return accountList;
+        }
 
         public async Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request)
         {

@@ -29,6 +29,7 @@ export class AddbankreceiptentryComponent {
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
   mainAcList: Dropdownmodel[] = [];
+  finRefTypes: Dropdownmodel[] = [];
   gridAccountList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   editMode = false;
@@ -90,6 +91,7 @@ export class AddbankreceiptentryComponent {
 
     this.getMainAcList();
     this.getGridAcList();
+    this.getFinRefTypes();
     this.selectedBankReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formBankRecEntry = this.formBuilder.group({
@@ -97,7 +99,7 @@ export class AddbankreceiptentryComponent {
       docType: new FormControl('BP',),
       docSeries: new FormControl('BP',),
       docNo: new FormControl('',[Validators.required]),
-      refType: new FormControl('',),
+      refType: new FormControl('OTHERS',),
       refNo: new FormControl('',),
       docAmount: new FormControl('',[Validators.required]),
       utrNo: new FormControl('',), 
@@ -114,6 +116,7 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docNo'].disable(); 
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
+    this.formBankRecEntry.controls['refType'].disable();
     setTimeout(() => {
       if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
         this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
@@ -238,6 +241,11 @@ export class AddbankreceiptentryComponent {
     });
   }
 
+  getFinRefTypes(): void {    
+    this.cashreceiptentryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
+  }
   
   getGridAcList(): void {
     this.requestmodel.strRequest="G"
@@ -391,11 +399,22 @@ export class AddbankreceiptentryComponent {
         }
         
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
+          if(this.neft=="N"){
+            if (this.formArray.value[i].chequeNo==='') {
+              this.toasterService.warning("Cheque No cannot be Empty in details grid");
+              return;
+            }
+            if (this.formArray.value[i].chequeDate==='') {
+              this.toasterService.warning("Cheque Date cannot be Empty in details grid");
+              return;
+            }
+          }         
+
           this.bankreceiptentryModel.detailList.push({
           'slNo': (i+1).toString() ,
           'typeSign': tpsign,
           'amount': this.formArray.value[i].amount,
-          'chequeDate': this.formArray.value[i].chequeDate,
+          'chequeDate': this.formArray.value[i].chequeDate==''?selectedDataValue.ftmDate:this.formArray.value[i].chequeDate,
           'chequeNo': this.formArray.value[i].chequeNo,
           'narration': this.formArray.value[i].narration.toString().toUpperCase(),
           'accountID': this.formArray.value[i].accountID.dataId ,
@@ -410,23 +429,7 @@ export class AddbankreceiptentryComponent {
       return;
     }    
 
-    if(this.neft=="N"){
-      const foundcheq = this.bankreceiptentryModel.detailList.some(el => el.chequeNo === '');
-      if (foundcheq) {
-        this.toasterService.warning("Cheque No cannot be Empty in details grid");
-        return;
-      }
-      const founddt = this.bankreceiptentryModel.detailList.some(el => el.chequeDate === '');
-      if (founddt) {
-        this.toasterService.warning("Cheque Date cannot be Empty in details grid");
-        return;
-      }
-    }
-    else{
-      for (var i = 0; i < this.formArray.value.length; i++) {      
-        this.bankreceiptentryModel.detailList[i].chequeDate=selectedDataValue.ftmDate;
-      }
-    }
+    
 
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {

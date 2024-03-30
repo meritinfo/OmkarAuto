@@ -83,6 +83,23 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetFinRefTypes")]
+        public async Task<IActionResult> GetFinRefTypes()
+        {            
+            try
+            {
+                var result = await cashReceiptPaymentsBusiness.GetFinRefTypes();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
         [HttpPost("GetOpBrsEntryList")]
         public async Task<IActionResult> GetOpBrsEntryList(PageRequest request)
         {

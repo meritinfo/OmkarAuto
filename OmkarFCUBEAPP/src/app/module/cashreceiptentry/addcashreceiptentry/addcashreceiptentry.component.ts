@@ -32,6 +32,7 @@ export class AddcashreceiptentryComponent {
   responseDetails = new Responsemodel();
   requestmodel = new Requestmodel();
   mainAcList: Dropdownmodel[] = [];
+  finRefTypes: Dropdownmodel[] = [];
   gridAccountList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -87,6 +88,7 @@ export class AddcashreceiptentryComponent {
     this.sharedService.loading=true;
     this.getMainAcList();
     this.getGridAcList();
+    this.getFinRefTypes();
     this.selectedCashReceiptEntryDetails = this.cashreceiptentryService.getCashReceiptEntryDetails();
 
     this.formCashRRecEntry = this.formBuilder.group({
@@ -95,7 +97,7 @@ export class AddcashreceiptentryComponent {
       docSeries: new FormControl('CP',),
       docNo: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),
-      refType: new FormControl('',),
+      refType: new FormControl('OTHERS',),
       refNo: new FormControl('',),
       docAmount: new FormControl('',[Validators.required]),
       utrNo: new FormControl('',), 
@@ -111,6 +113,8 @@ export class AddcashreceiptentryComponent {
     this.formCashRRecEntry.controls['docNo'].disable(); 
     this.formCashRRecEntry.controls['docAmount'].disable(); 
     this.formCashRRecEntry.controls['modifyRemarks'].disable();    
+    this.formCashRRecEntry.controls['refType'].disable();
+
     this.formCashRRecEntry.controls['modifyRemarks'].clearValidators();
     this.formCashRRecEntry.controls['modifyRemarks'].updateValueAndValidity();
     
@@ -166,6 +170,11 @@ export class AddcashreceiptentryComponent {
     });
   }
 
+  getFinRefTypes(): void {    
+    this.cashreceiptentryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
+  }
 
   selectEvent(item: any) {
     // do something with selected item
