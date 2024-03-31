@@ -25,6 +25,7 @@ import { RoletypelistComponent } from './module/roletype/roletypelist/roletypeli
 import { AddhrmasterComponent } from './module/hrmaster/addhrmaster/addhrmaster.component';
 import { HrmasterlistComponent } from './module/hrmaster/hrmasterlist/hrmasterlist.component';
 
+
 import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
@@ -110,6 +111,7 @@ import { HappaystatementlistComponent } from './module/happaystatement/happaysta
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
+
 
 
 
