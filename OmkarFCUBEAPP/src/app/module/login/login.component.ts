@@ -16,10 +16,9 @@ export class LoginComponent implements OnInit {
   formLogin!: FormGroup;
   loginSubmitted = false;
   selectedUserDetails = new LoggedinUsermodel();
-  companyDetail = new Companydetailmodel();
-  companyname: string = '';
 
-  constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, private sharedService: SharedService,private commonService: CommonService, private route: Router) {
+
+  constructor(private formBuilder: FormBuilder, private loginModel: Loginmodel, private sharedService: SharedService, private route: Router) {
     this.loginModel = new Loginmodel();
   }
 
@@ -36,14 +35,7 @@ export class LoginComponent implements OnInit {
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formLogin.controls; }
-  getCompanyDetails(){
-   this.commonService.getCompanyDetail().subscribe((res: Companydetailmodel) => {
-      this.companyDetail = res;
-       this.companyname = this.companyDetail.companyName
-       sessionStorage.setItem("companyname", this.companyname );
-     });
-    
-   }
+  
 
   // Send partner details //
   submitLoginForm(): void {
@@ -58,7 +50,7 @@ export class LoginComponent implements OnInit {
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
-        this.getCompanyDetails();
+        //this.getCompanyDetails();
         sessionStorage.setItem("uid", this.selectedUserDetails.userId);     
         sessionStorage.setItem("token", this.selectedUserDetails.token);    
         sessionStorage.setItem("scope", this.selectedUserDetails.scope);

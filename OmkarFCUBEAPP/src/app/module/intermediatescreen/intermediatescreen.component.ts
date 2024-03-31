@@ -10,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Companydetailmodel } from 'src/app/models/companydetailmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -35,6 +36,8 @@ export class IntermediatescreenComponent {
   responseDetails = new Responsemodel();
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
+  companyDetail = new Companydetailmodel();
+  companyname: string = '';
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
     private commonService: CommonService, private sharedService: SharedService, private route: Router, 
@@ -100,6 +103,7 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
       if (this.responseDetails.status) {
+          this.getCompanyDetails();
         sessionStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
@@ -118,6 +122,14 @@ export class IntermediatescreenComponent {
     });
 
   }
+  getCompanyDetails(){
+    this.commonService.getCompanyDetail().subscribe((res: Companydetailmodel) => {
+       this.companyDetail = res;
+        this.companyname = this.companyDetail.companyName
+        sessionStorage.setItem("companyname", this.companyname );
+      });
+     
+    }
   getDropdownList() {
     this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
