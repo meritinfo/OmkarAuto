@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Shared.Business;
 using Shared.Models;
 using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace OmkarFCUBEAPI.Controllers
@@ -76,6 +79,26 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetScopeBranchList")]
+        public async Task<IActionResult> GetScopeBranchList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sharedBusiness.GetScopeBranchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("CheckBookingDate")]
         public async Task<IActionResult> CheckBookingDate(DateModel request)
         {
@@ -155,5 +178,6 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
     }
 }

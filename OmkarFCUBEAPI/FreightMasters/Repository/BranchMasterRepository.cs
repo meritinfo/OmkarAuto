@@ -82,10 +82,6 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        /// <summary>
-        /// Service method for get branch list
-        /// </summary>
-        /// <returns>List<BranchListModel></returns>
         public async Task<List<DropDownListModel>> GetBranchList()
         {
             List<DropDownListModel> branchList = new();

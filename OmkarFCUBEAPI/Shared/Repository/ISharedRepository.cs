@@ -15,6 +15,7 @@ namespace Shared.Repository
         Task<ResponseModel> CheckBookingDate(DateModel request);
         Task<CompanyModel> GetCompanyDetail(RequestModel request);
         Task<List<MenuModel>> MenuDetails(string userID);
+        Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req);
         Task<List<DropDownListModel>> GetYearList();
         Task<List<DropDownListModel>> GetServerDate();
         Task<EWayAPIConfigurationModel> EWayAPIConfigurationDetails();

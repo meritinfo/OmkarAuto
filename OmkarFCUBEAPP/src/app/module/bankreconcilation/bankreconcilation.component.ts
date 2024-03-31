@@ -55,7 +55,7 @@ export class BankreconcilationComponent {
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Bank Reconcilation");
+        .find((aa: { menuName: string; }) => aa.menuName === "Bank Reconciliation");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;

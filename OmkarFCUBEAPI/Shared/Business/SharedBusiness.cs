@@ -106,12 +106,11 @@ namespace Shared.Business
         {
             return await sharedRepository.GetYearList();
         }
+        public async Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req)
+        {
+            return await sharedRepository.GetScopeBranchList(req);
+        }
 
-
-        /// <summary>
-        /// Business method for menu list to the application
-        /// </summary>
-        /// <param name="userID"></param>
         public async Task<List<MenuListModel>> MenuDetails(string userID)
         {
             List<MenuListModel> menuList = new List<MenuListModel>();

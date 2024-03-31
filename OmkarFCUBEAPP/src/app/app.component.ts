@@ -125,6 +125,18 @@ export class AppComponent implements OnInit {
     event.preventDefault();
     this.route.navigate(['/othertripopenlist']);
   }
+  //Shortcut key for Diesel Statement -> Ctrl + D
+  @HostListener('window:keydown.control.d', ['$event'])
+  dieselFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/dieselstatementlist']);
+  }
+  //Shortcut key for Happay Statement -> Ctrl + H
+  @HostListener('window:keydown.control.h', ['$event'])
+  happayFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/happaystatementlist']);
+  }
 
 
 // Others Trip Open:  Ctrl + O

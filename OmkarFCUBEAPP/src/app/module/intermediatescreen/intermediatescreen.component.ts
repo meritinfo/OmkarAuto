@@ -9,6 +9,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -26,6 +27,8 @@ export class IntermediatescreenComponent {
   logindate: string = '';
   currentServerTime: string = '';
   formSubmitted = false;
+  userscope: string = '';
+  loggedInUserID: string = '';
   branch: string = '';
   branchList: Dropdownmodel[] = [];
   yearList: Dropdownmodel[] = [];
@@ -33,7 +36,9 @@ export class IntermediatescreenComponent {
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
 
-  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, private commonService: CommonService, private sharedService: SharedService, private route: Router, private toasterService: ToastrService) {
+  constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
+    private commonService: CommonService, private sharedService: SharedService, private route: Router, 
+    private toasterService: ToastrService, private requestmodel :Requestmodel) {
     this.intermediateScreenModel = new Intermediatescreenmodel();
   }
 
@@ -49,6 +54,22 @@ export class IntermediatescreenComponent {
     this.sharedService.getCurrentServerTime().subscribe((data: any) => {
       this.currentServerTime = data.currentServerTime;
     });
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
+    var userData = sessionStorage.getItem('scope')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.userscope = userData;
+    }
+
     this.sharedService.loggedInStatus = false;
     this.getDropdownList();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -104,10 +125,19 @@ export class IntermediatescreenComponent {
       this.formLogin.patchValue({
         yearID:this.yearList[0].dataId,
       })   
-    });      
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-      this.sharedService.loading = false;
-    });
+    }); 
+    if (this.userscope =="HO"){
+      this.commonService.getBranchList().subscribe((res) => {
+        this.branchList = res;
+        this.sharedService.loading = false;
+      });
+    }
+    else{
+      this.requestmodel.strRequest = this.loggedInUserID;
+      this.commonService.getScopeBranchList(this.requestmodel).subscribe((res) => {
+        this.branchList = res;
+        this.sharedService.loading = false;
+      });
+    }
   }
 }

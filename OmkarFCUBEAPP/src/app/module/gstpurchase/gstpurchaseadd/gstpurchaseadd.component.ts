@@ -120,8 +120,8 @@ export class GstpurchaseaddComponent {
       creditAc: new FormControl('',),
       neftPmt:new FormControl('',),
       chequeNo:new FormControl('',[Validators.required]),
-      chequeDate:new FormControl('',[Validators.required]),
-      inputEligible:new FormControl('',),
+      chequeDate:new FormControl(this.loginDate,[Validators.required]),
+      inputEligible:new FormControl('Y',),
       modifyRemarks:new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])      
@@ -159,7 +159,13 @@ export class GstpurchaseaddComponent {
     }
     
     this.formGSTPurchase.controls['vendorId'].enable(); 
-    this.formGSTPurchase.controls['modifyRemarks'].disable();   
+    this.formGSTPurchase.controls['modifyRemarks'].disable();  
+    this.formGSTPurchase.controls['neftPmt'].disable();
+
+    this.formGSTPurchase.controls['chequeNo'].clearValidators();      
+    this.formGSTPurchase.controls['chequeDate'].clearValidators();  
+    this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
+    this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
 
     setTimeout(() => {
       if (this.selectedGstpurchaseDetails.masterid != '') {    
@@ -179,18 +185,21 @@ export class GstpurchaseaddComponent {
           });
           this.formGSTPurchase.controls['vendorId'].disable();  
         }
-        if (this.selectedGstpurchaseDetails.neftPmt=='Y'){
-          this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
-          this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]);
-        }
-        else {
-          this.formGSTPurchase.controls['chequeNo'].clearValidators();      
-          this.formGSTPurchase.controls['chequeDate'].clearValidators();   
-        }
-        this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
-        this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+        if(this.selectedGstpurchaseDetails.pmtType=="B"){           
+          this.formGSTPurchase.controls['neftPmt'].enable();
+          if (this.selectedGstpurchaseDetails.neftPmt=='Y'){
+            this.formGSTPurchase.controls['chequeNo'].clearValidators();      
+            this.formGSTPurchase.controls['chequeDate'].clearValidators();  
+          }
+          else {
+            this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
+            this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]); 
+          }
+          this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
+          this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+        }        
         this.editMode = true;
-        this.getGstPurchageInnerGridList();
+        this.getGstPurchageInnerGridList(); 
       }
     }, 2000);
     this.formGSTPurchase.controls['branchCode'].disable();
@@ -240,18 +249,24 @@ export class GstpurchaseaddComponent {
   changePmtType(e: any) {
     console.log(e.target.value);
     var selectedValue = e.target.value;
+    if(selectedValue=="B"){      
+      this.formGSTPurchase.controls['neftPmt'].enable();
+    }
+    else{
+      this.formGSTPurchase.controls['neftPmt'].disable();
+    }
     this.getPaymentCreditAcList(selectedValue);
   }
 
-  onNeftChk(e: any) {
+  onNeftChk(e: any) {   
     this.neftPmtSelected=!this.neftPmtSelected;
     if (this.neftPmtSelected){
-      this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
-      this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]);
-    }
-    else {
       this.formGSTPurchase.controls['chequeNo'].clearValidators();      
       this.formGSTPurchase.controls['chequeDate'].clearValidators();   
+    }
+    else {
+      this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
+      this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]);
     }
     this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
     this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
