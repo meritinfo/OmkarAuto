@@ -92,7 +92,7 @@ export class UseraddComponent implements OnInit {
       canEditTripAfterClose:new FormControl('N', [Validators.required]),
       canLinkTrip :new FormControl('N', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
-      userModule: new FormControl([], [Validators.required]),
+      // userModule: new FormControl([], [Validators.required]),
       imageName: new FormControl([], ),
     });
 
@@ -103,7 +103,7 @@ export class UseraddComponent implements OnInit {
         this.formUser.patchValue(this.selectedUserDetails);
         this.formUser.patchValue({
           userBranch: this.selectedUserDetails.branchList.split(','),
-          userModule: this.selectedUserDetails.moduleList.split(','),
+          //userModule: this.selectedUserDetails.moduleList.split(','),
           role: this.selectedUserDetails.roleId,
           imageName:  this.selectedUserDetails.imageName,
         })
@@ -249,7 +249,7 @@ export class UseraddComponent implements OnInit {
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.branchList = selecteddata.userBranch.toString();
-    this.userModel.moduleList = selecteddata.userModule.toString();
+    this.userModel.moduleList = '';
     //  this.userModel.imageName = this.formUser.value.imageName;
      this.userModel.imageName = this.userPhotoName;
  
