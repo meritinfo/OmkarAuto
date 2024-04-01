@@ -120,7 +120,7 @@
                                                         class="form-control" formControlName="rate"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['rate'].invalid) }">
                                                 </div>
-                                            </div>
+                                            </div>  
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <button type="submit" (click)="searchStatement()" *ngIf="!editMode"
@@ -207,46 +207,81 @@
                                             </div>
                                         </tr>
                                     </table>
-                                    <div class="row">
-                                        <div class="col-lg-10 text-right">
-                                            <label for="formrow-inputCity">Total Diesel Liters</label>
+                                    <div class="row">                                                                
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Total Diesel Liters</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="totalDslLtrs">
+                                                </div>
+                                        </div>                                                         
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Gross Diesel Amount</label>
+                                                <input autoclose="false" type="text" class="form-control"
+                                                    formControlName="grossDslAmt">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <input autoclose="false" type="text" class="form-control"
-                                                formControlName="totalDslLtrs">
+                                    </div>    
+                                </div>                                
+                                <div class="row">                                                                           
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Disc Rate/Ltr</label>
+                                            <input autoclose="false" (change)="calculateTotal()"
+                                                class="form-control" formControlName="discRateLtr">
                                         </div>
-                                        <div class="col-lg-10 text-right">
-                                            <label for="formrow-inputCity">Total Diesel Amount</label>
+                                    </div>                                                                                                              
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Total Disc Amount</label>
+                                            <input autoclose="false" 
+                                                class="form-control" formControlName="discAmt">
                                         </div>
-                                        <div class="col-lg-2">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Net Diesel Amount</label>
                                             <input autoclose="false" type="text" class="form-control"
                                                 formControlName="totalDslAmt">
                                         </div>
                                     </div>
-                                    <div class="row mt-1">
-                                        <div class="col-lg-10 text-right">
-                                            <label for="formrow-inputCity">Total Driver Adv Amount</label>
+                                </div>  
+                                <div class="row">                                                                           
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">TDS Perc</label>
+                                            <input autoclose="false" (change)="calculateTotal()"
+                                                class="form-control" formControlName="tdsRate">
                                         </div>
-                                        <div class="col-lg-2">
+                                    </div>                                                                                                              
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">TDS Amount</label>
+                                            <input autoclose="false" 
+                                                class="form-control" formControlName="tdsAmt">
+                                        </div>
+                                    </div>
+                                </div>                              
+                                <div class="row">                                                                                                    
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Total Driver Adv Amount</label>
                                             <input autoclose="false" type="text" class="form-control"
                                                 formControlName="totalCashAdv">
                                         </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-lg-10 text-right">
+                                    </div>                                                                                                  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
                                             <label for="formrow-inputCity">Total Statement Amount</label><span style="color: red"> * </span>
-                                        </div>
-                                        <div class="col-lg-2">
                                             <input autoclose="false" type="text" class="form-control"
                                                 formControlName="totalNetAmount"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['totalNetAmount'].invalid) }">
                                         </div>
-                                    </div>
-                                    <div class="row mt-1">
-                                        <div class="col-lg-1 text-right">
+                                    </div>                                                                                                
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
                                             <label for="formrow-inputCity">Remarks</label>
-                                        </div>
-                                        <div class="col-lg-5">
                                             <input autoclose="false" type="text" class="form-control"
                                                 formControlName="remarks">
                                         </div>

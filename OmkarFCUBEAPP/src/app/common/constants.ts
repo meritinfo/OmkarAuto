@@ -6,7 +6,7 @@ public static API_ENDPOINT = "http://localhost:65496/api/";
 //public static API_ENDPOINT = "http://182.18.139.21/ocmapi/api/";
 //public static API_ENDPOINT = "http://182.18.139.21/otlapi/api/";
 
-public static UploadFolderPath = 'assets/upload/';
+    public static UploadFolderPath = 'assets/upload/';
 }
 
 

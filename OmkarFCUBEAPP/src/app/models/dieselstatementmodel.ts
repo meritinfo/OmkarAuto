@@ -12,9 +12,14 @@ export class Dieselstatementmodel {
     statementFlag: string = "";
     remarks: string = "";
     totalDslLtrs: string = "";
+    grossDslAmt: string = "";
+    discRateLtr: string = "";
+    discAmt: string = "";
     totalDslAmt: string = "";
+    tdsRate: string = "";
+    tdsAmt: string = "";
     totalCashAdv: string = "";
-    totalNetAmount: string = "";
+    totalNetAmount: string = ""; 
     branchCode: string = "";
     yearId: string = "";
     loggedInUser: string = "";
