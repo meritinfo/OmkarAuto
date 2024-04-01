@@ -20,9 +20,14 @@ namespace FleetTrans.Models
         public string? StatementFlag { get; set; }
         public string? Remarks { get; set; }
         public string? TotalDslLtrs { get; set; }
+        public string? GrossDslAmt { get; set; }
+        public string? DiscRateLtr { get; set; }
+        public string? DiscAmt { get; set; }
         public string? TotalDslAmt { get; set; }
+        public string? TdsRate { get; set; }
+        public string? TdsAmt { get; set; }
         public string? TotalCashAdv { get; set; }
-        public string? TotalNetAmount { get; set; }
+        public string? TotalNetAmount { get; set; }      
         public string? BranchCode { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }

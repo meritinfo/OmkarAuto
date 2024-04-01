@@ -115,7 +115,12 @@ export class DieselstatementaddComponent implements OnInit {
       vendorId: new FormControl('', [Validators.required]),
       rate:new FormControl('0', [Validators.required]),
       totalDslLtrs: new FormControl(''),
+      grossDslAmt: new FormControl(''),
+      discRateLtr:new FormControl('0'),
+      discAmt: new FormControl(''),
       totalDslAmt: new FormControl(''),
+      tdsRate: new FormControl(''),
+      tdsAmt: new FormControl(''),
       totalCashAdv: new FormControl(''),
       totalNetAmount: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
@@ -144,6 +149,9 @@ export class DieselstatementaddComponent implements OnInit {
 
     this.formDieselStatement.controls['BranchCode'].disable();  
     this.formDieselStatement.controls["totalDslLtrs"].disable();
+    this.formDieselStatement.controls["grossDslAmt"].disable();
+    this.formDieselStatement.controls["discAmt"].disable();
+    this.formDieselStatement.controls["tdsAmt"].disable();
     this.formDieselStatement.controls["totalDslAmt"].disable();
     this.formDieselStatement.controls["totalCashAdv"].disable();
     this.formDieselStatement.controls['totalNetAmount'].disable(); 
@@ -221,6 +229,8 @@ export class DieselstatementaddComponent implements OnInit {
     this.calculateTotal();
   }
 
+  
+
   searchStatement(): void { 
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
@@ -292,16 +302,23 @@ export class DieselstatementaddComponent implements OnInit {
   }
 
   calculateTotal() {
+    var discRate = 0;
     var totalDslLeters = 0;
     var totalDslAmount = 0;
+    var totalDiscAmount = 0;
+    var grossDslAmount=0;
     var totalDriverAdvAmount = 0;
+    var tdsPercent=0;
+    var tdsAmount=0;
     var totalStatementAmount = 0;
-    var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
 
+    var selectedData = this. formDieselStatement.getRawValue(); 
+
+    var diesellistarray=this.DieselStatementmodel.dieselStatementListData;
     for (var i = 0; i < diesellistarray.length; i++) {
       if (diesellistarray[i].selected) {
         if (diesellistarray[i].hsdAdvType === "D") {
-          totalDslAmount = totalDslAmount + parseFloat(diesellistarray[i].amountPaid);
+          grossDslAmount = grossDslAmount + parseFloat(diesellistarray[i].amountPaid);
         }
         if (diesellistarray[i].hsdAdvType === "A") {
           totalDriverAdvAmount = totalDriverAdvAmount + parseFloat(diesellistarray[i].amountPaid);
@@ -311,13 +328,33 @@ export class DieselstatementaddComponent implements OnInit {
       }
     }
 
+    if(selectedData.discRateLtr!=''){
+      discRate= parseFloat(selectedData.discRateLtr);
+      totalDiscAmount = totalDslLeters * discRate;
+      totalDslAmount = grossDslAmount - totalDiscAmount;
+    }   
+
+    totalStatementAmount= totalDslAmount + totalDriverAdvAmount;
+
+    if(selectedData.tdsRate!=''){
+      tdsPercent= parseFloat(selectedData.tdsRate);
+      tdsAmount = Math.round((totalDslAmount * tdsPercent)/100);
+      totalStatementAmount = totalStatementAmount - tdsAmount
+    }   
+
     this.formDieselStatement.patchValue({
       totalDslLtrs:totalDslLeters.toFixed(2),
+      grossDslAmt:grossDslAmount.toFixed(2),
+      discRateLtr:discRate.toFixed(2),
+      discAmt:totalDiscAmount.toFixed(2),
       totalDslAmt: totalDslAmount.toFixed(2),
+      tdsRate: tdsPercent.toFixed(2),
+      tdsAmt: tdsAmount.toFixed(2),
       totalCashAdv: totalDriverAdvAmount.toFixed(2),
       totalNetAmount: totalStatementAmount.toFixed(2)
     });
   }
+
   exit(): void {
     this.route.navigate(['/dieselstatementlist']);
   }
@@ -427,6 +464,10 @@ export class DieselstatementaddComponent implements OnInit {
     this.DieselStatementmodel.rate            = selectedDataVal.rate;
     this.DieselStatementmodel.statementFlag   = 'D'  ;       
     this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
+
+    
+
+
     this.DieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
     this.DieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
     this.DieselStatementmodel.totalCashAdv    = selectedDataVal.totalCashAdv;

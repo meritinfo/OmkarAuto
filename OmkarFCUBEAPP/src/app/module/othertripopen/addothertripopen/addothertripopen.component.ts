@@ -344,7 +344,7 @@ export class AddothertripopenComponent {
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         if( this.dTripKM_1 >0){
           this.ExpReportingDays = this.dTripKM_1 / 400;
-          this.ExpReportingDays = Math.round(this.ExpReportingDays) 
+          this.ExpReportingDays = Math.ceil(this.ExpReportingDays) 
           let date: Date = new Date(selectedDataValue.newTripDate);
 
           date.setDate(date.getDate() + this.ExpReportingDays)

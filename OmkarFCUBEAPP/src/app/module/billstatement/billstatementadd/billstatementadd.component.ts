@@ -356,7 +356,7 @@ export class BillstatementaddComponent implements OnInit {
         igstPct: igst,
         sgstAmt:"",
         cgstAmt:"",
-        igstAmt: ((totalSubAmount * igst)/100).toFixed(2)
+        igstAmt: Math.round((totalSubAmount * igst)/100).toFixed(2)
       });   
     }    
     else if (selectedDate.gstType == "S")  {    
@@ -364,8 +364,8 @@ export class BillstatementaddComponent implements OnInit {
         sgstPct: sgst,
         cgstPct: cgst,
         igstPct: "",
-        sgstAmt: ((totalSubAmount * sgst)/100).toFixed(2),
-        cgstAmt: ((totalSubAmount * cgst)/100).toFixed(2),
+        sgstAmt: Math.round((totalSubAmount * sgst)/100).toFixed(2),
+        cgstAmt: Math.round((totalSubAmount * cgst)/100).toFixed(2),
         igstAmt: "",
       });     
     }
@@ -383,10 +383,10 @@ export class BillstatementaddComponent implements OnInit {
                 ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
-      totFreight: totalFrtAmount.toFixed(2),
-      totExtraChrg: totalExtraAmount.toFixed(2),
-      totSubTotal: totalSubAmount.toFixed(2),
-      totalBillAmt: totalBillAmount.toFixed(2),
+      totFreight: Math.round(totalFrtAmount).toFixed(2),
+      totExtraChrg: Math.round(totalExtraAmount).toFixed(2),
+      totSubTotal: Math.round(totalSubAmount).toFixed(2),
+      totalBillAmt: Math.round(totalBillAmount).toFixed(2),
     });
   }
 
@@ -472,7 +472,7 @@ export class BillstatementaddComponent implements OnInit {
         igstPct: igst,
         sgstAmt:"",
         cgstAmt:"",
-        igstAmt: ((totalSubAmount * igst)/100).toFixed(2),
+        igstAmt: Math.round((totalSubAmount * igst)/100).toFixed(2),
       });   
     }    
     else if (selectedDate.gstType == "S")  {    
@@ -480,8 +480,8 @@ export class BillstatementaddComponent implements OnInit {
         sgstPct: sgst,
         cgstPct: cgst,
         igstPct: "",
-        sgstAmt: ((totalSubAmount * sgst)/100).toFixed(2),
-        cgstAmt: ((totalSubAmount * cgst)/100).toFixed(2),
+        sgstAmt: Math.round((totalSubAmount * sgst)/100).toFixed(2),
+        cgstAmt: Math.round((totalSubAmount * cgst)/100).toFixed(2),
         igstAmt: "",
       });     
     }
@@ -499,10 +499,10 @@ export class BillstatementaddComponent implements OnInit {
                 ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
-      totFreight: totalFrtAmount.toFixed(2),
-      totExtraChrg: totalExtraAmount.toFixed(2),
-      totSubTotal: totalSubAmount.toFixed(2),
-      totalBillAmt: totalBillAmount.toFixed(2),
+      totFreight: Math.round(totalFrtAmount).toFixed(2),
+      totExtraChrg: Math.round(totalExtraAmount).toFixed(2),
+      totSubTotal: Math.round(totalSubAmount).toFixed(2),
+      totalBillAmt: Math.round(totalBillAmount).toFixed(2),
     });
   }  
 
@@ -596,7 +596,7 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.cgstAmt = selectedDataValue.cgstAmt.toString();
     this.billsstatementmodel.igstPct = selectedDataValue.igstPct.toString();
     this.billsstatementmodel.igstAmt = selectedDataValue.igstAmt.toString();
-    this.billsstatementmodel.totalBillAmt =  selectedDataValue.totalBillAmt.toString();
+    this.billsstatementmodel.totalBillAmt = selectedDataValue.totalBillAmt.toString();
     this.billsstatementmodel.remarks = selectedDataValue.remarks;
     this.billsstatementmodel.yearId = this.year;
     this.billsstatementmodel.loggedInUser = this.loggedInUserID;
