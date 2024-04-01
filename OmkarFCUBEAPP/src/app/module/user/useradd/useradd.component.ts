@@ -87,7 +87,7 @@ export class UseraddComponent implements OnInit {
       userEmail: new FormControl('', [Validators.required]),
       userScope: new FormControl('BO', Validators.required),
       role: new FormControl('', [Validators.required]),
-      branch: new FormControl(''),
+      empbranch: new FormControl(''),
       activeYN: new FormControl('Y', [Validators.required]),
       canEditTripAfterClose:new FormControl('N', [Validators.required]),
       canLinkTrip :new FormControl('N', [Validators.required]),
@@ -96,8 +96,8 @@ export class UseraddComponent implements OnInit {
       imageName: new FormControl([], ),
     });
 
-    if (this.selectedUserDetails.userId != '') {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (this.selectedUserDetails.userId != '') {
         this.userPhotoPreview = Constants.UploadFolderPath + 'user/userphoto/' + this.selectedUserDetails.imageName;
         // this.userPhotoPreview = '../upload/user/userphoto/'+this.selectedUserDetails.imageName;
         this.formUser.patchValue(this.selectedUserDetails);
@@ -107,9 +107,10 @@ export class UseraddComponent implements OnInit {
           role: this.selectedUserDetails.roleId,
           imageName:  this.selectedUserDetails.imageName,
         })
-      }, 2000);
-      this.editMode=true;
-    }
+        this.formUser.controls["userName"].disable();
+        this.editMode=true;
+      }
+    }, 2000);
   }
 
   // convenience getter for easy access to contact form fields
@@ -169,11 +170,10 @@ export class UseraddComponent implements OnInit {
     let scopeSelected = this.formUser.value.userScope;
     if (scopeSelected.toLowerCase() === 'bo') {
       this.f['userBranch'].setValidators([Validators.required]);
-      this.f['userBranch'].updateValueAndValidity();
     } else {
       this.f['userBranch'].clearValidators();
-      this.f['userBranch'].updateValueAndValidity();
     }
+    this.f['userBranch'].updateValueAndValidity();
   }
 
   //On file select
@@ -247,7 +247,7 @@ export class UseraddComponent implements OnInit {
     this.userModel.canEditTripAfterClose = selecteddata.canEditTripAfterClose?selecteddata.canEditTripAfterClose:'N';
     this.userModel.canLinkTrip = selecteddata.canLinkTrip?selecteddata.canLinkTrip:'N';
     this.userModel.loggedInUser = this.loggedInUserID;
-    this.userModel.empbranch = selecteddata.branch;
+    this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.branchList = selecteddata.userBranch.toString();
     this.userModel.moduleList = selecteddata.userModule.toString();
     //  this.userModel.imageName = this.formUser.value.imageName;

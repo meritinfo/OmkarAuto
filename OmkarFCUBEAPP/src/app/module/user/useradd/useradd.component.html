@@ -40,7 +40,7 @@
                                                 class="col-form-label">Password</label>
                                             <span style="color: red">*</span>
                                             <input type="password" class="form-control" 
-                                                formControlName="userPassword" maxlength="12"
+                                                formControlName="userPassword" maxlength="15"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['userPassword'].invalid) }">
                                         </div>
                                     </div>
@@ -59,7 +59,7 @@
                                         <div class="mb-4">
                                             <label for="branch" class="col-form-label">Employee Branch</label>
                                             <span style="color: red">*</span>
-                                            <select id="branch" class="form-select" formControlName="branch">
+                                            <select id="empbranch" class="form-select" formControlName="empbranch">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
