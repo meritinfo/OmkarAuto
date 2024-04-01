@@ -221,6 +221,7 @@ import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsa
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
 import { Custwizardlistmodel } from './models/custwizardlistmodel';
+//import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 //import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 //import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 
@@ -350,6 +351,7 @@ import { Custwizardlistmodel } from './models/custwizardlistmodel';
     EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,
     EmpsalcalculationaddComponent,
+   // CustwizardlistComponent,
    // CustwizardaddComponent,
    // CustwizardlistComponent,
   ],
