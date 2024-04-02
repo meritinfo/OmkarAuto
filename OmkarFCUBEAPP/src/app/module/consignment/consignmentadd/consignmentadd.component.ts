@@ -293,9 +293,14 @@ export class ConsignmentaddComponent implements OnInit {
       if (confirm("Are you sure, you want to delete this?")) {
             this.consignmentService.consignmentDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
-            console.log(this.responseDetails.message);
-            this.formConsignment.reset();
-            window.location.reload();
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formConsignment.reset();
+              this.route.navigate(['/consignmentlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
         });
       }
     }
@@ -679,10 +684,14 @@ if(parseFloat(selectedDataValue.noPackages)>0){
 
         this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          this.toasterService.success(this.responseDetails.message);
-          this.formConsignment.reset();
-          this.route.navigate(['/consignmentlist']);
-         // window.location.reload();
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formConsignment.reset();
+            this.route.navigate(['/consignmentlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
         });
 
       } else {
