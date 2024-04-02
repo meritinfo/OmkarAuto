@@ -392,10 +392,10 @@ export class BillstatementaddComponent implements OnInit {
                 ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
-      totFreight: Math.round(totalFrtAmount).toFixed(2),
-      totExtraChrg: Math.round(totalExtraAmount).toFixed(2),
-      totSubTotal: Math.round(totalSubAmount).toFixed(2),
-      totalBillAmt: Math.round(totalBillAmount).toFixed(2),
+      totFreight: totalFrtAmount.toFixed(2),
+      totExtraChrg: totalExtraAmount.toFixed(2),
+      totSubTotal: totalSubAmount.toFixed(2),
+      totalBillAmt: totalBillAmount.toFixed(2),
     });
   }
 
@@ -508,10 +508,10 @@ export class BillstatementaddComponent implements OnInit {
                 ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
-      totFreight: Math.round(totalFrtAmount).toFixed(2),
-      totExtraChrg: Math.round(totalExtraAmount).toFixed(2),
-      totSubTotal: Math.round(totalSubAmount).toFixed(2),
-      totalBillAmt: Math.round(totalBillAmount).toFixed(2),
+      totFreight: totalFrtAmount.toFixed(2),
+      totExtraChrg: totalExtraAmount.toFixed(2),
+      totSubTotal: totalSubAmount.toFixed(2),
+      totalBillAmt: totalBillAmount.toFixed(2),
     });
   }  
 
