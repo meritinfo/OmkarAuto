@@ -21,5 +21,10 @@ export class Custwizardmodel {
     driverPoolAc: string = "";
     driverSalAc: string = "";
     frtIncAc:string = "";
+    tripTravelAlAc:string = "";
+    tripIncentiveAc:string = "";
+    tripRecdDrAc:string = "";
+    dslDiscAc:string = "";
+    dslTdsAc:string = "";
     
 }

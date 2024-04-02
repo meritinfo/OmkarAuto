@@ -65,6 +65,7 @@ export class TripsheetaddComponent {
   lrCount: number = 0;
   distanceTripKM_1: string = '';
   dTripKM_1: number = 0;
+  dTripKM_2: number = 0;
   tripkms: string = '';
   nexttripkms: string = '';
   vehicleTypeGroupId: string = '';
@@ -1409,13 +1410,27 @@ GetLastTripDriver(e:any) {
      this.kmsDetails.loadOrEmpty = this.selectedTripSheetDetails.loadEmptyType;
       this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
         this.tripkmsDetails = res;
+        this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.nexttripkms = (this.dTripKM_2).toString(),
+        this.getDslToBe();
+        this.getAdBlueToBe();
+       
         //  // if (this.tripkmsDetails.status) {
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.nexttripkms = (this.dTripKM_1).toString(),
         //  this.advancePay2 = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '0';
         this.advancePay2 = this.tripkmsDetails.enrouteExpEmpty ? this.tripkmsDetails.enrouteExpEmpty : '0';
+        ////
+        this.formTripsheet.patchValue({
+
+          advPayable_2: (this.advancePay2).toString(),
+        });
+        /////////////////////////////////////////////
         this.ExpReportingDays
-          = this.dTripKM_1 / 400
+        //  = this.dTripKM_1 / 400
+        = this.dTripKM_2 / 400
         // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
        // this.ExpReportingDays = Math.round(this.ExpReportingDays)
        this.ExpReportingDays = Math.ceil(this.ExpReportingDays)
@@ -1455,7 +1470,7 @@ GetLastTripDriver(e:any) {
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
           nextExpectedReportingDt: date2.split("T")[0],
-          distanceTripKM_2: (this.dTripKM_1).toString(),
+          distanceTripKM_2: (this.dTripKM_2).toString(),
           nextExpectedReportingDays: (this.ExpReportingDays).toString(),
           advPayable_2: (this.advancePay2).toString(),
         });
@@ -1486,10 +1501,11 @@ GetLastTripDriver(e:any) {
 
         ///
 
-        this.nexttripkms = (this.dTripKM_1).toString(),
+      //  this.nexttripkms = (this.dTripKM_1).toString(),
+      //this.nexttripkms = (this.dTripKM_2).toString(),
           // this.totalCal();
           this.getBhattaRate();
-        this.getDslToBe();
+       // this.getDslToBe();
         this.getAdBlueToBe();
         this.totalCal();
         this.getPenaltyRate();
@@ -1513,6 +1529,7 @@ GetLastTripDriver(e:any) {
         //  // if (this.tripkmsDetails.status) {
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
@@ -1562,6 +1579,7 @@ GetLastTripDriver(e:any) {
         // this.totalCal();
         this.getBhattaRate();
         this.getDslToBe();
+        this.getAdBlueToBe();
         this.totalCalculation();
         this.checkDaysNew();
 
@@ -1577,6 +1595,7 @@ GetLastTripDriver(e:any) {
         //  // if (this.tripkmsDetails.status) {
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+        this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.advancePay2 = this.tripkmsDetails.enrouteExpTruck;
         this.ExpReportingDays
           = this.dTripKM_1 / 400
@@ -1677,9 +1696,9 @@ GetLastTripDriver(e:any) {
         advanceDays_1:'0',
         actualDays_1:'0',
         detentionDays: '0',
-        nextReportingBranch: '0',
+       // nextReportingBranch: '0',
         distanceTripKM_2: '0',
-        nextExpectedReportingDt: '',
+       // nextExpectedReportingDt: '',
         nextExpectedReportingDays: '0',
         ltsAdblueToBe_2: '0',
         ltsDslToBe_2: '0',
@@ -2205,9 +2224,9 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         deliveryDate: '',
     
         detentionDays: '0',
-        nextReportingBranch: '0',
+      //  nextReportingBranch: '0',
         distanceTripKM_2: '0',
-        nextExpectedReportingDt: '',
+       // nextExpectedReportingDt: '',
         nextExpectedReportingDays: '0',
         ltsAdblueToBe_2: '0',
         ltsDslToBe_2: '0',
@@ -2358,8 +2377,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     //this.checkMs();
     // this.checkTripkMsSecond();
     this.checkTripkMsNext();
-    this.getAdBlueToBe();
-    this.getDslToBe();
+   // this.getAdBlueToBe();
+   // this.getDslToBe();
     this.getBhattaRate();
    // this.checkTripkMs();
     // this.commonDetailUpdate();
@@ -2369,7 +2388,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     var selectedDataValue = this.formTripsheet.getRawValue();
     if (this.ivNewFromPlace != "" && this.ivToPlace != "") {
       this.adBlueDetails.transDate = selectedDataValue.newTripDate;
-      this.adBlueDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString();
+     // this.adBlueDetails.tripKms = (selectedDataValue.distanceTripKM_2).toString();
+     this.adBlueDetails.tripKms = this.nexttripkms
 
       this.adBlueDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
@@ -2846,10 +2866,19 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       let ad2 = selectedDataValue.actualDays_2 ? parseInt(selectedDataValue.actualDays_2) : 0;
       let ad3 = selectedDataValue.detentionDays ? parseInt(selectedDataValue.detentionDays) : 0;
       let ad4 = selectedDataValue.idleDays ? parseInt(selectedDataValue.idleDays) : 0;
+      let ad5 = selectedDataValue.expectedReportingDays ? parseInt(selectedDataValue.expectedReportingDays) : 0;
 
 
       // bd =   parseInt(selectedDataValue.actualDays_1)+  parseInt(selectedDataValue.actualDays_2);
-      bd = ad1 + ad2 + ad3 + ad4;
+      if(selectedDataValue.actualDays_1==0){
+        bd =  ad2 + ad3 + ad4 + ad5;
+
+      }
+      else{
+        bd = ad1 + ad2 + ad3 + ad4;
+
+      }
+    
       //bd = ad1 + ad2
       br = parseInt(this.bhattaRate) * bd;
       this.formTripsheet.patchValue({

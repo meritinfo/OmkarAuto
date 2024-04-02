@@ -137,6 +137,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCrAcListForCustWizard")]
+        public async Task<IActionResult> GetCrAcListForCustWizard()
+        {
+            try
+            {
+                var result = await tripPaymentsBusiness.GetCrAcListForCustWizard();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("TripPaymentsSave")]
         public async Task<IActionResult> TripPaymentsSave(TripPaymentsModel tripPaymentsModel)
         {

@@ -19,7 +19,8 @@ namespace FleetTrans.Business
         Task<TripDslDetail> GetTripDslDetail(TripVehicleModel request);
         Task<ResponseModel> TripPaymentsDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetCreditAcList();
-       Task<List<DropDownListModel>> GetCreditAcList2(AcModel request);
+        Task<List<DropDownListModel>> GetCrAcListForCustWizard();
+        Task<List<DropDownListModel>> GetCreditAcList2(AcModel request);
 
 
     }

@@ -61,6 +61,18 @@ namespace FinTrans.Repository
                                 TripDrAlAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripDrAlAc"]),
                                 DelayDamageAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayDamageAc"]),
                                 SgstInputAc = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstInputAc"]),
+                                CgstInputAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstInputAc"]),
+                                IgstInputAc = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstInputAc"]),
+                                FastagTollAc = Convert.ToString(dataSet.Tables[0].Rows[i]["FastagTollAc"]),
+                                HappayAc = Convert.ToString(dataSet.Tables[0].Rows[i]["HappayAc"]),
+                                DriverPoolAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverPoolAc"]),
+                                DriverSalAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverSalAc"]),
+                                FrtIncAc = Convert.ToString(dataSet.Tables[0].Rows[i]["FrtIncAc"]),
+                                TripTravelAlAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTravelAlAc"]),
+                                TripIncentiveAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripIncentiveAc"]),
+                                TripRecdDrAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripRecdDrAc"]),
+                                DslDiscAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DslDiscAc"]),
+                                DslTdsAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DslTdsAc"]),
                                 // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 
@@ -124,6 +136,11 @@ namespace FinTrans.Repository
                             new SqlParameter("@DriverPoolAc", custWizardModel.DriverPoolAc),
                             new SqlParameter("@DriverSalAc", custWizardModel.DriverSalAc),
                             new SqlParameter("@FrtIncAc", custWizardModel.FrtIncAc),
+                            new SqlParameter("@TripTravelAlAc", custWizardModel.TripTravelAlAc),
+                            new SqlParameter("@TripIncentiveAc", custWizardModel.TripIncentiveAc),
+                            new SqlParameter("@TripRecdDrAc", custWizardModel.TripRecdDrAc),
+                            new SqlParameter("@DslDiscAc", custWizardModel.DslDiscAc),
+                            new SqlParameter("@DslTdsAc", custWizardModel.DslTdsAc),
                          // new SqlParameter("@LoggedInUser", custWizardModel.LoggedInUser)
 
                         };
