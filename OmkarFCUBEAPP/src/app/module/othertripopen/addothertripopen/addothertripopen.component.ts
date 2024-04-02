@@ -349,15 +349,25 @@ export class AddothertripopenComponent {
 
           date.setDate(date.getDate() + this.ExpReportingDays)
           let date2 = (date).toISOString()
-
+          if(this.dTripKM_1<=100){
           this.formOtherTripOpen.patchValue({
             expectedReportingDt: date2.split("T")[0],
-            expectedReportingDays: (this.ExpReportingDays).toString(),
+            expectedReportingDays: '0',
             distanceTripKM_1: (this.dTripKM_1).toString(),
             advPayable_1: (this.advancePay).toString(),
           });
+        }
+      
+      else{
+        this.formOtherTripOpen.patchValue({
+          expectedReportingDt: date2.split("T")[0],
+          expectedReportingDays: (this.ExpReportingDays).toString(),
+          distanceTripKM_1: (this.dTripKM_1).toString(),
+          advPayable_1: (this.advancePay).toString(),
+        });
           
         }
+      }
         else{
         this.formOtherTripOpen.patchValue({
           distanceTripKM_1: (this.dTripKM_1).toString(),
