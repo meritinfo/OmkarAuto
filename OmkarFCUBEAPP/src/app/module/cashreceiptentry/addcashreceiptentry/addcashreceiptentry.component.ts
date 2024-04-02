@@ -125,7 +125,8 @@ export class AddcashreceiptentryComponent {
           ftmDate: this.commonService.formatDate(this.selectedCashReceiptEntryDetails.ftmDate),
         }); 
         if(this.selectedCashReceiptEntryDetails.linkedYN=="Y"){
-          this.deleteStatus=false;
+          this.formCashRRecEntry.controls['refType'].disable();
+          this.formCashRRecEntry.controls['refNo'].disable();
         }
         this.editMode=true;
         this.formCashRRecEntry.controls['modifyRemarks'].enable();

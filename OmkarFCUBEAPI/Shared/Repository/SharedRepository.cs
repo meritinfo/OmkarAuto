@@ -328,29 +328,20 @@ namespace Shared.Repository
             }
             return yearList;
         }
-        public async Task<CompanyModel> GetCompanyDetail(RequestModel request)
+        public async Task<ResponseModel> GetCompanyDetail()
         {
-            CompanyModel companyModel = new();
+            ResponseModel responseModel = new();
             try
             {
                 if (dbconnection != null)
-                {
-                   
+                {                  
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CompanyDetail");
 
                     if (userData != null && userData.Tables[0].Rows.Count > 0)
                     {
-                        companyModel.CompanyName = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
-
-                        //  tripKmsModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
-                        //   tripKmsModel.Message = Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-
-                        //tripKmsModel.Status = false;
-                        // tripKmsModel.Message = "data not found";
-                    }
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }                   
                 }
             }
             catch (Exception ex)
@@ -366,7 +357,7 @@ namespace Shared.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return companyModel;
+            return responseModel;
         }
 
         // <summary>

@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Journal Entry</h4>
+                        <h4 class="mb-sm-0 font-size-18">Cash Book Report </h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Finance</a></li>
@@ -17,9 +17,50 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-12 col-md-12">
-                    <form>
+                <div class="col-sm-8 col-md-8">
+                    <form [formGroup]="formFilter">
                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">                        
+                                    <label for="formrow-inputCity">Branch</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="branchList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="branch" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-lg-3">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit"

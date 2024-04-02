@@ -9,6 +9,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Billstatementsaverequest } from '../models/billstatementsaverequest';
 import { Billstatementlistmodel } from '../models/billstatementlistmodel';
 import { Requestmodel } from '../models/requestmodel';
+import { Dropdownmodel } from '../models/dropdownmodel';
 
 import { billstatementmodel } from '../models/billstatementmodel';
 
@@ -45,6 +46,9 @@ getBillStatementDetails() {
   }
   getBillStatementList(filter: Filtermodel): Observable<Billstatementlistmodel> {
     return this.httpClient.post<Billstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementList', filter, this.httpOptions);
+  }  
+  getBillStmtCreditAcList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStmtCreditAcList', null, this.httpOptions);
   }
   billsStatementDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/BillsStatementDelete', req, this.httpOptions);

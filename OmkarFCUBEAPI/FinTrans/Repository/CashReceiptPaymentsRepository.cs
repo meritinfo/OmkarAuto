@@ -410,7 +410,7 @@ namespace FinTrans.Repository
             return accountList;
         }
 
-        public async Task<DataSet> CashBookReport(CashBookReportRequestModel request)
+        public async Task<DataSet> CashBookReport(ReportRequestModel request)
         {
             DataSet reportData = new();
             try
@@ -419,11 +419,36 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@StartDate", ""),
-                            new SqlParameter("@EndDate", ""),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@YearId",     request.FilterStr2),
+                            new SqlParameter("@AccountID",  "34"),
                         };
 
-                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CashBookReport_Select", param);
+                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashBookRptPdf", param);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return reportData;
+        }
+        public async Task<ResponseModel> GetCompanyDetail()
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CompanyDetail");
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
+                    }
                 }
             }
             catch (Exception ex)
@@ -439,8 +464,12 @@ namespace FinTrans.Repository
                 //ExceptionRepository exception = new(dbconnection);
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return reportData;
+            return responseModel;
         }
+
+
+
+
     }
 
 

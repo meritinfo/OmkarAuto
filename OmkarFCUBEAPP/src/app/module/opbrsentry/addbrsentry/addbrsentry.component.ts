@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
@@ -24,6 +21,7 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './addbrsentry.component.html',
   styleUrls: ['./addbrsentry.component.css']
 })
+
 export class AddbrsentryComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
@@ -40,38 +38,37 @@ export class AddbrsentryComponent {
   viewStatus = false;
   loginDate: string = '';
   year: string = '';
-
-
   selectedBrsEntryDetails = new Brsentrymodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private brsEntryModel: Brsentrymodel, private OpbrsentryService: OpbrsentryService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel,private sharedService: SharedService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private brsEntryModel: Brsentrymodel, private OpbrsentryService: OpbrsentryService, 
+    private commonService: CommonService,private toastrService: ToastrService,
+    private requestmodel:Requestmodel,private sharedService: SharedService) {
     this.brsEntryModel = new Brsentrymodel();
-
-
-}
-ngOnInit(): void {
-  this.sharedService.loading = false;
-  this.editMode = false;
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find(((aa: { menuName: string; }) => aa.menuName === "Fleet Card Master"));
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+  }
+  ngOnInit(): void {
+    this.sharedService.loading = false;
+    this.editMode = false;
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Fleet Card Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
     }
-  }
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
     }
@@ -79,112 +76,119 @@ ngOnInit(): void {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-  else {
-    this.route.navigate(['/']);
+    else {
+      this.route.navigate(['/']);
+    }
+
+    this.getBankAcList();
+    this.getBankDebitAcList();
+    this.selectedBrsEntryDetails = this.OpbrsentryService.getOpBrsEntryDetails();
+    this.formUser = this.formBuilder.group({
+      transDate: new FormControl('',[Validators.required]),
+      bankAc: new FormControl('',[Validators.required]),
+      docNo: new FormControl('',),
+      debitRs: new FormControl('',),
+      creditRs: new FormControl('',),
+      chequeNo: new FormControl('',[Validators.required]),
+      chequeDate: new FormControl('',[Validators.required]),
+      narration: new FormControl('',[Validators.required]),
+      clearDate: new FormControl('',),
+      amountRs: new FormControl('',[Validators.required]),
+      typesign: new FormControl('',[Validators.required]),
+      otherAc: new FormControl('',[Validators.required]),
+    });
+
+    setTimeout(() => {
+      if (this.selectedBrsEntryDetails.transId != '') {
+        this.formUser.patchValue(this.selectedBrsEntryDetails);
+        this.formUser.patchValue({      
+          transDate: this.commonService.formatDate(this.selectedBrsEntryDetails.transDate),
+          chequeDate: this.commonService.formatDate(this.selectedBrsEntryDetails.chequeDate),
+          typeSign: this.selectedBrsEntryDetails.typesign
+        })     
+        this.editMode = true;
+        this.sharedService.loading = false;
+      }
+    }, 2000);
   }
 
-  this.getBankAcList();
-  this.getBankDebitAcList();
-  this.selectedBrsEntryDetails = this.OpbrsentryService.getOpBrsEntryDetails();
-  this.formUser = this.formBuilder.group({
-    transDate: new FormControl('',[Validators.required]),
-   // cardNo: new FormControl('',[Validators.required]),
-    bankAc: new FormControl('',[Validators.required]),
-    docNo: new FormControl('',),
-    debitRs: new FormControl('',),
-    creditRs: new FormControl('',),
-    chequeNo: new FormControl('',[Validators.required]),
-    chequeDate: new FormControl('',[Validators.required]),
-    narration: new FormControl('',[Validators.required]),
-    clearDate: new FormControl('',),
-    amountRs: new FormControl('',[Validators.required]),
-    typesign: new FormControl('',[Validators.required]),
-    otherAc: new FormControl('',[Validators.required]),
+  get f() { return this.formUser.controls; }
 
-  });
-  setTimeout(() => {
-  if (this.selectedBrsEntryDetails.transId != '') {
-    this.formUser.patchValue(this.selectedBrsEntryDetails);
-    this.formUser.patchValue({
-     
-      transDate: this.commonService.formatDate(this.selectedBrsEntryDetails.transDate),
-      chequeDate: this.commonService.formatDate(this.selectedBrsEntryDetails.chequeDate),
-      typeSign: this.selectedBrsEntryDetails.typesign
-    })
-    
-  
-      this.editMode = true;
-      this.sharedService.loading = false;
-  }
-  this.sharedService.loading = false;
- }, 2000);
-
-
-}
-get f() { return this.formUser.controls; }
-
-opBrsEntryDelete(): void {
-  if(this.selectedBrsEntryDetails.transId!= '' ){
-   this.requestmodel.strRequest =this.selectedBrsEntryDetails.transId
-    if (confirm("Are you sure, you want to delete this?")) {
-         this.OpbrsentryService.opBrsEntryDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+  opBrsEntryDelete(): void {
+    if(this.selectedBrsEntryDetails.transId!= '' ){
+      this.requestmodel.strRequest =this.selectedBrsEntryDetails.transId
+      if (confirm("Are you sure, you want to delete this?")) {
+        this.OpbrsentryService.opBrsEntryDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-         console.log(this.responseDetails.message);
-         this.formUser.reset();
-         window.location.reload();
-     });
+          if(this.responseDetails.status){
+            this.toastrService.success(this.responseDetails.message); 
+            this.formUser.reset();
+            this.route.navigate(['/opbrsentrylist']);
+          }
+          else{
+            this.toastrService.warning(this.responseDetails.message);        
+          }    
+        });
+      }
     }
   }
-}
-exit(): void {
-  this.route.navigate(['/opbrsentrylist']);
-}
-getBankAcList(): void {
-  this.commonService.getBankAcList().subscribe((res) => {
-    this.ledgerAcList = res;
-  });
-}
-getBankDebitAcList(): void {
-  this.commonService.getBankDebitAcList().subscribe((res) => {
-    this.debitAcList = res;
-  });
-}
 
-//Submit user form details //
-submitBrsEntryForm(): void {
-  this.userSubmitted = true;
-  if (this.formUser.invalid) {
-    this.toastrService.warning("Mandatory fields is required");
-    return;
+  exit(): void {
+    this.route.navigate(['/opbrsentrylist']);
   }
-  this.brsEntryModel.transId = this.selectedBrsEntryDetails.transId != '' ? this.selectedBrsEntryDetails.transId : '';
-  var selectedDataValue = this.formUser.getRawValue();
 
-  this.brsEntryModel.transDate= selectedDataValue.transDate;
- // this.brsEntryModel.cardNo = selectedDataValue.cardCode;
-  this.brsEntryModel.bankAc = selectedDataValue.bankAc;
- // this.brsEntryModel.docNo = selectedDataValue.docNo;
- this.brsEntryModel.debitRs = "0";
-  this.brsEntryModel.creditRs = "0";
-  this.brsEntryModel.chequeNo = selectedDataValue.chequeNo;
-  this.brsEntryModel.chequeDate = selectedDataValue.chequeDate;
-  this.brsEntryModel.clearDate = "";
-  this.brsEntryModel.yearId = this.year;
-  this.brsEntryModel.narration = selectedDataValue.narration;
-  this.brsEntryModel.amountRs = selectedDataValue.amountRs;
-  this.brsEntryModel.typesign = selectedDataValue.typesign;
-  this.brsEntryModel.otherAc = selectedDataValue.otherAc;
-  this.brsEntryModel.loggedInUser = this.loggedInUserID;
+  getBankAcList(): void {
+    this.commonService.getBankAcList().subscribe((res) => {
+      this.ledgerAcList = res;
+    });
+  }
 
+  getBankDebitAcList(): void {
+    this.commonService.getBankDebitAcList().subscribe((res) => {
+      this.debitAcList = res;
+    });
+  }
 
+  submitBrsEntryForm(): void {
+    this.userSubmitted = true;
+    if (this.formUser.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields "); 
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");   
+        }
+      }    
+      return;
+    }
+    this.brsEntryModel.transId = this.selectedBrsEntryDetails.transId;
+    var selectedDataValue = this.formUser.getRawValue();
+    this.brsEntryModel.transDate= selectedDataValue.transDate;
+    this.brsEntryModel.bankAc = selectedDataValue.bankAc;
+    this.brsEntryModel.debitRs = "0";
+    this.brsEntryModel.creditRs = "0";
+    this.brsEntryModel.chequeNo = selectedDataValue.chequeNo;
+    this.brsEntryModel.chequeDate = selectedDataValue.chequeDate;
+    this.brsEntryModel.clearDate = "";
+    this.brsEntryModel.yearId = this.year;
+    this.brsEntryModel.narration = selectedDataValue.narration;
+    this.brsEntryModel.amountRs = selectedDataValue.amountRs;
+    this.brsEntryModel.typesign = selectedDataValue.typesign;
+    this.brsEntryModel.otherAc = selectedDataValue.otherAc;
+    this.brsEntryModel.loggedInUser = this.loggedInUserID;
 
-  this.OpbrsentryService.opBrsEntryDetailsSubmitted(this.brsEntryModel).subscribe((res: Responsemodel) => {
-    this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
-  });
-}
+    this.OpbrsentryService.opBrsEntryDetailsSubmitted(this.brsEntryModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.toastrService.success("Saved Successfully"); 
+        this.formUser.reset();
+        this.route.navigate(['/opbrsentrylist']);
+      }
+      else{
+        this.toastrService.warning(this.responseDetails.message);        
+      }       
+    });
+  }
 }
 
 

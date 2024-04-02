@@ -111,7 +111,6 @@ export class AddjournalentryComponent{
     this.formJournalEntry.controls['credit'].disable(); 
     this.formJournalEntry.controls['debit'].disable(); 
     this.formJournalEntry.controls['modifyRemarks'].disable(); 
-    this.formJournalEntry.controls['refType'].disable();
        
     if (this.selectedJournalEntryDetails.ftmID != '') {        
       var selectedDataValue = this.formJournalEntry.getRawValue();
@@ -121,6 +120,10 @@ export class AddjournalentryComponent{
         credit: this.selectedJournalEntryDetails.docAmount,
         debit: this.selectedJournalEntryDetails.docAmount,
       }); 
+      if(this.selectedJournalEntryDetails.linkedYN=='Y'){        
+        this.formJournalEntry.controls['refType'].disable();
+        this.formJournalEntry.controls['refNo'].disable();
+      }
       this.editMode=true;
       this.formJournalEntry.controls['modifyRemarks'].enable();
       this.getCashReceiptPaymentInnerGridList();
@@ -146,13 +149,13 @@ export class AddjournalentryComponent{
         this.formArray.removeAt(0);
       }      
         
-      for (var i = 1; i < res.detailList.length; i++) {
+      for (var i = 0; i < res.detailList.length; i++) {
         this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i-1].get("typeSign")?.setValue(res.detailList[i].typeSign);
-        this.formArray.controls[i-1].get("amount")?.setValue(res.detailList[i].amount);
-        this.formArray.controls[i-1].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
-        this.formArray.controls[i-1].get("narration")?.setValue(res.detailList[i].narration);
-        this.formArray.controls[i-1].get("reference")?.setValue(res.detailList[i].reference);
+        this.formArray.controls[i].get("typeSign")?.setValue(res.detailList[i].typeSign);
+        this.formArray.controls[i].get("amount")?.setValue(res.detailList[i].amount);
+        this.formArray.controls[i].get("accountID")?.setValue(this.gridAccountList.find(e => e.dataId == res.detailList[i].accountID));
+        this.formArray.controls[i].get("narration")?.setValue(res.detailList[i].narration);
+        this.formArray.controls[i].get("reference")?.setValue(res.detailList[i].reference);
       }
     });
   }
@@ -319,7 +322,7 @@ export class AddjournalentryComponent{
 
     this.sharedService.loading = true;
 
-    this.bankrecEntrymodel.ftmID          = this.selectedJournalEntryDetails.ftmID != '' ? this.selectedJournalEntryDetails.ftmID : '';
+    this.bankrecEntrymodel.ftmID          = this.selectedJournalEntryDetails.ftmID;
     this.bankrecEntrymodel.ftmDate        = selectedDataValue.ftmDate;
     this.bankrecEntrymodel.docType        = selectedDataValue.docType;
     this.bankrecEntrymodel.docSeries      = selectedDataValue.docSeries;
@@ -329,7 +332,7 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.refType        = selectedDataValue.refType;
     this.bankrecEntrymodel.refNo          = selectedDataValue.refNo;
     this.bankrecEntrymodel.docAmount      = selectedDataValue.credit;
-    this.bankrecEntrymodel.linkedYN       = 'N';
+    this.bankrecEntrymodel.linkedYN       = this.selectedJournalEntryDetails.ftmID != '' ?this.selectedJournalEntryDetails.linkedYN:"N";
     this.bankrecEntrymodel.yearID         = this.year;
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;

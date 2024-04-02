@@ -195,7 +195,6 @@ export class FinopenbalanceaddComponent {
   }
 
   getOpeningBalDetailList(brcode:string){
-    this.formArray.clear();
 
     this.openingbalancerequestmodel.branchCode = brcode;
     this.openingbalancerequestmodel.yearId = this.year;
@@ -206,26 +205,30 @@ export class FinopenbalanceaddComponent {
       var creditamount="0.00";
       var totdebitamount=0.00;
       var totcreditamount=0.00;
-      for (var i = 0; i < res.openingBalDetailList.length; i++) {
-        if(res.openingBalDetailList[i].openingBalanceCrDr=="C"){
-          debitamount="0.00"
-          creditamount=res.openingBalDetailList[i].openingBalanceAmt;
-          totcreditamount=totcreditamount+parseFloat(creditamount);
+      if(res.openingBalDetailList.length>0){        
+        this.formArray.clear();
+        for (var i = 0; i < res.openingBalDetailList.length; i++) {
+          if(res.openingBalDetailList[i].openingBalanceCrDr=="C"){
+            debitamount="0.00"
+            creditamount=res.openingBalDetailList[i].openingBalanceAmt;
+            totcreditamount=totcreditamount+parseFloat(creditamount);
+          }
+          else{
+            creditamount="0.00";
+            debitamount=res.openingBalDetailList[i].openingBalanceAmt;
+            totdebitamount=totdebitamount+parseFloat(debitamount);
+          }
+          this.formArray.push(this.createInitialArray());
+          this.formArray.controls[i].get("accountID")?.setValue(this.accountList.find(e => e.dataId == res.openingBalDetailList[i].accountID));
+          this.formArray.controls[i].get("creditAmt")?.setValue(creditamount);
+          this.formArray.controls[i].get("debitAmt")?.setValue(debitamount);
         }
-        else{
-          creditamount="0.00";
-          debitamount=res.openingBalDetailList[i].openingBalanceAmt;
-          totdebitamount=totdebitamount+parseFloat(debitamount);
-        }
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("accountID")?.setValue(this.accountList.find(e => e.dataId == res.openingBalDetailList[i].accountID));
-        this.formArray.controls[i].get("creditAmt")?.setValue(creditamount);
-        this.formArray.controls[i].get("debitAmt")?.setValue(debitamount);
+        this.formFinOpenBal.patchValue({
+          totalDebit: totdebitamount,
+          totalCredit: totcreditamount,
+        });             
       }
-      this.formFinOpenBal.patchValue({
-        totalDebit: totdebitamount,
-        totalCredit: totcreditamount,
-      });             
+      
       this.formFinOpenBal.controls['branchCode'].disable();
     });
   }
@@ -246,9 +249,14 @@ export class FinopenbalanceaddComponent {
       if (confirm("Are you sure, you want to delete this?")) {
         this.finopenbalanceservice.deleteOpeningBalanceForm(this.openingbalancerequestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formFinOpenBal.reset();
-          this.route.navigate(['/opbalancelist']);
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message); 
+            this.formFinOpenBal.reset();
+            this.route.navigate(['/opbalancelist']);
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
         });
       }
       this.sharedService.loading=false;
@@ -319,9 +327,14 @@ export class FinopenbalanceaddComponent {
 
     this.finopenbalanceservice.OpeningbalanceSubmitted(this.openbalancemodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formFinOpenBal.reset();
-      this.route.navigate(['/opbalancelist']);
+      if(this.responseDetails.status){
+        this.toasterService.success(this.responseDetails.message); 
+        this.formFinOpenBal.reset();
+        this.route.navigate(['/opbalancelist']);
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);        
+      }   
     });
     
     this.sharedService.loading=false;

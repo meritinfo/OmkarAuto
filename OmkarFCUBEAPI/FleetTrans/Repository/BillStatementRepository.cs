@@ -122,6 +122,7 @@ namespace FleetTrans.Repository
                                 TotFreight      = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),
                                 TotExtraChrg    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtraChrg"]),
                                 TotSubTotal     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
+                                CreditAc        = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 GstType         = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 SgstPct         = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
                                 SgstAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
@@ -286,6 +287,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TotFreight",     request.TotFreight),
                             new SqlParameter("@TotExtraChrg",   request.TotExtraChrg),
                             new SqlParameter("@TotSubTotal",    request.TotSubTotal),
+                            new SqlParameter("@CreditAc",       request.CreditAc),
                             new SqlParameter("@GstType",        request.GstType ),
                             new SqlParameter("@SgstPct",        request.SgstPct),
                             new SqlParameter("@SgstAmt",        request.SgstAmt),
@@ -353,6 +355,36 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<List<DropDownListModel>> GetBillStmtCreditAcList()
+        {
+            List<DropDownListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillStmtCreditAcList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return creditacList;
         }
     }
 }

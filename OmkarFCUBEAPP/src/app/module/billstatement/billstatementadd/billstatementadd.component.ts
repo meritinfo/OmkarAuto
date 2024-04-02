@@ -30,6 +30,7 @@ export class BillstatementaddComponent implements OnInit {
   locationList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
+  creditAcList: Dropdownmodel[] = [];
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   supp = false;
@@ -105,6 +106,7 @@ export class BillstatementaddComponent implements OnInit {
 
     this.getLocationList();
     this.getBranchList();
+    this.getCreditAcList();
     this.getBillingPartyList();
     this.getlrSeriesForBillList();
     
@@ -125,6 +127,7 @@ export class BillstatementaddComponent implements OnInit {
       totFreight: new FormControl('',[Validators.required]),
       totExtraChrg: new FormControl(''),
       totSubTotal: new FormControl(''),
+      creditAc: new FormControl(''),
       gstType: new FormControl('N'),
       sgstPct: new FormControl(''),
       sgstAmt: new FormControl(''),
@@ -212,6 +215,12 @@ export class BillstatementaddComponent implements OnInit {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+
+  getCreditAcList(): void {
+    this.billstatementService.getBillStmtCreditAcList().subscribe((res) => {
+      this.creditAcList = res;
     });
   }
   
@@ -579,16 +588,17 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;
     this.billsstatementmodel.bill_StmtNo = selectedDataValue.billNo;
     this.billsstatementmodel.billDate = selectedDataValue.billDate;
-    this.billsstatementmodel.partyCode = selectedDataValue.party.dataId;
+    this.billsstatementmodel.partyCode = selectedDataValue.party?selectedDataValue.party.dataId:"";
     this.billsstatementmodel.fromDate = selectedDataValue.lrFrom;
     this.billsstatementmodel.toDate = selectedDataValue.lrTo;
     this.billsstatementmodel.fromPoint = selectedDataValue.fromPoint.dataId;
-    this.billsstatementmodel.toPoint = selectedDataValue.toPoint.dataId;
+    this.billsstatementmodel.toPoint = selectedDataValue.toPoint?selectedDataValue.toPoint.dataId:"";
     this.billsstatementmodel.suppYN = this.supp?"Y":"N";
     this.billsstatementmodel.partyRefNo = selectedDataValue.partyRefNo;
     this.billsstatementmodel.totFreight = selectedDataValue.totFreight.toString();
     this.billsstatementmodel.totExtraChrg = selectedDataValue.totExtraChrg.toString();
     this.billsstatementmodel.totSubTotal =  selectedDataValue.totSubTotal.toString();
+    this.billsstatementmodel.creditAc=selectedDataValue.creditAc.toString();
     this.billsstatementmodel.gstType = selectedDataValue.gstType.toString();
     this.billsstatementmodel.sgstPct = selectedDataValue.sgstPct.toString();
     this.billsstatementmodel.sgstAmt = selectedDataValue.sgstAmt.toString();

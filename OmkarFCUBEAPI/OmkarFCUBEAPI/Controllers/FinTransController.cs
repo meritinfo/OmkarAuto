@@ -462,7 +462,7 @@ namespace OmkarFCUBEAPI.Controllers
         }
 
         [HttpPost("CashBookReport")]
-        public async Task<IActionResult> CashBookReport(CashBookReportRequestModel request)
+        public async Task<IActionResult> CashBookReport(ReportRequestModel request)
         {
             try
             {

@@ -10,7 +10,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Companydetailmodel } from 'src/app/models/companydetailmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -36,7 +35,6 @@ export class IntermediatescreenComponent {
   responseDetails = new Responsemodel();
   selectedScreenDetails = new Intermediatescreenmodel();
   maxDate: string = '';
-  companyDetail = new Companydetailmodel();
   companyname: string = '';
 
   constructor(private formBuilder: FormBuilder, private intermediateScreenModel: Intermediatescreenmodel, 
@@ -123,9 +121,14 @@ export class IntermediatescreenComponent {
 
   }
   getCompanyDetails(){
-    this.commonService.getCompanyDetail().subscribe((res: Companydetailmodel) => {
-       this.companyDetail = res;
-        this.companyname = this.companyDetail.companyName
+    this.commonService.getCompanyDetail().subscribe((res: Responsemodel) => {
+       this.responseDetails = res;
+       if (this.responseDetails.status){        
+        this.companyname = this.responseDetails.message;
+       }
+       else{
+        this.companyname = "OMKAR "
+       }
         sessionStorage.setItem("companyname", this.companyname );
       });
      

@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Loginmodel } from 'src/app/models/loginmodel';
 import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
-import { Companydetailmodel } from 'src/app/models/companydetailmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -50,12 +49,10 @@ export class LoginComponent implements OnInit {
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
       this.selectedUserDetails = res;
       if (this.selectedUserDetails.status) {
-        //this.getCompanyDetails();
         sessionStorage.setItem("uid", this.selectedUserDetails.userId);     
         sessionStorage.setItem("token", this.selectedUserDetails.token);    
         sessionStorage.setItem("scope", this.selectedUserDetails.scope);
         sessionStorage.setItem("user", this.selectedUserDetails.userName);
-       // sessionStorage.setItem("companyname", this.companyname );
       
         this.sharedService.loggedInStatus = true;
         this.sharedService.loading = false;

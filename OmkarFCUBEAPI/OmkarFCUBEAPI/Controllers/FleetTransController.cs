@@ -18,6 +18,7 @@ using Consignment.Business;
 using System.Xml.Linq;
 using FreightMasters.Business;
 using FreightMasters.Models;
+using Org.BouncyCastle.Ocsp;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -86,6 +87,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetCreditAcList2")]
         public async Task<IActionResult> GetCreditAcList2(AcModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripPaymentsBusiness.GetCreditAcList2(request);
@@ -189,6 +194,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripPaymentsList")]
         public async Task<IActionResult> GetTripPaymentsList(PageRequestDtBrVh request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripPaymentsBusiness.GetTripPaymentsList(request);
@@ -203,6 +212,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripDetail")]
         public async Task<IActionResult> GetTripDetail(TripVehicleModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripPaymentsBusiness.GetTripDetail(request);
@@ -217,6 +230,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripFromAndToDetail")]
         public async Task<IActionResult> GetTripFromAndToDetail(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripPaymentsBusiness.GetTripFromAndToDetail(request);
@@ -231,6 +248,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripDslDetail")]
         public async Task<IActionResult> GetTripDslDetail(TripVehicleModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripPaymentsBusiness.GetTripDslDetail(request);
@@ -247,6 +268,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripSheetList")]
         public async Task<IActionResult> GetTripSheetList(PageRequestDtBrVh request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetTripSheetList(request);
@@ -277,6 +302,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetOpeningBal")]
         public async Task<IActionResult> GetOpeningBal(OpBalModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetOpeningBal(request);
@@ -291,6 +320,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDslOpeningBal")]
         public async Task<IActionResult> GetDslOpeningBal(OpBalModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetDslOpeningBal(request);
@@ -305,6 +338,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetLastTripDriver")]
         public async Task<IActionResult> GetLastTripDriver(OpBalModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetLastTripDriver(request);
@@ -319,6 +356,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDslOpeningBalforPmt")]
         public async Task<IActionResult> GetDslOpeningBalforPmt(OpBalModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetDslOpeningBalforPmt(request);
@@ -333,6 +374,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetAdblueOpeningBal")]
         public async Task<IActionResult> GetAdblueOpeningBal(OpBalModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetAdblueOpeningBal(request);
@@ -347,6 +392,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetIncentiveRate")]
         public async Task<IActionResult> GetIncentiveRate(IncentiveRateModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetIncentiveRate(request);
@@ -361,6 +410,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetPenaltyRate")]
         public async Task<IActionResult> GetPenaltyRate(PenaltyRateModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetPenaltyRate(request);
@@ -375,6 +428,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetPenaltyRateNew")]
         public async Task<IActionResult> GetPenaltyRateNew(PenaltyRateModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetPenaltyRateNew(request);
@@ -389,6 +446,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetBhattaRate")]
         public async Task<IActionResult> GetBhattaRate(BhattaRateModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetBhattaRate(request);
@@ -403,6 +464,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDriverDetail")]
         public async Task<IActionResult> GetDriverDetail(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetDriverDetail(request);
@@ -438,6 +503,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetTripSheetInnerGridList")]
         public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
@@ -454,6 +523,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDieselStatementInnerGridList")]
         public async Task<IActionResult> GetDieselStatementInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await dieselStatementBusiness.GetDieselStatementInnerGridList(request);
@@ -583,6 +656,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetBillStatementSearchList")]
         public async Task<IActionResult> GetBillStatementSearchList(BillStatementSearchListRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billStatementBusiness.GetBillStatementSearchList(request);
@@ -598,6 +675,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetBillStatementList")]
         public async Task<IActionResult> GetBillStatementList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billStatementBusiness.GetBillStatementList(request);
@@ -613,6 +694,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("SaveBillStatementDetails")]
         public async Task<IActionResult> SaveBillStatementDetails(BillStatementModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billStatementBusiness.SaveBillStatementDetails(request);
@@ -648,9 +733,28 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetBillStatementInnerGridList")]
         public async Task<IActionResult> GetBillStatementInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await billStatementBusiness.GetBillStatementInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillStmtCreditAcList")]
+        public async Task<IActionResult> GetBillStmtCreditAcList()
+        {
+            try
+            {
+                var result = await billStatementBusiness.GetBillStmtCreditAcList();
 
                 return Ok(result);
             }
@@ -664,6 +768,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("SaveDriverSalaryStatementDetails")]
         public async Task<IActionResult> SaveDriverSalaryStatementDetails(DriverSalaryStatementModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await driverSalaryStmtBusiness.SaveDriverSalaryStatementDetails(request);
@@ -679,6 +787,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDriverSalaryInnerGridList")]
         public async Task<IActionResult> GetDriverSalaryInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await driverSalaryStmtBusiness.GetDriverSalaryInnerGridList(request);
@@ -695,6 +807,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDriverSalarySearchList")]
         public async Task<IActionResult> GetDriverSalarySearchList(DriverSalarySearchListRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await driverSalaryStmtBusiness.GetDriverSalarySearchList(request);
@@ -729,6 +845,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDriverSalaryStmtList")]
         public async Task<IActionResult> GetDriverSalaryStatementList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await driverSalaryStmtBusiness.GetDriverSalaryStatementList(request);
@@ -902,6 +1022,10 @@ namespace OmkarFCUBEAPI.Controllers
         [HttpPost("GetDocRenewalEntryList")]
         public async Task<IActionResult> GetDocRenewalEntryList(PageRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await docRenewalEntryBusiness.GetDocRenewalEntryList(request);

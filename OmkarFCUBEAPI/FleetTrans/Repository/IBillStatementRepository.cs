@@ -10,5 +10,6 @@ namespace FleetTrans.Repository
         Task<BillStatementList> GetBillStatementList(PageFromDtToDtRequest request);
         Task<ResponseModel> BillsStatementDelete(RequestModel requestModel);
         Task<BillStatementSearchListModel> GetBillStatementInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetBillStmtCreditAcList();
     }
 }
