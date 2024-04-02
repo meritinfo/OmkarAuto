@@ -376,6 +376,36 @@ namespace FleetTrans.Repository
             }
             return creditacList;
         }
+        public async Task<List<DropDownListModel>> GetCrAcListForCustWizard()
+        {
+            List<DropDownListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CrAcListForCustWizard_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return creditacList;
+        }
         public async Task<List<DropDownListModel>> GetCreditAcList2(AcModel request)
         {
             List<DropDownListModel> creditacList = new();

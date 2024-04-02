@@ -29,5 +29,12 @@ namespace FinTrans.Models
         public string?DriverPoolAc { get; set; }
         public string?DriverSalAc { get; set; }
         public string?FrtIncAc { get; set; }
+        public string? TripTravelAlAc { get; set; }
+        public string? TripIncentiveAc { get; set; }
+        public string? TripRecdDrAc { get; set; }
+        public string? DslDiscAc { get; set; }
+        public string? DslTdsAc { get; set; }
+
+
     }
 }

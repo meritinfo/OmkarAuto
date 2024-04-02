@@ -197,7 +197,7 @@ export class ConsignmentaddComponent implements OnInit {
       shipmentDt: new FormControl('',),
       productId: new FormControl('',),
       productDesc: new FormControl('',),
-      noPackages: new FormControl('0',[Validators.required]),
+      noPackages: new FormControl('',[Validators.required] ),
       actualWt: new FormControl('',),
       chargewt: new FormControl('',),
       rateType: new FormControl('1',),
@@ -564,9 +564,25 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.formSubmitted = true;
     if (this.formConsignment.invalid) {
-      this.toasterService.warning("Mandatory fields is required");
+      this.toasterService.warning("Please Enter Mandatory Fields ");   
+      const controls = this.formConsignment.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      }
       return;
     }
+    
+
+    var selectedDataValue = this.formConsignment.getRawValue();
+if(parseFloat(selectedDataValue.noPackages)>0){
+  //ignore
+}else{
+  this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
+  return;   
+}
+    
 
     this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
     this.dateDetails.yearId = this.year;
@@ -574,8 +590,6 @@ export class ConsignmentaddComponent implements OnInit {
     this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
-
-        var selectedDataValue = this.formConsignment.getRawValue();
 
         this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
         this.consignmentmodel.bookingPlace = selectedDataValue.bookingPlace;
