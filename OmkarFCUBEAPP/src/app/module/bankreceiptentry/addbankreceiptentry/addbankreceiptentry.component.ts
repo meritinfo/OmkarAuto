@@ -116,7 +116,6 @@ export class AddbankreceiptentryComponent {
     this.formBankRecEntry.controls['docNo'].disable(); 
     this.formBankRecEntry.controls['docAmount'].disable(); 
     this.formBankRecEntry.controls['modifyRemarks'].disable();
-    this.formBankRecEntry.controls['refType'].disable();
     setTimeout(() => {
       if (this.selectedBankReceiptEntryDetails.ftmID != '') {   
         this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
@@ -124,7 +123,8 @@ export class AddbankreceiptentryComponent {
           ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
         });       
         if(this.selectedBankReceiptEntryDetails.linkedYN=="Y"){
-          this.deleteStatus=false;
+          this.formBankRecEntry.controls['refType'].disable();
+          this.formBankRecEntry.controls['refNo'].disable();
         }
         this.editMode=true;
         this.formBankRecEntry.controls['modifyRemarks'].enable();

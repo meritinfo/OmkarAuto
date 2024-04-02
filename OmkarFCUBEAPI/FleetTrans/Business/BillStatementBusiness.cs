@@ -1,4 +1,5 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
 
@@ -39,6 +40,10 @@ namespace FleetTrans.Business
         public async Task<BillStatementSearchListModel> GetBillStatementInnerGridList(RequestModel request)
         {
             return await billStatementRepository.GetBillStatementInnerGridList(request);
+        }
+        public async Task<List<DropDownListModel>> GetBillStmtCreditAcList()
+        {
+            return await billStatementRepository.GetBillStmtCreditAcList();
         }
     }
 }

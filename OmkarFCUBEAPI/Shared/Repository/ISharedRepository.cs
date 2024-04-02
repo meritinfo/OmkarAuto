@@ -13,7 +13,7 @@ namespace Shared.Repository
         Task<UserModel> LoginDetails(LoginModel loginModel);
         Task<ResponseModel> IntermediateScreenDetail(IntermediateScreenModel request);
         Task<ResponseModel> CheckBookingDate(DateModel request);
-        Task<CompanyModel> GetCompanyDetail(RequestModel request);
+        Task<ResponseModel> GetCompanyDetail();
         Task<List<MenuModel>> MenuDetails(string userID);
         Task<List<DropDownListModel>> GetScopeBranchList(RequestModel req);
         Task<List<DropDownListModel>> GetYearList();

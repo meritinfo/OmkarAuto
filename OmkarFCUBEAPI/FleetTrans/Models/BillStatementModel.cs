@@ -19,6 +19,7 @@ namespace FleetTrans.Models
         public string? TotFreight { get; set; }
         public string? TotExtraChrg { get; set; }
         public string? TotSubTotal { get; set; }
+        public string? CreditAc { get; set; }
         public string? GstType { get; set; }
         public string? SgstPct { get; set; }
         public string? SgstAmt { get; set; }

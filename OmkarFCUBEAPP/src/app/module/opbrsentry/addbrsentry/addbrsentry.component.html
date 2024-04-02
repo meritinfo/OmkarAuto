@@ -9,8 +9,8 @@
                    <h4 class="mb-sm-0 font-size-18"> Op Brs Entry</h4>
                    <div class="page-title-right">
                       <ol class="breadcrumb m-0">
-                         <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Trans</a></li>
-                         <li class="breadcrumb-item active">Op Brs Entry</li>
+                         <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fin Trans</a></li>
+                         <li class="breadcrumb-item active">Op Brs Entry</li> -->
                       </ol>
                    </div>
                 </div>
@@ -145,9 +145,9 @@
                    <div class="tex">
                       <button  class="btn btn-primary w-md"
                          (click)="submitBrsEntryForm()">Save</button>
-                          <button type="submit" class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                          <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="opBrsEntryDelete()">Delete</button>
-                                <button type="submit" class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
+                                <button class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
                    </div>
                 </div>
              </div>

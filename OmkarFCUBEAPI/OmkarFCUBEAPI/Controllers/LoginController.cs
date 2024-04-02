@@ -142,11 +142,11 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetCompanyDetail")]
-        public async Task<IActionResult> GetCompanyDetail(RequestModel request)
+        public async Task<IActionResult> GetCompanyDetail()
         {
             try
             {
-                var result = await sharedBusiness.GetCompanyDetail(request);
+                var result = await sharedBusiness.GetCompanyDetail();
 
                 return Ok(result);
             }

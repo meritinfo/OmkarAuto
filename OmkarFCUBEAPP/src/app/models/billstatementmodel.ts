@@ -16,6 +16,7 @@ export class billstatementmodel {
     totFreight: string = "";
     totExtraChrg: string = "";
     totSubTotal: string = "";
+    creditAc: string = "";
     gstType: string = "";
     sgstPct: string = "";
     sgstAmt: string = "";

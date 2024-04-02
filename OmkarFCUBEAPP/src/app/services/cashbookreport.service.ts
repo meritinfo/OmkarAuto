@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Responsemodel } from '../models/responsemodel';
 import { Constants } from '../common/constants';
 import { Observable } from 'rxjs';
-import { Cashbookreportrequestmodel } from '../models/cashbookreportrequestmodel.model';
+import { Reportmodel } from '../models/reportmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class CashbookreportService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getCashBookReport(request: Cashbookreportrequestmodel): Observable<Responsemodel> {
+  getCashBookReport(request: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CashBookReport', request, this.httpOptions);
   }
 }

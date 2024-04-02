@@ -164,7 +164,7 @@
                                         </div> 
                                         <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <button type="submit" (click)="searchStatement()" *ngIf="showButton"
+                                                <button (click)="searchStatement()" *ngIf="showButton"
                                                     class="btn btn-primary w-md mt-4">Show</button>
                                             </div>
                                         </div>
@@ -325,14 +325,26 @@
                                                 <input autoclose="false" type="text" class="form-control" 
                                                     formControlName="igstAmt" >
                                             </div>
-                                        </div>                                                                           
+                                        </div>                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
+                                                <select class="form-control" 
+                                                    formControlName="creditAc"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
+                                                        {{ac.dataName}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>                                                                         
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Party Ref No</label>
                                                 <input autoclose="false" type="text" class="form-control"
                                                     formControlName="partyRefNo">
                                             </div>
-                                        </div>
+                                        </div>  
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
@@ -343,7 +355,7 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmt'].invalid) }">
                                             </div>
                                         </div>                                        
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-5">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Remarks</label><span style="color: red"> * </span>
                                                 <input autoclose="false" type="text" class="form-control"
