@@ -153,7 +153,11 @@ export class AddtrippaymentsComponent {
       travel: new FormControl('',),
     });
     
-    this.getCreditAcList2('C');   
+    //this.getCreditAcList2('C');   
+    
+    if (this.selectedTripPaymentsDetails.pmtId != '') {      
+      this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);  
+    }
 
     setTimeout(() => {
      this.createmode = true;
@@ -171,18 +175,20 @@ export class AddtrippaymentsComponent {
         this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable();
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc;
-        this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
+       // this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
       //  this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)  
         this.tripNumber =   this.selectedTripPaymentsDetails.tripNo ;   
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
-        this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
+       // this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
         this.GetDslOpeningBalforPmt();
         this.getFromAndToDetail();
         this.formTripPayment.patchValue({
           pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
           chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+          //creditAc:this.creditacList.find(e => e.dataId == this.selectedTripPaymentsDetails.creditAc),
+         //creditAc: this.selectedTripPaymentsDetails.creditAc,
         })  
         if (this.selectedTripPaymentsDetails.pmtType == 'B'){
           this.formTripPayment.controls['neftPmt'].enable();
@@ -313,11 +319,7 @@ if(selectedDataValue.tripNo!=1){
       'pType' : this.ptype
     }
     this.commonService.getCreditAcList2(data).subscribe((res) => {
-      this.creditacList = res;
-      this.formTripPayment.patchValue({
-        creditAc:this.creditacList[0].dataId
-      });  
-      this.newList = this.creditacList;
+      this.creditacList = res;   
     });
   }
 

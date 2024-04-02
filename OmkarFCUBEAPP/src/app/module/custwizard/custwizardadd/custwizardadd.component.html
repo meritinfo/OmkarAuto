@@ -53,6 +53,306 @@
                                             </div>
                                         </div>
                                     </div>   
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripRoutExpAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripRoutExpAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRoutExpAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripRepairsAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripRepairsAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRepairsAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripParkingAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripParkingAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripParkingAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripMChallanAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripMChallanAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripMChallanAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripWeighmentAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripWeighmentAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripWeighmentAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripAccidentAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripAccidentAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripAccidentAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripTollAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripTollAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripTollAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripOthersMiscAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripOthersMiscAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripOthersMiscAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripDrAlAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripDrAlAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripDrAlAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">DelayDamageAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="delayDamageAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['delayDamageAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">SgstInputAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="sgstInputAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['sgstInputAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">CgstInputAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="cgstInputAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cgstInputAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">IgstInputAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="igstInputAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['igstInputAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">FastagTollAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="fastagTollAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['fastagTollAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">HappayAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="happayAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['happayAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">DriverPoolAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="driverPoolAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['driverPoolAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">DriverSalAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="driverSalAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['driverSalAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">frtIncAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="frtIncAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['frtIncAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">tripTravelAlAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripTravelAlAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripTravelAlAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripIncentiveAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripIncentiveAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripIncentiveAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripRecdDrAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripRecdDrAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRecdDrAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">DslDiscAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="dslDiscAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['dslDiscAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">TripRecdDrAc</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="tripRecdDrAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRecdDrAc'].invalid) }">
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                    
                                 </div>
                             </div>

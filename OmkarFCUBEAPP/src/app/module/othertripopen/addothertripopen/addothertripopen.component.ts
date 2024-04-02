@@ -351,7 +351,7 @@ export class AddothertripopenComponent {
           let date2 = (date).toISOString()
           if(this.dTripKM_1<=100){
           this.formOtherTripOpen.patchValue({
-            expectedReportingDt: date2.split("T")[0],
+            expectedReportingDt: selectedDataValue.newTripDate,
             expectedReportingDays: '0',
             distanceTripKM_1: (this.dTripKM_1).toString(),
             advPayable_1: (this.advancePay).toString(),

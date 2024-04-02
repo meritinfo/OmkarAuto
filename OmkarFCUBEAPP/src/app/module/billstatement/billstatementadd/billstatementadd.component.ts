@@ -127,7 +127,7 @@ export class BillstatementaddComponent implements OnInit {
       totFreight: new FormControl('',[Validators.required]),
       totExtraChrg: new FormControl(''),
       totSubTotal: new FormControl(''),
-      creditAc: new FormControl(''),
+      creditAc: new FormControl('',[Validators.required]),
       gstType: new FormControl('N'),
       sgstPct: new FormControl(''),
       sgstAmt: new FormControl(''),
