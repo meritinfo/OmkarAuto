@@ -425,6 +425,7 @@ namespace Consignment.Repository
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
                         if (Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]))
                         {
                             transaction.Commit();

@@ -989,7 +989,18 @@ if(selectedValue > 1){
         let date2 = (date).toISOString()
         ////date2 =this.commonService.formatDate(date2)
         ////const myFormattedDate = this.commonService.formatDate(date2);
-
+        if(this.dTripKM_1<=100){
+        this.formTripsheet.patchValue({
+          //  // cneeGst:  (this.ExpectedReportingDays).toString() 
+          //   //  cneeGst:  date2.split("T")[0]
+          expectedReportingDt: selectedDataValue.newTripDate,
+          distanceTripKM_1: (this.dTripKM_1).toString(),
+          expectedReportingDays: "0",
+         advPayable_1: (this.advancePay).toString(),
+          
+        });
+      }
+      else{
         this.formTripsheet.patchValue({
           //  // cneeGst:  (this.ExpectedReportingDays).toString() 
           //   //  cneeGst:  date2.split("T")[0]
@@ -999,6 +1010,8 @@ if(selectedValue > 1){
          advPayable_1: (this.advancePay).toString(),
           
         });
+
+      }
         /////check load or empty
        // if(this.selectedTripSheetDetails.loadEmptyType =='L'){
         //  this.formTripsheet.patchValue({
@@ -1401,7 +1414,28 @@ GetLastTripDriver(e:any) {
   }
   checkTripkMsNext() {
     var selectedDataValue = this.formTripsheet.getRawValue();
-    if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == "" && this.destinationid3 == "" ||this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == undefined && this.destinationid3 == undefined) {
+    if(selectedDataValue.reportingDt_1=='' && selectedDataValue.deliveryDate=='')
+    {
+      if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == "" && this.destinationid3 == "" ||this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == undefined && this.destinationid3 == undefined ) {
+        this.kmsDetails.fromLocation = this.ivToPlace;
+        this.kmsDetails.toLocation = this.ivNewFromPlace;
+        this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
+       // this.kmsDetails.transDate = this.commonService.formatDate(selectedDataValue.newTripDate);
+       this.kmsDetails.transDate = selectedDataValue.newTripDate;
+       this.kmsDetails.loadOrEmpty = this.selectedTripSheetDetails.loadEmptyType;
+        this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
+          this.tripkmsDetails = res;
+          this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
+          this.nexttripkms = (this.dTripKM_2).toString()
+          this.getDslToBe();
+          this.getAdBlueToBe();
+        })
+      }
+
+    }
+    else{
+  
+    if (this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == "" && this.destinationid3 == "" ||this.ivToPlace != "" && this.ivNewFromPlace != "" && this.destinationid2 == undefined && this.destinationid3 == undefined ) {
       this.kmsDetails.fromLocation = this.ivToPlace;
       this.kmsDetails.toLocation = this.ivNewFromPlace;
       this.kmsDetails.vehicleTypeGroupId = this.vehicleTypeGroupId;
@@ -1412,25 +1446,25 @@ GetLastTripDriver(e:any) {
         this.tripkmsDetails = res;
         this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.nexttripkms = (this.dTripKM_2).toString(),
-        this.getDslToBe();
-        this.getAdBlueToBe();
+       // this.getDslToBe();
+       // this.getAdBlueToBe();
        
         //  // if (this.tripkmsDetails.status) {
         this.tripkms = this.tripkmsDetails.kms ? this.tripkmsDetails.kms : '';
         this.dTripKM_1 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
         this.dTripKM_2 = this.tripkmsDetails.kms ? parseInt(this.tripkmsDetails.kms) : 0;
-        this.nexttripkms = (this.dTripKM_1).toString(),
+       // this.nexttripkms = (this.dTripKM_1).toString(),
         //  this.advancePay2 = this.tripkmsDetails.enrouteExpTruck ? this.tripkmsDetails.enrouteExpTruck : '0';
         this.advancePay2 = this.tripkmsDetails.enrouteExpEmpty ? this.tripkmsDetails.enrouteExpEmpty : '0';
         ////
-        this.formTripsheet.patchValue({
+       // this.formTripsheet.patchValue({
 
-          advPayable_2: (this.advancePay2).toString(),
-        });
+         // advPayable_2: (this.advancePay2).toString(),
+      //  });
         /////////////////////////////////////////////
-        this.ExpReportingDays
+        this.ExpReportingDays = this.dTripKM_2 / 400
         //  = this.dTripKM_1 / 400
-        = this.dTripKM_2 / 400
+       
         // this.ExpReportingDays = Math.round(this.ExpReportingDays) + 1;
        // this.ExpReportingDays = Math.round(this.ExpReportingDays)
        this.ExpReportingDays = Math.ceil(this.ExpReportingDays)
@@ -1443,6 +1477,7 @@ GetLastTripDriver(e:any) {
           date.setDate(date.getDate() + this.ExpReportingDays)
           date2 = (date).toISOString();
         }
+
         // if (selectedDataValue.deliveryDate != undefined && selectedDataValue.deliveryDate != "") {
         // let date3: Date = new Date(selectedDataValue.deliveryDate);
         //   date.setDate(date3.getDate() + this.ExpReportingDays)
@@ -1654,6 +1689,7 @@ GetLastTripDriver(e:any) {
         //   kms: ''
       });
     }
+  }
 
   }
   checkDeliveryDate() {
@@ -1975,7 +2011,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
    // this.totaldsl = dl1 + dl2;
    this.totaldsl = dl1 + dsl;
     this.totalpayable = tp1 + tp2;
-    this.totalCalculation2(this.totaldsl)
+   // this.totalCalculation2(this.totaldsl)
     if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
       this.formTripsheet.patchValue({
         totaldsl: (this.totaldsl).toString(),
@@ -2367,7 +2403,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
     this.getDslToBe1();
     this.getAdBlueToBe1();
-    this.getBhattaRate();
+    //this.getBhattaRate();
     this.checkTripkMsNext();
     this.checkLocation();
     //this.commonDetailUpdate();
@@ -2376,10 +2412,11 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     this.ivNewFromPlace = e.dataId;
     //this.checkMs();
     // this.checkTripkMsSecond();
+    
     this.checkTripkMsNext();
    // this.getAdBlueToBe();
    // this.getDslToBe();
-    this.getBhattaRate();
+   // this.getBhattaRate();
    // this.checkTripkMs();
     // this.commonDetailUpdate();
     // this.totalCal();
@@ -3008,7 +3045,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     // this.checkMs();
     this.checkTripkMs();
     
-    this.getBhattaRate();
+   // this.getBhattaRate();
     this.checkDestinationControlStatus();
     this.checkLocation();
 
