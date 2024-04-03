@@ -10,11 +10,13 @@ import { CommonService } from 'src/app/services/common.service';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+
 @Component({
   selector: 'app-trippaymentslist',
   templateUrl: './trippaymentslist.component.html',
   styleUrls: ['./trippaymentslist.component.css']
 })
+
 export class TrippaymentslistComponent {
   dtOptions: DataTables.Settings = {};
   allTripPaymentsTypes: Trippaymentslistmodel = new Trippaymentslistmodel();
@@ -80,34 +82,37 @@ export class TrippaymentslistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
+      branch: new FormControl('',),
       vehicle: new FormControl('',)
     });
     this.getBranchList();
     this.getVehicleNoList();
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.branch = selectedData.branch?selectedData.branch.dataId:"";
+    this.filter.vehicle =  selectedData.vehicle?selectedData.vehicle.dataId:"";
     this.tripPaymentList();
   }
-tripPaymentList(){
-  this.dtOptions = {
-    pagingType: 'full_numbers',
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
-    searching: false,
-    ajax: (dataTablesParameters: any, callback) => {
-      // Filter setting
-      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-      this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
-      this.filter.fromDate = this.formFilter.value.fromDate;
-      this.filter.toDate = this.formFilter.value.toDate;
-      this.filter.branch = this.formFilter.value.branch.dataId;
-      this.filter.vehicle =  this.formFilter.value.vehicle.dataId;
-      this.trippaymentService.getTripPaymentsList(this.filter)
-        .subscribe(resp => {
-         this.allTripPaymentsTypes = resp;
+
+  tripPaymentList(){
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      searching: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = 'bName';
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = dataTablesParameters.search.value;
+        this.trippaymentService.getTripPaymentsList(this.filter).subscribe(resp => {
+          this.allTripPaymentsTypes = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,
             recordsFiltered: resp.pageMetaData.totalCount,
@@ -115,10 +120,9 @@ tripPaymentList(){
           });
         });
       },
-       // Set column title and data field
-       columns: [
-      
 
+        // Set column title and data field
+      columns: [    
         {
           title: 'PmtBranch',
           data: 'bName',
@@ -127,92 +131,87 @@ tripPaymentList(){
           title: 'Date',
           data: 'pmtDate',
         },
+        {
+          title: 'Vehicle No',
+          data: 'vehicleNo',
+        },
+        {
+          title: 'Trip No',
+          data: 'tripNo',
+        },
+        {
+          title: 'Trans Type',
+          data: 'transType',
+        },
+        {
+          title: 'Qty Ltrs',
+          data: 'qtyLtrs',
+        },
+        {
+          title: 'Amount',
+          data: 'amtPaid',
+        },   
+        {
+          title: 'Action',
+          data: 'pmtId',
+        },
+      ],
+    };
+  }
 
-
-       {
-        title: 'Vehicle No',
-        data: 'vehicleNo',
-      },
-      {
-        title: 'Trip No',
-        data: 'tripNo',
-      },
-      {
-        title: 'Trans Type',
-        data: 'transType',
-      },
-      {
-        title: 'Qty Ltrs',
-        data: 'qtyLtrs',
-      },
-      {
-        title: 'Amount',
-        data: 'amtPaid',
-      },
-
-
-
-     
-    
-    
-      {
-        title: 'Action',
-        data: 'pmtId',
-      },
-    ],
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
-}
-startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-  return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-};
-selectEvent(item: any) {
-  // do something with selected item
-}
 
-onFocused(e: any) {
-  // do something
-}
-getBranchList(): void {
-  this.commonService.getBranchList().subscribe((res) => {
-    this.branchList = res;
-  });
-}
+  selectEvent(item: any) {
+    // do something with selected item
+  }
 
-getVehicleNoList(): void {
-  this.commonService.getVehicleNoList().subscribe((res) => {
-    this.vehicleList = res;
-  });
-}
+  onFocused(e: any) {
+    // do something
+  }
 
-onChangeSearch(search: string) {
-}
+  getBranchList(): void {
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
+  }
 
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
+  onChangeSearch(search: string) {
+    //ignore
+  }
   
   //Open new driver master add screen
   trippaymentsAdd(): void {
     this.route.navigate(['/addtrippayments']);
   }
-  search(): void {
-    debugger;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-    //this.filter.branch = this.formFilter.value.branch;
-    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-   // this.trippaymentService.getTripPaymentsList(this.filter)
-     // .subscribe(resp => {
-   //     this.allTripPaymentsTypes = resp;
-   //   });
-      this.tripPaymentList();
-      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-       dtInstance.ajax.reload(); 
-      });
-  }
 
   //Open user details screen
-gettrippaymentsDetails(trippayments: Trippaymentsmodel): void {
-  this.trippaymentService.setTripPaymentsDetails(trippayments);
-  this.route.navigate(['/trippaymentsedit']);
-}
+  gettrippaymentsDetails(trippayments: Trippaymentsmodel): void {
+    this.trippaymentService.setTripPaymentsDetails(trippayments);
+    this.route.navigate(['/trippaymentsedit']);
+  }
+
+
+  search(): void {
+    debugger;
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.branch = selectedData.branch;
+    this.filter.vehicle =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+
+    this.tripPaymentList();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+    });
+  }
+  
 
 }

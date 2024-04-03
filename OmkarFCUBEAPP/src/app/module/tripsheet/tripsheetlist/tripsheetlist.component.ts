@@ -93,7 +93,7 @@ export class TripsheetlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
+      branch: new FormControl(''),
       vehicle: new FormControl('',)
     });
 
@@ -126,11 +126,14 @@ export class TripsheetlistComponent {
     this.search();
     
   }, 2000);
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch=== '0' ? '' : this.formFilter.value.branch;
+  var selectData =  this.formFilter.getRawValue();
+    this.filter.fromDate = selectData.fromDate;
+    this.filter.toDate = selectData.toDate;
+    this.filter.branch = selectData.branch;
+    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
     this.getTripMaster();
 }
+
 getTripMaster(){
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -145,8 +148,6 @@ getTripMaster(){
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
-        this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-        this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
         this.tripSheetService.getTripSheetList(this.filter)
           .subscribe(resp => {
             this.allTripSheetTypes = resp;
@@ -213,14 +214,16 @@ getTripMaster(){
   //Open user details screen
   gettripSheetDetails(tripsheet: Tripsheetmodel): void {
     this.tripSheetService.setTripSheetDetails(tripsheet);
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
+
+    var selectData =  this.formFilter.getRawValue();
+    this.filter.fromDate = selectData.fromDate;
+    this.filter.toDate = selectData.toDate;
+    this.filter.branch = selectData.branch;
+    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
  
     sessionStorage.setItem("tsfromDate", this.filter.fromDate);
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
-    sessionStorage.setItem("tsbranch", this.formFilter.value.branch);
+    sessionStorage.setItem("tsbranch", this.filter.branch);
     sessionStorage.setItem("tsvehicle", this.filter.vehicle);
     this.route.navigate(['/tripsheetedit']);
   }
@@ -252,39 +255,17 @@ getTripMaster(){
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  search(): void {
-    
-    
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-   // this.tripSheetService.getTripSheetList(this.filter)
-      //.subscribe(resp => {
-      //  this.allTripSheetTypes = resp;
-     // });
-     this.getTripMaster();
+  search(): void {   
+    var selectData =  this.formFilter.getRawValue();
+    this.filter.fromDate = selectData.fromDate;
+    this.filter.toDate = selectData.toDate;
+    this.filter.branch = selectData.branch;
+    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.getTripMaster();
+
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
-     });
-  }
-
-  getCurrentFiscalYear(date: string) {
-    var dates = {
-      'sDate': new Date(),
-      'eDate': new Date()
-    };
-    var docDate = new Date(date);
-    var month = docDate.getMonth();
-    if (month > 3) {
-      dates.sDate = new Date(docDate.getFullYear(), 3, 1);
-      dates.eDate = new Date(dates.sDate.getFullYear() + 1, dates.sDate.getMonth() - 1, 31);
-    }
-    else {
-      dates.sDate = new Date(docDate.getFullYear() - 1, 3, 1);
-      dates.eDate = new Date(docDate.getFullYear(), dates.sDate.getMonth() - 1, 31);
-    }
-    return dates;
+    });
   }
 
 }

@@ -267,8 +267,8 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Tripdate", request.Tripdate),
-                            new SqlParameter("@VehicleMasterID", request.VehicleMasterID),
-                          //  new SqlParameter("@DriverMasterID", request.DriverMasterID),
+                            new SqlParameter("@VehicleMasterID",request.VehicleMasterID),
+                         // new SqlParameter("@DriverMasterID", request.DriverMasterID),
                             new SqlParameter("@Yearid", request.Yearid),
                             new SqlParameter("@TripNo", request.TripNo)
                         };
@@ -351,14 +351,14 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@PageSize",   request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search),
-                            new SqlParameter("@FromDate", request.FromDate),
-                            new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
-                            new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.Branch),
+                            new SqlParameter("@Vehicle",    request.Vehicle)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
 
@@ -372,32 +372,21 @@ namespace FleetTrans.Repository
                                 TripId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripId"]),
                                 TripBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBranch"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-
-
-
                                 VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-
                                 LastTripCloseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripCloseDate"]),
                                 NewTripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["NewTripDate"]),
                                 TripTime = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTime"]),
-
-
                                 OpenThrough = Convert.ToString(dataSet.Tables[0].Rows[i]["OpenThrough"]),
-
                                 TripOpenBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenBy"]),
                                 TripOpenDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TripOpenDate"]),
                                 TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
-
                                 DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
-
                                 ConsignorPayParty = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignorPayParty"]),
-
                                 CompNonCompStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["CompNonCompStatus"]),
                                 ChallanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
                                 LoadingFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingFrom"]),
                                 Destination = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
-
                                 Destination2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination2"]),
                                 Destination3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination3"]),
                                 DistanceTripKM_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM_1"]),
@@ -413,7 +402,6 @@ namespace FleetTrans.Repository
                                 DelayedDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayedDays_1"]),
                                 DelayedDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayedDays_2"]),
                                 AdvanceDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceDays_2"]),
-
                                 GraceDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["GraceDays_1"]),
                                 DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
                                 DetentionDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetentionDays"]),
@@ -472,10 +460,7 @@ namespace FleetTrans.Repository
                                 ActualDays_1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_1"]),
                                 ActualDays_2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualDays_2"]),
                                 IdleDays = Convert.ToString(dataSet.Tables[0].Rows[i]["IdleDays"]),
-                                PenaltyExtra = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyExtra"])
-                            
-                                       
-
+                                PenaltyExtra = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyExtra"]) 
                             });
                         }
 
