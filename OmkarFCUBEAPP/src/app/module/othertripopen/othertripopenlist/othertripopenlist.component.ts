@@ -52,7 +52,6 @@ export class OthertripopenlistComponent {
   }
 
   ngOnInit(): void {
-
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -91,9 +90,12 @@ export class OthertripopenlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
+      branch: new FormControl('',),
     });
 
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.strRequest = "";
     this.otherTripList();
     this.sharedService.loading=false;
 
@@ -113,9 +115,6 @@ export class OthertripopenlistComponent {
         this.filter.sortColumn = 'tripNo';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.formFilter.value.fromDate;
-        this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.strRequest = "";
         this.tripSheetService.getOtherTripOpenList(this.filter)
           .subscribe(resp => {
             this.allOtherTripOpenList = resp;
@@ -174,7 +173,7 @@ export class OthertripopenlistComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.strRequest = selectedDataVal.branch === '0' ? '' : selectedDataVal.branch;
+    this.filter.strRequest = selectedDataVal.branch;
     this.sharedService.loading=true;
     this.otherTripList();
     this.sharedService.loading=false;

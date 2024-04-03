@@ -320,6 +320,9 @@ if(selectedDataValue.tripNo!=1){
     }
     this.commonService.getCreditAcList2(data).subscribe((res) => {
       this.creditacList = res;   
+      this.formTripPayment.patchValue({
+        creditAc:this.creditacList[0].dataId
+      });  
     });
   }
 

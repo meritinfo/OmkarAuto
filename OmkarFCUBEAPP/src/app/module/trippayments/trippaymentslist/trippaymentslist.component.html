@@ -36,7 +36,6 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
                                     <select class="form-control" formControlName="branch" [ngClass]="">
-                                        <option value="0">Select</option>
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -47,10 +46,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList" [searchKeyword]="keywordLocation"
-                                            placeholder="" formControlName="vehicle" (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
+                                        <ng-autocomplete [data]="vehicleList" 
+                                            [searchKeyword]="keywordLocation"
+                                            formControlName="vehicle" 
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)' 
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
                                             [customFilter]="startWithFilter">
                                         </ng-autocomplete>
                                         <ng-template #itemTemplate let-item>
@@ -64,7 +67,8 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
+                                    <button class="btn btn-primary" type="submit" (click)="search()">
+                                        <span>Search</span></button>
                                 </div>
                             </div>
                         </div>

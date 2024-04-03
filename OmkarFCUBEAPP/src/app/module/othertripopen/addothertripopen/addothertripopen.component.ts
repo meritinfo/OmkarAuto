@@ -129,7 +129,7 @@ export class AddothertripopenComponent {
       tripBranch: new FormControl(this.branch,[Validators.required]),
       vehicleMasterID: new FormControl('',[Validators.required]),
       tripNo: new FormControl('',[Validators.required]),
-      newTripDate: new FormControl('',[Validators.required]),
+      newTripDate: new FormControl(this.loginDate,[Validators.required]),
       driverMasterID: new FormControl('', [Validators.required]),
       compNonCompStatus: new FormControl('C',[Validators.required]),
       challanNo: new FormControl('',[Validators.required]),
@@ -177,8 +177,8 @@ export class AddothertripopenComponent {
           yearid: this.year
         });        
         this.editMode = true;
-       this.vehid= this.selectedTripSheetDetails.vehicleMasterID;
-       this.tripNumber = this.selectedTripSheetDetails.tripNo;
+        this.vehid= this.selectedTripSheetDetails.vehicleMasterID;
+        this.tripNumber = this.selectedTripSheetDetails.tripNo;
         this.formOtherTripOpen.controls['tripBranch'].disable();
         this.formOtherTripOpen.controls['vehicleMasterID'].disable();
         this.formOtherTripOpen.controls['compNonCompStatus'].disable();       
@@ -240,10 +240,6 @@ export class AddothertripopenComponent {
       var selectedDataValue = this.formOtherTripOpen.getRawValue();
       this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
       this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-      //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
-      //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
-      // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-      // this.OpbalDetails.driverMasterID='1';
       this.OpbalDetails.yearid = this.year;
       this.OpbalDetails.tripNo = selectedDataValue.tripNo;
       this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
@@ -258,7 +254,6 @@ export class AddothertripopenComponent {
           });
         }
       }); 
-      // this.getDriverDetails();
     }
 
   }
@@ -266,10 +261,8 @@ export class AddothertripopenComponent {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
     if(selectedDataValue.tripNo!=1){
       this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
-      // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID;    
       this.OpbalDetails.vehicleMasterID =  this.vehid;  
       this.OpbalDetails.yearid = this.year;
-      //this.OpbalDetails.tripNo = selectedDataValue.tripNo;
       this.OpbalDetails.tripNo =  this.tripNumber ;
       this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
@@ -283,7 +276,6 @@ export class AddothertripopenComponent {
           });
         }
       }); 
-      // this.getDriverDetails();
     }
 
   }
@@ -293,10 +285,6 @@ export class AddothertripopenComponent {
     if(selectedDataValue.tripNo!=1){  
       this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
       this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-      //  this.OpbalDetails.driverMasterID = selectedDataValue.driverMasterID.dataId;
-      //  this.OpbalDetails.driverMasterID = this.driverid ? this.driverid : '0';
-      // this.OpbalDetails.driverMasterID = this.formTripsheet.value.driverMasterID.dataId;
-      // this.OpbalDetails.driverMasterID='1';
       this.OpbalDetails.yearid = this.year;
       this.OpbalDetails.tripNo = selectedDataValue.tripNo;
       this.commonService.getAdblueOpeningBal(this.OpbalDetails).subscribe((res: Responsemodel) => {
@@ -559,15 +547,17 @@ export class AddothertripopenComponent {
       if (this.responseDetails.status){
         this.formOtherTripOpen.patchValue({
           tripNo: this.responseDetails.message
-        });
+        });        
+        this.getLastTripDriver(selectedValue);    
       } 
       else{
         console.log(this.responseDetails.message);  
-        this.toasterService.warning(this.responseDetails.message);     
+        this.toasterService.warning(this.responseDetails.message);    
+        this.formOtherTripOpen.patchValue({
+          tripNo: ''
+        }); 
         this.getVehicleNoList();          
-      } 
-      this.getLastTripDriver(selectedValue);  
-     
+      }    
     });
   }
   
@@ -608,6 +598,14 @@ export class AddothertripopenComponent {
       return;
     }
     this.sharedService.loading=true;
+    if (parseInt(selectedDataValue.tripNo)>0) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Invalid Trip No");   
+      return;
+    }
+
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
