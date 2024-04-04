@@ -1,15 +1,11 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
-
-
-
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Consignmentlistmodel  } from 'src/app/models/consignmentlistmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConsignmentService } from 'src/app/services/consignment.service';
-
 import { CommonService } from 'src/app/services/common.service';
 import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
 import { DataTableDirective } from 'angular-datatables';
@@ -52,7 +48,8 @@ export class ConsignmentlistComponent implements OnInit  {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
-  constructor(private formBuilder: FormBuilder,private consignmentService: ConsignmentService, private route: Router,private commonService: CommonService,) {
+  constructor(private formBuilder: FormBuilder,private consignmentService: ConsignmentService,
+     private route: Router,private commonService: CommonService,) {
   }
 
   ngOnInit(): void {
@@ -101,11 +98,19 @@ export class ConsignmentlistComponent implements OnInit  {
       branch: new FormControl('0',),
       vehicle: new FormControl('',)
     });
-    this.getConsignmentList();
     this.getBranchList();
     this.getVehicleNoList();
+
+    var selectedDataVal = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
+    this.filter.branch = selectedDataVal.branch;
+    this.filter.vehicle = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+
+    this.getConsignmentList();
   }
-    getConsignmentList(){
+
+  getConsignmentList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -113,45 +118,34 @@ export class ConsignmentlistComponent implements OnInit  {
       processing: true,      
       searching:false,
       ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.formFilter.value.fromDate;
-        this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.branch = this.formFilter.value.branch.dataId;
-      this.filter.vehicle =  this.formFilter.value.vehicle.dataId;
 
-       this.consignmentService.getConsignmentList(this.filter)
-          .subscribe(resp => {
-           this.allConsignment = resp;
-            callback({
-              recordsTotal: resp.pageMetaData.totalCount,
-              recordsFiltered: resp.pageMetaData.totalCount,
-              data: []
-            });
+        this.consignmentService.getConsignmentList(this.filter).subscribe(resp => {
+         this.allConsignment = resp;
+          callback({
+            recordsTotal: resp.pageMetaData.totalCount,
+            recordsFiltered: resp.pageMetaData.totalCount,
+            data: []
           });
+        });
       },
-       // Set column title and data field
-      columns: [
-        
-  
-          {
-            title: 'Booked At',
-            data: 'bookedAt',
-          },
-          {
-            title: 'Booking Date',
-            data: 'bookingDate',
-          },
-  
-         {
+     // Set column title and data field
+      columns: [  
+        {
+          title: 'Booked At',
+          data: 'bookedAt',
+        },
+        {
+          title: 'Booking Date',
+          data: 'bookingDate',
+        },  
+        {
           title: 'LR No',
           data: 'gcNoteNo',
-        },
-       
+        },       
         {
           title: 'From/Origin',
           data: 'fPlace',
@@ -163,10 +157,7 @@ export class ConsignmentlistComponent implements OnInit  {
         {
           title: 'Vehicle No',
           data: 'vehicleNo',
-        },
-      
-      
-      
+        },  
         {
           title: 'Action',
           data: 'consignmentID',
@@ -180,48 +171,50 @@ export class ConsignmentlistComponent implements OnInit  {
       this.branchList = res;
     });
   }
-  search(): void {
-    debugger;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.branch = this.formFilter.value.branch === '0' ? '' : this.formFilter.value.branch;
-    this.filter.vehicle = this.formFilter.value.vehicle === "" ? '' : this.formFilter.value.vehicle.dataId;
-   // this.consignmentService.getConsignmentList(this.filter)
-     // .subscribe(resp => {
-     //   this.allConsignment = resp;
-     // });
-     this.getConsignmentList();
-     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload(); 
-     });
-  }
-  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
-  selectEvent(item: any) {
-    // do something with selected item
-  }
-  
-  onFocused(e: any) {
-    // do something
-  }
-  
   
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
       this.vehicleList = res;
     });
   }
+
+  
+  onFocused(e: any) {
+    // do something
+  }
+  
   onChangeSearch(search: string) {
   }
   
-  //Open new user add screen
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+  
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+  
   consignmentAdd(): void {
     this.route.navigate(['/consignmentadd']);
   }
+
   getConsignmentDetails(Consignment: Consignmentmodel): void {
     this.consignmentService.setConsignmentDetails(Consignment);
     this.route.navigate(['/consignmentedit']);
-}
+  }
+
+  search(): void {
+    debugger;
+    var selectedDataVal = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedDataVal.fromDate;
+    this.filter.toDate = selectedDataVal.toDate;
+    this.filter.branch = selectedDataVal.branch;
+    this.filter.vehicle =  selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+     this.getConsignmentList();
+     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload(); 
+     });
+  }
+  
 
 }

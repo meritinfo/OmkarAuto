@@ -380,7 +380,8 @@ export class AddothertripopenComponent {
       this.dslDetails.vehicleMasterId = selectedDataValue.vehicleMasterID.dataId;
       this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
         this.ltsdsl1 = res.message;
-        if (res.status) {
+        //if (res.status) {
+          if ( this.ltsdsl1!="" || this.ltsdsl1!= undefined) {
           this.formOtherTripOpen.patchValue({
             ltsDslToBe_1: parseFloat(this.ltsdsl1).toFixed(2).toString()
           });
@@ -432,7 +433,8 @@ export class AddothertripopenComponent {
         this.ltsadbnew = Math.ceil(this.ltsadbnew)
    
 
-        if (res.status) {
+      //  if (res.status) {
+        if ( this.adblue1!="" ||  this.adblue1!= undefined) {
           this.formOtherTripOpen.patchValue({
             ltsAdblueToBe_1: (this.ltsadbnew).toFixed(2).toString()
           });
@@ -597,7 +599,9 @@ export class AddothertripopenComponent {
       }           
       return;
     }
-    this.sharedService.loading=true;
+
+    var selectedDataValue = this.formOtherTripOpen.getRawValue();
+
     if (parseInt(selectedDataValue.tripNo)>0) {
       //ignore
     }
@@ -606,7 +610,7 @@ export class AddothertripopenComponent {
       return;
     }
 
-    var selectedDataValue = this.formOtherTripOpen.getRawValue();
+    this.sharedService.loading=true;
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
     this.tripsheetmodel.yearId = this.year;

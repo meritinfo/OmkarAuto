@@ -38,8 +38,8 @@ namespace Consignment.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Branch", request.Branch == "" ? DBNull.Value : request.Branch),
-                            new SqlParameter("@Vehicle", request.Vehicle == "" ? DBNull.Value : request.Vehicle)
+                            new SqlParameter("@Branch", request.Branch ),
+                            new SqlParameter("@Vehicle", request.Vehicle )
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ConsignmentList_Select", param);
 

@@ -1540,7 +1540,7 @@ GetLastTripDriver(e:any) {
       //this.nexttripkms = (this.dTripKM_2).toString(),
           // this.totalCal();
           this.getBhattaRate();
-       // this.getDslToBe();
+        this.getDslToBe();
         this.getAdBlueToBe();
         this.totalCal();
         this.getPenaltyRate();
@@ -2011,7 +2011,8 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
    // this.totaldsl = dl1 + dl2;
    this.totaldsl = dl1 + dsl;
     this.totalpayable = tp1 + tp2;
-   // this.totalCalculation2(this.totaldsl)
+   //this.totalCalculation2(this.totaldsl);
+  // this.totalCalculation();
     if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
       this.formTripsheet.patchValue({
         totaldsl: (this.totaldsl).toString(),
@@ -2229,12 +2230,13 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     clBalDsl = opbal + issuedDslLtrs - totaldsl
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )
     clBalAdblue = selectedDataValue.opBalAdblue ? parseFloat(selectedDataValue.opBalAdblue) : 0 + selectedDataValue.issuedAdblueLtrs ? parseFloat(selectedDataValue.issuedAdblueLtrs) : 0 - selectedDataValue.totalAdblue ? parseFloat(selectedDataValue.totalAdblue) : 0
-    netTripBalance = selectedDataValue.opBalDriver ? parseFloat(selectedDataValue.opBalDriver) : 0 + selectedDataValue.paidDriverAdvance ? parseFloat(selectedDataValue.paidDriverAdvance) : 0 - selectedDataValue.totalpayable ? parseFloat(selectedDataValue.totalpayable) : 0 - selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0 - selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0 - selectedDataValue.parkingByDriver ? parseFloat(selectedDataValue.parkingByDriver) : 0 - selectedDataValue.accidentByDriver ? parseFloat(selectedDataValue.accidentByDriver) : 0 - selectedDataValue.accidentByDriver ? parseFloat(selectedDataValue.accidentByDriver) : 0 - selectedDataValue.weighmentByDriver ? parseFloat(selectedDataValue.weighmentByDriver) : 0 - selectedDataValue.challanByDriver ? parseFloat(selectedDataValue.challanByDriver) : 0 - selectedDataValue.challanByDriver ? parseFloat(selectedDataValue.challanByDriver) : 0 - selectedDataValue.otherExpByDriver ? parseFloat(selectedDataValue.otherExpByDriver) : 0 - selectedDataValue.allowedBhatta ? parseFloat(selectedDataValue.allowedBhatta) : 0 - selectedDataValue.onTimeIncentiveAmt ? parseFloat(selectedDataValue.onTimeIncentiveAmt) : 0 - selectedDataValue.penaltyChargedToDr ? parseFloat(selectedDataValue.penaltyChargedToDr) : 0 - selectedDataValue.poolAcAmt ? parseFloat(selectedDataValue.poolAcAmt) : 0
-    if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
+   // netTripBalance = selectedDataValue.opBalDriver ? parseFloat(selectedDataValue.opBalDriver) : 0 + selectedDataValue.paidDriverAdvance ? parseFloat(selectedDataValue.paidDriverAdvance) : 0 - selectedDataValue.totalpayable ? parseFloat(selectedDataValue.totalpayable) : 0 - selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0 - selectedDataValue.repairsByDriver ? parseFloat(selectedDataValue.repairsByDriver) : 0 - selectedDataValue.parkingByDriver ? parseFloat(selectedDataValue.parkingByDriver) : 0 - selectedDataValue.accidentByDriver ? parseFloat(selectedDataValue.accidentByDriver) : 0 - selectedDataValue.accidentByDriver ? parseFloat(selectedDataValue.accidentByDriver) : 0 - selectedDataValue.weighmentByDriver ? parseFloat(selectedDataValue.weighmentByDriver) : 0 - selectedDataValue.challanByDriver ? parseFloat(selectedDataValue.challanByDriver) : 0 - selectedDataValue.challanByDriver ? parseFloat(selectedDataValue.challanByDriver) : 0 - selectedDataValue.otherExpByDriver ? parseFloat(selectedDataValue.otherExpByDriver) : 0 - selectedDataValue.allowedBhatta ? parseFloat(selectedDataValue.allowedBhatta) : 0 - selectedDataValue.onTimeIncentiveAmt ? parseFloat(selectedDataValue.onTimeIncentiveAmt) : 0 - selectedDataValue.penaltyChargedToDr ? parseFloat(selectedDataValue.penaltyChargedToDr) : 0 - selectedDataValue.poolAcAmt ? parseFloat(selectedDataValue.poolAcAmt) : 0
+   // if (clBalDsl !== undefined && clBalAdblue !== undefined && netTripBalance !== undefined) {
+   if (clBalDsl !== undefined && clBalAdblue !== undefined ) {
       this.formTripsheet.patchValue({
         clBalDsl: (clBalDsl).toString(),
         clBalAdBlue: (clBalAdblue).toString(),
-        netTripBalance: (netTripBalance).toString(),
+      //  netTripBalance: (netTripBalance).toString(),
 
       });
 
@@ -2243,7 +2245,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
       this.formTripsheet.patchValue({
         clBalDsl: '0',
         clBalAdBlue: '0',
-        netTripBalance: '0',
+       // netTripBalance: '0',
 
       });
     }

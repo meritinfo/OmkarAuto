@@ -130,7 +130,7 @@ export class TripsheetlistComponent {
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
     this.getTripMaster();
 }
 
@@ -219,7 +219,7 @@ getTripMaster(){
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
  
     sessionStorage.setItem("tsfromDate", this.filter.fromDate);
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
@@ -260,7 +260,7 @@ getTripMaster(){
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
     this.getTripMaster();
 
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
