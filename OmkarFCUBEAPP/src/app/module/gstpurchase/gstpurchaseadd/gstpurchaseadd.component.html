@@ -40,7 +40,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Trans Date</label><span style="color: red">*</span>    
                                                 <input bsdatepicker="" type="date" autoclose="false" 
-                                                placeholder="dd-mm-yyyy" max="{{maxDate}}"   
+                                                min="{{minDate}}" max="{{maxDate}}"   
                                                 formControlName="transDate" class="form-control"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                             </div>

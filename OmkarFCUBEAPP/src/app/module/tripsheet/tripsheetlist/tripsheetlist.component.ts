@@ -84,10 +84,17 @@ export class TripsheetlistComponent {
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 1);
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
 
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
 
     this.tripSheetService.clearTripSheetDetails();
     this.formFilter = this.formBuilder.group({
@@ -126,11 +133,12 @@ export class TripsheetlistComponent {
     this.search();
     
   }, 2000);
+  
   var selectData =  this.formFilter.getRawValue();
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
     this.getTripMaster();
 }
 
@@ -219,7 +227,7 @@ getTripMaster(){
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
  
     sessionStorage.setItem("tsfromDate", this.filter.fromDate);
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
@@ -260,7 +268,7 @@ getTripMaster(){
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
     this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.dataId:'';
+    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
     this.getTripMaster();
 
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

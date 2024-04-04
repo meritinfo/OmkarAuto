@@ -5,6 +5,10 @@ import { Intermediatescreenmodel } from 'src/app/models/intermediatescreenmodel'
 import { Subscription, interval, map, timer } from 'rxjs';
 import { Loginmodel } from 'src/app/models/loginmodel';
 import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
+import { CommonService } from 'src/app/services/common.service';
+import { Responsemodel } from 'src/app/models/responsemodel';
+import { Schedulemodel } from 'src/app/models/schedulemodel';
+
 console.log();
 @Component({
   selector: 'app-header',
@@ -18,9 +22,15 @@ export class HeaderComponent {
   user: string = '';
   company: string = '';
   branchname: string = '';
+  shdled=false;
+  shdlMsg:string ="";
+  scheduleDetails = new Schedulemodel();
+
   selectedScreenDetails = new Intermediatescreenmodel();
   timerSubscription !: Subscription;
-  constructor(private sharedService: SharedService, private route: Router, private loginModel: Loginmodel) {
+  constructor(private sharedService: SharedService, 
+    private commonService: CommonService, 
+    private route: Router, private loginModel: Loginmodel) {
 
   }
   ngOnInit(): void {
@@ -50,6 +60,8 @@ export class HeaderComponent {
       this.company = userData5;
     }
 
+    this.getScheduleDetails();
+
 
     // timer(0, 1200000) call the function immediately and every 1200 seconds 
     this.timerSubscription = timer(0, 1200000).pipe(
@@ -73,6 +85,27 @@ export class HeaderComponent {
   changePwd(): void {
  
     this.route.navigate(['/changepassword']);
+  }
+
+  getScheduleDetails(){
+    this.commonService.getScheduleDetails().subscribe((res: Schedulemodel ) => {
+      this.scheduleDetails = res;      
+      const today = new Date();
+      var warndt = new Date(res.warningTimeStart); 
+      var startdt = new Date(res.publishStart); 
+      var enddt = new Date(res.publishEnd); 
+      if(today>= warndt && today <= enddt) {     
+        this.shdled = true; 
+        if(today>= startdt && today <= enddt)  {
+          this.route.navigate(['/']);
+        }
+        else{               
+          this.shdlMsg = 'Project will be under maintainace between '+ 
+          startdt.toLocaleString() + ' and ' + enddt.toLocaleString() ;
+        }
+      }
+    });
+     
   }
     
 

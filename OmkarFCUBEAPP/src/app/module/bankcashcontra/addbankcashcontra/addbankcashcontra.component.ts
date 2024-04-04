@@ -62,7 +62,6 @@ export class AddbankcashcontraComponent {
       }
     }
 
-
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -119,7 +118,6 @@ export class AddbankcashcontraComponent {
     this.formBankContra.controls['docNo'].disable(); 
     this.formBankContra.controls['modifyRemarks'].disable();     
     this.formBankContra.controls['refType'].disable();
-
     this.formBankContra.controls['modifyRemarks'].clearValidators();
     this.formBankContra.controls['chequeNo'].clearValidators();
     this.formBankContra.controls['chequeDate'].clearValidators();

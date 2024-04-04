@@ -597,7 +597,9 @@ export class AddothertripopenComponent {
       }           
       return;
     }
-    this.sharedService.loading=true;
+
+
+    var selectedDataValue = this.formOtherTripOpen.getRawValue();
     if (parseInt(selectedDataValue.tripNo)>0) {
       //ignore
     }
@@ -606,7 +608,8 @@ export class AddothertripopenComponent {
       return;
     }
 
-    var selectedDataValue = this.formOtherTripOpen.getRawValue();
+
+    this.sharedService.loading=true;
     this.tripsheetmodel.tripId = this.selectedTripSheetDetails.tripId != '' ? this.selectedTripSheetDetails.tripId : '';
     this.tripsheetmodel.tripBranch = selectedDataValue.tripBranch;
     this.tripsheetmodel.yearId = this.year;

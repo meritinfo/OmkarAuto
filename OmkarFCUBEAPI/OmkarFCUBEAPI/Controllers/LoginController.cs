@@ -156,6 +156,21 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetScheduleDetails")]
+        public async Task<IActionResult> GetScheduleDetails()
+        {
+            try
+            {
+                var result = await sharedBusiness.GetScheduleDetails();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
         /// <summary>
         /// Controller method for menu list to the application
         /// </summary>

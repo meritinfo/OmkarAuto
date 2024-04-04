@@ -346,18 +346,33 @@ namespace Shared.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return responseModel;
+        }
+
+        public async Task<ScheduleModel> GetScheduleDetails()
+        {
+            ScheduleModel scheduleModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getScheduleDetails");
+
+                    if (userData != null && userData.Tables[0].Rows.Count > 0)
+                    {
+                        scheduleModel.WarningTimeStart = Convert.ToString(userData.Tables[0].Rows[0]["WarningTimeStart"]);
+                        scheduleModel.PublishStart = Convert.ToString(userData.Tables[0].Rows[0]["PublishStart"]);
+                        scheduleModel.PublishEnd = Convert.ToString(userData.Tables[0].Rows[0]["PublishEnd"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return scheduleModel;
         }
 
         // <summary>

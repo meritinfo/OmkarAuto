@@ -41,6 +41,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">Branch</label>
                                     <select class="form-control" formControlName="branch" [ngClass]="">
+                                        <option value="0">ALL</option>
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -50,7 +51,6 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
-
                                     <div class="ng-autocomplete">
                                         <ng-autocomplete [data]="vehicleList" [searchKeyword]="keywordLocation"
                                             placeholder="" formControlName="vehicle" (selected)='selectEvent($event)'

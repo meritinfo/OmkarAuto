@@ -76,11 +76,17 @@ export class DriversalarystatementaddComponent implements OnInit {
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 1);
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
-
+    
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+        
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;

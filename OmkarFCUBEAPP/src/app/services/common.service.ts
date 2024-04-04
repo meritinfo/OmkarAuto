@@ -129,6 +129,9 @@ export class CommonService {
   getCompanyDetail(): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail',null, this.httpOptions);
   }
+  getScheduleDetails(): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetScheduleDetails',null, this.httpOptions);
+  }
   getUserDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetUserDetails', payload, this.httpOptions);
   }
@@ -216,7 +219,7 @@ export class CommonService {
       'eDate': new Date()
     };
     var docDate = new Date(date);
-    var month = docDate.getMonth();
+    var month = docDate.getMonth()+1;
     if (month > 3) {
       dates.sDate = new Date(docDate.getFullYear(), 3, 1);
       dates.eDate = new Date(dates.sDate.getFullYear() + 1, dates.sDate.getMonth() - 1, 31);

@@ -37,6 +37,7 @@ export class OthertripopenlistComponent {
     strRequest: ''
   }
   branchList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   formFilter!: FormGroup;
   year: string = '';
@@ -73,33 +74,59 @@ export class OthertripopenlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+    
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 1);
-    this.fromDate = today.toLocaleDateString('en-CA').toString();
 
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
 
     this.tripSheetService.clearTripSheetDetails();
     
     this.sharedService.loading=true;
     this.getBranchList();
+    this.getVehicleNoList();
 
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       branch: new FormControl('',),
+      vehicle: new FormControl('',),
     });
 
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.filter.strRequest = "";
+    this.filter.search = "";
     this.otherTripList();
     this.sharedService.loading=false;
 
   }
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+  }
+
+  onFocused(e: any) {
+    // do something
+  }
+
+  onChangeSearch(search: string) {
+  }
+
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
   
   otherTripList(){
     this.dtOptions = {
@@ -114,7 +141,6 @@ export class OthertripopenlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = 'tripNo';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
         this.tripSheetService.getOtherTripOpenList(this.filter)
           .subscribe(resp => {
             this.allOtherTripOpenList = resp;
@@ -169,11 +195,19 @@ export class OthertripopenlistComponent {
     });
   }
 
+  
+  getVehicleNoList(): void {
+    this.commonService.getVehicleNoList().subscribe((res) => {
+      this.vehicleList = res;
+    });
+  }
+
   search(): void {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.strRequest = selectedDataVal.branch;
+    this.filter.search = selectedDataVal.vehicle? selectedDataVal.vehicle.dataId:'';
     this.sharedService.loading=true;
     this.otherTripList();
     this.sharedService.loading=false;

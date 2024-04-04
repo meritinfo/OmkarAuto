@@ -25,6 +25,8 @@ export class GstpurchaseaddComponent {
   year: string = '';
   loginDate: string = '';
   branchid:string = '';
+  fromDate: string = '';
+  minDate: string = '';
   maxDate: string = '';
   keywordLocation = 'dataName';
   userSubmitted = false;
@@ -90,15 +92,21 @@ export class GstpurchaseaddComponent {
       this.route.navigate(['/']);
     }   
 
-    var loginDate = sessionStorage.getItem('loginDate')?.toString();
-    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-      this.loginDate = loginDate;
-    }
-    var yearIDData = sessionStorage.getItem('yearID')?.toString();
-    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-      this.year = yearIDData;
-    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
     
     this.formGSTPurchase = this.formBuilder.group({
       branchCode: new FormControl(this.branchid,[Validators.required]),

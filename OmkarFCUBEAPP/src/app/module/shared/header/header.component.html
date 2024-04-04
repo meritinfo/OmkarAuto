@@ -12,27 +12,22 @@
                     </span>
                 </a>
             </div>
-
             <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
                 <i class="fa fa-fw fa-bars"></i>
             </button>
             <div>
-                <span key="t-henry" style="font-family:Verdana, Geneva, Tahoma, sans-serif;color: darkblue;font-size: large;">{{company}} </span>
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
-                  
+                <span key="t-henry" style="font-family:Verdana, Geneva, Tahoma, sans-serif;color: darkblue;font-size: large;">
+                {{company}} </span>
+                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">                  
                 </button>
             </div>
         </div>
-
-        <div class="d-flex">
-           
+        <div class="d-flex">           
             <div class="dropdown d-none d-lg-inline-block ms-1">
               Branch:  <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{branchname}} </span>
-                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">
-                  
+                <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">                  
                 </button>
             </div>
-
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -41,16 +36,21 @@
                     <span class="d-none d-xl-inline-block ms-1"  key="t-henry">{{user}} </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
-                <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                 
-                    <a class="dropdown-item"   (click)="changePwd()"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span key="t-profile">Change Password
-                        
-                    </span></a>
+                <div class="dropdown-menu dropdown-menu-end">                 
+                    <a class="dropdown-item" (click)="changePwd()">
+                        <i class="bx bx-user font-size-16 align-middle me-1"></i> 
+                        <span key="t-profile">Change Password </span>
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item text-danger" href="" (click)="logout()"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> <span key="t-logout">Logout</span></a>
+                    <a class="dropdown-item text-danger" (click)="logout()">
+                        <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i> 
+                        <span key="t-logout">Logout</span>
+                    </a>
                 </div>
             </div>
         </div>
+        <!-- <marquee scrollamount="5" *ngIf="shdled"  behavior="scroll" direction="left" >
+            <span style="color:red; font-size: large;">  {{shdlMsg}} </span>                               
+        </marquee>  -->
     </div>
 </header>

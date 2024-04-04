@@ -102,6 +102,10 @@ namespace Shared.Business
         {
             return await sharedRepository.GetCompanyDetail();
         }
+        public async Task<ScheduleModel> GetScheduleDetails()
+        {
+            return await sharedRepository.GetScheduleDetails();
+        }
         public async Task<List<DropDownListModel>> GetServerDate()
         {
             return await sharedRepository.GetYearList();
