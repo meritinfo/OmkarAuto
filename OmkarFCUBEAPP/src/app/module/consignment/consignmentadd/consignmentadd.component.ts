@@ -324,12 +324,14 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
 
+  
   getlrSeriesList(): void {
-    this.commonService.getlrSeriesList().subscribe((res) => {
+    this.requestmodel.strRequest=this.branch;
+    this.commonService.getlrSeriesList(this.requestmodel).subscribe((res) => {
       this.lrSeries = res;
     });
   }
-
+  
   lrSeriesChange(): void {
     var selectedData = this.formConsignment.value.gcSeries;
     this.getGcSeries(selectedData);

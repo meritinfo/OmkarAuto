@@ -212,15 +212,16 @@ export class AddbankcashcontraComponent {
     this.requestmodel.strRequest="BC"
     this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
       this.mainAcList = res;
+      this.gridAccountList = res;
     });
   }
 
   
   getGridAcList(): void {
-    this.requestmodel.strRequest="G"
-    this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.gridAccountList = res;
-    });
+    // this.requestmodel.strRequest="G"
+    // this.cashreceiptentryService.getAccountList(this.requestmodel).subscribe((res) => {
+    //   this.gridAccountList = res;
+    // });
   }
 
   getLocationList(): void {
@@ -303,6 +304,7 @@ export class AddbankcashcontraComponent {
     this.bankreceiptentryModel.refNo          = selectedDataValue.refNo.toString().toUpperCase();
     this.bankreceiptentryModel.docAmount      = selectedDataValue.amount;
     this.bankreceiptentryModel.linkedYN       = 'N';
+    this.bankreceiptentryModel.neftPmt        = selectedDataValue.neftPmt?'Y':'N';
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;

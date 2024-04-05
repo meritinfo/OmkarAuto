@@ -2011,6 +2011,18 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
    // this.totaldsl = dl1 + dl2;
    this.totaldsl = dl1 + dsl;
     this.totalpayable = tp1 + tp2;
+    let issuedDslLtrs = selectedDataValue.issuedDslLtrs ? parseFloat(selectedDataValue.issuedDslLtrs) : 0
+    let opDslbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
+   
+    
+    let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
+    let clBalDsl=0;
+    clBalDsl = this.totaldsl - issuedDslLtrs- cashDslLtrs  + opDslbal
+    this.formTripsheet.patchValue({
+    
+      clBalDsl:clBalDsl,
+
+    });
    //this.totalCalculation2(this.totaldsl);
   // this.totalCalculation();
     if (this.totalAdblue !== undefined && this.totaldsl !== undefined && this.totalpayable !== undefined) {
@@ -2018,6 +2030,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
         totaldsl: (this.totaldsl).toString(),
         totalAdblue: (this.totalAdblue).toString(),
         totalpayable: (this.totalpayable).toString(),
+      
 
       });
 
@@ -2094,6 +2107,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
   
   // clBalDsl = totaldsl -opDslbal - issuedDslLtrs - cashDslLtrs 
   clBalDsl = totaldsl - issuedDslLtrs- cashDslLtrs  + opDslbal
+  
 
 
     //clBalDsl = selectedDataValue.opBalDsl?parseFloat(selectedDataValue.opBalDsl):0 + parseFloat(selectedDataValue.issuedDslLtrs) - parseFloat(selectedDataValue.totaldsl )

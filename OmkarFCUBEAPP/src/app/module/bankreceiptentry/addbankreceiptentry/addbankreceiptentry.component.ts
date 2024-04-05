@@ -126,6 +126,12 @@ export class AddbankreceiptentryComponent {
           this.formBankRecEntry.controls['refType'].disable();
           this.formBankRecEntry.controls['refNo'].disable();
         }
+        if(this.selectedBankReceiptEntryDetails.neftPmt=="Y"){
+          this.neft=="Y";
+        }
+        else{
+          this.neft=="N";
+        }
         this.editMode=true;
         this.formBankRecEntry.controls['modifyRemarks'].enable();
         this.getBankReceiptPaymentInnerGridList();
@@ -347,6 +353,7 @@ export class AddbankreceiptentryComponent {
     this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
     this.bankreceiptentryModel.docAmount      = selectedDataValue.docAmount;
     this.bankreceiptentryModel.linkedYN       = 'N';
+    this.bankreceiptentryModel.neftPmt        = selectedDataValue.neftPmt?'Y':'N';
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
@@ -399,7 +406,7 @@ export class AddbankreceiptentryComponent {
         }
         
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
-          if(this.neft=="N"){
+          if(this.bankreceiptentryModel.neftPmt =="N"){
             if (this.formArray.value[i].chequeNo==='') {
               this.toasterService.warning("Cheque No cannot be Empty in details grid");
               return;
