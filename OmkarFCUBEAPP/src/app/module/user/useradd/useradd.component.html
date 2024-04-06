@@ -116,8 +116,9 @@
                                         <div class="mb-4">
                                             <label for="active" class="col-form-label">Active</label>
                                             <span style="color: red">*</span>
-                                            <select id="active"   class="form-control form-select ng-pristine ng-touched"
-                                             formControlName="activeYN">
+                                            <select id="active"  class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="activeYN"
+                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['activeYN'].invalid) }"> 
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>
                                             </select>
@@ -144,6 +145,46 @@
                                                 formControlName="canLinkTrip" 
                                                 class="form-control form-select ng-pristine ng-touched"
                                                  [ngClass]="{ 'is-invalid': userSubmitted && (f['canLinkTrip'].invalid) }"> 
+                                                 <option value="Y">Yes</option>
+                                                 <option value="N">No</option>                                    
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">Enable Last New Trip Date</label>
+                                            <span style="color: red">*</span>
+                                            <select id="active"   class="form-control form-select ng-pristine ng-touched"
+                                             formControlName="enableLastNewTripDate"
+                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['canLinkTrip'].invalid) }"> 
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">Enable From & To Date</label>
+                                            <span style="color: red">*</span>                                            
+                                            <select id="formrow-inputState" class="form-control" 
+                                            formControlName="enableFromTo" 
+                                            class="form-control form-select ng-pristine ng-touched"
+                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['enableFromTo'].invalid) }"> 
+                                             <option value="Y">Yes</option>
+                                             <option value="N">No</option>                                    
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-4">
+                                            <label for="active" class="col-form-label">Enable Driver</label>
+                                            <span style="color: red">*</span>
+                                            <select id="formrow-inputState" class="form-control" 
+                                                formControlName="enableDriver" 
+                                                class="form-control form-select ng-pristine ng-touched"
+                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['enableDriver'].invalid) }"> 
                                                  <option value="Y">Yes</option>
                                                  <option value="N">No</option>                                    
                                             </select>

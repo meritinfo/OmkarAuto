@@ -120,6 +120,9 @@ export class TripsheetaddComponent {
 
   canEditTripAfterClose: boolean = false;
   canLinkTrip: boolean = false;
+  enableLastNewTripDate: boolean = false;
+  enableFromTo: boolean = false;
+  enableDriver: boolean = false;
 
   selectedTripSheetDetails = new Tripsheetmodel();
 
@@ -585,12 +588,17 @@ export class TripsheetaddComponent {
       this.usertriprightsmodel = res;
       this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose;
       this.canLinkTrip = this.usertriprightsmodel.canLinkTrip;
+      this.enableLastNewTripDate = this.usertriprightsmodel.canLinkTrip;
+      this.enableFromTo = this.usertriprightsmodel.canLinkTrip;
+      this.enableDriver = this.usertriprightsmodel.canLinkTrip;
+
       if(!this.canEditTripAfterClose){
         this.editStatus=false;
       }
       if(this.canLinkTrip){            
         this.formTripsheet.controls['tripLinkYN'].enable();
       }
+
     });   
   }
 

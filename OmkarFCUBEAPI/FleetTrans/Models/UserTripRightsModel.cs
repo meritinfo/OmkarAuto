@@ -7,5 +7,8 @@
     {
         public bool CanEditTripAfterClose { get; set; }
         public bool CanLinkTrip { get; set; }
+        public bool EnableLastNewTripDate { get; set; }
+        public bool EnableFromTo { get; set; }
+        public bool EnableDriver { get; set; }
     }
 }
