@@ -485,13 +485,14 @@ export class DieselstatementaddComponent implements OnInit {
     this.DieselStatementmodel.dfVendor        = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
     this.DieselStatementmodel.rate            = selectedDataVal.rate;
     this.DieselStatementmodel.statementFlag   = 'D'  ;       
-    this.DieselStatementmodel.remarks         = selectedDataVal.remarks;
-
-    
-
-
+    this.DieselStatementmodel.remarks         = selectedDataVal.remarks;  
     this.DieselStatementmodel.totalDslLtrs    = selectedDataVal.totalDslLtrs;
+    this.DieselStatementmodel.grossDslAmt     = selectedDataVal.grossDslAmt;
+    this.DieselStatementmodel.discRateLtr     = selectedDataVal.discRateLtr;
+    this.DieselStatementmodel.discAmt         = selectedDataVal.discAmt;
     this.DieselStatementmodel.totalDslAmt     = selectedDataVal.totalDslAmt;
+    this.DieselStatementmodel.tdsRate         = selectedDataVal.tdsRate;
+    this.DieselStatementmodel.tdsAmt          = selectedDataVal.tdsAmt;
     this.DieselStatementmodel.totalCashAdv    = selectedDataVal.totalCashAdv;
     this.DieselStatementmodel.totalNetAmount  = selectedDataVal.totalNetAmount;
     this.DieselStatementmodel.branchCode      = this.branch;
