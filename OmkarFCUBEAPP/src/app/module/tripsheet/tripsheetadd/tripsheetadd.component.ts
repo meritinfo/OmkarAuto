@@ -2020,7 +2020,7 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
     clBalDsl = this.totaldsl - issuedDslLtrs- cashDslLtrs  + opDslbal
     this.formTripsheet.patchValue({
     
-      clBalDsl:clBalDsl,
+      clBalDsl:clBalDsl.toString(),
 
     });
    //this.totalCalculation2(this.totaldsl);
