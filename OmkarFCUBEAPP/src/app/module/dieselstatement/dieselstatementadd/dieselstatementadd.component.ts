@@ -296,6 +296,22 @@ export class DieselstatementaddComponent implements OnInit {
     } 
   }
 
+  selectAll(e: any) {
+    if(e.target.checked){
+      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+        this.DieselStatementmodel.dieselStatementListData[i].selected = true;
+        this.formArray.controls[i].get("selected")?.setValue('Y');
+      }
+    }
+    else{
+      for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
+        this.DieselStatementmodel.dieselStatementListData[i].selected = false;
+        this.formArray.controls[i].get("selected")?.setValue('');
+      }
+    }
+    this.calculateTotal();
+  }
+
   selectedData(index: number, event: any) {
     this.DieselStatementmodel.dieselStatementListData[index].selected = event.target.checked;
     this.calculateTotal();
