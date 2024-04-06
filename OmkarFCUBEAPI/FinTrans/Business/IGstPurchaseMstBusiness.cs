@@ -13,6 +13,7 @@ namespace FinTrans.Business
         Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request);
         Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetGstVendorList();
+        Task<List<DropDownListModel>> GetGstTdsAcList();
     }
 
 }

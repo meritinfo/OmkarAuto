@@ -15,7 +15,8 @@ export class Gstpurchasemodel {
     totalCgstAmt:       string = "";
     totalIgstAmt:       string = "";
     totalAmount:        string = "";
-    tDSAmt:             string = "";
+    tdsAmt:             string = "";
+    tdsAc:              string = "";
     roundOff:           string = "";
     netAmount:          string = "";
     creditAc:           string = ""; 

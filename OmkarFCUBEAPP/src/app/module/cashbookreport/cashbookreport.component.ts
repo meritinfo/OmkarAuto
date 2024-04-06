@@ -152,8 +152,9 @@ export class CashbookreportComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate      = selectedDataVal.fromDate;
     this.filter.toDate        = selectedDataVal.toDate;
-    this.filter.filterStr     = selectedDataVal.branch?selectedDataVal.branch.dataId:"";
-    this.filter.filterStr1    = selectedDataVal.branch?selectedDataVal.branch.dataName:"";
+    this.filter.filterStr     = selectedDataVal.branch;
+    var br = this.branchList.find(e => e.dataId == selectedDataVal.branch)
+    this.filter.filterStr1    = br?br.dataName:"";
     this.filter.filterStr2    = this.year;
 
     this.cashbookreportService.getCashBookReport(this.filter)

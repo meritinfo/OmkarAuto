@@ -58,4 +58,8 @@ export class GstpurchaseService {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetGstVendorList', null, this.httpOptions);
   }
   
+  getTdsAcList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetGstTdsAcList', null, this.httpOptions);
+  }
+  
 }

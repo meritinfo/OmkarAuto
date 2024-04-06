@@ -4,6 +4,7 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using System.Transactions;
+using DocumentFormat.OpenXml.Office2016.Excel;
 
 namespace Consignment.Repository
 {
@@ -187,15 +188,18 @@ namespace Consignment.Repository
             }
             return rateList;
         }
-        public async Task<List<DropDownListModel>> GetLRSeries()
+        public async Task<List<DropDownListModel>> GetLRSeries(RequestModel req)
         {
             List<DropDownListModel> lrSeries = new();
             try
             {
                 if (dbconnection != null)
                 {
-                    SqlParameter[] param = { };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetLRSeries_Select", param);
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", req.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLRSeries", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

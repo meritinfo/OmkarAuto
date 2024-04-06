@@ -21,6 +21,7 @@ namespace FinTrans.Models
         public string? TotalIgstAmt { get; set; }
         public string? TotalAmount { get; set; }
         public string? TDSAmt { get; set; }
+        public string? TdsAc { get; set; }
         public string? RoundOff { get; set; }
         public string? NetAmount { get; set; }
         public string? CreditAc { get; set; }   

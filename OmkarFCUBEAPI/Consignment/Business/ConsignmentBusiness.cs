@@ -78,9 +78,9 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetBillingPartyList();
         }
-        public async Task<List<DropDownListModel>> GetLRSeries()
+        public async Task<List<DropDownListModel>> GetLRSeries(RequestModel req)
         {
-            return await consignmentRepository.GetLRSeries();
+            return await consignmentRepository.GetLRSeries(req);
         }
         public async Task<List<DropDownListModel>> GetLRSeriesForBill()
         {

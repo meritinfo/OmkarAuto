@@ -22,7 +22,7 @@ namespace Consignment.Business
         Task<ResponseModel> GetDslToBe(DslModel request);
         Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
-        Task<List<DropDownListModel>> GetLRSeries();
+        Task<List<DropDownListModel>> GetLRSeries(RequestModel req);
         Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(RequestModel request);
         Task<ResponseModel> GetBillSeries(RequestModel request);

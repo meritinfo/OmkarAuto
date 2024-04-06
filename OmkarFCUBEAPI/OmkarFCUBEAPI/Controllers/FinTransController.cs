@@ -358,7 +358,20 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetGstTdsAcList")]
+        public async Task<IActionResult> GetGstTdsAcList()
+        {
+            try
+            {
+                var result = await gstPurchaseMstBusiness.GetGstTdsAcList();
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("BankReconcilationSave")]
         public async Task<IActionResult> BankReconcilationSave(BankReconcilationListModel bankRecListModel)

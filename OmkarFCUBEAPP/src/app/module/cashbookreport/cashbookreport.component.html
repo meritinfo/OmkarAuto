@@ -37,28 +37,14 @@
                                 </div>
                             </div>
                             <div class="col-md-3">
-                                <div class="mb-3">                        
-                                    <label for="formrow-inputCity">Branch</label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="branchList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="branch" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Branch</label>
+                                    <select class="form-control" formControlName="branch" [ngClass]="">
+                                        <option value="0">ALL</option>
+                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                            {{branch.dataName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">

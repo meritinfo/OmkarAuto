@@ -8,6 +8,7 @@ using Shared.Models;
 using Consignment.Repository;
 using Org.BouncyCastle.Asn1.Ocsp;
 using Org.BouncyCastle.Ocsp;
+using DocumentFormat.OpenXml.Office2016.Excel;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -279,11 +280,15 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
         [HttpPost("GetLRSeries")]
-        public async Task<IActionResult> GetLRSeries()
+        public async Task<IActionResult> GetLRSeries(RequestModel req)
         {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
-                var result = await consignmentBusiness.GetLRSeries();
+                var result = await consignmentBusiness.GetLRSeries(req);
 
                 return Ok(result);
             }

@@ -40,6 +40,7 @@ export class GstpurchaseaddComponent {
   branchList: Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
+  tdsAcList: Dropdownmodel[] = [];
   selectedGstpurchaseDetails = new Gstpurchasemodel(); 
   attach1: string = "";
   attach2: string = "";
@@ -83,7 +84,12 @@ export class GstpurchaseaddComponent {
     else {
       this.route.navigate(['/']);
     } 
-    
+
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+
     var userbranchcode = sessionStorage.getItem('userBranch')?.toString();  
     if (typeof userbranchcode !== 'undefined' && userbranchcode !== null && userbranchcode !== '') {
       this.branchid = userbranchcode;
@@ -91,6 +97,11 @@ export class GstpurchaseaddComponent {
     else {
       this.route.navigate(['/']);
     }   
+    
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
 
     const today = new Date();
     const month = today.getMonth();
@@ -123,13 +134,14 @@ export class GstpurchaseaddComponent {
       totalIgstAmt: new FormControl('0',),
       totalAmount: new FormControl('0',[Validators.required]),
       tDSAmt: new FormControl('0',),
+      tdsAc : new FormControl('',[Validators.required]),
       roundOff: new FormControl('0',),
       netAmount: new FormControl('0',[Validators.required]),
       creditAc: new FormControl('',),
       neftPmt:new FormControl('',),
       chequeNo:new FormControl('',[Validators.required]),
       chequeDate:new FormControl(this.loginDate,[Validators.required]),
-      inputEligible:new FormControl('Y',),
+      //inputEligible:new FormControl('Y',),
       modifyRemarks:new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createInitialArray()])      
@@ -160,6 +172,7 @@ export class GstpurchaseaddComponent {
     this.getDebitAcList();
     this.getBranchList();
     this.getVendorList();
+    this.getTdsAcList();
     this.selectedGstpurchaseDetails = this.gstpurchaseService.getGstPurchageDetails();
 
     if (this.selectedGstpurchaseDetails.masterid != '') {   
@@ -174,6 +187,13 @@ export class GstpurchaseaddComponent {
     this.formGSTPurchase.controls['chequeDate'].clearValidators();  
     this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
     this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+      
+    this.formGSTPurchase.controls['tdsAc'].clearValidators();  
+    this.formGSTPurchase.controls['tdsAc'].updateValueAndValidity();
+
+    if (this.selectedGstpurchaseDetails.masterid != '') {  
+      this.getPaymentCreditAcList(this.selectedGstpurchaseDetails.pmtType);
+    }
 
     setTimeout(() => {
       if (this.selectedGstpurchaseDetails.masterid != '') {    
@@ -184,6 +204,9 @@ export class GstpurchaseaddComponent {
         this.formGSTPurchase.patchValue({
           transDate: this.commonService.formatDate(this.selectedGstpurchaseDetails.transDate),
           vendorInvDt: this.commonService.formatDate(this.selectedGstpurchaseDetails.vendorInvDt),
+          vendorId: this.vendorList.find(e => e.dataId == this.selectedGstpurchaseDetails.vendorId),
+          tDSAmt:this.selectedGstpurchaseDetails.tdsAmt,
+          neftPmt:''
         });
         if (this.selectedGstpurchaseDetails.vendorId == '')
         {
@@ -196,6 +219,9 @@ export class GstpurchaseaddComponent {
         if(this.selectedGstpurchaseDetails.pmtType=="B"){           
           this.formGSTPurchase.controls['neftPmt'].enable();
           if (this.selectedGstpurchaseDetails.neftPmt=='Y'){
+            this.formGSTPurchase.patchValue({
+              neftPmt: 'Y'
+            });
             this.formGSTPurchase.controls['chequeNo'].clearValidators();      
             this.formGSTPurchase.controls['chequeDate'].clearValidators();  
           }
@@ -234,6 +260,12 @@ export class GstpurchaseaddComponent {
       this.vendorList = res;
     });
   }
+  
+  getTdsAcList(){
+    this.gstpurchaseService.getTdsAcList().subscribe((res) => {
+      this.tdsAcList = res;
+    });
+  }
 
   selectEvent(item: any) {
     // do something with selected item
@@ -262,6 +294,11 @@ export class GstpurchaseaddComponent {
     }
     else{
       this.formGSTPurchase.controls['neftPmt'].disable();
+
+      this.formGSTPurchase.controls['chequeNo'].clearValidators();      
+      this.formGSTPurchase.controls['chequeDate'].clearValidators();   
+      this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
+      this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
     }
     this.getPaymentCreditAcList(selectedValue);
   }
@@ -309,6 +346,7 @@ export class GstpurchaseaddComponent {
     var gsttype = this.formGSTPurchase.value.gstType;
     this.gstpurchaseService.getGstPurchageInnerGridList(this.requestmodel).subscribe((res) => {
       this.gstpurchasemodel = res;
+      this.formArray.clear();
       for (var i = 0; i < res.gstPurchaseDetailsList.length; i++) {
         this.formArray.push(this.createInitialArray()); 
         if(gsttype=='NA'){    
@@ -520,18 +558,33 @@ export class GstpurchaseaddComponent {
   }
 
   onTdsChange(e: any) {
-    var selectedValue = e.target.value;
-    var selectedDataVal=this.formGSTPurchase.getRawValue();
-    var nettot = parseFloat(selectedDataVal.totalAmount) - parseFloat(selectedValue) + parseFloat(selectedDataVal.roundOff)
-    this.formGSTPurchase.patchValue({
-      netAmount:nettot.toFixed(2),
-    });
+    var selectedValue = e.target.value;    
+    var tDSAmt = 0;
+    if(selectedValue!=""){
+      tDSAmt= parseFloat(selectedValue);
+    }
+    if(tDSAmt>0){
+      this.formGSTPurchase.controls['tdsAc'].setValidators([Validators.required]);
+      this.formGSTPurchase.controls['tdsAc'].updateValueAndValidity();
+    }  
+    else{      
+      this.formGSTPurchase.controls['tdsAc'].clearValidators();  
+      this.formGSTPurchase.controls['tdsAc'].updateValueAndValidity();
+    }
   }
   
   onRounding(e: any) {
     var selectedValue = e.target.value;
     var selectedDataVal=this.formGSTPurchase.getRawValue();
-    var nettot = parseFloat(selectedDataVal.totalAmount) + parseFloat(selectedValue) - parseFloat(selectedDataVal.tDSAmt)
+    var totAmt = 0;
+    var rndoff = 0;
+    if (selectedDataVal.totalAmount!=""){
+      totAmt = parseFloat(selectedDataVal.totalAmount)
+    }
+    if (selectedValue!=""){
+      rndoff = parseFloat(selectedValue)
+    }
+    var nettot = totAmt + rndoff;
     this.formGSTPurchase.patchValue({
       netAmount:nettot.toFixed(2),
     });
@@ -581,9 +634,14 @@ export class GstpurchaseaddComponent {
       if (confirm("Are you sure, you want to delete this?")) {
         this.gstpurchaseService.gstPurchageDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formGSTPurchase.reset();
-          this.route.navigate(['/gstpurchaselist']);
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formGSTPurchase.reset();
+            this.route.navigate(['/gstpurchaselist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
         });
       }
       this.sharedService.loading=false;
@@ -617,7 +675,8 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.masterid      = this.selectedGstpurchaseDetails.masterid ;
     this.gstpurchasemodel.transDate     = selectedDataVal.transDate ; 
     this.gstpurchasemodel.branchCode    = selectedDataVal.branchCode ; 
-    this.gstpurchasemodel.pmtType       = selectedDataVal.pmtType ;      
+    this.gstpurchasemodel.pmtType       = selectedDataVal.pmtType ;    
+    this.gstpurchasemodel.gstType       = selectedDataVal.gstType ; 
     this.gstpurchasemodel.vendorId      = this.noVenderSelected? '':selectedDataVal.vendorId.dataId ;  
     this.gstpurchasemodel.vendorInvNo   = selectedDataVal.vendorInvNo ; 
     this.gstpurchasemodel.vendorInvDt   = selectedDataVal.vendorInvDt ; 
@@ -626,14 +685,15 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.totalCgstAmt  = selectedDataVal.totalCgstAmt ; 
     this.gstpurchasemodel.totalIgstAmt  = selectedDataVal.totalIgstAmt ; 
     this.gstpurchasemodel.totalAmount   = selectedDataVal.totalAmount ; 
-    this.gstpurchasemodel.tDSAmt        = selectedDataVal.tDSAmt ;    
+    this.gstpurchasemodel.tdsAmt        = selectedDataVal.tDSAmt ; 
+    this.gstpurchasemodel.tdsAc         = selectedDataVal.tdsAc ; 
     this.gstpurchasemodel.roundOff      = selectedDataVal.roundOff ;    
     this.gstpurchasemodel.netAmount     = selectedDataVal.netAmount.toString() ;     
     this.gstpurchasemodel.creditAc      = selectedDataVal.creditAc ;     
     this.gstpurchasemodel.neftPmt       = this.neftPmtSelected? 'Y':'N' ;    
     this.gstpurchasemodel.chequeNo      = selectedDataVal.chequeNo ;    
     this.gstpurchasemodel.chequeDate    = selectedDataVal.chequeDate ; 
-    this.gstpurchasemodel.inputEligible = selectedDataVal.inputEligible;
+    this.gstpurchasemodel.inputEligible = 'Y';
     this.gstpurchasemodel.attatchFile1  = selectedDataVal.attatchFile1; 
     this.gstpurchasemodel.attatchFile2  = selectedDataVal.attatchFile2; 
     this.gstpurchasemodel.yearId        = this.year ;  
@@ -671,9 +731,14 @@ export class GstpurchaseaddComponent {
    
     this.gstpurchaseService.gstPurchageDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formGSTPurchase.reset();
-      this.route.navigate(['/gstpurchaselist']);
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formGSTPurchase.reset();
+        this.route.navigate(['/gstpurchaselist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }
     });
     
     this.sharedService.loading=false;

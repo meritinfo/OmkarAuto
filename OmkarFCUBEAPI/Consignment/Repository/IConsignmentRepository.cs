@@ -20,7 +20,7 @@ namespace Consignment.Repository
         Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<List<DropDownListModel>> GetBillingPartyList();
-        Task<List<DropDownListModel>> GetLRSeries();
+        Task<List<DropDownListModel>> GetLRSeries(RequestModel req);
         Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<ResponseModel> GetGcSeries(RequestModel request);
         Task<ResponseModel> GetBillSeries(RequestModel request);

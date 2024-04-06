@@ -97,25 +97,21 @@
                                 <th>From </th>
                                 <th>To </th>
                                 <th>To </th>
-                             
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allConsignment.cnList?.length != 0">
                             <tr *ngFor="let cn of allConsignment.cnList">
                                 <td>{{ cn.bookedAt }}</td>
-                                <td>{{ cn.bookingDate }}</td>
-                        
+                                <td>{{ cn.bookingDate }}</td>                        
                                 <td>{{ cn.gcNoteNo }}</td>
                                 <td>{{ cn.fPlace }}</td>
                                 <td>{{ cn.tPlace }}</td>
                                 <td>{{ cn.vehicleNo }}</td>
                              
-                                <td>
-                                   
-                                        <button type="button" class="btn btn-edit" 
-                                        (click)="getConsignmentDetails(cn)"></button>
-                               
+                                <td>                                   
+                                    <button type="button" class="btn btn-edit" 
+                                        (click)="getConsignmentDetails(cn)"></button>                               
                                 </td>
                             </tr>
                         </tbody>

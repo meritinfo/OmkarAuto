@@ -42,5 +42,9 @@ namespace FinTrans.Business
         {
             return await gstPurchaseMstRepository.GetGstVendorList();
         }
+        public async Task<List<DropDownListModel>> GetGstTdsAcList()
+        {
+            return await gstPurchaseMstRepository.GetGstTdsAcList();
+        }
     }
 }

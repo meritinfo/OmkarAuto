@@ -332,7 +332,8 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   getlrSeriesList(): void {
-    this.commonService.getlrSeriesList().subscribe((res) => {
+    this.requestmodel.strRequest=this.branch;
+    this.commonService.getlrSeriesList(this.requestmodel).subscribe((res) => {
       this.lrSeries = res;
     });
   }
@@ -573,7 +574,6 @@ export class ConsignmentaddComponent implements OnInit {
 
   //Submit user form details //
   submitConsignmentForm(): void {
-
     this.formSubmitted = true;
     if (this.formConsignment.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
@@ -588,12 +588,13 @@ export class ConsignmentaddComponent implements OnInit {
     
 
     var selectedDataValue = this.formConsignment.getRawValue();
-if(parseFloat(selectedDataValue.noPackages)>0){
-  //ignore
-}else{
-  this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
-  return;   
-}
+    if(parseFloat(selectedDataValue.noPackages)>0){
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
+      return;   
+    }
     
 
     this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
@@ -603,7 +604,7 @@ if(parseFloat(selectedDataValue.noPackages)>0){
       this.responseDetails = res;
       if (this.responseDetails.status) {
 
-        this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID != '' ? this.selectedConsignmentDetails.consignmentID : '';
+        this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID ;
         this.consignmentmodel.bookingPlace = selectedDataValue.bookingPlace;
         this.consignmentmodel.gcSlNo = selectedDataValue.gcSlNo
         this.consignmentmodel.gcSeries = selectedDataValue.gcSeries;
@@ -638,7 +639,6 @@ if(parseFloat(selectedDataValue.noPackages)>0){
         this.consignmentmodel.shipmentDt = selectedDataValue.shipmentDt;
         this.consignmentmodel.productId = selectedDataValue.productId;
         this.consignmentmodel.productDesc = selectedDataValue.productDesc;
-
         this.consignmentmodel.noPackages = selectedDataValue.noPackages;
         this.consignmentmodel.fromPin = selectedDataValue.fromPin;
         this.consignmentmodel.toPin = selectedDataValue.toPin;
@@ -658,21 +658,13 @@ if(parseFloat(selectedDataValue.noPackages)>0){
         this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0";
         this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
         this.consignmentmodel.attachedfile = selectedDataValue.attachedfile;
-
         this.consignmentmodel.handlingRs = selectedDataValue.handlingRs;
-
-
         this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs;
-
         this.consignmentmodel.miscRs = selectedDataValue.miscRs;
         this.consignmentmodel.extrasRS = selectedDataValue.extrasRS;
         this.consignmentmodel.unLoadingRs = selectedDataValue.unLoadingRs;
         this.consignmentmodel.detentionRs = selectedDataValue.detentionRs;
-
-
         this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs.toString();
-
-
         this.consignmentmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
         this.consignmentmodel.rateRs = selectedDataValue.rateRs;
         this.consignmentmodel.rateType = selectedDataValue.rateType;
@@ -684,10 +676,7 @@ if(parseFloat(selectedDataValue.noPackages)>0){
         this.consignmentmodel.cnorInvNo2 = selectedDataValue.cnorInvNo2;
         this.consignmentmodel.cnorInvDate2 = selectedDataValue.cnorInvDate2;
         this.consignmentmodel.declaredValue2 = selectedDataValue.declaredValue2;
-
         this.consignmentmodel.loggedInUser = this.loggedInUserID;
-        //this.consignmentmodel.tripOpenBy = this.loggedInUserID;
-
 
         this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;

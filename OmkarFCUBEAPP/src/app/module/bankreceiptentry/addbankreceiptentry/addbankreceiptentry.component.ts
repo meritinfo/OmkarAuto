@@ -121,7 +121,8 @@ export class AddbankreceiptentryComponent {
         this.formBankRecEntry.patchValue(this.selectedBankReceiptEntryDetails); 
         this.formBankRecEntry.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedBankReceiptEntryDetails.ftmDate),
-        });       
+        });  
+
         if(this.selectedBankReceiptEntryDetails.linkedYN=="Y"){
           this.formBankRecEntry.controls['refType'].disable();
           this.formBankRecEntry.controls['refNo'].disable();
@@ -347,6 +348,7 @@ export class AddbankreceiptentryComponent {
     this.bankreceiptentryModel.refNo          = selectedDataValue.refNo;
     this.bankreceiptentryModel.docAmount      = selectedDataValue.docAmount;
     this.bankreceiptentryModel.linkedYN       = 'N';
+    this.bankreceiptentryModel.neftPmt        = selectedDataValue.neftPmt?"Y":"N";
     this.bankreceiptentryModel.yearID         = this.year;
     this.bankreceiptentryModel.branchCode     = this.branchname;
     this.bankreceiptentryModel.loggedInUser   = this.loggedInUserID;
