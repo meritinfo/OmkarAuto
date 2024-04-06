@@ -331,13 +331,14 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
 
+  
   getlrSeriesList(): void {
     this.requestmodel.strRequest=this.branch;
     this.commonService.getlrSeriesList(this.requestmodel).subscribe((res) => {
       this.lrSeries = res;
     });
   }
-
+  
   lrSeriesChange(): void {
     var selectedData = this.formConsignment.value.gcSeries;
     this.getGcSeries(selectedData);
@@ -348,7 +349,7 @@ export class ConsignmentaddComponent implements OnInit {
     this.commonService.getGcSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formConsignment.patchValue({
-        gcSlNo: res.message
+      //  gcSlNo: res.message
       });
     });
   }
@@ -761,10 +762,13 @@ export class ConsignmentaddComponent implements OnInit {
                 truckId: selectedVehicleID ? selectedVehicleID : "",
                 //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
                 declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+                gcSlNo: this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number
+
                 //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-              this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
+             this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
+
             }
             else{              
               this.toastrService.warning("Please Enter Valid Eway bill no");              

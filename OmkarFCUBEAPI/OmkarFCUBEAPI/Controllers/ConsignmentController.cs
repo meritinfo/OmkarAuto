@@ -279,6 +279,7 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetLRSeries")]
         public async Task<IActionResult> GetLRSeries(RequestModel req)
         {
