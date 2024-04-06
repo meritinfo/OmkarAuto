@@ -111,26 +111,27 @@ export class AddjournalentryComponent{
     this.formJournalEntry.controls['credit'].disable(); 
     this.formJournalEntry.controls['debit'].disable(); 
     this.formJournalEntry.controls['modifyRemarks'].disable(); 
-       
-    if (this.selectedJournalEntryDetails.ftmID != '') {        
-      var selectedDataValue = this.formJournalEntry.getRawValue();
-      this.formJournalEntry.patchValue(this.selectedJournalEntryDetails); 
-      this.formJournalEntry.patchValue({
-        ftmDate: this.commonService.formatDate(this.selectedJournalEntryDetails.ftmDate),
-        credit: this.selectedJournalEntryDetails.docAmount,
-        debit: this.selectedJournalEntryDetails.docAmount,
-      }); 
-      if(this.selectedJournalEntryDetails.linkedYN=='Y'){        
-        this.formJournalEntry.controls['refType'].disable();
-        this.formJournalEntry.controls['refNo'].disable();
+    setTimeout(() => {
+      if (this.selectedJournalEntryDetails.ftmID != '') {        
+        var selectedDataValue = this.formJournalEntry.getRawValue();
+        this.formJournalEntry.patchValue(this.selectedJournalEntryDetails); 
+        this.formJournalEntry.patchValue({
+          ftmDate: this.commonService.formatDate(this.selectedJournalEntryDetails.ftmDate),
+          credit: this.selectedJournalEntryDetails.docAmount,
+          debit: this.selectedJournalEntryDetails.docAmount,
+        }); 
+        if(this.selectedJournalEntryDetails.linkedYN=='Y'){        
+          this.formJournalEntry.controls['refType'].disable();
+          this.formJournalEntry.controls['refNo'].disable();
+        }
+        this.editMode=true;
+        this.formJournalEntry.controls['modifyRemarks'].enable();
+        this.getCashReceiptPaymentInnerGridList();
       }
-      this.editMode=true;
-      this.formJournalEntry.controls['modifyRemarks'].enable();
-      this.getCashReceiptPaymentInnerGridList();
-     }
-    else{
-      this.getdocno("JV");
-    }
+      else{
+        this.getdocno("JV");
+      }
+    },2000);
     this.sharedService.loading = false;
   }
   
@@ -333,6 +334,8 @@ export class AddjournalentryComponent{
     this.bankrecEntrymodel.refNo          = selectedDataValue.refNo;
     this.bankrecEntrymodel.docAmount      = selectedDataValue.credit;
     this.bankrecEntrymodel.linkedYN       = this.selectedJournalEntryDetails.ftmID != '' ?this.selectedJournalEntryDetails.linkedYN:"N";
+    this.bankrecEntrymodel.neftPmt        = "";
+    this.bankrecEntrymodel.uTRNo          = "";
     this.bankrecEntrymodel.yearID         = this.year;
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;

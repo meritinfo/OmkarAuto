@@ -342,6 +342,8 @@ export class AddcashreceiptentryComponent {
     this.bankrecEntrymodel.refNo          = selectedDataValue.refNo;
     this.bankrecEntrymodel.docAmount      = selectedDataValue.docAmount;
     this.bankrecEntrymodel.linkedYN       = 'N';
+    this.bankrecEntrymodel.neftPmt        = "";
+    this.bankrecEntrymodel.uTRNo          = "";
     this.bankrecEntrymodel.yearID         = this.year;
     this.bankrecEntrymodel.branchCode     = this.branchname;
     this.bankrecEntrymodel.loggedInUser   = this.loggedInUserID;
