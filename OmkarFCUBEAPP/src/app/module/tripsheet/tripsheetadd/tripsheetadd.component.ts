@@ -313,9 +313,7 @@ export class TripsheetaddComponent {
       
         this.formTripsheet.controls['tripLinkYN'].disable();
 
-        if(this.selectedTripSheetDetails.tripStatus=='C'){
-          this.getUserTripRights();          
-        }
+        this.getUserTripRights();         
 
         this.tripsheetinnergridrequest.tripId = parseInt(this.selectedTripSheetDetails.tripId);
         this.tripsheetinnergridrequest.vehicleMasterId = parseInt(this.selectedTripSheetDetails.vehicleMasterID);
@@ -337,7 +335,8 @@ export class TripsheetaddComponent {
       // this.getTripSheetInnerGridList();
       this.editMode = true;
       // this.GetOpeningBal();
-    }, 2000);
+    }, 2000);  
+
     this.editMode = true;
   }
   // convenience getter for easy access to contact form fields
@@ -588,17 +587,47 @@ export class TripsheetaddComponent {
       this.usertriprightsmodel = res;
       this.canEditTripAfterClose = this.usertriprightsmodel.canEditTripAfterClose;
       this.canLinkTrip = this.usertriprightsmodel.canLinkTrip;
-      this.enableLastNewTripDate = this.usertriprightsmodel.canLinkTrip;
-      this.enableFromTo = this.usertriprightsmodel.canLinkTrip;
-      this.enableDriver = this.usertriprightsmodel.canLinkTrip;
+      this.enableLastNewTripDate = this.usertriprightsmodel.enableLastNewTripDate;
+      this.enableFromTo = this.usertriprightsmodel.enableFromTo;
+      this.enableDriver = this.usertriprightsmodel.enableDriver;
 
-      if(!this.canEditTripAfterClose){
-        this.editStatus=false;
-      }
-      if(this.canLinkTrip){            
-        this.formTripsheet.controls['tripLinkYN'].enable();
+      if(this.selectedTripSheetDetails.tripStatus=='C'){        
+        if(!this.canEditTripAfterClose){
+          this.editStatus=false;
+        }
+        if(this.canLinkTrip){            
+          this.formTripsheet.controls['tripLinkYN'].enable();
+        }
       }
 
+      if(this.enableLastNewTripDate){            
+        this.formTripsheet.controls['newTripDate'].enable();
+        this.formTripsheet.controls['lastTripCloseDate'].enable();        
+      }
+      else{            
+        this.formTripsheet.controls['newTripDate'].disable();
+        this.formTripsheet.controls['lastTripCloseDate'].disable();        
+      }
+
+      if(this.selectedTripSheetDetails.tripNo=="1"){
+        this.formTripsheet.controls['lastTripCloseDate'].enable();
+      }
+
+      if(this.enableFromTo){            
+        this.formTripsheet.controls['loadingFrom'].enable();
+        this.formTripsheet.controls['destination'].enable();
+      }
+      else{            
+        this.formTripsheet.controls['loadingFrom'].disable();
+        this.formTripsheet.controls['destination'].disable();
+      }
+
+      if(this.enableDriver){            
+        this.formTripsheet.controls['driverMasterID'].enable();
+      }
+      else{            
+        this.formTripsheet.controls['driverMasterID'].disable();
+      }
     });   
   }
 
@@ -846,7 +875,6 @@ if(selectedValue > 1){
     this.formTripsheet.controls['vehicleMasterID'].disable();
     this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['tripNo'].disable();
-    this.formTripsheet.controls['newTripDate'].disable();
     this.formTripsheet.controls['nextExpectedReportingDt'].disable();
     this.formTripsheet.controls['compNonCompStatus'].disable();
     this.formTripsheet.controls['advPayable_2'].disable();
