@@ -2147,6 +2147,22 @@ if(selectedDataValue.nextExpectedReportingDt!=''){
 
 
   }
+  //actual diesel to be
+actualDieselTobe(){
+  var selectedDataValue = this.formTripsheet.getRawValue();
+  let opDslbal = selectedDataValue.opBalDsl ? parseFloat(selectedDataValue.opBalDsl) : 0
+  let issuedDslLtrs = selectedDataValue.issuedDslLtrs ? parseFloat(selectedDataValue.issuedDslLtrs) : 0
+  let totaldsl = selectedDataValue.totaldsl ? parseFloat(selectedDataValue.totaldsl) : 0
+  let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
+  let clBalDsl=0;
+  clBalDsl =  clBalDsl = totaldsl  + opDslbal
+
+
+}
+
+
+
+  //
   //drivercalculation
   totalCalculationForTicl(e: any) {
     if(isNaN(e)){
