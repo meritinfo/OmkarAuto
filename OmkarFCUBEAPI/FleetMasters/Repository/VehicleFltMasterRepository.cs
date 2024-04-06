@@ -122,6 +122,10 @@ namespace FleetMasters.Repository
                     {
                         transaction.Commit();
                     }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
                 }
             }
             catch (Exception ex)

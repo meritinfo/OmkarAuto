@@ -189,6 +189,10 @@ namespace FleetTrans.Repository
                         {
                             transaction.Commit();
                         }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
 
                         //// LR Details insert or update
                         //if (tripMasterModel.TripSheetInnerGridList.LRDetailsList.Count > 0)
