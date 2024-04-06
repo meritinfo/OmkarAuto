@@ -22,6 +22,9 @@
         public string? ActiveYN { get; set; }
         public string? CanEditTripAfterClose { get; set; }
         public string? CanLinkTrip { get; set; }
+        public string? EnableLastNewTripDate { get; set; }
+        public string? EnableFromTo { get; set; }
+        public string? EnableDriver { get; set; }
         public DateTime? LastLoginDateTime_Success { get; set; }
         public string? LastLoginIP_Success { get; set; }
         public DateTime? LastLoginDateTime_Fail { get; set; }

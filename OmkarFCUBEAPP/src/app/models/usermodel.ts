@@ -11,6 +11,9 @@ export class Usermodel {
     activeYN: string = "";
     canEditTripAfterClose:string = "";
     canLinkTrip:string = "";
+    enableLastNewTripDate:string = "";
+    enableFromTo:string = "";
+    enableDriver:string = "";
     branchList: string = "";
     moduleList: string = "";
     loggedInUser: string = "";

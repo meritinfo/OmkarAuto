@@ -1249,11 +1249,17 @@ namespace FleetTrans.Repository
                     {
                         userTrip.CanEditTripAfterClose = statusData.Tables[0].Rows[0]["CanEditTripAfterClose"].ToString()=="Y"?true:false;
                         userTrip.CanLinkTrip = statusData.Tables[0].Rows[0]["CanLinkTrip"].ToString()=="Y" ? true : false;
+                        userTrip.EnableLastNewTripDate = statusData.Tables[0].Rows[0]["EnableLastNewTripDate"].ToString()=="Y" ? true : false;
+                        userTrip.EnableFromTo = statusData.Tables[0].Rows[0]["EnableFromTo"].ToString()=="Y" ? true : false;
+                        userTrip.EnableDriver = statusData.Tables[0].Rows[0]["EnableDriver"].ToString()=="Y" ? true : false;
                     }
                     else
                     {
                         userTrip.CanEditTripAfterClose = false;
-                        userTrip.CanLinkTrip =false;
+                        userTrip.CanLinkTrip = false;
+                        userTrip.EnableLastNewTripDate = false;
+                        userTrip.EnableFromTo = false;
+                        userTrip.EnableDriver = false;
                     }
                 }
             }

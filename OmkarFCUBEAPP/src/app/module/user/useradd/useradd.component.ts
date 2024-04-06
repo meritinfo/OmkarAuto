@@ -91,6 +91,9 @@ export class UseraddComponent implements OnInit {
       activeYN: new FormControl('Y', [Validators.required]),
       canEditTripAfterClose:new FormControl('N', [Validators.required]),
       canLinkTrip :new FormControl('N', [Validators.required]),
+      enableLastNewTripDate:new FormControl('N', [Validators.required]),
+      enableFromTo:new FormControl('N', [Validators.required]),
+      enableDriver:new FormControl('N', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
       // userModule: new FormControl([], [Validators.required]),
       imageName: new FormControl([], ),
@@ -246,6 +249,9 @@ export class UseraddComponent implements OnInit {
     this.userModel.activeYN = selecteddata.activeYN?selecteddata.activeYN:'Y';
     this.userModel.canEditTripAfterClose = selecteddata.canEditTripAfterClose?selecteddata.canEditTripAfterClose:'N';
     this.userModel.canLinkTrip = selecteddata.canLinkTrip?selecteddata.canLinkTrip:'N';
+    this.userModel.enableLastNewTripDate = selecteddata.enableLastNewTripDate?selecteddata.enableLastNewTripDate:'N';
+    this.userModel.enableFromTo = selecteddata.enableFromTo?selecteddata.enableFromTo:'N';
+    this.userModel.enableDriver = selecteddata.enableDriver?selecteddata.enableDriver:'N';
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;
     this.userModel.branchList = selecteddata.userBranch.toString();
