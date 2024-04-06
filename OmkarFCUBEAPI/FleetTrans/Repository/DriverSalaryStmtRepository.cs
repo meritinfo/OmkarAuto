@@ -289,49 +289,53 @@ namespace FleetTrans.Repository
                     { 
                         transaction.Commit();
                     }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
 
-                        //string MasterID = "";
-                        //if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                        //{
-                        //    MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
-                        //    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    //string MasterID = "";
+                    //if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    //{
+                    //    MasterID = Convert.ToString(statusData.Tables[0].Rows[0]["Status"]);
+                    //    responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
-                        //    // statement list insert
-                        //    if (request.DriverSalaryListData.Count > 0)
-                        //    {
-                        //        for (int i = 0; i < request.DriverSalaryListData.Count; i++)
-                        //        {
-                        //            if (request.DriverSalaryListData[i].Selected)
-                        //            {
-                        //                SqlParameter[] paramMisc =
-                        //                {
+                    //    // statement list insert
+                    //    if (request.DriverSalaryListData.Count > 0)
+                    //    {
+                    //        for (int i = 0; i < request.DriverSalaryListData.Count; i++)
+                    //        {
+                    //            if (request.DriverSalaryListData[i].Selected)
+                    //            {
+                    //                SqlParameter[] paramMisc =
+                    //                {
 
-                        //                    new SqlParameter("@DetailId", request.DriverSalaryListData[i].DetailId != "" ? request.DriverSalaryListData[i].DetailId : "0"),
-                        //                     new SqlParameter("@MasterID", MasterID),
-                        //                 //   new SqlParameter("@FreightRs", request.DriverSalaryListData[i].MasterId != "" ? request.DriverSalaryListData[i].MasterId : "0"),
-                        //                    new SqlParameter("@VehicleMasterId", request.DriverSalaryListData[i].VehicleMasterId != "" ? request.DriverSalaryListData[i].VehicleMasterId : "0"),
-                        //                    new SqlParameter("@DriverMasterId", request.DriverSalaryListData[i].DriverMasterId != "" ? request.DriverSalaryListData[i].DriverMasterId : "0"),
-                        //                    new SqlParameter("@FromDt", request.DriverSalaryListData[i].FromDt != "" ? request.DriverSalaryListData[i].FromDt : "0"),
-                        //                    new SqlParameter("@ToDt", request.DriverSalaryListData[i].ToDt != "" ? request.DriverSalaryListData[i].ToDt : "0"),
-                        //                    new SqlParameter("@SalaryDays", request.DriverSalaryListData[i].SalaryDays != "" ? request.DriverSalaryListData[i].SalaryDays : "0"),
-                        //                    new SqlParameter("@SalaryAmt", request.DriverSalaryListData[i].SalaryAmt != "" ? request.DriverSalaryListData[i].SalaryAmt : "0"),
-                        //                    new SqlParameter("@PoolAmt", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
-                        //                    new SqlParameter("@LastTripBal", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
-                        //                    new SqlParameter("@LastTripDt", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripDt : "0"),
-                        //                    new SqlParameter("@NetPayable", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
-                        //                     new SqlParameter("@Index", distanceDetailTripModel.Index),
-                        //                  //  new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
-                        //                };
-                        //                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
-                        //            }
-                        //        }
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    responseModel.Status = false;
-                        //    responseModel.Message = "Unable to process";
-                        //}
+                    //                    new SqlParameter("@DetailId", request.DriverSalaryListData[i].DetailId != "" ? request.DriverSalaryListData[i].DetailId : "0"),
+                    //                     new SqlParameter("@MasterID", MasterID),
+                    //                 //   new SqlParameter("@FreightRs", request.DriverSalaryListData[i].MasterId != "" ? request.DriverSalaryListData[i].MasterId : "0"),
+                    //                    new SqlParameter("@VehicleMasterId", request.DriverSalaryListData[i].VehicleMasterId != "" ? request.DriverSalaryListData[i].VehicleMasterId : "0"),
+                    //                    new SqlParameter("@DriverMasterId", request.DriverSalaryListData[i].DriverMasterId != "" ? request.DriverSalaryListData[i].DriverMasterId : "0"),
+                    //                    new SqlParameter("@FromDt", request.DriverSalaryListData[i].FromDt != "" ? request.DriverSalaryListData[i].FromDt : "0"),
+                    //                    new SqlParameter("@ToDt", request.DriverSalaryListData[i].ToDt != "" ? request.DriverSalaryListData[i].ToDt : "0"),
+                    //                    new SqlParameter("@SalaryDays", request.DriverSalaryListData[i].SalaryDays != "" ? request.DriverSalaryListData[i].SalaryDays : "0"),
+                    //                    new SqlParameter("@SalaryAmt", request.DriverSalaryListData[i].SalaryAmt != "" ? request.DriverSalaryListData[i].SalaryAmt : "0"),
+                    //                    new SqlParameter("@PoolAmt", request.DriverSalaryListData[i].PoolAmt != "" ? request.DriverSalaryListData[i].PoolAmt : "0"),
+                    //                    new SqlParameter("@LastTripBal", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripBal : "0"),
+                    //                    new SqlParameter("@LastTripDt", request.DriverSalaryListData[i].LastTripBal != "" ? request.DriverSalaryListData[i].LastTripDt : "0"),
+                    //                    new SqlParameter("@NetPayable", request.DriverSalaryListData[i].NetPayable != "" ? request.DriverSalaryListData[i].NetPayable : "0"),
+                    //                     new SqlParameter("@Index", distanceDetailTripModel.Index),
+                    //                  //  new SqlParameter("@DetRemarks", request.DriverSalaryListData[i].DetRemarks != "" ? request.DriverSalaryListData[i].DetRemarks : "0")
+                    //                };
+                    //                var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "DriverSalaryDetails_Insert", paramMisc);
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    responseModel.Status = false;
+                    //    responseModel.Message = "Unable to process";
+                    //}
                 }
             }
             catch (Exception ex)

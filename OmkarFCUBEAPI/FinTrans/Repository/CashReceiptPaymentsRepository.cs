@@ -104,11 +104,14 @@ namespace FinTrans.Repository
                     {
                         transaction.Commit();
                     }
+                    else
+                    {
+                        transaction.Rollback();
+                    }
                 }
             }
             catch (Exception ex)
             {
-
                 transaction.Rollback();
             }
             return responseModel;
