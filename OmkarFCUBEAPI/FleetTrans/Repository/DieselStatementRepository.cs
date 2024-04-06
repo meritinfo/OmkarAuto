@@ -260,7 +260,12 @@ namespace FleetTrans.Repository
                                 Rate            = Convert.ToString(dataSet.Tables[0].Rows[i]["Rate"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
                                 TotalDslLtrs    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslLtrs"]),
+                                GrossDslAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["GrossDslAmt"]),
+                                DiscRateLtr     = Convert.ToString(dataSet.Tables[0].Rows[i]["DiscRateLtr"]),
+                                DiscAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["DiscAmt"]),
                                 TotalDslAmt     = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDslAmt"]),
+                                TdsRate         = Convert.ToString(dataSet.Tables[0].Rows[i]["TdsRate"]),
+                                TdsAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["TdsAmt"]),
                                 TotalCashAdv    = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalCashAdv"]),
                                 TotalNetAmount  = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalNetAmount"]),
                                 BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
@@ -310,6 +315,14 @@ namespace FleetTrans.Repository
                     else
                     {
                         responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else
+                    {
                         transaction.Rollback();
                     }
                 }
