@@ -1,6 +1,3 @@
-
-
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -8,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Trip Status Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Daily Loading Report</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
@@ -23,7 +20,7 @@
                 <div class="col-sm-8 col-md-8">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -31,7 +28,7 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -39,31 +36,16 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                           <!-- <div class="col-md-2">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Loading Branch</label>  
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="branchList"
-                                            [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="tripBranch" [initialValue]=""
-                                            (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Branch </label>
+                                    <select class="form-control" formControlName="branch">
+                                    <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Vehicle No</label>  
@@ -89,27 +71,29 @@
                                     </div>
                                 </div>
                             </div>
-                                 <div class="col-lg-2">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
                                 <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">TripLinkYN</label>
+                                    <label for="basicpill-phoneno-input">Open Through</label>
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="tripLink"
+                                        formControlName="openThrough"
                                         [ngClass]=""    >
-                                        <option selected="">Choose...</option>
-                                        <option value="Y"> Yes</option>
-                                        <option value="N"> No </option>
+                                        <option value="" selected="">All</option>
+                                        <option value="LR"> LR</option>
+                                        <option value="OT"> Other Trip </option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">Status</label>
+                                    <label for="basicpill-phoneno-input">Load/Empty</label>
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="status"
+                                        formControlName="loadEmptyType"
                                         [ngClass]="">
-                                        <option selected="">Choose...</option>
-                                        <option value="O"> Open</option>
-                                        <option value="C"> Closed </option>
+                                        <option value="" selected="">Choose...</option>
+                                        <option value="L"> Load </option>
+                                        <option value="E"> Empty </option>
                                     </select>
                                 </div>
                             </div>  
@@ -127,8 +111,6 @@
                         <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button" 
                             (click)="exportExcel()"><span>Excel</span></button>
-                       <!--<button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button>--> 
                     </div>
                 </div>
             </div>
@@ -136,40 +118,27 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>Branch</th>
-                            <th>tripOpenDate</th>
-                            <th>TripMaster </th>  
-                            <th>VehicleFltMaster </th>
-                            <th>TripOpenDate</th>
-                            <th>Destination </th>   
-                            <th>TransType</th>
-                            <th>QtyLtrs</th>
-                          <!-- <th>AmountPaid</th>
-                            <th>PmtType</th>
-                            <th>CreditAffect</th>-->
-                       
-
+                            <th>fromPlace</th>
+                            <th>toPlace</th>
+                            <th>openThrough </th>  
+                            <th>partyName </th>
+                            <th>loadContents</th>
+                            <th>loadingFor </th>   
+                            <th>lrNo</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allTripStatusRptlist.tripStatusRptlist?.length != 0">
-                        <tr *ngFor="let eta of allTripStatusRptlist.tripStatusRptlist">
-                            <td>{{ eta.branch }}</td>
-                            <td>{{ eta.tripOpenDate }}</td> 
-                            <td>{{ eta.vehicleNo }}</td>
-                            <td>{{ eta.tripNo }}</td>
-                            <td>{{ eta.exUlDate }}</td>
-                             <td>{{ eta.distanceTripKM_1 }}</td> 
-                            <td>{{ eta.fromPoint }}</td> 
-                            <td>{{ eta.toPoint   }}</td> 
-                           <!-- <td>{{ eta.tripStatus }}</td> 
-                            <td>{{ eta.tripCloseDt }}</td> 
-                            <td>{{ eta.tripLinkYN }}</td> 
-                            <td>{{ eta.loadType   }}</td> -->
-                        
-                       
+                    <tbody *ngIf="allDailyloadingrptlist.dailyLoadingRptsList?.length != 0">
+                        <tr *ngFor="let eta of allDailyloadingrptlist.dailyLoadingRptsList">
+                            <td>{{ eta.fromPlace }}</td>
+                            <td>{{ eta.toPlace }}</td> 
+                            <td>{{ eta.openThrough }}</td>
+                            <td>{{ eta.partyName }}</td>
+                            <td>{{ eta.loadContents }}</td>
+                            <td>{{ eta.loadingFor }}</td> 
+                            <td>{{ eta.lrNo }}</td>                       
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allTripStatusRptlist.tripStatusRptlist?.length == 0">
+                    <tbody *ngIf="allDailyloadingrptlist.dailyLoadingRptsList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
@@ -181,4 +150,5 @@
     </div>
     <!-- End Page-content -->
 </div>
+
 

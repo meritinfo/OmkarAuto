@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
@@ -40,8 +39,6 @@ import { DocrenewalmasterlistComponent } from './module/docrenewalmaster/docrene
 import { AdddocrenewalmasterComponent } from './module/docrenewalmaster/adddocrenewalmaster/adddocrenewalmaster.component';
 import { Docrenewalmastermodel } from './models/docrenewalmastermodel';
 import { Docrenewalentrymodel } from './models/docrenewalentrymodel';
-
-
 import { RatetypeslistComponent } from './module/ratetypes/ratetypeslist/ratetypeslist.component';
 import { AddratetypesComponent } from './module/ratetypes/addratetypes/addratetypes.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
@@ -49,15 +46,12 @@ import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 import { Vehicletypemastermodel } from './models/vehicletypemastermodel';
-
 import { Vehicletypegroupmastermodel } from './models/vehicletypegroupmastermodel';
-
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { AddvehicletypegroupmasterComponent } from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
 import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/confirmationdialog.component';
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
-
 import { Consignmentmodel } from './models/consignmentmodel';
 import { Trippaymentsmodel } from './models/trippaymentsmodel';
 import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
@@ -77,17 +71,14 @@ import { TrippaymentslistComponent } from './module/trippayments/trippaymentslis
 import { GstpurchaseaddComponent } from './module/gstpurchase/gstpurchaseadd/gstpurchaseadd.component';
 import { GstpurchaselistComponent } from './module/gstpurchase/gstpurchaselist/gstpurchaselist.component';
 import { Drivermodel } from './models/drivermodel';
-
 import { AdddocrenewalentryComponent } from './module/docrenewalentry/adddocrenewalentry/adddocrenewalentry.component';
 import { DocrenewalentrylistComponent } from './module/docrenewalentry/docrenewalentrylist/docrenewalentrylist.component';
 import { CashreceiptentrylistComponent } from './module/cashreceiptentry/cashreceiptentrylist/cashreceiptentrylist.component';
 import { AddcashreceiptentryComponent } from './module/cashreceiptentry/addcashreceiptentry/addcashreceiptentry.component';
-
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { BankreceiptentrylistComponent } from './module/bankreceiptentry/bankreceiptentrylist/bankreceiptentrylist.component';
 import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankreceiptentry/addbankreceiptentry.component';
 import { Intermediatescreenmodel } from './models/intermediatescreenmodel';
-
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NumbersonlyDirective } from './directives/numbersonly.directive';
 import { DecimalonlyDirective } from './directives/decimalonly.directive';
@@ -224,6 +215,7 @@ import { Custwizardlistmodel } from './models/custwizardlistmodel';
 //import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
+import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 
 @NgModule({
   declarations: [
@@ -354,6 +346,7 @@ import { CustwizardlistComponent } from './module/custwizard/custwizardlist/cust
    // CustwizardlistComponent,
     CustwizardaddComponent,
     CustwizardlistComponent,
+    DailyloadingrptComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,9 +55,20 @@
                                                 <label for="formrow-inputState">LR No.</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="gcSlNo"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }" (change)="checkDuplicateLr()">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['gcSlNo'].invalid) }" 
+                                                    (change)="checkDuplicateLr()">
                                             </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <input type="checkbox" name="select" 
+                                                    class="form-check-input" value="Y"
+                                                    formControlName="attachLRtoSameTrip">  
+                                                <label for="formrow-inputCity"> Attach LR To Same Old Trip</label>
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Booking Date</label>
                                                 <input bsdatepicker="" type="date" autoclose="false"
@@ -165,9 +176,7 @@
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckId'].invalid) }"
-                                                     
-                                                        >
-
+                                                                             >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -213,7 +222,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pin</label>
                                                 <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="fromPin"
+                                                    formControlName="fromPin" 
+                                                    maxlength="6"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPin'].invalid) }">
                                             </div>
                                         </div>
@@ -247,6 +257,7 @@
                                                 <label for="formrow-inputZip">Pin</label>
                                                 <input numbersonly autoclose="false" class="form-control"
                                                     formControlName="toPin"
+                                                    maxlength="6"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['toPin'].invalid) }">
                                             </div>
                                         </div>
@@ -254,6 +265,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">kMs</label>
                                                 <input type="text" numbersonly class="form-control" placeholder=" "
+                                                     maxlength="8"
                                                     formControlName="kms">
                                             </div>
                                         </div>
@@ -281,11 +293,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Cnor Gst</label>
-                                                <input uppercaseonly type="text" id="formrow-inputCity"
+                                                <input type="text" id="formrow-inputCity"
+                                                maxlength="15" uppercaseonly
                                                     class="form-control" placeholder="" formControlName="cnorGst"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGst'].invalid) }">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-2">
                                             <div class="mb-3"><label for="formrow-inputZip">Cnor Inv No</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
@@ -307,22 +322,20 @@
                                                     class="form-control"  [ngClass]= "{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-
-
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">CnorPlantCode </label>
                                                 <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
+                                                maxlength="10"
                                                     placeholder="" formControlName="cnorPlantCode" [ngClass]= >
 
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee</label>
-
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     placeholder="" formControlName="cneeCode" uppercaseonly
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeCode'].invalid) }">
@@ -353,13 +366,14 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Consignee gst</label>
-                                                <input uppercaseonly class="form-control" formControlName="cneeGst" [ngClass]= "{ 'is-invalid': formSubmitted && (f['cneeGst'].invalid) }">
+                                                <input uppercaseonly class="form-control" formControlName="cneeGst"
+                                                maxlength="15"
+                                                 [ngClass]= "{ 'is-invalid': formSubmitted && (f['cneeGst'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents</label>
-
                                                 <select class="form-control" formControlName="productId"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['productId'].invalid) }">
                                                     <option *ngFor="let data of contentList" value={{data.dataId}}>
@@ -372,6 +386,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Contents Desc</label>
                                                 <input uppercaseonly type="text" class="form-control"
+                                                maxlength="50"
                                                     formControlName="productDesc" placeholder=" " [ngClass]= >
                                             </div>
                                         </div>
@@ -429,7 +444,6 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">CneeDealrCode </label>
-
                                                 <input autoclose="false" uppercaseonly formControlName="cneeDealrCode"
                                                     class="form-control">
                                             </div>

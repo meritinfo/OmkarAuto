@@ -10,5 +10,6 @@
         public bool EnableLastNewTripDate { get; set; }
         public bool EnableFromTo { get; set; }
         public bool EnableDriver { get; set; }
+        public bool AttachLRtoSameTrip { get; set; }
     }
 }

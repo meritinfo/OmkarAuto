@@ -1,6 +1,5 @@
 
 import { Component,ViewChild } from '@angular/core';
-
 import { Router } from '@angular/router';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,25 +7,25 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Tripstatusrptlistmodel  } from 'src/app/models/tripstatusrptlistmodel';
-import { Tripstatusrptmodel } from 'src/app/models/tripstatusrptmodel';
-import { TripStatusRptService } from 'src/app/services/tripstatusrpt.service';
+import { Dailyloadingrptlistmodel  } from 'src/app/models/dailyloadingrptlistmodel';
+import { Dailyloadingrptmodel } from 'src/app/models/dailyloadingrptmodel';
+import { DailyloadingrptService } from 'src/app/services/dailyloadingrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-tripstatusrpt',
-  templateUrl: './tripstatusrpt.component.html',
-  styleUrls: ['./tripstatusrpt.component.css']
+  selector: 'app-dailyloadingrpt',
+  templateUrl: './dailyloadingrpt.component.html',
+  styleUrls: ['./dailyloadingrpt.component.css']
 })
-export class TripstatusrptComponent {
+export class DailyloadingrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-  docRenewalList: Dropdownmodel[] = [];
+
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
@@ -36,11 +35,11 @@ export class TripstatusrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allTripStatusRptlist: Tripstatusrptlistmodel = new Tripstatusrptlistmodel();
+  allDailyloadingrptlist: Dailyloadingrptlistmodel = new Dailyloadingrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'paymentBr',
+    sortColumn: 'fromPlace',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -49,9 +48,9 @@ export class TripstatusrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
+  }
 
-}
-formFilter!: FormGroup;
+  formFilter!: FormGroup;
   userSubmitted = false;
   year: string = '';
   loginDate: string = '';
@@ -61,19 +60,19 @@ formFilter!: FormGroup;
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private tripStatusRptService: TripStatusRptService, 
+  constructor(private dailyloadingrptService: DailyloadingrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-    ngOnInit(): void {   
-  
+
+    ngOnInit(): void {     
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Trip Payments Report");
+        .find((aa: { menuName: string; }) => aa.menuName === "Daily Loading Report");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -107,7 +106,6 @@ formFilter!: FormGroup;
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(month - 3);
-     // today.setFullYear(year - 1);
 
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -122,11 +120,12 @@ formFilter!: FormGroup;
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        tripBranch: new FormControl('',),  
+        branch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
-        tripLink: new FormControl('',),  
-        status: new FormControl('',),  
+        openThrough: new FormControl('',),  
+        loadEmptyType: new FormControl('',), 
       });
+
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
@@ -135,10 +134,11 @@ formFilter!: FormGroup;
       this.sharedService.loading=true;
       this.getBranchList();
       this.getVehicleNoList(); 
-      this.getDocRefNoList();   
-      this.expTripStatus();
+
+      this.dailyloadingList();
       this.sharedService.loading=false;
     }
+
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
@@ -149,11 +149,7 @@ formFilter!: FormGroup;
         this.vehicleList = res;
       });
     }
-    getDocRefNoList(): void {
-      this.commonService.getDocRefNoList().subscribe((res) => {
-        this.docRenewalList = res;
-      });
-    }
+    
     get f() { return this.formFilter.controls; }
   
     selectEvent(item: any) {
@@ -173,7 +169,8 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
-    expTripStatus(){
+
+    dailyloadingList(){
       this.dtOptions = {
           pagingType: 'full_numbers',
           pageLength: 10,
@@ -187,8 +184,8 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'Branch';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
-            this.tripStatusRptService.getTripStatusRptList(this.filter).subscribe(resp => {
-               this.allTripStatusRptlist = resp;
+            this.dailyloadingrptService.getDailyloadingrptList(this.filter).subscribe(resp => {
+               this.allDailyloadingrptlist = resp;
                 callback({
                   recordsTotal: resp.pageMetaData.totalCount,
                   recordsFiltered: resp.pageMetaData.totalCount,
@@ -198,65 +195,37 @@ formFilter!: FormGroup;
           }, 
           columns: [ 
           {
-            title: 'Branch ',
-            data: 'branch',
+            title: 'From Place ',
+            data: 'fromPlace',
           },  
           {
-            title: 'TripOpenDate ',
-            data: 'tripOpenDate',
+            title: 'To Place ',
+            data: 'toPlace',
           },    
           {
-            title: 'VehicleNo',
-            data: 'vehicleNo',
+            title: 'Open Through',
+            data: 'openThrough',
           },
           {
-            title: 'TripNo ',
-            data: 'tripNo',
-          },       
-        
+            title: 'Party Name ',
+            data: 'partyName',
+          }, 
           {
-            title: 'ExUlDate',
-            data: 'exUlDate',
+            title: 'Load Contents',
+            data: 'loadContents',
           },
           {
-            title: 'DistanceTripKM_1 ',
-            data: 'distanceTripKM_1',
+            title: 'Loading For ',
+            data: 'loadingFor',
           },
           {
-            title: 'fromPoint ',
-            data: 'fromPoint',
-          },
-          {
-            title: 'ToPoint   ',
-            data: 'toPoint  ',
-          },
-         // {
-        //    title: 'PmtType ',
-          //  data: 'pmtType',
-       //   },
-         // {
-          //   title: 'TripStatus ',
-          //   data: 'tripStatus',
-          // },
-          // {
-          //   title: 'TripCloseDt ',
-          //   data: 'tripCloseDt',
-          // },
-          // {
-          //   title: 'TripLinkYN ',
-          //   data: 'tripLinkYN',
-          // },
-          // {
-          //   title: 'LoadType',
-          //   data: 'loadType',
-          // },
-      
-      
+            title: 'LR No ',
+            data: 'lrNo',
+          },  
         ],
       };
     }
       
-    //Open user details screen
     exportExcel(): void {      
       this.userSubmitted = true;
       if (this.formFilter.invalid) {
@@ -272,13 +241,14 @@ formFilter!: FormGroup;
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.tripLink:"";
-      this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.status:"";
-      this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
-      this.tripStatusRptService.getTripStatusRptListExcel(this.filter).subscribe(resp => {
+      this.filter.filterStr   = selectedDataVal.branch;
+      this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr2  = selectedDataVal.openThrough;
+      this.filter.filterStr3  = selectedDataVal.loadEmptyType;
+      this.dailyloadingrptService.getDailyloadingrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "TripStatus" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "Dailyloading" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -303,12 +273,12 @@ formFilter!: FormGroup;
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
-    this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
-   //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
+    this.filter.filterStr   = selectedDataVal.branch;
+    this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.openThrough;
+    this.filter.filterStr3  = selectedDataVal.loadEmptyType;
     this.sharedService.loading=true;
-    this.expTripStatus();
+    this.dailyloadingList();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

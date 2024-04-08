@@ -242,7 +242,7 @@ if(selectedDataValue.tripNo!=1){
   }
   GetDslOpeningBalforPmtCreate(e: any,m: any) {
     var selectedDataValue = this.formTripPayment.getRawValue();
-if(selectedDataValue.tripNo!=1){
+  if(selectedDataValue.tripNo!=1){
     var selectedDataValue = this.formTripPayment.getRawValue();
    
    // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
@@ -586,6 +586,15 @@ if(selectedDataValue.tripNo!=1){
           return;
         }
       }   
+      var vehilist = this.vehicleList.find(e => e.dataName == selectedDataValue.vehicleMasterID.dataName) 
+      if (typeof vehilist !== 'undefined' && vehilist !== null && 
+            vehilist.dataId!="" && vehilist.dataId!="0") {
+          //ignore
+      }
+      else{
+        this.toasterService.warning("Please Enter Valid Vehical No ");          
+        return;
+      }
 
       var chqDt = this.loginDate;
       if (selectedDataValue.pmtType=="B"){
@@ -595,7 +604,7 @@ if(selectedDataValue.tripNo!=1){
       this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
       this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
       this.trippaymentsmodel.tripNo = selectedDataValue.tripNo;
-      this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
+      this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
       this.trippaymentsmodel.tripMasterId = selectedDataValue.tripMasterId;
       this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
       this.trippaymentsmodel.remarks = selectedDataValue.remarks;

@@ -61,6 +61,7 @@
         public string? GtotalRs { get; set; }
         public string? GeneralRemarks { get; set; }
         public string? Attachedfile { get; set; }
+        public string? AttachLRtoSameTrip { get; set; }
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
         public string? BookedAt { get; set; }

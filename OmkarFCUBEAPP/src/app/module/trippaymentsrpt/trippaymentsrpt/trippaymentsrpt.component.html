@@ -22,7 +22,7 @@
                 <div class="col-sm-8 col-md-8">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -30,7 +30,7 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
@@ -93,27 +93,34 @@
                                     <label for="basicpill-phoneno-input">Trans Type</label>
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="transType"
-                                        [ngClass]=""
-                                      >
+                                        [ngClass]="" >
                                         <option selected="">Choose...</option>
                                         <option value="DA"> Driver Adv</option>
                                         <option value="DL"> Diesel </option>
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="basicpill-phoneno-input">CreditAc </label>          
+                                    <select class="form-control" formControlName="creditAc">
+                                    <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                        {{branch.dataName}}
+                                    </option>
+                                </select>
+                                </div>
+                            </div>          
                             <div class="col-lg-2">
                                 <div class="mb-2">
                                     <label for="basicpill-phoneno-input">Payment Type</label>
                                     <select id="formrow-inputState" class="form-control"
                                         formControlName="pmtType"
-                                        [ngClass]=""  
-                                       >
+                                        [ngClass]="" >
                                         <option selected="">Choose...</option>
-                                        <option value="C">Cash</option>
+                                        <option value="C"> Cash</option>
                                         <option value="B"> Bank</option>
                                         <option value="H"> Happay</option>
                                         <option value="P"> Petro</option>
-                                        <option value="F"> Fastag</option>
                                         <option value="V"> Vendor</option>
                                         <option value="A"> Adjust </option>
                                     </select>

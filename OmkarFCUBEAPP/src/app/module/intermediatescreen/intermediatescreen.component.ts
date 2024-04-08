@@ -100,8 +100,8 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
-      if (this.responseDetails.status) {
-          this.getCompanyDetails();
+      if (this.responseDetails.status) {        
+        this.getCompanyDetails();
         sessionStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);
@@ -120,19 +120,21 @@ export class IntermediatescreenComponent {
     });
 
   }
+
   getCompanyDetails(){
     this.commonService.getCompanyDetail().subscribe((res: Responsemodel) => {
-       this.responseDetails = res;
-       if (this.responseDetails.status){        
+      this.responseDetails = res;
+      if (this.responseDetails.status){        
         this.companyname = this.responseDetails.message;
-       }
-       else{
+      }
+      else{
         this.companyname = "OMKAR "
-       }
-        sessionStorage.setItem("companyname", this.companyname );
-      });
+      }
+      sessionStorage.setItem("companyname", this.companyname );
+    });
      
-    }
+  }
+  
   getDropdownList() {
     this.sharedService.loading = true;
     this.commonService.getYearList().subscribe((res) => {
@@ -141,18 +143,17 @@ export class IntermediatescreenComponent {
         yearID:this.yearList[0].dataId,
       })   
     }); 
-    if (this.userscope =="HO"){
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-        this.sharedService.loading = false;
-      });
+
+    if (this.userscope =="HO"){      
+      this.requestmodel.strRequest = 'HO';     
     }
     else{
       this.requestmodel.strRequest = this.loggedInUserID;
-      this.commonService.getScopeBranchList(this.requestmodel).subscribe((res) => {
-        this.branchList = res;
-        this.sharedService.loading = false;
-      });
     }
+
+    this.commonService.getScopeBranchList(this.requestmodel).subscribe((res) => {
+      this.branchList = res;
+      this.sharedService.loading = false;
+    });
   }
 }

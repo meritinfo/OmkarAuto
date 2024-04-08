@@ -21,6 +21,7 @@ import { GetDslmodel } from 'src/app/models/getdslmodel';
 import { Datemodel } from 'src/app/models/datemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-consignmentadd',
@@ -56,6 +57,7 @@ export class ConsignmentaddComponent implements OnInit {
   dslDetails = new Dslmodel();
   adBlueDetails = new Adbluetobemodel();
   getdslDetails = new GetDslmodel();
+  usertriprightsmodel = new Usertriprightsmodel();
 
   dateDetails = new Datemodel();
   fromDate: string = '';
@@ -88,6 +90,7 @@ export class ConsignmentaddComponent implements OnInit {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  attachLRtoSameTrip = false;
 
   ivFromPlace = '';
   ivToPlace = '';
@@ -233,9 +236,12 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
       userBranch3: new FormControl('1',),
+      attachLRtoSameTrip: new FormControl('',),
     });
     setTimeout(() => {      
       this.formConsignment.controls['bookingPlace'].disable();
+      this.formConsignment.controls['attachLRtoSameTrip'].disable();
+      
       if (this.selectedConsignmentDetails.consignmentID != '') {
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
@@ -367,6 +373,21 @@ export class ConsignmentaddComponent implements OnInit {
     });
   }
 
+  getUserTripRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;
+      this.attachLRtoSameTrip = this.usertriprightsmodel.attachLRtoSameTrip;      
+
+      if(this.attachLRtoSameTrip){            
+        this.formConsignment.controls['attachLRtoSameTrip'].enable();
+      }
+      else{            
+        this.formConsignment.controls['attachLRtoSameTrip'].disable();
+      }
+    });   
+  }
+
   changeFromPlace(e: any) {
     var selectedDataValue = this.formConsignment.getRawValue();
     this.ivFromPlace = e.dataId;
@@ -478,7 +499,8 @@ export class ConsignmentaddComponent implements OnInit {
           this.formConsignment.patchValue({
             kms: this.responseDetails.message
           });
-        } else {
+        } 
+        else {
           this.formConsignment.patchValue({
             kms: ''
           });
@@ -659,6 +681,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0";
         this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
         this.consignmentmodel.attachedfile = selectedDataValue.attachedfile;
+        this.consignmentmodel.attachLRtoSameTrip = selectedDataValue.attachLRtoSameTrip?"Y":"N";
         this.consignmentmodel.handlingRs = selectedDataValue.handlingRs;
         this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs;
         this.consignmentmodel.miscRs = selectedDataValue.miscRs;
@@ -688,6 +711,7 @@ export class ConsignmentaddComponent implements OnInit {
           }
           else {
             this.toasterService.warning(this.responseDetails.message);
+            this.getUserTripRights();
           }
         });
 

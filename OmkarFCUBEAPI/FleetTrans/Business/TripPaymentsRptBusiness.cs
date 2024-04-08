@@ -4,6 +4,7 @@ using FleetTrans.Models;
 
 
 using Shared.Models;
+using DocumentFormat.OpenXml.Office2016.Excel;
 
 namespace FleetTrans.Business
 {
@@ -21,6 +22,10 @@ namespace FleetTrans.Business
         public async Task<ResponseModel> ExcelTripPaymentsRptList(ReportRequestModel request)
         {
             return await tripPaymentsRptRepository.ExcelTripPaymentsRptList(request);
+        }
+        public async Task<List<DropDownListModel>> GetTripPaymentsCreditList()
+        {
+            return await tripPaymentsRptRepository.GetTripPaymentsCreditList();
         }
     }
 }

@@ -36,6 +36,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@active",             request.FilterStr),
                             new SqlParameter("@PmtType",            request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                            new SqlParameter("@CreditAc",           request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsRptList", param);
 
@@ -91,6 +92,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TransType",          request.FilterStr),
                             new SqlParameter("@PmtType",            request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                            new SqlParameter("@CreditAc",           request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsRptExcel", param);
 
@@ -120,6 +122,37 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<List<DropDownListModel>> GetTripPaymentsCreditList()
+        {
+            List<DropDownListModel> creditacList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripPaymentsCreditList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            creditacList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return creditacList;
+        }
+
+
 
     }
 }

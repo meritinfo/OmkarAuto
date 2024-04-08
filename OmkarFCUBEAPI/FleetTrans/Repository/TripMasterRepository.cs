@@ -857,9 +857,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@Transdate", request.Transdate),
-
-                    
+                            new SqlParameter("@Transdate", request.Transdate),                    
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetBhattaRate", param);
 
@@ -1256,6 +1254,7 @@ namespace FleetTrans.Repository
                         userTrip.EnableLastNewTripDate = statusData.Tables[0].Rows[0]["EnableLastNewTripDate"].ToString()=="Y" ? true : false;
                         userTrip.EnableFromTo = statusData.Tables[0].Rows[0]["EnableFromTo"].ToString()=="Y" ? true : false;
                         userTrip.EnableDriver = statusData.Tables[0].Rows[0]["EnableDriver"].ToString()=="Y" ? true : false;
+                        userTrip.AttachLRtoSameTrip = statusData.Tables[0].Rows[0]["EnableDriver"].ToString()=="Y" ? true : false;
                     }
                     else
                     {
@@ -1264,6 +1263,7 @@ namespace FleetTrans.Repository
                         userTrip.EnableLastNewTripDate = false;
                         userTrip.EnableFromTo = false;
                         userTrip.EnableDriver = false;
+                        userTrip.AttachLRtoSameTrip = false;
                     }
                 }
             }

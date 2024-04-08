@@ -59,6 +59,7 @@ export class Consignmentmodel {
     generalRemarks: string = "";
 
     attachedfile: string = "";
+    attachLRtoSameTrip:string = "";
     yearId: string = "";
     loggedInUser: string = "";
     bookedAt: string = "";

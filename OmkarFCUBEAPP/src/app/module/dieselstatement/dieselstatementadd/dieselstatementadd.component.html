@@ -116,7 +116,7 @@
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
                                                     <label for="formrow-inputCity">Rate</label><span style="color: red"> * </span>
-                                                    <input autoclose="false" (change)="ratechange($event)"
+                                                    <input decimalonly autoclose="false" (change)="ratechange($event)"
                                                         class="form-control" formControlName="rate"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['rate'].invalid) }">
                                                 </div>
@@ -238,7 +238,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">Disc Rate/Ltr</label>
-                                            <input autoclose="false" (change)="calculateTotal()"
+                                            <input decimalonly autoclose="false" (change)="calculateTotal()"
                                                 class="form-control" formControlName="discRateLtr">
                                         </div>
                                     </div>                                                                                                              
@@ -261,7 +261,7 @@
                                     <div class="col-lg-3">
                                         <div class="mb-3">
                                             <label for="formrow-inputCity">TDS Perc</label>
-                                            <input autoclose="false" (change)="calculateTotal()"
+                                            <input decimalonly autoclose="false" (change)="calculateTotal()"
                                                 class="form-control" formControlName="tdsRate">
                                         </div>
                                     </div>                                                                                                              

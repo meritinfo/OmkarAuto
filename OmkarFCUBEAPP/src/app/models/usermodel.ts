@@ -14,6 +14,7 @@ export class Usermodel {
     enableLastNewTripDate:string = "";
     enableFromTo:string = "";
     enableDriver:string = "";
+    attachLRtoSameTrip:string = "";
     branchList: string = "";
     moduleList: string = "";
     loggedInUser: string = "";

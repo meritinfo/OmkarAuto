@@ -12,6 +12,7 @@ namespace FleetTrans.Business
     {
         Task<TripPaymentsRptListModel> GetTripPaymentsRptList(ReportRequestModel request);
         Task<ResponseModel> ExcelTripPaymentsRptList(ReportRequestModel request);
+        Task<List<DropDownListModel>> GetTripPaymentsCreditList();
 
     }
 }

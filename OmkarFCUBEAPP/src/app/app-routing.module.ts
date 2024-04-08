@@ -24,15 +24,12 @@ import { AddroletypeComponent } from './module/roletype/addroletype/addroletype.
 import { RoletypelistComponent } from './module/roletype/roletypelist/roletypelist.component';
 import { AddhrmasterComponent } from './module/hrmaster/addhrmaster/addhrmaster.component';
 import { HrmasterlistComponent } from './module/hrmaster/hrmasterlist/hrmasterlist.component';
-
-
 import { OpbrsentrylistComponent } from './module/opbrsentry/opbrsentrylist/opbrsentrylist.component';
 import { AddbrsentryComponent } from './module/opbrsentry/addbrsentry/addbrsentry.component';
 import { AddlrbillseriesComponent } from './module/lrbillseries/addlrbillseries/addlrbillseries.component';
 import { LrbillserieslistComponent } from './module/lrbillseries/lrbillserieslist/lrbillserieslist.component';
 import {AddvehicletypemasterComponent} from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
 import {AddvehicletypegroupmasterComponent} from './module/vehicletypegroupmaster/addvehicletypegroupmaster/addvehicletypegroupmaster.component';
-
 import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { VehicletypegroupmasterlistComponent } from './module/vehicletypegroupmaster/vehicletypegroupmasterlist/vehicletypegroupmasterlist.component';
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
@@ -113,7 +110,7 @@ import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsa
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
-
+import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 
 
 
@@ -277,6 +274,8 @@ const routes: Routes = [
   { path: 'custwizardadd', component: CustwizardaddComponent },  
   { path: 'custwizardedit', component: CustwizardaddComponent },  
   { path: 'custwizardlist', component:  CustwizardlistComponent },
+  { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
+  
   
   
 ];

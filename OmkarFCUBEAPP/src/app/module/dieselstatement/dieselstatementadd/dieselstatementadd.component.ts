@@ -130,6 +130,7 @@ export class DieselstatementaddComponent implements OnInit {
       totalCashAdv: new FormControl(''),
       totalNetAmount: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
+      selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
@@ -142,13 +143,14 @@ export class DieselstatementaddComponent implements OnInit {
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
           //location: this.branchList.find(e => e.dataId == this.selectedDieselStmtDetails.location),  
-          vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),     
+          vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),   
+          selectedAll:'Y'   
         })
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
         this.formDieselStatement.controls['toDate'].disable();  
-        //this.formDieselStatement.controls['location'].disable();   
+        this.formDieselStatement.controls['selectedAll'].disable();   
         this.formDieselStatement.controls['vendorId'].disable();     
       }    
     }, 2000);
@@ -224,11 +226,11 @@ export class DieselstatementaddComponent implements OnInit {
     for (var i = 0; i < this.DieselStatementmodel.dieselStatementListData.length; i++) {
       if(this.DieselStatementmodel.dieselStatementListData[i].hsdAdvType == "D"){
         var qtyLtrs = this.DieselStatementmodel.dieselStatementListData[i].qtyLtrs;      
-        var amount = (parseFloat(rate) * parseFloat(qtyLtrs)).toString();
-        this.DieselStatementmodel.dieselStatementListData[i].ratePerLtr = rate;
-        this.DieselStatementmodel.dieselStatementListData[i].amountPaid = amount ;
-        this.formArray.controls[i].get("ratePerLtr")?.setValue(rate);
-        this.formArray.controls[i].get("amountPaid")?.setValue(amount);
+        var amount = (parseFloat(rate) * parseFloat(qtyLtrs));
+        this.DieselStatementmodel.dieselStatementListData[i].ratePerLtr = parseFloat(rate).toFixed(2);
+        this.DieselStatementmodel.dieselStatementListData[i].amountPaid = amount.toFixed(2) ;
+        this.formArray.controls[i].get("ratePerLtr")?.setValue(parseFloat(rate).toFixed(2));
+        this.formArray.controls[i].get("amountPaid")?.setValue(amount.toFixed(2));
       }
     }  
     

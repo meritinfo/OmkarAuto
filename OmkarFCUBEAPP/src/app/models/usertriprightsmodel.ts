@@ -4,4 +4,5 @@ export class Usertriprightsmodel {
     enableLastNewTripDate: boolean = false;
     enableFromTo: boolean = false;
     enableDriver: boolean = false;
+    attachLRtoSameTrip:boolean = false;
 }

@@ -27,6 +27,7 @@ export class TrippaymentsrptComponent {
   viewStatus = false; 
   docRenewalList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  creditacList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -125,17 +126,23 @@ formFilter!: FormGroup;
         tripBranch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
         transType: new FormControl('',),  
-        pmtType: new FormControl('',),  
+        pmtType: new FormControl('',),   
+        creditAc: new FormControl('',),  
       });
+
       this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
+      this.filter.filterStr2  = "";
+      this.filter.filterStr3  = "";
   
       this.sharedService.loading=true;
       this.getBranchList();
       this.getVehicleNoList(); 
-      this.getDocRefNoList();   
+      this.getDocRefNoList();       
+      this.getTripPaymentsCreditList();
+
       this.expTripPayments();
       this.sharedService.loading=false;
     }
@@ -149,11 +156,19 @@ formFilter!: FormGroup;
         this.vehicleList = res;
       });
     }
+
+    getTripPaymentsCreditList(): void {
+      this.commonService.getTripPaymentsCreditList().subscribe((res) => {
+        this.creditacList = res;
+      });
+    }
+    
     getDocRefNoList(): void {
       this.commonService.getDocRefNoList().subscribe((res) => {
         this.docRenewalList = res;
       });
     }
+    
     get f() { return this.formFilter.controls; }
   
     selectEvent(item: any) {
@@ -173,6 +188,7 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
+
     expTripPayments(){
       this.dtOptions = {
           pagingType: 'full_numbers',
@@ -265,6 +281,8 @@ formFilter!: FormGroup;
       this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
       this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
       this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+      this.filter.filterStr3  = selectedDataVal.creditAc;
+
       this.tripPaymentsRptService.getTripPaymentsRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
@@ -296,6 +314,8 @@ formFilter!: FormGroup;
     this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.transType:"";
     this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.pmtType:"";
     this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    this.filter.filterStr3  = selectedDataVal.creditAc;
+    
     this.sharedService.loading=true;
     this.expTripPayments();
     this.sharedService.loading=false;

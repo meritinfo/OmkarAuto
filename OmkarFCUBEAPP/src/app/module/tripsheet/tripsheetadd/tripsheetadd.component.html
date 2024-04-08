@@ -843,7 +843,8 @@
                                 <div class="col-lg-2">
                                     <div class="mb-2">
                                         <label for="formrow-inputCity">Dsl/Ltr Issued</label>
-                                        <input class="form-control" placeholder="" formControlName="issuedDslLtrs"
+                                        <input class="form-control" placeholder="" 
+                                        formControlName="issuedDslLtrs"
                                               decimalonly>
                                     </div>
                                 </div>
@@ -864,14 +865,16 @@
                                   <div class="col-lg-2">
                                       <div class="mb-2">
                                           <label for="formrow-inputCity">Repairs</label>
-                                          <input class="form-control" placeholder="" formControlName="repairsByDriver"
+                                          <input class="form-control" placeholder="" 
+                                          formControlName="repairsByDriver"
                                               decimalonly>
                                       </div>
                                   </div>
                                   <div class="col-lg-2">
                                       <div class="mb-2">
                                           <label for="formrow-inputCity">Parking</label>
-                                          <input class="form-control" placeholder="" formControlName="parkingByDriver"
+                                          <input class="form-control" placeholder="" 
+                                          formControlName="parkingByDriver"
                                               decimalonly>
                                       </div>
                                   </div>
@@ -895,8 +898,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Mchallan</label>
-                                            <input class="form-control" placeholder="" formControlName="challanByDriver"
-                                                decimalonly>
+                                            <input class="form-control" placeholder="" 
+                                            formControlName="challanByDriver" decimalonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -930,11 +933,9 @@
                                     <div class="col-lg-2">
                                         <div class="mb-2">
                                             <label for="formrow-inputCity">Cash Dsl Place</label>
-
-                                            <select class="form-control" formControlName="cashDslPlace" [ngClass]="">
-
+                                            <select class="form-control" formControlName="cashDslPlace" 
+                                            [ngClass]="">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-
                                                     {{branch.dataName}}
                                                 </option>
                                             </select>

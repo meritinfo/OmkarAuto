@@ -145,11 +145,13 @@ formFilter!: FormGroup;
       this.expDieselStatement();
       this.sharedService.loading=false;
     }
+
     getBranchList(): void {
       this.commonService.getBranchList().subscribe((res) => {
         this.branchList = res;
       });
     }
+
     getVehicleNoList(): void {
       this.commonService.getVehicleNoList().subscribe((res) => {
         this.vehicleList = res;
@@ -179,6 +181,7 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
+
     expDieselStatement(){
       this.dtOptions = {
           pagingType: 'full_numbers',
@@ -243,12 +246,10 @@ formFilter!: FormGroup;
       //this.tripVehicleDetails.vehicleMasterId =  e;
        // this.ptype = e;
       this.commonService.getCreditAcList().subscribe((res) => {
-        this.creditacList = res;
-      
-      });
-    
-  
+        this.creditacList = res;      
+      });   
     }
+
     exportExcel(): void {
      this.dieselStatementRptService.getDieselStatementRptListExcel(this.filter).subscribe(resp => {
        if(resp.status){      

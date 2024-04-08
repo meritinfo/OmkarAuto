@@ -19,6 +19,7 @@ using System.Xml.Linq;
 using FreightMasters.Business;
 using FreightMasters.Models;
 using Org.BouncyCastle.Ocsp;
+using System.Collections.Generic;
 
 namespace OmkarFCUBEAPI.Controllers
 {
@@ -40,6 +41,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IDieselStatementRptBusiness dieselStatementRptBusiness;
         readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
         readonly ITripStatusRptBusiness tripStatusRptBusiness;
+        readonly IDailyLoadingRptBusiness dailyLoadingRptBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -47,10 +49,11 @@ namespace OmkarFCUBEAPI.Controllers
             IBillStatementBusiness _billStatementBusiness, 
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
-             IDocRenewalRptBusiness _docRenewalRptBusiness,
-              IDieselStatementRptBusiness _dieselStatementRptBusiness,
-                ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
-                 ITripStatusRptBusiness _tripStatusRptBusiness)
+            IDocRenewalRptBusiness _docRenewalRptBusiness,
+            IDieselStatementRptBusiness _dieselStatementRptBusiness,
+            ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
+            ITripStatusRptBusiness _tripStatusRptBusiness,
+            IDailyLoadingRptBusiness _dailyLoadingRptBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -63,6 +66,7 @@ namespace OmkarFCUBEAPI.Controllers
             dieselStatementRptBusiness = _dieselStatementRptBusiness;
             tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
+            dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
         }
 
        
@@ -1250,6 +1254,21 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
+        [HttpPost("GetTripPaymentsCreditList")]
+        public async Task<IActionResult> GetTripPaymentsRptList()
+        {
+            try
+            {
+                var result = await tripPaymentsRptBusiness.GetTripPaymentsCreditList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetTripPaymentsRPTList")]
         public async Task<IActionResult> GetTripPaymentsRptList(ReportRequestModel request)
         {
@@ -1278,6 +1297,45 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await tripPaymentsRptBusiness.ExcelTripPaymentsRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetDailyLoadingRptList")]
+        public async Task<IActionResult> GetDailyLoadingRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dailyLoadingRptBusiness.GetDailyLoadingRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDailyLoadingRptExcel")]
+        public async Task<IActionResult> GetDailyLoadingRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dailyLoadingRptBusiness.GetDailyLoadingRptExcel(request);
 
                 return Ok(result);
             }
