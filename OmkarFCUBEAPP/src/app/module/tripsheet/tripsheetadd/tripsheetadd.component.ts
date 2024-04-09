@@ -2606,6 +2606,7 @@ actualDieselTobe(){
         let ld = parseFloat(this.ltsdsl).toFixed(2);
         this.dsl2 = parseFloat(ld);
         this.totalCal2(ld);
+        this.actualDieselTobe();
 
         // if (this.tripkmsDetails.status) {
         if (this.ltsdsl != undefined) {
@@ -3124,6 +3125,7 @@ actualDieselTobe(){
       });
     }
     this.totalCal();
+    this.actualDieselTobe();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;

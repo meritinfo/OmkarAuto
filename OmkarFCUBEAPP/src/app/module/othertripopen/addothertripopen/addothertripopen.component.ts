@@ -649,6 +649,25 @@ export class AddothertripopenComponent {
       this.toasterService.warning(" Invalid Trip No");   
       return;
     }
+    var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.loadingFrom.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid loadingFrom Place ");          
+      return;
+    }
+
+    var toLoc = this.locationList.find(e => e.dataName == selectedDataValue.destination.dataName) 
+    if (typeof toLoc !== 'undefined' && toLoc !== null && 
+    toLoc.dataId!="" && toLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid destination Place ");          
+      return;
+    }
 
 
     this.sharedService.loading=true;
