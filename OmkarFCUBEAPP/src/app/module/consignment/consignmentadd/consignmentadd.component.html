@@ -165,7 +165,6 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vehicle No</label>
-
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
@@ -195,7 +194,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">From Place</label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="fromPlace"
+                                                    <ng-autocomplete [data]="locationList" 
+                                                        formControlName="fromPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeFromPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
@@ -231,7 +231,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">To Place</label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="toPlace"
+                                                    <ng-autocomplete [data]="locationList" 
+                                                        formControlName="toPlace"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='changeToPlace($event)'
                                                         (inputChanged)='onChangeSearch($event)'
@@ -629,20 +630,18 @@
                                                 <label for="formrow-inputZip">Billing Station</label>
                                                 <select class="form-control" formControlName="userBranch3"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch3'].invalid) }">
-
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
-
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Billing Party </label>
                                                 <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="partyList" formControlName="billingParty"
+                                                    <ng-autocomplete [data]="partyList" 
+                                                        formControlName="billingParty"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
