@@ -618,7 +618,46 @@ export class ConsignmentaddComponent implements OnInit {
       this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
       return;   
     }
-    
+
+    var vehilist = this.vehicleList.find(e => e.dataName == selectedDataValue.truckId.dataName) 
+    if (typeof vehilist !== 'undefined' && vehilist !== null && 
+          vehilist.dataId!="" && vehilist.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid Vehical No ");          
+      return;
+    }
+
+    var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.fromPlace.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid From Place ");          
+      return;
+    }
+
+    var toLoc = this.locationList.find(e => e.dataName == selectedDataValue.toPlace.dataName) 
+    if (typeof toLoc !== 'undefined' && toLoc !== null && 
+    toLoc.dataId!="" && toLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid To Place ");          
+      return;
+    }
+
+    var party = this.partyList.find(e => e.dataName == selectedDataValue.billingParty.dataName) 
+    if (typeof party !== 'undefined' && party !== null && 
+    party.dataId!="" && party.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid Billing Party ");          
+      return;
+    }
 
     this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
     this.dateDetails.yearId = this.year;
