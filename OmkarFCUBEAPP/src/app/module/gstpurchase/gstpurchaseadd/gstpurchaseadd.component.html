@@ -46,7 +46,7 @@
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                             </div>
                                         </div>            
-                                        <!-- <div class="col-lg-2">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <div class="form-check mt-4">
                                                     <input type="checkbox" (change)="onChkNoVender($event)"
@@ -54,7 +54,7 @@
                                                     <label for="formrow-inputZip"> No Vendor </label>
                                                 </div>
                                             </div>
-                                        </div> -->
+                                        </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vendor</label>                                                
@@ -79,6 +79,41 @@
                                                         <div [innerHTML]="notFound"></div>
                                                     </ng-template>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vender Name</label><span style="color: red">*</span> 
+                                                <input uppercaseonly class="form-control" formControlName="vendorName" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorName'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vender Address</label><span style="color: red">*</span> 
+                                                <input uppercaseonly class="form-control" formControlName="vendorAddress" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorAddress'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">State</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="vendorState"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
+                                                    <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                       {{state.dataName}}
+                                                    </option>
+                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vender GST</label><span style="color: red">*</span> 
+                                                <input uppercaseonly class="form-control" formControlName="vendorGST" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGST'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -369,11 +404,14 @@
                                                 formControlName="pmtType" (change)="changePmtType($event)"
                                                 class="form-control form-select ng-pristine ng-touched"
                                                  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
-                                                    <option value="M">Cash</option>      
+                                                    <!-- <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
                                                     <option value="D">Vendor</option>
-                                                    <option value="A">Adjust</option>                                           
+                                                    <option value="A">Adjust</option>                                            -->
+                                                    <option *ngFor="let br of paymentTypes" value={{br.dataId}}>
+                                                        {{br.dataName}}
+                                                    </option>
                                                 </select>     
                                             </div>
                                         </div>

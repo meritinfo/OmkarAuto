@@ -41,6 +41,9 @@ export class GstpurchaseaddComponent {
   vendorList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   tdsAcList: Dropdownmodel[] = [];
+  stateList: Dropdownmodel[] = [];
+  paymentTypes:Dropdownmodel[]=[];
+
   selectedGstpurchaseDetails = new Gstpurchasemodel(); 
   attach1: string = "";
   attach2: string = "";
@@ -125,6 +128,10 @@ export class GstpurchaseaddComponent {
       gstType: new FormControl('NA', [Validators.required]),
       pmtType: new FormControl('', [Validators.required]),
       noVender: new FormControl('',),
+      vendorName: new FormControl('',[Validators.required]),
+      vendorAddress: new FormControl('',[Validators.required]),
+      vendorState: new FormControl('',[Validators.required]),
+      vendorGST: new FormControl('',[Validators.required]),
       vendorId: new FormControl('',[Validators.required]),
       vendorInvNo: new FormControl('',[Validators.required]),
       vendorInvDt: new FormControl(this.loginDate,[Validators.required]),
@@ -146,15 +153,11 @@ export class GstpurchaseaddComponent {
 
       arrayList: this.formBuilder.array([this.createInitialArray()])      
     });
-
-    this.formArray.controls[0].get("sgstPct")?.disable();      
-    this.formArray.controls[0].get("cgstPct")?.disable();   
-    this.formArray.controls[0].get("igstPct")?.disable();
-
-    this.formArray.controls[0].get("sgstAmt")?.disable();      
-    this.formArray.controls[0].get("cgstAmt")?.disable();   
-    this.formArray.controls[0].get("igstAmt")?.disable();
-    this.formArray.controls[0].get("totAmount")?.disable();
+    
+    this.formGSTPurchase.controls["vendorName"].disable();      
+    this.formGSTPurchase.controls["vendorAddress"].disable();      
+    this.formGSTPurchase.controls["vendorState"].disable();      
+    this.formGSTPurchase.controls["vendorGST"].disable();
 
     this.formGSTPurchase.controls['totalItemAmt'].disable();
     this.formGSTPurchase.controls['totalSgstAmt'].disable();
@@ -163,16 +166,41 @@ export class GstpurchaseaddComponent {
     this.formGSTPurchase.controls['totalAmount'].disable();
     this.formGSTPurchase.controls['netAmount'].disable();
 
+    this.formGSTPurchase.controls["vendorName"].clearValidators();      
+    this.formGSTPurchase.controls["vendorAddress"].clearValidators();      
+    this.formGSTPurchase.controls["vendorState"].clearValidators();      
+    this.formGSTPurchase.controls["vendorGST"].clearValidators();
+    
+    this.formGSTPurchase.controls["vendorName"].updateValueAndValidity();      
+    this.formGSTPurchase.controls["vendorAddress"].updateValueAndValidity();      
+    this.formGSTPurchase.controls["vendorState"].updateValueAndValidity();      
+    this.formGSTPurchase.controls["vendorGST"].updateValueAndValidity();
+    
+    this.formGSTPurchase.controls['chequeNo'].disable();      
+    this.formGSTPurchase.controls['chequeDate'].disable();   
+
     this.formGSTPurchase.controls['chequeNo'].clearValidators();      
     this.formGSTPurchase.controls['chequeDate'].clearValidators(); 
     this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
     this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+    
+
+    this.formArray.controls[0].get("sgstPct")?.disable();      
+    this.formArray.controls[0].get("cgstPct")?.disable();   
+    this.formArray.controls[0].get("igstPct")?.disable();
+    this.formArray.controls[0].get("sgstAmt")?.disable();      
+    this.formArray.controls[0].get("cgstAmt")?.disable();   
+    this.formArray.controls[0].get("igstAmt")?.disable();
+    this.formArray.controls[0].get("totAmount")?.disable();
+
 
     this.sharedService.loading=true;
     this.getDebitAcList();
     this.getBranchList();
     this.getVendorList();
     this.getTdsAcList();
+    this.getStateList();
+
     this.selectedGstpurchaseDetails = this.gstpurchaseService.getGstPurchageDetails();
 
     if (this.selectedGstpurchaseDetails.masterid != '') {   
@@ -195,6 +223,29 @@ export class GstpurchaseaddComponent {
       this.getPaymentCreditAcList(this.selectedGstpurchaseDetails.pmtType);
     }
 
+    this.paymentTypes= [      
+      {
+        dataId: "M",
+        dataName: "Cash"
+      },
+      {
+        dataId: "B",
+        dataName: "Bank"
+      },
+      {
+        dataId: "H",
+        dataName: "Happay"
+      },
+      {
+        dataId: "D",
+        dataName: "Vendor"
+      },
+      {
+        dataId: "A",
+        dataName: "Adjust"
+      },
+    ];
+
     setTimeout(() => {
       if (this.selectedGstpurchaseDetails.masterid != '') {    
         this.attach1 = Constants.UploadFolderPath + 'gstpurchase/attatchFile1/' + this.selectedGstpurchaseDetails.attatchFile1;
@@ -208,14 +259,64 @@ export class GstpurchaseaddComponent {
           tDSAmt:this.selectedGstpurchaseDetails.tdsAmt,
           neftPmt:''
         });
-        if (this.selectedGstpurchaseDetails.vendorId == '')
+        if (this.selectedGstpurchaseDetails.vendorId == '' || this.selectedGstpurchaseDetails.vendorId=='0')
         {
+          this.paymentTypes= [      
+            {
+              dataId: "M",
+              dataName: "Cash"
+            },
+            {
+              dataId: "B",
+              dataName: "Bank"
+            },
+            {
+              dataId: "H",
+              dataName: "Happay"
+            },
+          ];
+
           this.formGSTPurchase.patchValue({
             noVender: 'A',
             vendorId: ''
           });
-          this.formGSTPurchase.controls['vendorId'].disable();  
+          this.formGSTPurchase.controls['vendorId'].disable();        
+          this.formGSTPurchase.controls["vendorName"].enable();      
+          this.formGSTPurchase.controls["vendorAddress"].enable();      
+          this.formGSTPurchase.controls["vendorState"].enable();     
+          this.formGSTPurchase.controls["vendorGST"].enable();
+
+          this.formGSTPurchase.controls['vendorId'].clearValidators(); 
+          this.formGSTPurchase.controls['vendorName'].setValidators([Validators.required]);
+          this.formGSTPurchase.controls['vendorAddress'].setValidators([Validators.required]);    
+          this.formGSTPurchase.controls["vendorState"].setValidators([Validators.required]);    
+          this.formGSTPurchase.controls['vendorGST'].setValidators([Validators.required]);      
         }
+        else {  
+          this.formGSTPurchase.patchValue({
+            noVender: ''
+          });    
+          this.formGSTPurchase.controls['vendorId'].enable();        
+          this.formGSTPurchase.controls["vendorName"].disable();      
+          this.formGSTPurchase.controls["vendorAddress"].disable();     
+          this.formGSTPurchase.controls["vendorState"].disable();    
+          this.formGSTPurchase.controls["vendorGST"].disable();
+
+          this.formGSTPurchase.controls['vendorId'].setValidators([Validators.required]);
+          this.formGSTPurchase.controls['vendorName'].clearValidators(); 
+          this.formGSTPurchase.controls['vendorAddress'].clearValidators();    
+          this.formGSTPurchase.controls["vendorState"].clearValidators();    
+          this.formGSTPurchase.controls['vendorGST'].clearValidators(); 
+        }
+        this.formGSTPurchase.controls['vendorId'].updateValueAndValidity();     
+        this.formGSTPurchase.controls["vendorName"].updateValueAndValidity();      
+        this.formGSTPurchase.controls["vendorAddress"].updateValueAndValidity();    
+        this.formGSTPurchase.controls["vendorState"].updateValueAndValidity();    
+        this.formGSTPurchase.controls["vendorGST"].updateValueAndValidity();
+
+        this.formGSTPurchase.controls['chequeNo'].disable();      
+        this.formGSTPurchase.controls['chequeDate'].disable();   
+        
         if(this.selectedGstpurchaseDetails.pmtType=="B"){           
           this.formGSTPurchase.controls['neftPmt'].enable();
           if (this.selectedGstpurchaseDetails.neftPmt=='Y'){
@@ -225,7 +326,12 @@ export class GstpurchaseaddComponent {
             this.formGSTPurchase.controls['chequeNo'].clearValidators();      
             this.formGSTPurchase.controls['chequeDate'].clearValidators();  
           }
-          else {
+          else { 
+            this.formGSTPurchase.patchValue({
+              neftPmt: ''
+            });           
+            this.formGSTPurchase.controls['chequeNo'].enable();      
+            this.formGSTPurchase.controls['chequeDate'].enable(); 
             this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
             this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]); 
           }
@@ -261,6 +367,12 @@ export class GstpurchaseaddComponent {
     });
   }
   
+  getStateList(): void {
+    this.commonService.getStateList().subscribe((res) => {
+      this.stateList = res;
+    });
+  }
+  
   getTdsAcList(){
     this.gstpurchaseService.getTdsAcList().subscribe((res) => {
       this.tdsAcList = res;
@@ -291,25 +403,41 @@ export class GstpurchaseaddComponent {
     var selectedValue = e.target.value;
     if(selectedValue=="B"){      
       this.formGSTPurchase.controls['neftPmt'].enable();
+      this.formGSTPurchase.controls['chequeNo'].enable();      
+      this.formGSTPurchase.controls['chequeDate'].enable();   
+      
+      this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
+      this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]);
     }
     else{
+      this.formGSTPurchase.patchValue({
+        neftPmt: ''
+      });
       this.formGSTPurchase.controls['neftPmt'].disable();
+      this.formGSTPurchase.controls['chequeNo'].disable();      
+      this.formGSTPurchase.controls['chequeDate'].disable();   
 
       this.formGSTPurchase.controls['chequeNo'].clearValidators();      
-      this.formGSTPurchase.controls['chequeDate'].clearValidators();   
-      this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
-      this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+      this.formGSTPurchase.controls['chequeDate'].clearValidators();  
     }
+     
+    this.formGSTPurchase.controls['chequeNo'].updateValueAndValidity();
+    this.formGSTPurchase.controls['chequeDate'].updateValueAndValidity();
+
     this.getPaymentCreditAcList(selectedValue);
   }
 
   onNeftChk(e: any) {   
     this.neftPmtSelected=!this.neftPmtSelected;
     if (this.neftPmtSelected){
+      this.formGSTPurchase.controls['chequeNo'].disable();      
+      this.formGSTPurchase.controls['chequeDate'].disable();   
       this.formGSTPurchase.controls['chequeNo'].clearValidators();      
       this.formGSTPurchase.controls['chequeDate'].clearValidators();   
     }
     else {
+      this.formGSTPurchase.controls['chequeNo'].enable();      
+      this.formGSTPurchase.controls['chequeDate'].enable();   
       this.formGSTPurchase.controls['chequeNo'].setValidators([Validators.required]);
       this.formGSTPurchase.controls['chequeDate'].setValidators([Validators.required]);
     }
@@ -325,20 +453,80 @@ export class GstpurchaseaddComponent {
   }
 
 
-  onChkNoVender(e: any) {
+  onChkNoVender(e: any) {  
     this.noVenderSelected=!this.noVenderSelected;
     if (this.noVenderSelected){
+      this.paymentTypes= [      
+        {
+          dataId: "M",
+          dataName: "Cash"
+        },
+        {
+          dataId: "B",
+          dataName: "Bank"
+        },
+        {
+          dataId: "H",
+          dataName: "Happay"
+        },
+      ];
+
       this.formGSTPurchase.patchValue({
         vendorId:'',
       });
-      this.formGSTPurchase.controls['vendorId'].disable();  
-      this.formGSTPurchase.controls['vendorId'].clearValidators();       
+      this.formGSTPurchase.controls['vendorId'].disable();        
+      this.formGSTPurchase.controls["vendorName"].enable();      
+      this.formGSTPurchase.controls["vendorAddress"].enable();   
+      this.formGSTPurchase.controls["vendorState"].enable();     
+      this.formGSTPurchase.controls["vendorGST"].enable();
+
+      this.formGSTPurchase.controls['vendorId'].clearValidators(); 
+      this.formGSTPurchase.controls['vendorName'].setValidators([Validators.required]);
+      this.formGSTPurchase.controls['vendorAddress'].setValidators([Validators.required]); 
+      this.formGSTPurchase.controls["vendorState"].setValidators([Validators.required]); 
+      this.formGSTPurchase.controls['vendorGST'].setValidators([Validators.required]);      
     }
-    else {      
-      this.formGSTPurchase.controls['vendorId'].enable();  
+    else { 
+      this.paymentTypes= [      
+        {
+          dataId: "M",
+          dataName: "Cash"
+        },
+        {
+          dataId: "B",
+          dataName: "Bank"
+        },
+        {
+          dataId: "H",
+          dataName: "Happay"
+        },
+        {
+          dataId: "D",
+          dataName: "Vendor"
+        },
+        {
+          dataId: "A",
+          dataName: "Adjust"
+        },
+      ];
+
+      this.formGSTPurchase.controls['vendorId'].enable();        
+      this.formGSTPurchase.controls["vendorName"].disable();      
+      this.formGSTPurchase.controls["vendorAddress"].disable();    
+      this.formGSTPurchase.controls["vendorState"].disable();    
+      this.formGSTPurchase.controls["vendorGST"].disable();
+
       this.formGSTPurchase.controls['vendorId'].setValidators([Validators.required]);
+      this.formGSTPurchase.controls['vendorName'].clearValidators(); 
+      this.formGSTPurchase.controls['vendorAddress'].clearValidators();  
+      this.formGSTPurchase.controls["vendorState"].clearValidators();    
+      this.formGSTPurchase.controls['vendorGST'].clearValidators(); 
     }
-    this.formGSTPurchase.controls['vendorId'].updateValueAndValidity();    
+    this.formGSTPurchase.controls['vendorId'].updateValueAndValidity();     
+    this.formGSTPurchase.controls["vendorName"].updateValueAndValidity();      
+    this.formGSTPurchase.controls["vendorAddress"].updateValueAndValidity();  
+    this.formGSTPurchase.controls["vendorState"].updateValueAndValidity();     
+    this.formGSTPurchase.controls["vendorGST"].updateValueAndValidity();  
   }
 
   getGstPurchageInnerGridList(): void {
@@ -679,7 +867,12 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.branchCode    = selectedDataVal.branchCode ; 
     this.gstpurchasemodel.pmtType       = selectedDataVal.pmtType ;    
     this.gstpurchasemodel.gstType       = selectedDataVal.gstType ; 
-    this.gstpurchasemodel.vendorId      = this.noVenderSelected? '':selectedDataVal.vendorId.dataId ;  
+    this.gstpurchasemodel.noVender      = selectedDataVal.noVender?"Y":"N";
+    this.gstpurchasemodel.vendorId      = selectedDataVal.vendorId? selectedDataVal.vendorId.dataId:"" ;   
+    this.gstpurchasemodel.vendorName    = selectedDataVal.vendorName ;  
+    this.gstpurchasemodel.vendorAddress = selectedDataVal.vendorAddress ; 
+    this.gstpurchasemodel.vendorState   = selectedDataVal.vendorState ; 
+    this.gstpurchasemodel.vendorGST     = selectedDataVal.vendorGST ; 
     this.gstpurchasemodel.vendorInvNo   = selectedDataVal.vendorInvNo ; 
     this.gstpurchasemodel.vendorInvDt   = selectedDataVal.vendorInvDt ; 
     this.gstpurchasemodel.totalItemAmt  = selectedDataVal.totalItemAmt ; 
