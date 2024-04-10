@@ -34,6 +34,7 @@
                                                
                                                 <select class="form-control" formControlName="cashAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['cashAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -42,10 +43,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">HsdAc</label>
+                                                <label for="formrow-inputZip">Hsd Ac</label>
                                        
                                                 <select class="form-control" formControlName="hsdAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['hsdAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -56,10 +58,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripRoutExpAc</label>
+                                                <label for="formrow-inputZip">Trip RoutExpAc</label>
                                             
                                                 <select class="form-control" formControlName="tripRoutExpAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRoutExpAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -68,10 +71,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripRepairsAc</label>
+                                                <label for="formrow-inputZip">Trip RepairsAc</label>
                                         
                                                 <select class="form-control" formControlName="tripRepairsAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRepairsAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -82,10 +86,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripParkingAc</label>
+                                                <label for="formrow-inputZip">Trip ParkingAc</label>
                                           
                                                 <select class="form-control" formControlName="tripParkingAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripParkingAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -94,10 +99,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripMChallanAc</label>
+                                                <label for="formrow-inputZip">Trip MChallanAc</label>
                                               
                                                 <select class="form-control" formControlName="tripMChallanAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripMChallanAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -108,10 +114,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripWeighmentAc</label>
+                                                <label for="formrow-inputZip">Trip WeighmentAc</label>
                                              
                                                 <select class="form-control" formControlName="tripWeighmentAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripWeighmentAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -120,10 +127,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripAccidentAc</label>
+                                                <label for="formrow-inputZip">Trip AccidentAc</label>
                                          
                                                 <select class="form-control" formControlName="tripAccidentAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripAccidentAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -134,10 +142,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripTollAc</label>
+                                                <label for="formrow-inputZip">Trip TollAc</label>
                                         
                                                 <select class="form-control" formControlName="tripTollAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripTollAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -146,10 +155,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripOthersMiscAc</label>
+                                                <label for="formrow-inputZip">Trip OthersMiscAc</label>
                                        
                                                 <select class="form-control" formControlName="tripOthersMiscAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripOthersMiscAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -160,10 +170,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripDrAlAc</label>
+                                                <label for="formrow-inputZip">Trip DrAlAc</label>
                                    
                                                 <select class="form-control" formControlName="tripDrAlAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripDrAlAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -172,10 +183,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">DelayDamageAc</label>
+                                                <label for="formrow-inputZip">Delay DamageAc</label>
                             
                                                 <select class="form-control" formControlName="delayDamageAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['delayDamageAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -186,10 +198,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">SgstInputAc</label>
+                                                <label for="formrow-inputZip">Sgst InputAc</label>
                                 
                                                 <select class="form-control" formControlName="sgstInputAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['sgstInputAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -198,10 +211,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">CgstInputAc</label>
+                                                <label for="formrow-inputZip">Cgst InputAc</label>
                                         
                                                 <select class="form-control" formControlName="cgstInputAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['cgstInputAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -212,10 +226,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">IgstInputAc</label>
+                                                <label for="formrow-inputZip">Igst InputAc</label>
                                               
                                                 <select class="form-control" formControlName="igstInputAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['igstInputAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -224,10 +239,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">FastagTollAc</label>
+                                                <label for="formrow-inputZip">Fastag TollAc</label>
                                                
                                                 <select class="form-control" formControlName="fastagTollAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['fastagTollAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -238,10 +254,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">HappayAc</label>
+                                                <label for="formrow-inputZip">Happay Ac</label>
                                                
                                                 <select class="form-control" formControlName="happayAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['happayAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -254,6 +271,7 @@
                                       
                                                 <select class="form-control" formControlName="driverPoolAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['driverPoolAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -264,10 +282,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">DriverSalAc</label>
+                                                <label for="formrow-inputZip">Driver SalAc</label>
                                   
                                                 <select class="form-control" formControlName="driverSalAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['driverSalAc'].invalid) }">
+                                                <option value ="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -276,10 +295,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">frtIncAc</label>
+                                                <label for="formrow-inputZip">Frt IncAc</label>
                                         
                                                 <select class="form-control" formControlName="frtIncAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['frtIncAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -290,10 +310,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">tripTravelAlAc</label>
+                                                <label for="formrow-inputZip">TripTravel AlAc</label>
                                   
                                                 <select class="form-control" formControlName="tripTravelAlAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripTravelAlAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -302,10 +323,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripIncentiveAc</label>
+                                                <label for="formrow-inputZip">Trip IncentiveAc</label>
                                              
                                                 <select class="form-control" formControlName="tripIncentiveAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripIncentiveAc'].invalid) }">
+                                                <option value ="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -316,10 +338,11 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripRecdDrAc</label>
+                                                <label for="formrow-inputZip">TripRecd DrAc</label>
                                             
                                                 <select class="form-control" formControlName="tripRecdDrAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRecdDrAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -328,10 +351,11 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">DslDiscAc</label>
+                                                <label for="formrow-inputZip">Dsl DiscAc</label>
                                     
                                                 <select class="form-control" formControlName="dslDiscAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['dslDiscAc'].invalid) }">
+                                                <option value="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -342,10 +366,25 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">TripRecdDrAc</label>
+                                                <label for="formrow-inputZip">Trip RecdDrAc</label>
                                            
                                                 <select class="form-control" formControlName="tripRecdDrAc"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['tripRecdDrAc'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                               
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Dsl TdsAc</label>
+                                           
+                                                <select class="form-control" formControlName="dslTdsAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['dslTdsAc'].invalid) }">
+                                                <option value ="">Choose...</option>
                                                 <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -353,6 +392,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">RoundOff Ac</label>
+                                           
+                                                <select class="form-control" formControlName="roundOffAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['roundOffAc'].invalid) }">
+                                                <option value = "">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
                                    
                                 </div>
                             </div>

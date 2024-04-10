@@ -48,7 +48,7 @@ namespace FinTrans.Repository
                                 CashAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CashAc"]),
 
                                 HsdAc = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAc"]),
-                                TripRoutExpAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripRoutExpAc"]),
+                                TripRoutExpAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripRouteExpAc"]),
                                 TripRepairsAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripRepairsAc"]),
 
                                 TripParkingAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripParkingAc"]),
@@ -73,7 +73,7 @@ namespace FinTrans.Repository
                                 TripRecdDrAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TripRecdDrAc"]),
                                 DslDiscAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DslDiscAc"]),
                                 DslTdsAc = Convert.ToString(dataSet.Tables[0].Rows[i]["DslTdsAc"]),
-                                // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                RoundOffAc = Convert.ToString(dataSet.Tables[0].Rows[i]["RoundOffAc"]),
 
 
 
@@ -131,6 +131,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@DelayDamageAc", custWizardModel.DelayDamageAc),
                             new SqlParameter("@SgstInputAc", custWizardModel.SgstInputAc),
                             new SqlParameter("@CgstInputAc", custWizardModel.CgstInputAc),
+                            new SqlParameter("@IgstInputAc", custWizardModel.IgstInputAc),
                             new SqlParameter("@FastagTollAc", custWizardModel.FastagTollAc),
                             new SqlParameter("@HappayAc", custWizardModel.HappayAc),
                             new SqlParameter("@DriverPoolAc", custWizardModel.DriverPoolAc),
@@ -141,7 +142,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@TripRecdDrAc", custWizardModel.TripRecdDrAc),
                             new SqlParameter("@DslDiscAc", custWizardModel.DslDiscAc),
                             new SqlParameter("@DslTdsAc", custWizardModel.DslTdsAc),
-                         // new SqlParameter("@LoggedInUser", custWizardModel.LoggedInUser)
+                          new SqlParameter("@RoundOffAc", custWizardModel.RoundOffAc)
 
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CustWizard_Insert", param);

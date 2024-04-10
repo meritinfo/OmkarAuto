@@ -115,6 +115,8 @@ ngOnInit(): void {
    tripRecdDrAc: new FormControl('',[]),
    dslDiscAc: new FormControl('',[]),
    dslTdsAc: new FormControl('',[]),
+   roundOffAc: new FormControl('',[]),
+   
   });
   this.getCrAcListForCustWizard();
   setTimeout(() => {
@@ -150,7 +152,7 @@ ngOnInit(): void {
     }
   }
   exit(): void {
-    this.route.navigate(['/opbrsentrylist']);
+    this.route.navigate(['/custwizardlist']);
   }
   getBankAcList(): void {
     this.commonService.getBankAcList().subscribe((res) => {
@@ -206,7 +208,7 @@ ngOnInit(): void {
     this.custWizardModel.tripRecdDrAc = selectedDataValue.tripRecdDrAc;
     this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc;
     this.custWizardModel.dslTdsAc = selectedDataValue.dslTdsAc;
-   // this.custWizardModel.loggedInUser = this.loggedInUserID;
+    this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
   
   
   

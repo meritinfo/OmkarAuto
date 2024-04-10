@@ -40,6 +40,6 @@ export class CustwizardService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/CustWizardSave', user, this.httpOptions);
   }
   getCustWizardList(filter: Filtermodel): Observable<Custwizardlistmodel> {
-    return this.httpClient.post<Custwizardlistmodel>(Constants.API_ENDPOINT + 'FinTrans/CustWizardList', filter, this.httpOptions);
+    return this.httpClient.post<Custwizardlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetCustWizardList', filter, this.httpOptions);
   }
 }

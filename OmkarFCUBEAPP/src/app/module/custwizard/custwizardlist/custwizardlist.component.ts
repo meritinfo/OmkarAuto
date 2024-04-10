@@ -82,7 +82,7 @@ export class CustwizardlistComponent {
     //Open user details screen
     getCustWizardDetails(Destination: Custwizardmodel): void {
     this.custWizardService.setCustWizardDetails(Destination);
-    this.route.navigate(['/editcustwizard']);
+    this.route.navigate(['/custwizardedit']);
     }
     
     }
