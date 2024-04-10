@@ -1,94 +1,72 @@
-﻿using DocumentFormat.OpenXml.Drawing.Charts;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using FinTrans.Models;
 using FinTrans.Repository;
 using iText.Kernel.Colors;
 using iText.Kernel.Events;
-using iText.Kernel.Geom;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Canvas.Draw;
+using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
-using iText.Layout;
+using iText.Kernel.Pdf;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Shared.Models;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using iText.Kernel.Geom;
+using iText.Layout;
 using Microsoft.Extensions.Options;
 using Org.BouncyCastle.Asn1.Ocsp;
-using Shared.Models;
 using Shared.Repository;
 using SqlHelper.Models;
 using System.Collections;
-using System.Data;
-using System.Data.Common;
 
 namespace FinTrans.Business
 {
-    /// <summary>
-    /// Business methods
-    /// </summary>
-    public class CashReceiptPaymentsBusiness : ICashReceiptPaymentsBusiness
+    public class LedgerRptBusiness : ILedgerRptBusiness
     {
+        readonly ILedgerRptRepository ledgerRptRepository;
         private readonly IOptions<DBModel> dbconnection;
-        readonly ICashReceiptPaymentsRepository cashReceiptPaymentsRepository;
-        public CashReceiptPaymentsBusiness(ICashReceiptPaymentsRepository _CashReceiptPaymentsRepository,
+        public LedgerRptBusiness(ILedgerRptRepository _ledgerRptRepository,
             IOptions<DBModel> _dbconnection)
         {
-            cashReceiptPaymentsRepository = _CashReceiptPaymentsRepository;
+            ledgerRptRepository = _ledgerRptRepository;
             dbconnection = _dbconnection;
         }
+       
+        public async Task<List<DropDownListModel>> GetLedgerList()
+        {
+            return await ledgerRptRepository.GetLedgerList();
+        }
+        public async Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetLedgerRptList(request);
+        }
+        public async Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request)
+        {
+            return await ledgerRptRepository.GetLedgerRptExcel(request);
+        }
+        public async Task<ResponseModel> GetLedgerRptPdf(ReportRequestModel request)
+        {
+            DataSet reportData = await ledgerRptRepository.ledgerReport(request);
 
-        /// <summary>
-        /// Business method for  details
-        /// </summary>
-        /// <param name="destinationMasterModel"></param>
-        public async Task<ResponseModel> CashReceiptPaymentsSave(CashReceiptPaymentsModel cashReceiptPaymentsModel)
-        {
-            return await cashReceiptPaymentsRepository.CashReceiptPaymentsSave(cashReceiptPaymentsModel);
-        }
-
-        public async Task<CashReceiptPaymentsList> GetCashReceiptPaymentsList(BankCashListFilterModel request)
-        {
-            return await cashReceiptPaymentsRepository.GetCashReceiptPaymentsList(request);
-        }
-        public async Task<ResponseModel> GetNextDocNo(DocNoFilterModel docNoFilter)
-        {
-            return await cashReceiptPaymentsRepository.GetNextDocNo(docNoFilter);
-        }
-        public async Task<ResponseModel> CashReceiptPaymentsDelete(RequestModel req)
-        {
-            return await cashReceiptPaymentsRepository.CashReceiptPaymentsDelete(req);
-        }
-        public async Task <CashReceiptPaymentsModel> GetCashReceiptPaymentInnerGridList(RequestModel req)
-        {
-            return await cashReceiptPaymentsRepository.GetCashReceiptPaymentInnerGridList(req);
-        }
-
-        public async Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request)
-        {
-            return await cashReceiptPaymentsRepository.GetCashBankAccountList(request);
-        }
-        public async Task<List<DropDownListModel>> GetFinRefTypes()
-        {
-            return await cashReceiptPaymentsRepository.GetFinRefTypes();
-        }
-
-        public async Task<ResponseModel> CashBookReport(ReportRequestModel request)
-        {
-            DataSet reportData = await cashReceiptPaymentsRepository.CashBookReport(request);
-            
             ResponseModel response = new ResponseModel();
-            response = await cashReceiptPaymentsRepository.GetCompanyDetail();
+            response = await ledgerRptRepository.GetCompanyDetail();
 
-            string path = CreateCashBookReportAsync(request, reportData, response);
+            string path = CreateLedgerReportAsync(request, reportData, response);
             return new ResponseModel { Status = true, Message = path };
         }
 
-        private string CreateCashBookReportAsync(ReportRequestModel request, DataSet reportData,ResponseModel response)
+        private string CreateLedgerReportAsync(ReportRequestModel request, DataSet reportData, ResponseModel response)
         {
-            
-            var folderName = System.IO.Path.Combine("Reports", "CashBook");
+            var folderName = System.IO.Path.Combine("Reports", "Ledger");
             var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, folderName);
-            string fileName = "CashBookReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
+            string fileName = "LedgerReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
             var filePath = folderName + "//" + fileName;
             var fullPath = System.IO.Path.Combine(pathToSave, fileName);
             bool exists = System.IO.Directory.Exists(pathToSave);
@@ -103,7 +81,7 @@ namespace FinTrans.Business
             // Header table
             var headerTable = new Table(3);
             headerTable.SetWidth(UnitValue.CreatePercentValue(100));
-            
+
             var headerCell = new Cell().Add(new Paragraph(response.Message));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
             headerCell = new Cell().Add(new Paragraph("From : " +Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy")));
@@ -111,9 +89,9 @@ namespace FinTrans.Business
             headerCell = new Cell().Add(new Paragraph("To : " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy")));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
 
-            headerCell = new Cell().Add(new Paragraph("CASH BOOK"));
+            headerCell = new Cell().Add(new Paragraph("Ledger Report"));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
-            headerCell = new Cell().Add(new Paragraph("Branch : " + (request.FilterStr1==""?"ALL": request.FilterStr1)));
+            headerCell = new Cell().Add(new Paragraph("Account : " + reportData.Tables[0].Rows[0]["MainAccount"].ToString() ));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
             headerCell = new Cell().Add(new Paragraph(""));
             headerTable.AddCell(headerCell.SetBorder(Border.NO_BORDER));
@@ -127,9 +105,9 @@ namespace FinTrans.Business
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Doc No")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Receipts")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Payments")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-           // detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Debit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Credit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            //detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
 
             // Add more details as needed
 
@@ -145,21 +123,30 @@ namespace FinTrans.Business
             Decimal totPayments = 0;
             var DocNo = "";
 
-            for (int i=0; i< reportData.Tables[0].Rows.Count; i++)
+            for (int i = 0; i< reportData.Tables[0].Rows.Count; i++)
             {
                 detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToDateTime(reportData.Tables[0].Rows[i]["FtmDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 DocNo = reportData.Tables[0].Rows[i]["DocNo"].ToString();
                 if (DocNo=="0") { DocNo = ""; }
                 detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(DocNo)).SetFontSize(9F).SetBorder(Border.NO_BORDER));
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(reportData.Tables[0].Rows[i]["Narration"]))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().SetWidth(30).Add(new Paragraph(Convert.ToString(reportData.Tables[0].Rows[i]["Narration"]))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 receipts = Convert.ToDecimal(reportData.Tables[0].Rows[i]["DrAmt"]);
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
                 payments = Convert.ToDecimal(reportData.Tables[0].Rows[i]["CrAmt"]);
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
                 Balance = receipts - payments;
                 //detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 totReceipts = totReceipts + receipts;
                 totPayments = totPayments + payments;
+
+                if (reportData.Tables[0].Rows[i]["CheqNo"].ToString()!= "x")
+                {
+                    detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph()).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph()).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().SetWidth(30).Add(new Paragraph(reportData.Tables[0].Rows[i]["CheqNo"].ToString()+Convert.ToDateTime(reportData.Tables[0].Rows[i]["CheqDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph()).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                    detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph()).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                }
             }
 
 
@@ -172,8 +159,8 @@ namespace FinTrans.Business
             detailsTable = new Table(3);
             detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
 
-            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Receipts : "+ totReceipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
-            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Payments : "+ totPayments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Debits : "+ totReceipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            detailsTable.AddCell(new Cell().Add(new Paragraph("Total Credits : "+ totPayments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
             Balance = totReceipts - totPayments;
             detailsTable.AddCell(new Cell().Add(new Paragraph("Closing Balance : " + Balance.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
 

@@ -29,18 +29,22 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IBankReconcilationBusiness bankReconcilationBusiness;
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
         readonly ICustWizardBusiness custWizardBusiness;
+        readonly ILedgerRptBusiness ledgerRptBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
             IGstPurchaseMstBusiness _gstPurchaseMstBusiness,
             IBankReconcilationBusiness _bankReconcilationBusiness,
-            IOpBrsEntryBusiness _opBrsEntryBusiness, ICustWizardBusiness _custWizardBusiness)
+            IOpBrsEntryBusiness _opBrsEntryBusiness, 
+            ICustWizardBusiness _custWizardBusiness,
+            ILedgerRptBusiness _ledgerRptBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
             bankReconcilationBusiness =_bankReconcilationBusiness;
             opBrsEntryBusiness = _opBrsEntryBusiness;
             custWizardBusiness = _custWizardBusiness;
+            ledgerRptBusiness = _ledgerRptBusiness;
         }
         /// <summary>
 
@@ -488,6 +492,80 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLedgerList")]
+        public async Task<IActionResult> GetLedgerList()
+        {
+            try
+            {
+                var result = await ledgerRptBusiness.GetLedgerList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLedgerRptList")]
+        public async Task<IActionResult> GetLedgerRptList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetLedgerRptList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLedgerRptExcel")]
+        public async Task<IActionResult> GetLedgerRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetLedgerRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLedgerRptPdf")]
+        public async Task<IActionResult> GetLedgerRptPdf(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ledgerRptBusiness.GetLedgerRptPdf(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
     }
 }

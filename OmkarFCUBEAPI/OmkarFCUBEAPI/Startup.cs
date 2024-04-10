@@ -167,6 +167,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<IEmpSalaryCalcRepository, EmpSalaryCalcRepository>();
             services.AddScoped<IDailyLoadingRptBusiness, DailyLoadingRptBusiness>();
             services.AddScoped<IDailyLoadingRptRepository, DailyLoadingRptRepository>();
+            services.AddScoped<ILedgerRptBusiness, LedgerRptBusiness>();
+            services.AddScoped<ILedgerRptRepository, LedgerRptRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

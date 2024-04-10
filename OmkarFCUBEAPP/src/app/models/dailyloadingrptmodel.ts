@@ -1,4 +1,9 @@
 export class Dailyloadingrptmodel {
+    tripBranchName : string = "";
+    newTripDate : string = "";   
+    vehicleNo  : string = "";    
+    tripNo    : string = "";     
+    loadEmptyType    : string = ""; 
     fromPlace : string = "";
     toPlace: string = "";
     openThrough: string = "";

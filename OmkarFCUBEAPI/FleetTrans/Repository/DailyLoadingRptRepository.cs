@@ -53,6 +53,11 @@ namespace FleetTrans.Repository
                         {
                             dailyLoadings.Add(new DailyLoadingRptModel
                             {
+                                TripBranchName  = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBranchName"]),
+                                NewTripDate     = Convert.ToString(dataSet.Tables[0].Rows[i]["NewTripDate"]),
+                                VehicleNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]), 
+                                TripNo          = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                LoadEmptyType   = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadEmptyType"]),
                                 FromPlace       = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace         = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 OpenThrough     = Convert.ToString(dataSet.Tables[0].Rows[i]["openthrough"]),
