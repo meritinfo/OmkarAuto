@@ -216,6 +216,7 @@ import { Custwizardlistmodel } from './models/custwizardlistmodel';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
+import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 
 @NgModule({
   declarations: [
@@ -347,6 +348,7 @@ import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingr
     CustwizardaddComponent,
     CustwizardlistComponent,
     DailyloadingrptComponent,
+    LedgerrptComponent,
   ],
   imports: [
     BrowserModule,

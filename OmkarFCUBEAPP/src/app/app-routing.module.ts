@@ -111,6 +111,7 @@ import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsal
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
+import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 
 
 
@@ -275,7 +276,7 @@ const routes: Routes = [
   { path: 'custwizardedit', component: CustwizardaddComponent },  
   { path: 'custwizardlist', component:  CustwizardlistComponent },
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
-  
+  { path: 'acledgerrpt', component:  LedgerrptComponent },  
   
   
 ];

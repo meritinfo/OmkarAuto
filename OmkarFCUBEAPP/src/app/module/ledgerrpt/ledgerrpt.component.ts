@@ -7,27 +7,26 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Dailyloadingrptlistmodel  } from 'src/app/models/dailyloadingrptlistmodel';
-import { Dailyloadingrptmodel } from 'src/app/models/dailyloadingrptmodel';
-import { DailyloadingrptService } from 'src/app/services/dailyloadingrpt.service';
+import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
+import { Ledgerrptmodel } from 'src/app/models/ledgerrptmodel';
+import { LedgerrptService } from 'src/app/services/ledgerrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-dailyloadingrpt',
-  templateUrl: './dailyloadingrpt.component.html',
-  styleUrls: ['./dailyloadingrpt.component.css']
+  selector: 'app-ledgerrpt',
+  templateUrl: './ledgerrpt.component.html',
+  styleUrls: ['./ledgerrpt.component.css']
 })
-export class DailyloadingrptComponent {
+export class LedgerrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
 
-  vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
+  accountList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
@@ -35,7 +34,7 @@ export class DailyloadingrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allDailyloadingrptlist: Dailyloadingrptlistmodel = new Dailyloadingrptlistmodel();
+  allLedgerrptlist: Ledgerrptlistmodel = new Ledgerrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -60,7 +59,7 @@ export class DailyloadingrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private dailyloadingrptService: DailyloadingrptService, 
+  constructor(private ledgerrptService: LedgerrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
@@ -120,22 +119,20 @@ export class DailyloadingrptComponent {
       this.formFilter = this.formBuilder.group({
         fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        branch: new FormControl('',),  
-        vehicleMasterID: new FormControl('',),  
-        openThrough: new FormControl('',),  
-        loadEmptyType: new FormControl('',), 
+        accountID: new FormControl('',[Validators.required]),
       });
 
-      this.filter.fromDate = this.minDate;
-      this.filter.toDate = this.loginDate;
-      this.filter.filterStr   = "";
-      this.filter.filterStr1  = "";
-  
       this.sharedService.loading=true;
       this.getBranchList();
-      this.getVehicleNoList(); 
+      this.getAccountList();  
 
-      this.dailyloadingList();
+      
+      this.filter.fromDate    = this.minDate;
+      this.filter.toDate      = this.loginDate;
+      this.filter.filterStr   = "";
+      this.filter.filterStr1  = this.year;
+      this.filter.filterStr2  = "";      
+      this.ledgerList();
       this.sharedService.loading=false;
     }
 
@@ -144,9 +141,10 @@ export class DailyloadingrptComponent {
         this.branchList = res;
       });
     }
-    getVehicleNoList(): void {
-      this.commonService.getVehicleNoList().subscribe((res) => {
-        this.vehicleList = res;
+
+    getAccountList(): void {
+      this.ledgerrptService.getLedgerList().subscribe((res) => {
+        this.accountList = res;
       });
     }
     
@@ -170,7 +168,7 @@ export class DailyloadingrptComponent {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
-    dailyloadingList(){
+    ledgerList(){
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -184,8 +182,8 @@ export class DailyloadingrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
-          this.dailyloadingrptService.getDailyloadingrptList(this.filter).subscribe(resp => {
-             this.allDailyloadingrptlist = resp;
+          this.ledgerrptService.getLedgerrptList(this.filter).subscribe(resp => {
+             this.allLedgerrptlist = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,
@@ -195,43 +193,69 @@ export class DailyloadingrptComponent {
         }, 
         columns: [ 
           {
-            title: 'Trip Branch',
-            data: 'tripBranchName',
+            title: 'Ftm Date',
+            data: 'ftmDate',
           }, 
           {
-            title: 'Trip Date',
-            data: 'newTripDate',
+            title: 'Doc No',
+            data: 'docNo',
           }, 
           {
-            title: 'Vehicle No',
-            data: 'vehicleNo',
-          }, 
-          {
-            title: 'Trip No',
-            data: 'tripNo',
-          }, 
-          {
-            title: 'From Place ',
-            data: 'fromPlace',
+            title: 'Narration',
+            data: 'narration',
           },  
           {
-            title: 'To Place ',
-            data: 'toPlace',
+            title: 'Dr Amt',
+            data: 'drAmt',
           },    
           {
-            title: 'Open Through',
-            data: 'openThrough',
+            title: 'Cr Amt',
+            data: 'crAmt',
           },
-          {
-            title: 'Party Name ',
-            data: 'partyName',
-          }, 
-          {
-            title: 'LR No ',
-            data: 'lrNo',
-          },  
         ],
       };
+    }
+    exportPdf(): void {      
+      this.userSubmitted = true;
+      if (this.formFilter.invalid) {
+        this.toastrService.warning("Please Enter Mandatory Fields");   
+        const controls = this.formFilter.controls;
+        for (const name in controls) {
+          if (controls[name].invalid) {
+            this.toastrService.warning(name + " Fields is Invalid");   
+          }
+        }     
+        return;
+      }
+      var selectedDataVal=this.formFilter.getRawValue();
+      
+      var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
+      if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+              fromLoc.dataId!="" && fromLoc.dataId!="0") {
+          //ignore
+      }
+      else{
+        this.toastrService.warning("Please Enter Valid Account ");          
+        return;
+      }
+  
+      this.filter.fromDate    = selectedDataVal.fromDate;
+      this.filter.toDate      = selectedDataVal.toDate;
+      this.filter.filterStr   = selectedDataVal.accountID.dataId;
+      this.filter.filterStr1  = this.year;
+      this.filter.filterStr2  = "";
+      
+      this.ledgerrptService.getLedgerrptPdf(this.filter).subscribe(resp => {
+        if(resp.status){    
+          let link = document.createElement("a");
+          link.download = "LedgerReport" + "_" + new Date().getTime() + '.pdf';
+          link.href = "assets/reports/Ledger/" + resp.message;
+          link.click();
+        }
+        else{        
+          this.toastrService.warning(resp.message);   
+        }
+      });
     }
       
     exportExcel(): void {      
@@ -247,16 +271,27 @@ export class DailyloadingrptComponent {
         return;
       }
       var selectedDataVal=this.formFilter.getRawValue();
+      
+      var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
+      if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+              fromLoc.dataId!="" && fromLoc.dataId!="0") {
+          //ignore
+      }
+      else{
+        this.toastrService.warning("Please Enter Valid Account ");          
+        return;
+      }
+  
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.branch;
-      this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.openThrough;
-      this.filter.filterStr3  = selectedDataVal.loadEmptyType;
-      this.dailyloadingrptService.getDailyloadingrptExcel(this.filter).subscribe(resp => {
+      this.filter.filterStr   = selectedDataVal.accountID.dataId;
+      this.filter.filterStr1  = this.year;
+      this.filter.filterStr2  = "";
+      
+      this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Dailyloading" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "LedgerReport" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -279,14 +314,24 @@ export class DailyloadingrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
+    
+    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid Account ");          
+      return;
+    }
+
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.branch;
-    this.filter.filterStr1  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr2  = selectedDataVal.openThrough;
-    this.filter.filterStr3  = selectedDataVal.loadEmptyType;
+    this.filter.filterStr   = selectedDataVal.accountID.dataId;
+    this.filter.filterStr1  = this.year;
+    this.filter.filterStr2  = "";
     this.sharedService.loading=true;
-    this.dailyloadingList();
+    this.ledgerList();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -294,6 +339,7 @@ export class DailyloadingrptComponent {
     });
   }
 } 
+
 
 
 

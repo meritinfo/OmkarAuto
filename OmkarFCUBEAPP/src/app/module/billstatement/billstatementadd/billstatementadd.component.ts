@@ -396,7 +396,7 @@ export class BillstatementaddComponent implements OnInit {
       });   
     }    
     totalBillAmount = totalSubAmount + 
-                ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
+    Math.round((totalSubAmount * igst)/100) + Math.round((totalSubAmount * sgst)/100) + Math.round((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
       totFreight: totalFrtAmount.toFixed(2),
@@ -512,7 +512,7 @@ export class BillstatementaddComponent implements OnInit {
       });   
     }    
     totalBillAmount = totalSubAmount + 
-                ((totalSubAmount * igst)/100) + ((totalSubAmount * sgst)/100) + ((totalSubAmount * cgst)/100)
+    Math.round((totalSubAmount * igst)/100) + Math.round((totalSubAmount * sgst)/100) + Math.round((totalSubAmount * cgst)/100)
 
     this.formBillStatement.patchValue({
       totFreight: totalFrtAmount.toFixed(2),
