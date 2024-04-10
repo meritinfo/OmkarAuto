@@ -34,6 +34,7 @@ namespace FinTrans.Models
         public string? TripRecdDrAc { get; set; }
         public string? DslDiscAc { get; set; }
         public string? DslTdsAc { get; set; }
+        public string? RoundOffAc { get; set; }
 
 
     }

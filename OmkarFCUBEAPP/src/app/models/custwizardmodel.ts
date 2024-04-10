@@ -26,5 +26,6 @@ export class Custwizardmodel {
     tripRecdDrAc:string = "";
     dslDiscAc:string = "";
     dslTdsAc:string = "";
+    roundOffAc:string = "";
     
 }
