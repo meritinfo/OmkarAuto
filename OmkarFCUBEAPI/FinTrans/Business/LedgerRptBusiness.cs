@@ -99,7 +99,7 @@ namespace FinTrans.Business
             document.Add(headerTable);
 
             // Invoice details table
-            var detailsTable = new Table(5);
+            var detailsTable = new Table(6);
             detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
 
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
@@ -107,7 +107,7 @@ namespace FinTrans.Business
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Debit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Credit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            //detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
 
             // Add more details as needed
 
@@ -134,10 +134,11 @@ namespace FinTrans.Business
                 detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
                 payments = Convert.ToDecimal(reportData.Tables[0].Rows[i]["CrAmt"]);
                 detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER)).SetHorizontalAlignment(HorizontalAlignment.RIGHT);
-                Balance = receipts - payments;
-                //detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 totReceipts = totReceipts + receipts;
                 totPayments = totPayments + payments;
+                Balance = totReceipts - totPayments;
+                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+               
 
                 if (reportData.Tables[0].Rows[i]["CheqNo"].ToString()!= "x")
                 {
