@@ -394,6 +394,7 @@ export class AddothertripopenComponent {
       });
     }
   }
+
   getLastTripDriver(e:any) {
     var selectedDataValue = this.formOtherTripOpen.getRawValue();
     this.OpbalDetails.tripdate = selectedDataValue.newTripDate;
@@ -404,9 +405,8 @@ export class AddothertripopenComponent {
       this.responseDetails = res;
       if (res.status) {    
         if (this.responseDetails.status) {
-          let driverMID= this.driverList.find(e => e.dataId ==  this.responseDetails.message);
           this.formOtherTripOpen.patchValue({
-            driverMasterID: driverMID?.dataName
+            driverMasterID: this.driverList.find(e => e.dataId == this.responseDetails.message),
           });
         } else {
           this.formOtherTripOpen.patchValue({
