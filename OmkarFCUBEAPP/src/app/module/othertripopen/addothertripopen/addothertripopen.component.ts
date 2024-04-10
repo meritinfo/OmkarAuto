@@ -160,7 +160,8 @@ export class AddothertripopenComponent {
     this.getLocationList();
     this.getContentList();
    
-    
+      
+    this.formOtherTripOpen.controls['challanNo'].disable();  
     this.formOtherTripOpen.controls['challanNo'].clearValidators(); 
     this.formOtherTripOpen.controls['challanNo'].updateValueAndValidity();
 
