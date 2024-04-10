@@ -17,6 +17,7 @@ import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { ToastrService } from 'ngx-toastr';
 import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-addothertripopen',
@@ -57,6 +58,8 @@ export class AddothertripopenComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  enableFromTo: boolean = false;
+  enableDriver: boolean = false;
   responseDetails = new Responsemodel();
   requestmodel=new Requestmodel();
   branchList: Dropdownmodel[] = [];
@@ -70,6 +73,7 @@ export class AddothertripopenComponent {
 
 
   selectedTripSheetDetails = new Tripsheetmodel();
+  usertriprightsmodel = new Usertriprightsmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private tripsheetmodel: Tripsheetmodel, private tripSheetService: TripSheetService, 
@@ -163,9 +167,13 @@ export class AddothertripopenComponent {
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
     this.frmplc = this.selectedTripSheetDetails.loadingFrom;
     this.toplc = this.selectedTripSheetDetails.destination;
+    this.getUserTripRights();
+   
     setTimeout(() => {
       if (this.selectedTripSheetDetails.tripId != '') {
+       
         this.formOtherTripOpen.patchValue(this.selectedTripSheetDetails);
+       // this.getUserTripRights();
         this.formOtherTripOpen.patchValue({
           newTripDate: this.commonService.formatDate(this.selectedTripSheetDetails.newTripDate),
           expectedReportingDt:this.commonService.formatDate(this.selectedTripSheetDetails.expectedReportingDt),
@@ -210,6 +218,37 @@ export class AddothertripopenComponent {
       this.branchList = res;
     });
   }
+  getUserTripRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;
+    
+     // this.enableLastNewTripDate = this.usertriprightsmodel.enableLastNewTripDate;
+      this.enableFromTo = this.usertriprightsmodel.enableFromTo;
+      this.enableDriver = this.usertriprightsmodel.enableDriver;
+
+  
+      // if(this.enableFromTo){            
+      //   this.formOtherTripOpen.controls['loadingFrom'].enable();
+      //   this.formOtherTripOpen.controls['destination'].enable();
+      // }
+      // else{            
+      //  // this.formOtherTripOpen.controls['loadingFrom'].disable();
+      // //  this.formOtherTripOpen.controls['destination'].disable();
+      // }
+
+      if(this.enableDriver){            
+        this.formOtherTripOpen.controls['driverMasterID'].enable();
+      }
+      else{            
+        this.formOtherTripOpen.controls['driverMasterID'].disable();
+      }
+     // if(this.selectedTripSheetDetails.tripNo=="1"){
+       // this.formOtherTripOpen.controls['driverMasterID'].enable();
+     // }
+    });   
+  }
+
 
   getVehicleNoList(): void {
     this.commonService.getVehicleNoList().subscribe((res) => {
@@ -587,6 +626,7 @@ export class AddothertripopenComponent {
     this.route.navigate(['/othertripopenlist']);
   }
 
+
   submitOtherTripOpenForm(): void {
     this.userSubmitted = true;
     if (this.formOtherTripOpen.invalid) {
@@ -607,6 +647,25 @@ export class AddothertripopenComponent {
     }
     else{
       this.toasterService.warning(" Invalid Trip No");   
+      return;
+    }
+    var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.loadingFrom.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid loadingFrom Place ");          
+      return;
+    }
+
+    var toLoc = this.locationList.find(e => e.dataName == selectedDataValue.destination.dataName) 
+    if (typeof toLoc !== 'undefined' && toLoc !== null && 
+    toLoc.dataId!="" && toLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toasterService.warning("Please Enter Valid destination Place ");          
       return;
     }
 

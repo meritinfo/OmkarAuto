@@ -273,7 +273,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Opening Bal. Dsl</label>
                                              <!--   <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="updateDslOp()">-->
-                                             <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="totalCalculation()">
+                                             <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="totalCalculation() ;actualDieselTobe()">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -809,6 +809,11 @@
                             <div class="card-body">
                                 <h4 class="card-title mb-4" style="color: red;">Trip Summary</h4>
                             </div>
+                            <!-- <div class ="row">
+                                <div class="col-lg-3">
+                                    <label style="color: red" class="card-title mb-4"> Actual Dsl To be:  {{ actualdslnew}}  </label><span ></span>
+                                </div>
+                            </div> -->
                             <div class="row">
                                 <!--<div class="col-lg-2">
                                     <div class="mb-2">
@@ -837,6 +842,9 @@
                                         <input class="form-control" placeholder=""
                                             formControlName="totalpayable">
                                     </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label style="color: red" class="card-title mb-4"> Actual Dsl To be:  {{ actualdslnew}}  </label><span ></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -1071,7 +1079,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputCity">Trip Close Date </label>
-                                                <input type="date" class="form-control" placeholder=""  
+                                                <input type="date" class="form-control" placeholder="" 
                                                     formControlName="tripCloseDt">
                                             </div>
                                         </div>

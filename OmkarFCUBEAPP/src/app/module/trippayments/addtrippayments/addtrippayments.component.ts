@@ -592,7 +592,7 @@ if(selectedDataValue.tripNo!=1){
           //ignore
       }
       else{
-        this.toasterService.warning("Please Enter Valid Vehical No ");          
+        this.toasterService.warning("Please Enter Valid Vehicle No ");          
         return;
       }
 

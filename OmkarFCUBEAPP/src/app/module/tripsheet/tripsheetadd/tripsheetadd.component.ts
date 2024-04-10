@@ -56,6 +56,7 @@ export class TripsheetaddComponent {
   ltsdsl: string = '';
   ltsadbnew: number = 0;
   ltsadbnew1: number = 0;
+  actualdslnew: number = 0;
   adblue1: string = '';
   ltsdsl1: string = '';
   bDays: number = 0;
@@ -148,6 +149,7 @@ export class TripsheetaddComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -325,6 +327,8 @@ export class TripsheetaddComponent {
         this.totalCalculation();
         this.getIdleDays();
         this.getDriverDetails2(this.selectedTripSheetDetails.driverMasterID)
+        this.actualDieselTobe();
+
       } else {
         this.tripsheetinnergridrequest.tripId = 0;
         this.tripsheetinnergridrequest.vehicleMasterId = 0;
@@ -627,6 +631,9 @@ export class TripsheetaddComponent {
       }
       else{            
         this.formTripsheet.controls['driverMasterID'].disable();
+      }
+      if(this.selectedTripSheetDetails.tripNo=="1"){
+        this.formTripsheet.controls['driverMasterID'].enable();
       }
     });   
   }
@@ -2192,6 +2199,7 @@ actualDieselTobe(){
   let cashDslLtrs = selectedDataValue.cashDslLtrs ? parseFloat(selectedDataValue.cashDslLtrs) : 0
   let clBalDsl=0;
   clBalDsl =  clBalDsl = totaldsl  + opDslbal
+  this.actualdslnew = clBalDsl
 
 
 }
@@ -2598,6 +2606,7 @@ actualDieselTobe(){
         let ld = parseFloat(this.ltsdsl).toFixed(2);
         this.dsl2 = parseFloat(ld);
         this.totalCal2(ld);
+        this.actualDieselTobe();
 
         // if (this.tripkmsDetails.status) {
         if (this.ltsdsl != undefined) {
@@ -2996,6 +3005,7 @@ actualDieselTobe(){
     });
   }
 
+
   changeTripCloseValue(e: any) {
     console.log(e.target.checked);
     var selectedValue = e.target.checked;
@@ -3005,12 +3015,20 @@ actualDieselTobe(){
       this.formTripsheet.controls['tripCloseDt'].enable();
       this.formTripsheet.controls['tripCloseDt'].setValidators([Validators.required]);
       // this.formTripsheet.patchValue({
-      // chequeDate:  this.loginDate ,
+      // tripCloseDt:  this.loginDate ,
 
 
       //  });
 
-    }
+    }else if(!selectedValue){
+      this.formTripsheet.patchValue({
+      tripCloseDt:  '' ,
+
+
+       });
+      // this.formTripsheet.controls['tripCloseDt'].enable();
+       this.formTripsheet.controls['tripCloseDt'].clearValidators();
+      }
     else {
       this.formTripsheet.controls['tripCloseDt'].clearValidators();
     }
@@ -3107,6 +3125,7 @@ actualDieselTobe(){
       });
     }
     this.totalCal();
+    this.actualDieselTobe();
   }
   changeToPlace(e: any) {
     this.ivToPlace = e.dataId;
