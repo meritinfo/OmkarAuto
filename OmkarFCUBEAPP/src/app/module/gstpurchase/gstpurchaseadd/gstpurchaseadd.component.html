@@ -112,7 +112,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Vender GST</label><span style="color: red">*</span> 
-                                                <input uppercaseonly class="form-control" formControlName="vendorGST" 
+                                                <input uppercaseonly maxlength="15" class="form-control" formControlName="vendorGST" 
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGST'].invalid) }">
                                             </div>
                                         </div>
@@ -134,7 +134,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span> 
-                                                <input uppercaseonly class="form-control" formControlName="vendorInvNo" 
+                                                <input uppercaseonly class="form-control" 
+                                                formControlName="vendorInvNo" 
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
                                             </div>
                                         </div>
@@ -162,16 +163,16 @@
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">                                 
                         <div class="overflow-x">
-                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width">
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-width" style="height: 300px;">
                                 <tr>
                                     <td class="col-lg-3">
                                         <label for="formrow-inputZip" class="narration-input">
-                                            <h6>Account Name</h6>
+                                            <h6>Account Name<span style="color: red">*</span></h6>
                                         </label>
                                     </td>
                                     <td class="col-lg-3">
                                         <label for="formrow-inputZip">
-                                            <h6>Narration</h6>
+                                            <h6>Narration<span style="color: red">*</span> </h6> 
                                         </label>
                                     </td>
                                     <td class="col-lg-2">                                            
@@ -221,7 +222,7 @@
                                     </td>
                                     <td class="col-lg-1">     
                                         <label for="formrow-inputCity">
-                                            <h6>Net Total</h6>
+                                            <h6>Net Total<span style="color: red">*</span></h6>
                                         </label>
                                     </td>
                                     <td class="col-lg-2">     
@@ -254,7 +255,7 @@
                                             </div>
                                         </td>
                                         <td>   
-                                            <input autoclose="false" class="form-control narration-input"
+                                            <input uppercaseonly autoclose="false" class="form-control narration-input"
                                                 formControlName="narration">
                                         </td>
                                         <td>
@@ -262,7 +263,7 @@
                                                 formControlName="subLedger">
                                         </td>
                                         <td>
-                                            <input autoclose="false" class="form-control"
+                                            <input uppercaseonly autoclose="false" class="form-control"
                                                 formControlName="sacHsnCode">
                                         </td>
                                         <td>
@@ -378,7 +379,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">TDS</label>
-                                                <input class="form-control" decimalonly maxlength="7" 
+                                                <input class="form-control" decimalonly maxlength="10" 
                                                 (change)="onTdsChange($event)" 
                                                 formControlName="tDSAmt">
                                             </div>
@@ -408,7 +409,8 @@
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
                                                     <option value="D">Vendor</option>
-                                                    <option value="A">Adjust</option>                                            -->
+                                                    <option value="A">Adjust</option> -->
+                                                    <option value="">SELECT</option>
                                                     <option *ngFor="let br of paymentTypes" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -420,6 +422,7 @@
                                                 <select class="form-control" formControlName="creditAc"
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }"> 
+                                                    <option value="">SELECT</option>
                                                     <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
                                                         {{crd.dataName}}
                                                     </option>
@@ -477,7 +480,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-6">
                                                 <label for="formrow-inputState"> Modify Remark</label>
-                                                <input class="form-control" placeholder=""
+                                                <input uppercaseonly class="form-control" placeholder=""
                                                     formControlName="modifyRemarks">
                                             </div>
                                         </div>

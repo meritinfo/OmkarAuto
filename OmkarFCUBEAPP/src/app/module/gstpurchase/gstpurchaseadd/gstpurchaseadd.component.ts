@@ -219,10 +219,6 @@ export class GstpurchaseaddComponent {
     this.formGSTPurchase.controls['tdsAc'].clearValidators();  
     this.formGSTPurchase.controls['tdsAc'].updateValueAndValidity();
 
-    if (this.selectedGstpurchaseDetails.masterid != '') {  
-      this.getPaymentCreditAcList(this.selectedGstpurchaseDetails.pmtType);
-    }
-
     this.paymentTypes= [      
       {
         dataId: "M",
@@ -246,6 +242,27 @@ export class GstpurchaseaddComponent {
       },
     ];
 
+    if (this.selectedGstpurchaseDetails.masterid != '') {    
+      if (this.selectedGstpurchaseDetails.vendorId == '' || this.selectedGstpurchaseDetails.vendorId=='0')
+      {
+        this.paymentTypes= [      
+          {
+            dataId: "M",
+            dataName: "Cash"
+          },
+          {
+            dataId: "B",
+            dataName: "Bank"
+          },
+          {
+            dataId: "H",
+            dataName: "Happay"
+          },
+        ];
+      }    
+      this.getPaymentCreditAcList(this.selectedGstpurchaseDetails.pmtType);
+    }
+
     setTimeout(() => {
       if (this.selectedGstpurchaseDetails.masterid != '') {    
         this.attach1 = Constants.UploadFolderPath + 'gstpurchase/attatchFile1/' + this.selectedGstpurchaseDetails.attatchFile1;
@@ -260,26 +277,13 @@ export class GstpurchaseaddComponent {
           neftPmt:''
         });
         if (this.selectedGstpurchaseDetails.vendorId == '' || this.selectedGstpurchaseDetails.vendorId=='0')
-        {
-          this.paymentTypes= [      
-            {
-              dataId: "M",
-              dataName: "Cash"
-            },
-            {
-              dataId: "B",
-              dataName: "Bank"
-            },
-            {
-              dataId: "H",
-              dataName: "Happay"
-            },
-          ];
-
+        {      
           this.formGSTPurchase.patchValue({
             noVender: 'A',
             vendorId: ''
           });
+          this.formGSTPurchase.controls['tDSAmt'].disable(); 
+          this.formGSTPurchase.controls['tdsAc'].disable();     
           this.formGSTPurchase.controls['vendorId'].disable();        
           this.formGSTPurchase.controls["vendorName"].enable();      
           this.formGSTPurchase.controls["vendorAddress"].enable();      
@@ -296,6 +300,8 @@ export class GstpurchaseaddComponent {
           this.formGSTPurchase.patchValue({
             noVender: ''
           });    
+          this.formGSTPurchase.controls['tDSAmt'].enable();   
+          this.formGSTPurchase.controls['tdsAc'].enable();   
           this.formGSTPurchase.controls['vendorId'].enable();        
           this.formGSTPurchase.controls["vendorName"].disable();      
           this.formGSTPurchase.controls["vendorAddress"].disable();     
@@ -340,10 +346,12 @@ export class GstpurchaseaddComponent {
         }        
         this.editMode = true;
         this.getGstPurchageInnerGridList(); 
+        this.formGSTPurchase.controls['noVender'].disable();
+        this.formGSTPurchase.controls['pmtType'].disable();
       }
     }, 2000);
     this.formGSTPurchase.controls['branchCode'].disable();
-    this.sharedService.loading=false;
+    this.sharedService.loading = false;
   }
 
   
@@ -474,6 +482,9 @@ export class GstpurchaseaddComponent {
       this.formGSTPurchase.patchValue({
         vendorId:'',
       });
+      
+      this.formGSTPurchase.controls['tDSAmt'].disable();  
+      this.formGSTPurchase.controls['tdsAc'].disable();   
       this.formGSTPurchase.controls['vendorId'].disable();        
       this.formGSTPurchase.controls["vendorName"].enable();      
       this.formGSTPurchase.controls["vendorAddress"].enable();   
@@ -510,6 +521,9 @@ export class GstpurchaseaddComponent {
         },
       ];
 
+      this.formGSTPurchase.controls['tDSAmt'].enable();  
+      this.formGSTPurchase.controls['tdsAc'].enable();  
+       
       this.formGSTPurchase.controls['vendorId'].enable();        
       this.formGSTPurchase.controls["vendorName"].disable();      
       this.formGSTPurchase.controls["vendorAddress"].disable();    
@@ -782,34 +796,45 @@ export class GstpurchaseaddComponent {
 
   addItem(i: number): void {
     var selectedDataVal=this.formGSTPurchase.getRawValue();
-    if (selectedDataVal.arrayList[i].debitAc?selectedDataVal.arrayList[i].debitAc.dataId:"" != "" &&
-     parseFloat(selectedDataVal.arrayList[i].totAmount) > 0) {
-      this.formArray.push(this.createInitialArray());  
+    var totamt = parseFloat(selectedDataVal.arrayList[i].totAmount);
+    var narr = selectedDataVal.arrayList[i].narration;
+    var actid = this.debitAcList.find(e => e.dataName == selectedDataVal.arrayList[i].debitAc.dataName) 
+    if (typeof actid !== 'undefined' && actid !== null && 
+        actid.dataId!="" && actid.dataId!="0") {
+        //ignore
     }
-    else {
-      this.toasterService.warning("Please select Required Fields ");
+    else{
+      this.toasterService.warning("Please Enter Valid Account Name in grid ");          
       return;
     }
+    if (narr != "" && totamt > 0) 
+    {
+      this.formArray.push(this.createInitialArray());  
+      if(selectedDataVal.gstType=='NA'){    
+        this.formArray.controls[i+1].get("sgstPct")?.disable();      
+        this.formArray.controls[i+1].get("cgstPct")?.disable();   
+        this.formArray.controls[i+1].get("igstPct")?.disable();
+      }
+      else if(selectedDataVal.gstType=='SC'){    
+        this.formArray.controls[i+1].get("sgstPct")?.enable();      
+        this.formArray.controls[i+1].get("cgstPct")?.enable();   
+        this.formArray.controls[i+1].get("igstPct")?.disable();
+      }
+      else if(selectedDataVal.gstType=='IG'){    
+        this.formArray.controls[i+1].get("sgstPct")?.disable();      
+        this.formArray.controls[i+1].get("cgstPct")?.disable();   
+        this.formArray.controls[i+1].get("igstPct")?.enable();
+      }
+      this.formArray.controls[i+1].get("sgstAmt")?.disable();      
+      this.formArray.controls[i+1].get("cgstAmt")?.disable();   
+      this.formArray.controls[i+1].get("igstAmt")?.disable();
+      this.formArray.controls[i+1].get("totAmount")?.disable();
 
-    if(selectedDataVal.gstType=='NA'){    
-      this.formArray.controls[i].get("sgstPct")?.disable();      
-      this.formArray.controls[i].get("cgstPct")?.disable();   
-      this.formArray.controls[i].get("igstPct")?.disable();
     }
-    else if(selectedDataVal.gstType=='SC'){    
-      this.formArray.controls[i].get("sgstPct")?.enable();      
-      this.formArray.controls[i].get("cgstPct")?.enable();   
-      this.formArray.controls[i].get("igstPct")?.disable();
-    }
-    else if(selectedDataVal.gstType=='IG'){    
-      this.formArray.controls[i].get("sgstPct")?.disable();      
-      this.formArray.controls[i].get("cgstPct")?.disable();   
-      this.formArray.controls[i].get("igstPct")?.enable();
-    }
-    this.formArray.controls[i].get("sgstAmt")?.disable();      
-    this.formArray.controls[i].get("cgstAmt")?.disable();   
-    this.formArray.controls[i].get("igstAmt")?.disable();
-    this.formArray.controls[i].get("totAmount")?.disable();
+    else {
+      this.toasterService.warning("Please select Required Fields in Grid");
+      return;
+    }   
   }
 
   removeItem(index: number) {
@@ -860,8 +885,18 @@ export class GstpurchaseaddComponent {
       return;
     }
     
-    this.sharedService.loading=true;
     var selectedDataVal=this.formGSTPurchase.getRawValue();
+
+    if(selectedDataVal.pmtType=="" || selectedDataVal.pmtType=="SELECT"){
+      this.toasterService.warning("Please Select Pmt Type ");
+      return;
+    }
+
+    if(selectedDataVal.creditAc=="" || selectedDataVal.creditAc=="SELECT"){
+      this.toasterService.warning("Please Select Credit Account ");
+      return;
+    }
+
     this.gstpurchasemodel.masterid      = this.selectedGstpurchaseDetails.masterid ;
     this.gstpurchasemodel.transDate     = selectedDataVal.transDate ; 
     this.gstpurchasemodel.branchCode    = selectedDataVal.branchCode ; 
@@ -897,8 +932,18 @@ export class GstpurchaseaddComponent {
 
     this.gstpurchasemodel.gstPurchaseDetailsList = [];
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {      
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) { 
       if (selectedDataVal.arrayList[i].debitAc.dataId != "" && parseFloat(selectedDataVal.arrayList[i].totAmount) > 0) {
+        var actid = this.debitAcList.find(e => e.dataName == selectedDataVal.arrayList[i].debitAc.dataName) 
+        if (typeof actid !== 'undefined' && actid !== null && 
+            actid.dataId!="" && actid.dataId!="0") {
+            //ignore
+        }
+        else{
+          this.toasterService.warning("Please Enter Valid Account Name in grid ");          
+          return;
+        }
+
         this.gstpurchasemodel.gstPurchaseDetailsList.push({
           'masterid': '',
           'debitAc':    selectedDataVal.arrayList[i].debitAc?selectedDataVal.arrayList[i].debitAc.dataId:'',
@@ -924,6 +969,8 @@ export class GstpurchaseaddComponent {
     formData.append('datadetails', JSON.stringify(this.gstpurchasemodel));
 
    
+    this.sharedService.loading=true;
+    
     this.gstpurchaseService.gstPurchageDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

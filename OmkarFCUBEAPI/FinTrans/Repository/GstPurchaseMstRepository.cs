@@ -80,15 +80,41 @@ namespace FinTrans.Repository
                     }
                     if (responseModel.Status)
                     {
-                        for (int i = 0; i < gstPurchaseMstModel.GstPurchaseDetailsList.Count; i++)
+                        var gstPurchase = gstPurchaseMstModel.GstPurchaseDetailsList;
+
+                        for (int i = 0; i < gstPurchase.Count; i++)
                         {
 
-                            gstPurchaseMstModel.GstPurchaseDetailsList[i].Masterid = Masterid.ToString();
-                            responseModel = await GstPurchaseDtlSave(transaction, gstPurchaseMstModel.GstPurchaseDetailsList[i]);
+                            SqlParameter[] parameters =
+                            {
+                                    new SqlParameter("@Masterid",   Masterid.ToString()),
+                                    new SqlParameter("@DebitAc",    gstPurchase[i].DebitAc),
+                                    new SqlParameter("@Narration",  gstPurchase[i].Narration),
+                                    new SqlParameter("@SacHsnCode", gstPurchase[i].SacHsnCode),
+                                    new SqlParameter("@SubLedger",  gstPurchase[i].SubLedger),
+                                    new SqlParameter("@ItemAmt",    gstPurchase[i].ItemAmt),
+                                    new SqlParameter("@SgstPct",    gstPurchase[i].SgstPct),
+                                    new SqlParameter("@SgstAmt",    gstPurchase[i].SgstAmt),
+                                    new SqlParameter("@CgstPct",    gstPurchase[i].CgstPct),
+                                    new SqlParameter("@CgstAmt",    gstPurchase[i].CgstAmt),
+                                    new SqlParameter("@IgstPct",    gstPurchase[i].IgstPct),
+                                    new SqlParameter("@IgstAmt",    gstPurchase[i].IgstAmt),
+                                    new SqlParameter("@TotAmount",  gstPurchase[i].TotAmount),
+                                    new SqlParameter("@RefDocNo",   gstPurchase[i].RefDocNo),
+                                    new SqlParameter("@Index",      (i + 1).ToString()),
+
+                            };
+                            var data = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseDtlsSave", parameters);
+
+                            if (data != null && data.Tables[0].Rows.Count > 0)
+                            {
+                                responseModel.Status = Convert.ToBoolean(data.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message = Convert.ToString(data.Tables[0].Rows[0]["Message"]);
+                            }   
                             if (!responseModel.Status) 
                             { 
                                 transaction.Rollback();
-                                i = gstPurchaseMstModel.GstPurchaseDetailsList.Count;
+                                i = gstPurchase.Count;
                             }
                         }
                     }
@@ -109,50 +135,50 @@ namespace FinTrans.Repository
             return responseModel;
         }
 
-        public async Task<ResponseModel> GstPurchaseDtlSave(SqlTransaction transaction,GstPurchaseDtlModel gstPurchaseDtlModel)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                    {
-                            new SqlParameter("@Masterid",   gstPurchaseDtlModel.Masterid),
-                            new SqlParameter("@DebitAc",    gstPurchaseDtlModel.DebitAc),
-                            new SqlParameter("@Narration",  gstPurchaseDtlModel.Narration),
-                            new SqlParameter("@SacHsnCode", gstPurchaseDtlModel.SacHsnCode),
-                            new SqlParameter("@SubLedger",  gstPurchaseDtlModel.SubLedger),
-                            new SqlParameter("@ItemAmt",    gstPurchaseDtlModel.ItemAmt),
-                            new SqlParameter("@SgstPct",    gstPurchaseDtlModel.SgstPct),
-                            new SqlParameter("@SgstAmt",    gstPurchaseDtlModel.SgstAmt),
-                            new SqlParameter("@CgstPct",    gstPurchaseDtlModel.CgstPct),
-                            new SqlParameter("@CgstAmt",    gstPurchaseDtlModel.CgstAmt),
-                            new SqlParameter("@IgstPct",    gstPurchaseDtlModel.IgstPct),
-                            new SqlParameter("@IgstAmt",    gstPurchaseDtlModel.IgstAmt),
-                            new SqlParameter("@TotAmount",  gstPurchaseDtlModel.TotAmount),
-                            new SqlParameter("@RefDocNo",   gstPurchaseDtlModel.RefDocNo),
+        //public async Task<ResponseModel> GstPurchaseDtlSave(SqlTransaction transaction,GstPurchaseDtlModel gstPurchaseDtlModel)
+        //{
+        //    ResponseModel responseModel = new();
+        //    try
+        //    {
+        //        if (dbconnection != null)
+        //        {
+        //            SqlParameter[] param =
+        //            {
+        //                    new SqlParameter("@Masterid",   gstPurchaseDtlModel.Masterid),
+        //                    new SqlParameter("@DebitAc",    gstPurchaseDtlModel.DebitAc),
+        //                    new SqlParameter("@Narration",  gstPurchaseDtlModel.Narration),
+        //                    new SqlParameter("@SacHsnCode", gstPurchaseDtlModel.SacHsnCode),
+        //                    new SqlParameter("@SubLedger",  gstPurchaseDtlModel.SubLedger),
+        //                    new SqlParameter("@ItemAmt",    gstPurchaseDtlModel.ItemAmt),
+        //                    new SqlParameter("@SgstPct",    gstPurchaseDtlModel.SgstPct),
+        //                    new SqlParameter("@SgstAmt",    gstPurchaseDtlModel.SgstAmt),
+        //                    new SqlParameter("@CgstPct",    gstPurchaseDtlModel.CgstPct),
+        //                    new SqlParameter("@CgstAmt",    gstPurchaseDtlModel.CgstAmt),
+        //                    new SqlParameter("@IgstPct",    gstPurchaseDtlModel.IgstPct),
+        //                    new SqlParameter("@IgstAmt",    gstPurchaseDtlModel.IgstAmt),
+        //                    new SqlParameter("@TotAmount",  gstPurchaseDtlModel.TotAmount),
+        //                    new SqlParameter("@RefDocNo",   gstPurchaseDtlModel.RefDocNo),
 
-                    };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseDtlsSave", param);
+        //            };
+        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_GstPurchaseDtlsSave", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
+        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+        //            {
+        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+        //            }
+        //            else
+        //            {
+        //                responseModel.Status = false;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //    }
+        //    return responseModel;
+        //}
 
         public async Task<ResponseModel> GstPurchageDelete(RequestModel request)
         {
