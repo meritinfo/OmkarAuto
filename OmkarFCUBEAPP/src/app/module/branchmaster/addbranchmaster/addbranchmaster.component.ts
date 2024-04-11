@@ -116,7 +116,6 @@ export class AddbranchmasterComponent {
     });
   }
 
-  //Get Module List details //
   getStateList(): void {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;

@@ -128,7 +128,7 @@ export class IntermediatescreenComponent {
         this.companyname = this.responseDetails.message;
       }
       else{
-        this.companyname = "OMKAR "
+        this.companyname = "OMKAR"
       }
       sessionStorage.setItem("companyname", this.companyname );
     });

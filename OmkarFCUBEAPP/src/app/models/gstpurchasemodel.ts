@@ -5,8 +5,12 @@ export class Gstpurchasemodel {
     branchName:         string = "";
     gstType:            string = "";
     pmtType:            string = "";
+    noVender:           string = "";
     vendorId:           string = "";
     vendorName:         string = "";
+    vendorAddress:      string = "";
+    vendorState:        string = "";
+    vendorGST:          string = "";    
     vendorInvNo:        string = "";
     vendorInvDt:        string = "";
     inputEligible:      string = "";
