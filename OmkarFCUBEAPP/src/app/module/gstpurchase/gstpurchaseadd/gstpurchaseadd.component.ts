@@ -904,11 +904,11 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.gstType       = selectedDataVal.gstType ; 
     this.gstpurchasemodel.noVender      = selectedDataVal.noVender?"Y":"N";
     this.gstpurchasemodel.vendorId      = selectedDataVal.vendorId? selectedDataVal.vendorId.dataId:"" ;   
-    this.gstpurchasemodel.vendorName    = selectedDataVal.vendorName ;  
-    this.gstpurchasemodel.vendorAddress = selectedDataVal.vendorAddress ; 
+    this.gstpurchasemodel.vendorName    = selectedDataVal.vendorName.toString().toUpperCase() ;  
+    this.gstpurchasemodel.vendorAddress = selectedDataVal.vendorAddress.toString().toUpperCase() ;  
     this.gstpurchasemodel.vendorState   = selectedDataVal.vendorState ; 
-    this.gstpurchasemodel.vendorGST     = selectedDataVal.vendorGST ; 
-    this.gstpurchasemodel.vendorInvNo   = selectedDataVal.vendorInvNo ; 
+    this.gstpurchasemodel.vendorGST     = selectedDataVal.vendorGST.toString().toUpperCase() ;  
+    this.gstpurchasemodel.vendorInvNo   = selectedDataVal.vendorInvNo.toString().toUpperCase() ;  
     this.gstpurchasemodel.vendorInvDt   = selectedDataVal.vendorInvDt ; 
     this.gstpurchasemodel.totalItemAmt  = selectedDataVal.totalItemAmt ; 
     this.gstpurchasemodel.totalSgstAmt  = selectedDataVal.totalSgstAmt ; 
@@ -927,7 +927,7 @@ export class GstpurchaseaddComponent {
     this.gstpurchasemodel.attatchFile1  = selectedDataVal.attatchFile1; 
     this.gstpurchasemodel.attatchFile2  = selectedDataVal.attatchFile2; 
     this.gstpurchasemodel.yearId        = this.year ;  
-    this.gstpurchasemodel.modifyRemarks = selectedDataVal.modifyRemarks ; 
+    this.gstpurchasemodel.modifyRemarks = selectedDataVal.modifyRemarks.toString().toUpperCase() ;  
     this.gstpurchasemodel.loggedInUser  = this.loggedInUserID; 
 
     this.gstpurchasemodel.gstPurchaseDetailsList = [];
@@ -947,8 +947,8 @@ export class GstpurchaseaddComponent {
         this.gstpurchasemodel.gstPurchaseDetailsList.push({
           'masterid': '',
           'debitAc':    selectedDataVal.arrayList[i].debitAc?selectedDataVal.arrayList[i].debitAc.dataId:'',
-          'narration':  selectedDataVal.arrayList[i].narration,
-          'sacHsnCode': selectedDataVal.arrayList[i].sacHsnCode,
+          'narration':  selectedDataVal.arrayList[i].narration.toString().toUpperCase(),
+          'sacHsnCode': selectedDataVal.arrayList[i].sacHsnCode.toString().toUpperCase(),
           'subLedger':  selectedDataVal.arrayList[i].subLedger,
           'itemAmt':    selectedDataVal.arrayList[i].itemAmt,
           'sgstPct':    selectedDataVal.arrayList[i].sgstPct,
@@ -970,7 +970,7 @@ export class GstpurchaseaddComponent {
 
    
     this.sharedService.loading=true;
-    
+
     this.gstpurchaseService.gstPurchageDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
