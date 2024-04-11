@@ -10,6 +10,8 @@ namespace FleetTrans.Models
     {
         public string Transdate { get; set; }
         public string TripKms { get; set; }
+        public string FromPlace { get; set; }
+        public string ToPlace { get; set; }
 
     }
 }

@@ -680,13 +680,16 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@Transdate", request.Transdate),            
-                            new SqlParameter("@TripKms", request.TripKms)
+                            new SqlParameter("@TripKms", request.TripKms),
+                            new SqlParameter("@FromPlace", request.FromPlace),
+                            new SqlParameter("@ToPlace", request.ToPlace),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetIncentiveRate", param);
+                    //   var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetIncentiveRate", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetIncentiveRate", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
-                      //  responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Status = true;
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
 
                     }

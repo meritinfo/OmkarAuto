@@ -2688,6 +2688,8 @@ actualDieselTobe(){
       //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
+      this.incentiveDetails.fromPlace = selectedDataValue.loadingFrom.dataId;
+      this.incentiveDetails.toPlace = selectedDataValue.destination.dataId;
 
       this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
         this.incentiveRate = res.message;
@@ -2751,6 +2753,7 @@ actualDieselTobe(){
       this.totalCalculationForTicl(0);
       // this.totalCalculation();
 
+
     }
     // this.totalCalculation();
     
@@ -2771,6 +2774,8 @@ actualDieselTobe(){
       //if (this.tstatus == "OK") {
       this.incentiveDetails.transDate = selectedDataValue.newTripDate;
       this.incentiveDetails.tripKms = (selectedDataValue.distanceTripKM_1).toString();
+        this.incentiveDetails.fromPlace = selectedDataValue.loadingFrom.dataId;
+      this.incentiveDetails.toPlace = selectedDataValue.destination.dataId;
 
       this.commonService.getIncentiveRate(this.incentiveDetails).subscribe((res: Responsemodel) => {
         this.incentiveRate = res.message;
