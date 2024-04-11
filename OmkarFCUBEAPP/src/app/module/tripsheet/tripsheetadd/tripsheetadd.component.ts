@@ -818,6 +818,36 @@ export class TripsheetaddComponent {
         }
       }
     }
+    var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.loadingFrom.dataName) 
+    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
+            fromLoc.dataId!="" && fromLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid From Place ");          
+      return;
+    }
+
+    var toLoc = this.locationList.find(e => e.dataName == selectedDataValue.destination.dataName) 
+    if (typeof toLoc !== 'undefined' && toLoc !== null && 
+    toLoc.dataId!="" && toLoc.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid To Place ");          
+      return;
+    }
+    var validdriver = this.driverList.find(e => e.dataName == selectedDataValue.driverMasterID.dataName) 
+    if (typeof validdriver !== 'undefined' && validdriver !== null && 
+    validdriver.dataId!="" && validdriver.dataId!="0") {
+        //ignore
+    }
+    else{
+      this.toastrService.warning("Please Enter Valid  Driver Name");          
+      return;
+    }
+
+
 
     if (this.formAdblueArray.value != undefined) {
       for (var i = 0; i < this.formAdblueArray.value.length; i++) {
