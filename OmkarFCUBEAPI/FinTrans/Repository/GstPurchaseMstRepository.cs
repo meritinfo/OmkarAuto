@@ -275,6 +275,7 @@ namespace FinTrans.Repository
                                 InputEligible   = Convert.ToString(dataSet.Tables[0].Rows[i]["InputEligible"]),
                                 AttatchFile1    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile1"]),
                                 AttatchFile2    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttatchFile2"]),
+                                ModifyRemarks   = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
                             });
                         }
 
