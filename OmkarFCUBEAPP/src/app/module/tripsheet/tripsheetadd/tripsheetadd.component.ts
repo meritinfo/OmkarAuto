@@ -846,6 +846,12 @@ export class TripsheetaddComponent {
       this.toastrService.warning("Please Enter Valid  Driver Name");          
       return;
     }
+    if(selectedDataValue.ticlStatus=='0' && selectedDataValue.tripStatus== true  && selectedDataValue.loadEmptyType=='L'){
+      this.toastrService.warning("Please select ticl status");          
+      return;
+
+
+    }
 
 
 
