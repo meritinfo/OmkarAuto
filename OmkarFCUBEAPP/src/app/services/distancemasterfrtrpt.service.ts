@@ -19,20 +19,10 @@ export class DistanceMasterFrtRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedDistanceMasterFrtRpt = new Distancemasterfrtrptmodel();
+  
   constructor(private httpClient: HttpClient) { }
-  
-  setDistanceMasterDetails(exptruckarrival: Distancemasterfrtrptmodel) { 
-      this.selectedDistanceMasterFrtRpt = exptruckarrival;  
-  }
-  
-  getDistanceMasterFrtRptDetails() {
-    return this.selectedDistanceMasterFrtRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
- getDistancemMsterFrtRptList(filter: Reportmodel): Observable<Distancemasterfrtrptlistmodel> {
+
+  getDistancemMsterFrtRptList(filter: Reportmodel): Observable<Distancemasterfrtrptlistmodel> {
     return this.httpClient.post<Distancemasterfrtrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistancemasterFrtRptList', filter, this.httpOptions);
   }  
   getDistanceMasterFrtRptListExcel(filter: Reportmodel): Observable<Responsemodel> {

@@ -14,6 +14,8 @@ namespace FinanceMasters.Repository
         Task<OpeningBalanceMasterModel> GetOpeningBalDetailList(OpeningBalanceRequest req);
         Task<List<DropDownListModel>> GetAccountList();
         Task<ResponseModel> OpeningBalanceDelete(OpeningBalanceRequest req);
+        Task<ResponseModel> ConsolidateOpeningBalUpdate(RequestModel req);
+        Task<ConsolidatedOpenBalListModel> GetConsolidateOpeningBalList(RequestModel req);
 
     }
 }

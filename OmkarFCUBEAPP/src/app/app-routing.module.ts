@@ -112,10 +112,8 @@ import { CustwizardlistComponent } from './module/custwizard/custwizardlist/cust
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
-
-
-
-
+import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
+import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
 
 
 const routes: Routes = [
@@ -252,7 +250,7 @@ const routes: Routes = [
   { path: 'distancemastertriprpt', component: DistancemastertriprptComponent},
   { path: 'trippaymentsrpt', component: TrippaymentsrptComponent},
   { path: 'driverlicrpt', component: DriverlicrptComponent},
-  { path: 'dieselstatementrpt', component: DieselstatementrptComponent},
+  { path: 'dslstmtrpt', component: DieselstatementrptComponent},
   { path: 'employeemstlist', component:  EmpmasterlistComponent },
   { path: 'employeemstadd', component: EmpmasteraddComponent },  
   { path: 'employeemstedit', component:  EmpmasteraddComponent },
@@ -277,6 +275,9 @@ const routes: Routes = [
   { path: 'custwizardlist', component:  CustwizardlistComponent },
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
   { path: 'acledgerrpt', component:  LedgerrptComponent },  
+  { path: 'bankbookrpt', component:  BankbookrptComponent },  
+  { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
+  
   
   
 ];

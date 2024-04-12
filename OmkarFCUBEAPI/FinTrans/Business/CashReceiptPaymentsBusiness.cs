@@ -30,11 +30,15 @@ namespace FinTrans.Business
     {
         private readonly IOptions<DBModel> dbconnection;
         readonly ICashReceiptPaymentsRepository cashReceiptPaymentsRepository;
-        public CashReceiptPaymentsBusiness(ICashReceiptPaymentsRepository _CashReceiptPaymentsRepository,
-            IOptions<DBModel> _dbconnection)
+        private readonly ISharedRepository sharedRepository;
+        public CashReceiptPaymentsBusiness(
+            ICashReceiptPaymentsRepository _CashReceiptPaymentsRepository,
+            IOptions<DBModel> _dbconnection,
+            ISharedRepository _sharedRepository)
         {
             cashReceiptPaymentsRepository = _CashReceiptPaymentsRepository;
             dbconnection = _dbconnection;
+            sharedRepository = _sharedRepository;
         }
 
         /// <summary>
@@ -77,7 +81,7 @@ namespace FinTrans.Business
             DataSet reportData = await cashReceiptPaymentsRepository.CashBookReport(request);
             
             ResponseModel response = new ResponseModel();
-            response = await cashReceiptPaymentsRepository.GetCompanyDetail();
+            response = await sharedRepository.GetCompanyDetail();
 
             string path = CreateCashBookReportAsync(request, reportData, response);
             return new ResponseModel { Status = true, Message = path };
@@ -101,22 +105,33 @@ namespace FinTrans.Business
             pdf.SetDefaultPageSize(PageSize.A4);
             var document = new Document(pdf);
             // Header table
-            var headerTable = new Table(3);
+            var headerTable = new Table(1);
             headerTable.SetWidth(UnitValue.CreatePercentValue(100));
-            
+
             var headerCell = new Cell().Add(new Paragraph(response.Message));
-            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
+            headerTable.AddCell(headerCell.SetFontSize(12F).SetBorder(Border.NO_BORDER));
+            document.Add(headerTable);
+
+            headerTable = new Table(1);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+            headerCell = new Cell().Add(new Paragraph("CASH BOOK REPORT"));
+            headerTable.AddCell(headerCell.SetFontSize(10F).SetBorder(Border.NO_BORDER));
+            document.Add(headerTable);
+
+            headerTable = new Table(2);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
             headerCell = new Cell().Add(new Paragraph("From : " +Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy")));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
             headerCell = new Cell().Add(new Paragraph("To : " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy")));
             headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
 
-            headerCell = new Cell().Add(new Paragraph("CASH BOOK"));
-            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
-            headerCell = new Cell().Add(new Paragraph("Branch : " + (request.FilterStr1==""?"ALL": request.FilterStr1)));
-            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));
-            headerCell = new Cell().Add(new Paragraph(""));
-            headerTable.AddCell(headerCell.SetBorder(Border.NO_BORDER));
+            document.Add(headerTable);
+
+            headerTable = new Table(1);
+            headerTable.SetWidth(UnitValue.CreatePercentValue(100));
+            headerCell = new Cell().Add(new Paragraph("Branch : " + (request.FilterStr1=="" ? "ALL" : request.FilterStr1)));
+            headerTable.AddCell(headerCell.SetFontSize(9F).SetBorder(Border.NO_BORDER));           
 
             document.Add(headerTable);
 
@@ -124,12 +139,12 @@ namespace FinTrans.Business
             var detailsTable = new Table(6);
             detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
 
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Doc No")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Receipts")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Payments")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(12)).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(10)).Add(new Paragraph("Doc No")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(45)).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Receipts")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Payments")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
 
             // Add more details as needed
 
@@ -147,22 +162,21 @@ namespace FinTrans.Business
 
             for (int i=0; i< reportData.Tables[0].Rows.Count; i++)
             {
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToDateTime(reportData.Tables[0].Rows[i]["FtmDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToDateTime(reportData.Tables[0].Rows[i]["FtmDate"]).ToString("dd-MM-yyyy"))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 DocNo = reportData.Tables[0].Rows[i]["DocNo"].ToString();
                 if (DocNo=="0") { DocNo = ""; }
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(DocNo)).SetFontSize(9F).SetBorder(Border.NO_BORDER));
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(reportData.Tables[0].Rows[i]["Narration"]))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(DocNo)).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToString(reportData.Tables[0].Rows[i]["Narration"]))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 receipts = Convert.ToDecimal(reportData.Tables[0].Rows[i]["DrAmt"]);
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(receipts.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 payments = Convert.ToDecimal(reportData.Tables[0].Rows[i]["CrAmt"]);
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(payments.ToString())).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                 totReceipts = totReceipts + receipts;
                 totPayments = totPayments + payments;
                 Balance = totReceipts - totPayments;
-                detailsTable.AddCell(new Cell().SetWidth(10).Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
+                detailsTable.AddCell(new Cell().Add(new Paragraph(Convert.ToString(Balance))).SetFontSize(9F).SetBorder(Border.NO_BORDER));
                
             }
-
 
             document.Add(detailsTable);
 

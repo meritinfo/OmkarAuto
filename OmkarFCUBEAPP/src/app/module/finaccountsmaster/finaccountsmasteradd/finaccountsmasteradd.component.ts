@@ -47,9 +47,7 @@ export class FinaccountsmasteraddComponent {
    
   }
   
-  ngOnInit(): void {
-
-    
+  ngOnInit(): void {    
 
   var menuData = sessionStorage.getItem('menulist')?.toString();
   if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {

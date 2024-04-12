@@ -15,6 +15,5 @@ namespace FinTrans.Repository
         Task<LedgerRptListModel> GetLedgerRptList(ReportRequestModel request);
         Task<ResponseModel> GetLedgerRptExcel(ReportRequestModel request);
         Task<DataSet> ledgerReport(ReportRequestModel request);
-        Task<ResponseModel> GetCompanyDetail();
     }
 }

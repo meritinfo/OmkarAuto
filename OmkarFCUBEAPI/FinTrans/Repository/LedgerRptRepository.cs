@@ -191,38 +191,6 @@ namespace FinTrans.Repository
             return reportData;
         }
 
-        public async Task<ResponseModel> GetCompanyDetail()
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_CompanyDetail");
-
-                    if (userData != null && userData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(userData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message= Convert.ToString(userData.Tables[0].Rows[0]["Message"]);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
-            return responseModel;
-        }
-
-
+       
     }
 }

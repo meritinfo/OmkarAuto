@@ -66,7 +66,7 @@ namespace FinanceMasters.Repository
                                 new SqlParameter("@OpeningBalanceCrD", openingBalanceMaster.openingBalDetailList[i].OpeningBalanceCrDr),
                             };
 
-                            var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_OpeningBalMasterSave", par);
+                            var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_OpeningBalMasterSave", par);
                             if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                             {
                                 responseModel.Status = Convert.ToBoolean(dataSet.Tables[0].Rows[0]["Status"]);
@@ -74,6 +74,7 @@ namespace FinanceMasters.Repository
                                 if (!Convert.ToBoolean(dataSet.Tables[0].Rows[0]["Status"]))
                                 {
                                     transaction.Rollback();
+                                    i = openingBalanceMaster.openingBalDetailList.Count;
                                 }
                             }
                             else
@@ -279,6 +280,79 @@ namespace FinanceMasters.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+
+        public async Task<ResponseModel> ConsolidateOpeningBalUpdate(RequestModel req)
+        {
+            ResponseModel responseModel = new();
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
+            SqlParameter[] param =
+            {
+                new SqlParameter("@YearID" , req.strRequest),
+            };
+            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsolidateOpeningBalUpdate", param);
+            
+            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+            {
+                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                if (responseModel.Status)
+                {
+                    transaction.Commit();
+                }
+                else
+                {
+                    transaction.Rollback();
+                }
+            }
+            else
+            {
+                responseModel.Status = false;
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<ConsolidatedOpenBalListModel> GetConsolidateOpeningBalList(RequestModel req)
+        {
+            ConsolidatedOpenBalListModel consolidatedOpenBal = new()
+            {
+                consolidateopenballist  = new List<ConsolidatedOpenBalModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@YearID" , req.strRequest),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsolidateOpeningBalList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            consolidatedOpenBal.consolidateopenballist.Add(new ConsolidatedOpenBalModel
+                            {
+                                AccountName = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountName"]),
+                                BalAmt      = Convert.ToString(dataSet.Tables[0].Rows[i]["BalAmt"]),
+                                Crdr        = Convert.ToString(dataSet.Tables[0].Rows[i]["Crdr"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return consolidatedOpenBal;
         }
 
     }

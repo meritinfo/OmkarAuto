@@ -217,6 +217,8 @@ import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwi
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
+import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
+import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
 
 @NgModule({
   declarations: [
@@ -349,6 +351,8 @@ import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
     CustwizardlistComponent,
     DailyloadingrptComponent,
     LedgerrptComponent,
+    BankbookrptComponent,
+    ConsolidatedopenbalComponent,
   ],
   imports: [
     BrowserModule,

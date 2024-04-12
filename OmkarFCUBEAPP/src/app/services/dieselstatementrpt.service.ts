@@ -19,20 +19,10 @@ export class DieselStatementRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedDieselStatementRpt = new Dieselstatementrptmodel();
+  
   constructor(private httpClient: HttpClient) { }
   
-  setDieselStatementDetails(exptruckarrival: Dieselstatementrptmodel) { 
-      this.selectedDieselStatementRpt = exptruckarrival;  
-  }
-  
-  getDieselStatementRptDetails() {
-    return this.selectedDieselStatementRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
- getDieselStatementRptList(filter: Reportmodel): Observable<Dieselstatementrptlistmodel> {
+  getDieselStatementRptList(filter: Reportmodel): Observable<Dieselstatementrptlistmodel> {
     return this.httpClient.post<Dieselstatementrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementRptList', filter, this.httpOptions);
   }  
   getDieselStatementRptListExcel(filter: Reportmodel): Observable<Responsemodel> {

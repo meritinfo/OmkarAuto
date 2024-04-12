@@ -21,17 +21,8 @@ export class DailyloadingrptService {
     })
   }
   
-  selectedDailyloadingrptmodel = new Dailyloadingrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setDailyloadingrptDetails(dailyloadingrpt: Dailyloadingrptmodel) { 
-      this.selectedDailyloadingrptmodel = dailyloadingrpt;  
-  }
-  
-  getDailyloadingrptDetails() {
-    return this.selectedDailyloadingrptmodel;
-  }
-
   getDailyloadingrptList(filter: Reportmodel): Observable<Dailyloadingrptlistmodel> {
     return this.httpClient.post<Dailyloadingrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDailyLoadingRptList', filter, this.httpOptions);
   }  
