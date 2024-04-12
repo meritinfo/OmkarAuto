@@ -19,19 +19,8 @@ export class DocRenewalRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedDocRenewalRpt = new Docrenewalrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setDocRenewalMasterDetails(exptruckarrival: Docrenewalrptmodel) { 
-      this.selectedDocRenewalRpt = exptruckarrival;  
-  }
-  
-  getDocRenewalRptDetails() {
-    return this.selectedDocRenewalRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
  getDocRenewalRptList(filter: Reportmodel): Observable<Docrenewalrptlistmodel> {
     return this.httpClient.post<Docrenewalrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDocRenewalRptList', filter, this.httpOptions);
   }  

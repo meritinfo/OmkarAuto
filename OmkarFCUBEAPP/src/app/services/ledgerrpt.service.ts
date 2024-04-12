@@ -20,17 +20,8 @@ export class LedgerrptService {
     })
   }
   
-  selectedLedgerrptmodel = new Ledgerrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setDailyloadingrptDetails(ledgerrptmodel: Ledgerrptmodel) { 
-      this.selectedLedgerrptmodel = ledgerrptmodel;  
-  }
-  
-  getLedgerrptDetails() {
-    return this.selectedLedgerrptmodel;
-  }
-
   getLedgerrptList(filter: Reportmodel): Observable<Ledgerrptlistmodel> {
     return this.httpClient.post<Ledgerrptlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptList', filter, this.httpOptions);
   }  

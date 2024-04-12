@@ -19,20 +19,9 @@ export class DriverLicRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedDriverLicRpt = new Driverlicrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setDriverLicDetails(exptruckarrival: Driverlicrptmodel) { 
-      this.selectedDriverLicRpt = exptruckarrival;  
-  }
-  
-  getDriverLicRptDetails() {
-    return this.selectedDriverLicRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
- getDriverLicRptList(filter: Reportmodel): Observable<Driverlicrptlistmodel> {
+  getDriverLicRptList(filter: Reportmodel): Observable<Driverlicrptlistmodel> {
     return this.httpClient.post<Driverlicrptlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDriverLicRPTList', filter, this.httpOptions);
   }  
   getDriverLicRptListExcel(filter: Reportmodel): Observable<Responsemodel> {

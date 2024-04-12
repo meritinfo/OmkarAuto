@@ -291,7 +291,7 @@ export class LedgerrptComponent {
       this.ledgerrptService.getLedgerrptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LedgerReport" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "LedgerReport_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

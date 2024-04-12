@@ -85,20 +85,22 @@ export class FinopenbalanceaddComponent {
       arrayList: this.formBuilder.array([this.createInitialArray()])   
     });  
       
-    this.sharedService.loading = true;
     this.selectedOpeningbalanceDetails = this.finopenbalanceservice.getOpeningbalanceDetails(); 
     
     this.getBranchList();  
     this.getAccountList();   
   
+    this.formFinOpenBal.controls['totalDebit'].disable();
+    this.formFinOpenBal.controls['totalCredit'].disable();
+
+    this.sharedService.loading = true;
     setTimeout(() => {
-      if (this.selectedOpeningbalanceDetails.branchCode != '') {
-          this.formFinOpenBal.patchValue(this.selectedOpeningbalanceDetails);   
-          this.editMode=true;
-          this.getOpeningBalDetailList(this.selectedOpeningbalanceDetails.branchCode);
-        }
-    }, 2000);
-    
+      if (this.selectedOpeningbalanceDetails.branchCode != '') {   
+        this.formFinOpenBal.patchValue(this.selectedOpeningbalanceDetails); 
+        this.getOpeningBalDetailList(this.selectedOpeningbalanceDetails.branchCode);  
+        this.editMode=true;        
+      }
+    }, 2000);    
     this.sharedService.loading = false;
   }
 
@@ -118,6 +120,7 @@ export class FinopenbalanceaddComponent {
     this.formArray.controls[i].get("debitAmt")?.setValue("0.00");
     this.calTotals();
   }
+
   onDebitAmtChange(e: any,i: number) {
     var debitsmt=e.target.value;
     this.formArray.controls[i].get("creditAmt")?.setValue("0.00");
@@ -188,6 +191,7 @@ export class FinopenbalanceaddComponent {
       this.branchList = res;
     });
   }
+
   getAccountList(): void {
     this.finopenbalanceservice.getAccountList().subscribe((res) => {
       this.accountList = res;
@@ -205,6 +209,7 @@ export class FinopenbalanceaddComponent {
       var creditamount="0.00";
       var totdebitamount=0.00;
       var totcreditamount=0.00;
+
       if(res.openingBalDetailList.length>0){        
         this.formArray.clear();
         for (var i = 0; i < res.openingBalDetailList.length; i++) {
@@ -291,7 +296,6 @@ export class FinopenbalanceaddComponent {
     //   return;
     // }
 
-    this.sharedService.loading=true;
     this.openbalancemodel.branchCode  = selectedDataVal.branchCode;
     this.openbalancemodel.yearID      = this.year;
 
@@ -325,6 +329,8 @@ export class FinopenbalanceaddComponent {
         return;
       }
 
+    this.sharedService.loading=true;
+    
     this.finopenbalanceservice.OpeningbalanceSubmitted(this.openbalancemodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

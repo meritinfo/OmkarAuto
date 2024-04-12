@@ -790,7 +790,6 @@ export class TripsheetaddComponent {
     this.tripsheetmodel.tripCloseUpdateDt = selectedDataValue.tripCloseUpdateDt ? selectedDataValue.tripCloseUpdateDt : '';
     this.tripsheetmodel.tripLinkYN = selectedDataValue.tripLinkYN ? "Y" : "";
     this.tripsheetmodel.findocid = selectedDataValue.findocid;
-    // this.tripsheetmodel.tripCloseDt = "";
     this.tripsheetmodel.tripCloseDt = selectedDataValue.tripCloseDt;
     this.tripsheetmodel.ticlStatus = selectedDataValue.ticlStatus;
     this.tripsheetmodel.actualDays_1 = selectedDataValue.actualDays_1.toString();
@@ -818,6 +817,7 @@ export class TripsheetaddComponent {
         }
       }
     }
+
     var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.loadingFrom.dataName) 
     if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
             fromLoc.dataId!="" && fromLoc.dataId!="0") {
@@ -846,14 +846,11 @@ export class TripsheetaddComponent {
       this.toastrService.warning("Please Enter Valid  Driver Name");          
       return;
     }
+
     if(selectedDataValue.ticlStatus=='0' && selectedDataValue.tripStatus== true  && selectedDataValue.loadEmptyType=='L'){
       this.toastrService.warning("Please select ticl status");          
       return;
-
-
     }
-
-
 
     if (this.formAdblueArray.value != undefined) {
       for (var i = 0; i < this.formAdblueArray.value.length; i++) {

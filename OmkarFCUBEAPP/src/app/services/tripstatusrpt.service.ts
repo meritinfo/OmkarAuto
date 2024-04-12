@@ -19,20 +19,9 @@ export class TripStatusRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedTripStatusRpt = new Tripstatusrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setTripStatusRptDetails(exptruckarrival: Tripstatusrptmodel) { 
-      this.selectedTripStatusRpt = exptruckarrival;  
-  }
-  
-  getTripStatusRptDetails() {
-    return this.selectedTripStatusRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
- getTripStatusRptList(filter: Reportmodel): Observable<Tripstatusrptlistmodel> {
+  getTripStatusRptList(filter: Reportmodel): Observable<Tripstatusrptlistmodel> {
     return this.httpClient.post<Tripstatusrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripStatusRptList', filter, this.httpOptions);
   }  
   getTripStatusRptListExcel(filter: Reportmodel): Observable<Responsemodel> {

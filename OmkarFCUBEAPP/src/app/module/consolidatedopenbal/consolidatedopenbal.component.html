@@ -1,0 +1,96 @@
+<p>bankreconcilation works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Consolidated Opening Balances</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="/#/gstpurchaselist">Cash Receipt</a></li>
+                                <li class="breadcrumb-item active">Cash Receipt</li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formBankRecEntry">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row" >
+                        <div class="col-lg-10">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">                                                                                                     
+                                        <div class="col-lg-2">
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary" 
+                                                (click)="getBankrecData()"><span>Show</span></button>
+                                            </div>
+                                        </div>                                                                                          
+                                        <div class="col-lg-3">
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary" 
+                                                (click)="refreshForm()"><span>Refresh & Show</span></button>
+                                            </div>
+                                        </div>                                             
+                                    </div>                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>                            
+                    <div class="row" >
+                        <div class="col-lg-9">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4" style="color: red;"> Details</h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-4">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Account Name</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-3">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Balance Amount</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Credit/Debit</h6>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let miscData of formArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
+                                                <td  class="col-lg-4">   
+                                                    <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="accountName">                                                                                                
+                                                </td>
+                                                <td  class="col-lg-3"> 
+                                                    <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="balAmt">                                                        
+                                                </td>
+                                                <td  class="col-lg-2">   
+                                                    <input autoclose="false" type="text" class="form-control" 
+                                                    formControlName="crdr">                                                        
+                                                </td>                            
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

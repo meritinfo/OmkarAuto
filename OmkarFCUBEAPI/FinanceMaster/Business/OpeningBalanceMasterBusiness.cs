@@ -33,5 +33,13 @@ namespace FinanceMasters.Business
         {
             return await openBalanceMasterRepository.OpeningBalanceDelete(req);
         }
+        public async Task<ResponseModel> ConsolidateOpeningBalUpdate(RequestModel req)
+        {
+            return await openBalanceMasterRepository.ConsolidateOpeningBalUpdate(req);
+        }
+        public async Task<ConsolidatedOpenBalListModel> GetConsolidateOpeningBalList(RequestModel req)
+        {
+            return await openBalanceMasterRepository.GetConsolidateOpeningBalList(req);
+        }
     }
 }

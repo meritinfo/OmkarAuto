@@ -160,7 +160,7 @@ export class CashbookreportComponent {
     this.cashbookreportService.getCashBookReport(this.filter)
       .subscribe((resp: any) => {
         let link = document.createElement("a");
-        link.download = "CashbookReport" + "_" + new Date().getTime() + '.pdf';
+        link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/CashBook/" + resp.message;
         link.click();
       });

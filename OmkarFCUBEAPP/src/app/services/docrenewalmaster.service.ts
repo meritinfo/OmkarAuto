@@ -21,13 +21,13 @@ export class DocRenewalMasterService {
     })
   }
   selectedDocrenewalmaster = new Docrenewalmastermodel();
+
   constructor(private httpClient: HttpClient) { }
-  setDocRenewalMasterDetails(docrenewalmaster: Docrenewalmastermodel) {
- 
-      this.selectedDocrenewalmaster = docrenewalmaster;
-    
-  
+
+  setDocRenewalMasterDetails(docrenewalmaster: Docrenewalmastermodel) { 
+      this.selectedDocrenewalmaster = docrenewalmaster;  
   }
+  
   getDocrenewalMasterDetails() {
     return this.selectedDocrenewalmaster;
   }

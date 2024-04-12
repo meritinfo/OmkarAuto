@@ -30,6 +30,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
         readonly ICustWizardBusiness custWizardBusiness;
         readonly ILedgerRptBusiness ledgerRptBusiness;
+        readonly IBankBookRptBusiness bankBookRptBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
@@ -37,7 +38,8 @@ namespace OmkarFCUBEAPI.Controllers
             IBankReconcilationBusiness _bankReconcilationBusiness,
             IOpBrsEntryBusiness _opBrsEntryBusiness, 
             ICustWizardBusiness _custWizardBusiness,
-            ILedgerRptBusiness _ledgerRptBusiness)
+            ILedgerRptBusiness _ledgerRptBusiness,
+            IBankBookRptBusiness _bankBookRptBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
@@ -45,6 +47,7 @@ namespace OmkarFCUBEAPI.Controllers
             opBrsEntryBusiness = _opBrsEntryBusiness;
             custWizardBusiness = _custWizardBusiness;
             ledgerRptBusiness = _ledgerRptBusiness;
+            bankBookRptBusiness = _bankBookRptBusiness;
         }
         /// <summary>
 
@@ -556,6 +559,44 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await ledgerRptBusiness.GetLedgerRptPdf(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBankBookRptList")]
+        public async Task<IActionResult> GetBankBookRptList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankBookRptBusiness.GetBankBookRptList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBankBookRptPdf")]
+        public async Task<IActionResult> GetBankBookRptPdf(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bankBookRptBusiness.GetBankBookRptPdf(req);
 
                 return Ok(result);
             }

@@ -383,6 +383,44 @@ namespace OmkarFCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("ConsolidateOpeningBalUpdate")]
+        public async Task<IActionResult> ConsolidateOpeningBalUpdate(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.ConsolidateOpeningBalUpdate(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetConsolidateOpeningBalList")]
+        public async Task<IActionResult> GetConsolidateOpeningBalList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetConsolidateOpeningBalList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
     }
 }

@@ -19,19 +19,9 @@ export class ExptruckarrivalService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedExptruckarrival = new Exptruckarrivalmodel();
+  
   constructor(private httpClient: HttpClient) { }
   
-  setExptruckarrivalDetails(exptruckarrival: Exptruckarrivalmodel) { 
-      this.selectedExptruckarrival = exptruckarrival;  
-  }
-  
-  getExptruckarrivalDetails() {
-    return this.selectedExptruckarrival;
-  }
-  clearCashReceiptEntryDetails() {
-    this.selectedExptruckarrival = new Exptruckarrivalmodel();
-  }
   getExptruckarrivalList(filter: Reportmodel): Observable<Exptruckarrivallistmodel> {
     return this.httpClient.post<Exptruckarrivallistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetExpTruckArrRPTList', filter, this.httpOptions);
   }  

@@ -19,20 +19,9 @@ export class TripPaymentsRptService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
-  selectedDocTripPaymentsRpt = new Trippaymentsrptmodel();
   constructor(private httpClient: HttpClient) { }
   
-  setTripPaymentsRptDetails(exptruckarrival: Trippaymentsrptmodel) { 
-      this.selectedDocTripPaymentsRpt = exptruckarrival;  
-  }
-  
-  getTripPaymentsRptDetails() {
-    return this.selectedDocTripPaymentsRpt;
-  }
-//  clearCashReceiptEntryDetails() {
-   // this.selectedExptruckarrival = new Exptruckarrivalmodel();
- // }
- getTripPaymentsRptList(filter: Reportmodel): Observable<Trippaymentsrptlistmodel> {
+  getTripPaymentsRptList(filter: Reportmodel): Observable<Trippaymentsrptlistmodel> {
     return this.httpClient.post<Trippaymentsrptlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPaymentsRptList', filter, this.httpOptions);
   }  
   getTripPaymentsRptListExcel(filter: Reportmodel): Observable<Responsemodel> {
