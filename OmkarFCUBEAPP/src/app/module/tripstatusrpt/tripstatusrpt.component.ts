@@ -274,7 +274,7 @@ formFilter!: FormGroup;
       this.filter.toDate      = selectedDataVal.toDate;
       this.filter.filterStr   = selectedDataVal.transType?selectedDataVal.tripLink:"";
       this.filter.filterStr1  = selectedDataVal.pmtType?selectedDataVal.status:"";
-      this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
+      this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
       this.tripStatusRptService.getTripStatusRptListExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
@@ -305,8 +305,8 @@ formFilter!: FormGroup;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.tripLink?selectedDataVal.tripLink:"";
     this.filter.filterStr1  = selectedDataVal.status?selectedDataVal.status:"";
-   //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
+   this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
+    //this.filter.filterStr2  = selectedDataVal.vehicleMasterID.dataId;
     this.sharedService.loading=true;
     this.expTripStatus();
     this.sharedService.loading=false;

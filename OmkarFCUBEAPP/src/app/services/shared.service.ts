@@ -45,6 +45,9 @@ export class SharedService {
   getCurrentServerTime(): Observable<any> {
     return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Login/GetServerDate/' , this.httpOptions);
   }
+  getCompanyDetail(): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'Login/GetCompanyDetail',null, this.httpOptions);
+  }
   //getGcSeries(): Observable<any> {
     //return this.httpClient.get<any>(Constants.API_ENDPOINT + 'Consignment/GetGcSeries/' , this.httpOptions);
   //}
