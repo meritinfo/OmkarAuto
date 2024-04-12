@@ -109,12 +109,12 @@ namespace FinTrans.Business
             var detailsTable = new Table(6);
             detailsTable.SetWidth(UnitValue.CreatePercentValue(100));
 
-            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(15)).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(12)).Add(new Paragraph("Trans Date")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(10)).Add(new Paragraph("Doc No")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(41)).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(45)).Add(new Paragraph("Particulars")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Debit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
             detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Credit")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
-            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(12)).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
+            detailsTable.AddCell(new Cell().SetWidth(UnitValue.CreatePercentValue(11)).Add(new Paragraph("Balance")).SetFontSize(9F).SetBorder(Border.NO_BORDER).SetBorderBottom(new SolidBorder(ColorConstants.BLACK, 1F)));
 
             // Add more details as needed
 
