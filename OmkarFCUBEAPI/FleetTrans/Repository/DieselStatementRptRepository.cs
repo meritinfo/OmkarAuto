@@ -38,9 +38,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@AccountID",       request.FilterStr1),
+                            new SqlParameter("@AccountID",          request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                            new SqlParameter("@StatementFlag",      request.FilterStr3),
                         };
+
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementRptList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
@@ -50,14 +52,14 @@ namespace FleetTrans.Repository
                         {
                             dieselStatementRptList.Add(new DieselStatementRptModel
                             {
-                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
-                                PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
-                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-                                QtyLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["QtyLtrs"]),
-                                RatePerLtr = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerLtr"]),
-                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
-                                PmtType = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                Branch      = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+                                PmtDate     = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
+                                VendorName  = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                VehicleNo   = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                HsdAdvTyps  = Convert.ToString(dataSet.Tables[0].Rows[i]["HsdAdvTyps"]),
+                                DslQty      = Convert.ToString(dataSet.Tables[0].Rows[i]["DslQty"]),
+                                DslRate     = Convert.ToString(dataSet.Tables[0].Rows[i]["DslRate"]),
+                                Amount      = Convert.ToString(dataSet.Tables[0].Rows[i]["Amount"]),
                             });
                         }
 
@@ -85,19 +87,27 @@ namespace FleetTrans.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                         
+                        {                         
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr1),
                             new SqlParameter("@VehicleMasterid",    request.FilterStr2),
+                            new SqlParameter("@StatementFlag",      request.FilterStr3),
                         };
+
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselStatementRptExcel", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var filter = "Payment From " + request.FromDate + " To " + request.ToDate;
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Diesel Statement Report", filter);
+                        var filter = "Statement From " + request.FromDate + " To " + request.ToDate;
+                        if (request.FilterStr3=="D")
+                        {
+                            response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Diesel Statement Report", filter);
+                        }
+                        else
+                        {
+                            response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Happay Statement Report", filter);
+                        }
                     }
                 }
             }

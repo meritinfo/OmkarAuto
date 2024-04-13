@@ -171,6 +171,7 @@ formFilter!: FormGroup;
     startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
+    
     expDistanceMasterFrt(){
       this.dtOptions = {
           pagingType: 'full_numbers',

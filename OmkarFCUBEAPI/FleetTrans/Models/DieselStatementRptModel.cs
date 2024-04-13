@@ -10,12 +10,11 @@ namespace FleetTrans.Models
     {
         public string? Branch { get; set; }
         public string? PmtDate { get; set; }
+        public string? VendorName { get; set; }
         public string? VehicleNo { get; set; }
-        public string? TripNo { get; set; }
-        public string? QtyLtrs { get; set; }
-
-        public string? RatePerLtr { get; set; }
-        public string? AmountPaid { get; set; }
-        public string? PmtType { get; set; }
+        public string? HsdAdvTyps { get; set; }
+        public string? DslQty { get; set; }
+        public string? DslRate { get; set; }
+        public string? Amount { get; set; }
     }
 }

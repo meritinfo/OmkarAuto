@@ -19,11 +19,14 @@ namespace OmkarFCUBEAPI.Controllers
     {
         readonly IConsignmentBusiness consignmentBusiness;
         readonly IEwayBillBusiness ewayBillBusiness;
+        readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
-            IEwayBillBusiness _ewayBillBusiness)
+            IEwayBillBusiness _ewayBillBusiness,
+            IEwayBillExpRptBusiness _ewayBillExpRptBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
+            ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
         }
         
 
@@ -355,6 +358,42 @@ namespace OmkarFCUBEAPI.Controllers
             try
             {
                 var result = await ewayBillBusiness.EWayBillExtend(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEWayBillExtRptList")]
+        public async Task<IActionResult> GetEWayBillExtRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillExpRptBusiness.GetEWayBillExtRptList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetEWayBillExtRptExcel")]
+        public async Task<IActionResult> GetEWayBillExtRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ewayBillExpRptBusiness.GetEWayBillExtRptExcel(request);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -1,13 +1,10 @@
 export class Dieselstatementrptmodel {
-  
-    pmtId : string = "";
     branch: string = "";
     pmtDate: string = "";
+    vendorName: string = "";
     vehicleNo: string = "";
-    tripNo: string = "";
-    qtyLtrs: string = "";
-    ratePerLtr: string = "";
-    amountPaid: string = "";
-    pmtType: string = "";
-
+    hsdAdvTyps: string = "";
+    dslQty : string = "";
+    dslRate: string = "";
+    amount: string = "";    
 }

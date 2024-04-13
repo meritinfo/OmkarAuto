@@ -46,15 +46,16 @@ export class IntermediatescreenComponent {
   //On initial load
 
   ngOnInit(): void {
-
     this.formLogin = this.formBuilder.group({
       yearID: new FormControl('22', [Validators.required]),
       userBranch: new FormControl('', [Validators.required]),
       loginDate: new FormControl((new Date()).toISOString().substring(0, 10), [Validators.required])
     });
+
     this.sharedService.getCurrentServerTime().subscribe((data: any) => {
       this.currentServerTime = data.currentServerTime;
     });
+
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -72,7 +73,8 @@ export class IntermediatescreenComponent {
     }
 
     this.sharedService.loggedInStatus = false;
-    this.getDropdownList();
+    this.getCompanyDetails();
+    this.getDropdownList();          
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);    
     this.sharedService.loading = false;
@@ -100,8 +102,7 @@ export class IntermediatescreenComponent {
       this.selectedScreenDetails.loginDate = this.formLogin.value.loginDate;
       this.selectedScreenDetails.userBranch = this.formLogin.value.userBranch.dataId;
 
-      if (this.responseDetails.status) {        
-        this.getCompanyDetails();
+      if (this.responseDetails.status) {  
         sessionStorage.setItem("yearID", this.selectedScreenDetails.yearID);
         sessionStorage.setItem("loginDate", this.selectedScreenDetails.loginDate);
         sessionStorage.setItem("userBranch", this.formLogin.value.userBranch.dataId);

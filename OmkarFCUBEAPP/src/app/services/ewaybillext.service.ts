@@ -8,6 +8,7 @@ import { Ewaybillextmodel } from '../models/ewaybillextmodel';
 import { Ewaybillextlistmodel } from '../models/ewaybillextlistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +42,13 @@ export class EwaybillextService {
 
   getEwaybillextList(filter: Filtermodel): Observable<Ewaybillextlistmodel> {
     return this.httpClient.post<Ewaybillextlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtList', filter, this.httpOptions);
+  } 
+
+  getEWayBillExtRptList(filter: Reportmodel): Observable<Ewaybillextlistmodel> {
+    return this.httpClient.post<Ewaybillextlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtRptList', filter, this.httpOptions);
+  } 
+
+  getEWayBillExtRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtRptExcel', filter, this.httpOptions);
   }  
 }
