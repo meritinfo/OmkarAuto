@@ -43,10 +43,10 @@ namespace FinTrans.Repository
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr),
-                            new SqlParameter("@YearId",             request.FilterStr1),
-                            new SqlParameter("@SubName",            request.FilterStr2),
+                          //  new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@GstType",            request.FilterStr2),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerRptList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptList", param);
                     int totalRecords = 0;
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -101,11 +101,11 @@ namespace FinTrans.Repository
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr),
-                            new SqlParameter("@YearId",             request.FilterStr1),
-                            new SqlParameter("@SubName",            request.FilterStr2),
+                          //  new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@GstType",            request.FilterStr2),
                         };
 
-                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerRptList", param);
+                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptList", param);
                 }
             }
             catch (Exception ex)
@@ -129,7 +129,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@YearId",             request.FilterStr1),
                             new SqlParameter("@SubName",            request.FilterStr2),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerRptExcel", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptExcel", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {

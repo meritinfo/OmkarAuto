@@ -30,6 +30,7 @@ namespace FleetTrans.Models
         public string? RatePerLtr { get; set; }
         public string? AmountPaid { get; set; }
         public string? VendorName { get; set; }
+        public string? Adj { get; set; }
     }
     public class DriverAdvanceModel
     {
@@ -37,5 +38,6 @@ namespace FleetTrans.Models
         public string? PmtDate { get; set; }
         public string? AmountPaid { get; set; }
         public string? Ptype { get; set; }
+        public string? Adj2 { get; set; }
     }
 }

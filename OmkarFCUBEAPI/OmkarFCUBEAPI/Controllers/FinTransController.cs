@@ -30,6 +30,7 @@ namespace OmkarFCUBEAPI.Controllers
         readonly IOpBrsEntryBusiness opBrsEntryBusiness;
         readonly ICustWizardBusiness custWizardBusiness;
         readonly ILedgerRptBusiness ledgerRptBusiness;
+        readonly IGstSalesRegisterRptBusiness gstSalesRegisterRptBusiness;
         readonly IBankBookRptBusiness bankBookRptBusiness;
 
 
@@ -39,7 +40,8 @@ namespace OmkarFCUBEAPI.Controllers
             IOpBrsEntryBusiness _opBrsEntryBusiness, 
             ICustWizardBusiness _custWizardBusiness,
             ILedgerRptBusiness _ledgerRptBusiness,
-            IBankBookRptBusiness _bankBookRptBusiness)
+            IBankBookRptBusiness _bankBookRptBusiness,
+           IGstSalesRegisterRptBusiness _gstSalesRegisterRptBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
@@ -47,6 +49,7 @@ namespace OmkarFCUBEAPI.Controllers
             opBrsEntryBusiness = _opBrsEntryBusiness;
             custWizardBusiness = _custWizardBusiness;
             ledgerRptBusiness = _ledgerRptBusiness;
+            gstSalesRegisterRptBusiness = _gstSalesRegisterRptBusiness;
             bankBookRptBusiness = _bankBookRptBusiness;
         }
         /// <summary>
@@ -510,6 +513,43 @@ namespace OmkarFCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetGstSalesRegisterRptList")]
+        public async Task<IActionResult> GetGstSalesRegisterRptList(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstSalesRegisterRptBusiness.GetGstSalesRegisterRptList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetGstSalesRegisterExcel")]
+        public async Task<IActionResult> GetGstSalesRegisterRptExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await gstSalesRegisterRptBusiness.GetGstSalesRegisterRptExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         [HttpPost("GetLedgerRptList")]
         public async Task<IActionResult> GetLedgerRptList(ReportRequestModel req)

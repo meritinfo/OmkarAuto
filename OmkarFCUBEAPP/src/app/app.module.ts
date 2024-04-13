@@ -219,6 +219,7 @@ import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingr
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
+import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 
 @NgModule({
   declarations: [
@@ -353,6 +354,7 @@ import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/conso
     LedgerrptComponent,
     BankbookrptComponent,
     ConsolidatedopenbalComponent,
+    GstsalesregisterrptlistComponent,
   ],
   imports: [
     BrowserModule,
