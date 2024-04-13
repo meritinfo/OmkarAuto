@@ -1,45 +1,41 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Reportmodel } from 'src/app/models/reportmodel';
-import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Filtermodel } from 'src/app/models/filtermodel';
+import { Ewaybillextmodel  } from 'src/app/models/ewaybillextmodel';
+import { Ewaybillextlistmodel } from 'src/app/models/ewaybillextlistmodel';
+import { EwaybillextService } from 'src/app/services/ewaybillext.service';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
-import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Dieselstatementrptlistmodel  } from 'src/app/models/dieselstatementrptlistmodel';
-import { Dieselstatementrptmodel } from 'src/app/models/dieselstatementrptmodel';
-import { DieselStatementRptService } from 'src/app/services/dieselstatementrpt.service';
+import { FormBuilder, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
-  selector: 'app-dieselstatementrpt',
-  templateUrl: './dieselstatementrpt.component.html',
-  styleUrls: ['./dieselstatementrpt.component.css']
+  selector: 'app-ewaybillexprpt',
+  templateUrl: './ewaybillexprpt.component.html',
+  styleUrls: ['./ewaybillexprpt.component.css']
 })
-export class DieselstatementrptComponent {
+export class EwaybillexprptComponent {
   loggedInUserID: string = '';
+
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
-  viewStatus = false; 
-  docRenewalList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  partyList: Dropdownmodel[] = [];
-  branchList: Dropdownmodel[] = [];
-  creditacList: Dropdownmodel[] = [];
-  keywordLocation = 'dataName';
-
+  viewStatus = false;
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
-  
-  allDieselStatementRptlist: Dieselstatementrptlistmodel = new Dieselstatementrptlistmodel();
+
+  allEwayBillExtlist: Ewaybillextlistmodel = new Ewaybillextlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'renewalDocName',
+    sortColumn: 'ewayBillExpDate',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -48,38 +44,42 @@ export class DieselstatementrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-
   }
+
   formFilter!: FormGroup;
   userSubmitted = false;
   year: string = '';
   loginDate: string = '';
-  fromDate: string = '';
+  toDate: string = '';
   maxDate: string = '';
   minDate: string = '';
   branch:string ='';
+  partyList: Dropdownmodel[] = [];
+  branchList: Dropdownmodel[] = [];
   responseDetails = new Responsemodel();
-
-  constructor(private dieselStatementRptService: DieselStatementRptService, 
+  keywordLocation = 'dataName';
+  
+  constructor(private formBuilder: FormBuilder,
+    private ewaybillextService: EwaybillextService,
     private excelService: ExcelService,private toastrService:ToastrService,
-    private formBuilder: FormBuilder,  private sharedService: SharedService,
+    private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router){    }
 
-  ngOnInit(): void {   
-
+  ngOnInit(): void {    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Diesel Statement Report");
+      .find((aa: { menuName: string; }) => aa.menuName === "Ewaybill Expiry Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
         this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
-    }
+    } 
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -103,59 +103,47 @@ export class DieselstatementrptComponent {
       this.loginDate = loginDate;
     }
     const today = new Date();
-    const month = today.getMonth();
+    const day = today.getDate();
     const year = today.getFullYear();
-    today.setMonth(month - 1);
+    today.setDate(day + 3);
   
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
+    this.toDate = today.toLocaleDateString('en-CA').toString();
     
   
     this.formFilter = this.formBuilder.group({
-      fromDate: new FormControl(this.minDate,[Validators.required]),
-      toDate: new FormControl(this.loginDate,[Validators.required]),
-      tripBranch: new FormControl('',),  
-      vehicleMasterID: new FormControl('',),  
-      accountID: new FormControl('',),  
+      fromDate: new FormControl(this.loginDate,[Validators.required]),
+      toDate: new FormControl(this.toDate,[Validators.required]),
+      billingParty: new FormControl('',),  
+      branch: new FormControl('',),  
     });
+
     this.filter.fromDate = this.minDate;
     this.filter.toDate = this.loginDate;
-    this.filter.filterStr1   = "";
+    this.filter.filterStr1  = "";
     this.filter.filterStr2  = "";
-    this.filter.filterStr3  = "D";
 
     this.sharedService.loading=true;
     this.getBranchList();
-    this.getVehicleNoList(); 
-    this.getCreditAcList() ; 
+    this.getPartyList(); 
 
-    this.expDieselStatement();
-    this.sharedService.loading=false;
+    this.ewaybillextlist();       
+    this.sharedService.loading = false;
   }
 
+  
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
     });
   }
 
-  getVehicleNoList(): void {
-    this.commonService.getVehicleNoList().subscribe((res) => {
-      this.vehicleList = res;
+  getPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
     });
-  }  
-
-  getCreditAcList(){
-    this.dieselStatementRptService.getVendorList().subscribe((res) => {
-      this.creditacList = res;      
-    });   
   }
 
   get f() { return this.formFilter.controls; }
@@ -176,78 +164,81 @@ export class DieselstatementrptComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  expDieselStatement(){
+  ewaybillextlist(){    
     this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 10,
-        serverSide: true,
-        processing: true,
-        searching:false,
-        ajax: (dataTablesParameters: any, callback) => {
-          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-          this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'branch';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = '';
-          this.dieselStatementRptService.getDieselStatementRptList(this.filter).subscribe(resp => {
-             this.allDieselStatementRptlist = resp;
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
-              });
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      searching: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = '';      
+        this.ewaybillextService.getEWayBillExtRptList(this.filter)
+          .subscribe(resp => {
+            this.allEwayBillExtlist = resp;  
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
             });
-        }, 
-        columns: [ 
+          });
+        },
+       columns: [  
         {
-          title: 'Branch',
-          data: 'branch',
-        },  
-        {
-          title: 'Pmt Date',
-          data: 'pmtDate',
-        }, 
-        {
-          title: 'Vendor Name',
-          data: 'vendorName',
-        },   
-        {
-          title: 'Vehicle No',
-          data: 'vehicleNo',
+          title: 'Booked At',
+          data: 'bookedAt',
         },
         {
-          title: 'HsdAdvTyps',
-          data: 'hsdAdvTyps',
-        },       
-        {
-          title: 'Dsl Qty',
-          data: 'dslQty',
+          title: 'Booking Date',
+          data: 'bookingDate',
         },
         {
-          title: 'Dsl Rate',
-          data: 'dslRate',
+        title: 'GcNote No',
+        data: 'gcNoteNo',
         },
         {
-          title: 'Amount',
-          data: 'amount',
-        },    
+        title: 'From Location',
+        data: 'fromLocation',
+        },
+        {
+        title: 'Destination',
+        data: 'destination',
+        },
+        {
+        title: 'EwayBill No',
+        data: 'ewayBillNo',
+        },
+        {
+        title: 'EwayBill Date',
+        data: 'ewayBillDate',
+        },
+        {
+        title: 'EwayBill Exp Date',
+        data: 'ewayBillExpDate',
+        },
       ],
     };
   }
+    
 
   exportExcel(): void {    
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.search      = this.loggedInUserID;
-    this.filter.filterStr1  = selectedDataVal.accountID?selectedDataVal.accountID:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "D";
+    this.filter.filterStr1  = selectedDataVal.billingParty?selectedDataVal.billingParty.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.branch?selectedDataVal.branch.dataId:"";
 
-    this.dieselStatementRptService.getDieselStatementRptListExcel(this.filter).subscribe(resp => {
+    this.sharedService.loading=true;
+    this.ewaybillextService.getEWayBillExtRptExcel(this.filter).subscribe(resp => {
       if(resp.status){      
         let link = document.createElement("a");
-        link.download = "DieselStatement" + "_" + new Date().getTime() + '.xlsx';
+        link.download = "EwayBillExpiryReport" + "_" + new Date().getTime() + '.xlsx';
         link.href = "assets\\reports\\Download\\" + resp.message;
         link.click();
       }
@@ -255,35 +246,26 @@ export class DieselstatementrptComponent {
         this.toastrService.warning(resp.message);   
       }
     });
+    this.sharedService.loading=false;
   }
   
   search(): void {
-    this.userSubmitted = true;
-    if (this.formFilter.invalid) {
-      this.toastrService.warning("Please Enter Mandatory Fields");   
-      const controls = this.formFilter.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toastrService.warning(name + " Fields is Invalid");   
-        }
-      }     
-      return;
-    }
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.search      = this.loggedInUserID;
-    this.filter.filterStr1  = selectedDataVal.accountID?selectedDataVal.accountID:"";
-    this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
-    this.filter.filterStr3  = "D";
+    this.filter.filterStr1  = selectedDataVal.billingParty?selectedDataVal.billingParty.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.branch?selectedDataVal.branch.dataId:"";
 
     this.sharedService.loading=true;
-    this.expDieselStatement();
+    this.ewaybillextlist();       
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
     });
   }
-} 
+  
+
+}
 

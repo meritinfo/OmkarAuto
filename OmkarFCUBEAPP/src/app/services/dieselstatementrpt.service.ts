@@ -27,6 +27,11 @@ export class DieselStatementRptService {
   }  
   getDieselStatementRptListExcel(filter: Reportmodel): Observable<Responsemodel> {
    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ExcelDieselStatementRptList', filter, this.httpOptions);
-  }    
+  }       
+  
+  getVendorList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetGstVendorList', null, this.httpOptions);
+  }
+
 
 }

@@ -171,6 +171,8 @@ namespace OmkarFCUBEAPI
             services.AddScoped<ILedgerRptRepository, LedgerRptRepository>();
             services.AddScoped<IBankBookRptBusiness, BankBookRptBusiness>();
             services.AddScoped<IBankBookRptRepository, BankBookRptRepository>();
+            services.AddScoped<IEwayBillExpRptBusiness, EwayBillExpRptBusiness>();
+            services.AddScoped<IEwayBillExpRptRepository, EwayBillExpRptRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

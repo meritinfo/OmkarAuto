@@ -169,11 +169,6 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@PageNumber",         request.PageNumber),
-                            new SqlParameter("@PageSize",           request.PageSize),
-                            new SqlParameter("@SortColumn",         request.SortColumn),
-                            new SqlParameter("@SortOrder",          request.SortOrder),
-                            new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr),
@@ -181,7 +176,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@SubName",            request.FilterStr2),
                         };
 
-                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerRptList", param);
+                    reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLedgerRptExcel", param);
                 }
             }
             catch (Exception ex)
