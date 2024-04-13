@@ -123,7 +123,7 @@ export class IntermediatescreenComponent {
   }
 
   getCompanyDetails(){
-    this.commonService.getCompanyDetail().subscribe((res: Responsemodel) => {
+    this.sharedService.getCompanyDetail().subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status){        
         this.companyname = this.responseDetails.message;
