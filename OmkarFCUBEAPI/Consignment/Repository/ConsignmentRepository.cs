@@ -374,6 +374,7 @@ namespace Consignment.Repository
                             new SqlParameter("@FromPin", ConsignmentModel.FromPin),
                             new SqlParameter("@ToPin", ConsignmentModel.ToPin),
                             new SqlParameter("@Kms", ConsignmentModel.Kms),
+                             new SqlParameter("@CompNonCompStatus", ConsignmentModel.CompNonCompStatus),
                             new SqlParameter("@OwnTruck", ConsignmentModel.OwnTruck ),
                             new SqlParameter("@TruckId", ConsignmentModel.TruckId ),
                             new SqlParameter("@TruckNo", ConsignmentModel.TruckNo ),

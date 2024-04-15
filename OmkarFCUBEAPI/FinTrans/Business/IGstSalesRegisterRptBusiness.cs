@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FinTrans.Repository
+namespace FinTrans.Business
 {
-    public interface IGstSalesRegisterRptRepository
+    public interface IGstSalesRegisterRptBusiness
     {
         Task<GstSalesRegisterRptListModel> GetGstSalesRegisterRptList(ReportRequestModel request);
         Task<ResponseModel> GetGstSalesRegisterRptExcel(ReportRequestModel request);

@@ -27,6 +27,7 @@ export class Dieseldetailsmodel {
     ratePerLtr: string = "";
     amountPaid: string = "";
     vendorName: string = "";
+    adj: string = "";
 }
 
 export class Driveradvancemodel {
@@ -34,4 +35,5 @@ export class Driveradvancemodel {
     pmtDate: string = "";
     amountPaid: string = "";
     ptype: string = "";
+    adj2: string = "";
 }

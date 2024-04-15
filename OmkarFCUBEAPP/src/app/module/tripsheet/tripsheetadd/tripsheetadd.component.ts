@@ -69,6 +69,8 @@ export class TripsheetaddComponent {
   dTripKM_2: number = 0;
   tripkms: string = '';
   nexttripkms: string = '';
+  starmrk:string = '';
+  starmrk2:string = '';
   vehicleTypeGroupId: string = '';
   driverPhotoPreview: any;
   licenceNo: any;
@@ -524,12 +526,27 @@ export class TripsheetaddComponent {
     var totalToll = 0;
     for (let i = 0; i < this.tripsheetinnergridmodel.dieselDetailsList.length; i++) {
       totalDslLtr = totalDslLtr + parseFloat(this.tripsheetinnergridmodel.dieselDetailsList[i].qtyLtrs);
+      this.starmrk = this.tripsheetinnergridmodel.dieselDetailsList[i].adj
+      if( this.starmrk=='Y'){
+        this.starmrk= '*';
+      }
+      else{
+        this.starmrk= '';
+      }
+
     }
     for (let i = 0; i < this.tripsheetinnergridmodel.adblueList.length; i++) {
       totalAdBlueLtr = totalAdBlueLtr + (this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter === '' ? 0 : parseFloat(this.tripsheetinnergridmodel.adblueList[i].adbluedieselLiter));
     }
     for (let i = 0; i < this.tripsheetinnergridmodel.driverAdvanceList.length; i++) {
       totalAdvAmount = totalAdvAmount + parseFloat(this.tripsheetinnergridmodel.driverAdvanceList[i].amountPaid);
+      this.starmrk2 = this.tripsheetinnergridmodel.driverAdvanceList[i].adj2
+      if( this.starmrk2=='Y'){
+        this.starmrk2= '*';
+      }
+      else{
+        this.starmrk2= '';
+      }
     }
 
     var dataList = this.tripsheetinnergridmodel.miscList.filter(x => x.expType.toLowerCase() === "r");

@@ -341,7 +341,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Destination 2</label>
+                                                <label for="formrow-inputCity"  [hidden]="true">Destination 2</label>
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList"
                                                         formControlName="destination2" [searchKeyword]="keywordLocation"
@@ -350,7 +350,7 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedDestination2($event)">
+                                                        (inputCleared)="onClearedDestination2($event)"  [hidden]="true">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -365,7 +365,7 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Destination 3</label>
+                                                <label for="formrow-inputState"  [hidden]="true">Destination 3</label>
 
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="locationList"
@@ -375,7 +375,7 @@
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedDestination3($event)">
+                                                        (inputCleared)="onClearedDestination3($event)"  [hidden]="true">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -610,7 +610,7 @@
                                     <h4 class="card-title mb-4" style="color: red;">Diesel Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label> <span style="color:green">  {{starmrk}}</span></th>
                                             <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
                                             <th><label for="formrow-inputZip">Vendor Name</label></th>
                                         </tr>
@@ -715,8 +715,8 @@
                                     <h4 class="card-title mb-4" style="color: red;">Driver Advance</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th> <label for="formrow-inputCity">Pmt Type</label></th>
-                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
+                                            <th> <label for="formrow-inputCity">Pmt Type</label> </th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label><span style="color:green">  {{starmrk2}}</span></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                         </tr>
                                         <tr *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">

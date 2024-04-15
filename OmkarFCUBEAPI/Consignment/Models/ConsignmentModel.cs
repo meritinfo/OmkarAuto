@@ -74,6 +74,7 @@
         public string? CnorInvNo2 { get; set; }
         public string? CnorInvDate2 { get; set; }
         public string? DeclaredValue2 { get; set; }
+        public string? CompNonCompStatus { get; set; }
         // public string? TripOpenBy { get; set; }
 
 

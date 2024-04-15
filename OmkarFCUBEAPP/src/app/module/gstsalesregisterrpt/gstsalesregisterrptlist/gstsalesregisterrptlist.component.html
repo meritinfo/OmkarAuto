@@ -1,6 +1,7 @@
 
 
 
+
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -8,7 +9,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Trip Status Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Gst Sales Report</h4>
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
@@ -64,19 +65,19 @@
                                     </div>
                                 </div>
                             </div>-->
-                            <div class="col-md-3">
-                                <div class="mb-3">                                    
-                                    <label for="formrow-inputCity">Vehicle No</label>  
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Billing Party </label>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList"
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="accountID"
                                             [searchKeyword]="keywordLocation" placeholder=""
-                                            formControlName="vehicleMasterID" [initialValue]=""
                                             (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
+                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
+                                            [customFilter]="startWithFilter"
+                                            [ngClass]=" ">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -87,29 +88,21 @@
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
                                     </div>
+
                                 </div>
                             </div>
-                                 <div class="col-lg-2">
-                                <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">TripLinkYN</label>
-                                    <select id="formrow-inputState" class="form-control"
-                                        formControlName="tripLink"
-                                        [ngClass]=""    >
-                                        <option value="">Choose...</option>
-                                        <option value="Y"> Yes</option>
-                                        <option value="N"> No </option>
-                                    </select>
-                                </div>
-                            </div>
+                     
+                            
+                        
                             <div class="col-lg-2">
                                 <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">Status</label>
+                                    <label for="basicpill-phoneno-input">Type</label>
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="status"
+                                        formControlName="gstType"
                                         [ngClass]="">
                                         <option value ="">Choose...</option>
-                                        <option value="O"> Open</option>
-                                        <option value="C"> Closed </option>
+                                        <option value="S"> Open</option>
+                                        <option value="P"> Closed </option>
                                     </select>
                                 </div>
                             </div>  
@@ -136,14 +129,17 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
-                            <th>Branch</th>
-                            <th>tripOpenDate</th>
-                            <th>TripMaster </th>  
-                            <th>VehicleFltMaster </th>
-                            <th>TripOpenDate</th>
-                            <th>Destination </th>   
-                            <th>TransType</th>
-                            <th>QtyLtrs</th>
+                            <!-- <th>seriesCode</th>
+                            <th>bill_StmtNo</th> -->
+                            <th>invDate </th>  
+                            <th>invNo </th>
+                            <th>accountGstNo</th>
+                            <th>partyName </th> 
+                            <th>totSubTotal </th> 
+                            <th>sgstAmt</th>
+                            <th>cgstAmt</th>
+                            <th>igstAmt</th>
+                            <th>totalBillAmt</th>
                           <!-- <th>AmountPaid</th>
                             <th>PmtType</th>
                             <th>CreditAffect</th>-->
@@ -151,16 +147,19 @@
 
                         </tr>
                     </thead>
-                    <tbody *ngIf="allTripStatusRptlist.tripStatusRptlist?.length != 0">
-                        <tr *ngFor="let eta of allTripStatusRptlist.tripStatusRptlist">
-                            <td>{{ eta.branch }}</td>
-                            <td>{{ eta.tripOpenDate }}</td> 
-                            <td>{{ eta.vehicleNo }}</td>
-                            <td>{{ eta.tripNo }}</td>
-                            <td>{{ eta.exUlDate }}</td>
-                             <td>{{ eta.distanceTripKM_1 }}</td> 
-                            <td>{{ eta.fromPoint }}</td> 
-                            <td>{{ eta.toPoint   }}</td> 
+                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesRegisterRptlist?.length != 0">
+                        <tr *ngFor="let eta of allGstSalesRegisterRptlist.gstSalesRegisterRptlist">
+                            <!-- <td>{{ eta.seriesCode }}</td>
+                            <td>{{ eta.bill_StmtNo }}</td>  -->
+                            <td>{{ eta.invDate }}</td>
+                            <td>{{ eta.invNo }}</td>
+                            <td>{{ eta.accountGstNo }}</td>
+                             <td>{{ eta.partyName }}</td> 
+                             <td>{{ eta.totSubTotal }}</td> 
+                            <td>{{ eta.sgstAmt }}</td> 
+                            <td>{{ eta.cgstAmt   }}</td> 
+                            <td>{{ eta.igstAmt   }}</td> 
+                            <td>{{ eta.totalBillAmt }}</td> 
                            <!-- <td>{{ eta.tripStatus }}</td> 
                             <td>{{ eta.tripCloseDt }}</td> 
                             <td>{{ eta.tripLinkYN }}</td> 
@@ -169,7 +168,7 @@
                        
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allTripStatusRptlist.tripStatusRptlist?.length == 0">
+                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesRegisterRptlist?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>
