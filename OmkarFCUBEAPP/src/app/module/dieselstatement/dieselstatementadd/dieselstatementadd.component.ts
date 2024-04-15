@@ -32,6 +32,7 @@ export class DieselstatementaddComponent implements OnInit {
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
   dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
+  seriesDoc: string = "";
 
   keywordLocation = 'dataName';
   editMode = false;

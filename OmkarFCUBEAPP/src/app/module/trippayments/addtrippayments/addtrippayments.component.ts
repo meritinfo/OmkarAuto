@@ -111,14 +111,9 @@ export class AddtrippaymentsComponent {
       this.year = yearIDData;
     }
     
-   
-    //this.changeEWay();
     this.getBranchList();   
-    // this.getVehicleList();
     this.getVehicleNoList();
     this.getLocationList();
-    //this.getCreditAcList2('');
-    //this.getCreditAcList();
     
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     console.log(this.maxDate);
@@ -152,9 +147,7 @@ export class AddtrippaymentsComponent {
       ratePerLtr: new FormControl('',),
       travel: new FormControl('',),
     });
-    
-    //this.getCreditAcList2('C');   
-    
+        
     if (this.selectedTripPaymentsDetails.pmtId != '') {      
       this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);  
     }
@@ -165,7 +158,6 @@ export class AddtrippaymentsComponent {
         this.editMode = true;
         this.formTripPayment.controls['pmtBranch'].disable();
         this.formTripPayment.controls['transType'].disable();
-       // this.formTripPayment.controls['pmtDate'].disable();
         this.formTripPayment.controls['tripNo'].disable();
         this.formTripPayment.controls['loadorempty'].disable();
         this.formTripPayment.controls['loadorempty'].disable();
@@ -174,21 +166,16 @@ export class AddtrippaymentsComponent {
         this.formTripPayment.controls['dsltobe'].disable();
         this.formTripPayment.controls['travel'].disable();
         this.formTripPayment.controls['vehicleMasterID'].disable();
-        this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc;
-       // this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);   
+        this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
-      //  this.getTripDetailseditmode(this.selectedTripPaymentsDetails.vehicleMasterID)  
         this.tripNumber =   this.selectedTripPaymentsDetails.tripNo ;   
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
-       // this.getCreditAcList2(this.selectedTripPaymentsDetails.pmtType);
         this.GetDslOpeningBalforPmt();
         this.getFromAndToDetail();
         this.formTripPayment.patchValue({
           pmtDate:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
           chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
-          //creditAc:this.creditacList.find(e => e.dataId == this.selectedTripPaymentsDetails.creditAc),
-         //creditAc: this.selectedTripPaymentsDetails.creditAc,
         })  
         if (this.selectedTripPaymentsDetails.pmtType == 'B'){
           this.formTripPayment.controls['neftPmt'].enable();
@@ -214,53 +201,40 @@ export class AddtrippaymentsComponent {
   
       this.getValidation();    
       this.formTripPayment.controls['pmtBranch'].disable();
-     // this.formTripPayment.controls['pmtDate'].disable();
     }, 2000);
     this.sharedService.loading = false;
   }
+
   GetDslOpeningBalforPmt() {
     var selectedDataValue = this.formTripPayment.getRawValue();
-if(selectedDataValue.tripNo!=1){
-    var selectedDataValue = this.formTripPayment.getRawValue();
-   
-   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-   this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID
-
- 
-    this.OpbalDetails.yearid = this.year;
-    this.OpbalDetails.tripNo = selectedDataValue.tripNo;
-    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-       if (this.responseDetails.status) {
-     this.dslOpening = res.message;
-      } 
-    });
- 
-  
+    if(selectedDataValue.tripNo!=1){
+      var selectedDataValue = this.formTripPayment.getRawValue();
+      this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID; 
+      this.OpbalDetails.yearid = this.year;
+      this.OpbalDetails.tripNo = selectedDataValue.tripNo;
+      this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.dslOpening = res.message;
+        } 
+      });
+    }
   }
 
-  }
   GetDslOpeningBalforPmtCreate(e: any,m: any) {
     var selectedDataValue = this.formTripPayment.getRawValue();
-  if(selectedDataValue.tripNo!=1){
-    var selectedDataValue = this.formTripPayment.getRawValue();
-   
-   // this.OpbalDetails.vehicleMasterID = selectedDataValue.vehicleMasterID.dataId;
-   this.OpbalDetails.vehicleMasterID = e;
-
- 
-    this.OpbalDetails.yearid = this.year;
-    this.OpbalDetails.tripNo = m;
-    this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-       if (this.responseDetails.status) {
-     this.dslOpening = res.message;
-      } 
-    });
- 
-  
-  }
-
+    if(selectedDataValue.tripNo!=1){
+      var selectedDataValue = this.formTripPayment.getRawValue();
+      this.OpbalDetails.vehicleMasterID = e;
+      this.OpbalDetails.yearid = this.year;
+      this.OpbalDetails.tripNo = m;
+      this.commonService.getDslOpeningBalforPmt(this.OpbalDetails).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          this.dslOpening = res.message;
+        } 
+      });  
+    }
   }
 
   getFromAndToDetail(){
@@ -268,7 +242,6 @@ if(selectedDataValue.tripNo!=1){
     this.commonService.getTripFromAndToDetails(this.requestmodel).subscribe((res: Tripmodel) => {
       this.tripDetails = res;
       this.formTripPayment.patchValue({
-        // cneeGst:  (this.ExpectedReportingDays).toString() 
         tripNo:   this.tripDetails.tripNo,
         from:   this.tripDetails.fp,
         to:   this.tripDetails.tp,
@@ -277,7 +250,6 @@ if(selectedDataValue.tripNo!=1){
         dsltobe:   this.tripDetails.ltsDslToBe_1,
         tripMasterId:  this.tripDetails.tripId,           
       });
-      // this.getValidation();
     });    
   }
   
@@ -295,7 +267,6 @@ if(selectedDataValue.tripNo!=1){
  
   getValidation(): void {
     this.formTripPayment.controls['pmtBranch'].disable();
-    // this.formTripPayment.controls['pmtDate'].disable();
     this.formTripPayment.controls['tripNo'].disable();
     this.formTripPayment.controls['loadorempty'].disable();
     this.formTripPayment.controls['from'].disable();
@@ -304,7 +275,6 @@ if(selectedDataValue.tripNo!=1){
     this.formTripPayment.controls['travel'].disable();
   }
 
-  // convenience getter for easy access to contact form fields
   get f() { return this.formTripPayment.controls; }
 
   getBranchList(): void {
@@ -313,7 +283,6 @@ if(selectedDataValue.tripNo!=1){
     });
   }
   getCreditAcList2(e: any){
-    //this.tripVehicleDetails.vehicleMasterId =  e;
     this.ptype = e;
     var data = {
       'pType' : this.ptype
@@ -401,7 +370,6 @@ if(selectedDataValue.tripNo!=1){
       this.advIssued = res.advIssued;      
       this.tripStatus = res.tripStatus;  
     });
-
   }
   
 
@@ -410,7 +378,6 @@ if(selectedDataValue.tripNo!=1){
     this.commonService.getTripDetails(this.tripVehicleDetails).subscribe((res: Tripmodel) => {
       this.tripDetails = res;
       this.formTripPayment.patchValue({
-        // cneeGst:  (this.ExpectedReportingDays).toString() 
         tripNo:   this.tripDetails.tripNo,
         from:   this.tripDetails.fp,
         to:   this.tripDetails.tp,
@@ -419,7 +386,6 @@ if(selectedDataValue.tripNo!=1){
         dsltobe:   this.tripDetails.ltsDslToBe_1,
         tripMasterId:  this.tripDetails.tripId,           
       });
-      // this.getValidation();
     });    
   }
 
@@ -531,7 +497,7 @@ if(selectedDataValue.tripNo!=1){
       this.formTripPayment.controls['chequeDate'].disable();
       this.formTripPayment.controls['chequeNo'].clearValidators();      
       this.formTripPayment.controls['chequeDate'].clearValidators();   
-    //  this.getCreditAcList2(selectedValue); 
+      // this.getCreditAcList2(selectedValue); 
     }
 
     this.formTripPayment.controls['chequeNo'].updateValueAndValidity();
@@ -545,7 +511,6 @@ if(selectedDataValue.tripNo!=1){
       this.formTripPayment.controls['amountPaid'].clearValidators();  
     }
     this.formTripPayment.controls['amountPaid'].updateValueAndValidity();
-    //this.getCreditAcList2(this.ptype);   
     this.getCreditAcList2(selectedValue);   
   }
    

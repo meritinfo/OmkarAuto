@@ -35,6 +35,7 @@ export class BillstatementaddComponent implements OnInit {
   keywordLocation = 'dataName';
   supp = false;
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
+  seriesDoc: string = "";
   
   saveData = new Billstatementsaverequest();
   billstatesearchrequest = new Billstatementsearchlistrequestmodel();

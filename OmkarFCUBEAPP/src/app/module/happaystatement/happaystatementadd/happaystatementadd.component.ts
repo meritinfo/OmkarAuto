@@ -29,6 +29,7 @@ export class HappaystatementaddComponent implements OnInit {
   formDieselStatement!: FormGroup;
   selectedDieselStmtDetails = new Dieselstatementmodel()
   dieselstatementsearchlistmodel = new Dieselstatementsearchlistmodel();
+  seriesDoc: string = "";
 
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';

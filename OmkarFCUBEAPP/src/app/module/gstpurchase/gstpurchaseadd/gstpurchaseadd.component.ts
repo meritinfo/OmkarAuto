@@ -43,6 +43,7 @@ export class GstpurchaseaddComponent {
   tdsAcList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   paymentTypes:Dropdownmodel[]=[];
+  seriesDoc: string = "";
 
   selectedGstpurchaseDetails = new Gstpurchasemodel(); 
   attach1: string = "";

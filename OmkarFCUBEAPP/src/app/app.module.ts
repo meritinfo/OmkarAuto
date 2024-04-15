@@ -221,6 +221,7 @@ import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
 import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
+import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
 
 @NgModule({
   declarations: [
@@ -357,6 +358,7 @@ import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.
     ConsolidatedopenbalComponent,
     HappaystatementrptComponent,
     EwaybillexprptComponent,
+    TripsummaryrptComponent,
   ],
   imports: [
     BrowserModule,
