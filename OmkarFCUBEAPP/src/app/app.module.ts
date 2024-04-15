@@ -222,6 +222,7 @@ import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/conso
 import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
+import { Gstsalesregisterrptmodel } from './models/gstsalesregisterrptmodel';
 
 @NgModule({
   declarations: [
@@ -403,7 +404,7 @@ import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,Custwizardmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,Custwizardmodel,Gstsalesregisterrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

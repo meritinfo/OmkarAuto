@@ -115,6 +115,7 @@ import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
 import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/consolidatedopenbal.component';
 import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
+import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 
 
@@ -266,6 +267,7 @@ const routes: Routes = [
   { path: 'loansrepayadd', component: EmploanrepayaddComponent },  
   { path: 'loansrepayedit', component:  EmploanrepayaddComponent },
   { path: 'happaystatementlist', component:  HappaystatementlistComponent },
+  { path: 'gstsalesregisterrptlist', component:  GstsalesregisterrptlistComponent },
   { path: 'happaystatementadd', component: HappaystatementaddComponent },  
   { path: 'happaystatementedit', component:  HappaystatementaddComponent },
   { path: 'changebranch', component:  ChangebranchComponent },

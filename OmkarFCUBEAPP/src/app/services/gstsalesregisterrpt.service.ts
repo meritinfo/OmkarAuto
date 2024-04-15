@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
-import { Ledgerrptmodel } from 'src/app/models/ledgerrptmodel';
+import { Gstsalesrptlistmodel  } from 'src/app/models/gstsalesregisterrptlistmodel';
+import { Gstsalesregisterrptmodel } from 'src/app/models/gstsalesregisterrptmodel';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LedgerrptService {
+export class GstsalesregisterrptService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -22,17 +22,17 @@ export class LedgerrptService {
   
   constructor(private httpClient: HttpClient) { }
   
-  getLedgerrptList(filter: Reportmodel): Observable<Ledgerrptlistmodel> {
-    return this.httpClient.post<Ledgerrptlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptList', filter, this.httpOptions);
+  getGstSalesRegisterrptList(filter: Reportmodel): Observable<Gstsalesrptlistmodel> {
+    return this.httpClient.post<Gstsalesrptlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetGstSalesRegisterRptList', filter, this.httpOptions);
   }  
-  getLedgerrptExcel(filter: Reportmodel): Observable<Responsemodel> {
+  getGstSalesRegisterrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptExcel', filter, this.httpOptions);
   } 
-  getLedgerrptPdf(filter: Reportmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
-  } 
-  getLedgerList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerList', null, this.httpOptions);
+ // getGstSalesRegisterrptPdf(filter: Reportmodel): Observable<Responsemodel> {
+   // return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
+ // } 
+  getGstSalesRegisterRptList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans//api/FinTrans/GetGstSalesRegisterRptList', null, this.httpOptions);
   }    
 
 }

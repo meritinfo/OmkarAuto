@@ -236,13 +236,21 @@ export class ConsignmentaddComponent implements OnInit {
       userBranch: new FormControl('',),
       userBranch2: new FormControl('',),
       userBranch3: new FormControl('1',),
+      compNonCompStatus: new FormControl('C',),
       attachLRtoSameTrip: new FormControl('',),
     });
+    
+    this.formConsignment.controls['compNonCompStatus'].disable();
+    if(this.branch=='1'){
+      this.formConsignment.controls['compNonCompStatus'].enable();
+    }
+
     setTimeout(() => {      
       this.formConsignment.controls['bookingPlace'].disable();
       this.formConsignment.controls['attachLRtoSameTrip'].disable();
       
       if (this.selectedConsignmentDetails.consignmentID != '') {
+        this.formConsignment.controls['compNonCompStatus'].disable();
         this.formConsignment.controls['gcSeries'].disable();
         this.formConsignment.controls['truckId'].disable();
         this.formConsignment.controls['ewayBillEntryType'].disable();
@@ -680,6 +688,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.consignmentmodel.fromPlace = selectedDataValue.fromPlace.dataId;
         this.consignmentmodel.toPlace = selectedDataValue.toPlace.dataId;
         this.consignmentmodel.kms = selectedDataValue.kms;
+        this.consignmentmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
         this.consignmentmodel.ownTruck = selectedDataValue.ownTruck;
         this.consignmentmodel.truckId = selectedDataValue.truckId.dataId;
         this.consignmentmodel.truckNo = selectedDataValue.truckNo;

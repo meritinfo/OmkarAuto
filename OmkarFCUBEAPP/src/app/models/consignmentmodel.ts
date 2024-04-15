@@ -72,6 +72,7 @@ export class Consignmentmodel {
     cnorInvNo2: string = "";
     cnorInvDate2: string = "";
     declaredValue2: string = "";
+    compNonCompStatus: string = "";
    // tripOpenBy: string = "";
   
   

@@ -91,6 +91,19 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Company/Non-Company</label>
+                                                <select id="formrow-inputState" class="form-control"
+                                                    formControlName="compNonCompStatus"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingStatus'].invalid) }">
+                                                  
+                                                    <option value="C">Company</option>
+                                                    <option value="N">Non-Company</option>
+                                               
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">

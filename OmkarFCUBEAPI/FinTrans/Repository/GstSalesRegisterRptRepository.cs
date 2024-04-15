@@ -44,7 +44,7 @@ namespace FinTrans.Repository
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr),
                           //  new SqlParameter("@YearId",             request.FilterStr1),
-                            new SqlParameter("@GstType",            request.FilterStr2),
+                            new SqlParameter("@GstType",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptList", param);
                     int totalRecords = 0;
