@@ -958,7 +958,7 @@ namespace FleetTrans.Repository
                                 PmtDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
                                 AmountPaid = Convert.ToString(resultData.Tables[2].Rows[i]["AmountPaid"]),
                                 Ptype = Convert.ToString(resultData.Tables[2].Rows[i]["Ptype"]),
-                                Adj2 = Convert.ToString(resultData.Tables[1].Rows[i]["AdjInTrip"]),
+                                Adj2 = Convert.ToString(resultData.Tables[2].Rows[i]["AdjInTrip"]),
                             });
                         }
                     }
