@@ -118,6 +118,7 @@ export class HappaystatementaddComponent implements OnInit {
       toDate: new FormControl(this.loginDate, [Validators.required]),
       totalNetAmount: new FormControl('',[Validators.required]),
       remarks: new FormControl(''),
+      selectedAll: new FormControl(''),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
@@ -128,7 +129,8 @@ export class HappaystatementaddComponent implements OnInit {
         this.formDieselStatement.patchValue({
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
-          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
+          toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),  
+          selectedAll:'Y'   
         })      
         if(this.selectedDieselStmtDetails.findocid!="0"){
           this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
@@ -137,6 +139,7 @@ export class HappaystatementaddComponent implements OnInit {
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
         this.formDieselStatement.controls['toDate'].disable();  
+        this.formDieselStatement.controls['selectedAll'].disable();   
         this.formDieselStatement.controls['location'].disable();   
         this.formDieselStatement.controls['vendorId'].disable();     
       }    
