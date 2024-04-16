@@ -259,7 +259,7 @@ exportExcel(): void {
   this.filter.fromDate    = selectedDataVal.fromDate;
   this.filter.toDate      = selectedDataVal.toDate;
   this.filter.filterStr   = selectedDataVal.accountID?selectedDataVal.accountID:"";
-  this.filter.filterStr1  = selectedDataVal.type?selectedDataVal.type:"";
+  this.filter.filterStr1  = selectedDataVal.type?selectedDataVal.gstType:"";
   //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
  // this.filter.filterStr3  = selectedDataVal.creditAc;
 
