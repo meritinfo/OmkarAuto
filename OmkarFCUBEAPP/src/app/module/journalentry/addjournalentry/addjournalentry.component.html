@@ -25,7 +25,7 @@
                                     <div class="row">
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document Series</label>
-                                            <input class="form-control" placeholder="" formControlName="docSeries">
+                                            <input class="form-control" formControlName="docSeries">
                                         </div>
                                         <div class="col-lg-2">
                                             <label for="formrow-inputState">Document No</label>
@@ -105,8 +105,7 @@
                                                                         [itemTemplate]="itemTemplate"
                                                                         [notFoundTemplate]="notFoundTemplate"
                                                                         [customFilter]="startWithFilter"
-                                                                        formControlName="accountID" 
-                                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['accountID'].invalid) }">
+                                                                        formControlName="accountID">
                                                                     </ng-autocomplete>
         
                                                                     <ng-template #itemTemplate let-item>
@@ -116,16 +115,7 @@
                                                                     <ng-template #notFoundTemplate let-notFound>
                                                                         <div [innerHTML]="notFound"></div>
                                                                     </ng-template> 
-                                                                </div>                         
-                                                                
-                                                                <!-- <select class="form-control"
-                                                                    formControlName="accountID" [ngClass]="">
-                                                                    <option *ngFor="let branch of gridAccountList"
-                                                                        style="font-size:small; "
-                                                                        value={{branch.dataId}}>
-                                                                        {{branch.dataName}}
-                                                                    </option>
-                                                                </select>     -->
+                                                                </div>       
                                                             </td>
                                                             <td class="col-lg-2">
                                                                 <select id="role" class="form-select"

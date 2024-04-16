@@ -95,7 +95,7 @@ export class AddjournalentryComponent{
       docSeries: new FormControl('JV',),
       docNo: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),     
-      refType: new FormControl('OTHERS',),
+      refType: new FormControl('OTHERS',[Validators.required]),
       refNo: new FormControl('',),
       credit: new FormControl('',[Validators.required]),
       debit: new FormControl('',[Validators.required]),
@@ -372,7 +372,6 @@ export class AddjournalentryComponent{
       return;
     }
 
-
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
@@ -382,7 +381,7 @@ export class AddjournalentryComponent{
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        
-      }       
+      }        
     });
     this.sharedService.loading = false;
   }
