@@ -13,6 +13,7 @@
         public string? VehicleNo { get; set; }
         public string? DocumentRefNo { get; set; }
         public string? RenewalCompany { get; set; }
+        public string? Findocid { get; set; }
         public string? ValidFromDt { get; set; }
         public string? ValidToDt { get; set; }
         public string? BasicAmt { get; set; }

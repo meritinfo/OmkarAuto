@@ -12,6 +12,7 @@ import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dieselstatementsearchlistmodel } from 'src/app/models/dieselstatementsearchlistmodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-happaystatementadd',
@@ -47,6 +48,7 @@ export class HappaystatementaddComponent implements OnInit {
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
+    private cashReceiptEntryService: CashReceiptEntryService,
     private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
       this.DieselStatementmodel= new Dieselstatementmodel();
   }
@@ -127,7 +129,10 @@ export class HappaystatementaddComponent implements OnInit {
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-        })
+        })      
+        if(this.selectedDieselStmtDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
+        }
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
@@ -144,6 +149,20 @@ export class HappaystatementaddComponent implements OnInit {
   get f() { return this.formDieselStatement.controls; }
   get formArray() {
     return this.formDieselStatement.get("arrayList") as FormArray;
+  }
+
+  
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
   }
 
   

@@ -117,6 +117,7 @@ namespace FleetTrans.Repository
                                 ToDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
                                 FromPoint       = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPoint"]),
                                 ToPoint         = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPoint"]),
+                                Findocid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 SuppYN          = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppYN"]),
                                 PartyRefNo      = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyRefNo"]),
                                 TotFreight      = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreight"]),

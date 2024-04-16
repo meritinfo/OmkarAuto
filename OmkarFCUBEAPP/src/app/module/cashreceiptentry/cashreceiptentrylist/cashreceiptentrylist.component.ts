@@ -38,6 +38,7 @@ export class CashreceiptentrylistComponent {
     toDate: '',
     branch:'',
     receiptOrPayment: '',
+    refType:'',
   }
 
   formFilter!: FormGroup;

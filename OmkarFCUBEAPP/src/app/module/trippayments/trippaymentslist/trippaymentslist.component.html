@@ -20,13 +20,13 @@
                 <div class="col-sm-12 col-md-12">
                     <form [formGroup]="formFilter">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}">
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" min="{{minDate}}" max="{{maxDate}}">
@@ -64,6 +64,13 @@
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
                                     </div>
+                                </div> 
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Trip No</label>
+                                    <input numbersonly type="text" class="form-control" 
+                                    formControlName="tripNo" >
                                 </div>
                             </div>
                             <div class="col-lg-2">

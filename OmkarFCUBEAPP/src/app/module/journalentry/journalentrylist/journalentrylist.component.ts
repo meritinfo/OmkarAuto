@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { Cashbankfiltermodel } from 'src/app/models/cashbankfiltermodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 
 
 
@@ -40,6 +41,7 @@ export class JournalentrylistComponent {
     toDate: '',
     branch:'',
     receiptOrPayment: '',
+    refType:'',
   }
  
   
@@ -50,11 +52,11 @@ export class JournalentrylistComponent {
   maxDate: string = '';
   minDate: string = '';
   branch:string ='';
+  finRefTypes: Dropdownmodel[] = [];
 
   constructor(private cashReceiptEntryService: CashReceiptEntryService, 
     private formBuilder: FormBuilder, 
-    private sharedService: SharedService,
-    private commonService: CommonService, 
+    private sharedService: SharedService, private commonService: CommonService, 
     private route: Router) {
   }
 
@@ -105,14 +107,22 @@ export class JournalentrylistComponent {
     }   
 
   
+    this.getFinRefTypes();
+
     this.cashReceiptEntryService.clearCashReceiptEntryDetails();
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       receiptOrPayment: new FormControl('JV',[Validators.required]),  
+      docSeriesNo: new FormControl('',),  
+      refType: new FormControl('',),
     });
 
     this.sharedService.loading = true;
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.branch = this.branch;
+    this.filter.refType = '';
     this.journalEntryList();       
     this.sharedService.loading = false;
   }
@@ -131,9 +141,6 @@ export class JournalentrylistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         // this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.fromDate;
-        this.filter.toDate = this.loginDate;
-        this.filter.branch = this.branch;
         this.filter.receiptOrPayment = 'JV';
 
         this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
@@ -175,7 +182,12 @@ export class JournalentrylistComponent {
     };
   }
   
-  //Open new driver master add screen
+  getFinRefTypes(): void {    
+    this.cashReceiptEntryService.getFinRefTypes().subscribe((res) => {
+      this.finRefTypes = res;
+    });
+  }
+  
   JournalEntryAdd(): void {
     this.route.navigate(['/addjournalentry']);
   }  
@@ -192,6 +204,7 @@ export class JournalentrylistComponent {
     this.filter.branch = this.branch === '0' ? '' : this.branch;
     this.filter.receiptOrPayment = "JV" ;
     this.filter.search = selectedDataVal.docSeriesNo;
+    this.filter.refType = selectedDataVal.refType;
     this.sharedService.loading=true;
     this.journalEntryList();
     this.sharedService.loading=false;

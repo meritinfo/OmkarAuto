@@ -12,6 +12,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -54,9 +55,9 @@ export class BillstatementaddComponent implements OnInit {
   constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, 
     private billstatementService: BillstatementService, private route: Router, 
     private formBuilder: FormBuilder,private sharedService: SharedService, 
+    private cashReceiptEntryService: CashReceiptEntryService,
     private toasterService: ToastrService,private requestmodel:Requestmodel) {
-    this.billsstatementmodel = new billstatementmodel();
-    
+    this.billsstatementmodel = new billstatementmodel();    
   }
 
 
@@ -195,6 +196,10 @@ export class BillstatementaddComponent implements OnInit {
           fromPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.fromPoint),
           toPoint:this.locationList.find(e => e.dataId == this.selectedBillstatementDetails.toPoint),   
         })
+      
+        if(this.selectedBillstatementDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedBillstatementDetails.findocid);
+        }
 
         if(this.selectedBillstatementDetails.suppYN=="N"){          
           this.formBillStatement.patchValue({
@@ -217,6 +222,19 @@ export class BillstatementaddComponent implements OnInit {
       this.formBillStatement.patchValue({
         billNo: res.message
       });
+    });
+  }  
+  
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
     });
   }
 

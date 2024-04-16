@@ -6,6 +6,7 @@ export class Dieselstatementmodel {
     billStmtDate: string = "";
     fromDate: string = "";
     toDate: string = "";
+    findocid: string = "";
     location: string = "";
     transType:string = "";
     rate: string = "";

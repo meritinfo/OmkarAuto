@@ -14,6 +14,7 @@ namespace FleetTrans.Models
         public string? ToDate { get; set; }
         public string? FromPoint { get; set; }
         public string? ToPoint { get; set; }
+        public string? Findocid { get; set; }
         public string? SuppYN { get; set; }
         public string? PartyRefNo { get; set; }
         public string? TotFreight { get; set; }

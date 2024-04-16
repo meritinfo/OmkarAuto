@@ -18,5 +18,6 @@ namespace FinTrans.Repository
         Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request);
         Task<List<DropDownListModel>> GetFinRefTypes();
         Task<DataSet> CashBookReport(ReportRequestModel request);
+        Task<ResponseModel> GetFinDocDetails(RequestModel request);
     }
 }

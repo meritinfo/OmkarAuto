@@ -90,7 +90,8 @@ export class TrippaymentslistComponent {
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
       branch: new FormControl('',),
-      vehicle: new FormControl('',)
+      vehicle: new FormControl('',),
+      tripNo: new FormControl('',)
     });
     this.getBranchList();
     this.getVehicleNoList();
@@ -99,6 +100,7 @@ export class TrippaymentslistComponent {
     this.filter.toDate = selectedData.toDate;
     this.filter.branch = selectedData.branch?selectedData.branch.dataId:"";
     this.filter.vehicle =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+    this.filter.search = "";
     this.tripPaymentList();
   }
 
@@ -110,14 +112,10 @@ export class TrippaymentslistComponent {
       processing: true,
       searching: false,
       ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
-        
-        // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = 'bName';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = dataTablesParameters.search.value;
         this.trippaymentService.getTripPaymentsList(this.filter).subscribe(resp => {
           this.allTripPaymentsTypes = resp;
           callback({
@@ -212,7 +210,8 @@ export class TrippaymentslistComponent {
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.branch = selectedData.branch;
-    this.filter.vehicle =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+    this.filter.vehicle = selectedData.vehicle?selectedData.vehicle.dataId:"";
+    this.filter.search = selectedData.tripNo;
 
     this.tripPaymentList();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

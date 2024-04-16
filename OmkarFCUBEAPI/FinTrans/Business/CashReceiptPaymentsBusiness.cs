@@ -75,6 +75,10 @@ namespace FinTrans.Business
         {
             return await cashReceiptPaymentsRepository.GetFinRefTypes();
         }
+        public async Task<ResponseModel> GetFinDocDetails(RequestModel request)
+        {
+            return await cashReceiptPaymentsRepository.GetFinDocDetails(request);
+        }
 
         public async Task<ResponseModel> CashBookReport(ReportRequestModel request)
         {

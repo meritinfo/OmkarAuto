@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -49,13 +50,13 @@ export class DieselstatementaddComponent implements OnInit {
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
+    private cashReceiptEntryService: CashReceiptEntryService,
     private dieselstatementService: DieselstatementService, private toasterService: ToastrService) {
       this.DieselStatementmodel= new Dieselstatementmodel();
   }
 
   ngOnInit(): void {
 
-    
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -147,6 +148,9 @@ export class DieselstatementaddComponent implements OnInit {
           vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),   
           selectedAll:'Y'   
         })
+        if(this.selectedDieselStmtDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedDieselStmtDetails.findocid);
+        }
         this.editMode=true;
         this.getDieselStatementInnerGridList();
         this.formDieselStatement.controls['fromDate'].disable();  
@@ -239,6 +243,18 @@ export class DieselstatementaddComponent implements OnInit {
   }
 
   
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
 
   searchStatement(): void { 
 

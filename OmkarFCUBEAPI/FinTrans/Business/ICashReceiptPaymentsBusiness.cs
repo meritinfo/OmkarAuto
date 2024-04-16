@@ -16,5 +16,6 @@ namespace FinTrans.Business
         Task<List<DropDownListModel>> GetCashBankAccountList(RequestModel request);
         Task<List<DropDownListModel>> GetFinRefTypes();
         Task<ResponseModel> CashBookReport(ReportRequestModel request);
+        Task<ResponseModel> GetFinDocDetails(RequestModel request);
     }
 }

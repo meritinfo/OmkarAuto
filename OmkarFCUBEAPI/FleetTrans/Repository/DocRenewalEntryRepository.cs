@@ -172,6 +172,7 @@ namespace FleetTrans.Repository
                                 VehicleNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
                                 DocumentRefNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["DocumentRefNo"]),
                                 RenewalCompany      = Convert.ToString(dataSet.Tables[0].Rows[i]["RenewalCompany"]),
+                                Findocid            = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 ValidFromDt         = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidFromDt"]),
                                 ValidToDt           = Convert.ToString(dataSet.Tables[0].Rows[i]["ValidToDt"]),
                                 BasicAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["BasicAmt"]),

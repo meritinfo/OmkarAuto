@@ -9,6 +9,7 @@ import { Tripmodel } from 'src/app/models/tripmodel';
 import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Trippaymentslistmodel } from 'src/app/models/trippaymentslistmodel';
 import { CommonService } from 'src/app/services/common.service';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { SharedService } from 'src/app/services/shared.service';
@@ -65,6 +66,7 @@ export class AddtrippaymentsComponent {
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private trippaymentsmodel: Trippaymentsmodel, private tripPaymentsService: TripPaymentsService, 
     private commonService: CommonService, private toasterService: ToastrService,
+    private cashReceiptEntryService: CashReceiptEntryService,
     private sharedService: SharedService,private requestmodel:Requestmodel) {
     this.trippaymentsmodel = new Trippaymentsmodel();
   }
@@ -169,6 +171,9 @@ export class AddtrippaymentsComponent {
         this.seriesDoc = this.selectedTripPaymentsDetails.seriesDoc; 
         this.formTripPayment.patchValue(this.selectedTripPaymentsDetails);
         this.tripNumber =   this.selectedTripPaymentsDetails.tripNo ;   
+        if(this.selectedTripPaymentsDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedTripPaymentsDetails.findocid);
+        }
         this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
         this.GetDslOpeningBalforPmt();
         this.getFromAndToDetail();
@@ -203,6 +208,19 @@ export class AddtrippaymentsComponent {
       this.formTripPayment.controls['pmtBranch'].disable();
     }, 2000);
     this.sharedService.loading = false;
+  }
+
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
   }
 
   GetDslOpeningBalforPmt() {

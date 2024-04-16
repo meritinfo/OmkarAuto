@@ -5,4 +5,5 @@ export class Cashbankfiltermodel  extends Filtermodel {
     toDate: string = "";
     branch: string = "";
     receiptOrPayment: string = "";
+    refType: string = "";
 }

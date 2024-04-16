@@ -10,6 +10,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 import { Constants } from 'src/app/common/constants';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class AdddocrenewalentryComponent {
     checkselected: boolean = false;
     attach1: string = "";
     attach2: string = "";
+    seriesDoc: string = "";
 
     responseDetails = new Responsemodel();
     VehicalExistDetails = new Responsemodel();
@@ -56,7 +58,8 @@ export class AdddocrenewalentryComponent {
 
     constructor(private route: Router, private formBuilder: FormBuilder, 
       private docRenewalentryModel: Docrenewalentrymodel, private requestmodel:Requestmodel,
-      private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,       
+      private docrenewalEntryService: DocRenewalEntryService, private sharedService: SharedService,
+      private cashReceiptEntryService: CashReceiptEntryService,       
       private toasterService: ToastrService,
       private commonService: CommonService) {
       this.docRenewalentryModel = new Docrenewalentrymodel();
@@ -197,7 +200,11 @@ export class AdddocrenewalentryComponent {
           validToDt:this.commonService.formatDate(this.selectedDocRenewalEntryDetails.validToDt),
           chequeDt:this.commonService.formatDate(this.selectedDocRenewalEntryDetails.chequeDt),
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedDocRenewalEntryDetails.vehicleMasterID),
-        });    
+        });  
+        
+        if(this.selectedDocRenewalEntryDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid);
+        }  
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();
         this.formDocEntry.controls['vehicleMasterID'].disable();
@@ -238,6 +245,20 @@ export class AdddocrenewalentryComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formDocEntry.controls; }
   
+  
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;

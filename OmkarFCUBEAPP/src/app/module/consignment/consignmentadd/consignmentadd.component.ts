@@ -186,8 +186,8 @@ export class ConsignmentaddComponent implements OnInit {
       fromPin: new FormControl('',),
       kms: new FormControl(this.kms,),
       ownTruck: new FormControl('',),
-      truckId: new FormControl('',),
-      truckNo: new FormControl('',),
+      truckId: new FormControl('',[Validators.required]),
+      truckNo: new FormControl('',[Validators.required]),
       billingParty: new FormControl('',),
       billingBranch: new FormControl('',),
       cnorCode: new FormControl('',),
@@ -241,6 +241,8 @@ export class ConsignmentaddComponent implements OnInit {
     });
     
     this.formConsignment.controls['compNonCompStatus'].disable();
+    this.formConsignment.controls['truckNo'].disable();
+
     if(this.branch=='1'){
       this.formConsignment.controls['compNonCompStatus'].enable();
     }
@@ -289,6 +291,7 @@ export class ConsignmentaddComponent implements OnInit {
   }
   
   get f() { return this.formConsignment.controls; }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -307,6 +310,26 @@ export class ConsignmentaddComponent implements OnInit {
       return
     }
   } 
+
+  onNonCompChange(e:any): void {
+    var selectedVehi = e.target.value;
+    if(selectedVehi == 'N'){
+      this.formConsignment.controls['truckNo'].enable();
+      this.formConsignment.controls['truckId'].disable();
+      this.formConsignment.controls['truckId'].clearValidators();
+      this.formConsignment.controls['truckNo'].setValidators([Validators.required]);
+    }
+    else{      
+      this.formConsignment.controls['truckNo'].disable();
+      this.formConsignment.controls['truckId'].enable();
+      this.formConsignment.controls['truckNo'].clearValidators();
+      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
+    }    
+    this.formConsignment.controls['truckNo'].updateValueAndValidity();
+    this.formConsignment.controls['truckId'].updateValueAndValidity();
+
+  }
+
 
   consignmentDelete(): void {
     if(this.selectedConsignmentDetails.consignmentID != '' ){
@@ -626,15 +649,17 @@ export class ConsignmentaddComponent implements OnInit {
       this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
       return;   
     }
-
-    var vehilist = this.vehicleList.find(e => e.dataName == selectedDataValue.truckId.dataName) 
-    if (typeof vehilist !== 'undefined' && vehilist !== null && 
-          vehilist.dataId!="" && vehilist.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toasterService.warning("Please Enter Valid Vehical No ");          
-      return;
+    
+    if(selectedDataValue.truckNo == 'C'){
+      var vehilist = this.vehicleList.find(e => e.dataName == selectedDataValue.truckId.dataName) 
+      if (typeof vehilist !== 'undefined' && vehilist !== null && 
+            vehilist.dataId!="" && vehilist.dataId!="0") {
+          //ignore
+      }
+      else{
+        this.toasterService.warning("Please Enter Valid Vehical No ");          
+        return;
+      }
     }
 
     var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.fromPlace.dataName) 
@@ -690,7 +715,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.consignmentmodel.kms = selectedDataValue.kms;
         this.consignmentmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
         this.consignmentmodel.ownTruck = selectedDataValue.ownTruck;
-        this.consignmentmodel.truckId = selectedDataValue.truckId.dataId;
+        this.consignmentmodel.truckId = selectedDataValue.truckId?selectedDataValue.truckId.dataId:"0";
         this.consignmentmodel.truckNo = selectedDataValue.truckNo;
         this.consignmentmodel.billingParty = selectedDataValue.billingParty.dataId;
         this.consignmentmodel.billingBranch = selectedDataValue.userBranch3;
@@ -1157,7 +1182,6 @@ export class ConsignmentaddComponent implements OnInit {
     this.formConsignment.controls['ewayBillNo'].updateValueAndValidity();
 
   }
-
 
   calculateTotalAmount() {
     let total = 0;

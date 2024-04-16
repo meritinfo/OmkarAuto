@@ -251,6 +251,7 @@ namespace FinTrans.Repository
                                 BranchName      = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
                                 GstType         = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 PmtType         = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtType"]),
+                                Findocid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 NoVender        = Convert.ToString(dataSet.Tables[0].Rows[i]["NoVender"]),
                                 VendorId        = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),
                                 VendorName      = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),

@@ -58,6 +58,13 @@
                                                         class="form-control" formControlName="toDate"
                                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                                 </div>
+                                            </div>                                            
+                                            <div class="col-lg-2">
+                                                <div class="mb-3">
+                                                    <label style="color: red">                                                     
+                                                        <h6>Fin Doc Series: {{ this.seriesDoc}} </h6> 
+                                                    </label>                                                 
+                                                </div>
                                             </div>
                                             <div class="col-lg-2">
                                                 <div class="mb-3">
@@ -149,15 +156,6 @@
                                             </div>
                                         </tr>
                                     </table>
-                                    <div class="row">                                        
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label style="color: red"> 
-                                                    <h5>Fin Doc Series: {{ this.seriesDoc}} </h5> 
-                                                </label>                                                 
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="row mt-1">
                                         <div class="col-lg-10 text-right">
                                             <label for="formrow-inputCity">Total Statement Amount</label><span style="color: red"> * </span>

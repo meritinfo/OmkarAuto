@@ -174,15 +174,16 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                     {
-                        new SqlParameter("@PageNumber", request.PageNumber),
-                        new SqlParameter("@PageSize", request.PageSize),
-                        new SqlParameter("@SortColumn", request.SortColumn),
-                        new SqlParameter("@SortOrder", request.SortOrder),
-                        new SqlParameter("@Search", request.Search),
-                        new SqlParameter("@FromDate", request.FromDate),
-                        new SqlParameter("@ToDate", request.ToDate),
-                        new SqlParameter("@Branch", request.Branch),
-                        new SqlParameter("@ReceiptOrPayment", request.ReceiptOrPayment)
+                        new SqlParameter("@PageNumber",         request.PageNumber),
+                        new SqlParameter("@PageSize",           request.PageSize),
+                        new SqlParameter("@SortColumn",         request.SortColumn),
+                        new SqlParameter("@SortOrder",          request.SortOrder),
+                        new SqlParameter("@Search",             request.Search),
+                        new SqlParameter("@FromDate",           request.FromDate),
+                        new SqlParameter("@ToDate",             request.ToDate),
+                        new SqlParameter("@Branch",             request.Branch),
+                        new SqlParameter("@ReceiptOrPayment",   request.ReceiptOrPayment),
+                        new SqlParameter("@RefType",            request.RefType),
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCashReceiptPaymentsList", param);
 

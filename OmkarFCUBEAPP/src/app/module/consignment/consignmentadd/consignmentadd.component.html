@@ -96,12 +96,20 @@
                                                 <label for="formrow-inputState">Company/Non-Company</label>
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="compNonCompStatus"
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingStatus'].invalid) }">
-                                                  
+                                                    (change)="onNonCompChange($event)"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['compNonCompStatus'].invalid) }">
                                                     <option value="C">Company</option>
-                                                    <option value="N">Non-Company</option>
-                                               
+                                                    <option value="N">Non-Company</option>                                               
                                                 </select>
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputState">Non-Company Vehical No</label>
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                        formControlName="truckNo" 
+                                                        maxlength="12"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -114,7 +122,6 @@
                                                 <label for="formRadios1" class="form-check-label" style="color:green">
                                                     Get ALL From EWayBill API
                                                 </label>
-
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -695,7 +702,6 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-
                             <button  class="btn btn-primary w-md"
                                 (click)="submitConsignmentForm()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
                                 <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"

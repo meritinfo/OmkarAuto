@@ -55,4 +55,7 @@ export class CashReceiptEntryService {
   getFinRefTypes(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetFinRefTypes', null, this.httpOptions);
   }  
+  getFinDocDetails(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetFinDocDetails', req, this.httpOptions);
+  }  
 }

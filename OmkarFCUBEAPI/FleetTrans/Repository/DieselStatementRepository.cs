@@ -256,6 +256,7 @@ namespace FleetTrans.Repository
                                 BillStmtDate    = Convert.ToString(dataSet.Tables[0].Rows[i]["BillStmtDate"]),
                                 FromDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["FromDate"]),
                                 ToDate          = Convert.ToString(dataSet.Tables[0].Rows[i]["ToDate"]),
+                                Findocid        = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 Location        = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
                                 Rate            = Convert.ToString(dataSet.Tables[0].Rows[i]["Rate"]),
                                 Remarks         = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),

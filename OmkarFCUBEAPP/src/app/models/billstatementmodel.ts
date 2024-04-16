@@ -8,6 +8,7 @@ export class billstatementmodel {
     billDate: string = "";
     fromPoint : string = "";
     toPoint : string = "";
+    findocid: string = "";
     partyCode: string = "";
     fromDate: string = "";
     toDate: string = "";

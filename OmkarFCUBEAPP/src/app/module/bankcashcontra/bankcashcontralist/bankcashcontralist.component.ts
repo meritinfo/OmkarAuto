@@ -36,6 +36,7 @@ export class BankcashcontralistComponent {
     toDate: '',
     branch:'',
     receiptOrPayment: '',
+    refType:'',
   }
   
   formFilter!: FormGroup;
@@ -107,6 +108,9 @@ export class BankcashcontralistComponent {
     });
 
     this.sharedService.loading=true;
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.branch = this.branch;
     this.bankContraList();
     this.sharedService.loading=false;
   }
@@ -125,9 +129,6 @@ export class BankcashcontralistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         // this.filter.search = dataTablesParameters.search.value;
-        this.filter.fromDate = this.fromDate;
-        this.filter.toDate = this.loginDate;
-        this.filter.branch = this.branch;
         this.filter.receiptOrPayment = 'BC';
 
         this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)

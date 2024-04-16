@@ -7,6 +7,7 @@ export class Docrenewalentrymodel {
     vehicleNo: string = "";
     documentRefNo: string = "";
     renewalCompany: string = "";
+    findocid: string = "";
     validFromDt: string = "";
     validToDt: string = "";
     basicAmt: string = "";

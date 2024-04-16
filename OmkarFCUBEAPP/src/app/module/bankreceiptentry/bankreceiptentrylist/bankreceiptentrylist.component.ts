@@ -36,6 +36,7 @@ export class BankreceiptentrylistComponent {
     toDate: '',
     branch:'',
     receiptOrPayment: '',
+    refType:'',
   }
 
   

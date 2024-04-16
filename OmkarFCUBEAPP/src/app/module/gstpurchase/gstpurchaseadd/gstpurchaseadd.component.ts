@@ -11,6 +11,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/services/shared.service';
 import { Constants } from 'src/app/common/constants';
+import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 
 @Component({
   selector: 'app-gstpurchaseadd',
@@ -61,6 +62,7 @@ export class GstpurchaseaddComponent {
     private gstpurchasemodel: Gstpurchasemodel, private requestmodel:Requestmodel,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,       
     private toasterService: ToastrService,private docrenewalEntryService:DocRenewalEntryService,
+    private cashReceiptEntryService: CashReceiptEntryService,
     private commonService: CommonService) {
   }
 
@@ -269,7 +271,10 @@ export class GstpurchaseaddComponent {
         this.attach1 = Constants.UploadFolderPath + 'gstpurchase/attatchFile1/' + this.selectedGstpurchaseDetails.attatchFile1;
         this.attach2 = Constants.UploadFolderPath + 'gstpurchase/attatchFile2/' + this.selectedGstpurchaseDetails.attatchFile2;
         this.formGSTPurchase.controls['modifyRemarks'].enable();  
-        this.formGSTPurchase.patchValue(this.selectedGstpurchaseDetails);
+        this.formGSTPurchase.patchValue(this.selectedGstpurchaseDetails);        
+        if(this.selectedGstpurchaseDetails.findocid!="0"){
+          this.getFinDocDetails(this.selectedGstpurchaseDetails.findocid);
+        }
         this.formGSTPurchase.patchValue({
           transDate: this.commonService.formatDate(this.selectedGstpurchaseDetails.transDate),
           vendorInvDt: this.commonService.formatDate(this.selectedGstpurchaseDetails.vendorInvDt),
@@ -356,6 +361,19 @@ export class GstpurchaseaddComponent {
   }
 
   
+  getFinDocDetails(finId: string){
+    this.requestmodel.strRequest=finId;
+    this.cashReceiptEntryService.getFinDocDetails(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.seriesDoc = res.message;
+      } 
+      else{
+        this.seriesDoc = '';
+      }
+    });
+  }
+
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;

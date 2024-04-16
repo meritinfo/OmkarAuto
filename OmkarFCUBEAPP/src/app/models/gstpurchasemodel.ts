@@ -5,6 +5,7 @@ export class Gstpurchasemodel {
     branchName:         string = "";
     gstType:            string = "";
     pmtType:            string = "";
+    findocid:            string = "";
     noVender:           string = "";
     vendorId:           string = "";
     vendorName:         string = "";
