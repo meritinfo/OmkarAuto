@@ -9,6 +9,9 @@ namespace FleetTrans.Models
         public string? SeriesCode { get; set; }
         public string? Bill_StmtNo { get; set; }
         public string? BillDate { get; set; }
+        public string? BillStatus { get; set; }
+        public string? BillNo { get; set; }
+        public string? PdfUrl { get; set; }
         public string? PartyCode { get; set; }
         public string? FromDate { get; set; }
         public string? ToDate { get; set; }

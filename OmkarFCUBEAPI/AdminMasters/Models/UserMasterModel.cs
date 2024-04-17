@@ -25,6 +25,7 @@
         public string? EnableLastNewTripDate { get; set; }
         public string? EnableFromTo { get; set; }
         public string? EnableDriver { get; set; }
+        public string? CanCancelBill { get; set; }
         public string? AttachLRtoSameTrip { get; set; }
         public DateTime? LastLoginDateTime_Success { get; set; }
         public string? LastLoginIP_Success { get; set; }

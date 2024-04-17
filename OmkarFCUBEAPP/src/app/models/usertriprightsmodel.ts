@@ -5,4 +5,5 @@ export class Usertriprightsmodel {
     enableFromTo: boolean = false;
     enableDriver: boolean = false;
     attachLRtoSameTrip:boolean = false;
+    canCancelBill:boolean = false;
 }

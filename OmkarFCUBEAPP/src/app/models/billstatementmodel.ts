@@ -6,6 +6,9 @@ export class billstatementmodel {
     seriesCode: string = "";
     bill_StmtNo: string = "";
     billDate: string = "";
+    billStatus  : string = "";
+    billNo  : string = "";    
+    pdfUrl : string = "";  
     fromPoint : string = "";
     toPoint : string = "";
     findocid: string = "";
