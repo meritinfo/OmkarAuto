@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -72,16 +72,18 @@
                                 <th>Action</th>
                                 <th>Action</th>  
                                 <th>Action</th>                           
+                                <th>Action</th>                          
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody *ngIf="allBillStatement.billList?.length != 0">
                             <tr *ngFor="let renewalMaster of allBillStatement.billList">
                                 <td>{{ renewalMaster.fPlace }}</td>                        
-                                <td>{{ renewalMaster.seriesCode}}</td>                           
-                                <td>{{ renewalMaster.bill_StmtNo}}</td>
-                                <td>{{ renewalMaster.billDate}}</td>   
-                                <td>{{ renewalMaster.totalBillAmt}}</td>   
+                                <td>{{ renewalMaster.billNo}}</td>      
+                                <td>{{ renewalMaster.billDate}}</td>                        
+                                <td>{{ renewalMaster.billStatus}}</td>
+                                <td>{{ renewalMaster.totalBillAmt}}</td>
+                                <td>{{ renewalMaster.pdfUrl}}</td>     
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillStatementDetails(renewalMaster)"></button>                               

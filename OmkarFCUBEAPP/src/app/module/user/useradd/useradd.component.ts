@@ -95,6 +95,7 @@ export class UseraddComponent implements OnInit {
       enableFromTo:new FormControl('N', [Validators.required]),
       enableDriver:new FormControl('N', [Validators.required]),
       attachLRtoSameTrip:new FormControl('N', [Validators.required]),
+      canCancelBill:new FormControl('N', [Validators.required]),
       userBranch: new FormControl([], [Validators.required]),
       // userModule: new FormControl([], [Validators.required]),
       imageName: new FormControl([], ),
@@ -253,6 +254,7 @@ export class UseraddComponent implements OnInit {
     this.userModel.enableLastNewTripDate = selecteddata.enableLastNewTripDate?selecteddata.enableLastNewTripDate:'N';
     this.userModel.enableFromTo = selecteddata.enableFromTo?selecteddata.enableFromTo:'N';
     this.userModel.enableDriver = selecteddata.enableDriver?selecteddata.enableDriver:'N';
+    this.userModel.canCancelBill = selecteddata.canCancelBill?selecteddata.canCancelBill:'N';    
     this.userModel.attachLRtoSameTrip =selecteddata.enableDriver?selecteddata.enableDriver:'N';
     this.userModel.loggedInUser = this.loggedInUserID;
     this.userModel.empbranch = selecteddata.empbranch;

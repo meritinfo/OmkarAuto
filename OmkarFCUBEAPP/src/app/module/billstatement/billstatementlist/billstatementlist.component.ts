@@ -131,20 +131,24 @@ export class BillstatementlistComponent {
           data: 'fPlace',
         },
         {
-          title: 'Series Code ',
-          data: 'seriesCode',
-        },
-        {
-          title: 'Bill Stmt No ',
-          data: 'bill_StmtNo',
+          title: 'Bill No ',
+          data: 'billNo',
         },
         {
           title: 'Bill Date ',
           data: 'billDate'
         },
         {
+          title: 'Bill Status ',
+          data: 'billStatus',
+        },
+        {
           title: 'Total Bill Amt ',
           data: 'totalBillAmt'
+        },
+        {
+          title: 'PDF Link ',
+          data: 'pdfUrl'
         },
         {
           title: 'Action',

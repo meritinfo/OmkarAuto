@@ -13,6 +13,7 @@ import { BillstatementService } from 'src/app/services/billstatement.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
 @Component({
   selector: 'app-billstatementadd',
@@ -35,6 +36,7 @@ export class BillstatementaddComponent implements OnInit {
   formBillStatement!: FormGroup;
   keywordLocation = 'dataName';
   supp = false;
+  canCancelBill = false;
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
   seriesDoc: string = "";
   
@@ -47,10 +49,12 @@ export class BillstatementaddComponent implements OnInit {
   deleteStatus = false;
   viewStatus = false;
   showButton = true;
+  
 
   formSubmitted = false;
   selectedBillstatementDetails = new billstatementmodel();
   responseDetails = new Responsemodel();
+  usertriprightsmodel = new Usertriprightsmodel();
 
   constructor(private billsstatementmodel: billstatementmodel, private commonService: CommonService, 
     private billstatementService: BillstatementService, private route: Router, 
@@ -125,6 +129,7 @@ export class BillstatementaddComponent implements OnInit {
       billSeries: new FormControl('',[Validators.required]),
       billNo: new FormControl('',[Validators.required]),
       billDate: new FormControl(this.loginDate,[Validators.required]),
+      cancelBill: new FormControl(''),
       party: new FormControl('',[Validators.required]),
       lrFrom: new FormControl(this.fromDate,[Validators.required]),
       lrTo: new FormControl(this.maxDate,[Validators.required]),
@@ -162,6 +167,7 @@ export class BillstatementaddComponent implements OnInit {
       this.formBillStatement.controls['cgstAmt'].disable();
       this.formBillStatement.controls['igstAmt'].disable();
       this.formBillStatement.controls['sgstAmt'].disable(); 
+      this.formBillStatement.controls['cancelBill'].disable();    
   
       if (this.selectedBillstatementDetails.masterID != '') {
         this.formBillStatement.controls['billSeries'].disable();
@@ -199,6 +205,17 @@ export class BillstatementaddComponent implements OnInit {
       
         if(this.selectedBillstatementDetails.findocid!="0"){
           this.getFinDocDetails(this.selectedBillstatementDetails.findocid);
+        }
+        
+        if(this.selectedBillstatementDetails.billStatus=="C"){          
+          this.editStatus = false;
+          this.deleteStatus = false;
+          this.formBillStatement.patchValue({
+            cancelBill: 'Y'  
+          })          
+        }
+        else{          
+          this.getUserTripRights();
         }
 
         if(this.selectedBillstatementDetails.suppYN=="N"){          
@@ -561,12 +578,22 @@ export class BillstatementaddComponent implements OnInit {
       }
     });
   }
-  
+
+  getUserTripRights(): void {
+    this.requestmodel.strRequest = this.loggedInUserID;
+    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
+      this.usertriprightsmodel = res;
+      this.canCancelBill = this.usertriprightsmodel.canCancelBill;  
+      if(this.canCancelBill)  {
+        this.formBillStatement.controls['cancelBill'].enable();        
+      }  
+    });   
+  }
   
   exit(): void {
     this.route.navigate(['/billstatementlist']);
-  }
-  
+  }  
+
   billsStatementDelete(): void {
     if(this.selectedBillstatementDetails.masterID != '' ){
      this.requestmodel.strRequest =this.selectedBillstatementDetails.masterID
@@ -614,6 +641,7 @@ export class BillstatementaddComponent implements OnInit {
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;
     this.billsstatementmodel.bill_StmtNo = selectedDataValue.billNo;
     this.billsstatementmodel.billDate = selectedDataValue.billDate;
+    this.billsstatementmodel.billStatus = selectedDataValue.cancelBill?"C":"N";
     this.billsstatementmodel.partyCode = selectedDataValue.party?selectedDataValue.party.dataId:"";
     this.billsstatementmodel.fromDate = selectedDataValue.lrFrom;
     this.billsstatementmodel.toDate = selectedDataValue.lrTo;

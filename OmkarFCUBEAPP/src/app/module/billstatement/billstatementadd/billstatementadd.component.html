@@ -355,14 +355,22 @@
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['totalBillAmt'].invalid) }">
                                             </div>
                                         </div>                                        
-                                        <div class="col-lg-5">
+                                        <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Remarks</label><span style="color: red"> * </span>
+                                                <label for="formrow-inputCity">Mofify/Remarks</label><span style="color: red"> * </span>
                                                 <input uppercaseonly autoclose="false" type="text" class="form-control"
                                                     formControlName="remarks"  
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['remarks'].invalid) }">
                                             </div>
-                                        </div>                                                                              
+                                        </div>  
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <input type="checkbox" 
+                                                formControlName="cancelBill"                                     
+                                                class="form-check-input" />
+                                                <label for="formrow-inputCity">Cancel Bill</label>
+                                            </div>                                                    
+                                        </div>                                                                            
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label style="color: red"> 
@@ -382,7 +390,7 @@
                             <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                 (click)="saveStatementDetails()"> Save</button>
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="billsStatementDelete()"> Delete</button>
+                                (click)="billsStatementDelete()"> Delete</button>                           
                             <button class="btn btn-secondary w-md  m-2" 
                                 (click)="exit()">Exit</button>
                         </div>

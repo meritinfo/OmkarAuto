@@ -1260,6 +1260,7 @@ namespace FleetTrans.Repository
                         userTrip.EnableFromTo = statusData.Tables[0].Rows[0]["EnableFromTo"].ToString()=="Y" ? true : false;
                         userTrip.EnableDriver = statusData.Tables[0].Rows[0]["EnableDriver"].ToString()=="Y" ? true : false;
                         userTrip.AttachLRtoSameTrip = statusData.Tables[0].Rows[0]["EnableDriver"].ToString()=="Y" ? true : false;
+                        userTrip.CanCancelBill= statusData.Tables[0].Rows[0]["CanCancelBill"].ToString()=="Y" ? true : false;
                     }
                     else
                     {
@@ -1269,6 +1270,7 @@ namespace FleetTrans.Repository
                         userTrip.EnableFromTo = false;
                         userTrip.EnableDriver = false;
                         userTrip.AttachLRtoSameTrip = false;
+                        userTrip.CanCancelBill = false;
                     }
                 }
             }
