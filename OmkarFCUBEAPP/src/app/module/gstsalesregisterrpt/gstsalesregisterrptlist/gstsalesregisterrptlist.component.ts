@@ -141,6 +141,8 @@ formFilter!: FormGroup;
   
       this.sharedService.loading=true;
      this.getBillingPartyList();
+     this.expGstSales();
+     this.sharedService.loading=false;
 
 }
 
@@ -181,7 +183,7 @@ expGstSales(){
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = 'seriesCode';
+        this.filter.sortColumn = 'invNo';
         this.filter.sortOrder = 'asc';
         this.filter.search = '';
         this.gstsalesregisterrptService.getGstSalesRegisterrptList(this.filter).subscribe(resp => {
@@ -203,39 +205,39 @@ expGstSales(){
       //   data: 'bill_StmtNo',
       // },    
       {
-        title: 'invDate',
+        title: 'Inv Date',
         data: 'invDate',
       },
       {
-        title: 'InvNo ',
+        title: 'Inv No ',
         data: 'invNo',
       },       
       {
-        title: 'accountGstNo',
+        title: 'Account GstNo',
         data: 'accountGstNo',
       },
       {
-        title: 'partyName',
+        title: 'Party Name',
         data: 'partyName',
       },
       {
-        title: 'totSubTotal ',
+        title: 'TotSubTotal ',
         data: 'totSubTotal',
       },
       {
-        title: 'cgstAmt ',
+        title: 'CgstAmt ',
         data: 'cgstAmt',
       },
       {
-        title: 'sgstAmt ',
+        title: 'SgstAmt ',
         data: 'sgstAmt',
       },
       {
-        title: 'igstAmt ',
+        title: 'IgstAmt ',
         data: 'igstAmt',
       },
       {
-        title: 'totalBillAmt ',
+        title: 'TotalBillAmt ',
         data: 'totalBillAmt',
       },
       

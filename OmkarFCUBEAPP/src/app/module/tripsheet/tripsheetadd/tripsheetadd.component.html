@@ -610,7 +610,7 @@
                                     <h4 class="card-title mb-4" style="color: red;">Diesel Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Pmt Date</label> <span style="color:green">  {{starmrk}}</span></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label> </th>
                                             <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
                                             <th><label for="formrow-inputZip">Vendor Name</label></th>
                                         </tr>
@@ -619,6 +619,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         {{dieselData.pmtDate}}
+                                                       <span style="color:green">{{dieselData.adj}}</span> 
                                                     </div>
                                                 </div>
                                             </td>
@@ -716,7 +717,7 @@
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
                                             <th> <label for="formrow-inputCity">Pmt Type</label> </th>
-                                            <th><label for="formrow-inputCity">Pmt Date</label><span style="color:green">  {{starmrk2}}</span></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
                                             <th><label for="formrow-inputZip">Amount</label></th>
                                         </tr>
                                         <tr *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">
@@ -731,6 +732,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="mb-3">
                                                         {{driverData.pmtDate}}
+                                                        <span style="color:green">{{driverData.adj2}}</span> 
                                                     </div>
                                                 </div>
                                             </td>

@@ -1,8 +1,8 @@
 export class Gstsalesregisterrptmodel {
-branch: string = "";
-masterId: string = "";
-seriesCode: string = "";
-bill_StmtNo: string = "";
+//branch: string = "";
+//masterId: string = "";
+//seriesCode: string = "";
+//bill_StmtNo: string = "";
 invDate: string = "";
 invNo : string = "";
 accountGstNo : string = "";
