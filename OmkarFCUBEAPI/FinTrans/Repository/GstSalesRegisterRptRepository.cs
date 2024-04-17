@@ -41,10 +41,9 @@ namespace FinTrans.Repository
                             new SqlParameter("@SortOrder",          request.SortOrder),
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
-                            new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@AccountID",          request.FilterStr),
-                          //  new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@ToDate",             request.ToDate),  
                             new SqlParameter("@GstType",            request.FilterStr1),
+                                new SqlParameter("@AccountID",          request.FilterStr),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptList", param);
                     int totalRecords = 0;
@@ -100,9 +99,9 @@ namespace FinTrans.Repository
                             new SqlParameter("@Search",             request.Search),
                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@AccountID",          request.FilterStr),
-                          //  new SqlParameter("@YearId",             request.FilterStr1),
+                         
                             new SqlParameter("@GstType",            request.FilterStr2),
+                              new SqlParameter("@AccountID",          request.FilterStr),
                         };
 
                     reportData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptList", param);
@@ -123,17 +122,17 @@ namespace FinTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@FromDate",           request.FromDate),
+                             new SqlParameter("@FromDate",           request.FromDate),
                             new SqlParameter("@ToDate",             request.ToDate),
                             new SqlParameter("@AccountID",          request.FilterStr),
-                            new SqlParameter("@YearId",             request.FilterStr1),
-                            new SqlParameter("@SubName",            request.FilterStr2),
+                          //  new SqlParameter("@YearId",             request.FilterStr1),
+                            new SqlParameter("@GstType",            request.FilterStr1),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getGstSalesRegisterRptExcel", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        var filter = "Ledger From " + request.FromDate + " To " + request.ToDate;
+                        var filter = "Gst Sales From " + request.FromDate + " To " + request.ToDate;
                         response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "Gst Sales Report", filter);
                     }
                 }

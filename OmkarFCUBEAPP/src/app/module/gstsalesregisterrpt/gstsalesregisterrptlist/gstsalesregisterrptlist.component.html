@@ -101,8 +101,8 @@
                                         formControlName="gstType"
                                         [ngClass]="">
                                         <option value ="">Choose...</option>
-                                        <option value="S"> Open</option>
-                                        <option value="P"> Closed </option>
+                                        <option value="S"> Sales</option>
+                                        <option value="P"> Purchase </option>
                                     </select>
                                 </div>
                             </div>  
@@ -147,8 +147,8 @@
 
                         </tr>
                     </thead>
-                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesRegisterRptlist?.length != 0">
-                        <tr *ngFor="let eta of allGstSalesRegisterRptlist.gstSalesRegisterRptlist">
+                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesList?.length != 0">
+                        <tr *ngFor="let eta of allGstSalesRegisterRptlist.gstSalesList">
                             <!-- <td>{{ eta.seriesCode }}</td>
                             <td>{{ eta.bill_StmtNo }}</td>  -->
                             <td>{{ eta.invDate }}</td>
@@ -168,7 +168,7 @@
                        
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesRegisterRptlist?.length == 0">
+                    <tbody *ngIf="allGstSalesRegisterRptlist.gstSalesList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

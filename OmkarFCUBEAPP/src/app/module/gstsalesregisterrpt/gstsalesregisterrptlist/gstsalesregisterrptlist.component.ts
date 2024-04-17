@@ -186,6 +186,7 @@ expGstSales(){
         this.filter.sortColumn = 'invNo';
         this.filter.sortOrder = 'asc';
         this.filter.search = '';
+        
         this.gstsalesregisterrptService.getGstSalesRegisterrptList(this.filter).subscribe(resp => {
            this.allGstSalesRegisterRptlist = resp;
             callback({
@@ -260,8 +261,8 @@ exportExcel(): void {
   var selectedDataVal=this.formFilter.getRawValue();
   this.filter.fromDate    = selectedDataVal.fromDate;
   this.filter.toDate      = selectedDataVal.toDate;
-  this.filter.filterStr   = selectedDataVal.accountID?selectedDataVal.accountID:"";
-  this.filter.filterStr1  = selectedDataVal.type?selectedDataVal.gstType:"";
+  this.filter.filterStr   = selectedDataVal.accountID?selectedDataVal.accountID.dataId:"";
+  this.filter.filterStr1  = selectedDataVal.gstType?selectedDataVal.gstType:"";
   //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
  // this.filter.filterStr3  = selectedDataVal.creditAc;
 
@@ -293,8 +294,8 @@ if (this.formFilter.invalid) {
 var selectedDataVal=this.formFilter.getRawValue();
 this.filter.fromDate    = selectedDataVal.fromDate;
 this.filter.toDate      = selectedDataVal.toDate;
-this.filter.filterStr   = selectedDataVal.accountID?selectedDataVal.accountID:"";
-this.filter.filterStr1  = selectedDataVal.type?selectedDataVal.gstType:"";
+this.filter.filterStr   = selectedDataVal.accountID.dataId?selectedDataVal.accountID.dataId:"";
+this.filter.filterStr1  = selectedDataVal.gstType?selectedDataVal.gstType:"";
 //this.filter.filterStr2  = selectedDataVal.vehicleMasterID?selectedDataVal.vehicleMasterID.dataId:"";
 //this.filter.filterStr3  = selectedDataVal.creditAc;
 
