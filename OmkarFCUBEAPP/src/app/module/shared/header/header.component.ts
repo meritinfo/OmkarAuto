@@ -8,6 +8,7 @@ import { LoggedinUsermodel } from 'src/app/models/loggedinusermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Schedulemodel } from 'src/app/models/schedulemodel';
+import { formatDate } from "@angular/common";
 
 console.log();
 @Component({
@@ -94,20 +95,22 @@ export class HeaderComponent {
       var warndt = new Date(res.warningTimeStart); 
       var startdt = new Date(res.publishStart); 
       var enddt = new Date(res.publishEnd); 
+      const format = 'dd-MMM-yyyy hh:mm';
+      const locale = 'en-US';
+
       if(today>= warndt && today <= enddt) {     
         this.shdled = true; 
         if(today>= startdt && today <= enddt)  {
           this.route.navigate(['/']);
         }
         else{               
-          this.shdlMsg = 'Project will be under maintainace between '+ 
-          startdt.toLocaleString() + ' and ' + enddt.toLocaleString() ;
+          this.shdlMsg = 'Application will be under maintenance between '+ 
+          formatDate(startdt,format, locale) + ' and ' + formatDate(enddt,format, locale) ;
         }
       }
     });
      
   }
-    
 
   // don't forget to unsubscribe when the Observable is not necessary anymore 
   ngOnDestroy(): void {

@@ -103,6 +103,10 @@ export class DieselstatementlistComponent {
 
     this.sharedService.loading=true;    
     this.getVendorList();
+
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+
     this.dieselstateList();
     this.sharedService.loading=false;
   }
@@ -120,8 +124,7 @@ export class DieselstatementlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = this.formFilter.value.dfVendor.dataId;
-        // this.filter.search = dataTablesParameters.search.value;
+        
         this.dieselStatementService.getDieselStatementList(this.filter)
           .subscribe(resp => {
             this.allDieselStatement = resp;
@@ -194,10 +197,11 @@ export class DieselstatementlistComponent {
   }
 
   search(): void {
-    this.filter.search = this.formFilter.value.dfVendor.dataId;
-    this.filter.fromDate = this.formFilter.value.fromDate;
-    this.filter.toDate = this.formFilter.value.toDate;
-    //this.filter.dfVendor = this.formFilter.value.dfVendor;
+    var selecteddata = this.formFilter.getRawValue();
+    this.filter.search = selecteddata.dfVendor?selecteddata.dfVendor.dataId:"";
+    this.filter.fromDate = selecteddata.fromDate;
+    this.filter.toDate = selecteddata.toDate;
+    
     this.sharedService.loading=true;
     this.dieselstateList();
     this.sharedService.loading=false;

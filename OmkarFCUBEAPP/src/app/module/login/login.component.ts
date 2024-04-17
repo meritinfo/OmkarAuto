@@ -7,6 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Schedulemodel } from 'src/app/models/schedulemodel';
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: 'app-login',
@@ -56,15 +57,18 @@ export class LoginComponent implements OnInit {
       var warndt = new Date(res.warningTimeStart); 
       var startdt = new Date(res.publishStart); 
       var enddt = new Date(res.publishEnd); 
+      const format = 'dd-MMM-yyyy hh:mm';
+      const locale = 'en-US';
+      
       if(today>= warndt && today <= enddt) {     
         this.shdled = true; 
         if(today>= startdt && today <= enddt)  {
           this.login=false;
-          this.shdlMsg = 'Project is under maintainace till '+ enddt.toLocaleString() ;
+          this.shdlMsg = 'Application is under maintenance till '+ formatDate(enddt,format, locale);
         }
         else{               
-          this.shdlMsg = 'Project will be under maintainace between '+ 
-          startdt.toLocaleString() + ' and ' + enddt.toLocaleString() ;
+          this.shdlMsg = 'Application will be under maintenance between '+ 
+          formatDate(startdt,format, locale) + ' and ' + formatDate(enddt,format, locale) ;
         }
       }
     });

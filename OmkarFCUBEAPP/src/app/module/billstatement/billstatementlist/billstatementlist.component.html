@@ -83,7 +83,13 @@
                                 <td>{{ renewalMaster.billDate}}</td>                        
                                 <td>{{ renewalMaster.billStatus}}</td>
                                 <td>{{ renewalMaster.totalBillAmt}}</td>
-                                <td>{{ renewalMaster.pdfUrl}}</td>     
+                                <td>  
+                                    <button type="button" class="btn btn-primary btn-floating"  
+                                    (click)="download(renewalMaster.pdfUrl)" >
+                                        <i class="fas fa-download"></i>
+                                    </button>  
+                                        <!-- *ngif="renewalMaster.pdfUrl!=''" -->
+                                </td>
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillStatementDetails(renewalMaster)"></button>                               

@@ -10,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-billstatementlist',
@@ -46,6 +47,7 @@ export class BillstatementlistComponent {
   minDate: string = '';
 
   constructor(private billStatementService: BillstatementService, 
+    private toasterService: ToastrService,
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService, private route: Router) {
   }
@@ -168,6 +170,18 @@ export class BillstatementlistComponent {
     this.route.navigate(['/billstatementedit']);
   }
 
+  download(pdfUrl:string): void {
+    if(pdfUrl=="")
+    {
+      this.toasterService.warning("No Link Found");   
+      return;
+    }
+    else{
+      let link = document.createElement("a");
+      link.href = pdfUrl ;
+      link.click();
+    }
+  }
   
   search(): void {
     this.filter.search = this.formFilter.value.bill_StmtNo;
