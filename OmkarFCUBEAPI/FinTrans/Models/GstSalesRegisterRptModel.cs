@@ -8,15 +8,15 @@ namespace FinTrans.Models
 {
     public class GstSalesRegisterRptModel
     {
-        public string InvoiceDate { get; set; }
-        public string InvoiceNo { get; set; }
-        public string GSTINofRecepient { get; set; }
+        public string InvDate { get; set; }
+        public string InvNo { get; set; }
+        public string AccountGstNo { get; set; }
         public string PartyName { get; set; }
-        public string TaxableValue { get; set; }
-        public string CGST { get; set; }
-        public string SGST { get; set; }
-        public string IGST { get; set; }
-        public string TotalValue { get; set; }
+        public string TotSubTotal { get; set; }
+        public string CgstAmt { get; set; }
+        public string SgstAmt { get; set; }
+        public string IgstAmt { get; set; }
+        public string TotalBillAmt { get; set; }
 
     }
 }

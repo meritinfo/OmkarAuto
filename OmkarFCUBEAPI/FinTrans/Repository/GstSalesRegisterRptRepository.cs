@@ -55,15 +55,15 @@ namespace FinTrans.Repository
                         {
                             salesRpts.Add(new GstSalesRegisterRptModel
                             {
-                                InvoiceDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceDate"]),
-                                InvoiceNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceNo"]),
-                                GSTINofRecepient = Convert.ToString(dataSet.Tables[0].Rows[i]["GSTINofRecepient"]),
+                                InvDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InvDate"]),
+                                InvNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InvNo"]),
+                                AccountGstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountGstNo"]),
                                 PartyName = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]),
-                                TaxableValue = Convert.ToString(dataSet.Tables[0].Rows[i]["TaxableValue"]),
-                                CGST = Convert.ToString(dataSet.Tables[0].Rows[i]["CGST"]),
-                                SGST = Convert.ToString(dataSet.Tables[0].Rows[i]["SGST"]),
-                                IGST = Convert.ToString(dataSet.Tables[0].Rows[i]["IGST"]),
-                                TotalValue = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalValue"]),
+                                TotSubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["TotSubTotal"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                TotalBillAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBillAmt"]),
                           
                             });
                         }
