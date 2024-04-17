@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { Gstsalesregisterrptmodel } from "./gstsalesregisterrptmodel";
 
 export class Gstsalesrptlistmodel {
-    gstSalesRegisterRptlist: Gstsalesregisterrptmodel[] = [];
+    gstSalesList: Gstsalesregisterrptmodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }
