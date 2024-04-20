@@ -1,0 +1,427 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using System;
+using FinanceMaster.Models;
+using FinanceMasters.Models;
+using FinanceMasters.Business;
+using Microsoft.AspNetCore.Authorization;
+using Shared.Models;
+using FleetTrans.Models;
+
+namespace FCUBEAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [Authorize]
+    [ApiController]
+    public class FinanceMastersController : ControllerBase
+    {
+        readonly IFinAccountsMasterBusiness finAccountsMasterBusiness;
+        readonly IFinGroupMasterBusiness finGroupMasterBusiness;
+        readonly IFinScheduleMasterBusiness finScheduleMasterBusiness;
+        readonly IOpeningBalanceMasterBusiness openingBalanceMasterBusiness;
+        readonly IChequeAllotmentDtlBusiness chequeAllotmentDtlBusiness;
+        readonly IChequeAllotmentMstBusiness chequeAllotmentMstBusiness;
+
+
+        public FinanceMastersController(IFinGroupMasterBusiness _finGroupMasterBusiness, 
+            IFinAccountsMasterBusiness _finAccountsMasterBusiness, 
+            IFinScheduleMasterBusiness _finScheduleMasterBusiness,
+            IOpeningBalanceMasterBusiness _openingBalanceMasterBusiness,
+            IChequeAllotmentDtlBusiness _chequeAllotmentDtlBusiness, 
+            IChequeAllotmentMstBusiness _chequeAllotmentMstBusiness)
+        {
+            finAccountsMasterBusiness = _finAccountsMasterBusiness;
+            finGroupMasterBusiness = _finGroupMasterBusiness;
+            finScheduleMasterBusiness = _finScheduleMasterBusiness;
+            chequeAllotmentDtlBusiness = _chequeAllotmentDtlBusiness;
+            chequeAllotmentMstBusiness = _chequeAllotmentMstBusiness;
+            openingBalanceMasterBusiness=_openingBalanceMasterBusiness;
+
+        }
+        /// <summary>
+        
+        /// </summary>
+        /// <param name="FinAccountsMasterModel"></param>
+        [HttpPost("FinAccountsMasterSave")]
+        public async Task<IActionResult> FinAccountsMasterSave(FinAccountsMasterModel finAccountsMasterModel)
+        {
+            if (finAccountsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountsMasterSave(finAccountsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFinAccountsMasterList")]
+        public async Task<IActionResult> GetFinAccountsMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinAccountsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetFinActLedgertype")]
+        public async Task<IActionResult> GetFinActLedgertype()
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinActLedgertype();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetEmpList")]
+        public async Task<IActionResult> GetEmpList()
+        {
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetEmpList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FinScheduleMasterSave")]
+        public async Task<IActionResult> FinScheduleMasterSave(FinScheduleMasterModel finScheduleMasterModel)
+        {
+            if (finScheduleMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finScheduleMasterBusiness.FinScheduleMasterSave(finScheduleMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("ChequeAllotmentDtlSave")]
+        public async Task<IActionResult> ChequeAllotmentDtlSave(ChequeAllotmentDtlModel chequeAllotmentDtlModel)
+        {
+            if (chequeAllotmentDtlModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chequeAllotmentDtlBusiness.ChequeAllotmentDtlSave(chequeAllotmentDtlModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChequeAllotmentMstSave")]
+        public async Task<IActionResult> ChequeAllotmentMstSave(ChequeAllotmentMstModel chequeAllotmentMstModel)
+        {
+            if (chequeAllotmentMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await chequeAllotmentMstBusiness.ChequeAllotmentMstSave(chequeAllotmentMstModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FinGroupMasterSave")]
+        public async Task<IActionResult> FinGroupMasterSave(FinGroupMasterModel finGroupMasterModel)
+        {
+            if (finGroupMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.FinGroupMasterSave(finGroupMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetFinGroupMasterList")]
+        public async Task<IActionResult> GetFinGroupMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.GetFinGroupMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("FinGroupDetailsDelete")]
+        public async Task<IActionResult> FinGroupDetailsDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.FinGroupDetailsDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAccountTypeList")]
+        public async Task<IActionResult> GetAccountTypeList()
+        {
+            try
+            {
+                var result = await finGroupMasterBusiness.GetAccountTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetSubAccountTypeList")]
+        public async Task<IActionResult> GetSubAccountTypeList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.GetSubAccountTypeList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetScheduleList")]
+        public async Task<IActionResult> GetScheduleList()
+        {            
+            try
+            {
+                var result = await finGroupMasterBusiness.GetScheduleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("chkActName")]
+        public async Task<IActionResult> chkActName(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finGroupMasterBusiness.chkActName(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("OpeningBalanceSave")]
+        public async Task<IActionResult> OpeningBalanceSave(OpeningBalanceMasterModel openingBalanceMaster)
+        {
+            if (openingBalanceMaster == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.OpeningBalanceSave(openingBalanceMaster);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOpeningBalMasterList")]
+        public async Task<IActionResult> GetOpeningBalMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetOpeningBalMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetOpeningBalDetailList")]
+        public async Task<IActionResult> GetOpeningBalDetailList(OpeningBalanceRequest req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetOpeningBalDetailList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetAccountList")]
+        public async Task<IActionResult> GetAccountList()
+        {
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetAccountList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("OpeningBalanceDelete")]
+        public async Task<IActionResult> OpeningBalanceDelete(OpeningBalanceRequest req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.OpeningBalanceDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("ConsolidateOpeningBalUpdate")]
+        public async Task<IActionResult> ConsolidateOpeningBalUpdate(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.ConsolidateOpeningBalUpdate(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetConsolidateOpeningBalList")]
+        public async Task<IActionResult> GetConsolidateOpeningBalList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await openingBalanceMasterBusiness.GetConsolidateOpeningBalList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+    }
+}
+
