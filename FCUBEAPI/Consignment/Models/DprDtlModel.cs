@@ -1,0 +1,12 @@
+﻿
+namespace Consignment.Models
+{
+    public class DprDtlModel
+    {
+        public string? DprDtlId { get; set; }
+        public string? DprId { get; set; }
+        public string? FromPlace { get; set; }
+        public string? ToPlace { get; set; }
+        public string? SpecialRemarks { get; set; }
+    }
+}

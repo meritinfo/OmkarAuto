@@ -19,7 +19,7 @@ namespace FleetTrans.Repository
             dbconnection = _dbconnection;
         }
 
-        public async Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request)
+        public async Task<DieselStatementModel> GetDieselStatementSearchList(ReportRequestModel request)
         {
             DieselStatementModel dieselStatementModel = new()
             {
@@ -34,7 +34,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Location", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Vendor", request.strRequest),
+                            new SqlParameter("@Vendor", request.FilterStr),
                             new SqlParameter("@PmtType", "V")
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselSearchGridList", param);
@@ -221,7 +221,7 @@ namespace FleetTrans.Repository
         }
 
 
-        public async Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request)
+        public async Task<DieselStatementList> GetDieselStatementList(ReportRequestModel request)
         {
             DieselStatementList dieselStatementList = new();
             List<DieselStatementModel> dieselList = new();
@@ -334,7 +334,7 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
-        public async Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request)
+        public async Task<DieselStatementList> GetHappayDieselList(ReportRequestModel request)
         {
             DieselStatementList dieselStatementList = new();
             List<DieselStatementModel> dieselList = new();
@@ -398,7 +398,7 @@ namespace FleetTrans.Repository
             }
             return dieselStatementList;
         }
-        public async Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        public async Task<DieselStatementModel> GetHappayDieselSearchList(ReportRequestModel request)
         {
             DieselStatementModel dieselStatementModel = new()
             {
@@ -413,7 +413,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Location", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Vendor", request.strRequest),
+                            new SqlParameter("@Vendor", request.FilterStr),
                             new SqlParameter("@PmtType", "H")
                     };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDieselSearchGridList", param);

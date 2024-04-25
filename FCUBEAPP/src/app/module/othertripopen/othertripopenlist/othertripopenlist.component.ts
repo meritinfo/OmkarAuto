@@ -6,7 +6,7 @@ import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -26,7 +26,7 @@ export class OthertripopenlistComponent {
   dtElement!: DataTableDirective;
 
   allOtherTripOpenList: Tripsheetlistmodel = new Tripsheetlistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'tripNo',
@@ -34,7 +34,10 @@ export class OthertripopenlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    strRequest: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -56,7 +59,9 @@ export class OthertripopenlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Other Trip Open");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -105,7 +110,7 @@ export class OthertripopenlistComponent {
 
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
-    this.filter.strRequest = "";
+    this.filter.filterStr = "";
     this.filter.search = "";
     this.otherTripList();
     this.sharedService.loading=false;
@@ -206,7 +211,7 @@ export class OthertripopenlistComponent {
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.strRequest = selectedDataVal.branch;
+    this.filter.filterStr = selectedDataVal.branch;
     this.filter.search = selectedDataVal.vehicle? selectedDataVal.vehicle.dataId:'';
     this.sharedService.loading=true;
     this.otherTripList();

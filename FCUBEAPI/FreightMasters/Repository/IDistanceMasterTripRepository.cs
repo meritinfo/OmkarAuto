@@ -7,7 +7,7 @@ namespace FreightMasters.Repository
     public interface IDistanceMasterTripRepository
     {
         Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel DistanceMasterTripModel);
-        Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequestDtBrVh request);
+        Task<DistanceMasterTripList> GetDistanceMasterTripList(ReportRequestModel request);
         Task<ResponseModel> DistanceMasterTripDelete(RequestModel requestModel);
         Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel DistanceMasterTripModel);
         Task<DistanceMasterTripModel> GetFreightTripInnerGridList(RequestModel request);

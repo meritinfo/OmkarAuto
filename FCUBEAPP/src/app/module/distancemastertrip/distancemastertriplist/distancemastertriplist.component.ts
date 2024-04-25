@@ -1,13 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Requestmodel } from 'src/app/models/requestmodel';
-import { Filtermodel } from 'src/app/models/filtermodel';
 import { Distancemastertriplistmodel } from 'src/app/models/distancemastertriplistmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Distancemastertripmodel } from 'src/app/models/distancemastertripmodel';
 import { DistancemastertripService } from 'src/app/services/distancemastertrip.service';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SharedService } from 'src/app/services/shared.service';
@@ -29,7 +26,7 @@ export class DistancemastertriplistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
-  filter: Typesheetfiltermodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'fromLocation',
@@ -37,8 +34,10 @@ export class DistancemastertriplistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   formFilter!: FormGroup;
   locationList: Dropdownmodel[] = [];
@@ -58,7 +57,8 @@ export class DistancemastertriplistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find(((aa: { menuName: string; }) => aa.menuName === "Distance Master - TRIP"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -98,7 +98,10 @@ export class DistancemastertriplistComponent {
     
     this.sharedService.loading=true;
     this.getLocationList();
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
     this.filter.search = '';
+
     this.distanceTripMasterList();    
     this.sharedService.loading=false;
   }
@@ -116,9 +119,7 @@ export class DistancemastertriplistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.fromDate = this.formFilter.value.fromDate;
-        this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.search = this.formFilter.value.branch.dataId;
+        
         this.distanceMastertripService.getDistanceMasterTripList(this.filter)
           .subscribe(resp => {
             this.allDistanceTripMaster = resp;
@@ -155,17 +156,7 @@ export class DistancemastertriplistComponent {
       this.locationList = res;
     });
   }
-  
-  search(): void {
-    this.filter.search = this.formFilter.value.branch;
-    this.sharedService.loading=true;
-    this.distanceTripMasterList();    
-    this.sharedService.loading=false;
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.ajax.reload();
-    });
-  }
-  
+
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
@@ -178,6 +169,21 @@ export class DistancemastertriplistComponent {
   distanceMasterTripAdd(): void {
     this.route.navigate(['/distancemastertripadd']);
   }
+  
+  search(): void {
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    this.filter.search = this.formFilter.value.branch?this.formFilter.value.branch.dataId:"";
+
+    this.sharedService.loading=true;
+    this.distanceTripMasterList();    
+    this.sharedService.loading=false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
+  
+  
 }
 
 

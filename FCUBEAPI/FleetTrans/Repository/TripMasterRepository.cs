@@ -344,7 +344,7 @@ namespace FleetTrans.Repository
             }
             return driverList;
         }
-        public async Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request)
+        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
         {
             TripSheetList tripSheetList = new();
             List<TripMasterModel> tripList = new();
@@ -361,8 +361,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Branch",     request.Branch),
-                            new SqlParameter("@Vehicle",    request.Vehicle)
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Vehicle",    request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetList_Select", param);
 
@@ -1012,7 +1012,7 @@ namespace FleetTrans.Repository
             return tripSheetInnerGridList;
         }
 
-        public async Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request)
+        public async Task<TripSheetList> GetOtherTripOpenList(ReportRequestModel request)
         {
             TripSheetList otherTripSheetList = new();
 
@@ -1030,7 +1030,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Branch", request.strRequest)
+                            new SqlParameter("@Branch", request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getOtherTripOpenList", param);
 

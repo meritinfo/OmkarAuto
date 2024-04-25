@@ -9,7 +9,7 @@ namespace Consignment.Business
     public interface IConsignmentBusiness
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
-        Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request);
+        Task<ConsignmentList> GetConsignmentList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();

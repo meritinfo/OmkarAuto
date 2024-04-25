@@ -4,7 +4,7 @@ import { Gstpurchasemodel  } from '../models/gstpurchasemodel';
 import { Gstpurchaselistmodel } from '../models/gstpurchaselistmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
-import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Requestmodel } from '../models/requestmodel';
@@ -42,7 +42,7 @@ export class GstpurchaseService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GstPurchaseMstSave', gstpur, this.httpformOptions);
   }
 
-  getGstPurchageList(filter: Pagerequestwithdatesmodel): Observable<Gstpurchaselistmodel> {
+  getGstPurchageList(filter: Reportmodel): Observable<Gstpurchaselistmodel> {
     return this.httpClient.post<Gstpurchaselistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetGstPurchaseList', filter, this.httpOptions);
   }  
 

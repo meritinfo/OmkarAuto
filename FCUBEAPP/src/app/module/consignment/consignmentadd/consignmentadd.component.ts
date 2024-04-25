@@ -95,7 +95,12 @@ export class ConsignmentaddComponent implements OnInit {
   ivFromPlace = '';
   ivToPlace = '';
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private consignmentmodel: Consignmentmodel, private consignmentService: ConsignmentService, private commonService: CommonService, private toasterService: ToastrService, private sharedService: SharedService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private consignmentmodel: Consignmentmodel, 
+    private consignmentService: ConsignmentService, 
+    private commonService: CommonService, private toasterService: ToastrService, 
+    private sharedService: SharedService,private toastrService: ToastrService,
+    private requestmodel:Requestmodel) {
     this.consignmentmodel = new Consignmentmodel();
   }
   ngOnInit(): void {
@@ -103,7 +108,8 @@ export class ConsignmentaddComponent implements OnInit {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find(((aa: { menuName: string; }) => aa.menuName === "Consignment/LR Entry"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;

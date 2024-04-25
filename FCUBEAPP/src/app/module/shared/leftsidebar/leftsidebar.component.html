@@ -12,12 +12,13 @@
                         <i class="bx bx-cog"></i>
                         <span key="t-ui-elements">{{menu.moduleName}}</span>
                     </a>
-                    <ul *ngIf="menu.menuList" class="sub-menu" aria-expanded="false">
-                        <li *ngFor="let subMenu of menu.menuList; let index = index">
-                            <a *ngIf="!menu.menuList[index-1] || subMenu.menuType !== menu.menuList[index-1].menuType"
-                                href="javascript: void(0);" class="has-arrow">{{subMenu.menuType}}</a>
+                    <ul *ngIf="menu.menuTypeList" class="sub-menu" aria-expanded="false">
+                        <li *ngFor="let subMenu of menu.menuTypeList; let index = index">
+                            <a href="javascript: void(0);" class="has-arrow">{{subMenu.menuTypeName}}</a>
                             <ul class="sub-menu" aria-expanded="true">
-                                <li><a href="#{{subMenu.menuCode}}">{{subMenu.menuName}}</a></li>
+                                <li *ngFor="let menu of subMenu.menuList;">
+                                    <a href="#{{menu.menuCode}}">{{menu.menuName}}</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

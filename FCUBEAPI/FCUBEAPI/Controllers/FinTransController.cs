@@ -271,7 +271,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetGstPurchaseList")]
-        public async Task<IActionResult> GetGstPurchaseList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetGstPurchaseList(ReportRequestModel request)
         {
             if (request == null)
             {

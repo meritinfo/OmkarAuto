@@ -485,7 +485,7 @@ namespace FleetTrans.Repository
         //    }
         //    return responseModel;
         //}
-        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequestDtBrVh request)
+        public async Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request)
         {
             TripPaymentsList tripPaymentsList = new();
             List<TripPaymentsModel> tripPayList = new();
@@ -502,8 +502,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Branch",     request.Branch),
-                            new SqlParameter("@Vehicle",    request.Vehicle)
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Vehicle",    request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);
 

@@ -8,7 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class EmpsalcalculationlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allEmpsalaryMaster: Emppaycallistmodel = new Emppaycallistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'empName',
@@ -38,7 +38,10 @@ export class EmpsalcalculationlistComponent {
     search: '',
     fromDate:'',
     toDate:'',
-    strRequest:'',
+    filterStr:'',
+    filterStr1:'',
+    filterStr2:'',
+    filterStr3:'',
   }
 
   formFilter!: FormGroup;
@@ -54,7 +57,8 @@ export class EmpsalcalculationlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Salary Calculation");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -82,7 +86,7 @@ export class EmpsalcalculationlistComponent {
 
     this.sharedService.loading=true;
     this.filter.fromDate= this.loginDate;
-    this.filter.strRequest= '';
+    this.filter.filterStr='',
     this.empSalaryList();
     this.sharedService.loading=false;
   }
@@ -156,7 +160,7 @@ export class EmpsalcalculationlistComponent {
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate= selecteddata.monthYear;
-    this.filter.strRequest= selecteddata.branch;
+    this.filter.filterStr= selecteddata.branch;
     this.sharedService.loading=true;
     this.empSalaryList();
     this.sharedService.loading=false;

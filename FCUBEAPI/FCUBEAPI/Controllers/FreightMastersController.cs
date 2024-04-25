@@ -639,7 +639,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceMasterFrtList")]
-        public async Task<IActionResult> GetDistanceMasterFrtList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetDistanceMasterFrtList(ReportRequestModel request)
         {
             try
             {
@@ -687,7 +687,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDistanceMasterTripList")]
-        public async Task<IActionResult> GetDistanceMasterTripList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetDistanceMasterTripList(ReportRequestModel request)
         {
             try
             {

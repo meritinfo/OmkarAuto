@@ -28,7 +28,7 @@ namespace FinTrans.Business
             return await gstPurchaseMstRepository.GstPurchageDelete(request);
         }
 
-        public async Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request)
+        public async Task<GstPurchaseMstList> GetGstPurchaseList(ReportRequestModel request)
         {
             return await gstPurchaseMstRepository.GetGstPurchaseList(request);
         }

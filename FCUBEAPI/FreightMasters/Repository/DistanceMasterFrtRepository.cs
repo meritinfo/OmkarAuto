@@ -17,7 +17,7 @@ namespace FreightMasters.Repository
             dbconnection = _dbconnection;
         }
 
-        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(PageRequestDtBrVh request)
+        public async Task<DistanceMasterFrtList> GetDistanceMasterFrtList(ReportRequestModel request)
         {
             DistanceMasterFrtList distanceMasterFreightList = new();
             List<DistanceMasterFrtModel> distanceFrtList = new();

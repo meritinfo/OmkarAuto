@@ -17,7 +17,7 @@ namespace HRMasters.Repository
             dbconnection = _dbconnection;
         }
         
-        public async Task<EmpPayCalcList> GetEmpPayCalList(PageFromDtToDtRequest request)
+        public async Task<EmpPayCalcList> GetEmpPayCalList(ReportRequestModel request)
         {
             EmpPayCalcList empPayCalcList = new();
             List<EmpPayCalcModel> payCalcList = new();
@@ -32,7 +32,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@BranchCode", request.strRequest),
+                            new SqlParameter("@BranchCode", request.FilterStr),
                             new SqlParameter("@MonthYear",  request.FromDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayCalMstList", param);

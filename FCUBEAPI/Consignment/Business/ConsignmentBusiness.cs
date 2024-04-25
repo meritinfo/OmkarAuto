@@ -24,7 +24,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.ConsignmentDelete(requestModel);
         }
-        public async Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request)
+        public async Task<ConsignmentList> GetConsignmentList(ReportRequestModel request)
         {
             return await consignmentRepository.GetConsignmentList(request);
         }

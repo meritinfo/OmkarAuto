@@ -5,12 +5,12 @@ namespace FleetTrans.Business
 {
     public interface IDieselStatementBusiness
     {
-        Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request);
+        Task<DieselStatementModel> GetDieselStatementSearchList(ReportRequestModel request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request);
-        Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
+        Task<DieselStatementList> GetDieselStatementList(ReportRequestModel request);
         Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request);
         Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request);
-        Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request);
-        Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request);
+        Task<DieselStatementList> GetHappayDieselList(ReportRequestModel request);
+        Task<DieselStatementModel> GetHappayDieselSearchList(ReportRequestModel request);
     }
 }

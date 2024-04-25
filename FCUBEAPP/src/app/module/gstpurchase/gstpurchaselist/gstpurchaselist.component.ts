@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Gstpurchasemodel  } from 'src/app/models/gstpurchasemodel';
 import { Gstpurchaselistmodel } from 'src/app/models/gstpurchaselistmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
@@ -26,7 +26,7 @@ export class GstpurchaselistComponent {
     dtElement!: DataTableDirective;
   
     allGstpurchaselist: Gstpurchaselistmodel = new Gstpurchaselistmodel();
-    filter: Pagerequestwithdatesmodel = {
+    filter: Reportmodel = {
       pageNumber: 1,
       pageSize: 10,
       sortColumn: 'vendorGstNo',
@@ -34,7 +34,10 @@ export class GstpurchaselistComponent {
       search: '',
       fromDate:'',
       toDate:'',
-      strRequest:'',
+      filterStr: '',
+      filterStr1: '',
+      filterStr2:'',
+      filterStr3:''
     }
     
     keywordLocation = 'dataName';
@@ -55,7 +58,9 @@ export class GstpurchaselistComponent {
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
-        var privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+        
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find((aa: { menuName: string; }) => aa.menuName === "GST Purchase Entry");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -101,10 +106,7 @@ export class GstpurchaselistComponent {
   
       this.gstPurchaselist();
       this.sharedService.loading=false;
-      this.gstpurchaseservice.getGstPurchageList(this.filter)
-      .subscribe(resp => {
-        this.allGstpurchaselist = resp;  
-      });
+      
     }
 
   

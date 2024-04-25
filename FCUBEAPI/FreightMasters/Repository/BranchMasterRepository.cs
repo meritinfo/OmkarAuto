@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using Shared.Models;
-using Shared.Models;
 
 namespace FreightMasters.Repository
 {

@@ -117,6 +117,8 @@ import { ConsolidatedopenbalComponent } from './module/consolidatedopenbal/conso
 import { HappaystatementrptComponent } from './module/happaystatementrpt/happaystatementrpt.component';
 import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/gstsalesregisterrptlist/gstsalesregisterrptlist.component';
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
+import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
+import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
 
 
 const routes: Routes = [
@@ -282,8 +284,10 @@ const routes: Routes = [
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
   { path: 'consopbalances', component:  ConsolidatedopenbalComponent },  
   { path: 'happaystmtrpt', component:  HappaystatementrptComponent },  
-  { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },  
-  
+  { path: 'ewaybillexprpt', component:  EwaybillexprptComponent },   
+  { path: 'dprindentlist', component:  DrpmasterlistComponent },    
+  { path: 'dprindentadd', component:  DrpmasteraddComponent },   
+  { path: 'dprindentedit', component:  DrpmasteraddComponent },
   
   
   

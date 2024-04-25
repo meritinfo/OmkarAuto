@@ -544,7 +544,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetEmpPayCalList")]
-        public async Task<IActionResult> GetEmpPayCalList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetEmpPayCalList(ReportRequestModel request)
         {
             if (request == null)
             {

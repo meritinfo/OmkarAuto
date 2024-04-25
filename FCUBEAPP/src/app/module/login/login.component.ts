@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
       var warndt = new Date(res.warningTimeStart); 
       var startdt = new Date(res.publishStart); 
       var enddt = new Date(res.publishEnd); 
-      const format = 'dd-MMM-yyyy hh:mm';
+      const format = 'dd-MMM-yyyy hh:mm a';
       const locale = 'en-US';
       
       if(today>= warndt && today <= enddt) {     

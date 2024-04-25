@@ -5,7 +5,7 @@ import { Distancemasterfreightlistmodel } from '../models/distancemasterfreightl
 import { Distancefreighteditmodel } from 'src/app/models/distancefreighteditmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
-import { Filtermodel } from '../models/filtermodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Constants } from '../common/constants';
 import { Requestmodel } from '../models/requestmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
@@ -37,7 +37,7 @@ export class DistancemasterfreightmasterService {
   clearDistanceMasterFreightDetails() {
     this.selectedDistancemasterfreightDetails = new Distancemasterfreightmodel();
   }
-  getDistanceMasterFreightList(filter: Filtermodel): Observable<Distancemasterfreightlistmodel> {
+  getDistanceMasterFreightList(filter: Reportmodel): Observable<Distancemasterfreightlistmodel> {
     return this.httpClient.post<Distancemasterfreightlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetDistanceMasterFrtList', filter, this.httpOptions);
   }
   distanceMasterFrtDelete(req: Requestmodel): Observable<Responsemodel> {

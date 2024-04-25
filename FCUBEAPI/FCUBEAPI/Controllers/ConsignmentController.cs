@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
 using Shared.Models;
-using Consignment.Repository;
-using Org.BouncyCastle.Asn1.Ocsp;
-using Org.BouncyCastle.Ocsp;
-using DocumentFormat.OpenXml.Office2016.Excel;
+using Newtonsoft.Json;
+using System.IO;
+using Microsoft.Extensions.Options;
+using SqlHelper.Models;
+using Microsoft.AspNetCore.Http;
+
 
 namespace FCUBEAPI.Controllers
 {
@@ -17,16 +19,20 @@ namespace FCUBEAPI.Controllers
     [ApiController]
     public class ConsignmentController : ControllerBase
     {
+        private readonly IOptions<DBModel> dbconnection;
         readonly IConsignmentBusiness consignmentBusiness;
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
+        readonly IDprBusiness dprBusiness;
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
             IEwayBillBusiness _ewayBillBusiness,
-            IEwayBillExpRptBusiness _ewayBillExpRptBusiness)
+            IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
+            IDprBusiness _dprBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
+            dprBusiness = _dprBusiness;
         }
         
 
@@ -68,7 +74,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetConsignmentList")]
-        public async Task<IActionResult> GetConsignmentList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetConsignmentList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -394,6 +400,89 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await ewayBillExpRptBusiness.GetEWayBillExtRptExcel(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDprMasterList")]
+        public async Task<IActionResult> GetDprMasterList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprBusiness.GetDprMasterList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpPost("GetDprInnerGridList")]
+        public async Task<IActionResult> GetDprInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprBusiness.GetDprInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DprMasterSave")]
+        public async Task<IActionResult> DprMasterSave()
+        {
+            try
+            {
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+               
+                DprModel dprModel = JsonConvert.DeserializeObject<DprModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attachConfirmDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/dpr/confirmdoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        dprModel.AttachConfirmDoc = imageName;
+                    }
+                }
+
+                var result = await dprBusiness.DprMasterSave(dprModel);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DprMasterDelete")]
+        public async Task<IActionResult> DprMasterDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprBusiness.DprMasterDelete(request);
                 return Ok(result);
             }
             catch (Exception ex)

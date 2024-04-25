@@ -21,6 +21,11 @@
                 <button type="button" class="btn header-item noti-icon waves-effect" data-bs-toggle="fullscreen">                  
                 </button>
             </div>
+            <div>
+                <marquee scrollamount="5" *ngIf="shdled" behavior="scroll" direction="left">
+                    <span style="color:red; font-size: large;"> {{shdlMsg}} </span>
+                </marquee>
+            </div>
         </div>
         <div class="d-flex">           
             <div class="dropdown d-none d-lg-inline-block ms-1">

@@ -16,5 +16,10 @@ export class Menumodel {
 
 export class Menulistmodel {
     moduleName: string = "";
+    menuTypeList: menuTypeList[] = [];
+}
+
+export class menuTypeList {
+    menuTypeName: string = "";
     menuList: Menumodel[] = [];
 }

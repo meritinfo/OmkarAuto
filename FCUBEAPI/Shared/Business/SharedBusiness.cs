@@ -120,22 +120,33 @@ namespace Shared.Business
             List<MenuListModel> menuList = new List<MenuListModel>();
             var menuData = await sharedRepository.MenuDetails(userID);
             var distinctModule = menuData.Select(x => x.ModuleName).Distinct();
-            foreach(var item in distinctModule)
+            foreach (var item in distinctModule)
             {
+                var distinctMenuType = menuData.Where(M => M.ModuleName == item).Select(x => x.MenuType).Distinct();
+                List<MenuTypeModel> menuTypeList = new();
+
+                foreach (var menuType in distinctMenuType)
+                {
+                    menuTypeList.Add(new MenuTypeModel
+                    {
+                        MenuTypeName = menuType,
+                        MenuList = menuData.Where(x => x.ModuleName == item && x.MenuType == menuType)
+                        .Select(m => new MenuModel
+                        {
+                            MenuName = m.MenuName,
+                            MenuCode = m.MenuCode,
+                            MenuType = m.MenuType,
+                            CreateYN = m.CreateYN,
+                            EditYN = m.EditYN,
+                            ViewYN = m.ViewYN,
+                            DeleteYN = m.DeleteYN
+                        }).Distinct().ToList()
+                    });
+                }
                 menuList.Add(new MenuListModel
                 {
                     ModuleName = item,
-                    MenuList = menuData.Where(x => x.ModuleName == item)
-                    .Select(m => new MenuModel
-                    {
-                        MenuName = m.MenuName,
-                        MenuCode = m.MenuCode,
-                        MenuType = m.MenuType,
-                        CreateYN = m.CreateYN,
-                        EditYN = m.EditYN,
-                        ViewYN = m.ViewYN,
-                        DeleteYN = m.DeleteYN
-                    }).Distinct().ToList()
+                    MenuTypeList = menuTypeList
                 });
             }
             return menuList;

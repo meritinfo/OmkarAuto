@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Tripsheetmodel } from '../models/tripsheetmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
+import { Reportmodel } from '../models/reportmodel';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Tripsheetlistmodel } from '../models/tripsheetlistmodel';
@@ -36,14 +37,14 @@ export class TripSheetService {
   tripSheetDetailsSubmitted(user: Tripsheetmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripMasterSave', user, this.httpOptions);
   }
-  getTripSheetList(filter: Filtermodel): Observable<Tripsheetlistmodel> {
+  getTripSheetList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetList', filter, this.httpOptions);
   }
   getTripSheetInnerGridList(request: Tripsheetinnergridrequest): Observable<Tripsheetinnergridmodel> {
     return this.httpClient.post<Tripsheetinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
   }
 
-  getOtherTripOpenList(filter: Filtermodel): Observable<Tripsheetlistmodel> {
+  getOtherTripOpenList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetOtherTripOpenList', filter, this.httpOptions);
   }  
   otherTripOpenDetailsSubmitted(user: Tripsheetmodel): Observable<Responsemodel> {

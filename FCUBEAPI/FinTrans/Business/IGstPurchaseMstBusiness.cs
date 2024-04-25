@@ -10,7 +10,7 @@ namespace FinTrans.Business
     {
         Task<ResponseModel> GstPurchaseMstSave(GstPurchaseMstModel gstPurchaseMstModel);
         Task<ResponseModel> GstPurchageDelete(RequestModel request);
-        Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request);
+        Task<GstPurchaseMstList> GetGstPurchaseList(ReportRequestModel request);
         Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetGstVendorList();
         Task<List<DropDownListModel>> GetGstTdsAcList();

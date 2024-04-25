@@ -1,0 +1,139 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">DPR Indent Entry</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
+                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Party</label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="payParty"
+                                            [searchKeyword]="keywordLocation" 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['payParty'].invalid) }">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>  
+                            <div class="col-sm-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Type</label>
+                                    <select id="scope" class="form-select" 
+                                            formControlName="type"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['type'].invalid) }">
+                                        <option value="">All</option>
+                                        <option value="P">Veh Placed</option>
+                                        <option value="N">Veh Not Placed</option>
+                                    </select>
+                                </div>
+                             </div>                    
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                        (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="dprAdd()" *ngIf="createStatus"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                    
+                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                       <thead>
+                            <tr>
+                                <th>dprDate </th>                          
+                                <th>fromPlace </th>
+                                <th>toPlace</th>  
+                                <th>partyName</th>   
+                                <th>actualWt </th>   
+                                <th>chargeWt </th>   
+                                <th>vehicleNo </th>   
+                                <th>driverName</th>   
+                                <th>driverMob </th>                               
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allDprlist.dprList?.length != 0">
+                            <tr *ngFor="let dpr of allDprlist.dprList">
+                                <td>{{ dpr.dprDate }}</td>  
+                                <td>{{ dpr.fromPlace }}</td>                        
+                                <td>{{ dpr.toPlace }}</td>                          
+                                <td>{{ dpr.partyName }}</td>                         
+                                <td>{{ dpr.actualWt }}</td>                          
+                                <td>{{ dpr.chargeWt }}</td>                          
+                                <td>{{ dpr.vehicleNo }}</td>                          
+                                <td>{{ dpr.driverName }}</td>                          
+                                <td>{{ dpr.driverMob }}</td>                            
+                                <td>                                  
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getdprDetails(dpr)"></button>                               
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allDprlist.dprList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Billstatementsearchlistrequestmodel } from '../models/billstatementsearchlistrequestmodel';
 import { Billstatementsearchlistmodel } from '../models/billstatementsearchlistmodel';
 import { Constants } from '../common/constants';
-import { Filtermodel } from '../models/filtermodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Observable } from 'rxjs';
 import { Responsemodel } from '../models/responsemodel';
 import { Billstatementsaverequest } from '../models/billstatementsaverequest';
@@ -44,7 +44,7 @@ getBillStatementDetails() {
   getBillStatementSearchList(request: Billstatementsearchlistrequestmodel): Observable<Billstatementsearchlistmodel> {
     return this.httpClient.post<Billstatementsearchlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementSearchList', request, this.httpOptions);
   }
-  getBillStatementList(filter: Filtermodel): Observable<Billstatementlistmodel> {
+  getBillStatementList(filter: Reportmodel): Observable<Billstatementlistmodel> {
     return this.httpClient.post<Billstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetBillStatementList', filter, this.httpOptions);
   }  
   getBillStmtCreditAcList(): Observable<Dropdownmodel[]> {

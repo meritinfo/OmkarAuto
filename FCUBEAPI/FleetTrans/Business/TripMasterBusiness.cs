@@ -62,7 +62,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverDetail(request);
         }
-        public async Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request)
+        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
         {
             return await tripMasterRepository.GetTripSheetList(request);
         }
@@ -70,7 +70,7 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverList();
         }
-        public async Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request)
+        public async Task<TripSheetList> GetOtherTripOpenList(ReportRequestModel request)
         {
             return await tripMasterRepository.GetOtherTripOpenList(request);
         }

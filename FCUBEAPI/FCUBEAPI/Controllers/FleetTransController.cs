@@ -210,7 +210,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTripPaymentsList")]
-        public async Task<IActionResult> GetTripPaymentsList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetTripPaymentsList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -284,7 +284,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetTripSheetList")]
-        public async Task<IActionResult> GetTripSheetList(PageRequestDtBrVh request)
+        public async Task<IActionResult> GetTripSheetList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -558,7 +558,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDieselStatementList")]
-        public async Task<IActionResult> GetDieselStatementList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetDieselStatementList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -577,7 +577,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetDieselStatementSearchList")]
-        public async Task<IActionResult> GetDieselStatementSearchList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetDieselStatementSearchList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -634,7 +634,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetHappayDieselSearchList")]
-        public async Task<IActionResult> GetHappayDieselSearchList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetHappayDieselSearchList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -653,7 +653,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetHappayDieselList")]
-        public async Task<IActionResult> GetHappayDieselList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetHappayDieselList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -691,7 +691,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetBillStatementList")]
-        public async Task<IActionResult> GetBillStatementList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetBillStatementList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -965,7 +965,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetOtherTripOpenList")]
-        public async Task<IActionResult> GetOtherTripOpenList(PageFromDtToDtRequest request)
+        public async Task<IActionResult> GetOtherTripOpenList(ReportRequestModel request)
         {
             try
             {

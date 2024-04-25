@@ -8,7 +8,7 @@ import { TripSheetService } from 'src/app/services/tripsheet.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 
 
@@ -21,7 +21,7 @@ import { DataTableDirective } from 'angular-datatables';
 export class TripsheetlistComponent {
   dtOptions: DataTables.Settings = {};
   allTripSheetTypes: Tripsheetlistmodel = new Tripsheetlistmodel();
-  filter: Typesheetfiltermodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'brandname',
@@ -29,8 +29,10 @@ export class TripsheetlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -122,24 +124,22 @@ export class TripsheetlistComponent {
         branch:  this.tsbranch
       });
     }
-    this.filter.vehicle ="";
+    this.filter.filterStr1 ="";
     setTimeout(() => {
     if(this.tsvehicle!=""){
       this.formFilter.patchValue({
         vehicle: this.vehicleList.find(e => e.dataId == this.tsvehicle),
       });
-      this.filter.vehicle =this.tsvehicle;
+      this.filter.filterStr1 =this.tsvehicle;
     }
     this.search();
     
   }, 2000);
   
   var selectData =  this.formFilter.getRawValue();
-    this.filter.fromDate = selectData.fromDate;
-    this.filter.toDate = selectData.toDate;
-    this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
-    this.getTripMaster();
+  this.filter.fromDate = selectData.fromDate;
+  this.filter.toDate = selectData.toDate;
+  this.getTripMaster();
 }
 
 getTripMaster(){
@@ -226,13 +226,13 @@ getTripMaster(){
     var selectData =  this.formFilter.getRawValue();
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
-    this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
+    this.filter.filterStr = selectData.branch;
+    this.filter.filterStr1 = selectData.vehicle? selectData.vehicle.dataId:'';
  
     sessionStorage.setItem("tsfromDate", this.filter.fromDate);
     sessionStorage.setItem("tstoDate",  this.filter.toDate);
-    sessionStorage.setItem("tsbranch", this.filter.branch);
-    sessionStorage.setItem("tsvehicle", this.filter.vehicle);
+    sessionStorage.setItem("tsbranch", this.filter.filterStr);
+    sessionStorage.setItem("tsvehicle", this.filter.filterStr1);
     this.route.navigate(['/tripsheetedit']);
   }
 
@@ -267,8 +267,8 @@ getTripMaster(){
     var selectData =  this.formFilter.getRawValue();
     this.filter.fromDate = selectData.fromDate;
     this.filter.toDate = selectData.toDate;
-    this.filter.branch = selectData.branch;
-    this.filter.vehicle = selectData.vehicle? selectData.vehicle.dataId:'';
+    this.filter.filterStr = selectData.branch;
+    this.filter.filterStr1 = selectData.vehicle? selectData.vehicle.dataId:'';
     this.getTripMaster();
 
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

@@ -219,7 +219,7 @@ namespace FinTrans.Repository
             }
             return responseModel;
         }
-        public async Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request)
+        public async Task<GstPurchaseMstList> GetGstPurchaseList(ReportRequestModel request)
         {
             GstPurchaseMstList gstPurchaseMstList = new();
             List<GstPurchaseMstModel> gstPurchaseList = new();

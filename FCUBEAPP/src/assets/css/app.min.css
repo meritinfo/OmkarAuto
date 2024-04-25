@@ -268,7 +268,7 @@
 }
 
 .header-item {
-    height: 70px;
+    height: 40px;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     color: var(--bs-header-item-color);
@@ -5884,4 +5884,8 @@ background-color: #fbff00 !important
 }
 .narration-input{
     width: 200px;
+}
+
+.metismenu .mm-collapse.mm-show li.mm-active ul{
+    display: block !important;
 }

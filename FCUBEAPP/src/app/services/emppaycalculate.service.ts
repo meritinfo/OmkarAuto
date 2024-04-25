@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
-import { Filtermodel } from '../models/filtermodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Constants } from '../common/constants';
 import { Emppaycalcmodel } from '../models/emppaycalcmodel';
 import { Empsalarymstmodel } from '../models/empsalarymstmodel';
@@ -34,7 +34,7 @@ export class EmppaycalculateService {
     this.selectedEmpPay = new Emppaycalcmodel();
   }
   
-  getEmpPayCalMstList(filter: Filtermodel): Observable<Emppaycallistmodel> {
+  getEmpPayCalMstList(filter: Reportmodel): Observable<Emppaycallistmodel> {
     return this.httpClient.post<Emppaycallistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayCalList', filter, this.httpOptions);
   }  
   getEmpSalaryEarnList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {

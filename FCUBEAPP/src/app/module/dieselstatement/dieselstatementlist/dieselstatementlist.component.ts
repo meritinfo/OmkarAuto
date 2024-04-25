@@ -6,7 +6,7 @@ import { DieselstatementService } from 'src/app/services/dieselstatement.service
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { SharedService } from 'src/app/services/shared.service';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -37,7 +37,7 @@ export class DieselstatementlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allDieselStatement: Dieselstatementlistmodel = new Dieselstatementlistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'vendor',
@@ -45,7 +45,10 @@ export class DieselstatementlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    strRequest: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
 
   constructor(private formBuilder: FormBuilder, 
@@ -60,7 +63,8 @@ export class DieselstatementlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((( aa: { menuName: string; }) => aa.menuName === "Diesel Statement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;

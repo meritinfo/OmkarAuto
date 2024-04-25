@@ -5,13 +5,13 @@ namespace FleetTrans.Repository
 {
     public interface IDieselStatementRepository
     {
-        Task<DieselStatementModel> GetDieselStatementSearchList(PageFromDtToDtRequest request);
+        Task<DieselStatementModel> GetDieselStatementSearchList(ReportRequestModel request);
         Task<ResponseModel> SaveDieselStatementDetails(DieselStatementModel request);
-        Task<DieselStatementList> GetDieselStatementList(PageFromDtToDtRequest request);
+        Task<DieselStatementList> GetDieselStatementList(ReportRequestModel request);
         Task<DieselStatementModel> GetDieselStatementInnerGridList(RequestModel request);
         Task<ResponseModel> DieselStatementDetailsDelete(RequestModel request);
-        Task<DieselStatementList> GetHappayDieselList(PageFromDtToDtRequest request);
-        Task<DieselStatementModel> GetHappayDieselSearchList(PageFromDtToDtRequest request);
+        Task<DieselStatementList> GetHappayDieselList(ReportRequestModel request);
+        Task<DieselStatementModel> GetHappayDieselSearchList(ReportRequestModel request);
         Task<ResponseModel> SaveHappayStatementDetails(DieselStatementModel request);
     }
 }

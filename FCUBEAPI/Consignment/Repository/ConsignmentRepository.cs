@@ -22,7 +22,7 @@ namespace Consignment.Repository
         /// <param name="ConsignmentModel"></param>
         /// <returns>ResponseModel</returns>
         /// 
-        public async Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request)
+        public async Task<ConsignmentList> GetConsignmentList(ReportRequestModel request)
         {
             ConsignmentList cnList = new();
             List<ConsignmentModel> consignmentList = new();
@@ -39,8 +39,8 @@ namespace Consignment.Repository
                             new SqlParameter("@Search", request.Search),
                             new SqlParameter("@FromDate", request.FromDate),
                             new SqlParameter("@ToDate", request.ToDate),
-                            new SqlParameter("@Branch", request.Branch ),
-                            new SqlParameter("@Vehicle", request.Vehicle)
+                            new SqlParameter("@Branch", request.FilterStr ),
+                            new SqlParameter("@Vehicle", request.FilterStr1)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ConsignmentList_Select", param);
 

@@ -34,7 +34,7 @@ namespace FleetTrans.Business
         }
 
 
-        public async Task<TripPaymentsList> GetTripPaymentsList(PageRequestDtBrVh request)
+        public async Task<TripPaymentsList> GetTripPaymentsList(ReportRequestModel request)
         {
             return await tripPaymentsRepository.GetTripPaymentsList(request);
         }

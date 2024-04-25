@@ -121,7 +121,6 @@ import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finacc
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
 import { Requestmodel } from './models/requestmodel';
-import { Pagerequestwithdatesmodel } from './models/pagerequestwithdatesmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
 import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
@@ -212,7 +211,6 @@ import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsa
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
 import { Custwizardlistmodel } from './models/custwizardlistmodel';
-//import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
@@ -224,6 +222,11 @@ import { HappaystatementrptComponent } from './module/happaystatementrpt/happays
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { Gstsalesregisterrptmodel } from './models/gstsalesregisterrptmodel';
 import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.component';
+import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
+import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
+import { Dprmodel } from './models/dprmodel';
+import { Dprdtlsmodel } from './models/dprdtlsmodel';
+import { Dprlistmodel } from './models/dprlistmodel';
 
 @NgModule({
   declarations: [
@@ -362,6 +365,8 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     EwaybillexprptComponent,
     GstsalesregisterrptlistComponent,
     TripsummaryrptComponent,
+    DrpmasteraddComponent,
+    DrpmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -396,17 +401,22 @@ import { TripsummaryrptComponent } from './module/tripsummaryrpt/tripsummaryrpt.
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
-    Requestmodel,Pagerequestwithdatesmodel,Reportmodel,
+    Requestmodel,Reportmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
     Fleetcardmastermodel,Brsentrymodel,
-    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
+    Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,
+    Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,
+    Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,Custwizardmodel,Gstsalesregisterrptmodel,
+    Dprmodel,Dprdtlsmodel,Dprlistmodel,
+    Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
+    Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

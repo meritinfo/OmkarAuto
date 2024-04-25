@@ -17,10 +17,14 @@ namespace Shared.Models
         public string ViewYN { get; set; }
         public string DeleteYN { get; set; }
     }
-
+    public class MenuTypeModel
+    {
+        public string MenuTypeName { get; set; }
+        public List<MenuModel> MenuList { get; set; }
+    }
     public class MenuListModel
     {
         public string ModuleName { get; set; }
-        public List<MenuModel> MenuList { get; set; }
+        public List<MenuTypeModel> MenuTypeList { get; set; }
     }
 }

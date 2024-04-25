@@ -11,7 +11,7 @@ namespace FreightMasters.Business
     public interface IDistanceMasterTripBusiness
     {
         Task<ResponseModel> DistanceMasterTripSave(DistanceMasterTripModel distanceMasterTripModel);
-       Task<DistanceMasterTripList> GetDistanceMasterTripList(PageRequestDtBrVh request);
+       Task<DistanceMasterTripList> GetDistanceMasterTripList(ReportRequestModel request);
         Task<ResponseModel> ChkdistanceTripValidity(DistanceMasterTripModel distanceMasterTripModel);
         Task<DistanceMasterTripModel> GetFreightTripInnerGridList(RequestModel request);
         Task<ResponseModel> DistanceMasterTripDelete(RequestModel requestModel);

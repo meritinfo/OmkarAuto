@@ -7,7 +7,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
@@ -19,7 +19,7 @@ export class ConsignmentlistComponent implements OnInit  {
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
   allConsignment: Consignmentlistmodel = new Consignmentlistmodel();
-  filter: Typesheetfiltermodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'brandname',
@@ -27,8 +27,10 @@ export class ConsignmentlistComponent implements OnInit  {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   formFilter!: FormGroup;
   branchList: Dropdownmodel[] = [];
@@ -56,7 +58,8 @@ export class ConsignmentlistComponent implements OnInit  {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find(((aa: { menuName: string; }) => aa.menuName === "Consignment/LR Entry"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -110,9 +113,9 @@ export class ConsignmentlistComponent implements OnInit  {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.branch = selectedDataVal.branch;
-    this.filter.vehicle = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
-
+    this.filter.filterStr = selectedDataVal.branch;
+    this.filter.filterStr1 = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+    
     this.getConsignmentList();
   }
 
@@ -214,8 +217,8 @@ export class ConsignmentlistComponent implements OnInit  {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.branch = selectedDataVal.branch;
-    this.filter.vehicle =  selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+    this.filter.filterStr = selectedDataVal.branch;
+    this.filter.filterStr1 = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
      this.getConsignmentList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 

@@ -8,7 +8,7 @@ namespace FinTrans.Repository
     {
         Task<ResponseModel> GstPurchaseMstSave(GstPurchaseMstModel GstPurchaseMstModel);
         Task<ResponseModel> GstPurchageDelete(RequestModel request);
-        Task<GstPurchaseMstList> GetGstPurchaseList(PageFromDtToDtRequest request);
+        Task<GstPurchaseMstList> GetGstPurchaseList(ReportRequestModel request);
         Task<GstPurchaseMstModel> GetGstPurchaseInnerGridList(RequestModel req);
         Task<List<DropDownListModel>> GetGstVendorList();
         Task<List<DropDownListModel>> GetGstTdsAcList();

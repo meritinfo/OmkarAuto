@@ -1,14 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
 import { Distancemasterfreightlistmodel  } from 'src/app/models/distancemasterfreightlistmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Distancemasterfreightmodel } from 'src/app/models/distancemasterfreightmodel';
 import { DistancemasterfreightmasterService } from 'src/app/services/distancemasterfreightmaster.service';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -17,10 +15,10 @@ import { DataTableDirective } from 'angular-datatables';
   templateUrl: './distancemasterfreightlist.component.html',
   styleUrls: ['./distancemasterfreightlist.component.css']
 })
-export class DistancemasterfreightlistComponent {
-  
+
+export class DistancemasterfreightlistComponent {  
   allDistanceFreightMaster: Distancemasterfreightlistmodel = new Distancemasterfreightlistmodel();
-  filter: Typesheetfiltermodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'fromLocation',
@@ -28,9 +26,12 @@ export class DistancemasterfreightlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
+
   formFilter!: FormGroup;
   locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -59,7 +60,8 @@ export class DistancemasterfreightlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find(((aa: { menuName: string; }) => aa.menuName === "Distance Master - FREIGHT"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -100,6 +102,10 @@ export class DistancemasterfreightlistComponent {
     this.sharedService.loading=true;
     this.getLocationList();
     this.filter.search = '';
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.search = '';
+
     this.distanceFrtMasterList();    
     this.sharedService.loading=false;
   }
@@ -112,14 +118,11 @@ export class DistancemasterfreightlistComponent {
       processing: true,
       searching:false,
       ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.fromDate = this.formFilter.value.fromDate;
-        this.filter.toDate = this.formFilter.value.toDate;
-        this.filter.search = this.formFilter.value.branch.dataId;
+        
         this.distancemasterfreightmasterService.getDistanceMasterFreightList(this.filter)
           .subscribe(resp => {
           this.allDistanceFreightMaster = resp;
@@ -151,6 +154,19 @@ export class DistancemasterfreightlistComponent {
     };
   }
 
+  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
+    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+  };
+
+  getDistanceMasterFreightDetails(Docrenewal: Distancemasterfreightmodel): void {
+    this.distancemasterfreightmasterService.setDistancemasterfreightDetails(Docrenewal);
+    this.route.navigate(['/distancemasterfreightedit']);
+  }  
+
+  distanceMasterFreightAdd(): void {
+    this.route.navigate(['/distancemasterfreightadd']);
+  }
+
   getLocationList(): void {
     this.commonService.getLocationList().subscribe((res: Dropdownmodel[]) => {
       this.locationList = res;
@@ -159,6 +175,8 @@ export class DistancemasterfreightlistComponent {
 
   search(): void {
     this.filter.search = this.formFilter.value.branch;
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;
     this.distanceFrtMasterList();    
     this.sharedService.loading=false;
@@ -167,17 +185,5 @@ export class DistancemasterfreightlistComponent {
     });
   }
 
-  startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
-    return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
-
-  //Open user details screen
-  getDistanceMasterFreightDetails(Docrenewal: Distancemasterfreightmodel): void {
-    this.distancemasterfreightmasterService.setDistancemasterfreightDetails(Docrenewal);
-    this.route.navigate(['/distancemasterfreightedit']);
-  }  
-  //Open new driver master add screen
-  distanceMasterFreightAdd(): void {
-    this.route.navigate(['/distancemasterfreightadd']);
-  }
+ 
 }

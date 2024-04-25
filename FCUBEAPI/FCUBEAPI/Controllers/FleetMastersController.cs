@@ -10,11 +10,6 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
-using FinanceMasters.Business;
-using FleetTrans.Business;
-using Consignment.Business;
-using Consignment.Models;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace FCUBEAPI.Controllers
 {
@@ -33,7 +28,16 @@ namespace FCUBEAPI.Controllers
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
-        public FleetMastersController(IOptions<DBModel> _dbconnection, IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, IVehicleFltMasterBusiness _vehicleFltMasterBusiness, IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, IDocRenewalMasterBusiness _docRenewalMasterBusiness, IBrandMasterBusiness _brandMasterBusiness, ITyrePositionMasterBusiness _tyrePositionMasterBusiness, IDriverMasterBusiness _driverMasterBusiness, IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,IFleetCardMasterBusiness _fleetCardMasterBusiness)
+        public FleetMastersController(IOptions<DBModel> _dbconnection, 
+            IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, 
+            IVehicleFltMasterBusiness _vehicleFltMasterBusiness, 
+            IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, 
+            IDocRenewalMasterBusiness _docRenewalMasterBusiness, 
+            IBrandMasterBusiness _brandMasterBusiness, 
+            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
+            IDriverMasterBusiness _driverMasterBusiness, 
+            IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
+            IFleetCardMasterBusiness _fleetCardMasterBusiness)
         {
             dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;

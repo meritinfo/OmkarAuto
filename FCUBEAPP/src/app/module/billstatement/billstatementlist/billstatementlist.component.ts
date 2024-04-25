@@ -7,7 +7,7 @@ import { Usermodel } from 'src/app/models/usermodel';
 import { billstatementmodel } from 'src/app/models/billstatementmodel';
 import { BillstatementService } from 'src/app/services/billstatement.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +22,7 @@ export class BillstatementlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allBillStatement: Billstatementlistmodel = new Billstatementlistmodel();
-  filter: Pagerequestwithdatesmodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'vendor',
@@ -30,7 +30,10 @@ export class BillstatementlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    strRequest: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
   editMode = false;
   createmode = true;
@@ -56,7 +59,8 @@ export class BillstatementlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;

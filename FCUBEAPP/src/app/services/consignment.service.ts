@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Consignmentlistmodel } from '../models/consignmentlistmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 import { Requestmodel } from '../models/requestmodel';
 
@@ -43,7 +44,7 @@ export class ConsignmentService {
   consignmentDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentDelete', req, this.httpOptions);
   }
-  getConsignmentList(filter: Filtermodel): Observable<Consignmentlistmodel> {
+  getConsignmentList(filter: Reportmodel): Observable<Consignmentlistmodel> {
     return this.httpClient.post<Consignmentlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentList', filter, this.httpOptions);
   }
 }

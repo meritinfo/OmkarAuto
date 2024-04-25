@@ -6,14 +6,14 @@ namespace Consignment.Repository
     public interface IConsignmentRepository
     {
         Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
-        Task<ConsignmentList> GetConsignmentList(PageRequestDtBrVh request);
+        Task<ConsignmentList> GetConsignmentList(ReportRequestModel request);
         Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
-          Task<ResponseModel> GetKms(KmsModel request);
+        Task<ResponseModel> GetKms(KmsModel request);
         Task<ResponseModel> GetTripKms(KmsModel request);
         Task<TripKmsModel> GetTripKms2(KmsModel request);
         Task<ResponseModel> GetDslToBe(DslModel request);

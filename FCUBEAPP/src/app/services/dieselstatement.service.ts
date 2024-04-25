@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
-import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
+import { Reportmodel } from '../models/reportmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Dieselstatementlistmodel } from '../models/dieselstatementlistmodel';
 import { Dieselstatementmodel } from '../models/dieselstatementmodel';
@@ -34,17 +34,17 @@ export class DieselstatementService {
     return this.selectedDieselStatement;
   }
 
-  getDieselStatementSearchList(request: Pagerequestwithdatesmodel): Observable<Dieselstatementmodel> {
+  getDieselStatementSearchList(request: Reportmodel): Observable<Dieselstatementmodel> {
     return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementSearchList', request, this.httpOptions);
   }
-  getDieselStatementList(filter: Pagerequestwithdatesmodel): Observable<Dieselstatementlistmodel> {
+  getDieselStatementList(filter: Reportmodel): Observable<Dieselstatementlistmodel> {
     return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDieselStatementList', filter, this.httpOptions);
   }
 
-  getHappayDieselSearchList(request: Pagerequestwithdatesmodel): Observable<Dieselstatementmodel> {
+  getHappayDieselSearchList(request: Reportmodel): Observable<Dieselstatementmodel> {
     return this.httpClient.post<Dieselstatementmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetHappayDieselSearchList', request, this.httpOptions);
   }
-  getHappayDieselList(filter: Pagerequestwithdatesmodel): Observable<Dieselstatementlistmodel> {
+  getHappayDieselList(filter: Reportmodel): Observable<Dieselstatementlistmodel> {
     return this.httpClient.post<Dieselstatementlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetHappayDieselList', filter, this.httpOptions);
   }
 

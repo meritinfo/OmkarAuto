@@ -80,7 +80,7 @@ namespace FleetTrans.Repository
             return billStatementSearchList;
         }
 
-        public async Task<BillStatementList> GetBillStatementList(PageFromDtToDtRequest request)
+        public async Task<BillStatementList> GetBillStatementList(ReportRequestModel request)
         {
             BillStatementList billStatementList = new();
             List<BillStatementModel> billList = new();

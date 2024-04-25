@@ -24,7 +24,9 @@ export class LeftsidebarComponent implements OnInit, AfterViewInit {
     }
   }
   ngAfterViewInit() {
-    $('#side-menu').metisMenu();
+    setTimeout(() => {
+      $('#side-menu').metisMenu();
+    }, 1000);
   }
 
   getMenuList(selectedUserID: string) {

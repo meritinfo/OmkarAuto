@@ -11,7 +11,7 @@ namespace FleetTrans.Repository
     public interface ITripMasterRepository
     {
         Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel);
-        Task<TripSheetList> GetTripSheetList(PageRequestDtBrVh request);
+        Task<TripSheetList> GetTripSheetList(ReportRequestModel request);
         Task<List<DropDownListModel>> GetDriverList();
         Task<ResponseModel> GetOpeningBal(OpBalModel request);
         Task<ResponseModel> GetDslOpeningBal(OpBalModel request);
@@ -23,7 +23,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request);
         Task<PenaltyModel> GetPenaltyRateNew(PenaltyRateModel request);
         Task<ResponseModel> GetBhattaRate(BhattaRateModel request);
-        Task<TripSheetList> GetOtherTripOpenList(PageFromDtToDtRequest request);
+        Task<TripSheetList> GetOtherTripOpenList(ReportRequestModel request);
         Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel);
         Task<ResponseModel> OtherTripOpenDelete(RequestModel request);
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);

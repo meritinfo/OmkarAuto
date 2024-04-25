@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -46,7 +46,7 @@ export class DieselstatementaddComponent implements OnInit {
   formSubmitted = false;
   responseDetails = new Responsemodel();
  
-  constructor(private Pagerequestwithdatesmodel: Pagerequestwithdatesmodel, 
+  constructor(private reportmodel: Reportmodel, 
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
@@ -60,7 +60,8 @@ export class DieselstatementaddComponent implements OnInit {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((( aa: { menuName: string; }) => aa.menuName === "Diesel Statement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -277,10 +278,10 @@ export class DieselstatementaddComponent implements OnInit {
     }   
     else{
       //this.Pagerequestwithdatesmodel.search= selectedDataVal.location?selectedDataVal.location.dataId:'';
-      this.Pagerequestwithdatesmodel.fromDate=selectedDataVal.fromDate;
-      this.Pagerequestwithdatesmodel.toDate=selectedDataVal.toDate;
-      this.Pagerequestwithdatesmodel.strRequest=selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
-      this.dieselstatementService.getDieselStatementSearchList(this.Pagerequestwithdatesmodel)
+      this.reportmodel.fromDate=selectedDataVal.fromDate;
+      this.reportmodel.toDate=selectedDataVal.toDate;
+      this.reportmodel.filterStr=selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:'';
+      this.dieselstatementService.getDieselStatementSearchList(this.reportmodel)
       .subscribe((res: Dieselstatementmodel) => {
         this.DieselStatementmodel = res;
         if(res.dieselStatementListData.length>0){

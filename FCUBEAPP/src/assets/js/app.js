@@ -22,7 +22,7 @@
     function o() {
         document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || (console.log("pressed"), a("body").removeClass("fullscreen-enable"))
     }
-    a("#side-menu").metisMenu(), a("#vertical-menu-btn").on("click", function(e) {
+    a("#vertical-menu-btn").on("click", function(e) {
             e.preventDefault(), a("body").toggleClass("sidebar-enable"), 992 <= a(window).width() ? a("body").toggleClass("vertical-collpsed") : a("body").removeClass("vertical-collpsed")
         }), a("#sidebar-menu a").each(function() {
             var e = window.location.href.split(/[?#]/)[0];

@@ -7,7 +7,7 @@ import { Usermodel } from 'src/app/models/usermodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Typesheetfiltermodel } from 'src/app/models/typesheetfiltermodel.model';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -20,7 +20,7 @@ import { DataTableDirective } from 'angular-datatables';
 export class TrippaymentslistComponent {
   dtOptions: DataTables.Settings = {};
   allTripPaymentsTypes: Trippaymentslistmodel = new Trippaymentslistmodel();
-  filter: Typesheetfiltermodel = {
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'brandname',
@@ -28,8 +28,10 @@ export class TrippaymentslistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    branch: '',
-    vehicle: ''
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
   }
 
   formFilter!: FormGroup;
@@ -58,7 +60,9 @@ export class TrippaymentslistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList).find((( aa: { menuName: string; }) => aa.menuName === "Trip Payments"));
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((( aa: { menuName: string; }) => aa.menuName === "Trip Payments"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -95,11 +99,9 @@ export class TrippaymentslistComponent {
     });
     this.getBranchList();
     this.getVehicleNoList();
-    var selectedData = this.formFilter.getRawValue();
-    this.filter.fromDate = selectedData.fromDate;
-    this.filter.toDate = selectedData.toDate;
-    this.filter.branch = selectedData.branch?selectedData.branch.dataId:"";
-    this.filter.vehicle =  selectedData.vehicle?selectedData.vehicle.dataId:"";
+    
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
     this.filter.search = "";
     this.tripPaymentList();
   }
@@ -209,8 +211,8 @@ export class TrippaymentslistComponent {
     var selectedData = this.formFilter.getRawValue();
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
-    this.filter.branch = selectedData.branch;
-    this.filter.vehicle = selectedData.vehicle?selectedData.vehicle.dataId:"";
+    this.filter.filterStr = selectedData.branch;
+    this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
     this.filter.search = selectedData.tripNo;
 
     this.tripPaymentList();

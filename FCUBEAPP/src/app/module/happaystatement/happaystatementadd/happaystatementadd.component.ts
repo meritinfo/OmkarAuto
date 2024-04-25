@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
-import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -44,7 +44,7 @@ export class HappaystatementaddComponent implements OnInit {
   formSubmitted = false;
   responseDetails = new Responsemodel();
  
-  constructor(private Pagerequestwithdatesmodel: Pagerequestwithdatesmodel, 
+  constructor(private reportmodel: Reportmodel, 
     private requestmodel:Requestmodel,private DieselStatementmodel:Dieselstatementmodel,
     private route: Router, private formBuilder: FormBuilder, private commonService: CommonService,
     private gstpurchaseService: GstpurchaseService, private sharedService: SharedService,
@@ -57,7 +57,8 @@ export class HappaystatementaddComponent implements OnInit {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      const privilegeStatus = privilegeData.flatMap((item: { menuList: any; }) => item.menuList)
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((( aa: { menuName: string; }) => aa.menuName === "Happay Statement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -217,11 +218,11 @@ export class HappaystatementaddComponent implements OnInit {
       return; 
     }
     else{
-      this.Pagerequestwithdatesmodel.search= '';
-      this.Pagerequestwithdatesmodel.fromDate=selectedDataVal.fromDate;
-      this.Pagerequestwithdatesmodel.toDate=selectedDataVal.toDate;
-      this.Pagerequestwithdatesmodel.strRequest='';
-      this.dieselstatementService.getHappayDieselSearchList(this.Pagerequestwithdatesmodel)
+      this.reportmodel.search= '';
+      this.reportmodel.fromDate=selectedDataVal.fromDate;
+      this.reportmodel.toDate=selectedDataVal.toDate;
+      this.reportmodel.filterStr='';
+      this.dieselstatementService.getHappayDieselSearchList(this.reportmodel)
       .subscribe((res: Dieselstatementmodel) => {
         this.DieselStatementmodel = res;
         if(res.dieselStatementListData.length>0){

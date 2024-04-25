@@ -20,7 +20,9 @@ export class DrivermasterService {
     })
   }
   selectedDriverMaster = new Drivermodel();
+  
   constructor(private httpClient: HttpClient) { }
+
   setDriverMasterDetails(driverMaster: Drivermodel) {
       this.selectedDriverMaster = driverMaster;
   }

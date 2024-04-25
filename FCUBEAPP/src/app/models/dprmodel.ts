@@ -1,0 +1,39 @@
+import { Dprdtlsmodel } from "./dprdtlsmodel";
+
+export class Dprmodel {
+    dprId : string = "";             
+    dprBranch : string = "";         
+    dprSlNo  : string = "";          
+    dprDate  : string = "";          
+    payParty  : string = "";         
+    partyName    : string = "";      
+    bookStatus  : string = "";       
+    origin   : string = "";          
+    fromPlace   : string = "";       
+    destination  : string = "";      
+    toPlace     : string = "";       
+    vehcileTypeId : string = "";     
+    actualWt  : string = "";         
+    chargeWt  : string = "";         
+    odcDimensions   : string = "";   
+    odcCft : string = "";            
+    rateType  : string = "";         
+    rateRs   : string = "";          
+    freightRs : string = "";         
+    hamaliAmt : string = "";         
+    hamaliDesc   : string = "";      
+    ldDetenAmt  : string = "";       
+    ldDetenDesc : string = "";       
+    extraAmt: string = "";           
+    extraDesc   : string = "";       
+    otherAmt   : string = "";        
+    otherDesc  : string = "";        
+    totFreightAmt   : string = "";   
+    attachConfirmDoc : string = "";  
+    dPR_Status  : string = "";       
+    vehicleNo  : string = "";        
+    driverName  : string = "";       
+    driverMob   : string = "";       
+    loggedInUserID: string = "";
+    dprDtls: Dprdtlsmodel[] = [];
+}
