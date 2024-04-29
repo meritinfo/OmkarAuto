@@ -24,15 +24,18 @@ namespace FCUBEAPI.Controllers
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
+        readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
             IEwayBillBusiness _ewayBillBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
-            IDprBusiness _dprBusiness)
+            IDprBusiness _dprBusiness,
+            IDprVehiPlacedBusiness _dprVehiPlacedBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
             dprBusiness = _dprBusiness;
+            dprVehiPlacedBusiness = _dprVehiPlacedBusiness;
         }
         
 
@@ -483,6 +486,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await dprBusiness.DprMasterDelete(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDprVehiPlacedDetails")]
+        public async Task<IActionResult> GetDprVehiPlacedDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetDprVehiPlacedDetails(request);
                 return Ok(result);
             }
             catch (Exception ex)

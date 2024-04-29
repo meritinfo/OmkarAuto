@@ -7,6 +7,7 @@ namespace Consignment.Models
         public string? DprId { get; set; }
         public string? FromPlace { get; set; }
         public string? ToPlace { get; set; }
+        public string? GcNoteNo { get; set; }
         public string? SpecialRemarks { get; set; }
     }
 }

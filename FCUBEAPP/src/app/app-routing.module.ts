@@ -119,6 +119,9 @@ import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/g
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
+import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
+import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+
 
 
 const routes: Routes = [
@@ -288,9 +291,9 @@ const routes: Routes = [
   { path: 'dprindentlist', component:  DrpmasterlistComponent },    
   { path: 'dprindentadd', component:  DrpmasteraddComponent },   
   { path: 'dprindentedit', component:  DrpmasteraddComponent },
-  
-  
-  
+  { path: 'dprindentlist', component:   DprvehiplacedlistComponent},
+  { path: 'dprindentadd', component:  DprvehiplacedaddComponent },
+  { path: 'dprindentedit', component:  DprvehiplacedaddComponent },
 ];
 
 @NgModule({

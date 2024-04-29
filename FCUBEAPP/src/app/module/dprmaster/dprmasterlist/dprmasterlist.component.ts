@@ -175,7 +175,11 @@ export class DrpmasterlistComponent {
         {
           title: 'Driver Mob',
           data: 'driverMob',
-        },   
+        },      
+        {
+          title: 'Vehical Place',
+          data: 'dprId',
+        },  
         {
           title: 'Action',
           data: 'dprId',

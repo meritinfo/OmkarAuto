@@ -227,6 +227,8 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { Dprmodel } from './models/dprmodel';
 import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
+import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
+import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 
 @NgModule({
   declarations: [
@@ -367,6 +369,8 @@ import { Dprlistmodel } from './models/dprlistmodel';
     TripsummaryrptComponent,
     DrpmasteraddComponent,
     DrpmasterlistComponent,
+    DprvehiplacedlistComponent,
+    DprvehiplacedaddComponent,
   ],
   imports: [
     BrowserModule,

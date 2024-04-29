@@ -1,0 +1,344 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">DPR Vehicle Placement</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                            <li class="breadcrumb-item active">Doc Renewal  Master</li> -->
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label >DPR Date: </label><span style="color: red">*</span>  
+                                            <input type="date" class="form-control" 
+                                            min="{{minDate}}" max="{{maxDate}}" formControlName="dprDate" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['dprDate'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">Party: </label><span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="partyName" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">From Place: </label><span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="fromPlace" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">To Place: </label><span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="toPlace" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>  
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vehicleList"
+                                                    [searchKeyword]="keywordLocation" 
+                                                    formControlName="vehicleNo"
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }" >
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label>Owner Name : </label><span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="vehOwnerName" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehOwnerName'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Owner Mobile: </label>
+                                            <input numbersonly type="text" maxlength="10"
+                                            class="form-control" formControlName="vehOwnerMobile" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Broker Name: </label><span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="brokerId"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['brokerId'].invalid) }">
+                                                <option *ngFor="let br of brokerList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Address1 : </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="vehAdd1" >
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Address2 : </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="vehAdd2" >
+                                        </div>
+                                    </div>     
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Pan: </label>
+                                            <input uppercaseonly type="text" 
+                                            class="form-control" formControlName="ownerPan" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Ins Valid Dt: </label><span style="color: red">*</span>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehInsValidDate" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehInsValidDate'].invalid) }">
+                                        </div>
+                                    </div>    
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Fitness Valid Dt: </label><span style="color: red">*</span>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehFitValidDate" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehFitValidDate'].invalid) }">
+                                        </div>
+                                    </div>      
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Permit Valid Dt: </label><span style="color: red">*</span>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehPermitValidDate" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehPermitValidDate'].invalid) }">
+                                        </div>
+                                    </div>    
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Paid Chrg Wt: </label><span style="color: red">*</span>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="challanChrgWt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['challanChrgWt'].invalid) }">
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Rate / Ton: </label><span style="color: red">*</span>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="ratePerTon" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['ratePerTon'].invalid) }">
+                                        </div>
+                                    </div>        
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Lorry Hire: </label><span style="color: red">*</span>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="lorryHire" (change)="onLorryHireChange($event)"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['lorryHire'].invalid) }">
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">       
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Advance 1: </label>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="advance1" >
+                                        </div>
+                                    </div>         
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Advance 2: </label>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="advance2" >
+                                        </div>
+                                    </div>         
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Advance 3: </label>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="advance3" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Cash/Bank Adv: </label>
+                                            <input decimalonly type="text" 
+                                            class="form-control" (change)="onAdvChange($event)" 
+                                            formControlName="advanceAmt" >
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Balance: </label>
+                                            <input decimalonly type="text" class="form-control" 
+                                            formControlName="balanceAmt" >
+                                        </div>
+                                    </div>   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Driver Name: </label><span style="color: red">*</span>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverName" maxlength="100"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverName'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Driver Mob: </label><span style="color: red">*</span>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="driverMob1" maxlength="10"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMob1'].invalid) }">
+                                        </div>
+                                    </div> 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Assign To: </label><span style="color: red">*</span>
+                                            <select id="scope" class="form-select" formControlName="assignToStaff"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['assignToStaff'].invalid) }">
+                                                <option *ngFor="let emp of empList" value={{emp.dataId}}>
+                                                    {{emp.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Engaged By: </label>
+                                            <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let emp of empList" value={{emp.dataId}}>
+                                                    {{emp.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div> 
+                                </div> 
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>                 
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>From Stn<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>To Stn<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>LR No<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Special Remarks<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                        </tr>
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="fromStn">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="toStn">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="gcNoteNo">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly autoclose="false" class="form-control"
+                                                        formControlName="specialRemarks">
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                   
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitDprDetails()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDprDetailsForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
