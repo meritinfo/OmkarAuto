@@ -24,15 +24,18 @@ namespace FCUBEAPI.Controllers
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
+        readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
             IEwayBillBusiness _ewayBillBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
-            IDprBusiness _dprBusiness)
+            IDprBusiness _dprBusiness,
+            IDprVehiPlacedBusiness _dprVehiPlacedBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
             dprBusiness = _dprBusiness;
+            dprVehiPlacedBusiness = _dprVehiPlacedBusiness;
         }
         
 
@@ -490,6 +493,93 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetDprVehiPlacedList")]
+        public async Task<IActionResult> GetDprVehiPlacedList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetDprVehiPlacedList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDprVehiPlacedDetails")]
+        public async Task<IActionResult> GetDprVehiPlacedDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetDprVehiPlacedDetails(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicleDetails")]
+        public async Task<IActionResult> GetVehicleDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetVehicleDetails(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBrokerList")]
+        public async Task<IActionResult> GetBrokerList()
+        {
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetBrokerList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DprVehiPlacedSave")]
+        public async Task<IActionResult> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
+        {
+            if (dprVehi == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiPlacedSave(dprVehi);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
     }
 }

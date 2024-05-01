@@ -1,26 +1,25 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dprlistmodel  } from 'src/app/models/dprlistmodel';
+import { Dprvehiplacedlistmodel  } from 'src/app/models/dprvehiplacedlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Dprmodel } from 'src/app/models/dprmodel';
-import { DprService } from 'src/app/services/dpr.service';
+import { Dprvehiplacedmodel } from 'src/app/models/dprvehiplacedmodel';
+import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
   
- 
-@Component({
-  selector: 'app-dprmasterlist',
-  templateUrl: './dprmasterlist.component.html',
-  styleUrls: ['./dprmasterlist.component.css']
-})
 
-export class DrpmasterlistComponent {
-  allDprlist: Dprlistmodel = new Dprlistmodel();
+@Component({
+  selector: 'app-dprvehiplacedlist',
+  templateUrl: './dprvehiplacedlist.component.html',
+  styleUrls: ['./dprvehiplacedlist.component.css']
+})
+export class DprvehiplacedlistComponent {
+  allDprlist: Dprvehiplacedlistmodel = new Dprvehiplacedlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -57,7 +56,7 @@ export class DrpmasterlistComponent {
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
     private toasterService: ToastrService,
-    private dprService: DprService, private ratesMasterService: RatesMasterService,
+    private dprvehiService: DprvehiplacedService, 
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -67,7 +66,7 @@ export class DrpmasterlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "DPR Indent Entry"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "DPR Vehicle Placement"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -80,7 +79,7 @@ export class DrpmasterlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    this.dprService.clearDprDetails();
+
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
@@ -96,7 +95,7 @@ export class DrpmasterlistComponent {
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
     
-    this.dprService.clearDprDetails();
+    this.dprvehiService.clearDprVehiDetails();
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
@@ -106,17 +105,16 @@ export class DrpmasterlistComponent {
     });
     
     this.sharedService.loading=true;
-    this.getPartyList();
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.search = '';
     this.filter.filterStr = '';
 
-    this.dprList();    
+    this.dprVehiList();    
     this.sharedService.loading=false;
   }
   
-  dprList(){
+  dprVehiList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -129,7 +127,7 @@ export class DrpmasterlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         
-        this.dprService.getDprList(this.filter).subscribe(resp => {
+        this.dprvehiService.getDprVehiPlacedList(this.filter).subscribe(resp => {
           this.allDprlist = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
@@ -156,33 +154,17 @@ export class DrpmasterlistComponent {
           data: 'partyName',
         },   
         {
-          title: 'Actual Wt',
-          data: 'actualWt',
-        },   
-        {
-          title: 'Charge Wt',
-          data: 'chargeWt',
-        },   
-        {
           title: 'Vehicle No',
           data: 'vehicleNo',
         },   
         {
           title: 'Driver Name',
           data: 'driverName',
-        },   
-        {
-          title: 'Driver Mob',
-          data: 'driverMob',
-        },     
+        },    
         {
           title: 'Action',
           data: 'dprId',
-        },    
-        {
-          title: 'Vehical Place',
-          data: 'dprId',
-        },     
+        },  
       ],
     };
   }
@@ -191,25 +173,10 @@ export class DrpmasterlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getdprDetails(dpr: Dprmodel): void {
-    this.dprService.setDprDetails(dpr);
-    this.route.navigate(['/dprindentedit']);
+  getdprVehiDetails(dpr: Dprvehiplacedmodel): void {
+    this.dprvehiService.setDprVehiDetails(dpr);
+    this.route.navigate(['/dprvehplacededit']);
   }  
-
-  getdprVehiplaced(dpr: Dprmodel): void {
-    sessionStorage.setItem("dprid", dpr.dprId);
-    this.route.navigate(['/dprvehplacedadd']);
-  }  
-
-  dprAdd(): void {
-    this.route.navigate(['/dprindentadd']);
-  }
-
-  getPartyList(): void {
-    this.ratesMasterService.getPartyList().subscribe((res) => {
-      this.partyList = res;
-    });
-  }
 
   get f() { return this.formFilter.controls; }
 
@@ -229,10 +196,9 @@ export class DrpmasterlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
-    this.filter.search = selecteddata.payParty?selecteddata.payParty.dataId:"";
-    this.filter.filterStr = selecteddata.type;
+
     this.sharedService.loading=true;
-    this.dprList();    
+    this.dprVehiList();    
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();

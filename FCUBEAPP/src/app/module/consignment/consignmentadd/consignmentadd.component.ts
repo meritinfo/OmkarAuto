@@ -66,12 +66,12 @@ export class ConsignmentaddComponent implements OnInit {
   maxNewDate: string = '';
   newDate: string = '';
   branchList: Dropdownmodel[] = [];
-  locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   cnorList: Dropdownmodel[] = [];
   cneeList: Dropdownmodel[] = [];
   lrSeries: Dropdownmodel[] = [];
 
+  locationList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
@@ -143,7 +143,7 @@ export class ConsignmentaddComponent implements OnInit {
     
     var nxtdate = new Date();
 
-// add a day
+    // add a day
     nxtdate.setDate(nxtdate.getDate() + 1);
     this.maxNewDate = nxtdate.toLocaleDateString('en-CA').toString();;
   

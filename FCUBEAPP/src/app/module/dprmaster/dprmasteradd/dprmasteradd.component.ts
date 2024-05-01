@@ -356,6 +356,10 @@ export class DrpmasteraddComponent {
           'dprId': '',
           'fromPlace': fmplc,
           'toPlace': toplc,
+          'fromStn': '',
+          'toStn': '',
+          'gcNoteNo':"",
+          'mainGcYN':"",
           'specialRemarks': selectedDataVal.arrayList[i].specialRemarks.toString().toUpperCase(),
         });
       }

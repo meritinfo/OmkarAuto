@@ -176,6 +176,8 @@ namespace FCUBEAPI
             services.AddScoped<IEwayBillExpRptRepository, EwayBillExpRptRepository>();
             services.AddScoped<IDprBusiness, DprBusiness>();
             services.AddScoped<IDprRepository, DprRepository>();
+            services.AddScoped<IDprVehiPlacedBusiness, DprVehiPlacedBusiness>();
+            services.AddScoped<IDprVehiPlacedRepository, DprVehiPlacedRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

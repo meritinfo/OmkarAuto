@@ -227,6 +227,9 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { Dprmodel } from './models/dprmodel';
 import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
+import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
+import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
@@ -370,6 +373,8 @@ import { Truckmastermodel } from './models/truckmastermodel';
     TripsummaryrptComponent,
     DrpmasteraddComponent,
     DrpmasterlistComponent,
+    DprvehiplacedlistComponent,
+    DprvehiplacedaddComponent,
     AddtruckmasterComponent,
     TruckmasterlistComponent,
   ],
@@ -406,7 +411,7 @@ import { Truckmastermodel } from './models/truckmastermodel';
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
-    Requestmodel,Reportmodel,
+    Requestmodel,Reportmodel,Dprvehiplacedmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,

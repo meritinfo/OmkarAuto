@@ -121,6 +121,9 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
+import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
+import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+
 
 
 const routes: Routes = [
@@ -296,6 +299,9 @@ const routes: Routes = [
   
   
   
+  { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
+  { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
+  { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
 ];
 
 @NgModule({

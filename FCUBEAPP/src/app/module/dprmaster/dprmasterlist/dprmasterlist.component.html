@@ -1,3 +1,4 @@
+
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -102,6 +103,7 @@
                                 <th>vehicleNo </th>   
                                 <th>driverName</th>   
                                 <th>driverMob </th>                               
+                                <th>Action</th>                              
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -115,10 +117,15 @@
                                 <td>{{ dpr.chargeWt }}</td>                          
                                 <td>{{ dpr.vehicleNo }}</td>                          
                                 <td>{{ dpr.driverName }}</td>                          
-                                <td>{{ dpr.driverMob }}</td>                            
+                                <td>{{ dpr.driverMob }}</td>
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprDetails(dpr)"></button>                               
+                                </td>
+                                <td>                                  
+                                    <button type="button" 
+                                        (click)="getdprVehiplaced(dpr)">
+                                        <i class="fas fa-truck"></i></button>
                                 </td>
                             </tr>
                         </tbody>
