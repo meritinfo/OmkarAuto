@@ -117,15 +117,15 @@
                                 <td>{{ dpr.chargeWt }}</td>                          
                                 <td>{{ dpr.vehicleNo }}</td>                          
                                 <td>{{ dpr.driverName }}</td>                          
-                                <td>{{ dpr.driverMob }}</td>                            
-                                <td>                                  
-                                    <button type="button" 
-                                        (click)="getdprDetails(dpr)">
-                                        <i class="fas fa-truck"></i></button>
-                                </td>
+                                <td>{{ dpr.driverMob }}</td>
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprDetails(dpr)"></button>                               
+                                </td>
+                                <td>                                  
+                                    <button type="button" 
+                                        (click)="getdprVehiplaced(dpr)">
+                                        <i class="fas fa-truck"></i></button>
                                 </td>
                             </tr>
                         </tbody>

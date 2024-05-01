@@ -4,6 +4,7 @@ using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace Consignment.Repository
 {
@@ -122,8 +123,14 @@ namespace Consignment.Repository
                         {
                             dprModel.DprDtls.Add(new DprDtlModel
                             {
+                                DprDtlId = Convert.ToString(dataSet.Tables[0].Rows[i]["DprDtlId"]),
+                                DprId = Convert.ToString(dataSet.Tables[0].Rows[i]["DprId"]),
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                FromStn = Convert.ToString(dataSet.Tables[0].Rows[i]["FromStn"]),
+                                ToStn   = Convert.ToString(dataSet.Tables[0].Rows[i]["ToStn"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                MainGcYN = Convert.ToString(dataSet.Tables[0].Rows[i]["MainGcYN"]),
                                 SpecialRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["SpecialRemarks"]),
                             });
                         }
@@ -298,7 +305,8 @@ namespace Consignment.Repository
                 transaction.Rollback();
             }
             return responseModel;
-        }    
+        }  
+        
 
 
     }

@@ -3,6 +3,9 @@ export class Dprdtlsmodel {
     dprId     : string = "";  
     fromPlace   : string = "";      
     toPlace     : string = "";   
-    gcNoteNo: string = "";   
+    fromStn   : string = "";      
+    toStn     : string = "";   
+    gcNoteNo: string = "";
+    mainGcYN:   string = "";
     specialRemarks : string = "";   
 }

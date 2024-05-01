@@ -229,6 +229,7 @@ import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
 
 @NgModule({
   declarations: [
@@ -405,7 +406,7 @@ import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplaceda
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,
-    Requestmodel,Reportmodel,
+    Requestmodel,Reportmodel,Dprvehiplacedmodel,
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,

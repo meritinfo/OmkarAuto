@@ -494,6 +494,24 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetDprVehiPlacedList")]
+        public async Task<IActionResult> GetDprVehiPlacedList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetDprVehiPlacedList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDprVehiPlacedDetails")]
         public async Task<IActionResult> GetDprVehiPlacedDetails(RequestModel request)
         {
@@ -511,6 +529,57 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetVehicleDetails")]
+        public async Task<IActionResult> GetVehicleDetails(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetVehicleDetails(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBrokerList")]
+        public async Task<IActionResult> GetBrokerList()
+        {
+            try
+            {
+                var result = await dprVehiPlacedBusiness.GetBrokerList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DprVehiPlacedSave")]
+        public async Task<IActionResult> DprVehiPlacedSave(DprVehiPlacedModel dprVehi)
+        {
+            if (dprVehi == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiPlacedSave(dprVehi);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
 
     }
 }

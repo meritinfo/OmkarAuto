@@ -11,8 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
-import { RatesMasterService } from 'src/app/services/ratesmaster.service';
-import { VehicleFltMasterService } from 'src/app/services/vehiclefltmaster.service';
 
 
 @Component({
@@ -49,9 +47,8 @@ export class DprvehiplacedaddComponent {
   selectedDprDetails = new Dprvehiplacedmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private dprvehiplacedmodel: Dprvehiplacedmodel,private dprService: DprService,
-    private ratesMasterService: RatesMasterService,private dprmodel:Dprmodel,
-    private vehicleFltMasterService:VehicleFltMasterService,
+    private dprvehiplacedmodel: Dprvehiplacedmodel,
+    private dprService: DprService, private dprmodel:Dprmodel,
     private toasterService: ToastrService,private requestmodel:Requestmodel,
     private dprvehiplacedService: DprvehiplacedService, private sharedService: SharedService,
     private commonService: CommonService) {
@@ -120,13 +117,14 @@ export class DprvehiplacedaddComponent {
     this.getBranchList();
     this.getVehicleList();
     this.getBrokerList();
+    this.getEmpList();
 
 
     this.formUser = this.formBuilder.group({
       dprDate  : new FormControl('',),
       partyName : new FormControl('',),
-      origin  : new FormControl('',),
-      destination : new FormControl('',),
+      fromPlace  : new FormControl('',),
+      toPlace : new FormControl('',),
       vehicleEngagedBy : new FormControl('',),
       brokerId : new FormControl('',[Validators.required]),
       vehicleNo : new FormControl('',[Validators.required]),
@@ -135,9 +133,9 @@ export class DprvehiplacedaddComponent {
       vehAdd2 : new FormControl('',),
       ownerPan : new FormControl('',),
       vehOwnerMobile : new FormControl('',),
-      vehInsValidDate : new FormControl('',[Validators.required]),
-      vehFitValidDate : new FormControl('',[Validators.required]),
-      vehPermitValidDate : new FormControl('',[Validators.required]),
+      vehInsValidDate : new FormControl('',),
+      vehFitValidDate : new FormControl('',),
+      vehPermitValidDate : new FormControl('',),
       driverName : new FormControl('',[Validators.required]),
       driverMob1 : new FormControl('',[Validators.required]),
       challanChrgWt : new FormControl('',[Validators.required]),
@@ -158,18 +156,28 @@ export class DprvehiplacedaddComponent {
     
     this.formUser.controls['dprDate'].disable(); 
     this.formUser.controls['partyName'].disable(); 
-    this.formUser.controls['origin'].disable(); 
-    this.formUser.controls['destination'].disable(); 
+    this.formUser.controls['fromPlace'].disable(); 
+    this.formUser.controls['toPlace'].disable(); 
+    this.formUser.controls['advanceAmt'].disable(); 
+    this.formUser.controls['balanceAmt'].disable(); 
+
+    this.selectedDprDetails = this.dprvehiplacedService.getDprVehiDetails();
     
     setTimeout(() => {
-      if (this.dprid != '') {        
-        this.getDprDetails();
-      }   
+      if (this.selectedDprDetails.vehiclePlacedId == '')
+      {        
+        if (this.dprid != '') {        
+          this.getDprDetails();
+        }   
+      }
 
       if (this.selectedDprDetails.vehiclePlacedId != '') {
         this.formUser.patchValue(this.selectedDprDetails);  
         this.formUser.patchValue({
           dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
+          vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
+          vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
+          vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
         });            
         this.getDprInnerGridList();
         this.editMode = true;
@@ -186,18 +194,26 @@ export class DprvehiplacedaddComponent {
       this.formArray.clear();
       for (var i = 0; i < res.dprDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("fromStn")?.setValue(res.dprDtls[i].fromPlace);
-        this.formArray.controls[i].get("toStn")?.setValue(res.dprDtls[i].toPlace);
+        this.formArray.controls[i].get("dprDtlId")?.setValue(res.dprDtls[i].dprDtlId);
+        this.formArray.controls[i].get("fromStn")?.setValue(res.dprDtls[i].fromStn);
+        this.formArray.controls[i].get("toStn")?.setValue(res.dprDtls[i].toStn);
+        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.dprDtls[i].gcNoteNo);
+        this.formArray.controls[i].get("mainGcYN")?.setValue(res.dprDtls[i].mainGcYN);
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
+        this.formArray.controls[i].get("fromStn")?.disable();
+        this.formArray.controls[i].get("toStn")?.disable();
+        this.formArray.controls[i].get("specialRemarks")?.disable();
       }
     });
   }
 
   createInitialArray() {
     return this.formBuilder.group({
+      dprDtlId: ['', []],
       fromStn: ['', []],
       toStn: ['', []],
       gcNoteNo: ['', []],
+      mainGcYN:['', []],
       specialRemarks: ['', []],
     });
   }
@@ -214,60 +230,93 @@ export class DprvehiplacedaddComponent {
     return this.formUser.get("arrayList") as FormArray;
   }
 
+  onVehicalChange(e:any){
+    var truckno = e.target.value;
+    if(truckno!=""){
+      this.requestmodel.strRequest = truckno
+      this.dprvehiplacedService.getVehicleDetails(this.requestmodel).subscribe((res) => {
+        this.selectedDprDetails = res; 
+        var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
+        var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
+        var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        if(vehInsValidDate!=""){
+          vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
+        }
+        if(vehFitValidDate!=""){
+          vehFitValidDate = this.commonService.formatDate(vehFitValidDate);
+        }
+        if(vehPermitValidDate!=""){
+          vehPermitValidDate = this.commonService.formatDate(vehPermitValidDate);
+        }
+
+        this.formUser.patchValue({
+          vehOwnerName: this.selectedDprDetails.vehOwnerName,
+          vehAdd1 : this.selectedDprDetails.vehAdd1,
+          vehAdd2 : this.selectedDprDetails.vehAdd2,
+          ownerPan : this.selectedDprDetails.ownerPan,
+          vehOwnerMobile : this.selectedDprDetails.vehOwnerMobile,
+          vehInsValidDate : vehInsValidDate,
+          vehFitValidDate : vehFitValidDate,
+          vehPermitValidDate : vehPermitValidDate,
+        });         
+      });
+    }
+  }
+
 
   onLorryHireChange(e:any){
-
-  }
-
-  onAdvChange(e:any){
-
-  }
-
-  calcTotal(){    
     var selectedDataVal= this.formUser.getRawValue();
-    selectedDataVal.freightRs;
-    var hamaliAmt = 0;
-    var ldDetenAmt   = 0;
-    var extraAmt = 0;
-    var otherAmt   = 0;
-    var totFreightAmt   = 0;
-
-    if(selectedDataVal.hamaliAmt!=""){
-      hamaliAmt = parseFloat(selectedDataVal.hamaliAmt);
+    var lorryHire = 0;
+    var advanceAmt = 0;
+    var balanceAmt = 0;
+    
+    if(e.target.value!=""){
+      lorryHire = parseFloat(e.target.value);
     }
-    if(selectedDataVal.ldDetenAmt!=""){
-      ldDetenAmt = parseFloat(selectedDataVal.ldDetenAmt);
-    }
-    if(selectedDataVal.extraAmt!=""){
-      extraAmt = parseFloat(selectedDataVal.extraAmt);
-    }
-    if(selectedDataVal.otherAmt!=""){
-      otherAmt = parseFloat(selectedDataVal.otherAmt);
+    if (typeof selectedDataVal.advanceAmt !== 'undefined' && selectedDataVal.advanceAmt !== null && selectedDataVal.advanceAmt !== '') {
+      advanceAmt = parseFloat(selectedDataVal.advanceAmt);
     }
 
-    totFreightAmt = hamaliAmt + ldDetenAmt + extraAmt + otherAmt;
+    balanceAmt = lorryHire - advanceAmt
 
     this.formUser.patchValue({
-      totFreightAmt: totFreightAmt,
-    });      
+      balanceAmt: balanceAmt,
+    });   
   }
 
-  addItem(index: number): void {
-    var selectedDataVal= this.formUser.getRawValue()
-    var fmplc = this.formArray.value[index].fromPlace?this.formArray.value[index].fromPlace.dataId:"";
-    var toplc = this.formArray.value[index].toPlace?this.formArray.value[index].toPlace.dataId:""; 
-    if (fmplc == "" || toplc == "" || this.formArray.value[index].specialRemarks == "") {
-      this.toasterService.warning("Please select Required Fields ");
-      return;
-    }      
-    this.formArray.push(this.createInitialArray()); 
+  onAdvChange(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var lorryHire = 0;
+    var advance1 = 0;
+    var advance2 = 0;
+    var advance3 = 0;
+    var advanceAmt = 0;
+    var balanceAmt = 0;
+        
+    if (typeof selectedDataVal.lorryHire !== 'undefined' && selectedDataVal.lorryHire !== null && selectedDataVal.lorryHire !== '') {
+      lorryHire = parseFloat(selectedDataVal.lorryHire);
+    }
+    if (typeof selectedDataVal.advance1 !== 'undefined' && selectedDataVal.advance1 !== null && selectedDataVal.advance1 !== '') {
+      advance1 = parseFloat(selectedDataVal.advance1);
+    }
+    if (typeof selectedDataVal.advance2 !== 'undefined' && selectedDataVal.advance2 !== null && selectedDataVal.advance2 !== '') {
+      advance2 = parseFloat(selectedDataVal.advance2);
+    }
+    if (typeof selectedDataVal.advance3 !== 'undefined' && selectedDataVal.advance3 !== null && selectedDataVal.advance3 !== '') {
+      advance3 = parseFloat(selectedDataVal.advance3);
+    }
+
+    advanceAmt = advance1 + advance2 + advance3;
+
+    balanceAmt = lorryHire - advanceAmt;
+
+    this.formUser.patchValue({
+      advanceAmt: advanceAmt,
+      balanceAmt: balanceAmt,
+    });   
   }
 
-  removeItem(index: number) {
-    this.formArray.removeAt(index);    
-  }
-
- 
+  
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
@@ -279,11 +328,16 @@ export class DprvehiplacedaddComponent {
       this.vehicleList = res;
     });
   }
-
   
   getBrokerList(): void {
-    this.ratesMasterService.getPartyList().subscribe((res) => {
+    this.commonService.getBrokerList().subscribe((res) => {
       this.brokerList = res;
+    });
+  }
+
+  getEmpList(): void {
+    this.commonService.getEmpList().subscribe((res) => {
+      this.empList = res;
     });
   }
   
@@ -294,39 +348,41 @@ export class DprvehiplacedaddComponent {
       this.formUser.patchValue(this.selectedDprDetails);  
       this.formUser.patchValue({
         dprDate: this.commonService.formatDate(this.selectedDprDetails.dprDate),
+        vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
+        vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
+        vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
       });            
       this.getDprInnerGridList();
     });
   }
 
  
-  deleteDprDetailsForm(): void {
-    if(this.selectedDprDetails.dprId != '' ){   
-      this.requestmodel.strRequest = this.selectedDprDetails.dprId 
+  deleteDprVehiDetailsForm(): void {
+    if(this.selectedDprDetails.vehiclePlacedId != '' ){   
+      this.requestmodel.strRequest = this.selectedDprDetails.vehiclePlacedId 
       if (confirm("Are you sure, you want to delete this?")) {   
         this.sharedService.loading=true;
-        this.dprService.dprDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.dprvehiplacedService.dprVehiPlacedDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if(this.responseDetails.status){
             this.toasterService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/dprindentlist']);
+            this.route.navigate(['/dprvehplacedlist']);
           }
           else{
             this.toasterService.warning(this.responseDetails.message);        
           }   
         });
         this.sharedService.loading=false;
-      }
-      
+      }      
     }
   }
 
   exit(): void {
-    this.route.navigate(['/dprindentlist']);
+    this.route.navigate(['/dprvehplacedlist']);
   }
 
-  submitDprDetails(): void {
+  submitDprVehiDetails(): void {
     this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
@@ -339,64 +395,85 @@ export class DprvehiplacedaddComponent {
       return;
     }
     var selectedDataVal =this.formUser.getRawValue();
-    this.dprmodel.dprId = this.selectedDprDetails.dprId ;
-    this.dprmodel.dprBranch = selectedDataVal.dprBranch;
-    this.dprmodel.dprDate = selectedDataVal.dprDate;
-    this.dprmodel.payParty = selectedDataVal.payParty?selectedDataVal.payParty.dataId:"";
-    this.dprmodel.bookStatus  = selectedDataVal.bookStatus;
-    this.dprmodel.origin   = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-    this.dprmodel.destination  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-    this.dprmodel.vehcileTypeId  = selectedDataVal.vehcileTypeId;
-    this.dprmodel.actualWt   = selectedDataVal.actualWt;
-    this.dprmodel.chargeWt  = selectedDataVal.chargeWt;
-    this.dprmodel.odcDimensions  = selectedDataVal.odcDimensions.toString().toUpperCase();
-    this.dprmodel.rateType  = selectedDataVal.rateType;
-    this.dprmodel.rateRs   = selectedDataVal.rateRs;
-    this.dprmodel.freightRs  = selectedDataVal.freightRs;
-    this.dprmodel.hamaliAmt  = selectedDataVal.hamaliAmt;
-    this.dprmodel.hamaliDesc  = selectedDataVal.hamaliDesc.toString().toUpperCase();
-    this.dprmodel.ldDetenAmt   = selectedDataVal.ldDetenAmt;
-    this.dprmodel.ldDetenDesc  = selectedDataVal.ldDetenDesc.toString().toUpperCase();
-    this.dprmodel.extraAmt = selectedDataVal.extraAmt;
-    this.dprmodel.extraDesc  = selectedDataVal.extraDesc.toString().toUpperCase();
-    this.dprmodel.otherAmt   = selectedDataVal.otherAmt;
-    this.dprmodel.otherDesc   = selectedDataVal.otherDesc.toString().toUpperCase();
-    this.dprmodel.totFreightAmt  = selectedDataVal.totFreightAmt;
-    this.dprmodel.loggedInUserID = this.loggedInUserID;  
+    this.dprvehiplacedmodel.vehiclePlacedId = this.selectedDprDetails.vehiclePlacedId? this.selectedDprDetails.vehiclePlacedId :"";
+    this.dprvehiplacedmodel.dprId = this.dprid?this.dprid:"";
+    this.dprvehiplacedmodel.vehicleEngagedBy = selectedDataVal.vehicleEngagedBy?selectedDataVal.vehicleEngagedBy:"";
+    this.dprvehiplacedmodel.brokerId  = selectedDataVal.brokerId;
+    this.dprvehiplacedmodel.vehicleNo   = selectedDataVal.vehicleNo?selectedDataVal.vehicleNo:"";
+    this.dprvehiplacedmodel.vehOwnerName  = selectedDataVal.vehOwnerName.toString().toUpperCase();
+    this.dprvehiplacedmodel.vehAdd1  = selectedDataVal.vehAdd1.toString().toUpperCase();
+    this.dprvehiplacedmodel.vehAdd2   = selectedDataVal.vehAdd2.toString().toUpperCase();
+    this.dprvehiplacedmodel.ownerPan  = selectedDataVal.ownerPan.toString().toUpperCase();
+    this.dprvehiplacedmodel.vehOwnerMobile  = selectedDataVal.vehOwnerMobile?selectedDataVal.vehOwnerMobile:"";
+    this.dprvehiplacedmodel.vehInsValidDate  = selectedDataVal.vehInsValidDate?selectedDataVal.vehInsValidDate:"";
+    this.dprvehiplacedmodel.vehFitValidDate   = selectedDataVal.vehFitValidDate?selectedDataVal.vehFitValidDate:"";
+    this.dprvehiplacedmodel.vehPermitValidDate  = selectedDataVal.vehPermitValidDate?selectedDataVal.vehPermitValidDate:"";
+    this.dprvehiplacedmodel.driverName  = selectedDataVal.driverName.toString().toUpperCase();
+    this.dprvehiplacedmodel.driverMob1  = selectedDataVal.driverMob1?selectedDataVal.driverMob1:"";
+    this.dprvehiplacedmodel.challanChrgWt   = selectedDataVal.challanChrgWt?selectedDataVal.challanChrgWt:"";
+    this.dprvehiplacedmodel.ratePerTon  = selectedDataVal.ratePerTon?selectedDataVal.ratePerTon:"";
+    this.dprvehiplacedmodel.lorryHire = selectedDataVal.lorryHire?selectedDataVal.lorryHire:"";
+    this.dprvehiplacedmodel.advance1  = selectedDataVal.advance1?selectedDataVal.advance1.toString():"";
+    this.dprvehiplacedmodel.advance2  = selectedDataVal.advance2?selectedDataVal.advance2.toString():"";
+    this.dprvehiplacedmodel.advance3  = selectedDataVal.advance3?selectedDataVal.advance3.toString():"";
+    this.dprvehiplacedmodel.advanceAmt   = selectedDataVal.advanceAmt?selectedDataVal.advanceAmt.toString():"";
+    this.dprvehiplacedmodel.balanceAmt   = selectedDataVal.balanceAmt?selectedDataVal.balanceAmt.toString():"";
+    this.dprvehiplacedmodel.assignToStaff  = selectedDataVal.assignToStaff?selectedDataVal.assignToStaff:"";
+    this.dprvehiplacedmodel.loggedInUser = this.loggedInUserID;  
 
     
-    this.dprmodel.dprDtls = [];
+    this.dprvehiplacedmodel.dprDtls = [];
+
     if(selectedDataVal.arrayList.length==0){
       this.toasterService.warning("Provide atleast one detail record");
       return;
     }
+    var maincnt = 0;      
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+      if(selectedDataVal.arrayList[i].mainGcYN=='Y'){
+        maincnt = maincnt +1
+      }   
+    }
+    if(maincnt==1){
+        //ignore
+    } 
+    else{
+      this.toasterService.warning("should be 1 Main Lr");
+      return;
+    }
 
-    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      var fmplc = selectedDataVal.arrayList[i].fromPlace?selectedDataVal.arrayList[i].fromPlace.dataId:"";
-      var toplc = selectedDataVal.arrayList[i].toPlace?selectedDataVal.arrayList[i].toPlace.dataId:"";     
-      if(fmplc!='' && toplc !=''){
-        this.dprmodel.dprDtls.push({
-          'dprDtlId': '',
-          'dprId': '',
-          'fromPlace': fmplc,
-          'toPlace': toplc,
-          'gcNoteNo':"",
-          'specialRemarks': selectedDataVal.arrayList[i].specialRemarks.toString().toUpperCase(),
-        });
+    for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
+      if(selectedDataVal.arrayList[i].gcNoteNo==''){
+        this.toasterService.warning("GcNote No Should Not be Empty");
+        return;
       }
+      if(selectedDataVal.arrayList[i].mainGcYN==''){
+        this.toasterService.warning("MainGcYN No Should Not be Empty");
+        return;
+      }
+           
+
+      this.dprvehiplacedmodel.dprDtls.push({
+        'dprDtlId': selectedDataVal.arrayList[i].dprDtlId,
+        'dprId': '',
+        'fromPlace': '',
+        'toPlace': '',
+        'fromStn': '',
+        'toStn': '',
+        'gcNoteNo':selectedDataVal.arrayList[i].gcNoteNo.toString().toUpperCase(),
+        'mainGcYN':selectedDataVal.arrayList[i].mainGcYN.toString().toUpperCase(),
+        'specialRemarks': '',
+      });
     }
 
     this.sharedService.loading=true;
-    let formData = new FormData();
-    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
-    formData.append('datadetails', JSON.stringify(this.dprmodel));
-
-    this.dprService.dprSubmitted(formData).subscribe((res: Responsemodel) => {
+    
+    this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/dprindentlist']);
+        this.route.navigate(['/dprvehplacedlist']);
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

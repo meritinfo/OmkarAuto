@@ -107,7 +107,6 @@ export class DrpmasterlistComponent {
     
     this.sharedService.loading=true;
     this.getPartyList();
-    this.filter.search = '';
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.search = '';
@@ -175,15 +174,15 @@ export class DrpmasterlistComponent {
         {
           title: 'Driver Mob',
           data: 'driverMob',
-        },      
-        {
-          title: 'Vehical Place',
-          data: 'dprId',
-        },  
+        },     
         {
           title: 'Action',
           data: 'dprId',
-        },      
+        },    
+        {
+          title: 'Vehical Place',
+          data: 'dprId',
+        },     
       ],
     };
   }
@@ -195,6 +194,11 @@ export class DrpmasterlistComponent {
   getdprDetails(dpr: Dprmodel): void {
     this.dprService.setDprDetails(dpr);
     this.route.navigate(['/dprindentedit']);
+  }  
+
+  getdprVehiplaced(dpr: Dprmodel): void {
+    sessionStorage.setItem("dprid", dpr.dprId);
+    this.route.navigate(['/dprvehplacedadd']);
   }  
 
   dprAdd(): void {

@@ -56,24 +56,9 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>  
-                                            <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="vehicleList"
-                                                    [searchKeyword]="keywordLocation" 
-                                                    formControlName="vehicleNo"
-                                                    [itemTemplate]="itemTemplate"
-                                                    [notFoundTemplate]="notFoundTemplate"
-                                                    [customFilter]="startWithFilter"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }" >
-                                                </ng-autocomplete>
-
-                                                <ng-template #itemTemplate let-item>
-                                                    <a [innerHTML]="item.dataName"></a>
-                                                </ng-template>
-
-                                                <ng-template #notFoundTemplate let-notFound>
-                                                    <div [innerHTML]="notFound"></div>
-                                                </ng-template>
-                                            </div>
+                                            <input uppercaseonly type="text" (change)="onVehicalChange($event)"
+                                            class="form-control" formControlName="vehicleNo"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }" >                                           
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -130,26 +115,23 @@
                                     </div>  
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Ins Valid Dt: </label><span style="color: red">*</span>
+                                            <label>Ins Valid Dt: </label>
                                             <input type="date" class="form-control" 
-                                            formControlName="vehInsValidDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehInsValidDate'].invalid) }">
+                                            formControlName="vehInsValidDate" >
                                         </div>
                                     </div>    
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Fitness Valid Dt: </label><span style="color: red">*</span>
+                                            <label>Fitness Valid Dt: </label>
                                             <input type="date" class="form-control" 
-                                            formControlName="vehFitValidDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehFitValidDate'].invalid) }">
+                                            formControlName="vehFitValidDate" >
                                         </div>
                                     </div>      
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Permit Valid Dt: </label><span style="color: red">*</span>
+                                            <label>Permit Valid Dt: </label>
                                             <input type="date" class="form-control" 
-                                            formControlName="vehPermitValidDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehPermitValidDate'].invalid) }">
+                                            formControlName="vehPermitValidDate" >
                                         </div>
                                     </div>    
                                 </div> 
@@ -183,21 +165,24 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Advance 1: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly type="text" class="form-control"  
+                                            (change)="onAdvChange()" 
                                             formControlName="advance1" >
                                         </div>
                                     </div>         
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Advance 2: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly type="text" class="form-control"  
+                                            (change)="onAdvChange()" 
                                             formControlName="advance2" >
                                         </div>
                                     </div>         
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Advance 3: </label>
-                                            <input decimalonly type="text" class="form-control" 
+                                            <input decimalonly type="text" class="form-control"  
+                                            (change)="onAdvChange()" 
                                             formControlName="advance3" >
                                         </div>
                                     </div>  
@@ -205,7 +190,7 @@
                                         <div class="mb-3">
                                             <label>Cash/Bank Adv: </label>
                                             <input decimalonly type="text" 
-                                            class="form-control" (change)="onAdvChange($event)" 
+                                            class="form-control" (change)="onAdvChange()" 
                                             formControlName="advanceAmt" >
                                         </div>
                                     </div>       
@@ -248,7 +233,7 @@
                                             </select>
                                         </div>
                                     </div> 
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-5">
                                         <div class="mb-3">
                                             <label>Engaged By: </label>
                                             <select id="scope" class="form-select" formControlName="vehicleEngagedBy"
@@ -268,7 +253,7 @@
                 </div>                 
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-10">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
@@ -294,6 +279,11 @@
                                                     <h6>Special Remarks<span style="color: red">*</span>  </h6>
                                                 </label>
                                             </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Main /Inclusive<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
                                         </tr>
                                         <tr formArrayName="arrayList"
                                             *ngFor="let arrayData of formArray.controls; let i = index">
@@ -301,6 +291,8 @@
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
                                                     formControlName="fromStn">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="dprDtlId">
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
@@ -314,6 +306,13 @@
                                                     <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="specialRemarks">
                                                 </td>
+                                                <td class="col-lg-2">
+                                                    <select id="scope" class="form-select" formControlName="mainGcYN"
+                                                        class="form-control form-select ng-pristine ng-touched">
+                                                            <option value="Y">Main </option>
+                                                            <option value="N">Inclusive </option>
+                                                    </select>
+                                                </td>
                                             </div>
                                         </tr>
                                     </table>
@@ -326,9 +325,9 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
-                                (click)="submitDprDetails()">Save</button>&nbsp;
+                                (click)="submitDprVehiDetails()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="deleteDprDetailsForm()">Delete</button>&nbsp;
+                                (click)="deleteDprVehiDetailsForm()">Delete</button>&nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>

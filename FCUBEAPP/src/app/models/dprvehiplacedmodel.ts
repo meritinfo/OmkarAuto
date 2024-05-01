@@ -1,3 +1,5 @@
+import { Dprdtlsmodel } from "./dprdtlsmodel";
+
 export class Dprvehiplacedmodel {
     vehiclePlacedId : string = "";
     dprId : string = "";
@@ -30,5 +32,7 @@ export class Dprvehiplacedmodel {
     vehicleRptDateTime : string = "";
     placementStatus : string = "";
     placementStatusRemarks: string = "";
-    loggedInUser : string = "";        
+    loggedInUser : string = "";    
+
+    dprDtls: Dprdtlsmodel[] = [];    
 }

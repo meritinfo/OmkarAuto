@@ -291,9 +291,9 @@ const routes: Routes = [
   { path: 'dprindentlist', component:  DrpmasterlistComponent },    
   { path: 'dprindentadd', component:  DrpmasteraddComponent },   
   { path: 'dprindentedit', component:  DrpmasteraddComponent },
-  { path: 'dprindentlist', component:   DprvehiplacedlistComponent},
-  { path: 'dprindentadd', component:  DprvehiplacedaddComponent },
-  { path: 'dprindentedit', component:  DprvehiplacedaddComponent },
+  { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
+  { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
+  { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
 ];
 
 @NgModule({
