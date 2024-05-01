@@ -227,6 +227,9 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { Dprmodel } from './models/dprmodel';
 import { Dprdtlsmodel } from './models/dprdtlsmodel';
 import { Dprlistmodel } from './models/dprlistmodel';
+import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
+import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
+import { Truckmastermodel } from './models/truckmastermodel';
 
 @NgModule({
   declarations: [
@@ -367,6 +370,8 @@ import { Dprlistmodel } from './models/dprlistmodel';
     TripsummaryrptComponent,
     DrpmasteraddComponent,
     DrpmasterlistComponent,
+    AddtruckmasterComponent,
+    TruckmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -416,7 +421,7 @@ import { Dprlistmodel } from './models/dprlistmodel';
     Dprmodel,Dprdtlsmodel,Dprlistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

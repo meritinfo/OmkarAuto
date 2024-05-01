@@ -119,6 +119,8 @@ import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/g
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
+import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
+import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 
 
 const routes: Routes = [
@@ -288,6 +290,9 @@ const routes: Routes = [
   { path: 'dprindentlist', component:  DrpmasterlistComponent },    
   { path: 'dprindentadd', component:  DrpmasteraddComponent },   
   { path: 'dprindentedit', component:  DrpmasteraddComponent },
+  { path: 'mkttrucklist', component:  TruckmasterlistComponent },    
+  { path: 'addtruckmaster', component:  AddtruckmasterComponent },   
+  { path: 'truckmasteredit', component:  AddtruckmasterComponent },
   
   
   

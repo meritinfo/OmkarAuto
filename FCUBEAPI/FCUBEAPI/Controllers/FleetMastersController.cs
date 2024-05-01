@@ -28,6 +28,7 @@ namespace FCUBEAPI.Controllers
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
+        readonly ITruckMasterBusiness truckMasterBusiness;
         public FleetMastersController(IOptions<DBModel> _dbconnection, 
             IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, 
             IVehicleFltMasterBusiness _vehicleFltMasterBusiness, 
@@ -37,7 +38,8 @@ namespace FCUBEAPI.Controllers
             ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
             IDriverMasterBusiness _driverMasterBusiness, 
             IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
-            IFleetCardMasterBusiness _fleetCardMasterBusiness)
+            IFleetCardMasterBusiness _fleetCardMasterBusiness,
+             ITruckMasterBusiness _truckMasterBusiness)
         {
             dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
@@ -48,6 +50,7 @@ namespace FCUBEAPI.Controllers
             tyrePositionMasterBusiness = _tyrePositionMasterBusiness;
             driverMasterBusiness = _driverMasterBusiness;
             expensestypeMasterBusiness = _expensesTypeMasterBusiness;
+            truckMasterBusiness = _truckMasterBusiness;
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
         }
 
@@ -248,6 +251,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleTypeMasterBusiness.VehicleTypeMasterSave(vehicleTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TruckMasterSave")]
+        public async Task<IActionResult> TruckMasterSave(TruckMasterModel truckMasterModel)
+        {
+            if (truckMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await truckMasterBusiness.TruckMasterSave(truckMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTruckMasterList")]
+        public async Task<IActionResult> GetTruckMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await truckMasterBusiness.GetTruckMasterList(request);
 
                 return Ok(result);
             }

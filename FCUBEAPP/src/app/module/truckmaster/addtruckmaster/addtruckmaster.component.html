@@ -1,0 +1,478 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+          <div class="row">
+             <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                   <h4 class="mb-sm-0 font-size-18">Truck Master</h4>
+                   <div class="page-title-right">
+                      <ol class="breadcrumb m-0">
+                         <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
+                         <li class="breadcrumb-item active">Truck  Master</li>
+                      </ol>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <!-- end page title -->
+          <form [formGroup]="formUser">
+             <div class="row">
+                <div class="col-lg-12">
+                   <div class="card">
+                      <div class="card-body">
+                       
+                         <div class="row">
+                            <div class="col-lg-12">
+                               <div class="card">
+                                  <div class="card-body">
+                                    <div class="row">
+                                       <div class="col-lg-2">
+                                           <div class="mb-4"><label for="formrow-inputCity">Truck No</label>
+                                           </div>
+                                          </div>
+                                          <div class="col-lg-4">
+                                           <div class="mb-4">
+                                             <input type="text"  autofocus="autofocus" class="form-control"
+                                             placeholder="" formControlName="truckNo"
+                                             [ngClass]=>
+                                           </div>
+                                       </div>
+                                 
+                                       <div class="col-lg-2">
+                                           <div class="mb-4">
+                                               <label for="formrow-inputState">Regn Date</label>
+                                             </div>
+                                          </div>
+                                      
+                                          <div class="col-lg-4">
+                                             <div class="mb-4">
+                                                <div class="col-sm-4">
+                                                   <input type="date"  autofocus="autofocus" class="form-control"
+                                                   placeholder="" formControlName="regnDate"
+                                                   [ngClass]=>
+                                                </div>
+                                           </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                                    
+                                    <div class="card-body">
+                                 
+                                  <div class="row">
+                                    <div class="col-sm-2">
+                                       <label for="horizontal-firstname-input" class="col-form-label"> OwnerName
+                                       </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <input type="text"  autofocus="autofocus" class="form-control"
+                                       placeholder="" formControlName="ownerName"
+                                       [ngClass]=>
+                                    </div>
+                                    <div class="col-sm-2">
+                                       <label for="horizontal-firstname-input" class="col-form-label">Owner Type 
+                                       </label>
+                                    </div>
+                                    <div class="col-sm-4">
+                                       <select id="scope" class="form-select" formControlName="ownerType">
+                                          <option value="I">Individual </option>
+                                          <option value="C">Company </option>
+                                          <option value="H">HUF </option>
+                                          <option value="O">Other </option>
+                                      </select>
+                                    </div>
+                           
+                                 </div>
+                              </div>
+                              <div class="card-body">
+                                 <div class="row">
+                                    
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Own Market
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                 <select id="scope" class="form-select" formControlName="ownerType">
+                                    <option value="O">Own  </option>
+                                    <option value="M">Market </option>
+                                 
+                                </select>
+                                </div>
+                                <div class="col-sm-2">
+                                 <label for="horizontal-firstname-input" class="col-form-label"> Pan No
+                                 </label>
+                              </div>
+                              <div class="col-sm-4">
+                                 <input type="text"  autofocus="autofocus" class="form-control"
+                                 placeholder="" formControlName="panNo"
+                                 [ngClass]=>
+                              </div>
+                             </div>
+                           </div>
+                             <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Aadhar No
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="aadharNo"
+                                   [ngClass]=>
+                                </div>
+                        
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> AadharLinkedYN
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="scope" class="form-select" formControlName="aadharLinkedYN">
+                                       <option value="Y">yes</option>
+                                       <option value="N">No</option>
+                                   </select>
+                                 </div>
+                             </div>
+                           </div>
+                           <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> panValidYN
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="scope" class="form-select" formControlName="panValidYN">
+                                       <option value="Y">yes</option>
+                                       <option value="N">No</option>
+                                   </select>
+                                 </div>
+                         
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> itFiledYN
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                    <select id="scope" class="form-select" formControlName="itFiledYN">
+                                       <option value="Y">yes</option>
+                                       <option value="N">No</option>
+                                   </select>
+                                 </div>
+                             </div>
+                           </div>
+                           <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> address1
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="address1"
+                                   [ngClass]=>
+                                </div>
+                          
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> address2
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="address2"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> address3
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="address3"
+                                   [ngClass]=>
+                                </div>
+                            
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> address4
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="address4"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> State Code
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="stateCode"
+                                   [ngClass]=>
+                                </div>
+                             
+                             
+                          
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Pin Code
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="pinCode"
+                                   [ngClass]=>
+                                </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Phone No
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="phoneNo"
+                                   [ngClass]=>
+                                </div>
+                             
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Contact Name
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="contactName"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body">
+                        
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Mobile No
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="mobileNo"
+                                   [ngClass]=>
+                                </div>
+                          
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Chasis No
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="chasisNo"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Engine No
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="engineNo"
+                                   [ngClass]=>
+                                </div>
+                            
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Veh Code
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="vehCode"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> Model
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="model"
+                                   [ngClass]=>
+                                </div>
+                            
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> MfrName
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="mfrName"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> ladenWt
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="ladenWt"
+                                   [ngClass]=>
+                                </div>
+                        
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> UnLadenWt
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="unLadenWt"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> InsuranceDt
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="date"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="insuranceDt"
+                                   [ngClass]=>
+                                </div>
+                         
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> NationalPermitDt
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="date"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="nationalPermitDt"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> FitnessDt
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="date"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="fitnessDt"
+                                   [ngClass]=>
+                                </div>
+                          
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> RcUpload
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="rcUpload"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> OtherUpload
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="otherUpload"
+                                   [ngClass]=>
+                                </div>
+                           
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> isActive
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="isActive"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="card-body"> 
+                             <div class="row">
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> inActiveDate
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="date"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="inActiveDate"
+                                   [ngClass]=>
+                                </div>
+                         
+                                <div class="col-sm-2">
+                                   <label for="horizontal-firstname-input" class="col-form-label"> remarks
+                                   </label>
+                                </div>
+                                <div class="col-sm-4">
+                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   placeholder="" formControlName="remarks"
+                                   [ngClass]=>
+                                </div>
+                             </div>
+                           </div>
+                             
+                             
+                            </div>
+                               </div>
+                            </div>
+                         
+                            <div class="col-lg-12">
+                                <div class="card">
+                                   <div class="card-body">
+                                   
+                                         
+                                   </div>
+                                </div>
+                             </div>
+               
+                 
+                         </div>
+                      </div>
+                      <!-- end card body -->
+                  
+                   <!-- end card -->
+           
+             </div>
+             <div class="row text-right">
+                <div class="col-lg-12">
+                   <div class="tex">
+                      <button class="btn btn-primary w-md"
+                         (click)="submitTruckMasterForm()">Submit</button>
+                   </div>
+                </div>
+             </div>
+          </form>
+          <!-- end row -->
+          <!-- end row -->
+       </div>
+       <!-- container-fluid -->
+
+    <!-- End Page-content -->
