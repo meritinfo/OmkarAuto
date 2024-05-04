@@ -132,6 +132,8 @@ namespace FCUBEAPI
             services.AddScoped<IDocRenewalEntryBusiness, DocRenewalEntryBusiness>();
             services.AddScoped<ITripMasterRepository, TripMasterRepository>();
             services.AddScoped<ITripMasterBusiness, TripMasterBusiness>();
+            services.AddScoped<ITruckMasterRepository, TruckMasterRepository>();
+            services.AddScoped<ITruckMasterBusiness, TruckMasterBusiness>();
             services.AddScoped<IDieselStatementRepository, DieselStatementRepository>();
             services.AddScoped<IDieselStatementBusiness, DieselStatementBusiness>(); 
             services.AddScoped<IBillStatementRepository, BillStatementRepository>();

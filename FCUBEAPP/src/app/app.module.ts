@@ -234,6 +234,9 @@ import { GeneratetempgclistComponent } from './module/generatetempgc/generatetem
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
+import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
+import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
+import { Truckmastermodel } from './models/truckmastermodel';
 
 @NgModule({
   declarations: [
@@ -378,6 +381,8 @@ import { Tempgclistmodel } from './models/tempgclistmodel';
     DprvehiplacedaddComponent,
     GeneratetempgclistComponent,
     GeneratetempgcaddComponent,
+    AddtruckmasterComponent,
+    TruckmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -427,7 +432,7 @@ import { Tempgclistmodel } from './models/tempgclistmodel';
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
   bootstrap: [AppComponent]
 })

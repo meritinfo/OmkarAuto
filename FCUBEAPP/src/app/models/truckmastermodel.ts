@@ -1,0 +1,37 @@
+export class Truckmastermodel {
+    truckID: string = "";
+      truckNo: string = "";
+      regnDate: string = "";
+      ownerName: string = "";
+      ownerType: string = "";
+      ownMarket: string = "";
+      panNo: string = "";
+      aadharNo: string = "";
+      aadharLinkedYN: string = "";
+      panValidYN: string = "";
+      itFiledYN: string = "";
+      address1: string = "";
+      address2: string = "";
+      address3: string = "";
+      address4: string = "";
+      stateCode: string = "";
+      pinCode: string = "";
+      phoneNo: string = "";
+      contactName: string = "";
+      mobileNo: string = "";
+      chasisNo: string = "";
+      engineNo: string = "";
+      vehCode: string = "";
+      model: string = "";
+      mfrName: string = "";
+      ladenWt: string = "";
+      unLadenWt: string = "";
+      insuranceDt: string = "";
+      nationalPermitDt: string = "";
+      fitnessDt: string = "";
+      rcUpload: string = "";
+      otherUpload: string = "";
+      isActive: string = "";
+      inActiveDate: string = "";
+      remarks: string = "";
+    }

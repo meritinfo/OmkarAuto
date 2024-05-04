@@ -119,6 +119,8 @@ import { GstsalesregisterrptlistComponent } from './module/gstsalesregisterrpt/g
 import { EwaybillexprptComponent } from './module/ewaybillexprpt/ewaybillexprpt.component';
 import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmasterlist.component';
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
+import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
+import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
@@ -293,6 +295,12 @@ const routes: Routes = [
   { path: 'dprindentlist', component:  DrpmasterlistComponent },    
   { path: 'dprindentadd', component:  DrpmasteraddComponent },   
   { path: 'dprindentedit', component:  DrpmasteraddComponent },
+  { path: 'mkttrucklist', component:  TruckmasterlistComponent },    
+  { path: 'addtruckmaster', component:  AddtruckmasterComponent },   
+  { path: 'truckmasteredit', component:  AddtruckmasterComponent },
+  
+  
+  
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
   { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
   { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
