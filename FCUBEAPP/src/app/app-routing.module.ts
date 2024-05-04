@@ -121,6 +121,8 @@ import { DrpmasterlistComponent } from './module/dprmaster/dprmasterlist/dprmast
 import { DrpmasteraddComponent } from './module/dprmaster/dprmasteradd/dprmasteradd.component';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
+import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
+import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 
 
 
@@ -294,6 +296,9 @@ const routes: Routes = [
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
   { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
   { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
+  { path: 'dprtempgclist', component:   GeneratetempgclistComponent},
+  { path: 'dprtempgcadd', component:  GeneratetempgcaddComponent },
+  { path: 'dprtempgcedit', component:  GeneratetempgcaddComponent },
 ];
 
 @NgModule({

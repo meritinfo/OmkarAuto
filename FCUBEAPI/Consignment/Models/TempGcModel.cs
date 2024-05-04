@@ -1,0 +1,80 @@
+﻿namespace Consignment.Models
+{
+    public class TempGcModel
+    {
+        public string? TempGcId { get; set; }
+        public string? DprId { get; set; }
+        public string? DprDtlId { get; set; }
+        public string? VehiclePlacedId { get; set; }
+        public string? BookingPlace  { get; set; }
+        public string? GcNoteNo  { get; set; }
+        public string? BookingDate  { get; set; }
+        public string? BookStatus { get; set; }
+        public string? DprDate { get; set; }
+        public string? PartyName { get; set; }
+        public string? FromPlace  { get; set; }
+        public string? ToPlace  { get; set; }
+        public string? EwayBillType  { get; set; }
+        public string? EwayBillNo  { get; set; }
+        public string? EwayBillDate  { get; set; }
+        public string? EwayBillExpDate  { get; set; }
+        public string? InvoiceNo  { get; set; }
+        public string? InvoiceDt   { get; set; }
+        public string? GoodsValue   { get; set; }
+        public string? CnorName  { get; set; }
+        public string? CnorAdd1   { get; set; }
+        public string? CnorAdd2   { get; set; }
+        public string? CnorAdd3   { get; set; }
+        public string? CnorState   { get; set; }
+        public string? CnorPin   { get; set; }
+        public string? CnorGst   { get; set; }
+        public string? CneeName   { get; set; }
+        public string? CneeAdd1   { get; set; }
+        public string? CneeAdd2   { get; set; }
+        public string? CneeAdd3   { get; set; }
+        public string? CneeState   { get; set; }
+        public string? CneePin   { get; set; }
+        public string? CneeGst  { get; set; }
+        public string? CneeMob   { get; set; }
+        public string? ClassCode  { get; set; }
+        public string? ProductCode  { get; set; }
+        public string? NoPackages  { get; set; }
+        public string? ActualWt  { get; set; }
+        public string? Chargewt  { get; set; }
+        public string? VehicleInDt  { get; set; }
+        public string? VehicleInTime  { get; set; }
+        public string? VehicleOutDt  { get; set; }
+        public string? VehicleOutTime  { get; set; }
+        public string? CropDesc  { get; set; }
+        public string? VehicleNo   { get; set; }
+        public string? VehOwnerName { get; set; }
+        public string? VehAdd1 { get; set; }
+        public string? VehAdd2 { get; set; }
+        public string? OwnerPan { get; set; }
+        public string? VehOwnerMobile { get; set; }
+        public string? VehInsValidDate { get; set; }
+        public string? VehFitValidDate { get; set; }
+        public string? VehPermitValidDate { get; set; }
+        public string? DriverName { get; set; }
+        public string? DriverMob1 { get; set; }
+        public string? DriverLicNo { get; set; }
+        public string? DriverLicDt { get; set; }
+        public string? PayStn { get; set; }
+        public string? PayParty { get; set; }
+        public string? Businessby { get; set; }
+        public string? GstBy { get; set; }
+        public string? Remarks { get; set; }
+        public string? VehRcDoc { get; set; }
+        public string?  VehPanDoc { get; set; }
+        public string?  VehDecDoc { get; set; }
+        public string?  PartyInvDoc { get; set; }
+        public string?  LoadingSlipDoc { get; set; }
+        public string?  VehPhoto1Doc { get; set; }
+        public string?  VehPhoto2Doc { get; set; }
+        public string? VehPhoto3Doc { get; set; }
+        public string? LoggedInUser { get; set; }
+
+        public List<TempGcInvModel> InvList { get; set; }
+        public List<TempGcSealModel> SealList { get; set; }
+    }
+}

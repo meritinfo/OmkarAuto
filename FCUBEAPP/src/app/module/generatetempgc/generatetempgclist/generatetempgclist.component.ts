@@ -1,25 +1,23 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dprvehiplacedlistmodel  } from 'src/app/models/dprvehiplacedlistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Dprvehiplacedmodel } from 'src/app/models/dprvehiplacedmodel';
-import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
+import { Tempgcmodel } from 'src/app/models/tempgcmodel';
+import { Tempgclistmodel  } from 'src/app/models/tempgclistmodel';
+import { GeneratetempgcService } from 'src/app/services/generatetempgc.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
-  
 
 @Component({
-  selector: 'app-dprvehiplacedlist',
-  templateUrl: './dprvehiplacedlist.component.html',
-  styleUrls: ['./dprvehiplacedlist.component.css']
+  selector: 'app-generatetempgclist',
+  templateUrl: './generatetempgclist.component.html',
+  styleUrls: ['./generatetempgclist.component.css']
 })
-export class DprvehiplacedlistComponent {
-  allDprlist: Dprvehiplacedlistmodel = new Dprvehiplacedlistmodel();
+export class GeneratetempgclistComponent {
+  alltempgclist: Tempgclistmodel = new Tempgclistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -48,6 +46,7 @@ export class DprvehiplacedlistComponent {
   deleteStatus = false;
   viewStatus = false;
   userSubmitted = false;
+  loggedInUserID: string = '';
   
 
   dtOptions: DataTables.Settings = {};
@@ -56,7 +55,7 @@ export class DprvehiplacedlistComponent {
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
     private toasterService: ToastrService,
-    private dprvehiService: DprvehiplacedService, 
+    private generatetempgcService: GeneratetempgcService, 
     private commonService: CommonService,private route: Router)  {
   }
   
@@ -66,7 +65,7 @@ export class DprvehiplacedlistComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "DPR Vehicle Placement"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "DPR Generate Temp GC"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -78,6 +77,14 @@ export class DprvehiplacedlistComponent {
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
+    }
+
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    else {
+      this.route.navigate(['/']);
     }
 
     const today = new Date();
@@ -95,7 +102,7 @@ export class DprvehiplacedlistComponent {
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
     
-    this.dprvehiService.clearDprVehiDetails();
+    this.generatetempgcService.clearTempgcDetails();
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
@@ -105,12 +112,13 @@ export class DprvehiplacedlistComponent {
     this.sharedService.loading=true;
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+    this.filter.search = this.loggedInUserID;
 
-    this.dprVehiList();    
+    this.tempgcList();    
     this.sharedService.loading=false;
   }
   
-  dprVehiList(){
+  tempgcList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -123,8 +131,8 @@ export class DprvehiplacedlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         
-        this.dprvehiService.getDprVehiPlacedList(this.filter).subscribe(resp => {
-          this.allDprlist = resp;
+        this.generatetempgcService.getTempgcList(this.filter).subscribe(resp => {
+          this.alltempgclist = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
               recordsFiltered: resp.pageMetaData.totalCount,
@@ -138,17 +146,21 @@ export class DprvehiplacedlistComponent {
           data: 'dprDate',
         }, 
         {
+          title: 'GC Note No',
+          data: 'gcNoteNo',
+        },  
+        {
+          title: 'Party Name',
+          data: 'partyName',
+        },  
+        {
           title: 'From Place ',
           data: 'fromPlace',
         },
         {
           title: 'To Place',
           data: 'toPlace',
-        },
-        {
-          title: 'Party Name',
-          data: 'partyName',
-        },   
+        }, 
         {
           title: 'Vehicle No',
           data: 'vehicleNo',
@@ -156,7 +168,11 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Driver Name',
           data: 'driverName',
-        },    
+        },  
+        {
+          title: 'Driver Mobile',
+          data: 'driverMob1',
+        },     
         {
           title: 'Action',
           data: 'dprId',
@@ -169,9 +185,9 @@ export class DprvehiplacedlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getdprVehiDetails(dpr: Dprvehiplacedmodel): void {
-    this.dprvehiService.setDprVehiDetails(dpr);
-    this.route.navigate(['/dprvehplacededit']);
+  gettempgcDetails(tempgc: Tempgcmodel): void {
+    this.generatetempgcService.setTempgcDetails(tempgc);
+    this.route.navigate(['/dprtempgcedit']);
   }  
 
   get f() { return this.formFilter.controls; }
@@ -192,9 +208,10 @@ export class DprvehiplacedlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
+    this.filter.search = this.loggedInUserID;
 
     this.sharedService.loading=true;
-    this.dprVehiList();    
+    this.tempgcList();    
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();

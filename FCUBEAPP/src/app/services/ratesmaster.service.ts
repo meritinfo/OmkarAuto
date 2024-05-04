@@ -32,13 +32,15 @@ export class RatesMasterService {
   getRatesMasterDetails() {
     return this.selectedRatesMasterDetails;
   }
-  ratesMasterSubmitted(ratesMaster: Ratesmastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FreightRatesMstSave', ratesMaster, this.httpOptions);
-  }
   
   clearRatesMasterDetails() {
     this.selectedRatesMasterDetails = new Ratesmastermodel();
   }
+
+  ratesMasterSubmitted(ratesMaster: Ratesmastermodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/FreightRatesMstSave', ratesMaster, this.httpOptions);
+  }
+  
   getRatesMasterList(filter: Filtermodel): Observable<Ratesmasterlistmodel> {
     return this.httpClient.post<Ratesmasterlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetFreightRatesList', filter, this.httpOptions);
   }

@@ -230,6 +230,10 @@ import { Dprlistmodel } from './models/dprlistmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
+import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
+import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
+import { Tempgcmodel } from './models/tempgcmodel';
+import { Tempgclistmodel } from './models/tempgclistmodel';
 
 @NgModule({
   declarations: [
@@ -372,6 +376,8 @@ import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
     DrpmasterlistComponent,
     DprvehiplacedlistComponent,
     DprvehiplacedaddComponent,
+    GeneratetempgclistComponent,
+    GeneratetempgcaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -418,7 +424,7 @@ import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Dprmodel,Dprdtlsmodel,Dprlistmodel,
+    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,

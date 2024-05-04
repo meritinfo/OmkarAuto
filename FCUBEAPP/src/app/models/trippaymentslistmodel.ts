@@ -3,5 +3,5 @@ import { Trippaymentsmodel } from "./trippaymentsmodel";
 
 export class Trippaymentslistmodel {
   tripPaymentsList: Trippaymentsmodel[] = [];
-    pageMetaData: Paginationmodel = new Paginationmodel;
+  pageMetaData: Paginationmodel = new Paginationmodel;
 }

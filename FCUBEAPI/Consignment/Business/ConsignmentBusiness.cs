@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace Consignment.Business
@@ -68,7 +69,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckDuplicateLr(request);
         }
-
+        public async Task<List<DropDownListModel>> GetClassList()
+        {
+            return await consignmentRepository.GetClassList();
+        }
 
         public async Task<List<DropDownListModel>> GetVehicleNoList()
         {
