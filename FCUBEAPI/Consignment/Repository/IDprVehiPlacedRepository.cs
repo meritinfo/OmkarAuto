@@ -10,5 +10,6 @@ namespace Consignment.Repository
         Task<DprVehiPlacedModel> GetVehicleDetails(RequestModel request);
         Task<List<DropDownListModel>> GetBrokerList();
         Task<ResponseModel> DprVehiPlacedSave(DprVehiPlacedModel dprVehi);
+        Task<ResponseModel> DprVehiPlacedDelete(RequestModel requestModel);
     }
 }

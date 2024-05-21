@@ -1,0 +1,812 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">DPR Generate Temp GC</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                            <li class="breadcrumb-item active">Doc Renewal  Master</li> -->
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">  
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label>Booked At: </label>
+                                            <span style="color: red">*</span> 
+                                            <select id="scope" class="form-select" formControlName="bookingPlace"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['bookingPlace'].invalid) }">
+                                                <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">CN NO: </label>
+                                            <span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="gcNoteNo" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputCity">CN Date: </label>
+                                            <span style="color: red">*</span>  
+                                            <input type="date" class="form-control" 
+                                            min="{{minDate}}" max="{{maxDate}}" formControlName="bookingDate" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['bookingDate'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Book Status: </label>
+                                            <span style="color: red">*</span>  
+                                            <select id="formrow-inputState" 
+                                            class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="bookStatus"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['bookStatus'].invalid) }">
+                                                <option selected="">Choose...</option>
+                                                <option value="TBB">TBB</option>
+                                                <option value="TP">To Pay</option>
+                                                <option value="Paid">Paid</option>
+                                                <option value="FOC">FOC</option>                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">From Place: </label>
+                                            <span style="color: red">*</span>  
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="locationList" 
+                                                    formControlName="fromPlace"
+                                                    [searchKeyword]="keywordLocation"
+                                                    [itemTemplate]="itemTemplate" 
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{'is-invalid': userSubmitted && (f['fromPlace'].invalid)}" >
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">To Place: </label>
+                                            <span style="color: red">*</span>  
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="locationList" 
+                                                    formControlName="toPlace"
+                                                    [searchKeyword]="keywordLocation"
+                                                    [itemTemplate]="itemTemplate" 
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{'is-invalid': userSubmitted && (f['toPlace'].invalid)}" >
+                                                </ng-autocomplete>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-check mb-3">
+                                            <input type="radio" formControlName="ewayBillType" id="formRadios1"
+                                                value="A" class="form-check-input" name="ewayBillType"
+                                                (change)="changeEWay('A')" />
+                                            <label for="formRadios1" class="form-check-label" style="color:green">
+                                                Get ALL From EWayBill API
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-check">
+                                            <input type="radio" formControlName="ewayBillType" id="formRadios2"
+                                                value="M" class="form-check-input" name="ewayBillType"
+                                                (change)="changeEWay('M')" />
+                                            <label for="formRadios2" class="form-check-label" style="color:green">
+                                                EWay Bill Manual Entry
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-check">
+                                            <input type="radio" formControlName="ewayBillType" id="formRadios3" 
+                                                value="E" class="form-check-input" name="ewayBillType"
+                                                (change)="changeEWay('E')" >
+                                            <label for="formRadios3" class="form-check-label" style="color:green">
+                                                No EWay Bill Exemption
+                                            </label>
+                                        </div>
+                                    </div>    
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">EWay Bill No</label>
+                                            <span style="color: red">*</span>  
+                                            <div class="hstack gap-1">
+                                                <input numbersonly type="text" class="form-control" 
+                                                    formControlName="ewayBillNo" maxlength="12"
+                                                    [ngClass]="{'is-invalid': userSubmitted && (f['ewayBillNo'].invalid) }">
+                                                <button type="button" class="btn btn-primary"
+                                                    *ngIf="searchEnable"
+                                                    (click)="searchGSTDetails()">Search</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">EWay Bill Date</label>
+                                            <span style="color: red">*</span>  
+                                            <input bsdatepicker="" type="date" autoclose="false"
+                                             formControlName="ewayBillDate" class="form-control"
+                                                [ngClass]="{'is-invalid': userSubmitted && (f['ewayBillDate'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">EWay Bill Exp Date</label>
+                                            <span style="color: red">*</span>  
+                                            <input bsdatepicker="" type="date" autoclose="false"                                                    
+                                                formControlName="ewayBillExpDate" class="form-control"
+                                                [ngClass]="{'is-invalid': userSubmitted && (f['ewayBillExpDate'].invalid) }">
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor Inv No</label>
+                                            <span style="color: red">*</span>  
+                                            <input type="text" id="formrow-inputCity" class="form-control"
+                                            uppercaseonly formControlName="invoiceNo" 
+                                            [ngClass]="{'is-invalid': userSubmitted && (f['invoiceNo'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Invoice Date</label>
+                                            <span style="color: red">*</span>  
+                                            <input bsdatepicker="" type="date" autoclose="false"
+                                                formControlName="invoiceDt" min="{{minDate}}" max="{{maxDate}}"
+                                                class="form-control"  
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['invoiceDt'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Invoice Value</label>
+                                            <input type="text" decimalonly autoclose="false" class="form-control"
+                                                formControlName="goodsValue" >
+                                        </div>
+                                    </div>
+                                </div>     
+                                <div class="row">  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignor: </label>
+                                            <span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" maxlength="100"
+                                                class="form-control" formControlName="cnorName"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cnorName'].invalid) }" >                                           
+                                        </div> 
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor Add1: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cnorAdd1">                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor Add2: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cnorAdd2">                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor Add3: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cnorAdd3" >                                           
+                                        </div>
+                                    </div>
+                                </div>                       
+                                <div class="row"> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor State: </label>
+                                            <select id="scope" class="form-select" formControlName="cnorState"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let br of stateList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Cnor Pin: </label>
+                                            <input numbersonly type="text" maxlength="6" 
+                                                class="form-control" formControlName="cnorPin">                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnor GST: </label>
+                                            <input uppercaseonly type="text" maxlength="15" 
+                                                class="form-control" formControlName="cnorGst" >                                           
+                                        </div>
+                                    </div>
+                                </div>           
+                                <div class="row">  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Consignee: </label>
+                                            <span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" maxlength="100"
+                                                class="form-control" formControlName="cneeName"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cneeName'].invalid) }" >                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnee Add1: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cneeAdd1" >                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnee Add2: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cneeAdd2" >                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnee Add3: </label>
+                                            <input uppercaseonly type="text" maxlength="100" 
+                                                class="form-control" formControlName="cneeAdd3" >                                           
+                                        </div>
+                                    </div>      
+                                </div>                       
+                                <div class="row"> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnee State: </label>
+                                            <select id="scope" class="form-select" formControlName="cneeState"
+                                            class="form-control form-select ng-pristine ng-touched">
+                                                <option *ngFor="let br of stateList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Cnee Pin: </label>
+                                            <input numbersonly type="text" maxlength="6" 
+                                                class="form-control" formControlName="cneePin" >                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Cnee GST: </label>
+                                            <input uppercaseonly type="text" maxlength="15" 
+                                                class="form-control" formControlName="cneeGst" >                                           
+                                        </div> 
+                                    </div>
+                                    <div class="col-lg-2">                                   
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Cnee Mobile: </label>
+                                            <span style="color: red">*</span>  
+                                            <input numbersonly type="text" maxlength="10" 
+                                                class="form-control" formControlName="cneeMob"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cneeMob'].invalid) }" >                                           
+                                        </div>
+                                    </div>     
+                                </div>                                                            
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Packing: </label>
+                                            <span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="classCode"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['classCode'].invalid) }">
+                                                <option *ngFor="let br of classList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                          
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Contents: </label><span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="productCode"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['productCode'].invalid) }">
+                                                <option *ngFor="let br of contentList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Packages: </label><span style="color: red">*</span>  
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="noPackages" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['noPackages'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Actual Wt: </label><span style="color: red">*</span>  
+                                            <input decimalonly type="text" maxlength="20"
+                                            class="form-control" formControlName="actualWt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['actualWt'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Charge wt: </label><span style="color: red">*</span>  
+                                            <input decimalonly type="text" maxlength="20"
+                                            class="form-control" formControlName="chargewt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['chargewt'].invalid) }">
+                                        </div>
+                                    </div>   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputState">Vehicle In Date:</label><span style="color: red">*</span>  
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehicleInDt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleInDt'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Vehicle In Time</label>
+                                            <input type="time" autoclose="false" 
+                                                formControlName="vehicleInTime" class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleInTime'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputState">Vehicle Out Date:</label><span style="color: red">*</span>  
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehicleOutDt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleOutDt'].invalid) }">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">Vehicle Out Time</label>
+                                            <input type="time" autoclose="false" 
+                                                formControlName="vehicleOutTime" class="form-control"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleOutTime'].invalid) }">
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Mat Desc: </label>
+                                            <input uppercaseonly type="text" maxlength="25"
+                                            class="form-control" formControlName="cropDesc" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle No</label>
+                                            <span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" 
+                                            class="form-control" formControlName="vehicleNo"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }" >                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="mb-3">
+                                            <label>Owner Name : </label><span style="color: red">*</span>  
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="vehOwnerName" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehOwnerName'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Owner Mobile: </label>
+                                            <input numbersonly type="text" maxlength="10"
+                                            class="form-control" formControlName="vehOwnerMobile" >
+                                        </div>
+                                    </div>   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Address1 : </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="vehAdd1" >
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Address2 : </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                                formControlName="vehAdd2" >
+                                        </div>
+                                    </div>     
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Pan: </label>
+                                            <input uppercaseonly type="text" 
+                                            class="form-control" formControlName="ownerPan" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Ins Valid Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehInsValidDate" >
+                                        </div>
+                                    </div>    
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Fitness Valid Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehFitValidDate" >
+                                        </div>
+                                    </div>      
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Permit Valid Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="vehPermitValidDate" >
+                                        </div>
+                                    </div>    
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Driver Name: </label><span style="color: red">*</span>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverName" maxlength="100"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverName'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Driver Mob: </label><span style="color: red">*</span>
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="driverMob1" maxlength="10"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMob1'].invalid) }">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Driver Lic No: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="driverLicNo" maxlength="25">
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Lic Valid Dt: </label>
+                                            <input type="date" class="form-control" 
+                                            formControlName="driverLicDt" >
+                                        </div>
+                                    </div>   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Billing Station: </label><span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="payStn"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['payStn'].invalid) }">
+                                                <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Billing Party: </label><span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="payParty"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['payParty'].invalid) }">
+                                                <option *ngFor="let br of partyList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Bussiness By: </label><span style="color: red">*</span>  
+                                            <select id="scope" class="form-select" formControlName="businessby"
+                                            class="form-control form-select ng-pristine ng-touched"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['businessby'].invalid) }">
+                                                <option *ngFor="let br of empList" value={{br.dataId}}>
+                                                    {{br.dataName}}
+                                                </option>
+                                            </select>                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputState">Gst By: </label>
+                                            <span style="color: red">*</span>  
+                                            <select id="formrow-inputState" 
+                                            class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="gstBy"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['gstBy'].invalid) }">
+                                                <option selected="">Choose...</option>
+                                                <option value="T">Transporter</option>
+                                                <option value="E">Exempted</option>
+                                                <option value="R">RCM</option>                                             
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>                                  
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <div class="mb-3">
+                                            <label>Remarks: </label>
+                                            <input uppercaseonly type="text" maxlength="250"
+                                            class="form-control" formControlName="remarks" >
+                                        </div>
+                                    </div>  
+                                </div>                                
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>                 
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Invoice Information</h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Invoice No<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Inv Date<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Inv Value<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1"></td>
+                                        </tr>
+                                        <tr formArrayName="arrayList"
+                                            *ngFor="let arrayData of formArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="invNo">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="invDate">
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <input decimalonly type="text" class="form-control" 
+                                                    formControlName="invValue">
+                                                </td>                                                
+                                                <td class="col-lg-1">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>                                        
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4">Seal Information</h4>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Seal Numbers<span style="color: red">*</span>  </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-1">                                                
+                                            </td>                                            
+                                        </tr>
+                                        <tr formArrayName="arraySealList"
+                                            *ngFor="let arrayData of formSealArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <td class="col-lg-2">
+                                                    <input uppercaseonly type="text" class="form-control" 
+                                                    formControlName="sealNo">
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <div class="col-lg-4 details-button">
+                                                        <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                        <button *ngIf="formArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>                                        
+                                                </td>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <!-- Attachment Details -->
+                                    <h4 class="card-title mb-4">Attachment Details</h4>
+                                    <section>
+                                        <div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Rc Doc</label>
+                                                        <input #vehRcDocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehRcDoc" target="_blank"
+                                                            href={{uploadedVehRcDoc}}>Download</a>
+                                                    </div>
+                                                </div>                                                  
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Loading Slip Doc</label>
+                                                        <input #loadingSlipDocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.loadingSlipDoc" target="_blank"
+                                                            href={{uploadedLoadingSlipDoc}}>Download</a>
+                                                    </div>
+                                                </div>     
+                                            </div>                                            
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Pan Doc</label>
+                                                        <input #vehPanDocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehPanDoc" target="_blank"
+                                                            href={{uploadedVehPanDoc}}>Download</a>
+                                                    </div>
+                                                </div> 
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Photo1 Doc</label>
+                                                        <input #vehPhoto1DocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehPhoto1Doc" target="_blank"
+                                                            href={{uploadedVehPhoto1Doc}}>Download</a>
+                                                    </div>
+                                                </div>  
+                                            </div>                                            
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Dec Doc</label>
+                                                        <input #vehDecDocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehDecDoc" target="_blank"
+                                                            href={{uploadedVehDecDoc}}>Download</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Photo2 Doc</label>
+                                                        <input #vehPhoto2DocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehPhoto2Doc" target="_blank"
+                                                            href={{uploadedVehPhoto2Doc}}>Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>                                            
+                                            <div class="row">                                                                                         
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Party Inv Doc</label>
+                                                        <input #partyInvDocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.partyInvDoc" target="_blank"
+                                                            href={{uploadedPartyInvDoc}}>Download</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="mt-3">
+                                                        <label for="formDLFile" class="form-label">Veh Photo3 Doc</label>
+                                                        <input #vehPhoto3DocInput class="form-control" type="file"
+                                                            id="formDLFile" accept="image/*">
+                                                        <a *ngIf="selectedTempgcDetails.vehPhoto3Doc" target="_blank"
+                                                            href={{uploadedVehPhoto3Doc}}>Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submittempgcDetails()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deletetempgcDetailsForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>
+
+

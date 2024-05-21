@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 
 namespace FCUBEAPI.Controllers
@@ -25,17 +26,20 @@ namespace FCUBEAPI.Controllers
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
         readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
+        readonly IGenerateTempGcBusiness tempGcBusiness;
         public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
             IEwayBillBusiness _ewayBillBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
             IDprBusiness _dprBusiness,
-            IDprVehiPlacedBusiness _dprVehiPlacedBusiness)
+            IDprVehiPlacedBusiness _dprVehiPlacedBusiness,
+            IGenerateTempGcBusiness _tempGcBusiness)
         {
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
             dprBusiness = _dprBusiness;
             dprVehiPlacedBusiness = _dprVehiPlacedBusiness;
+            tempGcBusiness = _tempGcBusiness;
         }
         
 
@@ -109,7 +113,23 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        
+        /// </summary>
+        [HttpPost("GetClassList")]
+        public async Task<IActionResult> GetClassList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetClassList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetKms")]
         public async Task<IActionResult> GetKms(KmsModel request)
         {
@@ -579,7 +599,193 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
+        [HttpPost("DprVehiPlacedDelete")]
+        public async Task<IActionResult> DprVehiPlacedDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dprVehiPlacedBusiness.DprVehiPlacedDelete(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetTempgcList")]
+        public async Task<IActionResult> GetTempgcList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.GetTempgcList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTempgcInnerGridList")]
+        public async Task<IActionResult> GetTempgcInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.GetTempgcInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("TempgcSave")]
+        public async Task<IActionResult> TempgcSave()
+        {
+            try
+            {
+                var vehRcDoc = HttpContext.Request.Form.Files["vehRcDoc"];
+                var vehPanDoc = HttpContext.Request.Form.Files["vehPanDoc"];
+                var vehDecDoc = HttpContext.Request.Form.Files["vehDecDoc"];
+                var partyInvDoc = HttpContext.Request.Form.Files["partyInvDoc"];
+                var loadingSlipDoc = HttpContext.Request.Form.Files["loadingSlipDoc"];
+                var vehPhoto1Doc = HttpContext.Request.Form.Files["vehPhoto1Doc"];
+                var vehPhoto2Doc = HttpContext.Request.Form.Files["vehPhoto2Doc"];
+                var vehPhoto3Doc = HttpContext.Request.Form.Files["vehPhoto3Doc"];
+
+                TempGcModel tempGc = JsonConvert.DeserializeObject<TempGcModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (vehRcDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehRcDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehRcDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehRcDoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehRcDoc.CopyToAsync(fileStream);
+                        tempGc.VehRcDoc = imageName;
+                    }
+                }
+                if (vehPanDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehPanDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehPanDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehPanDoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehPanDoc.CopyToAsync(fileStream);
+                        tempGc.VehPanDoc = imageName;
+                    }
+                }
+                if (vehDecDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehDecDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehDecDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehDecDoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehDecDoc.CopyToAsync(fileStream);
+                        tempGc.VehDecDoc = imageName;
+                    }
+                }
+                if (partyInvDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(partyInvDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(partyInvDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/partyInvDoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await partyInvDoc.CopyToAsync(fileStream);
+                        tempGc.PartyInvDoc = imageName;
+                    }
+                }
+                if (loadingSlipDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(loadingSlipDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(loadingSlipDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/loadingSlipDoc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await loadingSlipDoc.CopyToAsync(fileStream);
+                        tempGc.LoadingSlipDoc = imageName;
+                    }
+                }
+                if (vehPhoto1Doc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehPhoto1Doc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehPhoto1Doc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehPhoto1Doc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehPhoto1Doc.CopyToAsync(fileStream);
+                        tempGc.VehPhoto1Doc = imageName;
+                    }
+                }
+                if (vehPhoto2Doc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehPhoto2Doc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehPhoto2Doc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehPhoto2Doc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehPhoto2Doc.CopyToAsync(fileStream);
+                        tempGc.VehPhoto2Doc = imageName;
+                    }
+                }
+                if (vehPhoto3Doc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(vehPhoto3Doc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(vehPhoto3Doc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tempGc/vehPhoto3Doc/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await vehPhoto3Doc.CopyToAsync(fileStream);
+                        tempGc.VehPhoto3Doc = imageName;
+                    }
+                }
+
+                var result = await tempGcBusiness.TempgcSave(tempGc);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("TempGcDelete")]
+        public async Task<IActionResult> TempGcDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.TempGcDelete(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

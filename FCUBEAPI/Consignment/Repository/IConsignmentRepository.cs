@@ -22,6 +22,7 @@ namespace Consignment.Repository
         Task<List<DropDownListModel>> GetBillingPartyList();
         Task<List<DropDownListModel>> GetLRSeries(RequestModel req);
         Task<List<DropDownListModel>> GetLRSeriesForBill();
+        Task<List<DropDownListModel>> GetClassList();
         Task<ResponseModel> GetGcSeries(RequestModel request);
         Task<ResponseModel> GetBillSeries(RequestModel request);
     }

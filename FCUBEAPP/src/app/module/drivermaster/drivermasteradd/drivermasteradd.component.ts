@@ -32,6 +32,7 @@ export class DrivermasteraddComponent {
   driverPhotoData: [] = [];
   driverPhotoPreview: any;
   driverPhotoName: string = '';
+  
   uploadedDrLic: string = "";
   uploadedDrHazLic: string = "";
   uploadedDrAadhar: string = "";

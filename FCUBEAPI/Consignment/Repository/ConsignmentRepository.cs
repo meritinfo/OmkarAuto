@@ -505,6 +505,36 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+       
+        public async Task<List<DropDownListModel>> GetClassList()
+        {
+            List<DropDownListModel> locationList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getClassList", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            locationList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return locationList;
+        }
+
         public async Task<List<DropDownListModel>> GetLocationList()
         {
             List<DropDownListModel> locationList = new();

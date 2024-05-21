@@ -230,6 +230,10 @@ import { Dprlistmodel } from './models/dprlistmodel';
 import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplacedlist/dprvehiplacedlist.component';
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
+import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
+import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
+import { Tempgcmodel } from './models/tempgcmodel';
+import { Tempgclistmodel } from './models/tempgclistmodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 //import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
@@ -383,6 +387,8 @@ import { Transportmastermodel } from './models/transportmastermodel';
     DrpmasterlistComponent,
     DprvehiplacedlistComponent,
     DprvehiplacedaddComponent,
+    GeneratetempgclistComponent,
+    GeneratetempgcaddComponent,
     AddtruckmasterComponent,
     TruckmasterlistComponent,
     ClassificationmasteraddComponent,
@@ -435,7 +441,7 @@ import { Transportmastermodel } from './models/transportmastermodel';
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Dprmodel,Dprdtlsmodel,Dprlistmodel,
+    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,

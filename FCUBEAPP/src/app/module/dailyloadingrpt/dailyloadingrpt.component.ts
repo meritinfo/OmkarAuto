@@ -119,7 +119,7 @@ export class DailyloadingrptComponent {
       }   
     
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl(this.minDate,[Validators.required]),
+        fromDate: new FormControl( this.fromDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
         branch: new FormControl('',),  
         vehicleMasterID: new FormControl('',),  
@@ -127,7 +127,7 @@ export class DailyloadingrptComponent {
         loadEmptyType: new FormControl('',), 
       });
 
-      this.filter.fromDate = this.minDate;
+      this.filter.fromDate =  this.fromDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
       this.filter.filterStr1  = "";
