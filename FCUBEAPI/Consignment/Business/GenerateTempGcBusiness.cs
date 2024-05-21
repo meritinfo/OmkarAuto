@@ -28,5 +28,13 @@ namespace Consignment.Business
         {
             return await tempGcRepository.TempGcDelete(request);
         }
+        public async Task<ResponseModel> SendLRMail(ReportRequestModel request)
+        {
+            return await tempGcRepository.SendLRMail(request);
+        }
+        public async Task<ResponseModel> GetLRPdf(ReportRequestModel request)
+        {
+            return await tempGcRepository.GetLRPdf(request);
+        }
     }
 }

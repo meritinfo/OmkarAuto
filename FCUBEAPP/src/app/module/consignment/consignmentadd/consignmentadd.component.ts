@@ -29,95 +29,53 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   styleUrls: ['./consignmentadd.component.css']
 })
 export class ConsignmentaddComponent implements OnInit {
+
+  formUser!: FormGroup;
   loggedInUserID: string = '';
   year: string = '';
   branch: string = '';
-  transDate: string = '';
-  ltsDslToBe: string = '';
-  tripOpenBy: string = '';
-  searchEnable = true;
-  adBlueToBe: string = '';
-  fromLocation: string = '';
-  toLocation: string = '';
-  tripKms: string = '';
-  kms: string = '';
-  gcno: string = '';
-  branchid: string = '';
   loginDate: string = '';
-  transporter_doc_number: string = '';
-  ExpectedReportingDays: number = 0;
-  ExpectedReportingDt: string = '';
-  DistanceTripKM_1: number = 0;  
-
-  formConsignment!: FormGroup;
-  formSubmitted = false;
-  responseDetails = new Responsemodel();
-  tripkmsDetails = new Tripkmsmodel();
-  kmsDetails = new kmsmodel();
-  dslDetails = new Dslmodel();
-  adBlueDetails = new Adbluetobemodel();
-  getdslDetails = new GetDslmodel();
-  usertriprightsmodel = new Usertriprightsmodel();
-
-  dateDetails = new Datemodel();
-  fromDate: string = '';
-  minDate:string = '';
   maxDate: string = '';
-  maxNewDate: string = '';
   newDate: string = '';
+  ewayBillExpDate:string = '';
+  noPackages:string = '';
+
+  formSubmitted = false;
+
   branchList: Dropdownmodel[] = [];
-  rateList: Dropdownmodel[] = [];
-  cnorList: Dropdownmodel[] = [];
-  cneeList: Dropdownmodel[] = [];
-  lrSeries: Dropdownmodel[] = [];
-
   locationList: Dropdownmodel[] = [];
+  rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  stateList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  packingList: Dropdownmodel[] = [];
+  vehicalType: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
-  selectedConsignmentDetails = new Consignmentmodel();
+  delTypeList: Dropdownmodel[] = [];
+  businessByList: Dropdownmodel[] = [];
+
+  responseDetails = new Responsemodel();
+  // jobDetails = new Jobmodel();
   eWayBillDetails = new Ewaybillmodel();
-  ewaybill:string="";
-  ewaybill1:string="";
-
+  selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
-  ivVehicleNo = '';
-  billstation = '';
-  editMode = false;
-  display= true;
-  createmode  = true;
-  createStatus = false;
-  editStatus = false;
-  deleteStatus = false;
-  viewStatus = false;
-  attachLRtoSameTrip = false;
 
-  ivFromPlace = '';
-  ivToPlace = '';
+  step1Active = true;
+  step2Active = false;
+  step3Active = false;
 
-  constructor(private route: Router, private formBuilder: FormBuilder, 
-    private consignmentmodel: Consignmentmodel, 
-    private consignmentService: ConsignmentService, 
-    private commonService: CommonService, private toasterService: ToastrService, 
-    private sharedService: SharedService,private toastrService: ToastrService,
-    private requestmodel:Requestmodel) {
-    this.consignmentmodel = new Consignmentmodel();
+  constructor(private route: Router, private formBuilder: FormBuilder,
+    private lrmodel: Consignmentmodel, private lrentryService: ConsignmentService,
+    private commonService: CommonService,
+    private sharedService: SharedService,
+    private toastrService: ToastrService,
+    private requestmodel: Requestmodel) {
+    this.lrmodel = new Consignmentmodel();
   }
+
   ngOnInit(): void {
-     
-    var menuData = sessionStorage.getItem('menulist')?.toString();
-    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Consignment/LR Entry"));
-      if (privilegeStatus) {
-        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-      }
-    }
+    this.sharedService.loading = true;
+
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -126,27 +84,6 @@ export class ConsignmentaddComponent implements OnInit {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
-    const today = new Date();
-    const month = today.getMonth();
-    const year = today.getFullYear();
-    today.setMonth(month - 1);
-    
-    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
-    
-    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
-      this.fromDate = this.minDate ;
-    }
-    else{
-      this.fromDate = today.toLocaleDateString('en-CA').toString();
-    }   
-    
-    var nxtdate = new Date();
-
-    // add a day
-    nxtdate.setDate(nxtdate.getDate() + 1);
-    this.maxNewDate = nxtdate.toLocaleDateString('en-CA').toString();;
-  
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
@@ -162,898 +99,296 @@ export class ConsignmentaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
-    ////this.ivVehicleNo = "Hyderabad";
 
-    this.sharedService.loading = true;
     this.getBranchList();
     this.getRateList();
     this.getContentList();
+    this.getStateList();
     this.getLocationList();
-    this.getlrSeriesList(this.branch);
+    this.getDelTypes();
+    this.getBusiByList();
     this.getVehicleNoList();
     this.getBillingPartyList();
-    this.selectedConsignmentDetails = this.consignmentService.getConsignmentDetails();
-    this.formConsignment = this.formBuilder.group({
-      bookingPlace: new FormControl(this.branch, [Validators.required]),
-      gcSeries: new FormControl('', [Validators.required]),
-      gcAlpha: new FormControl('',),
-      gcNoteNo: new FormControl('',),
-      gcSlNo: new FormControl('', [Validators.required]),
+    this.getPackingList();
+    this.getVehTypes();
+
+    this.formUser = this.formBuilder.group({
+      gcNoteNo: new FormControl('', [Validators.required]),
       bookingDate: new FormControl(this.loginDate, [Validators.required]),
       bookingStatus: new FormControl('TBB', [Validators.required]),
+      divType: new FormControl('', [Validators.required]),
+      delType: new FormControl('', [Validators.required]),
+      businessBy: new FormControl('', [Validators.required]),
       ewayBillEntryType: new FormControl('A',),
       ewayBillNo: new FormControl('', [Validators.required]),
       ewayBillDate: new FormControl('',),
-      ewayBillExpDate: new FormControl('',),
-      ewayBillExpExtDate: new FormControl('',),
-      fromPlace: new FormControl('',[Validators.required]),
-      toPlace: new FormControl('',[Validators.required]),
-      toPin: new FormControl('',),
-      fromPin: new FormControl('',),
-      kms: new FormControl(this.kms,),
-      ownTruck: new FormControl('',),
-      truckId: new FormControl('',[Validators.required]),
-      truckNo: new FormControl('',[Validators.required]),
-      billingParty: new FormControl('',),
-      billingBranch: new FormControl('',),
-      cnorCode: new FormControl('',),
-      cnorGst: new FormControl('',),
-      cnorPlantCode: new FormControl('',),
+      fromPlace: new FormControl('', [Validators.required]),
+      toPlace: new FormControl('', [Validators.required]),
+      kms: new FormControl('0',),
+      truckNo: new FormControl('', [Validators.required]),
+      clientType: new FormControl('NR', [Validators.required]),
+      jobNo: new FormControl('', [Validators.required]),
+      packingType:new FormControl('', [Validators.required]),
+      vehType:new FormControl('', [Validators.required]),
+      billingParty:new FormControl('', [Validators.required]),
+      billingStn:new FormControl(this.branch, [Validators.required]),
+      cnorName: new FormControl('', [Validators.required]),
+      cnorAdr: new FormControl('',),
+      cnorAdr1: new FormControl('',),
+      cnorStateCode: new FormControl('', [Validators.required]),
+      cnorPincode: new FormControl('',),
+      cnorEmail: new FormControl('',),
+      cnorMobile: new FormControl('', [Validators.required]),
+      cnorGstNo: new FormControl('', [Validators.required]),
       cnorInvNo: new FormControl('',),
       cnorInvDate: new FormControl('',),
       declaredValue: new FormControl('',),
-      cneeCode: new FormControl('',),
-      cneeAdd1: new FormControl('',),
-      cneeAdd2: new FormControl('',),
-      cneeAdd3: new FormControl('',),
-      cneeGst: new FormControl('',),
-      cneeDealrCode: new FormControl('',),
+      cneeName: new FormControl('', [Validators.required]),
+      cneeAdr: new FormControl('',),
+      cneeAdr1: new FormControl('',),
+      cneeStateCode: new FormControl('',[Validators.required]),
+      cneePincode: new FormControl('',),
+      cneeEmail: new FormControl('',),
+      cneeMobile: new FormControl('', [Validators.required]),
+      cneeGstNo: new FormControl('', [Validators.required]),
       contents: new FormControl('',),
       shipmentNo: new FormControl('',),
-      shipmentDt: new FormControl('',),
-      productId: new FormControl('',),
-      productDesc: new FormControl('',),
-      noPackages: new FormControl('',[Validators.required] ),
-      actualWt: new FormControl('',),
-      chargewt: new FormControl('',),
-      rateType: new FormControl('1',),
-      qtypkgs: new FormControl('',),
+      loadLength: new FormControl('',),
+      loadWidth: new FormControl('',),
+      loadHeight: new FormControl('',),
+      productId: new FormControl('', [Validators.required]),
+      noPackages: new FormControl('', [Validators.required]),
+      actualWt: new FormControl('', [Validators.required]),
+      chargewt: new FormControl('', [Validators.required]),
+      rateType: new FormControl('', [Validators.required]),
       rateRs: new FormControl('0',),
       freightRs: new FormControl('0',),
       statisticalRs: new FormControl('0',),
-      handlingRs: new FormControl('0',),
-      loadingDetnRs: new FormControl('0',),
-      miscRs: new FormControl('0',),
-      extrasRS: new FormControl('0',),
-      unLoadingRs: new FormControl('0',),
-      detentionRs: new FormControl('0',),
-      othersRs: new FormControl('0',),
       subTotalRs: new FormControl('0',),
       gtotalRs: new FormControl('0',),
       generalRemarks: new FormControl('',),
-      attachedfile: new FormControl('',),
       yearId: new FormControl('',),
-      ewayBillNo2: new FormControl('',),
-      ewayBillDate2: new FormControl('',),
-      ewayBillExpDate2: new FormControl('',),
-      cnorInvNo2: new FormControl('',),
-      cnorInvDate2: new FormControl('',),
-      declaredValue2: new FormControl('',),
-      userBranch: new FormControl('',),
-      userBranch2: new FormControl('',),
-      userBranch3: new FormControl('1',),
-      compNonCompStatus: new FormControl('C',),
-      attachLRtoSameTrip: new FormControl('',),
     });
-    
-    this.formConsignment.controls['compNonCompStatus'].disable();
-    this.formConsignment.controls['truckNo'].disable();
 
-    if(this.branch=='1'){
-      this.formConsignment.controls['compNonCompStatus'].enable();
-    }
-    if (this.selectedConsignmentDetails.consignmentID != '') {
-      this.getlrSeriesList("0");
-    }
-
-    setTimeout(() => {      
-      this.formConsignment.controls['bookingPlace'].disable();
-      this.formConsignment.controls['attachLRtoSameTrip'].disable();
-      
-      if (this.selectedConsignmentDetails.consignmentID != '') {
-        this.formConsignment.patchValue(this.selectedConsignmentDetails); 
-        this.ewaybill=this.selectedConsignmentDetails.ewayBillNo;
-        this.ewaybill1=this.selectedConsignmentDetails.ewayBillNo2;
-        this.formConsignment.patchValue({
-          userBranch: this.selectedConsignmentDetails.bookingPlace,
-          bookingDate: this.commonService.formatDate(this.selectedConsignmentDetails.bookingDate),
-          ewayBillDate:this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate),
-          ewayBillExpDate: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate),
-          ewayBillDate2:this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillDate2),
-          ewayBillExpDate2: this.commonService.formatDate(this.selectedConsignmentDetails.ewayBillExpDate2),
-          shipmentDt: this.commonService.formatDate(this.selectedConsignmentDetails.shipmentDt),
-          cnorInvDate: this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate),
-          cnorInvDate2:  this.commonService.formatDate(this.selectedConsignmentDetails.cnorInvDate2),         
-          fromPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.fromPlace),
-          toPlace: this.locationList.find(e => e.dataId == this.selectedConsignmentDetails.toPlace),
-          gcSeries: this.selectedConsignmentDetails.gcSeries,
-          truckId: this.vehicleList.find(e => e.dataId == this.selectedConsignmentDetails.truckId),
-          billingParty: this.partyList.find(e => e.dataId == this.selectedConsignmentDetails.billingParty),   
-        })
-        if(this.selectedConsignmentDetails.ownTruck=="Y"){
-          this.formConsignment.patchValue({
-            compNonCompStatus: "C"
-          })
-        }
-        else{
-          this.formConsignment.patchValue({
-            compNonCompStatus: "N"
-          })
-        }
-
-        this.formConsignment.controls['compNonCompStatus'].disable();
-        this.formConsignment.controls['gcSeries'].disable();
-        this.formConsignment.controls['truckId'].disable();
-        this.formConsignment.controls['ewayBillEntryType'].disable();
-        this.formConsignment.controls['gcSlNo'].disable();
-
-        this.editMode = true;
-        this.ivFromPlace=this.selectedConsignmentDetails.fromPlace;
-        this.ivToPlace=this.selectedConsignmentDetails.toPlace;
-      }
-    }, 2000);
-  
-    //this.getGcSeries();
-    //this.ivVehicleNo = 'TS07UF3495';
-
-    this.sharedService.loading = false;
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     this.changeEWay('A');
+    this.getLrNo();
+    this.getDivType();
+    this.sharedService.loading = false;
   }
-  
-  get f() { return this.formConsignment.controls; }
+
+  // convenience getter for easy access to contact form fields
+  get f() { return this.formUser.controls; }
 
   getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
-  }
-
-  checkBillno() {
-    var selectedDataValue = this.formConsignment.getRawValue();
-    var d1 = selectedDataValue.ewayBillNo;
-    var d2 = selectedDataValue.ewayBillNo2;
-    if (d1 > d2) {
-      this.formConsignment.patchValue({
-        reportingDt_1: ''
-      });
-      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
-      return
-    }
-  } 
-
-  onNonCompChange(e:any): void {
-    var selectedVehi = e.target.value;
-    if(selectedVehi == 'N'){
-      this.formConsignment.controls['truckNo'].enable();
-      this.formConsignment.controls['truckId'].disable();
-      this.formConsignment.controls['truckId'].clearValidators();
-      this.formConsignment.controls['truckNo'].setValidators([Validators.required]);
-    }
-    else{      
-      this.formConsignment.controls['truckNo'].disable();
-      this.formConsignment.controls['truckId'].enable();
-      this.formConsignment.controls['truckNo'].clearValidators();
-      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
-    }    
-    this.formConsignment.controls['truckNo'].updateValueAndValidity();
-    this.formConsignment.controls['truckId'].updateValueAndValidity();
-
-  }
-
-
-  consignmentDelete(): void {
-    if(this.selectedConsignmentDetails.consignmentID != '' ){
-     this.requestmodel.strRequest =this.selectedConsignmentDetails.consignmentID
-      if (confirm("Are you sure, you want to delete this?")) {
-            this.consignmentService.consignmentDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-            this.responseDetails = res;
-            if (this.responseDetails.status) {
-              this.toasterService.success(this.responseDetails.message);
-              this.formConsignment.reset();
-              this.route.navigate(['/consignmentlist']);
-            }
-            else {
-              this.toasterService.warning(this.responseDetails.message);
-            }
-        });
-      }
-    }
+    // this.sharedService.getBranchList().subscribe((res) => {
+    //   this.branchList = res;
+    // });
   }
 
   getRateList(): void {
-    this.commonService.getRateList().subscribe((res) => {
-      this.rateList = res;
-    });
+    // this.lrentryService.getRateList().subscribe((res) => {
+    //   this.rateList = res;
+    // });
   }
 
   getLocationList(): void {
-    this.commonService.getLocationList().subscribe((res) => {
-      this.locationList = res;
-    });
+    // this.lrentryService.getLocationList().subscribe((res) => {
+    //   this.locationList = res;
+    // });
+  }
+
+
+  getDelTypes(): void {
+    // this.lrentryService.getDeliveryTypes().subscribe((res) => {
+    //   this.delTypeList = res;
+    // });
+  }
+
+  getBusiByList(): void {
+    // this.lrentryService.getEmployeeList().subscribe((res) => {
+    //   this.businessByList = res;
+    // });
   }
 
   getVehicleNoList(): void {
-    this.commonService.getVehicleNoList().subscribe((res) => {
-      this.vehicleList = res;
-    });
+    // this.lrentryService.getVehicleNoList().subscribe((res) => {
+    //   this.vehicleList = res;
+    // });
   }
 
-  
-  getlrSeriesList(br:string): void {
-    this.requestmodel.strRequest=br;
-    this.commonService.getlrSeriesList(this.requestmodel).subscribe((res) => {
-      this.lrSeries = res;
-    });
-  }
-  
-  lrSeriesChange(): void {
-    var selectedData = this.formConsignment.value.gcSeries;
-    this.getGcSeries(selectedData);
-  }
-
-  getGcSeries(gcSeries: any): void {
-    this.requestmodel.strRequest = gcSeries;
-    this.commonService.getGcSeries(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      this.formConsignment.patchValue({
-      //  gcSlNo: res.message
-      });
-    });
+  getStateList(): void {
+    // this.lrentryService.getStateList().subscribe((res) => {
+    //   this.stateList = res;
+    // });
   }
 
   getContentList(): void {
-    this.commonService.getContentList().subscribe((res) => {
-      this.contentList = res;
-    });
+    // this.lrentryService.getContentList().subscribe((res) => {
+    //   this.contentList = res;
+    // });
   }
 
   getBillingPartyList(): void {
-    this.commonService.getBillingPartyList().subscribe((res) => {
-      this.partyList = res;
-      
-    });
+    // this.lrentryService.getBillingPartyList().subscribe((res) => {
+    //   this.partyList = res;
+    // });
   }
 
-  getUserTripRights(): void {
-    this.requestmodel.strRequest = this.loggedInUserID;
-    this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {
-      this.usertriprightsmodel = res;
-      this.attachLRtoSameTrip = this.usertriprightsmodel.attachLRtoSameTrip;      
-
-      if(this.attachLRtoSameTrip){            
-        this.formConsignment.controls['attachLRtoSameTrip'].enable();
-      }
-      else{            
-        this.formConsignment.controls['attachLRtoSameTrip'].disable();
-      }
-    });   
+  getPackingList(): void {
+    // this.lrentryService.getPackingList().subscribe((res) => {
+    //   this.packingList = res;
+    // });
   }
 
-  changeFromPlace(e: any) {
-    var selectedDataValue = this.formConsignment.getRawValue();
-    this.ivFromPlace = e.dataId;
-    this.ivToPlace = selectedDataValue.toPlace.dataId;
-    this.checkMs();
-    this.checkLocation();
-    //  this.checkTripkMs();
-    //  this.getAdBlueToBe();
-    //  this.getDslToBe();
+  getVehTypes(): void {
+    // this.lrentryService.getVehTypes().subscribe((res) => {
+    //   this.vehicalType = res;
+    // });
   }
 
-  changeToPlace(e: any) {
-    var selectedDataValue = this.formConsignment.getRawValue();
-    this.ivFromPlace = selectedDataValue.fromPlace.dataId;
-    this.ivToPlace = e.dataId;
-    this.checkMs();
-    this.checkLocation();
-    //   this.checkTripkMs();
-    //  this.getDslToBe();
-    //   this.getAdBlueToBe();
-  }
-
-  // onChangeFromSearch(e: any) {
-  //   this.ivFromPlace = e.dataId;
-  //   this.checkMs();
-  //   this.checkLocation();
-  //   //  this.checkTripkMs();
-  //   //  this.getAdBlueToBe();
-  //   //  this.getDslToBe();
-  // }
-  // onChangeToSearch(e: any) {
-  //   this.ivToPlace = e.dataId;
-  //   this.checkMs();
-  //   this.checkLocation();
-  //   //   this.checkTripkMs();
-  //   //  this.getDslToBe();
-  //   //   this.getAdBlueToBe();
-  // }
-
-  popupClosedToPlace() {
-    if (!this.ivToPlace) {
-      this.formConsignment.patchValue({
-        toPlace: ''
-      });
-    }
-  }
-
-  popupClosedFromPlace() {
-    if (!this.ivFromPlace) {
-      
-      this.formConsignment.patchValue({
-        fromPlace: ''
-      });
-    }
-  }
-
-  onClearedFromPlace(e: any){
-    this.ivFromPlace='0';
-    this.formConsignment.patchValue({
-      kms: '0'
-    });
-  }
-
-  onClearedToPlace(e: any){
-    this.ivToPlace='0';
-    this.formConsignment.patchValue({
-      kms: '0'
-    });
-  }
-
-  popupClosedVehicle() {
-    // if(!this.ivVehicleNo){
-    //  this.formConsignment.patchValue({
-    //     truckId: ''
-    //    });
-    //  }
-    //  this.ivVehicleNo = '';
-  }
-  popupClosedBilling() {
-    if (!this.ivVehicleNo) {
-      this.formConsignment.patchValue({
-        truckId: ''
-      });
-    }
-    this.ivVehicleNo = '';
-  }
-
-  checkDuplicateLr() {
-    this.requestmodel.strRequest = this.formConsignment.value.gcSlNo;
-    this.commonService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (!this.responseDetails.status) {
-        this.toasterService.warning(this.responseDetails.message);
-        this.formConsignment.patchValue({
-          gcSlNo: ''
-        });
-      }
-    });
-  }
-
-  checkMs() {
-    if (this.ivFromPlace != "" && this.ivToPlace != "") {
-      this.kmsDetails.fromLocation = this.ivFromPlace;
-      this.kmsDetails.toLocation = this.ivToPlace;
-      this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
-      this.commonService.getKms(this.kmsDetails).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          this.formConsignment.patchValue({
-            kms: this.responseDetails.message
-          });
-        } 
-        else {
-          this.formConsignment.patchValue({
-            kms: ''
-          });
-        }
+  onLrManualChange(e: any) {
+    if (e.target.checked) {
+      this.formUser.controls["gcNoteNo"].enable();
+      this.formUser.patchValue({
+        gcNoteNo: ""
       });
     }
     else {
-      this.formConsignment.patchValue({
-        kms: ''
-      });
-    }
-  }
- 
-  exit(): void {
-    this.route.navigate(['/consignmentlist']);
-  }
-
-  checkTripkMs() {
-    if (this.ivFromPlace != "" && this.ivToPlace != "") {
-      this.kmsDetails.fromLocation = this.ivFromPlace;
-      this.kmsDetails.toLocation = this.ivToPlace;
-      this.kmsDetails.transDate = this.formConsignment.value.bookingDate;
-      this.commonService.getTripKms2(this.kmsDetails).subscribe((res: Tripkmsmodel) => {
-        this.tripkmsDetails = res;
-        this.tripKms = this.tripkmsDetails.kms;
-        this.DistanceTripKM_1 = parseInt(this.tripkmsDetails.kms);
-        this.ExpectedReportingDays = this.DistanceTripKM_1 / 400;
-        this.ExpectedReportingDays = Math.round(this.ExpectedReportingDays) + 1;
-        let date: Date = new Date(this.formConsignment.value.bookingDate);
-
-        date.setDate(date.getDate() + this.ExpectedReportingDays);
-        let date2 = (date).toISOString()  ;    
-
-      });
-    }
-    else {
-      this.formConsignment.patchValue({
-        kms: ''
-      });
+      this.getLrNo();
     }
   }
 
-  getDslToBe() {
-    if (this.ivFromPlace != "" && this.ivToPlace != "") {
-      this.dslDetails.transDate = this.formConsignment.value.bookingDate;
-      this.dslDetails.tripKms = this.tripKms;
-      this.dslDetails.loadType = "L";
-      this.dslDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
-      this.commonService.getDslToBe(this.dslDetails).subscribe((res: Responsemodel) => {
-        this.ltsDslToBe = res.message;
-        this.formConsignment.patchValue({
-          cneeGst: this.ltsDslToBe
-        });
-      });
-    }
-    else {
-      this.formConsignment.patchValue({
-        kms: ''
-      });
-    }
+  onLrChange() {
+    this.requestmodel.strRequest = this.branch;
+    // this.requestmodel.strRequest1 = this.formUser.value.gcNoteNo;
+    // this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+    //   this.responseDetails = res;
+    //   if (!this.responseDetails.status) {
+    //     this.toastrService.warning(this.responseDetails.message)
+    //     this.formUser.patchValue({
+    //       gcNoteNo: ""
+    //     });
+    //   }
+    // });
   }
 
-  getAdBlueToBe() {
-    if (this.ivFromPlace != "" && this.ivToPlace != "") {
-      this.adBlueDetails.transDate = this.formConsignment.value.bookingDate;
-      this.adBlueDetails.tripKms = this.tripKms//this.formConsignment.value.kms;
-      this.adBlueDetails.vehicleMasterId = this.formConsignment.value.truckId.dataId;
-      this.commonService.getAdBlueToBe(this.adBlueDetails).subscribe((res: Responsemodel) => {
-        this.adBlueToBe = res.message;        
-      });
-    }
-    else {
-      this.formConsignment.patchValue({
-        kms: ''
-      });
-    }
+  getLrNo() {
+    this.requestmodel.strRequest = this.branch;
+    // this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
+    //   this.responseDetails = res;
+    //   if (this.responseDetails.status) {
+    //     this.formUser.patchValue({
+    //       gcNoteNo: this.responseDetails.message
+    //     });
+    //   }
+    //  else{
+    //     this.toastrService.warning(this.responseDetails.message);
+    //   }
+    // });
+    // this.formUser.controls["gcNoteNo"].disable();
   }
 
-  checkDate() {
-    this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
-    this.dateDetails.yearId = this.year;
-    this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-          //IGONRE
-      }
-      else {
-        this.toasterService.warning("booking date is invalid");
-        return;
-
-      }
-    });
+  getDivType() {
+    this.requestmodel.strRequest = this.branch;
+    // this.lrentryService.getDivType(this.requestmodel).subscribe((res: Responsemodel) => {
+    //   this.responseDetails = res;
+    //   if (this.responseDetails.status) {
+    //     if(this.responseDetails.message=="P"){          
+    //       this.formUser.patchValue({
+    //         divType: "P"
+    //       });
+    //       this.formUser.controls["divType"].disable();
+    //       this.formUser.controls['jobNo'].enable();
+    //       this.getJobDetails();
+    //       this.formUser.controls['jobNo'].setValidators([Validators.required]);
+    //     }
+    //     else{          
+    //       this.formUser.controls["divType"].enable();
+    //       this.formUser.controls['jobNo'].disable();
+    //       this.formUser.patchValue({
+    //         jobNo: "",
+    //       }); 
+    //       this.formUser.controls['jobNo'].clearValidators();
+    //     }        
+    //     this.formUser.controls['jobNo'].updateValueAndValidity();
+    //   }
+    //   else{
+    //     this.toastrService.warning(this.responseDetails.message);
+    //   }
+    // });
   }
 
-  //Submit user form details //
-  submitConsignmentForm(): void {
-    this.formSubmitted = true;
-    if (this.formConsignment.invalid) {
-      this.toasterService.warning("Please Enter Mandatory Fields ");   
-      const controls = this.formConsignment.controls;
-      for (const name in controls) {
-        if (controls[name].invalid) {
-          this.toasterService.warning(name + " Fields is Invalid");   
-        }
-      }
-      return;
-    }
-    
+   getJobDetails() {
+  //   var selecteddata = this.formUser.getRawValue();
+  //   this.requestmodel.strRequest = selecteddata.gcNoteNo;
+  //   this.lrentryService.getJobDetails(this.requestmodel).subscribe((res: Jobmodel) => {
+  //     this.jobDetails = res;
+  //     this.formUser.patchValue({
+  //       jobNo: this.jobDetails.jobNo,
+  //     });         
+  //   });
+   }
 
-    var selectedDataValue = this.formConsignment.getRawValue();
-    if(parseFloat(selectedDataValue.noPackages)>0){
-      //ignore
-    }
-    else{
-      this.toasterService.warning(" No Of packages (Qty/Pkgs) should not be Zero");
-      return;   
-    }
-    
-    if(selectedDataValue.truckNo == 'C'){
-      var vehilist = this.vehicleList.find(e => e.dataName == selectedDataValue.truckId.dataName) 
-      if (typeof vehilist !== 'undefined' && vehilist !== null && 
-            vehilist.dataId!="" && vehilist.dataId!="0") {
-          //ignore
-      }
+  searchGSTDetails(): void {
+    this.sharedService.loading = true;
+    this.requestmodel.strRequest = this.branch;
+    //this.requestmodel.strRequest1 = this.formUser.value.ewayBillNo;
+
+    // this.lrentryService.billDetails(this.requestmodel).subscribe((res: any) => {
+      // var response = res.result;
+      // this.eWayBillDetails.result = response;
+      // //if (this.eWayBillDetails.result.ewbNo == 0) {
+      //   this.sharedService.loading = false;
+      //   this.toastrService.warning("Please Enter Valid EwayBill No ");
+      //   this.formUser.patchValue({
+      //     ewayBillNo:""
+      //   })
+      //   return;
+     // }
+      //this.ewayBillExpDate=this.commonService.formatDate(this.eWayBillDetails.result.validUpto);
+      //this.noPackages=this.eWayBillDetails.result.itemList[0].quantity.toString();
+      if(parseFloat(this.noPackages.substring(0,this.noPackages.indexOf('.')))>0){
+        this.noPackages=this.noPackages.substring(0,this.noPackages.indexOf('.')); 
+      } 
       else{
-        this.toasterService.warning("Please Enter Valid Vehical No ");          
-        return;
-      }
-    }
+        this.noPackages='';
+      }  
 
-    var fromLoc = this.locationList.find(e => e.dataName == selectedDataValue.fromPlace.dataName) 
-    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-            fromLoc.dataId!="" && fromLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toasterService.warning("Please Enter Valid From Place ");          
-      return;
-    }
-
-    var toLoc = this.locationList.find(e => e.dataName == selectedDataValue.toPlace.dataName) 
-    if (typeof toLoc !== 'undefined' && toLoc !== null && 
-    toLoc.dataId!="" && toLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toasterService.warning("Please Enter Valid To Place ");          
-      return;
-    }
-
-    var party = this.partyList.find(e => e.dataName == selectedDataValue.billingParty.dataName) 
-    if (typeof party !== 'undefined' && party !== null && 
-    party.dataId!="" && party.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toasterService.warning("Please Enter Valid Billing Party ");          
-      return;
-    }
-
-    this.dateDetails.bookingDate = this.formConsignment.value.bookingDate;
-    this.dateDetails.yearId = this.year;
-
-    this.sharedService.checkBookingdate(this.dateDetails).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if (this.responseDetails.status) {
-
-        this.consignmentmodel.consignmentID = this.selectedConsignmentDetails.consignmentID ;
-        this.consignmentmodel.bookingPlace = selectedDataValue.bookingPlace;
-        this.consignmentmodel.gcSlNo = selectedDataValue.gcSlNo
-        this.consignmentmodel.gcSeries = selectedDataValue.gcSeries;
-        this.consignmentmodel.gcNoteNo = selectedDataValue.gcSeries + selectedDataValue.gcSlNo;
-        this.consignmentmodel.bookingStatus = selectedDataValue.bookingStatus;
-        this.consignmentmodel.bookingDate = selectedDataValue.bookingDate;
-        this.consignmentmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
-        this.consignmentmodel.ewayBillNo = selectedDataValue.ewayBillNo;
-        this.consignmentmodel.ewayBillDate = selectedDataValue.ewayBillDate;
-        this.consignmentmodel.ewayBillExpDate = selectedDataValue.ewayBillExpDate;
-        this.consignmentmodel.fromPlace = selectedDataValue.fromPlace.dataId;
-        this.consignmentmodel.toPlace = selectedDataValue.toPlace.dataId;
-        this.consignmentmodel.kms = selectedDataValue.kms;
-        this.consignmentmodel.compNonCompStatus = selectedDataValue.compNonCompStatus;
-        this.consignmentmodel.ownTruck = selectedDataValue.compNonCompStatus=="C"?"Y":"N";
-        this.consignmentmodel.truckId = selectedDataValue.truckId?selectedDataValue.truckId.dataId:"0";
-        this.consignmentmodel.truckNo = selectedDataValue.truckNo;
-        this.consignmentmodel.billingParty = selectedDataValue.billingParty.dataId;
-        this.consignmentmodel.billingBranch = selectedDataValue.userBranch3;
-        this.consignmentmodel.cnorCode = selectedDataValue.cnorCode;
-        this.consignmentmodel.cnorGst = selectedDataValue.cnorGst;
-        this.consignmentmodel.cnorPlantCode = selectedDataValue.cnorPlantCode;
-        this.consignmentmodel.cnorInvNo = selectedDataValue.cnorInvNo;
-        this.consignmentmodel.cnorInvDate = selectedDataValue.cnorInvDate;
-        this.consignmentmodel.declaredValue = selectedDataValue.declaredValue;
-        this.consignmentmodel.cneeCode = selectedDataValue.cneeCode;
-        this.consignmentmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
-        this.consignmentmodel.cneeAdd2 = selectedDataValue.cneeAdd2;
-        this.consignmentmodel.cneeAdd3 = selectedDataValue.cneeAdd3;
-        this.consignmentmodel.cneeGst = selectedDataValue.cneeGst;
-        this.consignmentmodel.cneeDealrCode = selectedDataValue.cneeDealrCode;
-        this.consignmentmodel.shipmentNo = selectedDataValue.shipmentNo;
-        this.consignmentmodel.shipmentDt = selectedDataValue.shipmentDt;
-        this.consignmentmodel.productId = selectedDataValue.productId;
-        this.consignmentmodel.productDesc = selectedDataValue.productDesc;
-        this.consignmentmodel.noPackages = selectedDataValue.noPackages;
-        this.consignmentmodel.fromPin = selectedDataValue.fromPin;
-        this.consignmentmodel.toPin = selectedDataValue.toPin;
-        this.consignmentmodel.actualWt = selectedDataValue.actualWt;
-        this.consignmentmodel.chargewt = selectedDataValue.chargewt;
-        this.consignmentmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
-        this.consignmentmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
-        this.consignmentmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
-        this.consignmentmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";
-        this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
-        this.consignmentmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
-        this.consignmentmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
-        this.consignmentmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
-        this.consignmentmodel.detentionRs = selectedDataValue.detentionRs ? selectedDataValue.detentionRs : "0";
-        this.consignmentmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
-        this.consignmentmodel.subTotalRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
-        this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0";
-        this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
-        this.consignmentmodel.attachedfile = selectedDataValue.attachedfile;
-        this.consignmentmodel.attachLRtoSameTrip = selectedDataValue.attachLRtoSameTrip?"Y":"N";
-        this.consignmentmodel.handlingRs = selectedDataValue.handlingRs;
-        this.consignmentmodel.loadingDetnRs = selectedDataValue.loadingDetnRs;
-        this.consignmentmodel.miscRs = selectedDataValue.miscRs;
-        this.consignmentmodel.extrasRS = selectedDataValue.extrasRS;
-        this.consignmentmodel.unLoadingRs = selectedDataValue.unLoadingRs;
-        this.consignmentmodel.detentionRs = selectedDataValue.detentionRs;
-        this.consignmentmodel.subTotalRs = selectedDataValue.subTotalRs.toString();
-        this.consignmentmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
-        this.consignmentmodel.rateRs = selectedDataValue.rateRs;
-        this.consignmentmodel.rateType = selectedDataValue.rateType;
-        this.consignmentmodel.generalRemarks = selectedDataValue.generalRemarks;
-        this.consignmentmodel.yearId = this.year;
-        this.consignmentmodel.ewayBillNo2 = selectedDataValue.ewayBillNo2;
-        this.consignmentmodel.ewayBillDate2 = selectedDataValue.ewayBillDate2;
-        this.consignmentmodel.ewayBillExpDate2 = selectedDataValue.ewayBillExpDate2;
-        this.consignmentmodel.cnorInvNo2 = selectedDataValue.cnorInvNo2;
-        this.consignmentmodel.cnorInvDate2 = selectedDataValue.cnorInvDate2;
-        this.consignmentmodel.declaredValue2 = selectedDataValue.declaredValue2;
-        this.consignmentmodel.loggedInUser = this.loggedInUserID;
-
-        this.consignmentService.consignmentDetailsSubmitted(this.consignmentmodel).subscribe((res: Responsemodel) => {
-          this.responseDetails = res;
-          if (this.responseDetails.status) {
-            this.toasterService.success(this.responseDetails.message);
-            this.formConsignment.reset();
-            this.route.navigate(['/consignmentlist']);
-          }
-          else {
-            this.toasterService.warning(this.responseDetails.message);
-            this.getUserTripRights();
-          }
-        });
-
-      } else {
-        this.toasterService.warning("booking date is invalid");
-        return;
-
-      }
-    });
+      this.formUser.patchValue({
+        // ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.ewayBillDate),
+        // cnorName: this.eWayBillDetails.result.fromTrdName,
+        // cnorAdr: this.eWayBillDetails.result.fromAddr1,
+        // cnorAdr1: this.eWayBillDetails.result.fromAddr2 + this.eWayBillDetails.result.fromPlace,
+        // cnorStateCode: this.eWayBillDetails.result.fromStateCode.toString(),
+        // cnorPincode: this.eWayBillDetails.result.fromPincode,
+        // cnorGstNo: this.eWayBillDetails.result.fromGstin,
+        // cneeName: this.eWayBillDetails.result.toTrdName,
+        // cneeAdr: this.eWayBillDetails.result.toAddr1,
+        // cneeAdr1: this.eWayBillDetails.result.toAddr2 + this.eWayBillDetails.result.toPlace,
+        // cneeStateCode: this.eWayBillDetails.result.toStateCode.toString(),
+        // cneePincode: this.eWayBillDetails.result.toPincode,
+        // cneeGstNo: this.eWayBillDetails.result.toGstin,
+        // cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.docDate),
+        // cnorInvNo: this.eWayBillDetails.result.docNo,
+        // kms: this.eWayBillDetails.result.actualDist.toString(),
+        // productId: this.eWayBillDetails.result.itemList[0].productId.toString(),
+        // noPackages: this.noPackages,
+        // truckNo: this.eWayBillDetails.result.vehiclListDetails[0].vehicleNo.toString(),
+        // declaredValue: this.eWayBillDetails.result.totInvValue.toString(),
+      });
+           
+    // });
+   
+    this.sharedService.loading = false;
   }
 
-  searchGSTDetails(): void {    
-
-    var selectedDataValue = this.formConsignment.getRawValue();
-    var d1 = selectedDataValue.ewayBillNo;
-    var d2 = selectedDataValue.ewayBillNo2;    
-
-    if(d1.toString().length!=12){
-      this.toastrService.warning("Please Enter Valid Eway bill no  ");
-      return
-    }
-
-    if (d1 == d2) {
-      this.formConsignment.patchValue({
-        ewayBillNo: ''
-      });
-      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
-      return
-    }
-
-    if (this.editMode && this.ewaybill==d1){
-      return;      
-    }
-    else {
-      this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo;        
-      this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if(this.responseDetails.status){
-          this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
-          var result = res.result;
-            if (result.code === 200) {
-              this.formConsignment.controls['ewayBillEntryType'].disable();
-              this.eWayBillDetails.result = result;
-              var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-              var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-              if (selectedVehicleID) {
-                //this.ivVehicleNo = ewayVNo;
-              } else {
-                this.ivVehicleNo = "";
-              }
-      
-              this.formConsignment.patchValue({
-                ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
-                ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-                fromPin: this.eWayBillDetails.result.message.pincode_of_consignor.toString(),
-                toPin: this.eWayBillDetails.result.message.pincode_of_consignee.toString(),
-                cnorCode: this.eWayBillDetails.result.message.legal_name_of_consignor,
-                cneeCode: this.eWayBillDetails.result.message.legal_name_of_consignee,
-                kms: this.eWayBillDetails.result.message.transportation_distance.toString(),
-                consigneeAddress: this.eWayBillDetails.result.message.address1_of_consignee + this.eWayBillDetails.result.message.address2_of_consignee,
-                cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
-                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
-                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
-                invoiceDate: this.eWayBillDetails.result.message.document_date,
-                cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
-                cnorInvNo: this.eWayBillDetails.result.message.document_number,
-                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,
-                cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
-              //  noPackages: this.eWayBillDetails.result.message.itemList[0].quantity.toString(),
-                //  fromPlace: this.eWayBillDetails.result.message.place_of_consignor,
-                // toPlace: this.eWayBillDetails.result.message.place_of_consignee,
-                truckId: selectedVehicleID ? selectedVehicleID : "",
-                //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-                declaredValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
-                gcSlNo: this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number
-
-                //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-              });
-              //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-             this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
-
-            }
-            else{              
-              this.toastrService.warning("Please Enter Valid Eway bill no");              
-              this.ivVehicleNo = "";
-              this.transporter_doc_number ="";
-              this.formConsignment.patchValue({
-                ewayBillNo:"",
-                ewayBillDate: "",
-                ewayBillExpDate: "",
-                fromPin: "",
-                toPin: "",
-                cnorCode: "",
-                cneeCode: "",
-                kms: "",
-                consigneeAddress:"",
-                cneeAdd1: "",
-                cneeAdd2: "",
-                cneeAdd3: "",
-                invoiceDate: "",
-                cnorInvDate: "",
-                cnorInvNo: "",
-                cnorGst: "",
-                cneeGst: "",
-                truckId: "",
-                declaredValue: "",
-              });
-            }
-          });
-        }
-        else{
-          this.formConsignment.patchValue({
-            ewayBillNo:"",
-          });
-          this.toastrService.warning("Eway bill no already exists in database");
-          return
-        }
-      });
-    }
-    
-  }
-
-  searchGSTDetails2(): void {
-    var selectedDataValue = this.formConsignment.getRawValue();
-    var d1 = selectedDataValue.ewayBillNo;
-    var d2 = selectedDataValue.ewayBillNo2;
-    
-    if(d2.toString().length!=12){
-      this.toastrService.warning("Please Enter Valid Eway bill no2  ");
-      return
-    }
-
-    if (d1 == d2) {
-      this.formConsignment.patchValue({
-        ewayBillNo2: ''
-      });
-      this.toastrService.warning("Eway bill no1 And Eway bill No2  should not be same ");
-      return
-    }
-    if (this.editMode && this.ewaybill1==d2){
-      return;      
-    }
-
-    else{
-      //var payload = { 'eWayBillNumber': this.formConsignment.value.ewayBillNo2 }
-      this.requestmodel.strRequest = this.formConsignment.value.ewayBillNo2;
-      
-      this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if(this.responseDetails.status){
-          this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
-            var result = res.result;
-            if (result.code === 200) {        
-              this.formConsignment.controls['ewayBillEntryType'].disable();
-              this.eWayBillDetails.result = result;
-              var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-              var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-              if (selectedVehicleID) {
-                //this.ivVehicleNo = ewayVNo;
-              } else {
-                this.ivVehicleNo = "";
-              }
-    
-              this.formConsignment.patchValue({
-                ewayBillDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
-                ewayBillExpDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-                //  invoiceDate: this.eWayBillDetails.result.message.document_date,
-                cnorInvDate2: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
-                cnorInvNo2: this.eWayBillDetails.result.message.document_number, 
-                //consigneePinCode: this.eWayBillDetails.result.message.pincode_of_consignee,
-                declaredValue2: this.eWayBillDetails.result.message.total_invoice_value.toString(),
-                //vehicleNumber: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
-              });
-              //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-            }
-            else{              
-              this.toastrService.warning("Please Enter Valid Eway bill no2");              
-              this.ivVehicleNo = "";
-
-              this.formConsignment.patchValue({
-                ewayBillNo2:"",
-                ewayBillDate2: "",
-                ewayBillExpDate2: "",
-                cnorInvDate2: "",
-                cnorInvNo2: "", 
-                declaredValue2: "",
-              });
-            }
-          });
-        }
-        else{
-          this.formConsignment.patchValue({
-            ewayBillNo2:"",
-          });
-          this.toastrService.warning("Eway bill no2 already exists in database");
-          return
-        }
-      });      
-    }
-  }
-
-  checkLocation() {
-    var selectedDataValue = this.formConsignment.getRawValue();
-    let fp =  this.ivFromPlace ? this.ivFromPlace :0;
-    let tp = this.ivToPlace ?this.ivToPlace :0;;
-    if(fp!='0' && tp!='0' ){
-    //let fp = selectedDataValue.fromPlace.dataId ?selectedDataValue.fromPlace.dataId :0;
-    // let tp = selectedDataValue.toPlace.dataId ?selectedDataValue.toPlace.dataId :0;;
-    if( fp == tp ){ 
-      this.toastrService.warning("From and to location should not be the same");
-      this.ivFromPlace='0';
-      this.ivToPlace='0';
-      this.formConsignment.patchValue({
-        fromPlace: '',
-        toPlace: ''
-      });
-    }
-  }   
-  
-  }
-/*  searchGSTForEdit(): void {
-    var payload = { 'eWayBillNumber': this.selectedConsignmentDetails.ewayBillNo }
-
-    this.commonService.billDetails(payload).subscribe((res: any) => {
-      var result = res.result;
-      if (result.code === 200) {
-        this.eWayBillDetails.result = result;
-
-        var ewayVNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        var selectedVehicleID = this.vehicleList.find(e => e.dataName == ewayVNo);
-        if (selectedVehicleID) {
-          //this.ivVehicleNo = ewayVNo;
-        } else {
-          this.ivVehicleNo = "";
-        }
-
-
-        //this.ivVehicleNo = this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number;
-        this.transporter_doc_number = this.eWayBillDetails.result.message.vehiclListDetails[0].transporter_document_number;
-      }
-    });
-  }*/
-  
   selectEvent(item: any) {
     // do something with selected item
   }
 
   onChangeSearch(search: string) {
-    //this.ivToPlace = '';
+    // do something with selected item
   }
 
   onFocused(e: any) {
@@ -1061,174 +396,258 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
-    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+    if(query.length>2){
+      return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
+    }
+    else{
+      return partyList;
+    }
   };
+
+
 
   changeEWay(selectedValue: string) {
     if (selectedValue === "A") {
       //Remove field validation
-      this.formConsignment.controls['fromPlace'].clearValidators();
-      this.formConsignment.controls['fromPin'].clearValidators();
-      this.formConsignment.controls['toPlace'].clearValidators();
-      this.formConsignment.controls['toPin'].clearValidators();
-      this.formConsignment.controls['cnorCode'].clearValidators();
-      this.formConsignment.controls['cneeCode'].clearValidators();
-      this.formConsignment.controls['productId'].clearValidators();
-      this.formConsignment.controls['rateType'].clearValidators();
-      this.formConsignment.controls['userBranch3'].clearValidators();
-      this.formConsignment.controls['billingParty'].clearValidators();
-      this.formConsignment.controls['declaredValue'].clearValidators();
-      this.formConsignment.controls['cnorInvDate'].clearValidators();
+      this.formUser.controls['fromPlace'].clearValidators();
+      this.formUser.controls['toPlace'].clearValidators();
+      this.formUser.controls['cnorName'].clearValidators();
+      this.formUser.controls['cneeName'].clearValidators();
+      this.formUser.controls['productId'].clearValidators();
+      this.formUser.controls['rateType'].clearValidators();
+      this.formUser.controls['declaredValue'].clearValidators();
+      this.formUser.controls['cnorInvDate'].clearValidators();
+
       //required
+      this.formUser.controls['billingParty'].setValidators([Validators.required]);
+      this.formUser.controls['truckNo'].setValidators([Validators.required]);
+      this.formUser.controls['fromPlace'].setValidators([Validators.required]);
+      this.formUser.controls['toPlace'].setValidators([Validators.required]);
+      this.formUser.controls['productId'].setValidators([Validators.required]);
+      this.formUser.controls['rateType'].setValidators([Validators.required]);
 
-      this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
-      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
-      this.formConsignment.controls['fromPlace'].setValidators([Validators.required]);
-      this.formConsignment.controls['toPlace'].setValidators([Validators.required]);
-     // this.formConsignment.controls['fromPin'].setValidators([Validators.required]);
-      this.formConsignment.controls['productId'].setValidators([Validators.required]);
-      this.formConsignment.controls['rateType'].setValidators([Validators.required]);
       //Disable field
-
-
-      this.formConsignment.controls['cnorCode'].disable();
-      this.formConsignment.controls['cneeCode'].disable();
-      this.formConsignment.controls['fromPin'].disable();
-      this.formConsignment.controls['toPin'].disable();
-      this.formConsignment.controls['kms'].disable();
-      this.formConsignment.controls['ewayBillDate'].disable();
-      this.formConsignment.controls['ewayBillExpDate'].disable();
-      this.formConsignment.controls['ewayBillDate2'].disable();
-      this.formConsignment.controls['ewayBillExpDate2'].disable();
-      // this.formConsignment.controls['ewayBillNo'].disable();
-      //  this.formConsignment.controls['fromPlace'].disable();
-      //  this.formConsignment.controls['toPlace'].disable();
-      //   this.formConsignment.controls['truckId'].disable();
-
-      this.formConsignment.controls['billingBranch'].disable();
-      this.formConsignment.controls['userBranch3'].disable();
-      //   this.formConsignment.controls['billingParty'].disable();
-      this.formConsignment.controls['cneeAdd1'].disable();
-      this.formConsignment.controls['cneeAdd2'].disable();
-      this.formConsignment.controls['cneeAdd3'].disable();
-      this.formConsignment.controls['cnorGst'].disable();
-      this.formConsignment.controls['cneeGst'].disable();
-      this.formConsignment.controls['declaredValue'].disable();
-      this.formConsignment.controls['cnorInvDate'].disable();
-      this.formConsignment.controls['declaredValue2'].disable();
-      this.formConsignment.controls['cnorInvDate2'].disable();
-
-
-      //this.formConsignment.controls['noPackages'].disable();
-
-      this.searchEnable = true;
+      this.formUser.controls['cnorName'].disable();
+      this.formUser.controls['cnorAdr'].disable();
+      this.formUser.controls['cnorAdr1'].disable();
+      this.formUser.controls['cnorStateCode'].disable();
+      this.formUser.controls['cnorPincode'].disable();
+      this.formUser.controls['cnorGstNo'].disable();
+      this.formUser.controls['cneeName'].disable();
+      this.formUser.controls['cneeAdr'].disable();
+      this.formUser.controls['cneeAdr1'].disable();
+      this.formUser.controls['cneeStateCode'].disable();
+      this.formUser.controls['cneePincode'].disable();
+      this.formUser.controls['cneeGstNo'].disable();
+      this.formUser.controls['kms'].disable();
+      this.formUser.controls['ewayBillDate'].disable();
+      this.formUser.controls['declaredValue'].disable();
+      this.formUser.controls['cnorInvDate'].disable();
+      //this.formUser.controls['noPackages'].disable();
     }
     if (selectedValue === "M" || selectedValue === "E") {
       //Add field validation
-      this.formConsignment.controls['fromPlace'].setValidators([Validators.required]);
-      this.formConsignment.controls['fromPin'].setValidators([Validators.required]);
-      this.formConsignment.controls['toPlace'].setValidators([Validators.required]);
-      this.formConsignment.controls['toPin'].setValidators([Validators.required]);
-      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
-      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
-      this.formConsignment.controls['cnorCode'].setValidators([Validators.required]);
-      this.formConsignment.controls['cneeCode'].setValidators([Validators.required]);
-      this.formConsignment.controls['cneeGst'].setValidators([Validators.required]);
-      this.formConsignment.controls['cnorGst'].setValidators([Validators.required]);
-      this.formConsignment.controls['cnorInvNo'].setValidators([Validators.required]);
-      this.formConsignment.controls['declaredValue'].setValidators([Validators.required]);
-      this.formConsignment.controls['productId'].setValidators([Validators.required]);
-      this.formConsignment.controls['rateType'].setValidators([Validators.required]);
-      this.formConsignment.controls['userBranch3'].setValidators([Validators.required]);
-      this.formConsignment.controls['billingParty'].setValidators([Validators.required]);
-      this.formConsignment.controls['ewayBillNo'].setValidators([Validators.required]);
-      this.formConsignment.controls['truckId'].setValidators([Validators.required]);
-      //Enable field
+      this.formUser.controls['fromPlace'].setValidators([Validators.required]);
+      this.formUser.controls['toPlace'].setValidators([Validators.required]);
+      this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formUser.controls['cnorName'].setValidators([Validators.required]);
+      this.formUser.controls['cnorGstNo'].setValidators([Validators.required]);
+      this.formUser.controls['cneeName'].setValidators([Validators.required]);
+      this.formUser.controls['cneeGstNo'].setValidators([Validators.required]);
+      this.formUser.controls['cnorInvNo'].setValidators([Validators.required]);
+      this.formUser.controls['declaredValue'].setValidators([Validators.required]);
+      this.formUser.controls['productId'].setValidators([Validators.required]);
+      this.formUser.controls['rateType'].setValidators([Validators.required]);
+      this.formUser.controls['billingParty'].setValidators([Validators.required]);
+      this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formUser.controls['truckNo'].setValidators([Validators.required]);
+      this.formUser.controls['noPackages'].setValidators([Validators.required]);
 
-      this.formConsignment.controls['fromPlace'].enable();
-      this.formConsignment.controls['toPlace'].enable();
-      this.formConsignment.controls['cnorCode'].enable();
-      this.formConsignment.controls['cneeCode'].enable();
-      this.formConsignment.controls['fromPin'].enable();
-      this.formConsignment.controls['toPin'].enable();
-      this.formConsignment.controls['kms'].enable();
-      this.formConsignment.controls['ewayBillDate'].enable();
-      this.formConsignment.controls['ewayBillExpDate'].enable();
-      this.formConsignment.controls['ewayBillNo2'].enable();
-      this.formConsignment.controls['ewayBillDate2'].enable();
-      this.formConsignment.controls['ewayBillExpDate2'].enable();
-      this.formConsignment.controls['ewayBillNo'].enable();
-      this.formConsignment.controls['cneeAdd1'].enable();
-      this.formConsignment.controls['cneeAdd2'].enable();
-      this.formConsignment.controls['cneeAdd3'].enable();
+      //Enable fieldcnorName']
+      this.formUser.controls['fromPlace'].enable();
+      this.formUser.controls['toPlace'].enable();
+      this.formUser.controls['cnorName'].enable();
+      this.formUser.controls['cnorAdr'].enable();
+      this.formUser.controls['cnorAdr1'].enable();
+      this.formUser.controls['cnorStateCode'].enable();
+      this.formUser.controls['cnorPincode'].enable();
+      this.formUser.controls['cnorGstNo'].enable();
+      this.formUser.controls['cneeName'].enable();
+      this.formUser.controls['cneeAdr'].enable();
+      this.formUser.controls['cneeAdr1'].enable();
+      this.formUser.controls['cneeStateCode'].enable();
+      this.formUser.controls['cneePincode'].enable();
+      this.formUser.controls['cneeGstNo'].enable();
+      this.formUser.controls['kms'].enable();
+      this.formUser.controls['ewayBillDate'].enable();
+      this.formUser.controls['ewayBillNo'].enable();
+      this.formUser.controls['truckNo'].enable();
+      this.formUser.controls['declaredValue'].enable();
+      this.formUser.controls['cnorInvDate'].enable();
+      this.formUser.controls['noPackages'].enable();
 
-
-
-      this.formConsignment.controls['truckId'].enable();
-      this.formConsignment.controls['billingBranch'].enable();
-      this.formConsignment.controls['userBranch3'].enable();
-      this.formConsignment.controls['billingParty'].enable();
-      this.formConsignment.controls['cneeAdd1'].enable();
-      this.formConsignment.controls['cneeAdd2'].enable();
-      this.formConsignment.controls['cneeAdd3'].enable();
-      this.formConsignment.controls['cnorGst'].enable();
-      this.formConsignment.controls['cneeGst'].enable();
-      this.formConsignment.controls['declaredValue'].enable();
-      this.formConsignment.controls['cnorInvDate'].enable();
-      this.formConsignment.controls['declaredValue2'].enable();
-      this.formConsignment.controls['cnorInvDate2'].enable();
-
-
-      //this.formConsignment.controls['noPackages'].enable();
-      this.searchEnable = false;
     }
 
-    this.formConsignment.controls['fromPlace'].updateValueAndValidity();
-    this.formConsignment.controls['fromPin'].updateValueAndValidity();
-    this.formConsignment.controls['toPlace'].updateValueAndValidity();
-    this.formConsignment.controls['toPin'].updateValueAndValidity();
-    this.formConsignment.controls['cnorCode'].updateValueAndValidity();
-    this.formConsignment.controls['cneeCode'].updateValueAndValidity();
-    this.formConsignment.controls['productId'].updateValueAndValidity();
-    this.formConsignment.controls['rateType'].updateValueAndValidity();
-    this.formConsignment.controls['userBranch3'].updateValueAndValidity();
-    this.formConsignment.controls['billingParty'].updateValueAndValidity();
-    this.formConsignment.controls['cnorInvDate'].updateValueAndValidity();
-    this.formConsignment.controls['cnorInvNo'].updateValueAndValidity();
-    this.formConsignment.controls['declaredValue'].updateValueAndValidity();
-    this.formConsignment.controls['truckId'].updateValueAndValidity();
-    this.formConsignment.controls['cneeGst'].updateValueAndValidity();
-    this.formConsignment.controls['cnorGst'].updateValueAndValidity();
-    this.formConsignment.controls['ewayBillNo'].updateValueAndValidity();
+    this.formUser.controls['fromPlace'].updateValueAndValidity();
+    this.formUser.controls['toPlace'].updateValueAndValidity();
+    this.formUser.controls['cnorName'].updateValueAndValidity();
+    this.formUser.controls['cneeName'].updateValueAndValidity();
+    this.formUser.controls['productId'].updateValueAndValidity();
+    this.formUser.controls['rateType'].updateValueAndValidity();
+    this.formUser.controls['billingParty'].updateValueAndValidity();
+    this.formUser.controls['cnorInvDate'].updateValueAndValidity();
+    this.formUser.controls['cnorInvNo'].updateValueAndValidity();
+    this.formUser.controls['declaredValue'].updateValueAndValidity();
+    this.formUser.controls['truckNo'].updateValueAndValidity();
+    this.formUser.controls['cneeGstNo'].updateValueAndValidity();
+    this.formUser.controls['cnorGstNo'].updateValueAndValidity();
+    this.formUser.controls['ewayBillNo'].updateValueAndValidity();
 
   }
 
+
   calculateTotalAmount() {
     let total = 0;
+    var selectedData = this.formUser.getRawValue();
+    var freightRs = selectedData.freightRs ? parseFloat(selectedData.freightRs) : 0;
+    var statisticalRs = selectedData.statisticalRs ? parseFloat(selectedData.statisticalRs) : 0;
 
-    var freightRs = this.formConsignment.value.freightRs ? parseFloat(this.formConsignment.value.freightRs) : 0;
-    var statisticalRs = this.formConsignment.value.statisticalRs ? parseFloat(this.formConsignment.value.statisticalRs) : 0;
-    var handlingRs = this.formConsignment.value.handlingRs ? parseFloat(this.formConsignment.value.handlingRs) : 0;
-    var loadingDetnRs = this.formConsignment.value.loadingDetnRs ? parseFloat(this.formConsignment.value.loadingDetnRs) : 0;
-    var extrasRS = this.formConsignment.value.extrasRS ? parseFloat(this.formConsignment.value.extrasRS) : 0;
-    var miscRs = this.formConsignment.value.miscRs ? parseFloat(this.formConsignment.value.miscRs) : 0;
-    var unLoadingRs = this.formConsignment.value.unLoadingRs ? parseFloat(this.formConsignment.value.unLoadingRs) : 0;
-    var detentionRs = this.formConsignment.value.detentionRs ? parseFloat(this.formConsignment.value.detentionRs) : 0;
-    var othersRs = this.formConsignment.value.othersRs ? parseFloat(this.formConsignment.value.othersRs) : 0;
-    var subTotalRs = this.formConsignment.value.subTotalRs ? parseFloat(this.formConsignment.value.subTotalRs) : 0;
-    var gtotalRs = this.formConsignment.value.gtotalRs ? parseFloat(this.formConsignment.value.gtotalRs) : 0;
-
-    total = freightRs + statisticalRs + handlingRs + loadingDetnRs + extrasRS + miscRs + unLoadingRs + detentionRs + othersRs;
-
-    this.formConsignment.patchValue({
+    total = freightRs + statisticalRs;
+    this.formUser.patchValue({
       subTotalRs: total,
       gtotalRs: total,
     })
   }
 
-  selectFromPlaceEvent(item: any) {
-    console.log(item);
-    // do something with selected item
+  submitLrDetailsForm(): void {
+    this.formSubmitted = true;
+    if (this.formUser.invalid) {
+      this.toastrService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toastrService.warning(name + " Fields is Invalid");
+        }
+      }
+      return;
+    }
+
+    var selectedDataValue = this.formUser.getRawValue();
+
+    if (selectedDataValue.fromPlace.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" From Place is Invalid");
+      return;
+    }
+
+    if (selectedDataValue.toPlace.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" To Place is Invalid");
+      return;
+    }
+
+    if (selectedDataValue.billingParty.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" Billing Party is Invalid");
+      return;
+    }
+
+    this.sharedService.loading = true;
+    this.lrmodel.bookingPlace = this.branch;
+    this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
+    this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.lrmodel.bookingDate = selectedDataValue.bookingDate;
+    // this.lrmodel.divType = selectedDataValue.divType;
+    // this.lrmodel.delType = selectedDataValue.delType;
+    // this.lrmodel.businessBy = selectedDataValue.businessBy.dataId;
+    this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;
+    this.lrmodel.ewayBillDate = selectedDataValue.ewayBillDate;
+    this.lrmodel.ewayBillExpDate = this.ewayBillExpDate;
+    this.lrmodel.fromPlace = selectedDataValue.fromPlace.dataId;
+    this.lrmodel.toPlace = selectedDataValue.toPlace.dataId;
+    this.lrmodel.kms = selectedDataValue.kms;
+    this.lrmodel.truckNo = selectedDataValue.truckNo;
+    // this.lrmodel.clientType = selectedDataValue.clientType;
+    // this.lrmodel.jobNo = selectedDataValue.jobNo;
+    // this.lrmodel.jobId = selectedDataValue.jobNo==""?"": this.jobDetails.jobId;
+    // this.lrmodel.jobBranch = selectedDataValue.jobNo==""?"": this.jobDetails.branch;
+    // this.lrmodel.packingType = selectedDataValue.packingType;
+    // this.lrmodel.vehType = selectedDataValue.vehType;
+    this.lrmodel.billingParty = selectedDataValue.billingParty ? selectedDataValue.billingParty.dataId : "0";
+    // this.lrmodel.billingStn = selectedDataValue.billingStn;
+    // this.lrmodel.cnorName = selectedDataValue.cnorName;
+    // this.lrmodel.cnorAdr = selectedDataValue.cnorAdr;
+    // this.lrmodel.cnorAdr1 = selectedDataValue.cnorAdr1;
+    // this.lrmodel.cnorStateCode = selectedDataValue.cnorStateCode;
+    // this.lrmodel.cnorPincode = selectedDataValue.cnorPincode.toString();
+    // this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
+    // this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
+    // this.lrmodel.cnorGstNo = selectedDataValue.cnorGstNo;
+    this.lrmodel.cnorInvNo = selectedDataValue.cnorInvNo;
+    this.lrmodel.cnorInvDate = selectedDataValue.cnorInvDate;
+    this.lrmodel.declaredValue = selectedDataValue.declaredValue;
+    // this.lrmodel.cneeName = selectedDataValue.cneeName;
+    // this.lrmodel.cneeAdr = selectedDataValue.cneeAdr;
+    // this.lrmodel.cneeAdr1 = selectedDataValue.cneeAdr1;
+    // this.lrmodel.cneeStateCode = selectedDataValue.cneeStateCode;
+    // this.lrmodel.cneePincode = selectedDataValue.cneePincode.toString();
+    // this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
+    // this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
+    // this.lrmodel.cneeGstNo = selectedDataValue.cneeGstNo;
+    this.lrmodel.shipmentNo = selectedDataValue.shipmentNo;
+    // this.lrmodel.loadLength = selectedDataValue.loadLength;
+    // this.lrmodel.loadWidth = selectedDataValue.loadWidth;
+    // this.lrmodel.loadHeight = selectedDataValue.loadHeight;
+    this.lrmodel.productId = selectedDataValue.productId;
+    this.lrmodel.noPackages = selectedDataValue.noPackages;
+    this.lrmodel.actualWt = selectedDataValue.actualWt;
+    this.lrmodel.chargewt = selectedDataValue.chargewt;
+    this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
+    this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
+    this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
+    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks;
+    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs.toString();
+    this.lrmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
+    this.lrmodel.rateType = selectedDataValue.rateType;
+    this.lrmodel.yearId = this.year;
+    this.lrmodel.loggedInUser = this.loggedInUserID;
+    // this.lrentryService.LrDetailsSubmitted(this.lrmodel).subscribe((res: Responsemodel) => {
+    //   this.responseDetails = res;
+    //   if (res.status) {
+    //     this.toastrService.success(this.responseDetails.message);
+    //     this.formUser.reset();
+    //     this.route.navigate(['/lrlistview']);
+    //   }
+    //   else {
+    //     this.toastrService.warning(this.responseDetails.message);
+    //   }
+    // });
+
+    this.sharedService.loading = false;
+  }
+
+  nextStep(index: number): void {
+    if (index === 1) {
+      this.step1Active = true;
+      this.step2Active = false;
+      this.step3Active = false;
+    }
+    if (index === 2) {
+      this.step1Active = false;
+      this.step2Active = true;
+      this.step3Active = false;
+    }
+    if (index === 3) {
+      this.step1Active = false;
+      this.step2Active = false;
+      this.step3Active = true;
+    }
   }
 
 }

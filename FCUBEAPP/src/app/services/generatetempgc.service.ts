@@ -35,7 +35,15 @@ export class GeneratetempgcService {
   
   getTempgcList(filter: Reportmodel): Observable<Tempgclistmodel> {
     return this.httpClient.post<Tempgclistmodel>(Constants.API_ENDPOINT + 'Consignment/GetTempgcList', filter, this.httpOptions);
-  }  
+  }
+  
+  getLrPdf(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLRPdf', filter, this.httpOptions);
+  }
+
+  sendLrMail(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/SendLRMail', filter, this.httpOptions);
+  }
   
   getTempgcInnerGridList(req: Requestmodel): Observable<Tempgcmodel> {
     return this.httpClient.post<Tempgcmodel>(Constants.API_ENDPOINT + 'Consignment/GetTempgcInnerGridList', req, this.httpOptions);

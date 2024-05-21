@@ -7,6 +7,9 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.VisualBasic;
 using System.Runtime.InteropServices;
+using DocumentFormat.OpenXml.Office2016.Excel;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Consignment.Repository
 {
@@ -420,9 +423,87 @@ namespace Consignment.Repository
                 transaction.Rollback();
             }
             return responseModel;
-        }  
+        }
         
 
+        public async Task<ResponseModel> SendLRMail(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "http://103.73.189.186/lrprintnccapi/api/Mail/";
+                string UrlParam = "?MasterId=" + request.FilterStr + "&BranchId=" + request.FilterStr1;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetLRPdf(ReportRequestModel request)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                string baseUrl = "http://103.73.189.186/lrprintnccapi/api/LR/";
+                string UrlParam = "?MasterId=" + request.FilterStr ;
+                HttpClient client = new HttpClient();
+                client.BaseAddress = new Uri(baseUrl);
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+                HttpResponseMessage response = client.GetAsync(UrlParam).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    dynamic data = JsonConvert.DeserializeObject(result);
+                    if (data!="500")
+                    {
+                        responseModel.Status = true;
+                        responseModel.Message = data;
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        responseModel.Message = data;
+                    }
+
+
+                    client.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
 
     }
 

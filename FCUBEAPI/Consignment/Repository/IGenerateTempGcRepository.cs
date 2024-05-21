@@ -9,5 +9,7 @@ namespace Consignment.Repository
         Task<TempGcModel> GetTempgcInnerGridList(RequestModel request);
         Task<ResponseModel> TempgcSave(TempGcModel tempgc);
         Task<ResponseModel> TempGcDelete(RequestModel requestModel);
+        Task<ResponseModel> SendLRMail(ReportRequestModel request);
+        Task<ResponseModel> GetLRPdf(ReportRequestModel request);
     }
 }
