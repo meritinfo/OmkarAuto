@@ -1,0 +1,86 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Classification Master</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="/#/branchmasterlist">Branch Master</a></li>
+                                <li class="breadcrumb-item active">Branch master Add</li> -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formClassificationMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Class Desc</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                formControlName="classDesc"         
+                                                [ngClass]="">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">IsActive</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="isActive" 
+                                                    [ngClass]=""
+                                                    class="form-control form-select ng-pristine ng-touched">                                             
+                                           
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
+                                                
+                                                </select> 
+                                            </div>
+                                        </div>  
+
+                                    </div>   
+                                    
+                                    
+                                    
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <!-- <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            (click)="submitClassificationMasterForm()" >Save</button> &nbsp;   -->
+                            <button class="btn btn-primary w-md" 
+                            (click)="submitClassificationMasterForm()" >Save</button> &nbsp;  
+                            <!-- <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                            (click)="deleteBranchMasterForm()">Delete</button> &nbsp; -->
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>

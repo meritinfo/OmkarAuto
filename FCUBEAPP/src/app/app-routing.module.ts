@@ -125,6 +125,10 @@ import { DprvehiplacedlistComponent } from './module/dprvehiplaced/dprvehiplaced
 import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplacedadd/dprvehiplacedadd.component';
 import { GeneratetempgclistComponent } from './module/generatetempgc/generatetempgclist/generatetempgclist.component';
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
+import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
+import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
+import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
+import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 
 
 
@@ -177,7 +181,7 @@ const routes: Routes = [
   { path: 'addvehicletypegroupmaster', component: AddvehicletypegroupmasterComponent },
   { path: 'vehicletypemasteredit', component: AddvehicletypemasterComponent },
   { path: 'vehicletypegroupmasteredit', component: AddvehicletypegroupmasterComponent },
-  { path: 'vehicletypemasterlist', component: VehicletypemasterlistComponent },
+  { path: 'vehtypeslist', component: VehicletypemasterlistComponent },
   { path: 'vehicletypegroupmasterlist', component: VehicletypegroupmasterlistComponent },
   { path: 'consignmentlist', component: ConsignmentlistComponent },
   { path: 'consignmentadd', component: ConsignmentaddComponent },
@@ -298,6 +302,15 @@ const routes: Routes = [
   { path: 'mkttrucklist', component:  TruckmasterlistComponent },    
   { path: 'addtruckmaster', component:  AddtruckmasterComponent },   
   { path: 'truckmasteredit', component:  AddtruckmasterComponent },
+  { path: 'mkttrucklist', component:  TruckmasterlistComponent },    
+  { path: 'addtruckmaster', component:  AddtruckmasterComponent },   
+  { path: 'truckmasteredit', component:  AddtruckmasterComponent },
+  { path: 'transportmstlist', component:  TransportmasterlistComponent },    
+  { path: 'addtransportmaster', component:  AddtransportmasterComponent },   
+  { path: 'transportmasteredit', component:  AddtransportmasterComponent },
+  { path: 'classmasterlist', component:  ClassificationmasterlistComponent },    
+  { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
+  { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
   
   
   

@@ -21,6 +21,7 @@ namespace FCUBEAPI.Controllers
         readonly IBranchMasterBusiness branchMastersBusiness;
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
+        readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
@@ -40,7 +41,8 @@ namespace FCUBEAPI.Controllers
             IProductGroupMasterBusiness _productGroupMasterBusiness, 
             IProductMasterBusiness _productMasterBusiness, 
             ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, 
-            IRatetypesBusiness _ratetypesBusiness, 
+            IRatetypesBusiness _ratetypesBusiness,
+            IClassificationMasterBusiness _classificationMasterBusiness,
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
@@ -55,6 +57,7 @@ namespace FCUBEAPI.Controllers
             productMasterBusiness = _productMasterBusiness;
             lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
             ratetypesBusiness = _ratetypesBusiness;
+            classificationMasterBusiness = _classificationMasterBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
@@ -332,6 +335,38 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await productMasterBusiness.ProductMasterSave(productMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ClassificationMasterSave")]
+        public async Task<IActionResult> ClassificationMasterSave(ClassificationMasterModel classificationasterModel)
+        {
+            if (classificationasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await classificationMasterBusiness.ClassificationMasterSave(classificationasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetClassificationMasterList")]
+        public async Task<IActionResult> GetClassificationMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await classificationMasterBusiness.GetClassificationMasterList(request);
 
                 return Ok(result);
             }

@@ -37,6 +37,7 @@ export class AddbranchmasterComponent {
     private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.branchModel = new Branchmodel();
+    
   }
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();

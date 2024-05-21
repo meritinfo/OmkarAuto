@@ -29,10 +29,14 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@VehicleTypeID", vehicleTypeMasterModel.VehicleTypeID),
-                            new SqlParameter("@VehicleTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
-                            new SqlParameter("@VehicleTypeGroupId", vehicleTypeMasterModel.VehicleTypeGroupId),
-                            new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
+                            new SqlParameter("@VehTypeID", vehicleTypeMasterModel.VehicleTypeID),
+                            new SqlParameter("@VehTypeDesc", vehicleTypeMasterModel.VehicleTypeDesc),
+                            new SqlParameter("@VehGroup", vehicleTypeMasterModel.VehicleTypeGroupId),
+                            new SqlParameter("@TonCap", vehicleTypeMasterModel.TonCap),
+                     
+                           new SqlParameter("@RunPerDayKM", vehicleTypeMasterModel.RunPerDayKM),
+                          //  new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
+                          //  new SqlParameter("@IsActive", vehicleTypeMasterModel.IsActive),
                             new SqlParameter("@LoggedInUser", vehicleTypeMasterModel.LoggedInUser)
 
                         };
@@ -83,9 +87,11 @@ namespace FleetMasters.Repository
                         {
                             VehicleList.Add(new VehicleTypeMasterModel
                             {
-                                VehicleTypeID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeID"]),
-                                VehicleTypeDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeDesc"]),
-                                VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeGroupId"]),
+                                VehicleTypeID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehTypeID"]),
+                                VehicleTypeDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["VehTypeDesc"]),
+                                VehicleTypeGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["VehGroup"]),
+                                TonCap = Convert.ToString(dataSet.Tables[0].Rows[i]["TonCap"]),
+                                RunPerDayKM = Convert.ToString(dataSet.Tables[0].Rows[i]["RunPerDayKM"]),
                             });
                         }
 

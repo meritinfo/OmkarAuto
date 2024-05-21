@@ -114,6 +114,8 @@ namespace FCUBEAPI
             services.AddScoped<IVehicleFltMasterBusiness, VehicleFltMasterBusiness>();
             services.AddScoped<IProductMasterRepository, ProductMasterRepository>();
             services.AddScoped<IProductMasterBusiness, ProductMasterBusiness>();
+            services.AddScoped<IClassificationMasterRepository, ClassificationMasterRepository>();
+            services.AddScoped<IClassificationMasterBusiness, ClassificationMasterBusiness>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserBusiness, UserBusiness>();
             services.AddScoped<ILR_Bill_SeriesRepository, LR_Bill_SeriesRepository>();
@@ -134,6 +136,8 @@ namespace FCUBEAPI
             services.AddScoped<ITripMasterBusiness, TripMasterBusiness>();
             services.AddScoped<ITruckMasterRepository, TruckMasterRepository>();
             services.AddScoped<ITruckMasterBusiness, TruckMasterBusiness>();
+            services.AddScoped<ITransportMasterRepository, TransportMasterRepository>();
+            services.AddScoped<ITransportMasterBusiness, TransportMasterBusiness>();
             services.AddScoped<IDieselStatementRepository, DieselStatementRepository>();
             services.AddScoped<IDieselStatementBusiness, DieselStatementBusiness>(); 
             services.AddScoped<IBillStatementRepository, BillStatementRepository>();

@@ -1,0 +1,292 @@
+<div class="main-content">
+    <div class="page-content">
+       <div class="container-fluid">
+          <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Transport Master</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
+                            <li class="breadcrumb-item active">Doc Renewal  Master</li> -->
+                        </ol>
+                    </div>
+                    </div>
+                </div>
+            </div>
+          <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body">  
+                                <div class="row">
+                                  
+                                   
+                        
+                                    
+                                </div>
+                                <div class="row">
+                                  
+                                       
+                                   
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>TptName: </label><span style="color: red">*</span> 
+                                            <input  uppercaseonly type="text" class="form-control" 
+                                            formControlName="tptName" >
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Branch Code: </label>
+                                            <select class="form-control" formControlName="branchCode"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                            <option *ngFor="let branch of branchList" value={{branch.dataId}}>
+                                                {{branch.dataName}}
+                                            </option>
+                                        </select>
+
+
+                                            
+                                        </div>
+                                    </div>   
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Address 1: </label><span style="color: red">*</span> 
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="address1" >
+                                        </div>
+                                    </div>                          
+                                 
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Address 2: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="address2" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Address 3: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="address3" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Address 4: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="address4" >
+                                        </div>
+                                    </div>  
+                                
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>stateCode: </label><span style="color: red">*</span> 
+                                            <select class="form-control" formControlName="stateCode"      
+                                            [ngClass]="">
+                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
+                                        </div>
+                                    </div>   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Pin Code: </label>
+                                            <input decimalonly type="text" numbersonly
+                                            class="form-control" 
+                                            formControlName="pinCode" >
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>phone: </label>
+                                            <input numbersonly type="text" 
+                                            class="form-control" 
+                                            formControlName="phone" >
+                                        </div>
+                                    </div>  
+                             
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Email: </label>
+                                            <input  type="text" 
+                                            class="form-control" 
+                                            formControlName="email" >
+                                        </div>
+                                    </div>       
+                                   
+                                </div> 
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Contact Person1: </label><span style="color: red">*</span> 
+                                            <input uppercaseonly type="text"
+                                            class="form-control" 
+                                            formControlName="contact Person1" >
+                                        </div>
+                                    </div>       
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Mobile 1: </label><span style="color: red">*</span> 
+                                            <input numbersonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="mobile1" >
+                                        </div>
+                                    </div>   
+                           
+                                   
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Contact Person2: </label>
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            maxlength="200" formControlName="contactPerson2" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>Mobile 2: </label>
+                                            <input numbersonly type="text" 
+                                            class="form-control"
+                                            formControlName="mobile2" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>PanNo: </label>
+                                            <input  type="text" 
+                                            class="form-control"
+                                            formControlName="panNo" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>gstNo: </label>
+                                            <input  type="text" 
+                                            class="form-control"
+                                            formControlName="gstNo" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>aadharNo: </label>
+                                            <input numbersonly  type="text" 
+                                            class="form-control"
+                                            formControlName="aadharNo" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>cancelChq: </label>
+                                            <input   type="text" 
+                                            class="form-control"
+                                            formControlName="cancelChq" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>addrProof: </label>
+                                            <input type="text" 
+                                            class="form-control"
+                                            formControlName="addrProof" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>EligibleForBid: </label>
+                                           
+                                            <select id="formrow-inputState" 
+                                            class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="eligibleForBid"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                            
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                                                                          
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">
+                                            <label>whatsappMblNo: </label>
+                                            <input numbersonly  type="text" 
+                                            class="form-control"
+                                            formControlName="whatsappMblNo" >
+                                        </div>
+                                    </div> 
+                                
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Remarks: </label>
+                                            <input  uppercaseonly type="text" 
+                                            class="form-control"
+                                            formControlName="remarks" >
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>Is Active: </label>
+                                            <select id="formrow-inputState" 
+                                            class="form-control form-select ng-pristine ng-touched"
+                                                formControlName="isActive"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                            
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                                                                          
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label >InActiveDate: </label><span style="color: red">*</span>  
+                                            <input type="date"  autofocus="autofocus" class="form-control"
+                                            placeholder="" formControlName="inActiveDate"
+                                            [ngClass]=>
+                                        </div>
+                                    </div> 
+                                        
+                                </div> 
+                               
+                            </div>                  
+                            <!-- end card body -->
+                        </div>                     
+                        <!-- end card -->
+                    </div>
+                </div>                 
+              
+                                      
+                             
+                                     
+                                                     
+                                                                        
+                               
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                             <button class="btn btn-primary w-md" 
+                                (click)="submitTransportMasterForm()">Save</button>&nbsp;
+                            <!-- <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitTruckMasterForm()">Save</button>&nbsp; -->
+                            <!-- <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteDprDetailsForm()">Delete</button>&nbsp; -->
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+           <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+     <!-- End Page-content -->
+</div>

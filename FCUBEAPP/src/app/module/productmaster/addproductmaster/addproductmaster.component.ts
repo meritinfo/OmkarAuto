@@ -49,7 +49,7 @@ ngOnInit(): void {
   this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
   this.formUser = this.formBuilder.group({
     productName: new FormControl('',),
-    productHSN: new FormControl('',),
+    isActive: new FormControl('',),
     productGroupId: new FormControl('',),
   
 
@@ -82,7 +82,7 @@ ngOnInit(): void {
     }
     this.productMasterModel.productId = this.selectedProductMasterDetails.productId != '' ? this.selectedProductMasterDetails.productId : '';
     this.productMasterModel.productName= this.formUser.value.productName;
-    this.productMasterModel.productHSN = this.formUser.value.productHSN;
+    this.productMasterModel.isActive = this.formUser.value.isActive;
     this.productMasterModel.productGroupId = this.formUser.value.productGroupId;
 
 

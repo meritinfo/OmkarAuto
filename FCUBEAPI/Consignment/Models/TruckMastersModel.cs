@@ -1,6 +1,6 @@
 ﻿namespace Consignment.Models
 {
-    public class TruckMasterModel
+    public class TruckMastersModel
     {
         public class essentials
         {
