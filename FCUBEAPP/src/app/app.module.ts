@@ -232,7 +232,15 @@ import { DprvehiplacedaddComponent } from './module/dprvehiplaced/dprvehiplaceda
 import { Dprvehiplacedmodel } from './models/dprvehiplacedmodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
+//import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
+//import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
+import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
+import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
+import { Classificationmastermodel } from './models/classificationmastermodel';
+import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
+import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
+import { Transportmastermodel } from './models/transportmastermodel';
 
 @NgModule({
   declarations: [
@@ -377,6 +385,10 @@ import { Truckmastermodel } from './models/truckmastermodel';
     DprvehiplacedaddComponent,
     AddtruckmasterComponent,
     TruckmasterlistComponent,
+    ClassificationmasteraddComponent,
+    ClassificationmasterlistComponent,
+    AddtransportmasterComponent,
+    TransportmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -426,8 +438,8 @@ import { Truckmastermodel } from './models/truckmastermodel';
     Dprmodel,Dprdtlsmodel,Dprlistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,
-    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel],
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

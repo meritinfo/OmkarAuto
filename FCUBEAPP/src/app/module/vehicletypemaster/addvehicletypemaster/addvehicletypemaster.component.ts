@@ -51,12 +51,14 @@ ngOnInit(): void {
   this.selectedVehicleTypeMasterDetails = this.vehicleTypesService.getvehicletypemasterDetails();
   this.formUser = this.formBuilder.group({
     vehicleTypeDesc: new FormControl('',),
-    vehicleTypeGroupId: new FormControl('',)
+    vehicleTypeGroupId: new FormControl('',),
+    tonCap: new FormControl('',),
+    runPerDayKM: new FormControl('',)
   
 
   });
 
-  if (this.selectedVehicleTypeMasterDetails.vehicleTypeId != '') {
+  if (this.selectedVehicleTypeMasterDetails.vehicleTypeID != '') {
     this.formUser.patchValue(this.selectedVehicleTypeMasterDetails);
    
   }
@@ -67,16 +69,20 @@ ngOnInit(): void {
 get f() { return this.formUser.controls; }
 
  
-
+exit(): void {
+  this.route.navigate(['/vehicletypemasterlist']);
+}
 //Submit user form details //
 submitVehicleTypeMasterForm(): void {
   this.userSubmitted = true;
   if (this.formUser.invalid) {
     return;
   }
-  this.vehicletypemastermodel.vehicleTypeId = this.selectedVehicleTypeMasterDetails.vehicleTypeId != '' ? this.selectedVehicleTypeMasterDetails.vehicleTypeId : '';
+  this.vehicletypemastermodel.vehicleTypeID = this.selectedVehicleTypeMasterDetails.vehicleTypeID != '' ? this.selectedVehicleTypeMasterDetails.vehicleTypeID : '';
   this.vehicletypemastermodel.vehicleTypeDesc= this.formUser.value.vehicleTypeDesc;
   this.vehicletypemastermodel.vehicleTypeGroupId = this.formUser.value.vehicleTypeGroupId;
+  this.vehicletypemastermodel.tonCap = this.formUser.value.tonCap;
+  this.vehicletypemastermodel.runPerDayKM = this.formUser.value.runPerDayKM;
 
 
   this.vehicleTypesService.vehicletypemasterDetailsSubmitted(this.vehicletypemastermodel).subscribe((res: Responsemodel) => {

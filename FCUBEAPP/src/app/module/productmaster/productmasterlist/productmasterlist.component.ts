@@ -62,8 +62,8 @@ ngOnInit(): void {
     },
 
    {
-    title: 'ProductHSN',
-    data: 'productHSN',
+    title: 'IsActive',
+    data: 'isActive',
   },
  
 

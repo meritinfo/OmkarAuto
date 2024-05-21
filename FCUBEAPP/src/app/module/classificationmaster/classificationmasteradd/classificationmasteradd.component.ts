@@ -1,0 +1,189 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Classificationmastermodel } from 'src/app/models/classificationmastermodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
+import { Responsemodel } from 'src/app/models/responsemodel';
+import { CommonService } from 'src/app/services/common.service';
+import { ClassificationMasterService } from 'src/app/services/classificationmaster.service';
+import { ToastrService } from 'ngx-toastr';
+import { SharedService } from 'src/app/services/shared.service';
+
+@Component({
+  selector: 'app-classificationmasteradd',
+  templateUrl: './classificationmasteradd.component.html',
+  styleUrls: ['./classificationmasteradd.component.css']
+})
+export class ClassificationmasteraddComponent {
+  loggedInUserID: string = '';
+  formClassificationMaster!: FormGroup;
+  userSubmitted = false;
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  responseDetails = new Responsemodel();
+  classificationList: Dropdownmodel[] = [];
+  stateList: Dropdownmodel[] = [];
+
+  List: Dropdownmodel[] = [];
+  selectedClassificationMasterDetails = new Classificationmastermodel();
+
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private classificationModel: Classificationmastermodel, private classificationmasterService: ClassificationMasterService, 
+    private commonService: CommonService,private requestmodel:Requestmodel,
+    private sharedService: SharedService,
+    private toasterService: ToastrService) {
+    this.classificationModel = new Classificationmastermodel();
+  }
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Create Classificationes");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
+    var userData = sessionStorage.getItem('uid')?.toString();
+    
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
+    this.sharedService.loading = true;
+
+   
+
+    this.selectedClassificationMasterDetails = this.classificationmasterService.getClassificationMasterDetails();
+    this.formClassificationMaster = this.formBuilder.group({
+
+   
+      classDesc: new FormControl('',[Validators.required]),
+      isActive: new FormControl('',[Validators.required]),
+
+
+
+    });
+    if (this.selectedClassificationMasterDetails.classtId != '') {
+      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);
+      this.formClassificationMaster.patchValue({
+       // userClassification: this.selectedClassificationMasterDetails.classDesc,
+        //stateCode: this.selectedClassificationMasterDetails.isActive,
+      })      
+    
+      this.editMode = true;
+    }
+    
+    this.sharedService.loading = false;
+
+  }
+
+  // convenience getter for easy access to contact form fields
+  get f() { return this.formClassificationMaster.controls; }
+
+  //Get Classification List details //
+  
+  
+  
+
+  // chkClassificationNameExits(e: any) { 
+  //   if (this.selectedClassificationMasterDetails.centreid == "")
+  //   {      
+  //     this.sharedService.loading = true;
+  //     this.requestmodel.strRequest = e.target.value; 
+  //     this.classificationmasterService.chkClassificationNameExits(this.requestmodel).subscribe((res: Responsemodel) => {
+  //       this.responseDetails = res;
+  //       if (!this.responseDetails.status) {
+  //         this.toasterService.warning(this.responseDetails.message);
+  //         this.formClassificationMaster.patchValue({
+  //           userClassification: ''
+  //         });
+  //       }
+  //     });
+  //     this.sharedService.loading = false;
+  //   }
+  // }
+
+  // deleteClassificationMasterForm(): void {
+  //   if(this.selectedClassificationMasterDetails.centreid != '' ){      
+  //     this.sharedService.loading = true;
+  //     this.requestmodel.strRequest =this.selectedClassificationMasterDetails.centreid
+  //     if (confirm("Are you sure, you want to delete this?")) {
+  //           this.classificationmasterService.classificationMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+  //           this.responseDetails = res;
+  //           if (this.responseDetails.status) {
+  //             this.toasterService.success(this.responseDetails.message);
+  //             this.formClassificationMaster.reset();
+  //             this.route.navigate(['/classificationmasterlist']);
+  //           }
+  //           else {
+  //             this.toasterService.warning(this.responseDetails.message);
+  //           }    
+  //       });
+  //     }      
+  //     this.sharedService.loading = false;
+  //   }
+  // }
+  exit(): void {
+    this.route.navigate(['/classificationmasterlist']);
+  }
+
+
+  //Submit user form details //
+  submitClassificationMasterForm(): void {  
+    if (this.formClassificationMaster.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formClassificationMaster.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
+      return;
+    }
+      
+    this.sharedService.loading = true;
+
+    var selectedDataVal = this.formClassificationMaster.getRawValue();
+    this.userSubmitted = true;
+    this.classificationModel.classtId = this.selectedClassificationMasterDetails.classtId ;
+    this.classificationModel.classDesc             = selectedDataVal.classDesc.toString().toUpperCase();
+    this.classificationModel.isActive       = selectedDataVal.isActive;
+
+
+
+
+    //this.classificationModel.loggedInUserID   = this.loggedInUserID;
+
+  
+    this.classificationmasterService.classificationmasterSubmitted(this.classificationModel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formClassificationMaster.reset();
+        this.route.navigate(['/classificationmasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
+    });
+    this.sharedService.loading = false;
+  }
+}
+
+

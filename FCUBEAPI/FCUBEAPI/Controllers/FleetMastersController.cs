@@ -10,6 +10,7 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
+using Consignment.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -29,6 +30,7 @@ namespace FCUBEAPI.Controllers
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
         readonly ITruckMasterBusiness truckMasterBusiness;
+        readonly ITransportMasterBusiness transportMasterBusiness;
         public FleetMastersController(IOptions<DBModel> _dbconnection, 
             IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, 
             IVehicleFltMasterBusiness _vehicleFltMasterBusiness, 
@@ -39,7 +41,8 @@ namespace FCUBEAPI.Controllers
             IDriverMasterBusiness _driverMasterBusiness, 
             IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
             IFleetCardMasterBusiness _fleetCardMasterBusiness,
-             ITruckMasterBusiness _truckMasterBusiness)
+             ITruckMasterBusiness _truckMasterBusiness,
+              ITransportMasterBusiness _transportMasterBusiness)
         {
             dbconnection = _dbconnection;
             vehicleTypeGroupMasterBusiness = _vehicleTypeGroupMasterBusiness;
@@ -52,6 +55,7 @@ namespace FCUBEAPI.Controllers
             expensestypeMasterBusiness = _expensesTypeMasterBusiness;
             truckMasterBusiness = _truckMasterBusiness;
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
+            transportMasterBusiness= _transportMasterBusiness;
         }
 
         /// <summary>
@@ -260,14 +264,26 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("TruckMasterSave")]
-        public async Task<IActionResult> TruckMasterSave(TruckMasterModel truckMasterModel)
+        public async Task<IActionResult> TruckMasterSave()
         {
-            if (truckMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
+           
             try
             {
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+
+                TruckMasterModel truckMasterModel = JsonConvert.DeserializeObject<TruckMasterModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attachConfirmDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/truck/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        truckMasterModel.RcUpload = imageName;
+                    }
+                }
                 var result = await truckMasterBusiness.TruckMasterSave(truckMasterModel);
 
                 return Ok(result);
@@ -287,6 +303,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await truckMasterBusiness.GetTruckMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTransportMasterList")]
+        public async Task<IActionResult> GetTransportMasterList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await transportMasterBusiness.GetTransportMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TransportMasterSave")]
+        public async Task<IActionResult> TransportMasterSave(TransportMasterModel transportMasterModel)
+        {
+            if (transportMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await transportMasterBusiness.TransportMasterSave(transportMasterModel);
 
                 return Ok(result);
             }

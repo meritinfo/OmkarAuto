@@ -36,8 +36,8 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@ProductId", productMasterModel.ProductId),
                             new SqlParameter("@ProductName", productMasterModel.ProductName),
-                            new SqlParameter("@ProductGroupId", productMasterModel.ProductGroupId),
-                               new SqlParameter("@ProductHSN", productMasterModel.ProductHSN),
+                          //  new SqlParameter("@ProductGroupId", productMasterModel.ProductGroupId),
+                           //    new SqlParameter("@ProductHSN", productMasterModel.ProductHSN),
                             new SqlParameter("@IsActive", productMasterModel.IsActive),
                              new SqlParameter("@LoggedInUser", productMasterModel.LoggedInUser)
 
@@ -97,8 +97,8 @@ namespace FreightMasters.Repository
                             {
                                 ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
                                 ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
-                                ProductGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductGroupId"]),
-                                ProductHSN = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductHSN"]),
+                              //  ProductGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductGroupId"]),
+                               IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                               
 
                             });

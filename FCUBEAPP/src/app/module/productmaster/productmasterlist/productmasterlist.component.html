@@ -47,7 +47,7 @@
                         <tr *ngFor="let productmaster of allProductMaster.productmasterList">
                             <td>{{ productmaster.productName }}</td>
                     
-                            <td>{{ productmaster.productHSN }}</td>
+                            <td>{{ productmaster.isActive }}</td>
                          
                             <td>
                                 <a (click)="getproductMasterDetails(productmaster)" class="actionicon"><i

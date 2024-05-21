@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 
 
 
@@ -12,6 +13,7 @@ import { Truckmastermodel } from 'src/app/models/truckmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
 import { UserService } from 'src/app/services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -24,12 +26,15 @@ export class AddtruckmasterComponent {
   formUser!: FormGroup;
   userSubmitted = false;
   responseDetails = new Responsemodel();
+  stateList: Dropdownmodel[] = [];
 
 
-
+  @ViewChild('attachmentInput', {
+    static: true
+  }) attachmentInput: any;
 selectedTruckMasterDetail = new Truckmastermodel();
 
-constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Truckmastermodel, private vehicleTypeGroupMasterService: TruckMasterService, private commonService: CommonService) {
+constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Truckmastermodel, private vehicleTypeGroupMasterService: TruckMasterService, private commonService: CommonService,private toastrService: ToastrService) {
   this.vehicleTypeGroupMasterModel = new Truckmastermodel();
 
 
@@ -45,7 +50,7 @@ if (this.loggedInUserID) {
 else {
   this.route.navigate(['/']);
 }
-
+this.getStateList();
 this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMasterDetails();
 this.formUser = this.formBuilder.group({
   truckNo: new FormControl('',),
@@ -84,9 +89,13 @@ this.formUser = this.formBuilder.group({
   remarks: new FormControl('',),
 
 });
-if (this.selectedTruckMasterDetail.truckID != '') {
-  this.formUser.patchValue(this.selectedTruckMasterDetail);
 
+if (this.selectedTruckMasterDetail.truckID != '') {
+
+  this.formUser.patchValue(this.selectedTruckMasterDetail);
+  
+  //this.formUser.controls['tripNo'].disable();
+  this.formUser.controls['truckNo'].disable();
 this.formUser.patchValue({
   isActive: this.selectedTruckMasterDetail.isActive,
   regnDate: this.commonService.formatDate(this.selectedTruckMasterDetail.regnDate),
@@ -94,7 +103,7 @@ this.formUser.patchValue({
   nationalPermitDt: this.commonService.formatDate(this.selectedTruckMasterDetail.nationalPermitDt),
   fitnessDt: this.commonService.formatDate(this.selectedTruckMasterDetail.fitnessDt),
   inActiveDate: this.commonService.formatDate(this.selectedTruckMasterDetail.inActiveDate),
-
+  ownerType:this.selectedTruckMasterDetail.ownerType
  
   
 })
@@ -102,9 +111,17 @@ this.formUser.patchValue({
 }
 }
 
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
+}
 
 // convenience getter for easy access to contact form fields
 get f() { return this.formUser.controls; }
+exit(): void {
+  this.route.navigate(['/mkttrucklist']);
+}
 
 
 
@@ -112,8 +129,16 @@ get f() { return this.formUser.controls; }
 submitTruckMasterForm(): void {
   this.userSubmitted = true;
   if (this.formUser.invalid) {
+    this.toastrService.warning("Please Enter Mandatory Fields ");   
+    const controls = this.formUser.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toastrService.warning(name + " Fields is Invalid");   
+      }
+    }
     return;
   }
+
   this.vehicleTypeGroupMasterModel.truckID = this.selectedTruckMasterDetail.truckID != '' ? this.selectedTruckMasterDetail.truckID : '';
   this.vehicleTypeGroupMasterModel.truckNo= this.formUser.value.truckNo;
   this.vehicleTypeGroupMasterModel.regnDate = this.formUser.value.regnDate;
@@ -144,15 +169,18 @@ submitTruckMasterForm(): void {
   this.vehicleTypeGroupMasterModel.insuranceDt = this.formUser.value.insuranceDt;
   this.vehicleTypeGroupMasterModel.nationalPermitDt = this.formUser.value.nationalPermitDt;
   this.vehicleTypeGroupMasterModel.fitnessDt = this.formUser.value.fitnessDt;
-  this.vehicleTypeGroupMasterModel.rcUpload = this.formUser.value.rcUpload;
-  this.vehicleTypeGroupMasterModel.otherUpload = this.formUser.value.otherUpload;
+  this.vehicleTypeGroupMasterModel.rcUpload = this.formUser.value.rcUpload?this.formUser.value.rcUpload:'';
+  this.vehicleTypeGroupMasterModel.otherUpload = this.formUser.value.otherUpload?this.formUser.value.otherUpload:'';
   this.vehicleTypeGroupMasterModel.isActive = this.formUser.value.isActive;
   this.vehicleTypeGroupMasterModel.inActiveDate = this.formUser.value.inActiveDate;
   this.vehicleTypeGroupMasterModel.remarks = this.formUser.value.remarks;
+  
+ let formData = new FormData();
+    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.vehicleTypeGroupMasterModel));
 
 
-
-  this.vehicleTypeGroupMasterService.truckmasterSubmitted(this.vehicleTypeGroupMasterModel).subscribe((res: Responsemodel) => {
+  this.vehicleTypeGroupMasterService.truckmasterSubmitted(formData).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     console.log(this.responseDetails.message);
     this.formUser.reset();

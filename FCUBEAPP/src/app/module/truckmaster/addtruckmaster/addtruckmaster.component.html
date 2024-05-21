@@ -33,7 +33,7 @@
                                           </div>
                                           <div class="col-lg-4">
                                            <div class="mb-4">
-                                             <input type="text"  autofocus="autofocus" class="form-control"
+                                             <input type="text" uppercaseonly  autofocus="autofocus" class="form-control"
                                              placeholder="" formControlName="truckNo"
                                              [ngClass]=>
                                            </div>
@@ -65,7 +65,7 @@
                                        </label>
                                     </div>
                                     <div class="col-sm-4">
-                                       <input type="text"  autofocus="autofocus" class="form-control"
+                                       <input type="text"  uppercaseonly autofocus="autofocus" class="form-control"
                                        placeholder="" formControlName="ownerName"
                                        [ngClass]=>
                                     </div>
@@ -92,7 +92,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                 <select id="scope" class="form-select" formControlName="ownerType">
+                                 <select id="scope" uppercaseonly class="form-select" formControlName="ownerType">
                                     <option value="O">Own  </option>
                                     <option value="M">Market </option>
                                  
@@ -103,7 +103,7 @@
                                  </label>
                               </div>
                               <div class="col-sm-4">
-                                 <input type="text"  autofocus="autofocus" class="form-control"
+                                 <input type="text"  uppercaseonly autofocus="autofocus" class="form-control"
                                  placeholder="" formControlName="panNo"
                                  [ngClass]=>
                               </div>
@@ -116,7 +116,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text"  uppercaseonly  numbersonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="aadharNo"
                                    [ngClass]=>
                                 </div>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <select id="scope" class="form-select" formControlName="aadharLinkedYN">
-                                       <option value="Y">yes</option>
+                                       <option value="Y">Yes</option>
                                        <option value="N">No</option>
                                    </select>
                                  </div>
@@ -141,7 +141,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <select id="scope" class="form-select" formControlName="panValidYN">
-                                       <option value="Y">yes</option>
+                                       <option value="Y">Yes</option>
                                        <option value="N">No</option>
                                    </select>
                                  </div>
@@ -152,7 +152,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                     <select id="scope" class="form-select" formControlName="itFiledYN">
-                                       <option value="Y">yes</option>
+                                       <option value="Y">Yes</option>
                                        <option value="N">No</option>
                                    </select>
                                  </div>
@@ -161,7 +161,7 @@
                            <div class="card-body">
                              <div class="row">
                                 <div class="col-sm-2">
-                                   <label for="horizontal-firstname-input" class="col-form-label"> address1
+                                   <label for="horizontal-firstname-input" uppercaseonly class="col-form-label"> address1
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
@@ -175,7 +175,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" uppercaseonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="address2"
                                    [ngClass]=>
                                 </div>
@@ -188,7 +188,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" uppercaseonly  autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="address3"
                                    [ngClass]=>
                                 </div>
@@ -198,7 +198,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" uppercaseonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="address4"
                                    [ngClass]=>
                                 </div>
@@ -207,13 +207,16 @@
                            <div class="card-body">
                              <div class="row">
                                 <div class="col-sm-2">
-                                   <label for="horizontal-firstname-input" class="col-form-label"> State Code
+                                   <label for="horizontal-firstname-input"  class="col-form-label"> State Code
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                   placeholder="" formControlName="stateCode"
-                                   [ngClass]=>
+                                 <select class="form-control" formControlName="stateCode"      
+                                 [ngClass]="">
+                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                        {{state.dataName}}
+                                     </option>
+                                  </select>
                                 </div>
                              
                              
@@ -223,7 +226,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" numbersonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="pinCode"
                                    [ngClass]=>
                                 </div>
@@ -237,7 +240,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" numbersonly  autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="phoneNo"
                                    [ngClass]=>
                                 </div>
@@ -247,7 +250,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" uppercaseonly  autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="contactName"
                                    [ngClass]=>
                                 </div>
@@ -261,7 +264,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text"   numbersonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="mobileNo"
                                    [ngClass]=>
                                 </div>
@@ -382,26 +385,29 @@
                                 </div>
                           
                                 <div class="col-sm-2">
-                                   <label for="horizontal-firstname-input" class="col-form-label"> RcUpload
-                                   </label>
+                                 <label for="formDLFile" class="form-label">
+                                    Rc Upload
+                                </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                   placeholder="" formControlName="rcUpload"
-                                   [ngClass]=>
+                                 
+                                <input #attachmentInput class="form-control" type="file"
+                                    id="formAttFile" accept="image/*">
                                 </div>
+
                              </div>
                            </div>
                            <div class="card-body"> 
                              <div class="row">
                                 <div class="col-sm-2">
-                                   <label for="horizontal-firstname-input" class="col-form-label"> OtherUpload
-                                   </label>
+                                 <label for="otherUpload" class="form-label">
+                                    Other Upload
+                                </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
-                                   placeholder="" formControlName="otherUpload"
-                                   [ngClass]=>
+                                 <input #attachmentInput class="form-control" type="file"
+                                 id="formAttFile" accept="image/*">
+
                                 </div>
                            
                                 <div class="col-sm-2">
@@ -410,7 +416,7 @@
                                 </div>
                                 <div class="col-sm-4">
                                  <select id="scope" class="form-select" formControlName="isActive">
-                                    <option value="Y">yes</option>
+                                    <option value="Y">Yes</option>
                                     <option value="N">No</option>
                                 </select>
                                 </div>
@@ -433,7 +439,7 @@
                                    </label>
                                 </div>
                                 <div class="col-sm-4">
-                                   <input type="text"  autofocus="autofocus" class="form-control"
+                                   <input type="text" uppercaseonly autofocus="autofocus" class="form-control"
                                    placeholder="" formControlName="remarks"
                                    [ngClass]=>
                                 </div>
@@ -466,7 +472,8 @@
                 <div class="col-lg-12">
                    <div class="tex">
                       <button class="btn btn-primary w-md"
-                         (click)="submitTruckMasterForm()">Submit</button>
+                         (click)="submitTruckMasterForm()">Save</button>
+                         <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
                    </div>
                 </div>
              </div>

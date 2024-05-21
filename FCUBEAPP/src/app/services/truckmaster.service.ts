@@ -14,8 +14,7 @@ export class TruckMasterService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
   selectedtruckmaster = new Truckmastermodel();
@@ -32,7 +31,7 @@ export class TruckMasterService {
   clearTruckMasterDetails() {
     this.selectedtruckmaster = new Truckmastermodel();
   }
- truckmasterSubmitted(user:Truckmastermodel): Observable<Responsemodel> {
+ truckmasterSubmitted(user:FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TruckMasterSave', user, this.httpOptions);
   }
   getTruckMasterList(filter: Filtermodel): Observable<Truckmasterlistmodel> {
