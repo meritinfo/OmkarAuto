@@ -60,7 +60,9 @@
                                 <th>vehicleNo </th>   
                                 <th>driverName</th>    
                                 <th>driverMob1</th>                               
-                                <th>Action</th>   
+                                <th>Action</th>                                
+                                <th>Download</th>                                
+                                <th>Mail</th>   
                             </tr>
                         </thead>
                         <tbody *ngIf="alltempgclist.tempGcList?.length != 0">
@@ -76,7 +78,19 @@
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="gettempgcDetails(gc)"></button>                               
-                                </td>                                
+                                </td>
+                                <td>
+                                    <button type="button" *ngIf="gc.tempGcId!='0'" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="download(gc)" >
+                                        <i class="fas fa-download"></i></button>   
+                                </td>  
+                                <td>
+                                    <button type="button" *ngIf="gc.tempGcId!='0'" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="sendMail(gc)" >
+                                        <i class="far fa-envelope"></i></button>   
+                                </td>                                 
                             </tr>
                         </tbody>
                         <tbody *ngIf="alltempgclist.tempGcList?.length == 0">

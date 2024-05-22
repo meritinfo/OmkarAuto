@@ -496,6 +496,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("DprMasterDelete")]
         public async Task<IActionResult> DprMasterDelete(RequestModel request)
         {
@@ -779,6 +780,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tempGcBusiness.TempGcDelete(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("SendLRMail")]
+        public async Task<IActionResult> SendLRMail(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.SendLRMail(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLRPdf")]
+        public async Task<IActionResult> GetLRPdf(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tempGcBusiness.GetLRPdf(request);
                 return Ok(result);
             }
             catch (Exception ex)

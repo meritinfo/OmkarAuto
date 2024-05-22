@@ -176,9 +176,47 @@ export class GeneratetempgclistComponent {
         {
           title: 'Action',
           data: 'dprId',
+        },       
+        {
+          title: 'Download',
+          data: 'tempGcId',
+        },        
+        {
+          title: 'Mail',
+          data: 'dprId',
         },  
       ],
     };
+  }
+
+  download(tempgc: Tempgcmodel): void {
+    this.filter.filterStr   = tempgc.tempGcId;
+    
+    this.generatetempgcService.getLrPdf(this.filter).subscribe(resp => {
+      if(resp.status){    
+        let link = document.createElement("a");
+        link.download = "LR_" + new Date().getTime() + '.pdf';
+        link.href = "assets/reports/LrPrint/" + resp.message;
+        link.click();
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
+  }
+
+  sendMail(tempgc: Tempgcmodel): void {
+    this.filter.filterStr   = tempgc.tempGcId;
+    this.filter.filterStr1  = tempgc.bookingPlace ;
+    
+    this.generatetempgcService.sendLrMail(this.filter).subscribe(resp => {
+      if(resp.status){    
+        this.toasterService.success(resp.message); 
+      }
+      else{        
+        this.toasterService.warning(resp.message);   
+      }
+    });
   }
 
   startWithFilter = function (dataList: Dropdownmodel[], query: string): any[] {
