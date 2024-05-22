@@ -92,11 +92,11 @@ export class ClassificationmasterlistComponent  {
        
        
         {
-          title: 'classDesc',
+          title: 'Class Desc',
           data: 'classDesc',
         },
         {
-          title: 'isActive',
+          title: 'Is Active',
           data: 'isActive',
         },
        

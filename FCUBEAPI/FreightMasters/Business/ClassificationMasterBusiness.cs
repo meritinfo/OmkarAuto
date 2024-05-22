@@ -30,6 +30,10 @@ namespace FreightMasters.Business
         {
             return await classificationMasterRepository.GetClassificationMasterList(request);
         }
+        public async Task<ResponseModel> ClassificationMasterDelete(RequestModel request)
+        {
+            return await classificationMasterRepository.ClassificationMasterDelete(request);
+        }
 
     }
 }

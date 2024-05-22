@@ -1,6 +1,6 @@
 
 import { Component, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
 import { Destinationmodel } from 'src/app/models/destinationmodel';
@@ -22,9 +22,12 @@ export class AddtransportmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+  keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
+  vehicleTypeList: Dropdownmodel[] = [];
 
 
   @ViewChild('attachmentInput', {
@@ -49,6 +52,8 @@ ngOnInit(): void {
   }
   this.getStateList();
   this.getBranchList();
+  this.getLocationList();
+  this.getVehicleTypeList();
   this.selectedTransportMasterDetail = this.transportMasterService.getTransportMasterDetails();
   this.formUser = this.formBuilder.group({
     tptCode: new FormControl('',),
@@ -79,6 +84,9 @@ ngOnInit(): void {
     remarks: new FormControl('',),
     isActive: new FormControl('',),
     inActiveDate: new FormControl('',),
+    transportDetailList: this.formBuilder.array([this.createLocationArray()]),
+    stateDetailList: this.formBuilder.array([this.createStateArray()]),
+    vehTypeDetailList: this.formBuilder.array([this.createVehArray()])
  
   
   });
@@ -103,11 +111,68 @@ this.formUser.patchValue({
 
 }
 }
+addMiscItem(index: number): void {
+  if (this.formLocationArray.value[index].expType != "" && this.formLocationArray.value[index].miscAmount != "") {
+    this.formLocationArray.push(this.createLocationArray());
+  } else {
+    this.toastrService.warning("Please Enter Current record  ");
+  }
+}
+addStateItem(index: number): void {
+  if (this.formStateArray.value[index].stateCode != "" ) {
+    this.formLocationArray.push(this.createLocationArray());
+  } else {
+    this.toastrService.warning("Please Enter Current record  ");
+  }
+}
+
+addVehItem(index: number): void {
+  if (this.formVehArray.value[index].vehTypeId != "" ) {
+    this.formVehArray.push(this.createVehArray());
+  } else {
+    this.toastrService.warning("Please Enter Current record  ");
+  }
+}
+
+
+removeMiscItem(index: number) {
+  this.formLocationArray.removeAt(index);
+  //this.tripsheetinnergridmodel.miscList.splice(index, 1);
+
+}
+removeStateItem(index: number) {
+  this.formStateArray.removeAt(index);
+  //this.tripsheetinnergridmodel.miscList.splice(index, 1);
+
+}
+getLocationList(): void {
+  this.commonService.getLocationList().subscribe((res) => {
+    this.locationList = res;
+  });
+}
+get formLocationArray() {
+  return this.formUser.get("transportDetailList") as FormArray;
+
+}
+get formStateArray() {
+  return this.formUser.get("stateDetailList") as FormArray;
+
+}
+get formVehArray() {
+  return this.formUser.get("svehTypeDetailList") as FormArray;
+
+}
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
   });
 }
+getVehicleTypeList(): void {
+  this.commonService.getVehicleTypeList().subscribe((res) => {
+    this.vehicleTypeList = res;
+  });
+}
+
 
 getStateList(): void {
   this.commonService.getStateList().subscribe((res) => {
@@ -118,6 +183,27 @@ getStateList(): void {
 get f() { return this.formUser.controls; }
 exit(): void {
   this.route.navigate(['/transportmstlist']);
+}
+createLocationArray() {
+  return this.formBuilder.group({
+    dtlid: [''],
+    tptCode: [''],
+    locId: ['']
+  });
+}
+createStateArray() {
+  return this.formBuilder.group({
+    dtlid: [''],
+    tptCode: [''],
+    stateCode: ['']
+  });
+}
+createVehArray() {
+  return this.formBuilder.group({
+    dtlid: [''],
+    tptCode: [''],
+    vehTypeId: ['']
+  });
 }
 
 
@@ -164,15 +250,76 @@ submitTransportMasterForm(): void {
   this.transportMasterModel.remarks = this.formUser.value.remarks;
   this.transportMasterModel.isActive = this.formUser.value.isActive;
   this.transportMasterModel.inActiveDate = this.formUser.value.inActiveDate;
-
-
+  if (this.formLocationArray.value != undefined) {
+    for (var i = 0; i < this.formLocationArray.value.length; i++) {
+      if(this.formLocationArray.value[i].locId!=''){
+        if(this.formLocationArray.value[i].adbluedieselLiter!=''){
+      this.transportMasterModel.transportLocationList.push({
+        'dtlid': this.formLocationArray.value[i].dtlid,
+        'tptCode': this.formLocationArray.value[i].tptCode,
+        'locId': this.formLocationArray.value[i].locId,
+       // 'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
+      }) 
+     }
+      else if(this.formLocationArray.value[i].locId==''){
+        this.toastrService.warning( "Fill Station Cannot be Empty");  
+        return;
+      }
+    
+    }
+  }}
+  if (this.formStateArray.value != undefined) {
+    for (var i = 0; i < this.formStateArray.value.length; i++) {
+      if(this.formStateArray.value[i].locId!=''){
+        if(this.formStateArray.value[i].stateCode!=''){
+      this.transportMasterModel.transportStatesList.push({
+        'dtlid': this.formStateArray.value[i].dtlid,
+        'tptCode': this.formStateArray.value[i].tptCode,
+        'stateCode': this.formStateArray.value[i].stateCode,
+       // 'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
+      }) 
+     }
+      else if(this.formStateArray.value[i].stateCode==''){
+        this.toastrService.warning( "Fill Station Cannot be Empty");  
+        return;
+      }
+      
+    }
+  }
+  }
+  if (this.formVehArray.value != undefined) {
+    for (var i = 0; i < this.formVehArray.value.length; i++) {
+      if(this.formVehArray.value[i].locId!=''){
+        if(this.formVehArray.value[i].vehTypeId!=''){
+      this.transportMasterModel.tranportVehTypesList.push({
+        'dtlid': this.formVehArray.value[i].dtlid,
+        'tptCode': this.formVehArray.value[i].tptCode,
+        'vehTypeId': this.formVehArray.value[i].vehTypeId,
+       // 'adbluedieselAmount': this.formAdblueArray.value[i].adbluedieselAmount
+      }) 
+     }
+      else if(this.formLocationArray.value[i].locId==''){
+        this.toastrService.warning( "Fill Station Cannot be Empty");  
+        return;
+      }
+     
+      
+  
+  }
+}
+  }
 
 
   this.transportMasterService.transportmasterSubmitted(this.transportMasterModel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
+    if (this.responseDetails.status) {
+      this.toastrService.success(this.responseDetails.message);
+      this.formUser.reset();
+      this.route.navigate(['/classmasterlist']);
+    }
+    else {
+      this.toastrService.warning(this.responseDetails.message);
+    }      
   });
 }
 

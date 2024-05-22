@@ -11,5 +11,6 @@ namespace FreightMasters.Repository
         Task<ResponseModel> ProductMasterSave(ProductMasterModel productMasterModel);
         Task<List<DropDownListModel>> GetProductGroupList();
         Task<ProductMasterList> GetProductMasterList(PageRequest request);
+        Task<ResponseModel> ProductMasterDelete(RequestModel requestModel);
     }
 }

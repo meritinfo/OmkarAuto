@@ -30,5 +30,9 @@ namespace FleetMasters.Business
         {
             return await truckMasterRepository.GetTruckMasterList(request);
         }
+        public async Task<ResponseModel> TruckMasterDelete(RequestModel request)
+        {
+            return await truckMasterRepository.TruckMasterDelete(request);
+        }
     }
 }

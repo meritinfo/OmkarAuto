@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from '../models/requestmodel';
 import { Productmasterlistmodel } from '../models/productmasterlistmodel';
 
 @Injectable({
@@ -31,6 +32,9 @@ export class ProductMasterService {
   }
   clearProductMasterDetails() {
     this.selectedProductMaster = new Productmastermodel();
+  }
+  productMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ProductMasterDelete', req, this.httpOptions);
   }
   productmasterDetailsSubmitted(user: Productmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ProductMasterSave', user, this.httpOptions);

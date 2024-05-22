@@ -79,7 +79,7 @@ export class ClassificationmasteraddComponent {
 
 
     });
-    if (this.selectedClassificationMasterDetails.classtId != '') {
+    if (this.selectedClassificationMasterDetails.classId != '') {
       this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);
       this.formClassificationMaster.patchValue({
        // userClassification: this.selectedClassificationMasterDetails.classDesc,
@@ -140,7 +140,25 @@ export class ClassificationmasteraddComponent {
   //   }
   // }
   exit(): void {
-    this.route.navigate(['/classificationmasterlist']);
+    this.route.navigate(['/classmasterlist']);
+  }
+  classificationMasterDelete(): void {
+    if(this.selectedClassificationMasterDetails.classId != '' ){
+     this.requestmodel.strRequest =this.selectedClassificationMasterDetails.classId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.classificationmasterService.classificationMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formClassificationMaster.reset();
+              this.route.navigate(['/classmasterlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
+        });
+      }
+    }
   }
 
 
@@ -161,7 +179,7 @@ export class ClassificationmasteraddComponent {
 
     var selectedDataVal = this.formClassificationMaster.getRawValue();
     this.userSubmitted = true;
-    this.classificationModel.classtId = this.selectedClassificationMasterDetails.classtId ;
+    this.classificationModel.classId = this.selectedClassificationMasterDetails.classId ;
     this.classificationModel.classDesc             = selectedDataVal.classDesc.toString().toUpperCase();
     this.classificationModel.isActive       = selectedDataVal.isActive;
 
@@ -176,7 +194,7 @@ export class ClassificationmasteraddComponent {
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formClassificationMaster.reset();
-        this.route.navigate(['/classificationmasterlist']);
+        this.route.navigate(['/classmasterlist']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

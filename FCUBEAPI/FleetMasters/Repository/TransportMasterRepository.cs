@@ -25,6 +25,71 @@ namespace FleetMasters.Repository
         /// <param name="vehicleTypeGroupMasterModel"></param>
         /// <returns>ResponseModel</returns>
         /// 
+        //public async Task<ResponseModel> TransportMasterSave(TransportMasterModel tranportMasterModel)
+        //{
+        //    ResponseModel responseModel = new();
+
+        //    var connection = new SqlConnection(dbconnection.Value.DBConnection);
+        //    connection.Open();
+        //    SqlTransaction transaction;
+        //    transaction = connection.BeginTransaction();
+        //    try
+        //    {
+        //        if (dbconnection != null)
+        //        {
+        //            SqlParameter[] param =
+        //                {
+        //                    new SqlParameter("@TptCode", tranportMasterModel.TptCode),
+        //                    new SqlParameter("@TptName", tranportMasterModel.TptName),
+        //                    new SqlParameter("@Address1", tranportMasterModel.Address1),
+        //                    new SqlParameter("@Address2", tranportMasterModel.Address2),
+        //                    new SqlParameter("@Address3", tranportMasterModel.Address3),
+        //                    new SqlParameter("@Address4", tranportMasterModel.Address4),
+        //                    new SqlParameter("@StateCode", tranportMasterModel.StateCode),
+        //                    new SqlParameter("@PinCode", tranportMasterModel.PinCode),
+        //                    new SqlParameter("@Phone", tranportMasterModel.Phone),
+        //                    new SqlParameter("@Email", tranportMasterModel.Email),
+        //                    new SqlParameter("@ContactPerson1", tranportMasterModel.ContactPerson1),
+        //                    new SqlParameter("@Mobile1", tranportMasterModel.Mobile1),
+        //                    new SqlParameter("@ContactPerson2", tranportMasterModel.ContactPerson2),
+        //                    new SqlParameter("@Mobile2", tranportMasterModel.Mobile2),
+        //                    new SqlParameter("@PanNo", tranportMasterModel.PanNo),
+        //                    new SqlParameter("@GSTNo", tranportMasterModel.GSTNo),
+        //                    new SqlParameter("@AadharNo", tranportMasterModel.AadharNo),
+        //                    new SqlParameter("@CancelChq", tranportMasterModel.CancelChq),
+        //                    new SqlParameter("@AddrProof", tranportMasterModel.AddrProof),
+        //                    new SqlParameter("@EligibleForBid", tranportMasterModel.EligibleForBid),
+        //                    new SqlParameter("@WhatsappMblNo", tranportMasterModel.WhatsappMblNo),
+        //                    new SqlParameter("@BranchCode", tranportMasterModel.BranchCode),
+        //                    new SqlParameter("@Remarks", tranportMasterModel.Remarks),
+        //                    new SqlParameter("@IsActive", tranportMasterModel.IsActive),
+        //                    new SqlParameter("@InActiveDate", tranportMasterModel.InActiveDate)
+
+        //                };
+        //            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportMaster_Insert", param);
+
+        //            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+        //            {
+        //                responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+        //                responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+
+        //                if (responseModel.Status) { transaction.Commit(); }
+        //                else { transaction.Rollback(); }
+        //            }
+        //            else
+        //            {
+        //                responseModel.Status = false;
+        //                transaction.Rollback();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        transaction.Rollback();
+        //    }
+        //    return responseModel;
+        //}
         public async Task<ResponseModel> TransportMasterSave(TransportMasterModel tranportMasterModel)
         {
             ResponseModel responseModel = new();
@@ -64,21 +129,101 @@ namespace FleetMasters.Repository
                             new SqlParameter("@Remarks", tranportMasterModel.Remarks),
                             new SqlParameter("@IsActive", tranportMasterModel.IsActive),
                             new SqlParameter("@InActiveDate", tranportMasterModel.InActiveDate)
-                           
+
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportMaster_Insert", param);
-
+                    string TptCode = "";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
+                        TptCode = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status)
+                        {
+                            if (tranportMasterModel.TransportLocationList.Count > 0 && tranportMasterModel.TransportLocationList[0].LocId != "")
+                            {
+                                for (int i = 0; i < tranportMasterModel.TransportLocationList.Count; i++)
+                                {
+                                    SqlParameter[] paramMisc =
+                                    {
+                                      //  new SqlParameter("@Dtlid",  tranportMasterModel.TransportLocationList[i].Dtlid),
+                                        new SqlParameter("@TptCode", TptCode),
+                                        new SqlParameter("@LocId", tranportMasterModel.TransportLocationList[i].LocId),
+                                       // new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
+                                      
+                                    };
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportLocations_Insert", paramMisc);
+                                    responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
+
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = tranportMasterModel.TransportLocationList.Count;
+                                    }
+                                }
+                            }
+
+                            // AdBlue Details insert or update
+                            //  if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
+                            if (tranportMasterModel.TransportStatesList.Count > 0 && tranportMasterModel.TransportStatesList[0].StateCode != "")
+                            {
+                                for (int i = 0; i < tranportMasterModel.TransportLocationList.Count; i++)
+                                {
+                                    SqlParameter[] paramAdBlue =
+                                    {
+                                      //  new SqlParameter("@TripId", TripID),
+                                        new SqlParameter("@TptCode", TptCode),
+                                        new SqlParameter("@StateCode", tranportMasterModel.TransportStatesList[i].StateCode),
+                                    
+                                    };
+                                    var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportStates_Insert", paramAdBlue);
+                                    responseModel.Status = Convert.ToBoolean(statusAdBlue.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusAdBlue.Tables[0].Rows[0]["Message"]);
+
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = tranportMasterModel.TransportLocationList.Count;
+                                    }
+                                }
+                            }
+                            if (tranportMasterModel.TranportVehTypesList.Count > 0 && tranportMasterModel.TranportVehTypesList[0].VehTypeId != "")
+                            {
+                                for (int i = 0; i < tranportMasterModel.TranportVehTypesList.Count; i++)
+                                {
+                                    SqlParameter[] paramAdBlue =
+                                    {
+                                      //  new SqlParameter("@TripId", TripID),
+                                          new SqlParameter("@TptCode", TptCode),
+                                        new SqlParameter("@VehTypeId", tranportMasterModel.TranportVehTypesList[i].VehTypeId),
+
+                                    };
+                                    var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportVehTypes_Insert", paramAdBlue);
+                                    responseModel.Status = Convert.ToBoolean(statusAdBlue.Tables[0].Rows[0]["Status"]);
+                                    responseModel.Message = Convert.ToString(statusAdBlue.Tables[0].Rows[0]["Message"]);
+
+                                    if (!responseModel.Status)
+                                    {
+                                        transaction.Rollback();
+                                        i = tranportMasterModel.TransportLocationList.Count;
+                                    }
+                                }
+                            }
+                        }
                         else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                       
+
+                        else
+                        {
+                            transaction.Rollback();
+                            responseModel.Status = false;
+                        }
                     }
                 }
             }
@@ -88,6 +233,8 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
+
+
         public async Task<TransportMasterList> GetTransportMasterList(PageRequest request)
         {
             TransportMasterList tranportMastersList = new();

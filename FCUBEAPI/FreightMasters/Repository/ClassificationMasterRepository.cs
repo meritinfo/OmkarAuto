@@ -38,7 +38,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ClasstId", classificationMasterModel.ClasstId),
+                            new SqlParameter("@ClassId", classificationMasterModel.ClassId),
                             new SqlParameter("@ClassDesc", classificationMasterModel.ClassDesc),
                           //  new SqlParameter("@ProductGroupId", productMasterModel.ProductGroupId),
                            //    new SqlParameter("@ProductHSN", productMasterModel.ProductHSN),
@@ -74,7 +74,49 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ClassificationMasterList> GetClassificationMasterList(PageRequest request)
+        public async Task<ResponseModel> ClassificationMasterDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ClassId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ClassificationMasterDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+
+
+    
+    public async Task<ClassificationMasterList> GetClassificationMasterList(PageRequest request)
         {
             ClassificationMasterList classificationMasterList = new();
             List<ClassificationMasterModel> classificationList = new();
@@ -99,7 +141,7 @@ namespace FreightMasters.Repository
                         {
                             classificationList.Add(new ClassificationMasterModel
                             {
-                                ClasstId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClasstId"]),
+                                ClassId = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassId"]),
                                 ClassDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ClassDesc"]),
                                 IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
                                 //   ProductHSN = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductHSN"]),
