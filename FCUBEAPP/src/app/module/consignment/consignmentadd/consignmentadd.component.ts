@@ -46,16 +46,13 @@ export class ConsignmentaddComponent implements OnInit {
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
-  stateList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
-  packingList: Dropdownmodel[] = [];
   vehicalType: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
-  delTypeList: Dropdownmodel[] = [];
+  classList: Dropdownmodel[] = [];
   businessByList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
-  // jobDetails = new Jobmodel();
   eWayBillDetails = new Ewaybillmodel();
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
@@ -74,7 +71,6 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sharedService.loading = true;
 
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
@@ -100,80 +96,128 @@ export class ConsignmentaddComponent implements OnInit {
       this.route.navigate(['/']);
     }
 
+    this.sharedService.loading = true;
     this.getBranchList();
     this.getRateList();
     this.getContentList();
-    this.getStateList();
     this.getLocationList();
-    this.getDelTypes();
+    this.getClassList();
     this.getBusiByList();
     this.getVehicleNoList();
     this.getBillingPartyList();
-    this.getPackingList();
     this.getVehTypes();
 
+    this.sharedService.loading = false;
+    
     this.formUser = this.formBuilder.group({
-      gcNoteNo: new FormControl('', [Validators.required]),
-      bookingDate: new FormControl(this.loginDate, [Validators.required]),
-      bookingStatus: new FormControl('TBB', [Validators.required]),
-      divType: new FormControl('', [Validators.required]),
-      delType: new FormControl('', [Validators.required]),
-      businessBy: new FormControl('', [Validators.required]),
-      ewayBillEntryType: new FormControl('A',),
-      ewayBillNo: new FormControl('', [Validators.required]),
-      ewayBillDate: new FormControl('',),
-      fromPlace: new FormControl('', [Validators.required]),
-      toPlace: new FormControl('', [Validators.required]),
-      kms: new FormControl('0',),
-      truckNo: new FormControl('', [Validators.required]),
-      clientType: new FormControl('NR', [Validators.required]),
-      jobNo: new FormControl('', [Validators.required]),
-      packingType:new FormControl('', [Validators.required]),
-      vehType:new FormControl('', [Validators.required]),
-      billingParty:new FormControl('', [Validators.required]),
-      billingStn:new FormControl(this.branch, [Validators.required]),
-      cnorName: new FormControl('', [Validators.required]),
-      cnorAdr: new FormControl('',),
-      cnorAdr1: new FormControl('',),
-      cnorStateCode: new FormControl('', [Validators.required]),
-      cnorPincode: new FormControl('',),
-      cnorEmail: new FormControl('',),
-      cnorMobile: new FormControl('', [Validators.required]),
-      cnorGstNo: new FormControl('', [Validators.required]),
-      cnorInvNo: new FormControl('',),
-      cnorInvDate: new FormControl('',),
-      declaredValue: new FormControl('',),
-      cneeName: new FormControl('', [Validators.required]),
-      cneeAdr: new FormControl('',),
-      cneeAdr1: new FormControl('',),
-      cneeStateCode: new FormControl('',[Validators.required]),
-      cneePincode: new FormControl('',),
-      cneeEmail: new FormControl('',),
-      cneeMobile: new FormControl('', [Validators.required]),
-      cneeGstNo: new FormControl('', [Validators.required]),
-      contents: new FormControl('',),
-      shipmentNo: new FormControl('',),
-      loadLength: new FormControl('',),
-      loadWidth: new FormControl('',),
-      loadHeight: new FormControl('',),
-      productId: new FormControl('', [Validators.required]),
-      noPackages: new FormControl('', [Validators.required]),
-      actualWt: new FormControl('', [Validators.required]),
-      chargewt: new FormControl('', [Validators.required]),
-      rateType: new FormControl('', [Validators.required]),
-      rateRs: new FormControl('0',),
-      freightRs: new FormControl('0',),
-      statisticalRs: new FormControl('0',),
-      subTotalRs: new FormControl('0',),
-      gtotalRs: new FormControl('0',),
-      generalRemarks: new FormControl('',),
-      yearId: new FormControl('',),
+      bookingPlace  :new FormControl(this.branch, [Validators.required]),
+      gcNoteNo  : new FormControl('', [Validators.required]),
+      bookingDate : new FormControl(this.loginDate, [Validators.required]),
+      bookingStatus : new FormControl('TBB', [Validators.required]),
+      ewayBillEntryType : new FormControl('A', [Validators.required]),
+      ewayBillNo : new FormControl('', [Validators.required]),
+      ewayBillDate : new FormControl('', [Validators.required]),
+      invoiceNo        : new FormControl('', [Validators.required]),
+      invoiceDate : new FormControl('', [Validators.required]),
+      invoiceValue : new FormControl('', [Validators.required]),
+      declaredValue : new FormControl('',),    
+      fromPlace : new FormControl('', [Validators.required]),    
+      toPlace : new FormControl('', [Validators.required]),    
+      kms : new FormControl('0',),
+      ownTruck : new FormControl('',),    
+      truckNo : new FormControl('', [Validators.required]),    
+      billingParty : new FormControl('', [Validators.required]),
+      billingBranch : new FormControl('', [Validators.required]),
+      businessBranch : new FormControl('', [Validators.required]),
+      cnorName : new FormControl('', [Validators.required]),
+      cnorAdd1 : new FormControl('',),    
+      cnorAdd2 : new FormControl('',),    
+      cnorAdd3 : new FormControl('',),    
+      cnorPin : new FormControl('',),    
+      cnorGst : new FormControl('', [Validators.required]),
+      cnorMobile : new FormControl('',),    
+      cnorEmail : new FormControl('',),    
+      cneeName : new FormControl('', [Validators.required]),
+      cneeAdd1 : new FormControl('',),    
+      cneeAdd2 : new FormControl('',),    
+      cneeAdd3 : new FormControl('',),    
+      cneePin : new FormControl('',),    
+      cneeGst : new FormControl('', [Validators.required]),
+      cneeMobile : new FormControl('', [Validators.required]),
+      cneeEmail : new FormControl('',),    
+      shipmentNo : new FormControl('',),    
+      shipmentDt : new FormControl('',),    
+      deliveryNo : new FormControl('',),    
+      deliveryDt : new FormControl('',),    
+      poNo : new FormControl('',),    
+      poDt : new FormControl('',),    
+      riskBy : new FormControl('',),    
+      insCoName :new FormControl('',),    
+      insPolicyNo : new FormControl('',),    
+      insValidDt : new FormControl('',),    
+      insuredValue : new FormControl('',),    
+      classId : new FormControl('', [Validators.required]),
+      productId : new FormControl('', [Validators.required]),
+      productDesc : new FormControl('',),    
+      hsnSac : new FormControl('',),    
+      noPackages : new FormControl('',),    
+      looseFlag : new FormControl('',),    
+      weightType : new FormControl('',),    
+      actualWt : new FormControl('',),    
+      senderWt : new FormControl('',),    
+      chargewt : new FormControl('',),    
+      wtDesc :new FormControl('',),    
+      vehicleTypeId :new FormControl('', [Validators.required]),
+      privateMark : new FormControl('',),    
+      bulkYN : new FormControl('',),    
+      loadLength : new FormControl('',),    
+      loadWidth : new FormControl('',),    
+      loadHeight : new FormControl('',),    
+      loadCFT : new FormControl('',),    
+      rateType : new FormControl('',),    
+      rateDesc : new FormControl('',),    
+      gstBy : new FormControl('',),    
+      rateRs : new FormControl('',),    
+      freightRs : new FormControl('',),    
+      statisticalRs : new FormControl('',),    
+      fovRs : new FormControl('',),    
+      doorCollRs : new FormControl('',),    
+      handlingRs : new FormControl('',),    
+      loadingDetnRs : new FormControl('',),    
+      enrouteRs : new FormControl('',),    
+      miscRs : new FormControl('',),    
+      doorDelRs : new FormControl('',),    
+      unLoadingRs : new FormControl('',),    
+      unLoadingDetnRs : new FormControl('',),    
+      extrasRS : new FormControl('',),    
+      othersRs : new FormControl('',),    
+      freightNarr : new FormControl('',),    
+      statisticalNarr: new FormControl('',),    
+      fovNarr : new FormControl('',),    
+      doorCollNarr : new FormControl('',),    
+      handlingNarr : new FormControl('',),    
+      loadingDetnNarr : new FormControl('',),    
+      enrouteNarr : new FormControl('',),    
+      miscNarr : new FormControl('',),    
+      doorDelNarr : new FormControl('',),    
+      extrasNarr : new FormControl('',),    
+      unLoadingNarr : new FormControl('',),    
+      unloadingDetenNarr : new FormControl('',),    
+      othersNarr : new FormControl('',),    
+      subTotalRs : new FormControl('',),    
+      gstType : new FormControl('',),    
+      gstPct : new FormControl('',),    
+      sgstAmt : new FormControl('',),    
+      cgstAmt : new FormControl('',),    
+      igstAmt : new FormControl('',),    
+      gtotalRs : new FormControl('',), 
+      generalRemarks : new FormControl('',), 
+      businessBy : new FormControl('',),    
     });
 
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     this.changeEWay('A');
-    this.getLrNo();
-    this.getDivType();
+    this.onBranchChange();
     this.sharedService.loading = false;
   }
 
@@ -181,100 +225,69 @@ export class ConsignmentaddComponent implements OnInit {
   get f() { return this.formUser.controls; }
 
   getBranchList(): void {
-    // this.sharedService.getBranchList().subscribe((res) => {
-    //   this.branchList = res;
-    // });
+    this.commonService.getBranchList().subscribe((res) => {
+      this.branchList = res;
+    });
   }
 
   getRateList(): void {
-    // this.lrentryService.getRateList().subscribe((res) => {
-    //   this.rateList = res;
-    // });
+    this.commonService.getRateList().subscribe((res) => {
+      this.rateList = res;
+    });
   }
 
   getLocationList(): void {
-    // this.lrentryService.getLocationList().subscribe((res) => {
-    //   this.locationList = res;
-    // });
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
   }
 
 
-  getDelTypes(): void {
-    // this.lrentryService.getDeliveryTypes().subscribe((res) => {
-    //   this.delTypeList = res;
-    // });
+  getClassList(): void {
+    this.commonService.getClassList().subscribe((res) => {
+      this.classList = res;
+    });
   }
 
   getBusiByList(): void {
-    // this.lrentryService.getEmployeeList().subscribe((res) => {
-    //   this.businessByList = res;
-    // });
+    this.commonService.getEmpList().subscribe((res) => {
+      this.businessByList = res;
+    });
   }
 
   getVehicleNoList(): void {
-    // this.lrentryService.getVehicleNoList().subscribe((res) => {
-    //   this.vehicleList = res;
-    // });
-  }
-
-  getStateList(): void {
-    // this.lrentryService.getStateList().subscribe((res) => {
-    //   this.stateList = res;
-    // });
+    this.commonService.getVehicleNoList().subscribe((res) => {
+      this.vehicleList = res;
+    });
   }
 
   getContentList(): void {
-    // this.lrentryService.getContentList().subscribe((res) => {
-    //   this.contentList = res;
-    // });
+    this.commonService.getContentList().subscribe((res) => {
+      this.contentList = res;
+    });
   }
 
   getBillingPartyList(): void {
-    // this.lrentryService.getBillingPartyList().subscribe((res) => {
-    //   this.partyList = res;
-    // });
-  }
-
-  getPackingList(): void {
-    // this.lrentryService.getPackingList().subscribe((res) => {
-    //   this.packingList = res;
-    // });
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
   }
 
   getVehTypes(): void {
-    // this.lrentryService.getVehTypes().subscribe((res) => {
-    //   this.vehicalType = res;
-    // });
+    this.commonService.getVehicleList().subscribe((res) => {
+      this.vehicalType = res;
+    });
   }
 
-  onLrManualChange(e: any) {
-    if (e.target.checked) {
-      this.formUser.controls["gcNoteNo"].enable();
-      this.formUser.patchValue({
-        gcNoteNo: ""
-      });
+  onBranchChange() {
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.bookingPlace==""){
+      this.requestmodel.strRequest = this.branch;
     }
-    else {
-      this.getLrNo();
+    else{
+      this.requestmodel.strRequest = selectedData.bookingPlace;
     }
-  }
 
-  onLrChange() {
-    this.requestmodel.strRequest = this.branch;
-    // this.requestmodel.strRequest1 = this.formUser.value.gcNoteNo;
-    // this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
-    //   this.responseDetails = res;
-    //   if (!this.responseDetails.status) {
-    //     this.toastrService.warning(this.responseDetails.message)
-    //     this.formUser.patchValue({
-    //       gcNoteNo: ""
-    //     });
-    //   }
-    // });
-  }
-
-  getLrNo() {
-    this.requestmodel.strRequest = this.branch;
     // this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
     //   this.responseDetails = res;
     //   if (this.responseDetails.status) {
@@ -286,74 +299,154 @@ export class ConsignmentaddComponent implements OnInit {
     //     this.toastrService.warning(this.responseDetails.message);
     //   }
     // });
-    // this.formUser.controls["gcNoteNo"].disable();
+  }
+ 
+     
+  changeGstType(e: any) {
+    console.log(e.target.value);
+    var gsttype = e.target.value; 
+   
+    if (gsttype == "I") {   
+      this.formUser.controls['sgstPct'].disable();
+      this.formUser.controls['cgstPct'].disable();  
+      this.formUser.controls['igstPct'].enable();    
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"0",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"0",
+      });   
+    }    
+    else if (gsttype == "S")  {      
+      this.formUser.controls['sgstPct'].enable();
+      this.formUser.controls['cgstPct'].enable();  
+      this.formUser.controls['igstPct'].disable();   
+      this.formUser.patchValue({
+        sgstPct:"0",
+        cgstPct:"0",
+        igstPct:"",
+        sgstAmt:"0",
+        cgstAmt:"0",
+        igstAmt:"",
+      });     
+    }
+    else{
+      this.formUser.controls['sgstPct'].disable();
+      this.formUser.controls['cgstPct'].disable();  
+      this.formUser.controls['igstPct'].disable();   
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"",
+      });   
+    }    
+    this.calculateTotalAmount()
   }
 
-  getDivType() {
-    this.requestmodel.strRequest = this.branch;
-    // this.lrentryService.getDivType(this.requestmodel).subscribe((res: Responsemodel) => {
-    //   this.responseDetails = res;
-    //   if (this.responseDetails.status) {
-    //     if(this.responseDetails.message=="P"){          
-    //       this.formUser.patchValue({
-    //         divType: "P"
-    //       });
-    //       this.formUser.controls["divType"].disable();
-    //       this.formUser.controls['jobNo'].enable();
-    //       this.getJobDetails();
-    //       this.formUser.controls['jobNo'].setValidators([Validators.required]);
-    //     }
-    //     else{          
-    //       this.formUser.controls["divType"].enable();
-    //       this.formUser.controls['jobNo'].disable();
-    //       this.formUser.patchValue({
-    //         jobNo: "",
-    //       }); 
-    //       this.formUser.controls['jobNo'].clearValidators();
-    //     }        
-    //     this.formUser.controls['jobNo'].updateValueAndValidity();
-    //   }
-    //   else{
-    //     this.toastrService.warning(this.responseDetails.message);
-    //   }
-    // });
-  }
+  calculateTotalAmount(){
+    var subTotalRs = 0;
+    var gtotalRs = 0;
+    var selectedData = this.formUser.getRawValue();
 
-   getJobDetails() {
-  //   var selecteddata = this.formUser.getRawValue();
-  //   this.requestmodel.strRequest = selecteddata.gcNoteNo;
-  //   this.lrentryService.getJobDetails(this.requestmodel).subscribe((res: Jobmodel) => {
-  //     this.jobDetails = res;
-  //     this.formUser.patchValue({
-  //       jobNo: this.jobDetails.jobNo,
-  //     });         
-  //   });
-   }
+    var freightRs = selectedData.freightRs != ""? parseFloat(selectedData.freightRs) : 0;
+    var statisticalRs = selectedData.statisticalRs != ""? parseFloat(selectedData.statisticalRs) : 0;
+    var fovRs = selectedData.fovRs != ""? parseFloat(selectedData.fovRs) : 0;
+    var doorCollRs = selectedData.doorCollRs != ""? parseFloat(selectedData.doorCollRs) : 0;
+    var handlingRs = selectedData.handlingRs != ""? parseFloat(selectedData.handlingRs) : 0;
+    var loadingDetnRs = selectedData.loadingDetnRs != ""? parseFloat(selectedData.loadingDetnRs) : 0;
+    var enrouteRs= selectedData.enrouteRs != ""? parseFloat(selectedData.enrouteRs) : 0;
+    var miscRs = selectedData.miscRs != ""? parseFloat(selectedData.miscRs) : 0;
+    var doorDelRs = selectedData.doorDelRs != ""? parseFloat(selectedData.doorDelRs) : 0;
+    var unLoadingRs = selectedData.unLoadingRs != ""? parseFloat(selectedData.unLoadingRs) : 0;
+    var unLoadingDetnRs= selectedData.unLoadingDetnRs != ""? parseFloat(selectedData.unLoadingDetnRs) : 0;
+    var extrasRS = selectedData.extrasRS != ""? parseFloat(selectedData.extrasRS) : 0;
+    var othersRs = selectedData.othersRs != ""? parseFloat(selectedData.othersRs) : 0;
+   
+    subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
+                    loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
+                    unLoadingDetnRs + extrasRS + othersRs
+   
+    var igst = 0;
+    var sgst = 0;
+    var cgst = 0;
+    if(selectedData.igstPct!=0){
+      igst = parseFloat(selectedData.igstPct)
+    }
+    if(selectedData.sgstPct!=0){
+      sgst = parseFloat(selectedData.sgstPct)
+    }
+    if(selectedData.cgstPct!=0){
+      cgst = parseFloat(selectedData.cgstPct)
+    }
+
+    if (selectedData.gstType == "I") {   
+      selectedData.igstPct 
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct: igst,
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt: Math.round((subTotalRs * igst)/100).toFixed(2),
+      });   
+    }    
+    else if (selectedData.gstType == "S")  {    
+      this.formUser.patchValue({
+        sgstPct: sgst,
+        cgstPct: cgst,
+        igstPct: "",
+        sgstAmt: Math.round((subTotalRs * sgst)/100).toFixed(2),
+        cgstAmt: Math.round((subTotalRs * cgst)/100).toFixed(2),
+        igstAmt: "",
+      });     
+    }
+    else{
+      this.formUser.patchValue({
+        sgstPct:"",
+        cgstPct:"",
+        igstPct:"",
+        sgstAmt:"",
+        cgstAmt:"",
+        igstAmt:"",
+      });   
+    }    
+    gtotalRs = subTotalRs + 
+    Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
+
+    this.formUser.patchValue({
+      subTotalRs: subTotalRs.toFixed(2),
+      gtotalRs: gtotalRs.toFixed(2),
+    });
+  }  
 
   searchGSTDetails(): void {
     this.sharedService.loading = true;
-    this.requestmodel.strRequest = this.branch;
-    //this.requestmodel.strRequest1 = this.formUser.value.ewayBillNo;
+    this.requestmodel.strRequest = this.formUser.value.ewayBillNo;
 
     // this.lrentryService.billDetails(this.requestmodel).subscribe((res: any) => {
-      // var response = res.result;
-      // this.eWayBillDetails.result = response;
-      // //if (this.eWayBillDetails.result.ewbNo == 0) {
-      //   this.sharedService.loading = false;
-      //   this.toastrService.warning("Please Enter Valid EwayBill No ");
-      //   this.formUser.patchValue({
-      //     ewayBillNo:""
-      //   })
-      //   return;
-     // }
-      //this.ewayBillExpDate=this.commonService.formatDate(this.eWayBillDetails.result.validUpto);
-      //this.noPackages=this.eWayBillDetails.result.itemList[0].quantity.toString();
-      if(parseFloat(this.noPackages.substring(0,this.noPackages.indexOf('.')))>0){
-        this.noPackages=this.noPackages.substring(0,this.noPackages.indexOf('.')); 
-      } 
-      else{
-        this.noPackages='';
-      }  
+    //   var response = res.result;
+    //   this.eWayBillDetails.result = response;
+    //   //if (this.eWayBillDetails.result.ewbNo == 0) {
+    //     this.sharedService.loading = false;
+    //     this.toastrService.warning("Please Enter Valid EwayBill No ");
+    //     this.formUser.patchValue({
+    //       ewayBillNo:""
+    //     })
+    //     return;
+    //  }
+    //   this.ewayBillExpDate=this.commonService.formatDate(this.eWayBillDetails.result.validUpto);
+    //   this.noPackages=this.eWayBillDetails.result.itemList[0].quantity.toString();
+    //   if(parseFloat(this.noPackages.substring(0,this.noPackages.indexOf('.')))>0){
+    //     this.noPackages=this.noPackages.substring(0,this.noPackages.indexOf('.')); 
+    //   } 
+    //   else{
+    //     this.noPackages='';
+    //   }  
 
       this.formUser.patchValue({
         // ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.ewayBillDate),
@@ -505,20 +598,6 @@ export class ConsignmentaddComponent implements OnInit {
 
   }
 
-
-  calculateTotalAmount() {
-    let total = 0;
-    var selectedData = this.formUser.getRawValue();
-    var freightRs = selectedData.freightRs ? parseFloat(selectedData.freightRs) : 0;
-    var statisticalRs = selectedData.statisticalRs ? parseFloat(selectedData.statisticalRs) : 0;
-
-    total = freightRs + statisticalRs;
-    this.formUser.patchValue({
-      subTotalRs: total,
-      gtotalRs: total,
-    })
-  }
-
   submitLrDetailsForm(): void {
     this.formSubmitted = true;
     if (this.formUser.invalid) {
@@ -589,8 +668,8 @@ export class ConsignmentaddComponent implements OnInit {
     // this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
     // this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
     // this.lrmodel.cnorGstNo = selectedDataValue.cnorGstNo;
-    this.lrmodel.cnorInvNo = selectedDataValue.cnorInvNo;
-    this.lrmodel.cnorInvDate = selectedDataValue.cnorInvDate;
+    // this.lrmodel.cnorInvNo = selectedDataValue.cnorInvNo;
+    // this.lrmodel.cnorInvDate = selectedDataValue.cnorInvDate;
     this.lrmodel.declaredValue = selectedDataValue.declaredValue;
     // this.lrmodel.cneeName = selectedDataValue.cneeName;
     // this.lrmodel.cneeAdr = selectedDataValue.cneeAdr;

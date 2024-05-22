@@ -165,7 +165,7 @@ export class ConsignmentlistComponent implements OnInit  {
         },
         {
           title: 'Vehicle No',
-          data: 'vehicleNo',
+          data: 'truckNo',
         },  
         {
           title: 'Action',

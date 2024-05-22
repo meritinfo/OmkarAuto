@@ -6,12 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Consignment</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item">Consignment</li>
-                                <li class="breadcrumb-item active">Consignment </li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -35,43 +29,38 @@
                 <div class="tab-content">
                     <div class="tab-pane mt-4" [ngClass]="{'active' : step1Active}" role="tabpanel" id="step1">
                         <div class="row">
-                            <div class="col-lg-2">                                
-                                <div class="form-check">
-                                    <input type="checkbox"  
-                                        (change)="onLrManualChange($event)"
-                                        class="form-check-input" >
-                                    <label for="neft" class="form-check-label">LR Manual Entry
-                                    </label>
-                                </div>                          
+                            <div class="col-lg-2">   
+                                <div class="mb-3">
+                                    <label for="neft" >Booking Place</label>
+                                    <span style="color: red">*</span>
+                                    <select formControlName="bookingPlace"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        (change)="onBranchChange()"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingPlace'].invalid) }">
+                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>                
+                                </div>                    
                             </div>     
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">LR No.</label>
+                                    <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
-                                        formControlName="gcNoteNo" maxlength="15" (change)="onLrChange()"
+                                        formControlName="gcNoteNo" maxlength="15" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <div class="mb-3"><label for="formrow-inputZip">Booking Date</label><span
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Booking Date</label><span
                                         style="color: red">*</span>
                                     <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"
                                         formControlName="bookingDate" max="{{maxDate}}" class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                 </div>
-                            </div>                              
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Job No.</label>
-                                    <span style="color: red">*</span>
-                                    <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
-                                        formControlName="jobNo" 
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['jobNo'].invalid) }">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
+                            </div>  
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Book Status</label><span style="color: red">*</span>
@@ -84,45 +73,6 @@
                                         <option value="Paid">Paid</option>
                                         <option value="FOC">FOC</option>
                                         <option value="Can">Cancel</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Division</label><span style="color: red">*</span>
-                                    <select formControlName="divType"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['divType'].invalid) }">
-                                        <option value="L">Logistics</option>
-                                        <option value="P">Packers</option>
-                                        <option value="R">Retail</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Delivery Type</label><span style="color: red">*</span>
-                                    <select formControlName="delType"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['delType'].invalid) }">
-                                        <option *ngFor="let dl of delTypeList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Client Type</label><span style="color: red">*</span>
-                                    <select formControlName="clientType"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['clientType'].invalid) }">                                        
-                                        <option value="NR">Non Relocation</option>
-                                        <option value="DP">Domestic Private</option>
-                                        <option value="DC">Domestic Corp</option>
-                                        <option value="IM">Import</option>
-                                        <option value="EX">Export</option>
-                                        <option value="IN">Individual</option>
                                     </select>
                                 </div>
                             </div>
@@ -149,7 +99,7 @@
                             <div class="col-lg-3">
                                 <div class="form-check">
                                     <input type="radio" name="ewayBillEntryType" formControlName="ewayBillEntryType"
-                                        id="formRadios3" value="E" class="form-check-input" name="ewayBillEntryType"
+                                        id="formRadios3" value="E" class="form-check-input" 
                                         (change)="changeEWay('E')">
                                     <label for="formRadios3" class="form-check-label" style="color:green">
                                         No EWay Bill Exemption
@@ -162,7 +112,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">EWay Bill No</label>
                                     <div class="hstack gap-1">
-                                        <input type="text" maxlength="15" class="form-control" placeholder=" "
+                                        <input type="text" maxlength="15" class="form-control" 
                                             formControlName="ewayBillNo"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
                                         <button type="button" class="btn btn-primary"
@@ -173,15 +123,22 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">EWay Bill Date</label>
-                                    <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"
+                                    <input bsdatepicker="" type="date" autoclose="false" 
                                         max="{{maxDate}}" formControlName="ewayBillDate" class="form-control">
+                                </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <input type="checkbox" formControlName="ownTruck" 
+                                                    class="form-check-input" >
+                                    <label for="neft" class="form-check-label">Own Truck </label>                                    
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
-                                    <input uppercaseonly type="text" id="formrow-inputCity" class="form-control" placeholder=""
-                                        formControlName="truckNo"
+                                    <input uppercaseonly type="text" id="formrow-inputCity" 
+                                        class="form-control" formControlName="truckNo"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
                                 </div>
                             </div>
@@ -236,8 +193,46 @@
                             <div class="col-lg-1">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">kMs</label>
-                                    <input type="text" numbersonly maxlength="8" class="form-control" placeholder=" "
+                                    <input type="text" numbersonly maxlength="8" class="form-control" 
                                         formControlName="kms">
+                                </div>
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Shipment No</label>
+                                    <input uppercaseonly class="form-control" formControlName="shipmentNo">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Shipment Date</label>
+                                    <input type="date" autoclose="false" 
+                                        formControlName="shipmentDt" max="{{maxDate}}" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3"><label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span>
+                                    <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
+                                        formControlName="invoiceNo"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceNo'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Invoice Value</label><span style="color: red">*</span>
+                                    <input type="text" decimalonly autoclose="false" class="form-control"
+                                        formControlName="invoiceValue"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceValue'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Invoice Date</label><span style="color: red">*</span>
+                                    <input type="date" autoclose="false" placeholder="yyyy-mm-dd"
+                                        formControlName="invoiceDate" max="{{maxDate}}" class="form-control"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceDate'].invalid) }">
                                 </div>
                             </div>
                         </div>
@@ -264,8 +259,8 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Cnor Gst</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cnorGstNo"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGstNo'].invalid) }">
+                                        placeholder="" formControlName="cnorGst"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGst'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -275,38 +270,38 @@
                                     maxlength="10"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorMobile'].invalid) }">
                                 </div>
+                            </div>                            
+                            <div class="col-lg-3">
+                                <div class="mb-4">
+                                    <label for="formrow-inputZip">Cnor Email</label>                                   
+                                    <input class="form-control" formControlName="cnorEmail">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cnor Address 1</label>
-                                    <input uppercaseonly class="form-control" formControlName="cnorAdr">
+                                    <input uppercaseonly class="form-control" formControlName="cnorAdd1">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Address 2</label>
-                                    <input uppercaseonly class="form-control" formControlName="cnorAdr1">
+                                    <input uppercaseonly class="form-control" formControlName="cnorAdd2">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor State</label>
-                                    <select formControlName="cnorStateCode"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorStateCode'].invalid) }">
-                                        <option *ngFor="let dl of stateList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
+                                    <label for="formrow-inputZip">Cnor Address 3</label>
+                                    <input uppercaseonly class="form-control" formControlName="cnorAdd3">
                                 </div>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnor Pin</label>
                                     <input numbersonly maxlength="6" class="form-control" 
-                                    formControlName="cnorPincode">
+                                    formControlName="cnorPin">
                                 </div>
                             </div>
                         </div>
@@ -322,8 +317,8 @@
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cnee gst</label>
-                                    <input uppercaseonly class="form-control" formControlName="cneeGstNo"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeGstNo'].invalid) }">
+                                    <input uppercaseonly class="form-control" formControlName="cneeGst"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeGst'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -333,42 +328,54 @@
                                     maxlength="10"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeMobile'].invalid) }">
                                 </div>
+                            </div>                                                       
+                            <div class="col-lg-3">
+                                <div class="mb-4">
+                                    <label for="formrow-inputZip">Cnee Email</label>                                   
+                                    <input class="form-control" formControlName="cneeEmail">
+                                </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Cnee Address 1</label>
-                                    <input uppercaseonly class="form-control" formControlName="cneeAdr">
+                                    <input uppercaseonly class="form-control" formControlName="cneeAdd1">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Address 2</label>
-                                    <input uppercaseonly class="form-control" formControlName="cneeAdr1">
+                                    <input uppercaseonly class="form-control" formControlName="cneeAdd2">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnee State</label>
-                                    <select formControlName="cneeStateCode"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cneeStateCode'].invalid) }">
-                                        <option *ngFor="let dl of stateList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
+                                    <label for="formrow-inputZip">Cnee Address 3</label>
+                                    <input uppercaseonly class="form-control" formControlName="cneeAdd3">
                                 </div>
                             </div>
                             <div class="col-lg-1">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Pin</label>
                                     <input numbersonly maxlength="6" class="form-control" 
-                                    formControlName="cneePincode">
+                                    formControlName="cneePin">
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row">                            
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Classsication</label><span style="color: red">*</span>
+                                    <select formControlName="classId"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['classId'].invalid) }">
+                                        <option *ngFor="let data of classList" value={{data.dataId}}>
+                                            {{data.dataName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>           
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Contents</label><span style="color: red">*</span>
@@ -380,25 +387,13 @@
                                         </option>
                                     </select>
                                 </div>
-                            </div>                            
-                            <div class="col-lg-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Packing Type</label><span style="color: red">*</span>
-                                    <select formControlName="packingType"
-                                        class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['packingType'].invalid) }">
-                                        <option *ngFor="let dl of packingList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>                           
+                            </div>                
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehical Type</label><span style="color: red">*</span>
-                                    <select formControlName="vehType"
+                                    <select formControlName="vehicleTypeId"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehType'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeId'].invalid) }">
                                         <option *ngFor="let dl of vehicalType" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -406,64 +401,52 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row">                                                     
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Shipment No</label>
-                                    <input uppercaseonly class="form-control" formControlName="shipmentNo">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3"><label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span>
-                                    <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
-                                        formControlName="cnorInvNo"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorInvNo'].invalid) }">
+                                    <input type="checkbox" formControlName="bulkYN" 
+                                                    class="form-check-input" >
+                                    <label for="neft" class="form-check-label">Is Bulk </label>                                    
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Invoice Value</label><span style="color: red">*</span>
-                                    <input type="text" decimalonly autoclose="false" class="form-control"
-                                        formControlName="declaredValue"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
+                                    <label for="formrow-inputZip">Load Length</label>
+                                    <input type="text" decimalonly class="form-control" formControlName="loadLength">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Invoice Date</label><span style="color: red">*</span>
-                                    <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"
-                                        formControlName="cnorInvDate" max="{{maxDate}}" class="form-control"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['declaredValue'].invalid) }">
+                                    <label for="formrow-inputZip">Load Width</label>
+                                    <input type="text" decimalonly class="form-control" formControlName="loadWidth">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Load Height</label>
+                                    <input type="text" decimalonly class="form-control" formControlName="loadHeight">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Load CFT</label>
+                                    <input type="text" decimalonly class="form-control" formControlName="loadCFT">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Length</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadLength"
-                                        [ngClass]=>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Width</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadWidth"
-                                        [ngClass]=>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Load Height</label>
-                                    <input type="text" decimalonly class="form-control" formControlName="loadHeight"
-                                        [ngClass]=>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Actual Wt</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="actualWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Sender Wt</label><span style="color: red">*</span>
+                                    <input type="text" decimalonly class="form-control" formControlName="senderWt"
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['senderWt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -523,6 +506,13 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
+                                    <label for="formrow-inputZip">Freight Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="freightNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="statisticalRs" (change)="calculateTotalAmount()">
@@ -530,26 +520,253 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Sub Total</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=""
-                                        formControlName="subTotalRs" [ngClass]=>
+                                    <label for="formrow-inputZip">Statistical Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="statisticalNarr" >
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">FOV</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="fovRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">FOV Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="fovNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Door Coll</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="doorCollRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Door Coll Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="doorCollNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Handling</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="handlingRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Handling Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="handlingNarr" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Loading Detn</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Loading Detn Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="loadingDetnNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Enroute</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="enrouteRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Enroute Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="enrouteNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Misc</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="miscRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Misc Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="miscNarr" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Door Del</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="doorDelRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Door Del Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="doorDelNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">UnLoading</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="unLoadingRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">UnLoading Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="unLoadingNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">UnLoading Detn</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="unLoadingDetnRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">UnLoading Detn Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="unloadingDetenNarr" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Extras</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="extrasRS" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Extras Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="extrasNarr" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Others</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="othersRs" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Others Narr</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="othersNarr" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Sub Total</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=""
+                                        formControlName="subTotalRs">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
+                                    <select id="formrow-inputState" class="form-control"
+                                        formControlName="gstType"  (change)="changeGstType($event)"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['gstType'].invalid) }">
+                                            <option value="N">NA</option>      
+                                            <option value="S">S/CGST</option> 
+                                            <option value="I">IGST</option>     
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">SGST Pct</label>
+                                    <input autoclose="false" type="text" class="form-control"
+                                        formControlName="sgstPct" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">SGST Amount</label>
+                                    <input autoclose="false" type="text" class="form-control"
+                                        formControlName="sgstAmt" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">CGST Pct</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="cgstPct" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">CGST Amount</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="cgstAmt" >
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">IGST Pct</label>
+                                    <input autoclose="false" type="text" class="form-control"
+                                        formControlName="igstPct" (change)="calculateTotalAmount()">
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">IGST Amount</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="igstAmt" >
+                                </div>
+                            </div>                            
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Net Total</label>
                                     <input type="text" decimalonly class="form-control" placeholder=""
                                         formControlName="gtotalRs" [ngClass]=>
                                 </div>
-                            </div>
+                            </div>                              
                         </div>
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Billing Stn</label><span style="color: red">*</span>
-                                    <select formControlName="billingStn"
+                                    <select formControlName="billingBranch"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingStn'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['billingBranch'].invalid) }">
                                         <option *ngFor="let dl of branchList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -578,6 +795,18 @@
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
                                     </div>
+                                </div>
+                            </div>                            
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Business Branch</label><span style="color: red">*</span>
+                                    <select formControlName="businessBranch"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['businessBranch'].invalid) }">
+                                        <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                            {{dl.dataName}}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -611,7 +840,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Remarks</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="generalRemarks" [ngClass]=>
+                                        placeholder="" formControlName="generalRemarks" >
                                 </div>
                             </div>
                         </div>

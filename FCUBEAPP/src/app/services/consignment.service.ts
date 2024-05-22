@@ -7,12 +7,12 @@ import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Consignmentlistmodel } from '../models/consignmentlistmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
-
 import { Requestmodel } from '../models/requestmodel';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ConsignmentService {
 
   httpOptions = {
@@ -21,6 +21,7 @@ export class ConsignmentService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+  
   selectedConsignment = new Consignmentmodel();
   constructor(private httpClient: HttpClient) { }
   setConsignmentDetails(consignment: Consignmentmodel) {
@@ -46,5 +47,8 @@ export class ConsignmentService {
   }
   getConsignmentList(filter: Reportmodel): Observable<Consignmentlistmodel> {
     return this.httpClient.post<Consignmentlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentList', filter, this.httpOptions);
+  }
+  getLrNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentDelete', req, this.httpOptions);
   }
 }
