@@ -25,4 +25,26 @@ export class Transportmastermodel {
   isActive: string = "";
   inActiveDate: string = "";
      
-    }
+  transportLocationList: TransportLocationListmodel[] = [];
+  transportStatesList: TransportStateListmodel[] = [];
+  tranportVehTypesList: TransportVehTypesListmodel[] = [];
+}
+
+export class TransportLocationListmodel {
+  dtlid: string = "";
+  tptCode: string = "";
+  locId: string = "";
+}
+
+export class TransportStateListmodel {
+  dtlid: string = "";
+  tptCode: string = "";
+  stateCode: string = "";
+ // adbluedieselAmount: string = "";
+}
+export class TransportVehTypesListmodel {
+  dtlid: string = "";
+  tptCode: string = "";
+  vehTypeId: string = "";
+ // adbluedieselAmount: string = "";
+}

@@ -263,11 +263,153 @@
                     </div>
                 </div>                 
               
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4" style="color: red;">TransportBidLocations</h4>
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                <tr>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="formrow-inputZip">
+                                                <h6>Location</h6>
+                                            </label>
+                                        </div>
                                       
+                                    </div>
+                                </tr>
+                                <tr formArrayName="transportLocationList"
+                                    *ngFor="let miscData of formLocationArray.controls; let k = index">
+                                    <div [formGroupName]="k">
+                                        <td class="col-lg-4">
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="locationList" formControlName="locId"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                 
+                                                   
+                                                  
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                  >
+                                                   
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                   
+                                        </td>
+                                      
+                                      
+                                        <td>
+                                            <div class="col-lg-12 details-button">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="addMiscItem(k)">Add</button>
+                                                <button *ngIf="formLocationArray.controls.length > 1"
+                                                    (click)="removeMiscItem(k)"
+                                                    class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>   
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4" style="color: red;">State Code</h4>
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                <tr>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="formrow-inputZip">
+                                                <h6>Location</h6>
+                                            </label>
+                                        </div>
+                                      
+                                    </div>
+                                </tr>
+                                <tr formArrayName="transportStateList"
+                                    *ngFor="let miscData of formStateArray.controls; let k = index">
+                                    <div [formGroupName]="k">
+                                        <td class="col-lg-4">
+                                            <select class="form-control" formControlName="stateCode"      
+                                            [ngClass]="">
+                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
+                                        </td>
+                                      
+                                      
+                                        <td>
+                                            <div class="col-lg-12 details-button">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="addMiscItem(k)">Add</button>
+                                                <button *ngIf="formStateArray.controls.length > 1"
+                                                    (click)="removeMiscItem(k)"
+                                                    class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>                
                              
                                      
-                                                     
-                                                                        
+                    </div>                             
+                </div>    
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4" style="color: red;">Veh Type</h4>
+                            <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                <tr>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <label for="formrow-inputZip">
+                                                <h6>Location</h6>
+                                            </label>
+                                        </div>
+                                      
+                                    </div>
+                                </tr>
+                                <tr formArrayName="transportVehList"
+                                    *ngFor="let miscData of formVehArray.controls; let k = index">
+                                    <div [formGroupName]="k">
+                                        <td class="col-lg-4">
+                                            <select class="form-control" formControlName="vehTypeId"      
+                                            [ngClass]="">
+                                                <option *ngFor="let state of vehicleTypeList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
+                                        </td>
+                                      
+                                      
+                                        <td>
+                                            <div class="col-lg-12 details-button">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="addMiscItem(k)">Add</button>
+                                                <button *ngIf="formVehArray.controls.length > 1"
+                                                    (click)="removeMiscItem(k)"
+                                                    class="btn btn-danger">Delete</button>
+                                            </div>
+                                        </td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>                
+                             
+                                     
+                    </div>                             
+                </div>                                                                         
                                
                 <div class="row text-right">
                     <div class="col-lg-12">

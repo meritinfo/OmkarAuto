@@ -1,6 +1,6 @@
 export class Classificationmastermodel {
    
-    classtId: string = "";
+    classId: string = "";
     classDesc: string = "";
     isActive: string = "";
     

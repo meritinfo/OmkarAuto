@@ -29,5 +29,9 @@ namespace FreightMasters.Business
         {
             return await productMasterRepository.GetProductMasterList(request);
         }
+        public async Task<ResponseModel> ProductMasterDelete(RequestModel request)
+        {
+            return await productMasterRepository.ProductMasterDelete(request);
+        }
     }
 }

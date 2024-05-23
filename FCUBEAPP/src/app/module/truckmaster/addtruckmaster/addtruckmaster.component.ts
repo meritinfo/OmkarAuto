@@ -14,6 +14,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class AddtruckmasterComponent {
   }) attachmentInput: any;
 selectedTruckMasterDetail = new Truckmastermodel();
 
-constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Truckmastermodel, private vehicleTypeGroupMasterService: TruckMasterService, private commonService: CommonService,private toastrService: ToastrService) {
+constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Truckmastermodel, private vehicleTypeGroupMasterService: TruckMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
   this.vehicleTypeGroupMasterModel = new Truckmastermodel();
 
 
@@ -53,8 +54,8 @@ else {
 this.getStateList();
 this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMasterDetails();
 this.formUser = this.formBuilder.group({
-  truckNo: new FormControl('',),
-  regnDate: new FormControl('',),
+  truckNo: new FormControl('',[Validators.required]),
+  regnDate: new FormControl('',[Validators.required]),
   ownerName: new FormControl('',),
   ownerType: new FormControl('',),
   ownMarket: new FormControl('M',),
@@ -121,6 +122,24 @@ getStateList(): void {
 get f() { return this.formUser.controls; }
 exit(): void {
   this.route.navigate(['/mkttrucklist']);
+}
+truckMasterDelete(): void {
+  if(this.selectedTruckMasterDetail.truckID != '' ){
+   this.requestmodel.strRequest =this.selectedTruckMasterDetail.truckID
+    if (confirm("Are you sure, you want to delete this?")) {
+          this.vehicleTypeGroupMasterService.truckMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toastrService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/vehtypeslist']);
+          }
+          else {
+            this.toastrService.warning(this.responseDetails.message);
+          }
+      });
+    }
+  }
 }
 
 

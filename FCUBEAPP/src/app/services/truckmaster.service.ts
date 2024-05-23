@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import {Truckmasterlistmodel } from '../models/truckmasterlistmodel';
 
 @Injectable({
@@ -30,6 +31,9 @@ export class TruckMasterService {
   }
   clearTruckMasterDetails() {
     this.selectedtruckmaster = new Truckmastermodel();
+  }
+  truckMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TruckMasterDelete', req, this.httpOptions);
   }
  truckmasterSubmitted(user:FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TruckMasterSave', user, this.httpOptions);

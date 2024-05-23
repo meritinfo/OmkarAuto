@@ -39,9 +39,13 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">Vehicle Type</label>
                                             <span style="color: red">*</span>
-                                            <input uppercaseonly type="text" class="form-control" placeholder=" "
-                                            formControlName="vehicleTypeGroupId"         
+                                            
+                                            <select class="form-control" formControlName="vehicleTypeGroupId"      
                                             [ngClass]="">
+                                                <option *ngFor="let state of vehicleTypeList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
                                         </div>
                                     </div>
                                 </div>   
@@ -85,8 +89,8 @@
                            (click)="submitClassificationMasterForm()" >Save</button> &nbsp;   -->
                            <button class="btn btn-primary w-md" 
                            (click)="submitVehicleTypeMasterForm()" >Save</button> &nbsp;  
-                           <!-- <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                           (click)="deleteBranchMasterForm()">Delete</button> &nbsp; -->
+                           <button class="btn btn-danger w-md m-2" 
+                           (click)="vehicleTypeMasterDelete()">Delete</button> &nbsp;
                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                        </div>
                    </div>

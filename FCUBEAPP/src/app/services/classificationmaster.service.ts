@@ -5,6 +5,7 @@ import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
+import { Requestmodel } from '../models/requestmodel';
 import {Classificationmasterlistmodel } from '../models/classificationmasterlistmodel';
 
 @Injectable({
@@ -28,6 +29,9 @@ export class ClassificationMasterService {
   }
   getClassificationMasterDetails() {
     return this.selectedclassificationmaster;
+  }
+  classificationMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ClassificationMasterDelete', req, this.httpOptions);
   }
   clearClassificationMasterDetails() {
     this.selectedclassificationmaster = new Classificationmastermodel();

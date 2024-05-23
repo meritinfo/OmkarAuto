@@ -8,6 +8,7 @@ using Shared.Models;
 using FleetMasters.Business;
 using FreightMasters.Repository;
 using FleetTrans.Business;
+using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -367,6 +368,42 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await classificationMasterBusiness.GetClassificationMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("classificationMasterDelete")]
+        public async Task<IActionResult> ClassificationMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await classificationMasterBusiness.ClassificationMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ProductMasterDelete")]
+        public async Task<IActionResult> ProductMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await productMasterBusiness.ProductMasterDelete(req);
 
                 return Ok(result);
             }

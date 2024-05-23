@@ -11,6 +11,8 @@ using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
 using Consignment.Models;
+using Consignment.Business;
+using FleetTrans.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -347,6 +349,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("TruckMasterDelete")]
+        public async Task<IActionResult> TruckMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await truckMasterBusiness.TruckMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <param name="expensesTypeMasterModel"></param>
         [HttpPost("ExpensesTypeMasterSave")]
@@ -359,6 +379,25 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await expensestypeMasterBusiness.ExpensesTypeMasterSave(expensesTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleTypeMasterDelete")]
+        public async Task<IActionResult> VehicleTypeMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.VehicleTypeMasterDelete(req);
 
                 return Ok(result);
             }

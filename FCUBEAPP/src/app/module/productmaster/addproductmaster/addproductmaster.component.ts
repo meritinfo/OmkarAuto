@@ -5,12 +5,17 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
+
 import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Productmastermodel } from 'src/app/models/productmastermodel';
 import { CommonService } from 'src/app/services/common.service';
+
+import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -28,7 +33,7 @@ export class AddproductmasterComponent {
 
   selectedProductMasterDetails = new Productmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private productMasterModel: Productmastermodel, private productmasterService: ProductMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private productMasterModel: Productmastermodel,private requestmodel:Requestmodel, private toasterService: ToastrService,private productmasterService: ProductMasterService, private commonService: CommonService) {
     this.productMasterModel = new Productmastermodel();
 
 
@@ -48,8 +53,8 @@ ngOnInit(): void {
   this.getProductList();
   this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
   this.formUser = this.formBuilder.group({
-    productName: new FormControl('',),
-    isActive: new FormControl('',),
+    productName: new FormControl('',[Validators.required]),
+    isActive: new FormControl('',[Validators.required]),
     productGroupId: new FormControl('',),
   
 
@@ -73,11 +78,40 @@ ngOnInit(): void {
       this.productList = res;
     });
   }
+  exit(): void {
+    this.route.navigate(['/productmasterlist']);
+  }
+  productMasterDelete(): void {
+    if(this.selectedProductMasterDetails.productId != '' ){
+     this.requestmodel.strRequest =this.selectedProductMasterDetails.productId
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.productmasterService.productMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toasterService.success(this.responseDetails.message);
+              this.formUser.reset();
+              this.route.navigate(['/productmasterlist']);
+            }
+            else {
+              this.toasterService.warning(this.responseDetails.message);
+            }
+        });
+      }
+    }
+  }
+
+ 
 
   //Submit user form details //
   submitProductMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");
+      const controls = this.formUser.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      } 
       return;
     }
     this.productMasterModel.productId = this.selectedProductMasterDetails.productId != '' ? this.selectedProductMasterDetails.productId : '';
@@ -88,9 +122,14 @@ ngOnInit(): void {
 
     this.productmasterService.productmasterDetailsSubmitted(this.productMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
-      console.log(this.responseDetails.message);
-      this.formUser.reset();
-      window.location.reload();
+      if (this.responseDetails.status) {
+        this.toasterService.success(this.responseDetails.message);
+        this.formUser.reset();
+        this.route.navigate(['productmasterlist']);
+      }
+      else {
+        this.toasterService.warning(this.responseDetails.message);
+      }      
     });
   }
 }

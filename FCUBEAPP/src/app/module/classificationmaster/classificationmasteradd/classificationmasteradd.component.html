@@ -38,7 +38,7 @@
                                         
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">IsActive</label>
+                                                <label for="formrow-inputZip">Is Active</label>
                                                 <span style="color: red">*</span>
                                                 <select formControlName="isActive" 
                                                     [ngClass]=""
@@ -69,8 +69,8 @@
                             (click)="submitClassificationMasterForm()" >Save</button> &nbsp;   -->
                             <button class="btn btn-primary w-md" 
                             (click)="submitClassificationMasterForm()" >Save</button> &nbsp;  
-                            <!-- <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                            (click)="deleteBranchMasterForm()">Delete</button> &nbsp; -->
+                            <button class="btn btn-danger w-md m-2" 
+                            (click)="classificationMasterDelete()">Delete</button> &nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
