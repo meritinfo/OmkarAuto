@@ -49,8 +49,9 @@
                             <td>{{ productmaster.isActive }}</td>
                          
                             <td>
-                                <a (click)="getproductMasterDetails(productmaster)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                                
+                                    <button type="button" class="btn btn-edit" 
+                                        (click)="getproductMasterDetails(productmaster)"></button>      
                            
                             </td>
                         </tr>

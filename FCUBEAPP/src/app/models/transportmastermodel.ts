@@ -27,7 +27,7 @@ export class Transportmastermodel {
      
   transportLocationList: TransportLocationListmodel[] = [];
   transportStatesList: TransportStateListmodel[] = [];
-  tranportVehTypesList: TransportVehTypesListmodel[] = [];
+  transportVehTypesList: TransportVehTypesListmodel[] = [];
 }
 
 export class TransportLocationListmodel {

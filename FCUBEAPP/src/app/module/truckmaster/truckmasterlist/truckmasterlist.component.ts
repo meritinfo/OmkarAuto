@@ -59,19 +59,19 @@ ngOnInit(): void {
      
 
      {
-      title: 'TruckNo ',
+      title: 'Truck No ',
       data: 'truckNo',
     },
     {
-      title: 'RegnDate ',
+      title: 'Regn Date ',
       data: 'regnDate',
     },
     {
-      title: 'OwnerName ',
+      title: 'Owner Name ',
       data: 'ownerName',
     },
     {
-      title: 'PhoneNo ',
+      title: 'Phone No ',
       data: 'phoneNo',
     },
    

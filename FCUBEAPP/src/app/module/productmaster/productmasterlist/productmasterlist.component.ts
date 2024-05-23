@@ -58,7 +58,7 @@ ngOnInit(): void {
       
 
     {
-      title: 'ProductName',
+      title: 'Product Name',
       data: 'productName',
     },
 

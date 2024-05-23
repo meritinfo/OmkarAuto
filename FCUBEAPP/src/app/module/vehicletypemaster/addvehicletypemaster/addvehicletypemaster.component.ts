@@ -74,7 +74,7 @@ get f() { return this.formUser.controls; }
 
  
 exit(): void {
-  this.route.navigate(['/vehicletypemasterlist']);
+  this.route.navigate(['/vehtypeslist']);
 }
 getVehicleTypeList(): void {
   this.commonService.getVehicleTypeList().subscribe((res) => {

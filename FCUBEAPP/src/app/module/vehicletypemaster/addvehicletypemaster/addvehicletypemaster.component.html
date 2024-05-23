@@ -54,7 +54,7 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">TonCap</label>
                                             <span style="color: red">*</span>
-                                            <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                            <input numbersonly type="text" class="form-control" placeholder=" "
                                             formControlName="tonCap"         
                                             [ngClass]="">
                                         </div>
@@ -65,7 +65,7 @@
                                         <div class="mb-2">
                                             <label for="formrow-inputZip">RunPerDayKM</label>
                                             <span style="color: red">*</span>
-                                            <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                            <input numbersonly type="text" class="form-control" placeholder=" "
                                             formControlName="runPerDayKM"         
                                             [ngClass]="">
                                         </div>
@@ -87,6 +87,7 @@
                        <div class="tex">
                            <!-- <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                            (click)="submitClassificationMasterForm()" >Save</button> &nbsp;   -->
+
                            <button class="btn btn-primary w-md" 
                            (click)="submitVehicleTypeMasterForm()" >Save</button> &nbsp;  
                            <button class="btn btn-danger w-md m-2" 
