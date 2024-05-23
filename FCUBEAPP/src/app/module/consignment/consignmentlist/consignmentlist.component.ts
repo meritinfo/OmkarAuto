@@ -114,7 +114,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr = selectedDataVal.branch;
-    this.filter.filterStr1 = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
     
     this.getConsignmentList();
   }
@@ -218,7 +218,7 @@ export class ConsignmentlistComponent implements OnInit  {
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
     this.filter.filterStr = selectedDataVal.branch;
-    this.filter.filterStr1 = selectedDataVal.vehicle?selectedDataVal.vehicle.dataId:"";
+    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
      this.getConsignmentList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
