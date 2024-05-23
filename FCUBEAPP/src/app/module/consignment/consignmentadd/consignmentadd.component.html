@@ -8,8 +8,7 @@
                         <h4 class="mb-sm-0 font-size-18">Consignment</h4>
                     </div>
                 </div>
-            </div>
-           
+            </div>           
             <!-- end page title -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li role="presentation" class="nav-item">
@@ -437,6 +436,19 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
+                                    <label for="formrow-inputState">Weight Type</label><span style="color: red">*</span>
+                                    <select id="formrow-inputState"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        formControlName="weightType"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['weightType'].invalid) }">
+                                        <option value="KG">KG</option>
+                                        <option value="MT">MT</option>
+                                        <option value="KT">KT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
                                     <label for="formrow-inputZip">Actual Wt</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="actualWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
@@ -506,27 +518,11 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Freight Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="freightNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="statisticalRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Statistical Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="statisticalNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">FOV</label>
@@ -536,25 +532,13 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">FOV Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="fovNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Door Coll</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="doorCollRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Coll Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="doorCollNarr" >
-                                </div>
-                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Handling</label>
@@ -564,25 +548,9 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Handling Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="handlingNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Loading Detn</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Loading Detn Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="loadingDetnNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -594,27 +562,11 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Enroute Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="enrouteNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Misc</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="miscRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Misc Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="miscNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Door Del</label>
@@ -624,25 +576,13 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Del Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="doorDelNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="unLoadingRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="unLoadingNarr" >
-                                </div>
-                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading Detn</label>
@@ -652,25 +592,9 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading Detn Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="unloadingDetenNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Extras</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="extrasRS" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Extras Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="extrasNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -682,18 +606,22 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Others Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="othersNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
                                     <input type="text" decimalonly class="form-control" placeholder=""
                                         formControlName="subTotalRs">
+                                </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
+                                    <select id="formrow-inputState" class="form-control"
+                                        formControlName="gstBy"  (change)="changeGstType($event)"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
+                                            <option value="N">NA</option>      
+                                            <option value="T">Transporter</option> 
+                                            <option value="R">Consignor</option>   
+                                            <option value="E">Consignee</option>     
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -708,6 +636,8 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">SGST Pct</label>
@@ -722,8 +652,6 @@
                                         formControlName="sgstAmt" >
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">CGST Pct</label>
@@ -751,11 +679,41 @@
                                     <input autoclose="false" type="text" class="form-control" 
                                         formControlName="igstAmt" >
                                 </div>
-                            </div>                            
+                            </div> 
+                        </div>
+                        <div class="row">                          
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt1</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="nonGstAmt1" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt Desc1</label>
+                                    <input type="text" uppercaseonly class="form-control"
+                                        formControlName="nonGstAmt1Desc" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt2</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="nonGstAmt2" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt Desc2</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="nonGstAmt2Desc" [ngClass]=>
+                                </div>
+                            </div>                                   
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Net Total</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=""
+                                    <input type="text" decimalonly class="form-control" 
                                         formControlName="gtotalRs" [ngClass]=>
                                 </div>
                             </div>                              
@@ -835,7 +793,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row">                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Declared Value</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="declaredValue" >
+                                </div>
+                            </div> 
                             <div class="col-lg-8">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Remarks</label>

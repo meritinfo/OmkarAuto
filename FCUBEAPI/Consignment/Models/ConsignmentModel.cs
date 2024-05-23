@@ -13,7 +13,6 @@ namespace Consignment.Models
         public string? EwayBillNo               { get; set; }
         public string? EwayBillDate             { get; set; }
         public string? EwayBillExpDate          { get; set; }
-        public string? EwayBillExpExtDate       { get; set; }
         public string? InvoiceNo                { get; set; }
         public string? InvoiceDate              { get; set; }
         public string? InvoiceValue             { get; set; }
@@ -24,7 +23,6 @@ namespace Consignment.Models
         public string? TPlace                   { get; set; }
         public string? Kms                      { get; set; }
         public string? OwnTruck                 { get; set; }
-        public string? TruckId                  { get; set; }
         public string? TruckNo                  { get; set; }
         public string? BillingParty             { get; set; }
         public string? BillingBranch            { get; set; }
@@ -91,19 +89,6 @@ namespace Consignment.Models
         public string? UnLoadingDetnRs          { get; set; }
         public string? ExtrasRS                 { get; set; }
         public string? OthersRs                 { get; set; }
-        public string? FreightNarr              { get; set; }
-        public string? StatisticalNarr          { get; set; }
-        public string? FovNarr                  { get; set; }
-        public string? DoorCollNarr             { get; set; }
-        public string? HandlingNarr             { get; set; }
-        public string? LoadingDetnNarr          { get; set; }
-        public string? EnrouteNarr              { get; set; }
-        public string? MiscNarr                 { get; set; }
-        public string? DoorDelNarr              { get; set; }
-        public string? ExtrasNarr               { get; set; }
-        public string? UnLoadingNarr            { get; set; }
-        public string? UnloadingDetenNarr       { get; set; }
-        public string? OthersNarr               { get; set; }
         public string? SubTotalRs               { get; set; }
         public string? GstType                  { get; set; }
         public string? SgstPct                  { get; set; }

@@ -17,15 +17,10 @@ namespace FreightMasters.Business
             classificationMasterRepository = _classificationMasterRepository;
         }
 
-        /// <summary>
-        /// Business method for save product master details
-        /// </summary>
-        /// <param name="productMasterModel"></param>
         public async Task<ResponseModel> ClassificationMasterSave(ClassificationMasterModel classificationMasterModel)
         {
             return await classificationMasterRepository.ClassificationMasterSave(classificationMasterModel);
-        }
-       
+        }       
         public async Task<ClassificationMasterList> GetClassificationMasterList(PageRequest request)
         {
             return await classificationMasterRepository.GetClassificationMasterList(request);
