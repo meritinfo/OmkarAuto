@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Getkmsmodel } from 'src/app/models/getkmsmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
@@ -35,7 +35,9 @@ export class ConsignmentaddComponent implements OnInit {
   year: string = '';
   branch: string = '';
   loginDate: string = '';
+  fromDate: string = '';
   maxDate: string = '';
+  minDate: string = '';
   newDate: string = '';
   ewayBillExpDate:string = '';
   noPackages:string = '';
@@ -71,15 +73,7 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    var yearIDData = sessionStorage.getItem('yearID')?.toString();
-    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
-      this.year = yearIDData;
-    }
-    var loginDate = sessionStorage.getItem('loginDate')?.toString();
-    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
-      this.loginDate = loginDate;
-    }
+    
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
       this.branch = userData3;
@@ -95,6 +89,29 @@ export class ConsignmentaddComponent implements OnInit {
     else {
       this.route.navigate(['/']);
     }
+
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
 
     this.sharedService.loading = true;
     this.getBranchList();
@@ -204,9 +221,10 @@ export class ConsignmentaddComponent implements OnInit {
       gtotalRs : new FormControl('',), 
       generalRemarks : new FormControl('',), 
       businessBy : new FormControl('',),    
+      arrayList: this.formBuilder.array([this.createInitialArray()])  , 
     });
+    this.formUser.controls["bookingPlace"].disable();
 
-    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     this.changeEWay('A');
     this.onBranchChange();
     this.sharedService.loading = false;
@@ -214,6 +232,21 @@ export class ConsignmentaddComponent implements OnInit {
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
+
+  get formArray() {
+    return this.formUser.get("arrayList") as FormArray;
+  }
+  
+  createInitialArray() {
+    return this.formBuilder.group({
+      ewayBillNo: ['', []],
+      ewayBillDate: ['', []],
+      ewayBillExpDate: ['', []],
+      invNo: ['', []],
+      invDate: ['', []],
+      invValue: ['', []],
+    });
+  }
 
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -416,55 +449,77 @@ export class ConsignmentaddComponent implements OnInit {
   }  
 
   searchGSTDetails(): void {
-    this.sharedService.loading = true;
-    this.requestmodel.strRequest = this.formUser.value.ewayBillNo;
+    var selectedDataValue = this.formUser.getRawValue();
+    var ewayBillNo = selectedDataValue.ewayBillNo;
 
-    // this.lrentryService.billDetails(this.requestmodel).subscribe((res: any) => {
-    //   var response = res.result;
-    //   this.eWayBillDetails.result = response;
-    //   //if (this.eWayBillDetails.result.ewbNo == 0) {
-    //     this.sharedService.loading = false;
-    //     this.toastrService.warning("Please Enter Valid EwayBill No ");
-    //     this.formUser.patchValue({
-    //       ewayBillNo:""
-    //     })
-    //     return;
-    //  }
-    //   this.ewayBillExpDate=this.commonService.formatDate(this.eWayBillDetails.result.validUpto);
-    //   this.noPackages=this.eWayBillDetails.result.itemList[0].quantity.toString();
-    //   if(parseFloat(this.noPackages.substring(0,this.noPackages.indexOf('.')))>0){
-    //     this.noPackages=this.noPackages.substring(0,this.noPackages.indexOf('.')); 
-    //   } 
-    //   else{
-    //     this.noPackages='';
-    //   }  
+    if(ewayBillNo != "") {
+      this.requestmodel.strRequest = ewayBillNo;        
+      this.commonService.checkEwaybillExits(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if(this.responseDetails.status){
+          this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
+          var result = res.result;
+            if (result.code === 200) {
+              this.formUser.controls['ewayBillType'].disable();
+              this.eWayBillDetails.result = result;
 
-      this.formUser.patchValue({
-        // ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.ewayBillDate),
-        // cnorName: this.eWayBillDetails.result.fromTrdName,
-        // cnorAdr: this.eWayBillDetails.result.fromAddr1,
-        // cnorAdr1: this.eWayBillDetails.result.fromAddr2 + this.eWayBillDetails.result.fromPlace,
-        // cnorStateCode: this.eWayBillDetails.result.fromStateCode.toString(),
-        // cnorPincode: this.eWayBillDetails.result.fromPincode,
-        // cnorGstNo: this.eWayBillDetails.result.fromGstin,
-        // cneeName: this.eWayBillDetails.result.toTrdName,
-        // cneeAdr: this.eWayBillDetails.result.toAddr1,
-        // cneeAdr1: this.eWayBillDetails.result.toAddr2 + this.eWayBillDetails.result.toPlace,
-        // cneeStateCode: this.eWayBillDetails.result.toStateCode.toString(),
-        // cneePincode: this.eWayBillDetails.result.toPincode,
-        // cneeGstNo: this.eWayBillDetails.result.toGstin,
-        // cnorInvDate: this.commonService.formatDate(this.eWayBillDetails.result.docDate),
-        // cnorInvNo: this.eWayBillDetails.result.docNo,
-        // kms: this.eWayBillDetails.result.actualDist.toString(),
-        // productId: this.eWayBillDetails.result.itemList[0].productId.toString(),
-        // noPackages: this.noPackages,
-        // truckNo: this.eWayBillDetails.result.vehiclListDetails[0].vehicleNo.toString(),
-        // declaredValue: this.eWayBillDetails.result.totInvValue.toString(),
+              this.formUser.patchValue({
+                ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
+                ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
+                invoiceDt: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+                invoiceNo: this.eWayBillDetails.result.message.document_number,
+                goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
+               
+                cnorName: this.eWayBillDetails.result.message.legal_name_of_consignor,
+                cneeName: this.eWayBillDetails.result.message.legal_name_of_consignee,
+                cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
+                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
+                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
+                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,                
+                cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
+                vehicleNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+              });
+              this.formArray.controls[0].get("ewayBillNo")?.setValue(this.eWayBillDetails.result.message.eway_bill_number);
+              this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date)));
+              this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date)));
+              this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number);
+              this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date)));
+              this.formArray.controls[0].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
+              this.formArray.controls[0].get("invNo")?.disable();
+              this.formArray.controls[0].get("invDate")?.disable();
+              this.formArray.controls[0].get("invValue")?.disable();              
+              this.formArray.push(this.createInitialArray());
+            }
+            else{              
+              this.toastrService.warning("Please Enter Valid Eway bill no");  
+              this.formUser.patchValue({
+                ewayBillDate: "",
+                ewayBillExpDate:  "",
+                invoiceDt: "",
+                invoiceNo:  "",
+                goodsValue:  "",
+               
+                cnorName:  "",
+                cneeName:  "",
+                cneeAdd1:  "",
+                cneeAdd2:  "",
+                cneeAdd3:  "",
+                cnorGst:  "",     
+                cneeGst:  "",
+                vehicleNo:  "",
+              });
+            }
+          });
+        }
+        else{
+          this.formUser.patchValue({
+            ewayBillNo:"",
+          });
+          this.toastrService.warning("Eway bill no already exists in database");
+          return
+        }
       });
-           
-    // });
-   
-    this.sharedService.loading = false;
+    }    
   }
 
   selectEvent(item: any) {
@@ -489,6 +544,23 @@ export class ConsignmentaddComponent implements OnInit {
   };
 
 
+  addItem(index: number): void {
+    var selectedDataVal= this.formUser.getRawValue();
+
+    if (this.formArray.value[index].invNo != "" && this.formArray.value[index].invDate != "" 
+    && this.formArray.value[index].invValue != "") {
+      this.formArray.push(this.createInitialArray()); 
+    }
+    else {
+      this.toastrService.warning("Please select Required Fields ");
+      return;
+    } 
+  }
+
+  removeItem(index: number) {
+    this.formArray.removeAt(index);   
+  }
+ 
 
   changeEWay(selectedValue: string) {
     if (selectedValue === "A") {

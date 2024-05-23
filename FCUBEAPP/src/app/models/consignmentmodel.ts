@@ -9,7 +9,7 @@ export class Consignmentmodel {
     ewayBillNo : string = "";
     ewayBillDate : string = "";
     ewayBillExpDate : string = "";
-    invoiceNo        : string = "";         
+    invoiceNo : string = "";         
     invoiceDate : string = "";
     invoiceValue : string = "";
     declaredValue : string = "";
@@ -52,7 +52,7 @@ export class Consignmentmodel {
         insuredValue : string = "";
     classId : string = "";
     productId : string = "";
-        productDesc : string = "";
+    productDesc : string = "";
         hsnSac : string = "";
     noPackages : string = "";
         looseFlag : string = "";
