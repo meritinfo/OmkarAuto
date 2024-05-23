@@ -33,14 +33,15 @@ namespace Consignment.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@PageSize",   request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search),
-                            new SqlParameter("@FromDate", request.FromDate),
-                            new SqlParameter("@ToDate", request.ToDate),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ConsignmentList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -58,12 +59,10 @@ namespace Consignment.Repository
                                 EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
                                 EwayBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),
                                 EwayBillExpDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
-                                EwayBillExpExtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpExtDate"]),
                                 FromPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 ToPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
                                 Kms = Convert.ToString(dataSet.Tables[0].Rows[i]["Kms"]),
                                 OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnTruck"]),
-                                TruckId = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckId"]),
                                 TruckNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckNo"]),
                                 BillingParty = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingParty"]),
                                 BillingBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingBranch"]),
@@ -111,19 +110,6 @@ namespace Consignment.Repository
                                 UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
                                 UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
                                 OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
-                                FreightNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightNarr"]),
-                                StatisticalNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalNarr"]),
-                                FovNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["FovNarr"]),
-                                DoorCollNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollNarr"]),
-                                HandlingNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingNarr"]),
-                                LoadingDetnNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnNarr"]),
-                                EnrouteNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteNarr"]),
-                                MiscNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscNarr"]),
-                                DoorDelNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDelNarr"]),
-                                ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasNarr"]),
-                                UnLoadingNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingNarr"]),
-                                UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["UnloadingDetenNarr"]),
-                                OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersNarr"]),
                                 SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
                                 GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 SgstPct = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstPct"]),
@@ -157,16 +143,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return cnList;
         }

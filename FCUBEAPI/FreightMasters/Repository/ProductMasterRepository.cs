@@ -36,13 +36,10 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@ProductId", productMasterModel.ProductId),
                             new SqlParameter("@ProductName", productMasterModel.ProductName),
-                          //  new SqlParameter("@ProductGroupId", productMasterModel.ProductGroupId),
-                           //    new SqlParameter("@ProductHSN", productMasterModel.ProductHSN),
                             new SqlParameter("@IsActive", productMasterModel.IsActive),
-                             new SqlParameter("@LoggedInUser", productMasterModel.LoggedInUser)
-
+                            new SqlParameter("@LoggedInUser", productMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "ProductMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ProductMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -86,7 +83,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "ProductMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getProductMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -97,10 +94,7 @@ namespace FreightMasters.Repository
                             {
                                 ProductId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductId"]),
                                 ProductName = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductName"]),
-                              //  ProductGroupId = Convert.ToString(dataSet.Tables[0].Rows[i]["ProductGroupId"]),
-                               IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]),
-                              
-
+                                IsActive = Convert.ToString(dataSet.Tables[0].Rows[i]["IsActive"]), 
                             });
                         }
 
@@ -116,16 +110,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return productMasterList;
         }
@@ -194,16 +179,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return productList;
         }

@@ -8,8 +8,7 @@
                         <h4 class="mb-sm-0 font-size-18">Consignment</h4>
                     </div>
                 </div>
-            </div>
-           
+            </div>           
             <!-- end page title -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li role="presentation" class="nav-item">
@@ -47,7 +46,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
-                                    <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
+                                    <input type="text" id="formrow-inputCity" class="form-control" 
                                         formControlName="gcNoteNo" maxlength="15" 
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
@@ -56,8 +55,8 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Booking Date</label><span
                                         style="color: red">*</span>
-                                    <input bsdatepicker="" type="date" autoclose="false" placeholder="yyyy-mm-dd"
-                                        formControlName="bookingDate" max="{{maxDate}}" class="form-control"
+                                    <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                        formControlName="bookingDate" min="{{minDate}}" max="{{maxDate}}"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
                                 </div>
                             </div>  
@@ -102,7 +101,7 @@
                                         id="formRadios3" value="E" class="form-check-input" 
                                         (change)="changeEWay('E')">
                                     <label for="formRadios3" class="form-check-label" style="color:green">
-                                        No EWay Bill Exemption
+                                        EWay Bill Exemption
                                     </label>
                                 </div>
                             </div>
@@ -126,20 +125,20 @@
                                     <input bsdatepicker="" type="date" autoclose="false" 
                                         max="{{maxDate}}" formControlName="ewayBillDate" class="form-control">
                                 </div>
-                            </div>                            
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <input type="checkbox" formControlName="ownTruck" 
-                                                    class="form-check-input" >
-                                    <label for="neft" class="form-check-label">Own Truck </label>                                    
-                                </div>
-                            </div>
+                            </div> 
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" 
                                         class="form-control" formControlName="truckNo"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
+                                </div>
+                            </div>                           
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <input type="checkbox" formControlName="ownTruck" 
+                                                    class="form-check-input" >
+                                    <label for="neft" class="form-check-label">Own Truck </label>                                    
                                 </div>
                             </div>
                         </div>
@@ -192,7 +191,7 @@
                             </div>
                             <div class="col-lg-1">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">kMs</label>
+                                    <label for="formrow-inputZip">KMs</label>
                                     <input type="text" numbersonly maxlength="8" class="form-control" 
                                         formControlName="kms">
                                 </div>
@@ -233,6 +232,86 @@
                                     <input type="date" autoclose="false" placeholder="yyyy-mm-dd"
                                         formControlName="invoiceDate" max="{{maxDate}}" class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceDate'].invalid) }">
+                                </div>
+                            </div>
+                        </div>      
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                            <tr>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>EWay Bill No</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>EWay Bill Date</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>EWay Bill Exp Date</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Invoice No<span style="color: red">*</span>  </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Inv Date<span style="color: red">*</span>  </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Inv Value<span style="color: red">*</span>  </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-1"></td>
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                *ngFor="let arrayData of formArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2">
+                                                        <input uppercaseonly type="text" class="form-control" 
+                                                        formControlName="ewayBillNo">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="ewayBillDate">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="ewayBillExpDate">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input uppercaseonly type="text" class="form-control" 
+                                                        formControlName="invNo">
+                                                    </td>
+                                                    <td class="col-lg-2">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="invDate">
+                                                    </td>
+                                                    <td class="col-lg-1">
+                                                        <input decimalonly type="text" class="form-control" 
+                                                        formControlName="invValue">
+                                                    </td>                                                
+                                                    <td class="col-lg-1">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>                                        
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -355,7 +434,7 @@
                                     <input uppercaseonly class="form-control" formControlName="cneeAdd3">
                                 </div>
                             </div>
-                            <div class="col-lg-1">
+                            <div class="col-lg-2">
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Cnee Pin</label>
                                     <input numbersonly maxlength="6" class="form-control" 
@@ -366,7 +445,7 @@
                         <div class="row">                            
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Classsication</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Packing</label><span style="color: red">*</span>
                                     <select formControlName="classId"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['classId'].invalid) }">
@@ -376,7 +455,7 @@
                                     </select>
                                 </div>
                             </div>           
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Contents</label><span style="color: red">*</span>
                                     <select formControlName="productId"
@@ -387,10 +466,17 @@
                                         </option>
                                     </select>
                                 </div>
-                            </div>                
+                            </div>   
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Mat Desc</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                    formControlName="productDesc">
+                                </div>
+                            </div>             
                             <div class="col-lg-3">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Vehical Type</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Vehicle Type</label><span style="color: red">*</span>
                                     <select formControlName="vehicleTypeId"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeId'].invalid) }">
@@ -437,6 +523,19 @@
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
+                                    <label for="formrow-inputState">Weight Type</label><span style="color: red">*</span>
+                                    <select id="formrow-inputState"
+                                        class="form-control form-select ng-pristine ng-touched"
+                                        formControlName="weightType"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['weightType'].invalid) }">
+                                        <option value="KG">KG</option>
+                                        <option value="MT">MT</option>
+                                        <option value="KT">KT</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
                                     <label for="formrow-inputZip">Actual Wt</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="actualWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
@@ -477,7 +576,22 @@
                         </div>
                     </div>
                     <div class="tab-pane mt-4"  [ngClass]="{'active' : step3Active}" role="tabpanel" id="step3">
-                        <div class="row">
+                        <div class="row">                                                       
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
+                                    <select id="formrow-inputState" class="form-control"
+                                        formControlName="gstBy"  (change)="changeGstType($event)"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
+                                            <option value="N">NA</option>      
+                                            <option value="T">Transporter</option> 
+                                            <option value="O">Consignor</option>   
+                                            <option value="I">Consignee</option> 
+                                            <option value="E">Exempted</option>
+                                            <option value="R">RCM</option>             
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate Type</label><span style="color: red">*</span>
@@ -506,13 +620,6 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Freight Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="freightNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Statistical</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="statisticalRs" (change)="calculateTotalAmount()">
@@ -520,39 +627,18 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Statistical Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="statisticalNarr" >
+                                    <label for="formrow-inputZip">FOV</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="fovRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">FOV</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
-                                        formControlName="fovRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">FOV Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="fovNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Door Coll</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="doorCollRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Coll Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="doorCollNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -564,25 +650,9 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Handling Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="handlingNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Loading Detn</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="loadingDetnRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Loading Detn Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="loadingDetnNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -594,13 +664,6 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Enroute Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="enrouteNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Misc</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="miscRs" (change)="calculateTotalAmount()">
@@ -608,39 +671,18 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Misc Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="miscNarr" >
+                                    <label for="formrow-inputZip">Door Del</label>
+                                    <input type="text" decimalonly class="form-control" placeholder=" "
+                                        formControlName="doorDelRs" (change)="calculateTotalAmount()">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Del</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=" "
-                                        formControlName="doorDelRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Door Del Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="doorDelNarr" >
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">UnLoading</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="unLoadingRs" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="unLoadingNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -652,25 +694,9 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">UnLoading Detn Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="unloadingDetenNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Extras</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
                                         formControlName="extrasRS" (change)="calculateTotalAmount()">
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Extras Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="extrasNarr" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -682,20 +708,11 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Others Narr</label>
-                                    <input type="text" uppercaseonly class="form-control" 
-                                        formControlName="othersNarr" >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <div class="mb-3">
                                     <label for="formrow-inputZip">Sub Total</label>
                                     <input type="text" decimalonly class="form-control" placeholder=""
                                         formControlName="subTotalRs">
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
@@ -708,6 +725,8 @@
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">SGST Pct</label>
@@ -722,8 +741,6 @@
                                         formControlName="sgstAmt" >
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputCity">CGST Pct</label>
@@ -751,11 +768,41 @@
                                     <input autoclose="false" type="text" class="form-control" 
                                         formControlName="igstAmt" >
                                 </div>
-                            </div>                            
+                            </div> 
+                        </div>
+                        <div class="row">                          
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt1</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="nonGstAmt1" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt Desc1</label>
+                                    <input type="text" uppercaseonly class="form-control"
+                                        formControlName="nonGstAmt1Desc" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt2</label>
+                                    <input type="text" decimalonly class="form-control" 
+                                        formControlName="nonGstAmt2" [ngClass]=>
+                                </div>
+                            </div>                                  
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Non Gst Amt Desc2</label>
+                                    <input type="text" uppercaseonly class="form-control" 
+                                        formControlName="nonGstAmt2Desc" [ngClass]=>
+                                </div>
+                            </div>                                   
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Net Total</label>
-                                    <input type="text" decimalonly class="form-control" placeholder=""
+                                    <input type="text" decimalonly class="form-control" 
                                         formControlName="gtotalRs" [ngClass]=>
                                 </div>
                             </div>                              
@@ -835,7 +882,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row">                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Declared Value</label>
+                                    <input autoclose="false" type="text" class="form-control" 
+                                        formControlName="declaredValue" >
+                                </div>
+                            </div> 
                             <div class="col-lg-8">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Remarks</label>

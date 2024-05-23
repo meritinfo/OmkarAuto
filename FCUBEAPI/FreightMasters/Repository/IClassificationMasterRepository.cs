@@ -11,7 +11,6 @@ namespace FreightMasters.Repository
     public interface IClassificationMasterRepository
     {
         Task<ResponseModel> ClassificationMasterSave(ClassificationMasterModel classificationMasterModel);
-      
         Task<ClassificationMasterList> GetClassificationMasterList(PageRequest request);
         Task<ResponseModel> ClassificationMasterDelete(RequestModel requestModel);
     }
