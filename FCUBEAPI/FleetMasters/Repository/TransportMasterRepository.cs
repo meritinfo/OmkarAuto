@@ -233,6 +233,90 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
+        public async Task<TransportMasterInnerGridListModel> GetTransportMasterInnerGridList(RequestModel request)
+        {
+            TransportMasterInnerGridListModel transportMasterInnerGridList = new()
+            {
+
+                TransportLocationList = new List<TransportLocationListmodel>(),
+                TransportStatesList = new List<TransportStatesListmodel>(),
+                TransportVehTypesList = new List<TransportVehTypesListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TptCode", request.strRequest),
+                            
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TransportMasterInnerGridList_Select", param);
+                   // tripSheetInnerGridList.Incentive = "0";
+                    //LR Details
+                 
+                    //Diseal Details
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportLocationList.Add(new TransportLocationListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                LocId = Convert.ToString(resultData.Tables[1].Rows[i]["LocId"]),
+                               
+                            });
+                        }
+                    }
+                   
+
+                    //Misc Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportStatesList.Add(new TransportStatesListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                StateCode = Convert.ToString(resultData.Tables[3].Rows[i]["StateCode"]),
+                            });
+                        }
+                    }
+
+                    //Adblue Details 
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportVehTypesList.Add(new TransportVehTypesListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                VehTypeId = Convert.ToString(resultData.Tables[4].Rows[i]["VehTypeId"]),
+                            });
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return transportMasterInnerGridList;
+        }
 
         public async Task<ResponseModel> TransportMasterDelete(RequestModel requestModel)
         {

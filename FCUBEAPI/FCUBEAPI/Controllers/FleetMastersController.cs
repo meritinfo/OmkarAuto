@@ -13,6 +13,7 @@ using Shared.Models;
 using Consignment.Models;
 using Consignment.Business;
 using FleetTrans.Business;
+using FleetTrans.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -323,6 +324,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await transportMasterBusiness.GetTransportMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTransportMasterInnerGridList")]
+        public async Task<IActionResult> GetTransportMasterInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await transportMasterBusiness.GetTransportMasterInnerGridList(request);
 
                 return Ok(result);
             }

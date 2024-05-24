@@ -10,6 +10,7 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Transportmastermodel } from 'src/app/models/transportmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TransportMasterService } from 'src/app/services/transportmaster.service';
+import {Transportmasterinnergridmodel } from 'src/app/models/transportmasterinnergridmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
@@ -30,6 +31,7 @@ export class AddtransportmasterComponent {
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
+  transportmasterinnergridmodel = new Transportmasterinnergridmodel();
 
 
   @ViewChild('attachmentInput', {
@@ -52,6 +54,7 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
+
   this.getStateList();
   this.getBranchList();
   this.getLocationList();
@@ -78,7 +81,7 @@ ngOnInit(): void {
     ContactPerson2: new FormControl('',),
     Mobile2: new FormControl('',),
     cancelChq: new FormControl('',),
-    addrProof: new FormControl('',[Validators.required]),
+    addrProof: new FormControl('',),
     eligibleForBid: new FormControl('',),
     PanNo: new FormControl('',),
     whatsappMblNo: new FormControl('',),
@@ -94,7 +97,7 @@ ngOnInit(): void {
   });
   
 if (this.selectedTransportMasterDetail.tptCode != '') {
-
+  setTimeout(() => {
   this.formUser.patchValue(this.selectedTransportMasterDetail);
   
   //this.formUser.controls['tripNo'].disable();
@@ -110,7 +113,8 @@ this.formUser.patchValue({
  
   
 })
-
+this.getTransportMasterInnerGridList();
+}, 2000);  
 }
 }
 addMiscItem(index: number): void {
@@ -201,6 +205,32 @@ createStateArray() {
     stateCode: ['']
   });
 }
+getTransportMasterInnerGridList(): void {
+  this.requestmodel.strRequest=this.selectedTransportMasterDetail.tptCode
+  this.transportMasterService.getTransportMasterInnerGridList(this.requestmodel).subscribe((res) => {
+    this.transportmasterinnergridmodel = res;
+     this.formLocationArray.clear();
+    this.formStateArray.clear();
+    this.formVehArray.clear();
+
+    for (let misc = 0; misc < this.transportmasterinnergridmodel.transportLocationList.length; misc++) {
+      this.formLocationArray.push(this.createLocationArray());
+      this.formLocationArray.controls[misc].get("locId")?.setValue(res.transportLocationList[misc].locId);
+    }
+    
+    for (let misc = 0; misc < this.transportmasterinnergridmodel.transportStatesList.length; misc++) {
+      this.formStateArray.push(this.createStateArray());
+      this.formStateArray.controls[misc].get("stateCode")?.setValue(res.transportStatesList[misc].stateCode);
+    }
+    for (let misc = 0; misc < this.transportmasterinnergridmodel.transportVehTypesList.length; misc++) {
+       this.formVehArray.push(this.createVehArray());
+       this.formVehArray.controls[misc].get("vehTypeId")?.setValue(res.transportVehTypesList[misc].vehTypeId);
+     }
+   
+
+  });
+}
+
 createVehArray() {
   return this.formBuilder.group({
     dtlid: [''],
