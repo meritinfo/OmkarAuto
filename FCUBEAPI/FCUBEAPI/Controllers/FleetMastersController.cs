@@ -350,15 +350,45 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        //[HttpPost("TransportMasterSave")]
+        //public async Task<IActionResult> TransportMasterSave(TransportMasterModel transportMasterModel)
+        //{
+        //    if (transportMasterModel == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await transportMasterBusiness.TransportMasterSave(transportMasterModel);
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
         [HttpPost("TransportMasterSave")]
-        public async Task<IActionResult> TransportMasterSave(TransportMasterModel transportMasterModel)
+        public async Task<IActionResult> TransportMasterSave()
         {
-            if (transportMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
+
             try
             {
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+
+                TransportMasterModel transportMasterModel = JsonConvert.DeserializeObject<TransportMasterModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attachConfirmDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        transportMasterModel.AddrProof = imageName;
+                    }
+                }
                 var result = await transportMasterBusiness.TransportMasterSave(transportMasterModel);
 
                 return Ok(result);

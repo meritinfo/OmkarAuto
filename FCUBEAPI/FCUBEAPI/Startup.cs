@@ -180,6 +180,8 @@ namespace FCUBEAPI
             services.AddScoped<IEwayBillExpRptRepository, EwayBillExpRptRepository>();
             services.AddScoped<IDprBusiness, DprBusiness>();
             services.AddScoped<IDprRepository, DprRepository>();
+            services.AddScoped<IChallanMasterBusiness, ChallanMasterBusiness>();
+            services.AddScoped<IChallanMasterRepository, ChallanMasterRepository>();
             services.AddScoped<IDprVehiPlacedBusiness, DprVehiPlacedBusiness>();
             services.AddScoped<IDprVehiPlacedRepository, DprVehiPlacedRepository>();
             services.AddScoped<IGenerateTempGcBusiness, GenerateTempGcBusiness>();

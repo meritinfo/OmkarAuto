@@ -37,6 +37,7 @@ export class AddtransportmasterComponent {
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
+  attachmentInput1: any;
 selectedTransportMasterDetail = new Transportmastermodel();
 
 constructor(private route: Router, private formBuilder: FormBuilder, private transportMasterModel: Transportmastermodel, private transportMasterService: TransportMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
@@ -149,6 +150,11 @@ removeMiscItem(index: number) {
 }
 removeStateItem(index: number) {
   this.formStateArray.removeAt(index);
+  //this.tripsheetinnergridmodel.miscList.splice(index, 1);
+
+}
+removeVehItem(index: number) {
+  this.formVehArray.removeAt(index);
   //this.tripsheetinnergridmodel.miscList.splice(index, 1);
 
 }
@@ -358,9 +364,12 @@ submitTransportMasterForm(): void {
   }
 }
   }
+  let formData = new FormData();
+    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.transportMasterModel));
 
 
-  this.transportMasterService.transportmasterSubmitted(this.transportMasterModel).subscribe((res: Responsemodel) => {
+  this.transportMasterService.transportmasterSubmitted(formData).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
     if (this.responseDetails.status) {
       this.toastrService.success(this.responseDetails.message);

@@ -33,6 +33,9 @@ export class AddtruckmasterComponent {
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
+  @ViewChild('attachmentInput1', {
+    static: true
+  }) attachmentInput1: any;
 selectedTruckMasterDetail = new Truckmastermodel();
 
 constructor(private route: Router, private formBuilder: FormBuilder, private vehicleTypeGroupMasterModel: Truckmastermodel, private vehicleTypeGroupMasterService: TruckMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
@@ -197,6 +200,7 @@ submitTruckMasterForm(): void {
   
  let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
+    formData.append('attach', this.attachmentInput1.nativeElement.files[1]);
     formData.append('datadetails', JSON.stringify(this.vehicleTypeGroupMasterModel));
 
 

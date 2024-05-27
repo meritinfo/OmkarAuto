@@ -77,12 +77,11 @@ export class LoginComponent implements OnInit {
 
   // Send partner details //
   submitLoginForm(): void {
-    this.sharedService.loading = true;
     this.loginSubmitted = true;
     if (this.formLogin.invalid) {
-      this.sharedService.loading = false;
       return;
     }
+    this.sharedService.loading = true;
     this.loginModel.userName = this.formLogin.value.userName;
     this.loginModel.userPassword = this.formLogin.value.userPassword;
     this.sharedService.loginSubmitted(this.loginModel).subscribe((res: LoggedinUsermodel) => {
@@ -94,15 +93,14 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem("user", this.selectedUserDetails.userName);
       
         this.sharedService.loggedInStatus = true;
-        this.sharedService.loading = false;
         this.route.navigate(['/intermediatescreen']);
       }
       else {
         console.log(this.selectedUserDetails.message);
       }
-      this.sharedService.loading = false;
       this.formLogin.reset(); 
     });
+    this.sharedService.loading = false;
   }
 
 }

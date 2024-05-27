@@ -257,15 +257,15 @@ namespace FleetMasters.Repository
                     //LR Details
                  
                     //Diseal Details
-                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
                         {
                             transportMasterInnerGridList.TransportLocationList.Add(new TransportLocationListmodel
                             {
-                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
-                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
-                                LocId = Convert.ToString(resultData.Tables[1].Rows[i]["LocId"]),
+                                Dtlid = Convert.ToString(resultData.Tables[0].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[0].Rows[i]["TptCode"]),
+                                LocId = Convert.ToString(resultData.Tables[0].Rows[i]["LocId"]),
                                
                             });
                         }
@@ -273,29 +273,29 @@ namespace FleetMasters.Repository
                    
 
                     //Misc Details
-                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
                         {
                             transportMasterInnerGridList.TransportStatesList.Add(new TransportStatesListmodel
                             {
                                 Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
                                 TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
-                                StateCode = Convert.ToString(resultData.Tables[3].Rows[i]["StateCode"]),
+                                StateCode = Convert.ToString(resultData.Tables[1].Rows[i]["StateCode"]),
                             });
                         }
                     }
 
                     //Adblue Details 
-                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    if (resultData != null && resultData.Tables[2].Rows.Count > 0)
                     {
-                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
                         {
                             transportMasterInnerGridList.TransportVehTypesList.Add(new TransportVehTypesListmodel
                             {
-                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
-                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
-                                VehTypeId = Convert.ToString(resultData.Tables[4].Rows[i]["VehTypeId"]),
+                                Dtlid = Convert.ToString(resultData.Tables[2].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[2].Rows[i]["TptCode"]),
+                                VehTypeId = Convert.ToString(resultData.Tables[2].Rows[i]["VehTypeId"]),
                             });
                         }
                     }
