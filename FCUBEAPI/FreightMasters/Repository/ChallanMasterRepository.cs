@@ -162,11 +162,11 @@ namespace FreightMasters.Repository
                         }
                         else { transaction.Rollback(); }
                     }
-                   // else
-                  //  {
-                     //  responseModel.Status = false;
-                       // transaction.Rollback();
-                 //   }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
                 }
             }
             catch (Exception ex)
