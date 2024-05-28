@@ -244,7 +244,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Type",       request.FilterStr)
+                           // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
 
