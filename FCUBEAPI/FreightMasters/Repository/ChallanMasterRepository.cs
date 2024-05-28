@@ -348,8 +348,10 @@ namespace FreightMasters.Repository
                                 TripAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdj"]),
                                 Ftmid = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
-                              //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                                Cbranch = Convert.ToString(dataSet.Tables[0].Rows[i]["Cbranch"]),
+                                FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
+                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 
                             });

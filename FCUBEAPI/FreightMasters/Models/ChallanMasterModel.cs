@@ -108,6 +108,9 @@ namespace FreightMasters.Models
         public string?Ftmid { get; set; }
         public string?YearId { get; set; }
         public string?ModifyRemarks { get; set; }
+        public string? Cbranch { get; set; }
+        public string? FPlace { get; set; }
+        public string? TPlace { get; set; }
 
         public string? LoggedInUser { get; set; }
         public List<ChallanMasterDtlModel> ChallanDtls { get; set; }
