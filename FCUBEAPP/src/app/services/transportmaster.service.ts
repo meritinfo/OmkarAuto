@@ -2,10 +2,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import {Transportmastermodel } from '../models/transportmastermodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import {Transportmasterlistmodel } from '../models/transportmasterlistmodel';
+import {Transportmasterinnergridmodel } from '../models/transportmasterinnergridmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +32,12 @@ export class TransportMasterService {
   }
   clearTransportMasterDetails() {
     this.selectedtransportmaster = new Transportmastermodel();
+  }
+  transportMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TransportMasterDelete', req, this.httpOptions);
+  }
+  getTransportMasterInnerGridList(request: Requestmodel): Observable<Transportmasterinnergridmodel> {
+    return this.httpClient.post<Transportmasterinnergridmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetTransportMasterInnerGridList', request, this.httpOptions);
   }
  transportmasterSubmitted(user:Transportmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TransportMasterSave', user, this.httpOptions);

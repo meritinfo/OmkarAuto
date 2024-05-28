@@ -38,7 +38,7 @@ namespace FleetMasters.Models
         public string?InActiveDate { get; set; }
         public List<TransportLocationListmodel>? TransportLocationList { get; set; }
         public List<TransportStatesListmodel>? TransportStatesList { get; set; }
-        public List<TransportVehTypesListmodel>? TranportVehTypesList { get; set; }
+        public List<TransportVehTypesListmodel>? TransportVehTypesList { get; set; }
 
 
     }

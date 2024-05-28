@@ -12,6 +12,8 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> TransportMasterSave(TransportMasterModel truckMasterModel);
         Task<TransportMasterList> GetTransportMasterList(PageRequest request);
+        Task<ResponseModel> TransportMasterDelete(RequestModel requestModel);
+        Task<TransportMasterInnerGridListModel> GetTransportMasterInnerGridList(RequestModel request);
 
     }
 }

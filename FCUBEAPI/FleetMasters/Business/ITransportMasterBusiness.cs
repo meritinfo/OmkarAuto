@@ -12,6 +12,8 @@ namespace FleetMasters.Business
     {
         Task<ResponseModel> TransportMasterSave(TransportMasterModel transportMasterModel);
         Task<TransportMasterList> GetTransportMasterList(PageRequest request);
+        Task<ResponseModel> TransportMasterDelete(RequestModel requestModel);
+        Task<TransportMasterInnerGridListModel> GetTransportMasterInnerGridList(RequestModel request);
 
 
 

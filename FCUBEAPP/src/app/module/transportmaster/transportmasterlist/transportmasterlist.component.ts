@@ -60,31 +60,31 @@ ngOnInit(): void {
 
     
     {
-      title: 'tptName ',
+      title: 'Tpt Name ',
       data: 'tptName',
     },
     {
-      title: 'address1 ',
+      title: 'Address 1 ',
       data: 'address1',
     },
     {
-      title: 'address2 ',
+      title: 'Address 2 ',
       data: 'address2',
     },
     {
-      title: 'address3 ',
+      title: 'Address 3 ',
       data: 'address3',
     },
     {
-      title: 'address4 ',
+      title: 'Address 4 ',
       data: 'address4',
     },
     {
-      title: 'stateCode ',
+      title: 'State Code ',
       data: 'stateCode',
     },
     {
-      title: 'pinCode ',
+      title: 'Pin Code ',
       data: 'pinCode',
     },
    

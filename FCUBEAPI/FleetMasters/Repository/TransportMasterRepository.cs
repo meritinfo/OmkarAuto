@@ -146,13 +146,13 @@ namespace FleetMasters.Repository
                                 {
                                     SqlParameter[] paramMisc =
                                     {
-                                      //  new SqlParameter("@Dtlid",  tranportMasterModel.TransportLocationList[i].Dtlid),
+                                        new SqlParameter("@Dtlid",  tranportMasterModel.TransportLocationList[i].Dtlid),
                                         new SqlParameter("@TptCode", TptCode),
                                         new SqlParameter("@LocId", tranportMasterModel.TransportLocationList[i].LocId),
                                        // new SqlParameter("@Expmt", tripMasterModel.MiscList[i].MiscAmount),
                                       
                                     };
-                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportLocations_Insert", paramMisc);
+                                    var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportLocation_Insert", paramMisc);
                                     responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                                     responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);
 
@@ -168,11 +168,11 @@ namespace FleetMasters.Repository
                             //  if (tripMasterModel.AdblueList.Count > 0 && tripMasterModel.AdblueList[0].AdbluefillingStation != "")
                             if (tranportMasterModel.TransportStatesList.Count > 0 && tranportMasterModel.TransportStatesList[0].StateCode != "")
                             {
-                                for (int i = 0; i < tranportMasterModel.TransportLocationList.Count; i++)
+                                for (int i = 0; i < tranportMasterModel.TransportStatesList.Count; i++)
                                 {
                                     SqlParameter[] paramAdBlue =
                                     {
-                                      //  new SqlParameter("@TripId", TripID),
+                                        new SqlParameter("@Dtlid",tranportMasterModel.TransportStatesList[i].Dtlid),
                                         new SqlParameter("@TptCode", TptCode),
                                         new SqlParameter("@StateCode", tranportMasterModel.TransportStatesList[i].StateCode),
                                     
@@ -188,15 +188,15 @@ namespace FleetMasters.Repository
                                     }
                                 }
                             }
-                            if (tranportMasterModel.TranportVehTypesList.Count > 0 && tranportMasterModel.TranportVehTypesList[0].VehTypeId != "")
+                            if (tranportMasterModel.TransportVehTypesList.Count > 0 && tranportMasterModel.TransportVehTypesList[0].VehTypeId != "")
                             {
-                                for (int i = 0; i < tranportMasterModel.TranportVehTypesList.Count; i++)
+                                for (int i = 0; i < tranportMasterModel.TransportVehTypesList.Count; i++)
                                 {
                                     SqlParameter[] paramAdBlue =
                                     {
-                                      //  new SqlParameter("@TripId", TripID),
+                                       new SqlParameter("@Dtlid", tranportMasterModel.TransportVehTypesList[i].Dtlid),
                                           new SqlParameter("@TptCode", TptCode),
-                                        new SqlParameter("@VehTypeId", tranportMasterModel.TranportVehTypesList[i].VehTypeId),
+                                        new SqlParameter("@VehTypeId", tranportMasterModel.TransportVehTypesList[i].VehTypeId),
 
                                     };
                                     var statusAdBlue = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TransportVehTypes_Insert", paramAdBlue);
@@ -233,8 +233,129 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
+        public async Task<TransportMasterInnerGridListModel> GetTransportMasterInnerGridList(RequestModel request)
+        {
+            TransportMasterInnerGridListModel transportMasterInnerGridList = new()
+            {
 
+                TransportLocationList = new List<TransportLocationListmodel>(),
+                TransportStatesList = new List<TransportStatesListmodel>(),
+                TransportVehTypesList = new List<TransportVehTypesListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TptCode", request.strRequest),
+                            
+                        };
 
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TransportMasterInnerGridList_Select", param);
+                   // tripSheetInnerGridList.Incentive = "0";
+                    //LR Details
+                 
+                    //Diseal Details
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportLocationList.Add(new TransportLocationListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                LocId = Convert.ToString(resultData.Tables[1].Rows[i]["LocId"]),
+                               
+                            });
+                        }
+                    }
+                   
+
+                    //Misc Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportStatesList.Add(new TransportStatesListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                StateCode = Convert.ToString(resultData.Tables[3].Rows[i]["StateCode"]),
+                            });
+                        }
+                    }
+
+                    //Adblue Details 
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            transportMasterInnerGridList.TransportVehTypesList.Add(new TransportVehTypesListmodel
+                            {
+                                Dtlid = Convert.ToString(resultData.Tables[1].Rows[i]["Dtlid"]),
+                                TptCode = Convert.ToString(resultData.Tables[1].Rows[i]["TptCode"]),
+                                VehTypeId = Convert.ToString(resultData.Tables[4].Rows[i]["VehTypeId"]),
+                            });
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return transportMasterInnerGridList;
+        }
+
+        public async Task<ResponseModel> TransportMasterDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TptCode", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TransportMasterDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
         public async Task<TransportMasterList> GetTransportMasterList(PageRequest request)
         {
             TransportMasterList tranportMastersList = new();

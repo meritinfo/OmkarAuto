@@ -24,5 +24,13 @@ namespace FleetMasters.Business
         {
             return await transportMasterRepository.GetTransportMasterList(request);
         }
+        public async Task<ResponseModel> TransportMasterDelete(RequestModel request)
+        {
+            return await transportMasterRepository.TransportMasterDelete(request);
+        }
+        public async Task<TransportMasterInnerGridListModel> GetTransportMasterInnerGridList(RequestModel request)
+        {
+            return await transportMasterRepository.GetTransportMasterInnerGridList(request);
+        }
     }
 }

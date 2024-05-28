@@ -56,7 +56,7 @@ this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMast
 this.formUser = this.formBuilder.group({
   truckNo: new FormControl('',[Validators.required]),
   regnDate: new FormControl('',[Validators.required]),
-  ownerName: new FormControl('',),
+  ownerName: new FormControl('',[Validators.required]),
   ownerType: new FormControl('',),
   ownMarket: new FormControl('M',),
   panNo: new FormControl('',),
@@ -132,7 +132,7 @@ truckMasterDelete(): void {
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/vehtypeslist']);
+            this.route.navigate(['/mkttrucklist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -157,42 +157,43 @@ submitTruckMasterForm(): void {
     }
     return;
   }
+  var selectedDataValue = this.formUser.getRawValue();
 
   this.vehicleTypeGroupMasterModel.truckID = this.selectedTruckMasterDetail.truckID != '' ? this.selectedTruckMasterDetail.truckID : '';
-  this.vehicleTypeGroupMasterModel.truckNo= this.formUser.value.truckNo;
-  this.vehicleTypeGroupMasterModel.regnDate = this.formUser.value.regnDate;
-  this.vehicleTypeGroupMasterModel.ownerName = this.formUser.value.ownerName;
-  this.vehicleTypeGroupMasterModel.ownerType = this.formUser.value.ownerType;
-  this.vehicleTypeGroupMasterModel.ownMarket = this.formUser.value.ownMarket;
-  this.vehicleTypeGroupMasterModel.panNo = this.formUser.value.panNo;
-  this.vehicleTypeGroupMasterModel.aadharNo = this.formUser.value.aadharNo;
-  this.vehicleTypeGroupMasterModel.aadharLinkedYN = this.formUser.value.aadharLinkedYN;
-  this.vehicleTypeGroupMasterModel.panValidYN = this.formUser.value.panValidYN;
-  this.vehicleTypeGroupMasterModel.itFiledYN = this.formUser.value.itFiledYN;
-  this.vehicleTypeGroupMasterModel.address1 = this.formUser.value.address1;
-  this.vehicleTypeGroupMasterModel.address2 = this.formUser.value.address2;
-  this.vehicleTypeGroupMasterModel.address3 = this.formUser.value.address3;
-  this.vehicleTypeGroupMasterModel.address4 = this.formUser.value.address4;
-  this.vehicleTypeGroupMasterModel.stateCode = this.formUser.value.stateCode;
-  this.vehicleTypeGroupMasterModel.pinCode = this.formUser.value.pinCode;
-  this.vehicleTypeGroupMasterModel.phoneNo = this.formUser.value.phoneNo;
-  this.vehicleTypeGroupMasterModel.contactName = this.formUser.value.contactName;
-  this.vehicleTypeGroupMasterModel.mobileNo = this.formUser.value.mobileNo;
-  this.vehicleTypeGroupMasterModel.chasisNo = this.formUser.value.chasisNo;
-  this.vehicleTypeGroupMasterModel.engineNo = this.formUser.value.engineNo;
-  this.vehicleTypeGroupMasterModel.vehCode = this.formUser.value.vehCode;
-  this.vehicleTypeGroupMasterModel.model = this.formUser.value.model;
-  this.vehicleTypeGroupMasterModel.mfrName = this.formUser.value.mfrName;
-  this.vehicleTypeGroupMasterModel.ladenWt = this.formUser.value.ladenWt;
-  this.vehicleTypeGroupMasterModel.unLadenWt = this.formUser.value.unLadenWt;
-  this.vehicleTypeGroupMasterModel.insuranceDt = this.formUser.value.insuranceDt;
-  this.vehicleTypeGroupMasterModel.nationalPermitDt = this.formUser.value.nationalPermitDt;
-  this.vehicleTypeGroupMasterModel.fitnessDt = this.formUser.value.fitnessDt;
-  this.vehicleTypeGroupMasterModel.rcUpload = this.formUser.value.rcUpload?this.formUser.value.rcUpload:'';
-  this.vehicleTypeGroupMasterModel.otherUpload = this.formUser.value.otherUpload?this.formUser.value.otherUpload:'';
-  this.vehicleTypeGroupMasterModel.isActive = this.formUser.value.isActive;
-  this.vehicleTypeGroupMasterModel.inActiveDate = this.formUser.value.inActiveDate;
-  this.vehicleTypeGroupMasterModel.remarks = this.formUser.value.remarks;
+  this.vehicleTypeGroupMasterModel.truckNo = selectedDataValue.truckNo;
+  this.vehicleTypeGroupMasterModel.regnDate = selectedDataValue.regnDate;
+  this.vehicleTypeGroupMasterModel.ownerName = selectedDataValue.ownerName;
+  this.vehicleTypeGroupMasterModel.ownerType = selectedDataValue.ownerType;
+  this.vehicleTypeGroupMasterModel.ownMarket = selectedDataValue.ownMarket;
+  this.vehicleTypeGroupMasterModel.panNo = selectedDataValue.panNo;
+  this.vehicleTypeGroupMasterModel.aadharNo = selectedDataValue.aadharNo;
+  this.vehicleTypeGroupMasterModel.aadharLinkedYN = selectedDataValue.aadharLinkedYN;
+  this.vehicleTypeGroupMasterModel.panValidYN = selectedDataValue.panValidYN;
+  this.vehicleTypeGroupMasterModel.itFiledYN = selectedDataValue.itFiledYN;
+  this.vehicleTypeGroupMasterModel.address1 = selectedDataValue.address1;
+  this.vehicleTypeGroupMasterModel.address2 = selectedDataValue.address2;
+  this.vehicleTypeGroupMasterModel.address3 = selectedDataValue.address3;
+  this.vehicleTypeGroupMasterModel.address4 = selectedDataValue.address4;
+  this.vehicleTypeGroupMasterModel.stateCode = selectedDataValue.stateCode;
+  this.vehicleTypeGroupMasterModel.pinCode = selectedDataValue.pinCode;
+  this.vehicleTypeGroupMasterModel.phoneNo = selectedDataValue.phoneNo;
+  this.vehicleTypeGroupMasterModel.contactName = selectedDataValue.contactName;
+  this.vehicleTypeGroupMasterModel.mobileNo = selectedDataValue.mobileNo;
+  this.vehicleTypeGroupMasterModel.chasisNo = selectedDataValue.chasisNo;
+  this.vehicleTypeGroupMasterModel.engineNo = selectedDataValue.engineNo;
+  this.vehicleTypeGroupMasterModel.vehCode = selectedDataValue.vehCode;
+  this.vehicleTypeGroupMasterModel.model = selectedDataValue.model;
+  this.vehicleTypeGroupMasterModel.mfrName = selectedDataValue.mfrName;
+  this.vehicleTypeGroupMasterModel.ladenWt = selectedDataValue.ladenWt;
+  this.vehicleTypeGroupMasterModel.unLadenWt = selectedDataValue.unLadenWt;
+  this.vehicleTypeGroupMasterModel.insuranceDt = selectedDataValue.insuranceDt;
+  this.vehicleTypeGroupMasterModel.nationalPermitDt = selectedDataValue.nationalPermitDt;
+  this.vehicleTypeGroupMasterModel.fitnessDt = selectedDataValue.fitnessDt;
+  this.vehicleTypeGroupMasterModel.rcUpload = selectedDataValue.rcUpload?selectedDataValue.rcUpload:'';
+  this.vehicleTypeGroupMasterModel.otherUpload = selectedDataValue.otherUpload?selectedDataValue.otherUpload:'';
+  this.vehicleTypeGroupMasterModel.isActive = selectedDataValue.isActive;
+  this.vehicleTypeGroupMasterModel.inActiveDate = selectedDataValue.inActiveDate;
+  this.vehicleTypeGroupMasterModel.remarks = selectedDataValue.remarks;
   
  let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
@@ -201,9 +202,14 @@ submitTruckMasterForm(): void {
 
   this.vehicleTypeGroupMasterService.truckmasterSubmitted(formData).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
+    if (this.responseDetails.status) {
+      this.toastrService.success(this.responseDetails.message);
+      this.formUser.reset();
+      this.route.navigate(['/mkttrucklist']);
+    }
+    else {
+      this.toastrService.warning(this.responseDetails.message);
+    }      
   });
 }
 

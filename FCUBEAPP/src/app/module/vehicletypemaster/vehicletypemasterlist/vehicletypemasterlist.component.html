@@ -41,8 +41,9 @@
                             <td>{{ ratetype.vehicleTypeDesc }}</td>
                             <td>{{ ratetype.vehicleTypeGroupId }}</td>
                             <td>
-                                <a (click)="getvehicleTypesDetails(ratetype)" class="actionicon"><i
-                                        class="bx bx-pencil"></i></a>
+                                
+                                        <button type="button" class="btn btn-edit" 
+                                        (click)="getvehicleTypesDetails(ratetype)"></button>  
                             </td>
                         </tr>
                     </tbody>

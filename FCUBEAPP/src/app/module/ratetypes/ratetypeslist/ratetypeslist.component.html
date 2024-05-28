@@ -49,8 +49,9 @@
                             <td>{{ ratetype.rateMethod }}</td>
                          
                             <td>
-                                <a (click)="getRateTypesDetails(ratetype)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                              
+                                    <button type="button" class="btn btn-edit" 
+                                        (click)="getRateTypesDetails(ratetype)"></button>     
                            
                             </td>
                         </tr>
