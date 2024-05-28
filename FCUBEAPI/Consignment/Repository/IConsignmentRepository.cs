@@ -1,29 +1,24 @@
 ﻿using Consignment.Models;
 using Shared.Models;
+using System.Threading.Tasks;
 
 namespace Consignment.Repository
 {
     public interface IConsignmentRepository
     {
-        Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
         Task<ConsignmentList> GetConsignmentList(ReportRequestModel request);
-        Task<ResponseModel> CheckEwaybillExits(RequestModel req);
+        Task<ConsignmentModel> GetLrInnerGridList(RequestModel request);
         Task<ResponseModel> ConsignmentDelete(RequestModel requestModel);
+        Task<ResponseModel> ConsignmentSave(ConsignmentModel consignmentModel);
+        Task<ResponseModel> GetLrNo(RequestModel req);
+        Task<ResponseModel> CheckEwaybillExits(RequestModel req);
+        Task<ResponseModel> CheckDuplicateLr(RequestModel request);
+        Task<ResponseModel> CheckVehicleNo(RequestModel request);
+        Task<ResponseModel> GetKms(KmsModel request);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
-        Task<ResponseModel> GetKms(KmsModel request);
-        Task<ResponseModel> GetTripKms(KmsModel request);
-        Task<TripKmsModel> GetTripKms2(KmsModel request);
-        Task<ResponseModel> GetDslToBe(DslModel request);
-        Task<ResponseModel> GetAdBlueToBe(AdBlueModel request);
-        Task<ResponseModel> CheckDuplicateLr(RequestModel request);
-        Task<List<DropDownListModel>> GetBillingPartyList();
-        Task<List<DropDownListModel>> GetLRSeries(RequestModel req);
-        Task<List<DropDownListModel>> GetLRSeriesForBill();
         Task<List<DropDownListModel>> GetClassList();
-        Task<ResponseModel> GetGcSeries(RequestModel request);
-        Task<ResponseModel> GetBillSeries(RequestModel request);
     }
 }

@@ -184,6 +184,10 @@ namespace FCUBEAPI
             services.AddScoped<IDprVehiPlacedRepository, DprVehiPlacedRepository>();
             services.AddScoped<IGenerateTempGcBusiness, GenerateTempGcBusiness>();
             services.AddScoped<IGenerateTempGcRepository, GenerateTempGcRepository>();
+            services.AddScoped<IPayGenerationBusiness, PayGenerationBusiness>();
+            services.AddScoped<IPayGenerationRepository, PayGenerationRepository>();
+            services.AddScoped<IPaySheetRptBusiness, PaySheetRptBusiness>();
+            services.AddScoped<IPaySheetRptRepository, PaySheetRptRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

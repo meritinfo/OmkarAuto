@@ -10,6 +10,7 @@ import { Emppaycalcmodel } from 'src/app/models/emppaycalcmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { Empleavemodel } from 'src/app/models/empleavemodel';
@@ -33,6 +34,7 @@ export class EmpsalcalculationaddComponent {
   empsalarymaster = new Empsalarymstmodel();
   emppaycalcmodel = new Emppaycalcmodel();
   empleave = new Empleavemodel();
+  reportdetails = new Reportmodel();
 
   keywordLocation = 'dataName';
   formSubmitted = false;
@@ -104,7 +106,7 @@ export class EmpsalcalculationaddComponent {
       totLeaves: new FormControl('0', ),
       absentDays : new FormControl('0',),
       payDays: new FormControl('0', [Validators.required]),
-      affectYear : new FormControl('0', [Validators.required]),
+      affectYear : new FormControl(this.year, [Validators.required]),
       totadjLeaves: new FormControl('0', ),
       totalLoanAdjAmt : new FormControl('0', ),
       totalEarnings : new FormControl('0', [Validators.required]),
@@ -123,6 +125,8 @@ export class EmpsalcalculationaddComponent {
 
     if (this.selectedEmpSalary.transId != '') {   
       this.formUser.controls['empId'].disable();
+      this.formUser.controls['monthYear'].disable();      
+      this.getEmpList(this.selectedEmpSalary.branchCode);
     }
     this.formUser.controls['daysOfMonth'].disable();
     this.formUser.controls['totadjLeaves'].disable();
@@ -130,6 +134,9 @@ export class EmpsalcalculationaddComponent {
     this.formUser.controls['totalEarnings'].disable();
     this.formUser.controls['totalDeductions'].disable();
     this.formUser.controls['netPay'].disable();
+    this.formUser.controls['affectYear'].disable();
+    this.formUser.controls['payDays'].disable();
+    
     
     setTimeout(() => {
       if (this.selectedEmpSalary.transId != '') {    
@@ -139,6 +146,7 @@ export class EmpsalcalculationaddComponent {
           monthYear: this.commonService.formatDate(this.selectedEmpSalary.monthYear),
           totadjLeaves: this.selectedEmpSalary.adjLeaves,
         });
+        this.formUser.controls['branchCode'].disable();
         this.editMode = true;  
         this.getEmpPayEarnList();
         this.getEmpPayDedList();
@@ -159,10 +167,11 @@ export class EmpsalcalculationaddComponent {
         this.formErnArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formErnArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
         this.formErnArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formErnArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].actAmt);
         this.formErnArray.controls[i].get("edName")?.disable();
         this.formErnArray.controls[i].get("edCode")?.disable();
         this.formErnArray.controls[i].get("edAmt")?.disable();  
-        this.formDedArray.controls[i].get("actAmt")?.disable();            
+        this.formErnArray.controls[i].get("actAmt")?.disable();            
       }
     });
   }
@@ -177,6 +186,7 @@ export class EmpsalcalculationaddComponent {
         this.formDedArray.controls[i].get("edName")?.setValue(res.empSalaryDtlList[i].edName);
         this.formDedArray.controls[i].get("edCode")?.setValue(res.empSalaryDtlList[i].edCode);
         this.formDedArray.controls[i].get("edAmt")?.setValue(res.empSalaryDtlList[i].edAmt);
+        this.formDedArray.controls[i].get("actAmt")?.setValue(res.empSalaryDtlList[i].actAmt);
         this.formDedArray.controls[i].get("edName")?.disable();
         this.formDedArray.controls[i].get("edCode")?.disable();
         this.formDedArray.controls[i].get("edAmt")?.disable();   
@@ -460,17 +470,27 @@ export class EmpsalcalculationaddComponent {
     //deduction cal
     for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
       ded = parseFloat(selectedDataVal.arrayDedList[i].actAmt); 
+      
       if(selectedDataVal.arrayDedList[i].edCode=='3') {
         ded = Math.round(basic * 12 / 100)       
       }
-      else if(selectedDataVal.arrayDedList[i].edCode=='4') {
-        if(grossern > 15000){
-          ded = parseFloat(selectedDataVal.arrayDedList[i].actAmt); 
+      else if(selectedDataVal.arrayDedList[i].edCode=='4') //PT
+      {        
+        if(grossern > 15000 && grossern <= 20000){
+          ded = 150; 
+        } 
+        else if(grossern > 20000){
+          ded = 200; 
         } 
         else{
           ded = 0;
         }  
       }
+      else if(selectedDataVal.arrayDedList[i].edCode == "5" )  //ESI  
+      {
+        ded =  Math.ceil(grossern * 0.75 / 100);
+      }
+
       grossded = grossded + ded ;
       this.formDedArray.controls[i].get("edAmt")?.setValue(ded.toString()); 
     } 
@@ -551,30 +571,120 @@ export class EmpsalcalculationaddComponent {
     })
   }
 
+  onErnChange(){
+    var grossern = 0;
+    var grossded = 0;
+    var netpay = 0;
+    var selectedDataVal = this.formUser.getRawValue();
+    for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
+      grossern = grossern + parseFloat(selectedDataVal.arrayErnList[i].edAmt); 
+    } 
+     
+    grossded = selectedDataVal.totalDeductions ;
+    netpay = grossern - grossded;
+
+    this.formUser.patchValue({
+      totalEarnings:grossern,
+      totalDeductions:grossded,
+      netPay:netpay,
+    })
+  }
+
+  onDedChange(){
+    var grossern = 0;
+    var grossded = 0;
+    var netpay = 0;
+    var selectedDataVal = this.formUser.getRawValue();
+    for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
+      grossded = grossded + parseFloat(selectedDataVal.arrayDedList[i].edAmt); 
+    } 
+     
+    grossern = selectedDataVal.totalEarnings ;
+    netpay = grossern - grossded;
+
+    this.formUser.patchValue({
+      totalEarnings:grossern,
+      totalDeductions:grossded,
+      netPay:netpay,
+    })
+  }
+
   onchangeMonth(e:any){
-    var dt = new Date(e.target.value);
-    var month=0;
-    if(dt.getMonth()==12){
-      month = 1;
+    var selecteddata = this.formUser.getRawValue();
+    if(selecteddata.monthYear!="" && selecteddata.empId?selecteddata.empId.dataId:""!=""){
+      this.reportdetails.fromDate = selecteddata.monthYear;
+      this.reportdetails.filterStr = selecteddata.empId?selecteddata.empId.dataId:"";
+      this.emppaycalculateService.getSelectedEmpDetails(this.reportdetails).subscribe((res: Emppaycalcmodel) => {
+        this.selectedEmpSalary = res;
+        if (this.selectedEmpSalary.transId != '') {    
+          this.formUser.patchValue(this.selectedEmpSalary);
+          this.formUser.patchValue({
+            empId: this.empList.find(e => e.dataId == this.selectedEmpSalary.empId),
+            monthYear: this.commonService.formatDate(this.selectedEmpSalary.monthYear),
+            totadjLeaves: this.selectedEmpSalary.adjLeaves,
+          });
+          this.formUser.controls['branchCode'].disable();
+          this.formUser.controls['empId'].disable();
+          this.formUser.controls['monthYear'].disable();
+          this.editMode = true;  
+          this.getEmpPayEarnList();
+          this.getEmpPayDedList();
+          this.getEmpPayLeaveList();
+          this.getEmpPayLoanList();
+        }
+        else{
+          this.editMode = false;  
+          var dt = new Date(e.target.value);
+          var month=0;
+          if(dt.getMonth()==12){
+            month = 1;
+          }
+          else{
+            month = dt.getMonth() + 1;      
+          }
+          var year = dt.getFullYear();
+          var days = new Date(year, month, 0).getDate();
+          this.formUser.patchValue({
+            daysOfMonth:days,
+            holSun:'0',
+            totLeaves:'0',
+            absentDays:'0',
+            payDays:days,
+          })
+
+          this.getEmpLeavesList();
+          this.getEmpLoanList();
+          this.getEmpSalaryEarnList();
+          this.getEmpSalaryDedList();   
+          this.calLeaves();
+        }
+      });
     }
     else{
-      month = dt.getMonth() + 1;      
-    }
-    var year = dt.getFullYear();
-    var days = new Date(year, month, 0).getDate();
-    this.formUser.patchValue({
-      daysOfMonth:days,
-      holSun:'0',
-      totLeaves:'0',
-      absentDays:'0',
-      payDays:days,
-    })
-
-    this.getEmpLeavesList();
-    this.getEmpLoanList();
-    this.getEmpSalaryEarnList();
-    this.getEmpSalaryDedList();   
-    this.calLeaves();
+      this.editMode = false;  
+      var dt = new Date(e.target.value);
+      var month=0;
+      if(dt.getMonth()==12){
+        month = 1;
+      }
+      else{
+        month = dt.getMonth() + 1;      
+      }
+      var year = dt.getFullYear();
+      var days = new Date(year, month, 0).getDate();
+      this.formUser.patchValue({
+        daysOfMonth:days,
+        holSun:'0',
+        totLeaves:'0',
+        absentDays:'0',
+        payDays:days,
+      })
+      this.getEmpLeavesList();
+      this.getEmpLoanList();
+      this.getEmpSalaryEarnList();
+      this.getEmpSalaryDedList();   
+      this.calLeaves();
+    }  
   }
 
   getBranchList(): void {
@@ -609,10 +719,11 @@ export class EmpsalcalculationaddComponent {
 
   selectEvent(item: any) {
     // do something with selected item
+    this.checkPayExists();    
   }
 
   onChangeSearch(search: string) {  
-    // do something
+    
   }
 
   onFocused(e: any) {
@@ -626,6 +737,34 @@ export class EmpsalcalculationaddComponent {
   onChangeBranch(e: any) {
     var br= e.target.value;
     this.getEmpList(br);
+  }
+
+  checkPayExists(){
+    var selecteddata = this.formUser.getRawValue();    
+    this.editMode = false;  
+    if(selecteddata.monthYear!="" && selecteddata.empId?selecteddata.empId.dataId:""!=""){
+      this.reportdetails.fromDate = selecteddata.monthYear;
+      this.reportdetails.filterStr = selecteddata.empId?selecteddata.empId.dataId:"";
+      this.emppaycalculateService.getSelectedEmpDetails(this.reportdetails).subscribe((res: Emppaycalcmodel) => {
+        this.selectedEmpSalary = res;
+        if (this.selectedEmpSalary.transId != '') {    
+          this.formUser.patchValue(this.selectedEmpSalary);
+          this.formUser.patchValue({
+            empId: this.empList.find(e => e.dataId == this.selectedEmpSalary.empId),
+            monthYear: this.commonService.formatDate(this.selectedEmpSalary.monthYear),
+            totadjLeaves: this.selectedEmpSalary.adjLeaves,
+          });
+          this.formUser.controls['branchCode'].disable();
+          this.formUser.controls['empId'].disable();
+          this.formUser.controls['monthYear'].disable();
+          this.editMode = true;  
+          this.getEmpPayEarnList();
+          this.getEmpPayDedList();
+          this.getEmpPayLeaveList();
+          this.getEmpPayLoanList();
+        }
+      });
+    }    
   }
 
 
@@ -774,7 +913,7 @@ export class EmpsalcalculationaddComponent {
 
     for (var i = 0; i < selectedDataVal.arrayLeaveList.length; i++) {
       if(selectedDataVal.arrayLeaveList[i].leaveId != "" ){
-        var totleave = parseInt(selectedDataVal.arrayLeaveList[i].totalLeaves) + parseInt(selectedDataVal.arrayLeaveList[i].accumLeaves)
+        var totleave = parseFloat(selectedDataVal.arrayLeaveList[i].totalLeaves) + parseFloat(selectedDataVal.arrayLeaveList[i].accumLeaves)
         this.emppaycalcmodel.empLeavesList.push({
           'transId': '',
           'empId': '',

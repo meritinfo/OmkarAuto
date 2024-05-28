@@ -11,6 +11,9 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using Org.BouncyCastle.Ocsp;
+using FleetMasters.Models;
+using System.Data.Common;
 
 
 namespace FCUBEAPI.Controllers
@@ -27,13 +30,15 @@ namespace FCUBEAPI.Controllers
         readonly IDprBusiness dprBusiness;
         readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         readonly IGenerateTempGcBusiness tempGcBusiness;
-        public ConsignmentController(IConsignmentBusiness _consignmentBusiness,
+        public ConsignmentController(IOptions<DBModel> _dbconnection,
+            IConsignmentBusiness _consignmentBusiness,
             IEwayBillBusiness _ewayBillBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
             IDprBusiness _dprBusiness,
             IDprVehiPlacedBusiness _dprVehiPlacedBusiness,
             IGenerateTempGcBusiness _tempGcBusiness)
         {
+            dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
@@ -44,14 +49,27 @@ namespace FCUBEAPI.Controllers
         
 
         [HttpPost("ConsignmentSave")]
-        public async Task<IActionResult> ConsignmentSave(ConsignmentModel consignmentModel)
+        public async Task<IActionResult> ConsignmentSave()
         {
-            if (consignmentModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
+          
             try
             {
+                var attachedfile = HttpContext.Request.Form.Files["attachedfile"];
+                ConsignmentModel consignmentModel = JsonConvert.DeserializeObject<ConsignmentModel>(HttpContext.Request.Form["datadetails"]);
+                consignmentModel.Attachedfile = "";
+
+                if (attachedfile != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachedfile.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachedfile.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/Lr/attachedfile/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachedfile.CopyToAsync(fileStream);
+                        consignmentModel.Attachedfile = imageName;
+                    }
+                }
+
                 var result = await consignmentBusiness.ConsignmentSave(consignmentModel);
 
                 return Ok(result);
@@ -98,40 +116,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /// </summary>
-        [HttpPost("GetRateList")]
-        public async Task<IActionResult> GetRateList()
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetRateList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        
-        /// </summary>
-        [HttpPost("GetClassList")]
-        public async Task<IActionResult> GetClassList()
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetClassList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetKms")]
-        public async Task<IActionResult> GetKms(KmsModel request)
+        [HttpPost("GetLrInnerGridList")]
+        public async Task<IActionResult> GetLrInnerGridList(RequestModel request)
         {
             if (request == null)
             {
@@ -139,7 +125,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await consignmentBusiness.GetKms(request);
+                var result = await consignmentBusiness.GetLrInnerGridList(request);
 
                 return Ok(result);
             }
@@ -168,66 +154,13 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetTripKms")]
-        public async Task<IActionResult> GetTripKms(KmsModel request)
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetTripKms(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetTripKms2")]
-        public async Task<IActionResult> GetTripKms2(KmsModel request)
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetTripKms2(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetDslToBe")]
-        public async Task<IActionResult> GetDslToBe(DslModel request)
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetDslToBe(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetAdBlueToBe")]
-        public async Task<IActionResult> GetAdBlueToBe(AdBlueModel request)
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetAdBlueToBe(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("CheckDuplicateLr")]
         public async Task<IActionResult> CheckDuplicateLr(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await consignmentBusiness.CheckDuplicateLr(request);
@@ -240,12 +173,16 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetGcSeries")]
-        public async Task<IActionResult> GetGcSeries(RequestModel request)
+        [HttpPost("CheckVehicleNo")]
+        public async Task<IActionResult> CheckVehicleNo(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
-                var result = await consignmentBusiness.GetGcSeries(request);
+                var result = await consignmentBusiness.CheckVehicleNo(request);
 
                 return Ok(result);
             }
@@ -254,12 +191,69 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBillSeries")]
-        public async Task<IActionResult> GetBillSeries(RequestModel request)
+        
+
+        [HttpPost("GetLrNo")]
+        public async Task<IActionResult> GetLrNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetLrNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetKms")]
+        public async Task<IActionResult> GetKms(KmsModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.GetKms(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// </summary>
+        [HttpPost("GetRateList")]
+        public async Task<IActionResult> GetRateList()
         {
             try
             {
-                var result = await consignmentBusiness.GetBillSeries(request);
+                var result = await consignmentBusiness.GetRateList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// </summary>
+        [HttpPost("GetClassList")]
+        public async Task<IActionResult> GetClassList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetClassList();
 
                 return Ok(result);
             }
@@ -297,53 +291,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBillingPartyList")]
-        public async Task<IActionResult> GetBillingPartyList()
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetBillingPartyList();
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetLRSeries")]
-        public async Task<IActionResult> GetLRSeries(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await consignmentBusiness.GetLRSeries(req);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetLRSeriesForBill")]
-        public async Task<IActionResult> GetLRSeriesforBill()
-        {
-            try
-            {
-                var result = await consignmentBusiness.GetLRSeriesForBill();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("GetLocationList")]
         public async Task<IActionResult> GetLocationList()
         {

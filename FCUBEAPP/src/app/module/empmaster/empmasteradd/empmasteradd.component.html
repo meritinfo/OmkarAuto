@@ -284,8 +284,7 @@
                                             <div class="mb-3">
                                                 <label>Designation</label>
                                                 <select class="form-control" formControlName="designAtJoining"
-                                                    class="form-control form-select ng-pristine ng-touched" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['designAtJoining'].invalid) }">
+                                                    class="form-control form-select ng-pristine ng-touched" >
                                                     <option *ngFor="let branch of designList"
                                                         value={{branch.dataId}}>
                                                         {{branch.dataName}}
@@ -297,8 +296,7 @@
                                             <div class="mb-3">
                                                 <label>Depatment</label>
                                                 <select class="form-control" formControlName="deptCode"
-                                                    class="form-control form-select ng-pristine ng-touched" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['deptCode'].invalid) }">
+                                                    class="form-control form-select ng-pristine ng-touched" >
                                                     <option *ngFor="let branch of deptList"
                                                         value={{branch.dataId}}>
                                                         {{branch.dataName}}

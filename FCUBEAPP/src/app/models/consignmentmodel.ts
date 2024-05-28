@@ -1,3 +1,5 @@
+import { Consignmentinvmodel } from './consignmentinvmodel';
+
 export class Consignmentmodel {
     consignmentID  : string = "";
     bookingPlace : string = "";
@@ -123,5 +125,6 @@ export class Consignmentmodel {
     attachedfile : string = "";
     yearId : string = ""; 
     loggedInUser: string = "";  
+    invList: Consignmentinvmodel[] = [];
     
 }

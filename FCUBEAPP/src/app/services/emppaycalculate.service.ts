@@ -3,13 +3,14 @@ import { Injectable, OnInit } from '@angular/core';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
-import { Reportmodel } from '../models/reportmodel';
+import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Emppaycalcmodel } from '../models/emppaycalcmodel';
 import { Empsalarymstmodel } from '../models/empsalarymstmodel';
 import { Emppaycallistmodel } from '../models/emppaycallistmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Empleavemodel } from 'src/app/models/empleavemodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class EmppaycalculateService {
     this.selectedEmpPay = new Emppaycalcmodel();
   }
   
-  getEmpPayCalMstList(filter: Reportmodel): Observable<Emppaycallistmodel> {
+  getEmpPayCalMstList(filter: Filtermodel): Observable<Emppaycallistmodel> {
     return this.httpClient.post<Emppaycallistmodel>(Constants.API_ENDPOINT + 'HRMaster/GetEmpPayCalList', filter, this.httpOptions);
   }  
   getEmpSalaryEarnList(req: Empsalarymstmodel): Observable<Emppaycalcmodel> {
@@ -73,6 +74,10 @@ export class EmppaycalculateService {
   getBranchEmpList(req: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'HRMaster/GetBranchEmpList', req, this.httpOptions);
   }
+
+  getSelectedEmpDetails(req:Reportmodel): Observable<Emppaycalcmodel> {
+    return this.httpClient.post<Emppaycalcmodel>(Constants.API_ENDPOINT + 'HRMaster/GetSelectedEmpDetails', req, this.httpOptions);
+  } 
 
 }
   

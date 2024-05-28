@@ -236,8 +236,6 @@ import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
-//import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
-//import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
 import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
 import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
@@ -265,7 +263,6 @@ import { Transportmastermodel } from './models/transportmastermodel';
     AddtyrepositionmasterComponent,
     DocrenewalmasterlistComponent,
     AdddocrenewalmasterComponent,
-
     RatetypeslistComponent,
     AddratetypesComponent,
     LrbillserieslistComponent,
@@ -289,12 +286,10 @@ import { Transportmastermodel } from './models/transportmastermodel';
     TrippaymentslistComponent,
     GstpurchaseaddComponent,
     GstpurchaselistComponent,
-
     AdddocrenewalentryComponent,
     DocrenewalentrylistComponent,
     CashreceiptentrylistComponent,
     AddcashreceiptentryComponent,
-
     IntermediatescreenComponent,
     BankreceiptentrylistComponent,
     AddbankreceiptentryComponent,
@@ -372,7 +367,6 @@ import { Transportmastermodel } from './models/transportmastermodel';
     EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,
     EmpsalcalculationaddComponent,
-   // CustwizardlistComponent,
     CustwizardaddComponent,
     CustwizardlistComponent,
     DailyloadingrptComponent,
@@ -424,7 +418,7 @@ import { Transportmastermodel } from './models/transportmastermodel';
     Distancemasterfreightmodel,Distancefreighteditmodel,
     Distancemastertripmodel,Distancetripeditmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
-    Dieselstatementlistmodel,  Dieselstatementmodel, 
+    Dieselstatementlistmodel, Dieselstatementmodel, 
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
@@ -445,7 +439,8 @@ import { Transportmastermodel } from './models/transportmastermodel';
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
-    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
+    Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

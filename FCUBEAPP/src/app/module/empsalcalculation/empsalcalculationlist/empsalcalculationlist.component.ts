@@ -8,7 +8,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class EmpsalcalculationlistComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allEmpsalaryMaster: Emppaycallistmodel = new Emppaycallistmodel();
-  filter: Reportmodel = {
+  filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'empName',
@@ -38,10 +38,7 @@ export class EmpsalcalculationlistComponent {
     search: '',
     fromDate:'',
     toDate:'',
-    filterStr:'',
-    filterStr1:'',
-    filterStr2:'',
-    filterStr3:'',
+    strRequest:'',
   }
 
   formFilter!: FormGroup;
@@ -86,7 +83,7 @@ export class EmpsalcalculationlistComponent {
 
     this.sharedService.loading=true;
     this.filter.fromDate= this.loginDate;
-    this.filter.filterStr='',
+    this.filter.strRequest= '';
     this.empSalaryList();
     this.sharedService.loading=false;
   }
@@ -160,7 +157,7 @@ export class EmpsalcalculationlistComponent {
   search(): void {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate= selecteddata.monthYear;
-    this.filter.filterStr= selecteddata.branch;
+    this.filter.strRequest= selecteddata.branch;
     this.sharedService.loading=true;
     this.empSalaryList();
     this.sharedService.loading=false;

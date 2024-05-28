@@ -74,6 +74,7 @@ export class AddhrmasterComponent {
     setTimeout(() => {
       if (this.selectedHrMasterDetails.hrId != '') {
         this.formHrMaster.patchValue(this.selectedHrMasterDetails); 
+        this.formHrMaster.controls["hrCode"].disable();
         this.editMode = true;   
       }
     }, 2000);
@@ -113,9 +114,14 @@ export class AddhrmasterComponent {
       if (confirm("Are you sure, you want to delete this?")) {
         this.hrMasterService.hrMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
-          console.log(this.responseDetails.message);
-          this.formHrMaster.reset();
-          this.route.navigate(['/hrmasterlist']);
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formHrMaster.reset();
+            this.route.navigate(['/hrmasterlist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
         });
       }
     }

@@ -28,9 +28,6 @@ export class GstsalesregisterrptService {
   getGstSalesRegisterrptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetGstSalesRegisterExcel', filter, this.httpOptions);
   } 
- // getGstSalesRegisterrptPdf(filter: Reportmodel): Observable<Responsemodel> {
-   // return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/GetLedgerRptPdf', filter, this.httpOptions);
- // } 
   getGstSalesRegisterRptList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans//api/FinTrans/GetGstSalesRegisterRptList', null, this.httpOptions);
   }    

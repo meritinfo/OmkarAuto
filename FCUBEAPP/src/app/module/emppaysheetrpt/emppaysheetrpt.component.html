@@ -1,0 +1,113 @@
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Paysheet Report</h4>
+                        <div class="page-title-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form [formGroup]="formFilter">
+                        <div class="row">            
+                            <div class="col-lg-3">
+                                <div class="mb-2">
+                                    <label for="formrow-inputCity">Month</label>
+                                    <span style="color: red">*</span>
+                                    <input autoclose="false" type="date" 
+                                        class="form-control" formControlName="monthYear"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['monthYear'].invalid) }">
+                                </div>
+                            </div>    
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" (click)="search()">
+                                        <span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-10 col-md-10 text-right">
+                                <div class="dt-buttons btn-group flex-wrap export-button">
+                                    <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                        aria-controls="datatable-buttons" type="button" 
+                                        (click)="exportExcel()"><span>Excel</span></button>&nbsp;&nbsp;
+                                    <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                        aria-controls="datatable-buttons" type="button" 
+                                        (click)="pfECRExcel()"><span>PF ECR Excel</span></button>&nbsp;&nbsp;
+                                    <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                        aria-controls="datatable-buttons" type="button" 
+                                        (click)="pfECRText()"><span>PF ECR Text</span></button>&nbsp;&nbsp;
+                                </div>
+                            </div>              
+                        </div>
+                    </form>
+                </div> 
+            </div> 
+            
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">             
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>slNo</th>
+                                <th>empName </th>
+                                <th>daysOfMonth</th>
+                                <th>workedDays </th>
+                                <th>payDays </th>
+                                <th>basicEarn </th>
+                                <th>hraEarn </th>
+                                <th>fdaEarn </th>
+                                <th>oth1Earn </th>
+                                <th>pfDed </th>
+                                <th>esiDed </th>
+                                <th>ptDed </th>
+                                <th>tdsDed </th>
+                                <th>salAdvDed </th>
+                                <th>loanDed </th>
+                                <th>netPay </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allEmpsalaryMaster.payGenMstList?.length != 0">
+                            <tr *ngFor="let es of allEmpsalaryMaster.payGenMstList">
+                                <td>{{ es.slNo }}        </td>
+                                <td>{{ es.empName }}        </td>
+                                <td>{{ es.daysOfMonth }}    </td>  
+                                <td>{{ es.workedDays }}     </td> 
+                                <td>{{ es.payDays }}        </td>          
+                                <td>{{ es.basicEarn }}      </td>            
+                                <td>{{ es.hraEarn }}        </td>            
+                                <td>{{ es.fdaEarn }}        </td>             
+                                <td>{{ es.oth1Earn }}       </td>             
+                                <td>{{ es.pfDed }}          </td>             
+                                <td>{{ es.esiDed }}         </td>             
+                                <td>{{ es.ptDed }}          </td>              
+                                <td>{{ es.tdsDed }}         </td>               
+                                <td>{{ es.salAdvDed }}      </td>              
+                                <td>{{ es.loanDed }}        </td>                
+                                <td>{{ es.netPay }}         </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allEmpsalaryMaster.payGenMstList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
