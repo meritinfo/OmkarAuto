@@ -95,8 +95,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@CardAdvance",       challanModel.CardAdvance),
                             new SqlParameter("@TotalAdvance",       challanModel.TotalAdvance),
                             new SqlParameter("@Balance",       challanModel.Balance),
-                            new SqlParameter("@BalancePayAt",       challanModel.BalancePayAt),
-                            
+                            new SqlParameter("@BalancePayAt",       challanModel.BalancePayAt),                            
                             new SqlParameter("@CashAdvancePaid",       challanModel.CashAdvancePaid),
                             new SqlParameter("@CardAdvancePaid",       challanModel.CardAdvancePaid),
                             new SqlParameter("@AdvanceTds",       challanModel.AdvanceTds),
@@ -131,7 +130,6 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Ftmid",       challanModel.Ftmid),
                             new SqlParameter("@YearId",       challanModel.YearId),
                             new SqlParameter("@ModifyRemarks",       challanModel.ModifyRemarks),
-
                             new SqlParameter("@LoggedInUser",       challanModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSave", param);
@@ -176,7 +174,7 @@ namespace FreightMasters.Repository
             return responseModel;
         }
        
-    public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanMasterDtlModel challanDtl)
+    public async Task<ResponseModel> ChallanMasterDtlSave(SqlTransaction transaction, ChallanDetailModel challanDtl)
         {
             ResponseModel responseModel = new();
             try
@@ -347,11 +345,7 @@ namespace FreightMasters.Repository
                                 TarPodDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TarPodDate"]),
                                 TripAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdj"]),
                                 Ftmid = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
-                              //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-
-
                             });
                         }
 
@@ -375,7 +369,7 @@ namespace FreightMasters.Repository
         {
             ChallanMasterModel challanModel = new()
             {
-                ChallanDtls = new List<ChallanMasterDtlModel>(),
+                ChallanDtls = new List<ChallanDetailModel>(),
             };
 
             try
@@ -393,7 +387,7 @@ namespace FreightMasters.Repository
                     {
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            challanModel.ChallanDtls.Add(new ChallanMasterDtlModel
+                            challanModel.ChallanDtls.Add(new ChallanDetailModel
                             {
                                 ChallanDetId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanDetId"]),
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),

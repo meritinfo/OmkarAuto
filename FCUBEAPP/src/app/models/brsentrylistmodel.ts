@@ -3,5 +3,5 @@ import { Brsentrymodel } from "./brsentrymodel";
 
 export class BrsEntrylistmodel {
   brsEntryList: Brsentrymodel[] = [];
-    pageMetaData: Paginationmodel = new Paginationmodel;
+  pageMetaData: Paginationmodel = new Paginationmodel;
 }

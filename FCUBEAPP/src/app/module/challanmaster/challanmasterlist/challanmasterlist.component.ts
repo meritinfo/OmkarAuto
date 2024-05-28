@@ -2,22 +2,22 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Consignmentlistmodel  } from 'src/app/models/consignmentlistmodel';
-import { Consignmentmodel } from 'src/app/models/consignmentmodel';
-import { ConsignmentService } from 'src/app/services/consignment.service';
+import { Challanlistmodel  } from 'src/app/models/challanlistmodel';
+import { Challanmastermodel } from 'src/app/models/challanmastermodel';
+import { ChallanmasterService } from 'src/app/services/challanmaster.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'app-consignmentlist',
-  templateUrl: './consignmentlist.component.html',
-  styleUrls: ['./consignmentlist.component.css']
+  selector: 'app-challanmasterlist',
+  templateUrl: './challanmasterlist.component.html',
+  styleUrls: ['./challanmasterlist.component.css']
 })
-export class ConsignmentlistComponent implements OnInit  {
+export class ChallanmasterlistComponent {
   loggedInUserID: string = '';
   dtOptions: DataTables.Settings = {};
-  allConsignment: Consignmentlistmodel = new Consignmentlistmodel();
+  allChallan: Challanlistmodel = new Challanlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -31,6 +31,7 @@ export class ConsignmentlistComponent implements OnInit  {
     filterStr2:'',
     filterStr3:''
   }
+
   formFilter!: FormGroup;
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -49,7 +50,7 @@ export class ConsignmentlistComponent implements OnInit  {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,
-    private consignmentService: ConsignmentService, private route: Router,
+    private challanmasterService: ChallanmasterService, private route: Router,
     private commonService: CommonService,) {
   }
 
@@ -59,7 +60,7 @@ export class ConsignmentlistComponent implements OnInit  {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Consignment/LR Entry"));
+        .find(((aa: { menuName: string; }) => aa.menuName === "Challan Entry"));
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -97,13 +98,11 @@ export class ConsignmentlistComponent implements OnInit  {
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
 
-    this.consignmentService.clearConsignmentDetails();
+    this.challanmasterService.clearChallanDetails();
 
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
-      toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
-      vehicle: new FormControl('',)
+      toDate: new FormControl(this.loginDate,)
     });
     
     this.getBranchList();
@@ -226,3 +225,4 @@ export class ConsignmentlistComponent implements OnInit  {
   
 
 }
+

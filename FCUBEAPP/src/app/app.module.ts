@@ -243,6 +243,8 @@ import { Classificationmastermodel } from './models/classificationmastermodel';
 import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 import { Transportmastermodel } from './models/transportmastermodel';
+import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
+import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
 
 @NgModule({
   declarations: [
@@ -389,6 +391,8 @@ import { Transportmastermodel } from './models/transportmastermodel';
     ClassificationmasterlistComponent,
     AddtransportmasterComponent,
     TransportmasterlistComponent,
+    ChallanmasterlistComponent,
+    ChallanmasteraddComponent,
   ],
   imports: [
     BrowserModule,

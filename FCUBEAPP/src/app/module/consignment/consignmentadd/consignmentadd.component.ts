@@ -266,8 +266,26 @@ export class ConsignmentaddComponent implements OnInit {
       })      
       
       this.formUser.controls['gcNoteNo'].disable();     
-      this.getLrInnerGridList();   
-      this.editMode = true;
+      if (this.selectedLrDetails.consignmentID != '0') {
+        this.getLrInnerGridList();   
+        this.editMode = true;
+      }
+      else{    
+        this.formArray.clear();
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[0].get("ewayBillNo")?.setValue(this.selectedLrDetails.ewayBillNo);
+        this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillDate));
+        this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.selectedLrDetails.ewayBillExpDate);
+        this.formArray.controls[0].get("invNo")?.setValue(this.selectedLrDetails.invoiceNo);
+        this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.invoiceDate));
+        this.formArray.controls[0].get("invValue")?.setValue(this.selectedLrDetails.invoiceValue);
+        this.formArray.controls[0].get("ewayBillNo")?.disable();
+        this.formArray.controls[0].get("ewayBillDate")?.disable();
+        this.formArray.controls[0].get("ewayBillExpDate")?.disable();
+        this.formArray.controls[0].get("invNo")?.disable();
+        this.formArray.controls[0].get("invDate")?.disable();
+        this.formArray.controls[0].get("invValue")?.disable();     
+      }
     }
     else{
       this.changeEWay('A');
@@ -815,7 +833,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
 
     this.sharedService.loading = true;
-    this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID;
+    this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
     this.lrmodel.bookingPlace = selectedDataValue.bookingPlace;
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;

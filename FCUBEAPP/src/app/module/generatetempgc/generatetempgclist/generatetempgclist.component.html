@@ -62,7 +62,8 @@
                                 <th>driverMob1</th>                               
                                 <th>Action</th>                                
                                 <th>Download</th>                                
-                                <th>Mail</th>   
+                                <th>Mail</th>                                
+                                <th>Main LR</th>   
                             </tr>
                         </thead>
                         <tbody *ngIf="alltempgclist.tempGcList?.length != 0">
@@ -90,7 +91,14 @@
                                         class="btn btn-primary btn-floating"  
                                     (click)="sendMail(gc)" >
                                         <i class="far fa-envelope"></i></button>   
-                                </td>                                 
+                                </td>   
+                                <td>
+                                    <button type="button" *ngIf="gc.tempGcId!='0'" 
+                                        class="btn btn-primary btn-floating"  
+                                    (click)="genMainLrDetails(gc)" >
+                                        <i class="fas fa-file-invoice-dollar"></i></button>   
+                                </td> 
+                                                                
                             </tr>
                         </tbody>
                         <tbody *ngIf="alltempgclist.tempGcList?.length == 0">
