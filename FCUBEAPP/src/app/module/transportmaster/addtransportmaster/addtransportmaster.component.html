@@ -35,7 +35,7 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>TptName: </label><span style="color: red">*</span> 
+                                            <label>Tpt Name: </label><span style="color: red">*</span> 
                                             <input  uppercaseonly type="text" class="form-control" 
                                             formControlName="tptName" >
                                         </div>
@@ -88,7 +88,7 @@
                                 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>stateCode: </label><span style="color: red">*</span> 
+                                            <label>StateCode: </label><span style="color: red">*</span> 
                                             <select class="form-control" formControlName="stateCode"      
                                             [ngClass]="">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
@@ -109,8 +109,8 @@
                                     </div>       
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>phone: </label>
-                                            <input numbersonly type="text" 
+                                            <label>Phone: </label>
+                                            <input numbersonly type="text" maxlength="10"
                                             class="form-control" 
                                             formControlName="phone" >
                                         </div>
@@ -138,7 +138,7 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Mobile 1: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
+                                            <input numbersonly type="text" class="form-control" maxlength="10"
                                             maxlength="200" formControlName="mobile1" >
                                         </div>
                                     </div>   
@@ -155,7 +155,7 @@
                                         <div class="mb-3">
                                             <label>Mobile 2: </label>
                                             <input numbersonly type="text" 
-                                            class="form-control"
+                                            class="form-control"maxlength="10"
                                             formControlName="mobile2" >
                                         </div>
                                     </div> 
@@ -169,7 +169,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>gstNo: </label>
+                                            <label>Gst No: </label>
                                             <input  type="text" 
                                             class="form-control"
                                             formControlName="gstNo" >
@@ -177,13 +177,13 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>aadharNo: </label>
+                                            <label>AadharNo: </label>
                                             <input numbersonly  type="text" 
                                             class="form-control"
                                             formControlName="aadharNo" >
                                         </div>
                                     </div> 
-                                    <div class="col-sm-2">
+                                    <!-- <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>cancelChq: </label>
                                             <input   type="text" 
@@ -198,10 +198,10 @@
                                             class="form-control"
                                             formControlName="addrProof" >
                                         </div>
-                                    </div> 
+                                    </div>  -->
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>EligibleForBid: </label>
+                                            <label>Eligible ForBid: </label>
                                            
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
@@ -216,7 +216,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>whatsappMblNo: </label>
+                                            <label>Whatsapp Mobile No: </label>
                                             <input numbersonly  type="text" 
                                             class="form-control"
                                             formControlName="whatsappMblNo" >
@@ -247,7 +247,7 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label >InActiveDate: </label><span style="color: red">*</span>  
+                                            <label >InActive Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             placeholder="" formControlName="inActiveDate"
                                             [ngClass]=>
@@ -267,7 +267,7 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-4" style="color: red;">TransportBidLocations</h4>
+                            <h4 class="card-title mb-4" style="color: red;">Transport BidLocations</h4>
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                 <tr>
                                     
@@ -297,11 +297,12 @@
                                       
                                         <td>
                                             <div class="col-lg-12 details-button">
-                                                <button type="button" class="btn btn-primary"
-                                                    (click)="addMiscItem(k)">Add</button>
-                                                <button *ngIf="formLocationArray.controls.length > 1"
-                                                    (click)="removeMiscItem(k)"
-                                                    class="btn btn-danger">Delete</button>
+                                               
+                                                    <button *ngIf="k === formLocationArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addMiscItem(k)"></button>
+                                                    <button *ngIf="formLocationArray.controls.length > 1"
+                                                        (click)="removeMiscItem(k)" class="btn btn-delete"></button>
+                                                    
                                             </div>
                                         </td>
                                     </div>
@@ -341,11 +342,15 @@
                                       
                                         <td>
                                             <div class="col-lg-12 details-button">
-                                                <button type="button" class="btn btn-primary"
+                                                <!-- <button type="button" class="btn btn-primary"
                                                     (click)="addStateItem(k)">Add</button>
                                                 <button *ngIf="formStateArray.controls.length > 1"
-                                                    (click)="removeMiscItem(k)"
-                                                    class="btn btn-danger">Delete</button>
+                                                    (click)="removeStateItem(k)"
+                                                    class="btn btn-danger">Delete</button> -->
+                                                    <button *ngIf="k === formStateArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addStateItem(k)"></button>
+                                                    <button *ngIf="formStateArray.controls.length > 1"
+                                                        (click)="removeStateItem(k)" class="btn btn-delete"></button>
                                             </div>
                                         </td>
                                     </div>
@@ -359,13 +364,13 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-4" style="color: red;">VehTypeDetailList</h4>
+                            <h4 class="card-title mb-4" style="color: red;">Vehicle Type</h4>
                             <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                 <tr>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <label for="formrow-inputZip">
-                                                <h6>Location</h6>
+                                                <h6>Vehicle</h6>
                                             </label>
                                         </div>
                                       
@@ -389,17 +394,35 @@
                                       
                                         <td>
                                             <div class="col-lg-12 details-button">
-                                                <button type="button" class="btn btn-primary"
-                                                    (click)="addVehItem(k)">Add</button>
-                                                <button *ngIf="formLocationArray.controls.length > 1"
-                                                    (click)="removeMiscItem(k)"
-                                                    class="btn btn-danger">Delete</button>
+                                                <!-- <button type="button" class="btn btn-primary"
+                                                    (click)="addVehItem(k)">Add</button> -->
+                                                    <button *ngIf="k === formVehArray.controls.length-1" type="button"
+                                                    class="btn btn-add" (click)="addVehItem(k)"></button>
+                                                    <button *ngIf="formVehArray.controls.length > 1"
+                                                        (click)="removeVehItem(k)" class="btn btn-delete"></button>
+                                               
                                             </div>
                                         </td>
                                     </div>
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div> 
+                <div class="col-sm-2">
+                    <div class="mb-3">
+                        <label>Cancel Cheque: </label>
+                        <input #attachmentInput1 class="form-control" type="file"
+                        id="formAttFile" accept="image/*">
+
+                    </div>
+                </div> 
+                <div class="col-sm-2">
+                    <div class="mb-3">
+                        <label>Address Proof: </label>
+                        <input #attachmentInput class="form-control" type="file"
+                                 id="formAttFile" accept="image/*">
+
                     </div>
                 </div> 
 
