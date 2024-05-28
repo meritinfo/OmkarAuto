@@ -242,7 +242,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Type",       request.FilterStr)
+                           // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
 
@@ -345,7 +345,13 @@ namespace FreightMasters.Repository
                                 TarPodDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TarPodDate"]),
                                 TripAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdj"]),
                                 Ftmid = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
-                                ModifyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifyRemarks"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                Cbranch = Convert.ToString(dataSet.Tables[0].Rows[i]["Cbranch"]),
+                                FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
+                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+
+
                             });
                         }
 

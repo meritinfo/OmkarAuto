@@ -54,10 +54,10 @@ ngOnInit(): void {
   
   this.selectedVehicleTypeMasterDetails = this.vehicleTypesService.getvehicletypemasterDetails();
   this.formUser = this.formBuilder.group({
-    vehicleTypeDesc: new FormControl('',),
-    vehicleTypeGroupId: new FormControl('',),
-    tonCap: new FormControl('',),
-    runPerDayKM: new FormControl('',)
+    vehicleTypeDesc: new FormControl('',[Validators.required]),
+    vehicleTypeGroupId: new FormControl('',[Validators.required]),
+    tonCap: new FormControl('',[Validators.required]),
+    runPerDayKM: new FormControl('',[Validators.required])
   
 
   });
