@@ -24,10 +24,31 @@ export class VehicletypemasterlistComponent {
     search: ''
 
 }
+createStatus = false;
+editStatus = false;
+deleteStatus = false;
+viewStatus = false;
+loginDate: string = '';
+fromDate: string = '';
+maxDate: string = '';
+minDate: string = '';
 constructor(private vehicleTypeMasterService: VehicleTypeMasterService, private route: Router) {
 }
 
 ngOnInit(): void {
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Vehicle Types Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
   this.vehicleTypeMasterService.clearVehicleTypemasterDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',

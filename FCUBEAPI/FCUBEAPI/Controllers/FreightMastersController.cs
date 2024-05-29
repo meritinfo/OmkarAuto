@@ -24,6 +24,7 @@ namespace FCUBEAPI.Controllers
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly IChallanMasterBusiness challanMasterBusiness;
+        readonly IBillsMasterBusiness billsMasterBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
@@ -46,6 +47,7 @@ namespace FCUBEAPI.Controllers
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
+            IBillsMasterBusiness _billsMasterBusiness,
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
@@ -424,6 +426,73 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await challanMasterBusiness.ChallanMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsMasterList")]
+        public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await billsMasterBusiness.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterSave")]
+        public async Task<IActionResult> BillsMasterSave(BillsMasterModel billsMasterModel)
+        {
+            if (billsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.BillsMasterSave(billsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsInnerGridList")]
+        public async Task<IActionResult> GetBillsInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillsInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterDelete")]
+        public async Task<IActionResult> BillsMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.BillsMasterDelete(req);
 
                 return Ok(result);
             }

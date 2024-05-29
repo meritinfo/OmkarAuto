@@ -182,6 +182,8 @@ namespace FCUBEAPI
             services.AddScoped<IDprRepository, DprRepository>();
             services.AddScoped<IChallanMasterBusiness, ChallanMasterBusiness>();
             services.AddScoped<IChallanMasterRepository, ChallanMasterRepository>();
+            services.AddScoped<IBillsMasterBusiness, BillsMasterBusiness>();
+            services.AddScoped<IBillsMasterRepository, BillsMasterRepository>();
             services.AddScoped<IDprVehiPlacedBusiness, DprVehiPlacedBusiness>();
             services.AddScoped<IDprVehiPlacedRepository, DprVehiPlacedRepository>();
             services.AddScoped<IGenerateTempGcBusiness, GenerateTempGcBusiness>();
