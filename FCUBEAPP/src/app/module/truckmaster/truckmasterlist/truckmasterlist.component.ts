@@ -25,10 +25,30 @@ export class TruckmasterlistComponent {
     search: ''
 
 }
+editMode = false;
+  createStatus = false;
+  editStatus = false;
+  createmode= true;
+  deleteStatus = false;
+  viewStatus = false;
 constructor(private truckmasterService: TruckMasterService, private route: Router) {
 }
 
 ngOnInit(): void {
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Market Truck Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
   this.truckmasterService.clearTruckMasterDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',

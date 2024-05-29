@@ -27,6 +27,8 @@ namespace FCUBEAPI.Controllers
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
+        readonly IChallanMasterBusiness challanMasterBusiness;
+        readonly IBillsMasterBusiness billsMasterBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
@@ -44,6 +46,8 @@ namespace FCUBEAPI.Controllers
             ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, 
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
+            IChallanMasterBusiness _challanMasterBusiness,
+            IBillsMasterBusiness _billsMasterBusiness,
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
             IDistanceMasterTripBusiness _distanceMasterTripBusiness,
