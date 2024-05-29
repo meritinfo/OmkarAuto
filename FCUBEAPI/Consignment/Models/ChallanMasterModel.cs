@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Models
+namespace Consignment.Models
 {
     public class ChallanMasterModel
     {
@@ -50,6 +50,7 @@ namespace FreightMasters.Models
         public string? DeclarationYN { get; set; }
         public string? DeclarationRecdBy { get; set; }
         public string? OdcLength { get; set; }
+        public string? OdcWidth { get; set; }
         public string? OdcHeight{ get; set; }
         public string? OdcCFT { get; set; }
         public string? TotPkgs { get; set; }
@@ -70,42 +71,19 @@ namespace FreightMasters.Models
         public string? CardAdvance { get; set; }
         public string? TotalAdvance { get; set; }
         public string? Balance { get; set; }
-        public string? BalancePayAt { get; set; }
-        public string? CashAdvancePaid { get; set; }
-        public string? CardAdvancePaid { get; set; }
-        public string? AdvanceTds { get; set; }
-        public string? AdvanceLhpm { get; set; }
-        public string? AdvanceClaims { get; set; }
-        public string? AdvanceOthDed { get; set; }
-        public string? BalancePaid { get; set; }
-        public string? BalanceTds { get; set; }
-        public string? BalanceLhpm { get; set; }
-        public string? BalanceClaims { get; set; }
-        public string? BalanceOthDed { get; set; }
-        public string? AmountPaid { get; set; }
-        public string? ExtraHandling { get; set; }
-        public string? ExtraDetention { get; set; }
-        public string? ExtraOthers { get; set; }
-        public string? ExtraOthers1 { get; set; }
-        public string? ExtraOthers2 { get; set; }
-        public string? ExtraOthers3 { get; set; }
-        public string? DeliveryRemarks { get; set; }
+        public string? BalancePayAt { get; set; }       
         public string? GeneralRemarks { get; set; }
         public string? Photo1 { get; set; }
         public string? Photo2 { get; set; }
         public string? Photo3 { get; set; }
         public string? TruckDriverImage { get; set; }
-        public string? DeclAttatched { get; set; }
-        public string? DelAckYN { get; set; }
-        public string? TarYN { get; set; }
-        public string? TarArrDate { get; set; }
-        public string? TarUlDate { get; set; }
-        public string? TarPodDate { get; set; }
-        public string? TripAdj { get; set; }
         public string? Ftmid { get; set; }
         public string? YearId { get; set; }
         public string? ModifyRemarks { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? Cbranch { get; set; }
+        public string? FPlace { get; set; }
+        public string? TPlace { get; set; }
         public List<ChallanDetailModel> ChallanDtls { get; set; }
 
     }

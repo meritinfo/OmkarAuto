@@ -1,5 +1,6 @@
-﻿using FreightMasters.Models;
-using FreightMasters.Repository;
+﻿using Consignment.Models;
+using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Business
+namespace Consignment.Business
 {
     public class ChallanMasterBusiness:IChallanMasterBusiness
     {
@@ -32,6 +33,17 @@ namespace FreightMasters.Business
         {
             return await challanRepository.ChallanMasterDelete(request);
         }
-
+        public async Task<ResponseModel> GetChallanNo(RequestModel request)
+        {
+            return await challanRepository.GetChallanNo(request);
+        }
+        public async Task<ResponseModel> CheckDuplicateChallan(RequestModel request)
+        {
+            return await challanRepository.CheckDuplicateChallan(request);
+        }
+        public async Task<ResponseModel> GetConsignmentId(RequestModel request)
+        {
+            return await challanRepository.GetConsignmentId(request);
+        }
     }
 }

@@ -922,6 +922,9 @@
                                         id="p-btn2" (click)="nextStep(2)">Previous</button>
                                     <button type="button" class="btn btn-primary w-md next-step ms-2" id="n-btn3"
                                         (click)="submitLrDetailsForm()">Save</button>
+                                    <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                        (click)="deleteLrForm()">Delete</button> &nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>
                         </div>

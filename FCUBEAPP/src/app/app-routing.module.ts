@@ -129,7 +129,8 @@ import { ClassificationmasterlistComponent } from './module/classificationmaster
 import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
 import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
-
+import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
+import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
 
 
 const routes: Routes = [
@@ -311,15 +312,16 @@ const routes: Routes = [
   { path: 'classmasterlist', component:  ClassificationmasterlistComponent },    
   { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
   { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
-  
-  
-  
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
   { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
   { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
   { path: 'dprtempgclist', component:   GeneratetempgclistComponent},
   { path: 'dprtempgcadd', component:  GeneratetempgcaddComponent },
   { path: 'dprtempgcedit', component:  GeneratetempgcaddComponent },
+  { path: 'challanlist', component:  ChallanmasterlistComponent },
+  { path: 'challanadd', component:  ChallanmasteraddComponent },
+  { path: 'challanedit', component:  ChallanmasteraddComponent },
+  
 ];
 
 @NgModule({

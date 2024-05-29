@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Models
+namespace Consignment.Models
 {
     public class ChallanDetailModel
     {
-        public string? ChallanDetId { get; set; }
         public string? ChallanId { get; set; }
-        public string? ChallanFromStn { get; set; }
-        public string? ChallanToStn { get; set; }
         public string? GcYear { get; set; }
         public string? GcBook { get; set; }
         public string? GcNoteNo { get; set; }

@@ -685,14 +685,9 @@ export class ConsignmentaddComponent implements OnInit {
   onFocused(e: any) {
     // do something
   }
-
+  
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
-    if(query.length>2){
-      return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    }
-    else{
-      return partyList;
-    }
+    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));    
   };
 
 
@@ -791,6 +786,32 @@ export class ConsignmentaddComponent implements OnInit {
     this.formUser.controls['truckNo'].updateValueAndValidity();
     this.formUser.controls['productId'].updateValueAndValidity();
     this.formUser.controls['rateType'].updateValueAndValidity();
+  }
+
+  
+  deleteLrForm(): void {
+    if(this.selectedLrDetails.consignmentID != '' ){      
+      this.sharedService.loading = true;
+      this.requestmodel.strRequest =this.selectedLrDetails.consignmentID;
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.lrentryService.consignmentDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toastrService.success(this.responseDetails.message);
+              this.formUser.reset();
+              this.route.navigate(['/consignmentlist']);
+            }
+            else {
+              this.toastrService.warning(this.responseDetails.message);
+            }    
+        });
+      }      
+      this.sharedService.loading = false;
+    }
+  }
+
+  exit(): void {
+    this.route.navigate(['/consignmentlist']);
   }
 
   submitLrDetailsForm(): void {
@@ -928,7 +949,8 @@ export class ConsignmentaddComponent implements OnInit {
     this.lrmodel.invList = [];
 
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if(selectedDataValue.arrayList[i].destState!='' || selectedDataValue.arrayList[i].toPlace !=''){
+      if (selectedDataValue.arrayList[i].invNo != "" && selectedDataValue.arrayList[i].invDate != "" 
+        && selectedDataValue.arrayList[i].invValue != "") {
         this.lrmodel.invList.push({
           'consignmentID': '',
           'ewayBillNo': selectedDataValue.arrayList[i].ewayBillNo,

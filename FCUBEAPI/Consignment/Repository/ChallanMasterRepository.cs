@@ -1,4 +1,5 @@
-﻿using FreightMasters.Models;
+﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
@@ -9,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Repository
+namespace Consignment.Repository
 {
     public class ChallanMasterRepository: IChallanMasterRepository
     {
@@ -75,6 +76,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DeclarationYN",       challanModel.DeclarationYN),
                             new SqlParameter("@DeclarationRecdBy",       challanModel.DeclarationRecdBy),
                             new SqlParameter("@OdcLength",       challanModel.OdcLength),
+                            new SqlParameter("@OdcWidth",       challanModel.OdcWidth),
                             new SqlParameter("@OdcHeight",       challanModel.OdcHeight),
                             new SqlParameter("@OdcCFT",       challanModel.OdcCFT),
                             new SqlParameter("@TotPkgs",       challanModel.TotPkgs),
@@ -95,38 +97,12 @@ namespace FreightMasters.Repository
                             new SqlParameter("@CardAdvance",       challanModel.CardAdvance),
                             new SqlParameter("@TotalAdvance",       challanModel.TotalAdvance),
                             new SqlParameter("@Balance",       challanModel.Balance),
-                            new SqlParameter("@BalancePayAt",       challanModel.BalancePayAt),                            
-                            new SqlParameter("@CashAdvancePaid",       challanModel.CashAdvancePaid),
-                            new SqlParameter("@CardAdvancePaid",       challanModel.CardAdvancePaid),
-                            new SqlParameter("@AdvanceTds",       challanModel.AdvanceTds),
-                            new SqlParameter("@AdvanceLhpm",       challanModel.AdvanceLhpm),
-                            new SqlParameter("@AdvanceClaims",       challanModel.AdvanceClaims),
-                            new SqlParameter("@AdvanceOthDed",       challanModel.AdvanceOthDed),
-                            new SqlParameter("@BalancePaid",       challanModel.BalancePaid),
-                            new SqlParameter("@BalanceTds",       challanModel.BalanceTds),
-                            new SqlParameter("@BalanceLhpm",       challanModel.BalanceLhpm),
-                            new SqlParameter("@BalanceClaims",       challanModel.BalanceClaims),
-                            new SqlParameter("@BalanceOthDed",       challanModel.BalanceOthDed),
-                            new SqlParameter("@AmountPaid",       challanModel.AmountPaid),
-                            new SqlParameter("@ExtraHandling",       challanModel.ExtraHandling),
-                            new SqlParameter("@ExtraDetention",       challanModel.ExtraDetention),
-                            new SqlParameter("@ExtraOthers",       challanModel.ExtraOthers),
-                            new SqlParameter("@ExtraOthers1",       challanModel.ExtraOthers1),
-                            new SqlParameter("@ExtraOthers2",       challanModel.ExtraOthers2),
-                            new SqlParameter("@ExtraOthers3",       challanModel.ExtraOthers3),
-                            new SqlParameter("@DeliveryRemarks",       challanModel.DeliveryRemarks),
+                            new SqlParameter("@BalancePayAt",       challanModel.BalancePayAt),    
                             new SqlParameter("@GeneralRemarks",       challanModel.GeneralRemarks),
                             new SqlParameter("@Photo1",       challanModel.Photo1),
                             new SqlParameter("@Photo2",       challanModel.Photo2),
                             new SqlParameter("@Photo3",       challanModel.Photo3),
                             new SqlParameter("@TruckDriverImage",       challanModel.TruckDriverImage),
-                            new SqlParameter("@DeclAttatched",       challanModel.DeclAttatched),
-                            new SqlParameter("@DelAckYN",       challanModel.DelAckYN),
-                            new SqlParameter("@TarYN",       challanModel.TarYN),
-                            new SqlParameter("@TarArrDate",       challanModel.TarArrDate),
-                            new SqlParameter("@TarUlDate",       challanModel.TarUlDate),
-                            new SqlParameter("@TarPodDate",       challanModel.TarPodDate),
-                            new SqlParameter("@TripAdj",       challanModel.TripAdj),
                             new SqlParameter("@Ftmid",       challanModel.Ftmid),
                             new SqlParameter("@YearId",       challanModel.YearId),
                             new SqlParameter("@ModifyRemarks",       challanModel.ModifyRemarks),
@@ -183,10 +159,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ChallanDetId",   challanDtl.ChallanDetId),
                             new SqlParameter("@ChallanId",  challanDtl.ChallanId),
-                            new SqlParameter("@ChallanFromStn",    challanDtl.ChallanFromStn),
-                            new SqlParameter("@ChallanToStn", challanDtl.ChallanToStn),
                             new SqlParameter("@GcYear", challanDtl.GcYear),
                             new SqlParameter("@GcBook", challanDtl.GcBook),
                             new SqlParameter("@GcNoteNo", challanDtl.GcNoteNo),
@@ -242,7 +215,6 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
 
@@ -294,6 +266,7 @@ namespace FreightMasters.Repository
                                 DeclarationYN = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclarationYN"]),
                                 DeclarationRecdBy = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclarationRecdBy"]),
                                 OdcLength = Convert.ToString(dataSet.Tables[0].Rows[i]["OdcLength"]),
+                                OdcWidth = Convert.ToString(dataSet.Tables[0].Rows[i]["OdcLength"]),
                                 OdcHeight = Convert.ToString(dataSet.Tables[0].Rows[i]["OdcHeight"]),
                                 OdcCFT = Convert.ToString(dataSet.Tables[0].Rows[i]["OdcCFT"]),
                                 TotActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotActWt"]),
@@ -313,45 +286,15 @@ namespace FreightMasters.Repository
                                 TotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalAdvance"]),
                                 Balance = Convert.ToString(dataSet.Tables[0].Rows[i]["Balance"]),
                                 BalancePayAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePayAt"]),
-                                CashAdvancePaid = Convert.ToString(dataSet.Tables[0].Rows[i]["CashAdvancePaid"]),
-                                CardAdvancePaid = Convert.ToString(dataSet.Tables[0].Rows[i]["CardAdvancePaid"]),
-                                AdvanceTds = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceTds"]),
-                                AdvanceLhpm = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceLhpm"]),
-                                AdvanceClaims = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceClaims"]),
-                                AdvanceOthDed = Convert.ToString(dataSet.Tables[0].Rows[i]["AdvanceOthDed"]),
-                                BalancePaid = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePaid"]),
-                                BalanceTds = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceTds"]),
-                                BalanceLhpm = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceLhpm"]),
-                                BalanceClaims = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceClaims"]),
-                                BalanceOthDed = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceOthDed"]),
-                                AmountPaid = Convert.ToString(dataSet.Tables[0].Rows[i]["AmountPaid"]),
-                                ExtraHandling = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraHandling"]),
-                                ExtraDetention = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraDetention"]),
-                                ExtraOthers = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraOthers"]),
-                                ExtraOthers1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraOthers1"]),
-                                ExtraOthers2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraOthers2"]),
-                                ExtraOthers3 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraOthers3"]),
-                                DeliveryRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryRemarks"]),
                                 GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["GeneralRemarks"]),
                                 Photo1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo1"]),
                                 Photo2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo2"]),
                                 Photo3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Photo3"]),
                                 TruckDriverImage = Convert.ToString(dataSet.Tables[0].Rows[i]["TruckDriverImage"]),
-                                DeclAttatched = Convert.ToString(dataSet.Tables[0].Rows[i]["DeclAttatched"]),
-                                DelAckYN = Convert.ToString(dataSet.Tables[0].Rows[i]["DelAckYN"]),
-                                TarYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TarYN"]),
-                                TarArrDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TarArrDate"]),
-                                TarUlDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TarUlDate"]),
-                                TarPodDate = Convert.ToString(dataSet.Tables[0].Rows[i]["TarPodDate"]),
-                                TripAdj = Convert.ToString(dataSet.Tables[0].Rows[i]["TripAdj"]),
-                                Ftmid = Convert.ToString(dataSet.Tables[0].Rows[i]["Ftmid"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 Cbranch = Convert.ToString(dataSet.Tables[0].Rows[i]["Cbranch"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
                                 TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
-                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-
-
                             });
                         }
 
@@ -395,10 +338,7 @@ namespace FreightMasters.Repository
                         {
                             challanModel.ChallanDtls.Add(new ChallanDetailModel
                             {
-                                ChallanDetId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanDetId"]),
                                 ChallanId = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
-                                ChallanFromStn = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanFromStn"]),
-                                ChallanToStn = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanToStn"]),
                                 GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
                                 GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
@@ -456,7 +396,123 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
+        public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
 
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getChallanNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@ChallanNo", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateChallan", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> GetConsignmentId(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", requestModel.strRequest),
+                            new SqlParameter("@GCNoteNo",requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getConsignmentId", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
 
     }
 

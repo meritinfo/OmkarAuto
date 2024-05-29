@@ -245,6 +245,7 @@ import { TransportmasterlistComponent } from './module/transportmaster/transport
 import { Transportmastermodel } from './models/transportmastermodel';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
+import { Challanmastermodel } from './models/challanmastermodel';
 
 @NgModule({
   declarations: [
@@ -439,7 +440,7 @@ import { ChallanmasteraddComponent } from './module/challanmaster/challanmastera
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
+    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,

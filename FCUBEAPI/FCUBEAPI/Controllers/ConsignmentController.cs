@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using Org.BouncyCastle.Ocsp;
 using FleetMasters.Models;
 using System.Data.Common;
+using FreightMasters.Business;
+using FreightMasters.Models;
 
 
 namespace FCUBEAPI.Controllers
@@ -25,6 +27,7 @@ namespace FCUBEAPI.Controllers
     {
         private readonly IOptions<DBModel> dbconnection;
         readonly IConsignmentBusiness consignmentBusiness;
+        readonly IChallanMasterBusiness challanMasterBusiness;
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
@@ -32,6 +35,7 @@ namespace FCUBEAPI.Controllers
         readonly IGenerateTempGcBusiness tempGcBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
+            IChallanMasterBusiness _challanMasterBusiness,
             IEwayBillBusiness _ewayBillBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
             IDprBusiness _dprBusiness,
@@ -40,6 +44,7 @@ namespace FCUBEAPI.Controllers
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
+            challanMasterBusiness = _challanMasterBusiness;
             ewayBillBusiness = _ewayBillBusiness;
             ewayBillExpRptBusiness = _ewayBillExpRptBusiness;
             dprBusiness = _dprBusiness;
@@ -298,6 +303,179 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.GetLocationList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanMasterSave")]
+        public async Task<IActionResult> ChallanMasterSave()
+        {
+            try
+            {
+                var photo1 = HttpContext.Request.Form.Files["photo1"];
+                var photo2 = HttpContext.Request.Form.Files["photo2"];
+                var photo3 = HttpContext.Request.Form.Files["photo3"];
+                var truckDriverImage = HttpContext.Request.Form.Files["truckDriverImage"];
+
+                ChallanMasterModel challanMasterModel = JsonConvert.DeserializeObject<ChallanMasterModel>(HttpContext.Request.Form["datadetails"]);
+                challanMasterModel.Photo1 = ""; 
+                challanMasterModel.Photo2 = ""; 
+                challanMasterModel.Photo3 = "";
+                challanMasterModel.TruckDriverImage = "";
+
+                if (photo1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo1.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo1/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo1.CopyToAsync(fileStream);
+                        challanMasterModel.Photo1 = imageName;
+                    }
+                }
+                if (photo2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo2.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo2/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo2.CopyToAsync(fileStream);
+                        challanMasterModel.Photo2 = imageName;
+                    }
+                }
+                if (photo3 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(photo3.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(photo3.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/photo3/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await photo3.CopyToAsync(fileStream);
+                        challanMasterModel.Photo3 = imageName;
+                    }
+                }
+                if (truckDriverImage != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(truckDriverImage.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(truckDriverImage.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/challan/truckDriverImage/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await truckDriverImage.CopyToAsync(fileStream);
+                        challanMasterModel.TruckDriverImage = imageName;
+                    }
+                }
+
+                var result = await challanMasterBusiness.ChallanMasterSave(challanMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanMasterList")]
+        public async Task<IActionResult> GetChallanMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await challanMasterBusiness.GetChallanMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanInnerGridList")]
+        public async Task<IActionResult> GetChallanInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetChallanInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ChallanMasterDelete")]
+        public async Task<IActionResult> ChallanMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.ChallanMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanNo")]
+        public async Task<IActionResult> GetChallanNo(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetChallanNo(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateChallan")]
+        public async Task<IActionResult> CheckDuplicateChallan(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.CheckDuplicateChallan(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetConsignmentId")]
+        public async Task<IActionResult> GetConsignmentId(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetConsignmentId(req);
 
                 return Ok(result);
             }

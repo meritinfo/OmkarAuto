@@ -20,6 +20,12 @@ export class ChallanmasterService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+  
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
   selectedChallan = new Challanmastermodel();
 
   constructor(private httpClient: HttpClient) { }
@@ -33,17 +39,26 @@ export class ChallanmasterService {
   clearChallanDetails() {
     this.selectedChallan = new Challanmastermodel();
   }
-  challanDetailsSubmitted(user: Challanmastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/ChallanMasterSave', user, this.httpOptions);
+  challanDetailsSubmitted(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChallanMasterSave', user, this.httpformOptions);
   }
   getChallanList(filter: Reportmodel): Observable<Challanlistmodel> {
-    return this.httpClient.post<Challanlistmodel>(Constants.API_ENDPOINT + 'FinTrans/GetChallanMasterList', filter, this.httpOptions);
+    return this.httpClient.post<Challanlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanMasterList', filter, this.httpOptions);
   }  
   getChallanInnerGridList(req: Requestmodel): Observable<Challanmastermodel> {
-    return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'FinTrans/GetChallanInnerGridList', req, this.httpOptions);
+    return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanInnerGridList', req, this.httpOptions);
   }
   challanDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinTrans/ChallanMasterDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ChallanMasterDelete', req, this.httpOptions);
+  }  
+  getChallanNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanNo', req, this.httpOptions);
+  }
+  checkDuplicateChallan(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateChallan', req, this.httpOptions);
+  }
+  getConsignmentId(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentId', req, this.httpOptions);
   }
 
 }

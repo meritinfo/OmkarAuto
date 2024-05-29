@@ -110,14 +110,11 @@ export class ChallanmasterlistComponent {
 
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
-    this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = selectedDataVal.branch;
-    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
-    
-    this.getConsignmentList();
+    this.filter.toDate = selectedDataVal.toDate;    
+    this.getChallanList();
   }
 
-  getConsignmentList(){
+  getChallanList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
@@ -130,8 +127,8 @@ export class ChallanmasterlistComponent {
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
 
-        this.consignmentService.getConsignmentList(this.filter).subscribe(resp => {
-         this.allConsignment = resp;
+        this.challanmasterService.getChallanList(this.filter).subscribe(resp => {
+         this.allChallan = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,
             recordsFiltered: resp.pageMetaData.totalCount,
@@ -142,16 +139,16 @@ export class ChallanmasterlistComponent {
      // Set column title and data field
       columns: [  
         {
-          title: 'Booked At',
-          data: 'bookedAt',
+          title: 'Branch',
+          data: 'cbranch',
         },
         {
-          title: 'Booking Date',
-          data: 'bookingDate',
+          title: 'Challan Date',
+          data: 'challanDateTime',
         },  
         {
-          title: 'LR No',
-          data: 'gcNoteNo',
+          title: 'Challan No',
+          data: 'challanNo',
         },       
         {
           title: 'From/Origin',
@@ -167,7 +164,7 @@ export class ChallanmasterlistComponent {
         },  
         {
           title: 'Action',
-          data: 'consignmentID',
+          data: 'challanId',
         },
       ],
     };
@@ -201,13 +198,13 @@ export class ChallanmasterlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
   
-  consignmentAdd(): void {
-    this.route.navigate(['/consignmentadd']);
+  challanAdd(): void {
+    this.route.navigate(['/challanadd']);
   }
 
-  getConsignmentDetails(Consignment: Consignmentmodel): void {
-    this.consignmentService.setConsignmentDetails(Consignment);
-    this.route.navigate(['/consignmentedit']);
+  getChallanDetails(Challan: Challanmastermodel): void {
+    this.challanmasterService.setChallanDetails(Challan);
+    this.route.navigate(['/challanedit']);
   }
 
   search(): void {
@@ -215,9 +212,7 @@ export class ChallanmasterlistComponent {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = selectedDataVal.branch;
-    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
-     this.getConsignmentList();
+     this.getChallanList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 
      });
