@@ -484,6 +484,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
+        [HttpPost("GetPanValidDetails")]
+        public async Task<IActionResult> GetPanValidDetails(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.GetPanValidDetails(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetEWayBillExtList")]
         public async Task<IActionResult> GetEWayBillExtList(PageRequest request)

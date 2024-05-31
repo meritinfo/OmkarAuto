@@ -11,6 +11,7 @@ import { ConsignmentService } from 'src/app/services/consignment.service';
 import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from 'src/app/common/constants';
+import { Panvalidapiresultmodel } from 'src/app/models/panvalidapiresultmodel';
 
 @Component({
   selector: 'app-challanmasteradd',
@@ -44,6 +45,7 @@ export class ChallanmasteraddComponent {
 
   responseDetails = new Responsemodel();
   selectedChallanDetails = new Challanmastermodel();
+  panDetails = new Panvalidapiresultmodel();
   keywordLocation = 'dataName';
   photo1: string = "";
   photo2: string = "";
@@ -171,7 +173,8 @@ export class ChallanmasteraddComponent {
       panValid: new FormControl('',),    
       aadharLinked: new FormControl('',),    
       itFiled: new FormControl('',),
-      permitValid: new FormControl('',),    
+      permitValid: new FormControl('',),   
+      driverName : new FormControl('',),   
       driverAddress: new FormControl('',),    
       driverLicNo: new FormControl('',),
       driverLicIssuedAt: new FormControl('',),    
@@ -211,11 +214,17 @@ export class ChallanmasteraddComponent {
 
     this.formUser.controls["challanBranch"].disable();
     this.formUser.controls["subTotal"].disable();
+    this.formUser.controls["tdsPct"].disable();
     this.formUser.controls["tdsAmt"].disable();
     this.formUser.controls["totalHire"].disable();
     this.formUser.controls["totalAdvance"].disable();
     this.formUser.controls["balance"].disable();
     this.formUser.controls["modifyRemarks"].disable();
+    this.formUser.controls["panValid"].disable();  
+    this.formUser.controls["aadharLinked"].disable();  
+    this.formUser.controls["declarationYN"].disable();  
+    this.formUser.controls["totPkgs"].disable();  
+    this.formUser.controls["totActWt"].disable();  
 
     if (this.selectedChallanDetails.challanId != '') {
       this.photo1 = Constants.UploadFolderPath + 'challan/photo1/' + this.selectedChallanDetails.photo1;
@@ -229,8 +238,39 @@ export class ChallanmasteraddComponent {
         challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
         billingParty: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
         brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
-      })      
+      })   
       
+      if(this.selectedChallanDetails.panValid=="Y"){
+        this.formUser.patchValue({
+          panValid: "Y"         
+        })   
+      }
+      else{
+        this.formUser.patchValue({
+          panValid: ""         
+        })   
+      }
+      if(this.selectedChallanDetails.aadharLinked=="Y"){
+        this.formUser.patchValue({
+          aadharLinked: "Y"         
+        })   
+      }
+      else{
+        this.formUser.patchValue({
+          aadharLinked: ""         
+        })   
+      }
+      if(this.selectedChallanDetails.declarationYN=="Y"){
+        this.formUser.patchValue({
+          declarationYN: "Y"         
+        })   
+      }
+      else{
+        this.formUser.patchValue({
+          declarationYN: ""         
+        })   
+      }
+
       this.formUser.controls['challanNo'].disable();  
       this.formUser.controls["modifyRemarks"].enable();   
       this.getChallanInnerGridList();   
@@ -351,7 +391,7 @@ export class ChallanmasteraddComponent {
         if (this.responseDetails.status) {
           //ignore
         }
-       else{
+        else{
           this.toastrService.warning(this.responseDetails.message);
         }
       });
@@ -372,6 +412,117 @@ export class ChallanmasteraddComponent {
         this.toastrService.warning(this.responseDetails.message);
       }
     });
+  }
+
+  onPkgsChange(){
+    var totPkgs = 0
+    var selectedDataValue = this.formUser.getRawValue();
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(selectedDataValue.arrayList[i].challanPkgs!="") {
+        totPkgs = totPkgs + parseFloat(selectedDataValue.arrayList[i].challanPkgs);
+      }         
+    }
+    this.formUser.patchValue({
+      totPkgs: totPkgs,
+    });
+  }
+
+  onActWtChange(){
+    var totActWt = 0
+    var selectedDataValue = this.formUser.getRawValue();
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if(selectedDataValue.arrayList[i].challanWT!="") {
+        totActWt = totActWt + parseFloat(selectedDataValue.arrayList[i].challanWT);
+      }         
+    }
+    this.formUser.patchValue({
+      totActWt: totActWt,
+    });
+  }
+
+  onOwnerPanChange(e: any) {
+    var pan = e.target.value;
+    var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
+    var test = regexp.test(pan);
+    var tdsPct = 0;
+
+    if(pan == "PANNOTREQD"){
+      tdsPct = 0;
+    }
+    else if(pan == "NOVALIDPAN"){
+      tdsPct = 20;
+    }
+    else if(pan.length!=10){
+      this.toastrService.warning("PAN No should be 10 characters...!");
+      return;
+    }
+    else if(!test){
+      this.toastrService.warning("Invalid PAN No...!");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = e.target.value;
+      this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
+        this.panDetails = res;
+        var panValid = "";
+        var aadharLinked = "";
+        if (this.panDetails.result.number!="") { 
+          if(this.panDetails.result.isValid){
+            panValid= "Y";
+          }
+          if(this.panDetails.result.aadhaarSeedingStatusCode=="Y"){
+            aadharLinked="Y";
+          }
+          var ch = pan.substring(3, 4) ;
+          if(ch == "P" || ch == "H"){
+            if(panValid == "Y" && aadharLinked == "Y"){
+              this.formUser.controls["declarationYN"].enable();  
+              tdsPct = 1;
+            }
+            else{
+              tdsPct = 20;
+            }
+          }
+          else{
+            if(panValid == "Y"){
+              tdsPct = 2;
+            }
+            else{
+              tdsPct = 20;
+            }
+          }
+
+          this.formUser.patchValue({
+            panValid: panValid,
+            aadharLinked: aadharLinked,
+            vehicleOwnerName: this.panDetails.result.name,
+            tdsPct: tdsPct
+          });  
+        }
+        else{          
+          this.toastrService.warning("Invalid PAN No...!");
+          return;
+        }
+      }); 
+    }
+
+    setTimeout(() => {
+      this.calculateTotalAmount();
+    }, 300);
+  }
+
+  onDeclareChk(e: any) {
+    if (e.target.checked) {
+      this.formUser.patchValue({       
+        tdsPct: 0
+      }); 
+    }
+    else {
+      this.formUser.patchValue({       
+        tdsPct: 20
+      }); 
+    }
+    this.calculateTotalAmount();
   }
 
   onStatusChange(e: any) {
@@ -540,6 +691,16 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning(" Broker is Invalid");
       return;
     }
+    if(selectedDataValue.declarationYN){
+      if(this.photo1Input.nativeElement.files[0]){
+        //ignore
+      }
+      else{
+        this.toastrService.warning("Declaration Doc Is Mandatory");
+        return;
+      }
+    }
+
 
     this.sharedService.loading = true;
     this.challanmodel.challanId = this.selectedChallanDetails.challanId;
@@ -579,7 +740,7 @@ export class ChallanmasteraddComponent {
     this.challanmodel.engagedBy= selectedDataValue.engagedBy
     this.challanmodel.loadedBy= selectedDataValue.loadedBy
     this.challanmodel.unLoadingBy= selectedDataValue.unLoadingBy
-    this.challanmodel.declarationYN= selectedDataValue.declarationYN
+    this.challanmodel.declarationYN= selectedDataValue.declarationYN?"Y":"N";
     this.challanmodel.odcLength= selectedDataValue.odcLength
     this.challanmodel.odcWidth= selectedDataValue.odcWidth
     this.challanmodel.odcHeight= selectedDataValue.odcHeight
@@ -625,7 +786,7 @@ export class ChallanmasteraddComponent {
         });
       }
     }
-
+    
     let formData = new FormData();
     formData.append('photo1', this.photo1Input.nativeElement.files[0]);
     formData.append('photo2', this.photo2Input.nativeElement.files[0]);

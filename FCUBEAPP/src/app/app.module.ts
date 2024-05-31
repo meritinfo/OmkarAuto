@@ -245,6 +245,7 @@ import { TransportmasterlistComponent } from './module/transportmaster/transport
 import { Transportmastermodel } from './models/transportmastermodel';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
+import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
 import { Challanmastermodel } from './models/challanmastermodel';
 
 @NgModule({
@@ -394,6 +395,7 @@ import { Challanmastermodel } from './models/challanmastermodel';
     TransportmasterlistComponent,
     ChallanmasterlistComponent,
     ChallanmasteraddComponent,
+    EmppaysheetrptComponent,
   ],
   imports: [
     BrowserModule,

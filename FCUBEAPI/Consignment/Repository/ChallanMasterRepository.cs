@@ -1,14 +1,17 @@
 ﻿using Consignment.Models;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Shared.Models;
 using SqlHelper.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Consignment.Repository
 {
@@ -65,6 +68,7 @@ namespace Consignment.Repository
                             new SqlParameter("@VehicleOwnerMblNo",       challanModel.VehicleOwnerMblNo),
                             new SqlParameter("@VehicleInsDetails",       challanModel.VehicleInsDetails),
                             new SqlParameter("@PermitValid",       challanModel.PermitValid),
+                            new SqlParameter("@DriverName",       challanModel.DriverName),
                             new SqlParameter("@DriverAddress",       challanModel.DriverAddress),
                             new SqlParameter("@DriverLicNo",       challanModel.DriverLicNo),
                             new SqlParameter("@DriverLicIssuedAt",       challanModel.DriverLicIssuedAt),
@@ -255,6 +259,7 @@ namespace Consignment.Repository
                                 VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerMblNo"]),
                                 VehicleInsDetails = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleInsDetails"]),
                                 PermitValid = Convert.ToString(dataSet.Tables[0].Rows[i]["PermitValid"]),
+                                DriverName= Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 DriverAddress = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverAddress"]),
                                 DriverLicNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverLicNo"]),
                                 DriverLicIssuedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverLicIssuedAt"]),
@@ -492,6 +497,128 @@ namespace Consignment.Repository
                             new SqlParameter("@GCNoteNo",requestModel.strRequest1),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getConsignmentId", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
+        {
+            PanApiResultModel panresult = new();
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo", request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getPanUsedDetails", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        Reslt res = new();
+                        res.number = Convert.ToString(statusData.Tables[0].Rows[0]["PanNo"]);
+                        res.name = Convert.ToString(statusData.Tables[0].Rows[0]["OwnerName"]);
+                        res.isValid = Convert.ToString(statusData.Tables[0].Rows[0]["ValidYN"])=="Y"? true:false;
+                        res.aadhaarSeedingStatusCode = Convert.ToString(statusData.Tables[0].Rows[0]["AadharYN"]);
+
+                        panresult.result = res;
+                    }
+                    else
+                    {
+                        var panNo = request.strRequest;
+                        string URL = "https://fcube.net/panapi/api.php";
+
+                        string urlParameters = "?pan=" + panNo;
+
+                        HttpClient client = new()
+                        {
+                            BaseAddress = new Uri(URL)
+                        };
+
+                        client.DefaultRequestHeaders.Accept.Add(
+                            new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var result = await response.Content.ReadAsStringAsync();
+
+                            var root = JsonConvert.DeserializeObject<ApiRoot>(result);
+
+                            panresult.result = root.result;
+
+                            if (panresult.result.isValid==true)
+                            {
+                                if (panNo.Substring(3, 1)== "P" || panNo.Substring(3, 1) == "H") 
+                                {
+                                    if (panresult.result.aadhaarSeedingStatusCode=="Y")
+                                    {
+                                        responseModel = await PanDtlSave(request, panresult.result);
+                                    }
+                                }
+                                else
+                                {
+                                    responseModel = await PanDtlSave(request, panresult.result);
+                                }
+                            }                         
+                           
+
+                            client.Dispose();
+                        }
+                    }
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return panresult;
+        }
+
+        public async Task<ResponseModel> PanDtlSave(RequestModel request,Reslt res)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PanNo",          res.number),
+                            new SqlParameter("@ValidYN",        res.isValid==true? "Y" : "N"),
+                            new SqlParameter("@AadharYN",       res.aadhaarSeedingStatusCode),
+                            new SqlParameter("@ItFiledYN",      "N"),
+                            new SqlParameter("@OwnerName",      res.name),
+                            new SqlParameter("@EntryThrough",   "A"),
+                            new SqlParameter("@LoggedInUser",   request.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_PanUsedSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

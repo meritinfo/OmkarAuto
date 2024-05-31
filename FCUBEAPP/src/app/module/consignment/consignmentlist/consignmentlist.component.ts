@@ -45,6 +45,7 @@ export class ConsignmentlistComponent implements OnInit  {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
@@ -169,7 +170,7 @@ export class ConsignmentlistComponent implements OnInit  {
         {
           title: 'Action',
           data: 'consignmentID',
-        },
+        }, 
       ],
     };
   }

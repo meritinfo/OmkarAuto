@@ -17,5 +17,6 @@ namespace Consignment.Repository
         Task<ResponseModel> GetChallanNo(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel);
         Task<ResponseModel> GetConsignmentId(RequestModel requestModel);
+        Task<PanApiResultModel> GetPanValidDetails(RequestModel request);
     }
 }

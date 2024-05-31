@@ -7,7 +7,7 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { Constants } from '../common/constants';
 import { Challanlistmodel } from '../models/challanlistmodel';
 import { Challanmastermodel } from '../models/challanmastermodel';
-import { Dropdownmodel } from '../models/dropdownmodel';
+import { Panvalidapiresultmodel } from '../models/panvalidapiresultmodel';
 
 
 @Injectable({
@@ -60,5 +60,7 @@ export class ChallanmasterService {
   getConsignmentId(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentId', req, this.httpOptions);
   }
-
+  getPanValidDetails(req: Requestmodel): Observable<Panvalidapiresultmodel> {
+    return this.httpClient.post<Panvalidapiresultmodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidDetails', req, this.httpOptions);
+  }
 }

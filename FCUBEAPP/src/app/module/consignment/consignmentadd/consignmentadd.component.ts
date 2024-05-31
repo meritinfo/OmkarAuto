@@ -790,7 +790,7 @@ export class ConsignmentaddComponent implements OnInit {
 
   
   deleteLrForm(): void {
-    if(this.selectedLrDetails.consignmentID != '' ){      
+    if(this.selectedLrDetails.consignmentID != '' && this.selectedLrDetails.consignmentID!='0' ){      
       this.sharedService.loading = true;
       this.requestmodel.strRequest =this.selectedLrDetails.consignmentID;
       if (confirm("Are you sure, you want to delete this?")) {
@@ -811,7 +811,11 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   exit(): void {
-    this.route.navigate(['/consignmentlist']);
+    if(this.selectedLrDetails.consignmentID=='0') {
+      this.route.navigate(['/dprtempgclist']);
+    }else{
+      this.route.navigate(['/consignmentlist']);
+    }
   }
 
   submitLrDetailsForm(): void {
@@ -974,7 +978,11 @@ export class ConsignmentaddComponent implements OnInit {
       if (res.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/consignmentlist']);
+        if(this.selectedLrDetails.consignmentID=='0') {
+          this.route.navigate(['/dprtempgclist']);
+        }else{
+          this.route.navigate(['/consignmentlist']);
+        }
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

@@ -39,6 +39,7 @@ namespace Consignment.Models
         public string? VehicleOwnerMblNo { get; set; }
         public string? VehicleInsDetails { get; set; }
         public string? PermitValid { get; set; }
+        public string? DriverName { get; set; }
         public string? DriverAddress { get; set; }
         public string? DriverLicNo { get; set; }
         public string? DriverLicIssuedAt { get; set; }

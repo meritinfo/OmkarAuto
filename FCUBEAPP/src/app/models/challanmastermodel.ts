@@ -32,6 +32,7 @@ export class Challanmastermodel {
     vehicleOwnerMblNo : string = "";
     vehicleInsDetails : string = "";
     permitValid : string = "";
+    driverName: string = "";
     driverAddress : string = "";
     driverLicNo : string = "";
     driverLicIssuedAt : string = "";

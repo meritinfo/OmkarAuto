@@ -45,5 +45,9 @@ namespace Consignment.Business
         {
             return await challanRepository.GetConsignmentId(request);
         }
+        public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
+        {
+            return await challanRepository.GetPanValidDetails(request);
+        }
     }
 }
