@@ -75,29 +75,43 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">LR NO : </label>
+                                    <input  class="form-control" formControlName="lrNo" maxlength="15">   
+                                </div>
+                            </div>                             
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" *ngIf="(!editMode && createStatus)"
+                                        (click)="getDetails()"><span>Get Details</span></button>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">From Place : </label><span style="color: red">*</span>
                                     <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="locationList" formControlName="challanFromStn"
+                                        <ng-autocomplete [data]="locationList"
                                             [searchKeyword]="keywordLocation" placeholder=""
-                                            (selected)='selectEvent($event)' 
+                                            formControlName="challanFromStn" [initialValue]=""
+                                            (selected)='selectEvent($event)'
                                             (inputChanged)='onChangeSearch($event)'
-                                            (inputFocused)='onFocused($event)' 
-                                            [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate" 
-                                            [customFilter]="startWithFilter"
+                                            (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" 
                                             [ngClass]="{'is-invalid': formSubmitted && (f['challanFromStn'].invalid)}">
                                         </ng-autocomplete>
+
                                         <ng-template #itemTemplate let-item>
                                             <a [innerHTML]="item.dataName"></a>
                                         </ng-template>
+
                                         <ng-template #notFoundTemplate let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -209,7 +223,7 @@
                                     <div class="card-body">
                                         <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Year<span style="color: red">*</span></h6>
                                                     </label>
@@ -219,19 +233,34 @@
                                                         <h6>CN Booked At<span style="color: red">*</span></h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
-                                                        <h6>GC Note No<span style="color: red">*</span></h6>
+                                                        <h6>LR NO :<span style="color: red">*</span></h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Booking Date</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Challan Pkgs <span style="color: red">*</span></h6>
+                                                        <h6>CN From</h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Challan Wt <span style="color: red">*</span></h6>
+                                                        <h6>CN To</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Pkgs <span style="color: red">*</span></h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-1">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Wt <span style="color: red">*</span></h6>
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-1"></td>
@@ -239,7 +268,7 @@
                                             <tr formArrayName="arrayList"
                                                 *ngFor="let arrayData of formArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-1">
                                                         <select class="form-control" formControlName="gcYear"
                                                         class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let yr of yearList" value={{yr.dataId}}>
@@ -255,17 +284,29 @@
                                                             </option>
                                                         </select>       
                                                     </td>                                                  
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-1">
                                                         <input uppercaseonly type="text" class="form-control" 
                                                         formControlName="gcNoteNo" (change)="onGcNoteChange(i,$event)">
                                                         <input type="hidden" class="form-control" 
                                                         formControlName="consignmentId">
                                                     </td>
+                                                    <td class="col-lg-1">
+                                                        <input type="date" class="form-control" 
+                                                        formControlName="bookingDate" >
+                                                    </td>  
                                                     <td class="col-lg-2">
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="fplace">
+                                                    </td>  
+                                                    <td class="col-lg-2">
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="tplace" >
+                                                    </td>  
+                                                    <td class="col-lg-1">
                                                         <input numbersonly type="text" class="form-control" 
                                                         formControlName="challanPkgs" (change)="onPkgsChange()">
                                                     </td>     
-                                                    <td class="col-lg-2">
+                                                    <td class="col-lg-1">
                                                         <input numbersonly type="text" class="form-control" 
                                                         formControlName="challanWT" (change)="onActWtChange()">
                                                     </td>                                                
@@ -388,7 +429,7 @@
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehi Owner Pan No</label>
                                     <input uppercaseonly class="form-control" 
-                                    maxlength="10"  (change)="onOwnerPanChange($event)"
+                                    maxlength="10"  (change)="onOwnerPanChange()"
                                     formControlName="vehicleOwnerPanNo">
                                 </div>
                             </div>
@@ -768,7 +809,8 @@
                                 <div class="tex">
                                     <button type="button" class="btn btn-default prev-step"
                                         id="p-btn2" (click)="nextStep(2)">Previous</button>&nbsp;
-                                    <button type="button" class="btn btn-primary w-md next-step ms-2" id="n-btn3"
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                        *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                         (click)="submitChallanForm()">Save</button>
                                     <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                         (click)="deleteChallanForm()">Delete</button> &nbsp;

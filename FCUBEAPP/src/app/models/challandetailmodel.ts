@@ -4,6 +4,9 @@ export class Challandetailmodel {
     gcBook: string = "";
     gcNoteNo : string = "";
     consignmentId : string = "";
+    fplace : string = "";
+    tplace : string = "";
+    bookingDate : string = "";
     challanPkgs: string = "";
     challanWT : string = "";
     yearId : string = "";        

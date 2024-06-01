@@ -57,10 +57,13 @@ export class ChallanmasterService {
   checkDuplicateChallan(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateChallan', req, this.httpOptions);
   }
-  getConsignmentId(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentId', req, this.httpOptions);
+  getConsignmentId(req: Requestmodel): Observable<Challanmastermodel> {
+    return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentId', req, this.httpOptions);
   }
   getPanValidDetails(req: Requestmodel): Observable<Panvalidapiresultmodel> {
     return this.httpClient.post<Panvalidapiresultmodel>(Constants.API_ENDPOINT + 'Consignment/GetPanValidDetails', req, this.httpOptions);
+  }
+  getDetails(req: Requestmodel): Observable<Challanmastermodel> {
+    return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanDetailsFromLR', req, this.httpOptions);
   }
 }

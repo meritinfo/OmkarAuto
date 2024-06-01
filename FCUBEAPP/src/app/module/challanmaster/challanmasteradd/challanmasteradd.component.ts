@@ -150,6 +150,7 @@ export class ChallanmasteraddComponent {
       challanNo: new FormControl('', [Validators.required]),
       challanDateTime: new FormControl(this.loginDate, [Validators.required]),
       chStatus: new FormControl('TBB', [Validators.required]),
+      lrNo: new FormControl('',),
       challanFromStn: new FormControl('', [Validators.required]),
       challanToStn: new FormControl('', [Validators.required]),
       distanceKms: new FormControl('',),
@@ -226,6 +227,12 @@ export class ChallanmasteraddComponent {
     this.formUser.controls["totPkgs"].disable();  
     this.formUser.controls["totActWt"].disable();  
 
+    
+    this.formArray.controls[0].get("consignmentId")?.disable();
+    this.formArray.controls[0].get("fplace")?.disable();
+    this.formArray.controls[0].get("tplace")?.disable();
+    this.formArray.controls[0].get("bookingDate")?.disable();
+
     if (this.selectedChallanDetails.challanId != '') {
       this.photo1 = Constants.UploadFolderPath + 'challan/photo1/' + this.selectedChallanDetails.photo1;
       this.photo1 = Constants.UploadFolderPath + 'challan/photo2/' + this.selectedChallanDetails.photo2;
@@ -236,7 +243,7 @@ export class ChallanmasteraddComponent {
         challanDateTime: this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) ,
         driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
         challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-        billingParty: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
+        challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
         brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
       })   
       
@@ -292,6 +299,9 @@ export class ChallanmasteraddComponent {
       gcBook: ['', []],
       gcNoteNo: ['', []],
       consignmentId: ['', []],
+      fplace: ['', []],
+      tplace: ['', []],
+      bookingDate: ['', []],
       challanPkgs: ['', []],
       challanWT: ['', []],
     });
@@ -306,11 +316,22 @@ export class ChallanmasteraddComponent {
       for (var i = 0; i < res.challanDtls.length; i++) {
         this.formArray.push(this.createInitialArray());
         this.formArray.controls[i].get("gcYear")?.setValue(res.challanDtls[i].gcYear);
-        this.formArray.controls[i].get("gcBook")?.setValue(this.commonService.formatDate(res.challanDtls[i].gcBook));
+        this.formArray.controls[i].get("gcBook")?.setValue(res.challanDtls[i].gcBook);
         this.formArray.controls[i].get("gcNoteNo")?.setValue(res.challanDtls[i].gcNoteNo);
         this.formArray.controls[i].get("consignmentId")?.setValue(res.challanDtls[i].consignmentId);
+        this.formArray.controls[i].get("fplace")?.setValue(res.challanDtls[i].fplace);
+        this.formArray.controls[i].get("tplace")?.setValue(res.challanDtls[i].tplace);
+        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[i].bookingDate));
         this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[i].challanPkgs);
         this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[i].challanWT);
+        
+        this.formArray.controls[i].get("gcYear")?.disable();
+        this.formArray.controls[i].get("gcBook")?.disable();
+        this.formArray.controls[i].get("gcNoteNo")?.disable();
+        this.formArray.controls[i].get("consignmentId")?.disable();
+        this.formArray.controls[i].get("fplace")?.disable();
+        this.formArray.controls[i].get("tplace")?.disable();
+        this.formArray.controls[i].get("bookingDate")?.disable();
       }      
       this.formArray.push(this.createInitialArray());      
     });
@@ -402,10 +423,23 @@ export class ChallanmasteraddComponent {
     var selectedData = this.formUser.getRawValue();
     this.requestmodel.strRequest = selectedData.bookingPlace;
     this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-    this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
+    this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: Challanmastermodel) => {
+      this.challanmodel = res;
       if (this.responseDetails.status) {       
-        this.formArray.controls[i].get("consignmentId")?.setValue(this.responseDetails.message);
+        this.formArray.controls[i].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
+        this.formArray.controls[i].get("fplace")?.setValue(res.challanDtls[0].fplace);
+        this.formArray.controls[i].get("tplace")?.setValue(res.challanDtls[0].tplace);
+        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
+        this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
+        this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
+        
+        this.formArray.controls[i].get("gcYear")?.disable();
+        this.formArray.controls[i].get("gcBook")?.disable();
+        this.formArray.controls[i].get("gcNoteNo")?.disable();
+        this.formArray.controls[i].get("consignmentId")?.disable();
+        this.formArray.controls[i].get("fplace")?.disable();
+        this.formArray.controls[i].get("tplace")?.disable();
+        this.formArray.controls[i].get("bookingDate")?.disable();
       }
       else{
         this.formArray.controls[i].get("gcNoteNo")?.setValue("");
@@ -440,8 +474,8 @@ export class ChallanmasteraddComponent {
     });
   }
 
-  onOwnerPanChange(e: any) {
-    var pan = e.target.value;
+  onOwnerPanChange() {
+    var pan = this.formUser.value.vehicleOwnerPanNo ;
     var regexp = new RegExp('^[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}$')
     var test = regexp.test(pan);
     var tdsPct = 0;
@@ -461,7 +495,7 @@ export class ChallanmasteraddComponent {
       return;
     }
     else{
-      this.requestmodel.strRequest = e.target.value;
+      this.requestmodel.strRequest = pan;
       this.challanmasterService.getPanValidDetails(this.requestmodel).subscribe((res: Panvalidapiresultmodel) => {
         this.panDetails = res;
         var panValid = "";
@@ -611,6 +645,57 @@ export class ChallanmasteraddComponent {
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
     return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));    
   };
+
+  getDetails(){
+    var selectedData = this.formUser.getRawValue();
+    this.requestmodel.strRequest = selectedData.lrNo;
+    if(selectedData.lrNo==""){
+      this.toastrService.warning("Please Enter LR No ");
+      return;
+    }
+    this.challanmasterService.getDetails(this.requestmodel).subscribe((res: Challanmastermodel) => {    
+      this.selectedChallanDetails = res
+      this.formUser.patchValue(this.selectedChallanDetails);
+      this.formUser.patchValue({
+        driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
+        challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
+        challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
+        brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
+      })  
+
+      if (res.challanDtls.length>0) {      
+        this.formArray.controls[0].get("gcYear")?.setValue(res.challanDtls[0].gcYear);
+        this.formArray.controls[0].get("gcBook")?.setValue(res.challanDtls[0].gcBook);
+        this.formArray.controls[0].get("gcNoteNo")?.setValue(res.challanDtls[0].gcNoteNo);
+        this.formArray.controls[0].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
+        this.formArray.controls[0].get("fplace")?.setValue(res.challanDtls[0].fplace);
+        this.formArray.controls[0].get("tplace")?.setValue(res.challanDtls[0].tplace);
+        this.formArray.controls[0].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
+        this.formArray.controls[0].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
+        this.formArray.controls[0].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
+        
+        this.formArray.controls[0].get("gcYear")?.disable();
+        this.formArray.controls[0].get("gcBook")?.disable();
+        this.formArray.controls[0].get("gcNoteNo")?.disable();
+        this.formArray.controls[0].get("consignmentId")?.disable();
+        this.formArray.controls[0].get("fplace")?.disable();
+        this.formArray.controls[0].get("tplace")?.disable();
+        this.formArray.controls[0].get("bookingDate")?.disable();
+      }
+      if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
+        this.formUser.patchValue({        
+          tdsPct: 20
+        });  
+      }
+      else{
+        this.onOwnerPanChange();
+      }    
+
+      setTimeout(() => {
+        this.calculateTotalAmount();
+      }, 300);
+    });
+  }
 
 
   addItem(index: number): void {
@@ -780,6 +865,9 @@ export class ChallanmasteraddComponent {
           'gcBook': selectedDataValue.arrayList[i].gcBook,
           'gcNoteNo': selectedDataValue.arrayList[i].gcNoteNo,
           'consignmentId': selectedDataValue.arrayList[i].consignmentId,
+          'fplace':"",
+          'tplace':"",
+          'bookingDate':"",
           'challanPkgs': selectedDataValue.arrayList[i].challanPkgs,
           'challanWT': selectedDataValue.arrayList[i].challanWT,
           'yearId': '',

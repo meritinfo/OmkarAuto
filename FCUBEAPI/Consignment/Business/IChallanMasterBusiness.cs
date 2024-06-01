@@ -16,7 +16,8 @@ namespace Consignment.Business
         Task<ResponseModel> ChallanMasterDelete(RequestModel requestModel);
         Task<ResponseModel> GetChallanNo(RequestModel requestModel);
         Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel);
-        Task<ResponseModel> GetConsignmentId(RequestModel requestModel);
+        Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel);
+        Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel requestModel);
         Task<PanApiResultModel> GetPanValidDetails(RequestModel request);
     }
 }

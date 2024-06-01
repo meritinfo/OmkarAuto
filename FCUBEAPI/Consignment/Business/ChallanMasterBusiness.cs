@@ -41,9 +41,13 @@ namespace Consignment.Business
         {
             return await challanRepository.CheckDuplicateChallan(request);
         }
-        public async Task<ResponseModel> GetConsignmentId(RequestModel request)
+        public async Task<ChallanMasterModel> GetConsignmentId(RequestModel request)
         {
             return await challanRepository.GetConsignmentId(request);
+        }
+        public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
+        {
+            return await challanRepository.GetChallanDetailsFromLR(request);
         }
         public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
         {

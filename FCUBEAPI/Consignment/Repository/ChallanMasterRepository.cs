@@ -1,4 +1,7 @@
 ﻿using Consignment.Models;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.ExtendedProperties;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -9,6 +12,8 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Net.NetworkInformation;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -277,6 +282,7 @@ namespace Consignment.Repository
                                 TotActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotActWt"]),
                                 TotChrgWt = Convert.ToString(dataSet.Tables[0].Rows[i]["TotChrgWt"]),
                                 RatePerTon = Convert.ToString(dataSet.Tables[0].Rows[i]["RatePerTon"]),
+                                LorryHire= Convert.ToString(dataSet.Tables[0].Rows[i]["LorryHire"]),
                                 ExtraHire1 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraHire1"]),
                                 ExtraHire2 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraHire2"]),
                                 ExtraHire3 = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraHire3"]),
@@ -348,6 +354,9 @@ namespace Consignment.Repository
                                 GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                Fplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Fplace"]),
+                                Tplace = Convert.ToString(dataSet.Tables[0].Rows[i]["Tplace"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
                                 ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanPkgs"]),
                                 ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanWT"]),
                             });
@@ -400,7 +409,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
         public async Task<ResponseModel> GetChallanNo(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
@@ -478,46 +486,113 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-
-        public async Task<ResponseModel> GetConsignmentId(RequestModel requestModel)
+        public async Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel)
         {
-            ResponseModel responseModel = new();
+            ChallanMasterModel challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModel>(),
+            };
 
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@Branch", requestModel.strRequest),
+                        new SqlParameter("@GCNoteNo",requestModel.strRequest1),
+                    };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentId", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        {
+                            ChallanId = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanId"]),
+                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
+                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
+                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
+                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
+                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
+                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
+                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
+                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
+                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return challanModel;            
+        }
+        public async Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request)
+        {
+            ChallanMasterModel challanModel = new()
+            {
+                ChallanDtls = new List<ChallanDetailModel>(),
+            };
+
             try
             {
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@Branch", requestModel.strRequest),
-                            new SqlParameter("@GCNoteNo",requestModel.strRequest1),
+                            new SqlParameter("@GCNoteNo", request.strRequest)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getConsignmentId", param);
 
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanDetailsFromLR", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+                        challanModel.ChallanFromStn    = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanFromStn"]);
+                        challanModel.ChallanToStn      = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanToStn"]);
+                        challanModel.DistanceKms       = Convert.ToString(dataSet.Tables[0].Rows[0]["DistanceKms"]);
+                        challanModel.BrokerId          = Convert.ToString(dataSet.Tables[0].Rows[0]["BrokerId"]);
+                        challanModel.OwnTruckYN        = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruckYN"]);
+                        challanModel.TruckNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        challanModel.VehicleType       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleType"]);
+                        challanModel.VehicleOwnerName  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerName"]);
+                        challanModel.VehicleOwnerAdd1  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd1"]);
+                        challanModel.VehicleOwnerAdd2  = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerAdd2"]);
+                        challanModel.VehicleOwnerPanNo = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerPanNo"]);
+                        challanModel.VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleOwnerMblNo"]);
+                        challanModel.DriverLicNo       = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicNo"]);
+                        challanModel.DriverLicValid    = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverLicValid"]);
+                        challanModel.DriverMblNo       = Convert.ToString(dataSet.Tables[0].Rows[0]["DriverMblNo"]);
+                        challanModel.OdcCFT            = Convert.ToString(dataSet.Tables[0].Rows[0]["OdcCFT"]);
+                        challanModel.TotPkgs           = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]);
+                        challanModel.TotActWt          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]);
+                        challanModel.RatePerTon        = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
+                        challanModel.LorryHire         = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
+                        challanModel.SubTotal          = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
+
+                        challanModel.ChallanDtls.Add(new ChallanDetailModel
+                        {
+                            GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
+                            GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
+                            GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
+                            ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]),
+                            Fplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Fplace"]),
+                            Tplace = Convert.ToString(dataSet.Tables[0].Rows[0]["Tplace"]),
+                            BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]),
+                            ChallanPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanPkgs"]),
+                            ChallanWT = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanWT"]),
+                        });
                     }
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+
             }
-            return responseModel;
+            return challanModel;
         }
+
 
         public async Task<PanApiResultModel> GetPanValidDetails(RequestModel request)
         {
@@ -640,6 +715,10 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
+       
+
+
 
     }
 
