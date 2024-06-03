@@ -33,7 +33,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                                 new SqlParameter("@BillsMasterId",              billsModel.BillsMasterId),
+                            new SqlParameter("@BillsMasterId",              billsModel.BillsMasterId),
                             new SqlParameter("@BillingStation",          billsModel.BillingStation),
                             new SqlParameter("@BillNo",            billsModel.BillNo),
                             new SqlParameter("@BillStatus",           billsModel.BillStatus),
@@ -47,7 +47,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@PartyGstLocation",           billsModel.PartyGstLocation),
                             new SqlParameter("@CollBranch",             billsModel.CollBranch),
                             new SqlParameter("@GstType",          billsModel.GstType),
-                            new SqlParameter("@TotalFreightTotalFreight",          billsModel.TotalFreight),
+                            new SqlParameter("@TotalFreight",          billsModel.TotalFreight),
                             new SqlParameter("@TotalStatistical",         billsModel.TotalStatistical),
                             new SqlParameter("@TotalFov",         billsModel.TotalFov),
                             new SqlParameter("@TotalDoorColl",        billsModel.TotalDoorColl),
@@ -67,6 +67,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@TotalNonGstAmt1",         billsModel.TotalNonGstAmt1),
                             new SqlParameter("@TotalNonGstAmt2",         billsModel.TotalNonGstAmt2),
                             new SqlParameter("@TotalGtotal",         billsModel.TotalGtotal),
+
+
                             new SqlParameter("@BillRemarks",         billsModel.BillRemarks),
                             new SqlParameter("@EnlcosedDocs",         billsModel.EnlcosedDocs),
                             new SqlParameter("@SuppParticulars",         billsModel.SuppParticulars),
@@ -95,7 +97,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DisputeReleaseDate",         billsModel.DisputeReleaseDate),
                             new SqlParameter("@LoggedInUser",         billsModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsMstSave", param);
                     var BillsMasterId = "0";
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -121,7 +123,6 @@ namespace FreightMasters.Repository
                         {
                             transaction.Commit();
                         }
-                        else { transaction.Rollback(); }
                     }
                     else
                     {
@@ -136,6 +137,93 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        {
+            BillsMasterSearchListModel billsMasterSearchList = new();
+            List<BillsDetailModel> billsDetailModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillingParty",   request.BillingParty),
+                            new SqlParameter("@FromDate",       request.FromDate),
+                            new SqlParameter("@ToDate",         request.ToDate),
+                            new SqlParameter("@FromPlace",      request.FromPlace),
+                            new SqlParameter("@ToPlace",        request.ToPlace),
+                            new SqlParameter("@CnorPlantCode",  request.CnorPlantCode),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = 0;
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            billsDetailModel.Add(new BillsDetailModel
+                            {
+                                BillDetailId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDetailId"]),
+                                BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillsMasterId"]),
+                                BillingStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingStation"]),
+                                BillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillNo"]),
+                                BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
+                                BillType = Convert.ToString(dataSet.Tables[0].Rows[i]["BillType"]),
+                                PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
+                                GcBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBranch"]),
+                                GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                Consignmentid = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignmentid"]),
+                                Freight = Convert.ToString(dataSet.Tables[0].Rows[i]["Freight"]),
+                                Statistical = Convert.ToString(dataSet.Tables[0].Rows[i]["Statistical"]),
+                                Fov = Convert.ToString(dataSet.Tables[0].Rows[i]["Fov"]),
+                                DoorColl = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorColl"]),
+                                Handling = Convert.ToString(dataSet.Tables[0].Rows[i]["Handling"]),
+                                LoadingDetn = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetn"]),
+                                Enroute = Convert.ToString(dataSet.Tables[0].Rows[i]["Enroute"]),
+                                Misc = Convert.ToString(dataSet.Tables[0].Rows[i]["Misc"]),
+                                DoorDel = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDel"]),
+                                UnLoading = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoading"]),
+                                Detention = Convert.ToString(dataSet.Tables[0].Rows[i]["Detention"]),
+                                Extras = Convert.ToString(dataSet.Tables[0].Rows[i]["Extras"]),
+                                Others = Convert.ToString(dataSet.Tables[0].Rows[i]["Others"]),
+                                SubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotal"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
+                                IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
+                                NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
+                                Gtotal = Convert.ToString(dataSet.Tables[0].Rows[i]["Gtotal"]),
+                                DedAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DedAmt"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                SuppBillDetRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppBillDetRemarks"]),
+                                Remarks1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
+                                Remarks2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
+                                Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
+                              //  Selected = false
+                            });
+                        }
+
+                        billsMasterSearchList.BillsMasterSearchList = billsDetailModel;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return billsMasterSearchList;
+        }
+
         public async Task<ResponseModel> BillsMasterDtlSave(SqlTransaction transaction, BillsDetailModel billsDtl)
         {
             ResponseModel responseModel = new();
@@ -167,7 +255,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@DoorDel", billsDtl.DoorDel),
                             new SqlParameter("@UnLoading", billsDtl.UnLoading),
                             new SqlParameter("@Detention", billsDtl.Detention),
-                            new SqlParameter("@Detention", billsDtl.Detention),
+                          
                             new SqlParameter("@Extras", billsDtl.Extras),
                             new SqlParameter("@Others", billsDtl.Others),
                             new SqlParameter("@SubTotal", billsDtl.SubTotal),
@@ -185,7 +273,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Remarks3", billsDtl.Remarks3),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanDtlsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsDtlsSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -213,7 +301,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-        public async Task<BillsListModel> GetBillsMasterList(ReportRequestModel request)
+        public async Task<BillsListModel> GetBillsMasterList(PageRequest request)
         {
             BillsListModel billsMasterList = new();
             List<BillsMasterModel> billsList = new();
@@ -228,11 +316,11 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
+                          //  new SqlParameter("@FromDate",   request.FromDate),
+                           // new SqlParameter("@ToDate",     request.ToDate),
                            // new SqlParameter("@Type",       request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -262,8 +350,8 @@ namespace FreightMasters.Repository
                                 TotalHandling = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalHandling"]),
                                 TotalLoadingDetn = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalLoadingDetn"]),
                                 TotalEnroute = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalEnroute"]),
-                                TotalMisc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDoorDel"]),
-                                TotalDoorDel = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd1"]),
+                                TotalMisc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalMisc"]),
+                                TotalDoorDel = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDoorDel"]),
                                 TotalUnLoading = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalUnLoading"]),
                                 TotalDetention = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDetention"]),
                                 TotalExtras = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalExtras"]),
@@ -341,7 +429,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@BillsMasterId", request.strRequest)
                         };
 
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getChallanInnerGrid", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsInnerGrid", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -413,7 +501,7 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@BillsMasterId", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChallanMstDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsMstDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

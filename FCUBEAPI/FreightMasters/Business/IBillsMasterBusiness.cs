@@ -10,10 +10,11 @@ namespace FreightMasters.Business
 {
     public interface IBillsMasterBusiness
     {
-        Task<BillsListModel> GetBillsMasterList(ReportRequestModel request);
+        Task<BillsListModel> GetBillsMasterList(PageRequest request);
         Task<BillsMasterModel> GetBillsInnerGridList(RequestModel request);
         Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
         Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
+        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request);
 
 
     }

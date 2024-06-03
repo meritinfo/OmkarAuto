@@ -127,6 +127,8 @@ import { GeneratetempgclistComponent } from './module/generatetempgc/generatetem
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
 import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
+import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
+import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
 import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 
@@ -232,9 +234,9 @@ const routes: Routes = [
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
   { path: 'dieselstatementedit', component:  DieselstatementaddComponent },
   { path: 'dieselstatementlist', component:  DieselstatementlistComponent },
-  { path: 'billstatementadd', component:  BillstatementaddComponent },
-  { path: 'billstatementlist', component:  BillstatementlistComponent },
-  { path: 'billstatementedit', component:  BillstatementaddComponent },
+ // { path: 'billstatementadd', component:  BillstatementaddComponent },
+ // { path: 'billstatementlist', component:  BillstatementlistComponent },
+ // { path: 'billstatementedit', component:  BillstatementaddComponent },
   { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
   { path: 'driversalarystatementedit', component:  DriversalarystatementaddComponent },
   { path: 'driversalarystatementlist', component:  DriversalarystatementlistComponent },
@@ -311,6 +313,9 @@ const routes: Routes = [
   { path: 'classmasterlist', component:  ClassificationmasterlistComponent },    
   { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
   { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
+  { path: 'billstatementlist', component:  BillsmasterlistComponent },    
+  { path: 'billsmasteradd', component:  BillsmasteraddComponent },   
+  { path: 'billsmasteredit', component:  BillsmasteraddComponent },
   
   
   

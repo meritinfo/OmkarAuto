@@ -9,6 +9,7 @@ using FleetMasters.Business;
 using FreightMasters.Repository;
 using FleetTrans.Business;
 using Consignment.Business;
+using FleetTrans.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -71,6 +72,7 @@ namespace FCUBEAPI.Controllers
             distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
             driverLicRptBusiness = _driverLicRptBusiness;
+            billsMasterBusiness = _billsMasterBusiness;
         }
 
         /// <summary>
@@ -435,11 +437,29 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillsMasterList")]
-        public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
+        public async Task<IActionResult> GetBillsMasterList(PageRequest request)
         {
             try
             {
                 var result = await billsMasterBusiness.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsMasterSearchList")]
+        public async Task<IActionResult> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillsMasterSearchList(request);
 
                 return Ok(result);
             }

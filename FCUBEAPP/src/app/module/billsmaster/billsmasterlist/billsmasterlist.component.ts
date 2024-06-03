@@ -1,0 +1,196 @@
+import { Component,ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Router } from '@angular/router';
+import { Filtermodel } from 'src/app/models/filtermodel';
+import { Billsmasterlistmodel } from 'src/app/models/billsmasterlistmodel';
+import { Usermodel } from 'src/app/models/usermodel';
+import { Billsmastermodel } from 'src/app/models/billsmastermodel';
+import { BillsMasterService } from 'src/app/services/billsmaster.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Reportmodel } from 'src/app/models/reportmodel';
+import { SharedService } from 'src/app/services/shared.service';
+import { CommonService } from 'src/app/services/common.service';
+import { ToastrService } from 'ngx-toastr';
+@Component({
+  selector: 'app-billsmasterlist',
+  templateUrl: './billsmasterlist.component.html',
+  styleUrls: ['./billsmasterlist.component.css']
+})
+export class BillsmasterlistComponent {
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  allBillsMaster: Billsmasterlistmodel = new Billsmasterlistmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'vendor',
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr: '',
+    filterStr1: '',
+    filterStr2:'',
+    filterStr3:''
+  }
+  editMode = false;
+  createmode = true;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  formFilter!: FormGroup;
+  keywordLocation = 'dataName'; 
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+
+  constructor(private billsMasterService: BillsMasterService, 
+    private toasterService: ToastrService,
+    private commonService: CommonService, private formBuilder: FormBuilder,
+    private sharedService: SharedService, private route: Router) {
+  }
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Bill Entry (MAIN)"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+    
+    this.billsMasterService.clearBillsMasterDetails();
+    this.formFilter = this.formBuilder.group({
+      bill_StmtNo: new FormControl(''),
+      fromDate: new FormControl(this.fromDate),
+      toDate: new FormControl(this.loginDate),
+    });     
+
+    this.sharedService.loading=true;     
+    this.filter.search = '';
+    this.filter.fromDate = this.fromDate;
+    this.filter.toDate = this.loginDate;
+    this.billsmasterList();
+    this.sharedService.loading=false;
+  }
+
+  billsmasterList() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      searching:false,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.billsMasterService.getBillsMasterList(this.filter)
+          .subscribe(resp => {
+            this.allBillsMaster = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
+            });
+          });
+      },
+      columns: [ 
+        {
+          title: 'Billing Station ',
+          data: 'billingStation',
+        },
+        {
+          title: 'Bill No',
+          data: 'billNo',
+        },
+        {
+          title: 'Bill Status',
+          data: 'billStatus'
+        },
+        {
+          title: 'bill Type',
+          data: 'billType',
+        },
+        {
+          title: 'Sac Hsn ',
+          data: 'sacHsn'
+        },
+        
+        
+        {
+          title: 'Action',
+          data: 'masterId',
+        },  
+      ],
+    };
+  }
+  billsMasterAdd(): void {
+    this.route.navigate(['/billsmasteradd']);
+  }
+  
+  //Open user details screen
+  getBillsMasterDetails(Docrenewal: Billsmastermodel): void {
+    this.billsMasterService.setBillsMasterDetails(Docrenewal);
+    this.route.navigate(['/billsmasteredit']);
+  }
+
+  download(pdfUrl:string): void {
+    if(pdfUrl=="")
+    {
+      this.toasterService.warning("No Link Found");   
+      return;
+    }
+    else{
+      let link = document.createElement("a");
+      link.href = pdfUrl ;
+      link.click();
+    }
+  }
+  
+  search(): void {
+    this.filter.search = this.formFilter.value.bill_StmtNo;
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    this.sharedService.loading=true;
+    this.billsmasterList();
+    this.sharedService.loading=false;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.ajax.reload();
+    });
+  }
+}

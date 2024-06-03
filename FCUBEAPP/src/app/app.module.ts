@@ -245,6 +245,9 @@ import { Classificationmastermodel } from './models/classificationmastermodel';
 import { AddtransportmasterComponent } from './module/transportmaster/addtransportmaster/addtransportmaster.component';
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 import { Transportmastermodel } from './models/transportmastermodel';
+import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
+import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
+import { Billsmastermodel } from './models/billsmastermodel';
 
 @NgModule({
   declarations: [
@@ -395,6 +398,8 @@ import { Transportmastermodel } from './models/transportmastermodel';
     ClassificationmasterlistComponent,
     AddtransportmasterComponent,
     TransportmasterlistComponent,
+    BillsmasteraddComponent,
+    BillsmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -444,7 +449,7 @@ import { Transportmastermodel } from './models/transportmastermodel';
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
 })
