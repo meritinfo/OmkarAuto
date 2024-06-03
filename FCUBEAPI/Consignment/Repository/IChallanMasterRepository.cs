@@ -1,4 +1,4 @@
-﻿using FreightMasters.Models;
+﻿using Consignment.Models;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreightMasters.Repository
+namespace Consignment.Repository
 {
     public interface IChallanMasterRepository
     {
@@ -14,5 +14,10 @@ namespace FreightMasters.Repository
         Task<ChallanMasterModel> GetChallanInnerGridList(RequestModel request);
         Task<ResponseModel> ChallanMasterSave(ChallanMasterModel challanModel);
         Task<ResponseModel> ChallanMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> GetChallanNo(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateChallan(RequestModel requestModel);
+        Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel);
+        Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request);
+        Task<PanApiResultModel> GetPanValidDetails(RequestModel request);
     }
 }

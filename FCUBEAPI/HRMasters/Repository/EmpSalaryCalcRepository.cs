@@ -5,6 +5,7 @@ using HRMasters.Models;
 using Shared.Models;
 using DocumentFormat.OpenXml.Drawing;
 using System.Transactions;
+using System.Reflection.Emit;
 
 namespace HRMasters.Repository
 {
@@ -17,7 +18,7 @@ namespace HRMasters.Repository
             dbconnection = _dbconnection;
         }
         
-        public async Task<EmpPayCalcList> GetEmpPayCalList(ReportRequestModel request)
+        public async Task<EmpPayCalcList> GetEmpPayCalList(PageFromDtToDtRequest request)
         {
             EmpPayCalcList empPayCalcList = new();
             List<EmpPayCalcModel> payCalcList = new();
@@ -32,7 +33,7 @@ namespace HRMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@BranchCode", request.FilterStr),
+                            new SqlParameter("@BranchCode", request.strRequest),
                             new SqlParameter("@MonthYear",  request.FromDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getEmpPayCalMstList", param);
@@ -79,7 +80,58 @@ namespace HRMasters.Repository
                 
             }
             return empPayCalcList;
-        }          
+        }
+
+        public async Task<EmpPayCalcModel> GetSelectedEmpDetails(ReportRequestModel request)
+        {
+            EmpPayCalcModel empSalary = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@EmpId",      request.FilterStr),
+                        new SqlParameter("@FromDate",   request.FromDate),
+                    };
+                    empSalary.TransId = "";
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSelectedEmpDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        empSalary.TransId         = Convert.ToString(dataSet.Tables[0].Rows[0]["TransId"]);
+                        empSalary.EmpId           = Convert.ToString(dataSet.Tables[0].Rows[0]["EmpId"]);
+                        empSalary.EmpCode         = Convert.ToString(dataSet.Tables[0].Rows[0]["EmpCode"]);
+                        empSalary.EmpName         = Convert.ToString(dataSet.Tables[0].Rows[0]["EmpName"]);
+                        empSalary.MonthYear       = Convert.ToString(dataSet.Tables[0].Rows[0]["MonthYear"]);
+                        empSalary.DaysOfMonth     = Convert.ToString(dataSet.Tables[0].Rows[0]["DaysOfMonth"]);
+                        empSalary.HolSun          = Convert.ToString(dataSet.Tables[0].Rows[0]["HolSun"]);
+                        empSalary.TotLeaves       = Convert.ToString(dataSet.Tables[0].Rows[0]["TotLeaves"]);
+                        empSalary.AdjLeaves       = Convert.ToString(dataSet.Tables[0].Rows[0]["AdjLeaves"]);
+                        empSalary.AbsentDays      = Convert.ToString(dataSet.Tables[0].Rows[0]["AbsentDays"]);
+                        empSalary.PayDays         = Convert.ToString(dataSet.Tables[0].Rows[0]["PayDays"]);
+                        empSalary.AffectYear      = Convert.ToString(dataSet.Tables[0].Rows[0]["AffectYear"]);
+                        empSalary.TotalEarnings   = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalEarnings"]);
+                        empSalary.TotalDeductions = Convert.ToString(dataSet.Tables[0].Rows[0]["TotalDeductions"]);
+                        empSalary.NetPay          = Convert.ToString(dataSet.Tables[0].Rows[0]["NetPay"]);
+                        empSalary.Remarks         = Convert.ToString(dataSet.Tables[0].Rows[0]["Remarks"]);
+                        empSalary.BranchCode      = Convert.ToString(dataSet.Tables[0].Rows[0]["BranchCode"]);
+                    }
+                    else
+                    {
+                        empSalary.TransId         = "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return empSalary;
+        }
+
         public async Task<EmpPayCalcModel> GetEmpSalEarnList(EmpSalaryMstModel empPayCalc)
         {
             EmpPayCalcModel empSalary = new()
@@ -566,7 +618,8 @@ namespace HRMasters.Repository
                                 MasterId = request.strRequest,
                                 EdCode = Convert.ToString(dataSet.Tables[0].Rows[i]["EdCode"]),
                                 EdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["EdAmt"]),
-                                EdName =Convert.ToString(dataSet.Tables[0].Rows[i]["EdName"]),
+                                EdName = Convert.ToString(dataSet.Tables[0].Rows[i]["EdName"]),
+                                ActAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActAmt"]),
                             });
                         }
                     }
@@ -606,6 +659,7 @@ namespace HRMasters.Repository
                                 EdCode = Convert.ToString(dataSet.Tables[0].Rows[i]["EdCode"]),
                                 EdAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["EdAmt"]),
                                 EdName =Convert.ToString(dataSet.Tables[0].Rows[i]["EdName"]),
+                                ActAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["ActAmt"]),
                             });
                         }
                     }

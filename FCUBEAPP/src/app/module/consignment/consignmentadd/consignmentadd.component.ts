@@ -1,27 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Getkmsmodel } from 'src/app/models/getkmsmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Consignmentlistmodel } from 'src/app/models/consignmentlistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ConsignmentService } from 'src/app/services/consignment.service';
-import { UserService } from 'src/app/services/user.service';
 import { Ewaybillmodel } from 'src/app/models/ewaybillmodel';
-import { formatDate } from '@angular/common';
-import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { kmsmodel } from 'src/app/models/kmsmodel';
-import { Dslmodel } from 'src/app/models/dslmodel';
-import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
-import { GetDslmodel } from 'src/app/models/getdslmodel';
-import { Datemodel } from 'src/app/models/datemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
-import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-consignmentadd',
@@ -39,11 +28,14 @@ export class ConsignmentaddComponent implements OnInit {
   maxDate: string = '';
   minDate: string = '';
   newDate: string = '';
-  ewayBillExpDate:string = '';
   noPackages:string = '';
 
   formSubmitted = false;
-
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   branchList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
@@ -58,10 +50,15 @@ export class ConsignmentaddComponent implements OnInit {
   eWayBillDetails = new Ewaybillmodel();
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
+  attach1: string = "";
 
   step1Active = true;
   step2Active = false;
   step3Active = false;
+  
+  @ViewChild('attachInput', {
+    static: true
+  }) attachInput: any;
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private lrmodel: Consignmentmodel, private lrentryService: ConsignmentService,
@@ -73,6 +70,19 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Create Branches");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
     
     var userData3 = sessionStorage.getItem('userBranch')?.toString();
     if (typeof userData3 !== 'undefined' && userData3 !== null && userData3 !== '') {
@@ -126,6 +136,8 @@ export class ConsignmentaddComponent implements OnInit {
 
     this.sharedService.loading = false;
     
+    this.selectedLrDetails = this.lrentryService.getConsignmentDetails();
+
     this.formUser = this.formBuilder.group({
       bookingPlace  :new FormControl(this.branch, [Validators.required]),
       gcNoteNo  : new FormControl('', [Validators.required]),
@@ -134,6 +146,7 @@ export class ConsignmentaddComponent implements OnInit {
       ewayBillEntryType : new FormControl('A', [Validators.required]),
       ewayBillNo : new FormControl('', [Validators.required]),
       ewayBillDate : new FormControl('', [Validators.required]),
+      ewayBillExpDate: new FormControl(''),
       invoiceNo        : new FormControl('', [Validators.required]),
       invoiceDate : new FormControl('', [Validators.required]),
       invoiceValue : new FormControl('', [Validators.required]),
@@ -164,15 +177,15 @@ export class ConsignmentaddComponent implements OnInit {
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    
       shipmentDt : new FormControl('',),    
-      deliveryNo : new FormControl('',),    
-      deliveryDt : new FormControl('',),    
-      poNo : new FormControl('',),    
-      poDt : new FormControl('',),    
-      riskBy : new FormControl('',),    
-      insCoName :new FormControl('',),    
-      insPolicyNo : new FormControl('',),    
-      insValidDt : new FormControl('',),    
-      insuredValue : new FormControl('',),    
+      // deliveryNo : new FormControl('',),    
+      // deliveryDt : new FormControl('',),    
+      // poNo : new FormControl('',),    
+      // poDt : new FormControl('',),    
+      // riskBy : new FormControl('',),    
+      // insCoName :new FormControl('',),    
+      // insPolicyNo : new FormControl('',),    
+      // insValidDt : new FormControl('',),    
+      // insuredValue : new FormControl('',),    
       classId : new FormControl('', [Validators.required]),
       productId : new FormControl('', [Validators.required]),
       productDesc : new FormControl('',),    
@@ -210,9 +223,11 @@ export class ConsignmentaddComponent implements OnInit {
       othersRs : new FormControl('',),    
       subTotalRs : new FormControl('',),    
       gstType : new FormControl('',),    
-      gstPct : new FormControl('',),    
+      sgstPct : new FormControl('',),    
       sgstAmt : new FormControl('',),    
-      cgstAmt : new FormControl('',),    
+      cgstPct : new FormControl('',),    
+      cgstAmt : new FormControl('',),     
+      igstPct : new FormControl('',),   
       igstAmt : new FormControl('',),  
       nonGstAmt1 : new FormControl('',),  
       nonGstAmt1Desc : new FormControl('',),  
@@ -223,10 +238,65 @@ export class ConsignmentaddComponent implements OnInit {
       businessBy : new FormControl('',),    
       arrayList: this.formBuilder.array([this.createInitialArray()])  , 
     });
+
     this.formUser.controls["bookingPlace"].disable();
 
-    this.changeEWay('A');
-    this.onBranchChange();
+    this.formUser.controls['ewayBillExpDate'].disable();
+    
+    this.formUser.controls['sgstPct'].disable();
+    this.formUser.controls['cgstPct'].disable();  
+    this.formUser.controls['igstPct'].disable();  
+    this.formUser.controls['sgstAmt'].disable();
+    this.formUser.controls['cgstAmt'].disable();  
+    this.formUser.controls['igstAmt'].disable();   
+
+    if (this.selectedLrDetails.consignmentID != '') {
+      this.attach1 = Constants.UploadFolderPath + 'Lr/attachedfile/' + this.selectedLrDetails.attachedfile;
+      this.formUser.patchValue(this.selectedLrDetails);
+      this.formUser.patchValue({
+        bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
+        ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
+        ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
+        invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
+        shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
+        fromPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.fromPlace),
+        toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
+        billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
+        businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
+      })      
+      
+      this.formUser.controls['gcNoteNo'].disable();     
+      if (this.selectedLrDetails.consignmentID != '0') {
+        this.getLrInnerGridList();   
+        this.editMode = true;
+      }
+      else{    
+        this.formArray.clear();
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[0].get("ewayBillNo")?.setValue(this.selectedLrDetails.ewayBillNo);
+        this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.ewayBillDate));
+        this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.selectedLrDetails.ewayBillExpDate);
+        this.formArray.controls[0].get("invNo")?.setValue(this.selectedLrDetails.invoiceNo);
+        this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.selectedLrDetails.invoiceDate));
+        this.formArray.controls[0].get("invValue")?.setValue(this.selectedLrDetails.invoiceValue);
+        this.formArray.controls[0].get("ewayBillNo")?.disable();
+        this.formArray.controls[0].get("ewayBillDate")?.disable();
+        this.formArray.controls[0].get("ewayBillExpDate")?.disable();
+        this.formArray.controls[0].get("invNo")?.disable();
+        this.formArray.controls[0].get("invDate")?.disable();
+        this.formArray.controls[0].get("invValue")?.disable();     
+      }
+    }
+    else{
+      this.changeEWay('A');
+      this.onBranchChange();
+      this.formArray.controls[0].get("ewayBillNo")?.disable();
+      this.formArray.controls[0].get("ewayBillDate")?.disable();
+      this.formArray.controls[0].get("ewayBillExpDate")?.disable();
+      this.formArray.controls[0].get("invNo")?.disable();
+      this.formArray.controls[0].get("invDate")?.disable();
+      this.formArray.controls[0].get("invValue")?.disable();     
+    }
     this.sharedService.loading = false;
   }
 
@@ -245,6 +315,31 @@ export class ConsignmentaddComponent implements OnInit {
       invNo: ['', []],
       invDate: ['', []],
       invValue: ['', []],
+    });
+  }
+
+  
+  getLrInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedLrDetails.consignmentID;
+    this.lrentryService.getLrInnerGridList(this.requestmodel).subscribe((res) => {
+      this.lrmodel = res;
+      this.formArray.clear();
+      for (var i = 0; i < res.invList.length; i++) {
+        this.formArray.push(this.createInitialArray());
+        this.formArray.controls[i].get("ewayBillNo")?.setValue(res.invList[i].ewayBillNo);
+        this.formArray.controls[i].get("ewayBillDate")?.setValue(this.commonService.formatDate(res.invList[i].ewayBillDate));
+        this.formArray.controls[i].get("ewayBillExpDate")?.setValue(res.invList[i].ewayBillExpDate);
+        this.formArray.controls[i].get("invNo")?.setValue(res.invList[i].invoiceNo);
+        this.formArray.controls[i].get("invDate")?.setValue(this.commonService.formatDate(res.invList[i].invoiceDate));
+        this.formArray.controls[i].get("invValue")?.setValue(res.invList[i].invoiceValue);
+        this.formArray.controls[i].get("ewayBillNo")?.disable();
+        this.formArray.controls[i].get("ewayBillDate")?.disable();
+        this.formArray.controls[i].get("ewayBillExpDate")?.disable();
+        this.formArray.controls[i].get("invNo")?.disable();
+        this.formArray.controls[i].get("invDate")?.disable();
+        this.formArray.controls[i].get("invValue")?.disable();     
+      }      
+      this.formArray.push(this.createInitialArray());      
     });
   }
 
@@ -312,20 +407,62 @@ export class ConsignmentaddComponent implements OnInit {
       this.requestmodel.strRequest = selectedData.bookingPlace;
     }
 
-    // this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
-    //   this.responseDetails = res;
-    //   if (this.responseDetails.status) {
-    //     this.formUser.patchValue({
-    //       gcNoteNo: this.responseDetails.message
-    //     });
-    //   }
-    //  else{
-    //     this.toastrService.warning(this.responseDetails.message);
-    //   }
-    // });
+    this.lrentryService.getLrNo(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        this.formUser.patchValue({
+          gcNoteNo: this.responseDetails.message
+        });
+      }
+     else{
+        this.toastrService.warning(this.responseDetails.message);
+      }
+    });
   }
- 
-     
+
+  chkLrDuplicate(){
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.gcNoteNo==""){
+      this.toastrService.warning("GC Note No should not be Blank");
+      return;
+    }
+    else{
+      this.requestmodel.strRequest = selectedData.bookingPlace;
+      this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toastrService.warning(this.responseDetails.message);
+        }
+      });
+    }   
+  }
+
+  chkTruck(e: any) {
+    if(e.target.checked){
+      var selectedData = this.formUser.getRawValue();
+      if (selectedData.truckNo==""){
+        this.toastrService.warning("Vehicle No should not be Blank");
+        return;
+      }
+      else{
+        this.requestmodel.strRequest = selectedData.truckNo;
+        this.lrentryService.checkVehicleNo(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            //ignore
+          }
+         else{
+            this.toastrService.warning(this.responseDetails.message);
+          }
+        });
+      }   
+    }
+  }
+      
   changeGstType(e: any) {
     console.log(e.target.value);
     var gsttype = e.target.value; 
@@ -390,6 +527,8 @@ export class ConsignmentaddComponent implements OnInit {
     var unLoadingDetnRs= selectedData.unLoadingDetnRs != ""? parseFloat(selectedData.unLoadingDetnRs) : 0;
     var extrasRS = selectedData.extrasRS != ""? parseFloat(selectedData.extrasRS) : 0;
     var othersRs = selectedData.othersRs != ""? parseFloat(selectedData.othersRs) : 0;
+    var nonGstAmt1 = selectedData.nonGstAmt1 != ""? parseFloat(selectedData.nonGstAmt1) : 0;
+    var nonGstAmt2 = selectedData.nonGstAmt2 != ""? parseFloat(selectedData.nonGstAmt2) : 0;
    
     subTotalRs = freightRs + statisticalRs + fovRs + doorCollRs + handlingRs +
                     loadingDetnRs + enrouteRs + miscRs + doorDelRs + unLoadingRs +
@@ -441,6 +580,7 @@ export class ConsignmentaddComponent implements OnInit {
     }    
     gtotalRs = subTotalRs + 
     Math.round((subTotalRs * igst)/100) + Math.round((subTotalRs * sgst)/100) + Math.round((subTotalRs * cgst)/100)
+    + nonGstAmt1 + nonGstAmt2
 
     this.formUser.patchValue({
       subTotalRs: subTotalRs.toFixed(2),
@@ -471,11 +611,16 @@ export class ConsignmentaddComponent implements OnInit {
                 goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
                
                 cnorName: this.eWayBillDetails.result.message.legal_name_of_consignor,
+                cnorAdd1: this.eWayBillDetails.result.message.address1_of_consignor,
+                cnorAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
+                cnorAdd3: this.eWayBillDetails.result.message.place_of_consignor,    
+                cnorPin: this.eWayBillDetails.result.message.pincode_of_consignor,     
+                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,   
                 cneeName: this.eWayBillDetails.result.message.legal_name_of_consignee,
                 cneeAdd1: this.eWayBillDetails.result.message.address1_of_consignee,
-                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignor,
-                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,
-                cnorGst: this.eWayBillDetails.result.message.gstin_of_consignor,                
+                cneeAdd2: this.eWayBillDetails.result.message.address2_of_consignee,
+                cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,  
+                cneePin: this.eWayBillDetails.result.message.pincode_of_consignee,               
                 cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
                 vehicleNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
@@ -485,9 +630,6 @@ export class ConsignmentaddComponent implements OnInit {
               this.formArray.controls[0].get("invNo")?.setValue(this.eWayBillDetails.result.message.document_number);
               this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.document_date)));
               this.formArray.controls[0].get("invValue")?.setValue(this.eWayBillDetails.result.message.total_invoice_value.toString());
-              this.formArray.controls[0].get("invNo")?.disable();
-              this.formArray.controls[0].get("invDate")?.disable();
-              this.formArray.controls[0].get("invValue")?.disable();              
               this.formArray.push(this.createInitialArray());
             }
             else{              
@@ -522,6 +664,16 @@ export class ConsignmentaddComponent implements OnInit {
     }    
   }
 
+  fillgrid(){    
+    var selectedDataValue = this.formUser.getRawValue();
+    this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
+    this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
+    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
+    this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
+    this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
+    this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
+  }
+
   selectEvent(item: any) {
     // do something with selected item
   }
@@ -533,14 +685,9 @@ export class ConsignmentaddComponent implements OnInit {
   onFocused(e: any) {
     // do something
   }
-
+  
   startWithFilter = function (partyList: Dropdownmodel[], query: string): any[] {
-    if(query.length>2){
-      return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-    }
-    else{
-      return partyList;
-    }
+    return partyList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));    
   };
 
 
@@ -563,102 +710,112 @@ export class ConsignmentaddComponent implements OnInit {
  
 
   changeEWay(selectedValue: string) {
-    if (selectedValue === "A") {
+    if (selectedValue === "E") {
       //Remove field validation
-      this.formUser.controls['fromPlace'].clearValidators();
-      this.formUser.controls['toPlace'].clearValidators();
+      this.formUser.controls['ewayBillNo'].clearValidators();
+      this.formUser.controls['ewayBillDate'].clearValidators();
       this.formUser.controls['cnorName'].clearValidators();
       this.formUser.controls['cneeName'].clearValidators();
+      this.formUser.controls['invoiceNo'].clearValidators();
+      this.formUser.controls['invoiceDate'].clearValidators();
+      this.formUser.controls['invoiceValue'].clearValidators();
+      this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
       this.formUser.controls['rateType'].clearValidators();
-      this.formUser.controls['declaredValue'].clearValidators();
-      this.formUser.controls['cnorInvDate'].clearValidators();
-
-      //required
-      this.formUser.controls['billingParty'].setValidators([Validators.required]);
-      this.formUser.controls['truckNo'].setValidators([Validators.required]);
-      this.formUser.controls['fromPlace'].setValidators([Validators.required]);
-      this.formUser.controls['toPlace'].setValidators([Validators.required]);
-      this.formUser.controls['productId'].setValidators([Validators.required]);
-      this.formUser.controls['rateType'].setValidators([Validators.required]);
-
-      //Disable field
-      this.formUser.controls['cnorName'].disable();
-      this.formUser.controls['cnorAdr'].disable();
-      this.formUser.controls['cnorAdr1'].disable();
-      this.formUser.controls['cnorStateCode'].disable();
-      this.formUser.controls['cnorPincode'].disable();
-      this.formUser.controls['cnorGstNo'].disable();
-      this.formUser.controls['cneeName'].disable();
-      this.formUser.controls['cneeAdr'].disable();
-      this.formUser.controls['cneeAdr1'].disable();
-      this.formUser.controls['cneeStateCode'].disable();
-      this.formUser.controls['cneePincode'].disable();
-      this.formUser.controls['cneeGstNo'].disable();
-      this.formUser.controls['kms'].disable();
-      this.formUser.controls['ewayBillDate'].disable();
-      this.formUser.controls['declaredValue'].disable();
-      this.formUser.controls['cnorInvDate'].disable();
-      //this.formUser.controls['noPackages'].disable();
+     
     }
-    if (selectedValue === "M" || selectedValue === "E") {
-      //Add field validation
-      this.formUser.controls['fromPlace'].setValidators([Validators.required]);
-      this.formUser.controls['toPlace'].setValidators([Validators.required]);
+    if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formUser.controls['ewayBillDate'].setValidators([Validators.required]);
       this.formUser.controls['cnorName'].setValidators([Validators.required]);
-      this.formUser.controls['cnorGstNo'].setValidators([Validators.required]);
       this.formUser.controls['cneeName'].setValidators([Validators.required]);
-      this.formUser.controls['cneeGstNo'].setValidators([Validators.required]);
-      this.formUser.controls['cnorInvNo'].setValidators([Validators.required]);
-      this.formUser.controls['declaredValue'].setValidators([Validators.required]);
-      this.formUser.controls['productId'].setValidators([Validators.required]);
-      this.formUser.controls['rateType'].setValidators([Validators.required]);
-      this.formUser.controls['billingParty'].setValidators([Validators.required]);
-      this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
+      this.formUser.controls['invoiceNo'].setValidators([Validators.required]);
+      this.formUser.controls['invoiceDate'].setValidators([Validators.required]);
+      this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
       this.formUser.controls['truckNo'].setValidators([Validators.required]);
-      this.formUser.controls['noPackages'].setValidators([Validators.required]);
+      this.formUser.controls['productId'].setValidators([Validators.required]);
+      this.formUser.controls['rateType'].setValidators([Validators.required]); 
 
-      //Enable fieldcnorName']
-      this.formUser.controls['fromPlace'].enable();
-      this.formUser.controls['toPlace'].enable();
-      this.formUser.controls['cnorName'].enable();
-      this.formUser.controls['cnorAdr'].enable();
-      this.formUser.controls['cnorAdr1'].enable();
-      this.formUser.controls['cnorStateCode'].enable();
-      this.formUser.controls['cnorPincode'].enable();
-      this.formUser.controls['cnorGstNo'].enable();
-      this.formUser.controls['cneeName'].enable();
-      this.formUser.controls['cneeAdr'].enable();
-      this.formUser.controls['cneeAdr1'].enable();
-      this.formUser.controls['cneeStateCode'].enable();
-      this.formUser.controls['cneePincode'].enable();
-      this.formUser.controls['cneeGstNo'].enable();
-      this.formUser.controls['kms'].enable();
-      this.formUser.controls['ewayBillDate'].enable();
-      this.formUser.controls['ewayBillNo'].enable();
-      this.formUser.controls['truckNo'].enable();
-      this.formUser.controls['declaredValue'].enable();
-      this.formUser.controls['cnorInvDate'].enable();
-      this.formUser.controls['noPackages'].enable();
-
+      if (selectedValue === "A") {
+        //Disable field
+        this.formUser.controls['cnorName'].disable();
+        this.formUser.controls['cnorAdd1'].disable();
+        this.formUser.controls['cnorAdd2'].disable();
+        this.formUser.controls['cnorAdd3'].disable();
+        this.formUser.controls['cnorPin'].disable();
+        this.formUser.controls['cnorGst'].disable();
+        this.formUser.controls['cneeName'].disable();
+        this.formUser.controls['cneeAdd1'].disable();
+        this.formUser.controls['cneeAdd2'].disable();
+        this.formUser.controls['cneeAdd3'].disable();
+        this.formUser.controls['cneePin'].disable();
+        this.formUser.controls['cneeGst'].disable();
+        this.formUser.controls['kms'].disable();
+        this.formUser.controls['ewayBillDate'].disable();
+        this.formUser.controls['invoiceNo'].disable();
+        this.formUser.controls['invoiceDate'].disable();
+        this.formUser.controls['invoiceValue'].disable();
+      }
+      else{
+        this.formUser.controls['cnorName'].enable();
+        this.formUser.controls['cnorAdd1'].enable();
+        this.formUser.controls['cnorAdd2'].enable();
+        this.formUser.controls['cnorAdd3'].enable();
+        this.formUser.controls['cnorPin'].enable();
+        this.formUser.controls['cnorGst'].enable();
+        this.formUser.controls['cneeName'].enable();
+        this.formUser.controls['cneeAdd1'].enable();
+        this.formUser.controls['cneeAdd2'].enable();
+        this.formUser.controls['cneeAdd3'].enable();
+        this.formUser.controls['cneePin'].enable();
+        this.formUser.controls['cneeGst'].enable();
+        this.formUser.controls['kms'].enable();
+        this.formUser.controls['ewayBillDate'].enable();
+        this.formUser.controls['invoiceNo'].enable();
+        this.formUser.controls['invoiceDate'].enable();
+        this.formUser.controls['invoiceValue'].enable();  
+      }
     }
-
-    this.formUser.controls['fromPlace'].updateValueAndValidity();
-    this.formUser.controls['toPlace'].updateValueAndValidity();
+    this.formUser.controls['ewayBillNo'].updateValueAndValidity();
+    this.formUser.controls['ewayBillDate'].updateValueAndValidity();
     this.formUser.controls['cnorName'].updateValueAndValidity();
     this.formUser.controls['cneeName'].updateValueAndValidity();
+    this.formUser.controls['invoiceNo'].updateValueAndValidity();
+    this.formUser.controls['invoiceDate'].updateValueAndValidity();
+    this.formUser.controls['invoiceValue'].updateValueAndValidity();
+    this.formUser.controls['truckNo'].updateValueAndValidity();
     this.formUser.controls['productId'].updateValueAndValidity();
     this.formUser.controls['rateType'].updateValueAndValidity();
-    this.formUser.controls['billingParty'].updateValueAndValidity();
-    this.formUser.controls['cnorInvDate'].updateValueAndValidity();
-    this.formUser.controls['cnorInvNo'].updateValueAndValidity();
-    this.formUser.controls['declaredValue'].updateValueAndValidity();
-    this.formUser.controls['truckNo'].updateValueAndValidity();
-    this.formUser.controls['cneeGstNo'].updateValueAndValidity();
-    this.formUser.controls['cnorGstNo'].updateValueAndValidity();
-    this.formUser.controls['ewayBillNo'].updateValueAndValidity();
+  }
 
+  
+  deleteLrForm(): void {
+    if(this.selectedLrDetails.consignmentID != '' && this.selectedLrDetails.consignmentID!='0' ){      
+      this.sharedService.loading = true;
+      this.requestmodel.strRequest =this.selectedLrDetails.consignmentID;
+      if (confirm("Are you sure, you want to delete this?")) {
+            this.lrentryService.consignmentDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.responseDetails = res;
+            if (this.responseDetails.status) {
+              this.toastrService.success(this.responseDetails.message);
+              this.formUser.reset();
+              this.route.navigate(['/consignmentlist']);
+            }
+            else {
+              this.toastrService.warning(this.responseDetails.message);
+            }    
+        });
+      }      
+      this.sharedService.loading = false;
+    }
+  }
+
+  exit(): void {
+    if(this.selectedLrDetails.consignmentID=='0') {
+      this.route.navigate(['/dprtempgclist']);
+    }else{
+      this.route.navigate(['/consignmentlist']);
+    }
   }
 
   submitLrDetailsForm(): void {
@@ -701,75 +858,136 @@ export class ConsignmentaddComponent implements OnInit {
     }
 
     this.sharedService.loading = true;
-    this.lrmodel.bookingPlace = this.branch;
+    this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
+    this.lrmodel.bookingPlace = selectedDataValue.bookingPlace;
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;
-    this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
     this.lrmodel.bookingDate = selectedDataValue.bookingDate;
-    // this.lrmodel.divType = selectedDataValue.divType;
-    // this.lrmodel.delType = selectedDataValue.delType;
-    // this.lrmodel.businessBy = selectedDataValue.businessBy.dataId;
+    this.lrmodel.bookingStatus = selectedDataValue.bookingStatus;
+    this.lrmodel.ewayBillEntryType = selectedDataValue.ewayBillEntryType;
     this.lrmodel.ewayBillNo = selectedDataValue.ewayBillNo;
     this.lrmodel.ewayBillDate = selectedDataValue.ewayBillDate;
-    this.lrmodel.ewayBillExpDate = this.ewayBillExpDate;
+    this.lrmodel.ewayBillExpDate = selectedDataValue.ewayBillExpDate;
+    this.lrmodel.invoiceNo   = selectedDataValue.invoiceNo;
+    this.lrmodel.invoiceDate = selectedDataValue.invoiceDate;
+    this.lrmodel.invoiceValue = selectedDataValue.invoiceValue;
+    this.lrmodel.declaredValue = selectedDataValue.declaredValue;    
     this.lrmodel.fromPlace = selectedDataValue.fromPlace.dataId;
     this.lrmodel.toPlace = selectedDataValue.toPlace.dataId;
     this.lrmodel.kms = selectedDataValue.kms;
+    this.lrmodel.ownTruck = selectedDataValue.ownTruck?'Y':'N';;
     this.lrmodel.truckNo = selectedDataValue.truckNo;
-    // this.lrmodel.clientType = selectedDataValue.clientType;
-    // this.lrmodel.jobNo = selectedDataValue.jobNo;
-    // this.lrmodel.jobId = selectedDataValue.jobNo==""?"": this.jobDetails.jobId;
-    // this.lrmodel.jobBranch = selectedDataValue.jobNo==""?"": this.jobDetails.branch;
-    // this.lrmodel.packingType = selectedDataValue.packingType;
-    // this.lrmodel.vehType = selectedDataValue.vehType;
     this.lrmodel.billingParty = selectedDataValue.billingParty ? selectedDataValue.billingParty.dataId : "0";
-    // this.lrmodel.billingStn = selectedDataValue.billingStn;
-    // this.lrmodel.cnorName = selectedDataValue.cnorName;
-    // this.lrmodel.cnorAdr = selectedDataValue.cnorAdr;
-    // this.lrmodel.cnorAdr1 = selectedDataValue.cnorAdr1;
-    // this.lrmodel.cnorStateCode = selectedDataValue.cnorStateCode;
-    // this.lrmodel.cnorPincode = selectedDataValue.cnorPincode.toString();
-    // this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
-    // this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
-    // this.lrmodel.cnorGstNo = selectedDataValue.cnorGstNo;
-    // this.lrmodel.cnorInvNo = selectedDataValue.cnorInvNo;
-    // this.lrmodel.cnorInvDate = selectedDataValue.cnorInvDate;
-    this.lrmodel.declaredValue = selectedDataValue.declaredValue;
-    // this.lrmodel.cneeName = selectedDataValue.cneeName;
-    // this.lrmodel.cneeAdr = selectedDataValue.cneeAdr;
-    // this.lrmodel.cneeAdr1 = selectedDataValue.cneeAdr1;
-    // this.lrmodel.cneeStateCode = selectedDataValue.cneeStateCode;
-    // this.lrmodel.cneePincode = selectedDataValue.cneePincode.toString();
-    // this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
-    // this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
-    // this.lrmodel.cneeGstNo = selectedDataValue.cneeGstNo;
+    this.lrmodel.billingBranch = selectedDataValue.billingBranch;
+    this.lrmodel.businessBy = selectedDataValue.businessBy.dataId;
+    this.lrmodel.businessBranch = selectedDataValue.businessBranch;
+    this.lrmodel.cnorName = selectedDataValue.cnorName;
+    this.lrmodel.cnorAdd1 = selectedDataValue.cnorAdd1;
+    this.lrmodel.cnorAdd2 = selectedDataValue.cnorAdd2;
+    this.lrmodel.cnorAdd3 = selectedDataValue.cnorAdd3;
+    this.lrmodel.cnorPin = selectedDataValue.cnorPin.toString();
+    this.lrmodel.cnorEmail = selectedDataValue.cnorEmail;
+    this.lrmodel.cnorMobile = selectedDataValue.cnorMobile;
+    this.lrmodel.cnorGst = selectedDataValue.cnorGst;
+    this.lrmodel.cneeName = selectedDataValue.cneeName;
+    this.lrmodel.cneeAdd1 = selectedDataValue.cneeAdd1;
+    this.lrmodel.cneeAdd2 = selectedDataValue.cneeAdd2;
+    this.lrmodel.cneeAdd3 = selectedDataValue.cneeAdd3;
+    this.lrmodel.cneePin = selectedDataValue.cneePin.toString();
+    this.lrmodel.cneeEmail = selectedDataValue.cneeEmail;
+    this.lrmodel.cneeMobile = selectedDataValue.cneeMobile;
+    this.lrmodel.cneeGst = selectedDataValue.cneeGst;
     this.lrmodel.shipmentNo = selectedDataValue.shipmentNo;
-    // this.lrmodel.loadLength = selectedDataValue.loadLength;
-    // this.lrmodel.loadWidth = selectedDataValue.loadWidth;
-    // this.lrmodel.loadHeight = selectedDataValue.loadHeight;
+    this.lrmodel.shipmentDt = selectedDataValue.shipmentDt;
+    this.lrmodel.classId = selectedDataValue.classId;
     this.lrmodel.productId = selectedDataValue.productId;
+    this.lrmodel.productDesc = selectedDataValue.productDesc;
+    this.lrmodel.hsnSac = "";
     this.lrmodel.noPackages = selectedDataValue.noPackages;
+    this.lrmodel.looseFlag = "N";
+    this.lrmodel.weightType = selectedDataValue.weightType;
     this.lrmodel.actualWt = selectedDataValue.actualWt;
-    this.lrmodel.chargewt = selectedDataValue.chargewt;
+    this.lrmodel.senderWt = selectedDataValue.senderWt;
+    this.lrmodel.chargewt = selectedDataValue.chargewt;  
+    this.lrmodel.wtDesc = "";  
+    this.lrmodel.vehicleTypeId = selectedDataValue.vehicleTypeId; 
+    this.lrmodel.privateMark = "";  
+    this.lrmodel.bulkYN = selectedDataValue.bulkYN?'Y':'N';
+    this.lrmodel.loadLength = selectedDataValue.loadLength;
+    this.lrmodel.loadWidth = selectedDataValue.loadWidth;
+    this.lrmodel.loadHeight = selectedDataValue.loadHeight;
+    this.lrmodel.loadCFT = selectedDataValue.loadCFT;
+    this.lrmodel.rateType = selectedDataValue.rateType;  
+    this.lrmodel.rateDesc = "";  
+    this.lrmodel.gstBy = selectedDataValue.gstBy;    
     this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
     this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
-    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks;
-    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs.toString();
+    this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
+    this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
+    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";    
+    this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
+    this.lrmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
+    this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
+    this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
+    this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
+    this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
+    this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
+    this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
+    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
+    this.lrmodel.gstType = selectedDataValue.gstType ;
+    this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 
+    this.lrmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt : "0"; 
+    this.lrmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct : "0";   
+    this.lrmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt : "0"; 
+    this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
+    this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
+    this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
+    this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc.toString().toUpperCase();
+    this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
+    this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc.toString().toUpperCase();
+    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
     this.lrmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
-    this.lrmodel.rateType = selectedDataValue.rateType;
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;
-    // this.lrentryService.LrDetailsSubmitted(this.lrmodel).subscribe((res: Responsemodel) => {
-    //   this.responseDetails = res;
-    //   if (res.status) {
-    //     this.toastrService.success(this.responseDetails.message);
-    //     this.formUser.reset();
-    //     this.route.navigate(['/lrlistview']);
-    //   }
-    //   else {
-    //     this.toastrService.warning(this.responseDetails.message);
-    //   }
-    // });
+
+    this.lrmodel.invList = [];
+
+    for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
+      if (selectedDataValue.arrayList[i].invNo != "" && selectedDataValue.arrayList[i].invDate != "" 
+        && selectedDataValue.arrayList[i].invValue != "") {
+        this.lrmodel.invList.push({
+          'consignmentID': '',
+          'ewayBillNo': selectedDataValue.arrayList[i].ewayBillNo,
+          'ewayBillDate': selectedDataValue.arrayList[i].ewayBillDate,
+          'ewayBillExpDate': selectedDataValue.arrayList[i].ewayBillExpDate,
+          'invoiceNo': selectedDataValue.arrayList[i].invoiceNo,
+          'invoiceDate': selectedDataValue.arrayList[i].invoiceDate,
+          'invoiceValue': selectedDataValue.arrayList[i].invoiceValue,
+          'deliveryNo': '',
+        });
+      }
+    }
+
+    let formData = new FormData();
+    formData.append('attachedfile', this.attachInput.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.lrmodel));
+
+     
+    this.lrentryService.consignmentDetailsSubmitted(formData).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (res.status) {
+        this.toastrService.success(this.responseDetails.message);
+        this.formUser.reset();
+        if(this.selectedLrDetails.consignmentID=='0') {
+          this.route.navigate(['/dprtempgclist']);
+        }else{
+          this.route.navigate(['/consignmentlist']);
+        }
+      }
+      else {
+        this.toastrService.warning(this.responseDetails.message);
+      }
+    });
 
     this.sharedService.loading = false;
   }

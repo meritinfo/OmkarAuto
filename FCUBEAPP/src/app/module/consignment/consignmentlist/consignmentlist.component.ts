@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
+import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Consignmentlistmodel  } from 'src/app/models/consignmentlistmodel';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
-import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConsignmentService } from 'src/app/services/consignment.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Reportmodel } from 'src/app/models/reportmodel';
@@ -46,6 +45,7 @@ export class ConsignmentlistComponent implements OnInit  {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
 
@@ -170,7 +170,7 @@ export class ConsignmentlistComponent implements OnInit  {
         {
           title: 'Action',
           data: 'consignmentID',
-        },
+        }, 
       ],
     };
   }

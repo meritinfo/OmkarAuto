@@ -198,17 +198,17 @@ export class EmpsalaryaddComponent {
     if(i == 0){
       if(selType == "1")//Basic
       {
-        amt = Math.round(parseInt(selectedDataVal.grossSalary) * 60 / 100)
+        amt = Math.round(parseFloat(selectedDataVal.grossSalary) * 60 / 100)
       }
       else if(selType == "2")//HRA
       {
-        amt = Math.round(parseInt(selectedDataVal.grossSalary) * 40 / 100)
+        amt = Math.round(parseFloat(selectedDataVal.grossSalary) * 40 / 100)
       }
     }
     else
     {
-      amt = Math.round(parseInt(selectedDataVal.grossSalary)) - 
-            Math.round(parseInt(selectedDataVal.arrayErnList[0].edAmt))
+      amt = Math.round(parseFloat(selectedDataVal.grossSalary)) - 
+            Math.round(parseFloat(selectedDataVal.arrayErnList[0].edAmt))
     }
     this.formErnArray.controls[i].get("edAmt")?.setValue(amt);
 
@@ -223,14 +223,22 @@ export class EmpsalaryaddComponent {
       this.formDedArray.controls[i].get("edCode")?.setValue("");      
       return;
     }
-    if(i == 0){
-      if(selType == "3") // PF
-      {
-        amt = Math.round((parseInt(selectedDataVal.grossSalary) * 60 / 100) * 12 / 100);
+    
+    if(selType == "3") // PF
+    {
+      amt = Math.round((parseFloat(selectedDataVal.grossSalary) * 60 / 100) * 12 / 100);
+    }
+    else if(selType == "5" && parseFloat(selectedDataVal.grossSalary) <= 21000 )  //ESI  
+    {
+      amt = Math.ceil(parseFloat(selectedDataVal.grossSalary) * 0.75 / 100);
+    }
+    else if(selType == "4" )  //PT 
+    {
+      if(parseFloat(selectedDataVal.grossSalary) > 15000 &&  parseFloat(selectedDataVal.grossSalary) <= 20000)  {
+        amt = 150;
       }
-      else if(selType == "5" && parseInt(selectedDataVal.grossSalary) <= 21000 )  //ESI  
-      {
-        amt = Math.round(parseInt(selectedDataVal.grossSalary) * 0.75 / 100);
+      if(parseFloat(selectedDataVal.grossSalary) > 20000)  {
+        amt = 200;
       }
     }
     
@@ -310,8 +318,6 @@ export class EmpsalaryaddComponent {
       } 
       return;
     }              
-    
-    this.sharedService.loading=true;
     var selectedDataVal=this.formUser.getRawValue();
 
     this.empsalarymstmodel.masterId     = this.selectedEmpSalary.masterId ;
@@ -321,9 +327,10 @@ export class EmpsalaryaddComponent {
     this.empsalarymstmodel.loggedInUser = this.loggedInUserID,
 
     this.empsalarymstmodel.empSalaryDtlList = [];
-
+    var grsAmt = 0;
     for (var i = 0; i < selectedDataVal.arrayErnList.length; i++) {
       if(selectedDataVal.arrayErnList[i].edCode != "" && selectedDataVal.arrayErnList[i].edAmt != ""){
+        grsAmt = grsAmt + parseFloat(selectedDataVal.arrayErnList[i].edAmt);
         this.empsalarymstmodel.empSalaryDtlList.push({
           'masterId': '',
           'empId': '',
@@ -335,6 +342,11 @@ export class EmpsalaryaddComponent {
           'actAmt':""
         });
       }
+    }
+
+    if(grsAmt != parseFloat(selectedDataVal.grossSalary)){
+      this.toasterService.warning("Total Earning Details is not matching with Gross Salary");
+      return;
     }
 
     for (var i = 0; i < selectedDataVal.arrayDedList.length; i++) {
@@ -356,17 +368,20 @@ export class EmpsalaryaddComponent {
     const foundDuplicateName = this.empsalarymstmodel.empSalaryDtlList.find((data, index) => {
       return this.empsalarymstmodel.empSalaryDtlList.find((x, ind) => x.edCode === data.edCode && index !== ind);
     });
+
     if (foundDuplicateName) {
       this.toasterService.warning(" Duplicate Salary Earning/Deduction ");
-      this.sharedService.loading=false;
-      return;
-    }
-    if(selectedDataVal.arrayDedList.length == 0){
-      this.toasterService.warning(" Select Salary Earning/Deduction ");
-      this.sharedService.loading=false;
       return;
     }
 
+    if(this.empsalarymstmodel.empSalaryDtlList.length == 0){
+      this.toasterService.warning(" Select Salary Earning/Deduction ");
+      return;
+    }
+   
+
+    
+    this.sharedService.loading=true;
     this.empsalaryService.empSalarySubmitted(this.empsalarymstmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

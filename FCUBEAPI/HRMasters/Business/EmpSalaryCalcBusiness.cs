@@ -15,8 +15,12 @@ namespace HRMasters.Business
         public EmpSalaryCalcBusiness(IEmpSalaryCalcRepository _empSalaryCalcRepository)
         {
             empSalaryCalcRepository = _empSalaryCalcRepository;
-        }        
-        public async Task<EmpPayCalcList> GetEmpPayCalList(ReportRequestModel request)
+        }
+        public async Task<EmpPayCalcModel> GetSelectedEmpDetails(ReportRequestModel request)
+        {
+            return await empSalaryCalcRepository.GetSelectedEmpDetails(request);
+        }
+        public async Task<EmpPayCalcList> GetEmpPayCalList(PageFromDtToDtRequest request)
         {
             return await empSalaryCalcRepository.GetEmpPayCalList(request);
         }

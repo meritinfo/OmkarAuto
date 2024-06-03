@@ -47,7 +47,7 @@
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="gcNoteNo" maxlength="15" 
+                                        formControlName="gcNoteNo" maxlength="15" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                     <label for="formrow-inputZip">EWay Bill No</label>
                                     <div class="hstack gap-1">
                                         <input type="text" maxlength="15" class="form-control" 
-                                            formControlName="ewayBillNo"
+                                            formControlName="ewayBillNo" (change)="fillgrid()"
                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['ewayBillNo'].invalid) }">
                                         <button type="button" class="btn btn-primary"
                                             (click)="searchGSTDetails()">Search</button>
@@ -122,22 +122,28 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">EWay Bill Date</label>
-                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                    <input bsdatepicker="" type="date" autoclose="false" (change)="fillgrid()"
                                         max="{{maxDate}}" formControlName="ewayBillDate" class="form-control">
                                 </div>
                             </div> 
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">EWay Bill Exp Date</label>
+                                    <input bsdatepicker="" type="date" autoclose="false" (change)="fillgrid()"
+                                        formControlName="ewayBillExpDate" class="form-control">
+                                </div>
+                            </div> 
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle No</label>
-                                    <input uppercaseonly type="text" id="formrow-inputCity" 
-                                        class="form-control" formControlName="truckNo"
+                                    <input uppercaseonly class="form-control" formControlName="truckNo"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['truckNo'].invalid) }">                                    
                                 </div>
                             </div>                           
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <input type="checkbox" formControlName="ownTruck" 
-                                                    class="form-check-input" >
+                                      (change)="chkTruck($event)"  class="form-check-input" >
                                     <label for="neft" class="form-check-label">Own Truck </label>                                    
                                 </div>
                             </div>
@@ -214,7 +220,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3"><label for="formrow-inputZip">Invoice No</label><span style="color: red">*</span>
                                     <input type="text" id="formrow-inputCity" class="form-control" placeholder=""
-                                        formControlName="invoiceNo"
+                                        formControlName="invoiceNo" (change)="fillgrid()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceNo'].invalid) }">
                                 </div>
                             </div>
@@ -222,14 +228,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Invoice Value</label><span style="color: red">*</span>
                                     <input type="text" decimalonly autoclose="false" class="form-control"
-                                        formControlName="invoiceValue"
+                                        formControlName="invoiceValue" (change)="fillgrid()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceValue'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Invoice Date</label><span style="color: red">*</span>
-                                    <input type="date" autoclose="false" placeholder="yyyy-mm-dd"
+                                    <input type="date" autoclose="false" placeholder="yyyy-mm-dd" (change)="fillgrid()"
                                         formControlName="invoiceDate" max="{{maxDate}}" class="form-control"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['invoiceDate'].invalid) }">
                                 </div>
@@ -443,7 +449,7 @@
                             </div>
                         </div>
                         <div class="row">                            
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Packing</label><span style="color: red">*</span>
                                     <select formControlName="classId"
@@ -467,14 +473,14 @@
                                     </select>
                                 </div>
                             </div>   
-                            <div class="col-lg-2">
+                            <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Mat Desc</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" uppercaseonly class="form-control" 
                                     formControlName="productDesc">
                                 </div>
                             </div>             
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Vehicle Type</label><span style="color: red">*</span>
                                     <select formControlName="vehicleTypeId"
@@ -536,21 +542,21 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Actual Wt</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Actual Weight</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="actualWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['actualWt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Sender Wt</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Sender Weight</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="senderWt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['senderWt'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Charged Wt</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Charged Weight</label><span style="color: red">*</span>
                                     <input type="text" decimalonly class="form-control" formControlName="chargewt"
                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['chargewt'].invalid) }">
                                 </div>
@@ -579,9 +585,9 @@
                         <div class="row">                                                       
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputCity">GST Type</label>  <span style="color: red"> * </span>                                            
+                                    <label for="formrow-inputCity">GST By</label><span style="color: red"> * </span>                                            
                                     <select id="formrow-inputState" class="form-control"
-                                        formControlName="gstBy"  (change)="changeGstType($event)"
+                                        formControlName="gstBy"  
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gstBy'].invalid) }">
                                             <option value="N">NA</option>      
                                             <option value="T">Transporter</option> 
@@ -774,7 +780,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt1</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
                                         formControlName="nonGstAmt1" [ngClass]=>
                                 </div>
                             </div>                                  
@@ -788,7 +794,7 @@
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Non Gst Amt2</label>
-                                    <input type="text" decimalonly class="form-control" 
+                                    <input type="text" decimalonly class="form-control" (change)="calculateTotalAmount()"
                                         formControlName="nonGstAmt2" [ngClass]=>
                                 </div>
                             </div>                                  
@@ -898,13 +904,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">  
+                            <div class="col-lg-4">
+                                <div class="mb-2">
+                                    <label for="formrow-inputZip">Attach File </label>                          
+                                    <input #attachInput class="form-control" type="file" id="formAttach1File"
+                                    accept="image/*">
+                                    <a *ngIf="selectedLrDetails.attachedfile" target="_blank"
+                                                href={{attach1}}>Download</a>
+                                </div>
+                            </div> 
+                        </div> 
                         <div class="row text-right">
                             <div class="col-lg-12">
                                 <div class="tex">
                                     <button type="button" class="btn btn-default prev-step"
                                         id="p-btn2" (click)="nextStep(2)">Previous</button>
-                                    <button type="button" class="btn btn-primary w-md next-step ms-2" id="n-btn3"
+                                    <button type="button" class="btn btn-primary w-md next-step ms-2" 
+                                    *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                         (click)="submitLrDetailsForm()">Save</button>
+                                    <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                        (click)="deleteLrForm()">Delete</button> &nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>
                         </div>

@@ -22,13 +22,17 @@ export class ConsignmentService {
     })
   }
   
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
+  
   selectedConsignment = new Consignmentmodel();
   constructor(private httpClient: HttpClient) { }
-  setConsignmentDetails(consignment: Consignmentmodel) {
- 
-      this.selectedConsignment = consignment;
-    
-  
+
+  setConsignmentDetails(consignment: Consignmentmodel) { 
+      this.selectedConsignment = consignment;  
   }
   getConsignmentDetails() {
     return this.selectedConsignment;
@@ -36,8 +40,8 @@ export class ConsignmentService {
   clearConsignmentDetails() {
     this.selectedConsignment = new Consignmentmodel();
   }
-  consignmentDetailsSubmitted(user: Consignmentmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentSave', user, this.httpOptions);
+  consignmentDetailsSubmitted(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentSave', user, this.httpformOptions);
   }
   consignmentTripDetailsSubmitted(user: Consignmentmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentTripSave', user, this.httpOptions);
@@ -49,6 +53,15 @@ export class ConsignmentService {
     return this.httpClient.post<Consignmentlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentList', filter, this.httpOptions);
   }
   getLrNo(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLrNo', req, this.httpOptions);
+  }
+  checkDuplicateLr(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckDuplicateLr', req, this.httpOptions);
+  }
+  checkVehicleNo(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckVehicleNo', req, this.httpOptions);
+  }
+  getLrInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
+    return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetLrInnerGridList', req, this.httpOptions);
   }
 }

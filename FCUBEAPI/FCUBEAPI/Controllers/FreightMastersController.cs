@@ -9,6 +9,10 @@ using FleetMasters.Business;
 using FreightMasters.Repository;
 using FleetTrans.Business;
 using Consignment.Business;
+using Consignment.Models;
+using Newtonsoft.Json;
+using System.Data.Common;
+using System.IO;
 using FleetTrans.Models;
 
 namespace FCUBEAPI.Controllers
@@ -24,7 +28,6 @@ namespace FCUBEAPI.Controllers
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
-        readonly IChallanMasterBusiness challanMasterBusiness;
         readonly IBillsMasterBusiness billsMasterBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
@@ -34,11 +37,7 @@ namespace FCUBEAPI.Controllers
         readonly IDistanceMasterFrtRptBusiness distanceMasterFrtRptBusiness;
         readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
         readonly IDriverLicRptBusiness driverLicRptBusiness;
-
-
-        readonly IConsigneeMasterBusiness consigneeMasterBusiness;
-        
-
+        readonly IConsigneeMasterBusiness consigneeMasterBusiness;     
 
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness, 
             IBranchMasterBusiness _branchMastersBusiness, 
@@ -47,7 +46,6 @@ namespace FCUBEAPI.Controllers
             ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness, 
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
-            IChallanMasterBusiness _challanMasterBusiness,
             IBillsMasterBusiness _billsMasterBusiness,
             IFreightRatesMstBusiness _freightRatesMstBusiness,
             IDistanceMasterFrtBusiness _distanceMasterFrtBusiness , 
@@ -55,16 +53,16 @@ namespace FCUBEAPI.Controllers
             IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
             IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness,
-             IDriverLicRptBusiness _driverLicRptBusiness)
+            IDriverLicRptBusiness _driverLicRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
             productGroupMastersBusiness = _productGroupMasterBusiness;
             productMasterBusiness = _productMasterBusiness;
             lr_Bill_SeriesBusiness = _lr_Bill_SeriesBusiness;
+            billsMasterBusiness    = _billsMasterBusiness;
             ratetypesBusiness = _ratetypesBusiness;
             classificationMasterBusiness = _classificationMasterBusiness;
-            challanMasterBusiness = _challanMasterBusiness;
             freightRatesMstBusiness = _freightRatesMstBusiness;
             distanceMasterFrtBusiness = _distanceMasterFrtBusiness;
             distanceMasterTripBusiness = _distanceMasterTripBusiness;
@@ -225,11 +223,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
-        /// <summary>
-        /// Controller method for DESTINATION MASTER
-        /// </summary>
-        /// <param name="Request"></param>
         [HttpPost("BranchMasterDetailsDelete")]
         public async Task<IActionResult> BranchMasterDetailsDelete(RequestModel req)
         {
@@ -305,12 +298,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
-
-        /// <summary>
-        /// Controller method for PRODUCT GROUP MASTER
-        /// </summary>
-        /// <param name="productGroupMasterModel"></param>
         [HttpPost("ProductGroupMasterDetailsSave")]
         public async Task<IActionResult> ProductGroupMasterDetailsSave(ProductGroupMasterModel productGroupMasterModel)
         {
@@ -329,10 +316,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        /// <summary>
-        /// Controller method for PRODUCT GROUP MASTER
-        /// </summary>
-        /// <param name="productMasterModel"></param>
+
         [HttpPost("ProductMasterSave")]
         public async Task<IActionResult> ProductMasterSave(ProductMasterModel productMasterModel)
         {
@@ -1147,6 +1131,74 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillsMasterList")]
+        public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await billsMasterBusiness.GetBillsMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterSave")]
+        public async Task<IActionResult> BillsMasterSave(BillsMasterModel billsMasterModel)
+        {
+            if (billsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.BillsMasterSave(billsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsInnerGridList")]
+        public async Task<IActionResult> GetBillsInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.GetBillsInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsMasterDelete")]
+        public async Task<IActionResult> BillsMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.BillsMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
     }

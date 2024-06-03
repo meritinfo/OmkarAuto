@@ -10,6 +10,8 @@ import { Reportmodel } from 'src/app/models/reportmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
+import { Consignmentmodel } from 'src/app/models/consignmentmodel';
+import { ConsignmentService } from 'src/app/services/consignment.service';
 
 @Component({
   selector: 'app-generatetempgclist',
@@ -18,6 +20,8 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class GeneratetempgclistComponent {
   alltempgclist: Tempgclistmodel = new Tempgclistmodel();
+  lrmodel: Consignmentmodel = new Consignmentmodel();
+
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -54,7 +58,7 @@ export class GeneratetempgclistComponent {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private toasterService: ToastrService,
+    private toasterService: ToastrService,private consignmentService: ConsignmentService,
     private generatetempgcService: GeneratetempgcService, 
     private commonService: CommonService,private route: Router)  {
   }
@@ -184,6 +188,10 @@ export class GeneratetempgclistComponent {
         {
           title: 'Mail',
           data: 'dprId',
+        },          
+        {
+          title: 'Main LR',
+          data: 'tempGcId',
         },  
       ],
     };
@@ -226,6 +234,104 @@ export class GeneratetempgclistComponent {
   gettempgcDetails(tempgc: Tempgcmodel): void {
     this.generatetempgcService.setTempgcDetails(tempgc);
     this.route.navigate(['/dprtempgcedit']);
+  } 
+  
+  
+  genMainLrDetails(tempgc: Tempgcmodel): void {
+    this.lrmodel.consignmentID = "0";
+    this.lrmodel.bookingPlace = tempgc.bookingPlace;
+    this.lrmodel.gcNoteNo = tempgc.gcNoteNo;
+    this.lrmodel.bookingDate = tempgc.bookingDate;
+    this.lrmodel.bookingStatus = tempgc.bookStatus;
+    this.lrmodel.ewayBillEntryType = tempgc.ewayBillType;
+    this.lrmodel.ewayBillNo = tempgc.ewayBillNo
+    this.lrmodel.ewayBillDate = tempgc.ewayBillDate;
+    this.lrmodel.ewayBillExpDate = tempgc.ewayBillExpDate
+    this.lrmodel.invoiceNo   = tempgc.invoiceNo;
+    this.lrmodel.invoiceDate = tempgc.invoiceDt;
+    this.lrmodel.invoiceValue = tempgc.goodsValue;
+    this.lrmodel.declaredValue =  tempgc.goodsValue;
+    this.lrmodel.fromPlace = tempgc.fromPlace;
+    this.lrmodel.toPlace = tempgc.toPlace;
+    this.lrmodel.kms = "0";
+    this.lrmodel.ownTruck = "N";
+    this.lrmodel.truckNo = tempgc.vehicleNo;
+    this.lrmodel.billingParty = tempgc.payParty;
+    this.lrmodel.billingBranch = tempgc.payStn
+    this.lrmodel.businessBy = tempgc.businessby
+    this.lrmodel.businessBranch = tempgc.bookingPlace;
+    this.lrmodel.cnorName = tempgc.cnorName;
+    this.lrmodel.cnorAdd1 = tempgc.cnorAdd1;
+    this.lrmodel.cnorAdd2 = tempgc.cnorAdd2;
+    this.lrmodel.cnorAdd3 = tempgc.cnorAdd2;
+    this.lrmodel.cnorPin = tempgc.cnorPin;
+    this.lrmodel.cnorEmail = "";
+    this.lrmodel.cnorMobile = "";
+    this.lrmodel.cnorGst = tempgc.cnorGst;
+    this.lrmodel.cneeName = tempgc.cneeName;
+    this.lrmodel.cneeAdd1 = tempgc.cneeAdd1;
+    this.lrmodel.cneeAdd2 = tempgc.cneeAdd2;
+    this.lrmodel.cneeAdd3 = tempgc.cneeAdd3;
+    this.lrmodel.cneePin = tempgc.cneePin;
+    this.lrmodel.cneeEmail = "";
+    this.lrmodel.cneeMobile = tempgc.cneeMob;
+    this.lrmodel.cneeGst = tempgc.cneeGst;
+    this.lrmodel.shipmentNo = "";
+    this.lrmodel.shipmentDt = "";
+    this.lrmodel.classId = tempgc.classCode;
+    this.lrmodel.productId = tempgc.productCode;
+    this.lrmodel.productDesc = tempgc.cropDesc;
+    this.lrmodel.hsnSac = "";
+    this.lrmodel.noPackages = tempgc.noPackages;
+    this.lrmodel.looseFlag = "N";
+    this.lrmodel.weightType = "";
+    this.lrmodel.actualWt = tempgc.actualWt;
+    this.lrmodel.senderWt = tempgc.actualWt;
+    this.lrmodel.chargewt = tempgc.chargewt;
+    this.lrmodel.wtDesc = "";  
+    this.lrmodel.vehicleTypeId = "";
+    this.lrmodel.privateMark = "";  
+    this.lrmodel.bulkYN = "N";
+    this.lrmodel.loadLength = "";
+    this.lrmodel.loadWidth = "";
+    this.lrmodel.loadHeight = "";
+    this.lrmodel.loadCFT = "";
+    this.lrmodel.rateType = "";
+    this.lrmodel.rateDesc = "";  
+    this.lrmodel.gstBy = tempgc.gstBy;
+    this.lrmodel.rateRs = "";
+    this.lrmodel.freightRs =  "";
+    this.lrmodel.statisticalRs =  "";
+    this.lrmodel.fovRs=  "";
+    this.lrmodel.doorCollRs =  "";
+    this.lrmodel.handlingRs =  "";
+    this.lrmodel.loadingDetnRs=  "";
+    this.lrmodel.enrouteRs =  "";
+    this.lrmodel.miscRs =  "";
+    this.lrmodel.doorDelRs =  "";
+    this.lrmodel.unLoadingRs =  "";
+    this.lrmodel.unLoadingDetnRs =  "";
+    this.lrmodel.extrasRS =  "";
+    this.lrmodel.othersRs =  "";
+    this.lrmodel.subTotalRs =  "";
+    this.lrmodel.gstType =  "";
+    this.lrmodel.sgstPct  =  "";
+    this.lrmodel.sgstAmt  =  "";
+    this.lrmodel.cgstPct  =  "";
+    this.lrmodel.cgstAmt  =  "";
+    this.lrmodel.igstPct  = "";
+    this.lrmodel.igstAmt  =  "";
+    this.lrmodel.nonGstAmt1  =  "";
+    this.lrmodel.nonGstAmt1Desc  =  "";
+    this.lrmodel.nonGstAmt2  =  "";
+    this.lrmodel.nonGstAmt2Desc  =  "";
+    this.lrmodel.generalRemarks =  "";
+    this.lrmodel.gtotalRs =  "";
+    this.lrmodel.yearId =  "";
+    this.lrmodel.loggedInUser =  "";
+
+    this.consignmentService.setConsignmentDetails(this.lrmodel);
+    this.route.navigate(['/consignmentedit']);
   }  
 
   get f() { return this.formFilter.controls; }

@@ -6,14 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Consignment</h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Consignment</li> -->
-                            </ol>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -37,66 +29,32 @@
                                 </div>
                             </div>
                             <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputCity">Branch</label>
-                                    <select class="form-control" formControlName="branch" [ngClass]="">
-                                        <option value="0">ALL</option>
-                                        <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                            {{branch.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
-                                <div class="mb-3">
-                                    <label for="formrow-inputZip">Vehicle No</label>
-                                    <div class="ng-autocomplete">
-                                        <ng-autocomplete [data]="vehicleList" [searchKeyword]="keywordLocation"
-                                            placeholder="" formControlName="vehicle" (selected)='selectEvent($event)'
-                                            (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter">
-                                        </ng-autocomplete>
-                                        <ng-template #itemTemplate let-item>
-                                            <a [innerHTML]="item.dataName"></a>
-                                        </ng-template>
-                                        <ng-template #notFoundTemplate let-notFound>
-                                            <div [innerHTML]="notFound"></div>
-                                        </ng-template>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary" type="submit" (click)="search()"><span>Search</span></button>
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+            </div>
             <div class="row top-controls">
                 <div class="col-sm-12 col-md-12 text-right">
-                    <div class="dt-buttons btn-group flex-wrap export-button">
-                        <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
-                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
-                    </div>
-                    <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus" (click)="consignmentAdd()"><span>New</span></button>
+                    <button class="btn btn-primary buttons-html5" type="button"  *ngIf="createStatus" 
+                    (click)="consignmentAdd()"><span>New</span></button>
                 </div>
             </div>
-          
-                <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                    <div class="overflow-x">
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
                     <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
                                 <th>bookingPlace </th>
-                                <th>booking date </th>
+                                <th>bookingDate </th>
                                 <th>GcSeries </th>
-                                <th>From </th>
-                                <th>To </th>
-                                <th>To </th>
+                                <th>fPlace </th>
+                                <th>tPlace </th>
+                                <th>truckNo </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -107,12 +65,11 @@
                                 <td>{{ cn.gcNoteNo }}</td>
                                 <td>{{ cn.fPlace }}</td>
                                 <td>{{ cn.tPlace }}</td>
-                                <td>{{ cn.truckNo }}</td>
-                             
+                                <td>{{ cn.truckNo }}</td>                             
                                 <td>                                   
                                     <button type="button" class="btn btn-edit" 
                                         (click)="getConsignmentDetails(cn)"></button>                               
-                                </td>
+                                </td> 
                             </tr>
                         </tbody>
                         <tbody *ngIf="allConsignment.cnList?.length == 0">
@@ -123,9 +80,7 @@
                     </table>
                 </div>
             </div>
-            </div>
         </div>
-        <!-- container-fluid -->
-    
+    </div>
     <!-- End Page-content -->
 </div>

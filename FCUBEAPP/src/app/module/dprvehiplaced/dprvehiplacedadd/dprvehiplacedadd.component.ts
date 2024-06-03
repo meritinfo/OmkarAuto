@@ -379,7 +379,12 @@ export class DprvehiplacedaddComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/dprvehplacedlist']);
+    if(this.dprid ==""){
+      this.route.navigate(['/dprvehplacedlist']);
+    }
+    else{
+      this.route.navigate(['/dprindentlist']);
+    }
   }
 
   submitDprVehiDetails(): void {
@@ -473,7 +478,12 @@ export class DprvehiplacedaddComponent {
       if(this.responseDetails.status){
         this.toasterService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/dprvehplacedlist']);
+        if(this.dprid ==""){
+          this.route.navigate(['/dprvehplacedlist']);
+        }
+        else{
+          this.route.navigate(['/dprindentlist']);
+        }
       }
       else{
         this.toasterService.warning(this.responseDetails.message);        

@@ -236,8 +236,6 @@ import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
-//import { AddvehicletypemasterComponent } from './module/vehicletypemaster/addvehicletypemaster/addvehicletypemaster.component';
-//import { VehicletypemasterlistComponent } from './module/vehicletypemaster/vehicletypemasterlist/vehicletypemasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
 import { ClassificationmasteraddComponent } from './module/classificationmaster/classificationmasteradd/classificationmasteradd.component';
 import { ClassificationmasterlistComponent } from './module/classificationmaster/classificationmasterlist/classificationmasterlist.component';
@@ -248,6 +246,10 @@ import { Transportmastermodel } from './models/transportmastermodel';
 import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
 import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
 import { Billsmastermodel } from './models/billsmastermodel';
+import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
+import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
+import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
+import { Challanmastermodel } from './models/challanmastermodel';
 
 @NgModule({
   declarations: [
@@ -268,7 +270,6 @@ import { Billsmastermodel } from './models/billsmastermodel';
     AddtyrepositionmasterComponent,
     DocrenewalmasterlistComponent,
     AdddocrenewalmasterComponent,
-
     RatetypeslistComponent,
     AddratetypesComponent,
     LrbillserieslistComponent,
@@ -292,12 +293,10 @@ import { Billsmastermodel } from './models/billsmastermodel';
     TrippaymentslistComponent,
     GstpurchaseaddComponent,
     GstpurchaselistComponent,
-
     AdddocrenewalentryComponent,
     DocrenewalentrylistComponent,
     CashreceiptentrylistComponent,
     AddcashreceiptentryComponent,
-
     IntermediatescreenComponent,
     BankreceiptentrylistComponent,
     AddbankreceiptentryComponent,
@@ -375,7 +374,6 @@ import { Billsmastermodel } from './models/billsmastermodel';
     EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,
     EmpsalcalculationaddComponent,
-   // CustwizardlistComponent,
     CustwizardaddComponent,
     CustwizardlistComponent,
     DailyloadingrptComponent,
@@ -400,6 +398,9 @@ import { Billsmastermodel } from './models/billsmastermodel';
     TransportmasterlistComponent,
     BillsmasteraddComponent,
     BillsmasterlistComponent,
+    ChallanmasterlistComponent,
+    ChallanmasteraddComponent,
+    EmppaysheetrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -429,7 +430,7 @@ import { Billsmastermodel } from './models/billsmastermodel';
     Distancemasterfreightmodel,Distancefreighteditmodel,
     Distancemastertripmodel,Distancetripeditmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
-    Dieselstatementlistmodel,  Dieselstatementmodel, 
+    Dieselstatementlistmodel, Dieselstatementmodel, 
     Billstatementsearchlistrequestmodel, 
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
@@ -446,9 +447,12 @@ import { Billsmastermodel } from './models/billsmastermodel';
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
     Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
-    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,
+    Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
+    Passwordmodel,Transportmastermodel],
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

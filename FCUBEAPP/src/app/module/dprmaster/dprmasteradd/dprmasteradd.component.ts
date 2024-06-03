@@ -202,13 +202,16 @@ export class DrpmasteraddComponent {
 
   calcTotal(){    
     var selectedDataVal= this.formUser.getRawValue();
-    selectedDataVal.freightRs;
+    var freightRs = 0;
     var hamaliAmt = 0;
     var ldDetenAmt   = 0;
     var extraAmt = 0;
     var otherAmt   = 0;
     var totFreightAmt   = 0;
 
+    if(selectedDataVal.freightRs!=""){
+      freightRs = parseFloat(selectedDataVal.freightRs);
+    }
     if(selectedDataVal.hamaliAmt!=""){
       hamaliAmt = parseFloat(selectedDataVal.hamaliAmt);
     }
@@ -222,7 +225,7 @@ export class DrpmasteraddComponent {
       otherAmt = parseFloat(selectedDataVal.otherAmt);
     }
 
-    totFreightAmt = hamaliAmt + ldDetenAmt + extraAmt + otherAmt;
+    totFreightAmt = freightRs + hamaliAmt + ldDetenAmt + extraAmt + otherAmt;
 
     this.formUser.patchValue({
       totFreightAmt: totFreightAmt,

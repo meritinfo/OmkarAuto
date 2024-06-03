@@ -99,8 +99,8 @@ export class EmpmasteraddComponent {
       fourWheelLicenceNo : new FormControl('',),
       youOwn4Wheeler : new FormControl('', ),    
       dateOfAppoint  : new FormControl('', [Validators.required]),    
-      designAtJoining: new FormControl('', [Validators.required]),    
-      deptCode  : new FormControl('', [Validators.required]),         
+      designAtJoining: new FormControl('', ),    
+      deptCode  : new FormControl('', ),         
       bankCode  : new FormControl('', [Validators.required]),         
       bankAcNo  : new FormControl('', [Validators.required]),         
       bankIFSC   : new FormControl('', [Validators.required]),      
@@ -327,33 +327,33 @@ export class EmpmasteraddComponent {
     this.employeemodel.empId              = this.selectedEmployeemodelDetails.empId.toString() ;             
     this.employeemodel.empPrefix          = selectedDataVal.empPrefix.toString().toUpperCase()  ;    
     this.employeemodel.empNo              = selectedDataVal.empNo.toString()   ;           
-    this.employeemodel.empCode            = selectedDataVal.empCode.toUpperCase().toString()   ;          
+    this.employeemodel.empCode            = selectedDataVal.empCode.toString().toUpperCase()   ;          
     this.employeemodel.empStatus          = "A"  ;           
     this.employeemodel.branchCode         = selectedDataVal.branchCode.toString()   ;           
-    this.employeemodel.empName            = selectedDataVal.empName.toUpperCase().toString()   ;           
+    this.employeemodel.empName            = selectedDataVal.empName.toString().toUpperCase()   ;           
     this.employeemodel.fsRelation         = "F" ;            
-    this.employeemodel.fsName             = selectedDataVal.fsName.toUpperCase().toString()   ;         
-    this.employeemodel.gender             = selectedDataVal.gender.toUpperCase().toString()   ;             
+    this.employeemodel.fsName             = selectedDataVal.fsName.toString().toUpperCase()   ;         
+    this.employeemodel.gender             = selectedDataVal.gender.toString().toUpperCase()   ;             
     this.employeemodel.dateOfBirth        = selectedDataVal.dateOfBirth.toString()   ;           
     this.employeemodel.age                = selectedDataVal.age.toString()  ;          
-    this.employeemodel.pfAcNo             = selectedDataVal.pfAcNo.toUpperCase().toString()  ;                 
-    this.employeemodel.esiAcNo            = selectedDataVal.esiAcNo.toUpperCase().toString()   ;                 
-    this.employeemodel.panAcNo            = selectedDataVal.panAcNo.toUpperCase().toString()   ;  
-    this.employeemodel.remarks            = selectedDataVal.remarks.toUpperCase().toString()   ;     
-    this.employeemodel.presentAdd         = selectedDataVal.presentAdd.toUpperCase().toString()   ;    
+    this.employeemodel.pfAcNo             = selectedDataVal.pfAcNo.toString().toUpperCase()  ;                 
+    this.employeemodel.esiAcNo            = selectedDataVal.esiAcNo.toString().toUpperCase()   ;                 
+    this.employeemodel.panAcNo            = selectedDataVal.panAcNo.toString().toUpperCase()  ;  
+    this.employeemodel.remarks            = selectedDataVal.remarks.toString().toUpperCase()   ;     
+    this.employeemodel.presentAdd         = selectedDataVal.presentAdd.toString().toUpperCase()   ;    
     this.employeemodel.phone              = selectedDataVal.phone.toString()  ;      
     this.employeemodel.mobile             = selectedDataVal.mobile.toString()   ;      
     this.employeemodel.mobile1            = selectedDataVal.mobile1.toString()  ;      
-    this.employeemodel.religion           = selectedDataVal.religion.toUpperCase().toString()   ;    
+    this.employeemodel.religion           = selectedDataVal.religion.toString().toUpperCase()   ;    
     this.employeemodel.motherTongue       = selectedDataVal.motherTongue.toString()   ;      
-    this.employeemodel.schoolMedium       = selectedDataVal.schoolMedium.toUpperCase().toString()   ;      
-    this.employeemodel.collegeMedium      = selectedDataVal.collegeMedium.toUpperCase().toString()   ;      
-    this.employeemodel.twoWheelLic        = selectedDataVal.twoWheelLic.toUpperCase().toString()   ;      
-    this.employeemodel.twoWheelLicenceNo  = selectedDataVal.twoWheelLicenceNo.toUpperCase().toString()   ;      
-    this.employeemodel.youOwn2Wheeler     = selectedDataVal.youOwn2Wheeler.toUpperCase().toString()   ;      
-    this.employeemodel.fourWheelLic       = selectedDataVal.fourWheelLic.toUpperCase().toString()   ;      
-    this.employeemodel.fourWheelLicenceNo = selectedDataVal.fourWheelLicenceNo.toUpperCase().toString()   ;      
-    this.employeemodel.youOwn4Wheeler     = selectedDataVal.youOwn4Wheeler.toUpperCase().toString()   ;      
+    this.employeemodel.schoolMedium       = selectedDataVal.schoolMedium.toString().toUpperCase()   ;      
+    this.employeemodel.collegeMedium      = selectedDataVal.collegeMedium.toString().toUpperCase()   ;      
+    this.employeemodel.twoWheelLic        = selectedDataVal.twoWheelLic.toString().toUpperCase()  ;      
+    this.employeemodel.twoWheelLicenceNo  = selectedDataVal.twoWheelLicenceNo.toString().toUpperCase()   ;      
+    this.employeemodel.youOwn2Wheeler     = selectedDataVal.youOwn2Wheeler.toString().toUpperCase()   ;      
+    this.employeemodel.fourWheelLic       = selectedDataVal.fourWheelLic.toString().toUpperCase()   ;      
+    this.employeemodel.fourWheelLicenceNo = selectedDataVal.fourWheelLicenceNo.toString().toUpperCase()   ;      
+    this.employeemodel.youOwn4Wheeler     = selectedDataVal.youOwn4Wheeler.toString().toUpperCase()   ;      
     this.employeemodel.dateOfAppoint      = selectedDataVal.dateOfAppoint.toString()   ;      
     this.employeemodel.designAtJoining    = selectedDataVal.designAtJoining.toString()   ;  
     this.employeemodel.deptCode           = selectedDataVal.deptCode.toString()   ;      
@@ -363,11 +363,11 @@ export class EmpmasteraddComponent {
     this.employeemodel.managersUnder      = selectedDataVal.managersUnder?selectedDataVal.managersUnder.dataId:'';      
     this.employeemodel.supervisorsUnder   = selectedDataVal.supervisorsUnder?selectedDataVal.supervisorsUnder.dataId:'';      
     this.employeemodel.othersUnder        = selectedDataVal.othersUnder?selectedDataVal.othersUnder.dataId:'';      
-    this.employeemodel.lastGrossSalary    = selectedDataVal.lastGrossSalary  ;      
-    this.employeemodel.lastBasic          = selectedDataVal.lastBasic ;      
-    this.employeemodel.lastHRA            = selectedDataVal.lastHRA ;      
-    this.employeemodel.lastOthers         = selectedDataVal.lastOthers ;      
-    this.employeemodel.lastPerks          = selectedDataVal.lastPerks ;      
+    this.employeemodel.lastGrossSalary    = selectedDataVal.lastGrossSalary.toString()  ;  
+    this.employeemodel.lastBasic          = selectedDataVal.lastBasic.toString()  ;  
+    this.employeemodel.lastHRA            = selectedDataVal.lastHRA.toString()  ;  
+    this.employeemodel.lastOthers         = selectedDataVal.lastOthers.toString()  ;    
+    this.employeemodel.lastPerks          = selectedDataVal.lastPerks.toString()  ;  
     this.employeemodel.removeDate         = selectedDataVal.removeDate  ;      
     this.employeemodel.fullFinal          = selectedDataVal.fullFinal ;  
     this.employeemodel.loggedInUser       = this.loggedInUserID;    
