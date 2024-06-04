@@ -200,21 +200,32 @@
                                         <tr>
                                             <th><label for="formrow-inputCity"></label></th>
                                             <th><label for="formrow-inputCity">Cn No.</label></th>
-                                            <th><label for="formrow-inputZip">billDate</label></th>
-                                            <th><label for="formrow-inputZip">billingStation </label></th>
-                                            <th><label for="formrow-inputZip">statistical</label></th>
+                                            <th><label for="formrow-inputZip">Cn Date</label></th>
+                                            <th><label for="formrow-inputZip">Destination </label></th>
+                                            <th><label for="formrow-inputZip">Rate </label></th>
+                                            <th><label for="formrow-inputZip">Freight</label></th>
+                                            <th><label for="formrow-inputZip">Statistical</label></th>
                                             <th><label for="formrow-inputZip">fov</label></th>
-                                            <th><label for="formrow-inputZip">Door Coll</label></th>
-                                            <th><label for="formrow-inputZip">Handling</label></th>
-                                            <th><label for="formrow-inputZip">DoorDel</label></th>
-                                         
-                                            <th><label for="formrow-inputZip">LoadingDetn</label></th>
-                                            <th><label for="formrow-inputZip">Enroute</label></th>
+                                            <th><label for="formrow-inputZip">DoorCollRs</label></th>
+                                            <th><label for="formrow-inputZip">HandlingRs</label></th>
+                                            <th><label for="formrow-inputZip">LoadingDetnRs</label></th>
+                                            <th><label for="formrow-inputZip">EnrouteRs</label></th>
+                                            <th><label for="formrow-inputZip">MiscRs</label></th>
                                             <th><label for="formrow-inputZip">Misc</label></th>
                                             <th><label for="formrow-inputZip">DoorDel</label></th>
                                             <th><label for="formrow-inputZip">UnLoading</label></th>
-                                            <th><label for="formrow-inputZip">Detention</label></th>
-                                            <th><label for="formrow-inputZip">others</label></th>
+                                            <th><label for="formrow-inputZip">UnLoadingDetnRs</label></th>
+                                            <th><label for="formrow-inputZip">ExtrasRS</label></th>
+                                            <th><label for="formrow-inputZip">OthersRs</label></th>
+                                            <th><label for="formrow-inputZip">SubTotalRs</label></th>
+                                            <th><label for="formrow-inputZip">GstType</label></th>
+                                            <th><label for="formrow-inputZip">CgstAmt</label></th>
+                                            <th><label for="formrow-inputZip">IgstAmt</label></th>
+                                            <th><label for="formrow-inputZip">SgstAmt</label></th>
+                                            <th><label for="formrow-inputZip">NonGstAmt1</label></th>
+                                            <th><label for="formrow-inputZip">NonGstAmt2</label></th>
+                                            <th><label for="formrow-inputZip">GtotalRs</label></th>
+
                                         </tr>
                                         <tr  
                                             *ngFor="let arrayData of billsmastersearchlistmodel.billsMasterSearchList; let i = index">
@@ -227,83 +238,130 @@
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.consignmentid}}
+                                                    {{arrayData.consignmentID}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.billDate}}
+                                                    {{arrayData.bookingDate}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.billingStation}}
+                                                    {{arrayData.bookingPlace}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.statistical}}
+                                                    {{arrayData.rateRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.fov}}
+                                                    {{arrayData.freightRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.doorColl}}
+                                                    {{arrayData.statisticalRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.handling}}
+                                                    {{arrayData.fovRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.doorDel}}
+                                                    {{arrayData.doorCollRs}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.handlingRs}}
                                                 </div>
                                             </td>
                                            
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.loadingDetn}}
+                                                    {{arrayData.loadingDetnRs}}
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.enrouteRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.enroute}}
+                                                    {{arrayData.miscRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.misc}}
+                                                    {{arrayData.doorDelRs}}
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.unLoadingRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.doorDel}}
+                                                    {{arrayData.unLoadingDetnRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.unLoading}}
+                                                    {{arrayData.extrasRS}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.detention}}
+                                                    {{arrayData.othersRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.extras}}
+                                                    {{arrayData.subTotalRs}}
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="mb-3">
-                                                    {{arrayData.others}}
+                                                    {{arrayData.gstType}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.cgstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.igstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.sgstAmt}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.nonGstAmt1}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.nonGstAmt2}}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mb-3">
+                                                    {{arrayData.gtotalRs}}
                                                 </div>
                                             </td>
                                         </tr>

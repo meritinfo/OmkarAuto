@@ -323,6 +323,9 @@ const routes: Routes = [
   { path: 'challanlist', component:  ChallanmasterlistComponent },
   { path: 'challanadd', component:  ChallanmasteraddComponent },
   { path: 'challanedit', component:  ChallanmasteraddComponent },
+  { path: 'billstatementlist', component:  BillsmasterlistComponent },
+  { path: 'billsmasteradd', component:  BillsmasteraddComponent },
+  { path: 'billsmasteredit', component:  BillsmasteraddComponent },
   
 ];
 

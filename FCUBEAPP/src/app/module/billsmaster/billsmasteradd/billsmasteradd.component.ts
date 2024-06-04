@@ -6,7 +6,7 @@ import { Billstatementsaverequest } from 'src/app/models/billstatementsavereques
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { Billsmastersearchmodel } from 'src/app/models/billsmastersearchmodel';
 import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
-import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
+import { Billmastersearchlistrequestmodel } from 'src/app/models/billsmastersearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -45,8 +45,9 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
     billsmastersearchmodel = new Pagerequestwithdatesmodel();
     seriesDoc: string = "";
     billsmastersearchlistmodel = new Billsmastersearchlistmodel();
+    
     saveData = new Billstatementsaverequest();
-    billstatesearchrequest = new Billstatementsearchlistrequestmodel();
+    billsmastersearchrequest = new Billmastersearchlistrequestmodel();
     editMode = false;
     createmode = true;
     createStatus = false;
@@ -365,34 +366,34 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   }  
   searchStatement(): void {
     var selectedDataValue = this.formBillsMaster.getRawValue();
-    this.billsmastersearchmodel.fromDate = selectedDataValue.billDate;
+    this.billsmastersearchrequest.fromDate = selectedDataValue.billDate;
    // this.billsmastersearchmodel.toDate = selectedDataValue.toDt;
-   this.billsmastersearchmodel.strRequest = selectedDataValue.billNo;
-    this.billsmastersearchmodel.billingParty = selectedDataValue.partyCode.dataId;
+   this.billsmastersearchrequest.billNo = selectedDataValue.billNo;
+    //this.billsmastersearchrequest.billingParty = selectedDataValue.partyCode.dataId;
 
 
-    this.billsMasterService.getBillsMasterSearchList(this.billsmastersearchmodel).subscribe((res: Billsmastermodel) => {
-      this.billsmastermodel = res;
-      this.formArray.clear();      
-      for (var i = 0; i < res.billsMasterListData.length; i++) {
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("billDetailId")?.setValue(res.billsMasterListData[i].billDetailId);
-        this.formArray.controls[i].get("billsMasterId")?.setValue(res.billsMasterListData[i].billsMasterId);
-        this.formArray.controls[i].get("billingStation")?.setValue(res.billsMasterListData[i].billingStation);
-        this.formArray.controls[i].get("billNo")?.setValue(res.billsMasterListData[i].billNo);
-        this.formArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billsMasterListData[i].billDate));
-        this.formArray.controls[i].get("billType")?.setValue(res.billsMasterListData[i].billType);
-        this.formArray.controls[i].get("partyCode")?.setValue(res.billsMasterListData[i].partyCode);
-        this.formArray.controls[i].get("gcBranch")?.setValue(res.billsMasterListData[i].gcBranch);
-        this.formArray.controls[i].get("gcYear")?.setValue(res.billsMasterListData[i].gcYear);
+    this.billsMasterService.getBillsMasterSearchList(this.billsmastersearchrequest).subscribe((res: Billsmastersearchlistmodel) => {
+      this.billsmastersearchlistmodel = res;
+    //   this.formArray.clear();      
+    //   for (var i = 0; i < res.billsMasterListData.length; i++) {
+    //     this.formArray.push(this.createInitialArray());
+    //     this.formArray.controls[i].get("billDetailId")?.setValue(res.billsMasterListData[i].billDetailId);
+    //     this.formArray.controls[i].get("billsMasterId")?.setValue(res.billsMasterListData[i].billsMasterId);
+    //     this.formArray.controls[i].get("billingStation")?.setValue(res.billsMasterListData[i].billingStation);
+    //     this.formArray.controls[i].get("billNo")?.setValue(res.billsMasterListData[i].billNo);
+    //     this.formArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billsMasterListData[i].billDate));
+    //     this.formArray.controls[i].get("billType")?.setValue(res.billsMasterListData[i].billType);
+    //     this.formArray.controls[i].get("partyCode")?.setValue(res.billsMasterListData[i].partyCode);
+    //     this.formArray.controls[i].get("gcBranch")?.setValue(res.billsMasterListData[i].gcBranch);
+    //     this.formArray.controls[i].get("gcYear")?.setValue(res.billsMasterListData[i].gcYear);
       
-        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billsMasterListData[i].gcNoteNo);
-        this.formArray.controls[i].get("consignmentid")?.setValue(res.billsMasterListData[i].consignmentid);
+    //     this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billsMasterListData[i].gcNoteNo);
+    //     this.formArray.controls[i].get("consignmentid")?.setValue(res.billsMasterListData[i].consignmentid);
 
        
 
-      }
-    });
+    //   }
+     });
    
   } 
    
@@ -546,11 +547,12 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
    this.billsmastermodel.billsMasterListData = [];
    for (var i = 0; i < this.formBillsMaster.value.arrayList.length; i++) {
    
-    if(selectedDataValue.arrayList[i].billingStation!='' || selectedDataValue.arrayList[i].partyCode !=''){
+   // if(selectedDataValue.arrayList[i].billingStation!='' || selectedDataValue.arrayList[i].partyCode !=''){
+    if(selectedDataValue.arrayList[i].billingStation='' || selectedDataValue.arrayList[i].partyCode==''){
       this.billsmastermodel.billsMasterListData.push({
         'billDetailId': '',
         'billsMasterId': '',
-        'billingStation': selectedDataValue.arrayList[i].billingStation?selectedDataValue.arrayList[i].billingStation.dataId:'',
+        'billingStation': selectedDataValue.billingStation,//selectedDataValue.arrayList[i].billingStation?selectedDataValue.arrayList[i].billingStation.dataId:'',
         'billNo': selectedDataValue.arrayList[i].billNo,
         'billDate':  selectedDataValue.arrayList[i].billDate,
         'billType': selectedDataValue.arrayList[i].billType,

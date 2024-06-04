@@ -4,6 +4,7 @@ import { Billmastersearchlistrequestmodel } from '../models/billsmastersearchlis
 import { Billsmastersearchmodel } from '../models/billsmastersearchmodel';
 import {Billsmastersearchlistmodel} from '../models/billsmastersearchlistmodel';
 import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
+
 import { Constants } from '../common/constants';
 import { Reportmodel } from '../models/reportmodel';
 import { Observable } from 'rxjs';
@@ -45,8 +46,8 @@ import { Billsmastermodel } from '../models/billsmastermodel';
     //   return this.httpClient.post<Billmastersearchlistrequestmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterSearchList', request, this.httpOptions);
     // }
     
-    getBillsMasterSearchList(request: Pagerequestwithdatesmodel): Observable<Billsmastermodel> {
-      return this.httpClient.post<Billsmastermodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterSearchList', request, this.httpOptions);
+    getBillsMasterSearchList(request: Billmastersearchlistrequestmodel): Observable<Billsmastersearchlistmodel> {
+      return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterSearchList', request, this.httpOptions);
     }
    
     getBillsMasterList(filter: Reportmodel): Observable<Billsmasterlistmodel> {

@@ -452,7 +452,7 @@ import { Challanmastermodel } from './models/challanmastermodel';
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel],
+    Passwordmodel,Transportmastermodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

@@ -70,6 +70,6 @@ namespace FreightMasters.Models
         public string? DisputeReleaseDate { get; set; }
 
         public string? LoggedInUser { get; set; }
-        public List<BillsDetailModel> BillsDtls { get; set; }
+        public List<BillsDetailModel> BillsMasterListData { get; set; }
     }
 }

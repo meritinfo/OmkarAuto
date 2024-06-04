@@ -5,5 +5,6 @@ export class Billstatementsearchlistrequestmodel {
     fromPlace: string = "";
     toPlace: string = "";
     cnorPlantCode: string = "";
+    billNo: string = "";
    
 }

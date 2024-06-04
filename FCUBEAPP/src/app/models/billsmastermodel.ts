@@ -1,4 +1,4 @@
-import { Billsmastersearchmodel } from "./billsmastersearchmodel";
+import { BillsDetailModel } from "./billsdetailmodel";
 export class Billsmastermodel {
     billsMasterId: string = "";  
     billingStation: string = "";  
@@ -61,5 +61,5 @@ export class Billsmastermodel {
     disputeCaseStory: string = "";  
     disputeReleaseDate: string = "";  
     loggedInUser: string = "";  
-    billsMasterListData: Billsmastersearchmodel[] = [];
+    billsMasterListData: BillsDetailModel[] = [];
 }

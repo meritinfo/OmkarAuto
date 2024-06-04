@@ -9,7 +9,7 @@ namespace FreightMasters.Models
     public class BillsMasterSearchListModel
     {
       
-            public List<BillsDetailModel> BillsMasterSearchList { get; set; }
+            public List<BillsMasterSearchModel> BillsMasterSearchList { get; set; }
         
     }
 }
