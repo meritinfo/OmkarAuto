@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-
-
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Productmasterlistmodel  } from 'src/app/models/productmasterlistmodel';
@@ -13,6 +11,7 @@ import { ProductMasterService } from 'src/app/services/productmaster.service';
   templateUrl: './productmasterlist.component.html',
   styleUrls: ['./productmasterlist.component.css']
 })
+
 export class ProductmasterlistComponent {
   dtOptions: DataTables.Settings = {};
   allProductMaster: Productmasterlistmodel = new Productmasterlistmodel();
@@ -22,93 +21,87 @@ export class ProductmasterlistComponent {
     sortColumn: 'productname',
     sortOrder: 'asc',
     search: ''
+  }
 
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
 
-}
-createStatus = false;
-editStatus = false;
-deleteStatus = false;
-viewStatus = false;
-loginDate: string = '';
-fromDate: string = '';
-maxDate: string = '';
-minDate: string = '';
+  constructor(private productmasterService: ProductMasterService, private route: Router) {
+  }
 
-constructor(private productmasterService: ProductMasterService, private route: Router) {
-}
-
-ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
-    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find(((aa: { menuName: string; }) => aa.menuName === "Product/Item Master"));
-      if (privilegeStatus) {
-        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+      if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+        var privilegeData = JSON.parse(menuData);
+        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+          .find(((aa: { menuName: string; }) => aa.menuName === "Product/Item Master"));
+        if (privilegeStatus) {
+          this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+          this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+          this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+          this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+        }
       }
-    }
-  this.productmasterService.clearProductMasterDetails();
-  this.dtOptions = {
-    pagingType: 'full_numbers',
-    pageLength: 10,
-    serverSide: true,
-    processing: true,
-    searching: false,
-    ajax: (dataTablesParameters: any, callback) => {
-      // Filter setting
-      this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-      this.filter.pageSize = dataTablesParameters.length;
-      this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-      this.filter.sortOrder = dataTablesParameters.order[0].dir;
-      this.filter.search = dataTablesParameters.search.value;
-      this.productmasterService.getProductMasterList(this.filter)
-        .subscribe(resp => {
-         this.allProductMaster = resp;
-          callback({
-            recordsTotal: resp.pageMetaData.totalCount,
-            recordsFiltered: resp.pageMetaData.totalCount,
-            data: []
+    this.productmasterService.clearProductMasterDetails();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      serverSide: true,
+      processing: true,
+      searching: false,
+      ajax: (dataTablesParameters: any, callback) => {
+        // Filter setting
+        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+        this.filter.pageSize = dataTablesParameters.length;
+        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
+        this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        this.filter.search = dataTablesParameters.search.value;
+        this.productmasterService.getProductMasterList(this.filter)
+          .subscribe(resp => {
+          this.allProductMaster = resp;
+            callback({
+              recordsTotal: resp.pageMetaData.totalCount,
+              recordsFiltered: resp.pageMetaData.totalCount,
+              data: []
+            });
           });
-        });
-    },
-  // Set column title and data field
-  columns: [
-      
+      },
+      // Set column title and data field
+      columns: [ 
+        {
+          title: 'Product Name',
+          data: 'productName',
+        },
+        {
+          title: 'IsActive',
+          data: 'isActive',
+        },
+        {
+          title: 'Action',
+          data: 'productId',
+        },
+      ],
+    };
+  }
 
-    {
-      title: 'Product Name',
-      data: 'productName',
-    },
-
-   {
-    title: 'IsActive',
-    data: 'isActive',
-  },
- 
-
-
-  {
-    title: 'Action',
-    data: 'productId',
-  },
-],
-};
-}
-//Open new destination add screen
-addProductmaster(): void {
-this.route.navigate(['/addproductmaster']);
-}
+  //Open new destination add screen
+  addProductmaster(): void {
+    this.route.navigate(['/addproductmaster']);
+  }
 
 
-//Open user details screen
-getproductMasterDetails(ProductMaster: Productmastermodel): void {
-this.productmasterService.setProductMasterDetails(ProductMaster);
-this.route.navigate(['/productmasteredit']);
-}
+  //Open user details screen
+  getproductMasterDetails(ProductMaster: Productmastermodel): void {
+    this.productmasterService.setProductMasterDetails(ProductMaster);
+    this.route.navigate(['/productmasteredit']);
+  }
 
 }
 

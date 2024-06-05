@@ -1,17 +1,12 @@
 import { Component } from '@angular/core';
-
-
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';
-
 import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Productmastermodel } from 'src/app/models/productmastermodel';
 import { CommonService } from 'src/app/services/common.service';
-
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
@@ -33,42 +28,36 @@ export class AddproductmasterComponent {
 
   selectedProductMasterDetails = new Productmastermodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private productMasterModel: Productmastermodel,private requestmodel:Requestmodel, private toasterService: ToastrService,private productmasterService: ProductMasterService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private productMasterModel: Productmastermodel,private requestmodel:Requestmodel, 
+    private toasterService: ToastrService,private productmasterService: ProductMasterService, 
+    private commonService: CommonService) {
     this.productMasterModel = new Productmastermodel();
-
-
-}
-ngOnInit(): void {
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
   }
 
-  this.getProductList();
-  this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
-  this.formUser = this.formBuilder.group({
-    productName: new FormControl('',[Validators.required]),
-    isActive: new FormControl('',[Validators.required]),
-    productGroupId: new FormControl('',),
-  
+  ngOnInit(): void {
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
 
-  });
-  if (this.selectedProductMasterDetails.productId != '') {
-    this.formUser.patchValue(this.selectedProductMasterDetails);
-    this.formUser.patchValue({
-     
-      
-    })
+    this.getProductList();
+    this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
+    this.formUser = this.formBuilder.group({
+      productName: new FormControl('',[Validators.required]),
+      isActive: new FormControl('',[Validators.required]),
+    });
+
+    if (this.selectedProductMasterDetails.productId != '') {
+      this.formUser.patchValue(this.selectedProductMasterDetails);
+    }
   }
- 
-
-}
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }
@@ -78,10 +67,12 @@ ngOnInit(): void {
       this.productList = res;
     });
   }
+
   exit(): void {
     this.route.navigate(['/productmasterlist']);
   }
-  productMasterDelete(): void {
+
+  deleteProductMaster(): void {
     if(this.selectedProductMasterDetails.productId != '' ){
      this.requestmodel.strRequest =this.selectedProductMasterDetails.productId
       if (confirm("Are you sure, you want to delete this?")) {
@@ -101,8 +92,6 @@ ngOnInit(): void {
   }
 
  
-
-  //Submit user form details //
   submitProductMasterForm(): void {
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
@@ -114,18 +103,17 @@ ngOnInit(): void {
       } 
       return;
     }
-    this.productMasterModel.productId = this.selectedProductMasterDetails.productId != '' ? this.selectedProductMasterDetails.productId : '';
+    
+    this.productMasterModel.productId = this.selectedProductMasterDetails.productId ;
     this.productMasterModel.productName= this.formUser.value.productName;
     this.productMasterModel.isActive = this.formUser.value.isActive;
-    this.productMasterModel.productGroupId = this.formUser.value.productGroupId;
-
 
     this.productmasterService.productmasterDetailsSubmitted(this.productMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['productmasterlist']);
+        this.route.navigate(['/productmasterlist']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);
