@@ -14,5 +14,6 @@ namespace FreightMasters.Business
 
         Task<ClassificationMasterList> GetClassificationMasterList(PageRequest request);
         Task<ResponseModel> ClassificationMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateClass(RequestModel requestModel);
     }
 }

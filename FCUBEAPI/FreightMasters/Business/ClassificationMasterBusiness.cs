@@ -29,6 +29,10 @@ namespace FreightMasters.Business
         {
             return await classificationMasterRepository.ClassificationMasterDelete(request);
         }
+        public async Task<ResponseModel> CheckDuplicateClass(RequestModel request)
+        {
+            return await classificationMasterRepository.CheckDuplicateClass(request);
+        }
 
     }
 }

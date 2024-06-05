@@ -33,6 +33,9 @@ export class ClassificationMasterService {
   classificationMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ClassificationMasterDelete', req, this.httpOptions);
   }
+  checkDuplicateClass(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateClass', req, this.httpOptions);
+  }
   clearClassificationMasterDetails() {
     this.selectedclassificationmaster = new Classificationmastermodel();
   }

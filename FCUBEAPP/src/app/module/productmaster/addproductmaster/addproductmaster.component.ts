@@ -22,6 +22,10 @@ export class AddproductmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
   responseDetails = new Responsemodel();
   productList: Dropdownmodel[] = [];
 
@@ -36,7 +40,22 @@ export class AddproductmasterComponent {
   }
 
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Product/Item Master");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
+    
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
     }
@@ -46,7 +65,6 @@ export class AddproductmasterComponent {
     else {
       this.route.navigate(['/']);
     }
-
     this.getProductList();
     this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
     this.formUser = this.formBuilder.group({
@@ -66,6 +84,28 @@ export class AddproductmasterComponent {
     this.commonService.getProductList().subscribe((res) => {
       this.productList = res;
     });
+  }
+  chkProductDuplicate(){
+    var selectedData = this.formUser.getRawValue();
+    
+  
+      this.requestmodel.strRequest = selectedData.productName;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.productmasterService.checkDuplicateProduct(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            productName: ''
+    
+          });
+          
+        }
+      });
+      
   }
 
   exit(): void {
