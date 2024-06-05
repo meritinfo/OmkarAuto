@@ -92,7 +92,8 @@ export class AddbranchmasterComponent {
       managerEmail: new FormControl('',),
       gstNo: new FormControl('',),
       entryLockDays: new FormControl('',),     
-
+      znNumCode:new FormControl('',[Validators.required]),
+      brNumCode:new FormControl('',[Validators.required]),
     });
     if (this.selectedBranchMasterDetails.centreid != '') {
       this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
@@ -223,6 +224,8 @@ export class AddbranchmasterComponent {
     this.branchModel.managerEmail     = selectedDataVal.managerEmail;
     this.branchModel.gstNo            = selectedDataVal.gstNo.toString().toUpperCase();
     this.branchModel.entryLockDays    = selectedDataVal.entryLockDays;
+    this.branchModel.znNumCode        = selectedDataVal.znNumCode.toString();
+    this.branchModel.brNumCode        = selectedDataVal.brNumCode.toString();
     this.branchModel.loggedInUserID   = this.loggedInUserID;
 
   

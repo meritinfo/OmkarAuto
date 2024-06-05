@@ -56,6 +56,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@ManagerEmail", BranchMasterModel.ManagerEmail),
                             new SqlParameter("@GstNo", BranchMasterModel.GstNo),
                             new SqlParameter("@EntryLockDays", BranchMasterModel.EntryLockDays),
+                            new SqlParameter("@ZnNumCode", BranchMasterModel.ZnNumCode),
+                            new SqlParameter("@BrNumCode", BranchMasterModel.BrNumCode),
                             new SqlParameter("@LoggedInUser", BranchMasterModel.LoggedInUserID)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BranchMasterDetailsSave", param);
@@ -165,6 +167,8 @@ namespace FreightMasters.Repository
                                 ManagerEmail    = Convert.ToString(dataSet.Tables[0].Rows[i]["ManagerEmail"]),
                                 GstNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
                                 EntryLockDays   = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryLockDays"]),
+                                ZnNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["ZnNumCode"]),
+                                BrNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["BrNumCode"]),
                             });
                         }
 

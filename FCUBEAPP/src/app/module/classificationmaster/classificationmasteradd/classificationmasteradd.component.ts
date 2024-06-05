@@ -32,12 +32,14 @@ export class ClassificationmasteraddComponent {
   selectedClassificationMasterDetails = new Classificationmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private classificationModel: Classificationmastermodel, private classificationmasterService: ClassificationMasterService, 
+    private classificationModel: Classificationmastermodel, 
+    private classificationmasterService: ClassificationMasterService, 
     private commonService: CommonService,private requestmodel:Requestmodel,
     private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.classificationModel = new Classificationmastermodel();
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -70,22 +72,13 @@ export class ClassificationmasteraddComponent {
    
 
     this.selectedClassificationMasterDetails = this.classificationmasterService.getClassificationMasterDetails();
-    this.formClassificationMaster = this.formBuilder.group({
-
-   
+    this.formClassificationMaster = this.formBuilder.group({   
       classDesc: new FormControl('',[Validators.required]),
       isActive: new FormControl('',[Validators.required]),
-
-
-
     });
+
     if (this.selectedClassificationMasterDetails.classId != '') {
-      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);
-      this.formClassificationMaster.patchValue({
-       // userClassification: this.selectedClassificationMasterDetails.classDesc,
-        //stateCode: this.selectedClassificationMasterDetails.isActive,
-      })      
-    
+      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);    
       this.editMode = true;
     }
     
