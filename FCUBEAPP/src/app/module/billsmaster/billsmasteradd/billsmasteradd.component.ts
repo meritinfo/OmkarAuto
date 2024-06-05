@@ -400,24 +400,26 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   getBillsMasterInnerGridList(): void {
     this.requestmodel.strRequest= this.selectedBillsmasterDetails.billsMasterId;
     this.billsMasterService.getBillsMasterInnerGridList(this.requestmodel).subscribe((res) => {
-      this.billsmastermodel = res;     
+      this.billsmastersearchlistmodel = res;     
       this.formArray.clear();
         
-      for (var i = 0; i < res.billsMasterListData.length; i++) {
+      for (var i = 0; i < res.billsMasterSearchList.length; i++) {
         this.formArray.push(this.createInitialArray());
        
-        this.formArray.controls[i].get("billDetailId")?.setValue(res.billsMasterListData[i].billDetailId);
-        this.formArray.controls[i].get("billsMasterId")?.setValue(res.billsMasterListData[i].billsMasterId);
-        this.formArray.controls[i].get("billingStation")?.setValue(res.billsMasterListData[i].billingStation);
-        this.formArray.controls[i].get("billNo")?.setValue(res.billsMasterListData[i].billNo);
-        this.formArray.controls[i].get("billDate")?.setValue(this.commonService.formatDate(res.billsMasterListData[i].billDate));
-        this.formArray.controls[i].get("billType")?.setValue(res.billsMasterListData[i].billType);
-        this.formArray.controls[i].get("partyCode")?.setValue(res.billsMasterListData[i].partyCode);
-        this.formArray.controls[i].get("gcBranch")?.setValue(res.billsMasterListData[i].gcBranch);
-        this.formArray.controls[i].get("gcYear")?.setValue(res.billsMasterListData[i].gcYear);
+        this.formArray.controls[i].get("consignmentID")?.setValue(res.billsMasterSearchList[i].consignmentID);
+        this.formArray.controls[i].get("bookingDate")?.setValue(res.billsMasterSearchList[i].bookingDate);
+        this.formArray.controls[i].get("bookingPlace")?.setValue(res.billsMasterSearchList[i].bookingPlace);
+        this.formArray.controls[i].get("rateRs")?.setValue(res.billsMasterSearchList[i].rateRs);
+        this.formArray.controls[i].get("freightRs")?.setValue(this.commonService.formatDate(res.billsMasterSearchList[i].freightRs));
+        this.formArray.controls[i].get("statisticalRs")?.setValue(res.billsMasterSearchList[i].statisticalRs);
+        this.formArray.controls[i].get("fovRs")?.setValue(res.billsMasterSearchList[i].fovRs);
+        this.formArray.controls[i].get("doorCollRs")?.setValue(res.billsMasterSearchList[i].doorCollRs);
+        this.formArray.controls[i].get("handlingRs")?.setValue(res.billsMasterSearchList[i].handlingRs);
       
-        this.formArray.controls[i].get("gcNoteNo")?.setValue(res.billsMasterListData[i].gcNoteNo);
-        this.formArray.controls[i].get("consignmentid")?.setValue(res.billsMasterListData[i].consignmentid);
+        this.formArray.controls[i].get("loadingDetnRs")?.setValue(res.billsMasterSearchList[i].loadingDetnRs);
+        this.formArray.controls[i].get("enrouteRs")?.setValue(res.billsMasterSearchList[i].enrouteRs);
+        this.formArray.controls[i].get("miscRs")?.setValue(res.billsMasterSearchList[i].miscRs);
+        this.formArray.controls[i].get("selected")?.setValue(res.billsMasterSearchList[i].selected); 
       }
     });
   }
@@ -524,12 +526,12 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
    
     
     /////date fields
-    this.billsmastermodel.printedDate= '2024-01-12'
-    this.billsmastermodel.mrDate= '2024-01-12'
-    this.billsmastermodel.submitDate= '2024-01-12'
-    this.billsmastermodel.disputeDate= '2024-01-12'
-    this.billsmastermodel.disputeReleaseDate= '2024-01-12'
-    this.billsmastermodel.dueDate= '2024-01-12'
+   // this.billsmastermodel.printedDate= '2024-01-12'
+   // this.billsmastermodel.mrDate= '2024-01-12'
+   // this.billsmastermodel.submitDate= '2024-01-12'
+   // this.billsmastermodel.disputeDate= '2024-01-12'
+   // this.billsmastermodel.disputeReleaseDate= '2024-01-12'
+   // this.billsmastermodel.dueDate= '2024-01-12'
 
     ///////
  

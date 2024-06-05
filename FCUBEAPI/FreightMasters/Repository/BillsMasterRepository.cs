@@ -187,9 +187,9 @@ namespace FreightMasters.Repository
                                 SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
                                 NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
-                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"])
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
                                
-                              //  Selected = false
+                                Selected = false
                             });
                         }
 
