@@ -20,5 +20,8 @@ export class Branchmodel {
     managerEmail: string = "";
     gstNo: string = "";
     entryLockDays: string = "";
+    znNumCode : string = "";
+    brNumCode : string = "";
+
     loggedInUserID :string = "";
 }

@@ -26,6 +26,8 @@
         public string? ManagerEmail { get; set; }
         public string? GstNo { get; set; }
         public string? EntryLockDays { get; set; }
+        public string? ZnNumCode { get; set; }
+        public string? BrNumCode { get; set; }
         public string? LoggedInUserID { get; set; }
 
     }

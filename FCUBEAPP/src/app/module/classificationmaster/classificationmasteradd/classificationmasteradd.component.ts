@@ -32,12 +32,14 @@ export class ClassificationmasteraddComponent {
   selectedClassificationMasterDetails = new Classificationmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private classificationModel: Classificationmastermodel, private classificationmasterService: ClassificationMasterService, 
+    private classificationModel: Classificationmastermodel, 
+    private classificationmasterService: ClassificationMasterService, 
     private commonService: CommonService,private requestmodel:Requestmodel,
     private sharedService: SharedService,
     private toasterService: ToastrService) {
     this.classificationModel = new Classificationmastermodel();
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -65,27 +67,16 @@ export class ClassificationmasteraddComponent {
       this.route.navigate(['/']);
     }
 
-    this.sharedService.loading = true;
-
-   
+    this.sharedService.loading = true;   
 
     this.selectedClassificationMasterDetails = this.classificationmasterService.getClassificationMasterDetails();
-    this.formClassificationMaster = this.formBuilder.group({
-
-   
+    this.formClassificationMaster = this.formBuilder.group({   
       classDesc: new FormControl('',[Validators.required]),
       isActive: new FormControl('',[Validators.required]),
-
-
-
     });
+
     if (this.selectedClassificationMasterDetails.classId != '') {
-      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);
-      this.formClassificationMaster.patchValue({
-       // userClassification: this.selectedClassificationMasterDetails.classDesc,
-        //stateCode: this.selectedClassificationMasterDetails.isActive,
-      })      
-    
+      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);    
       this.editMode = true;
     }
     
@@ -96,9 +87,7 @@ export class ClassificationmasteraddComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formClassificationMaster.controls; }
 
-  //Get Classification List details //
-  
-  
+  //Get Classification List details //  
   
 
   // chkClassificationNameExits(e: any) { 
@@ -119,30 +108,11 @@ export class ClassificationmasteraddComponent {
   //   }
   // }
 
-  // deleteClassificationMasterForm(): void {
-  //   if(this.selectedClassificationMasterDetails.centreid != '' ){      
-  //     this.sharedService.loading = true;
-  //     this.requestmodel.strRequest =this.selectedClassificationMasterDetails.centreid
-  //     if (confirm("Are you sure, you want to delete this?")) {
-  //           this.classificationmasterService.classificationMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
-  //           this.responseDetails = res;
-  //           if (this.responseDetails.status) {
-  //             this.toasterService.success(this.responseDetails.message);
-  //             this.formClassificationMaster.reset();
-  //             this.route.navigate(['/classificationmasterlist']);
-  //           }
-  //           else {
-  //             this.toasterService.warning(this.responseDetails.message);
-  //           }    
-  //       });
-  //     }      
-  //     this.sharedService.loading = false;
-  //   }
-  // }
   exit(): void {
     this.route.navigate(['/classmasterlist']);
   }
-  classificationMasterDelete(): void {
+
+  deleteClassificationMasterForm(): void {
     if(this.selectedClassificationMasterDetails.classId != '' ){
      this.requestmodel.strRequest =this.selectedClassificationMasterDetails.classId
       if (confirm("Are you sure, you want to delete this?")) {
@@ -180,14 +150,9 @@ export class ClassificationmasteraddComponent {
     var selectedDataVal = this.formClassificationMaster.getRawValue();
     this.userSubmitted = true;
     this.classificationModel.classId = this.selectedClassificationMasterDetails.classId ;
-    this.classificationModel.classDesc             = selectedDataVal.classDesc.toString().toUpperCase();
-    this.classificationModel.isActive       = selectedDataVal.isActive;
-
-
-
-
+    this.classificationModel.classDesc  = selectedDataVal.classDesc.toString().toUpperCase();
+    this.classificationModel.isActive = selectedDataVal.isActive;
     //this.classificationModel.loggedInUserID   = this.loggedInUserID;
-
   
     this.classificationmasterService.classificationmasterSubmitted(this.classificationModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

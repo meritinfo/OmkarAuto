@@ -6,12 +6,6 @@
             <div class="col-12">
                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                   <h4 class="mb-sm-0 font-size-18">Destination</h4>
-                  <div class="page-title-right">
-                     <ol class="breadcrumb m-0">
-                        <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                        <li class="breadcrumb-item active">Destination</li> -->
-                     </ol>
-                  </div>
                </div>
             </div>
          </div>
@@ -24,13 +18,13 @@
                         <div class="row">
                            <div class="col-lg-12">
                               <div class="row">
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-3">
                                     <div class="mb-4">
                                        <label for="horizontal-firstname-input" class="col-form-label">
                                           Destination Name </label><span style="color: red"> * </span>
                                     </div>
                                  </div>
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-3">
                                    <div class="mb-4">
                                        <input uppercaseonly type="text"  autofocus="autofocus"  class="form-control"
                                            (change)="chkBranchNameExits($event)" formControlName="centreName"  autoclose="false"                                      
@@ -41,13 +35,13 @@
                            </div>
                            <div class="col-lg-12">
                               <div class="row">
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-3">
                                     <div class="mb-4">
                                        <label for="horizontal-firstname-input" class="col-form-label">
                                              Pin Code </label><span style="color: red"> * </span>
                                     </div>
                                  </div>
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-3">
                                     <div class="mb-4">
                                        <input numbersonly type="text" class="form-control"
                                            placeholder="" maxlength="6" formControlName="pinCode" autoclose="false"                                     
@@ -58,13 +52,13 @@
                            </div>
                            <div class="col-lg-12">
                               <div class="row">
-                                 <div class="col-lg-2">
+                                 <div class="col-lg-3">
                                     <div class="mb-4">
                                        <label for="horizontal-firstname-input" class="col-form-label">
                                            Controlling Branch </label><span style="color: red"> * </span>
                                        </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                        <div class="mb-4">
                                           <select class="form-control" autoclose="false" formControlName="acctBranch" 
                                              [ngClass]="{ 'is-invalid': formSubmitted && (f['acctBranch'].invalid) }">
@@ -78,13 +72,13 @@
                               </div>
                               <div class="col-lg-12">
                                  <div class="row">
-                                    <div class="col-lg-2">
+                                    <div class="col-lg-3">
                                        <div class="mb-4">
                                           <label for="horizontal-firstname-input" class="col-form-label">
                                              State </label><span style="color: red"> * </span>
                                        </div>
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-3">
                                        <div class="mb-4">
                                           <select class="form-control" formControlName="stateCode" autoclose="false"
                                              [ngClass]="{ 'is-invalid': formSubmitted && (f['stateCode'].invalid) }">
