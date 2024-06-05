@@ -6,7 +6,6 @@ import { Branchmodel } from 'src/app/models/branchmodel';
 import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
-
 import { Transportmastermodel } from 'src/app/models/transportmastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TransportMasterService } from 'src/app/services/transportmaster.service';
@@ -38,93 +37,84 @@ export class AddtransportmasterComponent {
     static: true
   }) attachmentInput: any;
   attachmentInput1: any;
-selectedTransportMasterDetail = new Transportmastermodel();
+  selectedTransportMasterDetail = new Transportmastermodel();
 
-constructor(private route: Router, private formBuilder: FormBuilder, private transportMasterModel: Transportmastermodel, private transportMasterService: TransportMasterService, private commonService: CommonService,private toastrService: ToastrService,private requestmodel:Requestmodel) {
-  this.transportMasterModel = new Transportmastermodel();
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private transportMasterModel: Transportmastermodel, 
+    private transportMasterService: TransportMasterService, 
+    private commonService: CommonService,private toastrService: ToastrService,
+    private requestmodel:Requestmodel) {
+    this.transportMasterModel = new Transportmastermodel();
+  }
+  ngOnInit(): void {
+    var userData = sessionStorage.getItem('uid')?.toString();
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
 
-}
-ngOnInit(): void {
-  var userData = sessionStorage.getItem('uid')?.toString();
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
+    this.getStateList();
+    this.getBranchList();
+    this.getLocationList();
+    this.getVehicleTypeList();
+    this.selectedTransportMasterDetail = this.transportMasterService.getTransportMasterDetails();
+    this.formUser = this.formBuilder.group({
+      tptCode: new FormControl('',),
+      tptName: new FormControl('',[Validators.required]),
+      address1: new FormControl('',[Validators.required]),
+      address2: new FormControl('',),
+      address3: new FormControl('',),
+      address4: new FormControl('',),
+      stateCode: new FormControl('',[Validators.required]),
+      pinCode: new FormControl('',),
+      phone: new FormControl('',),
+      email: new FormControl('',),
+      contactPerson1: new FormControl('',[Validators.required]),
+      mobile1: new FormControl('',[Validators.required]),
+      contactPerson2: new FormControl('',),
+      mobile2: new FormControl('',),
+      panNo: new FormControl('',),
+      gstNo: new FormControl('',),
+      aadharNo: new FormControl('',),
+      ContactPerson2: new FormControl('',),
+      Mobile2: new FormControl('',),
+      cancelChq: new FormControl('',),
+      addrProof: new FormControl('',),
+      eligibleForBid: new FormControl('',),
+      PanNo: new FormControl('',),
+      whatsappMblNo: new FormControl('',),
+      branchCode: new FormControl('',),
+      remarks: new FormControl('',),
+      isActive: new FormControl('',),
+      inActiveDate: new FormControl('',),
+      transportDetailList: this.formBuilder.array([this.createLocationArray()]),
+      stateDetailList: this.formBuilder.array([this.createStateArray()]),
+      vehTypeDetailList: this.formBuilder.array([this.createVehArray()]) 
+    });
+    
+    if (this.selectedTransportMasterDetail.tptCode != '') {
+      setTimeout(() => {
+        this.formUser.patchValue(this.selectedTransportMasterDetail);
+        this.formUser.patchValue({
+          inActiveDate: this.commonService.formatDate(this.selectedTransportMasterDetail.inActiveDate),
+        })
+        this.getTransportMasterInnerGridList();
+      }, 2000);  
+    }
   }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
+  
+  addMiscItem(index: number): void {
+  // if (this.formLocationArray.value[index].locId != "" ) {
+      this.formLocationArray.push(this.createLocationArray());
+    //} else {
+    // this.toastrService.warning("Please Enter Current record  ");
+  // }
   }
-  else {
-    this.route.navigate(['/']);
-  }
-
-  this.getStateList();
-  this.getBranchList();
-  this.getLocationList();
-  this.getVehicleTypeList();
-  this.selectedTransportMasterDetail = this.transportMasterService.getTransportMasterDetails();
-  this.formUser = this.formBuilder.group({
-    tptCode: new FormControl('',),
-    tptName: new FormControl('',[Validators.required]),
-    address1: new FormControl('',[Validators.required]),
-    address2: new FormControl('',),
-    address3: new FormControl('',),
-    address4: new FormControl('',),
-    stateCode: new FormControl('',[Validators.required]),
-    pinCode: new FormControl('',),
-    phone: new FormControl('',),
-    email: new FormControl('',),
-    contactPerson1: new FormControl('',[Validators.required]),
-    mobile1: new FormControl('',[Validators.required]),
-    contactPerson2: new FormControl('',),
-    mobile2: new FormControl('',),
-    panNo: new FormControl('',),
-    gstNo: new FormControl('',),
-    aadharNo: new FormControl('',),
-    ContactPerson2: new FormControl('',),
-    Mobile2: new FormControl('',),
-    cancelChq: new FormControl('',),
-    addrProof: new FormControl('',),
-    eligibleForBid: new FormControl('',),
-    PanNo: new FormControl('',),
-    whatsappMblNo: new FormControl('',),
-    branchCode: new FormControl('',),
-    remarks: new FormControl('',),
-    isActive: new FormControl('',),
-    inActiveDate: new FormControl('',),
-    transportDetailList: this.formBuilder.array([this.createLocationArray()]),
-    stateDetailList: this.formBuilder.array([this.createStateArray()]),
-    vehTypeDetailList: this.formBuilder.array([this.createVehArray()])
- 
-  
-  });
-  
-if (this.selectedTransportMasterDetail.tptCode != '') {
-  setTimeout(() => {
-  this.formUser.patchValue(this.selectedTransportMasterDetail);
-  
-  //this.formUser.controls['tripNo'].disable();
- // this.formUser.controls['truckNo'].disable();
-this.formUser.patchValue({
-//  isActive: this.selectedTransportMasterDetail.isActive,
- // regnDate: this.commonService.formatDate(this.selectedTransportMasterDetail.regnDate),
- // insuranceDt: this.commonService.formatDate(this.selectedTransportMasterDetail.insuranceDt),
- // nationalPermitDt: this.commonService.formatDate(this.selectedTransportMasterDetail.nationalPermitDt),
- // fitnessDt: this.commonService.formatDate(this.selectedTransportMasterDetail.fitnessDt),
-  inActiveDate: this.commonService.formatDate(this.selectedTransportMasterDetail.inActiveDate),
- // ownerType:this.selectedTransportMasterDetail.ownerType
- 
-  
-})
-this.getTransportMasterInnerGridList();
-}, 2000);  
-}
-}
-addMiscItem(index: number): void {
- // if (this.formLocationArray.value[index].locId != "" ) {
-    this.formLocationArray.push(this.createLocationArray());
-  //} else {
-   // this.toastrService.warning("Please Enter Current record  ");
- // }
-}
 addStateItem(index: number): void {
  // if (this.formStateArray.value[index].stateCode != "" ) {
 

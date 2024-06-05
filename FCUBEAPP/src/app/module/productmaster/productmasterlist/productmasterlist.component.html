@@ -8,13 +8,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Product  Master</h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                               
-                            </ol>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -35,23 +28,18 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
-                            <th>Centre Name</th>
-                      
-                            <th>State Code</th>
-                         
+                            <th>Centre Name</th>                      
+                            <th>State Code</th>                         
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allProductMaster.productmasterList?.length != 0">
                         <tr *ngFor="let productmaster of allProductMaster.productmasterList">
-                            <td>{{ productmaster.productName }}</td>
-                    
-                            <td>{{ productmaster.isActive }}</td>
-                         
-                            <td>
-                                
-                                    <button type="button" class="btn btn-edit" 
-                                        (click)="getproductMasterDetails(productmaster)"></button>      
+                            <td>{{ productmaster.productName }}</td>                    
+                            <td>{{ productmaster.isActive }}</td>                         
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getproductMasterDetails(productmaster)"></button>      
                            
                             </td>
                         </tr>
