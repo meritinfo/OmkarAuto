@@ -33,6 +33,7 @@ namespace FreightMasters.Models
         public string?NonGstAmt1 { get; set; }
         public string?NonGstAmt2 { get; set; }
         public string?GtotalRs { get; set; }
+        public bool Selected { get; set; }
 
 
     }

@@ -25,4 +25,5 @@ export class Billsmastersearchmodel {
    nonGstAmt1:  string = "";  
    nonGstAmt2:  string = "";  
    gtotalRs:  string = "";
+   selected: boolean = false;
 }
