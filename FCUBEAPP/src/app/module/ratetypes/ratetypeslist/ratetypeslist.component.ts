@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
@@ -6,6 +6,7 @@ import { Ratetypeslistmodel  } from 'src/app/models/ratetypeslistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Ratetypesmodel } from 'src/app/models/ratetypesmodel';
 import { RateTypesService } from 'src/app/services/ratetypes.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-ratetypeslist',
@@ -28,6 +29,10 @@ constructor(private rateTypesService: RateTypesService, private route: Router) {
 
 ngOnInit(): void {
   this.rateTypesService.clearRatetypesDetails();
+  
+  this.ratelist();
+}
+  ratelist(){
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
@@ -74,6 +79,8 @@ ngOnInit(): void {
     ],
   };
 }
+
+
 //Open new destination add screen
 addRateTypes(): void {
   this.route.navigate(['/addratetypes']);

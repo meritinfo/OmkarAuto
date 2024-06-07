@@ -8,7 +8,10 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ratetypeslistmodel } from 'src/app/models/ratetypeslistmodel';
 import { CommonService } from 'src/app/services/common.service';
 import { RateTypesService } from 'src/app/services/ratetypes.service';
+import { ToastrService } from 'ngx-toastr';
+
 import { UserService } from 'src/app/services/user.service';
+import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Component({
   selector: 'app-addratetypes',
@@ -19,18 +22,41 @@ export class AddratetypesComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   userSubmitted = false;
+  
 
   responseDetails = new Responsemodel();
 
 
   selectedRateTypesDetails = new Ratetypesmodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private ratetypesmodel: Ratetypesmodel, private rateTypesService: RateTypesService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, private ratetypesmodel: Ratetypesmodel,private requestmodel:Requestmodel, private rateTypesService: RateTypesService,  private toasterService: ToastrService,private commonService: CommonService) {
     this.ratetypesmodel = new Ratetypesmodel();
 
 
 
 }
+exit(): void {
+  this.route.navigate(['/ratetypeslist']);
+}
+deleteRateTypeForm(): void {
+  if(this.selectedRateTypesDetails.rateTypeId != '' ){
+   this.requestmodel.strRequest =this.selectedRateTypesDetails.rateTypeId
+    if (confirm("Are you sure, you want to delete this?")) {
+          this.rateTypesService.rateTypeDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            this.toasterService.success(this.responseDetails.message);
+            this.formUser.reset();
+            this.route.navigate(['/ratetypeslist']);
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+      });
+    }
+  }
+}
+
 ngOnInit(): void {
  
   var userData = sessionStorage.getItem('uid')?.toString();
@@ -81,9 +107,17 @@ submitRateTypesForm(): void {
 
   this.rateTypesService.ratetypeDetailsSubmitted(this.ratetypesmodel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;
-    console.log(this.responseDetails.message);
-    this.formUser.reset();
-    window.location.reload();
+   // console.log(this.responseDetails.message);
+    //this.formUser.reset();
+    //window.location.reload();
+    if (this.responseDetails.status) {
+      this.toasterService.success(this.responseDetails.message);
+      this.formUser.reset();
+      this.route.navigate(['/ratetypeslist']);
+    }
+    else {
+      this.toasterService.warning(this.responseDetails.message);
+    }
   });
 }
 }

@@ -24,9 +24,14 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeMasterRepository.GetVehicleTypeMasterList(request);
         }
+
         public async Task<ResponseModel> VehicleTypeMasterDelete(RequestModel request)
         {
             return await vehicleTypeMasterRepository.VehicleTypeMasterDelete(request);
+        }
+        public async Task<ResponseModel> CheckDuplicateVehicleDesc(RequestModel request)
+        {
+            return await vehicleTypeMasterRepository.CheckDuplicateVehicleDesc(request);
         }
 
     }

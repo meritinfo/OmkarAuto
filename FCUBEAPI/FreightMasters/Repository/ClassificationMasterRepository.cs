@@ -101,6 +101,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
         public async Task<ResponseModel> ClassificationMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

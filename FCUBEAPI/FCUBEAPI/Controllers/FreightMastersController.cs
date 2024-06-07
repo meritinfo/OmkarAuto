@@ -470,6 +470,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicateRateDesc")]
+        public async Task<IActionResult> CheckDuplicateRateDesc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratetypesBusiness.CheckDuplicateRateDesc(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CheckDuplicateProduct")]
         public async Task<IActionResult> CheckDuplicateProduct(RequestModel req)
         {
@@ -565,6 +583,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await classificationMasterBusiness.ClassificationMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("RateTypeDelete")]
+        public async Task<IActionResult>RateTypeDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await ratetypesBusiness.RateTypeDelete(req);
 
                 return Ok(result);
             }

@@ -133,8 +133,8 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Mobile 2: </label>
-                                            <input numbersonly type="text" 
-                                            class="form-control"maxlength="10"
+                                            <input numbersonly maxlength="10" type="text" 
+                                            class="form-control"
                                             formControlName="mobile2" >
                                         </div>
                                     </div> 
@@ -179,7 +179,7 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Whatsapp Mobile No: </label>
-                                            <input numbersonly  type="text" class="form-control"
+                                            <input numbersonly  type="text"  maxlength="10"class="form-control"
                                             formControlName="whatsappMblNo" >
                                         </div>
                                     </div>                                 
@@ -227,7 +227,7 @@
                                 <h4 class="card-title mb-4" style="color: red;">Transport BidLocations</h4>
                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                     <tr>                                   
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-5">
                                             <label for="formrow-inputZip">
                                                 <h6>Location</h6>
                                             </label>  
@@ -236,15 +236,15 @@
                                     <tr formArrayName="transportDetailList"
                                         *ngFor="let miscData of formLocationArray.controls; let k = index">
                                         <div [formGroupName]="k">
-                                            <td class="col-lg-6">                                         
+                                            <td class="col-lg-5">                                         
                                                 <select class="form-control" formControlName="locId">
                                                     <option *ngFor="let branch of locationList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
                                             </td> 
-                                            <td>
-                                                <div class="col-lg-12 details-button">                                               
+                                            <td class="col-lg-1">       
+                                                <div class="details-button">                                               
                                                     <button *ngIf="k === formLocationArray.controls.length-1" type="button"
                                                         class="btn btn-add" (click)="addMiscItem(k)"></button>
                                                     <button *ngIf="formLocationArray.controls.length > 1"
@@ -264,7 +264,7 @@
                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                     <tr>
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <label for="formrow-inputZip">
                                                     <h6>Select States </h6>
                                                 </label>
@@ -274,16 +274,16 @@
                                     <tr formArrayName="stateDetailList"
                                         *ngFor="let miscData of formStateArray.controls; let k = index">
                                         <div [formGroupName]="k">
-                                            <td class="col-lg-4">
+                                            <td class="col-lg-5">
                                                 <select class="form-control" formControlName="stateCode"      
                                                 [ngClass]="">
                                                     <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                     {{state.dataName}}
                                                     </option>
                                                 </select>
-                                            </td>    
-                                            <td>
-                                                <div class="col-lg-12 details-button">
+                                            </td>  
+                                            <td class="col-lg-1">
+                                                <div class="details-button">
                                                     <button *ngIf="k === formStateArray.controls.length-1" type="button"
                                                         class="btn btn-add" (click)="addStateItem(k)"></button>
                                                     <button *ngIf="formStateArray.controls.length > 1"
@@ -303,7 +303,7 @@
                                 <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                     <tr>
                                         <div class="row">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <label for="formrow-inputZip">
                                                     <h6>Vehicle</h6>
                                                 </label>
@@ -313,16 +313,16 @@
                                     <tr formArrayName="vehTypeDetailList"
                                         *ngFor="let miscData of formVehArray.controls; let k = index">
                                         <div [formGroupName]="k">
-                                            <td class="col-lg-6">
+                                            <td class="col-lg-5">
                                                 <select class="form-control" formControlName="vehTypeId">
                                                     <option *ngFor="let branch of vehicleTypeList"
                                                         value={{branch.dataId}}>  
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
-                                            </td>    
-                                            <td>
-                                                <div class="col-lg-12 details-button">
+                                            </td>  
+                                            <td class="col-lg-1">
+                                                <div class="details-button">
                                                     <button *ngIf="k === formVehArray.controls.length-1" type="button"
                                                         class="btn btn-add" (click)="addVehItem(k)"></button>
                                                     <button *ngIf="formVehArray.controls.length > 1"

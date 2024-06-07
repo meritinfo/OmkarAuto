@@ -94,6 +94,7 @@ export class AddbranchmasterComponent {
       entryLockDays: new FormControl('',),     
       znNumCode:new FormControl('',[Validators.required]),
       brNumCode:new FormControl('',[Validators.required]),
+      docNumCode:new FormControl('',[Validators.required]),
     });
     if (this.selectedBranchMasterDetails.centreid != '') {
       this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
@@ -226,6 +227,7 @@ export class AddbranchmasterComponent {
     this.branchModel.entryLockDays    = selectedDataVal.entryLockDays;
     this.branchModel.znNumCode        = selectedDataVal.znNumCode.toString();
     this.branchModel.brNumCode        = selectedDataVal.brNumCode.toString();
+    this.branchModel.docNumCode        = selectedDataVal.docNumCode.toString();
     this.branchModel.loggedInUserID   = this.loggedInUserID;
 
   

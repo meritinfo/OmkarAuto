@@ -15,5 +15,6 @@ namespace FleetMasters.Repository
         Task<List<DropDownListModel>> GetVehicalMfrList();
         Task<ResponseModel> ChkVehicalNoExist(RequestModel req);
         Task<VehicleFltMasterModel> GetVehicleFltInnerGridList(RequestModel req);
+        Task<List<DropDownListModel>> GetVehicalTypeGroupList();
     }
 }

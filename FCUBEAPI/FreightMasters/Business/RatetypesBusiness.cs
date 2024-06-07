@@ -27,5 +27,14 @@ namespace FreightMasters.Business
         {
             return await freightMastersRepository.GetRateTypesList(request);
         }
+        public async Task<ResponseModel> RateTypeDelete(RequestModel request)
+        {
+            return await freightMastersRepository.RateTypeDelete(request);
+        }
+        public async Task<ResponseModel> CheckDuplicateRateDesc(RequestModel request)
+        {
+            return await freightMastersRepository.CheckDuplicateRateDesc(request);
+        }
+
     }
 }

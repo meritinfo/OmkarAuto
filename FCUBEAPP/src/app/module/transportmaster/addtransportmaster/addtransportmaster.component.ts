@@ -109,8 +109,13 @@ export class AddtransportmasterComponent {
   }
   
   addMiscItem(index: number): void {
-  // if (this.formLocationArray.value[index].locId != "" ) {
+    if (this.formLocationArray.value[index].locId != "" ) {
       this.formLocationArray.push(this.createLocationArray());
+    } else {
+      this.toastrService.warning("Please select one Location");
+    }
+  // if (this.formLocationArray.value[index].locId != "" ) {
+     // this.formLocationArray.push(this.createLocationArray());
     //} else {
     // this.toastrService.warning("Please Enter Current record  ");
   // }
@@ -118,18 +123,24 @@ export class AddtransportmasterComponent {
 addStateItem(index: number): void {
  // if (this.formStateArray.value[index].stateCode != "" ) {
 
-    this.formStateArray.push(this.createStateArray());
+   // this.formStateArray.push(this.createStateArray());
+    if (this.formStateArray.value[index].stateCode != "" ) {
+      this.formStateArray.push(this.createStateArray());
+    } else {
+      this.toastrService.warning("Please select one state");
+    }
  // } else {
    // this.toastrService.warning("Please Enter Current record  ");
  // }
 }
 
 addVehItem(index: number): void {
-  //if (this.formVehArray.value[index].vehTypeId != "" ) {
-    this.formVehArray.push(this.createVehArray());
- // } else {
-   // this.toastrService.warning("Please Enter Current record  ");
- // }
+ 
+ if (this.formVehArray.value[index].vehTypeId != "" ) {
+  this.formVehArray.push(this.createStateArray());
+} else {
+  this.toastrService.warning("Please select one vehicle");
+}
 }
 
 
@@ -298,6 +309,10 @@ submitTransportMasterForm(): void {
   this.transportMasterModel.inActiveDate = this.formUser.value.inActiveDate;
   if (this.formLocationArray.value != undefined) {
     for (var i = 0; i < this.formLocationArray.value.length; i++) {
+      if (this.formLocationArray.value[i].locId =='' ) {
+        this.toastrService.warning("please select  Location");
+        return;
+      } 
       if(this.formLocationArray.value[i].locId!=''){
         if(this.formLocationArray.value[i].locId!=''){
       this.transportMasterModel.transportLocationList.push({
@@ -316,8 +331,13 @@ submitTransportMasterForm(): void {
   }}
   if (this.formStateArray.value != undefined) {
     for (var i = 0; i < this.formStateArray.value.length; i++) {
+      if (this.formStateArray.value[i].stateCode =='' ) {
+        this.toastrService.warning("please select  state");
+        return;
+      } 
       if(this.formStateArray.value[i].stateCode!=''){
         if(this.formStateArray.value[i].stateCode!=''){
+          
       this.transportMasterModel.transportStatesList.push({
         'dtlid': this.formStateArray.value[i].dtlid,
         'tptCode': this.formStateArray.value[i].tptCode,
@@ -335,6 +355,10 @@ submitTransportMasterForm(): void {
   }
   if (this.formVehArray.value != undefined) {
     for (var i = 0; i < this.formVehArray.value.length; i++) {
+      if (this.formVehArray.value[i].vehTypeId =='' ) {
+        this.toastrService.warning("please select  vehTypeId");
+        return;
+      } 
       if(this.formVehArray.value[i].vehTypeId!=''){
         if(this.formVehArray.value[i].vehTypeId!=''){
       this.transportMasterModel.transportVehTypesList.push({

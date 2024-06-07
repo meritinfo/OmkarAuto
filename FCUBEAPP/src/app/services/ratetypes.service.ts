@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Ratetypesmodel } from '../models/ratetypesmodel';
 import { Responsemodel } from '../models/responsemodel';
+import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
@@ -28,6 +29,9 @@ export class RateTypesService {
   }
   getratetypesDetails() {
     return this.selectedRatetypes;
+  }
+  rateTypeDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/RateTypeDelete', req, this.httpOptions);
   }
   clearRatetypesDetails() {
     this.selectedRatetypes = new Ratetypesmodel();

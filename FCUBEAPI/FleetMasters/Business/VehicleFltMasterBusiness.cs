@@ -32,6 +32,10 @@ namespace FleetMasters.Business
         {
             return await vehicleFltMasterRepository.GetVehicalTypeList();
         }
+        public async Task<List<DropDownListModel>> GetVehicalTypeGroupList()
+        {
+            return await vehicleFltMasterRepository.GetVehicalTypeGroupList();
+        }
         public async Task<List<DropDownListModel>> GetVehicalLedgerAccountList()
         {
             return await vehicleFltMasterRepository.GetVehicalLedgerAccountList();
