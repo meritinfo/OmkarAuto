@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { SharedService } from 'src/app/services/shared.service';
+import { ConsignmentService } from 'src/app/services/consignment.service';
 
 
 @Component({
@@ -47,7 +48,7 @@ export class DprvehiplacedaddComponent {
   selectedDprDetails = new Dprvehiplacedmodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private dprvehiplacedmodel: Dprvehiplacedmodel,
+    private dprvehiplacedmodel: Dprvehiplacedmodel,private lrentryService: ConsignmentService,
     private dprService: DprService, private dprmodel:Dprmodel,
     private toasterService: ToastrService,private requestmodel:Requestmodel,
     private dprvehiplacedService: DprvehiplacedService, private sharedService: SharedService,
@@ -230,6 +231,34 @@ export class DprvehiplacedaddComponent {
     return this.formUser.get("arrayList") as FormArray;
   }
 
+  chkLrDuplicate(i: number,e: any){
+    var selectedData = this.formUser.getRawValue();
+    var gcnote = e.target.value;
+    if (selectedData.gcNoteNo==""){
+      this.toasterService.warning("GC Note No should not be Blank");
+      return;
+    }  
+    else{
+      for (var j=0; j<selectedData.arrayList.length;i++){
+        if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==gcnote.toString().toUpperCase()){
+          this.toasterService.warning("GC Note No Already Entered in Grid");
+          return;
+        }
+      }
+      this.requestmodel.strRequest = this.branch;
+      this.requestmodel.strRequest1 = gcnote;
+      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toasterService.warning(this.responseDetails.message);
+        }
+      });
+    }   
+  }
+
   onVehicalChange(e:any){
     var truckno = e.target.value;
     if(truckno!=""){
@@ -269,6 +298,7 @@ export class DprvehiplacedaddComponent {
     var lorryHire = 0;
     var advanceAmt = 0;
     var balanceAmt = 0;
+    var ratePerTon = 0;
     
     if(e.target.value!=""){
       lorryHire = parseFloat(e.target.value);
@@ -276,11 +306,15 @@ export class DprvehiplacedaddComponent {
     if (typeof selectedDataVal.advanceAmt !== 'undefined' && selectedDataVal.advanceAmt !== null && selectedDataVal.advanceAmt !== '') {
       advanceAmt = parseFloat(selectedDataVal.advanceAmt);
     }
+    if (typeof selectedDataVal.challanChrgWt !== 'undefined' && selectedDataVal.challanChrgWt !== null && selectedDataVal.challanChrgWt !== '') {
+      ratePerTon = Math.round(lorryHire / parseFloat(selectedDataVal.challanChrgWt)) ;
+    }
 
     balanceAmt = lorryHire - advanceAmt
 
     this.formUser.patchValue({
       balanceAmt: balanceAmt,
+      ratePerTon: ratePerTon,
     });   
   }
 
