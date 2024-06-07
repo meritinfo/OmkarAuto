@@ -317,6 +317,19 @@ export class DrpmasteraddComponent {
       }     
       return;
     }
+
+    if(selectedDataVal.payParty?selectedDataVal.payParty.dataId:""==""){
+      this.toasterService.warning("Please Select Party"); 
+      return;
+    }
+    if(selectedDataVal.origin?selectedDataVal.origin.dataId:""==""){
+      this.toasterService.warning("Please Select Origin"); 
+      return;
+    }
+    if(selectedDataVal.destination?selectedDataVal.destination.dataId:""==""){
+      this.toasterService.warning("Please Select Destination"); 
+      return;
+    }
     var selectedDataVal =this.formUser.getRawValue();
     this.dprmodel.dprId = this.selectedDprDetails.dprId ;
     this.dprmodel.dprBranch = selectedDataVal.dprBranch;
