@@ -22,6 +22,7 @@ namespace Consignment.Business
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
         Task<List<DropDownListModel>> GetClassList();
+       // Task<List<DropDownListModel>> GetVehicleTypeGroupList();
     }
 
 }

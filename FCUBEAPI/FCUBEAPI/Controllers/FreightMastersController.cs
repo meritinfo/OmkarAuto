@@ -452,6 +452,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicateClass")]
+        public async Task<IActionResult> CheckDuplicateClass(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await classificationMasterBusiness.CheckDuplicateClass(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateProduct")]
+        public async Task<IActionResult> CheckDuplicateProduct(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await productMasterBusiness.CheckDuplicateProduct(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("BillsMasterSave")]
         public async Task<IActionResult> BillsMasterSave(BillsMasterModel billsMasterModel)
         {

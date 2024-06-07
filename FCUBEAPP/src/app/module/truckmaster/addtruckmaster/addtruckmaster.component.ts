@@ -28,6 +28,11 @@ export class AddtruckmasterComponent {
   userSubmitted = false;
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
+ 
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
 
   @ViewChild('attachmentInput', {
@@ -44,16 +49,31 @@ constructor(private route: Router, private formBuilder: FormBuilder, private veh
 
 }
 ngOnInit(): void {
-var userData = sessionStorage.getItem('uid')?.toString();
-if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-  this.loggedInUserID = userData;
-}
-if (this.loggedInUserID) {
-  console.log(this.loggedInUserID);
-}
-else {
-  this.route.navigate(['/']);
-}
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName === "Market Truck Master");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+  
+  var userData = sessionStorage.getItem('uid')?.toString();
+  
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.loggedInUserID = userData;
+  }
+  if (this.loggedInUserID) {
+    console.log(this.loggedInUserID);
+  }
+  else {
+    this.route.navigate(['/']);
+  }
 this.getStateList();
 this.selectedTruckMasterDetail = this.vehicleTypeGroupMasterService.getTruckMasterDetails();
 this.formUser = this.formBuilder.group({

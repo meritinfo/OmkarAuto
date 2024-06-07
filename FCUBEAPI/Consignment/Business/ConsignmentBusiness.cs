@@ -44,6 +44,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckVehicleNo(request);
         }
+       
         public async Task<ResponseModel> GetKms(KmsModel request)
         {
             return await consignmentRepository.GetKms(request);
@@ -68,6 +69,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetVehicleNoList();
         }
-      
+        //public async Task<List<DropDownListModel>> GetVehicleTypeGroupList()
+        //{
+        //    return await consignmentRepository.GetVehicleTypeGroupList();
+        //}
+
     }
 }

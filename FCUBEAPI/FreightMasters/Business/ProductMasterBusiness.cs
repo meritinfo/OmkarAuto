@@ -33,5 +33,9 @@ namespace FreightMasters.Business
         {
             return await productMasterRepository.ProductMasterDelete(request);
         }
+        public async Task<ResponseModel> CheckDuplicateProduct(RequestModel request)
+        {
+            return await productMasterRepository.CheckDuplicateProduct(request);
+        }
     }
 }

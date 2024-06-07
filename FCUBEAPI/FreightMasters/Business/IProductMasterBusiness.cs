@@ -12,5 +12,6 @@ namespace FreightMasters.Business
         Task<List<DropDownListModel>> GetProductGroupList();
         Task<ProductMasterList> GetProductMasterList(PageRequest request);
         Task<ResponseModel> ProductMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateProduct(RequestModel requestModel);
     }
 }

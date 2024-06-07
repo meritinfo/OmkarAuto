@@ -23,7 +23,7 @@
                                                 <label for="formrow-inputZip">Class Desc</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control" placeholder=" "
-                                                formControlName="classDesc" 
+                                                formControlName="classDesc"    (change)="chkClassDuplicate()"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['classDesc'].invalid) }">
                                             </div>
                                         </div>

@@ -36,6 +36,9 @@ export class ProductMasterService {
   productMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ProductMasterDelete', req, this.httpOptions);
   }
+  checkDuplicateProduct(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateProduct', req, this.httpOptions);
+  }
   productmasterDetailsSubmitted(user: Productmastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/ProductMasterSave', user, this.httpOptions);
   }

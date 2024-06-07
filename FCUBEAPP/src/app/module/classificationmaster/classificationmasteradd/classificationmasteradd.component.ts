@@ -107,7 +107,29 @@ export class ClassificationmasteraddComponent {
   //     this.sharedService.loading = false;
   //   }
   // }
-
+  
+  chkClassDuplicate(){
+    var selectedData = this.formClassificationMaster.getRawValue();
+    
+  
+      this.requestmodel.strRequest = selectedData.classDesc;
+    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.classificationmasterService.checkDuplicateClass(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+        else{
+          this.toasterService.warning(this.responseDetails.message);
+          this.formClassificationMaster.patchValue({
+            classDesc: ''
+    
+          });
+          
+        }
+      });
+      
+  }
   exit(): void {
     this.route.navigate(['/classmasterlist']);
   }
