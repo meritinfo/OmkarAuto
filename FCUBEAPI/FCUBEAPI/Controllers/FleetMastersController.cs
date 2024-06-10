@@ -14,6 +14,7 @@ using Consignment.Models;
 using Consignment.Business;
 using FleetTrans.Business;
 using FleetTrans.Models;
+using FreightMasters.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -258,6 +259,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleTypeMasterBusiness.VehicleTypeMasterSave(vehicleTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateVehicleDesc")]
+        public async Task<IActionResult> CheckDuplicateVehicleDesc(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleTypeMasterBusiness.CheckDuplicateVehicleDesc(req);
 
                 return Ok(result);
             }
@@ -577,6 +596,20 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleFltMasterBusiness.GetVehicalTypeList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicalTypeGroupList")]
+        public async Task<IActionResult> GetVehicalTypeGroupList()
+        {
+            try
+            {
+                var result = await vehicleFltMasterBusiness.GetVehicalTypeGroupList();
 
                 return Ok(result);
             }

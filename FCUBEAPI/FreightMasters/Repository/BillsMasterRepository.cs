@@ -87,7 +87,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SubmitYN",         billsModel.SubmitYN),
                             new SqlParameter("@SubmitDate",         billsModel.SubmitDate),
                             new SqlParameter("@YearId",         billsModel.YearId),
-                            new SqlParameter("@FinFtmid",         billsModel.FinFtmid),
+                            new SqlParameter("@FinFtmid",      billsModel.FinFtmid),  // ""),
                             new SqlParameter("@CheckedBy",         billsModel.CheckedBy),
                             new SqlParameter("@ApprovedBy",         billsModel.ApprovedBy),
                             new SqlParameter("@DisputeType",         billsModel.DisputeType),
@@ -402,12 +402,10 @@ namespace FreightMasters.Repository
             return billsMasterList;
         }
 
-        public async Task<BillsMasterModel> GetBillsInnerGridList(RequestModel request)
+        public async Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request)
         {
-            BillsMasterModel billsModel = new()
-            {
-                BillsMasterListData = new List<BillsDetailModel>(),
-            };
+            BillsMasterSearchListModel billsMasterSearchList = new();
+            List<BillsMasterSearchModel> billsMasterSearchModel = new();
 
             try
             {
@@ -419,52 +417,44 @@ namespace FreightMasters.Repository
                         };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsInnerGrid", param);
-
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
+                        int totalRecords = 0;
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            billsModel.BillsMasterListData.Add(new BillsDetailModel
+                            billsMasterSearchModel.Add(new BillsMasterSearchModel
                             {
-                                BillsMasterId = Convert.ToString(dataSet.Tables[0].Rows[i]["BillsMasterId"]),
-                                BillingStation = Convert.ToString(dataSet.Tables[0].Rows[i]["BillingStation"]),
-                                BillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["BillNo"]),
-                                BillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BillDate"]),
-                                BillType = Convert.ToString(dataSet.Tables[0].Rows[i]["BillType"]),
-                                PartyCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyCode"]),
-                                GcBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBranch"]),
-                                GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
-                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
-                                Consignmentid = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignmentid"]),
-                                Freight = Convert.ToString(dataSet.Tables[0].Rows[i]["Freight"]),
-                                Statistical = Convert.ToString(dataSet.Tables[0].Rows[i]["Statistical"]),
-                                Fov = Convert.ToString(dataSet.Tables[0].Rows[i]["Fov"]),
-                                DoorColl = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorColl"]),
-                                Handling = Convert.ToString(dataSet.Tables[0].Rows[i]["Handling"]),
-                                LoadingDetn = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetn"]),
-                                Enroute = Convert.ToString(dataSet.Tables[0].Rows[i]["Enroute"]),
-                                Misc = Convert.ToString(dataSet.Tables[0].Rows[i]["Misc"]),
-                                DoorDel = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDel"]),
-                                UnLoading = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoading"]),
-                                Detention = Convert.ToString(dataSet.Tables[0].Rows[i]["Detention"]),
-                                Extras = Convert.ToString(dataSet.Tables[0].Rows[i]["Extras"]),
-                                Others = Convert.ToString(dataSet.Tables[0].Rows[i]["Others"]),
-                                SubTotal = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotal"]),
-                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
+                                ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentID"]),
+                                BookingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),
+                                BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),
+                                RateRs = Convert.ToString(dataSet.Tables[0].Rows[i]["RateRs"]),
+                                FreightRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["StatisticalRs"]),
+                                FovRs = Convert.ToString(dataSet.Tables[0].Rows[i]["FovRs"]),
+                                DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorCollRs"]),
+                                HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingRs"]),
+                                LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["LoadingDetnRs"]),
+                                EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[i]["EnrouteRs"]),
+                                MiscRs = Convert.ToString(dataSet.Tables[0].Rows[i]["MiscRs"]),
+                                DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[i]["DoorDelRs"]),
+                                UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingRs"]),
+                                UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[i]["UnLoadingDetnRs"]),
+                                ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtrasRS"]),
+                                OthersRs = Convert.ToString(dataSet.Tables[0].Rows[i]["OthersRs"]),
+                                SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["SubTotalRs"]),
+                                GstType = Convert.ToString(dataSet.Tables[0].Rows[i]["GstType"]),
                                 CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["CgstAmt"]),
                                 IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IgstAmt"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["SgstAmt"]),
                                 NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
-                                Gtotal = Convert.ToString(dataSet.Tables[0].Rows[i]["Gtotal"]),
-                                DedAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DedAmt"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                SuppBillDetRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["SuppBillDetRemarks"]),
-                                Remarks1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks1"]),
-                                Remarks2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks2"]),
-                                Remarks3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks3"]),
-                               
+                                GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
+
+                                Selected = false
                             });
                         }
+
+                        billsMasterSearchList.BillsMasterSearchList = billsMasterSearchModel;
                     }
                 }
             }
@@ -472,7 +462,7 @@ namespace FreightMasters.Repository
             {
 
             }
-            return billsModel;
+            return billsMasterSearchList;
         }
         public async Task<ResponseModel> BillsMasterDelete(RequestModel requestModel)
         {

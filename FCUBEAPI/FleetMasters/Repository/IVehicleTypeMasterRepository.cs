@@ -9,6 +9,7 @@ namespace FleetMasters.Repository
         Task<ResponseModel> VehicleTypeMasterSave (VehicleTypeMasterModel vehicleTypeMasterModel);
         Task<VehicleTypeMasterList> GetVehicleTypeMasterList(PageRequest request);
         Task<ResponseModel> VehicleTypeMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateVehicleDesc(RequestModel requestModel);
     }
 }
 

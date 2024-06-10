@@ -8,5 +8,7 @@ namespace FreightMasters.Business
     {
         Task<ResponseModel> RatetypesDetailsSave(RatetypesModel ratetypesModel);
         Task<RateTypesList> GetRateTypesList(PageRequest request);
+        Task<ResponseModel> RateTypeDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateRateDesc(RequestModel requestModel);
     }
 }

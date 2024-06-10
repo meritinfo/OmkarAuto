@@ -74,8 +74,8 @@ ngOnInit(): void {
     else {
       this.route.navigate(['/']);
     }
-
-  this.getVehicleTypeList();
+  //  this.getVehicleTypeList();
+  this.getVehicleTypeGroupList();
   
   this.selectedVehicleTypeMasterDetails = this.vehicleTypesService.getvehicletypemasterDetails();
   this.formUser = this.formBuilder.group({
@@ -101,10 +101,36 @@ get f() { return this.formUser.controls; }
 exit(): void {
   this.route.navigate(['/vehtypeslist']);
 }
-getVehicleTypeList(): void {
-  this.commonService.getVehicleTypeList().subscribe((res) => {
+// getVehicleTypeList(): void {
+//   this.commonService.getVehicleTypeList().subscribe((res) => {
+//     this.vehicleTypeList = res;
+//   });
+// }
+getVehicleTypeGroupList(): void {
+  this.commonService.getVehicleTypeGroupList().subscribe((res) => {
     this.vehicleTypeList = res;
   });
+}
+chkVehTypeDuplicate(){
+  var selectedData = this.formUser.getRawValue();
+  
+    this.requestmodel.strRequest = selectedData.vehicleTypeDesc;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.vehicleTypesService.checkDuplicateVehTypeDesc(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          vehicleTypeDesc: ''
+  
+        });
+        
+      }
+    });
+    
 }
 vehicleTypeMasterDelete(): void {
   if(this.selectedVehicleTypeMasterDetails.vehicleTypeID != '' ){

@@ -37,6 +37,9 @@ export class VehicleTypeMasterService {
   vehicletypemasterDetailsSubmitted(user: Vehicletypemastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicleTypeMasterSave', user, this.httpOptions);
   }
+  checkDuplicateVehTypeDesc(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateVehicleDesc', req, this.httpOptions);
+  }
   vehicleTypeMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicleTypeMasterDelete', req, this.httpOptions);
   }

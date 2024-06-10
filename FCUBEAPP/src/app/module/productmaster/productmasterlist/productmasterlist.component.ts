@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Productmasterlistmodel  } from 'src/app/models/productmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Productmastermodel } from 'src/app/models/productmastermodel';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-productmasterlist',
@@ -50,6 +51,9 @@ export class ProductmasterlistComponent {
         }
       }
     this.productmasterService.clearProductMasterDetails();
+    this.productlist();
+  }
+    productlist(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,

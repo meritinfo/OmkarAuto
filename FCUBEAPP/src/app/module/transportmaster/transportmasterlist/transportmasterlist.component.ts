@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild } from '@angular/core';
 
 
 
@@ -8,6 +8,8 @@ import { Transportmasterlistmodel  } from 'src/app/models/transportmasterlistmod
 import { Usermodel } from 'src/app/models/usermodel';
 import { Transportmastermodel } from 'src/app/models/transportmastermodel';
 import { TransportMasterService } from 'src/app/services/transportmaster.service';
+import { DataTableDirective } from 'angular-datatables';
+
 
 @Component({
   selector: 'app-transportmasterlist',
@@ -16,6 +18,8 @@ import { TransportMasterService } from 'src/app/services/transportmaster.service
 })
 export class TransportmasterlistComponent {
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   allTransportMaster: Transportmasterlistmodel = new Transportmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,

@@ -22,6 +22,7 @@ export class Branchmodel {
     entryLockDays: string = "";
     znNumCode : string = "";
     brNumCode : string = "";
+    docNumCode : string = "";
 
     loggedInUserID :string = "";
 }

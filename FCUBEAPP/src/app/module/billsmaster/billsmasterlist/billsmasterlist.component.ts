@@ -138,8 +138,13 @@ export class BillsmasterlistComponent {
           title: 'Bill No',
           data: 'billNo',
         },
+       
         {
-          title: 'Bill Status',
+          title: 'BillDate',
+          data: 'billDate'
+        },
+        {
+          title: 'BillStatus',
           data: 'billStatus'
         },
         {
