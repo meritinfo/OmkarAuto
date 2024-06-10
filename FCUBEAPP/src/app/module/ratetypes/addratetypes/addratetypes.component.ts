@@ -38,6 +38,7 @@ export class AddratetypesComponent {
 exit(): void {
   this.route.navigate(['/ratetypeslist']);
 }
+
 deleteRateTypeForm(): void {
   if(this.selectedRateTypesDetails.rateTypeId != '' ){
    this.requestmodel.strRequest =this.selectedRateTypesDetails.rateTypeId

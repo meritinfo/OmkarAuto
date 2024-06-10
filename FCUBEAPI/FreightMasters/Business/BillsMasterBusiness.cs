@@ -24,7 +24,7 @@ namespace FreightMasters.Business
         {
             return await billsRepository.GetBillsMasterList(request);
         }
-        public async Task<BillsMasterModel> GetBillsInnerGridList(RequestModel request)
+        public async Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request)
         {
             return await billsRepository.GetBillsInnerGridList(request);
         }

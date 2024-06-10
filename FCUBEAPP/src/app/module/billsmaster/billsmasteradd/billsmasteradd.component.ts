@@ -215,7 +215,9 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
        //   billNo:  this.selectedBillstatementDetails.bill_StmtNo, 
         //  billSeries :this.selectedBillstatementDetails.seriesCode, 
           billDate:this.commonService.formatDate(this.selectedBillsmasterDetails.billDate), 
-        //  party :this.partyList.find(e => e.dataId == this.selectedBillstatementDetails.partyCode),       
+          partyCode :this.partyList.find(e => e.dataId == this.selectedBillsmasterDetails.partyCode),
+          partyGstLocation: this.locationList.find(e => e.dataId == this.selectedBillsmasterDetails.partyGstLocation) ,     
+          collBranch: this.locationList.find(e => e.dataId == this.selectedBillsmasterDetails.collBranch)     
        
         })
       
@@ -419,7 +421,21 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
         this.formArray.controls[i].get("loadingDetnRs")?.setValue(res.billsMasterSearchList[i].loadingDetnRs);
         this.formArray.controls[i].get("enrouteRs")?.setValue(res.billsMasterSearchList[i].enrouteRs);
         this.formArray.controls[i].get("miscRs")?.setValue(res.billsMasterSearchList[i].miscRs);
+        this.formArray.controls[i].get("doorDelRs")?.setValue(res.billsMasterSearchList[i].doorDelRs); 
+        this.formArray.controls[i].get("unLoadingRs")?.setValue(res.billsMasterSearchList[i].unLoadingRs); 
+        this.formArray.controls[i].get("unLoadingDetnRs")?.setValue(res.billsMasterSearchList[i].unLoadingDetnRs); 
+        this.formArray.controls[i].get("extrasRS")?.setValue(res.billsMasterSearchList[i].extrasRS); 
+        this.formArray.controls[i].get("othersRs")?.setValue(res.billsMasterSearchList[i].othersRs); 
+        this.formArray.controls[i].get("subTotalRs")?.setValue(res.billsMasterSearchList[i].subTotalRs); 
+        this.formArray.controls[i].get("gstType")?.setValue(res.billsMasterSearchList[i].gstType); 
+        this.formArray.controls[i].get("cgstAmt")?.setValue(res.billsMasterSearchList[i].cgstAmt); 
+        this.formArray.controls[i].get("sgstAmt")?.setValue(res.billsMasterSearchList[i].sgstAmt); 
+        this.formArray.controls[i].get("igstAmt")?.setValue(res.billsMasterSearchList[i].igstAmt); 
+        this.formArray.controls[i].get("nonGstAmt1")?.setValue(res.billsMasterSearchList[i].nonGstAmt1); 
+        this.formArray.controls[i].get("nonGstAmt2")?.setValue(res.billsMasterSearchList[i].nonGstAmt2); 
+        this.formArray.controls[i].get("gtotalRs")?.setValue(res.billsMasterSearchList[i].gtotalRs); 
         this.formArray.controls[i].get("selected")?.setValue(res.billsMasterSearchList[i].selected); 
+
       }
     });
   }
@@ -476,7 +492,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 
     var selectedDataValue = this.formBillsMaster.getRawValue();
 
-   
+    this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId != '' ? this.selectedBillsmasterDetails.billsMasterId : '';
   //  this.billsmastermodel.masterID = this.selectedBillsmasterDetails.masterID ;
     this.billsmastermodel.billingStation = selectedDataValue.billingStation;
    // this.billsmastermodel.billNo = selectedDataValue.billNo;
@@ -555,40 +571,40 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
         'billDetailId': '',
         'billsMasterId': '',
         'billingStation': selectedDataValue.billingStation,//selectedDataValue.arrayList[i].billingStation?selectedDataValue.arrayList[i].billingStation.dataId:'',
-        'billNo': selectedDataValue.arrayList[i].billNo,
-        'billDate':  selectedDataValue.arrayList[i].billDate,
-        'billType': selectedDataValue.arrayList[i].billType,
-        'partyCode': selectedDataValue.arrayList[i].partyCode?selectedDataValue.arrayList[i].partyCode.dataId:'',
-        'gcBranch': selectedDataValue.arrayList[i].gcBranch,
-        'gcYear': selectedDataValue.arrayList[i].gcBranch,
-        'gcNoteNo': selectedDataValue.arrayList[i].gcNoteNo,
-        'consignmentid': selectedDataValue.arrayList[i].consignmentid?selectedDataValue.arrayList[i].consignmentid.dataId:'',
-        'freight': selectedDataValue.arrayList[i].freight,
-        'statistical': selectedDataValue.arrayList[i].statistical,
-        'fov': selectedDataValue.arrayList[i].fov,
-        'doorColl': selectedDataValue.arrayList[i].doorColl,
-        'handling': selectedDataValue.arrayList[i].handling,
-        'loadingDetn': selectedDataValue.arrayList[i].loadingDetn,
-        'enroute': selectedDataValue.arrayList[i].enroute,
-        'misc': selectedDataValue.arrayList[i].misc,
-        'doorDel': selectedDataValue.arrayList[i].doorDel,
-        'unLoading': selectedDataValue.arrayList[i].unLoading,
-        'detention': selectedDataValue.arrayList[i].detention,
-        'extras': selectedDataValue.arrayList[i].extras,
-        'others': selectedDataValue.arrayList[i].others,
-        'subTotal': selectedDataValue.arrayList[i].subTotal,
-        'sgstAmt': selectedDataValue.arrayList[i].sgstAmt,
-        'cgstAmt': selectedDataValue.arrayList[i].cgstAmt,
-        'igstAmt': selectedDataValue.arrayList[i].igstAmt,
-        'nonGstAmt1': selectedDataValue.arrayList[i].nonGstAmt1,
-        'nonGstAmt2': selectedDataValue.arrayList[i].nonGstAmt2,
-        'gtotal': selectedDataValue.arrayList[i].gtotal,
-        'dedAmt': selectedDataValue.arrayList[i].dedAmt,
-        'yearId': selectedDataValue.arrayList[i].yearId,
-        'suppBillDetRemarks': selectedDataValue.arrayList[i].suppBillDetRemarks,
-        'remarks1': selectedDataValue.arrayList[i].remarks1,
-        'remarks2': selectedDataValue.arrayList[i].remarks2,
-        'remarks3': selectedDataValue.arrayList[i].remarks3
+        'billNo': "",//selectedDataValue.billNo, 
+        'billDate':  selectedDataValue.billDate,
+        'billType': selectedDataValue.billType,
+        'partyCode': selectedDataValue.partyCode.dataId,//selectedDataValue.arrayList[i].partyCode?selectedDataValue.arrayList[i].partyCode.dataId:'',
+        'gcBranch': "",
+        'gcYear': "",//selectedDataValue.arrayList[i].gcYear,
+        'gcNoteNo':"",//this.billsmastersearchlistmodel.billsMasterSearchList[i].gc, 
+        'consignmentid': this.billsmastersearchlistmodel.billsMasterSearchList[i].consignmentID,//selectedDataValue.arrayList[i].consignmentid?selectedDataValue.arrayList[i].consignmentid.dataId:'',
+        'freight': this.billsmastersearchlistmodel.billsMasterSearchList[i].freightRs,//selectedDataValue.arrayList[i].freight,
+        'statistical': this.billsmastersearchlistmodel.billsMasterSearchList[i].statisticalRs,//selectedDataValue.arrayList[i].statistical,
+        'fov': this.billsmastersearchlistmodel.billsMasterSearchList[i].fovRs,
+        'doorColl': this.billsmastersearchlistmodel.billsMasterSearchList[i].doorCollRs,
+        'handling': this.billsmastersearchlistmodel.billsMasterSearchList[i].handlingRs,
+        'loadingDetn': this.billsmastersearchlistmodel.billsMasterSearchList[i].loadingDetnRs,
+        'enroute': this.billsmastersearchlistmodel.billsMasterSearchList[i].enrouteRs,
+        'misc': this.billsmastersearchlistmodel.billsMasterSearchList[i].miscRs,
+        'doorDel': this.billsmastersearchlistmodel.billsMasterSearchList[i].doorDelRs,
+        'unLoading':  this.billsmastersearchlistmodel.billsMasterSearchList[i].unLoadingRs,
+        'detention': "",//this.billsmastersearchlistmodel.billsMasterSearchList[i].detention,
+        'extras': this.billsmastersearchlistmodel.billsMasterSearchList[i].extrasRS,
+        'others': this.billsmastersearchlistmodel.billsMasterSearchList[i].othersRs,
+        'subTotal': this.billsmastersearchlistmodel.billsMasterSearchList[i].subTotalRs,
+        'sgstAmt':  this.billsmastersearchlistmodel.billsMasterSearchList[i].sgstAmt,
+        'cgstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].cgstAmt,
+        'igstAmt': this.billsmastersearchlistmodel.billsMasterSearchList[i].igstAmt,
+        'nonGstAmt1': this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt1,
+        'nonGstAmt2':  this.billsmastersearchlistmodel.billsMasterSearchList[i].nonGstAmt2,
+        'gtotal':  this.billsmastersearchlistmodel.billsMasterSearchList[i].gtotalRs,
+        'dedAmt':"" ,//this.billsmastersearchlistmodel.billsMasterSearchList[i].,
+        'yearId':  this.year,
+        'suppBillDetRemarks': "",//selectedDataValue.arrayList[i].suppBillDetRemarks,
+        'remarks1': "",//selectedDataValue.arrayList[i].remarks1,
+        'remarks2': "",//selectedDataValue.arrayList[i].remarks2,
+        'remarks3': "",//selectedDataValue.arrayList[i].remarks3
         
       });
     }

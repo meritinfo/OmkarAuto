@@ -1,6 +1,6 @@
 export class Billsmastersearchmodel {
    
-    consignmentID:  string = "";  
+  consignmentID:  string = "";  
     bookingDate:  string = "";  
     bookingPlace:  string = "";  
    rateRs:  string = "";  

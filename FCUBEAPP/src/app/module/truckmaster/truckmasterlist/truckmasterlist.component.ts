@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild } from '@angular/core';
 
 
 
@@ -8,6 +8,7 @@ import { Truckmasterlistmodel  } from 'src/app/models/truckmasterlistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
 import { Truckmastermodel } from 'src/app/models/truckmastermodel';
 import { TruckMasterService } from 'src/app/services/truckmaster.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-truckmasterlist',
@@ -16,6 +17,8 @@ import { TruckMasterService } from 'src/app/services/truckmaster.service';
 })
 export class TruckmasterlistComponent {
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   allTruckMaster: Truckmasterlistmodel = new Truckmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
@@ -50,6 +53,9 @@ ngOnInit(): void {
     }
     
   this.truckmasterService.clearTruckMasterDetails();
+  this.truckmstlist();
+}
+truckmstlist(){
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
