@@ -250,6 +250,8 @@ import { ChallanmasterlistComponent } from './module/challanmaster/challanmaster
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
 import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
 import { Challanmastermodel } from './models/challanmastermodel';
+import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
+import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 
 @NgModule({
   declarations: [
@@ -401,6 +403,8 @@ import { Challanmastermodel } from './models/challanmastermodel';
     ChallanmasterlistComponent,
     ChallanmasteraddComponent,
     EmppaysheetrptComponent,
+    DeliveryackpodlistComponent,
+    DeliveryackpodaddComponent,
   ],
   imports: [
     BrowserModule,

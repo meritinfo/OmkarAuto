@@ -170,7 +170,7 @@ namespace FreightMasters.Repository
                                 EntryLockDays   = Convert.ToString(dataSet.Tables[0].Rows[i]["EntryLockDays"]),
                                 ZnNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["ZnNumCode"]),
                                 BrNumCode       = Convert.ToString(dataSet.Tables[0].Rows[i]["BrNumCode"]),
-                                DocNumCode = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNumCode"]),
+                                DocNumCode      = Convert.ToString(dataSet.Tables[0].Rows[i]["DocNumCode"]),
                             });
                         }
 
@@ -186,16 +186,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return branchMasterList;
         }
@@ -266,16 +257,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return responseModel;
         }
@@ -306,16 +288,7 @@ namespace FreightMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+               
             }
             return responseModel;
         }
