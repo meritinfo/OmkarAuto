@@ -1,0 +1,236 @@
+﻿
+using Consignment.Models;
+using Microsoft.Extensions.Options;
+using Shared.Models;
+using SqlHelper.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Consignment.Repository
+{
+    public class DeliveryAckPodRepository : IDeliveryAckPodRepository
+    {
+        private readonly IOptions<DBModel> dbconnection;
+        public DeliveryAckPodRepository(IOptions<DBModel> _dbconnection)
+        {
+            dbconnection = _dbconnection;
+        }
+        public async Task<ResponseModel> DeliveryAckPodSave(DeliveryAckPodModel deleveryAckPodModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AckId", deleveryAckPodModel.AckId),
+                            new SqlParameter("@AckBranch", deleveryAckPodModel.AckBranch),
+                            new SqlParameter("@AckDate", deleveryAckPodModel.AckDate),
+                            new SqlParameter("@AckSlNo", deleveryAckPodModel.AckSlNo),
+                            new SqlParameter("@GcYear", deleveryAckPodModel.GcYear),
+                            new SqlParameter("@GcBook", deleveryAckPodModel.GcBook),
+                            new SqlParameter("@GcNoteNo", deleveryAckPodModel.GcNoteNo),
+                            new SqlParameter("@ConsignmentId", deleveryAckPodModel.ConsignmentId),
+                            new SqlParameter("@CnPkgs", deleveryAckPodModel.CnPkgs),
+                            new SqlParameter("@CnActWt", deleveryAckPodModel.CnActWt),
+                            new SqlParameter("@DelPkgs", deleveryAckPodModel.DelPkgs),
+                            new SqlParameter("@DelActWt", deleveryAckPodModel.DelActWt),
+                            new SqlParameter("@ShExPkgs", deleveryAckPodModel.ShExPkgs),
+                            new SqlParameter("@ShExpActWt", deleveryAckPodModel.ShExpActWt),
+                            new SqlParameter("@ExpectedRptdate", deleveryAckPodModel.ExpectedRptdate),
+                            new SqlParameter("@ReportingDate", deleveryAckPodModel.ReportingDate),
+                            new SqlParameter("@DelayDays", deleveryAckPodModel.LoggedInUser),
+                            new SqlParameter("@DeliveryDate", deleveryAckPodModel.DeliveryDate),
+                            new SqlParameter("@DetnDays", deleveryAckPodModel.DetnDays),
+                            new SqlParameter("@PodRecdYN", deleveryAckPodModel.PodRecdYN),
+                            new SqlParameter("@PodRecdDate", deleveryAckPodModel.PodRecdDate),
+                            new SqlParameter("@PodDelayDays", deleveryAckPodModel.PodDelayDays),
+                            new SqlParameter("@PodAttach1", deleveryAckPodModel.PodAttach1),
+                            new SqlParameter("@PodAttach2", deleveryAckPodModel.PodAttach2),
+                            new SqlParameter("@BalancePayable", deleveryAckPodModel.BalancePayable),
+                            new SqlParameter("@HandlingPayable", deleveryAckPodModel.HandlingPayable),
+                            new SqlParameter("@DetiontionPayable", deleveryAckPodModel.DetiontionPayable),
+                            new SqlParameter("@Others1Payable", deleveryAckPodModel.Others1Payable),
+                            new SqlParameter("@Others2Payable", deleveryAckPodModel.Others2Payable),
+                            new SqlParameter("@TotExtPayable", deleveryAckPodModel.TotExtPayable),
+                            new SqlParameter("@ShortageDesc", deleveryAckPodModel.ShortageDesc),
+                            new SqlParameter("@DamageDesc", deleveryAckPodModel.DamageDesc),
+                            new SqlParameter("@ShortageClaim", deleveryAckPodModel.ShortageClaim),
+                            new SqlParameter("@DamageClaim", deleveryAckPodModel.DamageClaim),
+                            new SqlParameter("@LateRptDed", deleveryAckPodModel.LateRptDed),
+                            new SqlParameter("@LatePodDed", deleveryAckPodModel.LatePodDed),
+                            new SqlParameter("@OthDed", deleveryAckPodModel.OthDed),
+                            new SqlParameter("@NetPayable", deleveryAckPodModel.NetPayable),
+                            new SqlParameter("@YearId", deleveryAckPodModel.YearId),
+                            new SqlParameter("@LoggedInUser", deleveryAckPodModel.LoggedInUser)
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "DeliveryAckPod_Insert", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<DeliveryAckListModel> GetDeliveryAckPodList(PageRequest request)
+        {
+            DeliveryAckListModel deleveryAckListModel = new();
+            List<DeliveryAckPodModel> ackList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize", request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder", request.SortOrder),
+                            new SqlParameter("@Search", request.Search)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryAckPodList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            ackList.Add(new DeliveryAckPodModel
+                            {
+                                AckId = Convert.ToString(dataSet.Tables[0].Rows[i]["AckId"]),
+                                AckBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AckBranch"]),
+                                AckDate = Convert.ToString(dataSet.Tables[0].Rows[i]["AckDate"]),
+                                AckSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["AckSlNo"]),
+                                GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
+                                GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
+                                GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
+                                ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["CnPkgs"]),
+                                CnActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["CnActWt"]),
+                                DelPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["DelPkgs"]),
+                                DelActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["DelActWt"]),
+                                ShExPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExPkgs"]),
+                                ShExpActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["ShExpActWt"]),
+                                ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpectedRptdate"]),
+                                ReportingDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ReportingDate"]),
+                                DelayDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DelayDays"]),
+                                DeliveryDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryDate"]),
+                                DetnDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetnDays"]),
+                                PodRecdYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdYN"]),
+                                PodRecdDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdDate"]),
+                                PodDelayDays = Convert.ToString(dataSet.Tables[0].Rows[i]["PodDelayDays"]),
+                                PodAttach1 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach1"]),
+                                PodAttach2 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach2"]),
+                                BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePayable"]),
+                                HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["HandlingPayable"]),
+                                DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["DetiontionPayable"]),
+                                Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others1Payable"]),
+                                Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[i]["Others2Payable"]),
+                                TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["TotExtPayable"]),
+                                ShortageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageDesc"]),
+                                DamageDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["DamageDesc"]),
+                                ShortageClaim = Convert.ToString(dataSet.Tables[0].Rows[i]["ShortageClaim"]),
+                                DamageClaim = Convert.ToString(dataSet.Tables[0].Rows[i]["DamageClaim"]),
+                                LateRptDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LateRptDed"]),
+                                LatePodDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LatePodDed"]),
+                                NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
+
+
+
+                            });
+                        }
+
+                        deleveryAckListModel.AckList = ackList;
+
+                        deleveryAckListModel.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return deleveryAckListModel;
+        }
+        public async Task<ResponseModel> DeliveryAckPodDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@AckId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DeliveryAckPodDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+
+    }
+
+}
+

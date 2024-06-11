@@ -120,7 +120,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
       else{
         this.fromDate = today.toLocaleDateString('en-CA').toString();
       }   
-    
+     
       this.getBranchList();
       this.getBillingPartyList();
       this.getLocationList();
@@ -129,7 +129,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
       statementBillStation: new FormControl(this.branch),
       billingStation: new FormControl(this.branch),
      // billNo: new FormControl('',[Validators.required]),
-     billNo: new FormControl('',),
+     billNo: new FormControl('0',),
       billStatus:   new FormControl(''),//FormControl(this.loginDate,[Validators.required]),
       billType: new FormControl(''),
       sacHsn: new FormControl('',),
@@ -193,7 +193,8 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
     setTimeout(() => {
       this.createmode = true;
       this.formBillsMaster.controls['billingStation'].disable();
-      
+      this.formBillsMaster.controls['billNo'].disable();
+      this.billSeriesChange();
   
       if (this.selectedBillsmasterDetails.billsMasterId != '') {
        // this.formBillStatement.controls['billSeries'].disable();
@@ -232,7 +233,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   }
   billSeriesChange(): void {
     var selectedData = this.formBillsMaster.getRawValue();
-    this.requestmodel.strRequest = selectedData.billSeries;
+    this.requestmodel.strRequest = selectedData.billNo;
     this.commonService.getBillSeries(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       this.formBillsMaster.patchValue({
@@ -495,8 +496,8 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
     this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId != '' ? this.selectedBillsmasterDetails.billsMasterId : '';
   //  this.billsmastermodel.masterID = this.selectedBillsmasterDetails.masterID ;
     this.billsmastermodel.billingStation = selectedDataValue.billingStation;
-   // this.billsmastermodel.billNo = selectedDataValue.billNo;
-   this.billsmastermodel.billNo = '1'
+    this.billsmastermodel.billNo = selectedDataValue.billNo;
+  // this.billsmastermodel.billNo = '1'
     this.billsmastermodel.billDate = selectedDataValue.billDate;
     this.billsmastermodel.partyCode = selectedDataValue.partyCode.dataId;
     this.billsmastermodel.billStatus = selectedDataValue.billStatus;
@@ -532,13 +533,13 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
     this.billsmastermodel.billDed= selectedDataValue.billDed.toString();
     this.billsmastermodel.billExcess= selectedDataValue.billExcess.toString();
     this.billsmastermodel.billTDS= selectedDataValue.billTDS.toString();
-    this.billsmastermodel.recoveredAmt= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.totalDoorDel= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.recoverable= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.totalExtras= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.totalFov= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.sdEmdAmt= selectedDataValue.billAmtCleared.toString();
-    this.billsmastermodel.finFtmid= selectedDataValue.billAmtCleared.toString();
+    this.billsmastermodel.recoveredAmt= selectedDataValue.recoveredAmt.toString();
+    this.billsmastermodel.totalDoorDel= selectedDataValue.totalDoorDel.toString();
+    this.billsmastermodel.recoverable= selectedDataValue.recoverable.toString();
+    this.billsmastermodel.totalExtras= selectedDataValue.totalExtras.toString();
+    this.billsmastermodel.totalFov= selectedDataValue.totalFov.toString();
+    this.billsmastermodel.sdEmdAmt= selectedDataValue.sdEmdAmt.toString();
+    this.billsmastermodel.finFtmid= selectedDataValue.finFtmid;
    
     
     /////date fields
@@ -571,7 +572,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
         'billDetailId': '',
         'billsMasterId': '',
         'billingStation': selectedDataValue.billingStation,//selectedDataValue.arrayList[i].billingStation?selectedDataValue.arrayList[i].billingStation.dataId:'',
-        'billNo': "",//selectedDataValue.billNo, 
+        'billNo': selectedDataValue.billNo, 
         'billDate':  selectedDataValue.billDate,
         'billType': selectedDataValue.billType,
         'partyCode': selectedDataValue.partyCode.dataId,//selectedDataValue.arrayList[i].partyCode?selectedDataValue.arrayList[i].partyCode.dataId:'',
