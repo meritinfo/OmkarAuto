@@ -133,6 +133,8 @@ import { AddtransportmasterComponent } from './module/transportmaster/addtranspo
 import { TransportmasterlistComponent } from './module/transportmaster/transportmasterlist/transportmasterlist.component';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
+import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
+import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 
 
 const routes: Routes = [
@@ -235,9 +237,6 @@ const routes: Routes = [
   { path: 'dieselstatementadd', component:  DieselstatementaddComponent },
   { path: 'dieselstatementedit', component:  DieselstatementaddComponent },
   { path: 'dieselstatementlist', component:  DieselstatementlistComponent },
- // { path: 'billstatementadd', component:  BillstatementaddComponent },
- // { path: 'billstatementlist', component:  BillstatementlistComponent },
- // { path: 'billstatementedit', component:  BillstatementaddComponent },
   { path: 'driversalarystatementadd', component:  DriversalarystatementaddComponent },
   { path: 'driversalarystatementedit', component:  DriversalarystatementaddComponent },
   { path: 'driversalarystatementlist', component:  DriversalarystatementlistComponent },
@@ -326,6 +325,9 @@ const routes: Routes = [
   { path: 'billstatementlist', component:  BillsmasterlistComponent },
   { path: 'billsmasteradd', component:  BillsmasteraddComponent },
   { path: 'billsmasteredit', component:  BillsmasteraddComponent },
+  { path: 'delacklist', component:  DeliveryackpodlistComponent },
+  { path: 'delackadd', component:  DeliveryackpodaddComponent },
+  { path: 'delackedit', component:  DeliveryackpodaddComponent },
   
 ];
 

@@ -127,6 +127,7 @@ namespace Consignment.Repository
                                 AckDate = Convert.ToString(dataSet.Tables[0].Rows[i]["AckDate"]),
                                 AckSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["AckSlNo"]),
                                 GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
+                                GcDate = Convert.ToString(dataSet.Tables[0].Rows[i]["GcDate"]),
                                 GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
@@ -159,8 +160,6 @@ namespace Consignment.Repository
                                 LateRptDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LateRptDed"]),
                                 LatePodDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LatePodDed"]),
                                 NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
-
-
 
                             });
                         }

@@ -14,6 +14,7 @@ namespace Consignment.Models
 		public string? AckSlNo { get; set; }
 		public string? GcYear { get; set; }
 		public string? GcBook { get; set; }
+        public string? GcDate { get; set; }
 		public string? GcNoteNo { get; set; }
 		public string? ConsignmentId { get; set; }
 		public string? CnPkgs { get; set; }
@@ -45,8 +46,7 @@ namespace Consignment.Models
 		public string? LateRptDed { get; set; }
 		public string? LatePodDed { get; set; }
 		public string? OthDed { get; set; }
-		public string? NetPayable { get; set; }
-      
+		public string? NetPayable { get; set; }      
         public string? YearId { get; set; }
         public string? LoggedInUser { get; set; }
     }
