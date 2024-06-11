@@ -57,9 +57,7 @@ namespace Consignment.Repository
                             new SqlParameter("@PodRecdDate", deleveryAckPodModel.PodRecdDate),
                             new SqlParameter("@PodDelayDays", deleveryAckPodModel.PodDelayDays),
                             new SqlParameter("@PodAttach1", deleveryAckPodModel.PodAttach1),
-                            new SqlParameter("@PodAttach1", deleveryAckPodModel.PodAttach1),
                             new SqlParameter("@PodAttach2", deleveryAckPodModel.PodAttach2),
-                            new SqlParameter("@PodAttach1", deleveryAckPodModel.PodAttach1),
                             new SqlParameter("@BalancePayable", deleveryAckPodModel.BalancePayable),
                             new SqlParameter("@HandlingPayable", deleveryAckPodModel.HandlingPayable),
                             new SqlParameter("@DetiontionPayable", deleveryAckPodModel.DetiontionPayable),
@@ -71,6 +69,7 @@ namespace Consignment.Repository
                             new SqlParameter("@ShortageClaim", deleveryAckPodModel.ShortageClaim),
                             new SqlParameter("@DamageClaim", deleveryAckPodModel.DamageClaim),
                             new SqlParameter("@LateRptDed", deleveryAckPodModel.LateRptDed),
+                            new SqlParameter("@LatePodDed", deleveryAckPodModel.LatePodDed),
                             new SqlParameter("@OthDed", deleveryAckPodModel.OthDed),
                             new SqlParameter("@NetPayable", deleveryAckPodModel.NetPayable),
                             new SqlParameter("@YearId", deleveryAckPodModel.YearId),
@@ -125,7 +124,6 @@ namespace Consignment.Repository
                             {
                                 AckId = Convert.ToString(dataSet.Tables[0].Rows[i]["AckId"]),
                                 AckBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AckBranch"]),
-
                                 AckDate = Convert.ToString(dataSet.Tables[0].Rows[i]["AckDate"]),
                                 AckSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["AckSlNo"]),
                                 GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
