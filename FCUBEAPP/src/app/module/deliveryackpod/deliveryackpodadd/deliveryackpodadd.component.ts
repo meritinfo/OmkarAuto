@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
+import { Deliveryackpodmodel } from 'src/app/models/deliveryackpodmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
-import { DestinationService } from 'src/app/services/destination.service';
+import { DeliveryackpodService } from 'src/app/services/deliveryackpod.service';
 import { BranchMasterService } from 'src/app/services/branchmaster.service';
 
 @Component({
@@ -17,7 +17,8 @@ import { BranchMasterService } from 'src/app/services/branchmaster.service';
   styleUrls: ['./deliveryackpodadd.component.css']
 })
 export class DeliveryackpodaddComponent {
-
+  year: string = '';
+  branch: string = '';
   loggedInUserID: string = '';
   formUser!: FormGroup;
   formSubmitted = false;
@@ -33,16 +34,29 @@ export class DeliveryackpodaddComponent {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
+  consignmentId: string = "";
 
   List: Dropdownmodel[] = [];
-  selectedDestinationDetails = new Destinationmodel();
+  selectedDeliveryackpod = new Deliveryackpodmodel();
+
+  podAttach1: string = "";
+  podAttach2: string = "";
+  
+  @ViewChild('podAttach1Input', {
+    static: true
+  }) podAttach1Input: any;
+
+  @ViewChild('podAttach2Input', {
+    static: true
+  }) podAttach2Input: any;
+
 
   constructor(private route: Router, private formBuilder: FormBuilder,
     private sharedService: SharedService, private branchmasterService: BranchMasterService, 
-    private destinationModel: Destinationmodel, private destinationService: DestinationService, 
+    private deliveryackpodmodel: Deliveryackpodmodel, private deliveryackpodService: DeliveryackpodService, 
     private commonService: CommonService, private requestmodel:Requestmodel,
      private toasterService: ToastrService ) {
-    this.destinationModel = new Destinationmodel();
+    this.deliveryackpodmodel = new Deliveryackpodmodel();
   }
   
   ngOnInit(): void {
@@ -61,7 +75,19 @@ export class DeliveryackpodaddComponent {
       }
     }
 
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var branchData = sessionStorage.getItem('userBranch')?.toString();
+    if (typeof branchData !== 'undefined' && branchData !== null && branchData !== '') {
+      this.branch = branchData;
 
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -72,23 +98,82 @@ export class DeliveryackpodaddComponent {
     else {
       this.route.navigate(['/']);
     }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
     
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+    
+    if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+      this.fromDate = this.minDate ;
+    }
+    else{
+      this.fromDate = today.toLocaleDateString('en-CA').toString();
+    }   
+
     this.sharedService.loading=true;
 
     this.getBranchList();
-    this.getStateList();
 
-    this.selectedDestinationDetails = this.destinationService.getDestinationDetails();
+    this.selectedDeliveryackpod = this.deliveryackpodService.getDeliveryackpodDetails();
+
     this.formUser = this.formBuilder.group({
-      centreName: new FormControl('', [Validators.required]),
-      acctBranch: new FormControl('',[Validators.required]),
-      stateCode: new FormControl('', [Validators.required]), 
-      pinCode: new FormControl('', [Validators.required]),
-      controlBranch: new FormControl('',),
-
+      akBranch:   new FormControl(this.branch, [Validators.required]),
+      akDate:   new FormControl('', [Validators.required]),
+      akSlNo:     new FormControl('', [Validators.required]),
+      gcYear:   new FormControl('', ),
+      gcBook:   new FormControl('', ),
+      gcDate:   new FormControl('', ),
+      gcNoteNo:     new FormControl('', [Validators.required]),    
+      gcFrom : new FormControl('', ),  
+      gcTo : new FormControl('', ),
+      consignor: new FormControl('', ),
+      consignee: new FormControl('', ),
+      party: new FormControl('', ),
+      cnPkgs: new FormControl('', ),
+      cnActWt: new FormControl('', ),
+      delPkgs: new FormControl('', ),
+      delActWt: new FormControl('', ),
+      shExPkgs: new FormControl('', ),
+      shExpActWt: new FormControl('', ),
+      expectedRptdate: new FormControl('', ),
+      reportingDate: new FormControl('', ),
+      delayDays: new FormControl('', ),
+      deliveryDate: new FormControl('', ),
+      detnDays: new FormControl('', ),
+      podRecdYN: new FormControl('', ),
+      podRecdDate: new FormControl('', ),
+      podDelayDays: new FormControl('', ),
+      podAttach1 : new FormControl('', ),
+      podAttach2: new FormControl('', ),
+      balancePayable: new FormControl('', ),
+      handlingPayable: new FormControl('', ),
+      detiontionPayable: new FormControl('', ),
+      others1Payable: new FormControl('', ),
+      others2Payable: new FormControl('', ),      
+      totExtPayable: new FormControl('', ),
+      
+      shortageDesc: new FormControl('', ),
+      damageDesc: new FormControl('', ),
+      shortageClaim: new FormControl('', ),
+      damageClaim : new FormControl('', ),
+      lateRptDed : new FormControl('', ),
+      latePodDed : new FormControl('', ),
+      othDed :  new FormControl('', ),
+      netPayable : new FormControl('', ),
     });
-    if (this.selectedDestinationDetails.centreid != '') {
-      this.formUser.patchValue(this.selectedDestinationDetails);          
+
+    if (this.selectedDeliveryackpod.akId != '') {
+      this.formUser.patchValue(this.selectedDeliveryackpod);  
+      this.formUser.patchValue({
+        akDate:this.commonService.formatDate(this.selectedDeliveryackpod.akDate),
+        gcDate:this.commonService.formatDate(this.selectedDeliveryackpod.gcDate),
+        reportingDate:this.commonService.formatDate(this.selectedDeliveryackpod.reportingDate),
+        deliveryDate:this.commonService.formatDate(this.selectedDeliveryackpod.deliveryDate),
+        podRecdDate:this.commonService.formatDate(this.selectedDeliveryackpod.podRecdDate), 
+      })        
       this.editMode = true;
     }  
     
@@ -105,43 +190,37 @@ export class DeliveryackpodaddComponent {
     });
   }
 
-  //Get Module List details //
-  getStateList(): void {
-    this.commonService.getStateList().subscribe((res) => {
-      this.stateList = res;
-    });
+  onpodRecdChange(e:any){
+
   }
 
   
-  chkBranchNameExits(e: any) { 
-    if (this.selectedDestinationDetails.centreid == "")
+  getConsignmentDetails(e: any) { 
+    if (this.selectedDeliveryackpod.akId == "")
     {      
       this.sharedService.loading = true;
       this.requestmodel.strRequest = e.target.value; 
-      this.branchmasterService.chkBranchNameExits(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (!this.responseDetails.status) {
-          this.toasterService.warning(this.responseDetails.message);
-          this.formUser.patchValue({
-            centreName: ''
-          });
-        }
+      this.deliveryackpodService.getConsignmentDetails(this.requestmodel).subscribe((res) => {
+        this.deliveryackpodmodel = res;
+        this.formUser.patchValue({
+          centreName: ''
+        });
       });
       this.sharedService.loading = false;
     }
   }
 
-  deleteDestinationForm(): void {
-    if(this.selectedDestinationDetails.centreid != '' ){      
-    this.sharedService.loading=true;
-     this.requestmodel.strRequest =this.selectedDestinationDetails.centreid
+  deleteDeliveryForm(): void {
+    if(this.selectedDeliveryackpod.akId != '' ){      
+      this.sharedService.loading=true;
+      this.requestmodel.strRequest = this.selectedDeliveryackpod.akId;
       if (confirm("Are you sure, you want to delete this?")) {
-            this.branchmasterService.branchMasterDetailsDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+            this.deliveryackpodService.deliveryackpodDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
             if (this.responseDetails.status) {
               this.toasterService.success(this.responseDetails.message);
               this.formUser.reset();
-              this.route.navigate(['/destinationlist']);
+              this.route.navigate(['/delacklist']);
             }
             else {
               this.toasterService.warning(this.responseDetails.message);
@@ -149,16 +228,15 @@ export class DeliveryackpodaddComponent {
         });
       }
       
-    this.sharedService.loading=false;
+      this.sharedService.loading=false;
     }
   }
+
   exit(): void {
-    this.route.navigate(['/destinationlist']);
+    this.route.navigate(['/delacklist']);
   }
-
-
-  //Submit user form details //
-  submitDestinationForm(): void {
+  
+  submitDeliveryackpodSave(): void {
     this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
@@ -172,20 +250,20 @@ export class DeliveryackpodaddComponent {
     }
 
     this.sharedService.loading=true;
-    this.destinationModel.centreid = this.selectedDestinationDetails.centreid != '' ? this.selectedDestinationDetails.centreid : '';
     var selectedDataValue = this.formUser.getRawValue();
-    this.destinationModel.centreName      = selectedDataValue.centreName.toString().toUpperCase();
-    this.destinationModel.pinCode         = selectedDataValue.pinCode.toString();
-    this.destinationModel.acctBranch      = selectedDataValue.acctBranch.toString();
-    this.destinationModel.stateCode       = selectedDataValue.stateCode.toString();
-    this.destinationModel.loggedInUserID  = this.loggedInUserID;
+    this.deliveryackpodmodel.akId = this.selectedDeliveryackpod.akId ;
+    this.deliveryackpodmodel.akBranch      = selectedDataValue.centreName.toString().toUpperCase();
+    this.deliveryackpodmodel.akDate         = selectedDataValue.pinCode.toString();
+    this.deliveryackpodmodel.akSlNo      = selectedDataValue.acctBranch.toString();
+    this.deliveryackpodmodel.yearId  = this.year;
+    this.deliveryackpodmodel.loggedInUser  = this.loggedInUserID;
 
-    this.destinationService.destinationDetailsSubmitted(this.destinationModel).subscribe((res: Responsemodel) => {
+    this.deliveryackpodService.deliveryackpodDetailsSave(this.deliveryackpodmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/destinationlist']);
+        this.route.navigate(['/delacklist']);
       }
       else {
         this.toasterService.warning(this.responseDetails.message);

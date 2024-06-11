@@ -252,6 +252,7 @@ import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.
 import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
+import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
 
 @NgModule({
   declarations: [
@@ -435,7 +436,7 @@ import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackp
     Distancemastertripmodel,Distancetripeditmodel,
     bankreceiptentrymodel,Ratesmastermodel,billstatementmodel,
     Dieselstatementlistmodel, Dieselstatementmodel, 
-    Billstatementsearchlistrequestmodel, 
+    Billstatementsearchlistrequestmodel, Deliveryackpodmodel,
     Fingrouplistmodel,Fingroupmodel,Finaccountlistmodel,Finaccountmodel,
     Openingbalancelistmodel,Openingbalancemodel,Openingbalancerequestmodel,
     Bankrecfiltermodel,Bankreconcilationmodel,Bankreconcilationlist,

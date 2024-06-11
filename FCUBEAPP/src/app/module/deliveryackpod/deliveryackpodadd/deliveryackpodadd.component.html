@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Destination</h4>
+                        <h4 class="mb-sm-0 font-size-18">Delivery Ack/POD</h4>
                     </div>
                 </div>
             </div>
@@ -19,9 +19,10 @@
                                     <div class="col-lg-3">
                                         <div class="mb-4">
                                             <label for="horizontal-firstname-input" class="col-form-label">
-                                            DRP Branch </label><span style="color: red"> * </span>
-                                            <select class="form-control" autoclose="false" formControlName="acctBranch" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['acctBranch'].invalid) }">
+                                            Ack Branch </label><span style="color: red"> * </span>
+                                            <select class="form-control" autoclose="false" 
+                                                formControlName="akBranch" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -30,20 +31,20 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">DRP Date</label><span
+                                            <label for="formrow-inputZip">Ack Date</label><span
                                                 style="color: red">*</span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="bookingDate" min="{{minDate}}" max="{{maxDate}}"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
+                                                formControlName="akDate" min="{{minDate}}" max="{{maxDate}}"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akDate'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">DRP No</label><span
+                                            <label for="formrow-inputZip">Ack No</label><span
                                                 style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
+                                                formControlName="akSlNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akSlNo'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-lg-2">
@@ -51,8 +52,8 @@
                                             <label for="formrow-inputZip">CN No</label><span
                                                 style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bookingDate'].invalid) }">
+                                                formControlName="gcNoteNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
                                     </div> 
                                 </div> 
@@ -60,7 +61,7 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Booked At</label>
-                                            <select class="form-control" autoclose="false" formControlName="acctBranch">
+                                            <select class="form-control" autoclose="false" formControlName="gcBook">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -71,21 +72,35 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Booked Date</label>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="gcDate" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">From</label>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="gcFrom" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">To</label>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="gcTo" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">CN Pkgs</label>
+                                            <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="cnPkgs" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">CN Weight</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="cnActWt" >
                                         </div>
                                     </div>  
                                 </div>
@@ -94,21 +109,21 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Consignor</label>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="consignor" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Consignee</label>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="consignee" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Party</label>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="party" >
                                         </div>
                                     </div>  
                                 </div>    
@@ -117,31 +132,208 @@
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Pkgs</label>
                                             <input numbersonly autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="delPkgs" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Pkgs (Short/Excess)</label>
                                             <input numbersonly autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="shExPkgs" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Weight</label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="delActWt" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Weight (Short/Excess)</label>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="bookingDate" >
+                                                formControlName="shExpActWt" >
                                         </div>
                                     </div>  
-                                </div>                                     
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Expected Rpt Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="expectedRptdate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Reporting Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="reportingDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Delay Days</label>
+                                            <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="delayDays" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Delivery Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="deliveryDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Detn Days</label>
+                                            <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="detnDays" >
+                                        </div>
+                                    </div>  
+                                </div>                                 
+                                <div class="row"> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Balance Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="balancePayable" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Handling Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="handlingPayable" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Detiontion Payable </label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="detiontionPayable" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Others1 Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="others1Payable" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Others2 Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="others2Payable" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Tot Ext Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totExtPayable" >
+                                        </div>
+                                    </div>  
+                                </div>                             
+                                <div class="row"> 
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Shortage Desc</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="shortageDesc" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Damage Desc</label>
+                                            <input uppercaseonly autoclose="false" class="form-control"
+                                                formControlName="damageDesc" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Shortage Claim</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="shortageClaim" >
+                                        </div>
+                                    </div>   
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Damage Claim</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="damageClaim" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Late Rpt Ded</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="lateRptDed" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Late Pod Ded</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="latePodDed" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Other Ded</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="othDed" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Net Payable</label>
+                                            <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="netPayable" >
+                                        </div>
+                                    </div>  
+                                </div> 
+                                <div class="row"> 
+                                    <div class="col-lg-2">                                            
+                                        <div class="form-check">
+                                            <input type="checkbox" formControlName="podRecdYN" 
+                                                (change)="onpodRecdChange($event)"
+                                                class="form-check-input" >
+                                            <label for="neft" class="form-check-label">POD Received
+                                            </label>
+                                        </div>   
+                                    </div>  
+                                    <div class="col-lg-2">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">POD Recd Date</label>
+                                            <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                                formControlName="podRecdDate" >
+                                        </div>
+                                    </div>  
+                                    <div class="col-lg-4">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">POD Attach1 </label>                          
+                                            <input #podAttach1Input class="form-control" type="file" 
+                                            id="formAttach1File" accept="image/*">
+                                            <a *ngIf="selectedDeliveryackpod.podAttach1" target="_blank"
+                                                        href={{podAttach1}}>Download</a>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-2">
+                                            <label for="formrow-inputZip">POD Attach2 </label>                          
+                                            <input #podAttach2Input class="form-control" type="file" 
+                                            id="formAttach2File" accept="image/*">
+                                            <a *ngIf="selectedDeliveryackpod.podAttach2" target="_blank"
+                                                        href={{podAttach2}}>Download</a>
+                                        </div>
+                                    </div> 
+                                </div>                                                                  
                             </div>
                         </div>
                     </div>
@@ -150,9 +342,9 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
-                                (click)="submitDestinationForm()">Save</button>&nbsp;
+                                (click)="submitDeliveryackpodSave()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="deleteDestinationForm()">Delete</button>&nbsp;
+                                (click)="deleteDeliveryForm()">Delete</button>&nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
