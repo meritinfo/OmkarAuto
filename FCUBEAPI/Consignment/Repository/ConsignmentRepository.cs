@@ -452,6 +452,33 @@ namespace Consignment.Repository
             }
             return response;
         }
+        public async Task<ResponseModel> GetBillSeries(RequestModel request)
+        {
+            ResponseModel content = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillNo", request.strRequest),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        content.Message = Convert.ToString(statusData.Tables[0].Rows[0]["message"]);
+                        content.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return content;
+        }
         public async Task<ResponseModel> CheckEwaybillExits(RequestModel req)
         {
             ResponseModel responseModel = new();

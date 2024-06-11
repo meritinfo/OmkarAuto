@@ -31,12 +31,14 @@ namespace FCUBEAPI.Controllers
         readonly IEwayBillBusiness ewayBillBusiness;
         readonly IEwayBillExpRptBusiness ewayBillExpRptBusiness;
         readonly IDprBusiness dprBusiness;
+        readonly IDeliveryAckPodBusiness deliveryAckPodBusiness;
         readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         readonly IGenerateTempGcBusiness tempGcBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
             IEwayBillBusiness _ewayBillBusiness,
+            IDeliveryAckPodBusiness _deliveryAckPodBusiness,
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
             IDprBusiness _dprBusiness,
             IDprVehiPlacedBusiness _dprVehiPlacedBusiness,
@@ -50,6 +52,7 @@ namespace FCUBEAPI.Controllers
             dprBusiness = _dprBusiness;
             dprVehiPlacedBusiness = _dprVehiPlacedBusiness;
             tempGcBusiness = _tempGcBusiness;
+            deliveryAckPodBusiness = _deliveryAckPodBusiness;
         }
         
 
@@ -931,6 +934,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBillSeries")]
+        public async Task<IActionResult> GetBillSeries(RequestModel request)
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetBillSeries(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("TempGcDelete")]
         public async Task<IActionResult> TempGcDelete(RequestModel request)
@@ -978,6 +995,59 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tempGcBusiness.GetLRPdf(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDeliveryAckPodList")]
+        public async Task<IActionResult> GetDeliveryAckPodList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.GetDeliveryAckPodList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DeliveryAckPodDelete")]
+        public async Task<IActionResult> DeliveryAckPodDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.DeliveryAckPodDelete(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DeliveryAckPodSave")]
+        public async Task<IActionResult> DeliveryAckPodSave(DeliveryAckPodModel deliveryAckPodModel)
+        {
+            if (deliveryAckPodModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.DeliveryAckPodSave(deliveryAckPodModel);
+
                 return Ok(result);
             }
             catch (Exception ex)

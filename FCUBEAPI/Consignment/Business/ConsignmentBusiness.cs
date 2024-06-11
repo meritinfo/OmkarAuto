@@ -73,6 +73,10 @@ namespace Consignment.Business
         //{
         //    return await consignmentRepository.GetVehicleTypeGroupList();
         //}
+        public async Task<ResponseModel> GetBillSeries(RequestModel request)
+        {
+            return await consignmentRepository.GetBillSeries(request);
+        }
 
     }
 }
