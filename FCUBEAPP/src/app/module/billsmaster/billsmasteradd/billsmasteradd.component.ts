@@ -130,8 +130,8 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
       billingStation: new FormControl(this.branch),
      // billNo: new FormControl('',[Validators.required]),
      billNo: new FormControl('0',),
-      billStatus:   new FormControl(''),//FormControl(this.loginDate,[Validators.required]),
-      billType: new FormControl(''),
+     // billStatus:   new FormControl(''),//FormControl(this.loginDate,[Validators.required]),
+     // billType: new FormControl(''),
       sacHsn: new FormControl('',),
       billDate: new FormControl(this.fromDate),
       suppYN: new FormControl(''),
@@ -500,8 +500,8 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
   // this.billsmastermodel.billNo = '1'
     this.billsmastermodel.billDate = selectedDataValue.billDate;
     this.billsmastermodel.partyCode = selectedDataValue.partyCode.dataId;
-    this.billsmastermodel.billStatus = selectedDataValue.billStatus;
-    this.billsmastermodel.billType = selectedDataValue.billType;
+    this.billsmastermodel.billStatus = 'N';
+    this.billsmastermodel.billType = '1';
     this.billsmastermodel.partyGstLocation = selectedDataValue.partyGstLocation.dataId;
     this.billsmastermodel.collBranch = selectedDataValue.collBranch.dataId;
     this.billsmastermodel.suppYN = selectedDataValue.suppYN;
