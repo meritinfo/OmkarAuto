@@ -253,6 +253,10 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
+import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
+import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
+import { Documentallotmentmodel } from './models/documentallotmentmodel';
+
 
 @NgModule({
   declarations: [
@@ -406,6 +410,8 @@ import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
     EmppaysheetrptComponent,
     DeliveryackpodlistComponent,
     DeliveryackpodaddComponent,
+    AdddocumentallottmentComponent,
+    Documentallottmentlistcomponent,
   ],
   imports: [
     BrowserModule,
@@ -457,7 +463,7 @@ import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

@@ -1,0 +1,16 @@
+export class Documentallotmentmodel {
+    docAllotId: string = "";
+    branchCode: string = "";
+    branch: string = "";
+    docType: string = "";
+    docNumCode: string = "";
+    allotDate: string = "";
+    rangeFrom: string = "";
+    rangeTo: string = "";
+    docCount: string = "";
+    docStatus: string = "";
+    docCloseDate: string = "";
+    docUsedCount: string = "";
+    docMaxNo: string = "";
+    loggedInUser: string = "";
+}

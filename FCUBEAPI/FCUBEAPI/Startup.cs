@@ -194,6 +194,8 @@ namespace FCUBEAPI
             services.AddScoped<IPayGenerationRepository, PayGenerationRepository>();
             services.AddScoped<IPaySheetRptBusiness, PaySheetRptBusiness>();
             services.AddScoped<IPaySheetRptRepository, PaySheetRptRepository>();
+            services.AddScoped<IDocumentAllotmentBusiness, DocumentAllotmentBusiness>();
+            services.AddScoped<IDocumentAllotmentRepository, DocumentAllotmentRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

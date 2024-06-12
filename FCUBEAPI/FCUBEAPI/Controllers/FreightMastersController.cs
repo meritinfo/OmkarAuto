@@ -26,6 +26,7 @@ namespace FCUBEAPI.Controllers
         readonly IDestinationMasterBusiness freightMastersBusiness;
         readonly IBranchMasterBusiness branchMastersBusiness;
         readonly IProductGroupMasterBusiness productGroupMastersBusiness;
+        readonly IDocumentAllotmentBusiness documentAllotmentBusiness;
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly IBillsMasterBusiness billsMasterBusiness;
@@ -42,6 +43,7 @@ namespace FCUBEAPI.Controllers
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
+            IDocumentAllotmentBusiness _documentAllotmentBusiness,
             IProductMasterBusiness _productMasterBusiness,
             ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness,
             IRatetypesBusiness _ratetypesBusiness,
@@ -70,6 +72,7 @@ namespace FCUBEAPI.Controllers
             distanceMasterTripRptBusiness = _distanceMasterTripRptBusiness;
             consigneeMasterBusiness = _consigneeMasterBusiness;
             driverLicRptBusiness = _driverLicRptBusiness;
+            documentAllotmentBusiness = _documentAllotmentBusiness;
             billsMasterBusiness = _billsMasterBusiness;
         }
 
@@ -345,6 +348,97 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await classificationMasterBusiness.ClassificationMasterSave(classificationasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("DocumentallotmentSave")]
+        public async Task<IActionResult> DocumentallotmentSave(DocumentAllotmentModel documentAllotmentModel)
+        {
+            if (documentAllotmentModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.DocumentallotmentSave(documentAllotmentModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDocumentAllotmentList")]
+        public async Task<IActionResult> GetDocumentAllotmentList(PageRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.GetDocumentAllotmentList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetDocumentNumcode")]
+        public async Task<IActionResult> GetDocumentNumcode(RequestModel pageRequest)
+        {
+            if (pageRequest == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.GetDocNumCode(pageRequest);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DocumentAllotmentDelete")]
+        public async Task<IActionResult> DocumentAllotmentDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.DocumentAllotmentDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("chkDocumentRange")]
+        public async Task<IActionResult> chkDocumentRange(ScheduleModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await documentAllotmentBusiness.CheckDocumentRange(req);
 
                 return Ok(result);
             }
