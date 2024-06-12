@@ -130,8 +130,6 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
       billingStation: new FormControl(this.branch),
      // billNo: new FormControl('',[Validators.required]),
      billNo: new FormControl('0',),
-     // billStatus:   new FormControl(''),//FormControl(this.loginDate,[Validators.required]),
-     // billType: new FormControl(''),
       sacHsn: new FormControl('',),
       billDate: new FormControl(this.fromDate),
       suppYN: new FormControl(''),
@@ -540,6 +538,7 @@ import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
     this.billsmastermodel.totalFov= selectedDataValue.totalFov.toString();
     this.billsmastermodel.sdEmdAmt= selectedDataValue.sdEmdAmt.toString();
     this.billsmastermodel.finFtmid= selectedDataValue.finFtmid;
+    this.billsmastermodel.dueDate= selectedDataValue.dueDate;
    
     
     /////date fields
