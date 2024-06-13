@@ -132,7 +132,7 @@ export class BillsmasterlistComponent {
       columns: [ 
         {
           title: 'Billing Station ',
-          data: 'billingStation',
+          data: 'stationName',
         },
         {
           title: 'Bill No',

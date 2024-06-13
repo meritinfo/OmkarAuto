@@ -137,6 +137,8 @@ import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryack
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
+import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
+import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 
 
 const routes: Routes = [
@@ -333,6 +335,9 @@ const routes: Routes = [
   { path: 'docallotlist', component:  Documentallottmentlistcomponent },
   { path: 'docallotadd', component:  AdddocumentallottmentComponent },
   { path: 'docallotedit', component:  AdddocumentallottmentComponent },
+  { path: 'billtypeslist', component:  BilltypelistComponent },
+  { path: 'billtypeadd', component:  BilltypeaddComponent },
+  { path: 'billtypeedit', component:  BilltypeaddComponent },
   
 ];
 

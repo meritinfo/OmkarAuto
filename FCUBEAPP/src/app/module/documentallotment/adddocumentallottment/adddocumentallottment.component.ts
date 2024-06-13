@@ -104,7 +104,7 @@ export class AdddocumentallottmentComponent {
       branchCode  : new FormControl(this.branch,[Validators.required]),
       docType  : new FormControl('',[Validators.required]),
       docNumCode  : new FormControl('',[Validators.required]),
-      allotDate  : new FormControl('',[Validators.required]),
+      allotDate  : new FormControl( this.loginDate,[Validators.required]),
       rangeFrom  : new FormControl('',[Validators.required]),
       rangeTo  : new FormControl('',[Validators.required]),
       docCount  : new FormControl('',[Validators.required]),

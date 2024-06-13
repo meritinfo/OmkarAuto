@@ -30,6 +30,7 @@ namespace FCUBEAPI.Controllers
         readonly IProductMasterBusiness productMasterBusiness;
         readonly IClassificationMasterBusiness classificationMasterBusiness;
         readonly IBillsMasterBusiness billsMasterBusiness;
+        readonly IBillsTypeBusiness billsTypeBusiness;
         readonly ILR_Bill_SeriesBusiness lr_Bill_SeriesBusiness;
         readonly IRatetypesBusiness ratetypesBusiness;
         readonly IFreightRatesMstBusiness freightRatesMstBusiness;
@@ -45,6 +46,7 @@ namespace FCUBEAPI.Controllers
             IProductGroupMasterBusiness _productGroupMasterBusiness,
             IDocumentAllotmentBusiness _documentAllotmentBusiness,
             IProductMasterBusiness _productMasterBusiness,
+            IBillsTypeBusiness _billsTypeBusiness,
             ILR_Bill_SeriesBusiness _lr_Bill_SeriesBusiness,
             IRatetypesBusiness _ratetypesBusiness,
             IClassificationMasterBusiness _classificationMasterBusiness,
@@ -74,6 +76,7 @@ namespace FCUBEAPI.Controllers
             driverLicRptBusiness = _driverLicRptBusiness;
             documentAllotmentBusiness = _documentAllotmentBusiness;
             billsMasterBusiness = _billsMasterBusiness;
+            billsTypeBusiness = _billsTypeBusiness;
         }
 
         /// <summary>
@@ -514,6 +517,70 @@ namespace FCUBEAPI.Controllers
         //        return BadRequest(ex.Message);
         //    }
         //}
+        [HttpPost("GetFinAcList")]
+        public async Task<IActionResult> GetFinAcList()
+        {
+            try
+            {
+                var result = await billsTypeBusiness.GetFinAcList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBillsTypeList")]
+        public async Task<IActionResult> GetBillsTypeList(PageRequest request)
+        {
+            try
+            {
+                var result = await billsTypeBusiness.GetBillsTypeList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsTypeSave")]
+        public async Task<IActionResult> BillsTypeSave(BillsTypeModel billsTypeModel)
+        {
+            if (billsTypeModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsTypeBusiness.BillsTypeSave(billsTypeModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("BillsTypeDelete")]
+        public async Task<IActionResult> BillsTypeDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsTypeBusiness.BillsTypeDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetBillsMasterList")]
         public async Task<IActionResult> GetBillsMasterList(PageRequest request)
         {

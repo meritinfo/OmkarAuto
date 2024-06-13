@@ -120,6 +120,7 @@ import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finac
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
+import { Billstypemodel } from './models/billstypemastermodel';
 import { Requestmodel } from './models/requestmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
@@ -256,6 +257,8 @@ import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
 import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
 import { Documentallotmentmodel } from './models/documentallotmentmodel';
+import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
+import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 
 
 @NgModule({
@@ -412,6 +415,8 @@ import { Documentallotmentmodel } from './models/documentallotmentmodel';
     DeliveryackpodaddComponent,
     AdddocumentallottmentComponent,
     Documentallottmentlistcomponent,
+    BilltypeaddComponent,
+    BilltypelistComponent,
   ],
   imports: [
     BrowserModule,
@@ -464,7 +469,7 @@ import { Documentallotmentmodel } from './models/documentallotmentmodel';
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
     Passwordmodel,Transportmastermodel,Documentallotmentmodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
 })
