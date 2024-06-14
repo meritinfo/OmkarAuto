@@ -1,8 +1,9 @@
 export class Deliveryackpodmodel {
-    akId:       string = "";
-    akBranch:       string = "";
-    akDate:       string = "";
-    akSlNo:       string = "";
+    ackId:       string = "";
+    ackBranch:       string = "";
+    ackBr:       string = "";
+    ackDate:       string = "";
+    ackSlNo:       string = "";
     gcYear:       string = "";
     gcBook:       string = "";
     gcDate:       string = "";
@@ -26,7 +27,6 @@ export class Deliveryackpodmodel {
     detnDays:       string = "";
     podRecdYN:       string = "";
     podRecdDate :       string = "";
-    podDelayDays:       string = "";
     podAttach1 :       string = "";
     podAttach2:       string = "";
     balancePayable:       string = "";

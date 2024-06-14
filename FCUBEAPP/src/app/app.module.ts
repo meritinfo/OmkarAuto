@@ -259,6 +259,7 @@ import { Documentallottmentlistcomponent } from './module/documentallotment/docu
 import { Documentallotmentmodel } from './models/documentallotmentmodel';
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
+import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
 
 
 @NgModule({
@@ -417,6 +418,7 @@ import { BilltypelistComponent } from './module/billtypemaster/billtypelist/bill
     Documentallottmentlistcomponent,
     BilltypeaddComponent,
     BilltypelistComponent,
+    ConsignmentupdateComponent,
   ],
   imports: [
     BrowserModule,

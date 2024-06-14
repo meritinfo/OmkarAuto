@@ -18,6 +18,12 @@ export class DeliveryackpodService {
       'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
   selectedDeliveryackpod = new Deliveryackpodmodel();
 
   constructor(private httpClient: HttpClient) { }
@@ -35,18 +41,18 @@ export class DeliveryackpodService {
   }
   
   getDeliveryackpodList(filter: Reportmodel): Observable<Deliveryackpodlistmodel> {
-    return this.httpClient.post<Deliveryackpodlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDeliveryAckPodList', filter, this.httpOptions);
+    return this.httpClient.post<Deliveryackpodlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetDeliveryAckPodList', filter, this.httpOptions);
   }
 
-  deliveryackpodDetailsSave(request: Deliveryackpodmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DeliveryAckPodSave', request, this.httpOptions);
+  deliveryackpodDetailsSave(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DeliveryAckPodSave', user, this.httpformOptions);
   }
 
   deliveryackpodDelete(request: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/DeliveryAckPodDelete', request, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DeliveryAckPodDelete', request, this.httpOptions);
   }
 
   getConsignmentDetails(request: Requestmodel):Observable<Deliveryackpodmodel> {
-    return this.httpClient.post<Deliveryackpodmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetDeliveryCnDetails', request, this.httpOptions);
+    return this.httpClient.post<Deliveryackpodmodel>(Constants.API_ENDPOINT + 'Consignment/GetDeliveryCnDetails', request, this.httpOptions);
   }
 }

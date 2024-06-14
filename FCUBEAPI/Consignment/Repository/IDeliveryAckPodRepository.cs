@@ -11,7 +11,8 @@ namespace Consignment.Repository
     public interface IDeliveryAckPodRepository
     {
         Task<ResponseModel> DeliveryAckPodSave(DeliveryAckPodModel deliveryAckPodModel);
-        Task<DeliveryAckListModel> GetDeliveryAckPodList(PageRequest request);
+        Task<DeliveryAckListModel> GetDeliveryAckPodList(ReportRequestModel request);
         Task<ResponseModel> DeliveryAckPodDelete(RequestModel requestModel);
+        Task<DeliveryAckPodModel> GetDeliveryCnDetails(RequestModel request);
     }
 }

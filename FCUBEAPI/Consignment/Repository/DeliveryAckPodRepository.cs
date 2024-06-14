@@ -55,7 +55,6 @@ namespace Consignment.Repository
                             new SqlParameter("@DetnDays", deleveryAckPodModel.DetnDays),
                             new SqlParameter("@PodRecdYN", deleveryAckPodModel.PodRecdYN),
                             new SqlParameter("@PodRecdDate", deleveryAckPodModel.PodRecdDate),
-                            new SqlParameter("@PodDelayDays", deleveryAckPodModel.PodDelayDays),
                             new SqlParameter("@PodAttach1", deleveryAckPodModel.PodAttach1),
                             new SqlParameter("@PodAttach2", deleveryAckPodModel.PodAttach2),
                             new SqlParameter("@BalancePayable", deleveryAckPodModel.BalancePayable),
@@ -75,7 +74,7 @@ namespace Consignment.Repository
                             new SqlParameter("@YearId", deleveryAckPodModel.YearId),
                             new SqlParameter("@LoggedInUser", deleveryAckPodModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "DeliveryAckPod_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DeliveryAckPodSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -97,7 +96,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<DeliveryAckListModel> GetDeliveryAckPodList(PageRequest request)
+        public async Task<DeliveryAckListModel> GetDeliveryAckPodList(ReportRequestModel request)
         {
             DeliveryAckListModel deleveryAckListModel = new();
             List<DeliveryAckPodModel> ackList = new();
@@ -111,7 +110,9 @@ namespace Consignment.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            new SqlParameter("@FromDate", request.FromDate),
+                            new SqlParameter("@ToDate", request.ToDate)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryAckPodList", param);
 
@@ -124,6 +125,7 @@ namespace Consignment.Repository
                             {
                                 AckId = Convert.ToString(dataSet.Tables[0].Rows[i]["AckId"]),
                                 AckBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["AckBranch"]),
+                                AckBr = Convert.ToString(dataSet.Tables[0].Rows[i]["AckBr"]),
                                 AckDate = Convert.ToString(dataSet.Tables[0].Rows[i]["AckDate"]),
                                 AckSlNo = Convert.ToString(dataSet.Tables[0].Rows[i]["AckSlNo"]),
                                 GcYear = Convert.ToString(dataSet.Tables[0].Rows[i]["GcYear"]),
@@ -131,6 +133,11 @@ namespace Consignment.Repository
                                 GcBook = Convert.ToString(dataSet.Tables[0].Rows[i]["GcBook"]),
                                 GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),
                                 ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                GcFrom = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                GcTo = Convert.ToString(dataSet.Tables[0].Rows[i]["ConsignmentId"]),
+                                Consignor = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignor"]),
+                                Consignee = Convert.ToString(dataSet.Tables[0].Rows[i]["Consignee"]),
+                                Party = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
                                 CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["CnPkgs"]),
                                 CnActWt = Convert.ToString(dataSet.Tables[0].Rows[i]["CnActWt"]),
                                 DelPkgs = Convert.ToString(dataSet.Tables[0].Rows[i]["DelPkgs"]),
@@ -144,7 +151,6 @@ namespace Consignment.Repository
                                 DetnDays = Convert.ToString(dataSet.Tables[0].Rows[i]["DetnDays"]),
                                 PodRecdYN = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdYN"]),
                                 PodRecdDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PodRecdDate"]),
-                                PodDelayDays = Convert.ToString(dataSet.Tables[0].Rows[i]["PodDelayDays"]),
                                 PodAttach1 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach1"]),
                                 PodAttach2 = Convert.ToString(dataSet.Tables[0].Rows[i]["PodAttach2"]),
                                 BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[i]["BalancePayable"]),
@@ -160,7 +166,6 @@ namespace Consignment.Repository
                                 LateRptDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LateRptDed"]),
                                 LatePodDed = Convert.ToString(dataSet.Tables[0].Rows[i]["LatePodDed"]),
                                 NetPayable = Convert.ToString(dataSet.Tables[0].Rows[i]["NetPayable"]),
-
                             });
                         }
 
@@ -176,19 +181,54 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return deleveryAckListModel;
         }
+
+        public async Task<DeliveryAckPodModel> GetDeliveryCnDetails(RequestModel request)
+        {
+            DeliveryAckPodModel deleveryAck = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@GCNoteNo", request.strRequest)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getDeliveryCnDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        deleveryAck.GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]);
+                        deleveryAck.GcDate = Convert.ToString(dataSet.Tables[0].Rows[0]["GcDate"]);
+                        deleveryAck.GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]);
+                        deleveryAck.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        deleveryAck.ConsignmentId = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        deleveryAck.GcFrom = Convert.ToString(dataSet.Tables[0].Rows[0]["GcFrom"]);
+                        deleveryAck.GcTo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcTo"]);
+                        deleveryAck.Consignor = Convert.ToString(dataSet.Tables[0].Rows[0]["Consignor"]);
+                        deleveryAck.Consignee = Convert.ToString(dataSet.Tables[0].Rows[0]["Consignee"]);
+                        deleveryAck.Party = Convert.ToString(dataSet.Tables[0].Rows[0]["Party"]);
+                        deleveryAck.CnPkgs = Convert.ToString(dataSet.Tables[0].Rows[0]["CnPkgs"]);
+                        deleveryAck.CnActWt = Convert.ToString(dataSet.Tables[0].Rows[0]["CnActWt"]);
+                        deleveryAck.ExpectedRptdate = Convert.ToString(dataSet.Tables[0].Rows[0]["ExpectedRptdate"]);
+                        deleveryAck.BalancePayable = Convert.ToString(dataSet.Tables[0].Rows[0]["BalancePayable"]);
+                        deleveryAck.HandlingPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingPayable"]);
+                        deleveryAck.DetiontionPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["DetiontionPayable"]);
+                        deleveryAck.Others1Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others1Payable"]);
+                        deleveryAck.Others2Payable = Convert.ToString(dataSet.Tables[0].Rows[0]["Others2Payable"]);
+                        deleveryAck.TotExtPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["TotExtPayable"]);
+                        deleveryAck.NetPayable = Convert.ToString(dataSet.Tables[0].Rows[0]["NetPayable"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return deleveryAck;
+        }
+
         public async Task<ResponseModel> DeliveryAckPodDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

@@ -89,6 +89,19 @@ namespace Consignment.Models
         public string? UnLoadingDetnRs          { get; set; }
         public string? ExtrasRS                 { get; set; }
         public string? OthersRs                 { get; set; }
+        public string? FreightNarr { get; set; }
+        public string? StatisticalNarr { get; set; }
+        public string? FovNarr { get; set; }
+        public string? DoorCollNarr { get; set; }
+        public string? HandlingNarr { get; set; }
+        public string? LoadingDetnNarr { get; set; }
+        public string? EnrouteNarr { get; set; }
+        public string? MiscNarr { get; set; }
+        public string? DoorDelNarr { get; set; }
+        public string? UnLoadingNarr { get; set; }
+        public string? UnloadingDetenNarr { get; set; }
+        public string? ExtrasNarr { get; set; }
+        public string? OthersNarr { get; set; }
         public string? SubTotalRs               { get; set; }
         public string? GstType                  { get; set; }
         public string? SgstPct                  { get; set; }

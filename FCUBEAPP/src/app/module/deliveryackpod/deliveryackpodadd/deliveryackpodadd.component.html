@@ -18,11 +18,11 @@
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <div class="mb-4">
-                                            <label for="horizontal-firstname-input" class="col-form-label">
-                                            Ack Branch </label><span style="color: red"> * </span>
+                                            <label for="formrow-inputZip" > Ack Branch </label>
+                                            <span style="color: red"> * </span>
                                             <select class="form-control" autoclose="false" 
-                                                formControlName="akBranch" 
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akBranch'].invalid) }">
+                                                formControlName="ackBranch" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['ackBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -31,28 +31,28 @@
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">Ack Date</label><span
-                                                style="color: red">*</span>
+                                            <label for="formrow-inputZip">Ack Date</label>
+                                            <span style="color: red">*</span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="akDate" min="{{minDate}}" max="{{maxDate}}"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akDate'].invalid) }">
+                                                formControlName="ackDate" min="{{minDate}}" max="{{maxDate}}"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['ackDate'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">Ack No</label><span
-                                                style="color: red">*</span>
+                                            <label for="formrow-inputZip">Ack No</label>
+                                            <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="akSlNo"
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['akSlNo'].invalid) }">
+                                                formControlName="ackSlNo"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['ackSlNo'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">CN No</label><span
-                                                style="color: red">*</span>
+                                            <label for="formrow-inputZip">CN No</label>
+                                            <span style="color: red">*</span>
                                             <input autoclose="false" class="form-control"
-                                                formControlName="gcNoteNo"
+                                                formControlName="gcNoteNo" (change)="getConsignmentDetails($event)"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                         </div>
                                     </div> 
@@ -61,7 +61,8 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputState">Booked At</label>
-                                            <select class="form-control" autoclose="false" formControlName="gcBook">
+                                            <select class="form-control" autoclose="false" 
+                                            formControlName="gcBook">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -131,8 +132,10 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Pkgs</label>
+                                            <span style="color: red"> * </span>
                                             <input numbersonly autoclose="false" class="form-control"
-                                                formControlName="delPkgs" >
+                                                formControlName="delPkgs" (change)="onDelPkgsChange($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['delPkgs'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
@@ -145,8 +148,10 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivered Weight</label>
+                                            <span style="color: red"> * </span>
                                             <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="delActWt" >
+                                                formControlName="delActWt" (change)="onDelWtChange($event)"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['delActWt'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
@@ -168,8 +173,10 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Reporting Date</label>
+                                            <span style="color: red"> * </span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="reportingDate" >
+                                                formControlName="reportingDate" (change)="onRptDateChange($event)" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['reportingDate'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
@@ -182,8 +189,10 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Delivery Date</label>
+                                            <span style="color: red"> * </span>
                                             <input bsdatepicker="" type="date" autoclose="false" class="form-control"
-                                                formControlName="deliveryDate" >
+                                                formControlName="deliveryDate" (change)="onDlyDateChange($event)" 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['deliveryDate'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
@@ -272,22 +281,22 @@
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Late Rpt Ded</label>
-                                            <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="lateRptDed" >
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="lateRptDed" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Late Pod Ded</label>
-                                            <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="latePodDed" >
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="latePodDed" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
                                             <label for="formrow-inputZip">Other Ded</label>
-                                            <input decimalonly autoclose="false" class="form-control"
-                                                formControlName="othDed" >
+                                            <input decimalonly (change)="calcTot()" 
+                                            autoclose="false" class="form-control" formControlName="othDed" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">

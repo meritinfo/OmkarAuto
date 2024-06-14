@@ -10,6 +10,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { DeliveryackpodService } from 'src/app/services/deliveryackpod.service';
 import { BranchMasterService } from 'src/app/services/branchmaster.service';
+import { Constants } from 'src/app/common/constants';
 
 @Component({
   selector: 'app-deliveryackpodadd',
@@ -35,6 +36,7 @@ export class DeliveryackpodaddComponent {
   branchList: Dropdownmodel[] = [];
   stateList: Dropdownmodel[] = [];
   consignmentId: string = "";
+  gcYear: string = "";
 
   List: Dropdownmodel[] = [];
   selectedDeliveryackpod = new Deliveryackpodmodel();
@@ -66,7 +68,7 @@ export class DeliveryackpodaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Create Destinations");
+      .find((aa: { menuName: string; }) => aa.menuName === "Delivery Ack/POD");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -120,9 +122,9 @@ export class DeliveryackpodaddComponent {
     this.selectedDeliveryackpod = this.deliveryackpodService.getDeliveryackpodDetails();
 
     this.formUser = this.formBuilder.group({
-      akBranch:   new FormControl(this.branch, [Validators.required]),
-      akDate:   new FormControl('', [Validators.required]),
-      akSlNo:     new FormControl('', [Validators.required]),
+      ackBranch:   new FormControl(this.branch, [Validators.required]),
+      ackDate:   new FormControl('', [Validators.required]),
+      ackSlNo:     new FormControl('', [Validators.required]),
       gcYear:   new FormControl('', ),
       gcBook:   new FormControl('', ),
       gcDate:   new FormControl('', ),
@@ -134,14 +136,14 @@ export class DeliveryackpodaddComponent {
       party: new FormControl('', ),
       cnPkgs: new FormControl('', ),
       cnActWt: new FormControl('', ),
-      delPkgs: new FormControl('', ),
-      delActWt: new FormControl('', ),
+      delPkgs: new FormControl('',  [Validators.required]),    
+      delActWt: new FormControl('', [Validators.required]),    
       shExPkgs: new FormControl('', ),
       shExpActWt: new FormControl('', ),
-      expectedRptdate: new FormControl('', ),
-      reportingDate: new FormControl('', ),
+      expectedRptdate: new FormControl('',  [Validators.required]),    
+      reportingDate: new FormControl('',  [Validators.required]),    
       delayDays: new FormControl('', ),
-      deliveryDate: new FormControl('', ),
+      deliveryDate: new FormControl('',  [Validators.required]),    
       detnDays: new FormControl('', ),
       podRecdYN: new FormControl('', ),
       podRecdDate: new FormControl('', ),
@@ -153,8 +155,7 @@ export class DeliveryackpodaddComponent {
       detiontionPayable: new FormControl('', ),
       others1Payable: new FormControl('', ),
       others2Payable: new FormControl('', ),      
-      totExtPayable: new FormControl('', ),
-      
+      totExtPayable: new FormControl('', ),      
       shortageDesc: new FormControl('', ),
       damageDesc: new FormControl('', ),
       shortageClaim: new FormControl('', ),
@@ -165,15 +166,48 @@ export class DeliveryackpodaddComponent {
       netPayable : new FormControl('', ),
     });
 
-    if (this.selectedDeliveryackpod.akId != '') {
+    this.formUser.controls['gcBook'].disable();
+    this.formUser.controls['gcDate'].disable();
+    this.formUser.controls['gcFrom'].disable();
+    this.formUser.controls['gcTo'].disable();
+    this.formUser.controls['cnPkgs'].disable();
+    this.formUser.controls['cnActWt'].disable();
+    this.formUser.controls['consignor'].disable();
+    this.formUser.controls['consignee'].disable();
+    this.formUser.controls['party'].disable();
+    this.formUser.controls['shExPkgs'].disable();
+    this.formUser.controls['shExpActWt'].disable();
+    this.formUser.controls['expectedRptdate'].disable();
+    this.formUser.controls['delayDays'].disable();
+    this.formUser.controls['detnDays'].disable();
+    this.formUser.controls['balancePayable'].disable();
+    this.formUser.controls['handlingPayable'].disable();
+    this.formUser.controls['detiontionPayable'].disable();
+    this.formUser.controls['others1Payable'].disable();
+    this.formUser.controls['others2Payable'].disable();
+    this.formUser.controls['totExtPayable'].disable();
+    this.formUser.controls['netPayable'].disable();
+    this.formUser.controls['podRecdDate'].disable();
+
+    if (this.selectedDeliveryackpod.ackId != '') {
+      this.consignmentId = this.selectedDeliveryackpod.consignmentId;
+      this.gcYear = this.selectedDeliveryackpod.gcYear;
+      
+      this.podAttach1 = Constants.UploadFolderPath + 'deliveryackpod/podattach1/' + this.selectedDeliveryackpod.podAttach1;
+      this.podAttach2 = Constants.UploadFolderPath + 'deliveryackpod/podattach2/' + this.selectedDeliveryackpod.podAttach2;
       this.formUser.patchValue(this.selectedDeliveryackpod);  
       this.formUser.patchValue({
-        akDate:this.commonService.formatDate(this.selectedDeliveryackpod.akDate),
+        ackDate:this.commonService.formatDate(this.selectedDeliveryackpod.ackDate),
         gcDate:this.commonService.formatDate(this.selectedDeliveryackpod.gcDate),
         reportingDate:this.commonService.formatDate(this.selectedDeliveryackpod.reportingDate),
         deliveryDate:this.commonService.formatDate(this.selectedDeliveryackpod.deliveryDate),
         podRecdDate:this.commonService.formatDate(this.selectedDeliveryackpod.podRecdDate), 
-      })        
+      })   
+      if (this.selectedDeliveryackpod.podRecdYN=="N"){
+        this.formUser.patchValue({      
+          podRecdYN:""
+        });
+      }        
       this.editMode = true;
     }  
     
@@ -191,19 +225,177 @@ export class DeliveryackpodaddComponent {
   }
 
   onpodRecdChange(e:any){
+    if(e.target.checked){
+      this.formUser.controls['podRecdDate'].enable();
+      this.formUser.controls['podRecdDate'].setValidators([Validators.required]);
+    }
+    else{
+      this.formUser.controls['podRecdDate'].disable();
+      this.formUser.controls['podRecdDate'].clearValidators();
+    }
+    this.formUser.controls['podRecdDate'].updateValueAndValidity();    
+  }
 
+  onDelPkgsChange(e:any){
+    var delpkgs = e.target.value;
+    var selectedDataValue = this.formUser.getRawValue();
+    var diff = 0
+    if(selectedDataValue.cnPkgs!=''){
+      diff = parseFloat(selectedDataValue.cnPkgs)
+    }
+    if(delpkgs!=''){
+      diff = diff - parseFloat(delpkgs)
+    }
+    this.formUser.patchValue({      
+      shExPkgs:diff,
+    });
+  }
+
+  onDelWtChange(e:any){
+    var delActWt = e.target.value;
+    var selectedDataValue = this.formUser.getRawValue();
+    var diff = 0
+    if(selectedDataValue.cnActWt!=''){
+      diff = parseFloat(selectedDataValue.cnActWt)
+    }
+    if(delActWt!=''){
+      diff = diff - parseFloat(delActWt)
+    }
+    this.formUser.patchValue({      
+      shExpActWt:diff,
+    });
+  }
+
+  onRptDateChange(e:any){
+    var rptdate = e.target.value;
+    var selectedDataValue = this.formUser.getRawValue();
+    var expdt = new Date();
+    var rptdt = new Date();
+    if(selectedDataValue.expectedRptdate!=''){
+      expdt = new Date(selectedDataValue.expectedRptdate);
+      rptdt = expdt;
+    }
+    if(rptdate!=''){
+      rptdt = new Date(rptdate)
+    }
+    const differenceInMilliseconds = rptdt.getTime() - expdt.getTime();
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+    this.formUser.patchValue({      
+      delayDays: differenceInDays,
+    });
+  }
+
+  onDlyDateChange(e:any){
+    var dlydate = e.target.value;
+    var selectedDataValue = this.formUser.getRawValue();
+    var rptdt = new Date();
+    var dlydt = new Date();
+    if(selectedDataValue.reportingDate!=''){
+      rptdt = new Date(selectedDataValue.reportingDate);
+      dlydt = rptdt;
+    }
+    if(dlydate!=''){
+      dlydt = new Date(dlydate)
+    }
+    const differenceInMilliseconds = dlydt.getTime() - rptdt.getTime();
+    const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+    
+    this.formUser.patchValue({      
+      detnDays: differenceInDays,
+    });
+  }
+
+  calcTot(){    
+    var selectedDataValue = this.formUser.getRawValue();
+    var tot = 0
+
+    if(selectedDataValue.balancePayable!=''){
+      tot = tot + parseFloat(selectedDataValue.balancePayable)
+    }
+    if(selectedDataValue.totExtPayable!=''){
+      tot = tot + parseFloat(selectedDataValue.totExtPayable)
+    }
+    if(selectedDataValue.lateRptDed!=''){
+      tot = tot - parseFloat(selectedDataValue.lateRptDed)
+    }
+    if(selectedDataValue.latePodDed!=''){
+      tot = tot - parseFloat(selectedDataValue.latePodDed)
+    }
+    if(selectedDataValue.othDed!=''){
+      tot = tot - parseFloat(selectedDataValue.othDed)
+    }
+    this.formUser.patchValue({      
+      netPayable:tot,
+    });
   }
 
   
   getConsignmentDetails(e: any) { 
-    if (this.selectedDeliveryackpod.akId == "")
-    {      
+    if (this.selectedDeliveryackpod.ackId == "")
+    {     
+      this.consignmentId = "";
+      this.gcYear = "";
+      this.formUser.patchValue({
+        gcBook: "",
+        gcDate:"",
+        gcFrom: "",
+        gcTo: "",
+        cnPkgs: "",
+        cnActWt: "",
+        delPkgs: "",
+        delActWt: "",
+        shExPkgs: "",
+        shExpActWt: "",
+        consignor: "",
+        consignee: "",
+        party: "",
+        expectedRptdate:"",
+        reportingDate:"",
+        deliveryDate:"",
+        delayDays:"",
+        detnDays:"",
+        balancePayable:"",
+        handlingPayable:"",
+        detiontionPayable:"",
+        others1Payable:"",
+        others2Payable:"",
+        totExtPayable:"",
+        netPayable:"",
+      });
+
       this.sharedService.loading = true;
       this.requestmodel.strRequest = e.target.value; 
       this.deliveryackpodService.getConsignmentDetails(this.requestmodel).subscribe((res) => {
         this.deliveryackpodmodel = res;
+        this.consignmentId = this.deliveryackpodmodel.consignmentId;
+        this.gcYear = this.deliveryackpodmodel.gcYear;
         this.formUser.patchValue({
-          centreName: ''
+          gcBook: this.deliveryackpodmodel.gcBook,
+          gcDate:this.commonService.formatDate(this.deliveryackpodmodel.gcDate),
+          gcFrom: this.deliveryackpodmodel.gcFrom,
+          gcTo: this.deliveryackpodmodel.gcTo,
+          cnPkgs: this.deliveryackpodmodel.cnPkgs,
+          cnActWt: this.deliveryackpodmodel.cnActWt,           
+          delPkgs: this.deliveryackpodmodel.cnPkgs,     
+          delActWt: this.deliveryackpodmodel.cnActWt,     
+          shExPkgs: "0",
+          shExpActWt: "0",         
+          consignor: this.deliveryackpodmodel.consignor,
+          consignee: this.deliveryackpodmodel.consignee,
+          party: this.deliveryackpodmodel.party,
+          expectedRptdate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
+          reportingDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
+          deliveryDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
+          delayDays:0,
+          detnDays:0,
+          balancePayable:this.deliveryackpodmodel.balancePayable,
+          handlingPayable:this.deliveryackpodmodel.handlingPayable,
+          detiontionPayable:this.deliveryackpodmodel.detiontionPayable,
+          others1Payable:this.deliveryackpodmodel.others1Payable,
+          others2Payable:this.deliveryackpodmodel.others2Payable,
+          totExtPayable:this.deliveryackpodmodel.totExtPayable,
+          netPayable:this.deliveryackpodmodel.netPayable,
         });
       });
       this.sharedService.loading = false;
@@ -211,9 +403,9 @@ export class DeliveryackpodaddComponent {
   }
 
   deleteDeliveryForm(): void {
-    if(this.selectedDeliveryackpod.akId != '' ){      
+    if(this.selectedDeliveryackpod.ackId != '' ){      
       this.sharedService.loading=true;
-      this.requestmodel.strRequest = this.selectedDeliveryackpod.akId;
+      this.requestmodel.strRequest = this.selectedDeliveryackpod.ackId;
       if (confirm("Are you sure, you want to delete this?")) {
             this.deliveryackpodService.deliveryackpodDelete(this.requestmodel).subscribe((res: Responsemodel) => {
             this.responseDetails = res;
@@ -251,14 +443,50 @@ export class DeliveryackpodaddComponent {
 
     this.sharedService.loading=true;
     var selectedDataValue = this.formUser.getRawValue();
-    this.deliveryackpodmodel.akId = this.selectedDeliveryackpod.akId ;
-    this.deliveryackpodmodel.akBranch      = selectedDataValue.centreName.toString().toUpperCase();
-    this.deliveryackpodmodel.akDate         = selectedDataValue.pinCode.toString();
-    this.deliveryackpodmodel.akSlNo      = selectedDataValue.acctBranch.toString();
-    this.deliveryackpodmodel.yearId  = this.year;
-    this.deliveryackpodmodel.loggedInUser  = this.loggedInUserID;
+    this.deliveryackpodmodel.ackId              = this.selectedDeliveryackpod.ackId ;
+    this.deliveryackpodmodel.ackBranch          = selectedDataValue.ackBranch.toString().toUpperCase();
+    this.deliveryackpodmodel.ackDate            = selectedDataValue.ackDate.toString();
+    this.deliveryackpodmodel.ackSlNo            = selectedDataValue.ackSlNo.toString();
+    this.deliveryackpodmodel.gcYear             = this.gcYear;
+    this.deliveryackpodmodel.gcBook             = selectedDataValue.gcBook.toString();
+    this.deliveryackpodmodel.gcNoteNo           = selectedDataValue.gcNoteNo.toString();
+    this.deliveryackpodmodel.consignmentId      = this.consignmentId 
+    this.deliveryackpodmodel.cnPkgs             = selectedDataValue.cnPkgs.toString();
+    this.deliveryackpodmodel.cnActWt            = selectedDataValue.cnActWt.toString();
+    this.deliveryackpodmodel.delPkgs            = selectedDataValue.delPkgs.toString();
+    this.deliveryackpodmodel.delActWt           = selectedDataValue.delActWt.toString();
+    this.deliveryackpodmodel.shExPkgs           = selectedDataValue.shExPkgs.toString();
+    this.deliveryackpodmodel.shExpActWt         = selectedDataValue.shExpActWt.toString();
+    this.deliveryackpodmodel.expectedRptdate    = selectedDataValue.expectedRptdate;
+    this.deliveryackpodmodel.reportingDate      = selectedDataValue.reportingDate;
+    this.deliveryackpodmodel.delayDays          = selectedDataValue.delayDays.toString();
+    this.deliveryackpodmodel.deliveryDate       = selectedDataValue.deliveryDate;
+    this.deliveryackpodmodel.detnDays           = selectedDataValue.detnDays.toString();
+    this.deliveryackpodmodel.podRecdYN          = selectedDataValue.podRecdYN?"Y":"N";
+    this.deliveryackpodmodel.podRecdDate        = selectedDataValue.podRecdDate.toString();
+    this.deliveryackpodmodel.balancePayable     = selectedDataValue.balancePayable.toString();
+    this.deliveryackpodmodel.handlingPayable    = selectedDataValue.handlingPayable.toString();
+    this.deliveryackpodmodel.detiontionPayable  = selectedDataValue.detiontionPayable.toString();
+    this.deliveryackpodmodel.others1Payable     = selectedDataValue.others1Payable.toString();
+    this.deliveryackpodmodel.others2Payable     = selectedDataValue.others2Payable.toString();
+    this.deliveryackpodmodel.totExtPayable      = selectedDataValue.totExtPayable.toString();
+    this.deliveryackpodmodel.shortageDesc       = selectedDataValue.shortageDesc.toString().toUpperCase();
+    this.deliveryackpodmodel.damageDesc         = selectedDataValue.damageDesc.toString().toUpperCase();
+    this.deliveryackpodmodel.shortageClaim      = selectedDataValue.shortageClaim.toString();
+    this.deliveryackpodmodel.damageClaim        = selectedDataValue.damageClaim.toString();
+    this.deliveryackpodmodel.lateRptDed         = selectedDataValue.lateRptDed.toString();
+    this.deliveryackpodmodel.latePodDed         = selectedDataValue.latePodDed.toString();
+    this.deliveryackpodmodel.othDed             = selectedDataValue.othDed.toString();
+    this.deliveryackpodmodel.netPayable         = selectedDataValue.netPayable.toString();
+    this.deliveryackpodmodel.yearId             = this.year;
+    this.deliveryackpodmodel.loggedInUser       = this.loggedInUserID;
 
-    this.deliveryackpodService.deliveryackpodDetailsSave(this.deliveryackpodmodel).subscribe((res: Responsemodel) => {
+    let formData = new FormData();
+    formData.append('podAttach1', this.podAttach1Input.nativeElement.files[0]);
+    formData.append('podAttach2', this.podAttach2Input.nativeElement.files[0]);
+    formData.append('datadetails', JSON.stringify(this.deliveryackpodmodel));
+
+    this.deliveryackpodService.deliveryackpodDetailsSave(formData).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toasterService.success(this.responseDetails.message);

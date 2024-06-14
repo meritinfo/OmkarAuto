@@ -46,7 +46,7 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
-                                    <input type="text" id="formrow-inputCity" class="form-control" 
+                                    <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
                                         formControlName="gcNoteNo" maxlength="15" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
@@ -325,7 +325,8 @@
                             <div class="col-lg-12">
                                 <div class="tex">
                                     <button type="button" class="btn btn-primary w-md next-step ms-2" 
-                                    id="n-btn1" (click)="nextStep(2)">Save and continue</button>
+                                    id="n-btn1" (click)="nextStep(2)">Save and continue</button>&nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>
                         </div>
@@ -576,7 +577,8 @@
                                     <button type="button" class="btn btn-default prev-step"
                                         id="p-btn1" (click)="nextStep(1)">Previous</button>
                                     <button type="button" class="btn btn-primary w-md next-step ms-2" 
-                                    id="n-btn2"  (click)="nextStep(3)">Save and continue</button>
+                                    id="n-btn2"  (click)="nextStep(3)">Save and continue</button>&nbsp;
+                                    <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                                 </div>
                             </div>
                         </div>
