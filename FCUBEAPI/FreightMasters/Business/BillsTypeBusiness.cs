@@ -33,5 +33,9 @@ namespace FreightMasters.Business
         {
             return await billsTypeRepository.GetFinAcList();
         }
+        public async Task<ResponseModel> CheckDuplicateBillType(RequestModel request)
+        {
+            return await billsTypeRepository.CheckDuplicateBillType(request);
+        }
     }
 }

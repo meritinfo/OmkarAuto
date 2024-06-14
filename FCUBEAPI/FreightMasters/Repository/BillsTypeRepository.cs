@@ -96,6 +96,7 @@ namespace FreightMasters.Repository
             }
             return creditacList;
         }
+
         public async Task<BillsTypeListModel> GetBillsTypeList(PageRequest request)
         {
             BillsTypeListModel billsTypeListModel = new();
@@ -157,6 +158,45 @@ namespace FreightMasters.Repository
                 //await exception.SaveExceptionDetails(exceptionModel);
             }
             return billsTypeListModel;
+        }
+        public async Task<ResponseModel> CheckDuplicateBillType(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@BillTypeDesc", requestModel.strRequest),
+                          //  new SqlParameter("@ClassDesc", requestModel.strRequest1),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_CheckDuplicateBillType", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
         }
         public async Task<ResponseModel> BillsTypeDelete(RequestModel requestModel)
         {

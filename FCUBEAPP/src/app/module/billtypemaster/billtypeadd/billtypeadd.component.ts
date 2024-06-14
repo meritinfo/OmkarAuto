@@ -100,6 +100,28 @@ getGetFinAcList(){
     this.creditacList = res;    
   }); 
 }
+chkBillTypeDuplicate(){
+  var selectedData = this.formBillTypeMaster.getRawValue();
+  
+
+    this.requestmodel.strRequest = selectedData.billTypeDesc;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.billsTypeService.checkDuplicateBillType(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formBillTypeMaster.patchValue({
+          billTypeDesc: ''
+  
+        });
+        
+      }
+    });
+    
+}
 
 deleteBillTypeMasterForm(): void {
   if(this.selectedBillsTypeMasterDetails.billTypeId != '' ){
@@ -138,7 +160,7 @@ submitBillTypeMasterForm(): void {
 
   var selectedDataVal = this.formBillTypeMaster.getRawValue();
   this.userSubmitted = true;
-  this.billstypemodel.billTypeId = this.selectedBillsTypeMasterDetails.billTypeId ;
+  this.billstypemodel.billTypeId = this.selectedBillsTypeMasterDetails.billTypeId != '' ? this.selectedBillsTypeMasterDetails.billTypeId : '';
   this.billstypemodel.billTypeDesc  = selectedDataVal.billTypeDesc.toString().toUpperCase();
   this.billstypemodel.mainAc = selectedDataVal.mainAc;
   this.billstypemodel.otherAc = selectedDataVal.otherAc;

@@ -631,6 +631,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicateBillType")]
+        public async Task<IActionResult> CheckDuplicateBillType(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsTypeBusiness.CheckDuplicateBillType(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CheckDuplicateRateDesc")]
         public async Task<IActionResult> CheckDuplicateRateDesc(RequestModel req)
         {
