@@ -279,6 +279,7 @@ export class ChallanmasteraddComponent {
       }
 
       this.formUser.controls['challanNo'].disable();  
+      this.formUser.controls['lrNo'].disable();  
       this.formUser.controls["modifyRemarks"].enable();   
       this.getChallanInnerGridList();   
       this.editMode = true;     
@@ -400,13 +401,13 @@ export class ChallanmasteraddComponent {
 
   chkChallanDuplicate(){
     var selectedData = this.formUser.getRawValue();
-    if (selectedData.gcNoteNo==""){
-      this.toastrService.warning("GC Note No should not be Blank");
+    if (selectedData.challanNo==""){
+      this.toastrService.warning("Challan No should not be Blank");
       return;
     }
     else{
-      this.requestmodel.strRequest = selectedData.bookingPlace;
-      this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+      this.requestmodel.strRequest = selectedData.challanBranch;
+      this.requestmodel.strRequest1 = selectedData.challanNo;
       this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -414,9 +415,43 @@ export class ChallanmasteraddComponent {
         }
         else{
           this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            challanNo: "",
+          });
         }
       });
-    }   
+    }  
+  }
+
+  chkMainChallan(){
+    var selectedData = this.formUser.getRawValue();
+    if (selectedData.challanNo==""){
+      this.toastrService.warning("Challan No should not be Blank");
+      return;
+    }
+    
+    if (selectedData.mainChallanNo!=""){
+      if (selectedData.challanNo==selectedData.mainChallanNo){
+        this.toastrService.warning("Main Challan No should not be Same as Challan No");
+        return;
+      }
+      else{
+        this.requestmodel.strRequest = "";
+        this.requestmodel.strRequest1 = selectedData.mainChallanNo;
+        this.challanmasterService.checkDuplicateChallan(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if (this.responseDetails.status) {
+            //ignore
+          }
+          else{
+            this.toastrService.warning(this.responseDetails.message);
+            this.formUser.patchValue({
+              mainChallanNo: "",
+            });
+          }
+        });
+      }
+    }
   }
 
   onGcNoteChange(i:number,e: any) {
@@ -588,6 +623,9 @@ export class ChallanmasteraddComponent {
           }
          else{
             this.toastrService.warning(this.responseDetails.message);
+            this.formUser.patchValue({
+              truckNo:"",
+            });
           }
         });
       }   
@@ -647,7 +685,12 @@ export class ChallanmasteraddComponent {
   };
 
   getDetails(){
-    var selectedData = this.formUser.getRawValue();
+    var selectedData = this.formUser.getRawValue();    
+    this.selectedChallanDetails = new Challanmastermodel();
+    this.formUser.patchValue(this.selectedChallanDetails);
+    this.formArray.clear();
+    this.formArray.push(this.createInitialArray());     
+
     this.requestmodel.strRequest = selectedData.lrNo;
     if(selectedData.lrNo==""){
       this.toastrService.warning("Please Enter LR No ");

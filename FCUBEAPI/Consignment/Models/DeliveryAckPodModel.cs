@@ -10,14 +10,20 @@ namespace Consignment.Models
 	{
 		public string? AckId { get; set; }
 		public string? AckBranch { get; set; }
-		public string? AckDate { get; set; }
+        public string? AckBr { get; set; }
+        public string? AckDate { get; set; }
 		public string? AckSlNo { get; set; }
 		public string? GcYear { get; set; }
 		public string? GcBook { get; set; }
         public string? GcDate { get; set; }
 		public string? GcNoteNo { get; set; }
 		public string? ConsignmentId { get; set; }
-		public string? CnPkgs { get; set; }
+        public string? GcFrom { get; set; }
+        public string? GcTo { get; set; }
+        public string? Consignor { get; set; }
+        public string? Consignee { get; set; }
+        public string? Party { get; set; }
+        public string? CnPkgs { get; set; }
 		public string? CnActWt { get; set; }
 		public string? DelPkgs { get; set; }
 		public string? DelActWt { get; set; }
@@ -30,7 +36,6 @@ namespace Consignment.Models
 		public string? DetnDays { get; set; }
 		public string? PodRecdYN { get; set; }
 		public string? PodRecdDate { get; set; }
-		public string? PodDelayDays { get; set; }
 		public string? PodAttach1 { get; set; }
 		public string? PodAttach2 { get; set; }
 		public string? BalancePayable { get; set; }

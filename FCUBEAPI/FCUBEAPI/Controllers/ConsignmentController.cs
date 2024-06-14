@@ -1003,7 +1003,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetDeliveryAckPodList")]
-        public async Task<IActionResult> GetDeliveryAckPodList(PageRequest request)
+        public async Task<IActionResult> GetDeliveryAckPodList(ReportRequestModel request)
         {
             if (request == null)
             {
@@ -1037,16 +1037,62 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("DeliveryAckPodSave")]
-        public async Task<IActionResult> DeliveryAckPodSave(DeliveryAckPodModel deliveryAckPodModel)
+        public async Task<IActionResult> DeliveryAckPodSave()
         {
-            if (deliveryAckPodModel == null)
+            try
+            {
+                var podAttach1 = HttpContext.Request.Form.Files["podAttach1"];
+                var podAttach2 = HttpContext.Request.Form.Files["podAttach2"];
+
+                DeliveryAckPodModel deliveryAckPodModel = JsonConvert.DeserializeObject<DeliveryAckPodModel>(HttpContext.Request.Form["datadetails"]);
+                deliveryAckPodModel.PodAttach1 = "";
+                deliveryAckPodModel.PodAttach2 = "";
+
+                if (podAttach1 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(podAttach1.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(podAttach1.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/deliveryackpod/podattach1/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await podAttach1.CopyToAsync(fileStream);
+                        deliveryAckPodModel.PodAttach1 = imageName;
+                    }
+                }
+                if (podAttach2 != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(podAttach2.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(podAttach2.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/deliveryackpod/podattach2/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await podAttach1.CopyToAsync(fileStream);
+                        deliveryAckPodModel.PodAttach2 = imageName;
+                    }
+                }
+
+                var result = await deliveryAckPodBusiness.DeliveryAckPodSave(deliveryAckPodModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetDeliveryCnDetails")]
+        public async Task<IActionResult> GetDeliveryCnDetails(RequestModel request)
+        {
+            if (request == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await deliveryAckPodBusiness.DeliveryAckPodSave(deliveryAckPodModel);
+                var result = await deliveryAckPodBusiness.GetDeliveryCnDetails(request);
 
                 return Ok(result);
             }

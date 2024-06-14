@@ -253,6 +253,7 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
+import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
 
 @NgModule({
   declarations: [
@@ -406,6 +407,7 @@ import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
     EmppaysheetrptComponent,
     DeliveryackpodlistComponent,
     DeliveryackpodaddComponent,
+    ConsignmentupdateComponent,
   ],
   imports: [
     BrowserModule,

@@ -157,8 +157,8 @@ export class ConsignmentaddComponent implements OnInit {
       ownTruck : new FormControl('',),    
       truckNo : new FormControl('', [Validators.required]),    
       billingParty : new FormControl('', [Validators.required]),
-      billingBranch : new FormControl('', [Validators.required]),
-      businessBranch : new FormControl('', [Validators.required]),
+      billingBranch : new FormControl(this.branch, [Validators.required]),
+      businessBranch : new FormControl(this.branch, [Validators.required]),
       cnorName : new FormControl('', [Validators.required]),
       cnorAdd1 : new FormControl('',),    
       cnorAdd2 : new FormControl('',),    
@@ -436,6 +436,9 @@ export class ConsignmentaddComponent implements OnInit {
         }
        else{
           this.toastrService.warning(this.responseDetails.message);
+          this.formUser.patchValue({
+            gcNoteNo:"",
+          }); 
         }
       });
     }   
@@ -457,6 +460,9 @@ export class ConsignmentaddComponent implements OnInit {
           }
          else{
             this.toastrService.warning(this.responseDetails.message);
+            this.formUser.patchValue({
+              truckNo:"",
+            });   
           }
         });
       }   
@@ -714,8 +720,6 @@ export class ConsignmentaddComponent implements OnInit {
       //Remove field validation
       this.formUser.controls['ewayBillNo'].clearValidators();
       this.formUser.controls['ewayBillDate'].clearValidators();
-      this.formUser.controls['cnorName'].clearValidators();
-      this.formUser.controls['cneeName'].clearValidators();
       this.formUser.controls['invoiceNo'].clearValidators();
       this.formUser.controls['invoiceDate'].clearValidators();
       this.formUser.controls['invoiceValue'].clearValidators();
@@ -727,8 +731,6 @@ export class ConsignmentaddComponent implements OnInit {
     if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formUser.controls['ewayBillDate'].setValidators([Validators.required]);
-      this.formUser.controls['cnorName'].setValidators([Validators.required]);
-      this.formUser.controls['cneeName'].setValidators([Validators.required]);
       this.formUser.controls['invoiceNo'].setValidators([Validators.required]);
       this.formUser.controls['invoiceDate'].setValidators([Validators.required]);
       this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
@@ -778,8 +780,6 @@ export class ConsignmentaddComponent implements OnInit {
     }
     this.formUser.controls['ewayBillNo'].updateValueAndValidity();
     this.formUser.controls['ewayBillDate'].updateValueAndValidity();
-    this.formUser.controls['cnorName'].updateValueAndValidity();
-    this.formUser.controls['cneeName'].updateValueAndValidity();
     this.formUser.controls['invoiceNo'].updateValueAndValidity();
     this.formUser.controls['invoiceDate'].updateValueAndValidity();
     this.formUser.controls['invoiceValue'].updateValueAndValidity();
