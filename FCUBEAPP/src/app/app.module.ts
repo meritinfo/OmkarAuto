@@ -120,6 +120,7 @@ import { FinaccountsmasterlistComponent } from './module/finaccountsmaster/finac
 import { FinaccountsmasteraddComponent } from './module/finaccountsmaster/finaccountsmasteradd/finaccountsmasteradd.component';
 import { Finaccountlistmodel } from './models/finaccountlistmodel';
 import { Finaccountmodel } from './models/finaccountmodel';
+import { Billstypemodel } from './models/billstypemastermodel';
 import { Requestmodel } from './models/requestmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
@@ -253,7 +254,13 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
+import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
+import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
+import { Documentallotmentmodel } from './models/documentallotmentmodel';
+import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
+import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
+
 
 @NgModule({
   declarations: [
@@ -407,6 +414,10 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     EmppaysheetrptComponent,
     DeliveryackpodlistComponent,
     DeliveryackpodaddComponent,
+    AdddocumentallottmentComponent,
+    Documentallottmentlistcomponent,
+    BilltypeaddComponent,
+    BilltypelistComponent,
     ConsignmentupdateComponent,
   ],
   imports: [
@@ -459,8 +470,8 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel,
-    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,
+    Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
 })

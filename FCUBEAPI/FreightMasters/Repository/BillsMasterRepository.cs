@@ -378,7 +378,8 @@ namespace FreightMasters.Repository
                                 DisputeCaseNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeCaseNo"]),
                                 DisputeCaseStory = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeCaseStory"]),
                                 DisputeReleaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeReleaseDate"]),
-                              
+                                StationName = Convert.ToString(dataSet.Tables[0].Rows[i]["StationName"]),
+
                                 //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
 
 

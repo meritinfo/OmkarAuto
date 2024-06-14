@@ -111,6 +111,9 @@ export class CommonService {
   GetCrAcListForCustWizard(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetCrAcListForCustWizard', null, this.httpOptions);
   }
+  GetFinAcList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetFinAcList', null, this.httpOptions);
+  }
   getProductList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetProductGroupList', null, this.httpOptions);
   }

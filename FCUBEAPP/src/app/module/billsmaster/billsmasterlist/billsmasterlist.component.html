@@ -79,7 +79,7 @@
                         </thead>
                         <tbody *ngIf="allBillsMaster.billsList?.length != 0">
                             <tr *ngFor="let renewalMaster of allBillsMaster.billsList">
-                                <td>{{ renewalMaster.billingStation }}</td>                        
+                                <td>{{ renewalMaster.stationName }}</td>                        
                                 <td>{{ renewalMaster.billNo}}</td>      
                                 <td>{{ renewalMaster.billDate}}</td>                        
                                 <td>{{ renewalMaster.billStatus}}</td>

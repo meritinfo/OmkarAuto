@@ -88,6 +88,8 @@ namespace FCUBEAPI
             services.AddScoped<IBankReconcilationBusiness, BankReconcilationBusiness>();
             services.AddScoped<IBillStatementRepository, BillStatementRepository>();
             services.AddScoped<IBillStatementBusiness, BillStatementBusiness>();
+            services.AddScoped<IBillsTypeRepository, BillsTypeRepository>();
+            services.AddScoped<IBillsTypeBusiness, BillsTypeBusiness>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IHrMasterBusiness, HrMasterBusiness>();
@@ -194,6 +196,8 @@ namespace FCUBEAPI
             services.AddScoped<IPayGenerationRepository, PayGenerationRepository>();
             services.AddScoped<IPaySheetRptBusiness, PaySheetRptBusiness>();
             services.AddScoped<IPaySheetRptRepository, PaySheetRptRepository>();
+            services.AddScoped<IDocumentAllotmentBusiness, DocumentAllotmentBusiness>();
+            services.AddScoped<IDocumentAllotmentRepository, DocumentAllotmentRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

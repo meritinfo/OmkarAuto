@@ -1,0 +1,114 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">BillTypeMaster</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formBillTypeMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Bill TypeDesc</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                formControlName="billTypeDesc"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['billTypeDesc'].invalid) }">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>   
+                                    <div class="row">                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Main Ac</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="mainAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['mainAc'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Other Ac</label>
+                                                
+                                                
+                                                <select class="form-control" formControlName="otherAc"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">OtherAc2</label>
+                                             
+                                                
+                                                <select class="form-control" formControlName="otherAc2"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc2'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Other Ac3</label>
+                                               
+                                                
+                                                <select class="form-control" formControlName="otherAc3"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['otherAc3'].invalid) }">
+                                                <option value="">Choose...</option>
+                                                <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">SacCode</label>
+                                              
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" "
+                                                formControlName="sacCode"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['sacCode'].invalid) }">
+                                            </div>
+                                            
+                                        </div> 
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            (click)="submitBillTypeMasterForm()" >Save</button> &nbsp;  
+                            <button class="btn btn-danger w-md m-2" 
+                            (click)="deleteBillTypeMasterForm()">Delete</button> &nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>

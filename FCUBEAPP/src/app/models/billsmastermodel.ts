@@ -60,6 +60,7 @@ export class Billsmastermodel {
     disputeCaseNo: string = "";  
     disputeCaseStory: string = "";  
     disputeReleaseDate: string = "";  
+    stationName: string = "";  
     loggedInUser: string = "";  
     billsMasterListData: BillsDetailModel[] = [];
 }
