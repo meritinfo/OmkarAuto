@@ -22,5 +22,6 @@ namespace Consignment.Repository
        // Task<List<DropDownListModel>> GetVehicleGroupTypeList();
         Task<List<DropDownListModel>> GetClassList();
         Task<ResponseModel> GetBillSeries(RequestModel request);
+        Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req);
     }
 }

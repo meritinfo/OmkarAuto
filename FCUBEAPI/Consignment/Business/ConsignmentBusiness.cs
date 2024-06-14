@@ -77,6 +77,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetBillSeries(request);
         }
+        public async Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req)
+        {
+            return await consignmentRepository.GetConsignmentUpdateDetails(req);
+        }
 
     }
 }

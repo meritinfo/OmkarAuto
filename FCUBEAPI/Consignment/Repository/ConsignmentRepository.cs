@@ -12,6 +12,8 @@ using DocumentFormat.OpenXml.VariantTypes;
 using System.Numerics;
 using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Data;
 
 namespace Consignment.Repository
 {
@@ -384,6 +386,7 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
+
         public async Task<ResponseModel> InvDtlSave(SqlTransaction transaction, ConsignmentInvModel invModel)
         {
             ResponseModel responseModel = new();
@@ -451,6 +454,72 @@ namespace Consignment.Repository
                 response.Status = false;
             }
             return response;
+        }
+        public async Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req)
+        {
+            ConsignmentModel lrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@Branch", req.strRequest),
+                            new SqlParameter("@GCNoteNo", req.strRequest1),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentUpdateDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        // response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
+                        lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
+                        lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
+                        lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
+                                lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
+                                lrmodel.CneeName = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
+                                lrmodel.NoPackages = Convert.ToString(dataSet.Tables[0].Rows[0]["NoPackages"]);
+                                lrmodel.ActualWt = Convert.ToString(dataSet.Tables[0].Rows[0]["ActualWt"]);
+                                lrmodel.Chargewt = Convert.ToString(dataSet.Tables[0].Rows[0]["Chargewt"]);
+                                lrmodel.RateType = Convert.ToString(dataSet.Tables[0].Rows[0]["RateType"]);
+                                lrmodel.RateRs = Convert.ToString(dataSet.Tables[0].Rows[0]["RateRs"]);
+                                lrmodel.FreightRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
+                                lrmodel.StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalRs"]);
+                                lrmodel.FovRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FovRs"]);
+                                lrmodel.DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollRs"]);
+                                lrmodel.HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingRs"]);
+                                lrmodel.LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnRs"]);
+                                lrmodel.EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteRs"]);
+                                lrmodel.MiscRs = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscRs"]);
+                                lrmodel.DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelRs"]);
+                                lrmodel.ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRS"]);
+                                lrmodel.UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingRs"]);
+                                lrmodel.UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingDetnRs"]);
+                                lrmodel.OthersRs = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersRs"]);
+                                lrmodel.SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotalRs"]);
+                                lrmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
+                                lrmodel.SgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstPct"]);
+                                lrmodel.SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstAmt"]);
+                                lrmodel.CgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstPct"]);
+                                lrmodel.CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstAmt"]);
+                                lrmodel.IgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstPct"]);
+                                lrmodel.IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstAmt"]);
+                                lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
+
+                    }
+                    else
+                    {
+                      //  response.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               // response.Status = false;
+            }
+            return lrmodel;
         }
         public async Task<ResponseModel> GetBillSeries(RequestModel request)
         {

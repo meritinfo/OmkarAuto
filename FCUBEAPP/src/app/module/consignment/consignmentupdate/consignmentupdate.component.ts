@@ -185,67 +185,122 @@ export class ConsignmentupdateComponent {
   
   getConsignmentDetails(e: any) { 
     this.formUser.patchValue({
-      gcBook: "",
-      gcDate:"",
-      gcFrom: "",
-      gcTo: "",
-      cnPkgs: "",
-      cnActWt: "",
-      delPkgs: "",
-      delActWt: "",
-      shExPkgs: "",
-      shExpActWt: "",
-      consignor: "",
-      consignee: "",
-      party: "",
-      expectedRptdate:"",
-      reportingDate:"",
-      deliveryDate:"",
-      delayDays:"",
-      detnDays:"",
-      balancePayable:"",
-      handlingPayable:"",
-      detiontionPayable:"",
-      others1Payable:"",
-      others2Payable:"",
-      totExtPayable:"",
-      netPayable:"",
+      bookingDate : "",
+      fromPlace : "",
+      toPlace :  "",     
+      noPackages :  "",
+      actualWt :  "", 
+      chargewt :  "", 
+      cnorName:  "", 
+      cneeName:  "", 
+      billingParty:  "", 
+      rateType :  "", 
+      rateDesc :  "", 
+      gstBy :  "", 
+      rateRs :  "", 
+      freightRs :  "", 
+      statisticalRs :  "", 
+      fovRs:  "", 
+      doorCollRs :  "", 
+      handlingRs :  "", 
+      loadingDetnRs :  "", 
+      enrouteRs :  "", 
+      miscRs :  "", 
+      doorDelRs :  "", 
+      unLoadingRs :  "", 
+      unLoadingDetnRs :  "", 
+      extrasRS :  "", 
+      othersRs :  "", 
+      freightNarr:  "", 
+      statisticalNarr:  "", 
+      fovNarr:  "", 
+      doorCollNarr:  "", 
+      handlingNarr:  "", 
+      loadingDetnNarr:  "", 
+      enrouteNarr:  "", 
+      miscNarr:  "", 
+      doorDelNarr:  "", 
+      unLoadingNarr:  "", 
+      unloadingDetenNarr:  "", 
+      extrasNarr:  "", 
+      othersNarr:  "", 
+      subTotalRs :  "", 
+      gstType:  "", 
+      sgstPct:  "", 
+      sgstAmt:  "", 
+      cgstPct :  "", 
+      cgstAmt:  "", 
+      igstPct:  "", 
+      igstAmt:  "", 
+      nonGstAmt1 :  "", 
+      nonGstAmt1Desc:  "", 
+      nonGstAmt2:  "", 
+      nonGstAmt2Desc:  "", 
+      gtotalRs :  "", 
     });
 
       this.sharedService.loading = true;
-      this.requestmodel.strRequest = e.target.value; 
-      // this.deliveryackpodService.getConsignmentDetails(this.requestmodel).subscribe((res) => {
-      //   this.deliveryackpodmodel = res;
+      this.requestmodel.strRequest = this.branch;
+      this.requestmodel.strRequest1 = e.target.value; 
+       this.lrentryService.getConsignmentDetailsForUpdate(this.requestmodel).subscribe((res:Consignmentmodel) => {
+        this.lrmodel = res;
       //   this.consignmentId = this.deliveryackpodmodel.consignmentId;
       //   this.gcYear = this.deliveryackpodmodel.gcYear;
-      //   this.formUser.patchValue({
-      //     gcBook: this.deliveryackpodmodel.gcBook,
-      //     gcDate:this.commonService.formatDate(this.deliveryackpodmodel.gcDate),
-      //     gcFrom: this.deliveryackpodmodel.gcFrom,
-      //     gcTo: this.deliveryackpodmodel.gcTo,
-      //     cnPkgs: this.deliveryackpodmodel.cnPkgs,
-      //     cnActWt: this.deliveryackpodmodel.cnActWt,           
-      //     delPkgs: this.deliveryackpodmodel.cnPkgs,     
-      //     delActWt: this.deliveryackpodmodel.cnActWt,     
-      //     shExPkgs: "0",
-      //     shExpActWt: "0",         
-      //     consignor: this.deliveryackpodmodel.consignor,
-      //     consignee: this.deliveryackpodmodel.consignee,
-      //     party: this.deliveryackpodmodel.party,
-      //     expectedRptdate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-      //     reportingDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-      //     deliveryDate:this.commonService.formatDate(this.deliveryackpodmodel.expectedRptdate),
-      //     delayDays:0,
-      //     detnDays:0,
-      //     balancePayable:this.deliveryackpodmodel.balancePayable,
-      //     handlingPayable:this.deliveryackpodmodel.handlingPayable,
-      //     detiontionPayable:this.deliveryackpodmodel.detiontionPayable,
-      //     others1Payable:this.deliveryackpodmodel.others1Payable,
-      //     others2Payable:this.deliveryackpodmodel.others2Payable,
-      //     totExtPayable:this.deliveryackpodmodel.totExtPayable,
-      //     netPayable:this.deliveryackpodmodel.netPayable,
-    // });
-    //   });
+        this.formUser.patchValue({
+          bookingDate : this.lrmodel.bookingDate,
+          fromPlace : this.lrmodel.fromPlace,
+          toPlace :  this.lrmodel.toPlace,    
+          noPackages :  this.lrmodel.noPackages,
+          actualWt :  this.lrmodel.actualWt, 
+          chargewt :  this.lrmodel.chargewt, 
+          cnorName:  this.lrmodel.cnorName,
+          cneeName:  this.lrmodel.cneeName, 
+          billingParty:  this.lrmodel.billingParty, 
+          rateType :  this.lrmodel.rateType, 
+          rateDesc :  this.lrmodel.rateDesc, 
+          gstBy :  this.lrmodel.gstBy, 
+          rateRs :  this.lrmodel.rateRs, 
+          freightRs :  this.lrmodel.freightRs, 
+          statisticalRs :  this.lrmodel.statisticalRs, 
+          fovRs:  this.lrmodel.fovRs ,
+          doorCollRs :  this.lrmodel.doorCollRs, 
+          handlingRs :  this.lrmodel.handlingRs, 
+          loadingDetnRs :  this.lrmodel.loadingDetnRs, 
+          enrouteRs :  this.lrmodel.enrouteRs, 
+          miscRs :  this.lrmodel.miscRs, 
+          doorDelRs :  this.lrmodel.doorDelRs, 
+          unLoadingRs :  this.lrmodel.unLoadingRs, 
+          unLoadingDetnRs :  this.lrmodel.unLoadingDetnRs, 
+          extrasRS :  this.lrmodel.extrasRS, 
+          othersRs :  this.lrmodel.othersRs, 
+          freightNarr:  this.lrmodel.freightNarr, 
+          statisticalNarr:  this.lrmodel.statisticalNarr, 
+          fovNarr:  this.lrmodel.fovNarr, 
+          doorCollNarr:  this.lrmodel.doorCollNarr, 
+          handlingNarr:  this.lrmodel.handlingNarr,
+          loadingDetnNarr:  this.lrmodel.loadingDetnNarr, 
+          enrouteNarr:  this.lrmodel.enrouteNarr, 
+          miscNarr:  this.lrmodel.miscNarr, 
+          doorDelNarr:  this.lrmodel.doorDelNarr, 
+          unLoadingNarr:  this.lrmodel.unLoadingNarr, 
+          unloadingDetenNarr:  this.lrmodel.unloadingDetenNarr, 
+          extrasNarr:  this.lrmodel.extrasNarr, 
+          othersNarr:  this.lrmodel.othersNarr, 
+          subTotalRs :  this.lrmodel.subTotalRs, 
+          gstType:  this.lrmodel.gstType, 
+          sgstPct:  this.lrmodel.sgstPct ,
+          sgstAmt:  this.lrmodel.sgstAmt ,
+          cgstPct :  this.lrmodel.cgstPct ,
+          cgstAmt:  this.lrmodel.cgstAmt ,
+          igstPct:  this.lrmodel.igstPct ,
+          igstAmt:  this.lrmodel.igstAmt ,
+          nonGstAmt1 :  this.lrmodel.nonGstAmt1 ,
+          nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
+          nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
+          nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
+          gtotalRs :  this.lrmodel.gtotalRs 
+    });
+       });
       this.sharedService.loading = false;
   }
 
@@ -395,11 +450,7 @@ export class ConsignmentupdateComponent {
 
   
   exit(): void {
-    if(this.selectedLrDetails.consignmentID=='0') {
-      this.route.navigate(['/dprtempgclist']);
-    }else{
       this.route.navigate(['/consignmentlist']);
-    }
   }
 
   updateLrDetailsForm(): void {
@@ -417,45 +468,40 @@ export class ConsignmentupdateComponent {
 
     var selectedDataValue = this.formUser.getRawValue();
 
-    if (selectedDataValue.fromPlace.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" From Place is Invalid");
-      return;
-    }
-
-    if (selectedDataValue.toPlace.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" To Place is Invalid");
-      return;
-    }
-
-    if (selectedDataValue.billingParty.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" Billing Party is Invalid");
-      return;
-    }
-
     this.sharedService.loading = true;
     this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
+   
+    this.lrmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
+  this.lrmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
+ this.lrmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
+ this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
+    this.lrmodel.freightNarr= selectedDataValue.freightNarr.toString().toUpperCase();
     this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
+    this.lrmodel.statisticalNarr= selectedDataValue.statisticalNarr.toString().toUpperCase();
     this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
+    this.lrmodel.fovNarr= selectedDataValue.fovNarr.toString().toUpperCase();
     this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
-    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";    
+    this.lrmodel.doorCollNarr= selectedDataValue.doorCollNarr.toString().toUpperCase();
+    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";   
+    this.lrmodel.handlingNarr= selectedDataValue.handlingNarr.toString().toUpperCase(); 
     this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
+    this.lrmodel.loadingDetnNarr= selectedDataValue.loadingDetnNarr.toString().toUpperCase(); 
     this.lrmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
+    this.lrmodel.enrouteNarr= selectedDataValue.enrouteNarr.toString().toUpperCase(); 
     this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
+    this.lrmodel.miscNarr= selectedDataValue.miscNarr.toString().toUpperCase(); 
     this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
+    this.lrmodel.doorDelNarr= selectedDataValue.doorDelNarr.toString().toUpperCase(); 
     this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
+    this.lrmodel.unLoadingNarr= selectedDataValue.unLoadingNarr.toString().toUpperCase(); 
     this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
+    this.lrmodel.unloadingDetenNarr= selectedDataValue.unloadingDetenNarr.toString().toUpperCase(); 
     this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
+    this.lrmodel.extrasNarr= selectedDataValue.extrasNarr.toString().toUpperCase(); 
     this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
+    this.lrmodel.othersNarr= selectedDataValue.othersNarr.toString().toUpperCase(); 
+
     this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
     this.lrmodel.gstType = selectedDataValue.gstType ;
     this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 

@@ -64,6 +64,9 @@ export class ConsignmentService {
   getLrInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetLrInnerGridList', req, this.httpOptions);
   }
+  getConsignmentDetailsForUpdate(request: Requestmodel):Observable<Consignmentmodel> {
+    return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentUpdateDetails', request, this.httpOptions);
+  }
   
   updateConsignmentDetails(user: Consignmentmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentUpdate', user, this.httpOptions);
