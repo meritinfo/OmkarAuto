@@ -23,6 +23,6 @@ namespace Consignment.Repository
         Task<List<DropDownListModel>> GetClassList();
         Task<ResponseModel> GetBillSeries(RequestModel request);
         Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req);
-        Task<ResponseModel> ConsignmentUpdate(ConsignmentModel ConsignmentModel);
+        Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel);
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit ,ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Consignmentmodel } from 'src/app/models/consignmentmodel';
+import { Consignmentupdatemodel } from 'src/app/models/consignmentupdatemodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -43,7 +44,7 @@ export class ConsignmentupdateComponent {
   keywordLocation = 'dataName';
 
   constructor(private route: Router, private formBuilder: FormBuilder,
-    private lrmodel: Consignmentmodel, private lrentryService: ConsignmentService,
+    private lrmodel: Consignmentmodel,  private cnmodel: Consignmentupdatemodel,private lrentryService: ConsignmentService,
     private commonService: CommonService, private sharedService: SharedService,
     private toastrService: ToastrService, private requestmodel: Requestmodel) {
     this.lrmodel = new Consignmentmodel();
@@ -492,58 +493,58 @@ export class ConsignmentupdateComponent {
     var selectedDataValue = this.formUser.getRawValue();
 
     this.sharedService.loading = true;
-    this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
-   
-    this.lrmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
-  this.lrmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
- this.lrmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
- this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
-    this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
-  //  this.lrmodel.freightNarr= selectedDataValue.freightNarr.toString().toUpperCase();
-    this.lrmodel.freightNarr= selectedDataValue.freightNarr;
-    this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
-  //  this.lrmodel.statisticalNarr= selectedDataValue.statisticalNarr.toString().toUpperCase();
-    this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
-//    this.lrmodel.fovNarr= selectedDataValue.fovNarr.toString().toUpperCase();
-    this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
-  //  this.lrmodel.doorCollNarr= selectedDataValue.doorCollNarr.toString().toUpperCase();
-    this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";   
-  //  this.lrmodel.handlingNarr= selectedDataValue.handlingNarr.toString().toUpperCase(); 
-    this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
-  //  this.lrmodel.loadingDetnNarr= selectedDataValue.loadingDetnNarr.toString().toUpperCase(); 
-    this.lrmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
-   // this.lrmodel.enrouteNarr= selectedDataValue.enrouteNarr.toString().toUpperCase(); 
-    this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
-   // this.lrmodel.miscNarr= selectedDataValue.miscNarr.toString().toUpperCase(); 
-    this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
-  //  this.lrmodel.doorDelNarr= selectedDataValue.doorDelNarr.toString().toUpperCase(); 
-    this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
-  //  this.lrmodel.unLoadingNarr= selectedDataValue.unLoadingNarr.toString().toUpperCase(); 
-    this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
-  //  this.lrmodel.unloadingDetenNarr= selectedDataValue.unloadingDetenNarr.toString().toUpperCase(); 
-    this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
-  //  this.lrmodel.extrasNarr= selectedDataValue.extrasNarr.toString().toUpperCase(); 
-    this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
-  //  this.lrmodel.othersNarr= selectedDataValue.othersNarr.toString().toUpperCase(); 
-
-    this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
-    this.lrmodel.gstType = selectedDataValue.gstType ;
-    this.lrmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 
-    this.lrmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt : "0"; 
-    this.lrmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct : "0";   
-    this.lrmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt : "0"; 
-    this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
-    this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
-    this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
-  // this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc.toString().toUpperCase();
-    this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
-  //  this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc.toString().toUpperCase();
-   // this.lrmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
-    this.lrmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
-    this.lrmodel.yearId = this.year;
-    this.lrmodel.loggedInUser = this.loggedInUserID;
+   // this.cnmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
+   this.cnmodel.consignmentID = this.lrmodel.consignmentID;
+    this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   
+  this.cnmodel.rateDesc = selectedDataValue.rateDesc ? selectedDataValue.rateDesc : "0"; 
+ this.cnmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
+ this.cnmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
+    this.cnmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
+   //this.cnmodel.freightNarr= selectedDataValue.freightNarr.toString().toUpperCase();
+    this.cnmodel.freightNarr= selectedDataValue.freightNarr  ? selectedDataValue.freightNarr : "0";
+    this.cnmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
+    this.cnmodel.statisticalNarr= selectedDataValue.statisticalNarr ? selectedDataValue.statisticalNarr : "0";
+    this.cnmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
+   this.cnmodel.fovNarr= selectedDataValue.fovNarr ? selectedDataValue.fovNarr : "0";
+    this.cnmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
+    this.cnmodel.doorCollNarr= selectedDataValue.doorCollNarr ? selectedDataValue.doorCollNarr : "0";
+    this.cnmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";   
+   this.cnmodel.handlingNarr= selectedDataValue.handlingNarr ? selectedDataValue.handlingNarr : "0";   
+    this.cnmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ;
+    this.cnmodel.loadingDetnNarr= selectedDataValue.loadingDetnNarr? selectedDataValue.loadingDetnNarr : "0";
+    this.cnmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
+    this.cnmodel.enrouteNarr= selectedDataValue.enrouteNarr? selectedDataValue.enrouteNarr : "0";
+    this.cnmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
+    this.cnmodel.miscNarr= selectedDataValue.miscNarr ? selectedDataValue.miscNarr : "0";
+    this.cnmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
+   this.cnmodel.doorDelNarr= selectedDataValue.doorDelNarr? selectedDataValue.doorDelNarr : "0";
+    this.cnmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
+    this.cnmodel.unLoadingNarr= selectedDataValue.unLoadingNarr ? selectedDataValue.unLoadingNarr : "0";
+    this.cnmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
+    this.cnmodel.unloadingDetenNarr= selectedDataValue.unloadingDetenNarr  ? selectedDataValue.unloadingDetenNarr : "0"; 
+    this.cnmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
+    this.cnmodel.extrasNarr= selectedDataValue.extrasNarr ? selectedDataValue.extrasNarr : "0";  
+    this.cnmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
+    this.cnmodel.othersNarr= selectedDataValue.othersNarr ? selectedDataValue.othersNarr : "0";;
+ 
+    this.cnmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
+    this.cnmodel.gstType = selectedDataValue.gstType ;
+    this.cnmodel.sgstPct  = selectedDataValue.sgstPct ? selectedDataValue.sgstPct : "0"; 
+    this.cnmodel.sgstAmt  = selectedDataValue.sgstAmt ? selectedDataValue.sgstAmt : "0"; 
+    this.cnmodel.cgstPct  = selectedDataValue.cgstPct ? selectedDataValue.cgstPct : "0";   
+    this.cnmodel.cgstAmt  = selectedDataValue.cgstAmt ? selectedDataValue.cgstAmt : "0"; 
+   this.cnmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
+    this.cnmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
+    this.cnmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
+   this.cnmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc ? selectedDataValue.nonGstAmt1Desc : "0"; 
+    this.cnmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
+    this.cnmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc  ? selectedDataValue.nonGstAmt2Desc : "0"; 
+    //this.cnmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
+    this.cnmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
+    this.cnmodel.yearId = this.year;
+    this.cnmodel.loggedInUser = this.loggedInUserID;
      
-    this.lrentryService.updateConsignmentDetails(this.lrmodel).subscribe((res: Responsemodel) => {
+    this.lrentryService.updateConsignmentDetails(this.cnmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (res.status) {
         this.route.navigate(['/consignmentlist']);

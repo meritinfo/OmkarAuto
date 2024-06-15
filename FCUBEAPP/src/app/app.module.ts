@@ -53,6 +53,7 @@ import { ConfirmationdialogComponent } from './module/shared/confirmationdialog/
 import { ConsignmentaddComponent } from './module/consignment/consignmentadd/consignmentadd.component';
 import { ConsignmentlistComponent } from './module/consignment/consignmentlist/consignmentlist.component';
 import { Consignmentmodel } from './models/consignmentmodel';
+import { Consignmentupdatemodel } from './models/consignmentupdatemodel';
 import { Trippaymentsmodel } from './models/trippaymentsmodel';
 import { Tripstatusrptmodel } from './models/tripstatusrptmodel';
 import { AddbranchmasterComponent } from './module/branchmaster/addbranchmaster/addbranchmaster.component';
@@ -470,7 +471,7 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel,Documentallotmentmodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

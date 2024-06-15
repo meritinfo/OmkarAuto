@@ -82,7 +82,7 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetConsignmentUpdateDetails(req);
         }
-        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             return await consignmentRepository.ConsignmentUpdate(ConsignmentModel);
         }

@@ -526,7 +526,7 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
-        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             ResponseModel responseModel = new();
 
@@ -569,6 +569,8 @@ namespace Consignment.Repository
                             new SqlParameter("@DoorDelNarr",             ConsignmentModel.DoorDelNarr  ),
                             new SqlParameter("@UnLoadingNarr",             ConsignmentModel.UnLoadingNarr  ),
                             new SqlParameter("@UnLoadingDetnNarr",          ConsignmentModel.UnloadingDetenNarr   ),
+                            new SqlParameter("@ExtrasNarr",           ConsignmentModel.ExtrasNarr    ),
+                            new SqlParameter("@OthersNarr",           ConsignmentModel.OthersNarr    ),
                             new SqlParameter("@SubTotalRs",           ConsignmentModel.SubTotalRs    ),
                             new SqlParameter("@GstType",            ConsignmentModel.GstType   ),
                             new SqlParameter("@SgstPct",            ConsignmentModel.SgstPct  ),
@@ -577,11 +579,12 @@ namespace Consignment.Repository
                             new SqlParameter("@CgstAmt",             ConsignmentModel.CgstAmt ),
                             new SqlParameter("@IgstPct",             ConsignmentModel.IgstPct  ),
                             new SqlParameter("@IgstAmt",          ConsignmentModel.IgstAmt    ),
+                            new SqlParameter("@NonGstAmt1",          ConsignmentModel.NonGstAmt1   ),
                             new SqlParameter("@NonGstAmt1Desc",          ConsignmentModel.NonGstAmt1Desc  ),
+
                             new SqlParameter("@NonGstAmt2",          ConsignmentModel.NonGstAmt2   ),
                             new SqlParameter("@NonGstAmt2Desc",             ConsignmentModel.NonGstAmt2Desc    ),
                             new SqlParameter("@GtotalRs",           ConsignmentModel.GtotalRs  ),
-                         
                             new SqlParameter("@YearId",              ConsignmentModel.YearId   ),
                             new SqlParameter("@LoggedInUser",        ConsignmentModel.LoggedInUser),
                         };
@@ -600,25 +603,8 @@ namespace Consignment.Repository
                         responseModel.Status = false;
                         transaction.Rollback();
                     }
-                    if (responseModel.Status)
-                    {
-                        for (int i = 0; i < ConsignmentModel.InvList.Count; i++)
-                        {
-                            ConsignmentModel.InvList[i].ConsignmentID = MasterID.ToString();
-
-                            responseModel = await InvDtlSave(transaction, ConsignmentModel.InvList[i]);
-                            if (!responseModel.Status)
-                            {
-                                transaction.Rollback();
-                                i = ConsignmentModel.InvList.Count;
-                            }
-                        }
-                    }
-                    if (responseModel.Status)
-                    {
-                        transaction.Commit();
-                    }
-                    else { transaction.Rollback(); }
+                  
+                   
                 }
             }
             catch (Exception ex)

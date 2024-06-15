@@ -1121,7 +1121,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("ConsignmentUpdate")]
-        public async Task<IActionResult> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        public async Task<IActionResult> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel)
         {
             if (ConsignmentModel == null)
             {

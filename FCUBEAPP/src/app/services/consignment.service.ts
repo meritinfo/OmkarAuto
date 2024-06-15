@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Consignmentmodel } from '../models/consignmentmodel';
+import { Consignmentupdatemodel } from '../models/consignmentupdatemodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
@@ -71,7 +72,7 @@ export class ConsignmentService {
     return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetConsignmentUpdateDetails', request, this.httpOptions);
   }
   
-  updateConsignmentDetails(user: Consignmentmodel): Observable<Responsemodel> {
+  updateConsignmentDetails(user: Consignmentupdatemodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentUpdate', user, this.httpOptions);
   }
 }
