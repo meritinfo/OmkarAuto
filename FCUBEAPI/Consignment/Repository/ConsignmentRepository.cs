@@ -455,6 +455,7 @@ namespace Consignment.Repository
             }
             return response;
         }
+
         public async Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req)
         {
             ConsignmentModel lrmodel = new();
@@ -473,6 +474,7 @@ namespace Consignment.Repository
                     {
                         // response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
                         lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
                         lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
@@ -506,9 +508,12 @@ namespace Consignment.Repository
                                 lrmodel.CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstAmt"]);
                                 lrmodel.IgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstPct"]);
                                 lrmodel.IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstAmt"]);
+                                lrmodel.NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1"]);
+                               // lrmodel.NonGstAmt1Desc = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1Desc"]);
+                                lrmodel.NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt2"]);
                                 lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
 
-                    }
+                     }
                     else
                     {
                       //  response.Status = false;
@@ -521,6 +526,108 @@ namespace Consignment.Repository
             }
             return lrmodel;
         }
+        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ConsignmentID",       ConsignmentModel.ConsignmentID ),
+                            new SqlParameter("@RateType",        ConsignmentModel.RateType ),
+                            new SqlParameter("@RateDesc",            ConsignmentModel.RateDesc ),
+                            new SqlParameter("@GstBy",         ConsignmentModel.GstBy),
+                            new SqlParameter("@RateRs",       ConsignmentModel.RateRs ),
+                            new SqlParameter("@FreightRs",   ConsignmentModel.FreightRs ),
+                            new SqlParameter("@StatisticalRs",          ConsignmentModel.StatisticalRs),
+                            new SqlParameter("@FovRs",        ConsignmentModel.FovRs),
+                            new SqlParameter("@DoorCollRs",     ConsignmentModel.DoorCollRs ),
+                            new SqlParameter("@HandlingRs",           ConsignmentModel.HandlingRs ),
+                            new SqlParameter("@LoadingDetnRs",         ConsignmentModel.LoadingDetnRs ),
+                            new SqlParameter("@EnrouteRs",        ConsignmentModel.EnrouteRs ),
+                            new SqlParameter("@MiscRs",       ConsignmentModel.MiscRs ),
+                            new SqlParameter("@DoorDelRs",           ConsignmentModel.DoorDelRs ),
+                            new SqlParameter("@UnLoadingRs",             ConsignmentModel.UnLoadingRs ),
+                            new SqlParameter("@UnLoadingDetnRs",                 ConsignmentModel.UnLoadingDetnRs ),
+                            new SqlParameter("@ExtrasRS",            ConsignmentModel.ExtrasRS ),
+                            new SqlParameter("@OthersRs",             ConsignmentModel.OthersRs ),
+                            new SqlParameter("@FreightNarr",        ConsignmentModel.FreightNarr ),
+                            new SqlParameter("@StatisticalNarr",       ConsignmentModel.StatisticalNarr),
+                            new SqlParameter("@FovNarr",          ConsignmentModel.FovNarr ),
+                            new SqlParameter("@DoorCollNarr",      ConsignmentModel.DoorCollNarr),
+                            new SqlParameter("@HandlingNarr",            ConsignmentModel.HandlingNarr  ),
+                            new SqlParameter("@LoadingDetnNarr",            ConsignmentModel.LoadingDetnNarr   ),
+                            new SqlParameter("@EnrouteNarr",            ConsignmentModel.EnrouteNarr  ),
+                            new SqlParameter("@MiscNarr",            ConsignmentModel.MiscNarr   ),
+                            new SqlParameter("@DoorDelNarr",             ConsignmentModel.DoorDelNarr  ),
+                            new SqlParameter("@UnLoadingNarr",             ConsignmentModel.UnLoadingNarr  ),
+                            new SqlParameter("@UnLoadingDetnNarr",          ConsignmentModel.UnloadingDetenNarr   ),
+                            new SqlParameter("@SubTotalRs",           ConsignmentModel.SubTotalRs    ),
+                            new SqlParameter("@GstType",            ConsignmentModel.GstType   ),
+                            new SqlParameter("@SgstPct",            ConsignmentModel.SgstPct  ),
+                            new SqlParameter("@SgstAmt",            ConsignmentModel.SgstAmt ),
+                            new SqlParameter("@CgstPct",            ConsignmentModel.CgstPct  ),
+                            new SqlParameter("@CgstAmt",             ConsignmentModel.CgstAmt ),
+                            new SqlParameter("@IgstPct",             ConsignmentModel.IgstPct  ),
+                            new SqlParameter("@IgstAmt",          ConsignmentModel.IgstAmt    ),
+                            new SqlParameter("@NonGstAmt1Desc",          ConsignmentModel.NonGstAmt1Desc  ),
+                            new SqlParameter("@NonGstAmt2",          ConsignmentModel.NonGstAmt2   ),
+                            new SqlParameter("@NonGstAmt2Desc",             ConsignmentModel.NonGstAmt2Desc    ),
+                            new SqlParameter("@GtotalRs",           ConsignmentModel.GtotalRs  ),
+                         
+                            new SqlParameter("@YearId",              ConsignmentModel.YearId   ),
+                            new SqlParameter("@LoggedInUser",        ConsignmentModel.LoggedInUser),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsignmentUpdate", param);
+                    string MasterID = "0";
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        MasterID = Convert.ToString(responseModel.Message);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                    if (responseModel.Status)
+                    {
+                        for (int i = 0; i < ConsignmentModel.InvList.Count; i++)
+                        {
+                            ConsignmentModel.InvList[i].ConsignmentID = MasterID.ToString();
+
+                            responseModel = await InvDtlSave(transaction, ConsignmentModel.InvList[i]);
+                            if (!responseModel.Status)
+                            {
+                                transaction.Rollback();
+                                i = ConsignmentModel.InvList.Count;
+                            }
+                        }
+                    }
+                    if (responseModel.Status)
+                    {
+                        transaction.Commit();
+                    }
+                    else { transaction.Rollback(); }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
         public async Task<ResponseModel> GetBillSeries(RequestModel request)
         {
             ResponseModel content = new();

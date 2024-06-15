@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
@@ -80,6 +81,10 @@ namespace Consignment.Business
         public async Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req)
         {
             return await consignmentRepository.GetConsignmentUpdateDetails(req);
+        }
+        public async Task<ResponseModel> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        {
+            return await consignmentRepository.ConsignmentUpdate(ConsignmentModel);
         }
 
     }

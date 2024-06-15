@@ -16,6 +16,7 @@ using FleetMasters.Models;
 using System.Data.Common;
 using FreightMasters.Business;
 using FreightMasters.Models;
+using FleetMasters.Business;
 
 
 namespace FCUBEAPI.Controllers
@@ -1111,6 +1112,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.GetConsignmentUpdateDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("ConsignmentUpdate")]
+        public async Task<IActionResult> ConsignmentUpdate(ConsignmentModel ConsignmentModel)
+        {
+            if (ConsignmentModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await consignmentBusiness.ConsignmentUpdate(ConsignmentModel);
 
                 return Ok(result);
             }

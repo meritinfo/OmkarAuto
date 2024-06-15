@@ -27,7 +27,7 @@ export class ConsignmentupdateComponent {
   maxDate: string = '';
   minDate: string = '';
   newDate: string = '';
-
+  partyList: Dropdownmodel[] = [];
   formSubmitted = false;
   editMode = false;
   createStatus = false;
@@ -36,6 +36,7 @@ export class ConsignmentupdateComponent {
   viewStatus = false;
   branchList: Dropdownmodel[] = [];
   rateList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
 
   responseDetails = new Responsemodel();
   selectedLrDetails = new Consignmentmodel();
@@ -54,7 +55,7 @@ export class ConsignmentupdateComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Create Branches");
+      .find((aa: { menuName: string; }) => aa.menuName === "Update Consignment for Bill");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -105,6 +106,17 @@ export class ConsignmentupdateComponent {
     this.sharedService.loading = true;
     this.getBranchList();
     this.getRateList();
+    this.getLocationList();
+    //this.getBillingPartyList();
+   // this.formUser.controls['bookingPlace'].disable();
+   // this.formUser.controls['bookingDate'].disable();  
+   // this.formUser.controls['fromPlace'].disable();  
+   // this.formUser.controls['toPlace'].disable();
+   // this.formUser.controls['noPackages'].disable();  
+    //this.formUser.controls['cnorName'].disable();  
+    //this.formUser.controls['actualWt'].disable();  
+    //this.formUser.controls['cneeName'].disable();  
+    //this.formUser.controls['party'].disable();  
 
     this.sharedService.loading = false;
     
@@ -119,7 +131,7 @@ export class ConsignmentupdateComponent {
       chargewt : new FormControl('',),   
       cnorName: new FormControl('',), 
       cneeName: new FormControl('',),
-      billingParty: new FormControl('',),
+      party: new FormControl('',),
       rateType : new FormControl('',),   
       rateDesc : new FormControl('',),   
       gstBy : new FormControl('',),   
@@ -193,7 +205,7 @@ export class ConsignmentupdateComponent {
       chargewt :  "", 
       cnorName:  "", 
       cneeName:  "", 
-      billingParty:  "", 
+      party:  "", 
       rateType :  "", 
       rateDesc :  "", 
       gstBy :  "", 
@@ -247,7 +259,7 @@ export class ConsignmentupdateComponent {
       //   this.consignmentId = this.deliveryackpodmodel.consignmentId;
       //   this.gcYear = this.deliveryackpodmodel.gcYear;
         this.formUser.patchValue({
-          bookingDate : this.lrmodel.bookingDate,
+          bookingDate :   this.commonService.formatDate(this.lrmodel.bookingDate),
           fromPlace : this.lrmodel.fromPlace,
           toPlace :  this.lrmodel.toPlace,    
           noPackages :  this.lrmodel.noPackages,
@@ -255,7 +267,7 @@ export class ConsignmentupdateComponent {
           chargewt :  this.lrmodel.chargewt, 
           cnorName:  this.lrmodel.cnorName,
           cneeName:  this.lrmodel.cneeName, 
-          billingParty:  this.lrmodel.billingParty, 
+          party:  this.lrmodel.billingParty, 
           rateType :  this.lrmodel.rateType, 
           rateDesc :  this.lrmodel.rateDesc, 
           gstBy :  this.lrmodel.gstBy, 
@@ -429,11 +441,22 @@ export class ConsignmentupdateComponent {
       gtotalRs: gtotalRs.toFixed(2),
     });
   }  
+  getBillingPartyList(): void {
+    this.commonService.getBillingPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
 
   
   selectEvent(item: any) {
     // do something with selected item
   }
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+
 
   onChangeSearch(search: string) {
     // do something with selected item
@@ -476,31 +499,32 @@ export class ConsignmentupdateComponent {
  this.lrmodel.gstBy = selectedDataValue.gstBy ? selectedDataValue.gstBy : "0"; 
  this.lrmodel.rateRs = selectedDataValue.rateRs ? selectedDataValue.rateRs : "0";
     this.lrmodel.freightRs = selectedDataValue.freightRs ? selectedDataValue.freightRs : "0";
-    this.lrmodel.freightNarr= selectedDataValue.freightNarr.toString().toUpperCase();
+  //  this.lrmodel.freightNarr= selectedDataValue.freightNarr.toString().toUpperCase();
+    this.lrmodel.freightNarr= selectedDataValue.freightNarr;
     this.lrmodel.statisticalRs = selectedDataValue.statisticalRs ? selectedDataValue.statisticalRs : "0";
-    this.lrmodel.statisticalNarr= selectedDataValue.statisticalNarr.toString().toUpperCase();
+  //  this.lrmodel.statisticalNarr= selectedDataValue.statisticalNarr.toString().toUpperCase();
     this.lrmodel.fovRs= selectedDataValue.fovRs ? selectedDataValue.fovRs : "0";
-    this.lrmodel.fovNarr= selectedDataValue.fovNarr.toString().toUpperCase();
+//    this.lrmodel.fovNarr= selectedDataValue.fovNarr.toString().toUpperCase();
     this.lrmodel.doorCollRs = selectedDataValue.doorCollRs ? selectedDataValue.doorCollRs : "0";
-    this.lrmodel.doorCollNarr= selectedDataValue.doorCollNarr.toString().toUpperCase();
+  //  this.lrmodel.doorCollNarr= selectedDataValue.doorCollNarr.toString().toUpperCase();
     this.lrmodel.handlingRs = selectedDataValue.handlingRs ? selectedDataValue.handlingRs : "0";   
-    this.lrmodel.handlingNarr= selectedDataValue.handlingNarr.toString().toUpperCase(); 
+  //  this.lrmodel.handlingNarr= selectedDataValue.handlingNarr.toString().toUpperCase(); 
     this.lrmodel.loadingDetnRs= selectedDataValue.loadingDetnRs ? selectedDataValue.loadingDetnRs : "0";
-    this.lrmodel.loadingDetnNarr= selectedDataValue.loadingDetnNarr.toString().toUpperCase(); 
+  //  this.lrmodel.loadingDetnNarr= selectedDataValue.loadingDetnNarr.toString().toUpperCase(); 
     this.lrmodel.enrouteRs = selectedDataValue.enrouteRs ? selectedDataValue.enrouteRs : "0";
-    this.lrmodel.enrouteNarr= selectedDataValue.enrouteNarr.toString().toUpperCase(); 
+   // this.lrmodel.enrouteNarr= selectedDataValue.enrouteNarr.toString().toUpperCase(); 
     this.lrmodel.miscRs = selectedDataValue.miscRs ? selectedDataValue.miscRs : "0";
-    this.lrmodel.miscNarr= selectedDataValue.miscNarr.toString().toUpperCase(); 
+   // this.lrmodel.miscNarr= selectedDataValue.miscNarr.toString().toUpperCase(); 
     this.lrmodel.doorDelRs = selectedDataValue.doorDelRs ? selectedDataValue.doorDelRs : "0";
-    this.lrmodel.doorDelNarr= selectedDataValue.doorDelNarr.toString().toUpperCase(); 
+  //  this.lrmodel.doorDelNarr= selectedDataValue.doorDelNarr.toString().toUpperCase(); 
     this.lrmodel.unLoadingRs = selectedDataValue.unLoadingRs ? selectedDataValue.unLoadingRs : "0";
-    this.lrmodel.unLoadingNarr= selectedDataValue.unLoadingNarr.toString().toUpperCase(); 
+  //  this.lrmodel.unLoadingNarr= selectedDataValue.unLoadingNarr.toString().toUpperCase(); 
     this.lrmodel.unLoadingDetnRs = selectedDataValue.unLoadingDetnRs ? selectedDataValue.unLoadingDetnRs : "0";
-    this.lrmodel.unloadingDetenNarr= selectedDataValue.unloadingDetenNarr.toString().toUpperCase(); 
+  //  this.lrmodel.unloadingDetenNarr= selectedDataValue.unloadingDetenNarr.toString().toUpperCase(); 
     this.lrmodel.extrasRS = selectedDataValue.extrasRS ? selectedDataValue.extrasRS : "0";
-    this.lrmodel.extrasNarr= selectedDataValue.extrasNarr.toString().toUpperCase(); 
+  //  this.lrmodel.extrasNarr= selectedDataValue.extrasNarr.toString().toUpperCase(); 
     this.lrmodel.othersRs = selectedDataValue.othersRs ? selectedDataValue.othersRs : "0";
-    this.lrmodel.othersNarr= selectedDataValue.othersNarr.toString().toUpperCase(); 
+  //  this.lrmodel.othersNarr= selectedDataValue.othersNarr.toString().toUpperCase(); 
 
     this.lrmodel.subTotalRs = selectedDataValue.subTotalRs ? selectedDataValue.subTotalRs : "0"; 
     this.lrmodel.gstType = selectedDataValue.gstType ;
@@ -511,10 +535,10 @@ export class ConsignmentupdateComponent {
     this.lrmodel.igstPct  = selectedDataValue.igstPct ? selectedDataValue.igstPct : "0";   
     this.lrmodel.igstAmt  = selectedDataValue.igstAmt ? selectedDataValue.igstAmt : "0"; 
     this.lrmodel.nonGstAmt1  = selectedDataValue.nonGstAmt1 ? selectedDataValue.nonGstAmt1 : "0"; 
-    this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc.toString().toUpperCase();
+  // this.lrmodel.nonGstAmt1Desc  = selectedDataValue.nonGstAmt1Desc.toString().toUpperCase();
     this.lrmodel.nonGstAmt2  = selectedDataValue.nonGstAmt2 ? selectedDataValue.nonGstAmt2 : "0"; 
-    this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc.toString().toUpperCase();
-    this.lrmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
+  //  this.lrmodel.nonGstAmt2Desc  = selectedDataValue.nonGstAmt2Desc.toString().toUpperCase();
+   // this.lrmodel.generalRemarks = selectedDataValue.generalRemarks.toString().toUpperCase();
     this.lrmodel.gtotalRs = selectedDataValue.gtotalRs.toString();
     this.lrmodel.yearId = this.year;
     this.lrmodel.loggedInUser = this.loggedInUserID;

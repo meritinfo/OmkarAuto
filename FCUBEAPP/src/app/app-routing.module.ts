@@ -139,6 +139,7 @@ import { AdddocumentallottmentComponent } from './module/documentallotment/adddo
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
+import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
 
 
 const routes: Routes = [
@@ -338,6 +339,7 @@ const routes: Routes = [
   { path: 'billtypeslist', component:  BilltypelistComponent },
   { path: 'billtypeadd', component:  BilltypeaddComponent },
   { path: 'billtypeedit', component:  BilltypeaddComponent },
+  { path: 'updatecnforbill', component:  ConsignmentupdateComponent },
   
 ];
 
