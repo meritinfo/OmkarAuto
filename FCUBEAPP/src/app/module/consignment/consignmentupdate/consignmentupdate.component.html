@@ -47,50 +47,16 @@
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">From</label>
-                                          
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="fromPlace"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='selectEvent($event)' 
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' 
-                                                        [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate" 
-                                                        [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['fromPlace'].invalid) }">
-                                                    </ng-autocomplete>
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
+                                            <label for="formrow-inputZip">From</label>                                                                              
+                                            <input autoclose="false" class="form-control"
+                                                    formControlName="fromPlace" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">To</label>
-                                           
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="toPlace"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='selectEvent($event)' 
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' 
-                                                        [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate" 
-                                                        [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['toPlace'].invalid) }">
-                                                    </ng-autocomplete>
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
+                                            <label for="formrow-inputZip">To</label>                                         
+                                            <input autoclose="false" class="form-control"
+                                                formControlName="toPlace" >
                                         </div>
                                     </div>  
                                     <div class="col-lg-2">
