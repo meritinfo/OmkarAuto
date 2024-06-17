@@ -109,15 +109,7 @@ export class ConsignmentupdateComponent {
     this.getRateList();
     this.getLocationList();
     //this.getBillingPartyList();
-   // this.formUser.controls['bookingPlace'].disable();
-   // this.formUser.controls['bookingDate'].disable();  
-   // this.formUser.controls['fromPlace'].disable();  
-   // this.formUser.controls['toPlace'].disable();
-   // this.formUser.controls['noPackages'].disable();  
-    //this.formUser.controls['cnorName'].disable();  
-    //this.formUser.controls['actualWt'].disable();  
-    //this.formUser.controls['cneeName'].disable();  
-    //this.formUser.controls['party'].disable();  
+   
 
     this.sharedService.loading = false;
     
@@ -179,6 +171,17 @@ export class ConsignmentupdateComponent {
     });
 
     this.sharedService.loading = false;
+    this.formUser.controls['bookingPlace'].disable();
+    this.formUser.controls['bookingDate'].disable();  
+    this.formUser.controls['fromPlace'].disable();  
+    this.formUser.controls['toPlace'].disable();
+    this.formUser.controls['noPackages'].disable();  
+    this.formUser.controls['cnorName'].disable();  
+    this.formUser.controls['actualWt'].disable();  
+    this.formUser.controls['cneeName'].disable();  
+    this.formUser.controls['party'].disable(); 
+    this.formUser.controls['subTotalRs'].disable(); 
+    this.formUser.controls['gtotalRs'].disable(); 
   }
 
   get f() { return this.formUser.controls; }  
