@@ -17,6 +17,15 @@ import { BrandMasterService } from 'src/app/services/brandmaster.service';
 export class BrandmasterlistComponent {
   dtOptions: DataTables.Settings = {};
   allBrandMaster: Brandmasterlistmodel = new Brandmasterlistmodel();
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -29,6 +38,28 @@ constructor(private brandmasterService: BrandMasterService, private route: Route
 }
 
 ngOnInit(): void {
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((( aa: { menuName: string; }) => aa.menuName === "Brand Master"));
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+  
+  var yearIDData = sessionStorage.getItem('yearID')?.toString();
+  if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+    this.year = yearIDData;
+  }
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
   this.brandmasterService.clearBrandMasterDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',
