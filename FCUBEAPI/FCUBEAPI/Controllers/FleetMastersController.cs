@@ -806,6 +806,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("CheckDuplicateCardNo")]
         public async Task<IActionResult> CheckDuplicateCardNo(CardModel request)
         {
@@ -820,6 +821,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("CheckDuplicateCardCode")]
         public async Task<IActionResult> CheckDuplicateCardCode(CardModel request)
         {
@@ -851,6 +853,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("BrandMasterDelete")]
+        public async Task<IActionResult> BrandMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brandMasterBusiness.BrandMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateBrand")]
+        public async Task<IActionResult> CheckDuplicateBrand(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await brandMasterBusiness.CheckDuplicateBrand(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("FleetCardMasterSave")]
         public async Task<IActionResult> FleetCardMasterSave(FleetCardMasterModel fleetCardMasterModel)
         {
@@ -869,6 +907,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        
 
         [HttpPost("GetFleetCardMasterList")]
         public async Task<IActionResult> GetFleetCardMasterList(PageRequest request)

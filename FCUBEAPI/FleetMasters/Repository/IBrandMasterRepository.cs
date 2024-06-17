@@ -7,5 +7,7 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> BrandMasterSave(BrandMasterModel brandMasterModel);
         Task<BrandMasterList> GetBrandMasterList(PageRequest request);
+        Task<ResponseModel> BrandMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateBrand(RequestModel requestModel);
     }
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 
-
+import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Brandmasterlistmodel  } from 'src/app/models/brandmasterlistmodel';
@@ -16,11 +16,14 @@ import { BrandMasterService } from 'src/app/services/brandmaster.service';
 })
 export class BrandmasterlistComponent {
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   allBrandMaster: Brandmasterlistmodel = new Brandmasterlistmodel();
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -61,11 +64,15 @@ ngOnInit(): void {
     this.loginDate = loginDate;
   }
   this.brandmasterService.clearBrandMasterDetails();
+  this.brandMasterList();
+}
+brandMasterList(){
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
     serverSide: true,
     processing: true,
+    searching: false,
     ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -100,7 +107,7 @@ ngOnInit(): void {
   
     {
       title: 'Action',
-      data: 'productGroupId',
+      data: 'brandID',
     },
   ],
 };

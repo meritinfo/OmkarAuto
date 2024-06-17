@@ -10,8 +10,7 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Brand Group Master</li>
+                               
                             </ol>
                         </div>
 
@@ -49,8 +48,9 @@
                             <td>{{ brandmaster.brandType }}</td>
                          
                             <td>
-                                <a (click)="getBrandMasterDetails(brandmaster)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                                
+                                    <button type="button" class="btn btn-edit"
+                                    (click)="getBrandMasterDetails(brandmaster)"></button>  
                            
                             </td>
                         </tr>

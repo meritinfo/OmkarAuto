@@ -308,7 +308,8 @@ export class ConsignmentupdateComponent {
           nonGstAmt1Desc:  this.lrmodel.nonGstAmt1Desc ,
           nonGstAmt2:  this.lrmodel.nonGstAmt2 ,
           nonGstAmt2Desc:  this.lrmodel.nonGstAmt2Desc ,
-          gtotalRs :  this.lrmodel.gtotalRs 
+          gtotalRs :  this.lrmodel.gtotalRs ,
+          //freightNarr :  this.lrmodel.gtotalRs 
         });
       });
       this.sharedService.loading = false;

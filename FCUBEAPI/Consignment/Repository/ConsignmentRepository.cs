@@ -512,8 +512,21 @@ namespace Consignment.Repository
                                // lrmodel.NonGstAmt1Desc = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1Desc"]);
                                 lrmodel.NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt2"]);
                                 lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
+                                lrmodel.FreightNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightNarr"]);
+                                lrmodel.StatisticalNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalNarr"]);
+                                lrmodel.FovNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FovNarr"]);
+                                lrmodel.DoorCollNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollNarr"]);
+                                lrmodel.HandlingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingNarr"]);
+                                lrmodel.LoadingDetnNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnNarr"]);
+                                lrmodel.EnrouteNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteNarr"]);
+                                lrmodel.MiscNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscNarr"]);
+                                lrmodel.DoorDelNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelNarr"]);
+                                lrmodel.UnLoadingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingNarr"]);
+                                lrmodel.UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnloadingDetenNarr"]);
+                                lrmodel.ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasNarr"]);
+                                lrmodel.OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersNarr"]);
 
-                     }
+                    }
                     else
                     {
                       //  response.Status = false;

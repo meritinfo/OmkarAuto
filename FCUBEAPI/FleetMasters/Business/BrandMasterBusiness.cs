@@ -1,4 +1,5 @@
-﻿using FleetMasters.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetMasters.Models;
 using FleetMasters.Repository;
 using Shared.Models;
 
@@ -23,6 +24,14 @@ namespace FleetMasters.Business
         public async Task<BrandMasterList> GetBrandMasterList(PageRequest request)
         {
             return await brandMasterRepository.GetBrandMasterList(request);
+        }
+        public async Task<ResponseModel> BrandMasterDelete(RequestModel requestModel)
+        {
+            return await brandMasterRepository.BrandMasterDelete(requestModel);
+        }
+        public async Task<ResponseModel> CheckDuplicateBrand(RequestModel requestModel)
+        {
+            return await brandMasterRepository.CheckDuplicateBrand(requestModel);
         }
     }
 }

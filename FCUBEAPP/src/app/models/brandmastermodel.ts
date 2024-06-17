@@ -1,5 +1,7 @@
 export class Brandmastermodel {
-    brandId: string = "";
+    brandID: string = "";
     brandName: string = "";
     brandType: string = "";
+    isActive: string = "";
+    loggedInUser: string = "";
 }

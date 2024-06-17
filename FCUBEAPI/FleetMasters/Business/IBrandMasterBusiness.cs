@@ -7,5 +7,7 @@ namespace FleetMasters.Business
     {
         Task<ResponseModel> BrandMasterSave(BrandMasterModel BrandMasterModel);
         Task<BrandMasterList> GetBrandMasterList(PageRequest request);
+        Task<ResponseModel> BrandMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicateBrand(RequestModel requestModel);
     }
 }

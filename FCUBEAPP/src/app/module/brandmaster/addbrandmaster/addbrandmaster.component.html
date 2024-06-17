@@ -20,8 +20,7 @@
                 <div class="col-lg-12">
                    <div class="card">
                       <div class="card-body">
-                         <h4 class="card-title mb-4">Brand Master</h4>
-                      
+                        
                             
                                
                                
@@ -29,14 +28,14 @@
                                        <div class="col-lg-2">
                                           <div class="mb-4">
                                            <label for="horizontal-firstname-input" class="col-form-label">Brand
-                                           Name</label>
+                                           Name</label>  <span style="color: red" >*</span>
                                         </div>
                                        </div>
                                        <div class="col-lg-2">
                                           <div class="mb-4">
                                            <input type="text" class="form-control"
-                                           placeholder="Enter  brand name" formControlName="brandName"
-                                           [ngClass]=>
+                                           placeholder="" formControlName="brandName" uppercaseonly  (change)="chkBrandDuplicate()"
+                                           [ngClass]= "{ 'is-invalid': userSubmitted && (f['brandName'].invalid) }">
                                         </div>
                                      </div>
                                     </div>
@@ -47,16 +46,42 @@
                                      <div class="row">
                                        <div class="col-lg-2">
                                           <div class="mb-3">
-                                           <label for="horizontal-firstname-input" class="col-form-label">Brand Type</label>
+                                           <label for="horizontal-firstname-input" class="col-form-label">Brand Type</label>  <span style="color: red">*</span>
                                         </div>
                                        </div>
                                        <div class="col-lg-2">
                                           <div class="mb-3">
-                                           <input type="text" class="form-control"
-                                           placeholder="Enter brand type " formControlName="brandType"
-                                           [ngClass]=>
+                                          
+                                           <select formControlName="brandType" 
+                                               class="form-control form-select ng-pristine ng-touched"
+                                               [ngClass]="{ 'is-invalid': userSubmitted && (f['brandType'].invalid) }">
+                                               <option value="">Choose</option>
+                                               <option value="S">Spare</option>
+                                               <option value="L">Lubricant</option>
+                                               <option value="T">Tyre</option>
+                                           </select> 
                                         </div>
                                      </div>
+
+                                    </div>
+                                    <div class="row">
+                                     <div class="col-lg-2">
+                                       <div class="mb-3">
+                                          <label for="formrow-inputZip">Is Active</label>
+                                        
+                                     </div>
+                                    </div>
+                                     <div class="col-lg-2">
+                                       <div class="mb-3">
+                                 
+                                           <select formControlName="isActive" 
+                                               class="form-control form-select ng-pristine ng-touched"
+                                               [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                               <option value="Y">Yes</option>
+                                               <option value="N">No</option>
+                                           </select> 
+                                       </div>
+                                    </div>
                                     </div>
                              
                        
@@ -71,8 +96,13 @@
              <div class="row text-right">
                 <div class="col-lg-12">
                    <div class="tex">
-                      <button class="btn btn-primary w-md"
-                         (click)="submitBrandMasterForm()">Submit</button>
+                     
+                         <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                         (click)="submitBrandMasterForm()">Save</button>&nbsp;
+                     <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                         (click)="deleteBrandMasterForm()">Delete</button>&nbsp;
+                     <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+            
                    </div>
                 </div>
              </div>
