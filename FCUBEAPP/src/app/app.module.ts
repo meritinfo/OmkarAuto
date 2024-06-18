@@ -255,12 +255,15 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
+import {Spareslubesmastermodel } from './models/sparelubesmastermodel';
 import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
 import { Documentallotmentmodel } from './models/documentallotmentmodel';
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
+import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
+import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
 
 
 @NgModule({
@@ -420,6 +423,8 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     BilltypeaddComponent,
     BilltypelistComponent,
     ConsignmentupdateComponent,
+    SpareslubesmasteraddComponent,
+    SpareslubesmasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -471,7 +476,7 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

@@ -140,6 +140,8 @@ import { Documentallottmentlistcomponent } from './module/documentallotment/docu
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
+import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
+import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
 
 
 const routes: Routes = [
@@ -340,6 +342,9 @@ const routes: Routes = [
   { path: 'billtypeadd', component:  BilltypeaddComponent },
   { path: 'billtypeedit', component:  BilltypeaddComponent },
   { path: 'updatecnforbill', component:  ConsignmentupdateComponent },
+  { path: 'sparesmasterlist', component:  SpareslubesmasterlistComponent },
+  { path: 'spareslubesmasteradd', component:  SpareslubesmasteraddComponent },
+  { path: 'spareslubesmasteredit', component:  SpareslubesmasteraddComponent },
   
 ];
 
