@@ -1,20 +1,24 @@
 ﻿using FleetMasters.Models;
 using Microsoft.Extensions.Options;
-using SqlHelper.Models;
-using System.Data.SqlClient;
 using Shared.Models;
+using SqlHelper.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FleetMasters.Repository
 {
-    public class TyrePositionMasterRepository : ITyrePositionMasterRepository
+    public class TyreModelRepository : ITyreModelRepository
     {
         private readonly IOptions<DBModel> dbconnection;
-
-        public TyrePositionMasterRepository(IOptions<DBModel> _dbconnection)
+        public TyreModelRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
-        public async Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel)
+        public async Task<ResponseModel> TyreModelSave(TyreModelMasterModel tyreModelMasterModel)
         {
             ResponseModel responseModel = new();
 
@@ -28,14 +32,13 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@TyrePosID", tyrePositionMasterModel.TyrePosID),
-                            new SqlParameter("@FitmentPosition", tyrePositionMasterModel.FitmentPosition),
-                            new SqlParameter("@ActiveYN", tyrePositionMasterModel.ActiveYN),
-                           // new SqlParameter("@DeleteFlag", tyrePositionMasterModel.DeleteFlag),
-                            new SqlParameter("@LoggedInUser", tyrePositionMasterModel.LoggedInUser)                             
+                            new SqlParameter("@TyreModID", tyreModelMasterModel.TyreModID),
+                            new SqlParameter("@ModelDesc", tyreModelMasterModel.ModelDesc),
+                            new SqlParameter("@ActiveYN", tyreModelMasterModel.ActiveYN),
 
+                            new SqlParameter("@LoggedInUser", tyreModelMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePositionMasterSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreModelSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -57,7 +60,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> CheckDuplicatePos(RequestModel requestModel)
+        public async Task<ResponseModel> CheckDuplicateTyre(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
 
@@ -71,10 +74,10 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@FitmentPosition", requestModel.strRequest),
+                            new SqlParameter("@ModelDesc", requestModel.strRequest),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicatePos", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicateTyre", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -96,7 +99,7 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> TyrePositionMasterDelete(RequestModel requestModel)
+        public async Task<ResponseModel> TyreModelMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
 
@@ -110,9 +113,9 @@ namespace FleetMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@TyrePosID", requestModel.strRequest),
+                            new SqlParameter("@TyreModID", requestModel.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePosMasterDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreModelMasterDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -135,10 +138,13 @@ namespace FleetMasters.Repository
             return responseModel;
         }
 
-        public async Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request)
-        {
-            TyrePositionMasterList TyrePositionMasterList = new();
-            List<TyrePositionMasterModel> tyrePositionMasterList = new();
+
+    
+
+    public async Task<TyreModelMasterList> GetTyreModelMasterList(ReportRequestModel request)
+    {
+            TyreModelMasterList tyreModelMasterList = new();
+            List<TyreModelMasterModel> tyreList = new();
             try
             {
                 if (dbconnection != null)
@@ -149,26 +155,30 @@ namespace FleetMasters.Repository
                             new SqlParameter("@PageSize", request.PageSize),
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder", request.SortOrder),
-                            new SqlParameter("@Search", request.Search)
+                            new SqlParameter("@Search", request.Search),
+                            //new SqlParameter("@FromDate", request.FromDate),
+                            //new SqlParameter("@ToDate", request.ToDate)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePositionMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreModelMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
                         int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
-                            tyrePositionMasterList.Add(new TyrePositionMasterModel
+                            tyreList.Add(new TyreModelMasterModel
                             {
-                                TyrePosID = Convert.ToString(dataSet.Tables[0].Rows[i]["TyrePosID"]),
-                                FitmentPosition = Convert.ToString(dataSet.Tables[0].Rows[i]["FitmentPosition"]),
+                                TyreModID = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreModID"]),
+                                ModelDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["ModelDesc"]),
                                 ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
+
+                                // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                             });
                         }
 
-                        TyrePositionMasterList.tyrePositionMasterList = tyrePositionMasterList;
+                        tyreModelMasterList.TyreList = tyreList;
 
-                        TyrePositionMasterList.PageMetaData = new PaginationMetaData
+                        tyreModelMasterList.PageMetaData = new PaginationMetaData
                         {
                             TotalCount = totalRecords,
                             CurrentPage = request.PageNumber
@@ -178,20 +188,9 @@ namespace FleetMasters.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
-            return TyrePositionMasterList;
+            return tyreModelMasterList;
         }
-
+       
     }
 }
-

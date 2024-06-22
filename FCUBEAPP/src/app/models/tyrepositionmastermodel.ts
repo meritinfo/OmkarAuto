@@ -1,4 +1,6 @@
 export class Tyrepositionmastermodel {
     tyrePosID: string = "";
-    positionDesc: string = "";
+    fitmentPosition: string = "";
+    activeYN : string = "";
+    loggedInUser: string = "";
 }

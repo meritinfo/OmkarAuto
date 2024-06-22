@@ -31,6 +31,8 @@ namespace FCUBEAPI.Controllers
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
         readonly IBrandMasterBusiness brandMasterBusiness;
         readonly ISparesLubesMasterBusiness sparesLubesMasterBusiness;
+        readonly ITyreModelBusiness tyreModelBusiness;
+  
         readonly IFleetCardMasterBusiness fleetCardMasterBusiness;
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
@@ -43,6 +45,7 @@ namespace FCUBEAPI.Controllers
             IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, 
             IDocRenewalMasterBusiness _docRenewalMasterBusiness, 
             IBrandMasterBusiness _brandMasterBusiness,
+            ITyreModelBusiness _tyreModelBusiness,
             ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
             IDriverMasterBusiness _driverMasterBusiness, 
@@ -64,6 +67,7 @@ namespace FCUBEAPI.Controllers
             sparesLubesMasterBusiness = _sparesLubesMasterBusiness;
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
             transportMasterBusiness= _transportMasterBusiness;
+            tyreModelBusiness = _tyreModelBusiness;
         }
 
         /// <summary>
@@ -1021,6 +1025,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckDuplicatePos")]
+        public async Task<IActionResult> CheckDuplicatePos(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePositionMasterBusiness.CheckDuplicatePos(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyrePositionMasterDelete")]
+        public async Task<IActionResult> TyrePositionMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePositionMasterBusiness.TyrePositionMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("SparesLubesMasterSave")]
         public async Task<IActionResult> SparesLubesMasterSave(SparesLubesMasterModel sparesLubesMasterModel)
         {
@@ -1081,6 +1121,74 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await sparesLubesMasterBusiness.SparesLubesMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreModelSave")]
+        public async Task<IActionResult> TyreModelSave(TyreModelMasterModel tyreModelMasterModel)
+        {
+            if (tyreModelMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreModelBusiness.TyreModelSave(tyreModelMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyreModelMasterList")]
+        public async Task<IActionResult> GetTyreModelMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await tyreModelBusiness.GetTyreModelMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateTyre")]
+        public async Task<IActionResult> CheckDuplicateTyre(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreModelBusiness.CheckDuplicateTyre(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreModelMasterDelete")]
+        public async Task<IActionResult> TyreModelMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreModelBusiness.TyreModelMasterDelete(req);
 
                 return Ok(result);
             }

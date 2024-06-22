@@ -236,6 +236,7 @@ import { GeneratetempgclistComponent } from './module/generatetempgc/generatetem
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
+import {Tyremodelmastermodel } from './models/tyremodelmastermodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
@@ -264,6 +265,8 @@ import { BilltypelistComponent } from './module/billtypemaster/billtypelist/bill
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
 import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
 import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
+import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
+import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 
 
 @NgModule({
@@ -425,6 +428,8 @@ import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spare
     ConsignmentupdateComponent,
     SpareslubesmasteraddComponent,
     SpareslubesmasterlistComponent,
+    TyremodeladdComponent,
+    TyremodellistComponent,
   ],
   imports: [
     BrowserModule,
@@ -475,7 +480,7 @@ import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spare
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
-    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Tyremodelmastermodel,
     Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],

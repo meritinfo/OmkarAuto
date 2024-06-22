@@ -142,6 +142,8 @@ import { BilltypelistComponent } from './module/billtypemaster/billtypelist/bill
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
 import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
 import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
+import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
+import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 
 
 const routes: Routes = [
@@ -162,7 +164,7 @@ const routes: Routes = [
   { path: 'brandmasterlist', component: BrandmasterlistComponent },
   { path: 'addbrandmaster', component: AddbrandmasterComponent },
   { path: 'brandmasteredit', component: AddbrandmasterComponent },
-  { path: 'tyrepositionmasterlist', component: TyrepositionmasterlistComponent },
+  { path: 'tyreposmasterlist', component: TyrepositionmasterlistComponent },
   { path: 'addtyrepositionmaster', component: AddtyrepositionmasterComponent },
   { path: 'tyrepositionmasteredit', component: AddtyrepositionmasterComponent  },
   { path: 'adddocrenewalmaster', component: AdddocrenewalmasterComponent },
@@ -345,6 +347,10 @@ const routes: Routes = [
   { path: 'sparesmasterlist', component:  SpareslubesmasterlistComponent },
   { path: 'spareslubesmasteradd', component:  SpareslubesmasteraddComponent },
   { path: 'spareslubesmasteredit', component:  SpareslubesmasteraddComponent },
+  { path: 'tyremodmasterlist', component:  TyremodellistComponent },
+  { path: 'tyremodelmasteradd', component:  TyremodeladdComponent },
+  { path: 'tyremodelmasteredit', component:  TyremodeladdComponent },
+  
   
 ];
 
