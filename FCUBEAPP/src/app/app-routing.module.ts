@@ -144,6 +144,9 @@ import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spares
 import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
 import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
+import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
+import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
+
 
 
 const routes: Routes = [
@@ -350,6 +353,9 @@ const routes: Routes = [
   { path: 'tyremodmasterlist', component:  TyremodellistComponent },
   { path: 'tyremodelmasteradd', component:  TyremodeladdComponent },
   { path: 'tyremodelmasteredit', component:  TyremodeladdComponent },
+  { path: 'maintmasterlist', component:  MaintanencemasterlistComponent },
+  { path: 'maintanencemasteradd', component:  MaintanencemasteraddComponent },
+  { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
   
   
 ];

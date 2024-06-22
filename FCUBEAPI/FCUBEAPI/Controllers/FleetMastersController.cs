@@ -31,6 +31,7 @@ namespace FCUBEAPI.Controllers
         readonly IDocRenewalMasterBusiness docRenewalMasterBusiness;
         readonly IBrandMasterBusiness brandMasterBusiness;
         readonly ISparesLubesMasterBusiness sparesLubesMasterBusiness;
+        readonly IMaintanenceMasterBusiness maintanenceMasterBusiness;
         readonly ITyreModelBusiness tyreModelBusiness;
   
         readonly IFleetCardMasterBusiness fleetCardMasterBusiness;
@@ -46,7 +47,8 @@ namespace FCUBEAPI.Controllers
             IDocRenewalMasterBusiness _docRenewalMasterBusiness, 
             IBrandMasterBusiness _brandMasterBusiness,
             ITyreModelBusiness _tyreModelBusiness,
-            ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
+            IMaintanenceMasterBusiness _maintanenceMasterBusiness,
+        ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
             IDriverMasterBusiness _driverMasterBusiness, 
             IExpensesTypeMasterBusiness _expensesTypeMasterBusiness,
@@ -65,6 +67,7 @@ namespace FCUBEAPI.Controllers
             expensestypeMasterBusiness = _expensesTypeMasterBusiness;
             truckMasterBusiness = _truckMasterBusiness;
             sparesLubesMasterBusiness = _sparesLubesMasterBusiness;
+            maintanenceMasterBusiness = _maintanenceMasterBusiness;
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
             transportMasterBusiness= _transportMasterBusiness;
             tyreModelBusiness = _tyreModelBusiness;
@@ -1189,6 +1192,74 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreModelBusiness.TyreModelMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("MaintanenceMasterSave")]
+        public async Task<IActionResult> MaintanenceMasterSave(MaintanenceMasterModel maintanenceMasterModel)
+        {
+            if (maintanenceMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await maintanenceMasterBusiness.MaintanenceMasterSave(maintanenceMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetMaintanenceMasterList")]
+        public async Task<IActionResult> GetMaintanenceMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await maintanenceMasterBusiness.GetMaintanenceMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateMaintanence")]
+        public async Task<IActionResult> CheckDuplicateMaintanence(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await maintanenceMasterBusiness.CheckDuplicateMaintanence(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("MaintanenceMasterDelete")]
+        public async Task<IActionResult> MaintanenceMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await maintanenceMasterBusiness.MaintanenceMasterDelete(req);
 
                 return Ok(result);
             }

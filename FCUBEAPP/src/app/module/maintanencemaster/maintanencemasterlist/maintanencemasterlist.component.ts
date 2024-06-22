@@ -2,19 +2,19 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
-import { Spareslubesmasterlistmodel } from 'src/app/models/spareslubesmasterlistmodel';
-import { Spareslubesmastermodel } from 'src/app/models/sparelubesmastermodel';
-import { SparesLubesMasterService } from 'src/app/services/spareslubesmaster.service';
+import {Maintanencemasterlistmodel } from 'src/app/models/maintanencemasterlistmodel';
+import { Maintanencemastermodel } from 'src/app/models/maintanencemastermodel';
+import {MaintanenceMasterService } from 'src/app/services/maintanencemaster.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
 @Component({
-  selector: 'app-spareslubesmasterlist',
-  templateUrl: './spareslubesmasterlist.component.html',
-  styleUrls: ['./spareslubesmasterlist.component.css']
+  selector: 'app-maintanencemasterlist',
+  templateUrl: './maintanencemasterlist.component.html',
+  styleUrls: ['./maintanencemasterlist.component.css']
 })
-export class SpareslubesmasterlistComponent {
+export class MaintanencemasterlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -23,7 +23,7 @@ export class SpareslubesmasterlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
-  allSparesMaster: Spareslubesmasterlistmodel = new Spareslubesmasterlistmodel();
+  allMaintanenceMaster: Maintanencemasterlistmodel = new Maintanencemasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -33,9 +33,10 @@ export class SpareslubesmasterlistComponent {
   }
 
   formFilter!: FormGroup;
-  constructor(private sparesLubesmasterService: SparesLubesMasterService,
+  constructor(private maintanenceMasterService: MaintanenceMasterService,
     private formBuilder: FormBuilder,private sharedService: SharedService,
      private route: Router) {
+
 
 }
 ngOnInit(): void {
@@ -45,7 +46,7 @@ ngOnInit(): void {
     var privilegeData = JSON.parse(menuData);
     var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
     var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "Spares/Lubricants Master");
+    .find((aa: { menuName: string; }) => aa.menuName === "Maintenance Type Master");
     if (privilegeStatus) {
       this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
       this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -54,16 +55,16 @@ ngOnInit(): void {
     }
   }
 
-  this.sparesLubesmasterService.clearSparesLubesMasterDetails();
+  this.maintanenceMasterService.clearMaintanenceMasterDetails();
   this.formFilter = this.formBuilder.group({
     classDesc: new FormControl(''),
   }); 
 
   this.sharedService.loading = true;
-  this.sparesLubesMasterList();
+  this.maintanenceMasterList();
   this.sharedService.loading=false;   
 }
-sparesLubesMasterList(){
+maintanenceMasterList(){
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
@@ -77,9 +78,9 @@ sparesLubesMasterList(){
       this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
       this.filter.sortOrder = dataTablesParameters.order[0].dir;
       // this.filter.search = '';
-      this.sparesLubesmasterService.getSparesLubesMasterList(this.filter)
+      this.maintanenceMasterService.getmaintanenceMasterList(this.filter)
         .subscribe(resp => {
-          this.allSparesMaster = resp;
+          this.allMaintanenceMaster = resp;
           callback({
             recordsTotal: resp.pageMetaData.totalCount,
             recordsFiltered: resp.pageMetaData.totalCount,
@@ -93,25 +94,15 @@ sparesLubesMasterList(){
      
      
       {
-        title: 'SpareLub Name',
-        data: 'spareLubName',
+        title: 'Maintenance Desc',
+        data: 'maintenanceDesc',
       },
       {
-        title: 'Spare LubType',
-        data: 'stype',
+        title: 'Maint Type',
+        data: 'maintType',
       },
-      {
-        title: 'Schedule/Other',
-        data: 'sch_Oth',
-      },
-      {
-        title: 'Life Type',
-        data: 'lifeType',
-      },
-      {
-        title: 'Life Expectancy',
-        data: 'lifeExpectancy',
-      },
+      
+      
      
       {
         title: 'Is Active',
@@ -120,20 +111,20 @@ sparesLubesMasterList(){
      
       {
         title: 'Action',
-        data: 'spareLubId',
+        data: 'maintId',
       },
     ],
   };
 }
- //Open new user add screen
- AddSparesLubesMaster(): void {
-  this.route.navigate(['/spareslubesmasteradd']);
+//Open new user add screen
+AddMaintanenceMaster(): void {
+  this.route.navigate(['/maintanencemasteradd']);
 }
 
 //Open user details screen
-sparesLubesMasterDetails(Classification: Spareslubesmastermodel): void {
-  this.sparesLubesmasterService.setSparesLubesMasterDetails(Classification);
-  this.route.navigate(['/spareslubesmasteredit']);
+maintanenceMasterDetails(Classification: Maintanencemastermodel): void {
+  this.maintanenceMasterService.setMaintanenceMasterDetails(Classification);
+  this.route.navigate(['/maintanencemasteredit']);
 }
 
 

@@ -6,6 +6,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
+import {Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -267,6 +268,8 @@ import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spares
 import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
 import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
+import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
+import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
 
 
 @NgModule({
@@ -430,6 +433,8 @@ import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/t
     SpareslubesmasterlistComponent,
     TyremodeladdComponent,
     TyremodellistComponent,
+    MaintanencemasteraddComponent,
+    MaintanencemasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -481,7 +486,7 @@ import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/t
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Tyremodelmastermodel,
-    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]
