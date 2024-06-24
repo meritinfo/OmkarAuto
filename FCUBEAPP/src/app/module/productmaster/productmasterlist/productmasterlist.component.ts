@@ -100,7 +100,6 @@ export class ProductmasterlistComponent {
     this.route.navigate(['/addproductmaster']);
   }
 
-
   //Open user details screen
   getproductMasterDetails(ProductMaster: Productmastermodel): void {
     this.productmasterService.setProductMasterDetails(ProductMaster);

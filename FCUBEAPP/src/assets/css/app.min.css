@@ -5889,3 +5889,11 @@ background-color: #fbff00 !important
 .metismenu .mm-collapse.mm-show li.mm-active ul{
     display: block !important;
 }
+
+
+.full-grid-width{
+    width: 3500px !important;
+}
+.full-grid-width tr td {
+    width: fit-content;
+}

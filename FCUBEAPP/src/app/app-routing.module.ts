@@ -140,6 +140,12 @@ import { Documentallottmentlistcomponent } from './module/documentallotment/docu
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
+import { LorryhirepmtlistComponent } from './module/lorryhirepmt/lorryhirepmtlist/lorryhirepmtlist.component';
+import { LorryhirepmtaddComponent } from './module/lorryhirepmt/lorryhirepmtadd/lorryhirepmtadd.component';
+import { LorryhirepmtreqaddComponent } from './module/lorryhirepmtreq/lorryhirepmtreqadd/lorryhirepmtreqadd.component';
+import { LorryhirepmtreqlistComponent } from './module/lorryhirepmtreq/lorryhirepmtreqlist/lorryhirepmtreqlist.component';
+import { LorryhirepmtaprvlistComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvlist/lorryhirepmtaprvlist.component';
+import { LorryhirepmtaprvaddComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvadd/lorryhirepmtaprvadd.component';
 
 
 const routes: Routes = [
@@ -340,6 +346,15 @@ const routes: Routes = [
   { path: 'billtypeadd', component:  BilltypeaddComponent },
   { path: 'billtypeedit', component:  BilltypeaddComponent },
   { path: 'updatecnforbill', component:  ConsignmentupdateComponent },
+  { path: 'lhpmtlist', component:  LorryhirepmtlistComponent },
+  { path: 'lhpmtadd', component:  LorryhirepmtaddComponent },
+  { path: 'lhpmtedit', component:  LorryhirepmtaddComponent },
+  { path: 'lhextrapmtreqlist', component:  LorryhirepmtreqlistComponent },
+  { path: 'lhextrapmtreqadd', component:  LorryhirepmtreqaddComponent },
+  { path: 'lhextrapmtreqedit', component:  LorryhirepmtreqaddComponent },
+  { path: 'lhextrapmtapprlist', component:  LorryhirepmtaprvlistComponent },
+  { path: 'lhextrapmtappradd', component:  LorryhirepmtaprvaddComponent },
+  { path: 'lhextrapmtappredit', component:  LorryhirepmtaprvaddComponent },
   
 ];
 

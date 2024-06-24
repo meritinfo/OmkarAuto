@@ -261,7 +261,14 @@ import { Documentallotmentmodel } from './models/documentallotmentmodel';
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
-
+import { LorryhirepmtlistComponent } from './module/lorryhirepmt/lorryhirepmtlist/lorryhirepmtlist.component';
+import { LorryhirepmtaddComponent } from './module/lorryhirepmt/lorryhirepmtadd/lorryhirepmtadd.component';
+import { LorryhirepmtreqaddComponent } from './module/lorryhirepmtreq/lorryhirepmtreqadd/lorryhirepmtreqadd.component';
+import { LorryhirepmtreqlistComponent } from './module/lorryhirepmtreq/lorryhirepmtreqlist/lorryhirepmtreqlist.component';
+import { LorryhirepmtaprvlistComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvlist/lorryhirepmtaprvlist.component';
+import { LorryhirepmtaprvaddComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvadd/lorryhirepmtaprvadd.component';
+import { Lorryhirereqmodel } from './models/lorryhirereqmodel';
+import { Lorryhiremastermodel } from './models/lorryhiremastermodel';
 
 @NgModule({
   declarations: [
@@ -420,6 +427,12 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     BilltypeaddComponent,
     BilltypelistComponent,
     ConsignmentupdateComponent,
+    LorryhirepmtlistComponent,
+    LorryhirepmtaddComponent,
+    LorryhirepmtreqaddComponent,
+    LorryhirepmtreqlistComponent,
+    LorryhirepmtaprvlistComponent,
+    LorryhirepmtaprvaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -458,14 +471,14 @@ import { ConsignmentupdateComponent } from './module/consignment/consignmentupda
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
-    Fleetcardmastermodel,Brsentrymodel,
+    Fleetcardmastermodel,Brsentrymodel,Lorryhiremastermodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,
     Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,
     Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
-    Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
+    Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,Lorryhirereqmodel,
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,

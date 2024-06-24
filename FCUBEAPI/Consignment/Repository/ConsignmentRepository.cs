@@ -472,7 +472,6 @@ namespace Consignment.Repository
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        // response.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
                         lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
                         lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
@@ -480,62 +479,56 @@ namespace Consignment.Repository
                         lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
                         lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
                         lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
-                                lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
-                                lrmodel.CneeName = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
-                                lrmodel.NoPackages = Convert.ToString(dataSet.Tables[0].Rows[0]["NoPackages"]);
-                                lrmodel.ActualWt = Convert.ToString(dataSet.Tables[0].Rows[0]["ActualWt"]);
-                                lrmodel.Chargewt = Convert.ToString(dataSet.Tables[0].Rows[0]["Chargewt"]);
-                                lrmodel.RateType = Convert.ToString(dataSet.Tables[0].Rows[0]["RateType"]);
-                                lrmodel.RateRs = Convert.ToString(dataSet.Tables[0].Rows[0]["RateRs"]);
-                                lrmodel.FreightRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
-                                lrmodel.StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalRs"]);
-                                lrmodel.FovRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FovRs"]);
-                                lrmodel.DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollRs"]);
-                                lrmodel.HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingRs"]);
-                                lrmodel.LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnRs"]);
-                                lrmodel.EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteRs"]);
-                                lrmodel.MiscRs = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscRs"]);
-                                lrmodel.DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelRs"]);
-                                lrmodel.ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRS"]);
-                                lrmodel.UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingRs"]);
-                                lrmodel.UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingDetnRs"]);
-                                lrmodel.OthersRs = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersRs"]);
-                                lrmodel.SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotalRs"]);
-                                lrmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
-                                lrmodel.SgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstPct"]);
-                                lrmodel.SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstAmt"]);
-                                lrmodel.CgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstPct"]);
-                                lrmodel.CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstAmt"]);
-                                lrmodel.IgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstPct"]);
-                                lrmodel.IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstAmt"]);
-                                lrmodel.NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1"]);
-                               // lrmodel.NonGstAmt1Desc = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1Desc"]);
-                                lrmodel.NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt2"]);
-                                lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
-                                lrmodel.FreightNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightNarr"]);
-                                lrmodel.StatisticalNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalNarr"]);
-                                lrmodel.FovNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FovNarr"]);
-                                lrmodel.DoorCollNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollNarr"]);
-                                lrmodel.HandlingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingNarr"]);
-                                lrmodel.LoadingDetnNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnNarr"]);
-                                lrmodel.EnrouteNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteNarr"]);
-                                lrmodel.MiscNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscNarr"]);
-                                lrmodel.DoorDelNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelNarr"]);
-                                lrmodel.UnLoadingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingNarr"]);
-                                lrmodel.UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnloadingDetenNarr"]);
-                                lrmodel.ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasNarr"]);
-                                lrmodel.OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersNarr"]);
-
-                    }
-                    else
-                    {
-                      //  response.Status = false;
+                        lrmodel.CnorName = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
+                        lrmodel.CneeName = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
+                        lrmodel.NoPackages = Convert.ToString(dataSet.Tables[0].Rows[0]["NoPackages"]);
+                        lrmodel.ActualWt = Convert.ToString(dataSet.Tables[0].Rows[0]["ActualWt"]);
+                        lrmodel.Chargewt = Convert.ToString(dataSet.Tables[0].Rows[0]["Chargewt"]);
+                        lrmodel.RateType = Convert.ToString(dataSet.Tables[0].Rows[0]["RateType"]);
+                        lrmodel.RateRs = Convert.ToString(dataSet.Tables[0].Rows[0]["RateRs"]);
+                        lrmodel.FreightRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
+                        lrmodel.StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalRs"]);
+                        lrmodel.FovRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FovRs"]);
+                        lrmodel.DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollRs"]);
+                        lrmodel.HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingRs"]);
+                        lrmodel.LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnRs"]);
+                        lrmodel.EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteRs"]);
+                        lrmodel.MiscRs = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscRs"]);
+                        lrmodel.DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelRs"]);
+                        lrmodel.ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRS"]);
+                        lrmodel.UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingRs"]);
+                        lrmodel.UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingDetnRs"]);
+                        lrmodel.OthersRs = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersRs"]);
+                        lrmodel.SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotalRs"]);
+                        lrmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
+                        lrmodel.SgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstPct"]);
+                        lrmodel.SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstAmt"]);
+                        lrmodel.CgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstPct"]);
+                        lrmodel.CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstAmt"]);
+                        lrmodel.IgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstPct"]);
+                        lrmodel.IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstAmt"]);
+                        lrmodel.NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1"]);
+                        lrmodel.NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt2"]);
+                        lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
+                        lrmodel.FreightNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightNarr"]);
+                        lrmodel.StatisticalNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalNarr"]);
+                        lrmodel.FovNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["FovNarr"]);
+                        lrmodel.DoorCollNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollNarr"]);
+                        lrmodel.HandlingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingNarr"]);
+                        lrmodel.LoadingDetnNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnNarr"]);
+                        lrmodel.EnrouteNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteNarr"]);
+                        lrmodel.MiscNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscNarr"]);
+                        lrmodel.DoorDelNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelNarr"]);
+                        lrmodel.UnLoadingNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingNarr"]);
+                        lrmodel.UnloadingDetenNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["UnloadingDetenNarr"]);
+                        lrmodel.ExtrasNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasNarr"]);
+                        lrmodel.OthersNarr = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersNarr"]);
                     }
                 }
             }
             catch (Exception ex)
             {
-               // response.Status = false;
+
             }
             return lrmodel;
         }
@@ -553,63 +546,65 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@ConsignmentID",       ConsignmentModel.ConsignmentID ),
-                            new SqlParameter("@RateType",        ConsignmentModel.RateType ),
-                            new SqlParameter("@RateDesc",            ConsignmentModel.RateDesc ),
-                            new SqlParameter("@GstBy",         ConsignmentModel.GstBy),
-                            new SqlParameter("@RateRs",       ConsignmentModel.RateRs ),
-                            new SqlParameter("@FreightRs",   ConsignmentModel.FreightRs ),
-                            new SqlParameter("@StatisticalRs",          ConsignmentModel.StatisticalRs),
-                            new SqlParameter("@FovRs",        ConsignmentModel.FovRs),
-                            new SqlParameter("@DoorCollRs",     ConsignmentModel.DoorCollRs ),
-                            new SqlParameter("@HandlingRs",           ConsignmentModel.HandlingRs ),
-                            new SqlParameter("@LoadingDetnRs",         ConsignmentModel.LoadingDetnRs ),
-                            new SqlParameter("@EnrouteRs",        ConsignmentModel.EnrouteRs ),
-                            new SqlParameter("@MiscRs",       ConsignmentModel.MiscRs ),
-                            new SqlParameter("@DoorDelRs",           ConsignmentModel.DoorDelRs ),
-                            new SqlParameter("@UnLoadingRs",             ConsignmentModel.UnLoadingRs ),
-                            new SqlParameter("@UnLoadingDetnRs",                 ConsignmentModel.UnLoadingDetnRs ),
-                            new SqlParameter("@ExtrasRS",            ConsignmentModel.ExtrasRS ),
-                            new SqlParameter("@OthersRs",             ConsignmentModel.OthersRs ),
+                            new SqlParameter("@ConsignmentID",      ConsignmentModel.ConsignmentID ),
+                            new SqlParameter("@RateType",           ConsignmentModel.RateType ),
+                            new SqlParameter("@RateDesc",           ConsignmentModel.RateDesc ),
+                            new SqlParameter("@GstBy",              ConsignmentModel.GstBy),
+                            new SqlParameter("@RateRs",             ConsignmentModel.RateRs ),
+                            new SqlParameter("@FreightRs",          ConsignmentModel.FreightRs ),
+                            new SqlParameter("@StatisticalRs",      ConsignmentModel.StatisticalRs),
+                            new SqlParameter("@FovRs",              ConsignmentModel.FovRs),
+                            new SqlParameter("@DoorCollRs",         ConsignmentModel.DoorCollRs ),
+                            new SqlParameter("@HandlingRs",         ConsignmentModel.HandlingRs ),
+                            new SqlParameter("@LoadingDetnRs",      ConsignmentModel.LoadingDetnRs ),
+                            new SqlParameter("@EnrouteRs",          ConsignmentModel.EnrouteRs ),
+                            new SqlParameter("@MiscRs",             ConsignmentModel.MiscRs ),
+                            new SqlParameter("@DoorDelRs",          ConsignmentModel.DoorDelRs ),
+                            new SqlParameter("@UnLoadingRs",        ConsignmentModel.UnLoadingRs ),
+                            new SqlParameter("@UnLoadingDetnRs",    ConsignmentModel.UnLoadingDetnRs ),
+                            new SqlParameter("@ExtrasRS",           ConsignmentModel.ExtrasRS ),
+                            new SqlParameter("@OthersRs",           ConsignmentModel.OthersRs ),
                             new SqlParameter("@FreightNarr",        ConsignmentModel.FreightNarr ),
-                            new SqlParameter("@StatisticalNarr",       ConsignmentModel.StatisticalNarr),
-                            new SqlParameter("@FovNarr",          ConsignmentModel.FovNarr ),
-                            new SqlParameter("@DoorCollNarr",      ConsignmentModel.DoorCollNarr),
-                            new SqlParameter("@HandlingNarr",            ConsignmentModel.HandlingNarr  ),
-                            new SqlParameter("@LoadingDetnNarr",            ConsignmentModel.LoadingDetnNarr   ),
-                            new SqlParameter("@EnrouteNarr",            ConsignmentModel.EnrouteNarr  ),
-                            new SqlParameter("@MiscNarr",            ConsignmentModel.MiscNarr   ),
-                            new SqlParameter("@DoorDelNarr",             ConsignmentModel.DoorDelNarr  ),
-                            new SqlParameter("@UnLoadingNarr",             ConsignmentModel.UnLoadingNarr  ),
-                            new SqlParameter("@UnLoadingDetnNarr",          ConsignmentModel.UnloadingDetenNarr   ),
-                            new SqlParameter("@ExtrasNarr",           ConsignmentModel.ExtrasNarr    ),
-                            new SqlParameter("@OthersNarr",           ConsignmentModel.OthersNarr    ),
-                            new SqlParameter("@SubTotalRs",           ConsignmentModel.SubTotalRs    ),
+                            new SqlParameter("@StatisticalNarr",    ConsignmentModel.StatisticalNarr),
+                            new SqlParameter("@FovNarr",            ConsignmentModel.FovNarr ),
+                            new SqlParameter("@DoorCollNarr",       ConsignmentModel.DoorCollNarr),
+                            new SqlParameter("@HandlingNarr",       ConsignmentModel.HandlingNarr  ),
+                            new SqlParameter("@LoadingDetnNarr",    ConsignmentModel.LoadingDetnNarr   ),
+                            new SqlParameter("@EnrouteNarr",        ConsignmentModel.EnrouteNarr  ),
+                            new SqlParameter("@MiscNarr",           ConsignmentModel.MiscNarr   ),
+                            new SqlParameter("@DoorDelNarr",        ConsignmentModel.DoorDelNarr  ),
+                            new SqlParameter("@UnLoadingNarr",      ConsignmentModel.UnLoadingNarr  ),
+                            new SqlParameter("@UnLoadingDetnNarr",  ConsignmentModel.UnloadingDetenNarr   ),
+                            new SqlParameter("@ExtrasNarr",         ConsignmentModel.ExtrasNarr    ),
+                            new SqlParameter("@OthersNarr",         ConsignmentModel.OthersNarr    ),
+                            new SqlParameter("@SubTotalRs",         ConsignmentModel.SubTotalRs    ),
                             new SqlParameter("@GstType",            ConsignmentModel.GstType   ),
                             new SqlParameter("@SgstPct",            ConsignmentModel.SgstPct  ),
                             new SqlParameter("@SgstAmt",            ConsignmentModel.SgstAmt ),
                             new SqlParameter("@CgstPct",            ConsignmentModel.CgstPct  ),
-                            new SqlParameter("@CgstAmt",             ConsignmentModel.CgstAmt ),
-                            new SqlParameter("@IgstPct",             ConsignmentModel.IgstPct  ),
-                            new SqlParameter("@IgstAmt",          ConsignmentModel.IgstAmt    ),
-                            new SqlParameter("@NonGstAmt1",          ConsignmentModel.NonGstAmt1   ),
-                            new SqlParameter("@NonGstAmt1Desc",          ConsignmentModel.NonGstAmt1Desc  ),
-
-                            new SqlParameter("@NonGstAmt2",          ConsignmentModel.NonGstAmt2   ),
-                            new SqlParameter("@NonGstAmt2Desc",             ConsignmentModel.NonGstAmt2Desc    ),
+                            new SqlParameter("@CgstAmt",            ConsignmentModel.CgstAmt ),
+                            new SqlParameter("@IgstPct",            ConsignmentModel.IgstPct  ),
+                            new SqlParameter("@IgstAmt",            ConsignmentModel.IgstAmt    ),
+                            new SqlParameter("@NonGstAmt1",         ConsignmentModel.NonGstAmt1   ),
+                            new SqlParameter("@NonGstAmt1Desc",     ConsignmentModel.NonGstAmt1Desc  ),
+                            new SqlParameter("@NonGstAmt2",         ConsignmentModel.NonGstAmt2   ),
+                            new SqlParameter("@NonGstAmt2Desc",     ConsignmentModel.NonGstAmt2Desc    ),
                             new SqlParameter("@GtotalRs",           ConsignmentModel.GtotalRs  ),
-                            new SqlParameter("@YearId",              ConsignmentModel.YearId   ),
-                            new SqlParameter("@LoggedInUser",        ConsignmentModel.LoggedInUser),
+                            new SqlParameter("@YearId",             ConsignmentModel.YearId   ),
+                            new SqlParameter("@LoggedInUser",       ConsignmentModel.LoggedInUser),
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ConsignmentUpdate", param);
-                    string MasterID = "0";
-
+                   
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        transaction.Commit();
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]); 
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                        else {  transaction.Rollback(); }
                     }
                     else
                     {

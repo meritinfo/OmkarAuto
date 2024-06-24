@@ -17,6 +17,7 @@ using System.Data.Common;
 using FreightMasters.Business;
 using FreightMasters.Models;
 using FleetMasters.Business;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace FCUBEAPI.Controllers
@@ -35,6 +36,9 @@ namespace FCUBEAPI.Controllers
         readonly IDeliveryAckPodBusiness deliveryAckPodBusiness;
         readonly IDprVehiPlacedBusiness dprVehiPlacedBusiness;
         readonly IGenerateTempGcBusiness tempGcBusiness;
+        readonly ILorryHireBusiness lorryHireBusiness;
+        readonly ILorryHireReqBusiness lorryHireReqBusiness;
+        readonly ILorryHireAprvBusiness lorryHireAprvBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -43,7 +47,10 @@ namespace FCUBEAPI.Controllers
             IEwayBillExpRptBusiness _ewayBillExpRptBusiness,
             IDprBusiness _dprBusiness,
             IDprVehiPlacedBusiness _dprVehiPlacedBusiness,
-            IGenerateTempGcBusiness _tempGcBusiness)
+            IGenerateTempGcBusiness _tempGcBusiness,
+            ILorryHireBusiness _lorryHireBusiness,
+            ILorryHireReqBusiness _lorryHireReqBusiness,
+            ILorryHireAprvBusiness _lorryHireAprvBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -54,6 +61,9 @@ namespace FCUBEAPI.Controllers
             dprVehiPlacedBusiness = _dprVehiPlacedBusiness;
             tempGcBusiness = _tempGcBusiness;
             deliveryAckPodBusiness = _deliveryAckPodBusiness;
+            lorryHireBusiness = _lorryHireBusiness;
+            lorryHireReqBusiness = _lorryHireReqBusiness;
+            lorryHireAprvBusiness = _lorryHireAprvBusiness;
         }
         
 
@@ -1130,6 +1140,246 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.ConsignmentUpdate(ConsignmentModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLorryHirePaymentList")]
+        public async Task<IActionResult> GetLorryHirePaymentList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.GetLorryHirePaymentList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLorryHireInnerGrid")]
+        public async Task<IActionResult> GetLorryHireInnerGrid(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.GetLorryHireInnerGrid(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("LorryHireMasterSave")]
+        public async Task<IActionResult> LorryHireMasterSave(LorryHireMasterModel lorryHire)
+        {
+            if (lorryHire == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.LorryHireMasterSave(lorryHire);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LorryHireMasterDelete")]
+        public async Task<IActionResult> LorryHireMasterDelete(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.LorryHireMasterDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetChallanLorryhireDetails")]
+        public async Task<IActionResult> GetChallanLorryhireDetails(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.GetChallanLorryhireDetails(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLorryHireReqList")]
+        public async Task<IActionResult> GetLorryHireReqList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireReqBusiness.GetLorryHireReqList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("LorryHireReqSave")]
+        public async Task<IActionResult> LorryHireReqSave()
+        {
+
+            try
+            {
+                var attachPath = HttpContext.Request.Form.Files["attachPath"];
+                LorryHireReqModel lorryHire = JsonConvert.DeserializeObject<LorryHireReqModel>(HttpContext.Request.Form["datadetails"]);
+                lorryHire.AttachPath = "";
+
+                if (attachPath != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachPath.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachPath.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/lorryHirePmtReq/attachPath/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachPath.CopyToAsync(fileStream);
+                        lorryHire.AttachPath = imageName;
+                    }
+                }
+                  
+                var result = await lorryHireReqBusiness.LorryHireReqSave(lorryHire);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("LorryHireReqDelete")]
+        public async Task<IActionResult> LorryHireReqDelete(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireReqBusiness.LorryHireReqDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetChallanDetails")]
+        public async Task<IActionResult> GetChallanDetails(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireReqBusiness.GetChallanDetails(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetLorryHireAprvList")]
+        public async Task<IActionResult> GetLorryHireAprvList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireAprvBusiness.GetLorryHireAprvList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("LorryHireAprvSave")]
+        public async Task<IActionResult> LorryHireAprvSave(LorryHireReqModel lorryHire)
+        {
+            if (lorryHire == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireAprvBusiness.LorryHireAprvSave(lorryHire);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("LorryHireAprvDelete")]
+        public async Task<IActionResult> LorryHireAprvDelete(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireAprvBusiness.LorryHireAprvDelete(requestModel);
 
                 return Ok(result);
             }
