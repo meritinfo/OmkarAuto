@@ -6,6 +6,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
+import {Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -236,6 +237,7 @@ import { GeneratetempgclistComponent } from './module/generatetempgc/generatetem
 import { GeneratetempgcaddComponent } from './module/generatetempgc/generatetempgcadd/generatetempgcadd.component';
 import { Tempgcmodel } from './models/tempgcmodel';
 import { Tempgclistmodel } from './models/tempgclistmodel';
+import {Tyremodelmastermodel } from './models/tyremodelmastermodel';
 import { AddtruckmasterComponent } from './module/truckmaster/addtruckmaster/addtruckmaster.component';
 import { TruckmasterlistComponent } from './module/truckmaster/truckmasterlist/truckmasterlist.component';
 import { Truckmastermodel } from './models/truckmastermodel';
@@ -255,6 +257,7 @@ import { Challanmastermodel } from './models/challanmastermodel';
 import { DeliveryackpodlistComponent } from './module/deliveryackpod/deliveryackpodlist/deliveryackpodlist.component';
 import { DeliveryackpodaddComponent } from './module/deliveryackpod/deliveryackpodadd/deliveryackpodadd.component';
 import { Deliveryackpodmodel } from './models/deliveryackpodmodel';
+import {Spareslubesmastermodel } from './models/sparelubesmastermodel';
 import { AdddocumentallottmentComponent } from './module/documentallotment/adddocumentallottment/adddocumentallottment.component';
 import { Documentallottmentlistcomponent } from './module/documentallotment/documentallottmentlist/documentallottmentlist.component';
 import { Documentallotmentmodel } from './models/documentallotmentmodel';
@@ -269,6 +272,12 @@ import { LorryhirepmtaprvlistComponent } from './module/lorryhirepmtaprv/lorryhi
 import { LorryhirepmtaprvaddComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvadd/lorryhirepmtaprvadd.component';
 import { Lorryhirereqmodel } from './models/lorryhirereqmodel';
 import { Lorryhiremastermodel } from './models/lorryhiremastermodel';
+import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
+import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
+import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
+import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
+import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
+import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
 
 @NgModule({
   declarations: [
@@ -433,6 +442,12 @@ import { Lorryhiremastermodel } from './models/lorryhiremastermodel';
     LorryhirepmtreqlistComponent,
     LorryhirepmtaprvlistComponent,
     LorryhirepmtaprvaddComponent,
+    SpareslubesmasteraddComponent,
+    SpareslubesmasterlistComponent,
+    TyremodeladdComponent,
+    TyremodellistComponent,
+    MaintanencemasteraddComponent,
+    MaintanencemasterlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -483,8 +498,8 @@ import { Lorryhiremastermodel } from './models/lorryhiremastermodel';
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
-    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,
-    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,
+    Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Tyremodelmastermodel,
+    Passwordmodel,Transportmastermodel,Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,Billsmastermodel,Billstypemodel,
     Gstpurchaselistmodel,Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,Transportmastermodel],
   bootstrap: [AppComponent]

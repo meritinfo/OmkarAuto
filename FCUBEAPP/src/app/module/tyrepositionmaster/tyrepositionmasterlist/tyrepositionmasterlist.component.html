@@ -10,8 +10,7 @@
 
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Product Group Master</li>
+                               
                             </ol>
                         </div>
 
@@ -46,11 +45,12 @@
                         <tr *ngFor="let tyremaster of allTyrepositionMaster.tyrePositionMasterList">
                           
                     
-                            <td>{{ tyremaster.positionDesc }}</td>
+                            <td>{{ tyremaster.fitmentPosition }}</td>
                          
                             <td>
-                                <a (click)="getTyrepositionMasterDetails(tyremaster)" class="actionicon"><i
-                                    class="bx bx-pencil"></i></a>
+                               
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getTyrepositionMasterDetails(tyremaster)"></button>  
                            
                             </td>
                         </tr>

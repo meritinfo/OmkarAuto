@@ -7,5 +7,7 @@ namespace FleetMasters.Business
     {
         Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel);
         Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request);
+        Task<ResponseModel> TyrePositionMasterDelete(RequestModel requestModel);
+        Task<ResponseModel> CheckDuplicatePos(RequestModel requestModel);
     }
 }

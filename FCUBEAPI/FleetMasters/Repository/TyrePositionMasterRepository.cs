@@ -29,13 +29,13 @@ namespace FleetMasters.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@TyrePosID", tyrePositionMasterModel.TyrePosID),
-                            new SqlParameter("@PositionDesc", tyrePositionMasterModel.PositionDesc),
+                            new SqlParameter("@FitmentPosition", tyrePositionMasterModel.FitmentPosition),
                             new SqlParameter("@ActiveYN", tyrePositionMasterModel.ActiveYN),
-                            new SqlParameter("@DeleteFlag", tyrePositionMasterModel.DeleteFlag),
+                           // new SqlParameter("@DeleteFlag", tyrePositionMasterModel.DeleteFlag),
                             new SqlParameter("@LoggedInUser", tyrePositionMasterModel.LoggedInUser)                             
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "TyrePositionMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePositionMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -57,6 +57,84 @@ namespace FleetMasters.Repository
             }
             return responseModel;
         }
+        public async Task<ResponseModel> CheckDuplicatePos(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@FitmentPosition", requestModel.strRequest),
+
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkDuplicatePos", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> TyrePositionMasterDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TyrePosID", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePosMasterDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
         public async Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request)
         {
             TyrePositionMasterList TyrePositionMasterList = new();
@@ -73,7 +151,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@SortOrder", request.SortOrder),
                             new SqlParameter("@Search", request.Search)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyrePositionMasterList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePositionMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -83,7 +161,8 @@ namespace FleetMasters.Repository
                             tyrePositionMasterList.Add(new TyrePositionMasterModel
                             {
                                 TyrePosID = Convert.ToString(dataSet.Tables[0].Rows[i]["TyrePosID"]),
-                                PositionDesc = Convert.ToString(dataSet.Tables[0].Rows[i]["PositionDesc"]),
+                                FitmentPosition = Convert.ToString(dataSet.Tables[0].Rows[i]["FitmentPosition"]),
+                                ActiveYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ActiveYN"]),
                             });
                         }
 

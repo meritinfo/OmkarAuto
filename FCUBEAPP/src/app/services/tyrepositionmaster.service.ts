@@ -4,6 +4,7 @@ import { Tyrepositionmastermodel } from '../models/tyrepositionmastermodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
+import { Requestmodel } from 'src/app/models/requestmodel';
 import { Constants } from '../common/constants';
 import { Tyrepositionmasterlistmodel } from '../models/tyrepositionmasterlistmodel';
 
@@ -25,6 +26,12 @@ export class TyrepositionMasterService {
       this.selectedTyrepositionmaster = tyrepositionmaster;
     
   
+  }
+  tyrePositionMasterDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TyrePositionMasterDelete', req, this.httpOptions);
+  }
+  checkDuplicatePos(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicatePos', req, this.httpOptions);
   }
   getTyrepositionMasterDetails() {
     return this.selectedTyrepositionmaster;

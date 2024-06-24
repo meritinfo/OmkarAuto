@@ -36,6 +36,9 @@ export class RateTypesService {
   clearRatetypesDetails() {
     this.selectedRatetypes = new Ratetypesmodel();
   }
+  checkDuplicateRate(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/CheckDuplicateRateDesc', req, this.httpOptions);
+  }
   ratetypeDetailsSubmitted(user: Ratetypesmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/RateTypesDetailsSave', user, this.httpOptions);
   }

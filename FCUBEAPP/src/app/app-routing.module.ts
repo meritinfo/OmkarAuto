@@ -146,6 +146,13 @@ import { LorryhirepmtreqaddComponent } from './module/lorryhirepmtreq/lorryhirep
 import { LorryhirepmtreqlistComponent } from './module/lorryhirepmtreq/lorryhirepmtreqlist/lorryhirepmtreqlist.component';
 import { LorryhirepmtaprvlistComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvlist/lorryhirepmtaprvlist.component';
 import { LorryhirepmtaprvaddComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvadd/lorryhirepmtaprvadd.component';
+import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
+import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
+import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
+import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
+import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
+import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
+
 
 
 const routes: Routes = [
@@ -166,7 +173,7 @@ const routes: Routes = [
   { path: 'brandmasterlist', component: BrandmasterlistComponent },
   { path: 'addbrandmaster', component: AddbrandmasterComponent },
   { path: 'brandmasteredit', component: AddbrandmasterComponent },
-  { path: 'tyrepositionmasterlist', component: TyrepositionmasterlistComponent },
+  { path: 'tyreposmasterlist', component: TyrepositionmasterlistComponent },
   { path: 'addtyrepositionmaster', component: AddtyrepositionmasterComponent },
   { path: 'tyrepositionmasteredit', component: AddtyrepositionmasterComponent  },
   { path: 'adddocrenewalmaster', component: AdddocrenewalmasterComponent },
@@ -346,6 +353,16 @@ const routes: Routes = [
   { path: 'billtypeadd', component:  BilltypeaddComponent },
   { path: 'billtypeedit', component:  BilltypeaddComponent },
   { path: 'updatecnforbill', component:  ConsignmentupdateComponent },
+  { path: 'sparesmasterlist', component:  SpareslubesmasterlistComponent },
+  { path: 'spareslubesmasteradd', component:  SpareslubesmasteraddComponent },
+  { path: 'spareslubesmasteredit', component:  SpareslubesmasteraddComponent },
+  { path: 'tyremodmasterlist', component:  TyremodellistComponent },
+  { path: 'tyremodelmasteradd', component:  TyremodeladdComponent },
+  { path: 'tyremodelmasteredit', component:  TyremodeladdComponent },
+  { path: 'maintmasterlist', component:  MaintanencemasterlistComponent },
+  { path: 'maintanencemasteradd', component:  MaintanencemasteraddComponent },
+  { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
+  
   { path: 'lhpmtlist', component:  LorryhirepmtlistComponent },
   { path: 'lhpmtadd', component:  LorryhirepmtaddComponent },
   { path: 'lhpmtedit', component:  LorryhirepmtaddComponent },

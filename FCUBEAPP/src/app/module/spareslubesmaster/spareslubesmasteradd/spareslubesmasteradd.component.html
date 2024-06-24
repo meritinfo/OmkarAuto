@@ -1,0 +1,120 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Spares Lubes Master</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formSparesMaster">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">SpareLub Name</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" "  (change)="chkSpareDuplicate()"
+                                                formControlName="spareLubName"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['spareLubName'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Spare LubType</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="spareLubType" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['spareLubType'].invalid) }">
+                                                    <option value="S">Spare</option>
+                                                    <option value="O">Oil</option>
+                                                </select> 
+                                            </div>
+                                        </div> 
+                                    </div>  
+                                    <div class="row">                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Schedule/Other</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="sch_Oth" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['sch_Oth'].invalid) }">
+                                                    <option value="S">Schedule</option>
+                                                    <option value="O">Other</option>
+                                                </select> 
+                                            </div>
+                                        </div> 
+                                    </div>     <div class="row">                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">LifeType</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="lifeType" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['lifeType'].invalid) }">
+                                                    <option value="K">KMS</option>
+                                                    <option value="D">Days</option>
+                                                </select> 
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Life Expectancy</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder=" " numbersonly
+                                                formControlName="lifeExpectancy"   
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['lifeExpectancy'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">                                        
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Is Active</label>
+                                                <span style="color: red">*</span>
+                                                <select formControlName="isActive" 
+                                                    class="form-control form-select ng-pristine ng-touched"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                                    <option value="Y">Yes</option>
+                                                    <option value="N">No</option>
+                                                </select> 
+                                            </div>
+                                        </div> 
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            (click)="submitSparesLubesMasterForm()" >Save</button> &nbsp;  
+                            <button class="btn btn-danger w-md m-2" 
+                            (click)="deleteSparesLubesMasterForm()">Delete</button> &nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>

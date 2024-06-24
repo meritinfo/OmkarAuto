@@ -24,5 +24,13 @@ namespace FleetMasters.Business
         {
             return await tyrePositionMasterRepository.GetTyrePositionMasterList(request);
         }
+        public async Task<ResponseModel> TyrePositionMasterDelete(RequestModel requestModel)
+        {
+            return await tyrePositionMasterRepository.TyrePositionMasterDelete(requestModel);
+        }
+        public async Task<ResponseModel> CheckDuplicatePos(RequestModel requestModel)
+        {
+            return await tyrePositionMasterRepository.CheckDuplicatePos(requestModel);
+        }
     }
 }

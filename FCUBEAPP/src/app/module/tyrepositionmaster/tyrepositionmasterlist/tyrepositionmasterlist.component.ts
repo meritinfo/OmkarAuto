@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 
 
@@ -8,6 +8,7 @@ import {Tyrepositionmasterlistmodel  } from 'src/app/models/tyrepositionmasterli
 import { Usermodel } from 'src/app/models/usermodel';
 import { Tyrepositionmastermodel } from 'src/app/models/tyrepositionmastermodel';
 import { TyrepositionMasterService } from 'src/app/services/tyrepositionmaster.service';
+import { DataTableDirective } from 'angular-datatables';
 
 
 @Component({
@@ -16,7 +17,15 @@ import { TyrepositionMasterService } from 'src/app/services/tyrepositionmaster.s
   styleUrls: ['./tyrepositionmasterlist.component.css']
 })
 export class TyrepositionmasterlistComponent {
+  
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+
   dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
   allTyrepositionMaster: Tyrepositionmasterlistmodel = new Tyrepositionmasterlistmodel();
   filter: Filtermodel = {
     pageNumber: 1,
@@ -32,11 +41,28 @@ constructor(private tyrepositionmasterService: TyrepositionMasterService, privat
 
 ngOnInit(): void {
   this.tyrepositionmasterService.clearTyrepositionMasterDetails();
+  var menuData = sessionStorage.getItem('menulist')?.toString();
+  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+    var privilegeData = JSON.parse(menuData);
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+    .find((aa: { menuName: string; }) => aa.menuName === "Tyre Position Master");
+    if (privilegeStatus) {
+      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+    }
+  }
+
+ 
+
   this.dtOptions = {
     pagingType: 'full_numbers',
     pageLength: 10,
     serverSide: true,
     processing: true,
+    searching: false,
     ajax: (dataTablesParameters: any, callback) => {
       // Filter setting
       this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
@@ -59,7 +85,7 @@ ngOnInit(): void {
 
      {
       title: 'Position Desc',
-      data: 'positionDesc',
+      data: 'fitmentPosition',
     },
    
   

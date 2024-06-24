@@ -90,6 +90,10 @@ namespace FCUBEAPI
             services.AddScoped<IBillStatementBusiness, BillStatementBusiness>();
             services.AddScoped<IBillsTypeRepository, BillsTypeRepository>();
             services.AddScoped<IBillsTypeBusiness, BillsTypeBusiness>();
+            services.AddScoped<ISparesLubesMasterRepository, SparesLubesMasterRepository>();
+            services.AddScoped<ISparesLubesMasterBusiness, SparesLubesMasterBusiness>();
+            services.AddScoped<ITyreModelRepository, TyreModelRepository>();
+            services.AddScoped<ITyreModelBusiness, TyreModelBusiness>();
             services.AddScoped<IRoleMasterBusiness, RoleMasterBusiness>();
             services.AddScoped<IRoleMasterRepository, RoleMasterRepository>();
             services.AddScoped<IHrMasterBusiness, HrMasterBusiness>();
@@ -204,6 +208,8 @@ namespace FCUBEAPI
             services.AddScoped<ILorryHireReqRepository, LorryHireReqRepository>();
             services.AddScoped<ILorryHireAprvBusiness, LorryHireAprvBusiness>();
             services.AddScoped<ILorryHireAprvRepository, LorryHireAprvRepository>();
+            services.AddScoped<IMaintanenceMasterBusiness, MaintanenceMasterBusiness>();
+            services.AddScoped<IMaintanenceMasterRepository, MaintanenceMasterRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

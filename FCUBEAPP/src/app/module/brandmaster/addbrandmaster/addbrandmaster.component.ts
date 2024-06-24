@@ -120,7 +120,7 @@ chkBrandDuplicate(){
       else{
         this.toasterService.warning(this.responseDetails.message);
         this.formUser.patchValue({
-          classDesc: ''
+          brandName: ''
   
         });
         
@@ -158,7 +158,7 @@ submitBrandMasterForm(): void {
     return;
   }
   this.brandMasterModel.brandID = this.selectedBrandMasterDetails.brandID != '' ? this.selectedBrandMasterDetails.brandID : '';
-  this.brandMasterModel.brandName= this.formUser.value.brandName;
+  this.brandMasterModel.brandName= this.formUser.value.brandName.toString().toUpperCase();
   this.brandMasterModel.brandType = this.formUser.value.brandType;
   this.brandMasterModel.isActive = this.formUser.value.isActive;
   this.brandMasterModel.loggedInUser = this.loggedInUserID;

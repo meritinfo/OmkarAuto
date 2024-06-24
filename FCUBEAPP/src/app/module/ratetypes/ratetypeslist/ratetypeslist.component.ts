@@ -61,12 +61,12 @@ ngOnInit(): void {
       
 
         {
-          title: 'RateDesc',
+          title: 'Rate Desc',
           data: 'rateDesc',
         },
 
        {
-        title: 'RateMethod',
+        title: 'Rate Method',
         data: 'rateMethod',
       },
      

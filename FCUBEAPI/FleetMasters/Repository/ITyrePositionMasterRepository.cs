@@ -8,5 +8,8 @@ namespace FleetMasters.Repository
     {
         Task<ResponseModel> TyrePositionMasterSave(TyrePositionMasterModel tyrePositionMasterModel);
         Task<TyrePositionMasterList> GetTyrePositionMasterList(PageRequest request);
+        Task<ResponseModel> CheckDuplicatePos(RequestModel requestModel);
+        Task<ResponseModel> TyrePositionMasterDelete(RequestModel requestModel);
+
     }
 }
