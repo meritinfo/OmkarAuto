@@ -110,6 +110,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
+
         public async Task<ResponseModel> RateTypeDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();

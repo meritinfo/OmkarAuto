@@ -38,6 +38,28 @@ export class AddratetypesComponent {
 exit(): void {
   this.route.navigate(['/ratetypeslist']);
 }
+checkDuplicateRate(){
+  var selectedData = this.formUser.getRawValue();
+  
+
+    this.requestmodel.strRequest = selectedData.rateDesc;
+  //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.rateTypesService.checkDuplicateRate(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          rateDesc: ''
+  
+        });
+        
+      }
+    });
+    
+}
 
 deleteRateTypeForm(): void {
   if(this.selectedRateTypesDetails.rateTypeId != '' ){
@@ -102,7 +124,7 @@ submitRateTypesForm(): void {
     return;
   }
   this.ratetypesmodel.rateTypeId = this.selectedRateTypesDetails.rateTypeId != '' ? this.selectedRateTypesDetails.rateTypeId : '';
-  this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc;
+  this.ratetypesmodel.rateDesc= this.formUser.value.rateDesc.toString().toUpperCase();
   this.ratetypesmodel.rateMethod = this.formUser.value.rateMethod;
 
 

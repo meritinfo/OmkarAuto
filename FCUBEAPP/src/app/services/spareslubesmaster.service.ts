@@ -33,6 +33,7 @@ export class SparesLubesMasterService {
   sparesLubesMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/SparesLubesMasterDelete', req, this.httpOptions);
   }
+  
   checkDuplicateSpare(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkDuplicateSpares', req, this.httpOptions);
   }
