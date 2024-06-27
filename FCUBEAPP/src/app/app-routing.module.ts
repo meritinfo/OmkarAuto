@@ -146,6 +146,8 @@ import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyr
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
+import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
+import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
 
 
 
@@ -356,6 +358,10 @@ const routes: Routes = [
   { path: 'maintmasterlist', component:  MaintanencemasterlistComponent },
   { path: 'maintanencemasteradd', component:  MaintanencemasteraddComponent },
   { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
+  { path: 'tyrepurchaselist', component:  TyrepurchasemasterlistComponent },
+  { path: 'tyrepurchasemasteradd', component:  TyrepurchasemasteraddComponent },
+  { path: 'tyrepurchasemasteredit', component:  TyrepurchasemasteraddComponent },
+  
   
   
 ];

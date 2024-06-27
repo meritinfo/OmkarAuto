@@ -39,6 +39,7 @@ export class TransportMasterService {
   getTransportMasterInnerGridList(request: Requestmodel): Observable<Transportmasterinnergridmodel> {
     return this.httpClient.post<Transportmasterinnergridmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetTransportMasterInnerGridList', request, this.httpOptions);
   }
+  
  transportmasterSubmitted(user:FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TransportMasterSave', user, this.httpOptions);
   }
