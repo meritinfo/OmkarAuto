@@ -1,0 +1,31 @@
+export class Lorryhirereqmodel {
+    id: string = "";
+    reqBranch: string = "";
+    reqDate: string = "";
+    reqBy: string = "";
+    chYear: string = "";
+    challanBranch: string = "";
+    challanNo: string = "";
+    challanId: string = "";
+    extraHamali: string = "";
+    extraDeten: string = "";
+    extraOthers: string = "";
+    extraOthers2: string = "";
+    extraOthers3: string = "";
+    remarks: string = "";
+    extraHamaliApp: string = "";
+    extraDetenApp: string = "";
+    extraOthersApp: string = "";
+    extraOthers2App: string = "";
+    extraOthers3App: string = "";
+    finalApprYn: string = "";
+    finalApprBy: string = "";
+    finalApprDt: string = "";
+    appRejRemarks: string = "";
+    reqModifiedBy: string = "";
+    reqModifiedDate: string = "";
+    lhpmtId: string = "";
+    attachPath: string = "";
+    reqBr:string = "";
+    challanBr: string = "";
+}

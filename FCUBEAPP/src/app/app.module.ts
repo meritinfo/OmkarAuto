@@ -264,6 +264,14 @@ import { Documentallotmentmodel } from './models/documentallotmentmodel';
 import { BilltypeaddComponent } from './module/billtypemaster/billtypeadd/billtypeadd.component';
 import { BilltypelistComponent } from './module/billtypemaster/billtypelist/billtypelist.component';
 import { ConsignmentupdateComponent } from './module/consignment/consignmentupdate/consignmentupdate.component';
+import { LorryhirepmtlistComponent } from './module/lorryhirepmt/lorryhirepmtlist/lorryhirepmtlist.component';
+import { LorryhirepmtaddComponent } from './module/lorryhirepmt/lorryhirepmtadd/lorryhirepmtadd.component';
+import { LorryhirepmtreqaddComponent } from './module/lorryhirepmtreq/lorryhirepmtreqadd/lorryhirepmtreqadd.component';
+import { LorryhirepmtreqlistComponent } from './module/lorryhirepmtreq/lorryhirepmtreqlist/lorryhirepmtreqlist.component';
+import { LorryhirepmtaprvlistComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvlist/lorryhirepmtaprvlist.component';
+import { LorryhirepmtaprvaddComponent } from './module/lorryhirepmtaprv/lorryhirepmtaprvadd/lorryhirepmtaprvadd.component';
+import { Lorryhirereqmodel } from './models/lorryhirereqmodel';
+import { Lorryhiremastermodel } from './models/lorryhiremastermodel';
 import { SpareslubesmasteraddComponent } from './module/spareslubesmaster/spareslubesmasteradd/spareslubesmasteradd.component';
 import { SpareslubesmasterlistComponent } from './module/spareslubesmaster/spareslubesmasterlist/spareslubesmasterlist.component';
 import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyremodeladd.component';
@@ -273,7 +281,6 @@ import { MaintanencemasterlistComponent } from './module/maintanencemaster/maint
 import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
 import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
 import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
-
 
 @NgModule({
   declarations: [
@@ -432,6 +439,12 @@ import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
     BilltypeaddComponent,
     BilltypelistComponent,
     ConsignmentupdateComponent,
+    LorryhirepmtlistComponent,
+    LorryhirepmtaddComponent,
+    LorryhirepmtreqaddComponent,
+    LorryhirepmtreqlistComponent,
+    LorryhirepmtaprvlistComponent,
+    LorryhirepmtaprvaddComponent,
     SpareslubesmasteraddComponent,
     SpareslubesmasterlistComponent,
     TyremodeladdComponent,
@@ -478,14 +491,14 @@ import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
     Ewaybillextlistmodel,Ewaybillextmodel,
     Roleprivilegeslistmodel,Roleprivilegesmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,Gstpurchasemodel,
-    Fleetcardmastermodel,Brsentrymodel,
+    Fleetcardmastermodel,Brsentrymodel,Lorryhiremastermodel,
     Driversalarydetailmodel,Driversalarystatementmodel,Gstpurchaselistmodel,
     Gstpurchasemodel,Fleetcardmastermodel,Brsentrymodel,Roletypemodel,Passwordmodel,
     Hrmastermodel,Ptslabmastermodel,Distancemasterfrtrptmodel,Distancemastertriprptmodel,
     Driversalarydetailmodel,Driversalarystatementmodel,
     Employeemodel,Empmasterlistmodel,Emploanmodel, Emploanlistmodel,
     Empsalarymstlistmodel,Empsalarymstmodel,Empsalarydtlmodel,
-    Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,
+    Emppaycalcmodel,Emppaycallistmodel,Emploanpaymodel,Empleavemodel,Lorryhirereqmodel,
     Dprmodel,Dprdtlsmodel,Dprlistmodel,Tempgcmodel,Tempgclistmodel,Challanmastermodel,
     Exptruckarrivallistmodel,Exptruckarrivalmodel, Docrenewalrptmodel,Trippaymentsrptmodel,
     Driverlicrptmodel,Billstatementsearchmodel,Dieselstatementrptmodel,Tripstatusrptmodel,

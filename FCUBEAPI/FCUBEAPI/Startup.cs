@@ -202,6 +202,12 @@ namespace FCUBEAPI
             services.AddScoped<IPaySheetRptRepository, PaySheetRptRepository>();
             services.AddScoped<IDocumentAllotmentBusiness, DocumentAllotmentBusiness>();
             services.AddScoped<IDocumentAllotmentRepository, DocumentAllotmentRepository>();
+            services.AddScoped<ILorryHireBusiness, LorryHireBusiness>();
+            services.AddScoped<ILorryHireRepository, LorryHireRepository>();
+            services.AddScoped<ILorryHireReqBusiness, LorryHireReqBusiness>();
+            services.AddScoped<ILorryHireReqRepository, LorryHireReqRepository>();
+            services.AddScoped<ILorryHireAprvBusiness, LorryHireAprvBusiness>();
+            services.AddScoped<ILorryHireAprvRepository, LorryHireAprvRepository>();
             services.AddScoped<IMaintanenceMasterBusiness, MaintanenceMasterBusiness>();
             services.AddScoped<IMaintanenceMasterRepository, MaintanenceMasterRepository>();
             services.AddScoped<ITyrePurchaseMasterBusiness, TyrePurchaseMasterBusiness>();

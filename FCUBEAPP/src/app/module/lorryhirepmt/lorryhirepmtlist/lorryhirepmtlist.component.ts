@@ -1,28 +1,44 @@
-
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Dieselstatementlistmodel } from 'src/app/models/dieselstatementlistmodel';
-import { Dieselstatementmodel } from 'src/app/models/dieselstatementmodel';
-import { DieselstatementService } from 'src/app/services/dieselstatement.service';
+import { LorryhirepmtService } from 'src/app/services/lorryhirepmt.service';
+import { Lorryhiremastermodel } from 'src/app/models/lorryhiremastermodel';
+import { Lorryhirelistmodel } from 'src/app/models/lorryhirelistmodel';
+import { Filtermodel } from 'src/app/models/filtermodel';
+import { CommonService } from 'src/app/services/common.service';
+import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Reportmodel } from 'src/app/models/reportmodel';
-import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { GstpurchaseService } from 'src/app/services/gstpurchase.service';
-import { CommonService } from 'src/app/services/common.service';
-import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
-  selector: 'app-happaystatementlist',
-  templateUrl: './happaystatementlist.component.html',
-  styleUrls: ['./happaystatementlist.component.css']
+  selector: 'app-lorryhirepmtlist',
+  templateUrl: './lorryhirepmtlist.component.html',
+  styleUrls: ['./lorryhirepmtlist.component.css']
 })
-export class HappaystatementlistComponent {
-  userSubmitted = false;
+export class LorryhirepmtlistComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
+  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  allLorryhirelist: Lorryhirelistmodel = new Lorryhirelistmodel();
+  filter: Reportmodel = {
+    pageNumber: 1,
+    pageSize: 10,
+    sortColumn: 'reqDate',
+    sortOrder: 'asc',
+    search: '',
+    fromDate:"",
+    toDate:"",
+    filterStr:"",
+    filterStr1:"",
+    filterStr2:"",
+    filterStr3:"",
+  }
+
   formFilter!: FormGroup;
   keywordLocation = 'dataName'; 
   year: string = '';
@@ -30,40 +46,20 @@ export class HappaystatementlistComponent {
   fromDate: string = '';
   maxDate: string = '';
   minDate: string = '';
-
-  dtOptions: DataTables.Settings = {};
-  @ViewChild(DataTableDirective)
-  dtElement!: DataTableDirective;
-  allDieselStatement: Dieselstatementlistmodel = new Dieselstatementlistmodel();
-  filter: Reportmodel = {
-    pageNumber: 1,
-    pageSize: 10,
-    sortColumn: 'vendor',
-    sortOrder: 'asc',
-    search: '',
-    fromDate: '',
-    toDate: '',
-    filterStr: '',
-    filterStr1: '',
-    filterStr2:'',
-    filterStr3:''
-  }
-
-  constructor(private formBuilder: FormBuilder, 
-    private dieselStatementService: DieselstatementService, 
-    private commonService: CommonService, 
-    private sharedService: SharedService, private gstpurchaseService: GstpurchaseService,      
-    private route: Router) {
+  
+  constructor(private lorryhirepmtService: LorryhirepmtService,
+    private commonService: CommonService, private formBuilder: FormBuilder, 
+    private sharedService: SharedService,private route: Router) {
   }
 
   ngOnInit(): void {
-    
+
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-      var privilegeData = JSON.parse(menuData);
+      var privilegeData = JSON.parse(menuData);      
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((( aa: { menuName: string; }) => aa.menuName === "Happay Statement"));
+      .find((aa: { menuName: string; }) => aa.menuName === "Lorry Hire Payment");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -71,7 +67,7 @@ export class HappaystatementlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-    
+
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;
@@ -84,7 +80,6 @@ export class HappaystatementlistComponent {
     const month = today.getMonth();
     const year = today.getFullYear();
     today.setMonth(month - 1);
-
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
@@ -94,36 +89,39 @@ export class HappaystatementlistComponent {
     else{
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
+    this.lorryhirepmtService.clearLorryhiremasterDetails();
 
-
-    this.dieselStatementService.clearDieselStatementDetails();
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
     });     
-
-    this.sharedService.loading=true; 
-    this.dieselstateList();
+     this.sharedService.loading=true; 
+     
+    this.filter.fromDate = this.formFilter.value.fromDate;
+    this.filter.toDate = this.formFilter.value.toDate;
+    
+    this.sharedService.loading=true;
+    this.lorryhireList();
     this.sharedService.loading=false;
   }
-
-  dieselstateList() {
+  
+  lorryhireList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
       serverSide: true,
       processing: true,
-      searching: false,
+      searching:false,
       ajax: (dataTablesParameters: any, callback) => {
         // Filter setting
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.filter.search = "";
-        this.dieselStatementService.getHappayDieselList(this.filter)
+        // this.filter.search = dataTablesParameters.search.value;
+        this.lorryhirepmtService.getLorryhiremasterList(this.filter)
           .subscribe(resp => {
-            this.allDieselStatement = resp;
+            this.allLorryhirelist = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,
               recordsFiltered: resp.pageMetaData.totalCount,
@@ -133,67 +131,63 @@ export class HappaystatementlistComponent {
       },
       columns: [
         {
-          title: 'Bill Stmt No ',
-          data: 'billStmtNo',
+          title: 'Payment Stn',
+          data: 'pmtStn',
         },
         {
-          title: 'Bill Stmt Date ',
-          data: 'billStmtDate',
+          title: 'Payment No',
+          data: 'pmtNo',
         },
         {
-          title: 'From Date ',
-          data: 'fromDate'
+          title: 'Payment Date',
+          data: 'pmtDate',
         },
         {
-          title: 'Location ',
-          data: 'location',
+          title: 'Payment Type',
+          data: 'pmtType',
+        },
+        {
+          title: 'Total Hire Amt',
+          data: 'totalHireAmt',
+        },
+        {
+          title: 'Total Hamali Amt',
+          data: 'totalHamaliAmt',
+        },
+        {
+          title: 'Total Deten Amt',
+          data: 'totalDetenAmt',
+        },
+        {
+          title: 'Total Other Amt',
+          data: 'totalOtherAmt',
         },
         {
           title: 'Action',
-          data: 'masterId',
+          data: 'masterID',
         },
       ],
     };
   }
-
-
   
-  selectEvent(item: any) {
-    // do something with selected item
+  lorryHirePmtAdd(): void {
+    this.route.navigate(['/lhpmtadd']);
   }
 
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-
-  onFocused(e: any) {
-    // do something
-  }
-
-  startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
-    return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
-  };
-
-  
-  dieselStatementAdd(): void {
-    this.route.navigate(['/happaystatementadd']);
-  }
-
-  //Open user details screen
-  getDieselStatementDetails(Docrenewal: Dieselstatementmodel): void {
-    this.dieselStatementService.setDieselStatementDetails(Docrenewal);
-    this.route.navigate(['/happaystatementedit']);
+  getLorryHirePmtDetails(lrhrpmt: Lorryhiremastermodel): void {
+    this.lorryhirepmtService.setLorryhiremasteretails(lrhrpmt);
+    this.route.navigate(['/lhpmtedit']);
   }
 
   search(): void {
     this.filter.fromDate = this.formFilter.value.fromDate;
     this.filter.toDate = this.formFilter.value.toDate;
     this.sharedService.loading=true;
-    this.dieselstateList();
+    this.lorryhireList();
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload();
     });
   }
+
 }
