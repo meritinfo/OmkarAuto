@@ -56,7 +56,8 @@
                                                 <span style="color: red">*</span>
                                                 <select id="formrow-inputState" class="form-control"
                                                     formControlName="pmtType" (change)="changePmtType($event)"                                                   
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">                                                   <option selected="">Choose...</option>
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }">                                                   
+                                                    <option selected="">Choose...</option>
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="P">Card</option>

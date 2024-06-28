@@ -152,7 +152,8 @@ import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyr
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
-
+import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
+import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 
 
 const routes: Routes = [
@@ -361,8 +362,7 @@ const routes: Routes = [
   { path: 'tyremodelmasteredit', component:  TyremodeladdComponent },
   { path: 'maintmasterlist', component:  MaintanencemasterlistComponent },
   { path: 'maintanencemasteradd', component:  MaintanencemasteraddComponent },
-  { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
-  
+  { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },  
   { path: 'lhpmtlist', component:  LorryhirepmtlistComponent },
   { path: 'lhpmtadd', component:  LorryhirepmtaddComponent },
   { path: 'lhpmtedit', component:  LorryhirepmtaddComponent },
@@ -372,6 +372,9 @@ const routes: Routes = [
   { path: 'lhextrapmtapprlist', component:  LorryhirepmtaprvlistComponent },
   { path: 'lhextrapmtappradd', component:  LorryhirepmtaprvaddComponent },
   { path: 'lhextrapmtappredit', component:  LorryhirepmtaprvaddComponent },
+  { path: 'emimasterlist', component:   VehicleinstschedulelistComponent},
+  { path: 'emimasteradd', component:  VehicleinstscheduleaddComponent },
+  { path: 'emimasteredit', component:  VehicleinstscheduleaddComponent },
   
 ];
 

@@ -1,25 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-
 using FleetTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-
 using FleetTrans.Models;
-using FleetMasters.Business;
-using FinTrans.Models;
 using Newtonsoft.Json;
-using System.Data.Common;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using Consignment.Business;
-using System.Xml.Linq;
-using FreightMasters.Business;
-using FreightMasters.Models;
-using Org.BouncyCastle.Ocsp;
-using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {
@@ -34,7 +23,6 @@ namespace FCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
-        //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
         readonly IDocRenewalRptBusiness docRenewalRptBusiness;
@@ -42,6 +30,7 @@ namespace FCUBEAPI.Controllers
         readonly ITripPaymentsRptBusiness tripPaymentsRptBusiness;
         readonly ITripStatusRptBusiness tripStatusRptBusiness;
         readonly IDailyLoadingRptBusiness dailyLoadingRptBusiness;
+        readonly IVehiEmiBusiness vehiEmiBusiness;
 
         public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
@@ -53,7 +42,8 @@ namespace FCUBEAPI.Controllers
             IDieselStatementRptBusiness _dieselStatementRptBusiness,
             ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
             ITripStatusRptBusiness _tripStatusRptBusiness,
-            IDailyLoadingRptBusiness _dailyLoadingRptBusiness)
+            IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
+            IVehiEmiBusiness _vehiEmiBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
@@ -67,26 +57,9 @@ namespace FCUBEAPI.Controllers
             tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
             dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
+            vehiEmiBusiness = _vehiEmiBusiness;
         }
 
-       
-        
-       
-        //[HttpPost("GetDriverSalaryStatementList")]
-        //public async Task<IActionResult> GetDriverSalaryStatementList(DriverSalaryListRequest request)
-        //{
-        //    try
-        //    {
-        //        var result = await driverSalaryStatementBusiness.GetDriverSalaryStatementList(request);
-
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-       
        
         [HttpPost("GetCreditAcList2")]
         public async Task<IActionResult> GetCreditAcList2(AcModel request)
@@ -1337,6 +1310,82 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await dailyLoadingRptBusiness.GetDailyLoadingRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicleInstScheduleList")]
+        public async Task<IActionResult> GetVehicleInstScheduleList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehiEmiBusiness.GetVehicleInstScheduleList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetVehicleInstScheduleInnerGridList")]
+        public async Task<IActionResult> GetVehicleInstScheduleInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehiEmiBusiness.GetVehicleInstScheduleInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleInstScheduleMstSave")]
+        public async Task<IActionResult> VehicleInstScheduleMstSave(VehicleInstScheduleModel vehicleInst)
+        {
+            if (vehicleInst == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehiEmiBusiness.VehicleInstScheduleMstSave(vehicleInst);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleInstScheduleDelete")]
+        public async Task<IActionResult> VehicleInstScheduleDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehiEmiBusiness.VehicleInstScheduleDelete(req);
 
                 return Ok(result);
             }
