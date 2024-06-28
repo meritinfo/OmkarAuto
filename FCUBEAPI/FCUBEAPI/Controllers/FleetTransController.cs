@@ -1373,6 +1373,35 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBrandList")]
+        public async Task<IActionResult> GetBrandList()
+        {
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetBrandList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVendorList")]
+        public async Task<IActionResult> GetVendorList()
+        {
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetVendorList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpPost("GetDailyLoadingRptList")]

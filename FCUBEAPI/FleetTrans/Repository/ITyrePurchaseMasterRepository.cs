@@ -15,5 +15,7 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TyrePurchaseMasterDelete(RequestModel req);
         Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request);
         Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetBrandList();
+        Task<List<DropDownListModel>> GetVendorList();
     }
 }

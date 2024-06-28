@@ -43,7 +43,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@VendorName",   tyrePurchaseMasterModel.VendorName),
                             new SqlParameter("@VendorAddress",   tyrePurchaseMasterModel.VendorAddress),
                              new SqlParameter("@VendorGstNo",   tyrePurchaseMasterModel.VendorGstNo),
-                                 new SqlParameter("@VendorInvNo",   tyrePurchaseMasterModel.VendorInvNo),
+                            new SqlParameter("@VendorInvNo",   tyrePurchaseMasterModel.VendorInvNo),
                             new SqlParameter("@VendorInvDt",   tyrePurchaseMasterModel.VendorInvDt),
                             new SqlParameter("@TyreSacCode",   tyrePurchaseMasterModel.TyreSacCode),
                             new SqlParameter("@GstType",   tyrePurchaseMasterModel.GstType),
@@ -144,6 +144,7 @@ namespace FleetTrans.Repository
                                 PurchaseMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["PurchaseMasterID"]),
                                 PurchaseDate = Convert.ToString(resultData.Tables[0].Rows[i]["PurchaseDate"]),
                                 TyreNo = Convert.ToString(resultData.Tables[0].Rows[i]["TyreNo"]),
+                                BrandID = Convert.ToString(resultData.Tables[0].Rows[i]["BrandID"]),
                                 TyrePattern = Convert.ToString(resultData.Tables[0].Rows[i]["TyrePattern"]),
                                 TyreModel = Convert.ToString(resultData.Tables[0].Rows[i]["TyreModel"]),
                                 TyreAmount = Convert.ToString(resultData.Tables[0].Rows[i]["TyreAmount"]),
@@ -197,26 +198,25 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@TyreId",               tyrePurchaseDtlListmodel.TyreId),
-
                             new SqlParameter("@PurchaseMasterID",           tyrePurchaseDtlListmodel.PurchaseMasterID),
-                                new SqlParameter("@PurchaseDate",               tyrePurchaseDtlListmodel.PurchaseDate),
+                            new SqlParameter("@PurchaseDate",               tyrePurchaseDtlListmodel.PurchaseDate),
                             new SqlParameter("@BrandID",             tyrePurchaseDtlListmodel.BrandID),
                             new SqlParameter("@TyreNo",                    tyrePurchaseDtlListmodel.TyreNo),
                             new SqlParameter("@TyrePattern",        tyrePurchaseDtlListmodel.TyrePattern) ,
                             new SqlParameter("@TyreModel",        tyrePurchaseDtlListmodel.TyreModel) ,
-                             new SqlParameter("@TyreAmount",        tyrePurchaseDtlListmodel.TyreAmount) ,
-                                      new SqlParameter("@SgstPct",        tyrePurchaseDtlListmodel.SgstPct) ,
-                                        new SqlParameter("@SgstAmt",        tyrePurchaseDtlListmodel.SgstAmt) ,
-                                               new SqlParameter("@CgstPct",        tyrePurchaseDtlListmodel.CgstPct) ,
-                                                new SqlParameter("@CgstAmt",        tyrePurchaseDtlListmodel.CgstAmt) ,
-                                                  new SqlParameter("@IgstPct",        tyrePurchaseDtlListmodel.IgstPct) ,
-                                                   new SqlParameter("@IgstAmt",        tyrePurchaseDtlListmodel.IgstAmt) ,
-                                                   new SqlParameter("@NetTyreAmount",        tyrePurchaseDtlListmodel.NetTyreAmount) ,
-                                                   new SqlParameter("@EstLifeKM",        tyrePurchaseDtlListmodel.EstLifeKM) ,
-                                                     new SqlParameter("@RegroupAmt",        tyrePurchaseDtlListmodel.RegroupAmt) ,
-                                                        new SqlParameter("@CurrentTyreStatus",        tyrePurchaseDtlListmodel.CurrentTyreStatus) ,
-                                                           new SqlParameter("@CurrentStatusDate",        tyrePurchaseDtlListmodel.CurrentStatusDate) ,
-                                                             new SqlParameter("@CurrentVehicleNo",        tyrePurchaseDtlListmodel.CurrentVehicleNo) 
+                            new SqlParameter("@TyreAmount",        tyrePurchaseDtlListmodel.TyreAmount) ,
+                            new SqlParameter("@SgstPct",        tyrePurchaseDtlListmodel.SgstPct) ,
+                            new SqlParameter("@SgstAmt",        tyrePurchaseDtlListmodel.SgstAmt) ,
+                            new SqlParameter("@CgstPct",        tyrePurchaseDtlListmodel.CgstPct) ,
+                            new SqlParameter("@CgstAmt",        tyrePurchaseDtlListmodel.CgstAmt) ,
+                            new SqlParameter("@IgstPct",        tyrePurchaseDtlListmodel.IgstPct) ,
+                            new SqlParameter("@IgstAmt",        tyrePurchaseDtlListmodel.IgstAmt) ,
+                            new SqlParameter("@NetTyreAmount",        tyrePurchaseDtlListmodel.NetTyreAmount) ,
+                            new SqlParameter("@EstLifeKM",        tyrePurchaseDtlListmodel.EstLifeKM) ,
+                            new SqlParameter("@RegroupAmt",        tyrePurchaseDtlListmodel.RegroupAmt) ,
+                     new SqlParameter("@CurrentTyreStatus",        tyrePurchaseDtlListmodel.CurrentTyreStatus) ,
+                      new SqlParameter("@CurrentStatusDate",        tyrePurchaseDtlListmodel.CurrentStatusDate) ,
+                    new SqlParameter("@CurrentVehicleNo",        tyrePurchaseDtlListmodel.CurrentVehicleNo) 
                     
                 };
 
@@ -276,6 +276,82 @@ namespace FleetTrans.Repository
                 transaction.Rollback();
             }
             return responseModel;
+        }
+        public async Task<List<DropDownListModel>> GetBrandList()
+        {
+            List<DropDownListModel> BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrandList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            BrandList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return BrandList;
+        }
+        public async Task<List<DropDownListModel>> GetVendorList()
+        {
+            List<DropDownListModel> BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VendorList_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            BrandList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return BrandList;
         }
         public async Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request)
         {
