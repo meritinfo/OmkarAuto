@@ -278,6 +278,9 @@ import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyr
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
+import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
+import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
+import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';

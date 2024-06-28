@@ -23,6 +23,8 @@ namespace FCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
+        //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
+        readonly ITyrePurchaseMasterBusiness tyrePurchaseMasterBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
         readonly IDocRenewalRptBusiness docRenewalRptBusiness;
@@ -39,6 +41,7 @@ namespace FCUBEAPI.Controllers
             IDriverSalaryStmtBusiness  _driverSalaryStmtBusiness,
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
             IDocRenewalRptBusiness _docRenewalRptBusiness,
+            ITyrePurchaseMasterBusiness _tyrePurchaseMasterBusiness,
             IDieselStatementRptBusiness _dieselStatementRptBusiness,
             ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
             ITripStatusRptBusiness _tripStatusRptBusiness,
@@ -55,6 +58,7 @@ namespace FCUBEAPI.Controllers
             docRenewalRptBusiness = _docRenewalRptBusiness;
             dieselStatementRptBusiness = _dieselStatementRptBusiness;
             tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
+            tyrePurchaseMasterBusiness = _tyrePurchaseMasterBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
             dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
             vehiEmiBusiness = _vehiEmiBusiness;
@@ -1271,6 +1275,70 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tripPaymentsRptBusiness.ExcelTripPaymentsRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyrePurchaseMasterSave")]
+        public async Task<IActionResult> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel)
+        {
+            if (tyrePurchaseMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.TyrePurchaseMasterSave(tyrePurchaseMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyrePurchaseMasterList")]
+        public async Task<IActionResult> GetTyrePurchaseMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetTyrePurchaseMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyrePurchaseMasterDelete")]
+        public async Task<IActionResult> TyrePurchaseMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.TyrePurchaseMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyrePurchaseMasterInnerGridList")]
+        public async Task<IActionResult> GetTyrePurchaseMasterInnerGridList(RequestModel request)
+        {
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.GetTyrePurchaseMasterInnerGridList(request);
 
                 return Ok(result);
             }

@@ -33,21 +33,23 @@ namespace FCUBEAPI.Controllers
         readonly ISparesLubesMasterBusiness sparesLubesMasterBusiness;
         readonly IMaintanenceMasterBusiness maintanenceMasterBusiness;
         readonly ITyreModelBusiness tyreModelBusiness;
-  
+    
+
         readonly IFleetCardMasterBusiness fleetCardMasterBusiness;
         readonly ITyrePositionMasterBusiness tyrePositionMasterBusiness;
         readonly IDriverMasterBusiness driverMasterBusiness;
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
         readonly ITruckMasterBusiness truckMasterBusiness;
         readonly ITransportMasterBusiness transportMasterBusiness;
-        public FleetMastersController(IOptions<DBModel> _dbconnection, 
-            IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness, 
-            IVehicleFltMasterBusiness _vehicleFltMasterBusiness, 
-            IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness, 
-            IDocRenewalMasterBusiness _docRenewalMasterBusiness, 
+        public FleetMastersController(IOptions<DBModel> _dbconnection,
+            IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness,
+            IVehicleFltMasterBusiness _vehicleFltMasterBusiness,
+            IVehicleTypeMasterBusiness _vehicleTypeMasterBusiness,
+            IDocRenewalMasterBusiness _docRenewalMasterBusiness,
             IBrandMasterBusiness _brandMasterBusiness,
             ITyreModelBusiness _tyreModelBusiness,
-            IMaintanenceMasterBusiness _maintanenceMasterBusiness,
+           
+        IMaintanenceMasterBusiness _maintanenceMasterBusiness,
         ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
             IDriverMasterBusiness _driverMasterBusiness, 
@@ -66,6 +68,7 @@ namespace FCUBEAPI.Controllers
             driverMasterBusiness = _driverMasterBusiness;
             expensestypeMasterBusiness = _expensesTypeMasterBusiness;
             truckMasterBusiness = _truckMasterBusiness;
+          
             sparesLubesMasterBusiness = _sparesLubesMasterBusiness;
             maintanenceMasterBusiness = _maintanenceMasterBusiness;
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
@@ -1268,6 +1271,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+       
     }
 
 }
