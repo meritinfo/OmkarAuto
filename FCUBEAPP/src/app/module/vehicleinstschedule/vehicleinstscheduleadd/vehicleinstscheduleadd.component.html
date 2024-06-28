@@ -1,0 +1,272 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle EMI Details</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="mb-3">                                    
+                                                <label for="formrow-inputCity">Vehicle No</label> 
+                                                <span style="color: red">*</span> 
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation" 
+                                                        formControlName="vehicleMasterId" 
+                                                        (selected)='selectEvent($event)'
+                                                        (inputChanged)='onChangeSearch($event)'
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter"  
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterId'].invalid) }">
+                                                    </ng-autocomplete>
+            
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+            
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>     
+                                        </div>                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputCity">Loan Type</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="loanType"   
+                                                class="form-control form-select ng-pristine ng-touched"   
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['loanType'].invalid) }">
+                                                    <option value="C">Chassis </option>
+                                                    <option value="B">Body </option>
+                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Start Date</label>
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" type="date" 
+                                                    class="form-control" formControlName="startDate"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['startDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">End Date</label>
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" type="date" (change)="calNoOfMonths()"
+                                                    class="form-control" formControlName="endDate"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['endDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">No Of Months</label>
+                                                <span style="color: red">*</span>
+                                                <input numbersonly autoclose="false" class="form-control"
+                                                formControlName="noOfMonths" maxlength="4"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['noOfMonths'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Principal Emi</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="principalEmi" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['principalEmi'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Interest Emi</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="interestEmi" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['interestEmi'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Total Emi</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalEmi" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalEmi'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Total Principal</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalPrincipal" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalPrincipal'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Total Interest</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalInterest" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalInterest'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputCity">Total Loan Amt</label>
+                                                <span style="color: red">*</span>
+                                                <input decimalonly autoclose="false" class="form-control"
+                                                formControlName="totalLoanAmt" maxlength="20"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['totalLoanAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="form-check mb-3">
+                                                <input type="radio" formControlName="scheudleType"
+                                                    value="A" class="form-check-input" (change)="changeType('A')" />
+                                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                                    Auto Fill
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-check">
+                                                <input type="radio" formControlName="scheudleType" 
+                                                    value="M" class="form-check-input" (change)="changeType('M')" />
+                                                <label for="formRadios2" class="form-check-label" style="color:green">
+                                                    Manual Entry
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="form-check">
+                                                <input type="radio" formControlName="scheudleType"
+                                                    value="E" class="form-check-input" (change)="changeType('I')">
+                                                <label for="formRadios3" class="form-check-label" style="color:green">
+                                                    Import
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mt-3">
+                                                <button class="btn btn-danger w-md m-2" *ngIf="autoCalTrue" 
+                                                    (click)="autoCalculate()">Auto Calculate</button>&nbsp;
+                                                <input type="file" *ngIf="importTrue" 
+                                                (change)="onFileChange($event)" multiple="false" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end card -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title mb-4"></h4>
+                                    <div class="overflow-x">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table half-width">
+                                            <tr>
+                                                <th><label for="formrow-inputCity">Inst No</label></th>
+                                                <th><label for="formrow-inputCity">Inst Date</label></th>
+                                                <th><label for="formrow-inputCity">Inst Principal Amt</label></th>
+                                                <th><label for="formrow-inputCity">Inst Interest Amt</label></th>
+                                                <th><label for="formrow-inputCity">Inst Total Amt</label></th>
+                                                <th><label for="formrow-inputCity">Remarks</label></th> 
+                                                <th><label for="formrow-inputZip"></label></th>                                           
+                                            </tr>
+                                            <tr formArrayName="arrayList"
+                                                *ngFor="let arrayData of formArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td>
+                                                        <input autoclose="false" class="form-control"
+                                                            formControlName="instNo">
+                                                    </td>
+                                                    <td>                                                  
+                                                        <input type="date" autoclose="false" class="form-control"
+                                                            formControlName="instDate">
+                                                    </td>
+                                                    <td>
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                            formControlName="pri_InstAmt">
+                                                    </td>
+                                                    <td>
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                            formControlName="int_InstAmt">
+                                                    </td>
+                                                    <td>
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                            formControlName="tot_InstAmt">
+                                                    </td>
+                                                    <td class="col-lg-4 remark-td">
+                                                        <input uppercaseonly autoclose="false" class="form-control"
+                                                            formControlName="dtlRemarks">
+                                                    </td>
+                                                    <td class="col-lg-3">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="(i === formArray.controls.length-1) && rowaddTrue" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="(formArray.controls.length > 1) && rowaddTrue"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>                                        
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                               
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitVehicleinstscheduleForm()">Save</button>&nbsp;
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="deleteVehicleinstscheduleForm()">Delete</button>&nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>  
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

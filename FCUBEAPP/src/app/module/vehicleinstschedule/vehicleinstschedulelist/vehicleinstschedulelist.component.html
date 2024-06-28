@@ -1,0 +1,114 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle EMI Details</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="fromDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Date</label> 
+                                    <input bsdatepicker="" type="date" autoclose="false" 
+                                        placeholder="dd-mm-yyyy" min="{{minDate}}" max="{{maxDate}}"
+                                        formControlName="toDate" class="form-control">
+                                </div>
+                            </div>       
+                            <div class="col-md-3">
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="vehicleMasterID" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>     
+                            </div>                        
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="vehicleinstscheduleAdd()"  *ngIf="createStatus"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>vehicleNo </th>                          
+                                <th>loanTp</th> 
+                                <th>startDate</th>
+                                <th>endDate</th>  
+                                <th>noOfMonths</th>  
+                                <th>totalLoanAmt</th>                          
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allVehicleinstschedule.vehicleInstSchedulelist">
+                            <tr *ngFor="let inst of allVehicleinstschedule.vehicleInstSchedulelist">
+                                <td>{{ inst.vehicleNo }}</td>                        
+                                <td>{{ inst.loanTp}}</td>      
+                                <td>{{ inst.startDate}}</td>                        
+                                <td>{{ inst.endDate}}</td>
+                                <td>{{ inst.noOfMonths}}</td>
+                                <td>{{ inst.totalLoanAmt}}</td>
+                                <td>                                    
+                                    <button type="button" class="btn btn-edit"
+                                        (click)="getVehicleinstscheduleDetails(inst)"></button>                               
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allVehicleinstschedule.vehicleInstSchedulelist?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

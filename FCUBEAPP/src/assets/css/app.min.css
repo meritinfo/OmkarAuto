@@ -5897,3 +5897,10 @@ background-color: #fbff00 !important
 .full-grid-width tr td {
     width: fit-content;
 }
+
+.half-width{
+    width: 1400px !important;
+}
+.half-width tr td {
+    width: 175px;
+}

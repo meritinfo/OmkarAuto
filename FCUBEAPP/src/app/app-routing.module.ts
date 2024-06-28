@@ -154,7 +154,8 @@ import { MaintanencemasteraddComponent } from './module/maintanencemaster/mainta
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
 import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
 import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
-
+import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
+import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 
 
 const routes: Routes = [
@@ -378,6 +379,9 @@ const routes: Routes = [
   { path: 'lhextrapmtapprlist', component:  LorryhirepmtaprvlistComponent },
   { path: 'lhextrapmtappradd', component:  LorryhirepmtaprvaddComponent },
   { path: 'lhextrapmtappredit', component:  LorryhirepmtaprvaddComponent },
+  { path: 'emimasterlist', component:   VehicleinstschedulelistComponent},
+  { path: 'emimasteradd', component:  VehicleinstscheduleaddComponent },
+  { path: 'emimasteredit', component:  VehicleinstscheduleaddComponent },
   
 ];
 
