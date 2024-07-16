@@ -21,8 +21,9 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Code</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text"  autofocus="autofocus" class="form-control"
-                                                placeholder="" formControlName="code" maxlength="6" 
+                                                <input uppercaseonly type="text"  autofocus="autofocus" 
+                                                class="form-control"
+                                                formControlName="code" maxlength="6" 
                                                 (change)="chkCodeExits($event)"                              
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['code'].invalid) }">
                                             </div>

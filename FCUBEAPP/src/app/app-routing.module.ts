@@ -156,7 +156,7 @@ import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyre
 import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
-
+import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -367,9 +367,7 @@ const routes: Routes = [
   { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
   { path: 'tyrepurchaselist', component:  TyrepurchasemasterlistComponent },
   { path: 'tyrepurchasemasteradd', component:  TyrepurchasemasteraddComponent },
-  { path: 'tyrepurchasemasteredit', component:  TyrepurchasemasteraddComponent },
-  
-  
+  { path: 'tyrepurchasemasteredit', component:  TyrepurchasemasteraddComponent }, 
   { path: 'lhpmtlist', component:  LorryhirepmtlistComponent },
   { path: 'lhpmtadd', component:  LorryhirepmtaddComponent },
   { path: 'lhpmtedit', component:  LorryhirepmtaddComponent },
@@ -382,7 +380,7 @@ const routes: Routes = [
   { path: 'emimasterlist', component:   VehicleinstschedulelistComponent},
   { path: 'emimasteradd', component:  VehicleinstscheduleaddComponent },
   { path: 'emimasteredit', component:  VehicleinstscheduleaddComponent },
-  
+  { path: 'tbplbsrpt', component:  BalanacerptComponent},
 ];
 
 @NgModule({

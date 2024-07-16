@@ -284,6 +284,7 @@ import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
+import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 
 @NgModule({
   declarations: [
@@ -377,6 +378,8 @@ import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
+    BalanacerptComponent,
   ],
   imports: [
     BrowserModule,
