@@ -44,8 +44,9 @@
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="gstType"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['gstType'].invalid) }">
-                                                <option value="Y">Yes</option>
-                                                <option value="N">No</option>                                                                                          
+                                                <option value="C">Cgst</option>
+                                                <option value="S">Sgst</option>  
+                                                <option value="I">Igst</option>                                                                                            
                                             </select>
                                         </div>
                                     </div>  
@@ -69,8 +70,14 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor Id </label>
-                                            <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="vendorId">
+                                        
+                                            <select class="form-control" formControlName="vendorId"   
+                                            class="form-control form-select ng-pristine ng-touched"   
+                                            [ngClass]="">
+                                                <option *ngFor="let vehi of vendorList" value={{vehi.dataId}}>
+                                                   {{vehi.dataName}}
+                                                </option>
+                                             </select>
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
@@ -312,7 +319,7 @@
                                                     <h6>Action</h6>
                                                 </label></td>
                                             </tr>
-                                        <tr formArrayName="tyreDetailList"
+                                        <tr formArrayName="tyrePurchaseList"
                                             *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2"> 
@@ -321,8 +328,13 @@
                                                    
                                                 </td>
                                                 <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="brandID">                                                     
+                                                    <select class="form-control" formControlName="brandID"   
+                                                    class="form-control form-select ng-pristine ng-touched"   
+                                                    [ngClass]="">
+                                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                           {{vehi.dataName}}
+                                                        </option>
+                                                     </select>                                                   
                                                    
                                                 </td>
                                                 <td class="col-lg-2"> 
@@ -359,6 +371,7 @@
                                                     <input numbersonly autoclose="false" class="form-control"
                                                     formControlName="cgstAmt">                                                     
                                                    
+                                                    
                                                 </td>
                                                 <td class="col-lg-2"> 
                                                     <input numbersonly autoclose="false" class="form-control"

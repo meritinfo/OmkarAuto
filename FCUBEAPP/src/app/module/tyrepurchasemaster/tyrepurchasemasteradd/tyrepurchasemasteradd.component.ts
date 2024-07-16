@@ -31,6 +31,8 @@ export class TyrepurchasemasteraddComponent {
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  brandList: Dropdownmodel[] = [];
+  vendorList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
   tyrepurchaseinnergridmodel = new Tyrepurchaseinnergridmodel();
@@ -77,6 +79,8 @@ export class TyrepurchasemasteraddComponent {
   }
 
     //  this.getStateList();
+    this.getBrandList();
+    this.getVendorList();
       this.getBranchList();
  
       this.selectedTyrePurchaseMasterDetail = this.tyrePurchaseMasterService.getTyrePurchaseMasterDetails();
@@ -112,7 +116,7 @@ export class TyrepurchasemasteraddComponent {
         yearID  : new FormControl('',),
         
        
-        tyreDetailList: this.formBuilder.array([this.createTyreArray()]),
+        tyrePurchaseList: this.formBuilder.array([this.createTyreArray()]),
    
       });
       if (this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '') {
@@ -120,6 +124,9 @@ export class TyrepurchasemasteraddComponent {
           this.formUser.patchValue(this.selectedTyrePurchaseMasterDetail);
           this.formUser.patchValue({
             purchaseDate: this.commonService.formatDate(this.selectedTyrePurchaseMasterDetail.purchaseDate),
+            chequeDate: this.commonService.formatDate(this.selectedTyrePurchaseMasterDetail.chequeDate),
+            vendorInvDt: this.commonService.formatDate(this.selectedTyrePurchaseMasterDetail.vendorInvDt),
+            //vendorId: this.vendorList.find(e => e.dataId == this.selectedTyrePurchaseMasterDetail.vendorId),
           })
           this.getTyrePurchaseMasterInnerGridList();
         }, 2000);  
@@ -159,26 +166,55 @@ exit(): void {
     
     }
     get formTyreArray() {
-      return this.formUser.get("tyreDetailList") as FormArray;
+      return this.formUser.get("tyrePurchaseList") as FormArray;
     
     }
     getTyrePurchaseMasterInnerGridList(): void {
-      this.requestmodel.strRequest=this.selectedTyrePurchaseMasterDetail.purchaseMasterID 
-      this.tyrePurchaseMasterService.getTyrePurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
-        this.tyrepurchaseinnergridmodel = res;
-         this.formTyreArray.clear();
+      // this.requestmodel.strRequest=this.selectedTyrePurchaseMasterDetail.purchaseMasterID 
+      // this.tyrePurchaseMasterService.getTyrePurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
+      //   this.tyrepurchaseinnergridmodel = res;
+      //    this.formTyreArray.clear();
       
     
-        for (let misc = 0; misc < this.tyrepurchaseinnergridmodel.tyrePurchaseList.length; misc++) {
-          this.formTyreArray.push(this.createTyreArray());
-          this.formTyreArray.controls[misc].get("brandID ")?.setValue(res.tyrePurchaseList[misc].brandID );
-        }
+      //   for (let misc = 0; misc < this.tyrepurchaseinnergridmodel.tyrePurchaseList.length; misc++) {
+      //     this.formTyreArray.push(this.createTyreArray());
+      //     this.formTyreArray.controls[misc].get("brandID")?.setValue(res.tyrePurchaseList[misc].brandID );
+      //   }
         
       
        
     
+      // });
+      this.requestmodel.strRequest=this.selectedTyrePurchaseMasterDetail.purchaseMasterID 
+      this.tyrePurchaseMasterService.getTyrePurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
+        this.formTyreArray.clear();
+        this.tyrepurchaseinnergridmodel = res;
+        for (var i = 0; i < res.tyrePurchaseList.length; i++) {
+          this.formTyreArray.push(this.createTyreArray());
+         // this.formTyreArray.controls[i].get("spareLubId")?.setValue(this.issueList.find(e => e.dataId == res.sparesLubesIssueDetailList[i].spareLubId));
+          this.formTyreArray.controls[i].get("purchaseDate")?.setValue(this.commonService.formatDate(res.tyrePurchaseList[i].purchaseDate));
+          this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseList[i].brandID);
+       // this.formTyreArray.controls[i].get("brandID")?.setValue(this.brandList.find(e => e.dataId == res.tyrePurchaseList[i].brandID));
+          this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseList[i].tyreNo);  
+          this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseList[i].tyrePattern); 
+          this.formTyreArray.controls[i].get("tyreModel")?.setValue(res.tyrePurchaseList[i].tyreModel);  
+          this.formTyreArray.controls[i].get("tyreAmount")?.setValue(res.tyrePurchaseList[i].tyreAmount);   
+          this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.tyrePurchaseList[i].sgstPct);  
+          this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.tyrePurchaseList[i].sgstAmt);    
+          this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.tyrePurchaseList[i].cgstPct);  
+          this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.tyrePurchaseList[i].cgstAmt);   
+          this.formTyreArray.controls[i].get("igstPct")?.setValue(res.tyrePurchaseList[i].igstPct);  
+          this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.tyrePurchaseList[i].igstAmt);  
+          this.formTyreArray.controls[i].get("netTyreAmount")?.setValue(res.tyrePurchaseList[i].netTyreAmount);  
+          this.formTyreArray.controls[i].get("estLifeKM")?.setValue(res.tyrePurchaseList[i].estLifeKM); 
+          this.formTyreArray.controls[i].get("regroupAmt")?.setValue(res.tyrePurchaseList[i].regroupAmt); 
+          this.formTyreArray.controls[i].get("currentTyreStatus")?.setValue(res.tyrePurchaseList[i].currentTyreStatus); 
+          this.formTyreArray.controls[i].get("currentStatusDate")?.setValue(this.commonService.formatDate(res.tyrePurchaseList[i].currentStatusDate));
+          this.formTyreArray.controls[i].get("currentVehicleNo")?.setValue(res.tyrePurchaseList[i].currentVehicleNo); 
+        }     
       });
     }
+    
     tyreMasterDelete(): void {
       if(this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '' ){
        this.requestmodel.strRequest =this.selectedTyrePurchaseMasterDetail.purchaseMasterID 
@@ -196,6 +232,16 @@ exit(): void {
           });
         }
       }
+    }
+    getBrandList(): void {
+      this.commonService.getBrandList().subscribe((res) => {
+        this.brandList = res;
+      });
+    }
+    getVendorList(): void {
+      this.commonService.getVendorList().subscribe((res) => {
+        this.vendorList = res;
+      });
     }
     addMiscItem(index: number): void {
       if (this.formTyreArray.value[index].brandID != "" ) {

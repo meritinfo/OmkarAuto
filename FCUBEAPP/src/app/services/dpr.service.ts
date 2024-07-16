@@ -46,6 +46,7 @@ export class DprService {
   dprDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/DprMasterDelete', req, this.httpOptions);
   } 
+  
 
   getDprInnerGridList(req : Requestmodel): Observable<Dprmodel> {
     return this.httpClient.post<Dprmodel>(Constants.API_ENDPOINT + 'Consignment/GetDprInnerGridList', req, this.httpOptions);

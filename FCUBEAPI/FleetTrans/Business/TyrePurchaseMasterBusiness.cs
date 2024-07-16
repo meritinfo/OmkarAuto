@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FleetMasters.Models;
 using FleetTrans.Models;
 using FleetTrans.Repository;
@@ -33,6 +34,14 @@ namespace FleetTrans.Business
         public async Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request)
         {
             return await tyrePurchaseRepository.GetTyrePurchaseMasterInnerGridList(request);
+        }
+        public async Task<List<DropDownListModel>> GetBrandList()
+        {
+            return await tyrePurchaseRepository.GetBrandList();
+        }
+        public async Task<List<DropDownListModel>> GetVendorList()
+        {
+            return await tyrePurchaseRepository.GetVendorList();
         }
 
     }
