@@ -92,6 +92,7 @@ export class AddtransportmasterComponent {
       remarks: new FormControl('',),
       isActive: new FormControl('',),
       inActiveDate: new FormControl('',),
+      
       transportDetailList: this.formBuilder.array([this.createLocationArray()]),
       stateDetailList: this.formBuilder.array([this.createStateArray()]),
       vehTypeDetailList: this.formBuilder.array([this.createVehArray()]) 

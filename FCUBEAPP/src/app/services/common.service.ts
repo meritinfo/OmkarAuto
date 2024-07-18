@@ -186,6 +186,9 @@ export class CommonService {
   getTripDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripDetail', payload, this.httpOptions);
   }
+  getCompanyDetails(payload: any): Observable<any> {
+    return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FreightMasters/GetCompanyDetail', payload, this.httpOptions);
+  }
   getTripFromAndToDetails(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetTripFromAndToDetail', payload, this.httpOptions);
   }

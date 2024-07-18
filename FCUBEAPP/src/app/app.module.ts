@@ -289,6 +289,7 @@ import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstp
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
+import { Companyinfomodel } from './models/companyinfomodel';
 
 @NgModule({
   declarations: [
@@ -383,7 +384,7 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
     TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
-    BalanacerptComponent,
+    BalanacerptComponent,CompanyinfoaddComponent,
   ],
   imports: [
     BrowserModule,
@@ -434,7 +435,7 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel,
-    Tyrepurchasemastermodel,],
+    Tyrepurchasemastermodel,Companyinfomodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

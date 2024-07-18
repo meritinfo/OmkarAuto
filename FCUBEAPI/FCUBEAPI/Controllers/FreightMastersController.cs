@@ -1421,6 +1421,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCompanyDetail")]
+        public async Task<IActionResult> GetCompanyDetail()
+        {
+           
+            try
+            {
+                var result = await companyInfoBusiness.GetCompanyDetail();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)

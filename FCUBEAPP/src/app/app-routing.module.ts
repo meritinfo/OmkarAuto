@@ -157,6 +157,7 @@ import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyr
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
+import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -381,6 +382,7 @@ const routes: Routes = [
   { path: 'emimasteradd', component:  VehicleinstscheduleaddComponent },
   { path: 'emimasteredit', component:  VehicleinstscheduleaddComponent },
   { path: 'tbplbsrpt', component:  BalanacerptComponent},
+  { path: 'companyinfo', component:  CompanyinfoaddComponent},
 ];
 
 @NgModule({

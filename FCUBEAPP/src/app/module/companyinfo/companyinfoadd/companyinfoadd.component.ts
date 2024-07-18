@@ -31,6 +31,7 @@ export class CompanyinfoaddComponent {
   maxDate: string = '';
   loginDate: string = '';
   userSubmitted = false;
+  createMode = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -40,6 +41,7 @@ export class CompanyinfoaddComponent {
   responseDetails = new Responsemodel();
   VehicalExistDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
+  stateList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
   docRenewalList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
@@ -160,8 +162,29 @@ ngOnInit(): void {
   bank2Ifsc: new FormControl('',),
    
   });
+  setTimeout(() => {
+    this.createMode = true;
+    
+      // this.getTripDslDetails(this.selectedTripPaymentsDetails.vehicleMasterID,this.selectedTripPaymentsDetails.tripNo);
+      // this.GetDslOpeningBalforPmt();
+       this.getStateList();
+     this.getCompanyDetail();
+       this.formDocEntry.patchValue({
+        // companyName:   this.commonService.formatDate(this.selectedTripPaymentsDetails.pmtDate), 
+        // chequeDate:  this.commonService.formatDate(this.selectedTripPaymentsDetails.chequeDate), 
+      //  vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedTripPaymentsDetails.vehicleMasterID),
+       })  
+       
+   
+ 
+    
+    
+   }, 2000);
+   this.sharedService.loading = false;
+ }
+
   
-}
+
 onChangeSearch(search: string) {
   // fetch remote data from here
   // And reassign the 'data' which is binded to 'data' property.
@@ -170,7 +193,48 @@ onChangeSearch(search: string) {
 onFocused(e: any) {
   // do something
 }
-
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
+}
+getCompanyDetail() {
+  //this.tripVehicleDetails.vehicleMasterId =  e;
+  this.commonService.getCompanyDetails(this.selectedcompanyinfoDetails).subscribe((res: Companyinfomodel) => {
+    this.selectedcompanyinfoDetails = res;
+    this.formDocEntry.patchValue({
+      companyName:   this.selectedcompanyinfoDetails.companyName,
+      companyShortCode: this.selectedcompanyinfoDetails.companyShortCode,
+      address1:   this.selectedcompanyinfoDetails.address2, 
+      address2:   this.selectedcompanyinfoDetails.address2, 
+      address3:   this.selectedcompanyinfoDetails.address3, 
+      city:   this.selectedcompanyinfoDetails.city, 
+      state:   this.selectedcompanyinfoDetails.state, 
+      offPhone1:   this.selectedcompanyinfoDetails.offPhone1, 
+      offPhone2:  this.selectedcompanyinfoDetails.offPhone2, 
+      offPhone3:  this.selectedcompanyinfoDetails.offPhone3,  
+      offMbl:  this.selectedcompanyinfoDetails.offMbl,   
+      email:  this.selectedcompanyinfoDetails.email,    
+      email2:  this.selectedcompanyinfoDetails.email2,  
+      webUrl:  this.selectedcompanyinfoDetails.webUrl,      
+      panNo:  this.selectedcompanyinfoDetails.panNo,    
+      gstNo:  this.selectedcompanyinfoDetails.gstNo,   
+      cinNo:  this.selectedcompanyinfoDetails.cinNo, 
+      jurisdiction:  this.selectedcompanyinfoDetails.jurisdiction, 
+      msmeNo:  this.selectedcompanyinfoDetails.msmeNo, 
+      bank1Name:  this.selectedcompanyinfoDetails.bank1Name, 
+      bank1Add:  this.selectedcompanyinfoDetails.bank1Add, 
+      bank1AcNo:  this.selectedcompanyinfoDetails.bank1AcNo, 
+      bank1Ifsc:  this.selectedcompanyinfoDetails.bank1Ifsc,
+      bank2Name:  this.selectedcompanyinfoDetails.bank2Name,
+      bank2Add:  this.selectedcompanyinfoDetails.bank2Add,
+      
+      bank2AcNo:  this.selectedcompanyinfoDetails.bank2AcNo,
+      bank2Ifsc:  this.selectedcompanyinfoDetails.bank2Ifsc,
+             
+    });
+  });    
+}
 startWithFilter = function (vehicleList: Dropdownmodel[], query: string): any[] {
   return vehicleList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
@@ -203,7 +267,7 @@ submitConpanyInfoForm(): void {
   }
   var selectedDataVal=this.formDocEntry.getRawValue();  
   
-  this.companyinfoModel.companyID   = selectedDataVal.companyID.dataId ;
+  //this.companyinfoModel.companyID   = selectedDataVal.companyID;
   this.companyinfoModel.companyName   = selectedDataVal.companyName  ;
   this.companyinfoModel.companyShortCode = selectedDataVal.companyShortCode ;
   this.companyinfoModel.address1   = selectedDataVal.address1  ;
@@ -230,7 +294,7 @@ submitConpanyInfoForm(): void {
   this.companyinfoModel.bank2Name          = selectedDataVal.bank2Name         ;
   this.companyinfoModel.bank2Add           = selectedDataVal.bank2Add          ;
   this.companyinfoModel.bank2AcNo           = selectedDataVal.bank2AcNo          ;
-  this.companyinfoModel.bank2Ifsc          = selectedDataVal.bank2Ifsc         ;
+  this.companyinfoModel.bank2Ifsc          = selectedDataVal.bank2Ifsc;
  
  // this.docrenewalEntryService.vehicleDocUploadsMstSaveSubmitted(this.vehicledocuploadsModel).subscribe((res: Responsemodel) => {
   this.companyInfoService.companyInfoDetailsSubmitted(this.companyinfoModel).subscribe((res: Responsemodel) => {
