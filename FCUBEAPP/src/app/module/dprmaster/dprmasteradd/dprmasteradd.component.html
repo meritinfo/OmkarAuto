@@ -196,7 +196,8 @@
                                         <div class="mb-3">
                                             <label>Hamali Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="hamaliDesc" >
+                                            maxlength="200" formControlName="hamaliDesc" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['hamaliDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -213,7 +214,8 @@
                                         <div class="mb-3">
                                             <label>LD Detain Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="ldDetenDesc" >
+                                            maxlength="200" formControlName="ldDetenDesc" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['ldDetenDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -230,7 +232,8 @@
                                         <div class="mb-3">
                                             <label>Extra Chrgs Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="extraDesc" >
+                                            maxlength="200" formControlName="extraDesc" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['extraDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -247,7 +250,8 @@
                                         <div class="mb-3">
                                             <label>Other Chrgs Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="otherDesc" >
+                                            maxlength="200" formControlName="otherDesc" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['otherDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -256,7 +260,8 @@
                                         <div class="mb-3">
                                             <label>Tot Freight: </label>
                                             <input decimalonly type="text" class="form-control" 
-                                            formControlName="totFreightAmt" >
+                                            formControlName="totFreightAmt" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['totFreightAmt'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-lg-4">
@@ -295,7 +300,7 @@
                                             </td>
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
-                                                    <h6>Special Remarks<span style="color: red">*</span>  </h6>
+                                                    <h6>Special Remarks </h6>
                                                 </label>
                                             </td>
                                             <td class="col-lg-2">

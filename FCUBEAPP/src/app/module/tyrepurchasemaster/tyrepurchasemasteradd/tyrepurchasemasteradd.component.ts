@@ -1,8 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Tyrepurchasemastermodel } from 'src/app/models/tyrepurchasemastermodel';
@@ -10,7 +8,6 @@ import { CommonService } from 'src/app/services/common.service';
 import { TyrePurchaseMasterService } from 'src/app/services/tyrepurchasemaster.service';
 import {Tyrepurchaseinnergridmodel } from 'src/app/models/tyrepurchaseinnergridmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { UserService } from 'src/app/services/user.service';
 import { ToastrService } from 'ngx-toastr';
 
 
@@ -22,6 +19,11 @@ import { ToastrService } from 'ngx-toastr';
 export class TyrepurchasemasteraddComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
+  year: string = '';
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -32,6 +34,7 @@ export class TyrepurchasemasteraddComponent {
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
+  modelList: Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
@@ -41,7 +44,7 @@ export class TyrepurchasemasteraddComponent {
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
-  attachmentInput1: any;
+
   selectedTyrePurchaseMasterDetail = new Tyrepurchasemastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
@@ -50,52 +53,69 @@ export class TyrepurchasemasteraddComponent {
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
     this.tyrepurchasemastermodel = new Tyrepurchasemastermodel();
-    }
-    ngOnInit(): void {
-      var menuData = sessionStorage.getItem('menulist')?.toString();
-  if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
-    var privilegeData = JSON.parse(menuData);
-    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-    .find((aa: { menuName: string; }) => aa.menuName === "New Tyre Purchase");
-    if (privilegeStatus) {
-      this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
-      this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
-      this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
-      this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
-    }
-  }
-  
-  var userData = sessionStorage.getItem('uid')?.toString();
-  
-  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
-    this.loggedInUserID = userData;
-  }
-  if (this.loggedInUserID) {
-    console.log(this.loggedInUserID);
-  }
-  else {
-    this.route.navigate(['/']);
   }
 
-    //  this.getStateList();
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "New Tyre Purchase");
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+  
+    var userData = sessionStorage.getItem('uid')?.toString();
+    
+    if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+      this.loggedInUserID = userData;
+    }
+    if (this.loggedInUserID) {
+      console.log(this.loggedInUserID);
+    }
+    else {
+      this.route.navigate(['/']);
+    }
+
+    var yearIDData = sessionStorage.getItem('yearID')?.toString();
+    if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
+      this.year = yearIDData;
+    }
+    var loginDate = sessionStorage.getItem('loginDate')?.toString();
+    if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+      this.loginDate = loginDate;
+    }
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    today.setMonth(month - 1);
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+    this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+    this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+
     this.getBrandList();
     this.getVendorList();
-      this.getBranchList();
+    this.getBranchList();
+    this.getModelList();
  
       this.selectedTyrePurchaseMasterDetail = this.tyrePurchaseMasterService.getTyrePurchaseMasterDetails();
       this.formUser = this.formBuilder.group({
-        branchCode  : new FormControl('',),
+        branchCode  : new FormControl('',[Validators.required]),
         purchaseDate  : new FormControl('',[Validators.required]),
         purchaseType  : new FormControl('',[Validators.required]),
         noVendor    : new FormControl('',),
         vendorId      : new FormControl('',),
         vendorName : new FormControl('',),
         vendorAddress   : new FormControl('',),
-        vendorGstNo     : new FormControl('',),
-        vendorInvNo       : new FormControl('',),
-        vendorInvDt         : new FormControl('',),
-        tyreSacCode           : new FormControl('',),
+        vendorGstNo     : new FormControl('',[Validators.required]),
+        vendorInvNo       : new FormControl('',[Validators.required]),
+        vendorInvDt         : new FormControl('',[Validators.required]),
+        tyreSacCode           : new FormControl('',[Validators.required]),
         gstType             : new FormControl('',),
         totalTyresAmt               : new FormControl('',),
         totalCgstAmt                 : new FormControl('',),
@@ -236,6 +256,11 @@ exit(): void {
     getBrandList(): void {
       this.commonService.getBrandList().subscribe((res) => {
         this.brandList = res;
+      });
+    }
+    getModelList(): void {
+      this.commonService.getBrandList().subscribe((res) => {
+        this.modelList = res;
       });
     }
     getVendorList(): void {

@@ -656,8 +656,15 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/dpr/confirmdoc/" + imageName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    var foldername = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/dpr/confirmdoc");
+                    var fullPath = System.IO.Path.Combine(foldername, imageName);
+                   
+                    bool exists = System.IO.Directory.Exists(foldername);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(foldername);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
                     {
                         await attachConfirmDoc.CopyToAsync(fileStream);
                         dprModel.AttachConfirmDoc = imageName;

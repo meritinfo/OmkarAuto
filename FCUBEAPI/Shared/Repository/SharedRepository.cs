@@ -491,7 +491,7 @@ namespace Shared.Repository
                     var foldername = System.IO.Path.Combine("Reports", "Download");
                     var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
                     var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
-                    var filePath = foldername + "//" + filename;
+                    
                     var fullPath = System.IO.Path.Combine(pathToSave, filename);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)

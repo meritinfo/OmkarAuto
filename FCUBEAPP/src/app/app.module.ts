@@ -429,7 +429,7 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
-    Billsmastermodel,Billstypemodel],
+    Billsmastermodel,Billstypemodel,Tyrepurchasemastermodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,14 +1,8 @@
 
 import { Component ,ViewChild } from '@angular/core';
-
-
-
 import { Router } from '@angular/router';
 import { Filtermodel } from 'src/app/models/filtermodel';
-
 import {Tyrepurchasemasterlistmodel } from 'src/app/models/tyrepurchasemastermodellist';
-import {Transportmasterinnergridmodel } from 'src/app/models/transportmasterinnergridmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Tyrepurchasemastermodel } from 'src/app/models/tyrepurchasemastermodel';
 import { TyrePurchaseMasterService } from 'src/app/services/tyrepurchasemaster.service';
 import { DataTableDirective } from 'angular-datatables';
@@ -29,21 +23,21 @@ export class TyrepurchasemasterlistComponent {
     sortColumn: 'groupname',
     sortOrder: 'asc',
     search: ''
+  }
 
-}
-createStatus = false;
-editStatus = false;
-deleteStatus = false;
-viewStatus = false;
-loginDate: string = '';
-fromDate: string = '';
-maxDate: string = '';
-minDate: string = '';
-constructor(private tyrePurchaseMasterService: TyrePurchaseMasterService, private route: Router) {
-}
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  constructor(private tyrePurchaseMasterService: TyrePurchaseMasterService, private route: Router) {
+  }
   
-ngOnInit(): void {
-  var menuData = sessionStorage.getItem('menulist')?.toString();
+  ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
@@ -81,42 +75,23 @@ ngOnInit(): void {
           });
         });
     },
-    columns: [
-      
-
-     
-
-    
+    columns: [   
     {
-      title: 'purchaseDate  ',
+      title: 'Purchase Date  ',
       data: 'purchaseDate',
     },
     {
-      title: 'purchaseType ',
+      title: 'Purchase Type ',
       data: 'purchaseType',
     },
     {
-      title: 'noVendor',
-      data: 'noVendor',
-    },
-    {
-      title: 'vendorId',
-      data: 'vendorId',
-    },
-    {
-      title: 'vendorName ',
+      title: 'Vendor Name ',
       data: 'vendorName',
     },
     {
-      title: 'vendorAddress',
+      title: 'Vendor Address',
       data: 'vendorAddress',
-    },
-    
-   
-   
-   
-  
-  
+    }, 
     {
       title: 'Action',
       data: 'purchaseMasterID ',

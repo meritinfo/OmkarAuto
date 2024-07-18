@@ -134,20 +134,29 @@ export class DrpmasteraddComponent {
       rateRs  : new FormControl('',),
       freightRs : new FormControl('',),
       hamaliAmt : new FormControl('',),
-      hamaliDesc  : new FormControl('',),
+      hamaliDesc  : new FormControl('',[Validators.required]),
       ldDetenAmt  : new FormControl('',),
-      ldDetenDesc : new FormControl('',),
+      ldDetenDesc : new FormControl('',[Validators.required]),
       extraAmt: new FormControl('',),
-      extraDesc : new FormControl('',),
+      extraDesc : new FormControl('',[Validators.required]),
       otherAmt  : new FormControl('',),
-      otherDesc  : new FormControl('',),
-      totFreightAmt : new FormControl('',),  
+      otherDesc  : new FormControl('',[Validators.required]),
+      totFreightAmt : new FormControl('',[Validators.required]),
       attachConfirmDoc: new FormControl('',),
       arrayList: this.formBuilder.array([this.createInitialArray()])        
     });
     
     this.formUser.controls['dprBranch'].disable(); 
     this.formUser.controls['totFreightAmt'].disable(); 
+
+    this.formUser.controls['hamaliDesc'].clearValidators();
+    this.formUser.controls['ldDetenDesc'].clearValidators();
+    this.formUser.controls['extraDesc'].clearValidators();
+    this.formUser.controls['otherDesc'].clearValidators();
+    this.formUser.controls['hamaliDesc'].updateValueAndValidity();
+    this.formUser.controls['ldDetenDesc'].updateValueAndValidity();
+    this.formUser.controls['extraDesc'].updateValueAndValidity();
+    this.formUser.controls['otherDesc'].updateValueAndValidity();
     
     setTimeout(() => {
       if (this.selectedDprDetails.dprId != '') {
@@ -208,21 +217,46 @@ export class DrpmasteraddComponent {
     var extraAmt = 0;
     var otherAmt   = 0;
     var totFreightAmt   = 0;
+    
+    this.formUser.controls['hamaliDesc'].clearValidators();
+    this.formUser.controls['ldDetenDesc'].clearValidators();
+    this.formUser.controls['extraDesc'].clearValidators();
+    this.formUser.controls['otherDesc'].clearValidators();
+    this.formUser.controls['hamaliDesc'].updateValueAndValidity();
+    this.formUser.controls['ldDetenDesc'].updateValueAndValidity();
+    this.formUser.controls['extraDesc'].updateValueAndValidity();
+    this.formUser.controls['otherDesc'].updateValueAndValidity();
 
     if(selectedDataVal.freightRs!=""){
       freightRs = parseFloat(selectedDataVal.freightRs);
     }
     if(selectedDataVal.hamaliAmt!=""){
       hamaliAmt = parseFloat(selectedDataVal.hamaliAmt);
+      if(hamaliAmt>0){
+        this.formUser.controls['hamaliDesc'].setValidators([Validators.required]);
+        this.formUser.controls['hamaliDesc'].updateValueAndValidity();   
+      } 
     }
     if(selectedDataVal.ldDetenAmt!=""){
       ldDetenAmt = parseFloat(selectedDataVal.ldDetenAmt);
+      if(ldDetenAmt>0){
+        this.formUser.controls['ldDetenDesc'].setValidators([Validators.required]);
+        this.formUser.controls['ldDetenDesc'].updateValueAndValidity();  
+      }    
     }
     if(selectedDataVal.extraAmt!=""){
       extraAmt = parseFloat(selectedDataVal.extraAmt);
+      if(extraAmt>0){
+        this.formUser.controls['extraDesc'].setValidators([Validators.required]);
+        this.formUser.controls['extraDesc'].updateValueAndValidity();    
+      }  
     }
     if(selectedDataVal.otherAmt!=""){
       otherAmt = parseFloat(selectedDataVal.otherAmt);
+      if(otherAmt>0){
+        this.formUser.controls['otherDesc'].setValidators([Validators.required]);
+        this.formUser.controls['otherDesc'].updateValueAndValidity();    
+      }  
     }
 
     totFreightAmt = freightRs + hamaliAmt + ldDetenAmt + extraAmt + otherAmt;
@@ -232,14 +266,26 @@ export class DrpmasteraddComponent {
     });      
   }
 
-  addItem(index: number): void {
-    var selectedDataVal= this.formUser.getRawValue()
-    var fmplc = this.formArray.value[index].fromPlace?this.formArray.value[index].fromPlace.dataId:"";
-    var toplc = this.formArray.value[index].toPlace?this.formArray.value[index].toPlace.dataId:""; 
-    if (fmplc == "" || toplc == "" || this.formArray.value[index].specialRemarks == "") {
-      this.toasterService.warning("Please select Required Fields ");
+  addItem(i: number): void {
+    var selectedDataVal= this.formUser.getRawValue();
+    var fmplc = "";
+    var toplc = "";  
+           
+    if(selectedDataVal.arrayList[i].fromPlace.dataId){
+     //ignore
+    }  
+    else{
+      this.toasterService.warning("Select Proper From Place in Details");
       return;
-    }      
+    }
+    if(selectedDataVal.arrayList[i].toPlace.dataId){
+      //ignore
+    }  
+    else{
+      this.toasterService.warning("Select Proper To Place in Details");
+      return;
+    }  
+
     this.formArray.push(this.createInitialArray()); 
   }
 
@@ -318,19 +364,31 @@ export class DrpmasteraddComponent {
       return;
     }
 
-    if(selectedDataVal.payParty?selectedDataVal.payParty.dataId:""==""){
-      this.toasterService.warning("Please Select Party"); 
-      return;
-    }
-    if(selectedDataVal.origin?selectedDataVal.origin.dataId:""==""){
-      this.toasterService.warning("Please Select Origin"); 
-      return;
-    }
-    if(selectedDataVal.destination?selectedDataVal.destination.dataId:""==""){
-      this.toasterService.warning("Please Select Destination"); 
-      return;
-    }
     var selectedDataVal =this.formUser.getRawValue();
+
+    if (selectedDataVal.origin.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" From Place is Invalid");
+      return;
+    }
+
+    if (selectedDataVal.destination.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" To Place is Invalid");
+      return;
+    }
+
+    if (selectedDataVal.payParty.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Party is Invalid");
+      return;
+    }
     this.dprmodel.dprId = this.selectedDprDetails.dprId ;
     this.dprmodel.dprBranch = selectedDataVal.dprBranch;
     this.dprmodel.dprDate = selectedDataVal.dprDate;
@@ -362,11 +420,35 @@ export class DrpmasteraddComponent {
       this.toasterService.warning("Provide atleast one detail record");
       return;
     }
+    if(selectedDataVal.totFreightAmt!=""?parseFloat(selectedDataVal.totFreightAmt):0 >0) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning("Total Frt Amt Should not be Zero");
+      return;
+    }
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      var fmplc = selectedDataVal.arrayList[i].fromPlace?selectedDataVal.arrayList[i].fromPlace.dataId:"";
-      var toplc = selectedDataVal.arrayList[i].toPlace?selectedDataVal.arrayList[i].toPlace.dataId:"";     
-      if(fmplc!='' && toplc !=''){
+      if(selectedDataVal.arrayList[i].fromPlace || selectedDataVal.arrayList[i].toPlace)
+      {
+        var fmplc = "";
+        var toplc = "";   
+        if(selectedDataVal.arrayList[i].fromPlace.dataId){
+          fmplc = selectedDataVal.arrayList[i].fromPlace.dataId;
+
+        }  
+        else{
+          this.toasterService.warning("Select Proper From Place in Details");
+          return;
+        }
+        if(selectedDataVal.arrayList[i].toPlace.dataId){
+          toplc = selectedDataVal.arrayList[i].toPlace.dataId;
+        }  
+        else{
+          this.toasterService.warning("Select Proper To Place in Details");
+          return;
+        }  
+      
         this.dprmodel.dprDtls.push({
           'dprDtlId': '',
           'dprId': '',
@@ -380,6 +462,13 @@ export class DrpmasteraddComponent {
         });
       }
     }
+
+    if(this.dprmodel.dprDtls.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      return;
+    }
+
+   
 
     this.sharedService.loading=true;
     let formData = new FormData();
