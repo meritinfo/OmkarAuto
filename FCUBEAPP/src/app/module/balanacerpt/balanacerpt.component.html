@@ -1,0 +1,132 @@
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Trial Balance, P & L and Balance Sheet</h4>                        
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-10 col-md-10">
+                    <form [formGroup]="formFilter">
+                        <div class="row">        
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control"  
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }"
+                                    max="{{maxDate}}"
+                                    formControlName="fromDate">  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control"  
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }"
+                                    max="{{maxDate}}"
+                                    formControlName="toDate">  
+                                </div>
+                            </div>
+                        </div>                            
+                        <div class="row">   
+                            <div class="col-lg-2">
+                                <input type="radio" formControlName="rptType" (change)="onOptionChange()"
+                                    value="OP" class="form-check-input" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    Opening
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="radio" formControlName="rptType" (change)="onOptionChange()"
+                                    value="OD" class="form-check-input" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    As On Date
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="radio" formControlName="rptType" (change)="onOptionChange()"
+                                    value="DD" class="form-check-input" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    As On Date Detail
+                                </label>
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="radio" formControlName="rptType" (change)="onOptionChange()"
+                                    value="GP" class="form-check-input" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    For Given Period
+                                </label>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="radio" formControlName="rptType" (change)="onOptionChange()"
+                                    value="DG" class="form-check-input" />
+                                <label for="formRadios1" class="form-check-label" style="color:green">
+                                    As On Date Detail Group
+                                </label>
+                            </div>
+                        </div>                            
+                        <div class="row" style="height: 30px;">    
+                        </div>                            
+                        <div class="row">   
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Booking Branch</label>
+                                    <select  class="form-control form-select ng-pristine ng-touched"
+                                     formControlName="branch"> 
+                                        <option value="">ALL</option>
+                                        <option *ngFor="let br of branchList" value={{br.dataId}}>
+                                            {{br.dataName}}
+                                        </option>
+                                    </select>    
+                                </div>
+                            </div> 
+                            <div class="col-md-4" *ngIf="balanceSheetEnable" >
+                                <div class="mb-3">
+                                    <input type="checkbox" formControlName="balanceSheet" 
+                                        value="N" class="form-check-input" />
+                                    <label for="formRadios1" class="form-check-label" style="color:green">
+                                        Show Balance Sheet as at Today
+                                    </label>
+                                </div>
+                            </div> 
+                            <div class="col-md-4"  *ngIf="profitLossEnable" >
+                                <div class="mb-3">
+                                    <input type="checkbox" formControlName="profitLoss" 
+                                        value="N" class="form-check-input" />
+                                    <label for="formRadios1" class="form-check-label" style="color:green">
+                                        Show Profit/Loss 
+                                    </label>
+                                </div>
+                            </div>       
+                        </div>            
+                        <div class="row" style="height: 30px;">    
+                        </div>     
+                        <div class="row">
+                            <div class="col-sm-10 col-md-10 text-right">
+                                <div class="dt-buttons btn-group flex-wrap export-button">
+                                    <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                                    aria-controls="datatable-buttons" type="button" 
+                                    (click)="exportExcel()"><span>Excel</span></button>
+                                </div>
+                            </div>   
+                        </div>      
+                    </form>
+                </div>                
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+
+
+
+
+
+

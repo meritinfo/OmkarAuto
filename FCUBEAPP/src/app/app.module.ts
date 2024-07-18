@@ -288,6 +288,7 @@ import { LrbillupdateComponent } from './module/lrbillupdate/lrbillupdate/lrbill
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
+import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 
 @NgModule({
   declarations: [
@@ -381,7 +382,8 @@ import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/com
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
-    TyrepurchasemasteraddComponent,TyrepurchasemasterlistComponent, LrbillupdateComponent, VehicleinstpmtaddComponent, VehicleinstpmtlistComponent, CompanyinfoaddComponent,
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
+    BalanacerptComponent,
   ],
   imports: [
     BrowserModule,

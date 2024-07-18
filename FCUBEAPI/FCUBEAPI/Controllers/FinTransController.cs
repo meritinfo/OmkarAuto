@@ -32,6 +32,7 @@ namespace FCUBEAPI.Controllers
         readonly ILedgerRptBusiness ledgerRptBusiness;
         readonly IGstSalesRegisterRptBusiness gstSalesRegisterRptBusiness;
         readonly IBankBookRptBusiness bankBookRptBusiness;
+        readonly IBalanceBusiness balanceBusiness;
 
 
         public FinTransController(ICashReceiptPaymentsBusiness _cashReceiptPaymentsBusiness,
@@ -41,7 +42,8 @@ namespace FCUBEAPI.Controllers
             ICustWizardBusiness _custWizardBusiness,
             ILedgerRptBusiness _ledgerRptBusiness,
             IBankBookRptBusiness _bankBookRptBusiness,
-           IGstSalesRegisterRptBusiness _gstSalesRegisterRptBusiness)
+            IGstSalesRegisterRptBusiness _gstSalesRegisterRptBusiness,
+            IBalanceBusiness _balanceBusiness)
         {
             cashReceiptPaymentsBusiness = _cashReceiptPaymentsBusiness;
             gstPurchaseMstBusiness= _gstPurchaseMstBusiness;
@@ -51,6 +53,7 @@ namespace FCUBEAPI.Controllers
             ledgerRptBusiness = _ledgerRptBusiness;
             gstSalesRegisterRptBusiness = _gstSalesRegisterRptBusiness;
             bankBookRptBusiness = _bankBookRptBusiness;
+            balanceBusiness = _balanceBusiness;
         }
         /// <summary>
 
@@ -665,6 +668,100 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetOpeningBalanceExcel")]
+        public async Task<IActionResult> GetOpeningBalanceExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.GetOpeningBalanceExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAsOnDateExcel")]
+        public async Task<IActionResult> GetAsOnDateExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.GetAsOnDateExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAsOnDateDetailsExcel")]
+        public async Task<IActionResult> GetAsOnDateDetailsExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.GetAsOnDateDetailsExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetAsOnDateDetailsGroupExcel")]
+        public async Task<IActionResult> GetAsOnDateDetailsGroupExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.GetAsOnDateDetailsGroupExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetGivenPeriodExcel")]
+        public async Task<IActionResult> GetGivenPeriodExcel(ReportRequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await balanceBusiness.GetGivenPeriodExcel(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
 
