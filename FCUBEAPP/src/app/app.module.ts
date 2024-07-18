@@ -284,6 +284,10 @@ import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
+import { LrbillupdateComponent } from './module/lrbillupdate/lrbillupdate/lrbillupdate.component';
+import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
+import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
+import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 
 @NgModule({
@@ -429,7 +433,8 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
-    Billsmastermodel,Billstypemodel,Tyrepurchasemastermodel],
+    Billsmastermodel,Billstypemodel,
+    Tyrepurchasemastermodel,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -214,6 +214,8 @@ namespace FCUBEAPI
             services.AddScoped<ITyrePurchaseMasterRepository, TyrePurchaseMasterRepository>();
             services.AddScoped<IBalanceBusiness, BalanceBusiness>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
+            services.AddScoped<IVehicleInstPmtBusiness, VehicleInstPmtBusiness>();
+            services.AddScoped<IVehicleInstPmtRepository, VehicleInstPmtRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
