@@ -40,6 +40,7 @@ namespace FCUBEAPI.Controllers
         readonly IDistanceMasterTripRptBusiness distanceMasterTripRptBusiness;
         readonly IDriverLicRptBusiness driverLicRptBusiness;
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
+        readonly ICompanyInfoBusiness companyInfoBusiness;
 
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
@@ -57,7 +58,8 @@ namespace FCUBEAPI.Controllers
             IDistanceMasterFrtRptBusiness _distanceMasterFrtRptBusiness,
             IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness,
-            IDriverLicRptBusiness _driverLicRptBusiness)
+            IDriverLicRptBusiness _driverLicRptBusiness,
+             ICompanyInfoBusiness _companyInfoBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -77,6 +79,7 @@ namespace FCUBEAPI.Controllers
             documentAllotmentBusiness = _documentAllotmentBusiness;
             billsMasterBusiness = _billsMasterBusiness;
             billsTypeBusiness = _billsTypeBusiness;
+            companyInfoBusiness = _companyInfoBusiness;
         }
 
         /// <summary>
@@ -752,6 +755,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("LrBillUpdate")]
+        public async Task<IActionResult> LrBillUpdate(RequestModel reqModel)
+        {
+            if (reqModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await billsMasterBusiness.LrBillUpdate(reqModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("classificationMasterDelete")]
         public async Task<IActionResult> ClassificationMasterDelete(RequestModel req)
         {
@@ -1374,6 +1395,24 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await distanceMasterTripBusiness.DistanceTripEditDetailsSave(distanceTripEdit);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CompanyInfoSave")]
+        public async Task<IActionResult> CompanyInfoSave(CompanyInfoModel companyInfoModel)
+        {
+            if (companyInfoModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await companyInfoBusiness.CompanyInfoSave(companyInfoModel);
 
                 return Ok(result);
             }

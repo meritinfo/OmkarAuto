@@ -1,0 +1,31 @@
+export class Companyinfomodel {
+    companyID : string = "";
+  companyName : string = "";
+  companyShortCode : string = "";
+  address1 : string = "";
+  address2 : string = "";
+  address3 : string = "";
+  city : string = "";
+  state : string = "";
+  pinCode : string = "";
+  offPhone1 : string = "";
+  offPhone2 : string = "";
+  offPhone3 : string = "";
+  offMbl : string = "";
+  email : string = "";
+  email2 : string = "";
+  webUrl : string = "";
+  panNo : string = "";
+  gstNo : string = "";
+  cinNo : string = "";
+  jurisdiction : string = "";
+  msmeNo : string = "";
+  bank1Name : string = "";
+  bank1Add : string = "";
+  bank1AcNo : string = "";
+  bank1Ifsc : string = "";
+  bank2Name : string = "";
+  bank2Add : string = "";
+  bank2AcNo : string = "";
+  bank2Ifsc: string = "";
+}

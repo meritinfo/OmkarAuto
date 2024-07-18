@@ -1,0 +1,339 @@
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Company Info Form </h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <!-- <li class="breadcrumb-item"><a href="/#/branchmasterlist">Doc Renewal Entry</a></li>
+                                <li class="breadcrumb-item active">Doc Renewal Entry</li> -->
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formDocEntry">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">                                 
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2">
+                                                <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span> 
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="docDesc1">
+            
+
+                                               
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">Document Type</label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="docDesc1">
+            
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">companyID </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="companyID ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">companyName </label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="companyName ">
+            
+                                            </div>
+                                        </div>    
+                                    </div>    
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">companyShortCode </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="companyShortCode ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">address1 </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="address1 ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="address2 ">
+                                            </div>
+                                        </div>    
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">Document Type</label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="address3">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">city </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="city">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">state </label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="state">
+                                            </div>
+                                        </div>    
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">pinCode </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="pinCode">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">offPhone1 </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="offPhone1 ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">offPhone2 </label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="offPhone2 ">
+                                            </div>
+                                        </div>    
+                                    </div>    
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">offPhone3 </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="offPhone3 ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">offMbl </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="offMbl ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">email </label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="email ">
+            
+                                            </div>
+                                        </div>    
+                                    </div>    
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">email2 </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="email2 ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">webUrl </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="webUrl">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">panNo</label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="panNo">
+                                            </div>
+                                        </div>    
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">gstNo </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="gstNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">cinNo </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="cinNo ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">jurisdiction </label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="jurisdiction">
+                                            </div>
+                                        </div>    
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">msmeNo </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="msmeNo">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank1Name </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="bank1Name ">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank1Add</label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="bank1Add ">
+                                            </div>
+                                        </div>    
+                                    </div>  
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank1AcNo </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="bank1AcNo ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank1Ifsc </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="bank1Ifsc">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank2Name</label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="bank2Name">
+                                            </div>
+                                        </div>    
+                                    </div>     
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank2Add </label><span style="color: red">*</span>                                                 
+                                                
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="bank2Add ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank2AcNo </label>
+                                                <input autoclose="false" class="form-control"
+                                                                uppercaseonly   formControlName="bank2AcNo">
+            
+                                            </div>
+                                        </div>     
+                                        <div class="col-lg-3">
+                                            <div class="mb-2"> 
+                                                <label for="formrow-inputZip">bank2Ifsc</label>
+                                                <input autoclose="false" class="form-control"
+                                                uppercaseonly   formControlName="bank2Ifsc">
+                                            </div>
+                                        </div>    
+                                    </div>       
+        
+      
+ 
+     
+ 
+ 
+                                                                 
+                                         
+                                       
+                                   
+                          
+                                   
+                                    
+                                                                    
+                                
+                                   
+                                   
+                                   
+                                    
+                                   
+                                                                     
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                    <div class="tex">
+                        <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                        (click)="submitConpanyInfoForm()">Save</button>&nbsp;
+
+                       
+                        <!-- <button class="btn btn-secondary w-md" (click)="exit()">Exit</button> -->
+                    </div>
+                    </div>
+                    <!-- end col -->
+                </div> 
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>
+

@@ -63,10 +63,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@Findocid ",   tyrePurchaseMasterModel.Findocid),
                             new SqlParameter("@FindocidJV",   tyrePurchaseMasterModel.FindocidJV),
                             new SqlParameter("@RefDocAttachedImage",   tyrePurchaseMasterModel.RefDocAttachedImage ),
-                        
-
-                            new SqlParameter("@YearID",   tyrePurchaseMasterModel.YearID   ),
-                         
+                            new SqlParameter("@YearID",   tyrePurchaseMasterModel.YearID),
                             new SqlParameter("@LoggedInUser",   tyrePurchaseMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePurchaseMaster_Insert", param);

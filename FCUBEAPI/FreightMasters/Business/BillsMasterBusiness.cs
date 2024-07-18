@@ -1,4 +1,5 @@
-﻿using FreightMasters.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FreightMasters.Models;
 using FreightMasters.Repository;
 using Shared.Models;
 using System;
@@ -35,6 +36,10 @@ namespace FreightMasters.Business
         public async Task<ResponseModel> BillsMasterDelete(RequestModel request)
         {
             return await billsRepository.BillsMasterDelete(request);
+        }
+        public async Task<ResponseModel> LrBillUpdate(RequestModel reqmodel)
+        {
+            return await billsRepository.LrBillUpdate(reqmodel);
         }
     }
 }

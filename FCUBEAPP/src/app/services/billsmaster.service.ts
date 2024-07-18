@@ -63,6 +63,9 @@ import { Billsmastermodel } from '../models/billsmastermodel';
     saveBillsMasterDetails(request: Billsmastermodel): Observable<Responsemodel> {
       return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/BillsMasterSave', request, this.httpOptions);
     }
+    updateBillLrDetails(request: Requestmodel): Observable<Responsemodel> {
+      return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FreightMasters/LrBillUpdate', request, this.httpOptions);
+    }
     getBillsMasterInnerGridList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
       return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsInnerGridList', request, this.httpOptions);
     }

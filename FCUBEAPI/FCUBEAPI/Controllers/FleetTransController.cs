@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using FleetMasters.Business;
+using FleetMasters.Models;
 
 namespace FCUBEAPI.Controllers
 {
@@ -23,6 +25,7 @@ namespace FCUBEAPI.Controllers
         readonly ITripMasterBusiness tripMasterBusiness;
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
+        readonly IVehicleInstPmtBusiness vehicleInstPmtBusiness;
         //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly ITyrePurchaseMasterBusiness tyrePurchaseMasterBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
@@ -46,6 +49,7 @@ namespace FCUBEAPI.Controllers
             ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
             ITripStatusRptBusiness _tripStatusRptBusiness,
             IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
+            IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             IVehiEmiBusiness _vehiEmiBusiness)
         {
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -61,7 +65,9 @@ namespace FCUBEAPI.Controllers
             tyrePurchaseMasterBusiness = _tyrePurchaseMasterBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
             dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
+
             vehiEmiBusiness = _vehiEmiBusiness;
+            vehicleInstPmtBusiness = _vehicleInstPmtBusiness;
         }
 
        
@@ -1483,6 +1489,56 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehiEmiBusiness.VehicleInstScheduleDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleInstPmtSave")]
+        public async Task<IActionResult> VehicleInstPmtSave(VehicleInstPmtModel vehicleInstPmtModel)
+        {
+            if (vehicleInstPmtModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleInstPmtBusiness.VehicleInstPmtSave(vehicleInstPmtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleInstPmtMasterList")]
+        public async Task<IActionResult> GetVehicleInstPmtMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await vehicleInstPmtBusiness.GetVehicleInstPmtMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleInstPmtMasterDelete")]
+        public async Task<IActionResult> VehicleInstPmtMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleInstPmtBusiness.VehicleInstPmtMasterDelete(req);
 
                 return Ok(result);
             }
