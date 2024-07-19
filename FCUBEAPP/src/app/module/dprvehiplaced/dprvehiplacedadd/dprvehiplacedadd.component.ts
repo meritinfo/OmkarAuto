@@ -179,6 +179,7 @@ export class DprvehiplacedaddComponent {
           vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
           vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
           vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
+          brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
         });            
         this.getDprInnerGridList();
         this.editMode = true;
@@ -199,11 +200,15 @@ export class DprvehiplacedaddComponent {
         this.formArray.controls[i].get("fromStn")?.setValue(res.dprDtls[i].fromStn);
         this.formArray.controls[i].get("toStn")?.setValue(res.dprDtls[i].toStn);
         this.formArray.controls[i].get("gcNoteNo")?.setValue(res.dprDtls[i].gcNoteNo);
-        this.formArray.controls[i].get("mainGcYN")?.setValue(res.dprDtls[i].mainGcYN);
+        if(res.dprDtls[i].mainGcYN==""){
+          this.formArray.controls[i].get("mainGcYN")?.setValue("Y");
+        }
+        else{
+          this.formArray.controls[i].get("mainGcYN")?.setValue(res.dprDtls[i].mainGcYN);
+        }
         this.formArray.controls[i].get("specialRemarks")?.setValue(res.dprDtls[i].specialRemarks);
         this.formArray.controls[i].get("fromStn")?.disable();
         this.formArray.controls[i].get("toStn")?.disable();
-        this.formArray.controls[i].get("specialRemarks")?.disable();
       }
     });
   }
@@ -229,6 +234,21 @@ export class DprvehiplacedaddComponent {
 
   get formArray() {
     return this.formUser.get("arrayList") as FormArray;
+  }
+
+  
+  selectEvent(item: any) {
+    // do something with selected item
+   // this.GetOpeningBal();
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any) {
+    // do something
   }
 
   chkLrDuplicate(i: number,e: any){
@@ -385,6 +405,7 @@ export class DprvehiplacedaddComponent {
         vehFitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehFitValidDate),
         vehInsValidDate: this.commonService.formatDate(this.selectedDprDetails.vehInsValidDate),
         vehPermitValidDate: this.commonService.formatDate(this.selectedDprDetails.vehPermitValidDate),
+        brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
       });            
       this.getDprInnerGridList();
     });
@@ -434,30 +455,38 @@ export class DprvehiplacedaddComponent {
       return;
     }
     var selectedDataVal =this.formUser.getRawValue();
+
+    if (selectedDataVal.brokerId.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Broker is Invalid");
+      return;
+    }
     this.dprvehiplacedmodel.vehiclePlacedId = this.selectedDprDetails.vehiclePlacedId? this.selectedDprDetails.vehiclePlacedId :"";
     this.dprvehiplacedmodel.dprId = this.dprid?this.dprid:"";
-    this.dprvehiplacedmodel.vehicleEngagedBy = selectedDataVal.vehicleEngagedBy?selectedDataVal.vehicleEngagedBy:"";
-    this.dprvehiplacedmodel.brokerId = selectedDataVal.brokerId;
-    this.dprvehiplacedmodel.vehicleNo = selectedDataVal.vehicleNo?selectedDataVal.vehicleNo:"";
+    this.dprvehiplacedmodel.vehicleEngagedBy = selectedDataVal.vehicleEngagedBy?selectedDataVal.vehicleEngagedBy.toString():"";
+    this.dprvehiplacedmodel.brokerId = selectedDataVal.brokerId?selectedDataVal.brokerId.dataId:"";
+    this.dprvehiplacedmodel.vehicleNo = selectedDataVal.vehicleNo.toString();
     this.dprvehiplacedmodel.vehOwnerName = selectedDataVal.vehOwnerName.toString().toUpperCase();
     this.dprvehiplacedmodel.vehAdd1 = selectedDataVal.vehAdd1.toString().toUpperCase();
     this.dprvehiplacedmodel.vehAdd2 = selectedDataVal.vehAdd2.toString().toUpperCase();
     this.dprvehiplacedmodel.ownerPan = selectedDataVal.ownerPan.toString().toUpperCase();
-    this.dprvehiplacedmodel.vehOwnerMobile = selectedDataVal.vehOwnerMobile?selectedDataVal.vehOwnerMobile:"";
-    this.dprvehiplacedmodel.vehInsValidDate = selectedDataVal.vehInsValidDate?selectedDataVal.vehInsValidDate:"";
-    this.dprvehiplacedmodel.vehFitValidDate = selectedDataVal.vehFitValidDate?selectedDataVal.vehFitValidDate:"";
-    this.dprvehiplacedmodel.vehPermitValidDate = selectedDataVal.vehPermitValidDate?selectedDataVal.vehPermitValidDate:"";
+    this.dprvehiplacedmodel.vehOwnerMobile = selectedDataVal.vehOwnerMobile?selectedDataVal.vehOwnerMobile.toString():"";
+    this.dprvehiplacedmodel.vehInsValidDate = selectedDataVal.vehInsValidDate?selectedDataVal.vehInsValidDate.toString():"";
+    this.dprvehiplacedmodel.vehFitValidDate = selectedDataVal.vehFitValidDate?selectedDataVal.vehFitValidDate.toString():"";
+    this.dprvehiplacedmodel.vehPermitValidDate = selectedDataVal.vehPermitValidDate?selectedDataVal.vehPermitValidDate.toString():"";
     this.dprvehiplacedmodel.driverName = selectedDataVal.driverName.toString().toUpperCase();
-    this.dprvehiplacedmodel.driverMob1 = selectedDataVal.driverMob1?selectedDataVal.driverMob1:"";
-    this.dprvehiplacedmodel.challanChrgWt = selectedDataVal.challanChrgWt?selectedDataVal.challanChrgWt:"";
-    this.dprvehiplacedmodel.ratePerTon = selectedDataVal.ratePerTon?selectedDataVal.ratePerTon:"";
-    this.dprvehiplacedmodel.lorryHire = selectedDataVal.lorryHire?selectedDataVal.lorryHire:"";
+    this.dprvehiplacedmodel.driverMob1 = selectedDataVal.driverMob1?selectedDataVal.driverMob1.toString():"";
+    this.dprvehiplacedmodel.challanChrgWt = selectedDataVal.challanChrgWt?selectedDataVal.challanChrgWt.toString():"";
+    this.dprvehiplacedmodel.ratePerTon = selectedDataVal.ratePerTon?selectedDataVal.ratePerTon.toString():"";
+    this.dprvehiplacedmodel.lorryHire = selectedDataVal.lorryHire?selectedDataVal.lorryHire.toString():"";
     this.dprvehiplacedmodel.advance1 = selectedDataVal.advance1?selectedDataVal.advance1.toString():"";
     this.dprvehiplacedmodel.advance2 = selectedDataVal.advance2?selectedDataVal.advance2.toString():"";
     this.dprvehiplacedmodel.advance3 = selectedDataVal.advance3?selectedDataVal.advance3.toString():"";
     this.dprvehiplacedmodel.advanceAmt = selectedDataVal.advanceAmt?selectedDataVal.advanceAmt.toString():"";
     this.dprvehiplacedmodel.balanceAmt = selectedDataVal.balanceAmt?selectedDataVal.balanceAmt.toString():"";
-    this.dprvehiplacedmodel.assignToStaff = selectedDataVal.assignToStaff?selectedDataVal.assignToStaff:"";
+    this.dprvehiplacedmodel.assignToStaff = selectedDataVal.assignToStaff?selectedDataVal.assignToStaff.toString():"";
     this.dprvehiplacedmodel.loggedInUser = this.loggedInUserID;  
     
     this.dprvehiplacedmodel.dprDtls = [];
@@ -500,7 +529,7 @@ export class DprvehiplacedaddComponent {
         'toStn': '',
         'gcNoteNo':selectedDataVal.arrayList[i].gcNoteNo.toString().toUpperCase(),
         'mainGcYN':selectedDataVal.arrayList[i].mainGcYN.toString().toUpperCase(),
-        'specialRemarks': '',
+        'specialRemarks': selectedDataVal.arrayList[i].specialRemarks.toString().toUpperCase(),
       });
     }
 

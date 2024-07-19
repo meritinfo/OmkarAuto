@@ -444,9 +444,10 @@ namespace Consignment.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DprDtlId",   dprDtl.DprDtlId),
-                            new SqlParameter("@GcNoteNo",   dprDtl.GcNoteNo),
-                            new SqlParameter("@MainGcYN",   dprDtl.MainGcYN),
+                            new SqlParameter("@DprDtlId",       dprDtl.DprDtlId),
+                            new SqlParameter("@GcNoteNo",       dprDtl.GcNoteNo),
+                            new SqlParameter("@MainGcYN",       dprDtl.MainGcYN),
+                            new SqlParameter("@SpecialRemarks", dprDtl.SpecialRemarks),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DprVehiDtlsSave", param);
 

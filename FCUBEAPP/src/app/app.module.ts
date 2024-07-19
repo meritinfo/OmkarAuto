@@ -383,7 +383,10 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
     TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
-    BalanacerptComponent,
+    BalanacerptComponent,LrbillupdateComponent,
+    VehicleinstpmtaddComponent, 
+    VehicleinstpmtlistComponent,
+    CompanyinfoaddComponent ,
   ],
   imports: [
     BrowserModule,

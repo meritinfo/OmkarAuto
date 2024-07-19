@@ -73,13 +73,27 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Broker Name: </label><span style="color: red">*</span>  
-                                            <select id="scope" class="form-select" formControlName="brokerId"
-                                            class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['brokerId'].invalid) }">
-                                                <option *ngFor="let br of brokerList" value={{br.dataId}}>
-                                                    {{br.dataName}}
-                                                </option>
-                                            </select>
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="brokerList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    formControlName="brokerId" [initialValue]=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)' 
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['brokerId'].invalid) }">
+                                                </ng-autocomplete>
+        
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+        
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>
                                 </div> 
@@ -270,7 +284,7 @@
                                             </td>
                                             <td class="col-lg-2">
                                                 <label for="formrow-inputZip">
-                                                    <h6>Special Remarks<span style="color: red">*</span>  </h6>
+                                                    <h6>Special Remarks </h6>
                                                 </label>
                                             </td>
                                             <td class="col-lg-2">
