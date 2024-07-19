@@ -11,6 +11,7 @@ namespace FreightMasters.Repository
     public interface ICompanyInfoRepository
     {
         Task<ResponseModel> CompanyInfoSave(CompanyInfoModel companyInfoModel);
+        Task<CompanyInfoModel> GetCompanyDetail();
 
     }
 }

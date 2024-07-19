@@ -20,6 +20,10 @@ namespace FreightMasters.Business
         {
             return await companyInfoRepository.CompanyInfoSave(companyInfoModel);
         }
+        public async Task<CompanyInfoModel> GetCompanyDetail()
+        {
+            return await companyInfoRepository.GetCompanyDetail();
+        }
 
     }
 }

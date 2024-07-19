@@ -11,5 +11,6 @@ namespace FreightMasters.Business
     public interface ICompanyInfoBusiness
     {
         Task<ResponseModel> CompanyInfoSave(CompanyInfoModel companyInfoModel);
+        Task<CompanyInfoModel> GetCompanyDetail();
     }
 }
