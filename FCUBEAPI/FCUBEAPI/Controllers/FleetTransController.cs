@@ -28,6 +28,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleInstPmtBusiness vehicleInstPmtBusiness;
         //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly ITyrePurchaseMasterBusiness tyrePurchaseMasterBusiness;
+        readonly ITyreActivateMasterBusiness tyreActivateMasterBusiness;
         readonly IDriverSalaryStmtBusiness driverSalaryStmtBusiness;
         readonly IExpTruckArrRptBusiness expTruckArrRptBusiness;
         readonly IDocRenewalRptBusiness docRenewalRptBusiness;
@@ -45,6 +46,7 @@ namespace FCUBEAPI.Controllers
             IExpTruckArrRptBusiness _expTruckArrRptBusiness,
             IDocRenewalRptBusiness _docRenewalRptBusiness,
             ITyrePurchaseMasterBusiness _tyrePurchaseMasterBusiness,
+            ITyreActivateMasterBusiness _tyreActivateMasterBusiness,
             IDieselStatementRptBusiness _dieselStatementRptBusiness,
             ITripPaymentsRptBusiness _tripPaymentsRptBusiness,
             ITripStatusRptBusiness _tripStatusRptBusiness,
@@ -63,6 +65,7 @@ namespace FCUBEAPI.Controllers
             dieselStatementRptBusiness = _dieselStatementRptBusiness;
             tripPaymentsRptBusiness = _tripPaymentsRptBusiness;
             tyrePurchaseMasterBusiness = _tyrePurchaseMasterBusiness;
+            tyreActivateMasterBusiness = _tyreActivateMasterBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
             dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
 
@@ -1539,6 +1542,70 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleInstPmtBusiness.VehicleInstPmtMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreActivateMasterSave")]
+        public async Task<IActionResult> TyreActivateMasterSave(TyreActivateMasterModel tyreActivateMasterModel)
+        {
+            if (tyreActivateMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.TyreActivateMasterSave(tyreActivateMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyreActivateMasterList")]
+        public async Task<IActionResult> GetTyreActivateMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetTyreActivateMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreActivateMasterDelete")]
+        public async Task<IActionResult> TyreActivateMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.TyreActivateMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyreActivateMasterInnerGridList")]
+        public async Task<IActionResult> GetTyreActivateMasterInnerGridList(RequestModel request)
+        {
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetTyreActivateMasterInnerGridList(request);
 
                 return Ok(result);
             }

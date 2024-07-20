@@ -19,7 +19,8 @@ namespace Consignment.Repository
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
-       // Task<List<DropDownListModel>> GetVehicleGroupTypeList();
+        Task<List<DropDownListModel>> GetVehicleIdList();
+        // Task<List<DropDownListModel>> GetVehicleGroupTypeList();
         Task<List<DropDownListModel>> GetClassList();
         Task<ResponseModel> GetBillSeries(RequestModel request);
         Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req);

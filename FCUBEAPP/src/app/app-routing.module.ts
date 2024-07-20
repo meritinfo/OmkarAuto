@@ -158,6 +158,8 @@ import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/v
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
+import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
+import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -383,6 +385,9 @@ const routes: Routes = [
   { path: 'emimasteredit', component:  VehicleinstscheduleaddComponent },
   { path: 'tbplbsrpt', component:  BalanacerptComponent},
   { path: 'companyinfo', component:  CompanyinfoaddComponent},
+  { path: 'emipmtlist', component:  VehicleinstpmtlistComponent},
+  { path: 'vehicleinstpmtadd', component:  VehicleinstpmtaddComponent},
+  { path: 'vehicleinstpmtedit', component:  VehicleinstpmtaddComponent},
 ];
 
 @NgModule({

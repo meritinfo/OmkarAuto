@@ -1,1 +1,219 @@
-<p>vehicleinstpmtadd works!</p>
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Branch Master</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <form [formGroup]="formUser">
+                <div class="ng-untouched ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Pmt Date</label>
+                                                <span style="color: red">*</span>
+                                                
+
+                                                <input type="date"  autofocus="autofocus" class="form-control"
+                                                placeholder="" formControlName="pmtDate"   [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Branch Code</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                                 
+                                                formControlName="branchCode"        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">InstNo</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
+                                                                 
+                                                formControlName="instNo"          
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['instNo'].invalid) }">
+                                            </div>
+                                        </div>  
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Vehicle</label>
+                                               
+                                                <div class="ng-autocomplete">
+                                                    <ng-autocomplete [data]="vehicleList"
+                                                        [searchKeyword]="keywordLocation" placeholder=""
+                                                        formControlName="vehicleMasterid" [initialValue]=""
+                                                    
+                                                     
+                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        [notFoundTemplate]="notFoundTemplate"
+                                                        [customFilter]="startWithFilter">
+                                                    </ng-autocomplete>
+
+                                                    <ng-template #itemTemplate let-item>
+                                                        <a [innerHTML]="item.dataName"></a>
+                                                    </ng-template>
+
+                                                    <ng-template #notFoundTemplate let-notFound>
+                                                        <div [innerHTML]="notFound"></div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                               
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">instId</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                placeholder=" "formControlName="instId"       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['instId'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">AdvPayable_1 </label>
+                                                <input uppercaseonly type="text" class="form-control"
+                                                placeholder=" "formControlName="advPayable_1" maxlength="49"    
+                                                [ngClass]=>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">PriAmt</label>
+                                               
+                                                <input uppercaseonly autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="priAmt"    decimalonly     
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['priAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                      
+                                
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">IntAmt</label>
+                                                <span style="color: red">*</span>
+                                                <select class="form-control" formControlName="intAmt" decimalonly     
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['intAmt'].invalid) }">
+                                                    <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                       {{state.dataName}}
+                                                    </option>
+                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip"> totAmt</label>
+                                                <span style="color: red">*</span>
+                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="totAmt"     decimalonly
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['totAmt'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Remarks</label>
+                                                <span style="color: red">*</span>
+                                                <input autoclose="false" class="form-control"  placeholder=" "  
+                                                formControlName="remarks"     
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                       
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Pmt Type</label>
+                                                <input autoclose="false" class="form-control" placeholder=""  
+                                                formControlName="pmtType"      >
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Neft YN </label>
+                                                <span style="color: red">*</span>
+                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=" " 
+                                                formControlName="neftYN"     maxlength="10"        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['neftYN'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">CheqNo </label>
+                                                <input type="email" autoclose="false" class="form-control"  placeholder="" 
+                                                formControlName="cheqNo">
+                                            </div>
+                                        </div>
+                                    </div>   
+                                    <div class="row">
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Cheq Date</label>
+                                                <span style="color: red">*</span>
+                                                <input uppercaseonly autoclose="false" class="form-control"  placeholder=" "  
+                                                formControlName="cheqDate"      
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqDate'].invalid) }">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Manager Mobile No</label>
+                                                <span style="color: red">*</span>
+                                                <input  maxlength="10"  autoclose="false" class="form-control" placeholder=""  
+                                                formControlName="creditAc"   maxlength="10"          
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                            </div>
+                                        </div>
+                                      
+                                       
+                                    </div>   
+                                   
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+                <div class="row text-right">
+                    <div class="col-lg-12">
+                        <div class="tex">
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                (click)="submitVehicleInstPmtForm()" >Save</button> &nbsp;  
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                (click)="vehicleInstPmtDelete()">Delete</button> &nbsp;
+                            <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- end row -->
+            <!-- end row -->
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+
+</div>

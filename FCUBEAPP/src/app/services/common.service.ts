@@ -81,6 +81,9 @@ export class CommonService {
   getVehicleNoList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetVehicleNoList', null, this.httpOptions);
   }
+  getVehicleIdList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetVehicleIdList', null, this.httpOptions);
+  }
   getTripPaymentsCreditList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPaymentsCreditList', null, this.httpOptions);
   }

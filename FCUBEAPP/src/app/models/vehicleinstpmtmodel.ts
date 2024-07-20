@@ -4,6 +4,7 @@ export class Vehicleinstpmtmodel {
     branchCode: string = "";
     vehicleMasterid: string = "";
     instId: string = "";
+    instNo: string = "";
     advPayable_1: string = "";
     priAmt: string = "";
     intAmt: string = "";

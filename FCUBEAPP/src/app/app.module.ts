@@ -250,6 +250,7 @@ import { Transportmastermodel } from './models/transportmastermodel';
 import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
 import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
 import { Billsmastermodel } from './models/billsmastermodel';
+import { Vehicleinstpmtmodel } from 'src/app/models/vehicleinstpmtmodel';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
 import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
@@ -383,7 +384,7 @@ import { Companyinfomodel } from './models/companyinfomodel';
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
-    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent, VehicleinstpmtaddComponent,  VehicleinstpmtlistComponent, 
     BalanacerptComponent,CompanyinfoaddComponent,
   ],
   imports: [
@@ -434,7 +435,7 @@ import { Companyinfomodel } from './models/companyinfomodel';
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
-    Billsmastermodel,Billstypemodel,
+    Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Companyinfomodel],
   bootstrap: [AppComponent]
 })

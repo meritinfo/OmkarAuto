@@ -212,6 +212,8 @@ namespace FCUBEAPI
             services.AddScoped<IMaintanenceMasterRepository, MaintanenceMasterRepository>();
             services.AddScoped<ITyrePurchaseMasterBusiness, TyrePurchaseMasterBusiness>();
             services.AddScoped<ITyrePurchaseMasterRepository, TyrePurchaseMasterRepository>();
+            services.AddScoped<ITyreActivateMasterBusiness, TyreActivateMasterBusiness>();
+            services.AddScoped<ITyreActivateMasterRepository, TyreActivateMasterRepository>();
             services.AddScoped<IBalanceBusiness, BalanceBusiness>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
             services.AddScoped<IVehicleInstPmtBusiness, VehicleInstPmtBusiness>();

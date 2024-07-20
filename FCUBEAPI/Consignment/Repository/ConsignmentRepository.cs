@@ -919,6 +919,36 @@ namespace Consignment.Repository
             }
             return vehicleList;
         }
+        public async Task<List<DropDownListModel>> GetVehicleIdList()
+        {
+            List<DropDownListModel> vehicleList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleIdList_Select", null);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            vehicleList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return vehicleList;
+        }
         public async Task<List<DropDownListModel>> GetVehicleGroupTypeList()
         {
             List<DropDownListModel> vehicleList = new();
