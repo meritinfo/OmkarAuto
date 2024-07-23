@@ -179,7 +179,7 @@ namespace FleetTrans.Repository
                          
                 };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePurchaseDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreMasterDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

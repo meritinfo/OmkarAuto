@@ -66,6 +66,9 @@ export class CommonService {
   getClassList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetClassList', null, this.httpOptions);
   } 
+  getAccountList(req: Requestmodel): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinTrans/GetCashBankAccountList', req, this.httpOptions);
+  }
   getContentList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetContentList', null, this.httpOptions);
   } 

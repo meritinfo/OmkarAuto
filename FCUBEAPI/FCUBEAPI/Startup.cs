@@ -172,6 +172,8 @@ namespace FCUBEAPI
             services.AddScoped<IGstSalesRegisterRptBusiness, GstSalesRegisterRptBusiness>();
             services.AddScoped<IEmpSalaryBusiness, EmpSalaryBusiness>();
             services.AddScoped<IEmpSalaryRepository, EmpSalaryRepository>();
+            services.AddScoped<IVehiEmiBusiness, VehiEmiBusiness>();
+            services.AddScoped<IVehiEmiRepository, VehiEmiRepository>();
             services.AddScoped<ILoanBusiness, LoanBusiness>();
             services.AddScoped<ILoanRepository, LoanRepository>();
             services.AddScoped<IEmpSalaryCalcBusiness, EmpSalaryCalcBusiness>();
@@ -214,6 +216,10 @@ namespace FCUBEAPI
             services.AddScoped<ITyrePurchaseMasterRepository, TyrePurchaseMasterRepository>();
             services.AddScoped<ITyreActivateMasterBusiness, TyreActivateMasterBusiness>();
             services.AddScoped<ITyreActivateMasterRepository, TyreActivateMasterRepository>();
+            services.AddScoped<ITyreDeActivateMasterBusiness, TyreDeActivateMasterBusiness>();
+            services.AddScoped<ITyreDeActivateMasterRepository, TyreDeActivateMasterRepository>();
+            services.AddScoped<ITyreRegroupIssueMasterBusiness, TyreRegroupIssueMasterBusiness>();
+            services.AddScoped<ITyreRegroupIssueMasterRepository, TyreRegroupIssueMasterRepository>();
             services.AddScoped<IBalanceBusiness, BalanceBusiness>();
             services.AddScoped<IBalanceRepository, BalanceRepository>();
             services.AddScoped<IVehicleInstPmtBusiness, VehicleInstPmtBusiness>();

@@ -33,10 +33,14 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Code</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder="" 
-                                                                 
-                                                formControlName="branchCode"        
+                                             <select formControlName="branchCode"
+                                                class="form-control form-select ng-pristine ng-touched"
+                                              
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                                <option *ngFor="let dl of branchList" value={{dl.dataId}}>
+                                                    {{dl.dataName}}
+                                                </option>
+                                            </select>    
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -79,7 +83,7 @@
                                
                                         <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">instId</label>
+                                                <label for="formrow-inputZip">Inst Id</label>
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
                                                 placeholder=" "formControlName="instId"       
@@ -98,7 +102,7 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">PriAmt</label>
+                                                <label for="formrow-inputZip">Pri Amt</label>
                                                
                                                 <input uppercaseonly autoclose="false" class="form-control" placeholder="" 
                                                 formControlName="priAmt"    decimalonly     
@@ -112,19 +116,16 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">IntAmt</label>
-                                                <span style="color: red">*</span>
-                                                <select class="form-control" formControlName="intAmt" decimalonly     
+                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                formControlName="intAmt"     decimalonly
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['intAmt'].invalid) }">
-                                                    <option *ngFor="let state of stateList" value={{state.dataId}}>
-                                                       {{state.dataName}}
-                                                    </option>
-                                                 </select>
+                                                
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip"> totAmt</label>
-                                                <span style="color: red">*</span>
+                                                <label for="formrow-inputZip"> Total Amt</label>
+                                             
                                                 <input numbersonly autoclose="false" class="form-control" placeholder="" 
                                                 formControlName="totAmt"     decimalonly
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['totAmt'].invalid) }">
@@ -133,7 +134,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Remarks</label>
-                                                <span style="color: red">*</span>
+                                          
                                                 <input autoclose="false" class="form-control"  placeholder=" "  
                                                 formControlName="remarks"     
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
@@ -145,18 +146,35 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pmt Type</label>
-                                                <input autoclose="false" class="form-control" placeholder=""  
-                                                formControlName="pmtType"      >
+                                            
+                                                <select id="formrow-inputState" class="form-control"
+                                                formControlName="pmtType"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"  
+                                                >
+                                             <!--  <option selected="">Choose...</option>--> 
+                                                <option value="C"> Cash</option>
+                                                <option value="B"> Bank</option>
+                                                <option value="H"> Happay</option>
+                                                <option value="P"> Petro</option>
+                                                <option value="V"> Vendor</option>
+                                                <option value="A"> Adjust </option>
+                                            </select>
+
                                             </div>
                                         </div>
                                       
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Neft YN </label>
-                                                <span style="color: red">*</span>
-                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=" " 
-                                                formControlName="neftYN"     maxlength="10"        
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['neftYN'].invalid) }">
+                                               
+                                               
+                                                <select id="formrow-inputState" class="form-control"
+                                                formControlName="neftYN"  [ngClass]="{ 'is-invalid': userSubmitted && (f['neftYN'].invalid) }">
+                                                <!-- <option selected="">Choose...</option> -->
+                                                <option value="Y">Yes</option>
+                                                <option value="N">No</option>
+                                            </select>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -172,18 +190,25 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Cheq Date</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly autoclose="false" class="form-control"  placeholder=" "  
-                                                formControlName="cheqDate"      
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqDate'].invalid) }">
+                                              
+
+                                                <input type="date"  autofocus="autofocus" class="form-control"
+                                                placeholder="" formControlName="cheqDate"   [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Manager Mobile No</label>
-                                                <span style="color: red">*</span>
-                                                <input  maxlength="10"  autoclose="false" class="form-control" placeholder=""  
-                                                formControlName="creditAc"   maxlength="10"          
+                                                <label for="formrow-inputZip">creditAc</label>
+                                               
+                                               
+                                                <select class="form-control"
+                                                formControlName="creditAc" 
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                                <option *ngFor="let branch of mainAcList" value={{branch.dataId}}>
+                                                    {{branch.dataName}}
+                                                </option>
+                                            </select>
+                                                
                                             </div>
                                         </div>
                                       

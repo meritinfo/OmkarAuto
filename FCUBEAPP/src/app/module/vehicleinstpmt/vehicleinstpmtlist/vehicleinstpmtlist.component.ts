@@ -124,10 +124,10 @@ vehicleInstList(){
         title: 'TotAmt',
         data: 'totAmt',
       }, 
-      // {
-      //   title: 'remarks',
-      //   data: 'remarks',
-      // }, 
+       {
+         title: 'remarks',
+         data: 'remarks',
+       }, 
       // {
       //   title: 'pmtType',
       //   data: 'pmtType',

@@ -28,6 +28,7 @@ export class VehicleinstpmtaddComponent {
   stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
+  mainAcList: Dropdownmodel[] = [];
   
  
   createStatus = false;
@@ -80,6 +81,7 @@ ngOnInit(): void {
   }
 this.getBranchList();
 this.getVehicleIdList();
+this.getMainAcList();
 this.selectedVehicleInstPmtDetail = this.vehicleInstPmtService.getVehicleInstPmtDetails();
 this.formUser = this.formBuilder.group({
   //pmtId: new FormControl('',[Validators.required]),
@@ -98,6 +100,7 @@ this.formUser = this.formBuilder.group({
   neftYN: new FormControl('',),
   cheqNo: new FormControl('',),
   creditAc: new FormControl('',),
+  cheqDate: new FormControl('',),
   findocid: new FormControl('',),
  
 
@@ -136,6 +139,12 @@ getBranchList(): void {
 getVehicleIdList(): void {
   this.commonService.getVehicleNoList().subscribe((res) => {
     this.vehicleList = res;
+  });
+}
+getMainAcList(): void {    
+  this.requestmodel.strRequest="C"
+  this.commonService.getAccountList(this.requestmodel).subscribe((res) => {
+    this.mainAcList = res;
   });
 }
 selectEvent(item: any) {
@@ -195,7 +204,7 @@ submitVehicleInstPmtForm(): void {
   this.vehicleinstpmtmodel.pmtId = this.selectedVehicleInstPmtDetail.pmtId != '' ? this.selectedVehicleInstPmtDetail.pmtId : '';
   this.vehicleinstpmtmodel.pmtDate = selectedDataValue.pmtDate;
   this.vehicleinstpmtmodel.branchCode = selectedDataValue.branchCode;
-  this.vehicleinstpmtmodel.vehicleMasterid = selectedDataValue.vehicleMasterid;
+  this.vehicleinstpmtmodel.vehicleMasterid = selectedDataValue.vehicleMasterid.dataId;
   //this.vehicleinstpmtmodel.instNo = selectedDataValue.instNo;
   this.vehicleinstpmtmodel.instId = selectedDataValue.instId;
   this.vehicleinstpmtmodel.advPayable_1 = selectedDataValue.advPayable_1;
