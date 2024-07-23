@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
+using Org.BouncyCastle.Ocsp;
 
 namespace FCUBEAPI.Controllers
 {
@@ -37,7 +38,8 @@ namespace FCUBEAPI.Controllers
         readonly IDailyLoadingRptBusiness dailyLoadingRptBusiness;
         readonly IVehiEmiBusiness vehiEmiBusiness;
 
-        public FleetTransController(IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
+        public FleetTransController(IOptions<DBModel> _dbconnection,
+            IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
             ITripPaymentsBusiness _TripPaymentsBusiness,ITripMasterBusiness _tripMasterBusiness, 
             IDieselStatementBusiness _dieselStatementBusiness, 
             IBillStatementBusiness _billStatementBusiness, 
@@ -52,6 +54,7 @@ namespace FCUBEAPI.Controllers
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             IVehiEmiBusiness _vehiEmiBusiness)
         {
+            dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
             tripPaymentsBusiness = _TripPaymentsBusiness;
             tripMasterBusiness = _tripMasterBusiness;
@@ -1290,14 +1293,35 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("TyrePurchaseMasterSave")]
-        public async Task<IActionResult> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel)
+        public async Task<IActionResult> TyrePurchaseMasterSave()
         {
-            if (tyrePurchaseMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+
+                var refDocAttachedImage = HttpContext.Request.Form.Files["refDocAttachedImage"];
+
+                TyrePurchaseMasterModel tyrePurchaseMasterModel = JsonConvert.DeserializeObject<TyrePurchaseMasterModel>(HttpContext.Request.Form["datadetails"]);
+                tyrePurchaseMasterModel.RefDocAttachedImage = "";
+
+                if (refDocAttachedImage != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(refDocAttachedImage.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(refDocAttachedImage.FileName);
+                   
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, "upload/tyrePurchase/refDocAttachedImage/");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await refDocAttachedImage.CopyToAsync(fileStream);
+                        tyrePurchaseMasterModel.RefDocAttachedImage = imageName;
+                    }
+                }
                 var result = await tyrePurchaseMasterBusiness.TyrePurchaseMasterSave(tyrePurchaseMasterModel);
 
                 return Ok(result);
@@ -1307,9 +1331,14 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyrePurchaseMasterList")]
-        public async Task<IActionResult> GetTyrePurchaseMasterList(PageRequest request)
+        public async Task<IActionResult> GetTyrePurchaseMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyrePurchaseMasterBusiness.GetTyrePurchaseMasterList(request);
@@ -1339,9 +1368,31 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("ChkTyreNoDuplicate")]
+        public async Task<IActionResult> ChkTyreNoDuplicate(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyrePurchaseMasterBusiness.ChkTyreNoDuplicate(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetTyrePurchaseMasterInnerGridList")]
         public async Task<IActionResult> GetTyrePurchaseMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyrePurchaseMasterBusiness.GetTyrePurchaseMasterInnerGridList(request);
@@ -1533,6 +1584,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetVehicleInstPmtMasterList")]
         public async Task<IActionResult> GetVehicleInstPmtMasterList(ReportRequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await vehicleInstPmtBusiness.GetVehicleInstPmtMasterList(request);

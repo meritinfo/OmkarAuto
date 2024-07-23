@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Repository
 {
-    public interface ITyrePurchaseMasterRepository
+    public interface ITyreActivateRepository
     {
         Task<ResponseModel> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel);
         Task<ResponseModel> TyrePurchaseMasterDelete(RequestModel req);
         Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req);
-        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request);
+        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request);
         Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request);
         Task<List<DropDownListModel>> GetBrandList();
         Task<List<DropDownListModel>> GetModelList();

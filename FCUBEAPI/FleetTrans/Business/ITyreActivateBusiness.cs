@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FleetTrans.Repository
+namespace FleetTrans.Business
 {
-    public interface ITyrePurchaseMasterRepository
+    public interface ITyreActivateBusiness
     {
         Task<ResponseModel> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel);
         Task<ResponseModel> TyrePurchaseMasterDelete(RequestModel req);
         Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req);
-        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request);
+        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request);
         Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request);
         Task<List<DropDownListModel>> GetBrandList();
         Task<List<DropDownListModel>> GetModelList();

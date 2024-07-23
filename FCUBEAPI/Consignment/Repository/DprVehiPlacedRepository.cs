@@ -277,7 +277,7 @@ namespace Consignment.Repository
                         connection.Open();
                         SqlTransaction transaction;
                         transaction = connection.BeginTransaction();
-
+                       
                         SqlParameter[] param =
                         {
                             new SqlParameter("@TruckNo",            request.strRequest),

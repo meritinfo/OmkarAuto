@@ -251,22 +251,21 @@ export class DprvehiplacedaddComponent {
     // do something
   }
 
-  chkLrDuplicate(i: number,e: any){
+  chkLrDuplicate(i: number){
     var selectedData = this.formUser.getRawValue();
-    var gcnote = e.target.value;
-    if (selectedData.gcNoteNo==""){
+    if (selectedData.arrayList[i].gcNoteNo==""){
       this.toasterService.warning("GC Note No should not be Blank");
       return;
     }  
     else{
       for (var j=0; j<selectedData.arrayList.length;i++){
-        if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==gcnote.toString().toUpperCase()){
+        if(i!=j && selectedData.arrayList[i].gcNoteNo.toString().toUpperCase()==selectedData.arrayList[j].gcNoteNo.toString().toUpperCase()){
           this.toasterService.warning("GC Note No Already Entered in Grid");
           return;
         }
       }
       this.requestmodel.strRequest = this.branch;
-      this.requestmodel.strRequest1 = gcnote;
+      this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo.toString().toUpperCase();
       this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
         if (this.responseDetails.status) {
@@ -274,6 +273,7 @@ export class DprvehiplacedaddComponent {
         }
        else{
           this.toasterService.warning(this.responseDetails.message);
+          return
         }
       });
     }   
@@ -313,15 +313,15 @@ export class DprvehiplacedaddComponent {
   }
 
 
-  onLorryHireChange(e:any){
+  onLorryHireChange(){
     var selectedDataVal= this.formUser.getRawValue();
     var lorryHire = 0;
     var advanceAmt = 0;
     var balanceAmt = 0;
     var ratePerTon = 0;
-    
-    if(e.target.value!=""){
-      lorryHire = parseFloat(e.target.value);
+         
+    if (typeof selectedDataVal.lorryHire !== 'undefined' && selectedDataVal.lorryHire !== null && selectedDataVal.lorryHire !== '') {
+      lorryHire = parseFloat(selectedDataVal.lorryHire) ;
     }
     if (typeof selectedDataVal.advanceAmt !== 'undefined' && selectedDataVal.advanceAmt !== null && selectedDataVal.advanceAmt !== '') {
       advanceAmt = parseFloat(selectedDataVal.advanceAmt);
@@ -509,6 +509,8 @@ export class DprvehiplacedaddComponent {
       return;
     }
 
+    var chkDuplicate = true;
+
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
       if(selectedDataVal.arrayList[i].gcNoteNo==''){
         this.toasterService.warning("GcNote No Should Not be Empty");
@@ -518,6 +520,18 @@ export class DprvehiplacedaddComponent {
         this.toasterService.warning("MainGcYN No Should Not be Empty");
         return;
       }
+      this.requestmodel.strRequest = this.branch;
+      this.requestmodel.strRequest1 = selectedDataVal.arrayList[i].gcNoteNo;
+      this.lrentryService.checkDuplicateLr(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (this.responseDetails.status) {
+          //ignore
+        }
+       else{
+          this.toasterService.warning(this.responseDetails.message);
+          chkDuplicate = false;
+        }
+      });
            
 
       this.dprvehiplacedmodel.dprDtls.push({
@@ -534,23 +548,26 @@ export class DprvehiplacedaddComponent {
     }
 
     this.sharedService.loading=true;
-    
-    this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
-      this.responseDetails = res;
-      if(this.responseDetails.status){
-        this.toasterService.success(this.responseDetails.message);
-        this.formUser.reset();
-        if(this.dprid ==""){
-          this.route.navigate(['/dprvehplacedlist']);
-        }
-        else{
-          this.route.navigate(['/dprindentlist']);
-        }
+    setTimeout(() => {     
+      if(chkDuplicate){
+        this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;
+          if(this.responseDetails.status){
+            this.toasterService.success(this.responseDetails.message);
+            this.formUser.reset();
+            if(this.dprid ==""){
+              this.route.navigate(['/dprvehplacedlist']);
+            }
+            else{
+              this.route.navigate(['/dprindentlist']);
+            }
+          }
+          else{
+            this.toasterService.warning(this.responseDetails.message);        
+          }   
+        });
       }
-      else{
-        this.toasterService.warning(this.responseDetails.message);        
-      }   
-    });
+    }, 2000);    
     this.sharedService.loading=false;
   }
 }

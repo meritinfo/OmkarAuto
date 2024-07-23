@@ -148,7 +148,7 @@
                                         <div class="mb-3">
                                             <label>Paid Chrg Wt: </label><span style="color: red">*</span>
                                             <input decimalonly type="text" class="form-control" 
-                                            formControlName="challanChrgWt" 
+                                            formControlName="challanChrgWt" (change)="onLorryHireChange()"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['challanChrgWt'].invalid) }">
                                         </div>
                                     </div>       
@@ -164,7 +164,7 @@
                                         <div class="mb-3">
                                             <label>Lorry Hire: </label><span style="color: red">*</span>
                                             <input decimalonly type="text" class="form-control" 
-                                            formControlName="lorryHire" (change)="onLorryHireChange($event)"
+                                            formControlName="lorryHire" (change)="onLorryHireChange()"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['lorryHire'].invalid) }">
                                         </div>
                                     </div>  
@@ -308,7 +308,7 @@
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly type="text" class="form-control" 
-                                                    formControlName="gcNoteNo" (change)="chkLrDuplicate(i,$event)">
+                                                    formControlName="gcNoteNo" (change)="chkLrDuplicate(i)">
                                                 </td>
                                                 <td class="col-lg-2">
                                                     <input uppercaseonly autoclose="false" class="form-control"

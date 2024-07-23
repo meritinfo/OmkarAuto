@@ -12,44 +12,44 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Business
 {
-    public class TyrePurchaseMasterBusiness: ITyrePurchaseMasterBusiness
+    public class TyreActivateBusiness : ITyreActivateBusiness
     {
-        readonly ITyrePurchaseMasterRepository tyrePurchaseRepository;
-        public TyrePurchaseMasterBusiness(ITyrePurchaseMasterRepository _tyrePurchaseRepository)
+        readonly ITyreActivateRepository tyreActivateRepository;
+        public TyreActivateBusiness(ITyreActivateRepository _tyreActivateRepository)
         {
-            tyrePurchaseRepository = _tyrePurchaseRepository;
+            tyreActivateRepository = _tyreActivateRepository;
         }
         public async Task<ResponseModel> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel)
         {
-            return await tyrePurchaseRepository.TyrePurchaseMasterSave(tyrePurchaseMasterModel);
+            return await tyreActivateRepository.TyrePurchaseMasterSave(tyrePurchaseMasterModel);
         }
         public async Task<ResponseModel> TyrePurchaseMasterDelete(RequestModel req)
         {
-            return await tyrePurchaseRepository.TyrePurchaseMasterDelete(req);
+            return await tyreActivateRepository.TyrePurchaseMasterDelete(req);
         }
         public async Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req)
         {
-            return await tyrePurchaseRepository.ChkTyreNoDuplicate(req);
+            return await tyreActivateRepository.ChkTyreNoDuplicate(req);
         }
-        public async Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request)
+        public async Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request)
         {
-            return await tyrePurchaseRepository.GetTyrePurchaseMasterList(request);
+            return await tyreActivateRepository.GetTyrePurchaseMasterList(request);
         }
         public async Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request)
         {
-            return await tyrePurchaseRepository.GetTyrePurchaseMasterInnerGridList(request);
+            return await tyreActivateRepository.GetTyrePurchaseMasterInnerGridList(request);
         }
         public async Task<List<DropDownListModel>> GetBrandList()
         {
-            return await tyrePurchaseRepository.GetBrandList();
+            return await tyreActivateRepository.GetBrandList();
         }
         public async Task<List<DropDownListModel>> GetModelList()
         {
-            return await tyrePurchaseRepository.GetModelList();
+            return await tyreActivateRepository.GetModelList();
         }
         public async Task<List<DropDownListModel>> GetVendorList()
         {
-            return await tyrePurchaseRepository.GetVendorList();
+            return await tyreActivateRepository.GetVendorList();
         }
 
     }

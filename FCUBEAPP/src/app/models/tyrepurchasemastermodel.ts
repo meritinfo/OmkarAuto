@@ -4,6 +4,7 @@ export class Tyrepurchasemastermodel {
       purchaseDate : string ="";
       datetime : string ="";
       purchaseType : string ="";
+      purchaseTp: string ="";
       noVendor : string ="";
       vendorId : string ="";
       vendorName : string ="";

@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Repository
 {
-    public class TyrePurchaseMasterRepository : ITyrePurchaseMasterRepository
+    public class TyreActivateRepository : ITyreActivateRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
-        public TyrePurchaseMasterRepository(IOptions<DBModel> _dbconnection)
+        public TyreActivateRepository(IOptions<DBModel> _dbconnection)
         {
             dbconnection = _dbconnection;
         }
@@ -115,7 +115,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseMasterInnerGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyrePurchaseMasterInnerGridList_Select", param);
                     
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {

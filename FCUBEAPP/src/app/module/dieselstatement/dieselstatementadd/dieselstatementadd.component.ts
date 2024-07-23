@@ -145,7 +145,6 @@ export class DieselstatementaddComponent implements OnInit {
           billStmtDate:this.commonService.formatDate(this.selectedDieselStmtDetails.billStmtDate),
           fromDate:this.commonService.formatDate(this.selectedDieselStmtDetails.fromDate),
           toDate:this.commonService.formatDate(this.selectedDieselStmtDetails.toDate),
-          //location: this.branchList.find(e => e.dataId == this.selectedDieselStmtDetails.location),  
           vendorId: this.vendorList.find(e => e.dataId == this.selectedDieselStmtDetails.dfVendor),   
           selectedAll:'Y'   
         })
