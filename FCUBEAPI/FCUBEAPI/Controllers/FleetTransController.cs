@@ -1618,7 +1618,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-
     }
 }
 
