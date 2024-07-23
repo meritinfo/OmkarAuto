@@ -45,7 +45,7 @@ namespace FleetTrans.Repository
 
                             new SqlParameter("@LoggedInUser",   tyreRegroupIssueMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueMaster_Insert", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueMasterSave", param);
                     string RegroupIssMasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -108,7 +108,7 @@ namespace FleetTrans.Repository
 
                 };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreMasterDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -145,7 +145,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyreActivateMasterInnerGridList_Select", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterInnerGridList", param);
                     // tripSheetInnerGridList.Incentive = "0";
                     //LR Details
 
@@ -252,7 +252,7 @@ namespace FleetTrans.Repository
                            // new SqlParameter("@ToDate",     request.ToDate),
                            // new SqlParameter("@Type",       request.FilterStr)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreActivateMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
