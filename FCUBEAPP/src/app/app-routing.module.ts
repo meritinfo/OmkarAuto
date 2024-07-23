@@ -160,6 +160,8 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
+import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
+import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -388,6 +390,11 @@ const routes: Routes = [
   { path: 'mrentrylist', component: MrlistComponent},
   { path: 'mrentryadd', component: MraddComponent },
   { path: 'mrentryedit', component: MraddComponent },
+  { path: 'tbplbsrpt', component:  BalanacerptComponent},
+  { path: 'companyinfo', component:  CompanyinfoaddComponent},
+  { path: 'emipmtlist', component:  VehicleinstpmtlistComponent},
+  { path: 'vehicleinstpmtadd', component:  VehicleinstpmtaddComponent},
+  { path: 'vehicleinstpmtedit', component:  VehicleinstpmtaddComponent},
 ];
 
 @NgModule({

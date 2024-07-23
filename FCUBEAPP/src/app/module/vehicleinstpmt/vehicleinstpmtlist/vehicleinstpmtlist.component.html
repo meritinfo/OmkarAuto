@@ -1,1 +1,95 @@
-<p>vehicleinstpmtlist works!</p>
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Vehicle Emi Payment</h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                              
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
+                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
+                    </div>
+                    <button class="btn btn-primary buttons-html5" type="button"
+                    (click)="AddVehicleInstmaster()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>pmtDate</th>
+                            <th>branchCode</th>
+                            <th>vehicleMasterid</th>
+                            <th>instNo</th>
+                            <th>instId</th>
+                            <th>advPayable_1</th>   
+                            <th>priAmt</th>      
+                            <th>intAmt</th>      
+                            <th>totAmt</th>      
+                            <th>remarks</th>   
+                            <!-- <th>pmtType</th>   
+                            <th>neftYN</th>   
+                            <th>cheqNo</th>    
+                            <th>cheqDate</th>        
+                            <th>creditAc</th>    
+                            <th>findocid</th>         -->
+                            <th>Action</th>
+
+                           
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allInstPmtMaster.pmtList?.length != 0">
+                        <tr *ngFor="let branch  of allInstPmtMaster.pmtList">
+                            <td>{{ branch.pmtDate }}</td>
+                            <td>{{ branch.branchCode }}</td>
+                            <td>{{ branch.vehicleMasterid }}</td>
+                            <td>{{ branch.instNo }}</td>
+                            <td>{{ branch.instId }}</td>
+                            <td>{{ branch.advPayable_1 }}</td>  
+                            <td>{{ branch.priAmt }}</td>  
+                            <td>{{ branch.intAmt }}</td> 
+                            <td>{{ branch.totAmt }}</td>   
+                             <td>{{ branch.remarks }}</td> 
+                              <!--<td>{{ branch.pmtType }}</td>        
+                            <td>{{ branch.neftYN }}</td>    
+                            <td>{{ branch.cheqNo }}</td>   
+                         <td>{{ branch.cheqDate }}</td>   
+                            <td>{{ branch.creditAc }}</td>      
+                            <td>{{ branch.findocid }}</td>        -->
+                            <td>
+                                <button type="button" class="btn btn-edit" 
+                                (click)="vehicleInstDetails(branch)"></button>             
+                            </td>  
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allInstPmtMaster.pmtList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

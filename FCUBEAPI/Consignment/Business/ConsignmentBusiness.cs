@@ -70,6 +70,10 @@ namespace Consignment.Business
         {
             return await consignmentRepository.GetVehicleNoList();
         }
+        public async Task<List<DropDownListModel>> GetVehicleIdList()
+        {
+            return await consignmentRepository.GetVehicleIdList();
+        }
         //public async Task<List<DropDownListModel>> GetVehicleTypeGroupList()
         //{
         //    return await consignmentRepository.GetVehicleTypeGroupList();

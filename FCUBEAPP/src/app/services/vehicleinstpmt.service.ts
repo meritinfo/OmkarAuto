@@ -11,7 +11,7 @@ import {Vehicleinstpmtlistmodel } from '../models/vehicleinstpmtlistmodel';
 @Injectable({
   providedIn: 'root'
 })
-export class TyreModelMasterService {
+export class VehicleInstPmtService {
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -21,28 +21,28 @@ export class TyreModelMasterService {
   }
   selectedvehicleinstpmt = new Vehicleinstpmtmodel();
   constructor(private httpClient: HttpClient) { }
-  setTyreModelMasterDetails(vehicleinstpmtmodel:Vehicleinstpmtmodel) {
+  setVehicleInstPmtDetails(vehicleinstpmtmodel:Vehicleinstpmtmodel) {
  
       this.selectedvehicleinstpmt = vehicleinstpmtmodel;
     
   
   }
-  getTyreModelMasterDetails() {
+  getVehicleInstPmtDetails() {
     return this.selectedvehicleinstpmt;
   }
-  tyreModelMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TyreModelMasterDelete', req, this.httpOptions);
+  vehicleInstPmtDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleInstPmtMasterDelete', req, this.httpOptions);
   }
   checkDuplicateTyre(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/checkDuplicateTyre', req, this.httpOptions);
   }
-//   clearTyreModelMasterDetails() {
-//     this.selectedtyremodelmaster = new Tyremodelmastermodel();
-//   }
-//  tyreModelMasterSubmitted(user:Tyremodelmastermodel): Observable<Responsemodel> {
-//     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TyreModelSave', user, this.httpOptions);
-//   }
-//   getTyreModelMasterList(filter: Filtermodel): Observable<Tyremodelmasterlistmodel> {
-//     return this.httpClient.post<Tyremodelmasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetTyreModelMasterList', filter, this.httpOptions);
-//   }
+  clearVehicleInstPmtDetails() {
+    this.selectedvehicleinstpmt = new Vehicleinstpmtmodel();
+  }
+ vehicleInstPmtSubmitted(user:Vehicleinstpmtmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleInstPmtSave', user, this.httpOptions);
+  }
+  getVehicleInstPmtList(filter: Filtermodel): Observable<Vehicleinstpmtlistmodel> {
+    return this.httpClient.post<Vehicleinstpmtlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleInstPmtMasterList', filter, this.httpOptions);
+  }
 }

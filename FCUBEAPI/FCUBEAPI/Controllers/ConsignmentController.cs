@@ -213,6 +213,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         
 
         [HttpPost("GetLrNo")]
@@ -305,6 +306,20 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await consignmentBusiness.GetVehicleNoList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleIdList")]
+        public async Task<IActionResult> GetVehicleIdList()
+        {
+            try
+            {
+                var result = await consignmentBusiness.GetVehicleIdList();
 
                 return Ok(result);
             }

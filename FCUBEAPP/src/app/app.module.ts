@@ -250,6 +250,7 @@ import { Transportmastermodel } from './models/transportmastermodel';
 import { BillsmasteraddComponent } from './module/billsmaster/billsmasteradd/billsmasteradd.component';
 import { BillsmasterlistComponent } from './module/billsmaster/billsmasterlist/billsmasterlist.component';
 import { Billsmastermodel } from './models/billsmastermodel';
+import { Vehicleinstpmtmodel } from 'src/app/models/vehicleinstpmtmodel';
 import { ChallanmasterlistComponent } from './module/challanmaster/challanmasterlist/challanmasterlist.component';
 import { ChallanmasteraddComponent } from './module/challanmaster/challanmasteradd/challanmasteradd.component';
 import { EmppaysheetrptComponent } from './module/emppaysheetrpt/emppaysheetrpt.component';
@@ -445,6 +446,8 @@ import { Mrmodel } from './models/mrmodel';
     Tyrepurchasemastermodel,Companyinfomodel,
     Mrmodel  
   ],
+    Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
+    Tyrepurchasemastermodel,Companyinfomodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
