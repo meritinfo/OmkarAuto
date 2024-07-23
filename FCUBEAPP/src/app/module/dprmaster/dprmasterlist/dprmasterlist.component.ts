@@ -11,6 +11,7 @@ import { RatesMasterService } from 'src/app/services/ratesmaster.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
+import { DprvehiplacedService } from 'src/app/services/dprvehiplaced.service';
   
  
 @Component({
@@ -56,7 +57,7 @@ export class DrpmasterlistComponent {
   dtElement!: DataTableDirective;
 
   constructor(private formBuilder: FormBuilder,private sharedService: SharedService,
-    private toasterService: ToastrService,
+    private toasterService: ToastrService, private dprvehiService: DprvehiplacedService, 
     private dprService: DprService, private ratesMasterService: RatesMasterService,
     private commonService: CommonService,private route: Router)  {
   }
@@ -81,6 +82,8 @@ export class DrpmasterlistComponent {
       this.loginDate = loginDate;
     }
     this.dprService.clearDprDetails();
+    this.dprvehiService.clearDprVehiDetails();
+
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();

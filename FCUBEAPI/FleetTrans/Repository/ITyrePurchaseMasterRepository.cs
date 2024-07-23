@@ -13,9 +13,11 @@ namespace FleetTrans.Repository
     {
         Task<ResponseModel> TyrePurchaseMasterSave(TyrePurchaseMasterModel tyrePurchaseMasterModel);
         Task<ResponseModel> TyrePurchaseMasterDelete(RequestModel req);
-        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request);
+        Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req);
+        Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request);
         Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request);
         Task<List<DropDownListModel>> GetBrandList();
+        Task<List<DropDownListModel>> GetModelList();
         Task<List<DropDownListModel>> GetVendorList();
     }
 }

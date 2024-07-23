@@ -18,15 +18,6 @@
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                           
-                                            <label >Purchase Date: </label><span style="color: red">*</span>  
-                                            <input type="date"  autofocus="autofocus" class="form-control"
-                                            placeholder="" formControlName="purchaseDate"
-                                            [ngClass]=>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
                                             <label>Branch Code: </label>
                                             <select class="form-control" formControlName="branchCode"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
@@ -35,29 +26,35 @@
                                                 </option>
                                             </select>
                                         </div>
-                                    </div>   
+                                    </div>  
+                                    <div class="col-sm-2">
+                                        <div class="mb-3">                                           
+                                            <label >Purchase Date: </label><span style="color: red">*</span>  
+                                            <input type="date"  autofocus="autofocus" class="form-control"
+                                                formControlName="purchaseDate" max="{{maxDate}}"                                         
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['purchaseDate'].invalid) }">
+                                        </div>
+                                    </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-2">
-                                            <label>Gst Type </label><span style="color: red">*</span> 
-                                          
+                                            <label>Gst Type </label><span style="color: red">*</span>                                           
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="gstType"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['gstType'].invalid) }">
-                                                <option value="C">Cgst</option>
-                                                <option value="S">Sgst</option>  
-                                                <option value="I">Igst</option>                                                                                            
+                                                formControlName="gstType" (change)="changeGstType($event)">
+                                                <option value="NA">NA</option>
+                                                <option value="C">CGST</option>
+                                                <option value="S">SGST</option>  
+                                                <option value="I">IGST</option>                                                                                            
                                             </select>
                                         </div>
                                     </div>  
-
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Purchase Type</label>
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
                                             formControlName="purchaseType"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['totalAmt'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['purchaseType'].invalid) }">
                                             <option value="N">New Tyres</option>
                                             <option value="V">Vehicle Tyres</option>   
                                             <option value="S">Stock Tyres</option>  
@@ -69,166 +66,89 @@
                                 <div class="row"> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor Id </label>
-                                        
-                                            <select class="form-control" formControlName="vendorId"   
-                                            class="form-control form-select ng-pristine ng-touched"   
-                                            [ngClass]="">
-                                                <option *ngFor="let vehi of vendorList" value={{vehi.dataId}}>
-                                                   {{vehi.dataName}}
-                                                </option>
-                                             </select>
+                                            <label>Vendor</label>                                        
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vendorList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="vendorId" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>  
-                                    <div class="col-sm-3">
-                                    
-                                        <div class="mb-3">
-                                           
-                                         
-                                            <input type="checkbox" formControlName="noVendor" id="noVendor"
-                                        
-                                            name="noVendor" class="form-check-input" 
-                                            value="Y" 
-                                           >
-                                           <label for="noVendor" class="form-check-label" > NoVendor
-                                        </label>
-                                       
-                                      
-                                        </div>
-                                    
-                                    </div>
-                                  
-                                                                    
-                                 
-                                    
+                                    <div class="col-sm-3">                                    
+                                        <div class="mb-3">      
+                                            <input type="checkbox" formControlName="noVendor" 
+                                            class="form-check-input" (change)="onNoVendor($event)" value="Y" >
+                                            <label for="noVendor" class="form-check-label" > NoVendor
+                                            </label>  
+                                        </div>                                    
+                                    </div>  
                                 </div> 
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor Name : </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="vendorName">
+                                            maxlength="100" formControlName="vendorName">
                                         </div>
                                     </div> 
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>Vendor Address </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="vendorAddress">
+                                            maxlength="250" formControlName="vendorAddress">
                                         </div>
                                     </div>  
-                                     
                                 </div> 
                                 <div class="row">                                
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor GstNo: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text"
-                                            class="form-control" 
-                                            formControlName="vendorGstNo" >
+                                            <label>Vendor Gst No: </label><span style="color: red">*</span> 
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="vendorGstNo" maxlength="15" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGstNo'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor InvNo: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text"
-                                            class="form-control" 
-                                            formControlName="vendorInvNo" >
+                                            <label>Vendor Inv No: </label><span style="color: red">*</span> 
+                                            <input numbersonly type="text" class="form-control" 
+                                            formControlName="vendorInvNo" maxlength="20" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
                                         </div>
                                     </div>  
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>VendorInvDt: </label><span style="color: red">*</span> 
+                                            <label>Vendor Inv Dt: </label><span style="color: red">*</span> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
-                                            placeholder="" formControlName="vendorInvDt"
-                                            [ngClass]=>
+                                            formControlName="vendorInvDt"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
                                     </div>  
-                                  
-                                   
-                                </div> 
-                                <div class="row">                             
-                                   
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Tyre SacCode: </label><span style="color: red">*</span> 
-                                            <input uppercaseonly type="text"
-                                            class="form-control" 
-                                            formControlName="tyreSacCode" >
+                                            <label>Tyre Sac Code: </label><span style="color: red">*</span> 
+                                            <input uppercaseonly type="text" class="form-control" 
+                                            formControlName="tyreSacCode" maxlength="15" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tyreSacCode'].invalid) }">
                                         </div>
                                     </div>  
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>TotalAmt </label>                                           
-                                            <input numbersonly type="text"
-                                            class="form-control" 
-                                            formControlName="tyreSacCode" >
-                                        </div>
-                                        
-                                    </div>  
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>RoundOff </label>
-                                            <input numbersonly  type="text"  maxlength="10"class="form-control"
-                                            formControlName="roundOff">
-                                        </div>
-                                    </div>      
-                                   
-                                </div> 
-                                <div class="row">        
-                                    
-                                  
-                                   
-                                </div> 
-                                <div class="row">
-                                  
-                                    <div class="col-lg-3">
-                                        <div class="form-check">
-                                            <input type="checkbox" formControlName="neftPmt" id="neft"
-                                              
-                                                name="neft" class="form-check-input" 
-                                                value="Y" 
-                                               >
-                                            <label for="neft" class="form-check-label" style="color: green;"> Neft
-                                            </label>
-                                        </div>
-                                    </div>
-                                                                 
-                                    <div class="col-sm-6">
-                                        <div class="mb-3">
-                                            <label>Remarks: </label>
-                                            <input  uppercaseonly type="text" 
-                                            class="form-control"
-                                            formControlName="remarks" >
-                                        </div>
-                                    </div>  
-                                </div> 
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>ChequeNo </label>
-                                            <input  uppercaseonly type="text" 
-                                            class="form-control"
-                                            formControlName="chequeNo" >
-                                        </div>
-                                    </div> 
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label >Cheque Date </label><span style="color: red">*</span>  
-                                            <input type="date"  autofocus="autofocus" class="form-control"
-                                            placeholder="" formControlName="chequeDate"
-                                            [ngClass]=>
-                                        </div>
-                                    </div> 
-                                   
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>RefDocAttachedImage : </label>
-                                            <input #attachmentInput class="form-control" type="file"
-                                                    id="formAttFile" accept="image/*">
-                                        </div>
-                                    </div>                                        
-                                </div>                                
+                                </div>             
                             </div>                  
                             <!-- end card body -->
                         </div>                     
@@ -242,240 +162,326 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        <tr>
-                                            <td class="col-lg-2">
-                                                <label for="formrow-inputZip">
-                                                    <h6>TyreNo </h6>
-                                                </label></td>
-                                            <td class="col-lg-2">
-                                                <label for="formrow-inputZip">
-                                                    <h6>BrandID</h6>
-                                                </label></td>
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                            <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
-                                                        <h6>TyrePattern </h6>
-                                                    </label></td>
-                                                    <td class="col-lg-2">
-                                                        <label for="formrow-inputZip">
-                                                            <h6>TyreModel  </h6>
-                                                        </label></td>
-                                                        <td class="col-lg-2">
-                                                            <label for="formrow-inputZip">
-                                                                <h6>TyreAmt </h6>
-                                                            </label></td>
-                                                          
-                                                               
-                                                                    <td class="col-lg-2">
-                                                                        <label for="formrow-inputZip">
-                                                                            <h6>SgstPct </h6>
-                                                                        </label></td>
-                                                                        <td class="col-lg-2">
-                                                                            <label for="formrow-inputZip">
-                                                                                <h6>SgstAmt  </h6>
-                                                                            </label></td>
-                                                                            <td class="col-lg-2">
-                                                                                <label for="formrow-inputZip">
-                                                                                    <h6>CgstPct   </h6>
-                                                                                </label></td>
-                                                                                <td class="col-lg-2">
-                                                                                    <label for="formrow-inputZip">
-                                                                                        <h6>CgstAmt    </h6>
-                                                                                    </label></td>
-                                                                                    <td class="col-lg-2">
-                                                                                        <label for="formrow-inputZip">
-                                                                                            <h6>IgstPct     </h6>
-                                                                                        </label></td>
-                                                                                        <td class="col-lg-2">
-                                                                                            <label for="formrow-inputZip">
-                                                                                                <h6>IgstAmt      </h6>
-                                                                                            </label></td>
-                                                                                            <td class="col-lg-2">
-                                                                                                <label for="formrow-inputZip">
-                                                                                                    <h6>NetTyreAmount      </h6>
-                                                                                                </label></td>
-                                                                                                <td class="col-lg-2">
-                                                                                                    <label for="formrow-inputZip">
-                                                                                                        <h6>EstLifeKM       </h6>
-                                                                                                    </label></td>
-                                                                                                    <td class="col-lg-2">
-                                                                                                        <label for="formrow-inputZip">
-                                                                                                            <h6>RegroupAmt        </h6>
-                                                                                                        </label></td>
-                                                                                                        <td class="col-lg-2">
-                                                                                                            <label for="formrow-inputZip">
-                                                                                                                <h6>CurrentTyreStatus         </h6>
-                                                                                                            </label></td>
-                                                                                                            <td class="col-lg-2">
-                                                                                                                <label for="formrow-inputZip">
-                                                                                                                    <h6>CurrentStatusDate          </h6>
-                                                                                                                </label></td>
-                                                                                                                <td class="col-lg-2">
-                                                                                                                    <label for="formrow-inputZip">
-                                                                                                                        <h6>CurrentVehicleNo           </h6>
-                                                                                                                    </label></td>
-                                            <td class="col-lg-2">
-                                                <label for="formrow-inputZip">
-                                                    <h6>Action</h6>
-                                                </label></td>
+                                                        <h6>Tyre No </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Brand</h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Tyre Pattern </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Tyre Model  </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Tyre Amt </h6>
+                                                    </label>
+                                                </td>    
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>SGST Pct </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>SGST Amt  </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>CGST Pct   </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>CGST Amt    </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>IGST Pct     </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>IGST Amt      </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Net Tyre Amount      </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Est Life KM       </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Regroup Amt        </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Current Tyre Status         </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Current Status Date          </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Current Vehicle No           </h6>
+                                                    </label>
+                                                </td>
+                                                <td class="col-lg-2">
+                                                    <label for="formrow-inputZip">
+                                                        <h6>Action</h6>
+                                                    </label>
+                                                </td>
                                             </tr>
-                                        <tr formArrayName="tyrePurchaseList"
-                                            *ngFor="let arrayData of formTyreArray.controls; let i = index">
-                                            <div [formGroupName]="i" class="grid-table">
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="tyreNo">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <select class="form-control" formControlName="brandID"   
-                                                    class="form-control form-select ng-pristine ng-touched"   
-                                                    [ngClass]="">
-                                                        <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
-                                                           {{vehi.dataName}}
-                                                        </option>
-                                                     </select>                                                   
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="tyrePattern">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="tyreModel">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="tyreAmount">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="sgstPct">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="sgstAmt">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="cgstPct">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="cgstAmt">                                                     
-                                                   
+                                            <tr formArrayName="arrayList"
+                                                    *ngFor="let arrayData of formTyreArray.controls; let i = index">
+                                                <div [formGroupName]="i" class="grid-table">
+                                                    <td class="col-lg-2"> 
+                                                        <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)" >                                                     
                                                     
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="igstPct">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="igstAmt">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="netTyreAmount">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="estLifeKM">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="regroupAmt">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="currentTyreStatus">                                                     
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                  
-                                                    <input type="date"  autofocus="autofocus" class="form-control"
-                                                    placeholder="" formControlName="currentStatusDate"
-                                                    [ngClass]=>                                                    
-                                                   
-                                                </td>
-                                                <td class="col-lg-2"> 
-                                                    <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="currentVehicleNo">                                                     
-                                                   
-                                                </td>
-                                              
-                                                <td class="col-lg-4">
-                                                    <div class="col-lg-4 details-button">
-                                                        <button *ngIf="i === formTyreArray.controls.length-1" type="button"
-                                                            class="btn btn-add" (click)="addMiscItem(i)"></button>
-                                                        <button *ngIf="formTyreArray.controls.length > 1"
-                                                            (click)="removeMiscItem(i)" class="btn btn-delete"></button>
-                                                    </div>   
-                                                </td>
-                                            </div>
-                                        </tr>
-                                    </table>
-                                </div>
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <select class="form-control" formControlName="brandID"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="">
+                                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                         </select>  
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="tyrePattern"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <select class="form-control" formControlName="tyreModel"   
+                                                            class="form-control form-select ng-pristine ng-touched">
+                                                            <option *ngFor="let vehi of modelList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                        </select>   
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="tyreAmount" (change)="onPctChange()" >
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="sgstPct" (change)="onPctChange()" >
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="sgstAmt">  
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="cgstPct" (change)="onPctChange()" >
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="cgstAmt">  
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="igstPct" (change)="onPctChange()" >
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="igstAmt"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="netTyreAmount">    
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input numbersonly autoclose="false" class="form-control"
+                                                        formControlName="estLifeKM"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="regroupAmt"> 
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input uppercaseonly autoclose="false" class="form-control"
+                                                        formControlName="currentTyreStatus">    
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input type="date"  autofocus="autofocus" class="form-control"
+                                                        formControlName="currentStatusDate">  
+                                                    </td>
+                                                    <td class="col-lg-2"> 
+                                                        <input uppercaseonly autoclose="false" class="form-control"
+                                                        formControlName="currentVehicleNo"> 
+                                                    </td>
+                                                    <td class="col-lg-4">
+                                                        <div class="col-lg-4 details-button">
+                                                            <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                                class="btn btn-add" (click)="addItem(i)"></button>
+                                                            <button *ngIf="formTyreArray.controls.length > 1"
+                                                                (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                        </div>   
+                                                    </td>
+                                                </div>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                  <div class="row">
-                    <div class="col-sm-2">
-                        <div class="mb-3">
-                            <label>Total TyresAmt  </label>
-                            <input numbersonly maxlength="10" type="text" 
-                            class="form-control"
-                            formControlName="totalTyresAmt" >
-                        </div>
-                    </div> 
-                    <div class="col-sm-2">
-                        <div class="mb-3">
-                            <label>Total SgstAmt: </label>
-                            <input  type="text" 
-                            class="form-control" uppercaseonly
-                            formControlName="totalSgstAmt" >
-                        </div>
-                    </div> 
-                    <div class="col-sm-2">
-                        <div class="mb-3">
-                            <label>Total CgstAmt: </label>
-                            <input  type="text" 
-                            class="form-control" uppercaseonly
-                            formControlName="totalCgstAmt" >
-                        </div>
-                    </div> 
-                    <div class="col-sm-2">
-                        <div class="mb-3">
-                            <label>Total IgstAmt: </label>
-                            <input numbersonly  type="text" 
-                            class="form-control"
-                            formControlName="totalIgstAmt" >
-                        </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Tyres Amt:  </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalTyresAmt" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total SGST Amt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalSgstAmt" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total CGST Amt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalCgstAmt" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total IGST Amt: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalIgstAmt" >
+                            </div>
+                        </div>  
                     </div>  
-                </div>
-                 
-                
-                    
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Total Amt:  </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="totalAmt" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Round Off: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="roundOff" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Net Amount: </label>
+                                <input type="text" class="form-control" decimalonly
+                                formControlName="netAmount" >
+                            </div>
+                        </div> 
+                    </div>  
+                    <div class="row">                                                                        
+                        <div class="col-lg-2">
+                            <div class="mb-2">
+                                <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
+                                <select id="formrow-inputState" class="form-control" 
+                                formControlName="pmtType" (change)="changePmtType($event)"
+                                class="form-control form-select ng-pristine ng-touched"
+                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                    <option value="M">Cash</option>      
+                                    <option value="B">Bank</option> 
+                                    <option value="H">Happay</option>
+                                    <option value="D">Vendor</option>
+                                    <option value="A">Adjust</option>                                           
+                                </select>                                                
+                            </div>                                                    
+                        </div>                                      
+                        <div class="col-lg-3">
+                            <div class="mb-3">
+                                <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
+                                <select class="form-control" 
+                                    formControlName="creditAc"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
+                                        {{ac.dataName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>        
+                        <div class="col-lg-1">
+                            <div class="form-check">
+                                <input type="checkbox" formControlName="neftPmt" id="neft"
+                                    (change)="onNeftChk($event)"
+                                    name="neft"  class="form-check-input" value="Y" >
+                                <label for="neft" class="form-check-label" 
+                                style="color: green;"> Neft</label>
+                            </div>
+                        </div>   
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label>ChequeNo </label>
+                                <input  uppercaseonly type="text" class="form-control"
+                                formControlName="chequeNo" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label >Cheque Date </label>
+                                <input type="date"  autofocus="autofocus" class="form-control"
+                                formControlName="chequeDate">
+                            </div>
+                        </div>   
+                    </div> 
+                    <div class="row">                                                               
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label>Remarks: </label>
+                                <input  uppercaseonly type="text" class="form-control" maxlength="250" 
+                                formControlName="remarks" >
+                            </div>
+                        </div>                                  
+                        <div class="col-sm-4">
+                            <div class="mb-3">
+                                <label>Ref Doc Attachment : </label>
+                                <input #attachmentInput class="form-control" type="file"
+                                        id="formAttFile" accept="image/*">                                        
+                                <a *ngIf="selectedTyrePurchaseMasterDetail.refDocAttachedImage" target="_blank"
+                                        href={{refDocAttachedImage}}>Download</a>
+                            </div>
+                        </div>                                        
+                    </div>                     
                 </div>         
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                             <button class="btn btn-primary w-md" 
+                             <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                                 (click)="submitTyrePurchaseMasterForm()">Save</button>&nbsp;                            
-                            <button class="btn btn-danger w-md m-2" 
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="tyreMasterDelete()">Delete</button>&nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>

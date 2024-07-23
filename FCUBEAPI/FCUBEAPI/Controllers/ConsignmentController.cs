@@ -39,6 +39,7 @@ namespace FCUBEAPI.Controllers
         readonly ILorryHireBusiness lorryHireBusiness;
         readonly ILorryHireReqBusiness lorryHireReqBusiness;
         readonly ILorryHireAprvBusiness lorryHireAprvBusiness;
+        readonly IMrBusiness mrBusiness;
         public ConsignmentController(IOptions<DBModel> _dbconnection,
             IConsignmentBusiness _consignmentBusiness,
             IChallanMasterBusiness _challanMasterBusiness,
@@ -50,7 +51,8 @@ namespace FCUBEAPI.Controllers
             IGenerateTempGcBusiness _tempGcBusiness,
             ILorryHireBusiness _lorryHireBusiness,
             ILorryHireReqBusiness _lorryHireReqBusiness,
-            ILorryHireAprvBusiness _lorryHireAprvBusiness)
+            ILorryHireAprvBusiness _lorryHireAprvBusiness,
+            IMrBusiness _mrBusiness)
         {
             dbconnection = _dbconnection;
             consignmentBusiness = _consignmentBusiness;
@@ -64,6 +66,7 @@ namespace FCUBEAPI.Controllers
             lorryHireBusiness = _lorryHireBusiness;
             lorryHireReqBusiness = _lorryHireReqBusiness;
             lorryHireAprvBusiness = _lorryHireAprvBusiness;
+            mrBusiness = _mrBusiness;
         }
         
 
@@ -671,8 +674,15 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/dpr/confirmdoc/" + imageName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    var foldername = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/dpr/confirmdoc");
+                    var fullPath = System.IO.Path.Combine(foldername, imageName);
+                   
+                    bool exists = System.IO.Directory.Exists(foldername);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(foldername);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
                     {
                         await attachConfirmDoc.CopyToAsync(fileStream);
                         dprModel.AttachConfirmDoc = imageName;
@@ -1395,6 +1405,113 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await lorryHireAprvBusiness.LorryHireAprvDelete(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetMrMstList")]
+        public async Task<IActionResult> GetMrMstList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.GetMrMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetPartyGroupList")]
+        public async Task<IActionResult> GetPartyGroupList()
+        {
+            try
+            {
+                var result = await mrBusiness.GetPartyGroupList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetOnAcMrSearchList")]
+        public async Task<IActionResult> GetOnAcMrSearchList(DropDownListModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.GetOnAcMrSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBillLRSearchDtls")]
+        public async Task<IActionResult> GetBillLRSearchDtls(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.GetBillLRSearchDtls(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetMrInnerGridList")]
+        public async Task<IActionResult> GetMrInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.GetMrInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("MrMstSave")]
+        public async Task<IActionResult> MrMstSave(MrModel mr)
+        {
+            if (mr == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await mrBusiness.MrMstSave(mr);
 
                 return Ok(result);
             }

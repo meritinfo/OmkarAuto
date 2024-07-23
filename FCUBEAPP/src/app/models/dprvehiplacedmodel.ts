@@ -4,8 +4,11 @@ export class Dprvehiplacedmodel {
     vehiclePlacedId : string = "";
     dprId : string = "";
     dprDate : string = "";
+    payParty: string = "";
     partyName : string = "";
+    origin : string = "";		
     fromPlace : string = "";
+    destination : string = "";		
     toPlace : string = "";
     vehicleEngagedBy : string = "";
     brokerId : string = "";

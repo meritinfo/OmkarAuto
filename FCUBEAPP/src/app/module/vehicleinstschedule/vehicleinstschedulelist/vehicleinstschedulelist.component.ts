@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Vehicleinstschedulelistmodel } from 'src/app/models/vehicleinstschedulelistmodel';
 import { Vehicleinstschedulemodel } from 'src/app/models/vehicleinstschedulemodel';
 import { VehicleinstscheduleService } from 'src/app/services/vehicleinstschedule.service';
+
 @Component({
   selector: 'app-vehicleinstschedulelist',
   templateUrl: './vehicleinstschedulelist.component.html',

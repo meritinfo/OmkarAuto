@@ -27,7 +27,11 @@ namespace FleetTrans.Business
         {
             return await tyrePurchaseRepository.TyrePurchaseMasterDelete(req);
         }
-        public async Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageRequest request)
+        public async Task<ResponseModel> ChkTyreNoDuplicate(RequestModel req)
+        {
+            return await tyrePurchaseRepository.ChkTyreNoDuplicate(req);
+        }
+        public async Task<TyrePurchaseMasterList> GetTyrePurchaseMasterList(PageFromDtToDtRequest request)
         {
             return await tyrePurchaseRepository.GetTyrePurchaseMasterList(request);
         }
@@ -38,6 +42,10 @@ namespace FleetTrans.Business
         public async Task<List<DropDownListModel>> GetBrandList()
         {
             return await tyrePurchaseRepository.GetBrandList();
+        }
+        public async Task<List<DropDownListModel>> GetModelList()
+        {
+            return await tyrePurchaseRepository.GetModelList();
         }
         public async Task<List<DropDownListModel>> GetVendorList()
         {

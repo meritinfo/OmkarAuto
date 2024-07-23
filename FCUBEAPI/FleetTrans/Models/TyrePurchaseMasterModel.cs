@@ -8,70 +8,39 @@ namespace FleetTrans.Models
 {
     public class TyrePurchaseMasterModel
     {
-        public string? PurchaseMasterID { get; set; }
- 
-       public string? BranchCode { get; set; }
-
-        public string? PurchaseDate { get; set; }
-   
-
-     public string? PurchaseType { get; set; }
-
-     public string? NoVendor { get; set; }
-
-     public string? VendorId { get; set; }
-
-     public string? VendorName { get; set; }
-
-     public string? VendorAddress { get; set; }
-
-     public string? VendorGstNo { get; set; }
-
-     public string? VendorInvNo { get; set; }
-
-     public string? VendorInvDt { get; set; }
-
-
-     public string? TyreSacCode { get; set; }
-
-     public string? GstType { get; set; }
-
-     public string? TotalTyresAmt { get; set; }
-
-     public string? TotalSgstAmt { get; set; }
-
-     public string? TotalCgstAmt { get; set; }
-
-     public string? TotalIgstAmt { get; set; }
-
-     public string? TotalAmt { get; set; }
-
-     public string? RoundOff { get; set; }
-
-     public string? NetAmount { get; set; }
-
-     public string? Remarks { get; set; }
-
-     public string? PmtType { get; set; }
-
-     public string? NeftPmt { get; set; }
-
-     public string? CreditAc { get; set; }
-
-     public string? ChequeNo { get; set; }
-
-     public string? ChequeDate { get; set; }
-    
-     public string? Findocid { get; set; }
-
-     public string? FindocidJV { get; set; }
-
-     public string? RefDocAttachedImage { get; set; }
-
-     public string? YearID { get; set; }
-
-    public string? LoggedInUser { get; set; }
-    public List<TyrePurchaseDtlListmodel>? TyrePurchaseDtlList { get; set; }
+        public string? PurchaseMasterID { get; set; } 
+        public string? BranchCode { get; set; }
+        public string? PurchaseDate { get; set; }   
+        public string? PurchaseType { get; set; }
+        public string? PurchaseTp { get; set; }
+        public string? NoVendor { get; set; }
+        public string? VendorId { get; set; }
+        public string? VendorName { get; set; }
+        public string? VendorAddress { get; set; }
+        public string? VendorGstNo { get; set; }
+        public string? VendorInvNo { get; set; }
+        public string? VendorInvDt { get; set; }
+        public string? TyreSacCode { get; set; }
+        public string? GstType { get; set; }
+        public string? TotalTyresAmt { get; set; }
+        public string? TotalSgstAmt { get; set; }
+        public string? TotalCgstAmt { get; set; }
+        public string? TotalIgstAmt { get; set; }
+        public string? TotalAmt { get; set; }
+        public string? RoundOff { get; set; }
+        public string? NetAmount { get; set; }
+        public string? Remarks { get; set; }
+        public string? PmtType { get; set; }
+        public string? NeftPmt { get; set; }
+        public string? CreditAc { get; set; }
+        public string? ChequeNo { get; set; }
+        public string? ChequeDate { get; set; }    
+        public string? Findocid { get; set; }
+        public string? FindocidJV { get; set; }
+        public string? RefDocAttachedImage { get; set; }
+        public string? YearID { get; set; }
+        public string? LoggedInUser { get; set; }
+        public List<TyrePurchaseDtlListmodel>? TyrePurchaseDtlList { get; set; }
 
     }
     public class TyrePurchaseDtlListmodel

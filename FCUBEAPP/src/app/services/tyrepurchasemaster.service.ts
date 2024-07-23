@@ -20,14 +20,22 @@ export class TyrePurchaseMasterService {
        'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
     })
   }
+
+  httpformOptions = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${sessionStorage.getItem('token')?.toString()}`
+    })
+  }
+
+
   selectedTyrePurchaseMaster = new Tyrepurchasemastermodel();
   constructor(private httpClient: HttpClient) { }
+
+
   setTransportMasterDetails(tyremaster:Tyrepurchasemastermodel) {
- 
-      this.selectedTyrePurchaseMaster = tyremaster;
-    
-  
+      this.selectedTyrePurchaseMaster = tyremaster;      
   }
+
   getTyrePurchaseMasterDetails() {
     return this.selectedTyrePurchaseMaster;
   }
@@ -37,11 +45,14 @@ export class TyrePurchaseMasterService {
   TyrePurchaseMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyrePurchaseMasterDelete', req, this.httpOptions);
   }
+  chkTyreNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
+  }
   getTyrePurchaseMasterInnerGridList(request: Requestmodel): Observable<Tyrepurchaseinnergridmodel> {
     return this.httpClient.post<Tyrepurchaseinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterInnerGridList', request, this.httpOptions);
   }
-  tyrePurchaseMasterSubmitted(user:Tyrepurchasemastermodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyrePurchaseMasterSave', user, this.httpOptions);
+  tyrePurchaseMasterSubmitted(user: FormData): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyrePurchaseMasterSave', user, this.httpformOptions);
   }
   getTyrePurchaseMasterList(filter: Filtermodel): Observable<Tyrepurchasemasterlistmodel> {
     return this.httpClient.post<Tyrepurchasemasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterList', filter, this.httpOptions);

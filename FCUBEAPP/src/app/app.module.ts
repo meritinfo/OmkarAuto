@@ -291,6 +291,9 @@ import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinst
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 import { Companyinfomodel } from './models/companyinfomodel';
+import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
+import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
+import { Mrmodel } from './models/mrmodel';
 
 @NgModule({
   declarations: [
@@ -384,8 +387,12 @@ import { Companyinfomodel } from './models/companyinfomodel';
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
-    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent, VehicleinstpmtaddComponent,  VehicleinstpmtlistComponent, 
-    BalanacerptComponent,CompanyinfoaddComponent,
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
+    BalanacerptComponent,LrbillupdateComponent,
+    VehicleinstpmtaddComponent, 
+    VehicleinstpmtlistComponent,
+    CompanyinfoaddComponent,
+    MraddComponent, MrlistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -435,6 +442,10 @@ import { Companyinfomodel } from './models/companyinfomodel';
     Custwizardmodel,Gstsalesregisterrptmodel,Truckmastermodel,Classificationmastermodel,
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
+    Billsmastermodel,Billstypemodel,
+    Tyrepurchasemastermodel,Companyinfomodel,
+    Mrmodel  
+  ],
     Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Companyinfomodel],
   bootstrap: [AppComponent]
