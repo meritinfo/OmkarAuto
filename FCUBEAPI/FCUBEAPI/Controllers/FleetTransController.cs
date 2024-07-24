@@ -12,6 +12,7 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Org.BouncyCastle.Ocsp;
+using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1645,8 +1646,12 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTyreActivateMasterList")]
-        public async Task<IActionResult> GetTyreActivateMasterList(PageRequest request)
+        public async Task<IActionResult> GetTyreActivateMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreActivateMasterBusiness.GetTyreActivateMasterList(request);
@@ -1676,9 +1681,14 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyreActivateMasterInnerGridList")]
         public async Task<IActionResult> GetTyreActivateMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreActivateMasterBusiness.GetTyreActivateMasterInnerGridList(request);
@@ -1690,6 +1700,41 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetTyrePositionList")]
+        public async Task<IActionResult> GetTyrePositionList()
+        {
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetTyrePositionList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetBrandTyreNoList")]
+        public async Task<IActionResult> GetBrandTyreNoList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreActivateMasterBusiness.GetBrandTyreNoList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("TyreDeActivateMasterSave")]
         public async Task<IActionResult> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel)
         {
@@ -1708,9 +1753,14 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyreDeActivateMasterList")]
-        public async Task<IActionResult> GetTyreDeActivateMasterList(PageRequest request)
+        public async Task<IActionResult> GetTyreDeActivateMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreDeActivateMasterBusiness.GetTyreDeActivateMasterList(request);
@@ -1721,9 +1771,8 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
+
         [HttpPost("TyreDeActivateMasterDelete")]
         public async Task<IActionResult> TyreDeActivateMasterDelete(RequestModel req)
         {
@@ -1742,9 +1791,14 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyreDeActivateMasterInnerGridList")]
         public async Task<IActionResult> GetTyreDeActivateMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreDeActivateMasterBusiness.GetTyreDeActivateMasterInnerGridList(request);
@@ -1756,6 +1810,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBrandActTyreNoList")]
+        public async Task<IActionResult> GetBrandActTyreNoList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreDeActivateMasterBusiness.GetBrandActTyreNoList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }        
+
         [HttpPost("TyreRegroupIssueMasterSave")]
         public async Task<IActionResult> TyreRegroupIssueMasterSave(TyreRegroupIssueMasterModel tyreRegroupIssueMasterModel)
         {
@@ -1774,9 +1847,14 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyreRegroupIssueMasterList")]
-        public async Task<IActionResult> GetTyreRegroupIssueMasterList(PageRequest request)
+        public async Task<IActionResult> GetTyreRegroupIssueMasterList(PageFromDtToDtRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreRegroupIssueMasterBusiness.GetTyreRegroupIssueMasterList(request);
@@ -1787,9 +1865,8 @@ namespace FCUBEAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
+
         [HttpPost("TyreRegroupIssueMasterDelete")]
         public async Task<IActionResult> TyreRegroupIssueMasterDelete(RequestModel req)
         {
@@ -1811,6 +1888,10 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetRegroupIssueMasterInnerGridList")]
         public async Task<IActionResult> GetTyreRegroupIssueMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreRegroupIssueMasterBusiness.GetTyreRegroupIssueMasterInnerGridList(request);

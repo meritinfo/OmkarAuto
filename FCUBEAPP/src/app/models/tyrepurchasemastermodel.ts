@@ -52,8 +52,4 @@ export class Tyrepurchasemastermodel {
        igstAmt :  string="";
        netTyreAmount :  string="";
        estLifeKM :  string="";
-       regroupAmt :  string="";
-       currentTyreStatus :  string="";
-       currentStatusDate :  string="";
-       currentVehicleNo :  string ="";
       }

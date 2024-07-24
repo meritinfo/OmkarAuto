@@ -71,7 +71,7 @@ export class TyrepurchasemasterlistComponent {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    today.setMonth(month - 1);
+    today.setMonth(month - 12);
     
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -146,13 +146,13 @@ export class TyrepurchasemasterlistComponent {
   }
 
   addTyrePurchaseMaster(): void {
-    this.route.navigate(['/tyrepurchasemasteradd']);
+    this.route.navigate(['/tyrepurchaseadd']);
   } 
   
   //Open user details screen
-  getTyrePurchaseMasterDetails(Destination: Tyrepurchasemastermodel): void {
-    this.tyrePurchaseMasterService.setTransportMasterDetails(Destination);
-    this.route.navigate(['/tyrepurchasemasteredit']);
+  getTyrePurchaseMasterDetails(tyre: Tyrepurchasemastermodel): void {
+    this.tyrePurchaseMasterService.setTyrePurchaseDetails(tyre);
+    this.route.navigate(['/tyrepurchaseedit']);
   }
 
   search(): void {

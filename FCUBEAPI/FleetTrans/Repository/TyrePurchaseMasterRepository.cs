@@ -1,5 +1,4 @@
-﻿using FleetMasters.Models;
-using FleetTrans.Models;
+﻿using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
 using SqlHelper.Models;
@@ -99,11 +98,11 @@ namespace FleetTrans.Repository
             }
             return tyrePurchaseMasterList;
         }
-        public async Task<TyrePurchaseMasterInnerGridModel> GetTyrePurchaseMasterInnerGridList(RequestModel request)
+        public async Task<TyrePurchaseMasterModel> GetTyrePurchaseMasterInnerGridList(RequestModel request)
         {
-            TyrePurchaseMasterInnerGridModel tyrePurchaseMasterInnerGridList = new()
+            TyrePurchaseMasterModel tyrePurchaseMasterInnerGridList = new()
             {
-                TyrePurchaseList = new List<TyrePurchaseDtlListmodel>(),
+                TyrePurchaseDtlList = new List<TyrePurchaseDtlListmodel>(),
             };
             try
             {
@@ -112,7 +111,6 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@PurchaseMasterID", request.strRequest),
-
                         };
 
                     var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyrePurchaseMasterInnerGridList", param);
@@ -121,7 +119,7 @@ namespace FleetTrans.Repository
                     {
                         for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
                         {
-                            tyrePurchaseMasterInnerGridList.TyrePurchaseList.Add(new TyrePurchaseDtlListmodel
+                            tyrePurchaseMasterInnerGridList.TyrePurchaseDtlList.Add(new TyrePurchaseDtlListmodel
                             {
                                 TyreId = Convert.ToString(resultData.Tables[0].Rows[i]["TyreId"]),
                                 PurchaseMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["PurchaseMasterID"]),
@@ -138,12 +136,7 @@ namespace FleetTrans.Repository
                                 IgstPct = Convert.ToString(resultData.Tables[0].Rows[i]["IgstPct"]),
                                 IgstAmt = Convert.ToString(resultData.Tables[0].Rows[i]["IgstAmt"]),
                                 NetTyreAmount = Convert.ToString(resultData.Tables[0].Rows[i]["NetTyreAmount"]),
-                                EstLifeKM = Convert.ToString(resultData.Tables[0].Rows[i]["EstLifeKM"]),
-                                RegroupAmt = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupAmt"]),
-                                CurrentTyreStatus = Convert.ToString(resultData.Tables[0].Rows[i]["CurrentTyreStatus"]),
-                                CurrentStatusDate = Convert.ToString(resultData.Tables[0].Rows[i]["CurrentStatusDate"]),
-                                CurrentVehicleNo = Convert.ToString(resultData.Tables[0].Rows[i]["CurrentVehicleNo"]),
-
+                                EstLifeKM = Convert.ToString(resultData.Tables[0].Rows[i]["EstLifeKM"]),                              
                             });
                         }
                     }
@@ -214,6 +207,8 @@ namespace FleetTrans.Repository
                             for (int i = 0; i < tyrePurchaseMasterModel.TyrePurchaseDtlList.Count; i++)
                             {
                                 tyrePurchaseMasterModel.TyrePurchaseDtlList[i].PurchaseMasterID = PurchaseMasterID;
+                                tyrePurchaseMasterModel.TyrePurchaseDtlList[i].PurchaseDate = tyrePurchaseMasterModel.PurchaseDate;
+
                                 responseModel = await TyrePurchaseMasterDetailSave(transaction, tyrePurchaseMasterModel.TyrePurchaseDtlList[i]);
                                 if (!responseModel.Status)
                                 {
@@ -261,12 +256,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@IgstPct",            tyrePurchaseDtlListmodel.IgstPct) ,
                             new SqlParameter("@IgstAmt",            tyrePurchaseDtlListmodel.IgstAmt) ,
                             new SqlParameter("@NetTyreAmount",      tyrePurchaseDtlListmodel.NetTyreAmount) ,
-                            new SqlParameter("@EstLifeKM",          tyrePurchaseDtlListmodel.EstLifeKM) ,
-                            new SqlParameter("@RegroupAmt",         tyrePurchaseDtlListmodel.RegroupAmt) ,
-                            new SqlParameter("@CurrentTyreStatus",  tyrePurchaseDtlListmodel.CurrentTyreStatus) ,
-                            new SqlParameter("@CurrentStatusDate",  tyrePurchaseDtlListmodel.CurrentStatusDate) ,
-                            new SqlParameter("@CurrentVehicleNo",   tyrePurchaseDtlListmodel.CurrentVehicleNo) 
-                    
+                            new SqlParameter("@EstLifeKM",          tyrePurchaseDtlListmodel.EstLifeKM) ,                           
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyrePurchaseDetailSave", param);

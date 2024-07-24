@@ -1,14 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import {Tyrepurchasemastermodel } from '../models/tyrepurchasemastermodel';
-import {Tyrepurchaseinnergridmodel } from 'src/app/models/tyrepurchaseinnergridmodel';
+import { Tyrepurchasemastermodel } from '../models/tyrepurchasemastermodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
-import {Tyrepurchasemasterlistmodel } from '../models/tyrepurchasemastermodellist';
-import {Transportmasterinnergridmodel } from '../models/transportmasterinnergridmodel';
+import { Tyrepurchasemasterlistmodel } from '../models/tyrepurchasemastermodellist';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +30,7 @@ export class TyrePurchaseMasterService {
   constructor(private httpClient: HttpClient) { }
 
 
-  setTransportMasterDetails(tyremaster:Tyrepurchasemastermodel) {
+  setTyrePurchaseDetails(tyremaster:Tyrepurchasemastermodel) {
       this.selectedTyrePurchaseMaster = tyremaster;      
   }
 
@@ -48,14 +46,13 @@ export class TyrePurchaseMasterService {
   chkTyreNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
   }
-  getTyrePurchaseMasterInnerGridList(request: Requestmodel): Observable<Tyrepurchaseinnergridmodel> {
-    return this.httpClient.post<Tyrepurchaseinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterInnerGridList', request, this.httpOptions);
+  getTyrePurchaseMasterInnerGridList(request: Requestmodel): Observable<Tyrepurchasemastermodel> {
+    return this.httpClient.post<Tyrepurchasemastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterInnerGridList', request, this.httpOptions);
   }
   tyrePurchaseMasterSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyrePurchaseMasterSave', user, this.httpformOptions);
   }
   getTyrePurchaseMasterList(filter: Filtermodel): Observable<Tyrepurchasemasterlistmodel> {
     return this.httpClient.post<Tyrepurchasemasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePurchaseMasterList', filter, this.httpOptions);
-  }
-  
+  }  
 }

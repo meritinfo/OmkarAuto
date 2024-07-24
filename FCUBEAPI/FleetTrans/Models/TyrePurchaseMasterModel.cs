@@ -61,9 +61,5 @@ namespace FleetTrans.Models
         public string? IgstAmt { get; set; }
         public string? NetTyreAmount { get; set; }
         public string? EstLifeKM { get; set; }
-        public string? RegroupAmt { get; set; }
-        public string? CurrentTyreStatus { get; set; }
-        public string? CurrentStatusDate { get; set; }
-        public string? CurrentVehicleNo { get; set; }
     }
 }

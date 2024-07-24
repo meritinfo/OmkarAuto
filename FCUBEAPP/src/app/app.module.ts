@@ -279,9 +279,6 @@ import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyr
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
-import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
-import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
-import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
@@ -294,6 +291,15 @@ import { Companyinfomodel } from './models/companyinfomodel';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
 import { Mrmodel } from './models/mrmodel';
+import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
+import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
+import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
+import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/tyreativatelist.component';
+import { TyreativateaddComponent } from './module/tyreactivate/tyreativateadd/tyreativateadd.component';
+import { Tyreactivatemastermodel } from './models/tyreactivatemastermodel';
+import { TyredeativatelistComponent } from './module/tyredeactivate/tyredeativatelist/tyredeativatelist.component';
+import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativateadd/tyredeativateadd.component';
+// import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 
 @NgModule({
   declarations: [
@@ -392,7 +398,9 @@ import { Mrmodel } from './models/mrmodel';
     VehicleinstpmtaddComponent, 
     VehicleinstpmtlistComponent,
     CompanyinfoaddComponent,
-    MraddComponent, MrlistComponent ,
+    MraddComponent, MrlistComponent, 
+    TyreativatelistComponent, TyreativateaddComponent, 
+    TyredeativatelistComponent, TyredeativateaddComponent ,
   ],
   imports: [
     BrowserModule,
@@ -444,10 +452,9 @@ import { Mrmodel } from './models/mrmodel';
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel,
     Tyrepurchasemastermodel,Companyinfomodel,
-    Mrmodel  
+    Mrmodel  ,Vehicleinstpmtmodel,Tyreactivatemastermodel,
+  
   ],
-    Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
-    Tyrepurchasemastermodel,Companyinfomodel],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

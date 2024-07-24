@@ -6,7 +6,6 @@ import { Responsemodel } from 'src/app/models/responsemodel';
 import { Tyrepurchasemastermodel } from 'src/app/models/tyrepurchasemastermodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TyrePurchaseMasterService } from 'src/app/services/tyrepurchasemaster.service';
-import { Tyrepurchaseinnergridmodel } from 'src/app/models/tyrepurchaseinnergridmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
@@ -42,7 +41,7 @@ export class TyrepurchasemasteraddComponent {
   locationList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
   creditAcList: Dropdownmodel[] = [];
-  tyrepurchaseinnergridmodel = new Tyrepurchaseinnergridmodel();
+  tyrepurchasemodel = new Tyrepurchasemastermodel();
   refDocAttachedImage: string = "";
 
   @ViewChild('attachmentInput', {
@@ -104,7 +103,7 @@ export class TyrepurchasemasteraddComponent {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    today.setMonth(month - 1);
+    today.setMonth(month - 12);
     this.fromDate = today.toLocaleDateString('en-CA').toString();
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -140,7 +139,6 @@ export class TyrepurchasemasteraddComponent {
 
       arrayList: this.formBuilder.array([this.createTyreArray()]),
     });
-
     
     this.getBrandList();
     this.getVendorList();
@@ -252,9 +250,6 @@ export class TyrepurchasemasteraddComponent {
 
   createTyreArray() {
     return this.formBuilder.group({
-      tyreId: [''],
-      purchaseMasterID: [''],
-      purchaseDate: [''],
       brandID: [''],
       tyreNo: [''],
       tyrePattern: [''],
@@ -268,10 +263,6 @@ export class TyrepurchasemasteraddComponent {
       igstAmt: [''],
       netTyreAmount: [''],
       estLifeKM: [''],
-      regroupAmt: [''],
-      currentTyreStatus: [''],
-      currentStatusDate: [''],
-      currentVehicleNo: [''],
     });
   }
 
@@ -366,30 +357,25 @@ export class TyrepurchasemasteraddComponent {
   }
     
   getTyrePurchaseMasterInnerGridList(): void {
-    this.requestmodel.strRequest=this.selectedTyrePurchaseMasterDetail.purchaseMasterID 
+    this.requestmodel.strRequest = this.selectedTyrePurchaseMasterDetail.purchaseMasterID; 
     this.tyrePurchaseMasterService.getTyrePurchaseMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
-      this.tyrepurchaseinnergridmodel = res;
-      for (var i = 0; i < res.tyrePurchaseList.length; i++) {
+      this.tyrepurchasemodel = res;
+      for (var i = 0; i < res.tyrePurchaseDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
-        this.formTyreArray.controls[i].get("purchaseDate")?.setValue(this.commonService.formatDate(res.tyrePurchaseList[i].purchaseDate));
-        this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseList[i].brandID);
-        this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseList[i].tyreNo);  
-        this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseList[i].tyrePattern); 
-        this.formTyreArray.controls[i].get("tyreModel")?.setValue(res.tyrePurchaseList[i].tyreModel);  
-        this.formTyreArray.controls[i].get("tyreAmount")?.setValue(res.tyrePurchaseList[i].tyreAmount);   
-        this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.tyrePurchaseList[i].sgstPct);  
-        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.tyrePurchaseList[i].sgstAmt);    
-        this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.tyrePurchaseList[i].cgstPct);  
-        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.tyrePurchaseList[i].cgstAmt);   
-        this.formTyreArray.controls[i].get("igstPct")?.setValue(res.tyrePurchaseList[i].igstPct);  
-        this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.tyrePurchaseList[i].igstAmt);  
-        this.formTyreArray.controls[i].get("netTyreAmount")?.setValue(res.tyrePurchaseList[i].netTyreAmount);  
-        this.formTyreArray.controls[i].get("estLifeKM")?.setValue(res.tyrePurchaseList[i].estLifeKM); 
-        this.formTyreArray.controls[i].get("regroupAmt")?.setValue(res.tyrePurchaseList[i].regroupAmt); 
-        this.formTyreArray.controls[i].get("currentTyreStatus")?.setValue(res.tyrePurchaseList[i].currentTyreStatus); 
-        this.formTyreArray.controls[i].get("currentStatusDate")?.setValue(this.commonService.formatDate(res.tyrePurchaseList[i].currentStatusDate));
-        this.formTyreArray.controls[i].get("currentVehicleNo")?.setValue(res.tyrePurchaseList[i].currentVehicleNo); 
+        this.formTyreArray.controls[i].get("brandID")?.setValue(res.tyrePurchaseDtlList[i].brandID);
+        this.formTyreArray.controls[i].get("tyreNo")?.setValue(res.tyrePurchaseDtlList[i].tyreNo);  
+        this.formTyreArray.controls[i].get("tyrePattern")?.setValue(res.tyrePurchaseDtlList[i].tyrePattern); 
+        this.formTyreArray.controls[i].get("tyreModel")?.setValue(res.tyrePurchaseDtlList[i].tyreModel);  
+        this.formTyreArray.controls[i].get("tyreAmount")?.setValue(res.tyrePurchaseDtlList[i].tyreAmount);   
+        this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.tyrePurchaseDtlList[i].sgstPct);  
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.tyrePurchaseDtlList[i].sgstAmt);    
+        this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.tyrePurchaseDtlList[i].cgstPct);  
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.tyrePurchaseDtlList[i].cgstAmt);   
+        this.formTyreArray.controls[i].get("igstPct")?.setValue(res.tyrePurchaseDtlList[i].igstPct);  
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.tyrePurchaseDtlList[i].igstAmt);  
+        this.formTyreArray.controls[i].get("netTyreAmount")?.setValue(res.tyrePurchaseDtlList[i].netTyreAmount);  
+        this.formTyreArray.controls[i].get("estLifeKM")?.setValue(res.tyrePurchaseDtlList[i].estLifeKM);  
       
         this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
         this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
@@ -646,6 +632,7 @@ export class TyrepurchasemasteraddComponent {
     this.tyrepurchasemastermodel.chequeDate = selectedDataValue.chequeDate;
     this.tyrepurchasemastermodel.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
     this.tyrepurchasemastermodel.yearID = this.year;
+    this.tyrepurchasemastermodel.loggedInUser = this.loggedInUserID;
 
     if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
       this.toastrService.warning("Total Net Amount should not be zero");
@@ -653,7 +640,7 @@ export class TyrepurchasemasteraddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" && selectedDataValue.arrayList[i].tyreAmount=="" ) {
+      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
@@ -675,10 +662,6 @@ export class TyrepurchasemasteraddComponent {
           'igstAmt': selectedDataValue.arrayList[i].igstAmt.toString(),
           'netTyreAmount': selectedDataValue.arrayList[i].netTyreAmount.toString(),
           'estLifeKM': selectedDataValue.arrayList[i].estLifeKM.toString(),
-          'regroupAmt': selectedDataValue.arrayList[i].regroupAmt.toString(),
-          'currentTyreStatus': selectedDataValue.arrayList[i].currentTyreStatus,
-          'currentStatusDate': selectedDataValue.arrayList[i].currentStatusDate,
-          'currentVehicleNo': selectedDataValue.arrayList[i].currentVehicleNo.toString().toUpperCase(),
         }) 
       }   
     } 

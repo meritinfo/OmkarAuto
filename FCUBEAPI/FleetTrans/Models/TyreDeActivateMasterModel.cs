@@ -12,7 +12,8 @@ namespace FleetTrans.Models
         public string? DeActivateDate { get; set; }
         public string? RefNo { get; set; }
         public string? VehicleMasterid { get; set; }
-        public string? KMR { get; set; }
+        public string? VehicleNo { get; set; }
+        public string? Kmr { get; set; }
         public string? InspectedBy { get; set; }
         public string? RemovedBy { get; set; }
         public string? Remarks { get; set; }
@@ -25,14 +26,13 @@ namespace FleetTrans.Models
     }
     public class TyreDeActivateDtlListmodel
     {
-        public string? DeActivateDtlID { get; set; }
         public string? DeActivateMasterID { get; set; }
         public string? DeActivateDate { get; set; }
         public string? VehicleMasterid { get; set; }
         public string? BrandId { get; set; }
         public string? TyreId { get; set; }
         public string? RemoveStatus { get; set; }
-        public string?UsableAmount { get; set; }
+        public string? UsableAmount { get; set; }
         public string? Remarks { get; set; }
     }
 

@@ -162,6 +162,10 @@ import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
+import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/tyreativatelist.component';
+import { TyreativateaddComponent } from './module/tyreactivate/tyreativateadd/tyreativateadd.component';
+import { TyredeativatelistComponent } from './module/tyredeactivate/tyredeativatelist/tyredeativatelist.component';
+import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativateadd/tyredeativateadd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -370,9 +374,6 @@ const routes: Routes = [
   { path: 'maintmasterlist', component:  MaintanencemasterlistComponent },
   { path: 'maintanencemasteradd', component:  MaintanencemasteraddComponent },
   { path: 'maintanencemasteredit', component:  MaintanencemasteraddComponent },
-  { path: 'tyrepurchaselist', component:  TyrepurchasemasterlistComponent },
-  { path: 'tyrepurchasemasteradd', component:  TyrepurchasemasteraddComponent },
-  { path: 'tyrepurchasemasteredit', component:  TyrepurchasemasteraddComponent }, 
   { path: 'lhpmtlist', component:  LorryhirepmtlistComponent },
   { path: 'lhpmtadd', component:  LorryhirepmtaddComponent },
   { path: 'lhpmtedit', component:  LorryhirepmtaddComponent },
@@ -395,6 +396,15 @@ const routes: Routes = [
   { path: 'emipmtlist', component:  VehicleinstpmtlistComponent},
   { path: 'vehicleinstpmtadd', component:  VehicleinstpmtaddComponent},
   { path: 'vehicleinstpmtedit', component:  VehicleinstpmtaddComponent},
+  { path: 'tyrepurchaselist', component:  TyrepurchasemasterlistComponent },
+  { path: 'tyrepurchaseadd', component:  TyrepurchasemasteraddComponent },
+  { path: 'tyrepurchaseedit', component:  TyrepurchasemasteraddComponent }, 
+  { path: 'tyreactivatelist', component:  TyreativatelistComponent },
+  { path: 'tyreactivateadd', component:  TyreativateaddComponent },
+  { path: 'tyreactivateedit', component:  TyreativateaddComponent }, 
+  { path: 'tyredeactlist', component:   TyredeativatelistComponent},
+  { path: 'tyredeactadd', component:  TyredeativateaddComponent },
+  { path: 'tyredeactedit', component:  TyredeativateaddComponent }, 
 ];
 
 @NgModule({

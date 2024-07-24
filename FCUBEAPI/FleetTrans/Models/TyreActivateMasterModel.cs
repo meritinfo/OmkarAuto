@@ -12,6 +12,7 @@ namespace FleetTrans.Models
         public string? ActivateDate{ get; set; }
         public string? RefNo { get; set; }
         public string? VehicleMasterid { get; set; }
+        public string? VehicleNo { get; set; }
         public string? Kmr { get; set; }
         public string? InspectedBy { get; set; }
         public string? FittedBy { get; set; }
@@ -23,12 +24,11 @@ namespace FleetTrans.Models
         public string? Findocid { get; set; }
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
-        public List<TyreActivateDtlListmodel>? TyreActivateDtlList { get; set; }
+        public List<TyreActivateDtlmodel>? TyreActivateDtlList { get; set; }
 
     }
-    public class TyreActivateDtlListmodel
+    public class TyreActivateDtlmodel
     {
-        public string? ActivateDtlID { get; set; }
         public string? ActivateMasterID { get; set; }
         public string? ActivateDate { get; set; }
         public string? VehicleMasterid { get; set; }

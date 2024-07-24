@@ -11,10 +11,9 @@ namespace FleetTrans.Business
 {
     public interface ITyreRegroupIssueMasterBusiness
     {
+        Task<TyreRegroupIssueMasterList> GetTyreRegroupIssueMasterList(PageFromDtToDtRequest request); 
+        Task<TyreRegroupIssueMasterModel> GetTyreRegroupIssueMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreRegroupIssueMasterSave(TyreRegroupIssueMasterModel tyreRegroupIssueMasterModel);
-       // Task<ResponseModel> TyreRegroupIssueMasterDetailSave(SqlTransaction transaction, TyreRegroupIssueDtlListmodel tyreRegroupIssueDtlListmodel);
-        Task<TyreRegroupIssueMasterInnerGridModel> GetTyreRegroupIssueMasterInnerGridList(RequestModel request);
-        Task<TyreRegroupIssueMasterList> GetTyreRegroupIssueMasterList(PageRequest request);
         Task<ResponseModel> TyreRegroupIssueMasterDelete(RequestModel req);
     }
 }
