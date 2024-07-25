@@ -4,18 +4,18 @@ import { Router } from '@angular/router';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
-import { Tyreactivatemastermodel } from 'src/app/models/tyreactivatemastermodel';
-import { TyreactivateService } from 'src/app/services/tyreactivate.service';
+import { Tyreregroupissuemastermodel } from 'src/app/models/tyreregroupissuemastermodel';
+import { TyreregroupissueService } from 'src/app/services/tyreregroupissue.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 import { Constants } from 'src/app/common/constants';
 
 @Component({
-  selector: 'app-tyreativateadd',
-  templateUrl: './tyreativateadd.component.html',
-  styleUrls: ['./tyreativateadd.component.css']
+  selector: 'app-tyreregroupissueadd',
+  templateUrl: './tyreregroupissueadd.component.html',
+  styleUrls: ['./tyreregroupissueadd.component.css']
 })
-export class TyreativateaddComponent {
+export class TyreregroupissueaddComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
   year: string = '';
@@ -34,20 +34,19 @@ export class TyreativateaddComponent {
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
   brandList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
-  positionList: Dropdownmodel[] = [];
+  vendorList: Dropdownmodel[] = [];
   tyreList: Dropdownmodel[] = [];
-  tyreactivate = new Tyreactivatemastermodel();
+  tyreregroupissue = new Tyreregroupissuemastermodel();
   refDocAttachedImage: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
   }) attachmentInput: any;
 
-  selectedTyreactivateDetail = new Tyreactivatemastermodel();
+  selectedTyreregroupissueDetail = new Tyreregroupissuemastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
-    private tyreactivateService: TyreactivateService, 
+    private tyreregroupissueService: TyreregroupissueService, 
     private commonService: CommonService,private toastrService: ToastrService,
     private requestmodel:Requestmodel) {
   }
@@ -58,7 +57,7 @@ export class TyreativateaddComponent {
       var privilegeData = JSON.parse(menuData);
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Activate Tyres");
+      .find((aa: { menuName: string; }) => aa.menuName === "Issue for Rethread");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -102,18 +101,12 @@ export class TyreativateaddComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
  
-    this.selectedTyreactivateDetail = this.tyreactivateService.getTyreactivateMasterDetails();
+    this.selectedTyreregroupissueDetail = this.tyreregroupissueService.getTyreregroupissueMasterDetails();
     this.formUser = this.formBuilder.group({
       branchCode : new FormControl(this.branch,[Validators.required]),
-      activateDate : new FormControl(this.loginDate,[Validators.required]),
-      vehicleMasterid  : new FormControl('',[Validators.required]),
-      refNo : new FormControl('',),
-      kmr : new FormControl('',),
-      inspectedBy : new FormControl('',),
-      fittedBy : new FormControl('',),
-      tyreAmt : new FormControl('',[Validators.required]),
-      othAmt : new FormControl('',),
-      netAmt : new FormControl('',[Validators.required]),
+      regroupIssDate : new FormControl(this.loginDate,[Validators.required]),
+      vendorId  : new FormControl('',[Validators.required]),
+      issueIncharge : new FormControl('',),
       remarks : new FormControl('',),      
 
       arrayList: this.formBuilder.array([this.createTyreArray()]),
@@ -121,21 +114,18 @@ export class TyreativateaddComponent {
     
     this.getBrandList();
     this.getBranchList();
-    this.getVehicleNoList();
-    this.getTyrePositionList();
+    this.getVendorList();
 
-    this.formUser.controls["tyreAmt"].disable();
-    this.formUser.controls["netAmt"].disable();
     this.formUser.controls["branchCode"].disable();
 
-    if (this.selectedTyreactivateDetail.activateMasterID  != '') {
+    if (this.selectedTyreregroupissueDetail.regroupIssMasterID  != '') {
       setTimeout(() => {
-        this.formUser.patchValue(this.selectedTyreactivateDetail);
+        this.formUser.patchValue(this.selectedTyreregroupissueDetail);
         this.formUser.patchValue({
-          activateDate: this.commonService.formatDate(this.selectedTyreactivateDetail.activateDate),
-          vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedTyreactivateDetail.vehicleMasterid),
+          regroupIssDate: this.commonService.formatDate(this.selectedTyreregroupissueDetail.regroupIssDate),
+          vendorId: this.vendorList.find(e => e.dataId == this.selectedTyreregroupissueDetail.vendorId),
         })      
-        this.getTyreActivateInnerGridList();
+        this.getRegroupIssInnerGridList();
         this.editMode =true;
       }, 2000);  
     }
@@ -167,8 +157,6 @@ export class TyreativateaddComponent {
     return this.formBuilder.group({
       brandId: [''],
       tyreId: [''],
-      tyrePosID: [''],
-      tyreCostAmt: [''],
       remarks: [''],
     });
   }
@@ -179,11 +167,11 @@ export class TyreativateaddComponent {
     });
   }
   
-  getVehicleNoList(): void {
-    this.commonService.getVehicleIdList().subscribe((res) => {
-      this.vehicleList = res;
+  getVendorList(): void {
+    this.commonService.getVendorList().subscribe((res) => {
+      this.vendorList = res;
     });
-  }
+  }  
 
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
@@ -191,59 +179,27 @@ export class TyreativateaddComponent {
     });
   }
 
-  getTyrePositionList(): void {
-    this.commonService.getTyrePositionList().subscribe((res) => {
-      this.positionList = res;
-    });
-  }
 
-  getTyreActivateInnerGridList(): void {
-    this.requestmodel.strRequest = this.selectedTyreactivateDetail.activateMasterID; 
-    this.tyreactivateService.getTyreactivateMasterInnerGridList(this.requestmodel).subscribe((res) => {
+  getRegroupIssInnerGridList(): void {
+    this.requestmodel.strRequest = this.selectedTyreregroupissueDetail.regroupIssMasterID; 
+    this.tyreregroupissueService.getTyreregroupissueMasterInnerGridList(this.requestmodel).subscribe((res) => {
       this.formTyreArray.clear();
-      this.tyreactivate = res;
-      for (var i = 0; i < res.tyreActivateDtlList.length; i++) {
+      this.tyreregroupissue = res;
+      for (var i = 0; i < res.tyreRegroupIssueDtlList.length; i++) {
         this.formTyreArray.push(this.createTyreArray());
-        this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreActivateDtlList[i].brandId);
-        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreActivateDtlList[i].tyreId);  
-        this.formTyreArray.controls[i].get("tyrePosID")?.setValue(res.tyreActivateDtlList[i].tyrePosID); 
-        this.formTyreArray.controls[i].get("tyreCostAmt")?.setValue(res.tyreActivateDtlList[i].tyreCostAmt);  
-        this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreActivateDtlList[i].remarks);  
+        this.formTyreArray.controls[i].get("brandId")?.setValue(res.tyreRegroupIssueDtlList[i].brandId);
+        this.formTyreArray.controls[i].get("tyreId")?.setValue(res.tyreRegroupIssueDtlList[i].tyreId);  
+        this.formTyreArray.controls[i].get("remarks")?.setValue(res.tyreRegroupIssueDtlList[i].remarks);  
       }     
     });
   }
 
-  onAmtChange(){
-    var totalTyresAmt = 0;
-    var netTyreAmount = 0;
-    
-    var selectedDate = this.formUser.getRawValue();
-
-    for (var i = 0; i < this.formTyreArray.controls.length; i++) {
-      if (selectedDate.arrayList[i].tyreCostAmt!="") {
-        totalTyresAmt = totalTyresAmt + parseFloat(selectedDate.arrayList[i].tyreCostAmt);   
-      }
-    }  
-
-    netTyreAmount = totalTyresAmt ;
-
-    if(selectedDate.othAmt!="") {
-      netTyreAmount = netTyreAmount + parseFloat(selectedDate.othAmt);
-    }
-   
-    this.formUser.patchValue({
-      tyreAmt : totalTyresAmt.toFixed(2),
-      netAmt: netTyreAmount.toFixed(2),
-    });
-  }  
-
   addItem(i: number): void {    
-    if (this.formTyreArray.value[i].brandId != "" && this.formTyreArray.value[i].tyreId!="" && 
-                this.formTyreArray.value[i].tyrePosID!="") {
+    if (this.formTyreArray.value[i].brandId != "" && this.formTyreArray.value[i].tyreId!="" ) {
       this.formTyreArray.push(this.createTyreArray());       
     } 
     else {
-      this.toastrService.warning("Please Enter Tyre Activate Details");
+      this.toastrService.warning("Please Enter Tyre De-Activate Details");
     }
   }
   
@@ -253,22 +209,22 @@ export class TyreativateaddComponent {
 
   getTyreNo(j: number,e: any){   
     this.requestmodel.strRequest = e.target.value; 
-    this.requestmodel.strRequest1 = ""; 
-    this.tyreactivateService.getBrandTyreNoList(this.requestmodel).subscribe((res) => {
+    this.requestmodel.strRequest1 = "I" ; 
+    this.tyreregroupissueService.getBrandTyreNoList(this.requestmodel).subscribe((res) => {
       this.tyreList = res;
     });
   }
   
-  tyreActivateDelete(): void {
-    if(this.selectedTyreactivateDetail.activateMasterID  != '' ){
-     this.requestmodel.strRequest = this.selectedTyreactivateDetail.activateMasterID; 
+  tyreRegroupIssueDelete(): void {
+    if(this.selectedTyreregroupissueDetail.regroupIssMasterID  != '' ){
+     this.requestmodel.strRequest = this.selectedTyreregroupissueDetail.regroupIssMasterID; 
       if (confirm("Are you sure, you want to delete this?")) {
-          this.tyreactivateService.TyreactivateMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.tyreregroupissueService.tyreregroupissueMasterDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/tyreactivatelist']);
+            this.route.navigate(['/tyrerethreadisslist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -279,10 +235,10 @@ export class TyreativateaddComponent {
   }
     
   exit(): void {
-    this.route.navigate(['/tyreactivatelist']);
+    this.route.navigate(['/tyrerethreadisslist']);
   }   
     
-  submitTyreActivateForm(): void {
+  submitRegroupIssueForm(): void {
     this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
@@ -297,70 +253,59 @@ export class TyreativateaddComponent {
 
     var selectedDataValue = this.formUser.getRawValue();
 
-    if (selectedDataValue.vehicleMasterid.dataId) {
+    if (selectedDataValue.vendorId.dataId) {
       //ignore
     }
     else{
-      this.toastrService.warning(" Invalid Vehicle");
+      this.toastrService.warning(" Invalid Vendor");
       return;
     }
 
-    this.tyreactivate.activateMasterID = this.selectedTyreactivateDetail.activateMasterID ;
-    this.tyreactivate.branchCode= selectedDataValue.branchCode.toString();
-    this.tyreactivate.activateDate = selectedDataValue.activateDate;
-    this.tyreactivate.refNo = selectedDataValue.refNo;
-    this.tyreactivate.vehicleMasterid  = selectedDataValue.vehicleMasterid?selectedDataValue.vehicleMasterid.dataId:"";
-    this.tyreactivate.kmr  = selectedDataValue.kmr.toString();
-    this.tyreactivate.inspectedBy  = selectedDataValue.inspectedBy.toString().toUpperCase();
-    this.tyreactivate.fittedBy = selectedDataValue.fittedBy.toString().toUpperCase();
-    this.tyreactivate.tyreAmt  = selectedDataValue.tyreAmt.toString();
-    this.tyreactivate.othAmt  = selectedDataValue.othAmt.toString();
-    this.tyreactivate.netAmt  = selectedDataValue.netAmt.toString();
-    this.tyreactivate.remarks  = selectedDataValue.remarks.toString().toUpperCase();    
-    this.tyreactivate.yearID = this.year;
-    this.tyreactivate.loggedInUser = this.loggedInUserID;
-    this.tyreactivate.tyreActivateDtlList = [];
+    this.tyreregroupissue.regroupIssMasterID = this.selectedTyreregroupissueDetail.regroupIssMasterID ;
+    this.tyreregroupissue.branchCode= selectedDataValue.branchCode.toString();
+    this.tyreregroupissue.regroupIssDate = selectedDataValue.regroupIssDate;
+    this.tyreregroupissue.vendorId  = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
+    this.tyreregroupissue.issueIncharge  = selectedDataValue.issueIncharge.toString().toUpperCase();
+    this.tyreregroupissue.remarks  = selectedDataValue.remarks.toString().toUpperCase();    
+    this.tyreregroupissue.yearID = this.year;
+    this.tyreregroupissue.loggedInUser = this.loggedInUserID;
+    this.tyreregroupissue.tyreRegroupIssueDtlList = [];
 
-    if(selectedDataValue.netAmt=="" || parseFloat(selectedDataValue.netAmt)==0 ){
-      this.toastrService.warning("Net Amount should not be zero");
-      return;
-    }
-      
+    
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ||
-        this.formTyreArray.value[i].tyrePosID=="") {
+      if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
       else{
-        var dupl = this.tyreactivate.tyreActivateDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
+        var dupl = this.tyreregroupissue.tyreRegroupIssueDtlList.find(e=> e.tyreId == selectedDataValue.arrayList[i].tyreId) 
         if(dupl){
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
         }
-        this.tyreactivate.tyreActivateDtlList.push({
-          'activateMasterID': "",
-          'activateDate': "",
-          'vehicleMasterid': "",
+        this.tyreregroupissue.tyreRegroupIssueDtlList.push({
+          'regroupIssMasterID': "",
+          'regroupIssDate': "",
           'brandId': selectedDataValue.arrayList[i].brandId,
           'tyreId': selectedDataValue.arrayList[i].tyreId,
-          'tyrePosID': selectedDataValue.arrayList[i].tyrePosID,
-          'tyreCostAmt': selectedDataValue.arrayList[i].tyreCostAmt.toString(),
-          'remarks': selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
+          'remarks':selectedDataValue.arrayList[i].remarks.toString().toUpperCase(),
+          'branchCode':selectedDataValue.branchCode.toString(),
+          'yearID':this.year,
         }) 
       }   
     }   
-    if(this.tyreactivate.tyreActivateDtlList.length==0){
+
+    if(this.tyreregroupissue.tyreRegroupIssueDtlList.length==0){
       this.toastrService.warning("Please enter atleast one Record in Details");
       return;
     }
           
-    this.tyreactivateService.tyreactivateMasterSubmitted(this.tyreactivate).subscribe((res: Responsemodel) => {
+    this.tyreregroupissueService.tyreregroupissueMasterSubmitted(this.tyreregroupissue).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {
         this.toastrService.success(this.responseDetails.message);
         this.formUser.reset();
-        this.route.navigate(['/tyreactivatelist']);
+        this.route.navigate(['/tyrerethreadisslist']);
       }
       else {
         this.toastrService.warning(this.responseDetails.message);

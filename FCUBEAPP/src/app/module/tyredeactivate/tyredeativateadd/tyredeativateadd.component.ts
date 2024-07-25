@@ -32,7 +32,6 @@ export class TyredeativateaddComponent {
   userSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
-  stateList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];  
   brandList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -123,6 +122,7 @@ export class TyredeativateaddComponent {
     this.getVehicleNoList();
 
     this.formUser.controls["usableTyreAmt"].disable();
+    this.formUser.controls["branchCode"].disable();
 
     if (this.selectedTyredeactivateDetail.deActivateMasterID  != '') {
       setTimeout(() => {
@@ -239,7 +239,18 @@ export class TyredeativateaddComponent {
   }  
 
   getTyreNo(j: number,e: any){   
+    var selectedDataValue = this.formUser.getRawValue();
+
+    if (selectedDataValue.vehicleMasterid.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" Invalid Vehicle");
+      return;
+    }
+
     this.requestmodel.strRequest = e.target.value; 
+    this.requestmodel.strRequest1 = selectedDataValue.vehicleMasterid.dataId ; 
     this.tyredeactivateService.getBrandActTyreNoList(this.requestmodel).subscribe((res) => {
       this.tyreList = res;
     });

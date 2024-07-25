@@ -299,7 +299,13 @@ import { TyreativateaddComponent } from './module/tyreactivate/tyreativateadd/ty
 import { Tyreactivatemastermodel } from './models/tyreactivatemastermodel';
 import { TyredeativatelistComponent } from './module/tyredeactivate/tyredeativatelist/tyredeativatelist.component';
 import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativateadd/tyredeativateadd.component';
-// import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
+import { Tyredeactivatemastermodel } from './models/tyredeactivatemastermodel';
+import { TyreregroupissuelistComponent } from './module/tyreregroupissue/tyreregroupissuelist/tyreregroupissuelist.component';
+import { TyreregroupissueaddComponent } from './module/tyreregroupissue/tyreregroupissueadd/tyreregroupissueadd.component';
+import { Tyreregroupissuemastermodel } from './models/tyreregroupissuemastermodel';
+import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
+import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
+import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel';
 
 @NgModule({
   declarations: [
@@ -365,14 +371,10 @@ import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativate
     EmppaygenerationlistComponent, EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
     CustwizardaddComponent,  CustwizardlistComponent,
-    DailyloadingrptComponent,
-    LedgerrptComponent,
-    BankbookrptComponent,
-    ConsolidatedopenbalComponent,
+    DailyloadingrptComponent,TripsummaryrptComponent,
+    LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     HappaystatementrptComponent,
-    EwaybillexprptComponent,
-    GstsalesregisterrptlistComponent,
-    TripsummaryrptComponent,
+    EwaybillexprptComponent, GstsalesregisterrptlistComponent,    
     DrpmasteraddComponent, DrpmasterlistComponent,
     DprvehiplacedlistComponent, DprvehiplacedaddComponent,
     GeneratetempgclistComponent, GeneratetempgcaddComponent,
@@ -392,15 +394,15 @@ import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativate
     SpareslubesmasteraddComponent,SpareslubesmasterlistComponent,
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
-    VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
-    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
+    VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent, 
     BalanacerptComponent,LrbillupdateComponent,
-    VehicleinstpmtaddComponent, 
-    VehicleinstpmtlistComponent,
-    CompanyinfoaddComponent,
-    MraddComponent, MrlistComponent, 
+    VehicleinstpmtaddComponent, VehicleinstpmtlistComponent,
+    CompanyinfoaddComponent, MraddComponent, MrlistComponent, 
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,   
     TyreativatelistComponent, TyreativateaddComponent, 
-    TyredeativatelistComponent, TyredeativateaddComponent ,
+    TyredeativatelistComponent, TyredeativateaddComponent, 
+    TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
+    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent ,
   ],
   imports: [
     BrowserModule,
@@ -451,9 +453,9 @@ import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativate
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel,
-    Tyrepurchasemastermodel,Companyinfomodel,
-    Mrmodel  ,Vehicleinstpmtmodel,Tyreactivatemastermodel,
-  
+    Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
+    Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
+    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
   ],
   bootstrap: [AppComponent]
 })

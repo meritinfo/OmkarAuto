@@ -12,9 +12,9 @@ namespace FleetTrans.Repository
     public interface ITyreRegroupRecdMasterRepository
     {
         Task<ResponseModel> TyreRegroupRecdMasterSave(TyreRegroupRecdMasterModel tyreRegroupRecdMasterModel);
-        // Task<ResponseModel> TyreRegroupIssueMasterDetailSave(SqlTransaction transaction, TyreRegroupIssueDtlListmodel tyreRegroupIssueDtlListmodel)
-        Task<TyreRegroupRecdMasterInnerGridModel> GetTyreRegroupRecdMasterInnerGridList(RequestModel request);
+        Task<TyreRegroupRecdMasterModel> GetTyreRegroupRecdMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreRegroupRecdMasterDelete(RequestModel req);
-        Task<TyreRegroupRecdList> GetTyreRegroupRecdMasterList(PageRequest request);
+        Task<TyreRegroupRecdMasterList> GetTyreRegroupRecdMasterList(PageFromDtToDtRequest request);
+        Task<TyreRegroupRecdMasterModel> GetTyreRegroupRecdMasterSearchList(RequestModel request);
     }
 }

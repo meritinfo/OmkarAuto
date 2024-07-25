@@ -304,6 +304,7 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                     {
                         new SqlParameter("@BrandId", request.strRequest),
+                        new SqlParameter("@Type", request.strRequest1),
                     };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrandTyreNoList", param);
 

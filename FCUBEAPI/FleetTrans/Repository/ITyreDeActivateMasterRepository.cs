@@ -15,7 +15,6 @@ namespace FleetTrans.Repository
         Task<TyreDeActivateMasterModel> GetTyreDeActivateMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel);
         Task<ResponseModel> TyreDeActivateMasterDelete(RequestModel req);
-        Task<List<DropDownListModel>> GetBrandActTyreNoList(RequestModel request);
 
     }
 }

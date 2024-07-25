@@ -19,6 +19,101 @@ namespace FleetTrans.Repository
         {
             dbconnection = _dbconnection;
         }
+        public async Task<TyreRegroupIssueMasterList> GetTyreRegroupIssueMasterList(PageFromDtToDtRequest request)
+        {
+            TyreRegroupIssueMasterList tyreRegroupIssueMasterList = new();
+            List<TyreRegroupIssueMasterModel> tyreRegroupMasterList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                           // new SqlParameter("@Type",       request.FilterStr)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterList", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tyreRegroupMasterList.Add(new TyreRegroupIssueMasterModel
+                            {
+                                RegroupIssMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssMasterID"]),
+                                RegroupIssDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssDate"]),
+                                IssueIncharge = Convert.ToString(dataSet.Tables[0].Rows[i]["IssueIncharge"]),
+                                VendorId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),
+                                VendorName = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorName"]),
+                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                ApprovedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedYN"]),
+                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
+                            });
+                        }
+
+                        tyreRegroupIssueMasterList.TyreRegroupIssueList = tyreRegroupMasterList;
+
+                        tyreRegroupIssueMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tyreRegroupIssueMasterList;
+        }
+        public async Task<TyreRegroupIssueMasterModel> GetTyreRegroupIssueMasterInnerGridList(RequestModel request)
+        {
+            TyreRegroupIssueMasterModel tyreRegroupIssueMasterInnerGridModel = new()
+            {
+                TyreRegroupIssueDtlList = new List<TyreRegroupIssueDtlListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ActivateMasterID", request.strRequest),
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterInnerGridList", param);
+                    
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tyreRegroupIssueMasterInnerGridModel.TyreRegroupIssueDtlList.Add(new TyreRegroupIssueDtlListmodel
+                            {
+                                RegroupIssMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupIssMasterID"]),
+                                RegroupIssDate = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupIssDate"]),
+                                BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
+                                TyreId = Convert.ToString(resultData.Tables[0].Rows[i]["TyreId"]),
+                                Remarks = Convert.ToString(resultData.Tables[0].Rows[i]["Remarks"]),
+                                BranchCode = Convert.ToString(resultData.Tables[0].Rows[i]["BranchCode"]),
+                                YearID = Convert.ToString(resultData.Tables[0].Rows[i]["YearID"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            return tyreRegroupIssueMasterInnerGridModel;
+        }
         public async Task<ResponseModel> TyreRegroupIssueMasterSave(TyreRegroupIssueMasterModel tyreRegroupIssueMasterModel)
         {
             ResponseModel responseModel = new();
@@ -33,17 +128,15 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@RegroupIssMasterID",       tyreRegroupIssueMasterModel.RegroupIssMasterID ),
-                            new SqlParameter("@RegroupIssDate",      tyreRegroupIssueMasterModel.RegroupIssDate ),
+                            new SqlParameter("@RegroupIssMasterID", tyreRegroupIssueMasterModel.RegroupIssMasterID ),
+                            new SqlParameter("@RegroupIssDate",     tyreRegroupIssueMasterModel.RegroupIssDate ),
                             new SqlParameter("@IssueIncharge",      tyreRegroupIssueMasterModel.IssueIncharge ),
-                            new SqlParameter("@VendorId",   tyreRegroupIssueMasterModel.VendorId),
-                            new SqlParameter("@Remarks",   tyreRegroupIssueMasterModel.Remarks),
-                            new SqlParameter("@ApprovedYN",   tyreRegroupIssueMasterModel.ApprovedYN),
-                            new SqlParameter("@BranchCode",   tyreRegroupIssueMasterModel.BranchCode),
-                        
-                            new SqlParameter("@YearID",   tyreRegroupIssueMasterModel.YearID ),
-
-                            new SqlParameter("@LoggedInUser",   tyreRegroupIssueMasterModel.LoggedInUser)
+                            new SqlParameter("@VendorId",           tyreRegroupIssueMasterModel.VendorId),
+                            new SqlParameter("@Remarks",            tyreRegroupIssueMasterModel.Remarks),
+                            new SqlParameter("@ApprovedYN",         tyreRegroupIssueMasterModel.ApprovedYN),
+                            new SqlParameter("@BranchCode",         tyreRegroupIssueMasterModel.BranchCode),                        
+                            new SqlParameter("@YearID",             tyreRegroupIssueMasterModel.YearID ),
+                            new SqlParameter("@LoggedInUser",       tyreRegroupIssueMasterModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueMasterSave", param);
                     string RegroupIssMasterID = "0";
@@ -57,16 +150,16 @@ namespace FleetTrans.Repository
                         {
                             for (int i = 0; i < tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList.Count; i++)
                             {
-                                if (Convert.ToString(tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].BrandId) != "")
-                                {
-                                    tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].RegroupIssMasterID = RegroupIssMasterID;
-                                    responseModel = await TyreRegroupIssueMasterDetailSave(transaction, tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i]);
-                                    if (!responseModel.Status)
-                                    {
-                                        transaction.Rollback();
-                                        i = tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList.Count;
-                                    }
+                                tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].RegroupIssMasterID = RegroupIssMasterID;
+                                tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].RegroupIssDate = tyreRegroupIssueMasterModel.RegroupIssDate;
+                                tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].BranchCode = tyreRegroupIssueMasterModel.BranchCode;
+                                tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i].YearID = tyreRegroupIssueMasterModel.YearID;
 
+                                responseModel = await TyreRegroupIssueMasterDetailSave(transaction, tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList[i]);
+                                if (!responseModel.Status)
+                                {
+                                    transaction.Rollback();
+                                    i = tyreRegroupIssueMasterModel.TyreRegroupIssueDtlList.Count;
                                 }
                             }
 
@@ -77,7 +170,6 @@ namespace FleetTrans.Repository
                         transaction.Commit();
                     }
                     else { transaction.Rollback(); }
-
 
                 }
             }
@@ -96,17 +188,14 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@RegroupIssDetailID",               tyreRegroupIssueDtlListmodel.RegroupIssDetailID),
-                            new SqlParameter("@RegroupIssMasterID",           tyreRegroupIssueDtlListmodel.RegroupIssMasterID),
-                            new SqlParameter("@RegroupIssDate",               tyreRegroupIssueDtlListmodel.RegroupIssDate),
-                          
-                            new SqlParameter("@BrandId",                    tyreRegroupIssueDtlListmodel.BrandId),
-                            new SqlParameter("@TyreId",        tyreRegroupIssueDtlListmodel.TyreId),
-                            new SqlParameter("@TyreUsableAmt",        tyreRegroupIssueDtlListmodel.TyreUsableAmt),
-                            new SqlParameter("@TyreRecdStatus",        tyreRegroupIssueDtlListmodel.TyreRecdStatus),
-                              new SqlParameter("@TyreReGroupAmt",        tyreRegroupIssueDtlListmodel.TyreReGroupAmt),
-
-                };
+                            new SqlParameter("@RegroupIssMasterID", tyreRegroupIssueDtlListmodel.RegroupIssMasterID),
+                            new SqlParameter("@RegroupIssDate",     tyreRegroupIssueDtlListmodel.RegroupIssDate),
+                            new SqlParameter("@BrandId",            tyreRegroupIssueDtlListmodel.BrandId),
+                            new SqlParameter("@TyreId",             tyreRegroupIssueDtlListmodel.TyreId),
+                            new SqlParameter("@Remarks",            tyreRegroupIssueDtlListmodel.Remarks),
+                            new SqlParameter("@BranchCode",         tyreRegroupIssueDtlListmodel.BranchCode),
+                            new SqlParameter("@YearID",             tyreRegroupIssueDtlListmodel.YearID),
+                        };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueDetailSave", param);
 
@@ -126,73 +215,6 @@ namespace FleetTrans.Repository
 
             }
             return responseModel;
-        }
-        public async Task<TyreRegroupIssueMasterInnerGridModel> GetTyreRegroupIssueMasterInnerGridList(RequestModel request)
-        {
-            TyreRegroupIssueMasterInnerGridModel tyreRegroupIssueMasterInnerGridModel = new()
-            {
-
-                TyreRegroupIssueList = new List<TyreRegroupIssueDtlListmodel>(),
-
-            };
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@ActivateMasterID", request.strRequest),
-
-                        };
-
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterInnerGridList", param);
-                    // tripSheetInnerGridList.Incentive = "0";
-                    //LR Details
-
-                    //Diseal Details
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
-                        {
-                            tyreRegroupIssueMasterInnerGridModel.TyreRegroupIssueList.Add(new TyreRegroupIssueDtlListmodel
-                            {
-                                RegroupIssDetailID = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupIssDetailID"]),
-                                RegroupIssMasterID = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupIssMasterID"]),
-                                RegroupIssDate = Convert.ToString(resultData.Tables[0].Rows[i]["RegroupIssDate"]),
-                                BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
-                                TyreId = Convert.ToString(resultData.Tables[0].Rows[i]["TyreId"]),
-                                TyreUsableAmt = Convert.ToString(resultData.Tables[0].Rows[i]["TyreUsableAmt"]),
-                                TyreRecdStatus = Convert.ToString(resultData.Tables[0].Rows[i]["TyreRecdStatus"]),
-                                TyreReGroupAmt = Convert.ToString(resultData.Tables[0].Rows[i]["TyreReGroupAmt"]),
-                                Remarks = Convert.ToString(resultData.Tables[0].Rows[i]["Remarks"]),
-                                BranchCode = Convert.ToString(resultData.Tables[0].Rows[i]["BranchCode"]),
-                                YearID = Convert.ToString(resultData.Tables[0].Rows[i]["YearID"]),
-
-                            });
-                        }
-                    }
-
-
-                    //Misc Details
-
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
-            return tyreRegroupIssueMasterInnerGridModel;
         }
         public async Task<ResponseModel> TyreRegroupIssueMasterDelete(RequestModel req)
         {
@@ -233,64 +255,6 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        public async Task<TyreRegroupIssueMasterList> GetTyreRegroupIssueMasterList(PageRequest request)
-        {
-            TyreRegroupIssueMasterList tyreRegroupIssueMasterList = new();
-            List<TyreRegroupIssueMasterModel> tyreRegroupMasterList = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize",   request.PageSize),
-                            new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder",  request.SortOrder),
-                            new SqlParameter("@Search",     request.Search),
-                          //  new SqlParameter("@FromDate",   request.FromDate),
-                           // new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
-                        };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreRegroupIssueMasterList", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                        {
-                            tyreRegroupMasterList.Add(new TyreRegroupIssueMasterModel
-                            {
-                                RegroupIssMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssMasterID"]),
-                                RegroupIssDate = Convert.ToString(dataSet.Tables[0].Rows[i]["RegroupIssDate"]),
-                                IssueIncharge = Convert.ToString(dataSet.Tables[0].Rows[i]["IssueIncharge"]),
-                                VendorId = Convert.ToString(dataSet.Tables[0].Rows[i]["VendorId"]),
-                                Remarks = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                ApprovedYN = Convert.ToString(dataSet.Tables[0].Rows[i]["ApprovedYN"]),
-                                BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
-                                YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-
-
-                            });
-                        }
-
-                        tyreRegroupIssueMasterList.TyreRegroupIssueList = tyreRegroupMasterList;
-
-                        tyreRegroupIssueMasterList.PageMetaData = new PaginationMetaData
-                        {
-                            TotalCount = totalRecords,
-                            CurrentPage = request.PageNumber
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return tyreRegroupIssueMasterList;
-        }
-
+       
     }
 }

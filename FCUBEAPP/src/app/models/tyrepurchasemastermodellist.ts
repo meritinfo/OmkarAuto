@@ -3,5 +3,5 @@ import { Tyrepurchasemastermodel } from "./tyrepurchasemastermodel";
 
 export class Tyrepurchasemasterlistmodel {
   tyreList: Tyrepurchasemastermodel[] = [];
-    pageMetaData: Paginationmodel = new Paginationmodel;
+  pageMetaData: Paginationmodel = new Paginationmodel;
 }

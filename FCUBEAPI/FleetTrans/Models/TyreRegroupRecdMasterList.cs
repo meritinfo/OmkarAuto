@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Models
 {
-    public class TyreRegroupRecdList
+    public class TyreRegroupRecdMasterList
     {
-        public List<TyreRegroupRecdMasterModel> TyreRegrouppRecdList { get; set; }
+        public List<TyreRegroupRecdMasterModel> TyreRegroupRecdList { get; set; }
         public PaginationMetaData PageMetaData { get; set; }
     }
 

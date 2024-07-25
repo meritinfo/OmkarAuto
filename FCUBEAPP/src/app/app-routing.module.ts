@@ -166,6 +166,10 @@ import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/
 import { TyreativateaddComponent } from './module/tyreactivate/tyreativateadd/tyreativateadd.component';
 import { TyredeativatelistComponent } from './module/tyredeactivate/tyredeativatelist/tyredeativatelist.component';
 import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativateadd/tyredeativateadd.component';
+import { TyreregroupissuelistComponent } from './module/tyreregroupissue/tyreregroupissuelist/tyreregroupissuelist.component';
+import { TyreregroupissueaddComponent } from './module/tyreregroupissue/tyreregroupissueadd/tyreregroupissueadd.component';
+import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
+import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -405,6 +409,12 @@ const routes: Routes = [
   { path: 'tyredeactlist', component:   TyredeativatelistComponent},
   { path: 'tyredeactadd', component:  TyredeativateaddComponent },
   { path: 'tyredeactedit', component:  TyredeativateaddComponent }, 
+  { path: 'tyrerethreadisslist', component:  TyreregroupissuelistComponent}, 
+  { path: 'tyrerethreadissadd', component:  TyreregroupissueaddComponent }, 
+  { path: 'tyrerethreadissedit', component:  TyreregroupissueaddComponent }, 
+  { path: 'tyrerethreadrecvlist', component:  TyreregrouprecdlistComponent }, 
+  { path: 'tyrerethreadrecvadd', component:  TyreregrouprecdaddComponent }, 
+  { path: 'tyrerethreadrecvedit', component:  TyreregrouprecdaddComponent }, 
 ];
 
 @NgModule({

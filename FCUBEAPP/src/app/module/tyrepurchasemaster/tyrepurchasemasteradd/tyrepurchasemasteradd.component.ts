@@ -135,7 +135,6 @@ export class TyrepurchasemasteraddComponent {
       creditAc : new FormControl('',),
       chequeNo : new FormControl('',),
       chequeDate : new FormControl('',),
-      refDocAttachedImage : new FormControl('',),
 
       arrayList: this.formBuilder.array([this.createTyreArray()]),
     });
@@ -161,6 +160,7 @@ export class TyrepurchasemasteraddComponent {
     this.formUser.controls["totalAmt"].disable();
     this.formUser.controls["netAmount"].disable();
     this.formUser.controls['vendorName'].disable(); 
+    this.formUser.controls["branchCode"].disable();
 
     if (this.selectedTyrePurchaseMasterDetail.purchaseMasterID  != '') {
       setTimeout(() => {
@@ -630,9 +630,9 @@ export class TyrepurchasemasteraddComponent {
     this.tyrepurchasemastermodel.creditAc = selectedDataValue.creditAc.toString();
     this.tyrepurchasemastermodel.chequeNo = selectedDataValue.chequeNo.toString();
     this.tyrepurchasemastermodel.chequeDate = selectedDataValue.chequeDate;
-    this.tyrepurchasemastermodel.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
     this.tyrepurchasemastermodel.yearID = this.year;
     this.tyrepurchasemastermodel.loggedInUser = this.loggedInUserID;
+    this.tyrepurchasemastermodel.tyrePurchaseDtlList = [];
 
     if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
       this.toastrService.warning("Total Net Amount should not be zero");
@@ -666,6 +666,11 @@ export class TyrepurchasemasteraddComponent {
       }   
     } 
     
+    if(this.tyrepurchasemastermodel.tyrePurchaseDtlList.length==0){
+      this.toastrService.warning("Please enter atleast one Record in Details");
+      return;
+    }
+
     let formData = new FormData();
     formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.tyrepurchasemastermodel));  

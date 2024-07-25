@@ -269,36 +269,5 @@ namespace FleetTrans.Repository
             return responseModel;
         }
 
-        public async Task<List<DropDownListModel>> GetBrandActTyreNoList(RequestModel request)
-        {
-            List<DropDownListModel> BrandList = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                    {
-                        new SqlParameter("@BrandId", request.strRequest),
-                    };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrandActTyreNoList", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
-                        {
-                            BrandList.Add(new DropDownListModel
-                            {
-                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
-                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return BrandList;
-        }
     }
 }

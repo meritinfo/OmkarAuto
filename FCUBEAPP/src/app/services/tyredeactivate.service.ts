@@ -45,6 +45,6 @@ export class TyredeactivateService {
     return this.httpClient.post<Tyredeactivatemasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreDeActivateMasterList', filter, this.httpOptions);
   }    
   getBrandActTyreNoList(req:Requestmodel): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandActTyreNoList', req, this.httpOptions);
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandTyreNoList', req, this.httpOptions);
   }
 }

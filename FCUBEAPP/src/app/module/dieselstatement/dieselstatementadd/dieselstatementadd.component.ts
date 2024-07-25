@@ -257,7 +257,6 @@ export class DieselstatementaddComponent implements OnInit {
   }
 
   searchStatement(): void { 
-
     var selectedDataVal=this.formDieselStatement.getRawValue();
     if (this.formDieselStatement.controls["fromDate"].invalid) {
       this.toasterService.warning(" Please Select From Date");  

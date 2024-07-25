@@ -9,9 +9,9 @@ namespace FleetTrans.Models
     public class TyreRegroupRecdMasterModel
     {
         public string RegroupRecdMasterID { get; set; }
-        public string VendorId { get; set; }
-
         public string RecdDate { get; set; }
+        public string VendorId { get; set; }
+        public string? VendorName { get; set; }
         public string VendorBillNo { get; set; }
         public string VendorBillDt { get; set; }
         public string Remarks { get; set; }
@@ -39,15 +39,12 @@ namespace FleetTrans.Models
     }
     public class TyreRegroupRecdDtlListmodel
     {
-        public string? RegroupRecdDetailId { get; set; }
-        public string? RegroupRecdMasterID { get; set; }
-      
+        public string? RegroupRecdMasterID { get; set; }      
         public string? BrandId { get; set; }
         public string? TyreId { get; set; }
         public string? RegroupDoneYN { get; set; }
         public string? RegroupAmount { get; set; }
         public string? Remarks { get; set; }
-        public string? RegroupIssueDtlId { get; set; }
-   
+        public string? RegroupIssueDtlId { get; set; }   
     }
 }

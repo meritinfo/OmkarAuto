@@ -1813,24 +1813,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBrandActTyreNoList")]
-        public async Task<IActionResult> GetBrandActTyreNoList(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tyreDeActivateMasterBusiness.GetBrandActTyreNoList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }        
 
         [HttpPost("TyreRegroupIssueMasterSave")]
         public async Task<IActionResult> TyreRegroupIssueMasterSave(TyreRegroupIssueMasterModel tyreRegroupIssueMasterModel)
@@ -1926,7 +1908,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetTyreRegroupRecdMasterList")]
-        public async Task<IActionResult> GetTyreRegroupRecdMasterList(PageRequest request)
+        public async Task<IActionResult> GetTyreRegroupRecdMasterList(PageFromDtToDtRequest request)
         {
             try
             {
@@ -1962,9 +1944,32 @@ namespace FCUBEAPI.Controllers
         [HttpPost("GetRegroupRecdMasterInnerGridList")]
         public async Task<IActionResult> GetTyreRegroupRecdMasterInnerGridList(RequestModel request)
         {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
             try
             {
                 var result = await tyreRegroupRecdMasterBusiness.GetTyreRegroupRecdMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetRegroupRecdMasterInnerGridList")]
+        public async Task<IActionResult> GetTyreRegroupRecdMasterSearchList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreRegroupRecdMasterBusiness.GetTyreRegroupRecdMasterSearchList(request);
 
                 return Ok(result);
             }
