@@ -17,6 +17,14 @@ namespace FleetTrans.Business
         {
             tyreActivateRepository = _tyreActivateRepository;
         }
+        public async Task<TyreActivateMasterList> GetTyreActivateMasterList(PageFromDtToDtRequest request)
+        {
+            return await tyreActivateRepository.GetTyreActivateMasterList(request);
+        }
+        public async Task<TyreActivateMasterModel> GetTyreActivateMasterInnerGridList(RequestModel request)
+        {
+            return await tyreActivateRepository.GetTyreActivateMasterInnerGridList(request);
+        }
         public async Task<ResponseModel> TyreActivateMasterSave(TyreActivateMasterModel tyreActivateMasterModel)
         {
             return await tyreActivateRepository.TyreActivateMasterSave(tyreActivateMasterModel);
@@ -25,13 +33,13 @@ namespace FleetTrans.Business
         {
             return await tyreActivateRepository.TyreActivateMasterDelete(req);
         }
-        public async Task<TyreActivateMasterList> GetTyreActivateMasterList(PageRequest request)
-         {
-            return await tyreActivateRepository.GetTyreActivateMasterList(request);
-         }
-        public async Task<TyreActivateMasterInnerGridModel> GetTyreActivateMasterInnerGridList(RequestModel request)
+        public async Task<List<DropDownListModel>> GetTyrePositionList()
         {
-            return await tyreActivateRepository.GetTyreActivateMasterInnerGridList(request);
+            return await tyreActivateRepository.GetTyrePositionList();
+        }
+        public async Task<List<DropDownListModel>> GetBrandTyreNoList(RequestModel request)
+        {
+            return await tyreActivateRepository.GetBrandTyreNoList(request);
         }
     }
 

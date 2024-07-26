@@ -21,7 +21,7 @@ namespace FleetTrans.Business
         {
             return await tyreRegroupRecdMasterRepository.TyreRegroupRecdMasterSave(tyreRegroupRecdMasterModel);
         }
-        public async Task<TyreRegroupRecdMasterInnerGridModel> GetTyreRegroupRecdMasterInnerGridList(RequestModel request)
+        public async Task<TyreRegroupRecdMasterModel> GetTyreRegroupRecdMasterInnerGridList(RequestModel request)
         {
             return await tyreRegroupRecdMasterRepository.GetTyreRegroupRecdMasterInnerGridList(request);
         }
@@ -29,9 +29,13 @@ namespace FleetTrans.Business
         {
             return await tyreRegroupRecdMasterRepository.TyreRegroupRecdMasterDelete(req);
         }
-        public async Task<TyreRegroupRecdList> GetTyreRegroupRecdMasterList(PageRequest request)
+        public async Task<TyreRegroupRecdMasterList> GetTyreRegroupRecdMasterList(PageFromDtToDtRequest request)
         {
             return await tyreRegroupRecdMasterRepository.GetTyreRegroupRecdMasterList(request);
+        }
+        public async Task<TyreRegroupRecdMasterModel> GetTyreRegroupRecdMasterSearchList(RequestModel request)
+        {
+            return await tyreRegroupRecdMasterRepository.GetTyreRegroupRecdMasterSearchList(request);
         }
     }
 }

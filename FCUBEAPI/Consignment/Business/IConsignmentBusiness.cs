@@ -23,7 +23,6 @@ namespace Consignment.Business
         Task<List<DropDownListModel>> GetVehicleNoList();
         Task<List<DropDownListModel>> GetVehicleIdList();
         Task<List<DropDownListModel>> GetClassList();
-        // Task<List<DropDownListModel>> GetVehicleTypeGroupList();
         Task<ResponseModel> GetBillSeries(RequestModel request);
         Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req);
         Task<ResponseModel> ConsignmentUpdate(ConsignmentUpdateModel ConsignmentModel);

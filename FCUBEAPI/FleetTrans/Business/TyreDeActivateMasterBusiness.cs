@@ -1,4 +1,5 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Drawing;
+using FleetTrans.Models;
 using FleetTrans.Repository;
 using FreightMasters.Models;
 using Shared.Models;
@@ -17,6 +18,14 @@ namespace FleetTrans.Business
         {
             tyreDeActivateRepository = _tyreDeActivateRepository;
         }
+        public async Task<TyreDeActivateMasterList> GetTyreDeActivateMasterList(PageFromDtToDtRequest request)
+        {
+            return await tyreDeActivateRepository.GetTyreDeActivateMasterList(request);
+        }
+        public async Task<TyreDeActivateMasterModel> GetTyreDeActivateMasterInnerGridList(RequestModel request)
+        {
+            return await tyreDeActivateRepository.GetTyreDeActivateMasterInnerGridList(request);
+        }
         public async Task<ResponseModel> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel)
         {
             return await tyreDeActivateRepository.TyreDeActivateMasterSave(tyreDeActivateMasterModel);
@@ -25,15 +34,6 @@ namespace FleetTrans.Business
         {
             return await tyreDeActivateRepository.TyreDeActivateMasterDelete(req);
         }
-        public async Task<TyreDeActivateMasterList> GetTyreDeActivateMasterList(PageRequest request)
-        {
-            return await tyreDeActivateRepository.GetTyreDeActivateMasterList(request);
-        }
-        public async Task<TyreDeActivateMasterInnerGridModel> GetTyreDeActivateMasterInnerGridList(RequestModel request)
-        {
-            return await tyreDeActivateRepository.GetTyreDeActivateMasterInnerGridList(request);
-        }
-
 
     }
 }

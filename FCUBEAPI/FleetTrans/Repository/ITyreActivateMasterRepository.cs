@@ -10,9 +10,11 @@ namespace FleetTrans.Repository
 {
     public interface ITyreActivateMasterRepository
     {
+        Task<TyreActivateMasterList> GetTyreActivateMasterList(PageFromDtToDtRequest request);
+        Task<TyreActivateMasterModel> GetTyreActivateMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreActivateMasterSave(TyreActivateMasterModel tyreActivateMasterModel);
         Task<ResponseModel> TyreActivateMasterDelete(RequestModel req);
-        Task<TyreActivateMasterList> GetTyreActivateMasterList(PageRequest request);
-        Task<TyreActivateMasterInnerGridModel> GetTyreActivateMasterInnerGridList(RequestModel request);
+        Task<List<DropDownListModel>> GetTyrePositionList();
+        Task<List<DropDownListModel>> GetBrandTyreNoList(RequestModel request);
     }
 }

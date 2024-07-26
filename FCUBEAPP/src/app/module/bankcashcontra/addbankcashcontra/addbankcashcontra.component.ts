@@ -16,6 +16,7 @@ import { SharedService } from 'src/app/services/shared.service';
   templateUrl: './addbankcashcontra.component.html',
   styleUrls: ['./addbankcashcontra.component.css']
 })
+
 export class AddbankcashcontraComponent {
   loggedInUserID: string = '';
   formBankContra!: FormGroup;
@@ -38,7 +39,6 @@ export class AddbankcashcontraComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-
   
   constructor(private route: Router, private formBuilder: FormBuilder, 
     private bankreceiptentryModel: bankreceiptentrymodel,  private sharedService: SharedService,
@@ -79,10 +79,9 @@ export class AddbankcashcontraComponent {
       this.loginDate = loginDate;
     }
     var userData5 = sessionStorage.getItem('userBranch')?.toString();
-      if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
-        this.branchname = userData5;
-        //vehicleMasterID: this.locationList.find(e => e.dataId ==  this.formUser.value.),
-      }
+    if (typeof userData5 !== 'undefined' && userData5 !== null && userData5 !== '') {
+      this.branchname = userData5;
+    }
     else {
       this.route.navigate(['/']);
     }
@@ -128,7 +127,6 @@ export class AddbankcashcontraComponent {
 
     setTimeout(() => {
       if (this.selectedBankCashContraDetails.ftmID != '') {        
-        var selectedDataValue = this.formBankContra.getRawValue();
         this.formBankContra.patchValue(this.selectedBankCashContraDetails); 
         this.formBankContra.patchValue({
           ftmDate: this.commonService.formatDate(this.selectedBankCashContraDetails.ftmDate),

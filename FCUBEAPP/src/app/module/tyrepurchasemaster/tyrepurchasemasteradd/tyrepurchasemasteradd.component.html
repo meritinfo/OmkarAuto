@@ -66,7 +66,7 @@
                                 <div class="row"> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor</label>                                        
+                                            <label>Vendor</label> <span style="color: red">*</span>                                       
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="vendorList"
                                                     [searchKeyword]="keywordLocation" placeholder=""
@@ -229,37 +229,12 @@
                                                         <h6>Est Life KM       </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Regroup Amt        </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Current Tyre Status         </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Current Status Date          </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Current Vehicle No           </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Action</h6>
-                                                    </label>
-                                                </td>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2"> 
-                                                        <input numbersonly autoclose="false" class="form-control"
+                                                        <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)" >                                                     
                                                     
                                                     </td>
@@ -319,22 +294,6 @@
                                                     <td class="col-lg-2"> 
                                                         <input numbersonly autoclose="false" class="form-control"
                                                         formControlName="estLifeKM"> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input decimalonly autoclose="false" class="form-control"
-                                                        formControlName="regroupAmt"> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="currentTyreStatus">    
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input type="date"  autofocus="autofocus" class="form-control"
-                                                        formControlName="currentStatusDate">  
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="currentVehicleNo"> 
                                                     </td>
                                                     <td class="col-lg-4">
                                                         <div class="col-lg-4 details-button">
@@ -444,7 +403,7 @@
                         </div>   
                         <div class="col-sm-3">
                             <div class="mb-3">
-                                <label>ChequeNo </label>
+                                <label>Cheque No </label>
                                 <input  uppercaseonly type="text" class="form-control"
                                 formControlName="chequeNo" >
                             </div>

@@ -235,6 +235,10 @@ export class CommonService {
   getPaymentCreditAcList(request: Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetPaymentCreditAcList', request, this.httpOptions);
   }
+  
+  getTyrePositionList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTyrePositionList', null, this.httpOptions);
+  }
 
   formatDate(date: string) {
     if(date == ''){

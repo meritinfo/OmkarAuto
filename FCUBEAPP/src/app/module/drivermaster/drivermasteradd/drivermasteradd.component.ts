@@ -88,7 +88,7 @@ export class DrivermasteraddComponent {
     const today2 = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    today.setMonth(month - 1);
+    today.setMonth(month - 12);
     today2.setMonth(month - 2);
     this.fromDate = today.toLocaleDateString('en-CA').toString();
 

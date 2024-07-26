@@ -11,10 +11,10 @@ namespace FleetTrans.Repository
 {
     public interface ITyreDeActivateMasterRepository
     {
+        Task<TyreDeActivateMasterList> GetTyreDeActivateMasterList(PageFromDtToDtRequest request);
+        Task<TyreDeActivateMasterModel> GetTyreDeActivateMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreDeActivateMasterSave(TyreDeActivateMasterModel tyreDeActivateMasterModel);
         Task<ResponseModel> TyreDeActivateMasterDelete(RequestModel req);
-        Task<TyreDeActivateMasterList> GetTyreDeActivateMasterList(PageRequest request);
-        Task<TyreDeActivateMasterInnerGridModel> GetTyreDeActivateMasterInnerGridList(RequestModel request);
 
     }
 }

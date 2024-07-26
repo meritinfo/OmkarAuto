@@ -279,9 +279,6 @@ import { TyremodeladdComponent } from './module/tyremodelmaster/tyremodeladd/tyr
 import { TyremodellistComponent } from './module/tyremodelmaster/tyremodellist/tyremodellist.component';
 import { MaintanencemasteraddComponent } from './module/maintanencemaster/maintanencemasteradd/maintanencemasteradd.component';
 import { MaintanencemasterlistComponent } from './module/maintanencemaster/maintanencemasterlist/maintanencemasterlist.component';
-import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
-import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
-import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
 import { VehicleinstschedulelistComponent } from './module/vehicleinstschedule/vehicleinstschedulelist/vehicleinstschedulelist.component';
 import { VehicleinstscheduleaddComponent } from './module/vehicleinstschedule/vehicleinstscheduleadd/vehicleinstscheduleadd.component';
 import { Vehicleinstschedulemodel } from './models/vehicleinstschedulemodel';
@@ -294,6 +291,21 @@ import { Companyinfomodel } from './models/companyinfomodel';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
 import { Mrmodel } from './models/mrmodel';
+import { TyrepurchasemasteraddComponent } from './module/tyrepurchasemaster/tyrepurchasemasteradd/tyrepurchasemasteradd.component';
+import { TyrepurchasemasterlistComponent } from './module/tyrepurchasemaster/tyrepurchasemasterlist/tyrepurchasemasterlist.component';
+import { Tyrepurchasemastermodel } from './models/tyrepurchasemastermodel';
+import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/tyreativatelist.component';
+import { TyreativateaddComponent } from './module/tyreactivate/tyreativateadd/tyreativateadd.component';
+import { Tyreactivatemastermodel } from './models/tyreactivatemastermodel';
+import { TyredeativatelistComponent } from './module/tyredeactivate/tyredeativatelist/tyredeativatelist.component';
+import { TyredeativateaddComponent } from './module/tyredeactivate/tyredeativateadd/tyredeativateadd.component';
+import { Tyredeactivatemastermodel } from './models/tyredeactivatemastermodel';
+import { TyreregroupissuelistComponent } from './module/tyreregroupissue/tyreregroupissuelist/tyreregroupissuelist.component';
+import { TyreregroupissueaddComponent } from './module/tyreregroupissue/tyreregroupissueadd/tyreregroupissueadd.component';
+import { Tyreregroupissuemastermodel } from './models/tyreregroupissuemastermodel';
+import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
+import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
+import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel';
 import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
@@ -362,14 +374,10 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
     EmppaygenerationlistComponent, EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
     CustwizardaddComponent,  CustwizardlistComponent,
-    DailyloadingrptComponent,
-    LedgerrptComponent,
-    BankbookrptComponent,
-    ConsolidatedopenbalComponent,
+    DailyloadingrptComponent,TripsummaryrptComponent,
+    LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     HappaystatementrptComponent,
-    EwaybillexprptComponent,
-    GstsalesregisterrptlistComponent,
-    TripsummaryrptComponent,
+    EwaybillexprptComponent, GstsalesregisterrptlistComponent,    
     DrpmasteraddComponent, DrpmasterlistComponent,
     DprvehiplacedlistComponent, DprvehiplacedaddComponent,
     GeneratetempgclistComponent, GeneratetempgcaddComponent,
@@ -389,6 +397,15 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
     SpareslubesmasteraddComponent,SpareslubesmasterlistComponent,
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
+    VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent, 
+    BalanacerptComponent,LrbillupdateComponent,
+    VehicleinstpmtaddComponent, VehicleinstpmtlistComponent,
+    CompanyinfoaddComponent, MraddComponent, MrlistComponent, 
+    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,   
+    TyreativatelistComponent, TyreativateaddComponent, 
+    TyredeativatelistComponent, TyredeativateaddComponent, 
+    TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
+    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent ,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
     TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
     BalanacerptComponent,LrbillupdateComponent,
@@ -446,6 +463,9 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
     Tyremodelmastermodel,Vehicleinstschedulemodel,Transportmastermodel,
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel,
+    Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
+    Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
+    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Tyrepurchasemastermodel,Companyinfomodel,
     Mrmodel ,
     Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
