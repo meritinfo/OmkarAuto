@@ -1960,7 +1960,7 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetRegroupRecdMasterInnerGridList")]
+        [HttpPost("GetTyreRegroupRecdMasterSearchList")]
         public async Task<IActionResult> GetTyreRegroupRecdMasterSearchList(RequestModel request)
         {
             if (request == null)

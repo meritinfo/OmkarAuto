@@ -31,6 +31,7 @@ export class TyreregrouprecdaddComponent {
   viewStatus = false;
   editMode= false;
   userSubmitted = false;
+  showGrid= false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
@@ -252,7 +253,7 @@ export class TyreregrouprecdaddComponent {
 
   searchStatement(): void { 
     var selectedDataVal=this.formUser.getRawValue();
-    if (selectedDataVal.vendorId.dataId) {
+    if (!selectedDataVal.vendorId.dataId) {
       this.toastrService.warning(" Please Select Vendor");  
       return; 
     }   
@@ -262,6 +263,7 @@ export class TyreregrouprecdaddComponent {
       this.tyreregrouprecdService.getTyreregrouprecdMasterSearchList(this.requestmodel).subscribe((res) => {
         this.formTyreArray.clear();
         this.tyreregrouprecdmodel = res;
+        this.showGrid = true;
         for (var i = 0; i < res.tyreRegroupRecdDtlList.length; i++) {
           this.formTyreArray.push(this.createTyreArray());
           this.formTyreArray.controls[i].get("regroupIssueDtlId")?.setValue(res.tyreRegroupRecdDtlList[i].regroupIssueDtlId);
