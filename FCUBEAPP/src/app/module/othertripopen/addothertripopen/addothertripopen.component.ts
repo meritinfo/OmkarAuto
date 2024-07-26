@@ -221,6 +221,7 @@ export class AddothertripopenComponent {
       this.branchList = res;
     });
   }
+  
   getUserTripRights(): void {
     this.requestmodel.strRequest = this.loggedInUserID;
     this.commonService.getUserDetails(this.requestmodel).subscribe((res: Usertriprightsmodel) => {

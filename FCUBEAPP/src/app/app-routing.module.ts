@@ -162,6 +162,8 @@ import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
+import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
+import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -395,6 +397,9 @@ const routes: Routes = [
   { path: 'emipmtlist', component:  VehicleinstpmtlistComponent},
   { path: 'vehicleinstpmtadd', component:  VehicleinstpmtaddComponent},
   { path: 'vehicleinstpmtedit', component:  VehicleinstpmtaddComponent},
+  { path: 'fleetloadentryadd', component:  FleetloadentryaddComponent},
+  { path: 'fleetloadentryedit', component:  FleetloadentryaddComponent},
+  { path: 'loadmemolist', component:  FleetloadentrylistComponent},
 ];
 
 @NgModule({

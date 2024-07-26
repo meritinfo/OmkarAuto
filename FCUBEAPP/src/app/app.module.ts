@@ -294,6 +294,9 @@ import { Companyinfomodel } from './models/companyinfomodel';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
 import { Mrmodel } from './models/mrmodel';
+import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
+import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
+import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
 
 @NgModule({
   declarations: [
@@ -392,7 +395,7 @@ import { Mrmodel } from './models/mrmodel';
     VehicleinstpmtaddComponent, 
     VehicleinstpmtlistComponent,
     CompanyinfoaddComponent,
-    MraddComponent, MrlistComponent ,
+    MraddComponent, MrlistComponent, FleetloadentryaddComponent, FleetloadentrylistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -444,10 +447,11 @@ import { Mrmodel } from './models/mrmodel';
     Documentallotmentmodel,Consignmentupdatemodel,Spareslubesmastermodel,Maintanencemastermodel,
     Billsmastermodel,Billstypemodel,
     Tyrepurchasemastermodel,Companyinfomodel,
-    Mrmodel  
-  ],
+    Mrmodel ,
     Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
-    Tyrepurchasemastermodel,Companyinfomodel],
+    Tyrepurchasemastermodel,Companyinfomodel,
+    Fleetloadentrymodel
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
