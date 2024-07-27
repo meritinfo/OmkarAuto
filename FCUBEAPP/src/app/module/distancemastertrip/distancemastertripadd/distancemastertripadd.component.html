@@ -24,7 +24,6 @@
                         <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
                             aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
                     </div>
-                    <button  class="btn btn-secondary w-md" *ngIf="createmode" (click)="exit()">Back</button>
                 </div>
             </div>
             <form [formGroup]="formDistanceMasterTrip">
@@ -228,7 +227,8 @@
                                 (click)="submitDistanceMasterFreightForm()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
                             <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="distanceMasterTripDelete()">Delete</button>
-                            <button  class="btn btn-secondary w-md" *ngIf="createmode" (click)="exit()">Exit</button>
+                            <button  class="btn btn-secondary w-md" 
+                            (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

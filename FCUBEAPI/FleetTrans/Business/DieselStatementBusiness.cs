@@ -1,4 +1,5 @@
-﻿using FleetTrans.Models;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
 
@@ -46,6 +47,17 @@ namespace FleetTrans.Business
         {
             return await dieselStatementRepository.GetHappayDieselSearchList(request);
         }
-
+        public async Task<ResponseModel> DieselStatementSave(DieselStmtModel dieselStmtModel)
+        {
+            return await dieselStatementRepository.DieselStatementSave(dieselStmtModel);
+        }
+        public async Task<DieselStmtListModel> GetDieselStmtList(ReportRequestModel request)
+        {
+            return await dieselStatementRepository.GetDieselStmtList(request);
+        }
+        public async Task<DieselStmtModel> GetDieselStmtInnerGridList(RequestModel request)
+        {
+            return await dieselStatementRepository.GetDieselStmtInnerGridList(request);
+        }
     }
 }

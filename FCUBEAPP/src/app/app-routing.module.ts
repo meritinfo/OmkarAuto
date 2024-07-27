@@ -172,6 +172,8 @@ import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregro
 import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
 import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
+import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
+import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -420,6 +422,9 @@ const routes: Routes = [
   { path: 'fleetloadentryadd', component:  FleetloadentryaddComponent},
   { path: 'fleetloadentryedit', component:  FleetloadentryaddComponent},
   { path: 'loadmemolist', component:  FleetloadentrylistComponent},
+  { path: 'dieselimplist', component: DieselstmtlistComponent}, 
+  { path: 'dieselimpadd', component: DieselstmtaddComponent }, 
+  { path: 'dieselimpedit', component: DieselstmtaddComponent }, 
 ];
 
 @NgModule({

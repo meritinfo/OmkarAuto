@@ -309,6 +309,9 @@ import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel'
 import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
+import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
+import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
+import { Dieselstmtmodel } from './models/dieselstmtmodel';
 
 @NgModule({
   declarations: [
@@ -405,14 +408,9 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
     TyreativatelistComponent, TyreativateaddComponent, 
     TyredeativatelistComponent, TyredeativateaddComponent, 
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
-    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent ,
-    VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent,
-    TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,    
-    BalanacerptComponent,LrbillupdateComponent,
-    VehicleinstpmtaddComponent, 
-    VehicleinstpmtlistComponent,
-    CompanyinfoaddComponent,
-    MraddComponent, MrlistComponent, FleetloadentryaddComponent, FleetloadentrylistComponent ,
+    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
+    DieselstmtlistComponent, DieselstmtaddComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -466,11 +464,8 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Tyrepurchasemastermodel,Companyinfomodel,
-    Mrmodel ,
-    Billsmastermodel,Billstypemodel,Vehicleinstpmtmodel,
-    Tyrepurchasemastermodel,Companyinfomodel,
-    Fleetloadentrymodel
+    Dieselstmtmodel,Fleetloadentrymodel
+    
   ],
   bootstrap: [AppComponent]
 })

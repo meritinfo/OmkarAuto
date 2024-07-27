@@ -96,13 +96,15 @@ export class AddbranchmasterComponent {
       brNumCode:new FormControl('',[Validators.required]),
       docNumCode:new FormControl('',[Validators.required]),
     });
+    this.formBranchMaster.controls['docNumCode'].disable();   
+
     if (this.selectedBranchMasterDetails.centreid != '') {
       this.formBranchMaster.patchValue(this.selectedBranchMasterDetails);
       this.formBranchMaster.patchValue({
         userBranch: this.selectedBranchMasterDetails.centreName,
         stateCode: this.selectedBranchMasterDetails.stateCode,
       })      
-      this.formBranchMaster.controls['code'].disable();        
+      this.formBranchMaster.controls['code'].disable();     
       this.editMode = true;
     }
     
@@ -124,6 +126,16 @@ export class AddbranchmasterComponent {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;
     });
+  }
+
+  onChange(){
+    var selectedData = this.formBranchMaster.getRawValue();
+    if (selectedData.znNumCode != "" && selectedData.brNumCode != "")
+    {  
+      this.formBranchMaster.patchValue({
+        docNumCode: selectedData.znNumCode.toString() + selectedData.brNumCode.toString()
+      });
+    }
   }
 
   
@@ -224,10 +236,10 @@ export class AddbranchmasterComponent {
     this.branchModel.managerPhone     = selectedDataVal.managerPhone;
     this.branchModel.managerEmail     = selectedDataVal.managerEmail;
     this.branchModel.gstNo            = selectedDataVal.gstNo.toString().toUpperCase();
-    this.branchModel.entryLockDays    = selectedDataVal.entryLockDays;
+    this.branchModel.entryLockDays    = selectedDataVal.entryLockDays.toString();
     this.branchModel.znNumCode        = selectedDataVal.znNumCode.toString();
     this.branchModel.brNumCode        = selectedDataVal.brNumCode.toString();
-    this.branchModel.docNumCode        = selectedDataVal.docNumCode.toString();
+    this.branchModel.docNumCode       = selectedDataVal.docNumCode.toString();
     this.branchModel.loggedInUserID   = this.loggedInUserID;
 
   

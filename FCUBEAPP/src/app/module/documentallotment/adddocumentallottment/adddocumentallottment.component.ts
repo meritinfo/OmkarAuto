@@ -98,6 +98,7 @@ export class AdddocumentallottmentComponent {
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
     
+    this.getBranchList();
 
     this.selectedDocumentallotmentDetails = this.documentallotmentService.getDocumentallotmentDetails();
     this.formUser = this.formBuilder.group({
@@ -110,9 +111,10 @@ export class AdddocumentallottmentComponent {
       docCount  : new FormControl('',[Validators.required]),
       docStatus  : new FormControl('O',[Validators.required]),
       docCloseDate  : new FormControl('',),
-    });      
-      
-    this.getBranchList();
+    });   
+
+    this.formUser.controls['docCount'].disable();   
+    this.formUser.controls['docNumCode'].disable();   
 
     if (this.selectedDocumentallotmentDetails.docAllotId!= '') {
       this.formUser.patchValue(this.selectedDocumentallotmentDetails); 
@@ -122,7 +124,7 @@ export class AdddocumentallottmentComponent {
       });  
       
       this.formUser.controls['branchCode'].disable();    
-      this.formUser.controls['docType'].disable();     
+      this.formUser.controls['docType'].disable();    
       this.editMode = true;
     }
     else{
@@ -150,14 +152,51 @@ export class AdddocumentallottmentComponent {
       this.docReqDetails.warningTimeStart = selectedDataVal.docType;
       this.docReqDetails.publishStart = selectedDataVal.rangeFrom;
       this.docReqDetails.publishEnd = selectedDataVal.rangeTo;
+      var docCount = 0;
+      var doccode = selectedDataVal.docNumCode.toString();
+
+      if(selectedDataVal.rangeFrom!="" && doccode != selectedDataVal.rangeFrom.toString().substring(0, doccode.length())){
+        this.toasterService.warning("Range From sholud Start With DocNumCode");
+        this.formUser.patchValue({
+          rangeFrom: "",
+          docCount:""
+        });       
+        return;       
+      }  
+      if(selectedDataVal.rangeTo!="" && doccode != selectedDataVal.rangeTo.toString().substring(0, doccode.length())){
+        this.toasterService.warning("Range To sholud Start With DocNumCode");  
+        this.formUser.patchValue({
+          rangeTo:"",
+          docCount:""
+        });     
+        return;       
+      }  
+      if(selectedDataVal.rangeFrom!="" && selectedDataVal.rangeTo!=""){
+        docCount = parseInt(selectedDataVal.rangeTo) - parseInt(selectedDataVal.rangeFrom);
+        if(docCount > 1000){
+          this.toasterService.warning("Doc Count sholud not be more than 1000");   
+          this.formUser.patchValue({
+            rangeFrom: "",
+            rangeTo:"",
+            docCount:""
+          });    
+          return;
+        }            
+      } 
 
       this.documentallotmentService.chkDocumentRange(this.docReqDetails).subscribe((res: Responsemodel) => {
         this.responseDetails = res;
-        if (!this.responseDetails.status) {
+        if (this.responseDetails.status) {
+          this.formUser.patchValue({            
+            docCount: docCount
+          });  
+        }
+        else{
           this.toasterService.warning(this.responseDetails.message);    
           this.formUser.patchValue({
             rangeFrom: "",
-            rangeTo:""
+            rangeTo:"",
+            docCount:""
           });       
         }
       });
