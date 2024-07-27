@@ -410,6 +410,7 @@ import { Dieselstmtmodel } from './models/dieselstmtmodel';
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
     TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
     DieselstmtlistComponent, DieselstmtaddComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -462,7 +463,9 @@ import { Dieselstmtmodel } from './models/dieselstmtmodel';
     Billsmastermodel,Billstypemodel,
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
-    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,Dieselstmtmodel
+    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
+    Dieselstmtmodel,Fleetloadentrymodel
+    
   ],
   bootstrap: [AppComponent]
 })
