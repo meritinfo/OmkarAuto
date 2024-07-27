@@ -13,6 +13,7 @@ using FleetMasters.Business;
 using FleetMasters.Models;
 using Org.BouncyCastle.Ocsp;
 using System.Collections.Generic;
+using FleetTrans;
 
 namespace FCUBEAPI.Controllers
 {
@@ -43,6 +44,8 @@ namespace FCUBEAPI.Controllers
         readonly IVehiEmiBusiness vehiEmiBusiness;
         readonly ITyreRegroupRecdMasterBusiness tyreRegroupRecdMasterBusiness;
         readonly IFleetLoadEntryBusiness fleetLoadEntryBusiness;
+        readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
+        readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -62,8 +65,10 @@ namespace FCUBEAPI.Controllers
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
               ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
+           ITyreSalesMasterBusiness _tyreSalesMasterBusiness,
         IVehiEmiBusiness _vehiEmiBusiness,
-             IFleetLoadEntryBusiness _fleetLoadEntryBusiness)
+             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
+              IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -88,6 +93,8 @@ namespace FCUBEAPI.Controllers
             tyreRegroupRecdMasterBusiness = _tyreRegroupRecdMasterBusiness;
             tyreRegroupRecdMasterBusiness = _tyreRegroupRecdMasterBusiness;
             fleetLoadEntryBusiness = _fleetLoadEntryBusiness;
+            tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
+            vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
         }
 
 
@@ -2022,6 +2029,146 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await fleetLoadEntryBusiness.FleetLoadEntryDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreSalesMasterSave")]
+        public async Task<IActionResult> TyreSalesMasterSave(TyreSalesMasterModel tyreSalesMasterModel)
+        {
+            if (tyreSalesMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreSalesMasterBusiness.TyreSalesMasterSave(tyreSalesMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyreSalesMasterList")]
+        public async Task<IActionResult> GetTyreSalesMasterList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await tyreSalesMasterBusiness.GetTyreSalesMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+        [HttpPost("GetTyreSalesMasterInnerGridList")]
+        public async Task<IActionResult> GetTyreSalesMasterInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreSalesMasterBusiness.GetTyreSalesMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TyreSalesMasterDelete")]
+        public async Task<IActionResult> TyreSalesMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreSalesMasterBusiness.TyreSalesMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleRepMaintMasterSave")]
+        public async Task<IActionResult> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel)
+        {
+            if (vehicleRepMaintMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.VehicleRepMaintMasterSave(vehicleRepMaintMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleRepMaintMasterList")]
+        public async Task<IActionResult> GetVehicleRepMaintMasterList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.GetVehicleRepMaintMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+        [HttpPost("GetVehicleRepMaintMasterInnerGridList")]
+        public async Task<IActionResult>  GetVehicleRepMaintMasterInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.GetVehicleRepMaintMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("VehicleRepMaintMasterDelete")]
+        public async Task<IActionResult> VehicleRepMaintMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.VehicleRepMaintMasterDelete(req);
 
                 return Ok(result);
             }
