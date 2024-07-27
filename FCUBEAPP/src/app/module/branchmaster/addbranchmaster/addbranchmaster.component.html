@@ -116,7 +116,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip"> Pin</label>
                                                 <span style="color: red">*</span>
-                                                <input numbersonly autoclose="false" class="form-control" placeholder="" 
+                                                <input numbersonly autoclose="false" class="form-control" 
                                                 formControlName="pinCode" maxlength="6"      
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pinCode'].invalid) }">
                                             </div>
@@ -127,16 +127,16 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Phone1</label>
                                                 <span style="color: red">*</span>
-                                                <input autoclose="false" class="form-control"  placeholder=" "  
-                                                formControlName="offPhone1"   maxlength="10"     
+                                                <input autoclose="false" class="form-control" 
+                                                formControlName="offPhone1" numbersonly  maxlength="10"     
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['offPhone1'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Phone2</label>
-                                                <input autoclose="false" class="form-control" placeholder=""  
-                                                formControlName="offPhone2"   maxlength="10"     >
+                                                <input autoclose="false" class="form-control" numbersonly
+                                                formControlName="offPhone2" numbersonly  maxlength="10"     >
                                             </div>
                                         </div>
                                       
@@ -144,8 +144,8 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Office Mobile No</label>
                                                 <span style="color: red">*</span>
-                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=" " 
-                                                formControlName="mobileNo"     maxlength="10"        
+                                                <input  maxlength="10"  autoclose="false" class="form-control"  
+                                                formControlName="mobileNo" numbersonly      
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['mobileNo'].invalid) }">
                                             </div>
                                         </div>
@@ -171,22 +171,22 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Mobile No</label>
                                                 <span style="color: red">*</span>
-                                                <input  maxlength="10"  autoclose="false" class="form-control" placeholder=""  
-                                                formControlName="managerMobileNo"   maxlength="10"          
+                                                <input  maxlength="10"  autoclose="false" class="form-control" 
+                                                formControlName="managerMobileNo"   numbersonly        
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['managerMobileNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Phone</label>
-                                                <input  maxlength="10"  autoclose="false" class="form-control"  placeholder=""  
+                                                <input  maxlength="10"  autoclose="false" class="form-control" numbersonly
                                                 formControlName="managerPhone">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Manager Email</label>
-                                                <input type="email" autoclose="false" class="form-control" placeholder="" 
+                                                <input type="email" autoclose="false" class="form-control"
                                                 formControlName="managerEmail">
                                             </div>
                                         </div>
@@ -195,14 +195,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Gst No</label>
-                                                <input maxlength="15" autoclose="false" class="form-control" placeholder="" 
+                                                <input maxlength="15" autoclose="false" class="form-control" 
                                                 formControlName="gstNo">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Entry Lock Days </label>
-                                                <input numbersonly   maxlength="3" autoclose="false" class="form-control" placeholder=" " 
+                                                <input numbersonly maxlength="3" autoclose="false" class="form-control" 
                                                 formControlName="entryLockDays" >
                                             </div>
                                         </div>   
@@ -211,22 +211,28 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Zone Code</label>
+                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="3" autoclose="false" class="form-control" 
-                                                formControlName="znNumCode">
+                                                formControlName="znNumCode" (change)="onChange()"       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['znNumCode'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Branch Code </label>
+                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="2" autoclose="false" class="form-control"
-                                                formControlName="brNumCode" >
+                                                formControlName="brNumCode" (change)="onChange()"       
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['brNumCode'].invalid) }">
                                             </div>
                                         </div>   
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">DocNum Code </label>
+                                                <span style="color: red">*</span>
                                                 <input numbersonly maxlength="2" autoclose="false" class="form-control"
-                                                formControlName="docNumCode" >
+                                                formControlName="docNumCode"        
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['docNumCode'].invalid) }">
                                             </div>
                                         </div>   
                                     </div>

@@ -98,7 +98,7 @@
                         <div class="tex">
                             <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                             (click)="submitBillTypeMasterForm()" >Save</button> &nbsp;  
-                            <button class="btn btn-danger w-md m-2" 
+                            <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteBillTypeMasterForm()">Delete</button> &nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>

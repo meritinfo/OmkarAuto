@@ -306,6 +306,9 @@ import { Tyreregroupissuemastermodel } from './models/tyreregroupissuemastermode
 import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
 import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
 import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel';
+import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
+import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
+import { Dieselstmtmodel } from './models/dieselstmtmodel';
 
 @NgModule({
   declarations: [
@@ -402,7 +405,8 @@ import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel'
     TyreativatelistComponent, TyreativateaddComponent, 
     TyredeativatelistComponent, TyredeativateaddComponent, 
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
-    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent ,
+    TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
+    DieselstmtlistComponent, DieselstmtaddComponent ,
   ],
   imports: [
     BrowserModule,
@@ -455,7 +459,7 @@ import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel'
     Billsmastermodel,Billstypemodel,
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
-    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
+    Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,Dieselstmtmodel
   ],
   bootstrap: [AppComponent]
 })

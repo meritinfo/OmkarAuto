@@ -213,7 +213,8 @@
                             <button  class="btn btn-primary w-md" (click)="saveStatementDetails()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
                               <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="driverSalaryDelete()">Delete</button>
-                                <button  class="btn btn-secondary w-md m-2" *ngIf="createmode" (click)="exit()">Exit</button>
+                                <button  class="btn btn-secondary w-md m-2" 
+                                (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>

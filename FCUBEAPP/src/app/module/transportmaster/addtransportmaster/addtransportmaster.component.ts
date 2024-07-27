@@ -90,7 +90,7 @@ export class AddtransportmasterComponent {
       whatsappMblNo: new FormControl('',),
       branchCode: new FormControl('',),
       remarks: new FormControl('',),
-      isActive: new FormControl('',),
+      isActive: new FormControl('Y',),
       inActiveDate: new FormControl('',),
       
       transportDetailList: this.formBuilder.array([this.createLocationArray()]),

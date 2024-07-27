@@ -60,8 +60,8 @@ namespace FCUBEAPI.Controllers
             IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
-              ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
-        IVehiEmiBusiness _vehiEmiBusiness)
+            ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
+            IVehiEmiBusiness _vehiEmiBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -79,7 +79,6 @@ namespace FCUBEAPI.Controllers
             tyreDeActivateMasterBusiness = _tyreDeActivateMasterBusiness;
             tripStatusRptBusiness = _tripStatusRptBusiness;
             dailyLoadingRptBusiness = _dailyLoadingRptBusiness;
-
             vehiEmiBusiness = _vehiEmiBusiness;
             vehicleInstPmtBusiness = _vehicleInstPmtBusiness;
             tyreRegroupIssueMasterBusiness = _tyreRegroupIssueMasterBusiness;
@@ -661,6 +660,63 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await dieselStatementBusiness.GetHappayDieselList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DieselStatementSave")]
+        public async Task<IActionResult> DieselStatementSave(DieselStmtModel dieselStmtModel)
+        {
+            if (dieselStmtModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.DieselStatementSave(dieselStmtModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+        [HttpPost("GetDieselStmtList")]
+        public async Task<IActionResult> GetDieselStmtList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStmtList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+        [HttpPost("GetDieselStmtInnerGridList")]
+        public async Task<IActionResult> GetDieselStmtInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await dieselStatementBusiness.GetDieselStmtInnerGridList(request);
 
                 return Ok(result);
             }
