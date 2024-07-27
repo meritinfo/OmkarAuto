@@ -42,6 +42,7 @@ namespace FCUBEAPI.Controllers
         readonly IDailyLoadingRptBusiness dailyLoadingRptBusiness;
         readonly IVehiEmiBusiness vehiEmiBusiness;
         readonly ITyreRegroupRecdMasterBusiness tyreRegroupRecdMasterBusiness;
+        readonly IFleetLoadEntryBusiness fleetLoadEntryBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -60,8 +61,9 @@ namespace FCUBEAPI.Controllers
             IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
-            ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
-            IVehiEmiBusiness _vehiEmiBusiness)
+              ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
+        IVehiEmiBusiness _vehiEmiBusiness,
+             IFleetLoadEntryBusiness _fleetLoadEntryBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -83,6 +85,8 @@ namespace FCUBEAPI.Controllers
             vehicleInstPmtBusiness = _vehicleInstPmtBusiness;
             tyreRegroupIssueMasterBusiness = _tyreRegroupIssueMasterBusiness;
             tyreRegroupRecdMasterBusiness = _tyreRegroupRecdMasterBusiness;
+            tyreRegroupRecdMasterBusiness = _tyreRegroupRecdMasterBusiness;
+            fleetLoadEntryBusiness = _fleetLoadEntryBusiness;
         }
 
 
@@ -2015,17 +2019,65 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("GetTyreRegroupRecdMasterSearchList")]
-        public async Task<IActionResult> GetTyreRegroupRecdMasterSearchList(RequestModel request)
+        [HttpPost("FleetLoadEntrySave")]
+        public async Task<IActionResult> FleetLoadEntrySave()
         {
-            if (request == null)
+            //if (fleetLoadEntryModel == null)
+            //{
+            //    return BadRequest("Invalid request data");
+            //}
+            try
+            {
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+
+                FleetLoadEntryModel fleetLoadEntryModel = JsonConvert.DeserializeObject<FleetLoadEntryModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attachConfirmDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo/" + imageName);
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        fleetLoadEntryModel.AttachMemocopy = imageName;
+                    }
+                }
+                var result = await fleetLoadEntryBusiness.FleetLoadEntrySave(fleetLoadEntryModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FleetLoadEntryList")]
+        public async Task<IActionResult> GetFleetLoadEntryList(PageRequest request)
+        {
+            try
+            {
+                var result = await fleetLoadEntryBusiness.GetFleetLoadEntryList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+        [HttpPost("FleetLoadEntryDelete")]
+        public async Task<IActionResult> FleetLoadEntryDelete(RequestModel req)
+        {
+            if (req == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await tyreRegroupRecdMasterBusiness.GetTyreRegroupRecdMasterSearchList(request);
+                var result = await fleetLoadEntryBusiness.FleetLoadEntryDelete(req);
 
                 return Ok(result);
             }

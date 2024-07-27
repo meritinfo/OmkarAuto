@@ -170,6 +170,8 @@ import { TyreregroupissuelistComponent } from './module/tyreregroupissue/tyrereg
 import { TyreregroupissueaddComponent } from './module/tyreregroupissue/tyreregroupissueadd/tyreregroupissueadd.component';
 import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
 import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
+import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
+import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 
@@ -417,6 +419,9 @@ const routes: Routes = [
   { path: 'tyrerethreadrecvlist', component:  TyreregrouprecdlistComponent }, 
   { path: 'tyrerethreadrecvadd', component:  TyreregrouprecdaddComponent }, 
   { path: 'tyrerethreadrecvedit', component:  TyreregrouprecdaddComponent }, 
+  { path: 'fleetloadentryadd', component:  FleetloadentryaddComponent},
+  { path: 'fleetloadentryedit', component:  FleetloadentryaddComponent},
+  { path: 'loadmemolist', component:  FleetloadentrylistComponent},
   { path: 'dieselimplist', component: DieselstmtlistComponent}, 
   { path: 'dieselimpadd', component: DieselstmtaddComponent }, 
   { path: 'dieselimpedit', component: DieselstmtaddComponent }, 

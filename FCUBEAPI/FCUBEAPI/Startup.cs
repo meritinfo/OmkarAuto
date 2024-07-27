@@ -232,6 +232,9 @@ namespace FCUBEAPI
             services.AddScoped<IMrRepository, MrRepository>();
             services.AddScoped<IVehiEmiBusiness, VehiEmiBusiness>();
             services.AddScoped<IVehiEmiRepository, VehiEmiRepository>();
+            services.AddScoped<IFleetLoadEntryBusiness, FleetLoadEntryBusiness>();
+            services.AddScoped<IFleetLoadEntryRepository, FleetLoadEntryRepository>();
+
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {

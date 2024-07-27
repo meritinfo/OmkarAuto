@@ -306,6 +306,9 @@ import { Tyreregroupissuemastermodel } from './models/tyreregroupissuemastermode
 import { TyreregrouprecdlistComponent } from './module/tyreregrouprecd/tyreregrouprecdlist/tyreregrouprecdlist.component';
 import { TyreregrouprecdaddComponent } from './module/tyreregrouprecd/tyreregrouprecdadd/tyreregrouprecdadd.component';
 import { Tyreregrouprecdmastermodel } from './models/tyreregrouprecdmastermodel';
+import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadentryadd/fleetloadentryadd.component';
+import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
+import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 import { Dieselstmtmodel } from './models/dieselstmtmodel';
