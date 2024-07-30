@@ -147,7 +147,7 @@ export class VehicleinstscheduleaddComponent {
   }
   
   getVehicleNoList(): void {
-    this.commonService.getVehicleNoList().subscribe((res) => {
+    this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
     });
   }

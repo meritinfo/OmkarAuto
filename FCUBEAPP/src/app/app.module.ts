@@ -312,6 +312,8 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 import { Dieselstmtmodel } from './models/dieselstmtmodel';
+import { TyresaleslistComponent } from './module/tyresales/tyresaleslist/tyresaleslist.component';
+import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresalesadd.component';
 
 @NgModule({
   declarations: [
@@ -410,7 +412,7 @@ import { Dieselstmtmodel } from './models/dieselstmtmodel';
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
     TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
     DieselstmtlistComponent, DieselstmtaddComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, TyresaleslistComponent, TyresalesaddComponent ,
   ],
   imports: [
     BrowserModule,

@@ -174,6 +174,8 @@ import { FleetloadentryaddComponent } from './module/fleetloadentry/fleetloadent
 import { FleetloadentrylistComponent } from './module/fleetloadentry/fleetloadentrylist/fleetloadentrylist.component';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
+import { TyresaleslistComponent } from './module/tyresales/tyresaleslist/tyresaleslist.component';
+import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresalesadd.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -425,6 +427,9 @@ const routes: Routes = [
   { path: 'dieselimplist', component: DieselstmtlistComponent}, 
   { path: 'dieselimpadd', component: DieselstmtaddComponent }, 
   { path: 'dieselimpedit', component: DieselstmtaddComponent }, 
+  { path: 'tyresalelist', component:TyresaleslistComponent},
+  { path: 'tyresaleadd', component:TyresalesaddComponent },
+  { path: 'tyresaleedit', component:TyresalesaddComponent },
 ];
 
 @NgModule({

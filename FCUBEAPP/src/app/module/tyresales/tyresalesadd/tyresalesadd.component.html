@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Receive from Rethread</h4>
+                        <h4 class="mb-sm-0 font-size-18">Sales/Disposal of Tyres</h4>
                     </div>
                 </div>
             </div>
@@ -29,17 +29,25 @@
                                     </div>  
                                     <div class="col-sm-2">
                                         <div class="mb-3">                                           
-                                            <label >Received Date: </label><span style="color: red">*</span>  
+                                            <label >Trans Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
-                                                formControlName="recdDate" max="{{maxDate}}"                                         
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['recdDate'].invalid) }">
+                                                formControlName="transDate" max="{{maxDate}}"                                         
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
+                                    <div class="col-sm-2">                                    
+                                        <div class="mb-3">      
+                                            <input type="checkbox" formControlName="nonCustomer" 
+                                            class="form-check-input" (change)="onnonCustomer($event)" value="Y" >
+                                            <label for="nonCustomer" class="form-check-label" > Non Customer
+                                            </label>  
+                                        </div>                                    
+                                    </div>  
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor</label> <span style="color: red">*</span>                                       
+                                            <label>Customer</label> <span style="color: red">*</span>                                       
                                             <div class="ng-autocomplete">
-                                                <ng-autocomplete [data]="vendorList"
+                                                <ng-autocomplete [data]="customerList"
                                                     [searchKeyword]="keywordLocation" placeholder=""
                                                     (selected)='selectEvent($event)'
                                                     (inputChanged)='onChangeSearch($event)'
@@ -47,8 +55,8 @@
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
-                                                    formControlName="vendorId" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                    formControlName="customerId" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['customerId'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
@@ -65,24 +73,23 @@
                                 <div class="row">   
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Vendor Bill No: </label><span style="color: red">*</span> 
+                                            <label>Customer Name: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                                formControlName="vendorBillNo" maxlength="25" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorBillNo'].invalid) }">
+                                                formControlName="customerName" maxlength="100">
                                         </div>
                                     </div>  
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <div class="mb-3">
-                                            <label>Vendor Bill Dt: </label><span style="color: red">*</span> 
-                                            <input type="date" autofocus="autofocus" class="form-control"
-                                                formControlName="vendorBillDt"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorBillDt'].invalid) }">
+                                            <label>Customer Add: </label>
+                                            <input uppercaseonly autofocus="autofocus" class="form-control"
+                                                formControlName="customerAdd" maxlength="250">
                                         </div>
                                     </div> 
-                                    <div class="col-lg-2">
+                                    <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <button (click)="searchStatement()" *ngIf="!editMode"
-                                                class="btn btn-primary w-md mt-4">Search</button>
+                                            <label>Customer GST No: </label>
+                                            <input uppercaseonly autofocus="autofocus" class="form-control"
+                                                formControlName="customerGstNo" maxlength="15">
                                         </div>
                                     </div> 
                                 </div>             
@@ -93,78 +100,69 @@
                     </div>
                 </div>  
                 <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row" *ngIf="showGrid">
+                    <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body" >
                                     <h4 class="card-title mb-4"></h4>
-                                    <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
-                                            <tr>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip"></label>
+                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
+                                        <tr>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Brand</h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Tyre No </h6>
+                                                </label>
+                                            </td>
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Amount </h6>
+                                                </label>
+                                            </td> 
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Remarks</h6>
+                                                </label>
+                                            </td> 
+                                            <td class="col-lg-2">
+                                                <label for="formrow-inputZip">
+                                                    <h6>Action</h6>
+                                                </label>
+                                            </td> 
+                                        </tr>
+                                        <tr formArrayName="arrayList"
+                                                *ngFor="let arrayData of formTyreArray.controls; let i = index">
+                                            <div [formGroupName]="i" class="grid-table">
+                                                <td class="col-lg-2"> 
+                                                    <input autoclose="false" class="form-control"
+                                                        formControlName="brandId"> 
+                                                </td>
+                                                <td class="col-lg-2"> 
+                                                    <input autoclose="false" class="form-control"
+                                                        formControlName="tyreId"> 
+                                                </td>
+                                                <td class="col-lg-2"> 
+                                                    <input decimalonly autoclose="false" class="form-control"
+                                                        formControlName="tyreAmt" (change)="calAmt()"> 
+                                                </td>
+                                                <td class="col-lg-2"> 
+                                                    <input uppercaseonly autoclose="false" class="form-control"
+                                                        formControlName="remarks"> 
                                                 </td>
                                                 <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Brand</h6>
-                                                    </label>
+                                                    <div class="col-lg-2 details-button">
+                                                        <button *ngIf="i === formTyreArray.controls.length-1" type="button"
+                                                            class="btn btn-add" (click)="addItem(i)"></button>
+                                                        <button *ngIf="formTyreArray.controls.length > 1"
+                                                            (click)="removeItem(i)" class="btn btn-delete"></button>
+                                                    </div>   
                                                 </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Tyre No </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>ReGrouped</h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Amount </h6>
-                                                    </label>
-                                                </td> 
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Remarks</h6>
-                                                    </label>
-                                                </td>
-                                            </tr>
-                                            <tr formArrayName="arrayList"
-                                                    *ngFor="let arrayData of formTyreArray.controls; let i = index">
-                                                <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2"> 
-                                                        <input type="checkbox"  class="form-check-input" 
-                                                            formControlName="selected" (change)="onCheked(i,$event)" >  
-                                                        <input type="hidden" autoclose="false" class="form-control"
-                                                            formControlName="regroupIssueDtlId">                                                   
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                            formControlName="brandId"> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                            formControlName="tyreId"> 
-                                                    </td>
-                                                    <td class="col-lg-2">                                                          
-                                                        <select class="form-control" formControlName="regroupDoneYN">
-                                                            <option value="Y">Regrouped</option>
-                                                            <option value="N">Non-Regrouped</option>
-                                                        </select> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input decimalonly autoclose="false" class="form-control"
-                                                            formControlName="regroupAmount" (change)="onRegroupAmt()"> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input uppercaseonly autoclose="false" class="form-control"
-                                                            formControlName="remarks"> 
-                                                    </td>
-                                                </div>
-                                            </tr>
-                                        </table>
-                                    </div>
+                                            </div>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +170,22 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <label>Total Amt:  </label>
+                                <label>Tyre Amt:  </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="totalAmt" >
+                                formControlName="tyreAmount" >
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-2">
+                                <label>Gst Type </label><span style="color: red">*</span>                                           
+                                <select id="formrow-inputState" 
+                                class="form-control form-select ng-pristine ng-touched"
+                                    formControlName="gstType" (change)="changeGstType($event)">
+                                    <option value="NA">NA</option>
+                                    <option value="C">CGST</option>
+                                    <option value="S">SGST</option>  
+                                    <option value="I">IGST</option>                                                                                            
+                                </select>
                             </div>
                         </div> 
                     </div>
@@ -225,32 +236,30 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <label>Other Amt:  </label>
+                                <label>Total Amount:  </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="otherAmt" (change)="onPctChange()">
+                                formControlName="totalAmount" >
                             </div>
                         </div> 
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Round Off: </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="roundOffAmt" (change)="onPctChange()">
+                                formControlName="roundOff" (change)="onPctChange()">
                             </div>
                         </div> 
                         <div class="col-sm-2">
                             <div class="mb-3">
-                                <label>Net Bill Amount: </label>
+                                <label>Net Amount: </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="netBillAmt" >
+                                formControlName="netAmount" >
                             </div>
-                        </div> 
-                    </div>  
-                    <div class="row">                                                                        
+                        </div>                                                                     
                         <div class="col-lg-2">
                             <div class="mb-2">
                                 <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
                                 <select id="formrow-inputState" class="form-control" 
-                                formControlName="pmtType" (change)="changePmtType($event)"
+                                formControlName="pmtType" 
                                 class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
                                     <option value="M">Cash</option>      
@@ -260,33 +269,7 @@
                                     <option value="A">Adjust</option>                                           
                                 </select>                                                
                             </div>                                                    
-                        </div>                                      
-                        <div class="col-lg-3">
-                            <div class="mb-3">
-                                <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
-                                <select class="form-control" 
-                                    formControlName="creditAc"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
-                                    <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
-                                        {{ac.dataName}}
-                                    </option>
-                                </select>
-                            </div>
-                        </div>   
-                        <div class="col-sm-3">
-                            <div class="mb-3">
-                                <label>Cheque No </label>
-                                <input  uppercaseonly type="text" class="form-control"
-                                formControlName="chequeNo" >
-                            </div>
-                        </div> 
-                        <div class="col-sm-2">
-                            <div class="mb-3">
-                                <label >Cheque Date </label>
-                                <input type="date"  autofocus="autofocus" class="form-control"
-                                formControlName="chequeDt">
-                            </div>
-                        </div>   
+                        </div>    
                     </div> 
                     <div class="row">                                                               
                         <div class="col-sm-6">
@@ -295,25 +278,16 @@
                                 <input  uppercaseonly type="text" class="form-control" maxlength="250" 
                                 formControlName="remarks" >
                             </div>
-                        </div>                                  
-                        <div class="col-sm-4">
-                            <div class="mb-3">
-                                <label>Attach File : </label>
-                                <input #attachmentInput class="form-control" type="file"
-                                        id="formAttFile" accept="image/*">                                        
-                                <a *ngIf="selectedTyreregrouprecdMasterDetail.attatchFile" target="_blank"
-                                        href={{attatchFile}}>Download</a>
-                            </div>
-                        </div>                                        
+                        </div>                                       
                     </div>                     
                 </div>         
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
                             <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
-                                (click)="submitTyreMasterForm()">Save</button>&nbsp;                            
+                                (click)="submitsaleForm()">Save</button>&nbsp;                            
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
-                                (click)="tyreMasterDelete()">Delete</button>&nbsp;
+                                (click)="tyresaleDelete()">Delete</button>&nbsp;
                             <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                         </div>
                     </div>
@@ -326,5 +300,6 @@
     </div>
      <!-- End Page-content -->
 </div>
+
 
 

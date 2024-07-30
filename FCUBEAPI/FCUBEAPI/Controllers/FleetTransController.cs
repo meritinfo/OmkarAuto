@@ -13,7 +13,6 @@ using FleetMasters.Business;
 using FleetMasters.Models;
 using Org.BouncyCastle.Ocsp;
 using System.Collections.Generic;
-using FleetTrans;
 
 namespace FCUBEAPI.Controllers
 {
@@ -2163,6 +2162,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCustomerList")]
+        public async Task<IActionResult> GetCustomerList()
+        {
+            try
+            {
+                var result = await tyreSalesMasterBusiness.GetCustomerList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
         [HttpPost("VehicleRepMaintMasterSave")]
         public async Task<IActionResult> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel)
         {

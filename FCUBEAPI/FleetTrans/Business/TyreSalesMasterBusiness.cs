@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
@@ -32,6 +33,10 @@ namespace FleetTrans.Business
         public async Task<TyreSalesMasterList> GetTyreSalesMasterList(PageFromDtToDtRequest request)
         {
             return await tyreSalesRepository.GetTyreSalesMasterList(request);
+        }
+        public async Task<List<DropDownListModel>> GetCustomerList()
+        {
+            return await tyreSalesRepository.GetCustomerList();
         }
 
     }

@@ -37,7 +37,6 @@ namespace FleetTrans.Models
     }
     public class TyreSalesDtlListmodel
     {
-        public string? DetailID { get; set; }
         public string? MasterID { get; set; }
         public string? TransDate { get; set; }
         public string? BrandId { get; set; }
