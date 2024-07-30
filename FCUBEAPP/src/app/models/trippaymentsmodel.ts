@@ -3,9 +3,6 @@ export class Trippaymentsmodel {
     pmtBranch: string = "";
     pmtDate: string = "";
     vehicleMasterID: string = "";
-    tripNo: string = "";
-    tripMasterId: string = "";
-   // driverMasterID: string = "";
     transType: string = "";
     amountPaid: string = "";
     remarks: string = "";
@@ -19,6 +16,7 @@ export class Trippaymentsmodel {
     adjInTrip: string = "";
     qtyLtrs: string = "";
     ratePerLtr: string = "";
+        
     bName: string = "";
     vehicleNo: string = "";
     

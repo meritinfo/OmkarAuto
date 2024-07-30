@@ -403,22 +403,13 @@ namespace Shared.Repository
                         configModel.EwayBillApiGstId = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiGstId"]);
                         configModel.EwayBillApiUid = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiUid"]);
                         configModel.EwayBillApiPwd = Convert.ToString(resultData.Tables[0].Rows[0]["EwayBillApiPwd"]);
-                        configModel.ApiEwayBillExtenUrl= Convert.ToString(resultData.Tables[0].Rows[0]["ApiEwayBillExtenUrl"]);
+                        configModel.ApiEwayBillExtenUrl = Convert.ToString(resultData.Tables[0].Rows[0]["ApiEwayBillExtenUrl"]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
 
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return configModel;
         }
@@ -494,6 +485,7 @@ namespace Shared.Repository
                     
                     var fullPath = System.IO.Path.Combine(pathToSave, filename);
                     bool exists = System.IO.Directory.Exists(pathToSave);
+
                     if (!exists)
                     {
                         Directory.CreateDirectory(pathToSave);

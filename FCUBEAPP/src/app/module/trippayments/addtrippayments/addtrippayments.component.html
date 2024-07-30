@@ -6,12 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Trip Payments</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item">Trip Payments</li>
-                                <li class="breadcrumb-item active">Trip Payments Add</li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -27,7 +21,8 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-firstname-input">Payment Branch</label>
-                                                    <select class="form-control" formControlName="pmtBranch"
+                                                    <select class="form-control form-select ng-pristine ng-touched"
+                                                     formControlName="pmtBranch"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtBranch'].invalid) }">
                                                         <option *ngFor="let branch of branchList"
                                                             value={{branch.dataId}}>
@@ -39,7 +34,7 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-lastname-input">Payment Date</label>
-                                                    <input bsdatepicker="" type="date" autoclose="false"  max="{{maxDate}}"
+                                                    <input type="date" autoclose="false"  max="{{maxDate}}"
                                                         placeholder="yyyy-mm-dd" formControlName="pmtDate"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtDate'].invalid) }" 
                                                         class="form-control">
@@ -51,14 +46,11 @@
                                                     <ng-autocomplete [data]="vehicleList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
                                                         formControlName="vehicleMasterID" [initialValue]=""
-                                                        (selected)='getTripDetails($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        (inputCleared)="onCleared($event)"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }"
-                                                      >
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -70,33 +62,38 @@
                                                     </ng-template>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3">
-                                                <div class="mb-3">
-                                                    <label for="basicpill-lastname-input">Open Trip No.</label>
-                                                    <input type="text" id="formrow-inputCity" class="form-control"
-                                                        placeholder="" formControlName="tripNo" [ngClass]=>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div class="ng-untouched ng-pristine ng-valid">
                                             <div class="row">
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="formrow-inputState">From</label>
-                                                        <input type="text" id="formrow-inputCity" class="form-control"
-                                                        placeholder="" formControlName="from" [ngClass]=>                                                            
+                                                        <select class="form-control form-select ng-pristine ng-touched"
+                                                         formControlName="from"
+                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['from'].invalid) }">
+                                                            <option *ngFor="let branch of locationList"
+                                                                value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>                                                          
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3"><label for="formrow-inputZip">To</label>
-                                                        <input type="text" id="formrow-inputCity" class="form-control"
-                                                        placeholder="" formControlName="to" [ngClass]=> 
+                                                        <select class="form-control form-select ng-pristine ng-touched"
+                                                         formControlName="to"
+                                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['to'].invalid) }">
+                                                            <option *ngFor="let branch of locationList"
+                                                                value={{branch.dataId}}>
+                                                                {{branch.dataName}}
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <div class="mb-3">
                                                         <label for="formrow-inputZip">Load Or Empty</label>
-                                                        <select id="formrow-inputState" class="form-control"
+                                                        <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                             formControlName="loadorempty">
                                                             <option selected="">Choose...</option>
                                                             <option value="L">Load</option>
@@ -104,59 +101,16 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label style="color: red"> 
-                                                            <h5>Trip Status: {{ this.tripStatus}} </h5> 
-                                                        </label>                                                 
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label style="color: red"> 
-                                                            <h5>Dsl Opening: {{ this.dslOpening}} </h5> 
-                                                        </label>                                                 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3">
-                                                        <label for="formrow-inputState">Dsl To Be</label>
-                                                        <input type="text" id="formrow-inputCity"
-                                                            class="form-control" placeholder=""
-                                                            formControlName="dsltobe" [ngClass]=>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <div class="mb-3"><label for="formrow-inputZip">Travel
-                                                            Allowance</label>
-                                                        <input type="text" id="formrow-inputCity"
-                                                            class="form-control" placeholder=""
-                                                            formControlName="travel" [ngClass]=>
-                                                    </div>
-                                                </div> 
-                                                <div class="col-lg-3">                                                            
-                                                    <label style="color: red"> 
-                                                        <h5>Dsl Issued:  {{ this.dslIssued}} </h5> 
-                                                    </label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <label style="color: red">  
-                                                        <h5>Adv Issued:{{this.advIssued }}</h5>  
-                                                    </label>
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Trans Type</label>
-                                                    <select id="formrow-inputState" class="form-control"
+                                                    <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="transType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['transType'].invalid) }"
                                                         (change)="changeTransType($event)">
-                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="DA"> Driver Adv</option>
                                                         <option value="DL"> Diesel </option>
                                                     </select>
@@ -165,7 +119,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Remark</label>
-                                                    <input  uppercaseonly  class="form-control" formControlName="remarks"
+                                                    <input uppercaseonly  class="form-control" formControlName="remarks"
                                                         id="basicpill-email-input" placeholder="">
                                                 </div>
                                             </div>
@@ -173,24 +127,24 @@
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">QtyLtrs</label>
-                                                    <input type="text" class="form-control"  decimalonly  formControlName="qtyLtrs" 
+                                                    <label for="basicpill-phoneno-input">Qty Ltrs</label>
+                                                    <input type="text" class="form-control" decimalonly formControlName="qtyLtrs" 
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['qtyLtrs'].invalid) } "
                                                         id="basicpill-email-input" (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">RatePerLtr</label>
-                                                    <input type="text" class="form-control"  decimalonly  formControlName="ratePerLtr"
+                                                    <label for="basicpill-phoneno-input">Rate Per Ltr</label>
+                                                    <input type="text" class="form-control" decimalonly formControlName="ratePerLtr"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['ratePerLtr'].invalid) }"
                                                         id="basicpill-email-input" (change)="calculateTotalAmount()">
                                                 </div>
                                             </div>
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-email-input">Amount </label>
-                                                    <input type="email" class="form-control"
+                                                    <label for="basicpill-email-input">Amount</label>
+                                                    <input type="text" class="form-control" decimalonly
                                                         formControlName="amountPaid" id="basicpill-email-input"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['amountPaid'].invalid) }" >
                                                 </div>
@@ -200,11 +154,10 @@
                                             <div class="col-lg-3">
                                                 <div class="mb-3">
                                                     <label for="basicpill-phoneno-input">Payment Type</label>
-                                                    <select id="formrow-inputState" class="form-control"
+                                                    <select id="formrow-inputState" class="form-control form-select ng-pristine ng-touched"
                                                         formControlName="pmtType"
                                                         [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"  
                                                          (change)="changePmtType($event)">
-                                                     <!--  <option selected="">Choose...</option>--> 
                                                         <option value="C"> Cash</option>
                                                         <option value="B"> Bank</option>
                                                         <option value="H"> Happay</option>
@@ -216,8 +169,9 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
-                                                    <label for="basicpill-phoneno-input">CreditAc </label>          
-                                                    <select class="form-control" formControlName="creditAc"
+                                                    <label for="basicpill-phoneno-input">Credit Ac </label>          
+                                                    <select class="form-control form-select ng-pristine ng-touched"
+                                                    formControlName="creditAc"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
                                                     <option value ="">Choose...</option>
                                                     <option *ngFor="let branch of creditacList" value={{branch.dataId}}>
@@ -238,9 +192,7 @@
                                             <div class="col-lg-3">
                                                 <div class="form-check">
                                                     <input type="checkbox" formControlName="neftPmt" id="neft"
-                                                        [checked]="checkselected"
-                                                        name="neft" class="form-check-input" 
-                                                        value="Y" 
+                                                        name="neft" class="form-check-input" value="Y" 
                                                         (change)="onNeftChk($event)">
                                                     <label for="neft" class="form-check-label" style="color: green;"> Neft
                                                     </label>
@@ -268,11 +220,11 @@
                                         <div class="row text-right">
                                             <div class="col-lg-12">
                                                 <div class="tex">
-                                                    <button class="btn btn-primary w-md"
-                                                        (click)="submitTripPaymentsForm()" *ngIf="(editMode && editStatus) || (!editMode && createStatus)">Save</button>
-                                                        <button  class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
+                                                    <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                                        (click)="submitTripPaymentsForm()">Save</button>
+                                                    <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                                         (click)="tripPaymentsDelete()">Delete</button>
-                                                    <button  class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
+                                                    <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>
                                                 </div>
                                             </div>
                                         </div>

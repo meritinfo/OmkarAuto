@@ -87,18 +87,18 @@
                                                     formControlName="fromLocation">
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputZip">Pin</label>
-                                                <input numbersonly autoclose="false" class="form-control"
-                                                    formControlName="fromPin">
-                                            </div>
-                                        </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Destination</label>
                                                 <input autoclose="false" class="form-control"
                                                     formControlName="destination">                                                
+                                            </div>
+                                        </div>                                        
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">To Pin</label>
+                                                <input numbersonly autoclose="false" class="form-control"
+                                                    formControlName="toPin">
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                             <div class="mb-4">
                                                 <label for="formrow-inputZip">Consignor Place</label>
                                                 <input class="form-control" 
-                                                formControlName="accountCity">
+                                                formControlName="fromLocation">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -199,24 +199,33 @@
                                             </div>
                                         </div>
                                     </div>                                    
-                                    <div class="row">
-                                        <!-- <div class="col-lg-3">
+                                    <div class="row"> 
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Current Place</label><span style="color: red">*</span> 
-                                                <input type="text" uppercaseonly class="form-control" placeholder=" "
-                                                    formControlName="currentPlace">
+                                                <button type="button" class="btn btn-primary"
+                                                            (click)="searchCurrentLoc()">Track Vehicle</button>
+                                            </div>    
+                                        </div>
+                                        <div class="col-lg-9">
+                                            <div class="mb-3">
+                                                <label style="color: red" > Current Location of Vehicle:  {{ location}}  </label><span ></span>
                                             </div>
                                         </div>
-                                        <div class="col-lg-2">
+                                    </div>                                    
+                                    <div class="row">                                        
+                                        <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">Current Pin</label><span style="color: red">*</span> 
-                                                <input type="text" numbersonly class="form-control" placeholder=" "
-                                                    formControlName="currentPin" (change)="caluculatekms($event)">
+                                                <label for="formrow-inputZip">Current Place</label>
+                                                <span style="color: red">*</span> 
+                                                <input type="text" uppercaseonly class="form-control" placeholder=" "
+                                                    formControlName="currentPlace"  
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['currentPlace'].invalid) }">
                                             </div>
-                                        </div> 
+                                        </div>                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Current State</label>
+                                                <span style="color: red">*</span> 
                                                 <select class="form-control" formControlName="state"      
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['state'].invalid) }">
                                                     <option *ngFor="let state of stateList" 
@@ -225,7 +234,15 @@
                                                     </option>
                                                  </select>
                                             </div>
-                                        </div> -->
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <div class="mb-3">
+                                                <label for="formrow-inputZip">Current Pin</label>
+                                                <span style="color: red">*</span> 
+                                                <input type="text" numbersonly class="form-control" maxlength="6"
+                                                    formControlName="fromPin" (change)="caluculatekms()">
+                                            </div>
+                                        </div> 
                                         <div class="col-lg-2">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">KMS</label><span style="color: red">*</span> 
@@ -268,7 +285,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                        <div class="tex">
-                          <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                          <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus)"
                                (click)="submitDocRenewalMasterForm()">Save</button>&nbsp;
                           <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                        </div>

@@ -866,8 +866,6 @@ namespace Consignment.Repository
             {
                 if (dbconnection != null)
                 {
-
-
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "LocationList_Select", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -896,8 +894,6 @@ namespace Consignment.Repository
             {
                 if (dbconnection != null)
                 {
-
-
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleNoList_Select", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -926,8 +922,6 @@ namespace Consignment.Repository
             {
                 if (dbconnection != null)
                 {
-
-
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "VehicleIdList_Select", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
@@ -956,8 +950,6 @@ namespace Consignment.Repository
             {
                 if (dbconnection != null)
                 {
-
-
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleGroupTypes", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)

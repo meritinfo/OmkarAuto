@@ -554,7 +554,7 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetEWayBillExtList")]
-        public async Task<IActionResult> GetEWayBillExtList(PageRequest request)
+        public async Task<IActionResult> GetEWayBillExtList(ReportRequestModel request)
         {
             if (request == null)
             {

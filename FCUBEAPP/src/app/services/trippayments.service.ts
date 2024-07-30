@@ -3,7 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Trippaymentsmodel } from '../models/trippaymentsmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
-import { Reportmodel } from '../models/reportmodel';
+import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Trippaymentslistmodel } from '../models/trippaymentslistmodel';
 import { Requestmodel } from '../models/requestmodel';
@@ -45,7 +45,7 @@ export class TripPaymentsService {
   trippaymentSaveSubmitted(user: Trippaymentsmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TripPaymentsSaveNew', user, this.httpOptions);
   }
-  getTripPaymentsList(filter: Reportmodel): Observable<Trippaymentslistmodel> {
+  getTripPaymentsList(filter: Filtermodel): Observable<Trippaymentslistmodel> {
     return this.httpClient.post<Trippaymentslistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripPaymentsList', filter, this.httpOptions);
   }
 }

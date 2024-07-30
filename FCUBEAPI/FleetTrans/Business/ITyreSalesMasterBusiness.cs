@@ -14,5 +14,6 @@ namespace FleetTrans.Business
         Task<TyreSalesMasterModel> GetTyreSalesMasterInnerGridList(RequestModel request);
         Task<ResponseModel> TyreSalesMasterSave(TyreSalesMasterModel tyreSalesMasterModel);
         Task<ResponseModel> TyreSalesMasterDelete(RequestModel req);
+        Task<List<DropDownListModel>> GetCustomerList();
     }
 }

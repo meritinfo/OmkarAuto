@@ -16,6 +16,7 @@
         public string? FromLocation { get; set; }
         public string? FromPin { get; set; }
         public string? Destination { get; set; }
+        public string? ToPin { get; set; }
         public string? PartyName { get; set; }
         public string? Consignor { get; set; }
         public string? Consignee { get; set; }

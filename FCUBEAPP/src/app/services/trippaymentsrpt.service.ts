@@ -1,13 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Responsemodel } from '../models/responsemodel';
-import { Requestmodel } from '../models/requestmodel';
 import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
-import { Dropdownmodel } from '../models/dropdownmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 import { Trippaymentsrptlistmodel  } from 'src/app/models/trippaymentsrptlistmodel';
-import { Trippaymentsrptmodel } from 'src/app/models/trippaymentsrptmodel';
 
 @Injectable({
   providedIn: 'root'

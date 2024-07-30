@@ -7,6 +7,7 @@ import { EwaybillextService } from 'src/app/services/ewaybillext.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
+import { Reportmodel } from 'src/app/models/reportmodel';
 
 
 @Component({
@@ -24,13 +25,21 @@ export class EwaybillextensionlistComponent {
   dtElement!: DataTableDirective;
 
   allEwayBillExtlist: Ewaybillextlistmodel = new Ewaybillextlistmodel();
-  filter: Filtermodel = {
+  
+  filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'ewayBillExpDate',
-    sortOrder: 'desc',
-    search: ''
-}
+    sortOrder: 'asc',
+    search: '',
+    fromDate: '',
+    toDate: '',
+    filterStr:'',
+    filterStr1:'',
+    filterStr2:'',
+    filterStr3:'',
+  }
+
   formFilter!: FormGroup;
   constructor(private formBuilder: FormBuilder,
     private ewaybillextService: EwaybillextService, private route: Router,
@@ -41,7 +50,6 @@ export class EwaybillextensionlistComponent {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      
       var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
       var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
       .find((aa: { menuName: string; }) => aa.menuName === "Ewaybill Extention");
@@ -55,9 +63,12 @@ export class EwaybillextensionlistComponent {
   
     this.ewaybillextService.clearEwaybillextDetails();
     this.formFilter = this.formBuilder.group({
-      groupName: new FormControl(''),
+      ewayBillNo: new FormControl(''),
     });
-    this.sharedService.loading = true;
+
+    this.sharedService.loading = true;    
+    this.filter.filterStr1 = "";
+    this.filter.filterStr2 = "";
     this.ewaybillextlist();       
     this.sharedService.loading = false;
   }
@@ -102,6 +113,10 @@ export class EwaybillextensionlistComponent {
           data: 'gcNoteNo',
           },
           {
+          title: 'Vehicle No',
+          data: 'vehicleNo',
+          },
+          {
           title: 'From Location',
           data: 'fromLocation',
           },
@@ -136,6 +151,8 @@ export class EwaybillextensionlistComponent {
   
   search(): void {
     this.sharedService.loading = true;
+    this.filter.filterStr1 = this.formFilter.value.ewayBillNo;
+
     this.ewaybillextlist();       
     this.sharedService.loading = false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

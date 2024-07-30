@@ -1,13 +1,11 @@
 import { Component,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
+import { Reportmodel } from 'src/app/models/reportmodel';
 import { Trippaymentslistmodel  } from 'src/app/models/trippaymentslistmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Trippaymentsmodel } from 'src/app/models/trippaymentsmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { CommonService } from 'src/app/services/common.service';
-import { Reportmodel } from 'src/app/models/reportmodel';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 
@@ -28,10 +26,10 @@ export class TrippaymentslistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    filterStr: '',
-    filterStr1: '',
-    filterStr2:'',
-    filterStr3:''
+    filterStr : "",
+    filterStr1: "",
+    filterStr2:  "",
+    filterStr3:  "",  
   }
 
   formFilter!: FormGroup;
@@ -49,10 +47,10 @@ export class TrippaymentslistComponent {
   deleteStatus = false;
   viewStatus = false;
   createmode = false;
- // dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
-  constructor(private formBuilder: FormBuilder,private trippaymentService: TripPaymentsService, private commonService: CommonService, private route: Router) {
+  constructor(private formBuilder: FormBuilder,private trippaymentService: TripPaymentsService, 
+    private commonService: CommonService, private route: Router) {
   }
   
 
@@ -70,6 +68,12 @@ export class TrippaymentslistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
+
+
     var loginDate = sessionStorage.getItem('loginDate')?.toString();
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
@@ -77,7 +81,7 @@ export class TrippaymentslistComponent {
     const today = new Date();
     const month = today.getMonth();
     const year = today.getFullYear();
-    today.setMonth(month - 12);
+    today.setMonth(month - 1);
 
     this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
     this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -99,10 +103,12 @@ export class TrippaymentslistComponent {
     });
     this.getBranchList();
     this.getVehicleNoList();
-    
-    this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.search = "";
+
+    var selectedData = this.formFilter.getRawValue();
+    this.filter.fromDate = selectedData.fromDate;
+    this.filter.toDate = selectedData.toDate;
+    this.filter.filterStr = "";
+    this.filter.filterStr1 =  "";
     this.tripPaymentList();
   }
 
@@ -143,10 +149,6 @@ export class TrippaymentslistComponent {
           data: 'vehicleNo',
         },
         {
-          title: 'Trip No',
-          data: 'tripNo',
-        },
-        {
           title: 'Trans Type',
           data: 'transType',
         },
@@ -185,7 +187,7 @@ export class TrippaymentslistComponent {
   }
 
   getVehicleNoList(): void {
-    this.commonService.getVehicleNoList().subscribe((res) => {
+    this.commonService.getVehicleIdList().subscribe((res) => {
       this.vehicleList = res;
     });
   }
@@ -209,11 +211,11 @@ export class TrippaymentslistComponent {
   search(): void {
     debugger;
     var selectedData = this.formFilter.getRawValue();
+   
     this.filter.fromDate = selectedData.fromDate;
     this.filter.toDate = selectedData.toDate;
     this.filter.filterStr = selectedData.branch;
     this.filter.filterStr1 =  selectedData.vehicle?selectedData.vehicle.dataId:"";
-    this.filter.search = selectedData.tripNo;
 
     this.tripPaymentList();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

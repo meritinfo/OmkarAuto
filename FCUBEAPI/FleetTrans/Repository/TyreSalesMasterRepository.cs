@@ -114,7 +114,6 @@ namespace FleetTrans.Repository
                         {
                             tyreSalesMasterInnerGridList.TyreSalesDtlList.Add(new TyreSalesDtlListmodel
                             {
-                                DetailID = Convert.ToString(resultData.Tables[0].Rows[i]["DetailID"]),
                                 MasterID = Convert.ToString(resultData.Tables[0].Rows[i]["MasterID"]),
                                 TransDate = Convert.ToString(resultData.Tables[0].Rows[i]["TransDate"]),
                                 BrandId = Convert.ToString(resultData.Tables[0].Rows[i]["BrandId"]),
@@ -222,7 +221,6 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@DetailID ", tyreSalesDtlListmodel.DetailID),
                              new SqlParameter("@MasterID", tyreSalesDtlListmodel.MasterID),
                              new SqlParameter("@TransDate", tyreSalesDtlListmodel.TransDate),
                              new SqlParameter("@BrandId", tyreSalesDtlListmodel.BrandId),
@@ -290,7 +288,35 @@ namespace FleetTrans.Repository
             }
             return responseModel;
         }
+        public async Task<List<DropDownListModel>> GetCustomerList()
+        {
+            List<DropDownListModel> BrandList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCustomerList", param);
 
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            BrandList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+               
+            }
+            return BrandList;
+        }
 
     }
 }

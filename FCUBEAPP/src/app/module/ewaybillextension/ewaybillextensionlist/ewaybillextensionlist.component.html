@@ -18,52 +18,75 @@
             </div>
             <!-- end page title -->
             <div class="row top-controls">
-                <div class="col-sm-12 col-md-12 text-right">
-                    <div class="dt-buttons btn-group flex-wrap export-button">
-                        <!-- <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>Excel</span></button>
-                        <button class="btn btn-secondary buttons-pdf buttons-html5" tabindex="0"
-                            aria-controls="datatable-buttons" type="button"><span>PDF</span></button> -->
-                    </div>
+                <div class="col-sm-10 col-md-10">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Eway Bill No</label>
+                                    <input type="text" class="form-control" 
+                                    formControlName="ewayBillNo" >
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Document No </label>
+                                    <span style="color: red">*</span>    
+                                    <input type="text" class="form-control" 
+                                    formControlName="docNo" >
+                                </div>
+                            </div>                                -->
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
-                    <thead>
-                        <tr>
-                            <th>bookedAt</th>  
-                            <th>bookingDate</th>
-                            <th>gcNoteNo</th>
-                            <th>fromLocation</th>
-                            <th>destination</th>
-                            <th>ewayBillNo</th>
-                            <th>ewayBillDate</th>
-                            <th>ewayBillExpDate</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="allEwayBillExtlist.ewaybillextList">
-                        <tr *ngFor="let eway of allEwayBillExtlist.ewaybillextList">
-                            <td>{{ eway.bookedAt }}</td>
-                            <td>{{ eway.bookingDate }}</td>
-                            <td>{{ eway.gcNoteNo }}</td>  
-                            <td>{{ eway.fromLocation }}</td>     
-                            <td>{{ eway.destination }}</td>     
-                            <td>{{ eway.ewayBillNo }}</td>      
-                            <td>{{ eway.ewayBillDate }}</td>       
-                            <td>{{ eway.ewayBillExpDate }}</td>                             
-                            <td>
-                                <button type="button" class="btn btn-edit" 
-                                (click)="getEwayBillExtDetails(eway)"></button>             
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="allEwayBillExtlist.ewaybillextList?.length == 0">
-                        <tr>
-                            <td colspan="3" class="no-data-available">No data!</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">                
+                <div class="overflow-x">
+                    <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                        <thead>
+                            <tr>
+                                <th>bookedAt</th>  
+                                <th>bookingDate</th>
+                                <th>gcNoteNo</th>
+                                <th>vehicleNo</th>
+                                <th>fromLocation</th>
+                                <th>destination</th>
+                                <th>ewayBillNo</th>
+                                <th>ewayBillDate</th>
+                                <th>ewayBillExpDate</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="allEwayBillExtlist.ewaybillextList">
+                            <tr *ngFor="let eway of allEwayBillExtlist.ewaybillextList">
+                                <td>{{ eway.bookedAt }}</td>
+                                <td>{{ eway.bookingDate }}</td>
+                                <td>{{ eway.gcNoteNo }}</td>  
+                                <td>{{ eway.vehicleNo }}</td>   
+                                <td>{{ eway.fromLocation }}</td>     
+                                <td>{{ eway.destination }}</td>     
+                                <td>{{ eway.ewayBillNo }}</td>      
+                                <td>{{ eway.ewayBillDate }}</td>       
+                                <td>{{ eway.ewayBillExpDate }}</td>                             
+                                <td>
+                                    <button type="button" class="btn btn-edit" 
+                                    (click)="getEwayBillExtDetails(eway)"></button>             
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody *ngIf="allEwayBillExtlist.ewaybillextList?.length == 0">
+                            <tr>
+                                <td colspan="3" class="no-data-available">No data!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <!-- container-fluid -->

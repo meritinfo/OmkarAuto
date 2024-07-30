@@ -8,8 +8,10 @@ namespace Consignment.Business
     /// </summary>
     public interface IEwayBillBusiness
     {
-        Task<EwayBillExtListModel> GetEWayBillExtList(PageRequest request);
+        Task<EwayBillExtListModel> GetEWayBillExtList(ReportRequestModel request);
         Task<ResponseModel> EWayBillExtend(EwayBillExtModel request);
+        Task<ResponseModel> GetKmsFromApi(DropDownListModel dropDown);
+        Task<ResponseModel> GetCurrentLocFromApi(RequestModel request);
     }
 
 }

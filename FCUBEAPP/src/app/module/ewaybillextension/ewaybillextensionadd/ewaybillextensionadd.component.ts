@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Ewaybillextmodel  } from 'src/app/models/ewaybillextmodel';
-import { Ewaybillextlistmodel } from 'src/app/models/ewaybillextlistmodel';
 import { EwaybillextService } from 'src/app/services/ewaybillext.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
@@ -27,6 +26,8 @@ export class EwaybillextensionaddComponent {
     viewStatus = false;
     responseDetails = new Responsemodel();
     stateList: Dropdownmodel[] = [];  
+    pinDetails = new Dropdownmodel();  
+    location: string="";
   
     selectedEwaybillextDetails = new Ewaybillextmodel();
   
@@ -44,7 +45,7 @@ export class EwaybillextensionaddComponent {
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
         var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
         .find((aa: { menuName: string; }) => aa.menuName === "Ewaybill Extention");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
@@ -67,6 +68,8 @@ export class EwaybillextensionaddComponent {
       
       this.sharedService.loading=true;
       this.getdebitAc();
+      this.getStateList();
+  
   
       this.selectedEwaybillextDetails = this.ewaybillextService.getEwaybillextDetails();
       this.formUser = this.formBuilder.group({
@@ -78,8 +81,9 @@ export class EwaybillextensionaddComponent {
         ewayBillExpDate: new FormControl('',),
         vehicleNo:  new FormControl('',),
         fromLocation:  new FormControl('',),
-        fromPin :  new FormControl('',),
+        fromPin :  new FormControl('',[Validators.required]),
         destination:  new FormControl('',),
+        toPin :  new FormControl('',),
         partyName:  new FormControl('',),
         consignor:  new FormControl('',),
         consignee: new FormControl('',),
@@ -90,8 +94,9 @@ export class EwaybillextensionaddComponent {
         accountAddress3:  new FormControl('',),
         reason: new FormControl('Others',[Validators.required]),
         remarks: new FormControl('',[Validators.required]),
+        currentPlace:new FormControl('',[Validators.required]),
         state: new FormControl('',[Validators.required]),
-        kMS: new FormControl('100',[Validators.required]),
+        kMS: new FormControl('10',[Validators.required]),
         mode: new FormControl('1',[Validators.required]), 
         consignmentStatus: new FormControl('M',[Validators.required]), 
       });
@@ -103,6 +108,10 @@ export class EwaybillextensionaddComponent {
             bookingDate: this.commonService.formatDate(this.selectedEwaybillextDetails.bookingDate),
             ewayBillDate: this.commonService.formatDate(this.selectedEwaybillextDetails.ewayBillDate),
             ewayBillExpDate: this.commonService.formatDate(this.selectedEwaybillextDetails.ewayBillExpDate),
+            reason:'Others',
+            kMS:'10',
+            mode:"1",
+            consignmentStatus:'M'
           })  
           
           this.formUser.controls['bookedAt'].disable();
@@ -113,7 +122,7 @@ export class EwaybillextensionaddComponent {
           this.formUser.controls['ewayBillExpDate'].disable();
           this.formUser.controls['vehicleNo'].disable();
           this.formUser.controls['fromLocation'].disable();
-          this.formUser.controls['fromPin'].disable();
+          this.formUser.controls['toPin'].disable();
           this.formUser.controls['destination'].disable();
           this.formUser.controls['partyName'].disable();
           this.formUser.controls['consignor'].disable();
@@ -137,14 +146,53 @@ export class EwaybillextensionaddComponent {
         this.stateList = res;
       });
     }
+    
+    getStateList(): void {
+      this.commonService.getStateList().subscribe((res) => {
+        this.stateList = res;
+      });
+    }
    
     exit(): void {
       this.route.navigate(['/ewaybillext']);
     }
   
-    caluculatekms(e:any){
-      var selPin= e.target.value;
-      //code 
+    caluculatekms(){
+      var selecteddata = this.formUser.getRawValue();
+      if(selecteddata.fromPin==selecteddata.toPin){
+        this.formUser.patchValue({
+          kMS: "10",
+        })  
+      }
+      else{
+        this.pinDetails.dataId = selecteddata.fromPin;      
+        this.pinDetails.dataName = selecteddata.toPin;
+        this.ewaybillextService.getKmsFromApi(this.pinDetails).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;       
+          if (this.responseDetails.status) {
+            this.formUser.patchValue({
+              kMS: this.responseDetails.message,
+            })  
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+        });
+      }
+    }
+
+    searchCurrentLoc(){
+      var selecteddata = this.formUser.getRawValue();
+      this.requestmodel.strRequest = selecteddata.vehicleNo;   
+        this.ewaybillextService.getCurrentLocFromApi(this.requestmodel).subscribe((res: Responsemodel) => {
+          this.responseDetails = res;       
+          if (this.responseDetails.status) {
+            this.location = this.responseDetails.message;
+          }
+          else {
+            this.toasterService.warning(this.responseDetails.message);
+          }
+        });
     }
 
     //Submit user form details //
@@ -169,17 +217,18 @@ export class EwaybillextensionaddComponent {
       this.ewaybillextmodel.gcSlNo = this.selectedEwaybillextDetails.gcSlNo;
       this.ewaybillextmodel.bookingDate= selectedDataVal.bookingDate;
       this.ewaybillextmodel.vehicleNo = selectedDataVal.vehicleNo;
-      this.ewaybillextmodel.accountCity = selectedDataVal.accountCity?selectedDataVal.accountCity:"";
-      this.ewaybillextmodel.accountAddress1 = selectedDataVal.accountAddress1?selectedDataVal.accountAddress1:"";
-      this.ewaybillextmodel.accountAddress2 = selectedDataVal.accountAddress2?selectedDataVal.accountAddress2:"";
-      this.ewaybillextmodel.accountAddress3 = selectedDataVal.accountAddress3?selectedDataVal.accountAddress3:"";
+      this.ewaybillextmodel.fromLocation = selectedDataVal.currentPlace?selectedDataVal.currentPlace:"";
+      this.ewaybillextmodel.accountAddress1 = selectedDataVal.consignmentStatus=="M"?"":selectedDataVal.accountAddress1;
+      this.ewaybillextmodel.accountAddress2 = selectedDataVal.consignmentStatus=="M"?"":selectedDataVal.accountAddress2;
+      this.ewaybillextmodel.accountAddress3 = selectedDataVal.consignmentStatus=="M"?"":selectedDataVal.accountAddress3;
       this.ewaybillextmodel.fromPin = selectedDataVal.fromPin;
       this.ewaybillextmodel.kMS = selectedDataVal.kMS;
       this.ewaybillextmodel.mode = selectedDataVal.mode;
       this.ewaybillextmodel.reason = selectedDataVal.reason;
-      this.ewaybillextmodel.state = selectedDataVal.state;      
+      this.ewaybillextmodel.remarks = selectedDataVal.remarks;      
+      this.ewaybillextmodel.cnorState = selectedDataVal.state;      
       this.ewaybillextmodel.consignmentStatus = selectedDataVal.consignmentStatus;
-      this.ewaybillextmodel.transitType = "R";
+      this.ewaybillextmodel.transitType = selectedDataVal.consignmentStatus=="M"?"":"R";
       this.ewaybillextmodel.loggedInUser = this.loggedInUserID;  
   
       this.ewaybillextService.ewaybillextDetailsSubmitted(this.ewaybillextmodel).subscribe((res: Responsemodel) => {
