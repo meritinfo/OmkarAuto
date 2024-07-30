@@ -41,6 +41,7 @@ namespace FCUBEAPI.Controllers
         readonly IDriverLicRptBusiness driverLicRptBusiness;
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         readonly ICompanyInfoBusiness companyInfoBusiness;
+        readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
 
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
@@ -59,7 +60,8 @@ namespace FCUBEAPI.Controllers
             IDistanceMasterTripRptBusiness _distanceMasterTripRptBusiness,
             IConsigneeMasterBusiness _consigneeMasterBusiness,
             IDriverLicRptBusiness _driverLicRptBusiness,
-             ICompanyInfoBusiness _companyInfoBusiness)
+            ICompanyInfoBusiness _companyInfoBusiness,
+            ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -80,6 +82,7 @@ namespace FCUBEAPI.Controllers
             billsMasterBusiness = _billsMasterBusiness;
             billsTypeBusiness = _billsTypeBusiness;
             companyInfoBusiness = _companyInfoBusiness;
+            lhpmSlabMasterBusiness = _lhpmSlabMasterBusiness;
         }
 
         /// <summary>
@@ -688,6 +691,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("BillsMasterSave")]
         public async Task<IActionResult> BillsMasterSave(BillsMasterModel billsMasterModel)
         {
@@ -1428,6 +1432,70 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await companyInfoBusiness.GetCompanyDetail();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LhpmSlabMasterSave")]
+        public async Task<IActionResult> LhpmSlabMasterSave(LhpmSlabMasterModel lhpmSlabMasterModel)
+        {
+            if (lhpmSlabMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lhpmSlabMasterBusiness.LhpmSlabMasterSave(lhpmSlabMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLhpmSlabMasterList")]
+        public async Task<IActionResult> GetLhpmSlabMasterList(PageRequest request)
+        {
+            try
+            {
+                var result = await lhpmSlabMasterBusiness.GetLhpmSlabMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleList")]
+        public async Task<IActionResult> GetVehicleList()
+        {
+            try
+            {
+                var result = await lhpmSlabMasterBusiness.GetVehicleList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("LhpmSlabMasterDelete")]
+        public async Task<IActionResult> LhpmSlabMasterDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lhpmSlabMasterBusiness.LhpmSlabMasterDelete(request);
 
                 return Ok(result);
             }

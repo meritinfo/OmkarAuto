@@ -312,6 +312,9 @@ import { Fleetloadentrymodel } from './models/fleetloadentrymodel';
 import { DieselstmtlistComponent } from './module/dieselstmt/dieselstmtlist/dieselstmtlist.component';
 import { DieselstmtaddComponent } from './module/dieselstmt/dieselstmtadd/dieselstmtadd.component';
 import { Dieselstmtmodel } from './models/dieselstmtmodel';
+import { LhpmslabmasteraddComponent } from './module/lhpmslabmaster/lhpmslabmasteradd/lhpmslabmasteradd.component';
+import { LhpmslabmasterlistComponent } from './module/lhpmslabmaster/lhpmslabmasterlist/lhpmslabmasterlist.component';
+import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
 
 @NgModule({
   declarations: [
@@ -410,7 +413,7 @@ import { Dieselstmtmodel } from './models/dieselstmtmodel';
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
     TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
     DieselstmtlistComponent, DieselstmtaddComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -464,7 +467,7 @@ import { Dieselstmtmodel } from './models/dieselstmtmodel';
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Dieselstmtmodel,Fleetloadentrymodel
+    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel
     
   ],
   bootstrap: [AppComponent]
