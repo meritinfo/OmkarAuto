@@ -47,6 +47,14 @@ export class EwaybillextService {
   getEWayBillExtRptList(filter: Reportmodel): Observable<Ewaybillextlistmodel> {
     return this.httpClient.post<Ewaybillextlistmodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtRptList', filter, this.httpOptions);
   } 
+  
+  getKmsFromApi(filter: Dropdownmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetKmsFromApi', filter, this.httpOptions);
+  } 
+
+  getCurrentLocFromApi(filter: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetCurrentLocFromApi', filter, this.httpOptions);
+  } 
 
   getEWayBillExtRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetEWayBillExtRptExcel', filter, this.httpOptions);
