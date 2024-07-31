@@ -45,6 +45,7 @@ namespace FCUBEAPI.Controllers
         readonly IFleetLoadEntryBusiness fleetLoadEntryBusiness;
         readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
+        readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -67,7 +68,8 @@ namespace FCUBEAPI.Controllers
            ITyreSalesMasterBusiness _tyreSalesMasterBusiness,
         IVehiEmiBusiness _vehiEmiBusiness,
              IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
-              IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness)
+              IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
+               ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -93,6 +95,7 @@ namespace FCUBEAPI.Controllers
             fleetLoadEntryBusiness = _fleetLoadEntryBusiness;
             tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
+            sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
         }
 
 
@@ -2239,6 +2242,78 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await vehicleRepMaintMasterBusiness.VehicleRepMaintMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetSparesPurchaseMasterList")]
+        public async Task<IActionResult> GetSparesPurchaseMasterList(PageFromDtToDtRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sparesPurchaseMasterBusiness.GetSparesPurchaseMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetSparesPurchaseMasterInnerGridList")]
+        public async Task<IActionResult> GetSparesPurchaseMasterInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sparesPurchaseMasterBusiness.GetSparesPurchaseMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("SparesPurchaseMasterDelete")]
+        public async Task<IActionResult> SparesPurchaseMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sparesPurchaseMasterBusiness.SparesPurchaseMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("SparesPurchaseMasterSave")]
+        public async Task<IActionResult> SparesPurchaseMasterSave(SparesPurchaseMasterModel sparesPurchaseMasterModel)
+        {
+            if (sparesPurchaseMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await sparesPurchaseMasterBusiness.SparesPurchaseMasterSave(sparesPurchaseMasterModel);
 
                 return Ok(result);
             }
