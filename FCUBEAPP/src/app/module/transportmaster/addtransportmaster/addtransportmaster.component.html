@@ -20,7 +20,8 @@
                                         <div class="mb-3">
                                             <label>Tpt Name: </label><span style="color: red">*</span> 
                                             <input  uppercaseonly type="text" class="form-control" 
-                                            formControlName="tptName" >
+                                            maxlength="100" formControlName="tptName" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tptName'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-sm-2">
@@ -40,7 +41,8 @@
                                         <div class="mb-3">
                                             <label>Address 1: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="address1" >
+                                            maxlength="100" formControlName="address1" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['address1'].invalid) }">
                                         </div>
                                     </div>                          
                                  
@@ -48,7 +50,7 @@
                                         <div class="mb-3">
                                             <label>Address 2: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="address2" >
+                                            maxlength="100" formControlName="address2" >
                                         </div>
                                     </div>   
                                 </div> 
@@ -57,23 +59,23 @@
                                         <div class="mb-3">
                                             <label>Address 3: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="address3" >
+                                            maxlength="100" formControlName="address3" >
                                         </div>
                                     </div> 
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>Address 4: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="200" formControlName="address4" >
+                                            maxlength="100" formControlName="address4" >
                                         </div>
                                     </div>   
                                 </div> 
                                 <div class="row">                                
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>StateCode: </label><span style="color: red">*</span> 
-                                            <select class="form-control" formControlName="stateCode"      
-                                            [ngClass]="">
+                                            <label>State Code: </label><span style="color: red">*</span> 
+                                            <select class="form-control" formControlName="stateCode"
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['stateCode'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                    {{state.dataName}}
                                                 </option>
@@ -84,7 +86,7 @@
                                         <div class="mb-3">
                                             <label>Pin Code: </label>
                                             <input decimalonly type="text" numbersonly
-                                            class="form-control" 
+                                            class="form-control" maxlength="6"
                                             formControlName="pinCode" >
                                         </div>
                                     </div>       
@@ -101,24 +103,24 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>Email: </label>
-                                            <input  type="text" 
-                                            class="form-control" 
+                                            <input  type="text" class="form-control" 
                                             formControlName="email" >
                                         </div>
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Contact Person1: </label><span style="color: red">*</span> 
-                                            <input uppercaseonly type="text"
-                                            class="form-control" 
-                                            formControlName="contactPerson1" >
+                                            <input uppercaseonly type="text"  class="form-control" maxlength="200"
+                                            formControlName="contactPerson1" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['contactPerson1'].invalid) }">
                                         </div>
                                     </div>       
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Mobile 1: </label><span style="color: red">*</span> 
                                             <input numbersonly type="text" class="form-control" maxlength="10"
-                                            maxlength="200" formControlName="mobile1" >
+                                            formControlName="mobile1" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['mobile1'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -134,31 +136,27 @@
                                         <div class="mb-3">
                                             <label>Mobile 2: </label>
                                             <input numbersonly maxlength="10" type="text" 
-                                            class="form-control"
-                                            formControlName="mobile2" >
+                                            class="form-control" formControlName="mobile2" >
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>PanNo: </label>
-                                            <input  type="text" 
-                                            class="form-control" uppercaseonly
+                                            <input  type="text" class="form-control" uppercaseonly
                                             formControlName="panNo" >
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Gst No: </label>
-                                            <input  type="text" 
-                                            class="form-control" uppercaseonly
+                                            <input  type="text" class="form-control" uppercaseonly
                                             formControlName="gstNo" >
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>AadharNo: </label>
-                                            <input numbersonly  type="text" 
-                                            class="form-control"
+                                            <input numbersonly  type="text" class="form-control"
                                             formControlName="aadharNo" >
                                         </div>
                                     </div>  
@@ -169,8 +167,7 @@
                                             <label>Eligible ForBid: </label>                                           
                                             <select id="formrow-inputState" 
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                formControlName="eligibleForBid"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['isActive'].invalid) }">
+                                                formControlName="eligibleForBid">
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>                                                                                          
                                             </select>
@@ -179,15 +176,14 @@
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Whatsapp Mobile No: </label>
-                                            <input numbersonly  type="text"  maxlength="10"class="form-control"
+                                            <input numbersonly type="text" maxlength="10" class="form-control"
                                             formControlName="whatsappMblNo" >
                                         </div>
                                     </div>                                 
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>Remarks: </label>
-                                            <input  uppercaseonly type="text" 
-                                            class="form-control"
+                                            <input uppercaseonly type="text" class="form-control"
                                             formControlName="remarks" >
                                         </div>
                                     </div>  
@@ -207,7 +203,7 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label >InActive Date: </label><span style="color: red">*</span>  
+                                            <label >InActive Date: </label> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             formControlName="inActiveDate"
                                             [ngClass]=>

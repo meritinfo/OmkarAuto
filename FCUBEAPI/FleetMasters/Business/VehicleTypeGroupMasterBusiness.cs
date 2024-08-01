@@ -24,9 +24,5 @@ namespace FleetMasters.Business
         {
             return await vehicleTypeGroupMasterRepository.GetVehicleTypeGroupMasterList(request);
         }
-        public async Task<List<DropDownListModel>> GetVehicleList()
-        {
-            return await vehicleTypeGroupMasterRepository.GetVehicleList();
-        }
     }
 }

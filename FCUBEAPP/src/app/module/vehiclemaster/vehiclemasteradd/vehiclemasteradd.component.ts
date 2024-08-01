@@ -224,7 +224,7 @@ export class VehiclemasteraddComponent {
   }
   
   getVehicleGrpList(): void {
-    this.vehiclefltmasterService.getVehicleList().subscribe((res) => {
+    this.commonService.getVehicleTypeGroupList().subscribe((res) => {
       this.vehicleGrpList = res;
     });
   }

@@ -94,10 +94,10 @@ submitRoleTypesForm(): void {
   if (this.formRoleType.invalid) {
     return;
   }
-  this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId != '' ? this.selectedRoleTypesDetails.roleId : '';
-  this.roletypemodel.roleName= this.formRoleType.value.roleName;
-  this.roletypemodel.roleDesc = this.formRoleType.value.roleDesc;
-  this.roletypemodel.activeYN = this.formRoleType.value.activeYN;
+  this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId;
+  this.roletypemodel.roleName= this.formRoleType.value.roleName.toString().toUpperCase();
+  this.roletypemodel.roleDesc = this.formRoleType.value.roleDesc.toString().toUpperCase();
+  this.roletypemodel.activeYN = this.formRoleType.value.activeYN.toString().toUpperCase();
   this.roletypemodel.loggedInUser = this.formRoleType.value.loggedInUser;
 
 

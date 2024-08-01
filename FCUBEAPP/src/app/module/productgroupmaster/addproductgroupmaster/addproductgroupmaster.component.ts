@@ -68,8 +68,8 @@ ngOnInit(): void {
       return;
     }
     this.productGroupMasterModel.productGroupId = this.selectedProductGroupMasterDetails.productGroupId != '' ? this.selectedProductGroupMasterDetails.productGroupId : '';
-    this.productGroupMasterModel.groupName= this.formUser.value.groupName;
-    this.productGroupMasterModel.gstHSN = this.formUser.value.gstHSN;
+    this.productGroupMasterModel.groupName= this.formUser.value.groupName.toString().toUpperCase();
+    this.productGroupMasterModel.gstHSN = this.formUser.value.gstHSN.toString().toUpperCase();
 
 
     this.productgroupmasterService.productGroupMasterDetailsSubmitted(this.productGroupMasterModel).subscribe((res: Responsemodel) => {

@@ -103,7 +103,7 @@ export class LhpmslabmasteraddComponent {
     this.route.navigate(['/lhpmslablist']);
   }
   getVehTypes(): void {
-    this.commonService.getVehicleList().subscribe((res) => {
+    this.commonService.getVehicleTypeGroupList().subscribe((res) => {
       this.vehicalType = res;
     });
   }

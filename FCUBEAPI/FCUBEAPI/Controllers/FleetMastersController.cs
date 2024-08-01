@@ -99,20 +99,6 @@ namespace FCUBEAPI.Controllers
             }
         }       
 
-        [HttpPost("GetVehicleList")]
-        public async Task<IActionResult> GetVehicleList()
-        {
-            try
-            {
-                var result = await vehicleTypeGroupMasterBusiness.GetVehicleList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         /// <summary>
         /// Controller method for Driver master
         /// </summary>

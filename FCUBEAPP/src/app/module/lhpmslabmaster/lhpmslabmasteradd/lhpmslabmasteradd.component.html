@@ -20,9 +20,8 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">VehGroupCode</label>
-                                                <span style="color: red">*</span>
-                                               
+                                                <label for="formrow-inputZip">Veh Group Code</label>
+                                                <span style="color: red">*</span>                                               
                                                 <select formControlName="vehCode"
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['vehCode'].invalid) }">
@@ -36,9 +35,9 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">FromDt</label>
+                                                <label for="formrow-inputZip">From Date</label>
                                                 <span style="color: red">*</span>
-                                                <input type="date" class="form-control" placeholder=" "
+                                                <input type="date" class="form-control" 
                                                 formControlName="fromDt"    
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDt'].invalid) }">
                                             </div>
@@ -47,9 +46,9 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">ToDt</label>
+                                                <label for="formrow-inputZip">To Date</label>
                                                 <span style="color: red">*</span>
-                                                <input  type="date" class="form-control" placeholder=" "
+                                                <input  type="date" class="form-control" 
                                                 formControlName="toDt"    
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['toDt'].invalid) }">
                                             </div>
@@ -58,7 +57,7 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">LhpmAmt</label>
+                                                <label for="formrow-inputZip">Lhpm Amount</label>
                                                 <span style="color: red">*</span>
                                                 <input decimalonly type="text" class="form-control" placeholder=" "
                                                 formControlName="lhpmAmt"    
@@ -69,9 +68,9 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">HireFrom</label>
+                                                <label for="formrow-inputZip">Hire From</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control" placeholder=" "
+                                                <input decimalonly type="text" class="form-control" 
                                                 formControlName="hireFrom"    
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['hireFrom'].invalid) }">
                                             </div>
@@ -80,9 +79,9 @@
                                     <div class="row">                                        
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputZip">HireTo</label>
+                                                <label for="formrow-inputZip">Hire To</label>
                                                 <span style="color: red">*</span>
-                                                <input decimalonly type="text" class="form-control" placeholder=" "
+                                                <input decimalonly type="text" class="form-control"
                                                 formControlName="hireTo"    
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['hireTo'].invalid) }">
                                             </div>

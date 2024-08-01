@@ -1472,20 +1472,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetVehicleList")]
-        public async Task<IActionResult> GetVehicleList()
-        {
-            try
-            {
-                var result = await lhpmSlabMasterBusiness.GetVehicleList();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
         [HttpPost("LhpmSlabMasterDelete")]
         public async Task<IActionResult> LhpmSlabMasterDelete(RequestModel request)
         {

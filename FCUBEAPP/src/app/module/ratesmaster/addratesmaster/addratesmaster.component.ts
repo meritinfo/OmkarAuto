@@ -162,7 +162,7 @@ export class AddratesmasterComponent implements OnInit {
     });
   }
   getVehicleGrpList(): void {
-    this.commonService.getVehicleList().subscribe((res) => {
+    this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicleGrpList = res;
     });
   }
