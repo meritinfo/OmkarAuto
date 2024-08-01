@@ -5,6 +5,7 @@ using SqlHelper.Models;
 using System.Data;
 using System.Data.SqlClient;
 using Shared.Models;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace FinanceMasters.Repository
 {
@@ -126,7 +127,6 @@ namespace FinanceMasters.Repository
             }
             return responseModel;
         }
-
         public async Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request)
         {
             FinAccountsMasterList finAccountsMasterList = new();
@@ -236,7 +236,6 @@ namespace FinanceMasters.Repository
             }
             return finAccountsMasterList;
         }
-
         public async Task<List<DropDownListModel>> GetFinActLedgertype()
         {
             List<DropDownListModel> LedgerList = new();
@@ -314,7 +313,177 @@ namespace FinanceMasters.Repository
             return EmpList;
         }
 
+        public async Task<ResponseModel> FinAccountsGSTSave(FinAccountsMasterGstModel finAccountsMasterModel)
+        {
+            ResponseModel responseModel = new();
 
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    responseModel = await FinAccountGstDtlsDelete(transaction, finAccountsMasterModel.AccountId);
+                    if (!responseModel.Status)
+                    {
+                        transaction.Rollback();
+                    }
+                    else
+                    {
+                        for (int i = 0; i < finAccountsMasterModel.finAccountsGstDetail.Count; i++)
+                        {
+
+                            SqlParameter[] param =
+                            {
+                                new SqlParameter("@AccountId"   , finAccountsMasterModel.finAccountsGstDetail[i].AccountId  ),
+                                new SqlParameter("@Location"    , finAccountsMasterModel.finAccountsGstDetail[i].Location   ),
+                                new SqlParameter("@GstNo"       , finAccountsMasterModel.finAccountsGstDetail[i].GstNo      ),
+                                new SqlParameter("@Address1"    , finAccountsMasterModel.finAccountsGstDetail[i].Address1   ),
+                                new SqlParameter("@Address2"    , finAccountsMasterModel.finAccountsGstDetail[i].Address2   ),
+                                new SqlParameter("@Address3"    , finAccountsMasterModel.finAccountsGstDetail[i].Address3   ),
+                                new SqlParameter("@Address4"    , finAccountsMasterModel.finAccountsGstDetail[i].Address4   ),
+                                new SqlParameter("@City"        , finAccountsMasterModel.finAccountsGstDetail[i].City       ),
+                                new SqlParameter("@StateCode"   , finAccountsMasterModel.finAccountsGstDetail[i].StateCode  ),
+                                new SqlParameter("@PinCode"     , finAccountsMasterModel.finAccountsGstDetail[i].PinCode    ),
+                                new SqlParameter("@MobileNo"    , finAccountsMasterModel.finAccountsGstDetail[i].MobileNo   ),
+                                new SqlParameter("@Email"       , finAccountsMasterModel.finAccountsGstDetail[i].Email      ),
+                            };
+                            var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinAccountGSTSave", param);
+
+                            if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                            {
+                                responseModel.Status    = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                                responseModel.Message   = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                                if (!responseModel.Status)
+                                {
+                                   transaction.Rollback();
+                                    i = finAccountsMasterModel.finAccountsGstDetail.Count;
+                                }
+                            }
+                            else
+                            {
+                                responseModel.Status = false;
+                                transaction.Rollback();
+                            }
+                        }
+                        if (responseModel.Status)
+                        {
+                            transaction.Commit();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> FinAccountGstDtlsDelete(SqlTransaction transaction, string req)
+        {
+            ResponseModel responseModel = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                        new SqlParameter("@AccountID", req),
+                    };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_FinAccountGSTDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<ResponseModel> FinAccountGstDelete(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    responseModel = await FinAccountGstDtlsDelete(transaction, request.strRequest);                    
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+
+        public async Task<FinAccountsMasterGstModel> GetFinAccountGstList(RequestModel request)
+        {
+            FinAccountsMasterGstModel finAccountsMaster = new();
+            List<FinAccountsMasterGstDetail> finAccountsMasterlist = new();
+
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@AccountId", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getFinAccountGstInnerGrid", param);
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            finAccountsMasterlist.Add(new FinAccountsMasterGstDetail
+                            {
+                                AccountId = Convert.ToString(dataSet.Tables[0].Rows[i]["AccountId"]),
+                                Location = Convert.ToString(dataSet.Tables[0].Rows[i]["Location"]),
+                                GstNo = Convert.ToString(dataSet.Tables[0].Rows[i]["GstNo"]),
+                                Address1 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address1"]),
+                                Address2 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address2"]),
+                                Address3 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address3"]),
+                                Address4 = Convert.ToString(dataSet.Tables[0].Rows[i]["Address4"]),
+                                City = Convert.ToString(dataSet.Tables[0].Rows[i]["City"]),
+                                StateCode = Convert.ToString(dataSet.Tables[0].Rows[i]["StateCode"]),
+                                PinCode = Convert.ToString(dataSet.Tables[0].Rows[i]["PinCode"]),
+                                MobileNo = Convert.ToString(dataSet.Tables[0].Rows[i]["MobileNo"]),
+                                Email = Convert.ToString(dataSet.Tables[0].Rows[i]["Email"]),                               
+                            });
+                        }
+
+                        finAccountsMaster.finAccountsGstDetail = finAccountsMasterlist;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return finAccountsMaster;
+        }
 
     }
 }

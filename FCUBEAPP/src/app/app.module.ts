@@ -320,6 +320,8 @@ import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
 import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
 import { TripexptypemasterModel } from './models/tripexptypemastermodel';
+import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
+import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
 
 @NgModule({
   declarations: [
@@ -418,6 +420,10 @@ import { TripexptypemasterModel } from './models/tripexptypemastermodel';
     TyreregroupissuelistComponent, TyreregroupissueaddComponent, 
     TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
     DieselstmtlistComponent, DieselstmtaddComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, 
+    LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, 
+    TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, TyresaleslistComponent, TyresalesaddComponent, TripexptypemasteraddComponent, TripexptypemasterlistComponent ,
   ],
@@ -473,7 +479,8 @@ import { TripexptypemasterModel } from './models/tripexptypemastermodel';
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,TripexptypemasterModel
+    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
+    Finaccountsmastergstmodel
     
   ],
   bootstrap: [AppComponent]

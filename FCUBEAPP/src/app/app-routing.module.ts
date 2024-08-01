@@ -180,6 +180,7 @@ import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresales
 import { LhpmslabmasteraddComponent } from './module/lhpmslabmaster/lhpmslabmasteradd/lhpmslabmasteradd.component';
 import { LhpmslabmasterlistComponent } from './module/lhpmslabmaster/lhpmslabmasterlist/lhpmslabmasterlist.component';
 import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
+import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
 
@@ -440,6 +441,8 @@ const routes: Routes = [
   { path: 'lhpmslabmasteradd', component: LhpmslabmasteraddComponent }, 
   { path: 'lhpmslabmasteredit', component: LhpmslabmasteraddComponent }, 
   { path: 'lhpmslablist', component: LhpmslabmasterlistComponent }, 
+  { path: 'custgstlocations', component: FinaccountmastergstComponent }, 
+  
   { path: 'tripexptypemasteradd', component: TripexptypemasteraddComponent }, 
   { path: 'tripexptypemasteredit', component: TripexptypemasteraddComponent }, 
   { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 

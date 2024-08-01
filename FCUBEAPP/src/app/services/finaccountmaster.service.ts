@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Finaccountlistmodel } from '../models/finaccountlistmodel';
+import { Finaccountsmastergstmodel } from '../models/finaccountsmastergstmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';
 
 @Injectable({
@@ -39,5 +40,16 @@ export class FinsaccountmasterService {
   }  
   getledgerList():  Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinActLedgertype', null, this.httpOptions);
+  }
+  finsaccountsgstSubmitted(user: Finaccountsmastergstmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountsGSTSave', user, this.httpOptions);
+  }
+  
+  FinAccountGstDelete(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FinanceMasters/FinAccountGstDelete', request, this.httpOptions);
+  }
+
+  getFinAccountGstList(req: Requestmodel): Observable<Finaccountsmastergstmodel> {
+    return this.httpClient.post<Finaccountsmastergstmodel>(Constants.API_ENDPOINT + 'FinanceMasters/GetFinAccountGstList', req, this.httpOptions);
   }
 }
