@@ -317,6 +317,9 @@ import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresales
 import { LhpmslabmasteraddComponent } from './module/lhpmslabmaster/lhpmslabmasteradd/lhpmslabmasteradd.component';
 import { LhpmslabmasterlistComponent } from './module/lhpmslabmaster/lhpmslabmasterlist/lhpmslabmasterlist.component';
 import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
+import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
+import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
+import { TripexptypemasterModel } from './models/tripexptypemastermodel';
 
 @NgModule({
   declarations: [
@@ -416,7 +419,7 @@ import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
     TyreregrouprecdlistComponent, TyreregrouprecdaddComponent,
     DieselstmtlistComponent, DieselstmtaddComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, TyresaleslistComponent, TyresalesaddComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, TyresaleslistComponent, TyresalesaddComponent, TripexptypemasteraddComponent, TripexptypemasterlistComponent ,
   ],
   imports: [
     BrowserModule,
@@ -470,7 +473,7 @@ import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel
+    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,TripexptypemasterModel
     
   ],
   bootstrap: [AppComponent]

@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FleetMasters.Models
+{
+    public class TripExpTypeMasterList
+    {
+        public List<TripExpTypeMasterModel> ExpTypeList { get; set; }
+        public PaginationMetaData PageMetaData { get; set; }
+    }
+}

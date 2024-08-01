@@ -86,7 +86,7 @@ export class LhpmslabmasteraddComponent {
     if (this.selectedLhpmSlabMasterDetails.lhpmSlabID != '') {
       this.formLhpmMaster.patchValue(this.selectedLhpmSlabMasterDetails); 
       this.formLhpmMaster.patchValue({ 
-      fromDt: this.commonService.formatDate(this.selectedLhpmSlabMasterDetails.fromDt) ,
+      fromDt: this.commonService.formatDate(this.selectedLhpmSlabMasterDetails.fromDt),
       toDt: this.commonService.formatDate(this.selectedLhpmSlabMasterDetails.toDt)  
       });
             

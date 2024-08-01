@@ -160,6 +160,7 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
+
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/tyreativatelist.component';
@@ -179,6 +180,9 @@ import { TyresalesaddComponent } from './module/tyresales/tyresalesadd/tyresales
 import { LhpmslabmasteraddComponent } from './module/lhpmslabmaster/lhpmslabmasteradd/lhpmslabmasteradd.component';
 import { LhpmslabmasterlistComponent } from './module/lhpmslabmaster/lhpmslabmasterlist/lhpmslabmasterlist.component';
 import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
+import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
+import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -436,6 +440,10 @@ const routes: Routes = [
   { path: 'lhpmslabmasteradd', component: LhpmslabmasteraddComponent }, 
   { path: 'lhpmslabmasteredit', component: LhpmslabmasteraddComponent }, 
   { path: 'lhpmslablist', component: LhpmslabmasterlistComponent }, 
+  { path: 'tripexptypemasteradd', component: TripexptypemasteraddComponent }, 
+  { path: 'tripexptypemasteredit', component: TripexptypemasteraddComponent }, 
+  { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 
+  
 ];
 
 @NgModule({

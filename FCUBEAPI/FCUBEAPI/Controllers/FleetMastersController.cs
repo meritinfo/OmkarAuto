@@ -16,6 +16,7 @@ using FleetTrans.Business;
 using FleetTrans.Models;
 using FreightMasters.Business;
 using FreightMasters.Models;
+using FleetMasters;
 
 namespace FCUBEAPI.Controllers
 {
@@ -41,6 +42,7 @@ namespace FCUBEAPI.Controllers
         readonly IExpensesTypeMasterBusiness expensestypeMasterBusiness;
         readonly ITruckMasterBusiness truckMasterBusiness;
         readonly ITransportMasterBusiness transportMasterBusiness;
+        readonly ITripExpTypeBusiness tripExpTypeBusiness;
         public FleetMastersController(IOptions<DBModel> _dbconnection,
             IVehicleTypeGroupMasterBusiness _vehicleTypeGroupMasterBusiness,
             IVehicleFltMasterBusiness _vehicleFltMasterBusiness,
@@ -48,7 +50,9 @@ namespace FCUBEAPI.Controllers
             IDocRenewalMasterBusiness _docRenewalMasterBusiness,
             IBrandMasterBusiness _brandMasterBusiness,
             ITyreModelBusiness _tyreModelBusiness,
-           
+            ITripExpTypeBusiness _tripExpTypeBusiness,
+
+
         IMaintanenceMasterBusiness _maintanenceMasterBusiness,
         ISparesLubesMasterBusiness _sparesLubesMasterBusiness,
            ITyrePositionMasterBusiness _tyrePositionMasterBusiness, 
@@ -74,6 +78,7 @@ namespace FCUBEAPI.Controllers
             fleetCardMasterBusiness = _fleetCardMasterBusiness;
             transportMasterBusiness= _transportMasterBusiness;
             tyreModelBusiness = _tyreModelBusiness;
+            tripExpTypeBusiness = _tripExpTypeBusiness;
         }
 
         /// <summary>
@@ -1271,7 +1276,76 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+        [HttpPost("GetTripExpTypeMasterList")]
+        public async Task<IActionResult> GetTripExpTypeMasterList(ReportRequestModel request)
+        {
+            try
+            {
+                var result = await tripExpTypeBusiness.GetTripExpTypeMasterList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TripExpTypeMasterSave")]
+        public async Task<IActionResult> TripExpTypeMasterSave(TripExpTypeMasterModel tripExpTypeMasterModel)
+        {
+            if (tripExpTypeMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripExpTypeBusiness.TripExpTypeMasterSave(tripExpTypeMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("CheckDuplicateTripExpType")]
+        public async Task<IActionResult> CheckDuplicateTripExpType(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripExpTypeBusiness.CheckDuplicateTripExpType(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("TripExpTypeMasterDelete")]
+        public async Task<IActionResult> TripExpTypeMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripExpTypeBusiness.TripExpTypeMasterDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 
 }
