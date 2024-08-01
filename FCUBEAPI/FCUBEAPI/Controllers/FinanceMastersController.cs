@@ -108,6 +108,64 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("FinAccountsGSTSave")]
+        public async Task<IActionResult> FinAccountsGSTSave(FinAccountsMasterGstModel finAccountsMasterModel)
+        {
+            if (finAccountsMasterModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountsGSTSave(finAccountsMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("FinAccountGstDelete")]
+        public async Task<IActionResult> FinAccountGstDelete(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.FinAccountGstDelete(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetFinAccountGstList")]
+        public async Task<IActionResult> GetFinAccountGstList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await finAccountsMasterBusiness.GetFinAccountGstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        
+
+
+
         [HttpPost("FinScheduleMasterSave")]
         public async Task<IActionResult> FinScheduleMasterSave(FinScheduleMasterModel finScheduleMasterModel)
         {

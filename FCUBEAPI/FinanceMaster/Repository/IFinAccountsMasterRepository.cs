@@ -13,5 +13,8 @@ namespace FinanceMasters.Repository
         Task<FinAccountsMasterList> GetFinAccountsMasterList(PageRequest request);
         Task<List<DropDownListModel>> GetFinActLedgertype();
         Task<List<DropDownListModel>> GetEmpList();
+        Task<ResponseModel> FinAccountsGSTSave(FinAccountsMasterGstModel finAccountsMasterModel);
+        Task<ResponseModel> FinAccountGstDelete(RequestModel request);
+        Task<FinAccountsMasterGstModel> GetFinAccountGstList(RequestModel request);
     }
 }
