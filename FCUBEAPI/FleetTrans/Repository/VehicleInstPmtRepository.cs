@@ -94,7 +94,7 @@ namespace FleetTrans.Repository
                             //new SqlParameter("@FromDate", request.FromDate),
                             //new SqlParameter("@ToDate", request.ToDate)
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreModelMasterList", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstPmtList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -103,7 +103,7 @@ namespace FleetTrans.Repository
                         {
                             pmtList.Add(new VehicleInstPmtModel
                             {
-                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+                               // PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 VehicleMasterid = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterid"]),
@@ -120,8 +120,10 @@ namespace FleetTrans.Repository
                                 CreditAc = Convert.ToString(dataSet.Tables[0].Rows[i]["CreditAc"]),
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
                                 Yearid = Convert.ToString(dataSet.Tables[0].Rows[i]["Yearid"]),
+                                Branch = Convert.ToString(dataSet.Tables[0].Rows[i]["Branch"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
 
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
+                               // LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                             });
                         }
 

@@ -32,6 +32,7 @@
                 </div>
             </div>
             <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
                     <thead>
                         <tr>
@@ -39,7 +40,7 @@
                             <th>branchCode</th>
                             <th>vehicleMasterid</th>
                             <th>instNo</th>
-                            <th>instId</th>
+                   
                             <th>advPayable_1</th>   
                             <th>priAmt</th>      
                             <th>intAmt</th>      
@@ -59,10 +60,10 @@
                     <tbody *ngIf="allInstPmtMaster.pmtList?.length != 0">
                         <tr *ngFor="let branch  of allInstPmtMaster.pmtList">
                             <td>{{ branch.pmtDate }}</td>
-                            <td>{{ branch.branchCode }}</td>
-                            <td>{{ branch.vehicleMasterid }}</td>
+                            <td>{{ branch.branch }}</td>
+                            <td>{{ branch.vehicleNo }}</td>
                             <td>{{ branch.instNo }}</td>
-                            <td>{{ branch.instId }}</td>
+                        
                             <td>{{ branch.advPayable_1 }}</td>  
                             <td>{{ branch.priAmt }}</td>  
                             <td>{{ branch.intAmt }}</td> 
@@ -86,7 +87,7 @@
                         </tr>
                     </tbody>
                 </table>
-
+            </div>
             </div>
         </div>
         <!-- container-fluid -->

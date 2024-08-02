@@ -88,44 +88,44 @@ vehicleInstList(){
 
      
       {
-        title: 'PmtDate',
+        title: 'Pmt Date',
         data: 'pmtDate',
       },
      
       {
-        title: 'BranchCode',
-        data: 'branchCode',
+        title: 'Branch',
+        data: 'branch',
       },
       {
-        title: 'VehicleMasterid',
-        data: 'vehicleMasterid',
+        title: 'Vehicle No',
+        data: 'vehicleNo',
       },
       {
-        title: 'InstNo',
+        title: 'Inst No',
         data: 'instNo',
       },
+      // {
+      //   title: 'InstId',
+      //   data: 'instId',
+      // },
       {
-        title: 'InstId',
-        data: 'instId',
-      },
-      {
-        title: 'AdvPayable_1',
+        title: 'Advance Payable',
         data: 'managerMobileNo',
       },   
       {
-        title: 'PriAmt',
+        title: 'Pri Amt',
         data: 'priAmt',
       },  
       {
-        title: 'IntAmt',
+        title: 'Int Amt',
         data: 'intAmt',
       }, 
       {
-        title: 'TotAmt',
+        title: 'Total Amt',
         data: 'totAmt',
       }, 
        {
-         title: 'remarks',
+         title: 'Remarks',
          data: 'remarks',
        }, 
       // {

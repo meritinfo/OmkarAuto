@@ -27,6 +27,8 @@ namespace FleetTrans.Models
         public string CreditAc { get; set; }
         public string Findocid { get; set; }
         public string Yearid { get; set; }
+        public string Branch { get; set; }
+        public string VehicleNo { get; set; }
         public string? LoggedInUser { get; set; }
     }
 }

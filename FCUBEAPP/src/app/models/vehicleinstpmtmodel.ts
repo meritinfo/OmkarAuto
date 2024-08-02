@@ -17,6 +17,8 @@ export class Vehicleinstpmtmodel {
     creditAc: string = "";
     findocid: string = "";
     yearid: string = "";
+    vehicleNo: string = "";
+    branch: string = "";
     loggedInUser: string = "";
    
    
