@@ -28,10 +28,6 @@ namespace FreightMasters.Business
         {
             return await lhpmSlabMasterRepository.LhpmSlabMasterDelete(requestModel);
         }
-        public async Task<List<DropDownListModel>> GetVehicleList()
-        {
-            return await lhpmSlabMasterRepository.GetVehicleList();
-        }
 
     }
 }

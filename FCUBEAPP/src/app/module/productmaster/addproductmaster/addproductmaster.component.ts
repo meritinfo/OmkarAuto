@@ -69,7 +69,7 @@ export class AddproductmasterComponent {
     this.selectedProductMasterDetails = this.productmasterService.getProductMasterDetails();
     this.formUser = this.formBuilder.group({
       productName: new FormControl('',[Validators.required]),
-      isActive: new FormControl('',[Validators.required]),
+      isActive: new FormControl('Y',[Validators.required]),
     });
 
     if (this.selectedProductMasterDetails.productId != '') {
@@ -145,8 +145,8 @@ export class AddproductmasterComponent {
     }
     
     this.productMasterModel.productId = this.selectedProductMasterDetails.productId ;
-    this.productMasterModel.productName= this.formUser.value.productName;
-    this.productMasterModel.isActive = this.formUser.value.isActive;
+    this.productMasterModel.productName= this.formUser.value.productName.toString().toUpperCase();
+    this.productMasterModel.isActive = this.formUser.value.isActive.toString().toUpperCase();
 
     this.productmasterService.productmasterDetailsSubmitted(this.productMasterModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

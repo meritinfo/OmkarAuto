@@ -40,8 +40,7 @@ export class CommonService {
   }
   getCustomerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetCustomerList', null, this.httpOptions);
-  }
-  
+  }  
   getYearList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetYearList', null, this.httpOptions);
   }
@@ -60,12 +59,9 @@ export class CommonService {
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
   }
-
-
   getRoleTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetRoleTypeList', null, this.httpOptions);
   }
-
   getStateList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetStateList', null, this.httpOptions);
   }
@@ -111,9 +107,6 @@ export class CommonService {
   }
   getPartyGroupList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Consignment/GetPartyGroupList', null, this.httpOptions);
-  }
-  getVehicleList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FreightMasters/GetVehicleList', null, this.httpOptions);
   }
   getDriverList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetDriverList', null, this.httpOptions);

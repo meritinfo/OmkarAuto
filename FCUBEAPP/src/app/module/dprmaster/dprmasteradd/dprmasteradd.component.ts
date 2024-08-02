@@ -313,7 +313,7 @@ export class DrpmasteraddComponent {
   }
 
   getVehicalTypeList(): void {
-    this.vehicleFltMasterService.getVehicleList().subscribe((res) => {
+    this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicalTypeList = res;
     });
   }

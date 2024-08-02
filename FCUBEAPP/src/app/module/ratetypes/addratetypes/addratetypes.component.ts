@@ -39,9 +39,7 @@ exit(): void {
   this.route.navigate(['/ratetypeslist']);
 }
 checkDuplicateRate(){
-  var selectedData = this.formUser.getRawValue();
-  
-
+  var selectedData = this.formUser.getRawValue();  
     this.requestmodel.strRequest = selectedData.rateDesc;
   //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
     this.rateTypesService.checkDuplicateRate(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -52,8 +50,7 @@ checkDuplicateRate(){
       else{
         this.toasterService.warning(this.responseDetails.message);
         this.formUser.patchValue({
-          rateDesc: ''
-  
+          rateDesc: ''  
         });
         
       }
@@ -103,10 +100,7 @@ ngOnInit(): void {
   if (this.selectedRateTypesDetails.rateTypeId != '') {
     this.formUser.patchValue(this.selectedRateTypesDetails);
     this.formUser.patchValue({
-      rateMethod: this.selectedRateTypesDetails.rateMethod,
-
-     
-      
+      rateMethod: this.selectedRateTypesDetails.rateMethod, 
     })
   }
  

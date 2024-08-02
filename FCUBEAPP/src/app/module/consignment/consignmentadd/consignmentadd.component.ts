@@ -393,7 +393,7 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   getVehTypes(): void {
-    this.commonService.getVehicleList().subscribe((res) => {
+    this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicalType = res;
     });
   }

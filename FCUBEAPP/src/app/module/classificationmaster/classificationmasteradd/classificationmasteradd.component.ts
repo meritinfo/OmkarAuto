@@ -72,7 +72,7 @@ export class ClassificationmasteraddComponent {
     this.selectedClassificationMasterDetails = this.classificationmasterService.getClassificationMasterDetails();
     this.formClassificationMaster = this.formBuilder.group({   
       classDesc: new FormControl('',[Validators.required]),
-      isActive: new FormControl('',[Validators.required]),
+      isActive: new FormControl('Y',[Validators.required]),
     });
 
     if (this.selectedClassificationMasterDetails.classId != '') {
@@ -173,7 +173,7 @@ export class ClassificationmasteraddComponent {
     this.userSubmitted = true;
     this.classificationModel.classId = this.selectedClassificationMasterDetails.classId ;
     this.classificationModel.classDesc  = selectedDataVal.classDesc.toString().toUpperCase();
-    this.classificationModel.isActive = selectedDataVal.isActive;
+    this.classificationModel.isActive = selectedDataVal.isActive.toString().toUpperCase();
     //this.classificationModel.loggedInUserID   = this.loggedInUserID;
   
     this.classificationmasterService.classificationmasterSubmitted(this.classificationModel).subscribe((res: Responsemodel) => {

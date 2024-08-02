@@ -68,8 +68,8 @@ namespace FreightMasters.Repository
                         for (int i = 0; i < freightRatesMstModel.freightRatesDetailsList.Count; i++)
                         {
                             freightRatesMstModel.freightRatesDetailsList[i].Index = i.ToString();
-                            freightRatesMstModel.freightRatesDetailsList[i].MasterID=MasterID.ToString();
-                            freightRatesMstModel.freightRatesDetailsList[i].RateTypeId=freightRatesMstModel.RateTypeId.ToString();
+                            freightRatesMstModel.freightRatesDetailsList[i].MasterID = MasterID.ToString();
+                            freightRatesMstModel.freightRatesDetailsList[i].RateTypeId = freightRatesMstModel.RateTypeId.ToString();
                             responseModel = await FreightRatesDtlSave(transaction, freightRatesMstModel.freightRatesDetailsList[i]);
                             if (!responseModel.Status) { 
                                 transaction.Rollback();

@@ -13,7 +13,6 @@ namespace FreightMasters.Repository
         Task<LhpmSlabMasterList> GetLhpmSlabMasterList(PageRequest request);
         Task<ResponseModel> LhpmSlabMasterSave(LhpmSlabMasterModel lhpmSlabMasterModel);
         Task<ResponseModel> LhpmSlabMasterDelete(RequestModel requestModel);
-        Task<List<DropDownListModel>> GetVehicleList();
 
     }
 }

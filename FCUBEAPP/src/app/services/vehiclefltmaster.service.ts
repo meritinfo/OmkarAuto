@@ -47,10 +47,6 @@ export class VehicleFltMasterService {
   vehicalMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/VehicalMasterDetailsDelete', req, this.httpOptions);
   }
-
-  getVehicleList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypeList', null, this.httpOptions);
-  }  
   getVehicleMfrList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalMfrList', null, this.httpOptions);
   }  

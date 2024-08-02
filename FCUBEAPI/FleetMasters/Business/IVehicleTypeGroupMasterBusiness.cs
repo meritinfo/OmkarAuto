@@ -8,6 +8,6 @@ namespace FleetMasters.Business
     {
         Task<ResponseModel> VehicleTypeGroupMasterSave(VehicleTypeGroupMasterModel vehicleTypeGroupMasterModel);
         Task<VehicleTypeGroupMasterList> GetVehicleTypeGroupMasterList(PageRequest request);
-        Task<List<DropDownListModel>> GetVehicleList();
+       
     }
 }
