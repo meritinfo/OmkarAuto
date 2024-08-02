@@ -328,7 +328,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile1.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile1.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile1/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attatchFile1.CopyToAsync(fileStream);
@@ -339,7 +345,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attatchFile2.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attatchFile2.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile2/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/gstpurchase/attatchFile2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attatchFile2.CopyToAsync(fileStream);

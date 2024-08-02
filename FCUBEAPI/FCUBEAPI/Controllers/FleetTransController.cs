@@ -965,7 +965,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attach1.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach1.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach1/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attach1.CopyToAsync(fileStream);
@@ -976,7 +982,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attach2.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach2.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach2/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/docrenewal/attach2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attach2.CopyToAsync(fileStream);
@@ -2045,7 +2057,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attachConfirmDoc.CopyToAsync(fileStream);

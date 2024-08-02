@@ -126,7 +126,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(driverPhoto.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(driverPhoto.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/driverphoto");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await driverPhoto.CopyToAsync(fileStream);
@@ -137,7 +143,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(drivingLicense.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(drivingLicense.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/drivinglicense/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/drivinglicense");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await drivingLicense.CopyToAsync(fileStream);
@@ -148,7 +160,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(hazdrivingLicense.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(hazdrivingLicense.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/hazdrivinglicense/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/hazdrivinglicense");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await hazdrivingLicense.CopyToAsync(fileStream);
@@ -159,8 +177,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(tempAddressProve.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(tempAddressProve.FileName);
-                    // var filePath = Path.Combine(Directory.GetCurrentDirectory(), "upload/driver/tempaddressprove/" + imageName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/tempaddressprove/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/tempaddressprove");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await tempAddressProve.CopyToAsync(fileStream);
@@ -171,7 +194,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(perAddressProve.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(perAddressProve.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/peraddressprove/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/peraddressprove");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await perAddressProve.CopyToAsync(fileStream);
@@ -182,7 +211,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(aadharCard.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(aadharCard.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/aadharcard/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/aadharcard");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await aadharCard.CopyToAsync(fileStream);
@@ -193,7 +228,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(bankPassbook.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(bankPassbook.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/bankpassbook/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/driver/bankpassbook");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await bankPassbook.CopyToAsync(fileStream);
@@ -304,7 +345,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/truck/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/truck");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attachConfirmDoc.CopyToAsync(fileStream);
@@ -526,7 +573,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attach1Link.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach1Link.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment1/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment1");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attach1Link.CopyToAsync(fileStream);
@@ -537,7 +590,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attach2Link.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach2Link.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment2/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment2");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attach2Link.CopyToAsync(fileStream);
@@ -548,7 +607,13 @@ namespace FCUBEAPI.Controllers
                 {
                     string imageName = new String(Path.GetFileNameWithoutExtension(attach3Link.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attach3Link.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment3/" + imageName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehical/attachment3");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await attach3Link.CopyToAsync(fileStream);
