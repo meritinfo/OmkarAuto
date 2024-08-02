@@ -147,15 +147,16 @@ export class AdddocumentallottmentComponent {
   checkDocumentRange() { 
     if (this.selectedDocumentallotmentDetails.docAllotId == "")
     {      
-      this.sharedService.loading = true;
       var selectedDataVal = this.formUser.getRawValue();
       this.docReqDetails.warningTimeStart = selectedDataVal.docType;
       this.docReqDetails.publishStart = selectedDataVal.rangeFrom;
       this.docReqDetails.publishEnd = selectedDataVal.rangeTo;
       var docCount = 0;
       var doccode = selectedDataVal.docNumCode.toString();
+      var rangeFrom = selectedDataVal.rangeFrom ? selectedDataVal.rangeFrom.toString().substring(0, doccode.length) :"";
+      var rangeTo = selectedDataVal.rangeTo ? selectedDataVal.rangeTo.toString().substring(0, doccode.length) :"";
 
-      if(selectedDataVal.rangeFrom!="" && doccode != selectedDataVal.rangeFrom.toString().substring(0, doccode.length())){
+      if(selectedDataVal.rangeFrom!="" && doccode != rangeFrom){
         this.toasterService.warning("Range From sholud Start With DocNumCode");
         this.formUser.patchValue({
           rangeFrom: "",
@@ -163,7 +164,7 @@ export class AdddocumentallottmentComponent {
         });       
         return;       
       }  
-      if(selectedDataVal.rangeTo!="" && doccode != selectedDataVal.rangeTo.toString().substring(0, doccode.length())){
+      if(selectedDataVal.rangeTo!="" && doccode != rangeTo){
         this.toasterService.warning("Range To sholud Start With DocNumCode");  
         this.formUser.patchValue({
           rangeTo:"",
@@ -188,7 +189,7 @@ export class AdddocumentallottmentComponent {
         this.responseDetails = res;
         if (this.responseDetails.status) {
           this.formUser.patchValue({            
-            docCount: docCount
+            docCount: docCount + 1
           });  
         }
         else{
@@ -200,7 +201,6 @@ export class AdddocumentallottmentComponent {
           });       
         }
       });
-      this.sharedService.loading = false;
     }
   }
 
@@ -258,13 +258,13 @@ export class AdddocumentallottmentComponent {
     var selectedDataVal = this.formUser.getRawValue();
     this.documentallotmentmodel.docAllotId = this.selectedDocumentallotmentDetails.docAllotId ;
     this.documentallotmentmodel.branchCode= selectedDataVal.branchCode;
-    this.documentallotmentmodel.docType = selectedDataVal.docType;
-    this.documentallotmentmodel.docNumCode = selectedDataVal.docNumCode;
+    this.documentallotmentmodel.docType = selectedDataVal.docType.toString();
+    this.documentallotmentmodel.docNumCode = selectedDataVal.docNumCode.toString();
     this.documentallotmentmodel.allotDate = selectedDataVal.allotDate;
-    this.documentallotmentmodel.rangeFrom = selectedDataVal.rangeFrom;
-    this.documentallotmentmodel.rangeTo = selectedDataVal.rangeTo;
-    this.documentallotmentmodel.docCount = selectedDataVal.docCount;
-    this.documentallotmentmodel.docStatus = selectedDataVal.docStatus;
+    this.documentallotmentmodel.rangeFrom = selectedDataVal.rangeFrom.toString();
+    this.documentallotmentmodel.rangeTo = selectedDataVal.rangeTo.toString();
+    this.documentallotmentmodel.docCount = selectedDataVal.docCount.toString();
+    this.documentallotmentmodel.docStatus = selectedDataVal.docStatus.toString();
     this.documentallotmentmodel.docCloseDate = selectedDataVal.docCloseDate;
 
     this.documentallotmentService.documentallotmentSubmitted(this.documentallotmentmodel).subscribe((res: Responsemodel) => {

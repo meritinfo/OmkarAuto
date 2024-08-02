@@ -374,24 +374,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPost("TransportMasterSave")]
-        //public async Task<IActionResult> TransportMasterSave(TransportMasterModel transportMasterModel)
-        //{
-        //    if (transportMasterModel == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await transportMasterBusiness.TransportMasterSave(transportMasterModel);
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
         [HttpPost("TransportMasterSave")]
         public async Task<IActionResult> TransportMasterSave()
         {
@@ -404,16 +387,43 @@ namespace FCUBEAPI.Controllers
 
                 if (attachConfirmDoc != null)
                 {
+
                     string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
-                    var filePath = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport/" + imageName);
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                   
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport");
+                    var fullPath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
                     {
                         await attachConfirmDoc.CopyToAsync(fileStream);
                         transportMasterModel.AddrProof = imageName;
                     }
                 }
                 var result = await transportMasterBusiness.TransportMasterSave(transportMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("TransportMasterDelete")]
+        public async Task<IActionResult> TransportMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await transportMasterBusiness.TransportMasterDelete(req);
 
                 return Ok(result);
             }

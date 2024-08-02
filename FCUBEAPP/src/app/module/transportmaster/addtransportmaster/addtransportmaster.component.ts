@@ -31,6 +31,11 @@ export class AddtransportmasterComponent {
   locationList: Dropdownmodel[] = [];
   vehicleTypeList: Dropdownmodel[] = [];
   transportmasterinnergridmodel = new Transportmasterinnergridmodel();
+  editMode = false;
+  createStatus = false;
+  editStatus = false;
+  deleteStatus = false;
+  viewStatus = false;
 
 
   @ViewChild('attachmentInput', {
@@ -48,6 +53,20 @@ export class AddtransportmasterComponent {
   }
 
   ngOnInit(): void {
+    var menuData = sessionStorage.getItem('menulist')?.toString();
+    if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
+      var privilegeData = JSON.parse(menuData);
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find(((aa: { menuName: string; }) => aa.menuName === "Transport/Broker Master"));
+      if (privilegeStatus) {
+        this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
+        this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
+        this.deleteStatus = privilegeStatus.deleteYN.toLowerCase() === "y" ? true : false;
+        this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
+      }
+    }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -99,13 +118,19 @@ export class AddtransportmasterComponent {
       vehTypeDetailList: this.formBuilder.array([this.createVehArray()]) 
     });
     
+    this.formUser.controls["inActiveDate"].disable();
+
     if (this.selectedTransportMasterDetail.tptCode != '') {
       setTimeout(() => {
         this.formUser.patchValue(this.selectedTransportMasterDetail);
         this.formUser.patchValue({
           inActiveDate: this.commonService.formatDate(this.selectedTransportMasterDetail.inActiveDate),
         })
+        if(this.selectedTransportMasterDetail.isActive=="N"){          
+          this.formUser.controls["inActiveDate"].enable();
+        }
         this.getTransportMasterInnerGridList();
+        this.editMode=true;
       }, 2000);  
     }
   }
@@ -202,6 +227,17 @@ export class AddtransportmasterComponent {
       tptCode: [''],
       vehTypeId: ['']
     });
+  }
+
+  onactiveChange(e:any){
+    var act = e.target.value;
+    if(act=='Y'){
+      this.formUser.controls["inActiveDate"].disable();
+    }
+    else{      
+      this.formUser.controls["inActiveDate"].enable();
+    }
+
   }
 
   getTransportMasterInnerGridList(): void {
@@ -329,15 +365,6 @@ export class AddtransportmasterComponent {
       }
     }
     
-    if(this.transportMasterModel.transportLocationList.length==0 && this.transportMasterModel.transportStatesList.length==0){
-      this.toastrService.warning("Please Enter atleast one location or state detail ");   
-      return;
-    }
-    if(this.transportMasterModel.transportVehTypesList.length==0 ){
-      this.toastrService.warning("Please Enter atleast one Vehicle detail ");   
-      return;
-    }
-
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.transportMasterModel));
