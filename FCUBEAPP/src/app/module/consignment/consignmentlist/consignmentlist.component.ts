@@ -33,7 +33,8 @@ export class ConsignmentlistComponent implements OnInit  {
   }
   formFilter!: FormGroup;
   branchList: Dropdownmodel[] = [];
-  vehicleList: Dropdownmodel[] = [];
+  partyList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
   fromDate: string = '';
@@ -69,6 +70,10 @@ export class ConsignmentlistComponent implements OnInit  {
       }
     }
 
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
+    
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -103,18 +108,23 @@ export class ConsignmentlistComponent implements OnInit  {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
-      branch: new FormControl('0',),
-      vehicle: new FormControl('',)
+      vehicle: new FormControl('',),
+      payParty: new FormControl('',),
+      origin: new FormControl('',),
+      destination: new FormControl('',),
     });
     
     this.getBranchList();
-    this.getVehicleNoList();
+    this.getPartyList();
+    this.getLocationList();
 
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = selectedDataVal.branch;
-    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
+    this.filter.filterStr = "";
+    this.filter.filterStr1 =  "";
+    this.filter.filterStr2 =  "";
+    this.filter.filterStr3 =  "";
     
     this.getConsignmentList();
   }
@@ -181,12 +191,17 @@ export class ConsignmentlistComponent implements OnInit  {
     });
   }
   
-  getVehicleNoList(): void {
-    this.commonService.getVehicleIdList().subscribe((res) => {
-      this.vehicleList = res;
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
     });
   }
 
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
   
   onFocused(e: any) {
     // do something
@@ -217,8 +232,11 @@ export class ConsignmentlistComponent implements OnInit  {
     var selectedDataVal = this.formFilter.getRawValue();
     this.filter.fromDate = selectedDataVal.fromDate;
     this.filter.toDate = selectedDataVal.toDate;
-    this.filter.filterStr = selectedDataVal.branch;
-    this.filter.search = selectedDataVal.vehicle?selectedDataVal.vehicle.dataName:"";
+    this.filter.filterStr = selectedDataVal.payParty?selectedDataVal.payParty.dataId:"";
+    this.filter.filterStr1 = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    this.filter.filterStr2 = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.filterStr3 = selectedDataVal.vehicleNo;
+
      this.getConsignmentList();
      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.ajax.reload(); 

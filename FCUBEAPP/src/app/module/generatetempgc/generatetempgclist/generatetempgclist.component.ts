@@ -38,6 +38,7 @@ export class GeneratetempgclistComponent {
 
   formFilter!: FormGroup;
   partyList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
   fromDate: string = '';
@@ -111,12 +112,24 @@ export class GeneratetempgclistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
+      payParty: new FormControl('',),
+      vehicleNo :new FormControl('',),
+      origin: new FormControl('',),
+      destination: new FormControl('',),
+      mainLr:new FormControl('',),
     });
     
+    this.getPartyList();
+    this.getLocationList();
     this.sharedService.loading=true;
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.search = this.loggedInUserID;
+    this.filter.filterStr = "";
+    this.filter.filterStr1 =  "";
+    this.filter.filterStr2 =  "";
+    this.filter.filterStr3 =  "";
+    this.filter.sortColumn =  "";
 
     this.tempgcList();    
     this.sharedService.loading=false;
@@ -132,9 +145,7 @@ export class GeneratetempgclistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
-        this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        
+
         this.generatetempgcService.getTempgcList(this.filter).subscribe(resp => {
           this.alltempgclist = resp;
             callback({
@@ -195,6 +206,18 @@ export class GeneratetempgclistComponent {
         },  
       ],
     };
+  }
+
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
   }
 
   download(tempgc: Tempgcmodel): void {
@@ -353,6 +376,12 @@ export class GeneratetempgclistComponent {
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
     this.filter.search = this.loggedInUserID;
+    this.filter.filterStr = selecteddata.payParty?selecteddata.payParty.dataId:"";
+    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
+    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
+    this.filter.filterStr3 = selecteddata.vehicleNo;
+    this.filter.sortColumn =  selecteddata.mainLr;
+
 
     this.sharedService.loading=true;
     this.tempgcList();    

@@ -3,17 +3,6 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
-using System.Transactions;
-using DocumentFormat.OpenXml.Office2016.Excel;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
-using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.VariantTypes;
-using System.Numerics;
-using System.Runtime.InteropServices;
-using DocumentFormat.OpenXml.Drawing;
-using DocumentFormat.OpenXml.Wordprocessing;
-using System.Data;
 
 namespace Consignment.Repository
 {
@@ -43,7 +32,10 @@ namespace Consignment.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@PayParty",   request.FilterStr),
+                            new SqlParameter("@Origin",     request.FilterStr1),
+                            new SqlParameter("@Destination",request.FilterStr2),
+                            new SqlParameter("@VehicleNo",  request.FilterStr3),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getConsignmentList", param);
 
