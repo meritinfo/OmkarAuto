@@ -96,24 +96,28 @@ export class FinaccountmastergstComponent {
   }
   
   selectEvent(item: any) {
-    this.requestmodel.strRequest = item.dataId;
+    this.requestmodel.strRequest = item.dataId;    
+    this.formArray.clear();
+    this.formArray.push(this.createInitialArray());
     this.finsaccountmasterService.getFinAccountGstList(this.requestmodel).subscribe((res) => {
       this.finaccountmodel = res;
-      this.formArray.clear();
-      for (var i = 0; i < res.finAccountsGstDetail.length; i++) {
-        this.formArray.push(this.createInitialArray());
-        this.formArray.controls[i].get("location")?.setValue(res.finAccountsGstDetail[i].location);
-        this.formArray.controls[i].get("gstNo")?.setValue(res.finAccountsGstDetail[i].gstNo);
-        this.formArray.controls[i].get("address1")?.setValue(res.finAccountsGstDetail[i].address1);
-        this.formArray.controls[i].get("address2")?.setValue(res.finAccountsGstDetail[i].address2);
-        this.formArray.controls[i].get("address3")?.setValue(res.finAccountsGstDetail[i].address3);
-        this.formArray.controls[i].get("address4")?.setValue(res.finAccountsGstDetail[i].address4);
-        this.formArray.controls[i].get("city")?.setValue(res.finAccountsGstDetail[i].city);
-        this.formArray.controls[i].get("stateCode")?.setValue(res.finAccountsGstDetail[i].stateCode);
-        this.formArray.controls[i].get("pinCode")?.setValue(res.finAccountsGstDetail[i].pinCode);
-        this.formArray.controls[i].get("mobileNo")?.setValue(res.finAccountsGstDetail[i].pinCode);
-        this.formArray.controls[i].get("email")?.setValue(res.finAccountsGstDetail[i].pinCode);
-      }
+      if(res.finAccountsGstDetail.length>0){
+        this.formArray.clear();
+        for (var i = 0; i < res.finAccountsGstDetail.length; i++) {
+          this.formArray.push(this.createInitialArray());
+          this.formArray.controls[i].get("location")?.setValue(res.finAccountsGstDetail[i].location);
+          this.formArray.controls[i].get("gstNo")?.setValue(res.finAccountsGstDetail[i].gstNo);
+          this.formArray.controls[i].get("address1")?.setValue(res.finAccountsGstDetail[i].address1);
+          this.formArray.controls[i].get("address2")?.setValue(res.finAccountsGstDetail[i].address2);
+          this.formArray.controls[i].get("address3")?.setValue(res.finAccountsGstDetail[i].address3);
+          this.formArray.controls[i].get("address4")?.setValue(res.finAccountsGstDetail[i].address4);
+          this.formArray.controls[i].get("city")?.setValue(res.finAccountsGstDetail[i].city);
+          this.formArray.controls[i].get("stateCode")?.setValue(res.finAccountsGstDetail[i].stateCode);
+          this.formArray.controls[i].get("pinCode")?.setValue(res.finAccountsGstDetail[i].pinCode);
+          this.formArray.controls[i].get("mobileNo")?.setValue(res.finAccountsGstDetail[i].pinCode);
+          this.formArray.controls[i].get("email")?.setValue(res.finAccountsGstDetail[i].pinCode);
+        }
+      }  
     });
   }
 
@@ -136,7 +140,7 @@ export class FinaccountmastergstComponent {
   }  
   
   getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
+    this.commonService.getLocationList().subscribe((res) => {
       this.branchList = res;
     });
   }
@@ -178,6 +182,11 @@ export class FinaccountmastergstComponent {
     this.formArray.removeAt(index);
   }
 
+
+
+  exit(): void {
+    this.route.navigate(['/dashboard']);
+  }
 
   deleteFinAccountMasterForm(): void {
     if(this.selectedFinaccountMasterDetails.accountId != '' ){

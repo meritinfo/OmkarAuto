@@ -5,7 +5,6 @@ using HRMasters.Models;
 using HRMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using System.Collections.Generic;
 
 
 namespace FCUBEAPI.Controllers

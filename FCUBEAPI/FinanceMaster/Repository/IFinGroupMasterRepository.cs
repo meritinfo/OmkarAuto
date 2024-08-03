@@ -1,5 +1,4 @@
-﻿using FinanceMaster.Models;
-using FinanceMasters.Models;
+﻿using FinanceMasters.Models;
 using Shared.Models;
 
 namespace FinanceMasters.Repository
