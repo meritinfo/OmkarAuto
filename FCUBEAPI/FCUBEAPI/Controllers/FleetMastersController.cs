@@ -422,17 +422,18 @@ namespace FCUBEAPI.Controllers
 
             try
             {
-                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+                var cancelChq = HttpContext.Request.Form.Files["cancelChq"];
+                var addrProof = HttpContext.Request.Form.Files["addrProof"];
 
                 TransportMasterModel transportMasterModel = JsonConvert.DeserializeObject<TransportMasterModel>(HttpContext.Request.Form["datadetails"]);
 
-                if (attachConfirmDoc != null)
+                if (cancelChq != null)
                 {
 
-                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
-                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    string imageName = new String(Path.GetFileNameWithoutExtension(cancelChq.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(cancelChq.FileName);
                    
-                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport");
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport/cancelChq/");
                     var fullPath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)
@@ -441,7 +442,26 @@ namespace FCUBEAPI.Controllers
                     }
                     using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
                     {
-                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        await cancelChq.CopyToAsync(fileStream);
+                        transportMasterModel.CancelChq = imageName;
+                    }
+                }
+                if (addrProof != null)
+                {
+
+                    string imageName = new String(Path.GetFileNameWithoutExtension(addrProof.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(addrProof.FileName);
+
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/transport/addrProof/");
+                    var fullPath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await addrProof.CopyToAsync(fileStream);
                         transportMasterModel.AddrProof = imageName;
                     }
                 }

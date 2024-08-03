@@ -23,6 +23,7 @@ namespace HRMasters.Models
         public string? PfAcNo { get; set; }
         public string? EsiAcNo { get; set; }
         public string? PanAcNo { get; set; }
+        public string? AadhaarNo { get; set; }
         public string? CurrentBranch { get; set; }
         public string? Remarks { get; set; }
         public string? PresentAdd { get; set; }

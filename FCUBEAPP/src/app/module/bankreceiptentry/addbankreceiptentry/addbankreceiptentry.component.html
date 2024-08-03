@@ -6,13 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Bank Receipt</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="/#/gstpurchaselist">Cash Receipt</a></li>
-                                <li class="breadcrumb-item active">Cash Receipt</li> -->
-                            </ol>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -26,17 +19,21 @@
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio"formControlName="docType"  value="BP" (change)="changePType('BP')"
+                                                <input type="radio"formControlName="docType"  
+                                                value="BP" (change)="changePType('BP')"
                                                         class="form-check-input" />
-                                                <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Payment</h6>
+                                                <label for="formRadios1" class="form-check-label"
+                                                style="color: blue;"> <h6>Bank Payment</h6>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-check mb-3">
-                                                <input type="radio" formControlName="docType"  value="BR" (change)="changePType('BR')"
+                                                <input type="radio" formControlName="docType"  
+                                                value="BR" (change)="changePType('BR')"
                                                             class="form-check-input" />
-                                                <label for="formRadios1" class="form-check-label"style="color: blue;"> <h6>Bank Receipt</h6>
+                                                <label for="formRadios1" class="form-check-label"
+                                                style="color: blue;"> <h6>Bank Receipt</h6>
                                                 </label>
                                             </div>
                                         </div>
@@ -53,17 +50,20 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputState">Document Series</label><span style="color:red">*</span>
+                                            <label for="formrow-inputState">Document Series</label>
+                                            <span style="color:red">*</span>
                                             <input class="form-control" placeholder="" formControlName="docSeries">
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputState">Document No</label><span style="color:red">*</span>
+                                            <label for="formrow-inputState">Document No</label>
+                                            <span style="color:red">*</span>
                                             <label for="formrow-inputState">.</label>
                                             <input class="form-control" placeholder="" formControlName="docNo"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['docNo'].invalid) }">
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputState">Trans Date</label><span style="color:red">*</span>
+                                            <label for="formrow-inputState">Trans Date</label>
+                                            <span style="color:red">*</span>
                                             <input type="date" class="form-control" placeholder="" 
                                             formControlName="ftmDate"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">
@@ -71,6 +71,7 @@
                                         <div class="col-lg-2">
                                             <div class="mb-4">
                                                 <label for="formrow-inputCity">Ref Type </label> 
+                                                <span style="color: red">*</span> 
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="refType"
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['refType'].invalid) }">
@@ -90,7 +91,8 @@
                                     <div class="row">                            
                                         <div class="col-lg-4">
                                             <div class="mb-4">
-                                                <label for="formrow-inputZip">Select Bank Account</label><span style="color:red">*</span>
+                                                <label for="formrow-inputZip">Select Bank Account</label>
+                                                <span style="color:red">*</span>
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                     formControlName="accountid2"  
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['accountid2'].invalid) }">
@@ -104,7 +106,8 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Utr No</label>
-                                                <input uppercaseonly class="form-control" placeholder=""  formControlName="utrNo">
+                                                <input uppercaseonly class="form-control" 
+                                                 formControlName="utrNo">
                                             </div>
                                         </div>                                        
                                     </div>
@@ -128,7 +131,7 @@
                                                 </td>
                                                 <td class="col-lg-3">
                                                     <label for="formrow-inputZip">
-                                                        <h6>Narration</h6>
+                                                        <h6>Narration</h6><span style="color: red">*</span> 
                                                     </label>
                                                 </td>
                                                 <td class="col-lg-3">

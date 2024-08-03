@@ -56,6 +56,7 @@ this.dtOptions = {
   pageLength: 10,
   serverSide: true,
   processing: true,
+  searching: false,
   ajax: (dataTablesParameters: any, callback) => {
     // Filter setting
     this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
