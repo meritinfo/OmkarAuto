@@ -95,6 +95,10 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.TripMasterDelete(requestModel);
         }
+        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        {
+            return await tripMasterRepository.GetTripSheetInnerGridList(request);
+        }
 
 
     }

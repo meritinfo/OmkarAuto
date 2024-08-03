@@ -24,6 +24,6 @@ namespace FleetTrans.Business
         Task<DriverDetailModel> GetDriverDetail(RequestModel request);
         Task<UserTripRightsModel> GetUserDetails(RequestModel request);
         Task<ResponseModel> TripMasterDelete(RequestModel requestModel);
-      //  Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
+       Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }
