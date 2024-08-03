@@ -524,17 +524,16 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("GetTripSheetInnerGridList")]
-        public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        [HttpPost("TripMasterDelete")]
+        public async Task<IActionResult> TripMasterDelete(RequestModel req)
         {
-            if (request == null)
+            if (req == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+                var result = await tripMasterBusiness.TripMasterDelete(req);
 
                 return Ok(result);
             }
@@ -543,6 +542,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        //[HttpPost("GetTripSheetInnerGridList")]
+        //public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        //{
+        //    if (request == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
 
         [HttpPost("GetDieselStatementInnerGridList")]

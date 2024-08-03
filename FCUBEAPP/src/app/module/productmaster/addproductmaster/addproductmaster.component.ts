@@ -25,6 +25,8 @@ export class AddproductmasterComponent {
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
+  editMode = false;
+  createmode  = true;
   viewStatus = false;
   responseDetails = new Responsemodel();
   productList: Dropdownmodel[] = [];
@@ -74,7 +76,9 @@ export class AddproductmasterComponent {
 
     if (this.selectedProductMasterDetails.productId != '') {
       this.formUser.patchValue(this.selectedProductMasterDetails);
+      this.editMode = true;  
     }
+    
   }
 
   // convenience getter for easy access to contact form fields

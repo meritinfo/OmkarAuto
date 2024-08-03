@@ -1,4 +1,5 @@
-﻿using FleetTrans.Business;
+﻿using DocumentFormat.OpenXml.Office2016.Excel;
+using FleetTrans.Business;
 using FleetTrans.Models;
 using FleetTrans.Repository;
 using Shared.Models;
@@ -90,9 +91,11 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetUserDetails(request);
         }
-        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
         {
-            return await tripMasterRepository.GetTripSheetInnerGridList(request);
+            return await tripMasterRepository.TripMasterDelete(requestModel);
         }
+
+
     }
 }

@@ -114,7 +114,7 @@ if (this.selectedVehicleInstPmtDetail.pmtId != '') {
  // this.formUser.controls['truckNo'].disable();
 this.formUser.patchValue({
   //isActive: this.selectedTruckMasterDetail.isActive,
- // regnDate: this.commonService.formatDate(this.selectedTruckMasterDetail.regnDate),
+  pmtDate: this.commonService.formatDate(this.selectedVehicleInstPmtDetail.pmtDate),
   //insuranceDt: this.commonService.formatDate(this.selectedTruckMasterDetail.insuranceDt),
  // nationalPermitDt: this.commonService.formatDate(this.selectedTruckMasterDetail.nationalPermitDt),
  // fitnessDt: this.commonService.formatDate(this.selectedTruckMasterDetail.fitnessDt),
