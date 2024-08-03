@@ -6,13 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">DPR Generate Temp GC</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
-                            </ol>
-                        </div>
+                        <h4 class="mb-sm-0 font-size-18">DPR Generate Temp LR</h4>
                     </div>
                 </div>
             </div>
@@ -35,7 +29,87 @@
                                     min="{{minDate}}" max="{{maxDate}}"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
-                            </div>  
+                            </div>                         
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputCity">Party</label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="partyList" 
+                                            formControlName="payParty"
+                                            [searchKeyword]="keywordLocation" 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Vehicle No</label>
+                                    <input class="form-control" formControlName="vehicleNo" >
+                                </div>
+                            </div>        
+                        </div>                        
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Place: </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList" 
+                                            formControlName="origin"
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Place: </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList" 
+                                            formControlName="destination"
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>   
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">Main LR </label>
+                                    <select id="scope" class="form-select" formControlName="mainLr"
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="Y">Done</option>
+                                        <option value="N">Not Done</option>
+                                    </select>
+                                </div>
+                            </div>                 
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" 

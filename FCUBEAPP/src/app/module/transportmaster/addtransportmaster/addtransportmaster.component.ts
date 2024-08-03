@@ -2,8 +2,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormArray,FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Transportmastermodel } from 'src/app/models/transportmastermodel';
@@ -11,7 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { TransportMasterService } from 'src/app/services/transportmaster.service';
 import {Transportmasterinnergridmodel } from 'src/app/models/transportmasterinnergridmodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { UserService } from 'src/app/services/user.service';
+import { Constants } from 'src/app/common/constants';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -36,6 +34,9 @@ export class AddtransportmasterComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+
+  uploadedcancelChq: string = "";
+  uploadedaddrProof: string = "";
 
 
   @ViewChild('attachmentInput', {
@@ -84,9 +85,8 @@ export class AddtransportmasterComponent {
     this.getVehicleTypeList();
     this.selectedTransportMasterDetail = this.transportMasterService.getTransportMasterDetails();
     this.formUser = this.formBuilder.group({
-      tptCode: new FormControl('',),
       tptName: new FormControl('',[Validators.required]),
-      address1: new FormControl('',[Validators.required]),
+      address1: new FormControl('',),
       address2: new FormControl('',),
       address3: new FormControl('',),
       address4: new FormControl('',),
@@ -94,8 +94,8 @@ export class AddtransportmasterComponent {
       pinCode: new FormControl('',),
       phone: new FormControl('',),
       email: new FormControl('',),
-      contactPerson1: new FormControl('',[Validators.required]),
-      mobile1: new FormControl('',[Validators.required]),
+      contactPerson1: new FormControl('',),
+      mobile1: new FormControl('',),
       contactPerson2: new FormControl('',),
       mobile2: new FormControl('',),
       panNo: new FormControl('',),
@@ -108,7 +108,7 @@ export class AddtransportmasterComponent {
       eligibleForBid: new FormControl('',),
       PanNo: new FormControl('',),
       whatsappMblNo: new FormControl('',),
-      branchCode: new FormControl('',),
+      branchCode: new FormControl('',[Validators.required]),
       remarks: new FormControl('',),
       isActive: new FormControl('Y',),
       inActiveDate: new FormControl('',),
@@ -122,6 +122,8 @@ export class AddtransportmasterComponent {
 
     if (this.selectedTransportMasterDetail.tptCode != '') {
       setTimeout(() => {
+        this.uploadedcancelChq = Constants.UploadFolderPath + 'upload/transport/cancelChq/' + this.selectedTransportMasterDetail.cancelChq;
+        this.uploadedaddrProof = Constants.UploadFolderPath + 'upload/transport/addrProof/' + this.selectedTransportMasterDetail.addrProof;
         this.formUser.patchValue(this.selectedTransportMasterDetail);
         this.formUser.patchValue({
           inActiveDate: this.commonService.formatDate(this.selectedTransportMasterDetail.inActiveDate),
@@ -300,33 +302,32 @@ export class AddtransportmasterComponent {
       }
       return;
     }
+    var selectedData = this.formUser.getRawValue();
 
     this.transportMasterModel.tptCode = this.selectedTransportMasterDetail.tptCode;
-    this.transportMasterModel.tptName= this.formUser.value.tptName.toString().toUpperCase();
-    this.transportMasterModel.address1 = this.formUser.value.address1.toString().toUpperCase();
-    this.transportMasterModel.address2 = this.formUser.value.address2.toString().toUpperCase();
-    this.transportMasterModel.address3 = this.formUser.value.address3.toString().toUpperCase();
-    this.transportMasterModel.address4 = this.formUser.value.address4.toString().toUpperCase();
-    this.transportMasterModel.stateCode = this.formUser.value.stateCode.toString().toUpperCase();
-    this.transportMasterModel.pinCode = this.formUser.value.pinCode;
-    this.transportMasterModel.phone = this.formUser.value.phone;
-    this.transportMasterModel.email = this.formUser.value.email;
-    this.transportMasterModel.contactPerson1 = this.formUser.value.contactPerson1.toString().toUpperCase();
-    this.transportMasterModel.mobile1 = this.formUser.value.mobile1;
-    this.transportMasterModel.contactPerson2 = this.formUser.value.contactPerson2.toString().toUpperCase();
-    this.transportMasterModel.mobile2 = this.formUser.value.mobile2;
-    this.transportMasterModel.pinCode = this.formUser.value.pinCode;
-    this.transportMasterModel.panNo = this.formUser.value.panNo.toString().toUpperCase();
-    this.transportMasterModel.gstNo = this.formUser.value.gstNo.toString().toUpperCase();
-    this.transportMasterModel.aadharNo = this.formUser.value.aadharNo.toString().toUpperCase();
-    this.transportMasterModel.cancelChq = this.formUser.value.cancelChq;
-    this.transportMasterModel.addrProof = this.formUser.value.addrProof;
-    this.transportMasterModel.eligibleForBid = this.formUser.value.eligibleForBid;
-    this.transportMasterModel.whatsappMblNo = this.formUser.value.whatsappMblNo;
-    this.transportMasterModel.branchCode = this.formUser.value.branchCode;
-    this.transportMasterModel.remarks = this.formUser.value.remarks;
-    this.transportMasterModel.isActive = this.formUser.value.isActive;
-    this.transportMasterModel.inActiveDate = this.formUser.value.inActiveDate;
+    this.transportMasterModel.tptName= selectedData.tptName.toString().toUpperCase();
+    this.transportMasterModel.address1 = selectedData.address1.toString().toUpperCase();
+    this.transportMasterModel.address2 = selectedData.address2.toString().toUpperCase();
+    this.transportMasterModel.address3 = selectedData.address3.toString().toUpperCase();
+    this.transportMasterModel.address4 = selectedData.address4.toString().toUpperCase();
+    this.transportMasterModel.stateCode = selectedData.stateCode.toString().toUpperCase();
+    this.transportMasterModel.pinCode = selectedData.pinCode;
+    this.transportMasterModel.phone = selectedData.phone;
+    this.transportMasterModel.email = selectedData.email;
+    this.transportMasterModel.contactPerson1 = selectedData.contactPerson1.toString().toUpperCase();
+    this.transportMasterModel.mobile1 = selectedData.mobile1;
+    this.transportMasterModel.contactPerson2 = selectedData.contactPerson2.toString().toUpperCase();
+    this.transportMasterModel.mobile2 = selectedData.mobile2;
+    this.transportMasterModel.pinCode = selectedData.pinCode;
+    this.transportMasterModel.panNo = selectedData.panNo.toString().toUpperCase();
+    this.transportMasterModel.gstNo = selectedData.gstNo.toString().toUpperCase();
+    this.transportMasterModel.aadharNo = selectedData.aadharNo.toString().toUpperCase();
+    this.transportMasterModel.eligibleForBid = selectedData.eligibleForBid;
+    this.transportMasterModel.whatsappMblNo = selectedData.whatsappMblNo;
+    this.transportMasterModel.branchCode = selectedData.branchCode;
+    this.transportMasterModel.remarks = selectedData.remarks.toString().toUpperCase();;
+    this.transportMasterModel.isActive = selectedData.isActive;
+    this.transportMasterModel.inActiveDate = selectedData.inActiveDate;
     this.transportMasterModel.transportLocationList = [];
     this.transportMasterModel.transportStatesList = [];
     this.transportMasterModel.transportVehTypesList = [];
@@ -366,7 +367,8 @@ export class AddtransportmasterComponent {
     }
     
     let formData = new FormData();
-    formData.append('attach', this.attachmentInput.nativeElement.files[0]);
+    formData.append('cancelChq', this.attachmentInput1.nativeElement.files[0]);
+    formData.append('addrProof', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.transportMasterModel));
 
     this.transportMasterService.transportmasterSubmitted(formData).subscribe((res: Responsemodel) => {

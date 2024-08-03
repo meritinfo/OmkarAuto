@@ -406,6 +406,11 @@ export class AddbankreceiptentryComponent {
             return;
           }
         }
+        if (this.formArray.value[i].narration =="") {
+          this.toasterService.warning("Narration cannot be Empty in details grid");
+          this.sharedService.loading=false;
+          return;
+        }
         
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
           if(this.bankreceiptentryModel.neftPmt =="N"){

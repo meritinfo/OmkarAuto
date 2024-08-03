@@ -82,7 +82,8 @@ export class EmpmasteraddComponent {
       age  : new FormControl('', [Validators.required]),              
       pfAcNo : new FormControl('', ),            
       esiAcNo  : new FormControl('', ),          
-      panAcNo  : new FormControl('', ),     
+      panAcNo  : new FormControl('', ),   
+      aadhaarNo  : new FormControl('', ),   
       remarks  : new FormControl('', ),          
       presentAdd : new FormControl('', [Validators.required]), 
       phone  : new FormControl('', ),            
@@ -339,6 +340,7 @@ export class EmpmasteraddComponent {
     this.employeemodel.pfAcNo             = selectedDataVal.pfAcNo.toString().toUpperCase()  ;                 
     this.employeemodel.esiAcNo            = selectedDataVal.esiAcNo.toString().toUpperCase()   ;                 
     this.employeemodel.panAcNo            = selectedDataVal.panAcNo.toString().toUpperCase()  ;  
+    this.employeemodel.aadhaarNo          = selectedDataVal.aadhaarNo.toString().toUpperCase()  ;  
     this.employeemodel.remarks            = selectedDataVal.remarks.toString().toUpperCase()   ;     
     this.employeemodel.presentAdd         = selectedDataVal.presentAdd.toString().toUpperCase()   ;    
     this.employeemodel.phone              = selectedDataVal.phone.toString()  ;      

@@ -265,7 +265,6 @@ export class AddcashreceiptentryComponent {
       this.mainAcList = res;
     });
   }
-
   
   getGridAcList(): void {
     this.requestmodel.strRequest="G"
@@ -395,7 +394,11 @@ export class AddcashreceiptentryComponent {
             return;
           }
         }
-         
+        if (this.formArray.value[i].narration=="") {
+          this.toasterService.warning("Narration cannot be Empty in details grid");
+          this.sharedService.loading=false;
+          return;
+        }
         if (this.formArray.value[i].accountID.dataId!="" && parseFloat(this.formArray.value[i].amount)>0 ){
             this.bankrecEntrymodel.detailList.push({
             'slNo': (i+1).toString() ,

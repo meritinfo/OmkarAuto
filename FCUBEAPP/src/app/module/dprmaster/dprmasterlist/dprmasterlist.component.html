@@ -45,8 +45,7 @@
                                             [searchKeyword]="keywordLocation" 
                                             [itemTemplate]="itemTemplate"
                                             [notFoundTemplate]="notFoundTemplate"
-                                            [customFilter]="startWithFilter"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['payParty'].invalid) }">
+                                            [customFilter]="startWithFilter">
                                         </ng-autocomplete>
 
                                         <ng-template #itemTemplate let-item>
@@ -71,7 +70,50 @@
                                         <option value="N">Veh Not Placed</option>
                                     </select>
                                 </div>
-                             </div>                    
+                             </div>   
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">From Place: </label>
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList" 
+                                            formControlName="origin"
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">To Place: </label> 
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="locationList" 
+                                            formControlName="destination"
+                                            [searchKeyword]="keywordLocation"
+                                            [itemTemplate]="itemTemplate" 
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter" >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>                 
                             <div class="col-lg-2">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" 

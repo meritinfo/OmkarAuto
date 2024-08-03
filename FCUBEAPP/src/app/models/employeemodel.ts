@@ -14,6 +14,7 @@ export class Employeemodel {
     pfAcNo                 : string = "";
     esiAcNo                : string = "";
     panAcNo                : string = "";
+    aadhaarNo              : string = "";
     currentBranch          : string = "";
     remarks                : string = "";
     presentAdd             : string = "";

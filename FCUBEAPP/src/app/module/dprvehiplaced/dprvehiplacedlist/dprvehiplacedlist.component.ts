@@ -36,6 +36,7 @@ export class DprvehiplacedlistComponent {
 
   formFilter!: FormGroup;
   partyList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
   fromDate: string = '';
@@ -100,11 +101,22 @@ export class DprvehiplacedlistComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
       toDate: new FormControl(this.loginDate,),
+      payParty: new FormControl('',),
+      vehicleNo :new FormControl('',),
+      origin: new FormControl('',),
+      destination: new FormControl('',),
     });
-    
+
+    this.getPartyList();
+    this.getLocationList();
     this.sharedService.loading=true;
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
+    this.filter.search = '';
+    this.filter.filterStr = '';
+    this.filter.filterStr1 = '';
+    this.filter.filterStr2 = '';
+    this.filter.filterStr2 = '';
 
     this.dprVehiList();    
     this.sharedService.loading=false;
@@ -174,6 +186,18 @@ export class DprvehiplacedlistComponent {
     this.route.navigate(['/dprvehplacededit']);
   }  
 
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
+
+  getPartyList(): void {
+    this.commonService.getPartyList().subscribe((res) => {
+      this.partyList = res;
+    });
+  }
+
   get f() { return this.formFilter.controls; }
 
   search(): void {
@@ -192,6 +216,10 @@ export class DprvehiplacedlistComponent {
     var selecteddata = this.formFilter.getRawValue();
     this.filter.fromDate = selecteddata.fromDate;
     this.filter.toDate = selecteddata.toDate;
+    this.filter.search = selecteddata.vehicleNo;
+    this.filter.filterStr = selecteddata.payParty?selecteddata.payParty.dataId:"";
+    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
+    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
 
     this.sharedService.loading=true;
     this.dprVehiList();    

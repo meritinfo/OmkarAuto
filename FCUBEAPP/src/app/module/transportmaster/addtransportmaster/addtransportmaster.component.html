@@ -39,10 +39,9 @@
                                 <div class="row"> 
                                     <div class="col-sm-6">
                                         <div class="mb-3">
-                                            <label>Address 1: </label><span style="color: red">*</span> 
+                                            <label>Address 1: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="100" formControlName="address1" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['address1'].invalid) }">
+                                            maxlength="100" formControlName="address1" >
                                         </div>
                                     </div>                          
                                  
@@ -109,18 +108,16 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Contact Person1: </label><span style="color: red">*</span> 
+                                            <label>Contact Person1: </label> 
                                             <input uppercaseonly type="text"  class="form-control" maxlength="200"
-                                            formControlName="contactPerson1" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['contactPerson1'].invalid) }">
+                                            formControlName="contactPerson1" >
                                         </div>
                                     </div>       
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label>Mobile 1: </label><span style="color: red">*</span> 
+                                            <label>Mobile 1: </label> 
                                             <input numbersonly type="text" class="form-control" maxlength="10"
-                                            formControlName="mobile1" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['mobile1'].invalid) }">
+                                            formControlName="mobile1" >
                                         </div>
                                     </div>   
                                 </div> 
@@ -141,7 +138,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>PanNo: </label>
+                                            <label>Pan No: </label>
                                             <input  type="text" class="form-control" uppercaseonly
                                             formControlName="panNo" >
                                         </div>
@@ -155,7 +152,7 @@
                                     </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>AadharNo: </label>
+                                            <label>Aadhar No: </label>
                                             <input numbersonly  type="text" class="form-control"
                                             formControlName="aadharNo" >
                                         </div>
@@ -164,7 +161,7 @@
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="mb-3">
-                                            <label>Eligible ForBid: </label>                                           
+                                            <label>Eligible For Bid: </label>                                           
                                             <select id="formrow-inputState" 
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="eligibleForBid">
@@ -203,7 +200,7 @@
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
-                                            <label >InActive Date: </label> 
+                                            <label >In Active Date: </label> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             formControlName="inActiveDate"
                                             [ngClass]=>
@@ -336,6 +333,8 @@
                             <label>Cancel Cheque: </label>
                             <input #attachmentInput1 class="form-control" type="file"
                             id="formAttFile" accept="image/*">
+                            <a *ngIf="selectedTransportMasterDetail.cancelChq" target="_blank"
+                            href={{uploadedcancelChq}}>Download</a>
                         </div>
                     </div> 
                     <div class="col-sm-3">
@@ -343,6 +342,8 @@
                             <label>Address Proof: </label>
                             <input #attachmentInput class="form-control" type="file"
                                     id="formAttFile" accept="image/*">
+                            <a *ngIf="selectedTransportMasterDetail.addrProof" target="_blank"
+                                    href={{uploadedaddrProof}}>Download</a>
                         </div>
                     </div> 
                 </div>         

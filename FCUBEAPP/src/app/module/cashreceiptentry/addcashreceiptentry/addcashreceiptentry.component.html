@@ -50,21 +50,21 @@
                                             <input class="form-control" placeholder="" formControlName="docSeries">
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputState">Document No</label>
+                                            <label for="formrow-inputState">Document No</label><span style="color: red">*</span>    
                                             <label for="formrow-inputState">.</label>
                                             <input class="form-control" placeholder="" formControlName="docNo"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['docNo'].invalid) }">
                                            
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputState"> Trans Date</label>
+                                            <label for="formrow-inputState"> Trans Date</label><span style="color: red">*</span>    
                                             <input type="date" class="form-control" placeholder=""
                                                 formControlName="ftmDate"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['ftmDate'].invalid) }">
                                                
                                         </div>
                                         <div class="col-lg-2">
-                                            <label for="formrow-inputCity">Ref Type </label> 
+                                            <label for="formrow-inputCity">Ref Type </label> <span style="color: red">*</span>    
                                             <select class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="refType"
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['refType'].invalid) }">
@@ -85,7 +85,7 @@
                                     <div class="row">                                        
                                         <div class="col-lg-4">
                                             <div class="mb-4">
-                                                <label for="formrow-inputZip">Select Cash Account</label>
+                                                <label for="formrow-inputZip">Select Cash Account</label><span style="color: red">*</span>    
                                                 <select class="form-control"
                                                     formControlName="accountid2" 
                                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['accountid2'].invalid) }">
@@ -111,17 +111,17 @@
                                                     <tr>
                                                         <td class="col-lg-3">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Account Name</h6>
+                                                                <h6>Account Name</h6><span style="color: red">*</span>    
                                                             </label>
                                                         </td>
                                                         <td class="col-lg-2">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Amount</h6>
+                                                                <h6>Amount</h6><span style="color: red">*</span>    
                                                             </label>
                                                         </td>
                                                         <td class="col-lg-3">
                                                             <label for="formrow-inputZip">
-                                                                <h6>Narration</h6>
+                                                                <h6>Narration</h6><span style="color: red">*</span>    
                                                             </label>
                                                         </td>
                                                         <td class="col-lg-2">
@@ -153,15 +153,7 @@
                                                                     <ng-template #notFoundTemplate let-notFound>
                                                                         <div [innerHTML]="notFound"></div>
                                                                     </ng-template> 
-                                                                </div>              
-                                                                <!-- <select class="form-control"
-                                                                    formControlName="accountID" [ngClass]="">
-                                                                    <option *ngFor="let branch of gridAccountList"
-                                                                        style="font-size:small; "
-                                                                        value={{branch.dataId}}>
-                                                                        {{branch.dataName}}
-                                                                    </option>
-                                                                </select>     -->
+                                                                </div> 
                                                             </td>
                                                             <td class="col-lg-2">
                                                                 <input decimalonly class="form-control" placeholder=""  
