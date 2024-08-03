@@ -10,14 +10,6 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using Org.BouncyCastle.Ocsp;
-using FleetMasters.Models;
-using System.Data.Common;
-using FreightMasters.Business;
-using FreightMasters.Models;
-using FleetMasters.Business;
-using Org.BouncyCastle.Asn1.Ocsp;
 
 
 namespace FCUBEAPI.Controllers

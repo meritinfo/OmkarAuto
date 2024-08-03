@@ -10,12 +10,6 @@ using SqlHelper.Models;
 using FleetMasters.Business;
 using FleetMasters.Models;
 using Shared.Models;
-using Consignment.Models;
-using Consignment.Business;
-using FleetTrans.Business;
-using FleetTrans.Models;
-using FreightMasters.Business;
-using FreightMasters.Models;
 using FleetMasters;
 
 namespace FCUBEAPI.Controllers

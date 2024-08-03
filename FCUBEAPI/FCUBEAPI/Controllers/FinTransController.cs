@@ -5,14 +5,10 @@ using FinTrans.Models;
 using FinTrans.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using FleetMasters.Models;
 using Newtonsoft.Json;
-using System.Data.Common;
 using System.IO;
-using System.Data;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using System.Collections.Generic;
 
 
 

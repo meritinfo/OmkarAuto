@@ -9,10 +9,6 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
-using FleetMasters.Business;
-using FleetMasters.Models;
-using Org.BouncyCastle.Ocsp;
-using System.Collections.Generic;
 
 namespace FCUBEAPI.Controllers
 {

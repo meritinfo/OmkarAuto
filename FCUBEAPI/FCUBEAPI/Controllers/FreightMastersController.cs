@@ -5,15 +5,6 @@ using FreightMasters.Models;
 using FreightMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using FleetMasters.Business;
-using FreightMasters.Repository;
-using FleetTrans.Business;
-using Consignment.Business;
-using Consignment.Models;
-using Newtonsoft.Json;
-using System.Data.Common;
-using System.IO;
-using FleetTrans.Models;
 
 namespace FCUBEAPI.Controllers
 {

@@ -1,5 +1,4 @@
-﻿using FinanceMaster.Models;
-using FinanceMasters.Models;
+﻿using FinanceMasters.Models;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data;

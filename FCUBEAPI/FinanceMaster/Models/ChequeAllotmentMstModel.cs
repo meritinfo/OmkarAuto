@@ -1,6 +1,6 @@
 ﻿
 
-namespace FinanceMaster.Models
+namespace FinanceMasters.Models
 {
     public class ChequeAllotmentMstModel
     {

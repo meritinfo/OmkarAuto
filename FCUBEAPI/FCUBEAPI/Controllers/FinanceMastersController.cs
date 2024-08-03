@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using System;
-using FinanceMaster.Models;
 using FinanceMasters.Models;
 using FinanceMasters.Business;
 using Microsoft.AspNetCore.Authorization;
 using Shared.Models;
-using FleetTrans.Models;
 
 namespace FCUBEAPI.Controllers
 {

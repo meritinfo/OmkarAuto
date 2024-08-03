@@ -1,11 +1,7 @@
-﻿using FleetTrans.Business;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Business;
 using Shared.Models;
 using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
 using System.Threading.Tasks;
 
 namespace FCUBEAPI.Controllers

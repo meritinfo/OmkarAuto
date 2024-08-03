@@ -103,7 +103,7 @@ export class AdddocumentallottmentComponent {
     this.selectedDocumentallotmentDetails = this.documentallotmentService.getDocumentallotmentDetails();
     this.formUser = this.formBuilder.group({
       branchCode  : new FormControl(this.branch,[Validators.required]),
-      docType  : new FormControl('',[Validators.required]),
+      docType  : new FormControl('CN',[Validators.required]),
       docNumCode  : new FormControl('',[Validators.required]),
       allotDate  : new FormControl( this.loginDate,[Validators.required]),
       rangeFrom  : new FormControl('',[Validators.required]),
@@ -114,7 +114,8 @@ export class AdddocumentallottmentComponent {
     });   
 
     this.formUser.controls['docCount'].disable();   
-    this.formUser.controls['docNumCode'].disable();   
+    this.formUser.controls['docNumCode'].disable(); 
+    this.formUser.controls["docCloseDate"].disable();  
 
     if (this.selectedDocumentallotmentDetails.docAllotId!= '') {
       this.formUser.patchValue(this.selectedDocumentallotmentDetails); 
@@ -122,7 +123,9 @@ export class AdddocumentallottmentComponent {
         allotDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.allotDate),   
         docCloseDate:this.commonService.formatDate(this.selectedDocumentallotmentDetails.docCloseDate),         
       });  
-      
+      if(this.selectedDocumentallotmentDetails.docStatus=="C"){
+        this.formUser.controls["docCloseDate"].enable();
+      }
       this.formUser.controls['branchCode'].disable();    
       this.formUser.controls['docType'].disable();    
       this.editMode = true;
@@ -215,6 +218,16 @@ export class AdddocumentallottmentComponent {
         });  
       }
     });
+  }
+
+  onStatusChange(e:any){
+    var status = e.target.value;
+    if(status=="O"){
+      this.formUser.controls["docCloseDate"].disable();
+    }
+    else{
+      this.formUser.controls["docCloseDate"].enable();
+    }
   }
    
   deleteDocumentAllotmentForm(): void {
