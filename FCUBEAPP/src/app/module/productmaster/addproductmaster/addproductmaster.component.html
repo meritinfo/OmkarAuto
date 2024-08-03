@@ -56,10 +56,10 @@
             <div class="row text-right">
                <div class="col-lg-12">
                   <div class="tex">
-                     <button class="btn btn-primary w-md"
+                     <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
                         (click)="submitProductMasterForm()">Save</button>
                      <button class="btn btn-danger w-md m-2" 
-                        (click)="deleteProductMaster()">Delete</button> &nbsp;
+                        (click)="deleteProductMaster()"  *ngIf="editMode && deleteStatus">Delete</button> &nbsp;
                      <button class="btn btn-secondary w-md" (click)="exit()">Exit</button>
                   </div>
                </div>

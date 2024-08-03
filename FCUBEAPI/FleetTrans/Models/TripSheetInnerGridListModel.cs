@@ -7,8 +7,8 @@ namespace FleetTrans.Models
         public List<LRDetailsModel>? LRDetailsList { get; set; }
         public List<DieselDetailsModel>? DieselDetailsList { get; set; }
         public List<DriverAdvanceModel>? DriverAdvanceList { get; set; }
-        public List<MiscListModel>? MiscList { get; set; }
-        public List<AdblueListmodel>? AdblueList { get; set; }
+     //   public List<MiscListModel>? MiscList { get; set; }
+      //  public List<AdblueListmodel>? AdblueList { get; set; }
     }
 
     public class LRDetailsModel

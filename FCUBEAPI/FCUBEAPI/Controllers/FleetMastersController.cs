@@ -16,7 +16,6 @@ using FleetTrans.Business;
 using FleetTrans.Models;
 using FreightMasters.Business;
 using FreightMasters.Models;
-using FleetMasters;
 
 namespace FCUBEAPI.Controllers
 {
