@@ -53,22 +53,22 @@ namespace FleetTrans.Models
         public string? TripLinkYN { get; set; }
         public string? Findocid { get; set; }
 
-       // public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
-      //  public List<MiscListModel>? MiscList { get; set; }
-      //  public List<AdblueListmodel>? AdblueList { get; set; }
+        public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
+       // public List<MiscListModel>? MiscList { get; set; }
+       // public List<AdblueListmodel>? AdblueList { get; set; }
     }
 
-    //public class MiscListModel
-    //{
-    //    public string? ExpType { get; set; }
-    //    public string? MiscAmount { get; set; }
-    //    public string? Narration { get; set; }
-    //}
+    public class MiscListModel
+    {
+        public string? ExpType { get; set; }
+        public string? MiscAmount { get; set; }
+        public string? Narration { get; set; }
+    }
 
-    //public class AdblueListmodel
-    //{
-    //    public string? AdbluefillingStation { get; set; }
-    //    public string? AdbluedieselLiter { get; set; }
-    //    public string? AdbluedieselAmount { get; set; }
-    //}
+    public class AdblueListmodel
+    {
+        public string? AdbluefillingStation { get; set; }
+        public string? AdbluedieselLiter { get; set; }
+        public string? AdbluedieselAmount { get; set; }
+    }
 }
