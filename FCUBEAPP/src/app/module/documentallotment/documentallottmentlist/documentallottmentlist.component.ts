@@ -52,6 +52,9 @@ export class Documentallottmentlistcomponent {
       }
     }
 
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
     this.documentallotmentService.clearDocumentallotmentDetails();
    
     this.sharedService.loading = true;

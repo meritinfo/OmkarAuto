@@ -72,6 +72,9 @@ export class DeliveryackpodlistComponent {
       }
     }
     
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
     var yearIDData = sessionStorage.getItem('yearID')?.toString();
     if (typeof yearIDData !== 'undefined' && yearIDData !== null && yearIDData !== '') {
       this.year = yearIDData;

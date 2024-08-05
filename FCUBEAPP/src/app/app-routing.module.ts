@@ -160,7 +160,6 @@ import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
-
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { TyreativatelistComponent } from './module/tyreactivate/tyreativatelist/tyreativatelist.component';
@@ -300,7 +299,7 @@ const routes: Routes = [
   { path: 'addbrsentry', component: AddbrsentryComponent },
   { path: 'editbrsentry', component: AddbrsentryComponent },
   { path: 'opbalanceedit', component: FinopenbalanceaddComponent },
-  { path: 'bankreco', component: BankreconcilationComponent },
+  { path: 'bankrecorpt', component: BankreconcilationComponent },
   { path: 'addeditdistfrt', component: DistancefreighteditComponent},
   { path: 'addeditdisttrip', component: DistancetripeditComponent},
   { path: 'ewaybillext',component:EwaybillextensionlistComponent},

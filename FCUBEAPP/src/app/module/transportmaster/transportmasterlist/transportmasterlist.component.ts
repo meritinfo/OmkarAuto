@@ -54,6 +54,10 @@ ngOnInit(): void {
       }
     }
     
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
+    
   this.transportmasterService.clearTransportMasterDetails();
     this.formFilter = this.formBuilder.group({
       tptName: new FormControl(''),
