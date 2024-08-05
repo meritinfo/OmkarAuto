@@ -68,6 +68,10 @@ export class ChallanmasterlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
+    
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
 
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {

@@ -54,6 +54,9 @@ export class DestinationlistComponent {
       }
     }
 
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
     this.destinationService.clearDestinationDetails();
     this.formFilter = this.formBuilder.group({
       centreName: new FormControl(''),

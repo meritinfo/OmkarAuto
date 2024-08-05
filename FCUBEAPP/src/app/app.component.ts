@@ -101,45 +101,74 @@ export class AppComponent implements OnInit {
     });
   }
 
-  //Shortcut key for tripsheet list -> Ctrl + S
+  //Shortcut key for destination list -> Ctrl + S
   @HostListener('window:keydown.control.s', ['$event'])
   tripFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/tripsheetlist']);
+    this.route.navigate(['/destinationlist']);
   }
-  //Shortcut key for Consignment -> Ctrl + L
-  @HostListener('window:keydown.control.l', ['$event'])
+  //Shortcut key for doc allot list -> Ctrl + M
+  @HostListener('window:keydown.control.m', ['$event'])
   conFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/docallotlist']);
+  }
+  //Shortcut key for Transport list -> Ctrl + T
+  @HostListener('window:keydown.control.t', ['$event'])
+  trippayFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/transportmstlist']);
+  }
+  //Shortcut key for Consignment list -> Ctrl + L
+  @HostListener('window:keydown.control.l', ['$event'])
+  othertripFont(event: KeyboardEvent) {
     event.preventDefault();
     this.route.navigate(['/consignmentlist']);
   }
-  //Shortcut key for Trip Payments -> Ctrl + P
-  @HostListener('window:keydown.control.p', ['$event'])
-  trippayFont(event: KeyboardEvent) {
-    event.preventDefault();
-    this.route.navigate(['/trippaymentlist']);
-  }
-  //Shortcut key for OTHER Trip Payments -> Ctrl + O
-  @HostListener('window:keydown.control.o', ['$event'])
-  othertripFont(event: KeyboardEvent) {
-    event.preventDefault();
-    this.route.navigate(['/othertripopenlist']);
-  }
-  //Shortcut key for Diesel Statement -> Ctrl + D
-  @HostListener('window:keydown.control.d', ['$event'])
+  //Shortcut key for Challan list -> Ctrl + G
+  @HostListener('window:keydown.control.g', ['$event'])
   dieselFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/dieselstatementlist']);
+    this.route.navigate(['/challanlist']);
   }
-  //Shortcut key for Happay Statement -> Ctrl + H
+  //Shortcut key for Lorry Hire Payments list -> Ctrl + H
   @HostListener('window:keydown.control.h', ['$event'])
   happayFont(event: KeyboardEvent) {
     event.preventDefault();
-    this.route.navigate(['/happaystatementlist']);
+    this.route.navigate(['/lhpmtlist']);
+  }
+  //Shortcut key for Delivery Ack list -> Ctrl + D
+  @HostListener('window:keydown.control.d', ['$event'])
+  dlvryFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/delacklist']);
+  }
+  //Shortcut key for Bill list -> Ctrl + B
+  @HostListener('window:keydown.control.b', ['$event'])
+  billFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/billstatementlist']);
+  }
+  //Shortcut key for Consignment Enquiry -> Ctrl + E
+  @HostListener('window:keydown.control.e', ['$event'])
+  cnenqFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/cnenquiry']);
+  }
+  //Shortcut key for Consignment Enquiry -> Ctrl + A
+  @HostListener('window:keydown.control.a', ['$event'])
+  accountFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/finaccountsmasterlist']);
+  }
+  //Shortcut key for Change Branch -> Ctrl + 6
+  @HostListener('window:keydown.control.6', ['$event'])
+  chngBrFont(event: KeyboardEvent) {
+    event.preventDefault();
+    this.route.navigate(['/changebranch']);
   }
 
 
-// Others Trip Open:  Ctrl + O
-// Tripsheet:  Ctrl + S
+
 
 }

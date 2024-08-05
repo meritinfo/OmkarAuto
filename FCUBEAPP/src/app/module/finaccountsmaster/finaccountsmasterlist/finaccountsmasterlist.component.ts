@@ -53,6 +53,12 @@ export class FinaccountsmasterlistComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }  
+
+    
+    if(!this.viewStatus){      
+      this.route.navigate(['/dashboard']);
+    }
+    
     this.finsaccountmasterService.clearFinsaccountsDetails();
     this.formFilter = this.formBuilder.group({
       accountName: new FormControl(''),
