@@ -33,6 +33,7 @@ namespace FCUBEAPI.Controllers
         readonly IConsigneeMasterBusiness consigneeMasterBusiness;
         readonly ICompanyInfoBusiness companyInfoBusiness;
         readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
+        readonly IBookingRegisterRptBusiness bookingRegisterRptBusiness;
 
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
@@ -52,7 +53,8 @@ namespace FCUBEAPI.Controllers
             IConsigneeMasterBusiness _consigneeMasterBusiness,
             IDriverLicRptBusiness _driverLicRptBusiness,
             ICompanyInfoBusiness _companyInfoBusiness,
-            ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness)
+            ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
+            IBookingRegisterRptBusiness _bookingRegisterRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -74,6 +76,7 @@ namespace FCUBEAPI.Controllers
             billsTypeBusiness = _billsTypeBusiness;
             companyInfoBusiness = _companyInfoBusiness;
             lhpmSlabMasterBusiness = _lhpmSlabMasterBusiness;
+            bookingRegisterRptBusiness = _bookingRegisterRptBusiness;
         }
 
         /// <summary>
@@ -1481,7 +1484,42 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetBookingRegisterRptExcel")]
+        public async Task<IActionResult> GetBookingRegisterRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bookingRegisterRptBusiness.GetBookingRegisterRptExcel(request);
 
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetBookingRegisterRptList")]
+        public async Task<IActionResult> GetBookingRegisterRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await bookingRegisterRptBusiness.GetBookingRegisterRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         //{
