@@ -183,7 +183,7 @@ import { Lhpmslabmastermodel } from './models/lhpmslabmastermodel';
 import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
-
+import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -445,6 +445,8 @@ const routes: Routes = [
   { path: 'tripexptypemasteradd', component: TripexptypemasteraddComponent }, 
   { path: 'tripexptypemasteredit', component: TripexptypemasteraddComponent }, 
   { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 
+  { path: 'bookingreg', component: BookingregisterComponent }, 
+  
   
 ];
 
