@@ -322,6 +322,7 @@ import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripe
 import { TripexptypemasterModel } from './models/tripexptypemastermodel';
 import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
+import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 
 @NgModule({
   declarations: [
@@ -425,7 +426,10 @@ import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, TyresaleslistComponent, TyresalesaddComponent, TripexptypemasteraddComponent, TripexptypemasterlistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, 
+    TyresaleslistComponent, TyresalesaddComponent, 
+    TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
+    BookingregisterComponent
   ],
   imports: [
     BrowserModule,
