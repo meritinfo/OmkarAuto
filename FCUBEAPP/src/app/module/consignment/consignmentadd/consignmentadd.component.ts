@@ -606,7 +606,7 @@ export class ConsignmentaddComponent implements OnInit {
           this.commonService.billDetails(this.requestmodel).subscribe((res: any) => {
           var result = res.result;
             if (result.code === 200) {
-              this.formUser.controls['ewayBillType'].disable();
+              this.formUser.controls['ewayBillEntryType'].disable();
               this.eWayBillDetails.result = result;
 
               this.formUser.patchValue({
@@ -628,7 +628,7 @@ export class ConsignmentaddComponent implements OnInit {
                 cneeAdd3: this.eWayBillDetails.result.message.place_of_consignee,  
                 cneePin: this.eWayBillDetails.result.message.pincode_of_consignee,               
                 cneeGst: this.eWayBillDetails.result.message.gstin_of_consignee,
-                vehicleNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
+                truckNo: this.eWayBillDetails.result.message.vehiclListDetails[0].vehicle_number,
               });
               this.formArray.controls[0].get("ewayBillNo")?.setValue(this.eWayBillDetails.result.message.eway_bill_number);
               this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date)));
@@ -720,6 +720,7 @@ export class ConsignmentaddComponent implements OnInit {
       //Remove field validation
       this.formUser.controls['ewayBillNo'].clearValidators();
       this.formUser.controls['ewayBillDate'].clearValidators();
+      this.formUser.controls['ewayBillExpDate'].clearValidators();
       this.formUser.controls['invoiceNo'].clearValidators();
       this.formUser.controls['invoiceDate'].clearValidators();
       this.formUser.controls['invoiceValue'].clearValidators();
@@ -731,6 +732,7 @@ export class ConsignmentaddComponent implements OnInit {
     if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);
       this.formUser.controls['ewayBillDate'].setValidators([Validators.required]);
+      this.formUser.controls['ewayBillExpDate'].setValidators([Validators.required]);
       this.formUser.controls['invoiceNo'].setValidators([Validators.required]);
       this.formUser.controls['invoiceDate'].setValidators([Validators.required]);
       this.formUser.controls['invoiceValue'].setValidators([Validators.required]);
@@ -754,6 +756,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formUser.controls['cneeGst'].disable();
         this.formUser.controls['kms'].disable();
         this.formUser.controls['ewayBillDate'].disable();
+        this.formUser.controls['ewayBillExpDate'].disable();
         this.formUser.controls['invoiceNo'].disable();
         this.formUser.controls['invoiceDate'].disable();
         this.formUser.controls['invoiceValue'].disable();
@@ -773,6 +776,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formUser.controls['cneeGst'].enable();
         this.formUser.controls['kms'].enable();
         this.formUser.controls['ewayBillDate'].enable();
+        this.formUser.controls['ewayBillExpDate'].enable();
         this.formUser.controls['invoiceNo'].enable();
         this.formUser.controls['invoiceDate'].enable();
         this.formUser.controls['invoiceValue'].enable();  
@@ -780,6 +784,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
     this.formUser.controls['ewayBillNo'].updateValueAndValidity();
     this.formUser.controls['ewayBillDate'].updateValueAndValidity();
+    this.formUser.controls['ewayBillExpDate'].updateValueAndValidity();
     this.formUser.controls['invoiceNo'].updateValueAndValidity();
     this.formUser.controls['invoiceDate'].updateValueAndValidity();
     this.formUser.controls['invoiceValue'].updateValueAndValidity();
