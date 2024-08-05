@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Branchmodel } from 'src/app/models/branchmodel';
-import { Destinationmodel } from 'src/app/models/destinationmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { Productmastermodel } from 'src/app/models/productmastermodel';
 import { CommonService } from 'src/app/services/common.service';
-import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { ProductMasterService } from 'src/app/services/productmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-addproductmaster',
@@ -76,9 +72,9 @@ export class AddproductmasterComponent {
 
     if (this.selectedProductMasterDetails.productId != '') {
       this.formUser.patchValue(this.selectedProductMasterDetails);
+      this.formUser.controls["productName"].disable();
       this.editMode = true;  
-    }
-    
+    }    
   }
 
   // convenience getter for easy access to contact form fields
@@ -89,27 +85,23 @@ export class AddproductmasterComponent {
       this.productList = res;
     });
   }
+
   chkProductDuplicate(){
-    var selectedData = this.formUser.getRawValue();
-    
-  
-      this.requestmodel.strRequest = selectedData.productName;
-    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.productmasterService.checkDuplicateProduct(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formUser.patchValue({
-            productName: ''
-    
-          });
-          
-        }
-      });
-      
+    var selectedData = this.formUser.getRawValue();  
+    this.requestmodel.strRequest = selectedData.productName;
+    this.productmasterService.checkDuplicateProduct(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          productName: ''  
+        });
+        
+      }
+    });      
   }
 
   exit(): void {

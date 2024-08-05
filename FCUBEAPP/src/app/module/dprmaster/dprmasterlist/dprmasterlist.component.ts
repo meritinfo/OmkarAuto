@@ -38,6 +38,7 @@ export class DrpmasterlistComponent {
 
   formFilter!: FormGroup;
   partyList: Dropdownmodel[] = [];
+  locationList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
   loginDate: string = '';
   fromDate: string = '';
@@ -106,14 +107,19 @@ export class DrpmasterlistComponent {
       toDate: new FormControl(this.loginDate,),
       payParty: new FormControl('',),
       type: new FormControl('',),
+      origin: new FormControl('',),
+      destination: new FormControl('',),
     });
     
     this.sharedService.loading=true;
     this.getPartyList();
+    this.getLocationList();
     this.filter.fromDate = this.fromDate;
     this.filter.toDate = this.loginDate;
     this.filter.search = '';
     this.filter.filterStr = '';
+    this.filter.filterStr1 = '';
+    this.filter.filterStr2 = '';
 
     this.dprList();    
     this.sharedService.loading=false;
@@ -208,8 +214,13 @@ export class DrpmasterlistComponent {
     this.route.navigate(['/dprindentadd']);
   }
 
+  getLocationList(): void {
+    this.commonService.getLocationList().subscribe((res) => {
+      this.locationList = res;
+    });
+  }
   getPartyList(): void {
-    this.ratesMasterService.getPartyList().subscribe((res) => {
+    this.commonService.getPartyList().subscribe((res) => {
       this.partyList = res;
     });
   }
@@ -234,7 +245,9 @@ export class DrpmasterlistComponent {
     this.filter.toDate = selecteddata.toDate;
     this.filter.search = selecteddata.payParty?selecteddata.payParty.dataId:"";
     this.filter.filterStr = selecteddata.type;
-    this.sharedService.loading=true;
+    this.filter.filterStr1 = selecteddata.origin?selecteddata.origin.dataId:"";
+    this.filter.filterStr2 = selecteddata.destination?selecteddata.destination.dataId:"";
+    this.sharedService.loading = true;
     this.dprList();    
     this.sharedService.loading=false;
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

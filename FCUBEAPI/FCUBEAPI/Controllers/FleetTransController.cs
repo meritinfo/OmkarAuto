@@ -114,6 +114,26 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetTripSheetInnerGridList")]
+        public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("TripPaymentsDelete")]
         public async Task<IActionResult> TripPaymentsDelete(RequestModel req)
         {

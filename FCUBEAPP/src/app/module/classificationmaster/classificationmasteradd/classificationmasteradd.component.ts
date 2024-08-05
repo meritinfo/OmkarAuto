@@ -76,7 +76,8 @@ export class ClassificationmasteraddComponent {
     });
 
     if (this.selectedClassificationMasterDetails.classId != '') {
-      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails);    
+      this.formClassificationMaster.patchValue(this.selectedClassificationMasterDetails); 
+      this.formClassificationMaster.controls["classDesc"].disable();
       this.editMode = true;
     }
     
@@ -87,48 +88,23 @@ export class ClassificationmasteraddComponent {
   // convenience getter for easy access to contact form fields
   get f() { return this.formClassificationMaster.controls; }
 
-  //Get Classification List details //  
-  
-
-  // chkClassificationNameExits(e: any) { 
-  //   if (this.selectedClassificationMasterDetails.centreid == "")
-  //   {      
-  //     this.sharedService.loading = true;
-  //     this.requestmodel.strRequest = e.target.value; 
-  //     this.classificationmasterService.chkClassificationNameExits(this.requestmodel).subscribe((res: Responsemodel) => {
-  //       this.responseDetails = res;
-  //       if (!this.responseDetails.status) {
-  //         this.toasterService.warning(this.responseDetails.message);
-  //         this.formClassificationMaster.patchValue({
-  //           userClassification: ''
-  //         });
-  //       }
-  //     });
-  //     this.sharedService.loading = false;
-  //   }
-  // }
-  
+    
   chkClassDuplicate(){
-    var selectedData = this.formClassificationMaster.getRawValue();
-    
-  
-      this.requestmodel.strRequest = selectedData.classDesc;
-    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.classificationmasterService.checkDuplicateClass(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formClassificationMaster.patchValue({
-            classDesc: ''
-    
-          });
-          
-        }
-      });
-      
+    var selectedData = this.formClassificationMaster.getRawValue();   
+    this.requestmodel.strRequest = selectedData.classDesc;
+    this.classificationmasterService.checkDuplicateClass(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formClassificationMaster.patchValue({
+          classDesc: ''
+           });
+        
+      }
+    });      
   }
   exit(): void {
     this.route.navigate(['/classmasterlist']);
@@ -174,8 +150,7 @@ export class ClassificationmasteraddComponent {
     this.classificationModel.classId = this.selectedClassificationMasterDetails.classId ;
     this.classificationModel.classDesc  = selectedDataVal.classDesc.toString().toUpperCase();
     this.classificationModel.isActive = selectedDataVal.isActive.toString().toUpperCase();
-    //this.classificationModel.loggedInUserID   = this.loggedInUserID;
-  
+      
     this.classificationmasterService.classificationmasterSubmitted(this.classificationModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

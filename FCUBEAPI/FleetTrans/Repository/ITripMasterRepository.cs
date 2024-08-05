@@ -29,6 +29,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter);
          Task<ResponseModel> TripMasterDelete(RequestModel requestModel);
         Task<UserTripRightsModel> GetUserDetails(RequestModel request);
-     //   Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
+        Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request);
     }
 }
