@@ -38,11 +38,17 @@ export class AddtransportmasterComponent {
   uploadedcancelChq: string = "";
   uploadedaddrProof: string = "";
 
-
-  @ViewChild('attachmentInput', {
+  
+  
+  @ViewChild('cancelChqInput', {
     static: true
-  }) attachmentInput: any;
-  attachmentInput1: any;
+  }) cancelChqInput: any;
+
+  @ViewChild('addrProofInput', {
+    static: true
+  }) 
+  addrProofInput: any;
+
   selectedTransportMasterDetail = new Transportmastermodel();
 
   constructor(private route: Router, private formBuilder: FormBuilder, 
@@ -367,8 +373,8 @@ export class AddtransportmasterComponent {
     }
     
     let formData = new FormData();
-    formData.append('cancelChq', this.attachmentInput1.nativeElement.files[0]);
-    formData.append('addrProof', this.attachmentInput.nativeElement.files[0]);
+    formData.append('cancelChq', this.cancelChqInput.nativeElement.files[0]);
+    formData.append('addrProof', this.addrProofInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.transportMasterModel));
 
     this.transportMasterService.transportmasterSubmitted(formData).subscribe((res: Responsemodel) => {
