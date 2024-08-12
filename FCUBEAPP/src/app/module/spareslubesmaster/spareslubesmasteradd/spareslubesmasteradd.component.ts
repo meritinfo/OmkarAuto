@@ -83,7 +83,10 @@ ngOnInit(): void {
   });
 
   if (this.selectedSpareslubesMasterDetails.spareLubId != '') {
-    this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails);    
+    this.formSparesMaster.patchValue(this.selectedSpareslubesMasterDetails);  
+    this.formSparesMaster.patchValue({
+   
+    });      
     this.editMode = true;
   }
   

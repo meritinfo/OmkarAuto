@@ -86,18 +86,14 @@ ngOnInit(): void {
 
   this.selectedBrandMasterDetails = this.brandmasterService.getBrandMasterDetails();
   this.formUser = this.formBuilder.group({
-    brandName: new FormControl('',),
-    brandType: new FormControl('',),
-    isActive: new FormControl('',),
-  
-
+    brandName: new FormControl('',[Validators.required]),
+    brandType: new FormControl('',[Validators.required]),
+    isActive: new FormControl('Y',[Validators.required]),
   });
+
+
   if (this.selectedBrandMasterDetails.brandID != '') {
-    this.formUser.patchValue(this.selectedBrandMasterDetails);
-    this.formUser.patchValue({
-     
-      
-    })
+    this.formUser.patchValue(this.selectedBrandMasterDetails);   
     this.editMode = true;
   }
  

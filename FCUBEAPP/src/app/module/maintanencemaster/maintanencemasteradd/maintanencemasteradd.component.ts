@@ -75,7 +75,7 @@ ngOnInit(): void {
 
     maintenanceDesc: new FormControl('',[Validators.required]),
     maintType: new FormControl('',[Validators.required]),
-    isActive: new FormControl('',[Validators.required]),
+    isActive: new FormControl('Y',[Validators.required]),
 
   });
 
