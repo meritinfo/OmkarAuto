@@ -433,8 +433,8 @@ import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
-    BookingregisterComponent, LrwithoutchallanrptComponent
-    BookingregisterComponent, CnenquiryComponent
+    BookingregisterComponent, LrwithoutchallanrptComponent,
+    CnenquiryComponent
   ],
   imports: [
     BrowserModule,
