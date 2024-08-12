@@ -34,7 +34,7 @@ namespace FCUBEAPI.Controllers
         readonly ICompanyInfoBusiness companyInfoBusiness;
         readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
         readonly IBookingRegisterRptBusiness bookingRegisterRptBusiness;
-
+        readonly ILRWithOutChallanRptBusiness lRWithOutChallanRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -54,7 +54,8 @@ namespace FCUBEAPI.Controllers
             IDriverLicRptBusiness _driverLicRptBusiness,
             ICompanyInfoBusiness _companyInfoBusiness,
             ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
-            IBookingRegisterRptBusiness _bookingRegisterRptBusiness)
+            IBookingRegisterRptBusiness _bookingRegisterRptBusiness,
+            ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -77,6 +78,7 @@ namespace FCUBEAPI.Controllers
             companyInfoBusiness = _companyInfoBusiness;
             lhpmSlabMasterBusiness = _lhpmSlabMasterBusiness;
             bookingRegisterRptBusiness = _bookingRegisterRptBusiness;
+            lRWithOutChallanRptBusiness = _lRWithOutChallanRptBusiness;
         }
 
         /// <summary>
@@ -1520,6 +1522,45 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetLRWithOutChallanRptExcel")]
+        public async Task<IActionResult> GetLRWithOutChallanRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRWithOutChallanRptBusiness.GetLRWithOutChallanRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetLRWithOutChallanRptList")]
+        public async Task<IActionResult> GetLRWithOutChallanRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lRWithOutChallanRptBusiness.GetLRWithOutChallanRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         //[HttpPost("GetBillsMasterList")]
         //public async Task<IActionResult> GetBillsMasterList(ReportRequestModel request)
         //{

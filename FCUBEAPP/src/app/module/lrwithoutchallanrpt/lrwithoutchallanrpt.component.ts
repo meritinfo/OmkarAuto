@@ -6,19 +6,20 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Bookingregisterrptlistmodel} from 'src/app/models/bookingregisterrptlistmodel';
-import { Bookingregisterrptmodel } from 'src/app/models/bookingregisterrptmodel';
-import { BookingregisterService } from 'src/app/services/bookingregister.service';
+import { Lrwithoutchallanrptlistmodel} from 'src/app/models/lrwithoutchallanrptlistmodel';
+import { Lrwithoutchallanrptmodel } from 'src/app/models/lrwithoutchallanrptmodel';
+import { LrwithoutchallanrptService } from 'src/app/services/lrwithoutchallanrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-bookingregister',
-  templateUrl: './bookingregister.component.html',
-  styleUrls: ['./bookingregister.component.css']
+  selector: 'app-lrwithoutchallanrpt',
+  templateUrl: './lrwithoutchallanrpt.component.html',
+  styleUrls: ['./lrwithoutchallanrpt.component.css']
 })
-export class BookingregisterComponent {
+export class LrwithoutchallanrptComponent {
+
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
@@ -34,7 +35,7 @@ export class BookingregisterComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allBookingregisterrptlist: Bookingregisterrptlistmodel = new Bookingregisterrptlistmodel();
+  allLrwithoutchallanrptlist: Lrwithoutchallanrptlistmodel = new Lrwithoutchallanrptlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
@@ -59,7 +60,7 @@ export class BookingregisterComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private bookingregisterService: BookingregisterService, 
+  constructor(private lrwithoutchallanrptService: LrwithoutchallanrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
@@ -72,7 +73,7 @@ export class BookingregisterComponent {
         var privilegeData = JSON.parse(menuData);
         var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
         var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Booking Register");
+        .find((aa: { menuName: string; }) => aa.menuName === "CN Not Dispatched");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -139,7 +140,7 @@ export class BookingregisterComponent {
   
       this.sharedService.loading=true;
 
-      this.bookingregisterList();
+      this.lrwithoutchallanrptlist();
       this.sharedService.loading=false;
     }
 
@@ -180,7 +181,7 @@ export class BookingregisterComponent {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
-    bookingregisterList(){
+    lrwithoutchallanrptlist(){
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 10,
@@ -194,8 +195,8 @@ export class BookingregisterComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
-          this.bookingregisterService.getBookingregisterrptList(this.filter).subscribe(resp => {
-            this.allBookingregisterrptlist = resp; 
+          this.lrwithoutchallanrptService.getLrwithoutchallanrptList(this.filter).subscribe(resp => {
+            this.allLrwithoutchallanrptlist = resp; 
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,
                 recordsFiltered: resp.pageMetaData.totalCount,
@@ -209,16 +210,16 @@ export class BookingregisterComponent {
             data: 'bookedAt',
           }, 
           {
-            title: 'LR No',
-            data: 'gcNoteNo',
-          }, 
-          {
             title: 'LR Date',
             data: 'bookingDate',
           }, 
           {
             title: 'Status',
             data: 'bookingStatus',
+          }, 
+          {
+            title: 'LR No',
+            data: 'gcNoteNo',
           }, 
           
           {
@@ -230,45 +231,34 @@ export class BookingregisterComponent {
             data: 'toLocation',
           },    
           {
-            title: 'Consignor',
-            data: 'cnorName',
+            title: 'Truck No',
+            data: 'truckNo',
           },
           {
-            title: 'Consignee',
-            data: 'cneeName',
+            title: 'No Of Pkgs',
+            data: 'noPackages',
           },
           {
-            title: 'ewayBillNo ',
-            data: 'ewayBillNo',
+            title: 'Actual Wt',
+            data: 'actualWt',
           }, 
           {
-            title: 'EWayBill Exp Date ',
-            data: 'ewayBillExpDate',
+            title: 'Charge Wt',
+            data: 'chargewt',
           }, 
           {
-            title: 'Product Name ',
-            data: 'productName',
+            title: 'Party Name',
+            data: 'billparty',
           }, 
           {
-            title: 'Freight Amt ',
-            data: 'freightRs',
+            title: 'Veh Type',
+            data: 'vehTypeDesc',
           }, 
           {
-            title: 'Sub Total Amt ',
-            data: 'subTotalRs',
-          }, 
-          {
-            title: 'Grand Total ',
+            title: 'Grand Total',
             data: 'gtotalRs',
           }, 
-          {
-            title: 'Business Inchrg ',
-            data: 'businessIncharge',
-          }, 
-          {
-            title: 'Party Name ',
-            data: 'billingParty',
-          },  
+           
         ],
       };
     }
@@ -292,11 +282,11 @@ export class BookingregisterComponent {
       this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
       this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
       this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-      this.bookingregisterService.getBookingregisterrptExcel(this.filter).subscribe(resp => {
+      this.lrwithoutchallanrptService.getLrwithoutchallanrptExcel(this.filter).subscribe(resp => {
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "BookingRegister" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "CN Not Dispatched" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -323,10 +313,10 @@ export class BookingregisterComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-    this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-    this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
-    this.bookingregisterList();
+    this.lrwithoutchallanrptlist();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
