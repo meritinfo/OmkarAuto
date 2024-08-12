@@ -246,6 +246,8 @@ namespace FCUBEAPI
             services.AddScoped<ITripExpTypeRepository, TripExpTypeRepository>();
             services.AddScoped<IBookingRegisterRptBusiness, BookingRegisterRptBusiness>();
             services.AddScoped<IBookingRegisterRptRepository, BookingRegisterRptRepository>();
+            services.AddScoped<ILRWithOutChallanRptBusiness, LRWithOutChallanRptBusiness>();
+            services.AddScoped<ILRWithOutChallanRptRepository, LRWithOutChallanRptRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

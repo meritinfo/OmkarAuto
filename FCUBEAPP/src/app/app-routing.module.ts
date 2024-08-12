@@ -183,6 +183,7 @@ import { FinaccountmastergstComponent } from './module/finaccountmastergst/finac
 import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripexptypemasteradd/tripexptypemasteradd.component';
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
+import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
 import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
 
 const routes: Routes = [
@@ -446,6 +447,7 @@ const routes: Routes = [
   { path: 'tripexptypemasteredit', component: TripexptypemasteraddComponent }, 
   { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 
   { path: 'bookingreg', component: BookingregisterComponent }, 
+  { path: 'cnnotdispatch', component: LrwithoutchallanrptComponent },
   { path: 'cnenquiry', component: CnenquiryComponent }, 
   
   
