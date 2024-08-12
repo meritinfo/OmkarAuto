@@ -296,7 +296,7 @@ export class BookingregisterComponent {
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "Booking Register" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "BookingRegister" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -323,8 +323,8 @@ export class BookingregisterComponent {
     this.filter.toDate      = selectedDataVal.toDate;
     this.filter.filterStr   = selectedDataVal.branch;
     this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
     this.sharedService.loading=true;
     this.bookingregisterList();
     this.sharedService.loading=false;

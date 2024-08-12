@@ -156,7 +156,7 @@ namespace HRMasters.Repository
                                 new SqlParameter("@LoggedInUser"    ,payGenModel.PayGenMstList[i].LoggedInUser),
                             };
                         var statusMisc = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_EmpPayGenerationSave", paramMisc);
-                        if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0&& Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]))
+                        if (statusMisc != null && statusMisc.Tables[0].Rows.Count > 0 )
                         {
                             responseModel.Status = Convert.ToBoolean(statusMisc.Tables[0].Rows[0]["Status"]);
                             responseModel.Message = Convert.ToString(statusMisc.Tables[0].Rows[0]["Message"]);

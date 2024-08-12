@@ -75,4 +75,11 @@ export class ConsignmentService {
   updateConsignmentDetails(user: Consignmentupdatemodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/ConsignmentUpdate', user, this.httpOptions);
   }
+
+  getCnEnqDetails(filter: Requestmodel): Observable<Consignmentmodel> {
+    return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqDetails', filter, this.httpOptions);
+  }
+  getCnEnqInnerGridList(req: Requestmodel): Observable<Consignmentmodel> {
+    return this.httpClient.post<Consignmentmodel>(Constants.API_ENDPOINT + 'Consignment/GetCnEnqInnerGridList', req, this.httpOptions);
+  }
 }

@@ -22,7 +22,8 @@ export class AppComponent implements OnInit {
   timedOut = false;
   lastPing?: Date;
 
-  constructor(public sharedService: SharedService, private route: Router, private loginModel: Loginmodel, private idle: Idle, private keepalive: Keepalive) {
+  constructor(public sharedService: SharedService, private route: Router, 
+    private loginModel: Loginmodel, private idle: Idle, private keepalive: Keepalive) {
 
   }
 
@@ -35,12 +36,11 @@ export class AppComponent implements OnInit {
     if (typeof userName !== 'undefined' && userName !== null && userName !== '') {
       this.user = userName;
     }
-
     if (this.sharedService.loggedInStatus) {
-      // sets an idle timeout of 900 seconds.
-      this.idle.setIdle(900);
-      // sets a timeout period of 30 seconds. after 10 seconds of inactivity, the user will be considered timed out.
-      this.idle.setTimeout(30);
+      // sets an idle timeout of 1500 seconds.
+      this.idle.setIdle(1500);
+      // sets a timeout period of 50 seconds. after 10 seconds of inactivity, the user will be considered timed out.
+      this.idle.setTimeout(50);
       // sets the default interrupts, in this case, things like clicks, scrolls, touches to the document
       this.idle.setInterrupts(DEFAULT_INTERRUPTSOURCES);
 
@@ -100,6 +100,7 @@ export class AppComponent implements OnInit {
       sessionStorage.setItem("token", res.token);
     });
   }
+
 
   //Shortcut key for destination list -> Ctrl + S
   @HostListener('window:keydown.control.s', ['$event'])

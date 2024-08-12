@@ -1,4 +1,7 @@
 import { Consignmentinvmodel } from './consignmentinvmodel';
+import { Consignmentchlnmodel } from './consignmentchlnmodel';
+import { Consignmentlhpmmodel } from './consignmentlhpmmodel';
+import { Consignmentbillmodel } from './consignmentbillmodel';
 
 export class Consignmentmodel {
     consignmentID  : string = "";
@@ -43,15 +46,15 @@ export class Consignmentmodel {
     cneeEmail : string = "";
     shipmentNo : string = "";
     shipmentDt : string = "";
-        deliveryNo : string = "";
-        deliveryDt : string = "";
-        poNo : string = "";
-        poDt : string = "";
-        riskBy : string = "";
-        insCoName : string = "";
-        insPolicyNo : string = "";
-        insValidDt : string = "";
-        insuredValue : string = "";
+    deliveryNo : string = "";
+    deliveryDt : string = "";
+    poNo : string = "";
+    poDt : string = "";
+    riskBy : string = "";
+    insCoName : string = "";
+    insPolicyNo : string = "";
+    insValidDt : string = "";
+    insuredValue : string = "";
     classId : string = "";
     productId : string = "";
     productDesc : string = "";
@@ -139,5 +142,8 @@ export class Consignmentmodel {
     yearId : string = ""; 
     loggedInUser: string = "";  
     invList: Consignmentinvmodel[] = [];
+    chlnList: Consignmentchlnmodel[] = [];
+    lhpmList: Consignmentlhpmmodel[] = [];
+    billList: Consignmentbillmodel[] = []; 
     
 }
