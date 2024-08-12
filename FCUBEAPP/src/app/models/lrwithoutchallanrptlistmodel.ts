@@ -4,7 +4,7 @@ import { Lrwithoutchallanrptmodel } from "./lrwithoutchallanrptmodel";
 
 export class Lrwithoutchallanrptlistmodel {
 
-    lRWithOutChallanRptList: Lrwithoutchallanrptmodel[] = [];
+    lrWithOutChallanRptList: Lrwithoutchallanrptmodel[] = [];
     pageMetaData: Paginationmodel = new Paginationmodel;
 }
 

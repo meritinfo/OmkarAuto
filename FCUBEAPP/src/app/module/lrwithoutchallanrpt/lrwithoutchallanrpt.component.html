@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">LR With Out Challan Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">CN Not Dispatched</h4>
                     </div>
                 </div>
             </div>
@@ -151,12 +151,11 @@
                                 <th>chargewt</th>
                                 <th>billparty </th>   
                                 <th>vehTypeDesc</th>
-                                <th>gtotalRs</th>
-                                 
+                                <th>gtotalRs</th>                                 
                             </tr>
                         </thead>
-                        <tbody *ngIf="allLrwithoutchallanrptlist.lRWithOutChallanRptList?.length != 0">
-                            <tr *ngFor="let eta of allLrwithoutchallanrptlist.lRWithOutChallanRptList">
+                        <tbody *ngIf="allLrwithoutchallanrptlist.lrWithOutChallanRptList?.length != 0">
+                            <tr *ngFor="let eta of allLrwithoutchallanrptlist.lrWithOutChallanRptList">
                                 <td>{{ eta.bookedAt }}</td>
                                 <td>{{ eta.bookingDate }}</td> 
                                 <td>{{ eta.bookingStatus }}</td> 
@@ -169,11 +168,10 @@
                                 <td>{{ eta.chargewt }}</td> 
                                 <td>{{ eta.billparty }}</td> 
                                 <td>{{ eta.vehTypeDesc }}</td>
-                                <td>{{ eta.gtotalRs }}</td> 
-                                                    
+                                <td>{{ eta.gtotalRs }}</td>                                                     
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allLrwithoutchallanrptlist.lRWithOutChallanRptList?.length == 0">
+                        <tbody *ngIf="allLrwithoutchallanrptlist.lrWithOutChallanRptList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>

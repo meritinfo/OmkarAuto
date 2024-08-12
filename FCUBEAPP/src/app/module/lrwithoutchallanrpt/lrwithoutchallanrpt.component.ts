@@ -73,7 +73,7 @@ export class LrwithoutchallanrptComponent {
         var privilegeData = JSON.parse(menuData);
         var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
         var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "LR With Out Challan Report");
+        .find((aa: { menuName: string; }) => aa.menuName === "CN Not Dispatched");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -286,7 +286,7 @@ export class LrwithoutchallanrptComponent {
       
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "LR With Out Challan Report" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "CN Not Dispatched" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }

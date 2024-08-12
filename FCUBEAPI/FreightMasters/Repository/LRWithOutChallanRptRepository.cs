@@ -107,7 +107,7 @@ namespace FreightMasters.Repository
                         var filter = "From " + Convert.ToDateTime(request.FromDate).ToString("dd/MM/yyyy");
                         filter = filter  + " To " + Convert.ToDateTime(request.ToDate).ToString("dd/MM/yyyy");
 
-                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "LR With Out Challan Report", filter);
+                        response = await sharedRepository.GetExcelReport(dataSet.Tables[0], "CN Not Dispatched", filter);
                     }
                 }
             }
