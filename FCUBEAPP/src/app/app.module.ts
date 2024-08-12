@@ -483,7 +483,7 @@ import { BookingregisterComponent } from './module/bookingregister/bookingregist
     Companyinfomodel,  Mrmodel  ,Vehicleinstpmtmodel,
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
-    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
+    Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,TripexptypemasterModel,
     Finaccountsmastergstmodel
     
   ],

@@ -70,7 +70,7 @@ ngOnInit(): void {
   this.selectedTyrePositionMasterDetails = this.tyrepositionmasterService.getTyrepositionMasterDetails();
   this.formUser = this.formBuilder.group({
     fitmentPosition: new FormControl('',[Validators.required]),
-    activeYN: new FormControl('',[Validators.required])
+    activeYN: new FormControl('Y',[Validators.required])
  
   
 
