@@ -65,7 +65,7 @@
                                 <th>billNo </th> 
                                 <th>billDate</th>
                                 <th>billStatus</th>  
-                                <th>billType</th>    
+                                <th>collectionBranch</th>    
                                 <th>sacHsn</th>                        
                                 <th>Action</th>                          
                               
@@ -76,11 +76,9 @@
                                 <td>{{ renewalMaster.stationName }}</td>                        
                                 <td>{{ renewalMaster.billNo}}</td>      
                                 <td>{{ renewalMaster.billDate}}</td>                        
-                                <td>{{ renewalMaster.billStatus}}</td>
-                                <td>{{ renewalMaster.billType}}</td>
-                                <td>{{ renewalMaster.sacHsn}}</td>
-                              
-                                
+                                <td>{{ renewalMaster.party}}</td>
+                                <td>{{ renewalMaster.collectionBranch}}</td>
+                                <td>{{ renewalMaster.totalGtotal}}</td>  
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillsMasterDetails(renewalMaster)"></button>                               

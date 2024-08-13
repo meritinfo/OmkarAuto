@@ -143,16 +143,16 @@ export class BillsmasterlistComponent {
           data: 'billDate'
         },
         {
-          title: 'Bill Status',
-          data: 'billStatus'
+          title: 'Party',
+          data: 'party'
         },
         {
-          title: 'bill Type',
-          data: 'billType',
+          title: 'Coll Branch',
+          data: 'collectionBranch',
         },
         {
-          title: 'Sac Hsn ',
-          data: 'sacHsn'
+          title: 'Grand Total ',
+          data: 'totalGtotal'
         },   
         {
           title: 'Action',
