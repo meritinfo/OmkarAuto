@@ -69,7 +69,8 @@ namespace FreightMasters.Models
         public string? DisputeCaseStory { get; set; }
         public string? DisputeReleaseDate { get; set; }
         public string? StationName { get; set; }
-
+        public string? Party { get; set; }
+        public string? CollectionBranch { get; set; }
         public string? LoggedInUser { get; set; }
         public List<BillsDetailModel> BillsMasterListData { get; set; }
     }
