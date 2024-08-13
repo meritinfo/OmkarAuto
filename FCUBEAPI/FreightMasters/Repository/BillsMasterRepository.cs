@@ -288,18 +288,7 @@ namespace FreightMasters.Repository
                 }
             }
             catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
+            {   }
             return responseModel;
         }
         public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
@@ -319,7 +308,6 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Search",     request.Search),
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 
@@ -474,7 +462,6 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> BillsMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
-
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
             connection.Open();
             SqlTransaction transaction;
@@ -509,14 +496,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
-
-
     }
-
-
-
-
 }
 
 
