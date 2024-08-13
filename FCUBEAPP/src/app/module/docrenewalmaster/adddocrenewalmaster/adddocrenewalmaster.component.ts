@@ -74,7 +74,7 @@ export class AdddocrenewalmasterComponent {
       docDescription: new FormControl('',[Validators.required]),
       reminderDays: new FormControl('',[Validators.required]),
       debitType: new FormControl('',[Validators.required]),
-      debitAc: new FormControl('',[Validators.required]), 
+      debitAc: new FormControl('',), 
       isActive: new FormControl('Y',[Validators.required]), 
       recurring_Onetime: new FormControl('O',[Validators.required]), 
     });

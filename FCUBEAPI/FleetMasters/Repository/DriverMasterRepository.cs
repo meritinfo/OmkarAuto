@@ -87,7 +87,7 @@ namespace FleetMasters.Repository
                             new SqlParameter("@LoggedInUser", driverMasterModel.LoggedInUser),
 
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverMasterDetailsSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_DriverMasterSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
