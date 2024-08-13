@@ -627,9 +627,7 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                            new SqlParameter("@BillNo", request.strRequest),
-                        };
+                        {  };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
 
