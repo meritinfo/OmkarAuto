@@ -122,7 +122,7 @@ export class TyrepurchasemasterlistComponent {
       },
       columns: [   
         {
-          title: 'Purchase Date  ',
+          title: 'Purchase Date',
           data: 'purchaseDate',
         },
         {

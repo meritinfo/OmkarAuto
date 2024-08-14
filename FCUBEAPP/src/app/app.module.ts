@@ -323,10 +323,13 @@ import { TripexptypemasterModel } from './models/tripexptypemastermodel';
 import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
+import { Sparespurchasemastermodel } from 'src/app/models/sparespurchasemastermodel';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
  
 
 import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
+import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
+import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
 
 @NgModule({
   declarations: [
@@ -434,7 +437,9 @@ import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
     BookingregisterComponent, LrwithoutchallanrptComponent,
-    CnenquiryComponent
+    CnenquiryComponent,
+    SparespurchasemasteraddComponent,
+    SparespurchasemasterlistComponent
   ],
   imports: [
     BrowserModule,
@@ -489,7 +494,7 @@ import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel,TripexptypemasterModel,
+    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel
   ],
   bootstrap: [AppComponent]
 })
