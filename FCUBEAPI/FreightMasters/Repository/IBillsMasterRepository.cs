@@ -15,7 +15,7 @@ namespace FreightMasters.Repository
         Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
         Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
         Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
-        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request);
+        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
        
 
     }

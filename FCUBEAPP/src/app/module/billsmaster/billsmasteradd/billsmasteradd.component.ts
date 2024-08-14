@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { Billsmastersearchmodel } from 'src/app/models/billsmastersearchmodel';
 import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
-import { Billmastersearchlistrequestmodel } from 'src/app/models/billsmastersearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -44,8 +42,6 @@ export class BillsmasteraddComponent implements OnInit {
   billsmastersearchmodel = new Pagerequestwithdatesmodel();
   seriesDoc: string = "";
   billsmastersearchlistmodel = new Billsmastersearchlistmodel();    
-  saveData = new Billstatementsaverequest();
-  billsmastersearchrequest = new Billmastersearchlistrequestmodel();
   editMode = false;
   createmode = true;
   createStatus = false;
@@ -325,10 +321,16 @@ export class BillsmasteraddComponent implements OnInit {
 
   searchStatement(): void {
     var selectedDataValue = this.formBillsMaster.getRawValue();
-    this.billsmastersearchrequest.fromDate = selectedDataValue.billDate;
-    this.billsmastersearchrequest.billNo = selectedDataValue.billNo;
+    if (selectedDataValue.partyCode.dataId) {
+      //ignore
+    }
+    else{
+      this.toasterService.warning(" Party is Invalid");
+      return;
+    } 
+    this.requestmodel.strRequest = selectedDataValue.partyCode.dataId;
 
-    this.billsMasterService.getBillsMasterSearchList(this.billsmastersearchrequest)
+    this.billsMasterService.getBillsMasterSearchList(this.requestmodel)
       .subscribe((res: Billsmastersearchlistmodel) => {
       this.billsmastersearchlistmodel = res;
     });   

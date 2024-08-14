@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
 import { billstatementmodel } from 'src/app/models/billstatementmodel';
 import { Billstatementsearchlistmodel } from 'src/app/models/billstatementsearchlistmodel';
 import { Billstatementsearchlistrequestmodel } from 'src/app/models/billstatementsearchlistrequestmodel';
@@ -38,9 +37,7 @@ export class BillstatementaddComponent implements OnInit {
   supp = false;
   canCancelBill = false;
   billstatementsearchlistmodel = new Billstatementsearchlistmodel();
-  seriesDoc: string = "";
-  
-  saveData = new Billstatementsaverequest();
+  seriesDoc: string = "";  
   billstatesearchrequest = new Billstatementsearchlistrequestmodel();
   editMode = false;
   createmode = true;

@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Billmastersearchlistrequestmodel } from '../models/billsmastersearchlistrequestmodel';
 import {Billsmastersearchlistmodel} from '../models/billsmastersearchlistmodel';
 import { Pagerequestwithdatesmodel } from '../models/pagerequestwithdatesmodel';
 import { Constants } from '../common/constants';
@@ -36,7 +35,7 @@ export class BillsMasterService {
   clearBillsMasterDetails() {
     this.selectedBillsMasterDetails= new Billsmastermodel();
   }    
-  getBillsMasterSearchList(request: Billmastersearchlistrequestmodel): Observable<Billsmastersearchlistmodel> {
+  getBillsMasterSearchList(request: Requestmodel): Observable<Billsmastersearchlistmodel> {
     return this.httpClient.post<Billsmastersearchlistmodel>(Constants.API_ENDPOINT + 'FreightMasters/GetBillsMasterSearchList', request, this.httpOptions);
   }  
   getBillsMasterList(filter: Pagerequestwithdatesmodel): Observable<Billsmasterlistmodel> {

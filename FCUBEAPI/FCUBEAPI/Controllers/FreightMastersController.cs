@@ -598,7 +598,7 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("GetBillsMasterSearchList")]
-        public async Task<IActionResult> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        public async Task<IActionResult> GetBillsMasterSearchList(RequestModel request)
         {
             if (request == null)
             {
