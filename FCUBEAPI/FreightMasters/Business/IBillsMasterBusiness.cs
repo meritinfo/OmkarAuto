@@ -14,7 +14,7 @@ namespace FreightMasters.Business
         Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request);
         Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
         Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
-        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request);
+        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
         Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
 
 

@@ -6,7 +6,6 @@ import { Constants } from '../common/constants';
 import { Reportmodel } from '../models/reportmodel';
 import { Observable } from 'rxjs';
 import { Responsemodel } from '../models/responsemodel';
-import { Billstatementsaverequest } from '../models/billstatementsaverequest';
 import { Billstatementlistmodel } from '../models/billstatementlistmodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Dropdownmodel } from '../models/dropdownmodel';

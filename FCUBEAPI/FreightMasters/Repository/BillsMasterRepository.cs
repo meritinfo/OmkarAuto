@@ -112,7 +112,7 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
         {
             BillsMasterSearchListModel billsMasterSearchList = new();
             List<BillsMasterSearchModel> billsMasterSearchModel = new();
@@ -122,12 +122,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillingParty",   request.BillingParty),
-                            new SqlParameter("@FromDate",       request.FromDate),
-                            new SqlParameter("@BillNo",         request.BillNo),
-                            //new SqlParameter("@FromPlace",      request.FromPlace),
-                            //new SqlParameter("@ToPlace",        request.ToPlace),
-                           // new SqlParameter("@CnorPlantCode",  request.CnorPlantCode),
+                            new SqlParameter("@BillingParty",   request.strRequest),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
 
