@@ -187,6 +187,7 @@ import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwit
 import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
 import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
 import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
+import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -450,6 +451,7 @@ const routes: Routes = [
   { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 
   { path: 'bookingreg', component: BookingregisterComponent }, 
   { path: 'cnnotdispatch', component: LrwithoutchallanrptComponent },
+  { path: 'unbilledrpt', component: UnbilledrptComponent },
   { path: 'cnenquiry', component: CnenquiryComponent }, 
   { path: 'sparespurchasemasteradd', component: SparespurchasemasteraddComponent }, 
   { path: 'sparespurchasemasteredit', component: SparespurchasemasteraddComponent }, 

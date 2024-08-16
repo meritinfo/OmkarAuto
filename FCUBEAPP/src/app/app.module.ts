@@ -325,6 +325,7 @@ import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 import { Sparespurchasemastermodel } from 'src/app/models/sparespurchasemastermodel';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
+import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
  
 
 import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
@@ -436,6 +437,7 @@ import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
+    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent
     BookingregisterComponent, LrwithoutchallanrptComponent,
     CnenquiryComponent,
     SparespurchasemasteraddComponent,
