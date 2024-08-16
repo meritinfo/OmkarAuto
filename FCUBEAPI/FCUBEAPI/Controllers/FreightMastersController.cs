@@ -35,6 +35,7 @@ namespace FCUBEAPI.Controllers
         readonly ILhpmSlabMasterBusiness lhpmSlabMasterBusiness;
         readonly IBookingRegisterRptBusiness bookingRegisterRptBusiness;
         readonly ILRWithOutChallanRptBusiness lRWithOutChallanRptBusiness;
+        readonly IUnBilledRptBusiness unBilledRptBusiness;
         public FreightMastersController(IDestinationMasterBusiness _freightMastersBusiness,
             IBranchMasterBusiness _branchMastersBusiness,
             IProductGroupMasterBusiness _productGroupMasterBusiness,
@@ -55,7 +56,8 @@ namespace FCUBEAPI.Controllers
             ICompanyInfoBusiness _companyInfoBusiness,
             ILhpmSlabMasterBusiness _lhpmSlabMasterBusiness,
             IBookingRegisterRptBusiness _bookingRegisterRptBusiness,
-            ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness)
+            ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness,
+            IUnBilledRptBusiness _unBilledRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -79,6 +81,7 @@ namespace FCUBEAPI.Controllers
             lhpmSlabMasterBusiness = _lhpmSlabMasterBusiness;
             bookingRegisterRptBusiness = _bookingRegisterRptBusiness;
             lRWithOutChallanRptBusiness = _lRWithOutChallanRptBusiness;
+            unBilledRptBusiness = _unBilledRptBusiness;
         }
 
         /// <summary>
@@ -1551,6 +1554,44 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await lRWithOutChallanRptBusiness.GetLRWithOutChallanRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetUnBilledRptExcel")]
+        public async Task<IActionResult> GetUnBilledRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBilledRptBusiness.GetUnBilledRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetUnBilledRptList")]
+        public async Task<IActionResult> GetUnBilledRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await unBilledRptBusiness.GetUnBilledRptList(request);
 
                 return Ok(result);
             }

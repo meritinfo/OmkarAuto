@@ -324,6 +324,7 @@ import { FinaccountmastergstComponent } from './module/finaccountmastergst/finac
 import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
+import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
  
 
 @NgModule({
@@ -431,7 +432,7 @@ import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwit
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
-    BookingregisterComponent, LrwithoutchallanrptComponent
+    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent
   ],
   imports: [
     BrowserModule,

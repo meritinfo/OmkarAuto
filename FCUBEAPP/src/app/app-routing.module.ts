@@ -184,6 +184,7 @@ import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripex
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
+import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -447,6 +448,7 @@ const routes: Routes = [
   { path: 'tripexpmasterlist', component: TripexptypemasterlistComponent }, 
   { path: 'bookingreg', component: BookingregisterComponent }, 
   { path: 'cnnotdispatch', component: LrwithoutchallanrptComponent },
+  { path: 'unbilledrpt', component: UnbilledrptComponent },
   
 ];
 
