@@ -10,12 +10,12 @@ namespace FreightMasters.Repository
 {
     public interface IBillsMasterRepository
     {
-        Task<BillsListModel> GetBillsMasterList(PageRequest request);
+        Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request);
         Task<BillsMasterSearchListModel> GetBillsInnerGridList(RequestModel request);
         Task<ResponseModel> BillsMasterSave(BillsMasterModel challanModel);
         Task<ResponseModel> BillsMasterDelete(RequestModel requestModel);
         Task<ResponseModel> LrBillUpdate(RequestModel reqmodel);
-        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request);
+        Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request);
        
 
     }

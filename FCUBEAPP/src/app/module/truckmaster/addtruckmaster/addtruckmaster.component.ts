@@ -104,7 +104,7 @@ export class AddtruckmasterComponent {
       fitnessDt: new FormControl('',),
       rcUpload: new FormControl('',),
       otherUpload: new FormControl('',),
-      isActive: new FormControl('',),
+      isActive: new FormControl('Y',),
       inActiveDate: new FormControl('',),
       remarks: new FormControl('',),
     });

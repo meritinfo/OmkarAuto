@@ -1,27 +1,27 @@
 import { Component,ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
-import { Filtermodel } from 'src/app/models/filtermodel';
 import { Billsmasterlistmodel } from 'src/app/models/billsmasterlistmodel';
-import { Usermodel } from 'src/app/models/usermodel';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
 import { BillsMasterService } from 'src/app/services/billsmaster.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Reportmodel } from 'src/app/models/reportmodel';
+import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
 import { CommonService } from 'src/app/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-billsmasterlist',
   templateUrl: './billsmasterlist.component.html',
   styleUrls: ['./billsmasterlist.component.css']
 })
+
 export class BillsmasterlistComponent {
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   allBillsMaster: Billsmasterlistmodel = new Billsmasterlistmodel();
-  filter: Reportmodel = {
+  filter: Pagerequestwithdatesmodel = {
     pageNumber: 1,
     pageSize: 10,
     sortColumn: 'vendor',
@@ -29,11 +29,9 @@ export class BillsmasterlistComponent {
     search: '',
     fromDate: '',
     toDate: '',
-    filterStr: '',
-    filterStr1: '',
-    filterStr2:'',
-    filterStr3:''
+    strRequest: ""
   }
+
   editMode = false;
   createmode = true;
   createStatus = false;
@@ -53,6 +51,7 @@ export class BillsmasterlistComponent {
     private commonService: CommonService, private formBuilder: FormBuilder,
     private sharedService: SharedService, private route: Router) {
   }
+
   ngOnInit(): void {
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
@@ -140,23 +139,21 @@ export class BillsmasterlistComponent {
         },
        
         {
-          title: 'BillDate',
+          title: 'Bill Date',
           data: 'billDate'
         },
         {
-          title: 'BillStatus',
-          data: 'billStatus'
+          title: 'Party',
+          data: 'party'
         },
         {
-          title: 'bill Type',
-          data: 'billType',
+          title: 'Coll Branch',
+          data: 'collectionBranch',
         },
         {
-          title: 'Sac Hsn ',
-          data: 'sacHsn'
-        },
-        
-        
+          title: 'Grand Total ',
+          data: 'totalGtotal'
+        },   
         {
           title: 'Action',
           data: 'masterId',
@@ -164,6 +161,7 @@ export class BillsmasterlistComponent {
       ],
     };
   }
+
   billsMasterAdd(): void {
     this.route.navigate(['/billsmasteradd']);
   }

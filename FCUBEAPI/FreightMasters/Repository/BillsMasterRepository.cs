@@ -33,69 +33,43 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillsMasterId",              billsModel.BillsMasterId),
-                            new SqlParameter("@BillingStation",          billsModel.BillingStation),
-                            new SqlParameter("@BillNo",            billsModel.BillNo),
-                            new SqlParameter("@BillStatus",           billsModel.BillStatus),
-                            new SqlParameter("@BillType",         billsModel.BillType),
+                            new SqlParameter("@BillsMasterId",      billsModel.BillsMasterId),
+                            new SqlParameter("@BillingStation",     billsModel.BillingStation),
+                            new SqlParameter("@BillNo",             billsModel.BillNo),
+                            new SqlParameter("@BillStatus",         billsModel.BillStatus),
+                            new SqlParameter("@BillType",           billsModel.BillType),
                             new SqlParameter("@SacHsn",             billsModel.SacHsn),
-                            new SqlParameter("@BillDate",        billsModel.BillDate),
-                            new SqlParameter("@DueDate",      billsModel.DueDate),
-                            new SqlParameter("@SuppYN",           billsModel.SuppYN),
-                            new SqlParameter("@SacCode",           billsModel.SacCode),
-                            new SqlParameter("@PartyCode",      billsModel.PartyCode),
-                            new SqlParameter("@PartyGstLocation",           billsModel.PartyGstLocation),
-                            new SqlParameter("@CollBranch",             billsModel.CollBranch),
-                            new SqlParameter("@GstType",          billsModel.GstType),
-                            new SqlParameter("@TotalFreight",          billsModel.TotalFreight),
-                            new SqlParameter("@TotalStatistical",         billsModel.TotalStatistical),
-                            new SqlParameter("@TotalFov",         billsModel.TotalFov),
-                            new SqlParameter("@TotalDoorColl",        billsModel.TotalDoorColl),
-                            new SqlParameter("@TotalHandling",           billsModel.TotalHandling),
-                            new SqlParameter("@TotalLoadingDetn",          billsModel.TotalLoadingDetn),
-                            new SqlParameter("@TotalEnroute",           billsModel.TotalEnroute),
+                            new SqlParameter("@BillDate",           billsModel.BillDate),
+                            new SqlParameter("@DueDate",            billsModel.DueDate),
+                            new SqlParameter("@SuppYN",             billsModel.SuppYN),
+                            new SqlParameter("@SacCode",            billsModel.SacCode),
+                            new SqlParameter("@PartyCode",          billsModel.PartyCode),
+                            new SqlParameter("@PartyGstLocation",   billsModel.PartyGstLocation),
+                            new SqlParameter("@CollBranch",         billsModel.CollBranch),
+                            new SqlParameter("@GstType",            billsModel.GstType),
+                            new SqlParameter("@TotalFreight",       billsModel.TotalFreight),
+                            new SqlParameter("@TotalStatistical",   billsModel.TotalStatistical),
+                            new SqlParameter("@TotalFov",           billsModel.TotalFov),
+                            new SqlParameter("@TotalDoorColl",      billsModel.TotalDoorColl),
+                            new SqlParameter("@TotalHandling",      billsModel.TotalHandling),
+                            new SqlParameter("@TotalLoadingDetn",   billsModel.TotalLoadingDetn),
+                            new SqlParameter("@TotalEnroute",       billsModel.TotalEnroute),
                             new SqlParameter("@TotalMisc",          billsModel.TotalMisc),
-                            new SqlParameter("@TotalDoorDel",      billsModel.TotalDoorDel),
-                            new SqlParameter("@TotalUnLoading",   billsModel.TotalUnLoading),
-                            new SqlParameter("@TotalDetention",       billsModel.TotalDetention),
-                            new SqlParameter("@TotalExtras",       billsModel.TotalExtras),
-                            new SqlParameter("@TotalOthers",         billsModel.TotalOthers),
-                            new SqlParameter("@TotalSubTotal",         billsModel.TotalSubTotal),
-                            new SqlParameter("@TotalSgstAmt",         billsModel.TotalSgstAmt),
-                            new SqlParameter("@TotalCgstAmt",         billsModel.TotalCgstAmt),
-                            new SqlParameter("@TotalIgstAmt",         billsModel.TotalIgstAmt),
-                            new SqlParameter("@TotalNonGstAmt1",         billsModel.TotalNonGstAmt1),
-                            new SqlParameter("@TotalNonGstAmt2",         billsModel.TotalNonGstAmt2),
-                            new SqlParameter("@TotalGtotal",         billsModel.TotalGtotal),
-
-
-                            new SqlParameter("@BillRemarks",         billsModel.BillRemarks),
-                            new SqlParameter("@EnlcosedDocs",         billsModel.EnlcosedDocs),
-                            new SqlParameter("@SuppParticulars",         billsModel.SuppParticulars),
-                            new SqlParameter("@Attachedfile",         billsModel.Attachedfile),
-                            new SqlParameter("@BillAmtCleared",         billsModel.BillAmtCleared),
-                            new SqlParameter("@BillDed",         billsModel.BillDed),
-                            new SqlParameter("@BillTDS",         billsModel.BillTDS),
-                            new SqlParameter("@Recoverable",         billsModel.Recoverable),
-                            new SqlParameter("@BillExcess",         billsModel.BillExcess),
-                            new SqlParameter("@SdEmdAmt",         billsModel.SdEmdAmt),
-                            new SqlParameter("@RecoveredAmt",         billsModel.RecoveredAmt),
-                            new SqlParameter("@PrintedYN",         billsModel.PrintedYN),
-                            new SqlParameter("@PrintedDate",         billsModel.PrintedDate),
-                            new SqlParameter("@MRDone",         billsModel.MRDone),
-                            new SqlParameter("@MRDate",         billsModel.MRDate),
-                            new SqlParameter("@SubmitYN",         billsModel.SubmitYN),
-                            new SqlParameter("@SubmitDate",         billsModel.SubmitDate),
-                            new SqlParameter("@YearId",         billsModel.YearId),
-                            new SqlParameter("@FinFtmid",      billsModel.FinFtmid),  // ""),
-                            new SqlParameter("@CheckedBy",         billsModel.CheckedBy),
-                            new SqlParameter("@ApprovedBy",         billsModel.ApprovedBy),
-                            new SqlParameter("@DisputeType",         billsModel.DisputeType),
-                            new SqlParameter("@DisputeDate",         billsModel.DisputeDate),
-                            new SqlParameter("@DisputeCaseNo",         billsModel.DisputeCaseNo),
-                            new SqlParameter("@DisputeCaseStory",         billsModel.DisputeCaseStory),
-                            new SqlParameter("@DisputeReleaseDate",         billsModel.DisputeReleaseDate),
-                            new SqlParameter("@LoggedInUser",         billsModel.LoggedInUser)
+                            new SqlParameter("@TotalDoorDel",       billsModel.TotalDoorDel),
+                            new SqlParameter("@TotalUnLoading",     billsModel.TotalUnLoading),
+                            new SqlParameter("@TotalDetention",     billsModel.TotalDetention),
+                            new SqlParameter("@TotalExtras",        billsModel.TotalExtras),
+                            new SqlParameter("@TotalOthers",        billsModel.TotalOthers),
+                            new SqlParameter("@TotalSubTotal",      billsModel.TotalSubTotal),
+                            new SqlParameter("@TotalSgstAmt",       billsModel.TotalSgstAmt),
+                            new SqlParameter("@TotalCgstAmt",       billsModel.TotalCgstAmt),
+                            new SqlParameter("@TotalIgstAmt",       billsModel.TotalIgstAmt),
+                            new SqlParameter("@TotalNonGstAmt1",    billsModel.TotalNonGstAmt1),
+                            new SqlParameter("@TotalNonGstAmt2",    billsModel.TotalNonGstAmt2),
+                            new SqlParameter("@TotalGtotal",        billsModel.TotalGtotal),
+                            new SqlParameter("@BillRemarks",        billsModel.BillRemarks),
+                            new SqlParameter("@YearId",             billsModel.YearId),
+                            new SqlParameter("@LoggedInUser",       billsModel.LoggedInUser)
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_BillsMstSave", param);
                     var BillsMasterId = "0";
@@ -138,7 +112,7 @@ namespace FreightMasters.Repository
             return responseModel;
         }
 
-        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
         {
             BillsMasterSearchListModel billsMasterSearchList = new();
             List<BillsMasterSearchModel> billsMasterSearchModel = new();
@@ -148,12 +122,7 @@ namespace FreightMasters.Repository
                 {
                     SqlParameter[] param =
                         {
-                            new SqlParameter("@BillingParty",   request.BillingParty),
-                            new SqlParameter("@FromDate",       request.FromDate),
-                            new SqlParameter("@BillNo",         request.BillNo),
-                            //new SqlParameter("@FromPlace",      request.FromPlace),
-                            //new SqlParameter("@ToPlace",        request.ToPlace),
-                           // new SqlParameter("@CnorPlantCode",  request.CnorPlantCode),
+                            new SqlParameter("@BillingParty",   request.strRequest),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterSearchList", param);
 
@@ -229,9 +198,6 @@ namespace FreightMasters.Repository
                         {
                             new SqlParameter("@GcNoteNo", reqmodel.strRequest),
                             new SqlParameter("@BillNo", reqmodel.strRequest1),
-
-
-
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_LrBillUpdate", param);
 
@@ -285,8 +251,7 @@ namespace FreightMasters.Repository
                             new SqlParameter("@Misc", billsDtl.Misc),
                             new SqlParameter("@DoorDel", billsDtl.DoorDel),
                             new SqlParameter("@UnLoading", billsDtl.UnLoading),
-                            new SqlParameter("@Detention", billsDtl.Detention),
-                          
+                            new SqlParameter("@Detention", billsDtl.Detention),                          
                             new SqlParameter("@Extras", billsDtl.Extras),
                             new SqlParameter("@Others", billsDtl.Others),
                             new SqlParameter("@SubTotal", billsDtl.SubTotal),
@@ -318,21 +283,10 @@ namespace FreightMasters.Repository
                 }
             }
             catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
+            {   }
             return responseModel;
         }
-        public async Task<BillsListModel> GetBillsMasterList(PageRequest request)
+        public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
         {
             BillsListModel billsMasterList = new();
             List<BillsMasterModel> billsList = new();
@@ -347,9 +301,8 @@ namespace FreightMasters.Repository
                             new SqlParameter("@SortColumn", request.SortColumn),
                             new SqlParameter("@SortOrder",  request.SortOrder),
                             new SqlParameter("@Search",     request.Search),
-                          //  new SqlParameter("@FromDate",   request.FromDate),
-                           // new SqlParameter("@ToDate",     request.ToDate),
-                           // new SqlParameter("@Type",       request.FilterStr)
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
                         };
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsMasterList", param);
 
@@ -421,10 +374,8 @@ namespace FreightMasters.Repository
                                 DisputeCaseStory = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeCaseStory"]),
                                 DisputeReleaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DisputeReleaseDate"]),
                                 StationName = Convert.ToString(dataSet.Tables[0].Rows[i]["StationName"]),
-
-                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
-
-
+                                Party = Convert.ToString(dataSet.Tables[0].Rows[i]["Party"]),
+                                CollectionBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["CollectionBranch"]),
                             });
                         }
 
@@ -457,12 +408,11 @@ namespace FreightMasters.Repository
                     SqlParameter[] param =
                     {
                             new SqlParameter("@BillsMasterId", request.strRequest)
-                        };
+                    };
 
                     var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBillsInnerGrid", param);
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
-                        int totalRecords = 0;
                         for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
                         {
                             billsMasterSearchModel.Add(new BillsMasterSearchModel
@@ -492,8 +442,7 @@ namespace FreightMasters.Repository
                                 NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt1"]),
                                 NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[i]["NonGstAmt2"]),
                                 GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[i]["GtotalRs"]),
-
-                                Selected = false
+                                Selected = true,
                             });
                         }
 
@@ -510,7 +459,6 @@ namespace FreightMasters.Repository
         public async Task<ResponseModel> BillsMasterDelete(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
-
             var connection = new SqlConnection(dbconnection.Value.DBConnection);
             connection.Open();
             SqlTransaction transaction;
@@ -545,14 +493,7 @@ namespace FreightMasters.Repository
             }
             return responseModel;
         }
-
-
-
     }
-
-
-
-
 }
 
 

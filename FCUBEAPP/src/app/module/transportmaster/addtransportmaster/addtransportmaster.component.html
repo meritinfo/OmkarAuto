@@ -331,7 +331,7 @@
                     <div class="col-sm-3">
                         <div class="mb-3">
                             <label>Cancel Cheque: </label>
-                            <input #attachmentInput1 class="form-control" type="file"
+                            <input #cancelChqInput class="form-control" type="file"
                             id="formAttFile" accept="image/*">
                             <a *ngIf="selectedTransportMasterDetail.cancelChq" target="_blank"
                             href={{uploadedcancelChq}}>Download</a>
@@ -340,7 +340,7 @@
                     <div class="col-sm-3">
                         <div class="mb-3">
                             <label>Address Proof: </label>
-                            <input #attachmentInput class="form-control" type="file"
+                            <input #addrProofInput class="form-control" type="file"
                                     id="formAttFile" accept="image/*">
                             <a *ngIf="selectedTransportMasterDetail.addrProof" target="_blank"
                                     href={{uploadedaddrProof}}>Download</a>

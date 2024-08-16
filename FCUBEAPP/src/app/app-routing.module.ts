@@ -184,6 +184,9 @@ import { TripexptypemasteraddComponent } from './module/tripexptypemaster/tripex
 import { TripexptypemasterlistComponent } from './module/tripexptypemaster/tripexptypemasterlist/tripexptypemasterlist.component';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
+import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
+import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
+import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
 import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
 
 const routes: Routes = [
@@ -449,6 +452,11 @@ const routes: Routes = [
   { path: 'bookingreg', component: BookingregisterComponent }, 
   { path: 'cnnotdispatch', component: LrwithoutchallanrptComponent },
   { path: 'unbilledrpt', component: UnbilledrptComponent },
+  { path: 'cnenquiry', component: CnenquiryComponent }, 
+  { path: 'sparespurchasemasteradd', component: SparespurchasemasteraddComponent }, 
+  { path: 'sparespurchasemasteredit', component: SparespurchasemasteraddComponent }, 
+  { path: 'sparespurchaselist', component: SparespurchasemasterlistComponent }, 
+  
   
 ];
 

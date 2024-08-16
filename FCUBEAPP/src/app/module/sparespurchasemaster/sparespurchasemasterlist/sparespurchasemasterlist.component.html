@@ -1,0 +1,142 @@
+
+
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Spares Purchase</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-12 col-md-12">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date</label>
+                                    <input type="date" class="form-control" formControlName="fromDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date</label>
+                                    <input type="date" class="form-control" formControlName="toDate" 
+                                    min="{{minDate}}" max="{{maxDate}}">
+                                </div>
+                            </div>  
+                            <div class="col-lg-2">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" (click)="search()">
+                                        <span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-12 text-right">
+                    <button class="btn btn-primary buttons-html5" type="button"
+                        (click)="addSparesPurchaseMaster()"><span>New</span></button>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="overflow-x">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive nowrap w-100">
+                    <thead>
+                        <tr>
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>tptName</th>
+                            <th>address1</th>
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>address2</th>
+                            <th>address3</th> 
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allSparesMaster.sparesList?.length != 0">
+                        <tr *ngFor="let tm of allSparesMaster.sparesList">
+                            <td>{{ tm.spTransId}}</td>
+                            <td>{{ tm.transDate}}</td>
+                            <td>{{ tm.nonVendor}}</td>
+                            <td>{{ tm.vendorId}}</td> 
+                            <td>{{ tm.vendorInvDt}}</td> 
+                            <td>{{ tm.vendorInvNo}}</td> 
+                            <td>{{ tm.vendorName}}</td> 
+                            <td>{{ tm.vendorAddress}}</td> 
+                            <td>{{ tm.vendorState}}</td> 
+                            <td>{{ tm.vendorGstNo}}</td> 
+                            <td>{{ tm.gstType}}</td> 
+                            <td>{{ tm.totItemAmount}}</td> 
+                            <td>{{ tm.totSgstAmt}}</td> 
+                            <td>{{ tm.totCgstAmt}}</td> 
+                            <td>{{ tm.totIgstAmt}}</td> 
+                            <td>{{ tm.totItemNetAmount}}</td> 
+                            <td>{{ tm.otherAmount}}</td> 
+                            <td>{{ tm.roundOff}}</td> 
+                            <td>{{ tm.netAmount}}</td> 
+                            <td>{{ tm.remarks}}</td> 
+                            <td>{{ tm.pmtType}}</td> 
+                            <td>{{ tm.creditAc}}</td> 
+                            <td>{{ tm.chequeDate}}</td> 
+                            <td>{{ tm.linkFtmId}}</td> 
+                            <td>{{ tm.linkJVFtmId}}</td> 
+                            <td>{{ tm.auditedYN}}</td> 
+                            <td>{{ tm.auditDate}}</td> 
+                            <td>{{ tm.auditedBy}}</td> 
+                            <td>{{ tm.refDocAttachedImage}}</td> 
+                            <td>{{ tm.branchCode}}</td> 
+                            
+                            <td>                                
+                                <button type="button" class="btn btn-edit" 
+                                    (click)="getSparesPurchaseMasterDetails(tm)"></button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allSparesMaster.sparesList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>

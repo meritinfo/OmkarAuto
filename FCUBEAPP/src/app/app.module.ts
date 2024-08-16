@@ -323,9 +323,14 @@ import { TripexptypemasterModel } from './models/tripexptypemastermodel';
 import { FinaccountmastergstComponent } from './module/finaccountmastergst/finaccountmastergst.component';
 import { Finaccountsmastergstmodel } from './models/finaccountsmastergstmodel';
 import { BookingregisterComponent } from './module/bookingregister/bookingregister.component';
+import { Sparespurchasemastermodel } from 'src/app/models/sparespurchasemastermodel';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
 import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
  
+
+import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
+import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
+import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
 
 @NgModule({
   declarations: [
@@ -433,6 +438,10 @@ import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
     BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent
+    BookingregisterComponent, LrwithoutchallanrptComponent,
+    CnenquiryComponent,
+    SparespurchasemasteraddComponent,
+    SparespurchasemasterlistComponent
   ],
   imports: [
     BrowserModule,
@@ -487,8 +496,7 @@ import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel
-    
+    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel
   ],
   bootstrap: [AppComponent]
 })

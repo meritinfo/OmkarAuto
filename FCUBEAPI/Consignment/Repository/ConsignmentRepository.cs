@@ -3,6 +3,11 @@ using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using System.Data.SqlClient;
 using Shared.Models;
+using DocumentFormat.OpenXml.Presentation;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.VariantTypes;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using Microsoft.VisualBasic;
 
 namespace Consignment.Repository
 {
@@ -622,9 +627,7 @@ namespace Consignment.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param =
-                        {
-                            new SqlParameter("@BillNo", request.strRequest),
-                        };
+                        {  };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "GetBillSeries_Select", param);
 
@@ -963,5 +966,254 @@ namespace Consignment.Repository
             }
             return vehicleList;
         }
+
+        public async Task<ConsignmentModel> GetCnEnqDetails(RequestModel req)
+        {
+            ConsignmentModel lrmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@CnNo", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqDetails", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        lrmodel.ConsignmentID = Convert.ToString(dataSet.Tables[0].Rows[0]["ConsignmentId"]);
+                        lrmodel.BookingDate = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingDate"]);
+                        lrmodel.BookingPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingPlace"]);
+                        lrmodel.GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]);
+                        lrmodel.BookingStatus = Convert.ToString(dataSet.Tables[0].Rows[0]["BookingStatus"]);
+                        lrmodel.EwayBillNo= Convert.ToString(dataSet.Tables[0].Rows[0]["EwayBillNo"]);
+                        lrmodel.EwayBillDate= Convert.ToString(dataSet.Tables[0].Rows[0]["EwayBillDate"]);
+                        lrmodel.EwayBillExpDate= Convert.ToString(dataSet.Tables[0].Rows[0]["EwayBillExpDate"]);
+                        lrmodel.InvoiceNo= Convert.ToString(dataSet.Tables[0].Rows[0]["InvoiceNo"]);
+                        lrmodel.InvoiceDate= Convert.ToString(dataSet.Tables[0].Rows[0]["InvoiceDate"]);
+                        lrmodel.InvoiceValue= Convert.ToString(dataSet.Tables[0].Rows[0]["InvoiceValue"]);
+                        lrmodel.DeclaredValue= Convert.ToString(dataSet.Tables[0].Rows[0]["DeclaredValue"]);
+                        lrmodel.FromPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["FromPlace"]);
+                        lrmodel.ToPlace = Convert.ToString(dataSet.Tables[0].Rows[0]["ToPlace"]);
+                        lrmodel.Kms = Convert.ToString(dataSet.Tables[0].Rows[0]["Kms"]);
+                        lrmodel.OwnTruck = Convert.ToString(dataSet.Tables[0].Rows[0]["OwnTruck"]);
+                        lrmodel.TruckNo = Convert.ToString(dataSet.Tables[0].Rows[0]["TruckNo"]);
+                        lrmodel.BillingParty = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingParty"]);
+                        lrmodel.BillingBranch = Convert.ToString(dataSet.Tables[0].Rows[0]["BillingBranch"]);
+                        lrmodel.BusinessBranch = Convert.ToString(dataSet.Tables[0].Rows[0]["BusinessBranch"]);
+                        lrmodel.BusinessBy = Convert.ToString(dataSet.Tables[0].Rows[0]["BusinessBy"]);
+                        lrmodel.CnorName    = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorName"]);
+                        lrmodel.CnorAdd1    = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorAdd1"]);
+                        lrmodel.CnorAdd2    = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorAdd2"]);
+                        lrmodel.CnorAdd3    = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorAdd3"]);
+                        lrmodel.CnorPin     = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorPin"]);
+                        lrmodel.CnorGst     = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorGst"]);
+                        lrmodel.CnorMobile  = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorMobile"]);
+                        lrmodel.CnorEmail   = Convert.ToString(dataSet.Tables[0].Rows[0]["CnorEmail"]);
+                        lrmodel.CneeName    = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeName"]);
+                        lrmodel.CneeAdd1    = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeAdd1"]);
+                        lrmodel.CneeAdd2    = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeAdd2"]);
+                        lrmodel.CneeAdd3    = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeAdd3"]);
+                        lrmodel.CneePin     = Convert.ToString(dataSet.Tables[0].Rows[0]["CneePin"]);
+                        lrmodel.CneeGst     = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeGst"]);
+                        lrmodel.CneeMobile  = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeMobile"]);
+                        lrmodel.CneeEmail   = Convert.ToString(dataSet.Tables[0].Rows[0]["CneeEmail"]);
+                        lrmodel.ShipmentNo = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentNo"]);
+                        lrmodel.ShipmentDt = Convert.ToString(dataSet.Tables[0].Rows[0]["ShipmentDt"]);
+                        lrmodel.DeliveryNo = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryNo"]);
+                        lrmodel.DeliveryDt = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDt"]);
+                        lrmodel.PoNo = Convert.ToString(dataSet.Tables[0].Rows[0]["PoNo"]);
+                        lrmodel.PoDt = Convert.ToString(dataSet.Tables[0].Rows[0]["PoDt"]);
+                        lrmodel.RiskBy = Convert.ToString(dataSet.Tables[0].Rows[0]["RiskBy"]);
+                        lrmodel.InsCoName = Convert.ToString(dataSet.Tables[0].Rows[0]["InsCoName"]);
+                        lrmodel.InsPolicyNo = Convert.ToString(dataSet.Tables[0].Rows[0]["InsPolicyNo"]);
+                        lrmodel.InsValidDt = Convert.ToString(dataSet.Tables[0].Rows[0]["InsValidDt"]);
+                        lrmodel.InsuredValue = Convert.ToString(dataSet.Tables[0].Rows[0]["InsuredValue"]);
+                        lrmodel.ClassId = Convert.ToString(dataSet.Tables[0].Rows[0]["ClassId"]);
+                        lrmodel.ProductId = Convert.ToString(dataSet.Tables[0].Rows[0]["ProductId"]);
+                        lrmodel.ProductDesc = Convert.ToString(dataSet.Tables[0].Rows[0]["ProductDesc"]);
+                        lrmodel.HsnSac = Convert.ToString(dataSet.Tables[0].Rows[0]["HsnSac"]);
+                        lrmodel.NoPackages = Convert.ToString(dataSet.Tables[0].Rows[0]["NoPackages"]);
+                        lrmodel.LooseFlag = Convert.ToString(dataSet.Tables[0].Rows[0]["LooseFlag"]);
+                        lrmodel.WeightType = Convert.ToString(dataSet.Tables[0].Rows[0]["WeightType"]);
+                        lrmodel.ActualWt = Convert.ToString(dataSet.Tables[0].Rows[0]["ActualWt"]);
+                        lrmodel.Chargewt = Convert.ToString(dataSet.Tables[0].Rows[0]["Chargewt"]);
+                        lrmodel.SenderWt = Convert.ToString(dataSet.Tables[0].Rows[0]["SenderWt"]);
+                        lrmodel.WtDesc = Convert.ToString(dataSet.Tables[0].Rows[0]["WtDesc"]);
+                        lrmodel.VehicleTypeId = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleTypeId"]);
+                        lrmodel.PrivateMark = Convert.ToString(dataSet.Tables[0].Rows[0]["PrivateMark"]);
+                        lrmodel.BulkYN = Convert.ToString(dataSet.Tables[0].Rows[0]["BulkYN"]);
+                        lrmodel.LoadLength = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadLength"]);
+                        lrmodel.LoadWidth = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadWidth"]);
+                        lrmodel.LoadHeight = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadHeight"]);
+                        lrmodel.LoadCFT = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadCFT"]);
+                        lrmodel.RateType = Convert.ToString(dataSet.Tables[0].Rows[0]["RateType"]);
+                        lrmodel.RateDesc = Convert.ToString(dataSet.Tables[0].Rows[0]["RateDesc"]);
+                        lrmodel.GstBy = Convert.ToString(dataSet.Tables[0].Rows[0]["GstBy"]);
+                        lrmodel.RateRs = Convert.ToString(dataSet.Tables[0].Rows[0]["RateRs"]);
+                        lrmodel.FreightRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FreightRs"]);
+                        lrmodel.StatisticalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["StatisticalRs"]);
+                        lrmodel.FovRs = Convert.ToString(dataSet.Tables[0].Rows[0]["FovRs"]);
+                        lrmodel.DoorCollRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorCollRs"]);
+                        lrmodel.HandlingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["HandlingRs"]);
+                        lrmodel.LoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadingDetnRs"]);
+                        lrmodel.EnrouteRs = Convert.ToString(dataSet.Tables[0].Rows[0]["EnrouteRs"]);
+                        lrmodel.MiscRs = Convert.ToString(dataSet.Tables[0].Rows[0]["MiscRs"]);
+                        lrmodel.DoorDelRs = Convert.ToString(dataSet.Tables[0].Rows[0]["DoorDelRs"]);
+                        lrmodel.ExtrasRS = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRS"]);
+                        lrmodel.UnLoadingRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingRs"]);
+                        lrmodel.UnLoadingDetnRs = Convert.ToString(dataSet.Tables[0].Rows[0]["UnLoadingDetnRs"]);
+                        lrmodel.OthersRs = Convert.ToString(dataSet.Tables[0].Rows[0]["OthersRs"]);
+                        lrmodel.SubTotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotalRs"]);
+                        lrmodel.GstType = Convert.ToString(dataSet.Tables[0].Rows[0]["GstType"]);
+                        lrmodel.SgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstPct"]);
+                        lrmodel.SgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["SgstAmt"]);
+                        lrmodel.CgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstPct"]);
+                        lrmodel.CgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["CgstAmt"]);
+                        lrmodel.IgstPct = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstPct"]);
+                        lrmodel.IgstAmt = Convert.ToString(dataSet.Tables[0].Rows[0]["IgstAmt"]);
+                        lrmodel.NonGstAmt1 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt1"]);
+                        lrmodel.NonGstAmt2 = Convert.ToString(dataSet.Tables[0].Rows[0]["NonGstAmt2"]);
+                        lrmodel.GtotalRs = Convert.ToString(dataSet.Tables[0].Rows[0]["GtotalRs"]);
+                        lrmodel.AdvanceRs = Convert.ToString(dataSet.Tables[0].Rows[0]["AdvanceRs"]);
+                        lrmodel.AmountRecd = Convert.ToString(dataSet.Tables[0].Rows[0]["AmountRecd"]);
+                        lrmodel.TdsDeducted = Convert.ToString(dataSet.Tables[0].Rows[0]["TdsDeducted"]);
+                        lrmodel.Deduction1 = Convert.ToString(dataSet.Tables[0].Rows[0]["Deduction1"]);
+                        lrmodel.Deduction2 = Convert.ToString(dataSet.Tables[0].Rows[0]["Deduction2"]);
+                        lrmodel.Deduction3 = Convert.ToString(dataSet.Tables[0].Rows[0]["Deduction3"]);
+                        lrmodel.ExtrasRecd1 = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRecd1"]);
+                        lrmodel.ExtrasRecd2 = Convert.ToString(dataSet.Tables[0].Rows[0]["ExtrasRecd2"]);
+                        lrmodel.DeliveredYN = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveredYN"]);
+                        lrmodel.LdReportingDateTime = Convert.ToString(dataSet.Tables[0].Rows[0]["LdReportingDateTime"]);
+                        lrmodel.DespatchDateTime = Convert.ToString(dataSet.Tables[0].Rows[0]["DespatchDateTime"]);
+                        lrmodel.LdDetentionDays = Convert.ToString(dataSet.Tables[0].Rows[0]["LdDetentionDays"]);
+                        lrmodel.UlReportingDateTime = Convert.ToString(dataSet.Tables[0].Rows[0]["UlReportingDateTime"]);
+                        lrmodel.DeliveryDateTime = Convert.ToString(dataSet.Tables[0].Rows[0]["DeliveryDateTime"]);
+                        lrmodel.UlDetentionDays = Convert.ToString(dataSet.Tables[0].Rows[0]["UlDetentionDays"]);
+                        lrmodel.PodRecdYN = Convert.ToString(dataSet.Tables[0].Rows[0]["PodRecdYN"]);
+                        lrmodel.GeneralRemarks = Convert.ToString(dataSet.Tables[0].Rows[0]["GeneralRemarks"]);
+                        lrmodel.CnBilledYN = Convert.ToString(dataSet.Tables[0].Rows[0]["CnBilledYN"]);
+                        lrmodel.CnBillDate = Convert.ToString(dataSet.Tables[0].Rows[0]["CnBillDate"]);
+                        lrmodel.IncludeCnYn = Convert.ToString(dataSet.Tables[0].Rows[0]["IncludeCnYn"]);
+                        lrmodel.IncludeCnNo = Convert.ToString(dataSet.Tables[0].Rows[0]["IncludeCnNo"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lrmodel;
+        }
+        public async Task<ConsignmentModel> GetCnEnqInnerGridList(RequestModel request)
+        {
+            ConsignmentModel consignment = new()
+            {
+                InvList  = new List<ConsignmentInvModel>(),
+                ChlnList= new List<ConsignmentChlnModel>(), 
+                LhpmList= new List<ConsignmentLhpmModel>(),  
+                BillList= new List<ConsignmentBillModel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ConsignmentID", request.strRequest)
+                        };
+
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCnEnqInnerGridList", param);
+
+                    if (dataSet != null )
+                    {
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            consignment.InvList.Add(new ConsignmentInvModel
+                            {
+                                EwayBillNo = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),
+                                EwayBillDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),
+                                EwayBillExpDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillExpDate"]),
+                                InvoiceNo = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceNo"]),
+                                InvoiceDate = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceDate"]),
+                                InvoiceValue = Convert.ToString(dataSet.Tables[0].Rows[i]["InvoiceValue"]),
+                                DeliveryNo = Convert.ToString(dataSet.Tables[0].Rows[i]["DeliveryNo"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[1].Rows.Count; i++)
+                        {
+                            consignment.ChlnList.Add(new ConsignmentChlnModel
+                            {
+                                ChallanNo = Convert.ToString(dataSet.Tables[1].Rows[i]["ChallanNo"]),
+                                ChallanDate = Convert.ToString(dataSet.Tables[1].Rows[i]["ChallanDate"]),
+                                ExpArrivalDate= Convert.ToString(dataSet.Tables[1].Rows[i]["ExpArrivalDate"]),
+                                MainChallanNo= Convert.ToString(dataSet.Tables[1].Rows[i]["MainChallanNo"]),
+                                FromStn = Convert.ToString(dataSet.Tables[1].Rows[i]["FromStn"]),
+                                ToStn = Convert.ToString(dataSet.Tables[1].Rows[i]["ToStn"]),
+                                OwnTruckYN = Convert.ToString(dataSet.Tables[1].Rows[i]["OwnTruckYN"]),
+                                TruckNo = Convert.ToString(dataSet.Tables[1].Rows[i]["TruckNo"]),
+                                TptName = Convert.ToString(dataSet.Tables[1].Rows[i]["TptName"]),
+                                TotPkgs = Convert.ToString(dataSet.Tables[1].Rows[i]["TotPkgs"]),
+                                TotChrgWt = Convert.ToString(dataSet.Tables[1].Rows[i]["TotChrgWt"]),
+                                TotalHire= Convert.ToString(dataSet.Tables[1].Rows[i]["TotalHire"]),
+                                TotalAdvance= Convert.ToString(dataSet.Tables[1].Rows[i]["TotalAdvance"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[2].Rows.Count; i++)
+                        {
+                            consignment.LhpmList.Add(new ConsignmentLhpmModel
+                            {
+                                PmtStation = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtStation"]),
+                                PmtNo = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtNo"]),
+                                PmtDate = Convert.ToString(dataSet.Tables[2].Rows[i]["PmtDate"]),
+                                ChallanStn = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanStn"]),
+                                ChallanNo = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanNo"]),
+                                ChallanDate = Convert.ToString(dataSet.Tables[2].Rows[i]["ChallanDate"]),
+                                AbType = Convert.ToString(dataSet.Tables[2].Rows[i]["ABType"]),
+                                HireAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["HireAmt"]),
+                                HamaliAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["HamaliAmt"]),
+                                DetenAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["DetenAmt"]),
+                                OtherAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OtherAmt"]),
+                                RecoveryAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["RecoveryAmt"]),
+                                TdsAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["TdsAmt"]),
+                                LhpmAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["LhpmAmt"]),
+                                OthDedAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["OthDedAmt"]),
+                                Oth2DedAmt = Convert.ToString(dataSet.Tables[2].Rows[i]["Oth2DedAmt"]),
+                                DeductRemarks = Convert.ToString(dataSet.Tables[2].Rows[i]["DeductRemarks"]),
+                                BenId = Convert.ToString(dataSet.Tables[2].Rows[i]["BenId"]),
+                            });
+                        }
+                        for (int i = 0; i < dataSet.Tables[3].Rows.Count; i++)
+                        {
+                            consignment.BillList.Add(new ConsignmentBillModel
+                            {
+                                BillingStation = Convert.ToString(dataSet.Tables[3].Rows[i]["BillingStation"]),
+                                BillNo = Convert.ToString(dataSet.Tables[3].Rows[i]["BillNo"]),
+                                BillDate = Convert.ToString(dataSet.Tables[3].Rows[i]["BillDate"]),
+                                BillType = Convert.ToString(dataSet.Tables[3].Rows[i]["BillType"]),
+                                DueDate = Convert.ToString(dataSet.Tables[3].Rows[i]["DueDate"]),
+                                CollBranch = Convert.ToString(dataSet.Tables[3].Rows[i]["CollBranch"]),
+                                PartyGstLocation = Convert.ToString(dataSet.Tables[3].Rows[i]["PartyGstLocation"]),
+                                Freight = Convert.ToString(dataSet.Tables[3].Rows[i]["Freight"]),
+                                Others = Convert.ToString(dataSet.Tables[3].Rows[i]["Others"]),
+                                SubTotal = Convert.ToString(dataSet.Tables[3].Rows[i]["SubTotal"]),
+                                SgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["SgstAmt"]),
+                                CgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["CgstAmt"]),
+                                IgstAmt = Convert.ToString(dataSet.Tables[3].Rows[i]["IgstAmt"]),
+                                Gtotal = Convert.ToString(dataSet.Tables[3].Rows[i]["Gtotal"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return consignment;
+        }
+
+
     }
 }

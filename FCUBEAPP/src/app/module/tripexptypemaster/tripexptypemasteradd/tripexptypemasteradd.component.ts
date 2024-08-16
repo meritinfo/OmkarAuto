@@ -72,45 +72,36 @@ export class TripexptypemasteraddComponent {
     this.sharedService.loading = true;   
   
     this.selectedTripExpMasterDetails = this.tripExpTypeMasterService.getTripExpTypeMasterDetails();
-    this.formTripExpMaster = this.formBuilder.group({   
-  
-      //maintenanceDesc: new FormControl('',[Validators.required]),
-      expDesc: new FormControl('',[Validators.required]),
-     // isActive: new FormControl('',[Validators.required]),
-  
+    this.formTripExpMaster = this.formBuilder.group({  
+      expDesc: new FormControl('',[Validators.required]),  
     });
   
     if (this.selectedTripExpMasterDetails.expId != '') {
       this.formTripExpMaster.patchValue(this.selectedTripExpMasterDetails);    
       this.editMode = true;
-    }
-    
-    this.sharedService.loading = false;
-  
+    }    
+    this.sharedService.loading = false;  
   }
+
   get f() { return this.formTripExpMaster.controls; }
+
   chkTripExpMasterDuplicate(){
-    var selectedData = this.formTripExpMaster.getRawValue();
-    
-  
-      this.requestmodel.strRequest = selectedData.expDesc;
-    //  this.requestmodel.strRequest1 = selectedData.gcNoteNo;
-      this.tripExpTypeMasterService.checkExpTypeMaster(this.requestmodel).subscribe((res: Responsemodel) => {
-        this.responseDetails = res;
-        if (this.responseDetails.status) {
-          //ignore
-        }
-        else{
-          this.toasterService.warning(this.responseDetails.message);
-          this.formTripExpMaster.patchValue({
-            expDesc: ''
-    
-          });
-          
-        }
-      });
-      
+    var selectedData = this.formTripExpMaster.getRawValue(); 
+    this.requestmodel.strRequest = selectedData.expDesc;
+    this.tripExpTypeMasterService.checkExpTypeMaster(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toasterService.warning(this.responseDetails.message);
+        this.formTripExpMaster.patchValue({
+          expDesc: ''    
+        });          
+      }
+    });      
   }
+
   exit(): void {
     this.route.navigate(['/tripexpmasterlist']);
   }
@@ -154,7 +145,6 @@ export class TripexptypemasteraddComponent {
     this.userSubmitted = true;
     this.tripExpTypeMasterModel.expId = this.selectedTripExpMasterDetails.expId ;
     this.tripExpTypeMasterModel.expDesc  = selectedDataVal.expDesc.toString().toUpperCase();
-
     this.tripExpTypeMasterModel.loggedInUser  = this.loggedInUserID;
   
     this.tripExpTypeMasterService.checkTripExpTypeMasterSubmitted(this.tripExpTypeMasterModel).subscribe((res: Responsemodel) => {

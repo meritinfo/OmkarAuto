@@ -3,11 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Billstatementsaverequest } from 'src/app/models/billstatementsaverequest';
 import { Billsmastermodel } from 'src/app/models/billsmastermodel';
-import { Billsmastersearchmodel } from 'src/app/models/billsmastersearchmodel';
 import { Billsmastersearchlistmodel } from 'src/app/models/billsmastersearchlistmodel';
-import { Billmastersearchlistrequestmodel } from 'src/app/models/billsmastersearchlistrequestmodel';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
 import { SharedService } from 'src/app/services/shared.service';
@@ -44,9 +41,6 @@ export class LrbillupdateComponent {
   billsmastersearchmodel = new Pagerequestwithdatesmodel();
   seriesDoc: string = "";
   billsmastersearchlistmodel = new Billsmastersearchlistmodel();
-  
-  saveData = new Billstatementsaverequest();
-  billsmastersearchrequest = new Billmastersearchlistrequestmodel();
   editMode = false;
   createmode = true;
   createStatus = false;

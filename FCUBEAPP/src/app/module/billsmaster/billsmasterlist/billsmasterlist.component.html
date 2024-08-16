@@ -6,12 +6,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">Bill Master</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Fleet</a></li>
-                                <li class="breadcrumb-item active">Bill Statement Master </li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -70,11 +64,10 @@
                                 <th>billingStation </th>                          
                                 <th>billNo </th> 
                                 <th>billDate</th>
-                                <th>billStatus</th>  
-                                <th>billType</th>    
-                                <th>sacHsn</th>                        
-                                <th>Action</th>                          
-                              
+                                <th>party</th>  
+                                <th>collectionBranch</th>    
+                                <th>totalGtotal</th>                        
+                                <th>Action</th> 
                             </tr>
                         </thead>
                         <tbody *ngIf="allBillsMaster.billsList?.length != 0">
@@ -82,11 +75,9 @@
                                 <td>{{ renewalMaster.stationName }}</td>                        
                                 <td>{{ renewalMaster.billNo}}</td>      
                                 <td>{{ renewalMaster.billDate}}</td>                        
-                                <td>{{ renewalMaster.billStatus}}</td>
-                                <td>{{ renewalMaster.billType}}</td>
-                                <td>{{ renewalMaster.sacHsn}}</td>
-                              
-                                
+                                <td>{{ renewalMaster.party}}</td>
+                                <td>{{ renewalMaster.collectionBranch}}</td>
+                                <td>{{ renewalMaster.totalGtotal}}</td>  
                                 <td>                                    
                                     <button type="button" class="btn btn-edit"
                                         (click)="getBillsMasterDetails(renewalMaster)"></button>                               

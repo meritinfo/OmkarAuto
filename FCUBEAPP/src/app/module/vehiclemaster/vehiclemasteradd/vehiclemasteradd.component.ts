@@ -32,6 +32,7 @@ export class VehiclemasteraddComponent {
   keywordLocation = 'dataName';
   vehicleList: Dropdownmodel[] = [];
   vehicleGrpList: Dropdownmodel[] = [];
+  vehicleTypeList: Dropdownmodel[] = [];
   vehicleMfrList: Dropdownmodel[] = [];
   vehicleLedgerAcList: Dropdownmodel[] = [];
   vehicleAssetAcList: Dropdownmodel[] = [];
@@ -89,6 +90,7 @@ export class VehiclemasteraddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getVehicleGrpList();
+    this.getVehicleTypes();
     this.getVehicleMfrList();
     this.getVehicleLedgerList();
     this.getVehicleAssetList();
@@ -226,6 +228,11 @@ export class VehiclemasteraddComponent {
   getVehicleGrpList(): void {
     this.commonService.getVehicleTypeGroupList().subscribe((res) => {
       this.vehicleGrpList = res;
+    });
+  }
+  getVehicleTypes(): void {
+    this.commonService.getVehicleTypes().subscribe((res) => {
+      this.vehicleTypeList = res;
     });
   }
   
@@ -450,8 +457,8 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.tfrDate            = selectedDataValue.tfrDate;
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
-    this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
-    this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
+    this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId?selectedDataValue.vehicleLedgerAc:'';
+    this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId?selectedDataValue.vehicleAssetAc:'';
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();

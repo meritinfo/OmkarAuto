@@ -17,11 +17,11 @@ namespace FreightMasters.Business
         {
             billsRepository = _billsRepository;
         }
-        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(BillsMasterSearchListRequest request)
+        public async Task<BillsMasterSearchListModel> GetBillsMasterSearchList(RequestModel request)
         {
             return await billsRepository.GetBillsMasterSearchList(request);
         }
-        public async Task<BillsListModel> GetBillsMasterList(PageRequest request)
+        public async Task<BillsListModel> GetBillsMasterList(PageFromDtToDtRequest request)
         {
             return await billsRepository.GetBillsMasterList(request);
         }

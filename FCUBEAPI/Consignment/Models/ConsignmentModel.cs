@@ -141,6 +141,9 @@ namespace Consignment.Models
         public string? YearId                   { get; set; }
         public string? LoggedInUser             { get; set; }
         public List<ConsignmentInvModel> InvList { get; set; }
+        public List<ConsignmentChlnModel> ChlnList { get; set; }
+        public List<ConsignmentLhpmModel> LhpmList { get; set; }
+        public List<ConsignmentBillModel> BillList { get; set; }
 
 
     }
