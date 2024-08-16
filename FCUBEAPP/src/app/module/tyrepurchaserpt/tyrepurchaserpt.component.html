@@ -1,0 +1,121 @@
+
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0 font-size-18">Tyre Purchases Report</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            <div class="row top-controls">
+                <div class="col-sm-8 col-md-8">
+                    <form [formGroup]="formFilter">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">From Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputState">To Date </label><span style="color: red">*</span>    
+                                    <input type="date" class="form-control" 
+                                    formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                
+                                <div class="mb-3">
+                                    <label>Vendor</label> <span style="color: red">*</span>                                       
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vendorList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)'
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter"
+                                            formControlName="vendorId" >
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                                 <div class="col-lg-2">
+                                <div class="mb-2">
+                                    <label for="basicpill-phoneno-input">Report Type</label>
+                                    <select id="formrow-inputState" 
+                                        formControlName="rptType" 
+                                        class="form-control form-select ng-pristine ng-touched">
+                                        <option value="S"> Summary</option>
+                                        <option value="D"> Detail </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-1">
+                                <div class="mt-3">
+                                    <button class="btn btn-primary" type="submit" 
+                                    (click)="search()"><span>Search</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 col-md-4 text-right">
+                    <div class="dt-buttons btn-group flex-wrap export-button">
+                        <button class="btn btn-secondary buttons-excel buttons-html5" tabindex="0"
+                            aria-controls="datatable-buttons" type="button" 
+                            (click)="exportExcel()"><span>Excel</span></button>
+                    </div>
+                </div>
+            </div>
+            <div id="datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
+                    <thead>
+                        <tr>
+                            <th>vendorName</th>
+                            <th>vendorInvDt</th>
+                            <th>vendorInvNo </th>  
+                            <th>netAmount </th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
+                        <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
+                            <td>{{ eta.vendorName }}</td>
+                            <td>{{ eta.vendorInvDt }}</td> 
+                            <td>{{ eta.vendorInvNo }}</td>
+                            <td>{{ eta.netAmount }}</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="allTyremgntRptlist.tyreList?.length == 0">
+                        <tr>
+                            <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- container-fluid -->
+    </div>
+    <!-- End Page-content -->
+</div>
+
+

@@ -188,6 +188,10 @@ import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
 import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
 import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
 import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
+import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaserpt.component';
+import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
+import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -455,7 +459,11 @@ const routes: Routes = [
   { path: 'cnenquiry', component: CnenquiryComponent }, 
   { path: 'sparespurchasemasteradd', component: SparespurchasemasteraddComponent }, 
   { path: 'sparespurchasemasteredit', component: SparespurchasemasteraddComponent }, 
-  { path: 'sparespurchaselist', component: SparespurchasemasterlistComponent }, 
+  { path: 'sparespurchaselist', component: SparespurchasemasterlistComponent },  
+  { path: 'tyrepurchrpt', component: TyrepurchaserptComponent },   
+  { path: 'tyrestockrpt', component: TyrestockrptComponent },   
+  { path: 'tyrehistory', component: TyrehistoryrptComponent }, 
+
   
   
 ];

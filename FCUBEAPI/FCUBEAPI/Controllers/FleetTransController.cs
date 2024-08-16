@@ -24,7 +24,6 @@ namespace FCUBEAPI.Controllers
         readonly IDieselStatementBusiness dieselStatementBusiness;
         readonly IBillStatementBusiness billStatementBusiness;
         readonly IVehicleInstPmtBusiness vehicleInstPmtBusiness;
-        //  readonly IDriverSalaryStatementBusiness driverSalaryStatementBusiness;
         readonly ITyrePurchaseMasterBusiness tyrePurchaseMasterBusiness;
         readonly ITyreActivateMasterBusiness tyreActivateMasterBusiness;
         readonly ITyreDeActivateMasterBusiness tyreDeActivateMasterBusiness;
@@ -42,6 +41,7 @@ namespace FCUBEAPI.Controllers
         readonly ITyreSalesMasterBusiness tyreSalesMasterBusiness;
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
         readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
+        readonly ITyreMgntRptBusiness tyreMgntRptBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -60,12 +60,13 @@ namespace FCUBEAPI.Controllers
             IDailyLoadingRptBusiness _dailyLoadingRptBusiness,
             IVehicleInstPmtBusiness _vehicleInstPmtBusiness,
             ITyreRegroupIssueMasterBusiness _tyreRegroupIssueMasterBusiness,
-              ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
-           ITyreSalesMasterBusiness _tyreSalesMasterBusiness,
-        IVehiEmiBusiness _vehiEmiBusiness,
-             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
-              IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
-               ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness)
+            ITyreRegroupRecdMasterBusiness _tyreRegroupRecdMasterBusiness,
+            ITyreSalesMasterBusiness _tyreSalesMasterBusiness,
+            IVehiEmiBusiness _vehiEmiBusiness,
+            IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
+            IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
+            ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
+            ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -92,6 +93,7 @@ namespace FCUBEAPI.Controllers
             tyreSalesMasterBusiness = _tyreSalesMasterBusiness;
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
+            tyreMgntRptBusiness = _tyreMgntRptBusiness;
         }
 
 
@@ -544,24 +546,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("TripMasterDelete")]
-        public async Task<IActionResult> TripMasterDelete(RequestModel req)
-        {
-            if (req == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.TripMasterDelete(req);
+        //[HttpPost("TripMasterDelete")]
+        //public async Task<IActionResult> TripMasterDelete(RequestModel req)
+        //{
+        //    if (req == null)
+        //    {
+        //        return BadRequest("Invalid request data");
+        //    }
+        //    try
+        //    {
+        //        var result = await tripMasterBusiness.TripMasterDelete(req);
 
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
         //[HttpPost("GetTripSheetInnerGridList")]
         //public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
@@ -2374,6 +2376,121 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetTyrePurchaseRptExcel")]
+        public async Task<IActionResult> GetTyrePurchaseRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyrePurchaseRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetTyrePurchaseRptList")]
+        public async Task<IActionResult> GetTyrePurchaseRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyrePurchaseRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTyreStockRptList")]
+        public async Task<IActionResult> GetTyreStockRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyreStockRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTyreStockRptExcel")]
+        public async Task<IActionResult> GetTyreStockRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyreStockRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpPost("GetTyreHistoryRptList")]
+        public async Task<IActionResult> GetTyreHistoryRptList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyreHistoryRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTyreHistoryRptExcel")]
+        public async Task<IActionResult> GetTyreHistoryRptExcel(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetTyreHistoryRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
 

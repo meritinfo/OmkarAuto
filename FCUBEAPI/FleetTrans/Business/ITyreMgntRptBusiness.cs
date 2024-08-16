@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FleetTrans.Repository
+namespace FleetTrans.Business
 {
-    public interface ITyreMgntRptRepository
+    public interface ITyreMgntRptBusiness
     {
         Task<TyrePurchaseMasterList> GetTyrePurchaseRptList(ReportRequestModel request);
         Task<ResponseModel> GetTyrePurchaseRptExcel(ReportRequestModel request);
@@ -17,4 +17,6 @@ namespace FleetTrans.Repository
         Task<TyreMasterList> GetTyreHistoryRptList(RequestModel request);
         Task<ResponseModel> GetTyreHistoryRptExcel(RequestModel request);
     }
+
+
 }

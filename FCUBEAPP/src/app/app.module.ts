@@ -326,11 +326,13 @@ import { BookingregisterComponent } from './module/bookingregister/bookingregist
 import { Sparespurchasemastermodel } from 'src/app/models/sparespurchasemastermodel';
 import { LrwithoutchallanrptComponent } from './module/lrwithoutchallanrpt/lrwithoutchallanrpt.component';
 import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component';
- 
-
 import { CnenquiryComponent } from './module/cnenquiry/cnenquiry.component';
 import { SparespurchasemasteraddComponent } from './module/sparespurchasemaster/sparespurchasemasteradd/sparespurchasemasteradd.component';
 import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster/sparespurchasemasterlist/sparespurchasemasterlist.component';
+import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaserpt.component';
+import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
+import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
+
 
 @NgModule({
   declarations: [
@@ -437,11 +439,12 @@ import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
-    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent
-    BookingregisterComponent, LrwithoutchallanrptComponent,
+    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
     CnenquiryComponent,
-    SparespurchasemasteraddComponent,
-    SparespurchasemasterlistComponent
+    SparespurchasemasteraddComponent,SparespurchasemasterlistComponent,
+    TyrepurchaserptComponent,
+    TyrestockrptComponent,
+    TyrehistoryrptComponent
   ],
   imports: [
     BrowserModule,
