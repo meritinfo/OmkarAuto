@@ -37,6 +37,13 @@ namespace FleetTrans.Business
             
 
         }
+        public async Task<List<DropDownListModel>> GetSparesList()
+        {
+
+            return await sparesPurchaseRepository.GetSparesList();
+
+
+        }
 
 
 

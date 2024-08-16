@@ -2,6 +2,6 @@ import { Paginationmodel } from "./paginationmodel";
 import { Sparespurchasemastermodel } from "./sparespurchasemastermodel";
 
 export class Sparespurchasemasterlistmodel {
-  sparesList: Sparespurchasemastermodel[] = [];
+  purchaseList: Sparespurchasemastermodel[] = [];
   pageMetaData: Paginationmodel = new Paginationmodel;
 }

@@ -78,7 +78,7 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
+                                //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
                             });
                         }
 
@@ -97,6 +97,44 @@ namespace FleetTrans.Repository
 
             }
             return sparesPurchaseMasterList;
+        }
+        public async Task<List<DropDownListModel>> GetSparesList()
+        {
+            List<DropDownListModel> SparesList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getSparesList", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            SparesList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return SparesList;
         }
         public async Task<SparesPurchaseMasterModel> GetSparesPurchaseMasterInnerGridList(RequestModel request)
         {
@@ -121,7 +159,7 @@ namespace FleetTrans.Repository
                         {
                             sparesPurchaseMasterInnerGridList.SparesPurchaseDtlList.Add(new SparesPurchaseDtlListmodel
                             {
-                                SpTransDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SpTransDtlId"]),
+                              //  SpTransDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["SpTransDtlId"]),
                                 SpTransId = Convert.ToString(resultData.Tables[0].Rows[i]["SpTransId"]),
                                 TransDate = Convert.ToString(resultData.Tables[0].Rows[i]["TransDate"]),
                                 SpareLubId = Convert.ToString(resultData.Tables[0].Rows[i]["SpareLubId"]),

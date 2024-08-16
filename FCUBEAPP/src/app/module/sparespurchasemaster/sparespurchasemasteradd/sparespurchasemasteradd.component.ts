@@ -34,6 +34,7 @@ export class SparespurchasemasteraddComponent {
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
+  sparesList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
   modelList: Dropdownmodel[] = [];
@@ -128,7 +129,7 @@ export class SparespurchasemasteraddComponent {
       otherAmount : new FormControl('',),
       roundOff : new FormControl('',[Validators.required]),
       netAmount : new FormControl('',),
-      remarks : new FormControl('M',[Validators.required]),
+      remarks : new FormControl('',[Validators.required]),
       pmtType : new FormControl('',[Validators.required]),
       creditAc : new FormControl('',),
      
@@ -147,9 +148,12 @@ export class SparespurchasemasteraddComponent {
    
 
 
-//this.getBrandList();
-//this.getVendorList();
-//this.getBranchList();
+this.getBrandList();
+this.getVendorList();
+this.getBranchList();
+this.getStateList();
+this.getSparesList();
+this.getCreditAcList('M');
 
 
 // this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
@@ -175,9 +179,9 @@ if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
     this.formUser.patchValue(this.selectedSparesPurchaseMasterDetail);
     this.formUser.patchValue({
       transDate: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.transDate),
-     // chequeDate: this.commonService.formatDate(this.selectedTyrePurchaseMasterDetail.chequeDate),
-      //vendorInvDt: this.commonService.formatDate(this.selectedTyrePurchaseMasterDetail.vendorInvDt),
-     // vendorId: this.vendorList.find(e => e.dataId == this.selectedTyrePurchaseMasterDetail.vendorId),
+      chequeDate: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.chequeDate),
+      vendorInvDt: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.vendorInvDt),
+     vendorId: this.vendorList.find(e => e.dataId == this.selectedSparesPurchaseMasterDetail.vendorId),
     })        
         
    
@@ -210,6 +214,72 @@ onFocused(e: any) {
 startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
   return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
+
+getStateList(): void {
+  this.commonService.getStateList().subscribe((res) => {
+    this.stateList = res;
+  });
+}
+getBrandList(): void {
+  this.commonService.getBrandList().subscribe((res) => {
+    this.brandList = res;
+  });
+}
+getSparesList(): void {
+  this.commonService.getSparesList().subscribe((res) => {
+    this.sparesList = res;
+  });
+}
+getBranchList(): void {
+  this.commonService.getBranchList().subscribe((res) => {
+    this.branchList = res;
+  });
+}
+onNoVendor(e: any) {
+  if (e.target.checked){     
+    this.formUser.controls['vendorId'].disable(); 
+    this.formUser.controls['vendorName'].enable(); 
+    this.formUser.patchValue({
+      vendorId: "",
+      nonVendor: "Y",
+      vendorName:"",
+    })
+  }
+  else {          
+    this.formUser.controls['vendorId'].enable(); 
+    this.formUser.controls['vendorName'].disable(); 
+    this.formUser.patchValue({
+      vendorId: "",
+      nonVendor: "",
+      vendorName:"",
+    })
+  }
+}
+getVendorList(): void {
+  this.commonService.getVendorList().subscribe((res) => {
+    this.vendorList = res;
+  });
+}  
+getCreditAcList(pmttp:string): void {
+  this.requestmodel.strRequest= pmttp;
+  this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.creditAcList = res;
+    this.formUser.patchValue({
+      creditAc: this.creditAcList[0].dataId ,
+    });
+  });
+  if (pmttp == 'B'){
+   // this.formUser.controls['neftPmt'].enable();
+   // this.formUser.controls['chequeNo'].enable();
+    this.formUser.controls['chequeDate'].enable();
+  }
+  else {
+    //this.formUser.controls['neftPmt'].disable();
+   // this.formUser.controls['chequeNo'].disable();
+    this.formUser.controls['chequeDate'].disable();
+  }
+}
+
 
 createSparesArray() {
   return this.formBuilder.group({
@@ -375,32 +445,33 @@ submitSparesPurchaseMasterForm(): void {
 
   var selectedDataValue = this.formUser.getRawValue();
 
-  if(selectedDataValue.noVendor){
-    if (selectedDataValue.vendorName=="") {
-      this.toastrService.warning(" Please enter Vendor Name");   
-      return;
-    }
-  }
-  else{
-    if (selectedDataValue.vendorId.dataId) {
-      //ignore
-    }
-    else{
-      this.toastrService.warning(" Invalid Vendor");
-      return;
-    }
-  }
-  this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
+  // if(selectedDataValue.noVendor){
+  //   if (selectedDataValue.vendorName=="") {
+  //     this.toastrService.warning(" Please enter Vendor Name");   
+  //     return;
+  //   }
+  // }
+  // else{
+  //   if (selectedDataValue.vendorId.dataId) {
+  //     //ignore
+  //   }
+  //   else{
+  //     this.toastrService.warning(" Invalid Vendor");
+  //     return;
+  //   }
+  // }
+ this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
 
  /// this.tyrepurchasemastermodel.vendorId = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
  // this.tyrepurchasemastermodel.vendorName = selectedDataValue.vendorName.toString().toUpperCase();
  // this.tyrepurchasemastermodel.vendorAddress = selectedDataValue.vendorAddress?selectedDataValue.vendorAddress.toString().toUpperCase():"";
  // this.tyrepurchasemastermodel.vendorGstNo = selectedDataValue.vendorGstNo.toString().toUpperCase();
  // this.tyrepurchasemastermodel.vendorInvNo = selectedDataValue.vendorInvNo.toString().toUpperCase();
- this.sparespurchasemastermodel.spTransId= selectedDataValue.spTransId;
+// this.sparespurchasemastermodel.spTransId= selectedDataValue.spTransId;
  this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
   this.sparespurchasemastermodel.nonVendor= selectedDataValue.nonVendor;
- this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId;
+// this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId;
 this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
 this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
  this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName;
@@ -408,26 +479,26 @@ this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
 this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo;
 this.sparespurchasemastermodel.gstType= selectedDataValue.gstType;
- this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount;
-this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt;
-this.sparespurchasemastermodel.totCgstAmt= selectedDataValue.totCgstAmt;
- this.sparespurchasemastermodel.totIgstAmt= selectedDataValue.totIgstAmt;
+ this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount.toString();;
+this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();;
+this.sparespurchasemastermodel.totCgstAmt= selectedDataValue.totCgstAmt.toString();;
+ this.sparespurchasemastermodel.totIgstAmt= selectedDataValue.totIgstAmt.toString();;
  this.sparespurchasemastermodel.totItemNetAmount= selectedDataValue.totItemNetAmount;
-  this.sparespurchasemastermodel.otherAmount= selectedDataValue.otherAmount;
-this.sparespurchasemastermodel.roundOff= selectedDataValue.roundOff;
-this.sparespurchasemastermodel.netAmount= selectedDataValue.netAmount;
+  this.sparespurchasemastermodel.otherAmount= selectedDataValue.otherAmount.toString();;
+this.sparespurchasemastermodel.roundOff= selectedDataValue.roundOff.toString();
+this.sparespurchasemastermodel.netAmount= selectedDataValue.netAmount.toString();;
  this.sparespurchasemastermodel.remarks= selectedDataValue.remarks;
  this.sparespurchasemastermodel.pmtType= selectedDataValue.pmtType;
 this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
  this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
- this.sparespurchasemastermodel.linkFtmId= selectedDataValue.linkFtmId;
-this.sparespurchasemastermodel.linkJVFtmId= selectedDataValue.linkJVFtmId;
- this.sparespurchasemastermodel.auditedYN= selectedDataValue.auditedYN;
-  this.sparespurchasemastermodel.auditDate= selectedDataValue.auditDate;
- this.sparespurchasemastermodel.auditedBy= selectedDataValue.auditedBy;
+ this.sparespurchasemastermodel.linkFtmId= selectedDataValue.linkFtmId?selectedDataValue.linkFtmId:'';
+this.sparespurchasemastermodel.linkJVFtmId= selectedDataValue.linkJVFtmId?selectedDataValue.linkJVFtmId:'';
+ this.sparespurchasemastermodel.auditedYN= selectedDataValue.auditedYN?selectedDataValue.auditedYN:'';
+  this.sparespurchasemastermodel.auditDate= selectedDataValue.auditDate?selectedDataValue.auditDate:'';
+ this.sparespurchasemastermodel.auditedBy= selectedDataValue.auditedBy?selectedDataValue.auditedBy:'';
  this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
  this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
- this.sparespurchasemastermodel.yearID= selectedDataValue.yearID;
+ this.sparespurchasemastermodel.yearID= this.year;
 this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
   if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
     this.toastrService.warning("Total Net Amount should not be zero");
@@ -448,15 +519,24 @@ this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
         'brandId': selectedDataValue.arrayList[i].brandId,
         'itemQty': selectedDataValue.arrayList[i].itemQty,
         'itemRate': selectedDataValue.arrayList[i].itemRate,
-        'itemAmount': selectedDataValue.arrayList[i].itemAmount.toString(),
-        'sgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
-        'sgstAmt': selectedDataValue.arrayList[i].sgstAmt.toString(),
-        'cgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
-        'cgstAmt': selectedDataValue.arrayList[i].cgstAmt.toString(),
-        'igstPct': selectedDataValue.arrayList[i].igstPct.toString(),
-        'igstAmt': selectedDataValue.arrayList[i].igstAmt.toString(),
-        'netAmount': selectedDataValue.arrayList[i].netAmount.toString(),
-        'remarks': selectedDataValue.arrayList[i].remarks.toString(),
+        // 'itemAmount': selectedDataValue.arrayList[i].itemAmount.toString(),
+        // 'sgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
+        // 'sgstAmt': selectedDataValue.arrayList[i].sgstAmt.toString(),
+        // 'cgstPct': selectedDataValue.arrayList[i].sgstPct.toString(),
+        // 'cgstAmt': selectedDataValue.arrayList[i].cgstAmt.toString(),
+        // 'igstPct': selectedDataValue.arrayList[i].igstPct.toString(),
+        // 'igstAmt': selectedDataValue.arrayList[i].igstAmt.toString(),
+        // 'netAmount': selectedDataValue.arrayList[i].netAmount.toString(),
+        // 'remarks': selectedDataValue.arrayList[i].remarks.toString(),
+        'itemAmount': selectedDataValue.arrayList[i].itemAmount,
+        'sgstPct': selectedDataValue.arrayList[i].sgstPct,
+        'sgstAmt': selectedDataValue.arrayList[i].sgstAmt,
+        'cgstPct': selectedDataValue.arrayList[i].sgstPct,
+        'cgstAmt': selectedDataValue.arrayList[i].cgstAmt,
+        'igstPct': selectedDataValue.arrayList[i].igstPct,
+        'igstAmt': selectedDataValue.arrayList[i].igstAmt,
+        'netAmount': selectedDataValue.arrayList[i].netAmount,
+        'remarks': selectedDataValue.arrayList[i].remarks,
       
       }) 
     }   
@@ -476,7 +556,7 @@ this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
     if (this.responseDetails.status) {
       this.toastrService.success(this.responseDetails.message);
       this.formUser.reset();
-      this.route.navigate(['/tyrepurchaselist']);
+      this.route.navigate(['/sparespurchaselist']);
     }
     else {
       this.toastrService.warning(this.responseDetails.message);

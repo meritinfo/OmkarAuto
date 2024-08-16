@@ -47,7 +47,7 @@ export class SparesPurchaseMasterService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
   }
   getSparesPurchaseMasterInnerGridList(request: Requestmodel): Observable<Sparespurchasemastermodel> {
-    return this.httpClient.post<Sparespurchasemastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSalesPurchaseMasterInnerGridList', request, this.httpOptions);
+    return this.httpClient.post<Sparespurchasemastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseMasterInnerGridList', request, this.httpOptions);
   }
   sparesPurchaseMasterSubmitted(user: FormData): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SparesPurchaseMasterSave', user, this.httpformOptions);
