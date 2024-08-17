@@ -445,8 +445,6 @@ import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyrereg
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
     BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
-    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
-    BookingregisterComponent, LrwithoutchallanrptComponent,
     CnenquiryComponent,
     SparespurchasemasteraddComponent,SparespurchasemasterlistComponent,
     TyrepurchaserptComponent, TyrestockrptComponent,

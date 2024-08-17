@@ -610,7 +610,7 @@ export class TyrepurchasemasteraddComponent {
     this.tyrepurchasemastermodel.purchaseType = selectedDataValue.purchaseType;
     this.tyrepurchasemastermodel.noVendor = selectedDataValue.noVendor?"Y":"N";
     this.tyrepurchasemastermodel.vendorId = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
-    this.tyrepurchasemastermodel.vendorName = selectedDataValue.vendorName.toString().toUpperCase();
+    this.tyrepurchasemastermodel.vendorName = selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
     this.tyrepurchasemastermodel.vendorAddress = selectedDataValue.vendorAddress?selectedDataValue.vendorAddress.toString().toUpperCase():"";
     this.tyrepurchasemastermodel.vendorGstNo = selectedDataValue.vendorGstNo.toString().toUpperCase();
     this.tyrepurchasemastermodel.vendorInvNo = selectedDataValue.vendorInvNo.toString().toUpperCase();
