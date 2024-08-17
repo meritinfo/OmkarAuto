@@ -16,6 +16,8 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetTyreStockRptExcel(ReportRequestModel request);
         Task<TyreMasterList> GetTyreHistoryRptList(RequestModel request);
         Task<ResponseModel> GetTyreHistoryRptExcel(RequestModel request);
+        Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request);
+        Task<ResponseModel> GetActiveTyreRptExcel(ReportRequestModel request);
     }
 
 

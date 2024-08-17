@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">Tyre Stock Report</h4>
+                        <h4 class="mb-sm-0 font-size-18">Active Tyres List</h4>
                     </div>
                 </div>
             </div>
@@ -15,28 +15,31 @@
                     <form [formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label for="formrow-inputState">Brand </label><span style="color: red">*</span>    
-                                    <select class="form-control" formControlName="brandId"   
-                                        class="form-control form-select ng-pristine ng-touched" >
-                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
-                                                {{vehi.dataName}}
-                                            </option>
-                                    </select>
+                                <div class="mb-3">                                    
+                                    <label for="formrow-inputCity">Vehicle No</label>  
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="vehicleList"
+                                            [searchKeyword]="keywordLocation" placeholder=""
+                                            formControlName="vehicleMasterID" [initialValue]=""
+                                            (selected)='selectEvent($event)'
+                                            (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' 
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate"
+                                            [customFilter]="startWithFilter">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.dataName"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="mb-2">
-                                    <label for="basicpill-phoneno-input">Report Type</label>
-                                    <select id="formrow-inputState" 
-                                        formControlName="rptType" 
-                                        class="form-control form-select ng-pristine ng-touched">
-                                        <option value="N"> New + DeActive</option>
-                                        <option value="R"> Regroup </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" 
                                     (click)="search()"><span>Search</span></button>
@@ -57,13 +60,17 @@
                 <table datatable [dtOptions]="dtOptions" class="table table-bordered dt-responsive w-100">
                     <thead>
                         <tr>
+                            <th>TyreModel</th>
                             <th>tyreNo</th>
+                            <th>purchaseDate</th>
                             <th>brandID</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="allTyremgntRptlist.tyreList?.length != 0">
                         <tr *ngFor="let eta of allTyremgntRptlist.tyreList">
-                            <td>{{ eta.tyreNo }}</td>
+                            <td>{{ eta.tyreModel }}</td>
+                            <td>{{ eta.tyreNo }}</td> 
+                            <td>{{ eta.purchaseDate }}</td> 
                             <td>{{ eta.brandID }}</td> 
                         </tr>
                     </tbody>

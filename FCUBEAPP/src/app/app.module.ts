@@ -332,6 +332,7 @@ import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster
 import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaserpt.component';
 import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
 import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
+import { TyreactiverptComponent } from './module/tyreactiverpt/tyreactiverpt.component';
 
 
 @NgModule({
@@ -444,7 +445,8 @@ import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.
     SparespurchasemasteraddComponent,SparespurchasemasterlistComponent,
     TyrepurchaserptComponent,
     TyrestockrptComponent,
-    TyrehistoryrptComponent
+    TyrehistoryrptComponent,
+    TyreactiverptComponent
   ],
   imports: [
     BrowserModule,

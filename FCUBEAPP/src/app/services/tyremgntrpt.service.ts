@@ -39,5 +39,11 @@ export class TyremgntrptService {
   }  
   getTyreHistoryRptExcel(filter: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreHistoryRptExcel', filter, this.httpOptions);
+  }        
+  getActiveTyreRptList(filter: Reportmodel): Observable<Tyremasterlistmodel> {
+    return this.httpClient.post<Tyremasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetActiveTyreRptList', filter, this.httpOptions);
+  }  
+  getActiveTyreRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetActiveTyreRptExcel', filter, this.httpOptions);
   }    
 }

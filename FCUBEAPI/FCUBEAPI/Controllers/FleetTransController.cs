@@ -2526,6 +2526,43 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+        [HttpPost("GetActiveTyreRptList")]
+        public async Task<IActionResult> GetActiveTyreRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetActiveTyreRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetActiveTyreRptExcel")]
+        public async Task<IActionResult> GetActiveTyreRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreMgntRptBusiness.GetActiveTyreRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
     }
 }

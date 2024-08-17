@@ -191,6 +191,7 @@ import { UnbilledrptComponent } from './module/unbilledrpt/unbilledrpt.component
 import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaserpt.component';
 import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
 import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
+import { TyreactiverptComponent } from './module/tyreactiverpt/tyreactiverpt.component';
 
 
 const routes: Routes = [
@@ -463,6 +464,7 @@ const routes: Routes = [
   { path: 'tyrepurchrpt', component: TyrepurchaserptComponent },   
   { path: 'tyrestockrpt', component: TyrestockrptComponent },   
   { path: 'tyrehistory', component: TyrehistoryrptComponent }, 
+  { path: 'tyreactivelist', component: TyreactiverptComponent }, 
 
   
   

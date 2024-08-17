@@ -40,5 +40,13 @@ namespace FleetTrans.Business
         {
             return await tyreMgntRptRepository.GetTyreHistoryRptExcel(request);
         }
+        public async Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request)
+        {
+            return await tyreMgntRptRepository.GetActiveTyreRptList(request);
+        }
+        public async Task<ResponseModel> GetActiveTyreRptExcel(ReportRequestModel request)
+        {
+            return await tyreMgntRptRepository.GetActiveTyreRptExcel(request);
+        }
     }
 }

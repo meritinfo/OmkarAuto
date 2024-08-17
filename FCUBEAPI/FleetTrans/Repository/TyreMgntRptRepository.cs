@@ -564,7 +564,180 @@ namespace FleetTrans.Repository
             }
             return response;
         }
+        public async Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request)
+        {
+            TyreMasterList tyrePurchaseMasterList = new();
+            List<TyrePurchaseDtlListmodel> tyrePurchaseslist = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber",         request.PageNumber),
+                            new SqlParameter("@PageSize",           request.PageSize),
+                            new SqlParameter("@SortColumn",         request.SortColumn),
+                            new SqlParameter("@SortOrder",          request.SortOrder),
+                            new SqlParameter("@Search",             request.Search),
+                            new SqlParameter("@VehicleNo",          request.FilterStr),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreActiveRpt", param);
+                    int totalRecords = 0;
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tyrePurchaseslist.Add(new TyrePurchaseDtlListmodel
+                            {
+                                TyreModel = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentVehicleNo"]),
+                                TyreNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TyreNo"]),
+                                PurchaseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CurrentStatusDate"]),
+                                BrandID = Convert.ToString(dataSet.Tables[0].Rows[i]["BrandName"]),
+                            });
+                        }
 
+                        tyrePurchaseMasterList.TyreList = tyrePurchaseslist;
+
+                        tyrePurchaseMasterList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tyrePurchaseMasterList;
+        }
+        public async Task<ResponseModel> GetActiveTyreRptExcel(ReportRequestModel request)
+        {
+            ResponseModel response = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber",         request.PageNumber),
+                            new SqlParameter("@PageSize",           request.PageSize),
+                            new SqlParameter("@SortColumn",         request.SortColumn),
+                            new SqlParameter("@SortOrder",          request.SortOrder),
+                            new SqlParameter("@Search",             request.Search),
+                            new SqlParameter("@VehicleNo",          request.FilterStr),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreActiveRpt", param);
+
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        DataTable dt = dataSet.Tables[0];
+
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            response = await sharedRepository.GetCompanyDetail();
+
+                            int colcnt = 3;
+
+                            var ws = wb.Worksheets.Add("worksheet");
+                            ws.Range(1, 1, 1, colcnt).Merge();
+                            ws.Range(1, 1, 1, colcnt).Value = response.Message;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.Bold = true;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontSize = 18;
+                            ws.Range(1, 1, 1, colcnt).Style.Font.FontColor = XLColor.Maroon;
+                            ws.Range(1, 1, 1, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(2, 1, 2, colcnt).Merge();
+                            ws.Range(2, 1, 2, colcnt).Value = "Print Date : " + DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt");
+                            ws.Range(2, 1, 2, colcnt).Style.Font.Bold = true;
+                            ws.Range(2, 1, 2, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Right;
+                            ws.Range(2, 1, 2, colcnt).Style.Font.FontSize = 11;
+
+                            ws.Range(3, 1, 3, colcnt).Merge();
+                            ws.Range(3, 1, 3, colcnt).Value = "Active Tyre Report";
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Bold = true;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontSize = 14;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.FontColor = XLColor.Blue;
+                            ws.Range(3, 1, 3, colcnt).Style.Font.Underline = XLFontUnderlineValues.Single;
+                            ws.Range(3, 1, 3, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Range(4, 1, 4, colcnt).Merge();
+                            ws.Range(4, 1, 4, colcnt).Value = "";
+                            ws.Range(4, 1, 4, colcnt).Style.Font.Bold = true;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(4, 1, 4, colcnt).Style.Font.FontColor = XLColor.Green;
+                            ws.Range(4, 1, 4, colcnt).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                            ws.Cell(5, 1).Value = "Tyre No";
+                            ws.Cell(5, 2).Value = "Activate Date";
+                            ws.Cell(5, 3).Value = "Brand";
+
+                            ws.Range(5, 1, 5, colcnt).Style.Font.Bold = true;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontSize = 12;
+                            ws.Range(5, 1, 5, colcnt).Style.Font.FontColor = XLColor.DarkBlue;
+
+                            int j = 0;
+                            int row = 6;
+                            var VehicleNo = "";
+
+                            for (j = 0; j < dt.Rows.Count; j++)
+                            {
+                                if (VehicleNo != dt.Rows[j]["CurrentVehicleNo"].ToString())
+                                {
+                                    ws.Range(row, 1, row, colcnt).Merge();
+                                    ws.Range(row, 1, row, colcnt).Value = dt.Rows[j]["CurrentVehicleNo"].ToString();
+                                    ws.Range(row, 1, row, colcnt).Style.Font.FontColor = XLColor.Red;
+                                    row++;
+
+                                    VehicleNo = dt.Rows[j]["CurrentVehicleNo"].ToString();
+                                }
+                                ws.Cell(row, 1).Value = dt.Rows[j]["TyreNo"].ToString();
+                                ws.Cell(row, 2).Value = dt.Rows[j]["CurrentStatusDate"].ToString();
+                                ws.Cell(row, 3).Value = dt.Rows[j]["BrandName"].ToString();
+
+                                row++;
+                            }
+                            for (int k = 1; k <= colcnt; k++)
+                            {
+                                ws.Column(k).AdjustToContents();
+                            }
+
+                            ws.Range(5, 1, row - 1, colcnt).Style.Border.InsideBorder = XLBorderStyleValues.Thin;
+                            ws.Range(5, 1, row - 1, colcnt).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+
+                            var foldername = System.IO.Path.Combine("Reports", "Download");
+                            var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, foldername);
+                            var filename = "ExcelReport_" + System.DateTime.Now.ToString("ddMMyyyyHHmmssfff") + ".xlsx";
+
+                            var fullPath = System.IO.Path.Combine(pathToSave, filename);
+                            bool exists = System.IO.Directory.Exists(pathToSave);
+
+                            if (!exists)
+                            {
+                                Directory.CreateDirectory(pathToSave);
+                            }
+
+                            if (File.Exists(fullPath))
+                                File.Delete(fullPath);
+
+                            wb.SaveAs(fullPath);
+
+                            response.Status = true;
+                            response.Message = filename;
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
 
     }
 }
