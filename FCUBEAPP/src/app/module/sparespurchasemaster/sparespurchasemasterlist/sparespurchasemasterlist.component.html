@@ -75,22 +75,13 @@
                             <th>address1</th>
                             <th>address2</th>
                             <th>address3</th> 
-                            <th>tptName</th>
-                            <th>address1</th>
-                            <th>address2</th>
-                            <th>address3</th> 
-                            <th>tptName</th>
-                            <th>address1</th>
-                            <th>address2</th>
-                            <th>address3</th> 
-                            <th>address2</th>
-                            <th>address3</th> 
+                         
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="allSparesMaster.sparesList?.length != 0">
-                        <tr *ngFor="let tm of allSparesMaster.sparesList">
-                            <td>{{ tm.spTransId}}</td>
+                    <tbody *ngIf="allSparesMaster.purchaseList?.length != 0">
+                        <tr *ngFor="let tm of allSparesMaster.purchaseList">
+                         
                             <td>{{ tm.transDate}}</td>
                             <td>{{ tm.nonVendor}}</td>
                             <td>{{ tm.vendorId}}</td> 
@@ -113,11 +104,7 @@
                             <td>{{ tm.pmtType}}</td> 
                             <td>{{ tm.creditAc}}</td> 
                             <td>{{ tm.chequeDate}}</td> 
-                            <td>{{ tm.linkFtmId}}</td> 
-                            <td>{{ tm.linkJVFtmId}}</td> 
-                            <td>{{ tm.auditedYN}}</td> 
-                            <td>{{ tm.auditDate}}</td> 
-                            <td>{{ tm.auditedBy}}</td> 
+                          
                             <td>{{ tm.refDocAttachedImage}}</td> 
                             <td>{{ tm.branchCode}}</td> 
                             
@@ -127,7 +114,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tbody *ngIf="allSparesMaster.sparesList?.length == 0">
+                    <tbody *ngIf="allSparesMaster.purchaseList?.length == 0">
                         <tr>
                             <td colspan="3" class="no-data-available">No data!</td>
                         </tr>

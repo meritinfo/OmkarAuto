@@ -69,36 +69,40 @@
                                     </div>   -->
                                     <div class="col-sm-3">                                    
                                         <div class="mb-3">      
-                                            <input type="checkbox" formControlName="noVendor" 
-                                            class="form-check-input" >
-                                            <label for="noVendor" class="form-check-label" > NoVendor
+                                            <input type="checkbox" formControlName="nonVendor" 
+                                            class="form-check-input"   (change)="onNoVendor($event)">
+                                            <label for="nonVendor" class="form-check-label" > NoVendor
                                             </label>  
                                         </div>                                    
                                     </div>  
                                 </div> 
                                 <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Non Vendor : </label>
-                                            <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="100" formControlName="nonVendor">
-                                        </div>
-                                    </div> 
-                                    <div class="col-sm-6">
+                                   
+                                    <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>VendorId </label>
-                                            <input uppercaseonly type="text" class="form-control" 
-                                            maxlength="250" formControlName="VendorId">
-                                        </div>
-                                    </div>  
-                                </div> 
-                                <div class="row">                                
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Vendor Inv Dt </label><span style="color: red">*</span> 
-                                            <input type="date"  autofocus="autofocus" class="form-control"
-                                                formControlName="vendorInvDt" max="{{maxDate}}"        
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
+                                          
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vendorList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    (selected)='selectEvent($event)'
+                                                    (inputChanged)='onChangeSearch($event)'
+                                                    (inputFocused)='onFocused($event)'
+                                                    [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter"
+                                                    formControlName="vendorId" 
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
@@ -108,7 +112,7 @@
                                             formControlName="vendorInvNo" maxlength="20" 
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
                                         </div>
-                                    </div>  
+                                    </div> 
                                     <div class="col-sm-2">
                                         <div class="mb-3">
                                             <label>Vendor Inv Dt: </label><span style="color: red">*</span> 
@@ -116,7 +120,12 @@
                                             formControlName="vendorInvDt"
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
-                                    </div>  
+                                    </div>   
+                                </div> 
+                                <div class="row">                                
+                                  
+                                   
+                                   
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor Name: </label><span style="color: red">*</span> 
@@ -125,7 +134,7 @@
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorName'].invalid) }">
                                         </div>
                                     </div>  
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>Vendor Address: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
@@ -136,9 +145,12 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>VendorState: </label><span style="color: red">*</span> 
-                                            <input uppercaseonly type="text" class="form-control" 
-                                            formControlName="vendorState" maxlength="15" 
+                                            <select class="form-control" formControlName="vendorState"      
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
+                                                <option *ngFor="let state of stateList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
@@ -242,8 +254,14 @@
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
                                                     <td class="col-lg-2"> 
-                                                        <input uppercaseonly autoclose="false" class="form-control"
-                                                        formControlName="spareLubId">                                                     
+                                                       
+                                                        <select class="form-control" formControlName="spareLubId"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            [ngClass]="">
+                                                            <option *ngFor="let vehi of sparesList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                         </select>                                                     
                                                     
                                                     </td>
                                                     <td class="col-lg-2"> 
@@ -378,13 +396,7 @@
                                 formControlName="netAmount" >
                             </div>
                         </div> 
-                        <div class="col-sm-2">
-                            <div class="mb-3">
-                                <label>remarks: </label>
-                                <input type="text" class="form-control" decimalonly
-                                formControlName="remarks" >
-                            </div>
-                        </div> 
+                      
                     </div>  
                     <div class="row">                                                                        
                         <div class="col-lg-2">

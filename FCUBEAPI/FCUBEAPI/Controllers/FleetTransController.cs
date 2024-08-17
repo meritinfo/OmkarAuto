@@ -1548,6 +1548,20 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetSparesList")]
+        public async Task<IActionResult> GetSparesList()
+        {
+            try
+            {
+                var result = await sparesPurchaseMasterBusiness.GetSparesList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("GetModelList")]
         public async Task<IActionResult> GetModelList()
         {
@@ -2359,14 +2373,36 @@ namespace FCUBEAPI.Controllers
             }
         }
         [HttpPost("SparesPurchaseMasterSave")]
-        public async Task<IActionResult> SparesPurchaseMasterSave(SparesPurchaseMasterModel sparesPurchaseMasterModel)
+        public async Task<IActionResult> SparesPurchaseMasterSave()
         {
-            if (sparesPurchaseMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
+           
             try
             {
+
+                var refDocAttachedImage = HttpContext.Request.Form.Files["refDocAttachedImage"];
+
+                SparesPurchaseMasterModel sparesPurchaseMasterModel = JsonConvert.DeserializeObject<SparesPurchaseMasterModel>(HttpContext.Request.Form["datadetails"]);
+                sparesPurchaseMasterModel.RefDocAttachedImage = "";
+
+                if (refDocAttachedImage != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(refDocAttachedImage.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(refDocAttachedImage.FileName);
+
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, "upload/sparesPurchase/refDocAttachedImage/");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await refDocAttachedImage.CopyToAsync(fileStream);
+                        sparesPurchaseMasterModel.RefDocAttachedImage = imageName;
+                    }
+                }
                 var result = await sparesPurchaseMasterBusiness.SparesPurchaseMasterSave(sparesPurchaseMasterModel);
 
                 return Ok(result);

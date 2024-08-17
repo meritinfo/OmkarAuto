@@ -135,27 +135,27 @@ sparesPurchaseList() {
         data: 'vendorId',
       },
       {
-        title: 'vendorInvDt',
+        title: 'VendorInvDt',
         data: 'vendorInvDt',
       }, 
       {
-        title: 'vendorInvNo',
+        title: 'VendorInvNo',
         data: 'vendorInvNo',
       }, 
       {
-        title: 'vendorName',
+        title: 'VendorName',
         data: 'vendorName',
       }, 
       {
-        title: 'vendorAddress',
+        title: 'VendorAddress',
         data: 'vendorAddress',
       }, 
       {
-        title: 'vendorState',
+        title: 'VendorState',
         data: 'vendorState',
       }, 
       {
-        title: 'vendorGstNo',
+        title: 'VendorGstNo',
         data: 'vendorGstNo',
       }, 
       {
@@ -163,11 +163,11 @@ sparesPurchaseList() {
         data: 'gstType',
       }, 
       {
-        title: 'totItemAmount',
+        title: 'TotItemAmount',
         data: 'totItemAmount',
       }, 
       {
-        title: 'totSgstAmt',
+        title: 'TotSgstAmt',
         data: 'totSgstAmt',
       }, 
       {
@@ -175,23 +175,23 @@ sparesPurchaseList() {
         data: 'totCgstAmt',
       }, 
       {
-        title: 'totIgstAmt',
+        title: 'TotIgstAmt',
         data: 'totIgstAmt',
       }, 
       {
-        title: 'totItemNetAmount',
+        title: 'TotItemNetAmount',
         data: 'totItemNetAmount',
       }, 
       {
-        title: 'otherAmount',
+        title: 'OtherAmount',
         data: 'otherAmount',
       }, 
       {
-        title: 'roundOff',
+        title: 'RoundOff',
         data: 'roundOff',
       }, 
       {
-        title: 'netAmount',
+        title: 'NetAmount',
         data: 'netAmount',
       }, 
       {
@@ -199,53 +199,31 @@ sparesPurchaseList() {
         data: 'remarks',
       }, 
       {
-        title: 'pmtType',
+        title: 'PmtType',
         data: 'pmtType',
       }, 
       {
-        title: 'creditAc',
+        title: 'CreditAc',
         data: 'creditAc',
       }, 
       {
-        title: 'chequeDate',
+        title: 'ChequeDate',
         data: 'chequeDate',
       }, 
-      {
-        title: 'linkFtmId',
-        data: 'linkFtmId',
-      }, 
      
-      {
-        title: 'linkJVFtmId',
-        data: 'linkJVFtmId',
-      }, 
-      {
-        title: 'auditedYN',
-        data: 'auditedYN',
-      }, 
-      {
-        title: 'auditDate',
-        data: 'auditDate',
-      }, 
-      {
-        title: 'auditedBy',
-        data: 'auditedBy',
-      }, 
+     
       {
         title: 'refDocAttachedImage',
         data: 'refDocAttachedImage',
       }, 
       {
-        title: 'branchCode',
+        title: 'BranchCode',
         data: 'branchCode',
       }, 
-      {
-        title: 'branchCode',
-        data: 'branchCode',
-      }, 
+     
       {
         title: 'Action',
-        data: 'purchaseMasterID ',
+        data: 'spTransId',
       },
     ],
   };
@@ -258,7 +236,7 @@ addSparesPurchaseMaster(): void {
 //Open user details screen
 getSparesPurchaseMasterDetails(tyre: Sparespurchasemastermodel): void {
   this.sparesPurchaseMasterService.setSparesPurchaseDetails(tyre);
-  this.route.navigate(['/sparespurchaseedit']);
+  this.route.navigate(['/sparespurchasemasteredit']);
 }
 
 search(): void {

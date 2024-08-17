@@ -430,6 +430,7 @@ namespace FleetTrans.Repository
             }
             return BrandList;
         }
+
         public async Task<List<DropDownListModel>> GetVendorList()
         {
             List<DropDownListModel> BrandList = new();
