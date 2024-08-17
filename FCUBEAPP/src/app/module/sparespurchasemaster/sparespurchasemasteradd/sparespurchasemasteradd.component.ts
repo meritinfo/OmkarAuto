@@ -111,12 +111,12 @@ export class SparespurchasemasteraddComponent {
     this.formUser = this.formBuilder.group({
      // transDate : new FormControl(this.branch,[Validators.required]),
       transDate : new FormControl(this.loginDate,[Validators.required]),
-      nonVendor : new FormControl('N',[Validators.required]),
+      nonVendor : new FormControl('',),
   
       vendorId : new FormControl('',),
       vendorInvDt : new FormControl('',),
       vendorInvNo : new FormControl('',),
-      vendorName : new FormControl('',[Validators.required]),
+      vendorName : new FormControl('',),
       vendorAddress : new FormControl('',[Validators.required]),
       vendorState : new FormControl('',[Validators.required]),
       vendorGstNo : new FormControl('',[Validators.required]),
@@ -127,9 +127,9 @@ export class SparespurchasemasteraddComponent {
       totIgstAmt : new FormControl('',),
       totItemNetAmount : new FormControl('',[Validators.required]),
       otherAmount : new FormControl('',),
-      roundOff : new FormControl('',[Validators.required]),
+      roundOff : new FormControl('',),
       netAmount : new FormControl('',),
-      remarks : new FormControl('',[Validators.required]),
+      remarks : new FormControl('',),
       pmtType : new FormControl('',[Validators.required]),
       creditAc : new FormControl('',),
      
@@ -156,21 +156,23 @@ this.getSparesList();
 this.getCreditAcList('M');
 
 
-// this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
-// this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
-// this.formTyreArray.controls[0].get("igstAmt")?.disable();  
-// this.formTyreArray.controls[0].get("sgstPct")?.disable();   
-// this.formTyreArray.controls[0].get("cgstPct")?.disable();  
-// this.formTyreArray.controls[0].get("igstPct")?.disable();   
-// this.formTyreArray.controls[0].get("netTyreAmount")?.disable();  
+ this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
+ this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
+ this.formTyreArray.controls[0].get("igstAmt")?.disable();  
+ this.formTyreArray.controls[0].get("sgstPct")?.disable();   
+ this.formTyreArray.controls[0].get("cgstPct")?.disable();  
+this.formTyreArray.controls[0].get("igstPct")?.disable();   
+this.formTyreArray.controls[0].get("netAmount")?.disable(); 
+this.formTyreArray.controls[0].get("itemAmount")?.disable(); 
+ //this.formUser.controls[0].get("netAmount")?.disable();  
 
-// this.formUser.controls["totalTyresAmt"].disable();
-// this.formUser.controls["totalCgstAmt"].disable();
-// this.formUser.controls["totalSgstAmt"].disable();
-// this.formUser.controls["totalIgstAmt"].disable();
+ this.formUser.controls["totItemAmount"].disable();
+ this.formUser.controls["totCgstAmt"].disable();
+ this.formUser.controls["totSgstAmt"].disable();
+ this.formUser.controls["totIgstAmt"].disable();
 // this.formUser.controls["totalAmt"].disable();
-// this.formUser.controls["netAmount"].disable();
-// this.formUser.controls['vendorName'].disable(); 
+ this.formUser.controls["netAmount"].disable();
+this.formUser.controls['totItemNetAmount'].disable(); 
 // this.formUser.controls["branchCode"].disable();
 
 if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
@@ -184,7 +186,21 @@ if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
      vendorId: this.vendorList.find(e => e.dataId == this.selectedSparesPurchaseMasterDetail.vendorId),
     })        
         
-   
+    if (this.selectedSparesPurchaseMasterDetail.nonVendor=='Y'){     
+      this.formUser.controls['vendorId'].disable();   
+      this.formUser.controls['vendorName'].enable(); 
+      this.formUser.patchValue({
+        vendorId: "",
+        nonVendor: "Y",
+      })
+    }
+    else {          
+      this.formUser.controls['vendorId'].enable(); 
+      this.formUser.controls['vendorName'].disable(); 
+      this.formUser.patchValue({
+        nonVendor: "",
+      })
+    }   
   
     this.getSparesPurchaseMasterInnerGridList();
     this.editMode =true;
@@ -344,7 +360,8 @@ getSparesPurchaseMasterInnerGridList(): void {
       //   this.formTyreArray.controls[i].get("cgstPct")?.disable();  
       //   this.formTyreArray.controls[i].get("igstPct")?.disable();  
       // } 
-      // this.formTyreArray.controls[i].get("netTyreAmount")?.disable();          
+      // this.formTyreArray.controls[i].get("netTyreAmount")?.disable();   
+
     }     
   });
 }
@@ -430,6 +447,111 @@ sparesMasterDelete(): void {
 exit(): void {
   this.route.navigate(['/sparespurchaselist']);
 }  
+
+changeGstType(e: any) {
+  console.log(e.target.value);
+  var gsttype = e.target.value;   
+  for (var i = 0; i < this.formTyreArray.controls.length; i++) { 
+    this.formTyreArray.controls[i].get("sgstPct")?.setValue("0");
+    this.formTyreArray.controls[i].get("cgstPct")?.setValue("0");
+    this.formTyreArray.controls[i].get("igstPct")?.setValue("0");
+    this.formTyreArray.controls[i].get("sgstAmt")?.setValue("0");
+    this.formTyreArray.controls[i].get("cgstAmt")?.setValue("0");
+    this.formTyreArray.controls[i].get("igstAmt")?.setValue("0"); 
+    this.formTyreArray.controls[i].get("itemAmt")?.setValue("0"); 
+
+    if (gsttype == "I") {   
+      this.formTyreArray.controls[i].get("sgstPct")?.disable();   
+      this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+      this.formTyreArray.controls[i].get("igstPct")?.enable();  
+    }    
+    else if (gsttype == "S" || gsttype == "C")  {      
+      this.formTyreArray.controls[i].get("sgstPct")?.enable();   
+      this.formTyreArray.controls[i].get("cgstPct")?.enable();  
+      this.formTyreArray.controls[i].get("igstPct")?.disable();  
+    }
+    else{              
+      this.formTyreArray.controls[i].get("sgstPct")?.disable();   
+      this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+      this.formTyreArray.controls[i].get("igstPct")?.disable();  
+    } 
+  }    
+ // this.onPctChange()
+}
+
+
+onPctChange(){
+  var totalItemAmt = 0;
+  var totalCgstAmt = 0;
+  var totalSgstAmt = 0;
+  var totalIgstAmt = 0;
+  var totalAmt = 0;
+  var totItemNetAmount = 0;
+  var itemAmount = 0;
+  var itemRate = 0;
+  var itemQty = 0;
+  var totalItemAmt = 0;
+  var sgstAmt = 0;
+  var cgstAmt = 0;
+  var igstAmt = 0;
+  var netAmount = 0;
+  
+  var selectedDate = this.formUser.getRawValue();
+
+  for (var i = 0; i < this.formTyreArray.controls.length; i++) {
+    this.formTyreArray.controls[i].get("sgstAmt")?.setValue("");
+    this.formTyreArray.controls[i].get("cgstAmt")?.setValue("");
+    this.formTyreArray.controls[i].get("igstAmt")?.setValue("");
+
+
+    if (selectedDate.arrayList[i].itemRate!="") {
+      itemAmount= parseFloat(selectedDate.arrayList[i].itemQty) * parseFloat(selectedDate.arrayList[i].itemRate);
+      this.formTyreArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+    
+      totalItemAmt = totalItemAmt+itemAmount;
+      if(selectedDate.arrayList[i].sgstPct!="") {
+        sgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].sgstPct)/100;
+        totalSgstAmt = totalSgstAmt + sgstAmt;
+        netAmount = netAmount + sgstAmt;
+        this.formTyreArray.controls[i].get("sgstAmt")?.setValue(sgstAmt.toFixed(2));
+      }
+      if(selectedDate.arrayList[i].cgstPct!="") {
+        cgstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].cgstPct)/100;
+        totalCgstAmt = totalCgstAmt + cgstAmt;
+        netAmount = netAmount + cgstAmt;
+        this.formTyreArray.controls[i].get("cgstAmt")?.setValue(cgstAmt.toFixed(2));
+      }
+      if(selectedDate.arrayList[i].igstPct!="") {
+        igstAmt = itemAmount * parseFloat(selectedDate.arrayList[i].igstPct)/100;
+        totalIgstAmt = totalIgstAmt + igstAmt;
+        netAmount = netAmount + igstAmt;
+        this.formTyreArray.controls[i].get("igstAmt")?.setValue(igstAmt.toFixed(2));
+      }      
+      netAmount = sgstAmt + cgstAmt+igstAmt+ itemAmount;  
+      this.formTyreArray.controls[i].get("netAmount")?.setValue(netAmount.toFixed(2));
+    
+      totItemNetAmount = totItemNetAmount+ netAmount;
+    }
+  }  
+  netAmount = totItemNetAmount ;
+  if(selectedDate.roundOff!="") {
+    netAmount = netAmount + parseFloat(selectedDate.roundOff);
+  }
+  if(selectedDate.otherAmount!="") {
+    netAmount = netAmount + parseFloat(selectedDate.otherAmount);
+  }
+ 
+ 
+  this.formUser.patchValue({
+    totItemAmount : totalItemAmt.toFixed(2),
+    totCgstAmt: totalCgstAmt.toFixed(2),
+    totSgstAmt: totalSgstAmt.toFixed(2),
+    totIgstAmt: totalIgstAmt.toFixed(2),
+    totalAmt: totalAmt.toFixed(2),
+    netAmount: netAmount.toFixed(2),
+    totItemNetAmount: totItemNetAmount.toFixed(2),
+  });
+}  
 submitSparesPurchaseMasterForm(): void {
   this.userSubmitted = true;
   if (this.formUser.invalid) {
@@ -469,7 +591,8 @@ submitSparesPurchaseMasterForm(): void {
  // this.tyrepurchasemastermodel.vendorInvNo = selectedDataValue.vendorInvNo.toString().toUpperCase();
 // this.sparespurchasemastermodel.spTransId= selectedDataValue.spTransId;
  this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
-  this.sparespurchasemastermodel.nonVendor= selectedDataValue.nonVendor;
+  
+  this.sparespurchasemastermodel.nonVendor = selectedDataValue.nonVendor?"Y":"N";
 // this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
 this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId;
 this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
@@ -498,8 +621,11 @@ this.sparespurchasemastermodel.linkJVFtmId= selectedDataValue.linkJVFtmId?select
  this.sparespurchasemastermodel.auditedBy= selectedDataValue.auditedBy?selectedDataValue.auditedBy:'';
  this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
  this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
+
  this.sparespurchasemastermodel.yearID= this.year;
 this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
+
+this.sparespurchasemastermodel.sparesPurchaseDtlList = [];
   if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
     this.toastrService.warning("Total Net Amount should not be zero");
     return;

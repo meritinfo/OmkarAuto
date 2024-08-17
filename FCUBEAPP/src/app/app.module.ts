@@ -437,7 +437,7 @@ import { SparespurchasemasterlistComponent } from './module/sparespurchasemaster
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
-    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent
+    BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
     BookingregisterComponent, LrwithoutchallanrptComponent,
     CnenquiryComponent,
     SparespurchasemasteraddComponent,
