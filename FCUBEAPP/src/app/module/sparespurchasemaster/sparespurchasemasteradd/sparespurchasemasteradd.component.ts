@@ -177,15 +177,23 @@ this.formUser.controls['totItemNetAmount'].disable();
 
 if (this.selectedSparesPurchaseMasterDetail.spTransId  != '') {
   setTimeout(() => {
-    this.refDocAttachedImage = Constants.UploadFolderPath + 'tyrePurchase/refDocAttachedImage/' + this.selectedSparesPurchaseMasterDetail.refDocAttachedImage;
+    this.refDocAttachedImage = Constants.UploadFolderPath + 'sparesPurchase/refDocAttachedImage/' + this.selectedSparesPurchaseMasterDetail.refDocAttachedImage;
     this.formUser.patchValue(this.selectedSparesPurchaseMasterDetail);
     this.formUser.patchValue({
       transDate: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.transDate),
       chequeDate: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.chequeDate),
       vendorInvDt: this.commonService.formatDate(this.selectedSparesPurchaseMasterDetail.vendorInvDt),
      vendorId: this.vendorList.find(e => e.dataId == this.selectedSparesPurchaseMasterDetail.vendorId),
-    })        
-        
+    })  
+          this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
+      this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
+      this.formTyreArray.controls[0].get("igstAmt")?.disable();  
+      this.formTyreArray.controls[0].get("sgstPct")?.disable();   
+      this.formTyreArray.controls[0].get("cgstPct")?.disable();  
+      this.formTyreArray.controls[0].get("igstPct")?.disable();   
+      this.formTyreArray.controls[0].get("netAmount")?.disable(); 
+      this.formTyreArray.controls[0].get("itemAmount")?.disable();       
+              
     if (this.selectedSparesPurchaseMasterDetail.nonVendor=='Y'){     
       this.formUser.controls['vendorId'].disable();   
       this.formUser.controls['vendorName'].enable(); 
@@ -341,25 +349,27 @@ getSparesPurchaseMasterInnerGridList(): void {
       this.formTyreArray.controls[i].get("netAmount")?.setValue(res.sparesPurchaseDtlList[i].netAmount); 
       this.formTyreArray.controls[i].get("remarks")?.setValue(res.sparesPurchaseDtlList[i].remarks); 
     
-      // this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
-      // this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
-      // this.formTyreArray.controls[i].get("igstAmt")?.disable();  
+      this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
+      this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
+      this.formTyreArray.controls[i].get("igstAmt")?.disable(); 
+      this.formTyreArray.controls[0].get("netAmount")?.disable(); 
+      this.formTyreArray.controls[0].get("itemAmount")?.disable();   
 
-      // if (this.selectedTyrePurchaseMasterDetail.gstType == "I") {   
-      //   this.formTyreArray.controls[i].get("sgstPct")?.disable();   
-      //   this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-      //   this.formTyreArray.controls[i].get("igstPct")?.enable();  
-      // }    
-      // else if (this.selectedTyrePurchaseMasterDetail.gstType == "S" || this.selectedTyrePurchaseMasterDetail.gstType == "C")  {      
-      //   this.formTyreArray.controls[i].get("sgstPct")?.enable();   
-      //   this.formTyreArray.controls[i].get("cgstPct")?.enable();  
-      //   this.formTyreArray.controls[i].get("igstPct")?.disable();  
-      // }
-      // else{              
-      //   this.formTyreArray.controls[i].get("sgstPct")?.disable();   
-      //   this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-      //   this.formTyreArray.controls[i].get("igstPct")?.disable();  
-      // } 
+      if (this.selectedSparesPurchaseMasterDetail.gstType == "I") {   
+        this.formTyreArray.controls[i].get("sgstPct")?.disable();   
+        this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+        this.formTyreArray.controls[i].get("igstPct")?.enable();  
+      }    
+      else if (this.selectedSparesPurchaseMasterDetail.gstType == "S" || this.selectedSparesPurchaseMasterDetail.gstType == "C")  {      
+        this.formTyreArray.controls[i].get("sgstPct")?.enable();   
+        this.formTyreArray.controls[i].get("cgstPct")?.enable();  
+        this.formTyreArray.controls[i].get("igstPct")?.disable();  
+      }
+      else{              
+        this.formTyreArray.controls[i].get("sgstPct")?.disable();   
+        this.formTyreArray.controls[i].get("cgstPct")?.disable();  
+        this.formTyreArray.controls[i].get("igstPct")?.disable();  
+      } 
       // this.formTyreArray.controls[i].get("netTyreAmount")?.disable();   
 
     }     
@@ -368,12 +378,12 @@ getSparesPurchaseMasterInnerGridList(): void {
 
 addItem(i: number): void {    
   var selectedDate = this.formUser.getRawValue();
-  if (this.formTyreArray.value[i].brandID != "" && this.formTyreArray.value[i].tyreAmount!="" ) {
+  if (this.formTyreArray.value[i].spareLubId != "" && this.formTyreArray.value[i].brandId!="" ) {
     this.formTyreArray.push(this.createSparesArray());
     
-   // this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
-  //  this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
-  // this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
+   this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
+   this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
+  this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
      
     if (selectedDate.gstType == "I") {   
       this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
@@ -390,10 +400,10 @@ addItem(i: number): void {
       this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
       this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
     } 
-    this.formTyreArray.controls[i+1].get("netTyreAmount")?.disable();     
+   // this.formTyreArray.controls[i+1].get("netTyreAmount")?.disable();     
   } 
   else {
-    this.toastrService.warning("Please Enter Tyre Details");
+    this.toastrService.warning("Please Enter  Spares Details");
   }
 }
 
@@ -567,21 +577,21 @@ submitSparesPurchaseMasterForm(): void {
 
   var selectedDataValue = this.formUser.getRawValue();
 
-  // if(selectedDataValue.noVendor){
-  //   if (selectedDataValue.vendorName=="") {
-  //     this.toastrService.warning(" Please enter Vendor Name");   
-  //     return;
-  //   }
-  // }
-  // else{
-  //   if (selectedDataValue.vendorId.dataId) {
-  //     //ignore
-  //   }
-  //   else{
-  //     this.toastrService.warning(" Invalid Vendor");
-  //     return;
-  //   }
-  // }
+  if(selectedDataValue.nonVendor){
+    if (selectedDataValue.vendorName=="") {
+      this.toastrService.warning(" Please enter Vendor Name");   
+      return;
+    }
+  }
+  else{
+    if (selectedDataValue.vendorId.dataId) {
+      //ignore
+    }
+    else{
+      this.toastrService.warning(" Invalid Vendor");
+      return;
+    }
+  }
  this.sparespurchasemastermodel.spTransId = this.selectedSparesPurchaseMasterDetail.spTransId ;
 
  /// this.tyrepurchasemastermodel.vendorId = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
@@ -593,8 +603,8 @@ submitSparesPurchaseMasterForm(): void {
  this.sparespurchasemastermodel.transDate= selectedDataValue.transDate;
   
   this.sparespurchasemastermodel.nonVendor = selectedDataValue.nonVendor?"Y":"N";
-// this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
-this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId;
+ this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
+//this.sparespurchasemastermodel.vendorId= selectedDataValue.vendorId;
 this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
 this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
  this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName;

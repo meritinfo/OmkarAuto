@@ -123,103 +123,103 @@ sparesPurchaseList() {
     },
     columns: [   
       {
-        title: 'TransDate',
+        title: 'Trans Date',
         data: 'transDate',
       },
       {
-        title: 'NonVendor ',
+        title: 'Non Vendor ',
         data: 'nonVendor',
       },
       {
-        title: 'VendorId',
+        title: 'Vendor Id',
         data: 'vendorId',
       },
       {
-        title: 'VendorInvDt',
+        title: 'Vendor Invoice Date',
         data: 'vendorInvDt',
       }, 
       {
-        title: 'VendorInvNo',
+        title: 'Vendor InvNo',
         data: 'vendorInvNo',
       }, 
       {
-        title: 'VendorName',
+        title: 'Vendor Name',
         data: 'vendorName',
       }, 
       {
-        title: 'VendorAddress',
+        title: 'Vendor Address',
         data: 'vendorAddress',
       }, 
       {
-        title: 'VendorState',
+        title: 'Vendor State',
         data: 'vendorState',
       }, 
       {
-        title: 'VendorGstNo',
+        title: 'Vendor GstNo',
         data: 'vendorGstNo',
       }, 
-      {
-        title: 'gstType',
-        data: 'gstType',
-      }, 
-      {
-        title: 'TotItemAmount',
-        data: 'totItemAmount',
-      }, 
-      {
-        title: 'TotSgstAmt',
-        data: 'totSgstAmt',
-      }, 
-      {
-        title: 'totCgstAmt',
-        data: 'totCgstAmt',
-      }, 
-      {
-        title: 'TotIgstAmt',
-        data: 'totIgstAmt',
-      }, 
-      {
-        title: 'TotItemNetAmount',
-        data: 'totItemNetAmount',
-      }, 
-      {
-        title: 'OtherAmount',
-        data: 'otherAmount',
-      }, 
-      {
-        title: 'RoundOff',
-        data: 'roundOff',
-      }, 
-      {
-        title: 'NetAmount',
+      // {
+      //   title: 'gstType',
+      //   data: 'gstType',
+      // }, 
+      // {
+      //   title: 'TotItemAmount',
+      //   data: 'totItemAmount',
+      // }, 
+      // {
+      //   title: 'TotSgstAmt',
+      //   data: 'totSgstAmt',
+      // }, 
+      // {
+      //   title: 'totCgstAmt',
+      //   data: 'totCgstAmt',
+      // }, 
+      // {
+      //   title: 'TotIgstAmt',
+      //   data: 'totIgstAmt',
+      // }, 
+      // {
+      //   title: 'TotItemNetAmount',
+      //   data: 'totItemNetAmount',
+      // }, 
+      // {
+      //   title: 'OtherAmount',
+      //   data: 'otherAmount',
+      // }, 
+      // {
+      //   title: 'RoundOff',
+      //   data: 'roundOff',
+      // }, 
+       {
+        title: 'Net Amount',
         data: 'netAmount',
       }, 
-      {
-        title: 'remarks',
-        data: 'remarks',
-      }, 
-      {
-        title: 'PmtType',
-        data: 'pmtType',
-      }, 
-      {
-        title: 'CreditAc',
-        data: 'creditAc',
-      }, 
-      {
-        title: 'ChequeDate',
-        data: 'chequeDate',
-      }, 
+      // {
+      //   title: 'remarks',
+      //   data: 'remarks',
+      // }, 
+      // {
+      //   title: 'PmtType',
+      //   data: 'pmtType',
+      // }, 
+      // {
+      //   title: 'CreditAc',
+      //   data: 'creditAc',
+      // }, 
+      // {
+      //   title: 'ChequeDate',
+      //   data: 'chequeDate',
+      // }, 
      
      
-      {
-        title: 'refDocAttachedImage',
-        data: 'refDocAttachedImage',
-      }, 
-      {
-        title: 'BranchCode',
-        data: 'branchCode',
-      }, 
+      // {
+      //   title: 'refDocAttachedImage',
+      //   data: 'refDocAttachedImage',
+      // }, 
+      // {
+      //   title: 'BranchCode',
+      //   data: 'branchCode',
+      // }, 
      
       {
         title: 'Action',
