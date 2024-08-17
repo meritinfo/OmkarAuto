@@ -6,27 +6,25 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Unbilledrptlistmodel} from 'src/app/models/unbilledrptlistmodel';
-import { Unbilledrptmodel } from 'src/app/models/unbilledrptmodel';
-import { UnbilledrptService } from 'src/app/services/unbilledrpt.service';
+import { Tyrepurchasemasterlistmodel } from 'src/app/models/tyrepurchasemastermodellist';
+import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-unbilledrpt',
-  templateUrl: './unbilledrpt.component.html',
-  styleUrls: ['./unbilledrpt.component.css']
+  selector: 'app-tyrepurchaserpt',
+  templateUrl: './tyrepurchaserpt.component.html',
+  styleUrls: ['./tyrepurchaserpt.component.css']
 })
-export class UnbilledrptComponent {
-
+export class TyrepurchaserptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-
-  locationList: Dropdownmodel[] = [];
+  vendorList: Dropdownmodel[] = [];
+  vehicleList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
@@ -35,11 +33,11 @@ export class UnbilledrptComponent {
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allUnbilledrptlist: Unbilledrptlistmodel = new Unbilledrptlistmodel();
+  allTyremgntRptlist: Tyrepurchasemasterlistmodel = new Tyrepurchasemasterlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'fromPlace',
+    sortColumn: 'paymentBr',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -48,7 +46,7 @@ export class UnbilledrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-  }
+}
 
   formFilter!: FormGroup;
   userSubmitted = false;
@@ -60,20 +58,21 @@ export class UnbilledrptComponent {
   branch:string ='';
   responseDetails = new Responsemodel();
 
-  constructor(private unbilledrptService: UnbilledrptService, 
+  constructor(private tyremgntrptService: TyremgntrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
     private commonService: CommonService, 
     private route: Router) {
     }
-
-    ngOnInit(): void {     
+    ngOnInit(): void {   
+  
       var menuData = sessionStorage.getItem('menulist')?.toString();
       if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
         var privilegeData = JSON.parse(menuData);
-        var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-        var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "CN Not Dispatched");
+        
+      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+        .find((aa: { menuName: string; }) => aa.menuName === "Tyre Purchases Report");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -107,6 +106,7 @@ export class UnbilledrptComponent {
       const month = today.getMonth();
       const year = today.getFullYear();
       today.setFullYear(year - 1);
+     // today.setFullYear(year - 1);
 
       this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
       this.maxDate = new Date().toLocaleDateString('en-CA').toString();
@@ -118,49 +118,28 @@ export class UnbilledrptComponent {
         this.fromDate = today.toLocaleDateString('en-CA').toString();
       }   
     
-      this.getBranchList();
-      this.getLocationList(); 
-      this.getPartyList(); 
-      
       this.formFilter = this.formBuilder.group({
-        fromDate: new FormControl( this.fromDate,[Validators.required]),
+        fromDate: new FormControl(this.minDate,[Validators.required]),
         toDate: new FormControl(this.loginDate,[Validators.required]),
-        branch: new FormControl('',),  
-        party: new FormControl('',),  
-        origin: new FormControl('',),  
-        destination: new FormControl('',), 
+        vendorId: new FormControl('',),  
+        rptType: new FormControl('S',), 
       });
-
-      this.filter.fromDate =  this.fromDate;
+      this.filter.fromDate = this.minDate;
       this.filter.toDate = this.loginDate;
       this.filter.filterStr   = "";
-      this.filter.filterStr1  = "";
-      this.filter.filterStr2  = "";
-      this.filter.filterStr3  = "";
-  
-      this.sharedService.loading=true;
+      this.filter.filterStr1  = "S";
+      this.getVendorList();
 
-      this.unbilledrptlist();
+      this.getTyreStatus();
       this.sharedService.loading=false;
     }
-
-    getBranchList(): void {
-      this.commonService.getBranchList().subscribe((res) => {
-        this.branchList = res;
-      });
-    }
-    getLocationList(): void {
-      this.commonService.getLocationList().subscribe((res) => {
-        this.locationList = res;
-      });
-    }
-    getPartyList(): void {
-      this.commonService.getPartyList().subscribe((res) => {
-        this.partyList = res;
-      });
-    }
-  
     
+    getVendorList(): void {
+      this.commonService.getVendorList().subscribe((res) => {
+        this.vendorList = res;
+      });
+    }  
+
     get f() { return this.formFilter.controls; }
   
     selectEvent(item: any) {
@@ -181,90 +160,51 @@ export class UnbilledrptComponent {
       return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
     };
 
-    unbilledrptlist(){
+    getTyreStatus(){
       this.dtOptions = {
-        pagingType: 'full_numbers',
-        pageLength: 10,
-        serverSide: true,
-        processing: true,
-        searching:false,
-        ajax: (dataTablesParameters: any, callback) => {
-          // Filter setting
-          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-          this.filter.pageSize = dataTablesParameters.length;
-          this.filter.sortColumn = 'Branch';
-          this.filter.sortOrder = 'asc';
-          this.filter.search = '';
-          this.unbilledrptService.getUnbilledrptList(this.filter).subscribe(resp => {
-            this.allUnbilledrptlist = resp; 
-              callback({
-                recordsTotal: resp.pageMetaData.totalCount,
-                recordsFiltered: resp.pageMetaData.totalCount,
-                data: []
+          pagingType: 'full_numbers',
+          pageLength: 10,
+          serverSide: true,
+          processing: true,
+          searching:false,
+          ajax: (dataTablesParameters: any, callback) => {
+            // Filter setting
+            this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+            this.filter.pageSize = dataTablesParameters.length;
+            this.filter.sortColumn = 'Branch';
+            this.filter.sortOrder = 'asc';
+            this.filter.search = '';
+            this.tyremgntrptService.getTyrePurchaseRptList(this.filter).subscribe(resp => {
+               this.allTyremgntRptlist = resp;
+                callback({
+                  recordsTotal: resp.pageMetaData.totalCount,
+                  recordsFiltered: resp.pageMetaData.totalCount,
+                  data: []
+                });
               });
-            });
-        }, 
-        columns: [ 
-          {
-            title: 'Booking Branch',
-            data: 'bookingStnName',
           }, 
+          columns: [ 
           {
-            title: 'LR No',
-            data: 'gcNoteNo',
-          }, 
+            title: 'Vendor Name ',
+            data: 'vendorName',
+          },  
           {
-            title: 'LR Date',
-            data: 'bookingDate',
-          }, 
-          {
-            title: 'From Place',
-            data: 'fromStnName',
-          }, 
-            
-          {
-            title: 'To Place ',
-            data: 'toStnName',
+            title: 'Vendor Inv Date ',
+            data: 'vendorInvDt',
           },    
           {
-            title: 'Billing Stn',
-            data: 'billStnName',
+            title: 'Vendor Inv No',
+            data: 'vendorInvNo',
           },
           {
-            title: 'Consignor',
-            data: 'consignor',
-          },
-          {
-            title: 'Consignee',
-            data: 'consignee',
-          }, 
-           
-          {
-            title: 'Party Name',
-            data: 'partyName',
-          }, 
-          {
-            title: 'Truck No',
-            data: 'truckNo',
-          }, 
-          {
-            title: 'Freight Total',
-            data: 'freightRs',
-          }, 
-
-          {
-            title: 'Grand Total',
-            data: 'gtotalRs',
-          }, 
-          {
-            title: 'Billed Total',
-            data: 'billedAmt',
-          }, 
-           
+            title: 'Amount ',
+            data: 'netAmount',
+          },  
         ],
       };
     }
       
+    //Open user details screen
     exportExcel(): void {      
       this.userSubmitted = true;
       if (this.formFilter.invalid) {
@@ -280,15 +220,13 @@ export class UnbilledrptComponent {
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;
-      this.filter.filterStr   = selectedDataVal.branch;
-      this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-      this.unbilledrptService.getUnbilledrptExcel(this.filter).subscribe(resp => {
-      
+      this.filter.filterStr   = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
+      this.filter.filterStr1  = selectedDataVal.rptType;
+
+      this.tyremgntrptService.getTyrePurchaseRptExcel(this.filter).subscribe(resp => {
         if(resp.status){      
           let link = document.createElement("a");
-          link.download = "UnBilled Consignment" + "_" + new Date().getTime() + '.xlsx';
+          link.download = "TyrePurchase" + "_" + new Date().getTime() + '.xlsx';
           link.href = "assets\\reports\\Download\\" + resp.message;
           link.click();
         }
@@ -297,7 +235,7 @@ export class UnbilledrptComponent {
         }
       });
     }
-  
+    
   search(): void {
     this.userSubmitted = true;
     if (this.formFilter.invalid) {
@@ -312,13 +250,12 @@ export class UnbilledrptComponent {
     }
     var selectedDataVal=this.formFilter.getRawValue();
     this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.branch;
-    this.filter.filterStr1  = selectedDataVal.party?selectedDataVal.party.dataId:"";
-      this.filter.filterStr2  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
-      this.filter.filterStr3  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
+    this.filter.toDate      = selectedDataVal.toDate;   
+    this.filter.filterStr   = selectedDataVal.vendorId?selectedDataVal.vendorId.dataId:"";
+    this.filter.filterStr1  = selectedDataVal.rptType;
+
     this.sharedService.loading=true;
-    this.unbilledrptlist();
+    this.getTyreStatus();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

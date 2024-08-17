@@ -6,40 +6,35 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
-import { Ledgerrptlistmodel  } from 'src/app/models/ledgerrptlistmodel';
-import { Ledgerrptmodel } from 'src/app/models/ledgerrptmodel';
-import { BankbookrptService } from 'src/app/services/bankbookrpt.service';
-import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.service';
+import { Tyremasterlistmodel } from 'src/app/models/tyremasterlistmodel';
+import { TyremgntrptService } from 'src/app/services/tyremgntrpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
-import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-bankbookrpt',
-  templateUrl: './bankbookrpt.component.html',
-  styleUrls: ['./bankbookrpt.component.css']
+  selector: 'app-tyrestockrpt',
+  templateUrl: './tyrestockrpt.component.html',
+  styleUrls: ['./tyrestockrpt.component.css']
 })
-export class BankbookrptComponent {
+export class TyrestockrptComponent {
   loggedInUserID: string = '';
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
   viewStatus = false; 
-
-  accountList: Dropdownmodel[] = [];
-  branchList: Dropdownmodel[] = [];
+  brandList: Dropdownmodel[] = [];
   keywordLocation = 'dataName';
 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
   
-  allLedgerrptlist: Ledgerrptlistmodel = new Ledgerrptlistmodel();
+  allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
   filter: Reportmodel = {
     pageNumber: 1,
     pageSize: 10,
-    sortColumn: 'fromPlace',
+    sortColumn: 'paymentBr',
     sortOrder: 'asc',
     search: '',
     fromDate: '',
@@ -48,7 +43,7 @@ export class BankbookrptComponent {
     filterStr1:'',
     filterStr2:'',
     filterStr3:'',
-  }
+}
 
   formFilter!: FormGroup;
   userSubmitted = false;
@@ -59,23 +54,22 @@ export class BankbookrptComponent {
   minDate: string = '';
   branch:string ='';
   responseDetails = new Responsemodel();
-  requestmodel = new Requestmodel();
 
-  constructor(private bankbookrptService: BankbookrptService, 
+  constructor(private tyremgntrptService: TyremgntrptService, 
     private excelService: ExcelService,private toastrService:ToastrService,
     private formBuilder: FormBuilder,  private sharedService: SharedService,
-    private cashReceiptEntryService:CashReceiptEntryService,
     private commonService: CommonService, 
     private route: Router) {
   }
+  ngOnInit(): void {   
 
-  ngOnInit(): void {     
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
-      var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
-      var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-      .find((aa: { menuName: string; }) => aa.menuName === "Bank Book Report");
+      
+    var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
+    var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
+      .find((aa: { menuName: string; }) => aa.menuName === "Tyre Stock Report");
       if (privilegeStatus) {
         this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
         this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -83,7 +77,6 @@ export class BankbookrptComponent {
         this.viewStatus = privilegeStatus.viewYN.toLowerCase() === "y" ? true : false;
       }
     }
-
     var userData = sessionStorage.getItem('uid')?.toString();
     if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
       this.loggedInUserID = userData;
@@ -123,36 +116,26 @@ export class BankbookrptComponent {
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.minDate,[Validators.required]),
       toDate: new FormControl(this.loginDate,[Validators.required]),
-      accountID: new FormControl('',[Validators.required]),
-      branch: new FormControl('',[Validators.required]),
+      brandId: new FormControl('',),  
+      rptType: new FormControl('N',), 
     });
+    this.filter.fromDate = this.minDate;
+    this.filter.toDate = this.loginDate;
+    this.filter.filterStr   = "";
+    this.filter.filterStr1  = "N";
 
     this.sharedService.loading=true;
-    this.getBranchList();
-    this.getAccountList();  
-    
-    this.filter.fromDate    = this.minDate;
-    this.filter.toDate      = this.loginDate;
-    this.filter.filterStr   = "";
-    this.filter.filterStr1  = this.year;
-    this.filter.filterStr2  = "";      
-    this.ledgerList();
+    this.getBrandList();
+    this.getTyreStatus();
     this.sharedService.loading=false;
   }
-
-  getBranchList(): void {
-    this.commonService.getBranchList().subscribe((res) => {
-      this.branchList = res;
-    });
-  }
-
-  getAccountList(): void {
-    this.requestmodel.strRequest="B"
-    this.cashReceiptEntryService.getAccountList(this.requestmodel).subscribe((res) => {
-      this.accountList = res;
-    });
-  }
   
+  getBrandList(): void {
+    this.commonService.getBrandList().subscribe((res) => {
+      this.brandList = res;
+    });
+  }
+
   get f() { return this.formFilter.controls; }
 
   selectEvent(item: any) {
@@ -173,55 +156,44 @@ export class BankbookrptComponent {
     return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  ledgerList(){
+  getTyreStatus(){
     this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      serverSide: true,
-      processing: true,
-      searching:false,
-      ajax: (dataTablesParameters: any, callback) => {
-        // Filter setting
-        this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
-        this.filter.pageSize = dataTablesParameters.length;
-        this.filter.sortColumn = 'Branch';
-        this.filter.sortOrder = 'asc';
-        this.filter.search = '';
-        this.bankbookrptService.getBankBookrptList(this.filter).subscribe(resp => {
-           this.allLedgerrptlist = resp;
-            callback({
-              recordsTotal: resp.pageMetaData.totalCount,
-              recordsFiltered: resp.pageMetaData.totalCount,
-              data: []
+        pagingType: 'full_numbers',
+        pageLength: 10,
+        serverSide: true,
+        processing: true,
+        searching:false,
+        ajax: (dataTablesParameters: any, callback) => {
+          // Filter setting
+          this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
+          this.filter.pageSize = dataTablesParameters.length;
+          this.filter.sortColumn = 'Branch';
+          this.filter.sortOrder = 'asc';
+          this.filter.search = '';
+          this.tyremgntrptService.getTyreStockRptList(this.filter).subscribe(resp => {
+             this.allTyremgntRptlist = resp;
+              callback({
+                recordsTotal: resp.pageMetaData.totalCount,
+                recordsFiltered: resp.pageMetaData.totalCount,
+                data: []
+              });
             });
-          });
-      }, 
-      columns: [ 
-        {
-          title: 'Ftm Date',
-          data: 'ftmDate',
         }, 
+        columns: [ 
         {
-          title: 'Doc No',
-          data: 'docNo',
-        }, 
-        {
-          title: 'Narration',
-          data: 'narration',
+          title: 'Tyre No',
+          data: 'tyreNo',
         },  
         {
-          title: 'Dr Amt',
-          data: 'drAmt',
-        },    
-        {
-          title: 'Cr Amt',
-          data: 'crAmt',
-        },
+          title: 'Brand',
+          data: 'brandID',
+        }, 
       ],
     };
   }
-
-  exportPdf(): void {      
+    
+  //Open user details screen
+  exportExcel(): void {      
     this.userSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
@@ -234,36 +206,21 @@ export class BankbookrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    
-    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-            fromLoc.dataId!="" && fromLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toastrService.warning("Please Enter Valid Account ");          
-      return;
-    }
-
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.accountID.dataId;
-    this.filter.filterStr1  = this.year;
-    this.filter.filterStr2  = selectedDataVal.branch;
-    
-    this.bankbookrptService.getBankBookrptPdf(this.filter).subscribe(resp => {
-      if(resp.status){    
+    this.filter.filterStr   = selectedDataVal.brandId;
+    this.filter.filterStr1  = selectedDataVal.rptType;
+    this.tyremgntrptService.getTyreStockRptExcel(this.filter).subscribe(resp => {
+      if(resp.status){      
         let link = document.createElement("a");
-        link.download = "BankBook_" + new Date().getTime() + '.pdf';
-        link.href = "assets/reports/BankBook/" + resp.message;
+        link.download = "TyreStock" + "_" + new Date().getTime() + '.xlsx';
+        link.href = "assets\\reports\\Download\\" + resp.message;
         link.click();
       }
       else{        
         this.toastrService.warning(resp.message);   
       }
     });
-  }    
-  
+  }
+    
   search(): void {
     this.userSubmitted = true;
     if (this.formFilter.invalid) {
@@ -277,24 +234,11 @@ export class BankbookrptComponent {
       return;
     }
     var selectedDataVal=this.formFilter.getRawValue();
-    
-    var fromLoc = this.accountList.find(e => e.dataName == selectedDataVal.accountID.dataName) 
-    if (typeof fromLoc !== 'undefined' && fromLoc !== null && 
-            fromLoc.dataId!="" && fromLoc.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toastrService.warning("Please Enter Valid Account ");          
-      return;
-    }
+    this.filter.filterStr   = selectedDataVal.brandId;
+    this.filter.filterStr1  = selectedDataVal.rptType;
 
-    this.filter.fromDate    = selectedDataVal.fromDate;
-    this.filter.toDate      = selectedDataVal.toDate;
-    this.filter.filterStr   = selectedDataVal.accountID.dataId;
-    this.filter.filterStr1  = this.year;
-    this.filter.filterStr2  = selectedDataVal.branch;
     this.sharedService.loading=true;
-    this.ledgerList();
+    this.getTyreStatus();
     this.sharedService.loading=false;
     
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -302,7 +246,6 @@ export class BankbookrptComponent {
     });
   }
 } 
-
 
 
 
