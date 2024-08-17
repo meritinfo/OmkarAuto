@@ -192,6 +192,10 @@ import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaser
 import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
 import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
 import { TyreactiverptComponent } from './module/tyreactiverpt/tyreactiverpt.component';
+import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivatedrpt.component';
+import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
+import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
+import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 
 
 const routes: Routes = [
@@ -465,9 +469,10 @@ const routes: Routes = [
   { path: 'tyrestockrpt', component: TyrestockrptComponent },   
   { path: 'tyrehistory', component: TyrehistoryrptComponent }, 
   { path: 'tyreactivelist', component: TyreactiverptComponent }, 
-
-  
-  
+  { path: 'tyreactrpt', component: TyreactivatedrptComponent }, 
+  { path: 'tyredeactrpt', component: TyredeactivatedrptComponent },   
+  { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
+  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },   
 ];
 
 @NgModule({

@@ -18,6 +18,14 @@ namespace FleetTrans.Business
         Task<ResponseModel> GetTyreHistoryRptExcel(RequestModel request);
         Task<TyreMasterList> GetActiveTyreRptList(ReportRequestModel request);
         Task<ResponseModel> GetActiveTyreRptExcel(ReportRequestModel request);
+        Task<TyreMasterList> GetTyreActivatedRptList(ReportRequestModel request);
+        Task<ResponseModel> GetTyreActivatedRptExcel(ReportRequestModel request);
+        Task<TyreMasterList> GetTyreDeActivatedRptList(ReportRequestModel request);
+        Task<ResponseModel> GetTyreDeActivatedRptExcel(ReportRequestModel request);
+        Task<TyreMasterList> GetTyreReGroupIssRptList(ReportRequestModel request);
+        Task<ResponseModel> GetTyreReGroupIssRptExcel(ReportRequestModel request);
+        Task<TyreMasterList> GetTyreReGroupRcvdRptList(ReportRequestModel request);
+        Task<ResponseModel> GetTyreReGroupRcvdRptExcel(ReportRequestModel request);
     }
 
 

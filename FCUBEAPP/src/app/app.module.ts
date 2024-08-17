@@ -333,6 +333,10 @@ import { TyrepurchaserptComponent } from './module/tyrepurchaserpt/tyrepurchaser
 import { TyrestockrptComponent } from './module/tyrestockrpt/tyrestockrpt.component';
 import { TyrehistoryrptComponent } from './module/tyrehistoryrpt/tyrehistoryrpt.component';
 import { TyreactiverptComponent } from './module/tyreactiverpt/tyreactiverpt.component';
+import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivatedrpt.component';
+import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
+import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
+import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 
 
 @NgModule({
@@ -446,7 +450,11 @@ import { TyreactiverptComponent } from './module/tyreactiverpt/tyreactiverpt.com
     TyrepurchaserptComponent,
     TyrestockrptComponent,
     TyrehistoryrptComponent,
-    TyreactiverptComponent
+    TyreactiverptComponent,
+    TyreactivatedrptComponent,
+    TyredeactivatedrptComponent,
+    TyreregroupissrptComponent,
+    TyreregrouprcvdrptComponent
   ],
   imports: [
     BrowserModule,

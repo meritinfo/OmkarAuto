@@ -45,5 +45,29 @@ export class TyremgntrptService {
   }  
   getActiveTyreRptExcel(filter: Reportmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetActiveTyreRptExcel', filter, this.httpOptions);
+  }         
+  getTyreActivatedRptList(filter: Reportmodel): Observable<Tyremasterlistmodel> {
+    return this.httpClient.post<Tyremasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreActivatedRptList', filter, this.httpOptions);
+  }  
+  getTyreActivatedRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreActivatedRptExcel', filter, this.httpOptions);
+  }         
+  getTyreDeActivatedRptList(filter: Reportmodel): Observable<Tyremasterlistmodel> {
+    return this.httpClient.post<Tyremasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreDeActivatedRptList', filter, this.httpOptions);
+  }  
+  getTyreDeActivatedRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreDeActivatedRptExcel', filter, this.httpOptions);
+  }           
+  getTyreReGroupIssRptList(filter: Reportmodel): Observable<Tyremasterlistmodel> {
+    return this.httpClient.post<Tyremasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreReGroupIssRptList', filter, this.httpOptions);
+  }  
+  getTyreReGroupIssRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreReGroupIssRptExcel', filter, this.httpOptions);
+  }           
+  getTyreReGroupRcvdRptList(filter: Reportmodel): Observable<Tyremasterlistmodel> {
+    return this.httpClient.post<Tyremasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreReGroupRcvdRptList', filter, this.httpOptions);
+  }  
+  getTyreReGroupRcvdRptExcel(filter: Reportmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreReGroupRcvdRptExcel', filter, this.httpOptions);
   }    
 }
