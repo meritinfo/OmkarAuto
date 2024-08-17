@@ -447,14 +447,10 @@ import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyrereg
     BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
     CnenquiryComponent,
     SparespurchasemasteraddComponent,SparespurchasemasterlistComponent,
-    TyrepurchaserptComponent,
-    TyrestockrptComponent,
-    TyrehistoryrptComponent,
-    TyreactiverptComponent,
-    TyreactivatedrptComponent,
-    TyredeactivatedrptComponent,
-    TyreregroupissrptComponent,
-    TyreregrouprcvdrptComponent
+    TyrepurchaserptComponent, TyrestockrptComponent,
+    TyrehistoryrptComponent, TyreactiverptComponent,
+    TyreactivatedrptComponent, TyredeactivatedrptComponent,
+    TyreregroupissrptComponent, TyreregrouprcvdrptComponent
   ],
   imports: [
     BrowserModule,
