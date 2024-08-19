@@ -32,11 +32,11 @@ namespace FleetTrans.Models
     
         public string? CreditAc { get; set; }
         public string? ChequeDate { get; set; }
-        public string? LinkFtmId { get; set; }
-        public string? LinkJVFtmId { get; set; }
-        public string? AuditedYN { get; set; }
-        public string? AuditDate { get; set; }
-        public string? AuditedBy { get; set; }
+        //public string? LinkFtmId { get; set; }
+        //public string? LinkJVFtmId { get; set; }
+        //public string? AuditedYN { get; set; }
+        //public string? AuditDate { get; set; }
+        //public string? AuditedBy { get; set; }
         public string? RefDocAttachedImage { get; set; }
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
