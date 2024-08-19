@@ -132,10 +132,7 @@ export class SparespurchasemasterlistComponent {
           title: 'Non Vendor ',
           data: 'nonVendor',
         },
-        {
-          title: 'Vendor',
-          data: 'vendor',
-        },
+       
         {
           title: 'Vendor Invoice Date',
           data: 'vendorInvDt',

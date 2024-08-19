@@ -31,7 +31,7 @@ export class Sparespurchasemastermodel {
   branchCode:  string="";
   yearID:  string="";
   loggedInUser:  string="";
-  vendor:  string="";
+ 
   sparesPurchaseDtlList: SparesPurchaseDtlListmodel[] = [];
 
 }
