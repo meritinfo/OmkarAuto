@@ -337,6 +337,8 @@ import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivat
 import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
 import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
+import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
+import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
 
 
 @NgModule({
@@ -450,7 +452,7 @@ import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyrereg
     TyrepurchaserptComponent, TyrestockrptComponent,
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
-    TyreregroupissrptComponent, TyreregrouprcvdrptComponent
+    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent
   ],
   imports: [
     BrowserModule,
