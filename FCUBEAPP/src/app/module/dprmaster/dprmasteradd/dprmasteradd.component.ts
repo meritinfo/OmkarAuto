@@ -412,10 +412,10 @@ export class DrpmasteraddComponent {
     this.dprmodel.otherAmt   = selectedDataVal.otherAmt;
     this.dprmodel.otherDesc   = selectedDataVal.otherDesc.toString().toUpperCase();
     this.dprmodel.totFreightAmt  = selectedDataVal.totFreightAmt;
-    this.dprmodel.loggedInUserID = this.loggedInUserID;  
-
+    this.dprmodel.loggedInUserID = this.loggedInUserID; 
     
     this.dprmodel.dprDtls = [];
+    
     if(selectedDataVal.arrayList.length==0){
       this.toasterService.warning("Provide atleast one detail record");
       return;

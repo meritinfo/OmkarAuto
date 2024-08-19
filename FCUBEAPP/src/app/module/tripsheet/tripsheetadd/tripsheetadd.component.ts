@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { Constants } from 'src/app/common/constants';
-
-
-
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Branchmodel } from 'src/app/models/branchmodel';

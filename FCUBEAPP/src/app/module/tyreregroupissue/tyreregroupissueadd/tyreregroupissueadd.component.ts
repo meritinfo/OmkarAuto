@@ -270,7 +270,6 @@ export class TyreregroupissueaddComponent {
     this.tyreregroupissue.yearID = this.year;
     this.tyreregroupissue.loggedInUser = this.loggedInUserID;
     this.tyreregroupissue.tyreRegroupIssueDtlList = [];
-
     
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
       if (this.formTyreArray.value[i].brandId == "" || this.formTyreArray.value[i].tyreId=="" ) {
