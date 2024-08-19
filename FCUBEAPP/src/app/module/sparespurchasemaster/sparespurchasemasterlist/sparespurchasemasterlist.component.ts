@@ -131,8 +131,8 @@ sparesPurchaseList() {
         data: 'nonVendor',
       },
       {
-        title: 'Vendor Id',
-        data: 'vendorId',
+        title: 'Vendor',
+        data: 'vendor',
       },
       {
         title: 'Vendor Invoice Date',
@@ -150,10 +150,10 @@ sparesPurchaseList() {
         title: 'Vendor Address',
         data: 'vendorAddress',
       }, 
-      {
-        title: 'Vendor State',
-        data: 'vendorState',
-      }, 
+      // {
+      //   title: 'Vendor State',
+      //   data: 'vendorState',
+      // }, 
       {
         title: 'Vendor GstNo',
         data: 'vendorGstNo',

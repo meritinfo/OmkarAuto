@@ -41,6 +41,7 @@ namespace FleetTrans.Models
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? Vendor { get; set; }
         public List<SparesPurchaseDtlListmodel>? SparesPurchaseDtlList { get; set; }
     }
     public class SparesPurchaseDtlListmodel

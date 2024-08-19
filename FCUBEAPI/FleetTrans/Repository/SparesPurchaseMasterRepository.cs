@@ -78,6 +78,7 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                Vendor = Convert.ToString(dataSet.Tables[0].Rows[i]["Vendor"]),
                                 //LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
                             });
                         }
