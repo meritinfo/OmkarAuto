@@ -473,6 +473,11 @@ export class DieselstatementaddComponent implements OnInit {
         IsItemSelected = true;
       }
     }
+    
+    if (!IsItemSelected){
+      this.toasterService.warning("Select Atleast one Trip Details");
+      return;
+    }
 
     if (selectedDataVal.rate=='')
     {
@@ -485,12 +490,7 @@ export class DieselstatementaddComponent implements OnInit {
     else{
       this.toasterService.warning(" Rate can not be zero");  
       return; 
-    }     
-
-    if (!IsItemSelected){
-      this.toasterService.warning("Select Atleast one Trip Details");
-      return;
-    }
+    }  
           
     this.sharedService.loading=true;
     this.DieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
