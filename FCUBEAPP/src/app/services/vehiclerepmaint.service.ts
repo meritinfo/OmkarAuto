@@ -41,18 +41,18 @@ export class VehiclerepmaintMasterService {
     this.selectedVehiclerepmaintMaster = new VehiclerepmaintMaster();
   }
   vehiclerepmaintMasterDelete(req: Requestmodel): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SalesPurchaseMasterDelete', req, this.httpOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleRepMaintMasterDelete', req, this.httpOptions);
   }
   chkSparesNoDuplicate(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/ChkTyreNoDuplicate', req, this.httpOptions);
   }
   getVehiclerepmaintMasterInnerGridList(request: Requestmodel): Observable<VehiclerepmaintMaster> {
-    return this.httpClient.post<VehiclerepmaintMaster>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseMasterInnerGridList', request, this.httpOptions);
+    return this.httpClient.post<VehiclerepmaintMaster>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleRepMaintMasterInnerGridList', request, this.httpOptions);
   }
   vehiclerepmaintMasterSubmitted(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/SparesPurchaseMasterSave', user, this.httpformOptions);
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleRepMaintMasterSave', user, this.httpformOptions);
   }
   getVehiclerepmaintMasterList(filter: Filtermodel): Observable<Vehiclerepmaintlistmodel> {
-    return this.httpClient.post<Vehiclerepmaintlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesPurchaseMasterList', filter, this.httpOptions);
+    return this.httpClient.post<Vehiclerepmaintlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleRepMaintMasterList', filter, this.httpOptions);
   }  
 }

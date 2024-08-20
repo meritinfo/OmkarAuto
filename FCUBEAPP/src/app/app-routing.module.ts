@@ -196,6 +196,9 @@ import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivat
 import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
 import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
+import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
+import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+
 
 
 const routes: Routes = [
@@ -472,7 +475,11 @@ const routes: Routes = [
   { path: 'tyreactrpt', component: TyreactivatedrptComponent }, 
   { path: 'tyredeactrpt', component: TyredeactivatedrptComponent },   
   { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
-  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },   
+  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
+  { path: 'vehiclerepmaintadd', component: VehiclerepmaintaddComponent }, 
+  { path: 'vehiclerepmaintmasteredit', component: VehiclerepmaintaddComponent }, 
+  { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },   
+  
 ];
 
 @NgModule({
