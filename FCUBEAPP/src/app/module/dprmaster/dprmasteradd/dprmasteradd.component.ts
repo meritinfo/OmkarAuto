@@ -262,7 +262,7 @@ export class DrpmasteraddComponent {
     totFreightAmt = freightRs + hamaliAmt + ldDetenAmt + extraAmt + otherAmt;
 
     this.formUser.patchValue({
-      totFreightAmt: totFreightAmt,
+      totFreightAmt: totFreightAmt.toFixed(2),
     });      
   }
 
