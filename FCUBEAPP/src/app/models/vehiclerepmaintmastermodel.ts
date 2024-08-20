@@ -1,0 +1,61 @@
+
+export class VehiclerepmaintMaster  {
+    vrmTransId : string = ""; 
+    transDate : string = ""; 
+    stockType : string = ""; 
+    maintID : string = ""; 
+    maintType : string = ""; 
+    vehicleMasterId : string = ""; 
+    kmReading : string = ""; 
+    nonVendor : string = ""; 
+    vendorId : string = ""; 
+    vendorInvDt : string = ""; 
+    vendorInvNo : string = ""; 
+    vendorName : string = ""; 
+    vendorAddress : string = ""; 
+    vendorState : string = ""; 
+    vendorGstNo : string = ""; 
+    gstType : string = ""; 
+    totItemAmount : string = ""; 
+    totSgstAmt : string = ""; 
+    totCgstAmt : string = ""; 
+    totIgstAmt : string = ""; 
+    totItemNetAmount : string = ""; 
+    otherAmount : string = ""; 
+    roundOff : string = ""; 
+    netAmount : string = ""; 
+    remarks : string = ""; 
+    pmtType : string = ""; 
+    neftPmt : string = ""; 
+    creditAc : string = ""; 
+    chequeNo : string = ""; 
+    chequeDate : string = ""; 
+    linkFtmId : string = ""; 
+    linkJVFtmId : string = ""; 
+    auditedYN : string = ""; 
+    auditDate : string = ""; 
+    auditedBy : string = ""; 
+    refDocAttachedImage : string = ""; 
+    branchCode : string = ""; 
+    yearID : string = ""; 
+    loggedInUser : string = ""; 
+    vehiclerepmaintDtlList: vehicleRepMaintDtlList[] = [];
+}
+export class vehicleRepMaintDtlList {
+    vrmTransDtlId :  string="";
+    vrmTransId :  string="";
+    transDate :  string="";
+    spareLubId :  string="";
+    brandId :  string="";
+    itemQty :  string="";
+    itemRate :  string="";
+    itemAmount :  string="";
+    sgstPct :  string="";
+    sgstAmt :  string="";
+    cgstPct :  string="";
+    cgstAmt :  string="";
+    igstPct :  string="";
+    igstAmt :  string="";
+    netAmount :  string="";
+    remarks: string="";
+  }

@@ -22,11 +22,11 @@ export class Sparespurchasemastermodel {
   pmtType:  string="";
   creditAc:  string="";
   chequeDate:  string="";
-  linkFtmId:  string="";
-  linkJVFtmId:  string="";
-  auditedYN:  string="";
-  auditDate:  string="";
-  auditedBy:  string="";
+  // linkFtmId:  string="";
+  // linkJVFtmId:  string="";
+  // auditedYN:  string="";
+  // auditDate:  string="";
+  // auditedBy:  string="";
   refDocAttachedImage:  string="";
   branchCode:  string="";
   yearID:  string="";
