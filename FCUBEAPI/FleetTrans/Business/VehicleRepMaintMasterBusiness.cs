@@ -38,6 +38,11 @@ namespace FleetTrans.Business
 
             return await vehicleRepMaintRepository.GetVehicleRepMaintMasterList(request);
         }
+        public async Task<List<DropDownListModel>> GetMaintanenceList()
+        {
+
+            return await vehicleRepMaintRepository.GetMaintanenceList();
+        }
 
     }
 }

@@ -138,27 +138,29 @@ vehicleMaintList() {
         data: 'maintType',
       }, 
       {
-        title: 'vehicleMasterId',
-        data: 'vehicleMasterId',
-      }, 
-      {
-        title: 'km Reading',
+        title: 'Km Reading',
         data: 'kmReading',
       }, 
       {
-        title: 'nonVendor',
+        title: 'Non Vendor',
         data: 'nonVendor',
-      }, 
+      },
+      // {
+      //   title: 'vehicleMasterId',
+      //   data: 'vehicleMasterId',
+      // }, 
+      
+      
       {
-        title: 'vendorInvDt',
+        title: 'Vendor InvDate',
         data: 'vendorInvDt',
       }, 
       {
-        title: 'vendorInvNo',
+        title: 'VendorInvNo',
         data: 'vendorInvNo',
       }, 
       {
-        title: 'VendorName',
+        title: 'Vendor Name',
         data: 'vendorName',
       }, 
       {
@@ -176,7 +178,7 @@ addVehicleMaintMaster(): void {
 //Open user details screen
 getVehicleMaintMasterDetails(tyre: VehiclerepmaintMaster): void {
   this.vehiclerepmaintMasterService.setVehiclerepmaintDetails(tyre);
-  this.route.navigate(['/vehiclerepmaintmasterredit']);
+  this.route.navigate(['/vehiclerepmaintmasteredit']);
 }
 
 search(): void {

@@ -42,9 +42,13 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Maint Type </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
-                                            formControlName="maintType" 
+                                           
+                                            <select class="form-control" formControlName="maintType"      
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['maintType'].invalid) }">
+                                                <option *ngFor="let state of maintList" value={{state.dataId}}>
+                                                   {{state.dataName}}
+                                                </option>
+                                             </select>
                                         </div>
                                     </div> 
                                     
@@ -93,9 +97,9 @@
                                     
                                     <div class="col-sm-3">                                    
                                         <div class="mb-3">      
-                                            <input type="checkbox" formControlName="noVendor" 
+                                            <input type="checkbox" formControlName="nonVendor"  (change)="onNoVendor($event)"
                                             class="form-check-input"  >
-                                            <label for="noVendor" class="form-check-label" > NoVendor
+                                            <label for="nonVendor" class="form-check-label" > NonVendor
                                             </label>  
                                         </div>                                    
                                     </div>  
@@ -378,21 +382,21 @@
                             <div class="mb-3">
                                 <label>Total Item Amount:  </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="totItemAmount" >
+                                formControlName="totItemAmount">
                             </div>
                         </div> 
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Total SgstAmt: </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="totSgstAmt" >
+                                formControlName="totSgstAmt">
                             </div>
                         </div> 
                         <div class="col-sm-2">
                             <div class="mb-3">
                                 <label>Total CgstAmt: </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="totCgstAmt" >
+                                formControlName="totCgstAmt">
                             </div>
                         </div> 
                         <div class="col-sm-2">
@@ -430,7 +434,7 @@
                             <div class="mb-3">
                                 <label>Net Amount: </label>
                                 <input type="text" class="form-control" decimalonly
-                                formControlName="netAmount">
+                                formControlName="netAmount" (change)="onPctChange()">
                             </div>
                         </div> 
                       

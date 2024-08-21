@@ -141,6 +141,7 @@ getVehicleIdList(): void {
     this.vehicleList = res;
   });
 }
+
 getMainAcList(): void {    
   this.requestmodel.strRequest="C"
   this.commonService.getAccountList(this.requestmodel).subscribe((res) => {

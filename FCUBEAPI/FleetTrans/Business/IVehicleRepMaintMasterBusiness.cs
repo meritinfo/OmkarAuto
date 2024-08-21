@@ -15,5 +15,6 @@ namespace FleetTrans.Business
             Task<VehicleRepMaintMasterModel> GetVehicleRepMaintMasterInnerGridList(RequestModel request);
         Task<ResponseModel> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel);
         Task<ResponseModel> VehicleRepMaintMasterDelete(RequestModel req);
+        Task<List<DropDownListModel>> GetMaintanenceList();
     }
 }

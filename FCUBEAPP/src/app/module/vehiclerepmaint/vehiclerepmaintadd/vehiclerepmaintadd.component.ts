@@ -45,6 +45,7 @@ export class VehiclerepmaintaddComponent {
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
   sparesList: Dropdownmodel[] = [];
+  maintList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
   modelList: Dropdownmodel[] = [];
@@ -127,7 +128,7 @@ export class VehiclerepmaintaddComponent {
     vehicleMasterId : new FormControl('',),
     maintType : new FormControl('',),
     kmReading : new FormControl('',),
-    nonVendor : new FormControl('',[Validators.required]),
+    nonVendor : new FormControl('',),
     vendorId : new FormControl('',[Validators.required]),
     vendorInvDt : new FormControl('',[Validators.required]),
     vendorInvNo : new FormControl('NA',),
@@ -149,19 +150,21 @@ export class VehiclerepmaintaddComponent {
     creditAc : new FormControl('',),  
     chequeDate : new FormControl('',),
     chequeNo : new FormControl('',),
-   
+    netAmount  : new FormControl('',),
+    
     refDocAttachedImage : new FormControl('',),
     branchCode : new FormControl('',),   
 
     arrayList: this.formBuilder.array([this.createVehicleArray()]),
   }); 
 
- // this.getBrandList();
- // this.getVendorList();
- // this.getBranchList();
- // this.getStateList();
-  //this.getSparesList();
- // this.getCreditAcList('M');
+  this.getBrandList();
+  this.getVendorList();
+  this.getBranchList();
+  this.getStateList();
+  this.getSparesList();
+  this.getMaintanenceList();
+  this.getCreditAcList('M');
 
   this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
   this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -257,6 +260,11 @@ getSparesList(): void {
     this.sparesList = res;
   });
 }
+getMaintanenceList(): void {
+  this.commonService.getMaintanenceList().subscribe((res) => {
+    this.maintList = res;
+  });
+}
 getBranchList(): void {
   this.commonService.getBranchList().subscribe((res) => {
     this.branchList = res;
@@ -287,7 +295,21 @@ getVendorList(): void {
     this.vendorList = res;
   });
 }  
-
+getCreditAcList(pmttp:string): void {
+  this.requestmodel.strRequest= pmttp;
+  this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
+    this.creditAcList = res;
+    this.formUser.patchValue({
+      creditAc: this.creditAcList[0].dataId ,
+    });
+  });
+  if (pmttp == 'B'){
+    this.formUser.controls['chequeDate'].enable();
+  }
+  else {
+    this.formUser.controls['chequeDate'].disable();
+  }
+}
 createVehicleArray() {
   return this.formBuilder.group({
     vrmTransDtlId: [''],
@@ -351,7 +373,7 @@ maintMasterDelete(): void {
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/sparespurchaselist']);
+            this.route.navigate(['/vehiclerepairslist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -362,7 +384,7 @@ maintMasterDelete(): void {
 }
   
 exit(): void {
-  this.route.navigate(['/sparespurchaselist']);
+  this.route.navigate(['/vehiclerepairslist']);
 }  
 
 getVehicleMaintMasterInnerGridList(): void {
@@ -370,24 +392,24 @@ getVehicleMaintMasterInnerGridList(): void {
   this.vehiclerepmaintMasterService.getVehiclerepmaintMasterInnerGridList(this.requestmodel).subscribe((res) => {
     this.formTyreArray.clear();
     this.vehicleRepmaintMaster = res;
-    for (var i = 0; i < res.vehiclerepmaintDtlList.length; i++) {
+    for (var i = 0; i < res.vehicleRepMaintDtlList.length; i++) {
       this.formTyreArray.push(this.createVehicleArray());
-      this.formTyreArray.controls[i].get("vrmTransDtlId")?.setValue(res.vehiclerepmaintDtlList[i].vrmTransDtlId);
-      this.formTyreArray.controls[i].get("vrmTransId")?.setValue(res.vehiclerepmaintDtlList[i].vrmTransId);  
-      this.formTyreArray.controls[i].get("transDate")?.setValue(res.vehiclerepmaintDtlList[i].transDate); 
-      this.formTyreArray.controls[i].get("spareLubId")?.setValue(res.vehiclerepmaintDtlList[i].spareLubId);  
-      this.formTyreArray.controls[i].get("brandId")?.setValue(res.vehiclerepmaintDtlList[i].brandId);   
-      this.formTyreArray.controls[i].get("itemQty")?.setValue(res.vehiclerepmaintDtlList[i].itemQty);  
-      this.formTyreArray.controls[i].get("itemRate")?.setValue(res.vehiclerepmaintDtlList[i].itemRate);    
-      this.formTyreArray.controls[i].get("itemAmount")?.setValue(res.vehiclerepmaintDtlList[i].itemAmount);  
-      this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.vehiclerepmaintDtlList[i].sgstPct);   
-      this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.vehiclerepmaintDtlList[i].sgstAmt);  
-      this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.vehiclerepmaintDtlList[i].cgstPct);  
-      this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.vehiclerepmaintDtlList[i].cgstAmt);  
-      this.formTyreArray.controls[i].get("igstPct")?.setValue(res.vehiclerepmaintDtlList[i].igstPct);  
-      this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.vehiclerepmaintDtlList[i].igstAmt);  
-      this.formTyreArray.controls[i].get("netAmount")?.setValue(res.vehiclerepmaintDtlList[i].netAmount); 
-      this.formTyreArray.controls[i].get("remarks")?.setValue(res.vehiclerepmaintDtlList[i].remarks); 
+      this.formTyreArray.controls[i].get("vrmTransDtlId")?.setValue(res.vehicleRepMaintDtlList[i].vrmTransDtlId);
+      this.formTyreArray.controls[i].get("vrmTransId")?.setValue(res.vehicleRepMaintDtlList[i].vrmTransId);  
+      this.formTyreArray.controls[i].get("transDate")?.setValue(res.vehicleRepMaintDtlList[i].transDate); 
+      this.formTyreArray.controls[i].get("spareLubId")?.setValue(res.vehicleRepMaintDtlList[i].spareLubId);  
+      this.formTyreArray.controls[i].get("brandId")?.setValue(res.vehicleRepMaintDtlList[i].brandId);   
+      this.formTyreArray.controls[i].get("itemQty")?.setValue(res.vehicleRepMaintDtlList[i].itemQty);  
+      this.formTyreArray.controls[i].get("itemRate")?.setValue(res.vehicleRepMaintDtlList[i].itemRate);    
+      this.formTyreArray.controls[i].get("itemAmount")?.setValue(res.vehicleRepMaintDtlList[i].itemAmount);  
+      this.formTyreArray.controls[i].get("sgstPct")?.setValue(res.vehicleRepMaintDtlList[i].sgstPct);   
+      this.formTyreArray.controls[i].get("sgstAmt")?.setValue(res.vehicleRepMaintDtlList[i].sgstAmt);  
+      this.formTyreArray.controls[i].get("cgstPct")?.setValue(res.vehicleRepMaintDtlList[i].cgstPct);  
+      this.formTyreArray.controls[i].get("cgstAmt")?.setValue(res.vehicleRepMaintDtlList[i].cgstAmt);  
+      this.formTyreArray.controls[i].get("igstPct")?.setValue(res.vehicleRepMaintDtlList[i].igstPct);  
+      this.formTyreArray.controls[i].get("igstAmt")?.setValue(res.vehicleRepMaintDtlList[i].igstAmt);  
+      this.formTyreArray.controls[i].get("netAmount")?.setValue(res.vehicleRepMaintDtlList[i].netAmount); 
+      this.formTyreArray.controls[i].get("remarks")?.setValue(res.vehicleRepMaintDtlList[i].remarks); 
     
       this.formTyreArray.controls[i].get("sgstAmt")?.disable();   
       this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
@@ -503,6 +525,15 @@ onPctChange(){
   if(selectedDate.otherAmount!="") {
     netAmount = netAmount + parseFloat(selectedDate.otherAmount);
   }
+  this.formUser.patchValue({
+    totItemAmount : totalItemAmt.toFixed(2),
+    totCgstAmt: totalCgstAmt.toFixed(2),
+    totSgstAmt: totalSgstAmt.toFixed(2),
+    totIgstAmt: totalIgstAmt.toFixed(2),
+    totalAmt: totalAmt.toFixed(2),
+    netAmount: netAmount.toFixed(2),
+    totItemNetAmount: totItemNetAmount.toFixed(2),
+  });
 }
 submitVehicleRepMaintMasterForm(): void {
   this.userSubmitted = true;
@@ -536,11 +567,11 @@ submitVehicleRepMaintMasterForm(): void {
   }
 this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
 this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
-this.vehiclerepmaintMaster.stockType = selectedDataValue.nonVendor?"Y":"N";
+this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
 this.vehiclerepmaintMaster.maintType= selectedDataValue.maintType;
 this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId;
 this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading;
-this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor;
+this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
 this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';
 this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
 this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo;
@@ -561,12 +592,12 @@ this.vehiclerepmaintMaster.remarks= selectedDataValue.remarks;
 this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
 this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
 this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
-this.vehiclerepmaintMaster.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
-this.vehiclerepmaintMaster.branchCode= selectedDataValue.branchCode;
+this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
+this.vehiclerepmaintMaster.branchCode = selectedDataValue.branchCode;
 this.vehiclerepmaintMaster.yearID= this.year;
 this.vehiclerepmaintMaster.loggedInUser=  this.loggedInUserID;
 
-this.vehiclerepmaintMaster.vehiclerepmaintDtlList = [];
+this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
   if(selectedDataValue.netAmount=="" || parseFloat(selectedDataValue.netAmount)==0 ){
     this.toastrService.warning("Total Net Amount should not be zero");
     return;
@@ -578,7 +609,7 @@ this.vehiclerepmaintMaster.vehiclerepmaintDtlList = [];
       return;
     } 
     else{
-      this.vehiclerepmaintMaster.vehiclerepmaintDtlList.push({
+      this.vehiclerepmaintMaster.vehicleRepMaintDtlList.push({
         'vrmTransDtlId': "",
         'vrmTransId': "",
         'transDate': selectedDataValue.transDate,
@@ -599,7 +630,7 @@ this.vehiclerepmaintMaster.vehiclerepmaintDtlList = [];
     }   
   } 
   
-  if(this.vehiclerepmaintMaster.vehiclerepmaintDtlList.length==0){
+  if(this.vehiclerepmaintMaster.vehicleRepMaintDtlList.length==0){
     this.toastrService.warning("Please enter atleast one Record in Details");
     return;
   }
@@ -613,7 +644,7 @@ this.vehiclerepmaintMaster.vehiclerepmaintDtlList = [];
     if (this.responseDetails.status) {
       this.toastrService.success(this.responseDetails.message);
       this.formUser.reset();
-      this.route.navigate(['/sparespurchaselist']);
+      this.route.navigate(['/vehiclerepairslist']);
     }
     else {
       this.toastrService.warning(this.responseDetails.message);
