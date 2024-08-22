@@ -2264,7 +2264,7 @@ namespace FCUBEAPI.Controllers
                     string imageName = new String(Path.GetFileNameWithoutExtension(refDocAttachedImage.FileName)).Replace(" ", "-");
                     imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(refDocAttachedImage.FileName);
 
-                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, "upload/sparesPurchase/refDocAttachedImage/");
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehicleRepair/refDocAttachedImage/");
                     var filePath = System.IO.Path.Combine(pathToSave, imageName);
                     bool exists = System.IO.Directory.Exists(pathToSave);
                     if (!exists)

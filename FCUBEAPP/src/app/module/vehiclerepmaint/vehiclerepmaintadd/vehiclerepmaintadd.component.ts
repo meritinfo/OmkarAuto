@@ -47,6 +47,7 @@ export class VehiclerepmaintaddComponent {
   sparesList: Dropdownmodel[] = [];
   maintList: Dropdownmodel[] = [];
   branchList: Dropdownmodel[] = [];
+  vehicleList : Dropdownmodel[] = [];
   brandList: Dropdownmodel[] = [];
   modelList: Dropdownmodel[] = [];
   vendorList: Dropdownmodel[] = [];
@@ -163,6 +164,7 @@ export class VehiclerepmaintaddComponent {
   this.getBranchList();
   this.getStateList();
   this.getSparesList();
+  this.getVehicleIdList();
   this.getMaintanenceList();
   this.getCreditAcList('M');
 
@@ -191,6 +193,7 @@ export class VehiclerepmaintaddComponent {
         chequeDate: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.chequeDate),
         vendorInvDt: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.vendorInvDt),
         vendorId: this.vendorList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vendorId),
+        vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehiclerepmaintMasterDetail.vehicleMasterId),
       })  
       this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
       this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -465,6 +468,11 @@ changeGstType(e: any) {
   }    
   this.onPctChange()
 }
+getVehicleIdList(): void {
+  this.commonService.getVehicleIdList().subscribe((res) => {
+    this.vehicleList = res;
+  });
+}
 onPctChange(){
   var totalItemAmt = 0;
   var totalCgstAmt = 0;
@@ -569,7 +577,8 @@ this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail
 this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
 this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
 this.vehiclerepmaintMaster.maintType= selectedDataValue.maintType;
-this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId;
+//this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId;
+this.vehiclerepmaintMaster.vehicleMasterId= selectedDataValue.vehicleMasterId.dataId?selectedDataValue.vehicleMasterId.dataId:'';
 this.vehiclerepmaintMaster.kmReading= selectedDataValue.kmReading;
 this.vehiclerepmaintMaster.nonVendor= selectedDataValue.nonVendor?"Y":"N";
 this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedDataValue.vendorId.dataId:'';

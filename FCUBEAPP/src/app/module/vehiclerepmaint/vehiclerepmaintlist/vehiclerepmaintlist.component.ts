@@ -130,7 +130,7 @@ vehicleMaintList() {
       },
       {
         title: 'Stock Type ',
-        data: 'stockType',
+        data: 'stype',
       },
      
       {

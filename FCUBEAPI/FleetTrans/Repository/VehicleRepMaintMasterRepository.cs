@@ -85,6 +85,8 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                Stype = Convert.ToString(dataSet.Tables[0].Rows[i]["Stype"]),
+                               // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }
 
@@ -310,6 +312,7 @@ namespace FleetTrans.Repository
                              new SqlParameter("@IgstAmt",vehicleRepMaintDtlListmodel.IgstAmt),
                              new SqlParameter("@NetAmount",vehicleRepMaintDtlListmodel.NetAmount),
                              new SqlParameter("@Remarks",vehicleRepMaintDtlListmodel.Remarks),
+
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleRepMaintDetailSave", param);

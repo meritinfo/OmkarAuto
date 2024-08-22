@@ -181,6 +181,7 @@
                                              </select>
                                         </div>
                                     </div>  
+                                    
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Vendor GstNo: </label><span style="color: red">*</span> 
@@ -201,7 +202,33 @@
                                                 <option value="I">IGST</option>                                                                                            
                                             </select>
                                         </div>
-                                    </div>   
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="formrow-inputZip">Vehicle</label>
+                                           
+                                            <div class="ng-autocomplete">
+                                                <ng-autocomplete [data]="vehicleList"
+                                                    [searchKeyword]="keywordLocation" placeholder=""
+                                                    formControlName="vehicleMasterId" [initialValue]=""
+                                                
+                                                 
+                                                    (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate"
+                                                    [customFilter]="startWithFilter">
+                                                </ng-autocomplete>
+
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.dataName"></a>
+                                                </ng-template>
+
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      
                                 </div>             
                             </div>                  
                             <!-- end card body -->
@@ -495,7 +522,9 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>                               
+                        </div>  
+                        
+                        
                         <div class="col-sm-4">
                             <div class="mb-3">
                                 <label>Ref Doc Attachment : </label>
