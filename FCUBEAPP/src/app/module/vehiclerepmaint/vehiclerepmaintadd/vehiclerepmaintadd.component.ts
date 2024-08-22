@@ -132,7 +132,7 @@ export class VehiclerepmaintaddComponent {
     nonVendor : new FormControl('',),
     vendorId : new FormControl('',[Validators.required]),
     vendorInvDt : new FormControl('',[Validators.required]),
-    vendorInvNo : new FormControl('NA',),
+    vendorInvNo : new FormControl('',),
     vendorName : new FormControl('',[Validators.required]),
     vendorAddress : new FormControl('',),
     vendorState : new FormControl('',),
@@ -186,7 +186,8 @@ export class VehiclerepmaintaddComponent {
 
   if (this.selectedvehiclerepmaintMasterDetail.vrmTransId  != '') {
     setTimeout(() => {
-      this.refDocAttachedImage = Constants.UploadFolderPath + '/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
+    
+      this.refDocAttachedImage = Constants.UploadFolderPath + 'vehicleRepairs/refDocAttachedImage/' + this.selectedvehiclerepmaintMasterDetail.refDocAttachedImage;
       this.formUser.patchValue(this.selectedvehiclerepmaintMasterDetail);
       this.formUser.patchValue({
         transDate: this.commonService.formatDate(this.selectedvehiclerepmaintMasterDetail.transDate),
