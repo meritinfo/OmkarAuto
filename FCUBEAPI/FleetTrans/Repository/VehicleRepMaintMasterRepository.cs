@@ -210,7 +210,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                                     new SqlParameter("@VrmTransId",vehicleRepMaintMasterModel.VrmTransId ),
+                                 new SqlParameter("@VrmTransId",vehicleRepMaintMasterModel.VrmTransId ),
                                  new SqlParameter("@TransDate",vehicleRepMaintMasterModel.TransDate ),
                                  new SqlParameter("@StockType",vehicleRepMaintMasterModel.StockType ),
                                  new SqlParameter("@MaintID",vehicleRepMaintMasterModel.MaintID ),
@@ -241,7 +241,7 @@ namespace FleetTrans.Repository
                                  new SqlParameter("@ChequeNo",vehicleRepMaintMasterModel.ChequeNo ),
                                  new SqlParameter("@ChequeDate",vehicleRepMaintMasterModel.ChequeDate ),
                                  //new SqlParameter("@LinkFtmId",vehicleRepMaintMasterModel.LinkFtmId ),
-                                 //new SqlParameter("@LinkJVFtmId",vehicleRepMaintMasterModel.LinkJVFtmId ),
+                                 //new SqlParameter("@LinkJVFtmId",vehicleRepMaintMasterModel.LinkJVFtmId),
                                  //new SqlParameter("@AuditedYN",vehicleRepMaintMasterModel.AuditedYN ),
                                  //new SqlParameter("@AuditDate",vehicleRepMaintMasterModel.AuditDate ),
                                  //new SqlParameter("@AuditedBy",vehicleRepMaintMasterModel.AuditedBy ),

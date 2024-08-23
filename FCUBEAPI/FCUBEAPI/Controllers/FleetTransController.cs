@@ -43,6 +43,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
         readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
         readonly ITyreMgntRptBusiness tyreMgntRptBusiness;
+        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -67,7 +68,8 @@ namespace FCUBEAPI.Controllers
             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
-            ITyreMgntRptBusiness _tyreMgntRptBusiness)
+            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
+        ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -95,6 +97,7 @@ namespace FCUBEAPI.Controllers
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
             tyreMgntRptBusiness = _tyreMgntRptBusiness;
+            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
         }
 
 
@@ -2739,6 +2742,77 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreMgntRptBusiness.GetTyreReGroupRcvdRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleAdvBalReceiptMstList")]
+        public async Task<IActionResult> GetVehicleAdvBalReceiptMstList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalReceiptMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+        [HttpPost("VehicleAdvBalReceiptMstDelete")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.VehicleAdvBalReceiptMstDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleAdvBalReceiptMstInnerGridList")]
+        public async Task<IActionResult> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalReceiptMstInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleAdvBalReceiptMstSave")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)
+        {
+            if (vehicleAdvBalReceiptMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.VehicleAdvBalReceiptMstSave(vehicleAdvBalReceiptMstModel);
 
                 return Ok(result);
             }
