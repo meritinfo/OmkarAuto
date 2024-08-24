@@ -272,6 +272,7 @@ export class GeneratetempgcaddComponent {
           this.getTempGcInnerGridList();
           this.editMode = true;          
           this.formUser.controls['ewayBillNo'].disable(); 
+          this.formUser.controls['gcNoteNo'].disable(); 
           this.searchEnable=false;
         }
     }, 2000);
