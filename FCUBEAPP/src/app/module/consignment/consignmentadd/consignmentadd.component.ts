@@ -824,7 +824,6 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   submitLrDetailsForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -863,6 +862,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
 
     this.sharedService.loading = true;
+    this.formSubmitted = true;
     this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
     this.lrmodel.bookingPlace = selectedDataValue.bookingPlace;
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;

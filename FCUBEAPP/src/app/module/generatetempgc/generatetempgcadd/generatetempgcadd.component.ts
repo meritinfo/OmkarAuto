@@ -536,7 +536,6 @@ export class GeneratetempgcaddComponent {
   }
 
   submittempgcDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -641,6 +640,7 @@ export class GeneratetempgcaddComponent {
 
     this.sharedService.loading=true;
 
+    this.userSubmitted = true;
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);
     formData.append('vehPanDoc', this.vehPanDocInput.nativeElement.files[0]);

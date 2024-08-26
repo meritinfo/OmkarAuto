@@ -415,7 +415,6 @@ export class DprvehiplacedaddComponent {
   }
 
   submitDprVehiDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -519,6 +518,7 @@ export class DprvehiplacedaddComponent {
       });
     }
 
+    this.userSubmitted = true;
     this.sharedService.loading=true;
     setTimeout(() => {     
       if(chkDuplicate){

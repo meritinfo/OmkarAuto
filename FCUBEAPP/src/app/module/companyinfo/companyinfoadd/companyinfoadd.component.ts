@@ -204,11 +204,12 @@ getCompanyDetail() {
     this.formDocEntry.patchValue({
       companyName:   this.selectedcompanyinfoDetails.companyName,
       companyShortCode: this.selectedcompanyinfoDetails.companyShortCode,
-      address1:   this.selectedcompanyinfoDetails.address2, 
+      address1:   this.selectedcompanyinfoDetails.address1, 
       address2:   this.selectedcompanyinfoDetails.address2, 
       address3:   this.selectedcompanyinfoDetails.address3, 
       city:   this.selectedcompanyinfoDetails.city, 
       state:   this.selectedcompanyinfoDetails.state, 
+      pinCode : this.selectedcompanyinfoDetails.pinCode, 
       offPhone1:   this.selectedcompanyinfoDetails.offPhone1, 
       offPhone2:  this.selectedcompanyinfoDetails.offPhone2, 
       offPhone3:  this.selectedcompanyinfoDetails.offPhone3,  
@@ -226,8 +227,7 @@ getCompanyDetail() {
       bank1AcNo:  this.selectedcompanyinfoDetails.bank1AcNo, 
       bank1Ifsc:  this.selectedcompanyinfoDetails.bank1Ifsc,
       bank2Name:  this.selectedcompanyinfoDetails.bank2Name,
-      bank2Add:  this.selectedcompanyinfoDetails.bank2Add,
-      
+      bank2Add:  this.selectedcompanyinfoDetails.bank2Add,      
       bank2AcNo:  this.selectedcompanyinfoDetails.bank2AcNo,
       bank2Ifsc:  this.selectedcompanyinfoDetails.bank2Ifsc,
              
@@ -267,33 +267,34 @@ submitConpanyInfoForm(): void {
   var selectedDataVal=this.formDocEntry.getRawValue();  
   
   //this.companyinfoModel.companyID   = selectedDataVal.companyID;
-  this.companyinfoModel.companyName   = selectedDataVal.companyName  ;
+  this.companyinfoModel.companyName = selectedDataVal.companyName  ;
   this.companyinfoModel.companyShortCode = selectedDataVal.companyShortCode ;
-  this.companyinfoModel.address1   = selectedDataVal.address1  ;
+  this.companyinfoModel.address1  = selectedDataVal.address1  ;
   this.companyinfoModel.address2 = selectedDataVal.address2 ;
-  this.companyinfoModel.address3   = selectedDataVal.address3  ;
+  this.companyinfoModel.address3  = selectedDataVal.address3  ;
   this.companyinfoModel.city = selectedDataVal.city ;
-  this.companyinfoModel.state   = selectedDataVal.state  ;
-  this.companyinfoModel.pinCode= selectedDataVal.pinCode;
-  this.companyinfoModel.offPhone1   = selectedDataVal.offPhone1  ;
+  this.companyinfoModel.state = selectedDataVal.state  ;
+  this.companyinfoModel.pinCode = selectedDataVal.pinCode;
+  this.companyinfoModel.offPhone1 = selectedDataVal.offPhone1  ;
   this.companyinfoModel.offPhone2 = selectedDataVal.offPhone2 ;
-  this.companyinfoModel.offPhone3  = selectedDataVal.offPhone3 ;
+  this.companyinfoModel.offPhone3 = selectedDataVal.offPhone3 ;
   this.companyinfoModel.offMbl = selectedDataVal.offMbl ;
-  this.companyinfoModel.email   = selectedDataVal.email  ;
+  this.companyinfoModel.email = selectedDataVal.email  ;
   this.companyinfoModel.email2 = selectedDataVal.email2 ;
-  this.companyinfoModel.webUrl   = selectedDataVal.webUrl  ;
+  this.companyinfoModel.webUrl  = selectedDataVal.webUrl  ;
   this.companyinfoModel.panNo = selectedDataVal.panNo ;
-  this.companyinfoModel.gstNo   = selectedDataVal.gstNo  ;
-  this.companyinfoModel.cinNo    = selectedDataVal.cinNo   ;
-  this.companyinfoModel.jurisdiction     = selectedDataVal.jurisdiction    ;
-  this.companyinfoModel.msmeNo      = selectedDataVal.msmeNo     ;
-  this.companyinfoModel.bank1Name       = selectedDataVal.bank1Name      ;
-  this.companyinfoModel.bank1Add        = selectedDataVal.bank1Add       ;
-  this.companyinfoModel.bank1Ifsc         = selectedDataVal.bank1Ifsc        ;
-  this.companyinfoModel.bank2Name          = selectedDataVal.bank2Name         ;
-  this.companyinfoModel.bank2Add           = selectedDataVal.bank2Add          ;
-  this.companyinfoModel.bank2AcNo           = selectedDataVal.bank2AcNo          ;
-  this.companyinfoModel.bank2Ifsc          = selectedDataVal.bank2Ifsc;
+  this.companyinfoModel.gstNo = selectedDataVal.gstNo  ;
+  this.companyinfoModel.cinNo = selectedDataVal.cinNo   ;
+  this.companyinfoModel.jurisdiction = selectedDataVal.jurisdiction    ;
+  this.companyinfoModel.msmeNo = selectedDataVal.msmeNo     ;
+  this.companyinfoModel.bank1Name = selectedDataVal.bank1Name      ;
+  this.companyinfoModel.bank1Add = selectedDataVal.bank1Add       ;
+  this.companyinfoModel.bank1AcNo = selectedDataVal.bank1AcNo       ;
+  this.companyinfoModel.bank1Ifsc = selectedDataVal.bank1Ifsc        ;
+  this.companyinfoModel.bank2Name = selectedDataVal.bank2Name         ;
+  this.companyinfoModel.bank2Add  = selectedDataVal.bank2Add          ;
+  this.companyinfoModel.bank2AcNo = selectedDataVal.bank2AcNo          ;
+  this.companyinfoModel.bank2Ifsc = selectedDataVal.bank2Ifsc;
  
  // this.docrenewalEntryService.vehicleDocUploadsMstSaveSubmitted(this.vehicledocuploadsModel).subscribe((res: Responsemodel) => {
   this.companyInfoService.companyInfoDetailsSubmitted(this.companyinfoModel).subscribe((res: Responsemodel) => {

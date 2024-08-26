@@ -332,7 +332,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus)"
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) && !this.userSubmitted"
                                 (click)="submitDprVehiDetails()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteDprVehiDetailsForm()">Delete</button>&nbsp;

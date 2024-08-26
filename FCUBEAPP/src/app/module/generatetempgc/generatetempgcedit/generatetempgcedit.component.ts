@@ -246,7 +246,7 @@ export class GeneratetempgceditComponent {
     
     this.formUser.controls['ewayBillNo'].disable(); 
     this.formUser.controls['gcNoteNo'].disable(); 
-    
+
     setTimeout(() => {
         this.uploadedVehRcDoc = Constants.UploadFolderPath + 'tempGc/vehRcDoc/' + this.selectedTempgcDetails.vehRcDoc;
         this.uploadedVehPanDoc = Constants.UploadFolderPath + 'tempGc/vehPanDoc/' + this.selectedTempgcDetails.vehPanDoc;
@@ -537,7 +537,6 @@ export class GeneratetempgceditComponent {
   }
 
   submittempgcDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -642,6 +641,8 @@ export class GeneratetempgceditComponent {
 
     this.sharedService.loading=true;
 
+    this.userSubmitted = true;
+    
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);
     formData.append('vehPanDoc', this.vehPanDocInput.nativeElement.files[0]);

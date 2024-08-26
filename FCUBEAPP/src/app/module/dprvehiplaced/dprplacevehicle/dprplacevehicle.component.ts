@@ -395,7 +395,6 @@ export class DprplacevehicleComponent {
   }
 
   submitDprVehiDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -415,6 +414,7 @@ export class DprplacevehicleComponent {
       this.toasterService.warning(" Broker is Invalid");
       return;
     }
+    
     this.dprvehiplacedmodel.vehiclePlacedId = "";
     this.dprvehiplacedmodel.dprId = this.dprid?this.dprid:"";
     this.dprvehiplacedmodel.vehicleEngagedBy = selectedDataVal.vehicleEngagedBy?selectedDataVal.vehicleEngagedBy.toString():"";
@@ -501,7 +501,8 @@ export class DprplacevehicleComponent {
 
     this.sharedService.loading=true;
     setTimeout(() => {     
-      if(chkDuplicate){
+      if(chkDuplicate){        
+        this.userSubmitted = true;
         this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if(this.responseDetails.status){
