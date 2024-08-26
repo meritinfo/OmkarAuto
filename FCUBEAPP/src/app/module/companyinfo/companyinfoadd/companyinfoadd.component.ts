@@ -302,7 +302,7 @@ submitConpanyInfoForm(): void {
     if (this.responseDetails.status) {
       this.toasterService.success(this.responseDetails.message);
       this.formDocEntry.reset();
-      //this.route.navigate(['/vehdocuploadrpt']);
+      this.route.navigate(['/dashboard']);
      
     }
     else {
