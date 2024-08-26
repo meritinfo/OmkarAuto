@@ -166,7 +166,7 @@
                                 </td>
                                 <td>                                  
                                     <button type="button" 
-                                        (click)="getdprVehiplaced(dpr)">
+                                        (click)="getdprVehiplaced(dpr)" *ngIf="dpr.vehicleNo==''" >
                                         <i class="fas fa-truck"></i></button>
                                 </td>
                             </tr>

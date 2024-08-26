@@ -256,7 +256,12 @@ export class GeneratetempgclistComponent {
 
   gettempgcDetails(tempgc: Tempgcmodel): void {
     this.generatetempgcService.setTempgcDetails(tempgc);
-    this.route.navigate(['/dprtempgcedit']);
+    if(tempgc.tempGcId ==''){
+      this.route.navigate(['/dprtempgcadd']);
+    }
+    else{
+      this.route.navigate(['/dprtempgcedit']);
+    }    
   } 
   
   

@@ -196,6 +196,8 @@ import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivat
 import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
 import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
+import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
+import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 
 
 const routes: Routes = [
@@ -375,10 +377,9 @@ const routes: Routes = [
   { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
   { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
-  { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
   { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
   { path: 'dprtempgclist', component:   GeneratetempgclistComponent},
-  { path: 'dprtempgcadd', component:  GeneratetempgcaddComponent },
+  { path: 'dprtempgcadd', component:  GeneratetempgceditComponent },
   { path: 'dprtempgcedit', component:  GeneratetempgcaddComponent },
   { path: 'challanlist', component:  ChallanmasterlistComponent },
   { path: 'challanadd', component:  ChallanmasteraddComponent },
@@ -472,7 +473,9 @@ const routes: Routes = [
   { path: 'tyreactrpt', component: TyreactivatedrptComponent }, 
   { path: 'tyredeactrpt', component: TyredeactivatedrptComponent },   
   { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
-  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },   
+  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
+  { path: 'dprvehplacedadd', component: DprplacevehicleComponent },   
+  
 ];
 
 @NgModule({

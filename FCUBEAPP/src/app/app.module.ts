@@ -339,6 +339,8 @@ import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregro
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
+import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 
 
 @NgModule({
@@ -442,7 +444,8 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
     LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, 
+    LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
@@ -452,7 +455,9 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
     TyrepurchaserptComponent, TyrestockrptComponent,
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
-    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent
+    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
+    VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
+    DprplacevehicleComponent, GeneratetempgceditComponent
   ],
   imports: [
     BrowserModule,

@@ -78,7 +78,7 @@ export class FingroupaddComponent {
       groupName: new FormControl('',[Validators.required]),
       accountType: new FormControl('',[Validators.required]),
       subAccountType: new FormControl('',[Validators.required]),
-      schID: new FormControl('',[Validators.required]),
+      //schID: new FormControl('',[Validators.required]),
     });  
       
     this.sharedService.loading = true;
@@ -191,7 +191,7 @@ export class FingroupaddComponent {
     this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
     this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();
     this.fingroupmodel.subAccountType=this.formFinGroup.value.subAccountType;
-    //this.fingroupmodel.schID= this.formFinGroup.value.schID;
+    this.fingroupmodel.schID= "";
     this.fingroupmodel.loggedInUserID= this.loggedInUserID;
 
     this.sharedService.loading = true;
