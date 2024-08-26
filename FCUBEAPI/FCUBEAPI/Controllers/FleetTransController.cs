@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
+using FreightMasters.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -42,6 +43,7 @@ namespace FCUBEAPI.Controllers
         readonly IVehicleRepMaintMasterBusiness vehicleRepMaintMasterBusiness;
         readonly ISparesPurchaseMasterBusiness sparesPurchaseMasterBusiness;
         readonly ITyreMgntRptBusiness tyreMgntRptBusiness;
+        readonly IVehicleAdvBalReceiptMstBusiness vehicleAdvBalReceiptMstBusiness;
 
         public FleetTransController(IOptions<DBModel> _dbconnection,
             IDocRenewalEntryBusiness _DocRenewalEntryBusiness, 
@@ -66,7 +68,8 @@ namespace FCUBEAPI.Controllers
             IFleetLoadEntryBusiness _fleetLoadEntryBusiness,
             IVehicleRepMaintMasterBusiness _vehicleRepMaintMasterBusiness,
             ISparesPurchaseMasterBusiness _sparesPurchaseMasterBusiness,
-            ITyreMgntRptBusiness _tyreMgntRptBusiness)
+            IVehicleAdvBalReceiptMstBusiness _vehicleAdvBalReceiptMstBusiness,
+        ITyreMgntRptBusiness _tyreMgntRptBusiness)
         {
             dbconnection = _dbconnection;
             docRenewalEntryBusiness = _DocRenewalEntryBusiness;
@@ -94,6 +97,7 @@ namespace FCUBEAPI.Controllers
             vehicleRepMaintMasterBusiness =_vehicleRepMaintMasterBusiness;
             sparesPurchaseMasterBusiness = _sparesPurchaseMasterBusiness;
             tyreMgntRptBusiness = _tyreMgntRptBusiness;
+            vehicleAdvBalReceiptMstBusiness = _vehicleAdvBalReceiptMstBusiness;
         }
 
 
@@ -2249,15 +2253,49 @@ namespace FCUBEAPI.Controllers
         }
         
         [HttpPost("VehicleRepMaintMasterSave")]
-        public async Task<IActionResult> VehicleRepMaintMasterSave(VehicleRepMaintMasterModel vehicleRepMaintMasterModel)
+        public async Task<IActionResult> VehicleRepMaintMasterSave()
         {
-            if (vehicleRepMaintMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var refDocAttachedImage = HttpContext.Request.Form.Files["refDocAttachedImage"];
+
+                VehicleRepMaintMasterModel vehicleRepMaintMasterModel = JsonConvert.DeserializeObject<VehicleRepMaintMasterModel>(HttpContext.Request.Form["datadetails"]);
+                vehicleRepMaintMasterModel.RefDocAttachedImage = "";
+
+                if (refDocAttachedImage != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(refDocAttachedImage.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(refDocAttachedImage.FileName);
+
+                    var pathToSave = System.IO.Path.Combine(dbconnection.Value.UploadFolderPath, "upload/vehicleRepair/refDocAttachedImage/");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await refDocAttachedImage.CopyToAsync(fileStream);
+                        vehicleRepMaintMasterModel.RefDocAttachedImage = imageName;
+                    }
+                }
                 var result = await vehicleRepMaintMasterBusiness.VehicleRepMaintMasterSave(vehicleRepMaintMasterModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetMaintanenceList")]
+        public async Task<IActionResult> GetMaintanenceList()
+        {
+            try
+            {
+                var result = await vehicleRepMaintMasterBusiness.GetMaintanenceList();
 
                 return Ok(result);
             }
@@ -2430,6 +2468,7 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("GetTyrePurchaseRptList")]
         public async Task<IActionResult> GetTyrePurchaseRptList(ReportRequestModel request)
         {
@@ -2703,6 +2742,77 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreMgntRptBusiness.GetTyreReGroupRcvdRptExcel(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleAdvBalReceiptMstList")]
+        public async Task<IActionResult> GetVehicleAdvBalReceiptMstList(PageFromDtToDtRequest request)
+        {
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalReceiptMstList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+        [HttpPost("VehicleAdvBalReceiptMstDelete")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.VehicleAdvBalReceiptMstDelete(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetVehicleAdvBalReceiptMstInnerGridList")]
+        public async Task<IActionResult> GetVehicleAdvBalReceiptMstInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.GetVehicleAdvBalReceiptMstInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("VehicleAdvBalReceiptMstSave")]
+        public async Task<IActionResult> VehicleAdvBalReceiptMstSave(VehicleAdvBalReceiptMstModel vehicleAdvBalReceiptMstModel)
+        {
+            if (vehicleAdvBalReceiptMstModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await vehicleAdvBalReceiptMstBusiness.VehicleAdvBalReceiptMstSave(vehicleAdvBalReceiptMstModel);
 
                 return Ok(result);
             }

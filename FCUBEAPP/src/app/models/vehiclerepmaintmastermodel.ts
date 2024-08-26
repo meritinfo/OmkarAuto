@@ -39,7 +39,10 @@ export class VehiclerepmaintMaster  {
     branchCode : string = ""; 
     yearID : string = ""; 
     loggedInUser : string = ""; 
-    vehiclerepmaintDtlList: vehicleRepMaintDtlList[] = [];
+    stype : string = ""; 
+    mtype : string = ""; 
+    vehicle : string = ""; 
+    vehicleRepMaintDtlList: vehicleRepMaintDtlList[] = [];
 }
 export class vehicleRepMaintDtlList {
     vrmTransDtlId :  string="";

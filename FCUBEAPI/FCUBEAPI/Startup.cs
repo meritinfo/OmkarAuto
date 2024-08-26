@@ -252,6 +252,8 @@ namespace FCUBEAPI
             services.AddScoped<IUnBilledRptRepository, UnBilledRptRepository>();
             services.AddScoped<ITyreMgntRptBusiness, TyreMgntRptBusiness>();
             services.AddScoped<ITyreMgntRptRepository, TyreMgntRptRepository>();
+            services.AddScoped<IVehicleAdvBalReceiptMstBusiness, VehicleAdvBalReceiptMstBusiness>();
+            services.AddScoped<IVehicleAdvBalReceiptMstRepository, VehicleAdvBalReceiptMstRepository>();
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

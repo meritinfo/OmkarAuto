@@ -85,6 +85,8 @@ namespace FleetTrans.Repository
                                 RefDocAttachedImage = Convert.ToString(dataSet.Tables[0].Rows[i]["RefDocAttachedImage"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 YearID = Convert.ToString(dataSet.Tables[0].Rows[i]["YearID"]),
+                                Stype = Convert.ToString(dataSet.Tables[0].Rows[i]["Stype"]),
+                               // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }
 
@@ -103,6 +105,44 @@ namespace FleetTrans.Repository
 
             }
             return vehicleRepMaintMasterList;
+        }
+        public async Task<List<DropDownListModel>> GetMaintanenceList()
+        {
+            List<DropDownListModel> stateList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param = { };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "MaintanenceList_Select", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < statusData.Tables[0].Rows.Count; i++)
+                        {
+                            stateList.Add(new DropDownListModel
+                            {
+                                DataId = Convert.ToString(statusData.Tables[0].Rows[i]["DataId"]),
+                                DataName = Convert.ToString(statusData.Tables[0].Rows[i]["DataName"]),
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return stateList;
         }
         public async Task<VehicleRepMaintMasterModel> GetVehicleRepMaintMasterInnerGridList(RequestModel request)
         {
@@ -170,7 +210,7 @@ namespace FleetTrans.Repository
                 {
                     SqlParameter[] param =
                         {
-                                     new SqlParameter("@VrmTransId",vehicleRepMaintMasterModel.VrmTransId ),
+                                 new SqlParameter("@VrmTransId",vehicleRepMaintMasterModel.VrmTransId ),
                                  new SqlParameter("@TransDate",vehicleRepMaintMasterModel.TransDate ),
                                  new SqlParameter("@StockType",vehicleRepMaintMasterModel.StockType ),
                                  new SqlParameter("@MaintID",vehicleRepMaintMasterModel.MaintID ),
@@ -200,11 +240,11 @@ namespace FleetTrans.Repository
                                  new SqlParameter("@CreditAc",vehicleRepMaintMasterModel.CreditAc ),
                                  new SqlParameter("@ChequeNo",vehicleRepMaintMasterModel.ChequeNo ),
                                  new SqlParameter("@ChequeDate",vehicleRepMaintMasterModel.ChequeDate ),
-                                 new SqlParameter("@LinkFtmId",vehicleRepMaintMasterModel.LinkFtmId ),
-                                 new SqlParameter("@LinkJVFtmId",vehicleRepMaintMasterModel.LinkJVFtmId ),
-                                 new SqlParameter("@AuditedYN",vehicleRepMaintMasterModel.AuditedYN ),
-                                 new SqlParameter("@AuditDate",vehicleRepMaintMasterModel.AuditDate ),
-                                 new SqlParameter("@AuditedBy",vehicleRepMaintMasterModel.AuditedBy ),
+                                 //new SqlParameter("@LinkFtmId",vehicleRepMaintMasterModel.LinkFtmId ),
+                                 //new SqlParameter("@LinkJVFtmId",vehicleRepMaintMasterModel.LinkJVFtmId),
+                                 //new SqlParameter("@AuditedYN",vehicleRepMaintMasterModel.AuditedYN ),
+                                 //new SqlParameter("@AuditDate",vehicleRepMaintMasterModel.AuditDate ),
+                                 //new SqlParameter("@AuditedBy",vehicleRepMaintMasterModel.AuditedBy ),
                                  new SqlParameter("@RefDocAttachedImage",vehicleRepMaintMasterModel.RefDocAttachedImage ),
                                  new SqlParameter("@BranchCode",vehicleRepMaintMasterModel.BranchCode ),
                                  new SqlParameter("@YearID",vehicleRepMaintMasterModel.YearID ),
@@ -272,6 +312,7 @@ namespace FleetTrans.Repository
                              new SqlParameter("@IgstAmt",vehicleRepMaintDtlListmodel.IgstAmt),
                              new SqlParameter("@NetAmount",vehicleRepMaintDtlListmodel.NetAmount),
                              new SqlParameter("@Remarks",vehicleRepMaintDtlListmodel.Remarks),
+
                         };
 
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleRepMaintDetailSave", param);

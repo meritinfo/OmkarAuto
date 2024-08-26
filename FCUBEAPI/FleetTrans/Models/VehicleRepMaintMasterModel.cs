@@ -47,6 +47,9 @@ namespace FleetTrans.Models
         public string? BranchCode { get; set; }
         public string? YearID { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? Stype { get; set; }
+        public string? Mtype { get; set; }
+        public string? Vehicle { get; set; }
         public List<VehicleRepMaintDtlListmodel>? VehicleRepMaintDtlList { get; set; }
 
     }

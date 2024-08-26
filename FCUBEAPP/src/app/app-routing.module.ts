@@ -198,6 +198,9 @@ import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregro
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
+import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
+import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+
 
 
 const routes: Routes = [
@@ -475,6 +478,11 @@ const routes: Routes = [
   { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
   { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
   { path: 'dprvehplacedadd', component: DprplacevehicleComponent },   
+  
+  { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
+  { path: 'vehiclerepmaintadd', component: VehiclerepmaintaddComponent }, 
+  { path: 'vehiclerepmaintmasteredit', component: VehiclerepmaintaddComponent }, 
+  { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },   
   
 ];
 
