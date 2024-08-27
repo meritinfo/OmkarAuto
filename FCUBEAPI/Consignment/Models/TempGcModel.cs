@@ -14,6 +14,8 @@
         public string? PartyName { get; set; }
         public string? FromPlace  { get; set; }
         public string? ToPlace  { get; set; }
+        public string? Fplace { get; set; }
+        public string? Tplace { get; set; }
         public string? EwayBillType  { get; set; }
         public string? EwayBillNo  { get; set; }
         public string? EwayBillDate  { get; set; }

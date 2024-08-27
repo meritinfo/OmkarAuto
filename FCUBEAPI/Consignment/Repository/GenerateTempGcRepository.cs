@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using DocumentFormat.OpenXml.Office2016.Excel;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Numerics;
 
 namespace Consignment.Repository
 {
@@ -65,7 +66,9 @@ namespace Consignment.Repository
                                 DprDate             = Convert.ToString(dataSet.Tables[0].Rows[i]["DprDate"]),
                                 PartyName           = Convert.ToString(dataSet.Tables[0].Rows[i]["PartyName"]), 
                                 FromPlace           = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),   
-                                ToPlace             = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),   
+                                ToPlace             = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
+                                Fplace              = Convert.ToString(dataSet.Tables[0].Rows[i]["Fplace"]),
+                                Tplace              = Convert.ToString(dataSet.Tables[0].Rows[i]["Tplace"]),
                                 EwayBillType        = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillType"]),  
                                 EwayBillNo          = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillNo"]),  
                                 EwayBillDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["EwayBillDate"]),  

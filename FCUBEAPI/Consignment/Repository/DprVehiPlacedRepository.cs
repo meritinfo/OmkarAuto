@@ -67,6 +67,7 @@ namespace Consignment.Repository
                                 VehOwnerName        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehOwnerName"]),
                                 VehOwnerMobile      = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob1"]),
                                 BrokerId            = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerId"]),
+                                BrokerName          = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 VehAdd1             = Convert.ToString(dataSet.Tables[0].Rows[i]["VehAdd1"]),
                                 VehAdd2             = Convert.ToString(dataSet.Tables[0].Rows[i]["VehAdd2"]),
                                 OwnerPan            = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnerPan"]),

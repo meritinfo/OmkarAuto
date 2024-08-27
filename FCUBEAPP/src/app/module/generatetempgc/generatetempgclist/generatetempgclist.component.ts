@@ -138,7 +138,7 @@ export class GeneratetempgclistComponent {
   tempgcList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,
@@ -170,11 +170,11 @@ export class GeneratetempgclistComponent {
         },  
         {
           title: 'From Place ',
-          data: 'fromPlace',
+          data: 'fplace',
         },
         {
           title: 'To Place',
-          data: 'toPlace',
+          data: 'tplace',
         }, 
         {
           title: 'Vehicle No',

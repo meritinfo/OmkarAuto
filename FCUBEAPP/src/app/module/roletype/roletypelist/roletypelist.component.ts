@@ -50,7 +50,7 @@ constructor(private roleTypeService: RoleTypeService, private route: Router) {
   this.roleTypeService.clearRoletypesDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',
-    pageLength: 10,
+    pageLength: 50,
     serverSide: true,
     processing: true,
     ajax: (dataTablesParameters: any, callback) => {
