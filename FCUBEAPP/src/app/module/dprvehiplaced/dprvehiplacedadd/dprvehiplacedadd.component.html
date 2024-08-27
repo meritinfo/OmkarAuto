@@ -10,7 +10,7 @@
                 </div>
             </div>
           <!-- end page title -->
-            <form [formGroup]="formUser">
+            <form [formGroup]="formUser" (keydown.enter)="$event.preventDefault()">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">

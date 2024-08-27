@@ -31,7 +31,8 @@ export class Dprmodel {
     totFreightAmt   : string = "";   
     attachConfirmDoc : string = "";  
     dPR_Status  : string = "";       
-    vehicleNo  : string = "";        
+    vehicleNo  : string = "";  
+    brokerName   : string = "";    
     driverName  : string = "";       
     driverMob   : string = "";       
     loggedInUserID: string = "";
