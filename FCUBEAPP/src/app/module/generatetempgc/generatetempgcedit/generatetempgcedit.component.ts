@@ -226,7 +226,7 @@ export class GeneratetempgceditComponent {
       payStn : new FormControl('',[Validators.required]),
       payParty : new FormControl('',[Validators.required]),
       businessby: new FormControl('',[Validators.required]),
-      gstBy: new FormControl('',[Validators.required]),
+      gstBy: new FormControl('E',[Validators.required]),
 
       remarks:new FormControl('',),
 

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formEmployee">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formEmployee">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
                         <div class="card">

@@ -11,7 +11,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formLhpmMaster">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formLhpmMaster">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">

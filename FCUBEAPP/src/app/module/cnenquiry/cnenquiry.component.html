@@ -10,7 +10,7 @@
                 </div>
             </div>  <div class="row top-controls">
                 <div class="col-sm-12 col-md-12">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">
@@ -47,7 +47,7 @@
                         title="Step 3">Finance</a>
                 </li>
             </ul>
-            <form role="form" [formGroup]="formUser">
+            <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser">
                 <div class="tab-content">
                     <div class="tab-pane mt-4" [ngClass]="{'active' : step1Active}" role="tabpanel" id="step1">
                         <div class="row">

@@ -21,7 +21,7 @@
             <!-- end page title -->
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">

@@ -9,7 +9,7 @@
                     </div>
                 </div>
             </div>
-            <form [formGroup]="formUser">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-3">

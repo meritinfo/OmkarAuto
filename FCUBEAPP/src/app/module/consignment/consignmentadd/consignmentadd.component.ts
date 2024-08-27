@@ -265,6 +265,17 @@ export class ConsignmentaddComponent implements OnInit {
         businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
       })      
       
+      if(this.selectedLrDetails.ownTruck=='Y'){
+        this.formUser.patchValue({
+          ownTruck: 'Y'             
+        })      
+      }
+      else{
+        this.formUser.patchValue({
+          ownTruck: ''             
+        })  
+      }
+      
       this.formUser.controls['gcNoteNo'].disable();     
       if (this.selectedLrDetails.consignmentID != '0') {
         this.getLrInnerGridList();   

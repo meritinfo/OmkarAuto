@@ -17,7 +17,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formDistanceTrip">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formDistanceTrip">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">

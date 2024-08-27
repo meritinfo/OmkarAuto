@@ -17,7 +17,7 @@
              </div>
           </div>
           <!-- end page title -->
-          <form [formGroup]="formRoleType">
+          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formRoleType">
              <div class="row">
                 <div class="col-lg-12">
                    <div class="card">

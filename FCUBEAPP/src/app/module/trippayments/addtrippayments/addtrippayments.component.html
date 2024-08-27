@@ -16,7 +16,7 @@
                         <div class="card-body">
                             <div id="basic-example">
                                 <section>
-                                    <form [formGroup]="formTripPayment">
+                                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formTripPayment">
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <div class="mb-3">

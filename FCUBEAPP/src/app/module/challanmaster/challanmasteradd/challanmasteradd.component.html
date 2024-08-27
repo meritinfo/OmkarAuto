@@ -24,7 +24,7 @@
                         title="Step 3">Lorry Hire</a>
                 </li>
             </ul>
-            <form role="form" [formGroup]="formUser">
+            <form (keydown.enter)="$event.preventDefault()"role="form" [formGroup]="formUser">
                 <div class="tab-content">
                     <div class="tab-pane mt-4" [ngClass]="{'active' : step1Active}" role="tabpanel" id="step1">
                         <div class="row">
