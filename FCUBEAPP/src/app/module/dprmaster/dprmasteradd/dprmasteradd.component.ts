@@ -466,9 +466,7 @@ export class DrpmasteraddComponent {
     if(this.dprmodel.dprDtls.length==0){
       this.toasterService.warning("Provide atleast one detail record");
       return;
-    }
-
-   
+    }   
 
     this.userSubmitted = true;
     this.sharedService.loading=true;

@@ -170,11 +170,11 @@ export class GeneratetempgclistComponent {
         },  
         {
           title: 'From Place ',
-          data: 'fromPlace',
+          data: 'fplace',
         },
         {
           title: 'To Place',
-          data: 'toPlace',
+          data: 'tplace',
         }, 
         {
           title: 'Vehicle No',
