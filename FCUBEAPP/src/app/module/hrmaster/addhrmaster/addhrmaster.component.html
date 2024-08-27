@@ -11,7 +11,7 @@
              </div>
           </div>
           <!-- end page title -->
-          <form [formGroup]="formHrMaster">
+          <form (keydown.enter)="$event.preventDefault()"[formGroup]="formHrMaster">
              <div class="row">
                 <div class="col-lg-12">
                    <div class="card">

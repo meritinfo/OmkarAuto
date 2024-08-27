@@ -67,6 +67,7 @@ namespace Consignment.Repository
                                 VehOwnerName        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehOwnerName"]),
                                 VehOwnerMobile      = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob1"]),
                                 BrokerId            = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerId"]),
+                                BrokerName          = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 VehAdd1             = Convert.ToString(dataSet.Tables[0].Rows[i]["VehAdd1"]),
                                 VehAdd2             = Convert.ToString(dataSet.Tables[0].Rows[i]["VehAdd2"]),
                                 OwnerPan            = Convert.ToString(dataSet.Tables[0].Rows[i]["OwnerPan"]),
@@ -221,7 +222,7 @@ namespace Consignment.Repository
                     var result = await response.Content.ReadAsStringAsync();
 
                     var Truckmasterrt = JsonConvert.DeserializeObject<TruckmasterRt>(result);
-                    if (Truckmasterrt != null && Truckmasterrt.result.regNo.ToString() != "")
+                    if (Truckmasterrt != null && Truckmasterrt.result!= null && Truckmasterrt.result.regNo.ToString() != "")
                     {
                         string stradr = Truckmasterrt.result.permanentAddress.ToString();
                         string[] stradrr = stradr.Split(',');
@@ -280,7 +281,12 @@ namespace Consignment.Repository
                         connection.Open();
                         SqlTransaction transaction;
                         transaction = connection.BeginTransaction();
-                       
+
+                        var VehInsValidDate = dprVehi.VehInsValidDate=="" ? "":Convert.ToDateTime(dprVehi.VehInsValidDate).ToString("yyyy-MM-dd") ;
+                        var VehFitValidDate = dprVehi.VehFitValidDate==""? "" : Convert.ToDateTime(dprVehi.VehFitValidDate).ToString("yyyy-MM-dd") ;
+                        var VehPermitValidDate = dprVehi.VehPermitValidDate==""? "" : Convert.ToDateTime(dprVehi.VehPermitValidDate).ToString("yyyy-MM-dd") ;
+                        RegDate = RegDate=="" ? "" : Convert.ToDateTime(RegDate).ToString("yyyy-MM-dd");
+
                         SqlParameter[] param =
                         {
                             new SqlParameter("@TruckNo",            request.strRequest),
@@ -295,9 +301,9 @@ namespace Consignment.Repository
                             new SqlParameter("@ChasisNo",           Chassino),
                             new SqlParameter("@EngineNo",           Engineno),
                             new SqlParameter("@Model",              Model),
-                            new SqlParameter("@InsValidDate",       dprVehi.VehInsValidDate),
-                            new SqlParameter("@FitValidDate",       dprVehi.VehFitValidDate),
-                            new SqlParameter("@PermitValidDate",    dprVehi.VehPermitValidDate),
+                            new SqlParameter("@InsValidDate",       VehInsValidDate),
+                            new SqlParameter("@FitValidDate",       VehFitValidDate),
+                            new SqlParameter("@PermitValidDate",    VehPermitValidDate),
                             new SqlParameter("@LoggedInUser",       ""),
                         };
                         var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TruckDetailsSave", param);

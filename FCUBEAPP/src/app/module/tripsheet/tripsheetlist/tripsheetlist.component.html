@@ -19,7 +19,7 @@
             <!-- end page title -->
             <div class="row top-controls">
                 <div class="col-sm-12 col-md-12">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="mb-3">

@@ -10,7 +10,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formBranchMaster">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBranchMaster">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">

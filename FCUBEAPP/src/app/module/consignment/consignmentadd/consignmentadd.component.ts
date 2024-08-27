@@ -192,7 +192,7 @@ export class ConsignmentaddComponent implements OnInit {
       hsnSac : new FormControl('',),    
       noPackages : new FormControl('',),    
       looseFlag : new FormControl('',),    
-      weightType : new FormControl('',),    
+      weightType : new FormControl('MT',),    
       actualWt : new FormControl('',),    
       senderWt : new FormControl('',),    
       chargewt : new FormControl('',),    
@@ -204,7 +204,7 @@ export class ConsignmentaddComponent implements OnInit {
       loadWidth : new FormControl('',),    
       loadHeight : new FormControl('',),    
       loadCFT : new FormControl('',),    
-      rateType : new FormControl('',),    
+      rateType : new FormControl('1',),    
       rateDesc : new FormControl('',),    
       gstBy : new FormControl('',),    
       rateRs : new FormControl('',),    
@@ -222,7 +222,7 @@ export class ConsignmentaddComponent implements OnInit {
       extrasRS : new FormControl('',),    
       othersRs : new FormControl('',),    
       subTotalRs : new FormControl('',),    
-      gstType : new FormControl('',),    
+      gstType : new FormControl('N',),    
       sgstPct : new FormControl('',),    
       sgstAmt : new FormControl('',),    
       cgstPct : new FormControl('',),    
@@ -264,6 +264,17 @@ export class ConsignmentaddComponent implements OnInit {
         billingParty : this.partyList.find(e => e.dataId == this.selectedLrDetails.billingParty),   
         businessBy : this.businessByList.find(e => e.dataId == this.selectedLrDetails.businessBy),             
       })      
+      
+      if(this.selectedLrDetails.ownTruck=='Y'){
+        this.formUser.patchValue({
+          ownTruck: 'Y'             
+        })      
+      }
+      else{
+        this.formUser.patchValue({
+          ownTruck: ''             
+        })  
+      }
       
       this.formUser.controls['gcNoteNo'].disable();     
       if (this.selectedLrDetails.consignmentID != '0') {
@@ -824,7 +835,6 @@ export class ConsignmentaddComponent implements OnInit {
   }
 
   submitLrDetailsForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -863,6 +873,7 @@ export class ConsignmentaddComponent implements OnInit {
     }
 
     this.sharedService.loading = true;
+    this.formSubmitted = true;
     this.lrmodel.consignmentID = this.selectedLrDetails.consignmentID=='0'? "":this.selectedLrDetails.consignmentID;
     this.lrmodel.bookingPlace = selectedDataValue.bookingPlace;
     this.lrmodel.gcNoteNo = selectedDataValue.gcNoteNo;

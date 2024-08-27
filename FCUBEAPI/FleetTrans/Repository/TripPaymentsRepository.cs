@@ -193,8 +193,6 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@VehicleMasterId", request.VehicleMasterId),
-                           // new SqlParameter("@TripStatus", request.TripStatus),
-                           // new SqlParameter("@TripNo", request.TripNo),
 
                         };
                     var userData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetTripDetail", param);

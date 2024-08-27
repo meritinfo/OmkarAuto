@@ -130,7 +130,7 @@ export class DrpmasteraddComponent {
       actualWt  : new FormControl('',),
       chargeWt : new FormControl('',),
       odcDimensions  : new FormControl('',), 
-      rateType : new FormControl('',[Validators.required]),
+      rateType : new FormControl('1',[Validators.required]),
       rateRs  : new FormControl('',),
       freightRs : new FormControl('',),
       hamaliAmt : new FormControl('',),
@@ -352,7 +352,6 @@ export class DrpmasteraddComponent {
   }
 
   submitDprDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -389,6 +388,7 @@ export class DrpmasteraddComponent {
       this.toasterService.warning(" Party is Invalid");
       return;
     }
+    
     this.dprmodel.dprId = this.selectedDprDetails.dprId ;
     this.dprmodel.dprBranch = selectedDataVal.dprBranch;
     this.dprmodel.dprDate = selectedDataVal.dprDate;
@@ -466,10 +466,9 @@ export class DrpmasteraddComponent {
     if(this.dprmodel.dprDtls.length==0){
       this.toasterService.warning("Provide atleast one detail record");
       return;
-    }
+    }   
 
-   
-
+    this.userSubmitted = true;
     this.sharedService.loading=true;
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);

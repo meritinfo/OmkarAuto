@@ -12,7 +12,7 @@
             </div>
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
@@ -54,7 +54,7 @@
                             </div> 
                             <div class="col-md-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputState">Vehicle No</label>
+                                    <label for="formrow-inputState">Vehicle No: </label>
                                     <input class="form-control" formControlName="vehicleNo" >
                                 </div>
                             </div>        
@@ -145,8 +145,8 @@
                                 <td>{{ gc.dprDate }}</td>  
                                 <td>{{ gc.gcNoteNo }}</td>                        
                                 <td>{{ gc.partyName }}</td>    
-                                <td>{{ gc.fromPlace }}</td>                        
-                                <td>{{ gc.toPlace }}</td>                        
+                                <td>{{ gc.fplace }}</td>                        
+                                <td>{{ gc.tplace }}</td>                        
                                 <td>{{ gc.vehicleNo }}</td>                          
                                 <td>{{ gc.driverName }}</td>                          
                                 <td>{{ gc.driverMob1 }}</td> 

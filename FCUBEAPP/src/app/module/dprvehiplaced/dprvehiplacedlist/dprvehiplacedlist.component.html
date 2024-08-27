@@ -18,7 +18,7 @@
             </div>
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
@@ -127,7 +127,7 @@
                                 <th>toPlace</th>  
                                 <th>partyName</th> 
                                 <th>vehicleNo </th>   
-                                <th>driverName</th>                               
+                                <th>brokerName</th>                               
                                 <th>Action</th>   
                             </tr>
                         </thead>
@@ -138,7 +138,7 @@
                                 <td>{{ dpr.toPlace }}</td>                          
                                 <td>{{ dpr.partyName }}</td>                       
                                 <td>{{ dpr.vehicleNo }}</td>                          
-                                <td>{{ dpr.driverName }}</td> 
+                                <td>{{ dpr.brokerName }}</td> 
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprVehiDetails(dpr)"></button>                               

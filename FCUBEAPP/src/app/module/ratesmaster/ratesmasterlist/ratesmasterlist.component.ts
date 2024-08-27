@@ -68,7 +68,7 @@ export class RatesmasterlistComponent {
   rateMasterList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,

@@ -18,7 +18,7 @@
             </div>
             <div class="row top-controls">
                 <div class="col-sm-10 col-md-10">
-                    <form [formGroup]="formFilter">
+                    <form (keydown.enter)="$event.preventDefault()"[formGroup]="formFilter">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="mb-3">
@@ -142,8 +142,8 @@
                                 <th>partyName</th>   
                                 <th>actualWt </th>   
                                 <th>chargeWt </th>   
-                                <th>vehicleNo </th>   
-                                <th>driverName</th>   
+                                <th>vehicleNo </th>  
+                                <th>driverMob </th>   
                                 <th>driverMob </th>                               
                                 <th>Action</th>                              
                                 <th>Action</th>
@@ -157,8 +157,8 @@
                                 <td>{{ dpr.partyName }}</td>                         
                                 <td>{{ dpr.actualWt }}</td>                          
                                 <td>{{ dpr.chargeWt }}</td>                          
-                                <td>{{ dpr.vehicleNo }}</td>                          
-                                <td>{{ dpr.driverName }}</td>                          
+                                <td>{{ dpr.vehicleNo }}</td>  
+                                <td>{{ dpr.brokerName  }}</td>                      
                                 <td>{{ dpr.driverMob }}</td>
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
@@ -166,7 +166,7 @@
                                 </td>
                                 <td>                                  
                                     <button type="button" 
-                                        (click)="getdprVehiplaced(dpr)">
+                                        (click)="getdprVehiplaced(dpr)" *ngIf="dpr.vehicleNo==''" >
                                         <i class="fas fa-truck"></i></button>
                                 </td>
                             </tr>

@@ -17,7 +17,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formBankRecEntry">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formBankRecEntry">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row" >
                         <div class="col-lg-10">

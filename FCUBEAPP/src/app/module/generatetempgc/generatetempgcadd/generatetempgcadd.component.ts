@@ -226,7 +226,7 @@ export class GeneratetempgcaddComponent {
       payStn : new FormControl('',[Validators.required]),
       payParty : new FormControl('',[Validators.required]),
       businessby: new FormControl('',[Validators.required]),
-      gstBy: new FormControl('',[Validators.required]),
+      gstBy: new FormControl('E',[Validators.required]),
 
       remarks:new FormControl('',),
 
@@ -272,6 +272,7 @@ export class GeneratetempgcaddComponent {
           this.getTempGcInnerGridList();
           this.editMode = true;          
           this.formUser.controls['ewayBillNo'].disable(); 
+          this.formUser.controls['gcNoteNo'].disable(); 
           this.searchEnable=false;
         }
     }, 2000);
@@ -535,7 +536,6 @@ export class GeneratetempgcaddComponent {
   }
 
   submittempgcDetails(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -640,6 +640,7 @@ export class GeneratetempgcaddComponent {
 
     this.sharedService.loading=true;
 
+    this.userSubmitted = true;
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);
     formData.append('vehPanDoc', this.vehPanDocInput.nativeElement.files[0]);

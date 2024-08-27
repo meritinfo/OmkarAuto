@@ -138,7 +138,7 @@ export class GeneratetempgclistComponent {
   tempgcList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,
@@ -170,11 +170,11 @@ export class GeneratetempgclistComponent {
         },  
         {
           title: 'From Place ',
-          data: 'fromPlace',
+          data: 'fplace',
         },
         {
           title: 'To Place',
-          data: 'toPlace',
+          data: 'tplace',
         }, 
         {
           title: 'Vehicle No',
@@ -256,7 +256,12 @@ export class GeneratetempgclistComponent {
 
   gettempgcDetails(tempgc: Tempgcmodel): void {
     this.generatetempgcService.setTempgcDetails(tempgc);
-    this.route.navigate(['/dprtempgcedit']);
+    if(tempgc.tempGcId ==''|| tempgc.tempGcId =='0'){
+      this.route.navigate(['/dprtempgcadd']);
+    }
+    else{
+      this.route.navigate(['/dprtempgcedit']);
+    }    
   } 
   
   

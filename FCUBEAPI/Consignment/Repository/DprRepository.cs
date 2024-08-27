@@ -78,6 +78,7 @@ namespace Consignment.Repository
                                 AttachConfirmDoc    = Convert.ToString(dataSet.Tables[0].Rows[i]["AttachConfirmDoc"]),
                                 DPR_Status          = Convert.ToString(dataSet.Tables[0].Rows[i]["DPR_Status"]),
                                 VehicleNo           = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                BrokerName          = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 DriverName          = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 DriverMob           = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob"]),
                                

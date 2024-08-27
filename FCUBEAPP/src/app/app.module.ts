@@ -343,6 +343,8 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
+import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
+import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 
 
 @NgModule({
@@ -446,7 +448,8 @@ import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmo
     LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
+    FleetloadentryaddComponent, FleetloadentrylistComponent, 
+    LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
@@ -457,6 +460,9 @@ import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmo
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent
+    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
+    VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
+    DprplacevehicleComponent, GeneratetempgceditComponent
   ],
   imports: [
     BrowserModule,

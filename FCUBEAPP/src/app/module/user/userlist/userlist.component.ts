@@ -49,7 +49,7 @@ export class UserlistComponent implements OnInit {
     this.userService.clearUserDetails();
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,

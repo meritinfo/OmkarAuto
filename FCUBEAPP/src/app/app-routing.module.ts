@@ -196,6 +196,8 @@ import { TyreactivatedrptComponent } from './module/tyreactivatedrpt/tyreactivat
 import { TyredeactivatedrptComponent } from './module/tyredeactivatedrpt/tyredeactivatedrpt.component';
 import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregroupissrpt.component';
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
+import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
+import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
@@ -380,11 +382,10 @@ const routes: Routes = [
   { path: 'classificationmasteradd', component:  ClassificationmasteraddComponent },   
   { path: 'classificationmasteredit', component:  ClassificationmasteraddComponent },
   { path: 'dprvehplacedlist', component:   DprvehiplacedlistComponent},
-  { path: 'dprvehplacedadd', component:  DprvehiplacedaddComponent },
   { path: 'dprvehplacededit', component:  DprvehiplacedaddComponent },
   { path: 'dprtempgclist', component:   GeneratetempgclistComponent},
-  { path: 'dprtempgcadd', component:  GeneratetempgcaddComponent },
-  { path: 'dprtempgcedit', component:  GeneratetempgcaddComponent },
+  { path: 'dprtempgcadd', component: GeneratetempgcaddComponent },
+  { path: 'dprtempgcedit', component: GeneratetempgceditComponent },
   { path: 'challanlist', component:  ChallanmasterlistComponent },
   { path: 'challanadd', component:  ChallanmasteraddComponent },
   { path: 'challanedit', component:  ChallanmasteraddComponent },
@@ -478,6 +479,7 @@ const routes: Routes = [
   { path: 'tyredeactrpt', component: TyredeactivatedrptComponent },   
   { path: 'tyreissrgp', component: TyreregroupissrptComponent },   
   { path: 'tyrerecvrgp', component: TyreregrouprcvdrptComponent },  
+  { path: 'dprvehplacedadd', component: DprplacevehicleComponent },
   { path: 'vehiclerepmaintadd', component: VehiclerepmaintaddComponent }, 
   { path: 'vehiclerepmaintmasteredit', component: VehiclerepmaintaddComponent }, 
   { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  

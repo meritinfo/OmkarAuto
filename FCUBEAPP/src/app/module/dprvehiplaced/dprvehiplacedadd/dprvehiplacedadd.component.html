@@ -10,7 +10,7 @@
                 </div>
             </div>
           <!-- end page title -->
-            <form [formGroup]="formUser">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formUser" (keydown.enter)="$event.preventDefault()">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -213,10 +213,9 @@
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="mb-3">
-                                            <label>Driver Name: </label><span style="color: red">*</span>
+                                            <label>Driver Name: </label>
                                             <input uppercaseonly type="text" class="form-control" 
-                                            formControlName="driverName" maxlength="100"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverName'].invalid) }">
+                                            formControlName="driverName" maxlength="100">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -332,7 +331,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) && !this.userSubmitted"
                                 (click)="submitDprVehiDetails()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteDprVehiDetailsForm()">Delete</button>&nbsp;

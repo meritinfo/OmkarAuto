@@ -14,6 +14,8 @@ export class Tempgcmodel {
     partyName: string = "";
     fromPlace : string = "";
     toPlace : string = "";
+    fplace : string = "";
+    tplace : string = "";
     ewayBillType : string = "";
     ewayBillNo : string = "";
     ewayBillDate : string = "";

@@ -782,7 +782,6 @@ export class ChallanmasteraddComponent {
   }
 
   submitChallanForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -830,6 +829,7 @@ export class ChallanmasteraddComponent {
     }
 
 
+    this.formSubmitted = true;
     this.sharedService.loading = true;
     this.challanmodel.challanId = this.selectedChallanDetails.challanId;
     this.challanmodel.challanBranch= selectedDataValue.challanBranch;

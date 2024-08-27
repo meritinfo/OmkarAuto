@@ -19,7 +19,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            <form [formGroup]="formDocEntry">
+            <form (keydown.enter)="$event.preventDefault()"[formGroup]="formDocEntry">
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">

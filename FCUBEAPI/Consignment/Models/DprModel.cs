@@ -33,6 +33,7 @@
         public string? AttachConfirmDoc { get; set; }
         public string? DPR_Status { get; set; }
         public string? VehicleNo { get; set; }
+        public string? BrokerName { get; set; }
         public string? DriverName { get; set; }
         public string? DriverMob { get; set; }
         public string? LoggedInUserID { get; set; }

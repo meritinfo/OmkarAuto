@@ -52,7 +52,7 @@ constructor(private ptSlabMasterService: PtSlabMasterService, private route: Rou
   this.ptSlabMasterService.clearPtSlabMasterDetails();
   this.dtOptions = {
     pagingType: 'full_numbers',
-    pageLength: 10,
+    pageLength: 50,
     serverSide: true,
     processing: true,
     searching:false,
