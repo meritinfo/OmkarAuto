@@ -137,7 +137,7 @@ export class DprvehiplacedaddComponent {
       vehInsValidDate : new FormControl('',),
       vehFitValidDate : new FormControl('',),
       vehPermitValidDate : new FormControl('',),
-      driverName : new FormControl('',[Validators.required]),
+      driverName : new FormControl('',),
       driverMob1 : new FormControl('',[Validators.required]),
       challanChrgWt : new FormControl('',[Validators.required]),
       ratePerTon : new FormControl('',[Validators.required]),

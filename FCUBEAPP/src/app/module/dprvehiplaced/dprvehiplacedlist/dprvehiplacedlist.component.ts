@@ -125,7 +125,7 @@ export class DprvehiplacedlistComponent {
   dprVehiList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,
@@ -164,11 +164,11 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Vehicle No',
           data: 'vehicleNo',
-        },   
+        },  
         {
-          title: 'Driver Name',
-          data: 'driverName',
-        },    
+          title: 'Broker Name',
+          data: 'brokerName',
+        },     
         {
           title: 'Action',
           data: 'dprId',

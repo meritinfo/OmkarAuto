@@ -128,7 +128,7 @@ export class DrpmasterlistComponent {
   dprList(){
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 50,
       serverSide: true,
       processing: true,
       searching:false,
@@ -177,8 +177,8 @@ export class DrpmasterlistComponent {
           data: 'vehicleNo',
         },   
         {
-          title: 'Driver Name',
-          data: 'driverName',
+          title: 'Broker Name',
+          data: 'brokerName',
         },   
         {
           title: 'Driver Mob',

@@ -130,7 +130,7 @@ export class DrpmasteraddComponent {
       actualWt  : new FormControl('',),
       chargeWt : new FormControl('',),
       odcDimensions  : new FormControl('',), 
-      rateType : new FormControl('',[Validators.required]),
+      rateType : new FormControl('1',[Validators.required]),
       rateRs  : new FormControl('',),
       freightRs : new FormControl('',),
       hamaliAmt : new FormControl('',),

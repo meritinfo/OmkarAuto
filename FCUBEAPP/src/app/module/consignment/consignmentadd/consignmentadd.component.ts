@@ -192,7 +192,7 @@ export class ConsignmentaddComponent implements OnInit {
       hsnSac : new FormControl('',),    
       noPackages : new FormControl('',),    
       looseFlag : new FormControl('',),    
-      weightType : new FormControl('',),    
+      weightType : new FormControl('MT',),    
       actualWt : new FormControl('',),    
       senderWt : new FormControl('',),    
       chargewt : new FormControl('',),    

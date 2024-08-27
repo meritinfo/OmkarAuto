@@ -13,6 +13,7 @@
         public string? ToPlace { get; set; }    				
         public string? VehicleEngagedBy { get; set; }
         public string? BrokerId { get; set; }
+        public string? BrokerName { get; set; }        
         public string? VehicleNo { get; set; }
         public string? VehOwnerName { get; set; }
         public string? VehAdd1 { get; set; }

@@ -12,6 +12,7 @@ export class Dprvehiplacedmodel {
     toPlace : string = "";
     vehicleEngagedBy : string = "";
     brokerId : string = "";
+    brokerName:string = "";
     vehicleNo : string = "";
     vehOwnerName : string = "";
     vehAdd1 : string = "";

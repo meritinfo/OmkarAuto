@@ -122,7 +122,7 @@ export class TyrehistoryrptComponent {
   getTyreStatus(){
     this.dtOptions = {
         pagingType: 'full_numbers',
-        pageLength: 100,
+        pageLength: 500,
         serverSide: true,
         processing: true,
         searching:false,
