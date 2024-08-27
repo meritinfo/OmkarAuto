@@ -340,6 +340,9 @@ import { TyreregroupissrptComponent } from './module/tyreregroupissrpt/tyreregro
 import { TyreregrouprcvdrptComponent } from './module/tyreregrouprcvdrpt/tyreregrouprcvdrpt.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
+import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
+import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
 
 
 @NgModule({
@@ -453,7 +456,7 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
     TyrepurchaserptComponent, TyrestockrptComponent,
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
-    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent
+    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent
   ],
   imports: [
     BrowserModule,
@@ -508,7 +511,7 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel,VehiclerepmaintMaster
+    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
   ],
   bootstrap: [AppComponent]
 })
