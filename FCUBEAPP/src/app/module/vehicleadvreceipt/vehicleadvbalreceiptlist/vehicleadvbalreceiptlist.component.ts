@@ -4,8 +4,6 @@ import { Component ,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Pagerequestwithdatesmodel } from 'src/app/models/pagerequestwithdatesmodel';
-
-
 import { VehicleadvbalreceiptService } from 'src/app/services/vehicleadvbalreceipt.service';
 import { VehicleadvbalreceiptlistModel } from 'src/app/models/vehicleadvbalreceiptlistmodel';
 import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmodel';
@@ -130,8 +128,8 @@ vehicleAdvanceBalList() {
         data: 'transDate',
       },
       {
-        title: 'transBranch ',
-        data: 'transBranch',
+        title: 'Branch ',
+        data: 'branchName',
       },
      
       {
@@ -139,45 +137,32 @@ vehicleAdvanceBalList() {
         data: 'tripsUptoDate',
       }, 
       {
-        title: 'vehicleMasterId',
-        data: 'vehicleMasterId',
+        title: 'Vehicle',
+        data: 'vehicleNo',
       }, 
       {
-        title: 'cheqCashAmt',
+        title: 'Cheq CashAmt',
         data: 'cheqCashAmt',
       },
+     
       {
-        title: 'tripOnAcAdj',
-        data: 'tripOnAcAdj',
-      },
-      {
-        title: 'onAcAdjAmt',
-        data: 'onAcAdjAmt',
-      },
-      {
-        title: 'amtRecd',
+        title: 'AmtRecd',
         data: 'amtRecd',
       },
       {
-        title: 'amtDed',
+        title: 'Amt Ded',
         data: 'amtDed',
       },
+    
       {
-        title: 'amtTDS',
-        data: 'amtTDS',
-      },
-      {
-        title: 'amtExtras',
+        title: 'Amt Extras',
         data: 'amtExtras',
       },
       {
-        title: 'totalAmtRecd',
+        title: 'Total AmtRecd',
         data: 'totalAmtRecd',
       },
-      {
-        title: 'remarks',
-        data: 'remarks',
-      },
+     
       // {
       //   title: 'receiptType',
       //   data: 'receiptType',
@@ -221,7 +206,7 @@ addVehicleadvbalreceiptMaster(): void {
 //Open user details screen
 getVehicleAdvBalreceiptasterDetails(tyre: VehicleadvbalreceiptModel): void {
   this.vehicleadvbalreceiptService.setVehicleAdvBalreceiptDetails(tyre);
-  this.route.navigate(['/vehicleadvbalreceiptedit']);
+  this.route.navigate(['/Vehicleadvbalreceiptedit']);
 }
 
 search(): void {

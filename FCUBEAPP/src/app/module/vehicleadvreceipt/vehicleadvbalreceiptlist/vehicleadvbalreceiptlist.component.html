@@ -56,13 +56,12 @@
                             <th>address2</th>
                             <th>address3</th> 
                             <th>address1</th>
+                            <th>address1</th>
+                            <th>tptName</th>
+                            <th>tptName</th>
+                            <th>tptName</th>
+                       
                       
-                            <th>address3</th> 
-                            <th>tptName</th>
-                            <th>tptName</th>
-                            <th>tptName</th>
-                            <th>tptName</th>
-                            <th>tptName</th>
                                             
                             <th>Action</th>
                         </tr>
@@ -71,13 +70,14 @@
                         <tr *ngFor="let tm of allAdvanceMaster.advanceList">
                          
                             <td>{{ tm.transDate}}</td>
-                            <td>{{ tm.transBranch}}</td>
+                            <td>{{ tm.branchName}}</td>
                             <!-- <td>{{ tm.vendor}}</td>  -->
                             <td>{{ tm.tripsUptoDate}}</td> 
-                            <td>{{ tm.vehicleMasterId}}</td> 
+                     
+                            <td>{{ tm.vehicleNo}}</td> 
                             <td>{{ tm.cheqCashAmt}}</td> 
-                            <td>{{ tm.tripOnAcAdj}}</td> 
-                            <td>{{ tm.onAcAdjAmt}}</td> 
+                            <!-- <td>{{ tm.tripOnAcAdj}}</td> 
+                            <td>{{ tm.onAcAdjAmt}}</td>  -->
                             <td>{{ tm.amtRecd}}</td> 
                             <td>{{ tm.amtDed}}</td> 
                             <td>{{ tm.amtTDS}}</td> 

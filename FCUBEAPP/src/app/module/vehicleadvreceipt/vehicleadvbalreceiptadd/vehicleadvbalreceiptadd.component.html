@@ -63,42 +63,7 @@
                                   
                                 </div> 
                   
-                                <div class="row">
-                                   
-                                  
-                                    <div class="col-sm-3">
-                                        <div class="mb-3">
-                                            <label>Cheq CashAmt: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
-                                            formControlName="cheqCashAmt" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqCashAmt'].invalid) }">
-                                        </div>
-                                    </div> 
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>Amt Recd: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
-                                            formControlName="amtRecd" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['amtRecd'].invalid) }">
-                                        </div>
-                                    </div>   
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>AmtDed: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
-                                            formControlName="amtDed" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['amtDed'].invalid) }">
-                                        </div>
-                                    </div>   
-                                    <div class="col-sm-2">
-                                        <div class="mb-3">
-                                            <label>AmtTDS: </label><span style="color: red">*</span> 
-                                            <input numbersonly type="text" class="form-control" 
-                                            formControlName="amtTDS" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['amtTDS'].invalid) }">
-                                        </div>
-                                    </div>   
-                                </div> 
+                             
                                 <div class="row">                                
                                   
                                    
@@ -161,21 +126,21 @@
                                                         <h6>VehicleMaster Id</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <!-- <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>Trip No </h6>
                                                     </label>
-                                                </td>
-                                                <td class="col-lg-2">
+                                                </td> -->
+                                                <!-- <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>Trip Year</h6>
                                                     </label>
-                                                </td>
-                                                <td class="col-lg-2">
+                                                </td> -->
+                                                <!-- <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>TripRouteDtlId</h6>
                                                     </label>
-                                                </td>    
+                                                </td>     -->
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
                                                         <h6>Received</h6>
@@ -245,37 +210,37 @@
                                                         </div>
                                                     </td>
                                                 
-                                                    <td class="col-lg-2"> 
+                                                    <!-- <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tripNo" > 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
+                                                    </td> -->
+                                                    <!-- <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tripYear"  > 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
+                                                    </td> -->
+                                                    <!-- <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tripRouteDtlId"> 
+                                                    </td> -->
+                                                    <td class="col-lg-2"> 
+                                                        <input autoclose="false" class="form-control"
+                                                        formControlName="received" decimalonly (change)="onAmtChange()"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="received"> 
+                                                        formControlName="deduction"  decimalonly (change)="onAmtChange()" > 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="deduction" > 
+                                                        formControlName="tds" decimalonly (change)="onAmtChange()" > 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="tds" > 
+                                                        formControlName="extras" decimalonly (change)="onAmtChange()"> 
                                                     </td>
                                                     <td class="col-lg-2"> 
                                                         <input autoclose="false" class="form-control"
-                                                        formControlName="extras"> 
-                                                    </td>
-                                                    <td class="col-lg-2"> 
-                                                        <input autoclose="false" class="form-control"
-                                                        formControlName="dtlRemarks"> 
+                                                        formControlName="dtlRemarks"  uppercaseonly> 
                                                     </td>
                                                     
                                                     
@@ -299,6 +264,42 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                                   
+                                  
+                        <div class="col-sm-3">
+                            <div class="mb-3">
+                                <label>Cheq CashAmt: </label><span style="color: red">*</span> 
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="cheqCashAmt" decimalonly
+                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqCashAmt'].invalid) }">
+                            </div>
+                        </div> 
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>Amt Recd: </label><span style="color: red">*</span> 
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtRecd" 
+                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtRecd'].invalid) }">
+                            </div>
+                        </div>   
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>AmtDed: </label><span style="color: red">*</span> 
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtDed" 
+                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtDed'].invalid) }">
+                            </div>
+                        </div>   
+                        <div class="col-sm-2">
+                            <div class="mb-3">
+                                <label>AmtTDS: </label><span style="color: red">*</span> 
+                                <input numbersonly type="text" class="form-control" 
+                                formControlName="amtTDS" 
+                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtTDS'].invalid) }">
+                            </div>
+                        </div>   
+                    </div> 
                     <div class="row">
                         <div class="col-sm-2">
                             <div class="mb-3">

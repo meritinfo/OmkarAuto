@@ -21,6 +21,8 @@ export class VehicleadvbalreceiptModel {
  finDocid: string = "";
  finDocidJV: string = "";
  yearId: string = "";
+ vehicleNo: string = "";
+ branchName: string = "";
  loggedInUser: string = "";
 
 
@@ -33,8 +35,8 @@ export class VehicleadvbalreceiptdtllistModel {
      transDate: string = "";
      vehicleMasterId: string = "";
      tripNo: string = "";
-     tripYear: string = "";
-     tripRouteDtlId: string = "";
+   //  tripYear: string = "";
+     //tripRouteDtlId: string = "";
      received: string = "";
      deduction: string = "";
      tds: string = "";

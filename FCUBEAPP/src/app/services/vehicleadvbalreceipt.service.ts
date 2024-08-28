@@ -49,8 +49,11 @@ export class VehicleadvbalreceiptService {
   getVehicleadvbalreceiptInnerGridList(request: Requestmodel): Observable<VehicleadvbalreceiptModel> {
     return this.httpClient.post<VehicleadvbalreceiptModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalReceiptMstInnerGridList', request, this.httpOptions);
   }
-  VehicleadvbalreceiptSubmitted(user: FormData): Observable<Responsemodel> {
-    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstSave', user, this.httpformOptions);
+  // VehicleadvbalreceiptSubmitted(user: FormData): Observable<Responsemodel> {
+  //   return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstSave', user, this.httpformOptions);
+  // }
+  VehicleadvbalreceiptSubmitted(Vehicleadv: VehicleadvbalreceiptModel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/VehicleAdvBalReceiptMstSave', Vehicleadv, this.httpOptions);
   }
   getVehicleadvbalreceiptMasterList(filter: Filtermodel): Observable<VehicleadvbalreceiptlistModel> {
     return this.httpClient.post<VehicleadvbalreceiptlistModel>(Constants.API_ENDPOINT + 'FleetTrans/GetVehicleAdvBalReceiptMstList', filter, this.httpOptions);

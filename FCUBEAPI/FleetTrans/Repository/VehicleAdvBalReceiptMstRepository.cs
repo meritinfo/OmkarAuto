@@ -69,7 +69,10 @@ namespace FleetTrans.Repository
                                 FinDocid = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocid"]),
                                 FinDocidJV = Convert.ToString(dataSet.Tables[0].Rows[i]["FinDocidJV"]),
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUse"]),
+                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
+                                BranchName = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchName"]),
+
+                                //  LoggedInUser = Convert.ToString(dataSet.Tables[0].Rows[i]["LoggedInUser"]),
                                 // Mtype = Convert.ToString(dataSet.Tables[0].Rows[i]["Mtype"]),
                             });
                         }
@@ -124,8 +127,8 @@ namespace FleetTrans.Repository
                              new SqlParameter("@ChequeNo " , vehicleAdvBalReceiptMstModel.ChequeNo ),
                              new SqlParameter("@ChequeDate " , vehicleAdvBalReceiptMstModel.ChequeDate ),
                              new SqlParameter("@DebitAc " , vehicleAdvBalReceiptMstModel.DebitAc ),
-                             new SqlParameter("@FinDocid " , vehicleAdvBalReceiptMstModel.FinDocid ),
-                             new SqlParameter("@FinDocidJV " , vehicleAdvBalReceiptMstModel.FinDocidJV ),
+                             //new SqlParameter("@FinDocid " , vehicleAdvBalReceiptMstModel.FinDocid ),
+                            // new SqlParameter("@FinDocidJV " , vehicleAdvBalReceiptMstModel.FinDocidJV ),
                              new SqlParameter("@YearId " , vehicleAdvBalReceiptMstModel.YearId ),
                              new SqlParameter("@LoggedInUser " , vehicleAdvBalReceiptMstModel.LoggedInUser),
                         };
@@ -196,8 +199,8 @@ namespace FleetTrans.Repository
 
                                 VehicleMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["VehicleMasterId"]),
                                 TripNo = Convert.ToString(resultData.Tables[0].Rows[i]["TripNo"]),
-                                TripYear = Convert.ToString(resultData.Tables[0].Rows[i]["TripYear"]),
-                                TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TripRouteDtlId"]),
+                               // TripYear = Convert.ToString(resultData.Tables[0].Rows[i]["TripYear"]),
+                             //   TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["TripRouteDtlId"]),
                                 Received = Convert.ToString(resultData.Tables[0].Rows[i]["Received"]),
                                 Deduction = Convert.ToString(resultData.Tables[0].Rows[i]["Deduction"]),
                                 TDS = Convert.ToString(resultData.Tables[0].Rows[i]["TDS"]),
@@ -235,8 +238,8 @@ namespace FleetTrans.Repository
                              new SqlParameter("@TransDate" , vehicleAdvBalReceiptDtlListmodel.TransDate),
                              new SqlParameter("@VehicleMasterId" , vehicleAdvBalReceiptDtlListmodel.VehicleMasterId),
                              new SqlParameter("@TripNo" , vehicleAdvBalReceiptDtlListmodel.TripNo),
-                             new SqlParameter("@TripYear" , vehicleAdvBalReceiptDtlListmodel.TripYear),
-                             new SqlParameter("@TripRouteDtlId" , vehicleAdvBalReceiptDtlListmodel.TripRouteDtlId),
+                            // new SqlParameter("@TripYear" , vehicleAdvBalReceiptDtlListmodel.TripYear),
+                           //  new SqlParameter("@TripRouteDtlId" , vehicleAdvBalReceiptDtlListmodel.TripRouteDtlId),
                              new SqlParameter("@Received" , vehicleAdvBalReceiptDtlListmodel.Received),
                              new SqlParameter("@Deduction" , vehicleAdvBalReceiptDtlListmodel.Deduction),
                              new SqlParameter("@TDS" , vehicleAdvBalReceiptDtlListmodel.TDS),

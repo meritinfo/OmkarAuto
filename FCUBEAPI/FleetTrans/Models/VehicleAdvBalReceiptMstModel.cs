@@ -33,6 +33,9 @@ namespace FleetTrans.Models
 
         public string? FinDocidJV { get; set; }
         public string? YearId { get; set; }
+        public string? Vehicle { get; set; }
+        public string? VehicleNo { get; set; }
+        public string? BranchName{ get; set; }
         public string? LoggedInUser { get; set; }
       
         public List<VehicleAdvBalReceiptDtlListmodel>? VehicleAdvBalReceiptDtlList { get; set; }
@@ -46,14 +49,15 @@ namespace FleetTrans.Models
         public string? TransDate { get; set; }
         public string? VehicleMasterId { get; set; }
         public string? TripNo { get; set; }
-        public string? TripYear { get; set; }
-        public string? TripRouteDtlId { get; set; }
+     //   public string? TripYear { get; set; }
+   //     public string? TripRouteDtlId { get; set; }
         public string? Received { get; set; }
         public string? Deduction { get; set; }
         public string? TDS { get; set; }
         public string? Extras { get; set; }
         public string? DtlRemarks { get; set; }
         public string? YearId { get; set; }
+
     }
 
 }

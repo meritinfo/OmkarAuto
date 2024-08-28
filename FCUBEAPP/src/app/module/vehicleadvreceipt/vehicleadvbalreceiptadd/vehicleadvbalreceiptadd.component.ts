@@ -123,7 +123,7 @@ export class VehicleadvbalreceiptaddComponent {
   this.selectedvehicleAdvBalReceiptDetail = this.vehiclerepmaintMasterService.getVehiclerepmaintMasterDetails();
   this.formUser = this.formBuilder.group({
     transDate : new FormControl(this.loginDate,[Validators.required]),
-    transBranch : new FormControl('',),  
+    transBranch : new FormControl(this.branch,[Validators.required]),  
     tripsUptoDate : new FormControl('',),
     vehicleMasterId : new FormControl('',),
     cheqCashAmt : new FormControl('',),
@@ -142,11 +142,6 @@ export class VehicleadvbalreceiptaddComponent {
     debitAc : new FormControl('',),
     yearId : new FormControl('',),
 
-
-    
-    refDocAttachedImage : new FormControl('',),
-   // branchCode : new FormControl('',),   
-
     arrayList: this.formBuilder.array([this.createAdvanceArray()]),
   });
   
@@ -159,21 +154,12 @@ export class VehicleadvbalreceiptaddComponent {
   // this.getMaintanenceList();
   // this.getCreditAcList('M');
 
-  // this.formAdvanceArray.controls[0].get("sgstAmt")?.disable();   
-  // this.formAdvanceArray.controls[0].get("cgstAmt")?.disable();  
-  // this.formAdvanceArray.controls[0].get("igstAmt")?.disable();  
-  // this.formAdvanceArray.controls[0].get("sgstPct")?.disable();   
-  // this.formAdvanceArray.controls[0].get("cgstPct")?.disable();  
-  // this.formAdvanceArray.controls[0].get("igstPct")?.disable();   
-  // this.formAdvanceArray.controls[0].get("netAmount")?.disable(); 
-  // this.formAdvanceArray.controls[0].get("itemAmount")?.disable(); 
-
-  // this.formUser.controls["totItemAmount"].disable();
-  // this.formUser.controls["totCgstAmt"].disable();
-  // this.formUser.controls["totSgstAmt"].disable();
-  // this.formUser.controls["totIgstAmt"].disable();
-  // this.formUser.controls["netAmount"].disable();  
-  // this.formUser.controls['totItemNetAmount'].disable(); 
+  
+  this.formUser.controls["amtRecd"].disable();
+   this.formUser.controls["amtDed"].disable();
+    this.formUser.controls["amtExtras"].disable();
+    this.formUser.controls["amtTDS"].disable();
+     this.formUser.controls["totalAmtRecd"].disable();
 
   if (this.selectedvehicleAdvBalReceiptDetail.transId  != '') {
     setTimeout(() => {
@@ -183,19 +169,18 @@ export class VehicleadvbalreceiptaddComponent {
       this.formUser.patchValue({
         transDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.transDate),
         chequeDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.chequeDate),
+        tripsUptoDate: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.tripsUptoDate),
+        vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.vehicleMasterId),
      //   vendorInvDt: this.commonService.formatDate(this.selectedvehicleAdvBalReceiptDetail.vendorInvDt),
        // vendorId: this.vendorList.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.vendorId),
        // vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedvehicleAdvBalReceiptDetail.vehicleMasterId),
       })  
-      // this.formAdvanceArray.controls[0].get("sgstAmt")?.disable();   
-      // this.formAdvanceArray.controls[0].get("cgstAmt")?.disable();  
-      // this.formAdvanceArray.controls[0].get("igstAmt")?.disable();  
-      // this.formAdvanceArray.controls[0].get("sgstPct")?.disable();   
-      // this.formAdvanceArray.controls[0].get("cgstPct")?.disable();  
-      // this.formAdvanceArray.controls[0].get("igstPct")?.disable();   
-      // this.formAdvanceArray.controls[0].get("netAmount")?.disable(); 
-      // this.formAdvanceArray.controls[0].get("itemAmount")?.disable();       
-                
+      // this.formAdvanceArray.controls[0].get("amtRecd")?.disable();   
+      // this.formAdvanceArray.controls[0].get("amtDed")?.disable();  
+      // this.formAdvanceArray.controls[0].get("amtTDS")?.disable();  
+      // this.formAdvanceArray.controls[0].get("amtExtras")?.disable();   
+      // this.formAdvanceArray.controls[0].get("totalAmtRecd")?.disable();  
+    
       // if (this.selectedvehicleAdvBalReceiptDetail.nonVendor=='Y'){     
       //   this.formUser.controls['vendorId'].disable();   
       //   this.formUser.controls['vendorName'].enable(); 
@@ -231,8 +216,8 @@ get formAdvanceArray() {
     transDate: [''],
     vehicleMasterId: [''],
     tripNo: [''],
-    tripYear: [''],
-    tripRouteDtlId: [''],
+    //tripYear: [''],
+   // tripRouteDtlId: [''],
     received: [''],
     deduction: [''],
     tds: [''],
@@ -252,6 +237,36 @@ onChangeSearch(search: string) {
   // fetch remote data from here
   // And reassign the 'data' which is binded to 'data' property.
 }
+addItem(i: number): void {    
+  var selectedDate = this.formUser.getRawValue();
+  if (this.formAdvanceArray.value[i].vehicleMasterId != "" && this.formAdvanceArray.value[i].received!="" ) {
+    this.formAdvanceArray.push(this.createAdvanceArray());
+    
+  // this.formTyreArray.controls[i+1].get("sgstAmt")?.disable();   
+  // this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
+  // this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
+    
+  //   if (selectedDate.gstType == "I") {   
+  //     this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
+  //     this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
+  //     this.formTyreArray.controls[i+1].get("igstPct")?.enable();  
+  //   }    
+  //   else if (selectedDate.gstType == "S" || selectedDate.gstType == "C")  {      
+  //     this.formTyreArray.controls[i+1].get("sgstPct")?.enable();   
+  //     this.formTyreArray.controls[i+1].get("cgstPct")?.enable();  
+  //     this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
+  //   }
+  //   else{              
+  //     this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
+  //     this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
+  //     this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
+  //   } 
+  // } 
+  // else {
+  //   this.toastrService.warning("Please Enter  Spares Details");
+   }
+}
+
 
 onFocused(e: any) {
   // do something
@@ -265,35 +280,7 @@ getBranchList(): void {
 startWithFilter = function (List: Dropdownmodel[], query: string): any[] {
   return List.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
 };
-addItem(i: number): void {    
-  var selectedDate = this.formUser.getRawValue();
-  // if (this.formAdvanceArray.value[i].spareLubId != "" && this.formAdvanceArray.value[i].brandId!="" ) {
-  //   this.formAdvanceArray.push(this.createVehicleArray());
-    
-  // this.formAdvanceArray.controls[i+1].get("sgstAmt")?.disable();   
-  // this.formAdvanceArray.controls[i+1].get("cgstAmt")?.disable();  
-  // this.formAdvanceArray.controls[i+1].get("igstAmt")?.disable();  
-    
-  //   if (selectedDate.gstType == "I") {   
-  //     this.formAdvanceArray.controls[i+1].get("sgstPct")?.disable();   
-  //     this.formAdvanceArray.controls[i+1].get("cgstPct")?.disable();  
-  //     this.formAdvanceArray.controls[i+1].get("igstPct")?.enable();  
-  //   }    
-  //   else if (selectedDate.gstType == "S" || selectedDate.gstType == "C")  {      
-  //     this.formAdvanceArray.controls[i+1].get("sgstPct")?.enable();   
-  //     this.formAdvanceArray.controls[i+1].get("cgstPct")?.enable();  
-  //     this.formAdvanceArray.controls[i+1].get("igstPct")?.disable();  
-  //   }
-  //   else{              
-  //     this.formAdvanceArray.controls[i+1].get("sgstPct")?.disable();   
-  //     this.formAdvanceArray.controls[i+1].get("cgstPct")?.disable();  
-  //     this.formAdvanceArray.controls[i+1].get("igstPct")?.disable();  
-  //   } 
-  // } 
-  // else {
-  //   this.toastrService.warning("Please Enter  Spares Details");
-  // }
-}
+
 
 removeItem(index: number) {
   this.formAdvanceArray.removeAt(index);  
@@ -307,7 +294,7 @@ advancereceiptMasterDelete(): void {
           if (this.responseDetails.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formUser.reset();
-            this.route.navigate(['/vehiclerepairslist']);
+            this.route.navigate(['/vehicleadvballist']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -318,11 +305,82 @@ advancereceiptMasterDelete(): void {
 }
   
 exit(): void {
-  this.route.navigate(['/vehiclerepairslist']);
+  this.route.navigate(['/vehicleadvballist']);
 }  
 getVehicleIdList(): void {
   this.commonService.getVehicleIdList().subscribe((res) => {
     this.vehicleList = res;
+  });
+}
+onAmtChange(){
+  var totalItemAmt = 0;
+  var totalreceived = 0;
+  var totaldeduction = 0;
+  var totaltds = 0;
+  var totalextras = 0;
+  var totItemNetAmount = 0;
+  var itemAmount = 0;
+  var itemRate = 0;
+  var itemQty = 0;
+  var totalItemAmt = 0;
+  var received = 0;
+  var deduction = 0;
+  var tds = 0;
+  var extras = 0;
+  
+  var selectedDate = this.formUser.getRawValue();
+
+  for (var i = 0; i < this.formAdvanceArray.controls.length; i++) {
+    // this.formAdvanceArray.controls[i].get("received")?.setValue("");
+    // this.formAdvanceArray.controls[i].get("deduction")?.setValue("");
+    // this.formAdvanceArray.controls[i].get("tds")?.setValue("");
+    // this.formAdvanceArray.controls[i].get("extras")?.setValue("");
+
+
+    if (selectedDate.arrayList[i].received!="") {
+      received= parseFloat(selectedDate.arrayList[i].received) ;
+     // this.formAdvanceArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+    
+      totalreceived = totalreceived+received;
+      if(selectedDate.arrayList[i].deduction!="") {
+        deduction= parseFloat(selectedDate.arrayList[i].deduction) ;
+        // this.formAdvanceArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+       
+         totaldeduction= totaldeduction+deduction;
+      }
+      if(selectedDate.arrayList[i].extras!="") {
+        extras= parseFloat(selectedDate.arrayList[i].extras) ;
+        // this.formAdvanceArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+       
+        totalextras = extras+extras;
+      }
+      if(selectedDate.arrayList[i].tds!="") {
+        tds= parseFloat(selectedDate.arrayList[i].tds) ;
+        // this.formAdvanceArray.controls[i].get("itemAmount")?.setValue(itemAmount.toFixed(2));
+       
+         totaltds = totaltds+tds;
+      }      
+      // netAmount = sgstAmt + cgstAmt+igstAmt+ itemAmount;  
+      // this.formTyreArray.controls[i].get("netAmount")?.setValue(netAmount.toFixed(2));
+    
+      totItemNetAmount = totalextras+ totaltds+deduction+received;
+    }
+  }  
+ // netAmount = totItemNetAmount ;
+  // if(selectedDate.roundOff!="") {
+  //   netAmount = netAmount + parseFloat(selectedDate.roundOff);
+  // }
+  // if(selectedDate.otherAmount!="") {
+  //   netAmount = netAmount + parseFloat(selectedDate.otherAmount);
+  // }
+  this.formUser.patchValue({
+   // totItemAmount : totalItemAmt.toFixed(2),
+   amtRecd: totalreceived.toFixed(2),
+   amtDed: totaldeduction.toFixed(2),
+   amtTDS: totaltds.toFixed(2),
+   totalextras: totalextras.toFixed(2),
+  
+   totalAmtRecd: totItemNetAmount.toFixed(2),
   });
 }
 
@@ -337,7 +395,8 @@ getVehicleadvbalreceiptInnerGridList(): void {
         this.formAdvanceArray.controls[i].get("transDtlId")?.setValue(res.vehicleAdvBalReceiptDtlList[i].transDtlId);
         this.formAdvanceArray.controls[i].get("transId")?.setValue(res.vehicleAdvBalReceiptDtlList[i].transId);  
         this.formAdvanceArray.controls[i].get("transDate")?.setValue(res.vehicleAdvBalReceiptDtlList[i].transDate); 
-        this.formAdvanceArray.controls[i].get("vehicleMasterId")?.setValue(res.vehicleAdvBalReceiptDtlList[i].vehicleMasterId);  
+        this.formAdvanceArray.controls[i].get("transBranch")?.setValue(res.vehicleAdvBalReceiptDtlList[i].transBranch);  
+        this.formAdvanceArray.controls[i].get("vehicleMasterId")?.setValue(this.vehicleList.find(e => e.dataId ==res.vehicleAdvBalReceiptDtlList[i].vehicleMasterId));  
         this.formAdvanceArray.controls[i].get("received")?.setValue(res.vehicleAdvBalReceiptDtlList[i].received);   
         this.formAdvanceArray.controls[i].get("deduction")?.setValue(res.vehicleAdvBalReceiptDtlList[i].deduction);  
         this.formAdvanceArray.controls[i].get("tds")?.setValue(res.vehicleAdvBalReceiptDtlList[i].tds);    
@@ -420,7 +479,7 @@ getVehicleadvbalreceiptInnerGridList(): void {
     // }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].vehicleMasterId == "" || selectedDataValue.arrayList[i].tripNo=="" ) {
+      if (selectedDataValue.arrayList[i].vehicleMasterId == "" || selectedDataValue.arrayList[i].received=="" ) {
         this.toastrService.warning("Please Enter Details Properly");
         return;
       } 
@@ -428,12 +487,13 @@ getVehicleadvbalreceiptInnerGridList(): void {
         this.vehicleadvbalreceiptModel.vehicleAdvBalReceiptDtlList.push({
           'transDtlId': "",
           'transId': "",
-          'transBranch': selectedDataValue.transDate,
-          'transDate': selectedDataValue.arrayList[i].transDate,
-          'vehicleMasterId': selectedDataValue.arrayList[i].vehicleMasterId,
+         // 'transBranch': selectedDataValue.transBranch,
+         'transBranch': selectedDataValue.arrayList[i].transBranch,
+          'transDate': selectedDataValue.transDate,
+          'vehicleMasterId': selectedDataValue.arrayList[i].vehicleMasterId.dataId,
           'tripNo': selectedDataValue.arrayList[i].tripNo,
-          'tripYear': selectedDataValue.arrayList[i].tripYear,
-          'tripRouteDtlId': selectedDataValue.arrayList[i].tripRouteDtlId,
+        //  'tripYear': selectedDataValue.arrayList[i].tripYear,
+      //    'tripRouteDtlId': selectedDataValue.arrayList[i].tripRouteDtlId,
           'received': selectedDataValue.arrayList[i].received.toString(),
         //  'sgstAmt': selectedDataValue.arrayList[i].sgstAmt,
           'deduction': selectedDataValue.arrayList[i].deduction.toString(),
@@ -456,7 +516,7 @@ getVehicleadvbalreceiptInnerGridList(): void {
     formData.append('datadetails', JSON.stringify(this.vehicleadvbalreceiptModel));  
   
    // this.vehiclerepmaintMasterService.VehicleadvbalreceiptSubmitted(formData).subscribe((res: Responsemodel) => {
-      this.vehiclerepmaintMasterService.VehicleadvbalreceiptSubmitted(formData).subscribe((res: Responsemodel) => {
+      this.vehiclerepmaintMasterService.VehicleadvbalreceiptSubmitted(this.vehicleadvbalreceiptModel).subscribe((res: Responsemodel) => {
    
       this.responseDetails = res;
       if (this.responseDetails.status) {
