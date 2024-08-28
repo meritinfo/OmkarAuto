@@ -512,7 +512,8 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Finaccountsmastergstmodel,TripexptypemasterModel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
   ],
   bootstrap: [AppComponent]
 })

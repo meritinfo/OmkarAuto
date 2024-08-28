@@ -49,6 +49,13 @@ export class DprvehiplacedlistComponent {
   deleteStatus = false;
   viewStatus = false;
   userSubmitted = false;
+
+  vehfromDate: string = '';
+  vehtoDate: string = '';
+  vehvehicleNo: string = '';
+  vehpayParty: string = '';
+  vehorigin: string = '';
+  vehdestination: string = '';
   
 
   dtOptions: DataTables.Settings = {};
@@ -96,6 +103,39 @@ export class DprvehiplacedlistComponent {
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
     
+    
+    var vehfromDate = sessionStorage.getItem('vehfromDate')?.toString();
+    if (typeof vehfromDate !== 'undefined' && vehfromDate !== null && vehfromDate !== '') {
+      this.vehfromDate = vehfromDate;
+    }
+    else{
+      this.vehfromDate = this.fromDate;
+    }
+    var vehtoDate = sessionStorage.getItem('vehtoDate')?.toString();
+    if (typeof vehtoDate !== 'undefined' && vehtoDate !== null && vehtoDate !== '') {
+      this.vehtoDate = vehtoDate;
+    }
+    else{
+      this.vehtoDate = this.loginDate;
+    }
+    var vehpayParty = sessionStorage.getItem('vehpayParty')?.toString();
+    if (typeof vehpayParty !== 'undefined' && vehpayParty !== null && vehpayParty !== '') {
+      this.vehpayParty = vehpayParty;
+    }
+    var vehvehicleNo = sessionStorage.getItem('vehvehicleNo')?.toString();
+    if (typeof vehvehicleNo !== 'undefined' && vehvehicleNo !== null && vehvehicleNo !== '') {
+      this.vehvehicleNo = vehvehicleNo;
+    }
+    var vehorigin = sessionStorage.getItem('vehorigin')?.toString();
+    if (typeof vehorigin !== 'undefined' && vehorigin !== null && vehorigin !== '') {
+      this.vehorigin = vehorigin;
+    }
+    var vehdestination = sessionStorage.getItem('vehdestination')?.toString();
+    if (typeof vehdestination !== 'undefined' && vehdestination !== null && vehdestination !== '') {
+      this.vehdestination = vehdestination;
+    }
+
+
     this.dprvehiService.clearDprVehiDetails();
     
     this.formFilter = this.formBuilder.group({
@@ -110,13 +150,24 @@ export class DprvehiplacedlistComponent {
     this.getPartyList();
     this.getLocationList();
     this.sharedService.loading=true;
-    this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.search = '';
-    this.filter.filterStr = '';
-    this.filter.filterStr1 = '';
-    this.filter.filterStr2 = '';
-    this.filter.filterStr2 = '';
+
+    setTimeout(() => {      
+      this.formFilter.patchValue({
+        fromDate: this.vehfromDate,
+        toDate: this.vehtoDate,
+        payParty: this.partyList.find(e => e.dataId == this.vehpayParty),   
+        vehicleNo: this.vehvehicleNo,
+        origin: this.locationList.find(e => e.dataId == this.vehorigin),   
+        destination: this.locationList.find(e => e.dataId == this.vehdestination),     
+      })
+    }, 2000);
+
+    this.filter.fromDate = this.vehfromDate,
+    this.filter.toDate = this.vehtoDate,
+    this.filter.search = this.vehvehicleNo,
+    this.filter.filterStr = this.vehpayParty;
+    this.filter.filterStr1 = this.vehorigin;
+    this.filter.filterStr2 = this.vehdestination;    
 
     this.dprVehiList();    
     this.sharedService.loading=false;
@@ -189,7 +240,15 @@ export class DprvehiplacedlistComponent {
     return dataList.filter(x => x.dataName.toLowerCase().startsWith(query.toLowerCase()));
   };
 
-  getdprVehiDetails(dpr: Dprvehiplacedmodel): void {
+  getdprVehiDetails(dpr: Dprvehiplacedmodel): void {    
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("vehfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("vehtoDate", selecteddata.toDate);
+    sessionStorage.setItem("vehvehicleNo", selecteddata.vehicleNo);
+    sessionStorage.setItem("vehpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("vehorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("vehdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+
     this.dprvehiService.setDprVehiDetails(dpr);
     this.route.navigate(['/dprvehplacededit']);
   }  
