@@ -58,7 +58,8 @@ namespace Consignment.Repository
                                 FromPlace           = Convert.ToString(dataSet.Tables[0].Rows[i]["FromPlace"]),
                                 Destination         = Convert.ToString(dataSet.Tables[0].Rows[i]["Destination"]),
                                 ToPlace             = Convert.ToString(dataSet.Tables[0].Rows[i]["ToPlace"]),
-                                VehcileTypeId       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehcileTypeId"]),
+                                VehicleTypeId       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
+                                VehTypeDesc         = Convert.ToString(dataSet.Tables[0].Rows[i]["VehTypeDesc"]),
                                 ActualWt            = Convert.ToString(dataSet.Tables[0].Rows[i]["ActualWt"]),
                                 ChargeWt            = Convert.ToString(dataSet.Tables[0].Rows[i]["ChargeWt"]),
                                 OdcDimensions       = Convert.ToString(dataSet.Tables[0].Rows[i]["OdcDimensions"]),
@@ -81,7 +82,8 @@ namespace Consignment.Repository
                                 BrokerName          = Convert.ToString(dataSet.Tables[0].Rows[i]["BrokerName"]),
                                 DriverName          = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 DriverMob           = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob"]),
-                               
+                                NoofLr              = Convert.ToString(dataSet.Tables[0].Rows[i]["NoofLr"]),
+
                             });
                         }
 
@@ -167,7 +169,7 @@ namespace Consignment.Repository
                             new SqlParameter("@BookStatus",         dprModel.BookStatus),
                             new SqlParameter("@Origin",             dprModel.Origin),
                             new SqlParameter("@Destination",        dprModel.Destination),
-                            new SqlParameter("@VehcileTypeId",      dprModel.VehcileTypeId),
+                            new SqlParameter("@VehicleTypeId",      dprModel.VehicleTypeId),
                             new SqlParameter("@ActualWt",           dprModel.ActualWt),
                             new SqlParameter("@ChargeWt",           dprModel.ChargeWt),
                             new SqlParameter("@OdcDimensions",      dprModel.OdcDimensions),

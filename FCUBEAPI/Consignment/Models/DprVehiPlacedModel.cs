@@ -37,6 +37,7 @@
         public string? VehicleRptDateTime { get; set; }
         public string? PlacementStatus { get; set; }
         public string? PlacementStatusRemarks { get; set; }
+        public string? NoofLr { get; set; }        
         public string? LoggedInUser { get; set; }
         public List<DprDtlModel> DprDtls { get; set; }
 

@@ -51,6 +51,13 @@ export class DrpmasterlistComponent {
   deleteStatus = false;
   viewStatus = false;
   userSubmitted = false;
+
+  dprfromDate: string  = "";
+  dprtoDate: string  = "";
+  dprpayParty: string  = "";
+  dprtype: string  = "";
+  dprorigin: string  = "";
+  dprdestination: string  = "";
   
 
   dtOptions: DataTables.Settings = {};
@@ -82,6 +89,7 @@ export class DrpmasterlistComponent {
     if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
       this.loginDate = loginDate;
     }
+
     this.dprService.clearDprDetails();
     this.dprvehiService.clearDprVehiDetails();
 
@@ -99,8 +107,43 @@ export class DrpmasterlistComponent {
     else{
       this.fromDate = today.toLocaleDateString('en-CA').toString();
     }   
+
+    
+    var dprfromDate = sessionStorage.getItem('dprfromDate')?.toString();
+    if (typeof dprfromDate !== 'undefined' && dprfromDate !== null && dprfromDate !== '') {
+      this.dprfromDate = dprfromDate;
+    }
+    else{
+      this.dprfromDate = this.fromDate;
+    }
+    var dprtoDate = sessionStorage.getItem('dprtoDate')?.toString();
+    if (typeof dprtoDate !== 'undefined' && dprtoDate !== null && dprtoDate !== '') {
+      this.dprtoDate = dprtoDate;
+    }
+    else{
+      this.dprtoDate = this.loginDate;
+    }
+    var dprpayParty = sessionStorage.getItem('dprpayParty')?.toString();
+    if (typeof dprpayParty !== 'undefined' && dprpayParty !== null && dprpayParty !== '') {
+      this.dprpayParty = dprpayParty;
+    }
+    var dprtype = sessionStorage.getItem('dprtype')?.toString();
+    if (typeof dprtype !== 'undefined' && dprtype !== null && dprtype !== '') {
+      this.dprtype = dprtype;
+    }
+    var dprorigin = sessionStorage.getItem('dprorigin')?.toString();
+    if (typeof dprorigin !== 'undefined' && dprorigin !== null && dprorigin !== '') {
+      this.dprorigin = dprorigin;
+    }
+    var dprdestination = sessionStorage.getItem('dprdestination')?.toString();
+    if (typeof dprdestination !== 'undefined' && dprdestination !== null && dprdestination !== '') {
+      this.dprdestination = dprdestination;
+    }
+
     
     this.dprService.clearDprDetails();
+    this.getPartyList();
+    this.getLocationList();
     
     this.formFilter = this.formBuilder.group({
       fromDate: new FormControl(this.fromDate,),
@@ -112,14 +155,24 @@ export class DrpmasterlistComponent {
     });
     
     this.sharedService.loading=true;
-    this.getPartyList();
-    this.getLocationList();
-    this.filter.fromDate = this.fromDate;
-    this.filter.toDate = this.loginDate;
-    this.filter.search = '';
-    this.filter.filterStr = '';
-    this.filter.filterStr1 = '';
-    this.filter.filterStr2 = '';
+
+    setTimeout(() => {      
+      this.formFilter.patchValue({
+        fromDate: this.dprfromDate,
+        toDate: this.dprtoDate,
+        payParty: this.partyList.find(e => e.dataId == this.dprpayParty),   
+        type: this.dprtype,
+        origin: this.locationList.find(e => e.dataId == this.dprorigin),   
+        destination: this.locationList.find(e => e.dataId == this.dprdestination),     
+      })
+    }, 2000);
+
+    this.filter.fromDate = this.dprfromDate;
+    this.filter.toDate = this.dprtoDate;
+    this.filter.search = this.dprpayParty;
+    this.filter.filterStr = this.dprtype;
+    this.filter.filterStr1 = this.dprorigin;
+    this.filter.filterStr2 = this.dprdestination;
 
     this.dprList();    
     this.sharedService.loading=false;
@@ -163,6 +216,10 @@ export class DrpmasterlistComponent {
         {
           title: 'Party Name',
           data: 'partyName',
+        },  
+        {
+          title: 'No of LRs',
+          data: 'noofLr',
         },   
         {
           title: 'Actual Wt',
@@ -183,7 +240,15 @@ export class DrpmasterlistComponent {
         {
           title: 'Driver Mob',
           data: 'driverMob',
-        },     
+        },    
+        {
+          title: 'Vehicle Type',
+          data: 'vehTypeDesc',
+        },      
+        {
+          title: 'Freight',
+          data: 'freightRs',
+        },   
         {
           title: 'Action',
           data: 'dprId',
@@ -201,11 +266,27 @@ export class DrpmasterlistComponent {
   };
 
   getdprDetails(dpr: Dprmodel): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("dprfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("dprtoDate", selecteddata.toDate);
+    sessionStorage.setItem("dprpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("dprtype", selecteddata.type);
+    sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+
     this.dprService.setDprDetails(dpr);
     this.route.navigate(['/dprindentedit']);
   }  
 
   getdprVehiplaced(dpr: Dprmodel): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("dprfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("dprtoDate", selecteddata.toDate);
+    sessionStorage.setItem("dprpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("dprtype", selecteddata.type);
+    sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+
     sessionStorage.setItem("dprid", dpr.dprId);
     this.route.navigate(['/dprvehplacedadd']);
   }  

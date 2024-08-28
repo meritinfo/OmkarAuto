@@ -446,12 +446,7 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     DieselstmtlistComponent, DieselstmtaddComponent ,
     FleetloadentryaddComponent, FleetloadentrylistComponent, 
     LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
     TyresaleslistComponent, TyresalesaddComponent, FinaccountmastergstComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
-    LhpmslabmasteraddComponent, LhpmslabmasterlistComponent ,
-    FleetloadentryaddComponent, FleetloadentrylistComponent, 
-    TyresaleslistComponent, TyresalesaddComponent, 
     TripexptypemasteraddComponent, TripexptypemasterlistComponent, 
     BookingregisterComponent, LrwithoutchallanrptComponent, UnbilledrptComponent,
     CnenquiryComponent,
@@ -462,7 +457,8 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
-    DprplacevehicleComponent, GeneratetempgceditComponent
+    VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
+    DprplacevehicleComponent, GeneratetempgceditComponent,
   ],
   imports: [
     BrowserModule,
@@ -517,7 +513,8 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     Tyrepurchasemastermodel,Tyreactivatemastermodel,Tyredeactivatemastermodel,
     Tyreregroupissuemastermodel, Tyreregrouprecdmastermodel,
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
-    Finaccountsmastergstmodel,TripexptypemasterModel,Spareslubesmastermodel,Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Finaccountsmastergstmodel,TripexptypemasterModel,
+    Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
   ],
   bootstrap: [AppComponent]
 })

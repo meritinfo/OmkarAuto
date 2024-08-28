@@ -12,7 +12,8 @@ export class Dprmodel {
     fromPlace   : string = "";       
     destination  : string = "";      
     toPlace     : string = "";       
-    vehcileTypeId : string = "";     
+    vehicleTypeId : string = ""; 
+    vehTypeDesc : string = "";   
     actualWt  : string = "";         
     chargeWt  : string = "";         
     odcDimensions   : string = "";   
@@ -34,7 +35,8 @@ export class Dprmodel {
     vehicleNo  : string = "";  
     brokerName   : string = "";    
     driverName  : string = "";       
-    driverMob   : string = "";       
+    driverMob   : string = "";     
+    noofLr  : string = "";    
     loggedInUserID: string = "";
     dprDtls: Dprdtlsmodel[] = [];
 }

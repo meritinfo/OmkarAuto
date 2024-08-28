@@ -140,9 +140,12 @@
                                 <th>fromPlace </th>
                                 <th>toPlace</th>  
                                 <th>partyName</th>   
+                                <th>partyName</th>   
                                 <th>actualWt </th>   
                                 <th>chargeWt </th>   
                                 <th>vehicleNo </th>  
+                                <th>driverMob </th>   
+                                <th>driverMob </th>   
                                 <th>driverMob </th>   
                                 <th>driverMob </th>                               
                                 <th>Action</th>                              
@@ -155,11 +158,15 @@
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
                                 <td>{{ dpr.partyName }}</td>                         
+                                <td>{{ dpr.noofLr }}</td>                         
                                 <td>{{ dpr.actualWt }}</td>                          
                                 <td>{{ dpr.chargeWt }}</td>                          
                                 <td>{{ dpr.vehicleNo }}</td>  
                                 <td>{{ dpr.brokerName  }}</td>                      
-                                <td>{{ dpr.driverMob }}</td>
+                                <td>{{ dpr.driverMob }}</td>                     
+                                <td>{{ dpr.vehTypeDesc }}</td>                  
+                                <td>{{ dpr.freightRs }}</td>
+                                
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprDetails(dpr)"></button>                               

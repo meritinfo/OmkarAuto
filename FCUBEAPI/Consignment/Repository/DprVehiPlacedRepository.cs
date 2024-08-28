@@ -84,6 +84,7 @@ namespace Consignment.Repository
                                 BalanceAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["BalanceAmt"]),
                                 AssignToStaff       = Convert.ToString(dataSet.Tables[0].Rows[i]["AssignToStaff"]),
                                 VehicleEngagedBy    = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleEngagedBy"]),
+                                NoofLr              = Convert.ToString(dataSet.Tables[0].Rows[i]["NoofLr"]),
 
                             });
                         }

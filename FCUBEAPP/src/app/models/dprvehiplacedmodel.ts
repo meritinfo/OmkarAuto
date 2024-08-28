@@ -36,6 +36,7 @@ export class Dprvehiplacedmodel {
     vehicleRptDateTime : string = "";
     placementStatus : string = "";
     placementStatusRemarks: string = "";
+    noofLr: string = "";
     loggedInUser : string = "";    
 
     dprDtls: Dprdtlsmodel[] = [];    
