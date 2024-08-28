@@ -459,10 +459,10 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     TyrepurchaserptComponent, TyrestockrptComponent,
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
-    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
-    DprplacevehicleComponent, GeneratetempgceditComponent
+    VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
+    DprplacevehicleComponent, GeneratetempgceditComponent,
   ],
   imports: [
     BrowserModule,
