@@ -200,6 +200,8 @@ import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerepmaintadd/vehiclerepmaintadd.component';
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
+import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
+import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 
 
 
@@ -480,7 +482,12 @@ const routes: Routes = [
   { path: 'dprvehplacedadd', component: DprplacevehicleComponent },
   { path: 'vehiclerepmaintadd', component: VehiclerepmaintaddComponent }, 
   { path: 'vehiclerepmaintmasteredit', component: VehiclerepmaintaddComponent }, 
-  { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },   
+  { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  
+  { path: 'vehicleadvbalreceiptadd', component: VehicleadvbalreceiptaddComponent }, 
+  { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
+  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },  
+   
+   
   
 ];
 
