@@ -7,12 +7,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                         <h4 class="mb-sm-0 font-size-18">DPR Vehicle Placement</h4>
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">Freight</a></li>
-                                <li class="breadcrumb-item active">Distance Master Freight </li> -->
-                            </ol>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -126,8 +120,10 @@
                                 <th>fromPlace </th>
                                 <th>toPlace</th>  
                                 <th>partyName</th> 
+                                <th>partyName</th> 
                                 <th>vehicleNo </th>   
-                                <th>brokerName</th>                               
+                                <th>brokerName</th>    
+                                <th>lorryHire</th>                              
                                 <th>Action</th>   
                             </tr>
                         </thead>
@@ -136,9 +132,11 @@
                                 <td>{{ dpr.dprDate }}</td>  
                                 <td>{{ dpr.fromPlace }}</td>                        
                                 <td>{{ dpr.toPlace }}</td>                          
-                                <td>{{ dpr.partyName }}</td>                       
+                                <td>{{ dpr.partyName }}</td>                         
+                                <td>{{ dpr.noofLr }}</td> 
                                 <td>{{ dpr.vehicleNo }}</td>                          
-                                <td>{{ dpr.brokerName }}</td> 
+                                <td>{{ dpr.brokerName }}</td>                         
+                                <td>{{ dpr.lorryHire }}</td> 
                                 <td>                                  
                                     <button type="button" class="btn btn-edit"
                                         (click)="getdprVehiDetails(dpr)"></button>                               

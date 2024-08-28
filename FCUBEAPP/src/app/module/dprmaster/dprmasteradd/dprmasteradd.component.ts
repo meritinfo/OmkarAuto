@@ -126,7 +126,7 @@ export class DrpmasteraddComponent {
       bookStatus : new FormControl('TBB',[Validators.required]),
       origin  : new FormControl('',[Validators.required]),
       destination : new FormControl('',[Validators.required]),
-      vehcileTypeId : new FormControl('',[Validators.required]),
+      vehicleTypeId : new FormControl('',[Validators.required]),
       actualWt  : new FormControl('',),
       chargeWt : new FormControl('',),
       odcDimensions  : new FormControl('',), 
@@ -207,6 +207,48 @@ export class DrpmasteraddComponent {
 
   get formArray() {
     return this.formUser.get("arrayList") as FormArray;
+  }
+
+  calcFrt(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargeWt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargeWt!=""){
+      chargeWt = parseFloat(selectedDataVal.chargeWt);
+    }
+    if(selectedDataVal.rateRs!=""){
+      rateRs = parseFloat(selectedDataVal.rateRs);
+    }
+    freightRs = chargeWt * rateRs;
+
+    this.formUser.patchValue({
+      freightRs: freightRs.toFixed(2),
+    });  
+    
+    this.calcTotal();
+  }
+
+  calcRate(){
+    var selectedDataVal= this.formUser.getRawValue();
+    var chargeWt = 0;
+    var rateRs = 0;
+    var freightRs = 0;
+    if(selectedDataVal.chargeWt!=""){
+      chargeWt = parseFloat(selectedDataVal.chargeWt);
+    }
+    if(selectedDataVal.freightRs!=""){
+      freightRs = parseFloat(selectedDataVal.freightRs);
+    }
+    if (chargeWt>0){
+      rateRs = freightRs / chargeWt;
+    }    
+
+    this.formUser.patchValue({
+      rateRs: rateRs.toFixed(2),
+    });   
+
+    this.calcTotal();
   }
 
   calcTotal(){    
@@ -396,7 +438,7 @@ export class DrpmasteraddComponent {
     this.dprmodel.bookStatus  = selectedDataVal.bookStatus;
     this.dprmodel.origin   = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
     this.dprmodel.destination  = selectedDataVal.destination?selectedDataVal.destination.dataId:"";
-    this.dprmodel.vehcileTypeId  = selectedDataVal.vehcileTypeId;
+    this.dprmodel.vehicleTypeId  = selectedDataVal.vehicleTypeId;
     this.dprmodel.actualWt   = selectedDataVal.actualWt;
     this.dprmodel.chargeWt  = selectedDataVal.chargeWt;
     this.dprmodel.odcDimensions  = selectedDataVal.odcDimensions.toString().toUpperCase();

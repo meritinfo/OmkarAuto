@@ -59,6 +59,7 @@ namespace Consignment.Repository
                                 DprId               = Convert.ToString(dataSet.Tables[0].Rows[i]["DprId"]),
                                 DprDtlId            = Convert.ToString(dataSet.Tables[0].Rows[i]["DprDtlId"]),
                                 VehiclePlacedId     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehiclePlacedId"]),
+                                VehicleTypeId       = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleTypeId"]),
                                 BookingPlace        = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingPlace"]),  
                                 GcNoteNo            = Convert.ToString(dataSet.Tables[0].Rows[i]["GcNoteNo"]),  
                                 BookingDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["BookingDate"]),  

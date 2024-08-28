@@ -5,6 +5,7 @@
         public string? TempGcId { get; set; }
         public string? DprId { get; set; }
         public string? DprDtlId { get; set; }
+        public string? VehicleTypeId { get; set; }
         public string? VehiclePlacedId { get; set; }
         public string? BookingPlace  { get; set; }
         public string? GcNoteNo  { get; set; }

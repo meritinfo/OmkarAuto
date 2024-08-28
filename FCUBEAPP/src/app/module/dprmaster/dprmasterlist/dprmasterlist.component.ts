@@ -163,6 +163,10 @@ export class DrpmasterlistComponent {
         {
           title: 'Party Name',
           data: 'partyName',
+        },  
+        {
+          title: 'No of LRs',
+          data: 'noofLr',
         },   
         {
           title: 'Actual Wt',
@@ -183,7 +187,15 @@ export class DrpmasterlistComponent {
         {
           title: 'Driver Mob',
           data: 'driverMob',
-        },     
+        },    
+        {
+          title: 'Vehicle Type',
+          data: 'vehTypeDesc',
+        },      
+        {
+          title: 'Freight',
+          data: 'freightRs',
+        },   
         {
           title: 'Action',
           data: 'dprId',

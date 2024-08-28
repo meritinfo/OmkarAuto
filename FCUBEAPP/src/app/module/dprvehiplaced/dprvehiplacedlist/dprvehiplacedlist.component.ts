@@ -160,7 +160,11 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Party Name',
           data: 'partyName',
-        },   
+        }, 
+        {
+          title: 'No of LRs',
+          data: 'noofLr',
+        },     
         {
           title: 'Vehicle No',
           data: 'vehicleNo',
@@ -168,6 +172,10 @@ export class DprvehiplacedlistComponent {
         {
           title: 'Broker Name',
           data: 'brokerName',
+        },     
+        {
+          title: 'Lorry Hire',
+          data: 'lorryHire',
         },     
         {
           title: 'Action',

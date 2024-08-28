@@ -5,6 +5,7 @@ export class Tempgcmodel {
     tempGcId  : string = "";
     dprId  : string = "";
     dprDtlId  : string = ""; 
+    vehicleTypeId : string = ""; 
     vehiclePlacedId :string = "";       
     bookingPlace  : string = "";
     gcNoteNo : string = "";

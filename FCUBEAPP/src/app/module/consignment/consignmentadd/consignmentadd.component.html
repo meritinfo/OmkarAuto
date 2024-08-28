@@ -345,16 +345,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Cnor Gst</label>
                                     <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
-                                        placeholder="" formControlName="cnorGst"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorGst'].invalid) }">
+                                        placeholder="" formControlName="cnorGst">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Cnor Mobile</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Cnor Mobile</label>
                                     <input numbersonly class="form-control" formControlName="cnorMobile"
-                                    maxlength="10"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['cnorMobile'].invalid) }">
+                                    maxlength="10">
                                 </div>
                             </div>                            
                             <div class="col-lg-3">
@@ -615,14 +613,14 @@
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Rate</label>
                                     <input type="text" decimalonly class="form-control" placeholder=" "
-                                        formControlName="rateRs">
+                                        formControlName="rateRs" (change)="calcFrt()">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Freight</label>
                                     <input type="text" decimalonly class="form-control" placeholder=""
-                                        formControlName="freightRs" (change)="calculateTotalAmount()">
+                                        formControlName="freightRs" (change)="calcRate()" >
                                 </div>
                             </div>
                             <div class="col-lg-2">
