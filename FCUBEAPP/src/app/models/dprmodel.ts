@@ -38,5 +38,9 @@ export class Dprmodel {
     driverMob   : string = "";     
     noofLr  : string = "";    
     loggedInUserID: string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     dprDtls: Dprdtlsmodel[] = [];
 }

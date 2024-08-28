@@ -141,6 +141,10 @@ export class Consignmentmodel {
     attachedfile : string = "";
     yearId : string = ""; 
     loggedInUser: string = "";  
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     invList: Consignmentinvmodel[] = [];
     chlnList: Consignmentchlnmodel[] = [];
     lhpmList: Consignmentlhpmmodel[] = [];

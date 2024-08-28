@@ -127,7 +127,11 @@ namespace Consignment.Repository
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 BookedAt = Convert.ToString(dataSet.Tables[0].Rows[i]["BookedAt"]),
                                 FPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["FPlace"]),
-                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),                            
+                                TPlace = Convert.ToString(dataSet.Tables[0].Rows[i]["TPlace"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
                             });
                         }

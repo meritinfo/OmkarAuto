@@ -76,6 +76,10 @@
         public string?  VehPhoto2Doc { get; set; }
         public string? VehPhoto3Doc { get; set; }
         public string? LoggedInUser { get; set; }
+        public string? CreatedBy { get; set; }
+        public string? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? ModifiedDate { get; set; }
 
         public List<TempGcInvModel> InvList { get; set; }
         public List<TempGcSealModel> SealList { get; set; }

@@ -76,6 +76,10 @@ export class Tempgcmodel {
     vehPhoto2Doc:  string = "";
     vehPhoto3Doc:  string = "";
     loggedInUser:  string = "";
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
     
     invList: Tempgcinvmodel[] = [];
     sealList: Tempgcsealmodel[] = [];

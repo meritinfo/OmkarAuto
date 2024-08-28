@@ -83,6 +83,10 @@ namespace Consignment.Repository
                                 DriverName          = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverName"]),
                                 DriverMob           = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMob"]),
                                 NoofLr              = Convert.ToString(dataSet.Tables[0].Rows[i]["NoofLr"]),
+                                CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
 
                             });
                         }

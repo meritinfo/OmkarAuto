@@ -127,7 +127,11 @@ namespace Consignment.Repository
                                 VehPhoto1Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto1Doc"]),
                                 VehPhoto2Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto2Doc"]),
                                 VehPhoto3Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto3Doc"]),
-                                Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]), 
+                                Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
+                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 

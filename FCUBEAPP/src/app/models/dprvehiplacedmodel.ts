@@ -38,6 +38,10 @@ export class Dprvehiplacedmodel {
     placementStatusRemarks: string = "";
     noofLr: string = "";
     loggedInUser : string = "";    
+    createdBy: string = "";
+    createdDate: string = "";
+    modifiedBy: string = "";
+    modifiedDate: string = "";
 
     dprDtls: Dprdtlsmodel[] = [];    
 }
