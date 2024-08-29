@@ -246,7 +246,7 @@ export class DrpmasterlistComponent {
           data: 'vehTypeDesc',
         },      
         {
-          title: 'Freight',
+          title: 'Booking Freight',
           data: 'freightRs',
         },   
         {

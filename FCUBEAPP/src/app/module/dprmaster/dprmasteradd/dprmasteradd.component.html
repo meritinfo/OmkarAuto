@@ -132,7 +132,7 @@
                                     </div>                                    
                                     <div class="col-lg-3">
                                         <div class="mb-3">
-                                            <label for="formrow-inputZip">Business By </label>
+                                            <label for="formrow-inputZip">Business By </label><span style="color: red">*</span>  
                                             <div class="ng-autocomplete">
                                                 <ng-autocomplete [data]="businessByList" 
                                                     formControlName="businessBy"
@@ -142,7 +142,8 @@
                                                     (inputFocused)='onFocused($event)' 
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate" 
-                                                    [customFilter]="startWithFilter">
+                                                    [customFilter]="startWithFilter"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['businessBy'].invalid) }">
                                                 </ng-autocomplete>
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
