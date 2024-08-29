@@ -75,6 +75,14 @@ export class Tempgcmodel {
     vehPhoto1Doc:  string = "";
     vehPhoto2Doc:  string = "";
     vehPhoto3Doc:  string = "";
+    rateType:  string = "";
+    rateRs :  string = "";
+    freightRs :  string = "";    
+    hamaliAmt   :  string = "";  
+    ldDetenAmt  :  string = "";  
+    extraAmt   :  string = "";   
+    otherAmt   :  string = "";   
+    totFreightAmt  :  string = "";
     loggedInUser:  string = "";
     createdBy: string = "";
     createdDate: string = "";

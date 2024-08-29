@@ -39,6 +39,8 @@ export class DprplacevehicleComponent {
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -178,6 +180,8 @@ export class DprplacevehicleComponent {
             brokerId: this.brokerList.find(e => e.dataId ==this.selectedDprDetails.brokerId),
           });            
           this.getDprInnerGridList();
+          this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+          this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
         });
       }        
     }, 2000);

@@ -51,6 +51,8 @@ export class ConsignmentaddComponent implements OnInit {
   selectedLrDetails = new Consignmentmodel();
   keywordLocation = 'dataName';
   attach1: string = "";
+  createdBy : string = "";
+  modifiedBy: string = "";
 
   step1Active = true;
   step2Active = false;
@@ -279,7 +281,9 @@ export class ConsignmentaddComponent implements OnInit {
         this.formUser.controls['gcNoteNo'].disable();     
         if (this.selectedLrDetails.consignmentID != '0') {
           this.getLrInnerGridList();   
-          this.editMode = true;
+          this.editMode = true;  
+          this.createdBy = this.selectedLrDetails.createdBy + " " + this.selectedLrDetails.createdDate;
+          this.modifiedBy = this.selectedLrDetails.modifiedBy + " " + this.selectedLrDetails.modifiedDate;      
         }
         else{    
           this.formArray.clear();

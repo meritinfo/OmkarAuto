@@ -44,6 +44,8 @@ export class GeneratetempgceditComponent {
   classList: Dropdownmodel[] = [];
   contentList: Dropdownmodel[] = [];
   partyList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   uploadedVehRcDoc: string = "";
   uploadedVehPanDoc: string = "";
@@ -273,7 +275,9 @@ export class GeneratetempgceditComponent {
         });  
         if(this.selectedTempgcDetails.tempGcId != '' && this.selectedTempgcDetails.tempGcId != '0' ){        
           this.getTempGcInnerGridList();
-          this.editMode = true;          
+          this.editMode = true;    
+          this.createdBy = this.selectedTempgcDetails.createdBy + " " + this.selectedTempgcDetails.createdDate;
+          this.modifiedBy = this.selectedTempgcDetails.modifiedBy + " " + this.selectedTempgcDetails.modifiedDate;      
           this.searchEnable=false;
         }
     }, 2000);
