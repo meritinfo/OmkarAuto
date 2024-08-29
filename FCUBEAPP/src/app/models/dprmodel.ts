@@ -37,6 +37,7 @@ export class Dprmodel {
     driverName  : string = "";       
     driverMob   : string = "";     
     noofLr  : string = "";    
+    businessBy: string = "";    
     loggedInUserID: string = "";
     createdBy: string = "";
     createdDate: string = "";

@@ -155,7 +155,11 @@ namespace Consignment.Repository
                         dprVehi.BalanceAmt          = Convert.ToString(dataSet.Tables[0].Rows[0]["BalanceAmt"]);
                         dprVehi.AssignToStaff       = Convert.ToString(dataSet.Tables[0].Rows[0]["AssignToStaff"]);
                         dprVehi.VehicleEngagedBy    = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleEngagedBy"]);
-                                             
+                        dprVehi.CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["CreatedBy"]);
+                        dprVehi.CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[0]["CreatedDate"]);
+                        dprVehi.ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedBy"]);
+                        dprVehi.ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[0]["ModifiedDate"]);
+
                     }
                 }
             }

@@ -38,6 +38,7 @@
         public string? DriverName { get; set; }
         public string? DriverMob { get; set; }
         public string? NoofLr { get; set; }
+        public string? BusinessBy { get; set; }
         public string? LoggedInUserID { get; set; }
         public string? CreatedBy { get; set; }
         public string? CreatedDate { get; set; }

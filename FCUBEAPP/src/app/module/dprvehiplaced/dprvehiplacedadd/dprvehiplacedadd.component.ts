@@ -40,6 +40,8 @@ export class DprvehiplacedaddComponent {
   vehicleList: Dropdownmodel[] = [];
   brokerList: Dropdownmodel[] = [];
   empList: Dropdownmodel[] = [];
+  createdBy: string = "";
+  modifiedBy: string = "";
 
   @ViewChild('attachmentInput', {
     static: true
@@ -177,6 +179,8 @@ export class DprvehiplacedaddComponent {
         this.getDprInnerGridList();
         this.formUser.controls["vehicleNo"].disable();
         this.editMode = true;
+        this.createdBy = this.selectedDprDetails.createdBy + " " + this.selectedDprDetails.createdDate;
+        this.modifiedBy = this.selectedDprDetails.modifiedBy + " " + this.selectedDprDetails.modifiedDate;
       }    
     }, 2000);
 

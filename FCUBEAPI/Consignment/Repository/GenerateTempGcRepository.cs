@@ -128,10 +128,16 @@ namespace Consignment.Repository
                                 VehPhoto2Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto2Doc"]),
                                 VehPhoto3Doc        = Convert.ToString(dataSet.Tables[0].Rows[i]["VehPhoto3Doc"]),
                                 Remarks             = Convert.ToString(dataSet.Tables[0].Rows[i]["Remarks"]),
-                                CreatedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
-                                CreatedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
-                                ModifiedBy = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
-                                ModifiedDate = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
+                                FreightRs           = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightRs"]),
+                                HamaliAmt           = Convert.ToString(dataSet.Tables[0].Rows[i]["HamaliAmt"]),
+                                LdDetenAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["LDDetenAmt"]),
+                                ExtraAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraAmt"]),
+                                OtherAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAmt"]),
+                                TotFreightAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
+                                CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
+                                CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
+                                ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
+                                ModifiedDate        = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedDate"]),
                             });
                         }
 
