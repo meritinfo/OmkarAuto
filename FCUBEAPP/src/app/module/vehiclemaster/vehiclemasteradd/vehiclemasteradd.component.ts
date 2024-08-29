@@ -478,7 +478,7 @@ export class VehiclemasteraddComponent {
         }
 
         this.vehiclefltmastermodel.vehiclefltDetailList.push({
-          'detailID': '',
+          //'detailID': '',
           'vehicleMasterID': '',
           'validFrom': selectedDataValue.arrayList[i].validFrom,
           'validTo': selectedDataValue.arrayList[i].validTo,

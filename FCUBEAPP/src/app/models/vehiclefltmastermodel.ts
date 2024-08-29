@@ -57,7 +57,7 @@ export class Vehiclefltmastermodel {
 }
 
 export class VehiclefltDetailmodel {
-    detailID        : string = "";
+  //  detailID        : string = "";
     vehicleMasterID : string = "";
     validFrom       : string = "";
     validTo         : string = "";
