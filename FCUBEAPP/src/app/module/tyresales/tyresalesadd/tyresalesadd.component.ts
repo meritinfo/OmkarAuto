@@ -392,9 +392,9 @@ export class TyresalesaddComponent {
       }
     }
 
-    this.tyresalesmastermodel.masterID = this.selectedTyresalesDetail.masterID ;
+    this.tyresalesmastermodel.masterID = this.selectedTyresalesDetail.masterID;
     this.tyresalesmastermodel.branchCode= selectedDataValue.branchCode.toString();
-    this.tyresalesmastermodel.transDate = selectedDataValue.purchaseDate;
+    this.tyresalesmastermodel.transDate = selectedDataValue.transDate;
     this.tyresalesmastermodel.saleIncharge = selectedDataValue.saleIncharge;
     this.tyresalesmastermodel.nonCustomer = selectedDataValue.nonCustomer?"Y":"N";    
     this.tyresalesmastermodel.customerId = selectedDataValue.customerId?selectedDataValue.customerId.dataId:"";

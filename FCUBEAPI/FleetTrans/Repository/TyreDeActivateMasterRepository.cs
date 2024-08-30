@@ -96,7 +96,7 @@ namespace FleetTrans.Repository
 
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TyreDeActivateMasterInnerGridList_Select", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreDeActivateMasterInnerGridList", param);
 
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
                     {
@@ -211,7 +211,7 @@ namespace FleetTrans.Repository
 
                 };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreDeActivationMasterDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreDeActivateDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

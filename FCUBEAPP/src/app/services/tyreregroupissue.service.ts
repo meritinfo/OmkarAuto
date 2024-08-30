@@ -36,7 +36,7 @@ export class TyreregroupissueService {
     return this.httpClient.post<Tyreregroupissuemasterlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreRegroupIssueMasterList', filter, this.httpOptions);
   }    
   getTyreregroupissueMasterInnerGridList(request: Requestmodel): Observable<Tyreregroupissuemastermodel> {
-    return this.httpClient.post<Tyreregroupissuemastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreRegroupIssueMasterInnerGridList', request, this.httpOptions);
+    return this.httpClient.post<Tyreregroupissuemastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetRegroupIssueMasterInnerGridList', request, this.httpOptions);
   }
   tyreregroupissueMasterSubmitted(user: Tyreregroupissuemastermodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/TyreRegroupIssueMasterSave', user, this.httpOptions);

@@ -206,10 +206,11 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TyreId",             tyreActivateDtlListmodel.TyreId),
                             new SqlParameter("@TyrePosID",          tyreActivateDtlListmodel.TyrePosID),
                             new SqlParameter("@TyreCostAmt",        tyreActivateDtlListmodel.TyreCostAmt),
-                         
+                            new SqlParameter("@Remarks",        tyreActivateDtlListmodel.Remarks),
+
                         };
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreMasterDetailSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreActivateDetailSave", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

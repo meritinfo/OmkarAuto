@@ -332,10 +332,11 @@ export class TyredeativateaddComponent {
           this.toastrService.warning("Duplicate Tyre No Entered");
           return;
         }
+        
         this.tyredeactivate.tyreDeActivateDtlList.push({
           'deActivateMasterID': "",
-          'deActivateDate': "",
-          'vehicleMasterid': "",
+          'deActivateDate': selectedDataValue.deActivateDate,
+          'vehicleMasterid':selectedDataValue.vehicleMasterid?selectedDataValue.vehicleMasterid.dataId:"",
           'brandId': selectedDataValue.arrayList[i].brandId,
           'tyreId': selectedDataValue.arrayList[i].tyreId,
           'removeStatus': selectedDataValue.arrayList[i].removeStatus,
