@@ -131,7 +131,11 @@ export class BankcashcontralistComponent {
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         // this.filter.search = dataTablesParameters.search.value;
         this.filter.receiptOrPayment = 'BC';
-
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
           .subscribe(resp => {
              this.allBankCashcontra = resp;

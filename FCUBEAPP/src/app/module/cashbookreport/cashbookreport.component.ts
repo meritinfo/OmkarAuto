@@ -158,8 +158,7 @@ export class CashbookreportComponent {
     this.filter.filterStr1    = br?br.dataName:"";
     this.filter.filterStr2    = this.year;
 
-    this.cashbookreportService.getCashBookReport(this.filter)
-      .subscribe((resp: any) => {
+    this.cashbookreportService.getCashBookReport(this.filter).subscribe((resp: any) => {
         let link = document.createElement("a");
         link.download = "CashbookReport_" + new Date().getTime() + '.pdf';
         link.href = "assets/reports/CashBook/" + resp.message;

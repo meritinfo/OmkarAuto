@@ -129,7 +129,7 @@ formFilter!: FormGroup;
         toDate: new FormControl(this.loginDate,[Validators.required]),
         tripBranch: new FormControl('',),  
         accountID: new FormControl('',),  
-       gstType: new FormControl('',),  
+        gstType: new FormControl('',),  
       //  pmtType: new FormControl('',),   
        // creditAc: new FormControl('',),  
       });
@@ -188,7 +188,11 @@ expGstSales(){
         this.filter.sortColumn = 'invNo';
         this.filter.sortOrder = 'asc';
         this.filter.search = '';
-        
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.gstsalesregisterrptService.getGstSalesRegisterrptList(this.filter).subscribe(resp => {
            this.allGstSalesRegisterRptlist = resp;
             callback({

@@ -187,6 +187,11 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'OriginPlace';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
             this.distanceMasterTripRptService.getDistancemMsterTripRptList(this.filter).subscribe(resp => {
                this.allDistanceMasterTripRptlist = resp;
                 callback({

@@ -13,8 +13,9 @@ namespace FleetTrans.Models
         public string? YearId { get; set; }
         public string? VehicleMasterID { get; set; }
         public string? TripNo { get; set; }
-        public string? LastTripCloseDate { get; set; }
-        public string? NewTripDate { get; set; }
+        public string? DeptDate { get; set; }
+        public string? EndDate { get; set; }
+        public string? StmtDate { get; set; }
         public string? TripStatus { get; set; }
         public string? DriverMasterID { get; set; }
         public string? DefinedMileage { get; set; }
@@ -52,6 +53,8 @@ namespace FleetTrans.Models
         public string? TripCloseUpdateDt { get; set; }
         public string? TripLinkYN { get; set; }
         public string? Findocid { get; set; }
+        public string? TripBr { get; set; }
+        public string? LoggedInUser { get; set; }
 
         public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
        // public List<MiscListModel>? MiscList { get; set; }

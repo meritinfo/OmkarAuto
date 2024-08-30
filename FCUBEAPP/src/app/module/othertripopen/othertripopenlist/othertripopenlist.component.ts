@@ -146,8 +146,12 @@ export class OthertripopenlistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = 'tripNo';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        this.tripSheetService.getOtherTripOpenList(this.filter)
-          .subscribe(resp => {
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.tripSheetService.getOtherTripOpenList(this.filter).subscribe(resp => {
             this.allOtherTripOpenList = resp;
             callback({
               recordsTotal: resp.pageMetaData.totalCount,

@@ -119,7 +119,11 @@ export class DistancemastertriplistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
-        
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.distanceMastertripService.getDistanceMasterTripList(this.filter)
           .subscribe(resp => {
             this.allDistanceTripMaster = resp;

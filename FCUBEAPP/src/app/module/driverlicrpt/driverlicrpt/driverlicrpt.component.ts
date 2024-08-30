@@ -189,6 +189,11 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'driverName';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
             this.driverLicRptService.getDriverLicRptList(this.filter).subscribe(resp => {
                this.allDriverLicRptlist = resp;
                 callback({

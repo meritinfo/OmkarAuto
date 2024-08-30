@@ -187,6 +187,12 @@ export class BankbookrptComponent {
         this.filter.sortColumn = 'Branch';
         this.filter.sortOrder = 'asc';
         this.filter.search = '';
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        
         this.bankbookrptService.getBankBookrptList(this.filter).subscribe(resp => {
            this.allLedgerrptlist = resp;
             callback({

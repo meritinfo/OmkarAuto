@@ -14,13 +14,6 @@ namespace FleetTrans.Repository
         {
             dbconnection = _dbconnection;
         }
-
-        /// <summary>
-        /// Service method for save Branch master details
-        /// </summary>
-        /// <param name=" DocRenewalEntry"></param>
-        /// <returns>ResponseModel</returns>
-        /// 
         public async Task<ResponseModel> TripMasterSave(TripMasterModel tripMasterModel)
         {
             ResponseModel responseModel = new();
@@ -36,49 +29,50 @@ namespace FleetTrans.Repository
                     SqlParameter[] param =
                         {
                             new SqlParameter("@TripId" , tripMasterModel.TripId),
-                                     new SqlParameter("@TripBranch" , tripMasterModel.TripBranch),
-                                     new SqlParameter("@YearId" , tripMasterModel.YearId),
-                                     new SqlParameter("@VehicleMasterID" , tripMasterModel.VehicleMasterID),
-                                     new SqlParameter("@TripNo" , tripMasterModel.TripNo),
-                                     new SqlParameter("@LastTripCloseDate" , tripMasterModel.LastTripCloseDate),
-                                     new SqlParameter("@NewTripDate" , tripMasterModel.NewTripDate),
-                                     new SqlParameter("@TripStatus" , tripMasterModel.TripStatus),
-                                     new SqlParameter("@DriverMasterID" , tripMasterModel.DriverMasterID),
-                                     new SqlParameter("@DefinedMileage" , tripMasterModel.DefinedMileage),
-                                     new SqlParameter("@ClosingKMR" , tripMasterModel.ClosingKMR),
-                                     new SqlParameter("@OpeningKMR" , tripMasterModel.OpeningKMR),
-                                     new SqlParameter("@DistanceTripKM" , tripMasterModel.DistanceTripKM),
-                                     new SqlParameter("@LtsDslToBe" , tripMasterModel.LtsDslToBe),
-                                     new SqlParameter("@OpBalDsl" , tripMasterModel.OpBalDsl),
-                                     new SqlParameter("@IssuedDslLtrs" , tripMasterModel.IssuedDslLtrs),
-                                     new SqlParameter("@IssuedDslAmt" , tripMasterModel.IssuedDslAmt),
-                                     new SqlParameter("@DieselPassedLtrs" , tripMasterModel.DieselPassedLtrs),
-                                     new SqlParameter("@DieselPassedAmt" , tripMasterModel.DieselPassedAmt),
-                                     new SqlParameter("@DieselVarianceAmt" , tripMasterModel.DieselVarianceAmt),
-                                     new SqlParameter("@ClBalDsl" , tripMasterModel.ClBalDsl),
-                                     new SqlParameter("@OpBalDriver" , tripMasterModel.OpBalDriver),
-                                     new SqlParameter("@PaidDriverAdvance" , tripMasterModel.PaidDriverAdvance),
-                                     new SqlParameter("@FreightCollByDriver" , tripMasterModel.FreightCollByDriver),
-                                     new SqlParameter("@ExpensesByDriver" , tripMasterModel.ExpensesByDriver),
-                                     new SqlParameter("@TotalBhattaDays" , tripMasterModel.TotalBhattaDays),
-                                     new SqlParameter("@BhattaRate" , tripMasterModel.BhattaRate),
-                                     new SqlParameter("@BhattaAmt" , tripMasterModel.BhattaAmt),
-                                     new SqlParameter("@OnTimeIncentiveAmt" , tripMasterModel.OnTimeIncentiveAmt),
-                                     new SqlParameter("@MultiDelIncentiveAmt" , tripMasterModel.MultiDelIncentiveAmt),
-                                     new SqlParameter("@PenaltyChargedToDr" , tripMasterModel.PenaltyChargedToDr),
-                                     new SqlParameter("@PenaltyRemarks" , tripMasterModel.PenaltyRemarks),
-                                     new SqlParameter("@TotalDriverAc" , tripMasterModel.TotalDriverAc),
-                                     new SqlParameter("@TripBalance" , tripMasterModel.TripBalance),
-                                     new SqlParameter("@RecdFromDriver" , tripMasterModel.RecdFromDriver),
-                                     new SqlParameter("@NetTripBalance" , tripMasterModel.NetTripBalance),
-                                     new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
-                                     new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
-                                     new SqlParameter("@TripTotalAdvance" , tripMasterModel.TripTotalAdvance),
-                                     new SqlParameter("@TripCloseBy" , tripMasterModel.TripCloseBy),
-                                     new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
-                                     new SqlParameter("@TripCloseUpdateDt" , tripMasterModel.TripCloseUpdateDt),
-                                     new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
-                                     new SqlParameter("@Findocid" , tripMasterModel.Findocid),
+                            new SqlParameter("@TripBranch" , tripMasterModel.TripBranch),
+                            new SqlParameter("@YearId" , tripMasterModel.YearId),
+                            new SqlParameter("@VehicleMasterID" , tripMasterModel.VehicleMasterID),
+                            new SqlParameter("@TripNo" , tripMasterModel.TripNo),
+                            new SqlParameter("@DeptDate" , tripMasterModel.DeptDate),
+                            new SqlParameter("@EndDate" , tripMasterModel.EndDate),
+                            new SqlParameter("@StmtDate" , tripMasterModel.StmtDate),
+                            new SqlParameter("@TripStatus" , tripMasterModel.TripStatus),
+                            new SqlParameter("@DriverMasterID" , tripMasterModel.DriverMasterID),
+                            new SqlParameter("@DefinedMileage" , tripMasterModel.DefinedMileage),
+                            new SqlParameter("@ClosingKMR" , tripMasterModel.ClosingKMR),
+                            new SqlParameter("@OpeningKMR" , tripMasterModel.OpeningKMR),
+                            new SqlParameter("@DistanceTripKM" , tripMasterModel.DistanceTripKM),
+                            new SqlParameter("@LtsDslToBe" , tripMasterModel.LtsDslToBe),
+                            new SqlParameter("@OpBalDsl" , tripMasterModel.OpBalDsl),
+                            new SqlParameter("@IssuedDslLtrs" , tripMasterModel.IssuedDslLtrs),
+                            new SqlParameter("@IssuedDslAmt" , tripMasterModel.IssuedDslAmt),
+                            new SqlParameter("@DieselPassedLtrs" , tripMasterModel.DieselPassedLtrs),
+                            new SqlParameter("@DieselPassedAmt" , tripMasterModel.DieselPassedAmt),
+                            new SqlParameter("@DieselVarianceAmt" , tripMasterModel.DieselVarianceAmt),
+                            new SqlParameter("@ClBalDsl" , tripMasterModel.ClBalDsl),
+                            new SqlParameter("@OpBalDriver" , tripMasterModel.OpBalDriver),
+                            new SqlParameter("@PaidDriverAdvance" , tripMasterModel.PaidDriverAdvance),
+                            new SqlParameter("@FreightCollByDriver" , tripMasterModel.FreightCollByDriver),
+                            new SqlParameter("@ExpensesByDriver" , tripMasterModel.ExpensesByDriver),
+                            new SqlParameter("@TotalBhattaDays" , tripMasterModel.TotalBhattaDays),
+                            new SqlParameter("@BhattaRate" , tripMasterModel.BhattaRate),
+                            new SqlParameter("@BhattaAmt" , tripMasterModel.BhattaAmt),
+                            new SqlParameter("@OnTimeIncentiveAmt" , tripMasterModel.OnTimeIncentiveAmt),
+                            new SqlParameter("@MultiDelIncentiveAmt" , tripMasterModel.MultiDelIncentiveAmt),
+                            new SqlParameter("@PenaltyChargedToDr" , tripMasterModel.PenaltyChargedToDr),
+                            new SqlParameter("@PenaltyRemarks" , tripMasterModel.PenaltyRemarks),
+                            new SqlParameter("@TotalDriverAc" , tripMasterModel.TotalDriverAc),
+                            new SqlParameter("@TripBalance" , tripMasterModel.TripBalance),
+                            new SqlParameter("@RecdFromDriver" , tripMasterModel.RecdFromDriver),
+                            new SqlParameter("@NetTripBalance" , tripMasterModel.NetTripBalance),
+                            new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
+                            new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
+                            new SqlParameter("@TripTotalAdvance" , tripMasterModel.TripTotalAdvance),
+                            new SqlParameter("@TripCloseBy" , tripMasterModel.TripCloseBy),
+                            new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
+                            new SqlParameter("@TripCloseUpdateDt" , tripMasterModel.TripCloseUpdateDt),
+                            new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
+                            new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterSave", param);
 
@@ -220,8 +214,9 @@ namespace FleetTrans.Repository
                                 YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
                                 VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
                                 TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-                                LastTripCloseDate = Convert.ToString(dataSet.Tables[0].Rows[i]["LastTripCloseDate"]),
-                                NewTripDate = Convert.ToString(dataSet.Tables[0].Rows[i]["NewTripDate"]),
+                                DeptDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeptDate"]),
+                                EndDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EndDate"]),
+                                StmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["StmtDate"]),
                                 TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
                                 DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
                                 DefinedMileage = Convert.ToString(dataSet.Tables[0].Rows[i]["DefinedMileage"]),
@@ -259,6 +254,7 @@ namespace FleetTrans.Repository
                                 TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
                                 TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
                                 Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                TripBr      = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
                             });
                         }
 
@@ -274,16 +270,7 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
+                
             }
             return tripSheetList;
         }
