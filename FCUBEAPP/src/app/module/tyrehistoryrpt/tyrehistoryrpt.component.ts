@@ -126,7 +126,12 @@ export class TyrehistoryrptComponent {
         serverSide: true,
         processing: true,
         searching:false,
-        ajax: (dataTablesParameters: any, callback) => {          
+        ajax: (dataTablesParameters: any, callback) => {    
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });      
           this.tyremgntrptService.getTyreHistoryRptList(this.request).subscribe(resp => {
              this.allTyremgntRptlist = resp;
               callback({

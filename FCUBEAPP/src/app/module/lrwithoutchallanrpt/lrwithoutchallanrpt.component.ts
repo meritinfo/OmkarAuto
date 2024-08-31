@@ -195,6 +195,11 @@ export class LrwithoutchallanrptComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.lrwithoutchallanrptService.getLrwithoutchallanrptList(this.filter).subscribe(resp => {
             this.allLrwithoutchallanrptlist = resp; 
               callback({

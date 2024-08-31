@@ -194,6 +194,11 @@ export class BookingregisterComponent {
           this.filter.sortColumn = 'Branch';
           this.filter.sortOrder = 'asc';
           this.filter.search = '';
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.bookingregisterService.getBookingregisterrptList(this.filter).subscribe(resp => {
             this.allBookingregisterrptlist = resp; 
               callback({

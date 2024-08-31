@@ -144,9 +144,12 @@ export class JournalentrylistComponent {
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
         // this.filter.search = dataTablesParameters.search.value;
         this.filter.receiptOrPayment = 'JV';
-
-        this.cashReceiptEntryService.getCashReceiptEntryList(this.filter)
-          .subscribe(resp => {
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
+        this.cashReceiptEntryService.getCashReceiptEntryList(this.filter).subscribe(resp => {
              this.allJournalEntry = resp;
               callback({
                 recordsTotal: resp.pageMetaData.totalCount,

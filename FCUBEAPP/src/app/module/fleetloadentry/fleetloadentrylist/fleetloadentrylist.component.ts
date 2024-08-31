@@ -77,8 +77,12 @@ export class FleetloadentrylistComponent {
             this.filter.sortColumn = dataTablesParameters.columns[dataTablesParameters.order[0].column === undefined ? 0 : dataTablesParameters.order[0].column].data;
             this.filter.sortOrder = dataTablesParameters.order[0].dir;
             // this.filter.search = '';
-            this.fleetLoadEntryService.getFleetLoadEntryList(this.filter)
-              .subscribe(resp => {
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
+            this.fleetLoadEntryService.getFleetLoadEntryList(this.filter).subscribe(resp => {
                 this.allFleetLoadMaster = resp;
                 callback({
                   recordsTotal: resp.pageMetaData.totalCount,

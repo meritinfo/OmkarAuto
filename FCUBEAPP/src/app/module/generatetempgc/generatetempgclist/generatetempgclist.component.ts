@@ -201,7 +201,11 @@ export class GeneratetempgclistComponent {
       ajax: (dataTablesParameters: any, callback) => {
         this.filter.pageNumber = (dataTablesParameters.start / dataTablesParameters.length) + 1;
         this.filter.pageSize = dataTablesParameters.length;
-
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.generatetempgcService.getTempgcList(this.filter).subscribe(resp => {
           this.alltempgclist = resp;
             callback({

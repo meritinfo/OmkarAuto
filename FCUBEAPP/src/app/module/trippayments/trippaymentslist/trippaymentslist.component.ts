@@ -124,6 +124,11 @@ export class TrippaymentslistComponent {
         this.filter.pageSize = dataTablesParameters.length;
         this.filter.sortColumn = 'bName';
         this.filter.sortOrder = dataTablesParameters.order[0].dir;
+        callback({
+          recordsTotal: 0,
+          recordsFiltered: 0,
+          data: []
+        });
         this.trippaymentService.getTripPaymentsList(this.filter).subscribe(resp => {
           this.allTripPaymentsTypes = resp;
           callback({

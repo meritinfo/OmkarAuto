@@ -188,6 +188,11 @@ formFilter!: FormGroup;
             this.filter.sortColumn = 'RenewalDocName';
             this.filter.sortOrder = 'asc';
             this.filter.search = '';
+            callback({
+              recordsTotal: 0,
+              recordsFiltered: 0,
+              data: []
+            });
             this.docRenewalRptService.getDocRenewalRptList(this.filter).subscribe(resp => {
                this.allDocRenewalRptlist = resp;
                 callback({

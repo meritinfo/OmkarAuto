@@ -191,7 +191,12 @@ export class ExptruckarrivalreportComponent {
           this.filter.pageSize = dataTablesParameters.length;
           this.filter.sortColumn = 'ExpectedReportingDt';
           this.filter.sortOrder = 'asc';
-          this.filter.search = '';
+          this.filter.search = ''; 
+          callback({
+            recordsTotal: 0,
+            recordsFiltered: 0,
+            data: []
+          });
           this.exptruckarrivalService.getExptruckarrivalList(this.filter).subscribe(resp => {
              this.allExptruckarrivallist = resp;
               callback({
