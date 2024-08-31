@@ -203,8 +203,8 @@ export class AdddocrenewalentryComponent {
           vehicleMasterID: this.vehicleList.find(e => e.dataId == this.selectedDocRenewalEntryDetails.vehicleMasterID),
         });  
         
-        if(this.selectedDocRenewalEntryDetails.findocid!="0"){
-          this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid);
+        if(this.selectedDocRenewalEntryDetails.findocid1!="0"){
+          this.getFinDocDetails(this.selectedDocRenewalEntryDetails.findocid1);
         }  
         this.editMode = true; 
         this.formDocEntry.controls['docRenewalID'].disable();

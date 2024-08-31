@@ -38,6 +38,10 @@ namespace FleetTrans.Business
         {
             return await tyreSalesRepository.GetCustomerList();
         }
+        public async Task<TyreSalesMasterModel> GetCustomerDetailList(RequestModel req)
+        {
+            return await tyreSalesRepository.GetCustomerDetailList(req);
+        }
 
     }
 }

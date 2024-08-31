@@ -8,6 +8,7 @@ import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { TyresalesService } from 'src/app/services/tyresales.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
+
 import { Constants } from 'src/app/common/constants';
 
 @Component({
@@ -24,6 +25,7 @@ export class TyresalesaddComponent {
   loginDate: string = '';
   fromDate: string = '';
   maxDate: string = '';
+  customerid = '';
   minDate: string = '';
   createStatus = false;
   editStatus = false;
@@ -163,6 +165,9 @@ export class TyresalesaddComponent {
   }
 
   selectEvent(item: any) {
+    this.getCustomerDetails(item.dataId);
+//this.customerid =item.dataId;
+//this.getCustomerDetails();
     // do something with selected item
   }
 
@@ -202,6 +207,21 @@ export class TyresalesaddComponent {
   getBranchList(): void {
     this.commonService.getBranchList().subscribe((res) => {
       this.branchList = res;
+    });
+  }
+  getCustomerDetails(e: any): void {
+   
+
+    this.requestmodel.strRequest = e;
+
+    this.commonService.getCustomerDetails( this.requestmodel).subscribe((res) => {
+      this.tyresalesmastermodel = res;
+      this.formUser.patchValue({
+       // customerId: "",
+        customerName: this.tyresalesmastermodel.customerName,
+        customerAdd: this.tyresalesmastermodel.customerAdd,
+       // customerGstNo:""
+      })
     });
   }
 

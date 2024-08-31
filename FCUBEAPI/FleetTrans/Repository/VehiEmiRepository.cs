@@ -34,7 +34,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FromDate",   request.FromDate),
                             new SqlParameter("@ToDate",     request.ToDate),
                         };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripPaymentsList_Select", param);
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getVehicleInstScheduleMstList", param);
 
                     if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
                     {
@@ -98,8 +98,8 @@ namespace FleetTrans.Repository
                         {
                             VehicleInstSchdlDtlList.Add(new VehicleInstScheduleDtlModel
                             {
-                                MasterID            = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterID"]),
-                                VehicleMasterId     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
+                               // MasterID            = Convert.ToString(dataSet.Tables[0].Rows[i]["MasterId"]),
+                                //VehicleMasterId     = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterId"]),
                                 InstNo              = Convert.ToString(dataSet.Tables[0].Rows[i]["InstNo"]),
                                 InstDate            = Convert.ToString(dataSet.Tables[0].Rows[i]["InstDate"]),
                                 Pri_InstAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["Pri_InstAmt"]),

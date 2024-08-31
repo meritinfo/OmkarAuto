@@ -131,7 +131,7 @@ export class SparespurchasemasteraddComponent {
       remarks : new FormControl('',),
       pmtType : new FormControl('',[Validators.required]),
       creditAc : new FormControl('',),     
-      // chequeDate : new FormControl('',),
+       chequeDate : new FormControl('',),
       // linkFtmId : new FormControl('',),
       // linkJVFtmId : new FormControl('',),
       // auditedYN : new FormControl('',),
