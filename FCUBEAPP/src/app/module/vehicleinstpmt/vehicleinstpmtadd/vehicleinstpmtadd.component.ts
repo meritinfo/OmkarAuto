@@ -30,12 +30,20 @@ export class VehicleinstpmtaddComponent {
   vehicleList: Dropdownmodel[] = [];
   mainAcList: Dropdownmodel[] = [];
   
- 
+  branch: string = '';
+
+
+  editMode = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
+
   viewStatus = false;
-  editMode = false;
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+ 
 
   createmode = false;
 
@@ -69,7 +77,6 @@ ngOnInit(): void {
   }
   
   var userData = sessionStorage.getItem('uid')?.toString();
-  
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }
@@ -79,14 +86,43 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
+  var userData = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.branch = userData;
+  }
+  else {
+    this.route.navigate(['/']);
+  }
+  
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
+
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  today.setMonth(month - 10);
+  
+  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  
+  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+    this.fromDate = this.minDate ;
+  }
+  else{
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+  }   
+  
+
 this.getBranchList();
 this.getVehicleIdList();
 this.getMainAcList();
 this.selectedVehicleInstPmtDetail = this.vehicleInstPmtService.getVehicleInstPmtDetails();
 this.formUser = this.formBuilder.group({
   //pmtId: new FormControl('',[Validators.required]),
-  pmtDate: new FormControl('',[Validators.required]),
-  branchCode: new FormControl('',[Validators.required]),
+  pmtDate: new FormControl(this.loginDate,[Validators.required]),
+  branchCode: new FormControl(this.branch,[Validators.required]),
   vehicleMasterid: new FormControl('',[Validators.required]),
   instNo: new FormControl('',),
   instId: new FormControl('',),
@@ -106,6 +142,7 @@ this.formUser = this.formBuilder.group({
 
 });
 this.createmode = true;
+setTimeout(() => {
 if (this.selectedVehicleInstPmtDetail.pmtId != '') {
   this.editMode = true;
   this.formUser.patchValue(this.selectedVehicleInstPmtDetail);
@@ -115,6 +152,7 @@ if (this.selectedVehicleInstPmtDetail.pmtId != '') {
 this.formUser.patchValue({
   //isActive: this.selectedTruckMasterDetail.isActive,
   pmtDate: this.commonService.formatDate(this.selectedVehicleInstPmtDetail.pmtDate),
+  vehicleMasterid: this.vehicleList.find(e => e.dataId == this.selectedVehicleInstPmtDetail.vehicleMasterid),
   //insuranceDt: this.commonService.formatDate(this.selectedTruckMasterDetail.insuranceDt),
  // nationalPermitDt: this.commonService.formatDate(this.selectedTruckMasterDetail.nationalPermitDt),
  // fitnessDt: this.commonService.formatDate(this.selectedTruckMasterDetail.fitnessDt),
@@ -125,6 +163,7 @@ this.formUser.patchValue({
 })
 
 }
+}, 2000);
 }
 
 get f() { return this.formUser.controls; }
@@ -206,9 +245,10 @@ submitVehicleInstPmtForm(): void {
   this.vehicleinstpmtmodel.pmtDate = selectedDataValue.pmtDate;
   this.vehicleinstpmtmodel.branchCode = selectedDataValue.branchCode;
   this.vehicleinstpmtmodel.vehicleMasterid = selectedDataValue.vehicleMasterid.dataId;
+  
   //this.vehicleinstpmtmodel.instNo = selectedDataValue.instNo;
   this.vehicleinstpmtmodel.instId = selectedDataValue.instId;
-  this.vehicleinstpmtmodel.advPayable_1 = selectedDataValue.advPayable_1;
+  //this.vehicleinstpmtmodel.advPayable_1 = selectedDataValue.advPayable_1;
   this.vehicleinstpmtmodel.priAmt = selectedDataValue.priAmt;
   this.vehicleinstpmtmodel.intAmt = selectedDataValue.intAmt;
   this.vehicleinstpmtmodel.totAmt = selectedDataValue.totAmt;

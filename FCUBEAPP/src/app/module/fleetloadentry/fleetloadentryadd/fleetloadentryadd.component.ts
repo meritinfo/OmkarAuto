@@ -123,7 +123,7 @@ ngOnInit(): void {
   this.formFleetLoad = this.formBuilder.group({   
     loadBranch: new FormControl(this.branch,[Validators.required]),
     loadDate: new FormControl(this.loginDate,[Validators.required]),
-    loadType: new FormControl('',[Validators.required]),
+    loadType: new FormControl('',),
     vehicleMasterId: new FormControl('',[Validators.required]),
     loadFor: new FormControl('',),
     loadMemoNo: new FormControl('',),
@@ -186,8 +186,8 @@ get f() { return this.formFleetLoad.controls; }
     
 // }
 getCreditAcList(): void {
-  this.requestmodel.strRequest= 'B';
-  this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
+  //this.requestmodel.strRequest= 'B';
+  this.commonService.getCreditAcList().subscribe((res) => {
     this.creditAcList = res;
     // this.formUser.patchValue({
     //   creditAc: this.creditAcList[0].dataId ,

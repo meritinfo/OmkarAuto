@@ -92,14 +92,14 @@
                                         </div>
                                     </div>   
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <!-- <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">AdvPayable_1 </label>
                                                 <input uppercaseonly type="text" class="form-control"
                                                 placeholder=" "formControlName="advPayable_1" maxlength="49"    
                                                 [ngClass]=>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-lg-4">
                                             <div class="mb-3">
                                                 <label for="formrow-inputZip">Pri Amt</label>
@@ -136,7 +136,7 @@
                                                 <label for="formrow-inputZip">Remarks</label>
                                           
                                                 <input autoclose="false" class="form-control"  placeholder=" "  
-                                                formControlName="remarks"     
+                                                formControlName="remarks"  uppercaseonly   
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
                                             </div>
                                         </div>
