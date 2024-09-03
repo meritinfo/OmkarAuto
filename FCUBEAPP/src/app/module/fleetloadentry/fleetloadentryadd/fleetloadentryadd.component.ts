@@ -28,6 +28,11 @@ export class FleetloadentryaddComponent {
   editStatus = false;
   deleteStatus = false;
   viewStatus = false;
+  loginDate: string = '';
+  fromDate: string = '';
+  maxDate: string = '';
+  minDate: string = '';
+  branch: string = '';
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -69,8 +74,8 @@ ngOnInit(): void {
     }
   }
   
+ 
   var userData = sessionStorage.getItem('uid')?.toString();
-  
   if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
     this.loggedInUserID = userData;
   }
@@ -80,7 +85,34 @@ ngOnInit(): void {
   else {
     this.route.navigate(['/']);
   }
+  var userData = sessionStorage.getItem('userBranch')?.toString();
+  if (typeof userData !== 'undefined' && userData !== null && userData !== '') {
+    this.branch = userData;
+  }
+  else {
+    this.route.navigate(['/']);
+  }
+  
+  var loginDate = sessionStorage.getItem('loginDate')?.toString();
+  if (typeof loginDate !== 'undefined' && loginDate !== null && loginDate !== '') {
+    this.loginDate = loginDate;
+  }
 
+  const today = new Date();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  today.setMonth(month - 10);
+  
+  this.minDate = this.commonService.getCurrentFiscalYear(this.loginDate).sDate.toLocaleDateString('en-CA').toString();
+  this.maxDate = new Date().toLocaleDateString('en-CA').toString();
+  
+  if(today<this.commonService.getCurrentFiscalYear(this.loginDate).sDate){
+    this.fromDate = this.minDate ;
+  }
+  else{
+    this.fromDate = today.toLocaleDateString('en-CA').toString();
+  }   
+  
   this.sharedService.loading = true;   
   this.getLocationList();
   this.getBranchList();
@@ -89,9 +121,9 @@ ngOnInit(): void {
   this.getCreditAcList();
   this.selectedFleetLoadEntryDetails = this.fleetLoadEntryService.getFleetLoadEntryDetails();
   this.formFleetLoad = this.formBuilder.group({   
-    loadBranch: new FormControl('',[Validators.required]),
-    loadDate: new FormControl('',[Validators.required]),
-    loadType: new FormControl('',[Validators.required]),
+    loadBranch: new FormControl(this.branch,[Validators.required]),
+    loadDate: new FormControl(this.loginDate,[Validators.required]),
+    loadType: new FormControl('',),
     vehicleMasterId: new FormControl('',[Validators.required]),
     loadFor: new FormControl('',),
     loadMemoNo: new FormControl('',),
@@ -154,8 +186,8 @@ get f() { return this.formFleetLoad.controls; }
     
 // }
 getCreditAcList(): void {
-  //this.requestmodel.strRequest= pmttp;
-  this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
+  //this.requestmodel.strRequest= 'B';
+  this.commonService.getCreditAcList().subscribe((res) => {
     this.creditAcList = res;
     // this.formUser.patchValue({
     //   creditAc: this.creditAcList[0].dataId ,

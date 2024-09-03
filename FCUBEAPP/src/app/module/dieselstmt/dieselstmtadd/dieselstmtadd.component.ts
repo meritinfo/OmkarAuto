@@ -227,7 +227,7 @@ export class DieselstmtaddComponent {
         this.formArray.push(this.createInitialArray());   
         this.formArray.controls[i].get("transRefNo")?.setValue(res.dieselStmtDtlsList[i].transRefNo);
         this.formArray.controls[i].get("vehicleNo")?.setValue(res.dieselStmtDtlsList[i].vehicleNo);
-        this.formArray.controls[i].get("transDateTime")?.setValue(this.commonService.formatDate(res.dieselStmtDtlsList[i].transDateTime));
+        this.formArray.controls[i].get("transDateTime")?.setValue(res.dieselStmtDtlsList[i].transDateTime);
         this.formArray.controls[i].get("dslQty")?.setValue(res.dieselStmtDtlsList[i].dslQty);
         this.formArray.controls[i].get("dslRate")?.setValue(res.dieselStmtDtlsList[i].dslRate);
         this.formArray.controls[i].get("amount")?.setValue(res.dieselStmtDtlsList[i].amount);

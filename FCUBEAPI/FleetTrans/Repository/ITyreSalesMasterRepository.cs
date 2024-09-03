@@ -15,5 +15,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TyreSalesMasterSave(TyreSalesMasterModel tyreSalesMasterModel);
         Task<ResponseModel> TyreSalesMasterDelete(RequestModel req);
         Task<List<DropDownListModel>> GetCustomerList();
+        Task<TyreSalesMasterModel> GetCustomerDetailList(RequestModel req);
     }
 }

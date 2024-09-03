@@ -191,7 +191,7 @@
                                                 <label for="formrow-inputState">Product</label>
                                                
                                                     <select class="form-control" formControlName="productId"                             
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tripBranch'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['productId'].invalid) }">
                                                         <option *ngFor="let branch of productList" value={{branch.dataId}}>
                                                             {{branch.dataName}}
                                                         </option>

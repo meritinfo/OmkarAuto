@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Constants } from '../common/constants';
 import { Dropdownmodel } from '../models/dropdownmodel';
 import { Tripvehiclemodel } from 'src/app/models/tripvehiclemodel';
+import { Tyresalesmastermodel } from 'src/app/models/tyresalesmastermodel';
 import { Tripdsldetail } from 'src/app/models/tripdsldetail';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
@@ -47,6 +48,9 @@ export class CommonService {
   getCustomerList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetCustomerList', null, this.httpOptions);
   }  
+  getCustomerDetails(req: Requestmodel): Observable<Tyresalesmastermodel> {
+    return this.httpClient.post<Tyresalesmastermodel>(Constants.API_ENDPOINT + 'FleetTrans/GetCustomerDetailList', req, this.httpOptions);
+  }
   getYearList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetYearList', null, this.httpOptions);
   }
@@ -65,6 +69,7 @@ export class CommonService {
   getVehicleTypes(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetMasters/GetVehicalTypes', null, this.httpOptions);
   } 
+ 
   getHrTypeList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Admin/GetHrTypeList', null, this.httpOptions);
   }
@@ -198,6 +203,7 @@ export class CommonService {
   getCreditAcList2(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetCreditAcList2', payload, this.httpOptions);
   }
+  
   
 
   getTripKms2(payload: any): Observable<any> {

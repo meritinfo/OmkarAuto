@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Drawing;
 using FleetTrans.Models;
 using Microsoft.Extensions.Options;
 using Shared.Models;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace FleetTrans.Repository
 {
-    public class TyreSalesMasterRepository: ITyreSalesMasterRepository
+    public class TyreSalesMasterRepository : ITyreSalesMasterRepository
     {
         private readonly IOptions<DBModel> dbconnection;
 
@@ -313,10 +314,40 @@ namespace FleetTrans.Repository
             }
             catch (Exception ex)
             {
-               
+
             }
             return BrandList;
         }
+        public async Task<TyreSalesMasterModel> GetCustomerDetailList(RequestModel req)
+        {
+            TyreSalesMasterModel tsmodel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                    {
+                            new SqlParameter("@AccountID", req.strRequest),
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getCustomerDetailList", param);
 
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        // tsmodel.AccountID = Convert.ToString(dataSet.Tables[0].Rows[0]["AccountID"]);
+                        tsmodel.CustomerName = Convert.ToString(dataSet.Tables[0].Rows[0]["AccountName"]);
+                        tsmodel.CustomerAdd = Convert.ToString(dataSet.Tables[0].Rows[0]["AccountAddress1"]);
+                        tsmodel.CustomerGstNo = Convert.ToString(dataSet.Tables[0].Rows[0]["AccountGstNo"]);
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tsmodel;
+        }
     }
 }
+    

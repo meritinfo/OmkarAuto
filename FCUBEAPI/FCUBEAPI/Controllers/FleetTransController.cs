@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using SqlHelper.Models;
 using FreightMasters.Business;
+using Consignment.Business;
 
 namespace FCUBEAPI.Controllers
 {
@@ -1999,7 +2000,25 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+        [HttpPost("GetCustomerDetailList")]
+        public async Task<IActionResult> GetCustomerDetailList(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreSalesMasterBusiness.GetCustomerDetailList(req);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("VehicleRepMaintMasterSave")]
         public async Task<IActionResult> VehicleRepMaintMasterSave()
         {

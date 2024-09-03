@@ -122,6 +122,7 @@ export class TyreativateaddComponent {
     this.getBrandList();
     this.getBranchList();
     this.getVehicleNoList();
+    //this.getTyreNo();
     this.getTyrePositionList();
 
     this.formUser.controls["tyreAmt"].disable();

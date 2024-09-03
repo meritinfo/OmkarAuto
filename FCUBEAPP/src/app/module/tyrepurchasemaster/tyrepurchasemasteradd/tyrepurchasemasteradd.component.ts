@@ -187,7 +187,7 @@ export class TyrepurchasemasteraddComponent {
             this.formUser.controls['chequeNo'].clearValidators();      
             this.formUser.controls['chequeDate'].clearValidators(); 
             this.formUser.controls['chequeNo'].disable();      
-            this.formUser.controls['chequeDate'].disable(); 
+          //  this.formUser.controls['chequeDate'].disable(); 
             this.formUser.patchValue({
               neftPmt: "Y",
             })
@@ -196,7 +196,7 @@ export class TyrepurchasemasteraddComponent {
         else {
           this.formUser.controls['neftPmt'].disable();
           this.formUser.controls['chequeNo'].disable();
-          this.formUser.controls['chequeDate'].disable();
+         // this.formUser.controls['chequeDate'].disable();
           this.formUser.controls['chequeNo'].clearValidators();      
           this.formUser.controls['chequeDate'].clearValidators(); 
         }               

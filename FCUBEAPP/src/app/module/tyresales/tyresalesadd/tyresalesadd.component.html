@@ -137,9 +137,16 @@
                                                 *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                             <div [formGroupName]="i" class="grid-table">
                                                 <td class="col-lg-2"> 
-                                                    <input autoclose="false" class="form-control"
-                                                        formControlName="brandId"> 
+                                                   
+                                                        <select class="form-control" formControlName="brandId"   
+                                                            class="form-control form-select ng-pristine ng-touched"   
+                                                            (change)="getTyreNo(i,$event)">
+                                                            <option *ngFor="let vehi of brandList" value={{vehi.dataId}}>
+                                                               {{vehi.dataName}}
+                                                            </option>
+                                                         </select>   
                                                 </td>
+
                                                 <td class="col-lg-2"> 
                                                     <input autoclose="false" class="form-control"
                                                         formControlName="tyreId"> 

@@ -103,7 +103,7 @@ namespace FleetTrans.Repository
                         {
                             pmtList.Add(new VehicleInstPmtModel
                             {
-                               // PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
+                                PmtId = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtId"]),
                                 PmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["PmtDate"]),
                                 BranchCode = Convert.ToString(dataSet.Tables[0].Rows[i]["BranchCode"]),
                                 VehicleMasterid = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterid"]),
