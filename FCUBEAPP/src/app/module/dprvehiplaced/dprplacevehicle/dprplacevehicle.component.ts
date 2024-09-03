@@ -287,6 +287,11 @@ export class DprplacevehicleComponent {
         var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
         var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
         var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        
+        vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
+        vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
+        vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
+        
         if(vehInsValidDate!=""){
           vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
         }

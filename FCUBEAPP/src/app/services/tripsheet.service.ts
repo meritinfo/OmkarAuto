@@ -4,11 +4,8 @@ import { Tripsheetmodel } from '../models/tripsheetmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Reportmodel } from '../models/reportmodel';
-import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Tripsheetlistmodel } from '../models/tripsheetlistmodel';
-import { Tripsheetinnergridmodel } from '../models/tripsheetinnergridmodel';
-import { Tripsheetinnergridrequest } from '../models/tripsheetinnergridrequest';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Injectable({
@@ -39,9 +36,12 @@ export class TripSheetService {
   }
   getTripSheetList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetList', filter, this.httpOptions);
+  }  
+  getTripSheetInnerSearchList(request: Reportmodel): Observable<Tripsheetmodel> {
+    return this.httpClient.post<Tripsheetmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerSearchList', request, this.httpOptions);
   }
-  getTripSheetInnerGridList(request: Tripsheetinnergridrequest): Observable<Tripsheetinnergridmodel> {
-    return this.httpClient.post<Tripsheetinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
+  getTripSheetInnerGridList(request: Requestmodel): Observable<Tripsheetmodel> {
+    return this.httpClient.post<Tripsheetmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
   }
 
   getOtherTripOpenList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
