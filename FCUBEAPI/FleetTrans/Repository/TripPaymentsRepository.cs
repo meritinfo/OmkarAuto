@@ -347,7 +347,7 @@ namespace FleetTrans.Repository
                 {
 
 
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcList_Select", null);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "CreditAcListForload_Select2", null);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

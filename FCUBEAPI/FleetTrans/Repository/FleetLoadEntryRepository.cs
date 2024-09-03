@@ -175,8 +175,8 @@ namespace FleetTrans.Repository
                             new SqlParameter("@AdvAmt", fleetLoadEntryModel.AdvAmt ),
                             new SqlParameter("@Remarks", fleetLoadEntryModel.Remarks  ),
                             new SqlParameter("@AttachMemocopy", fleetLoadEntryModel.AttachMemocopy ),
-                            new SqlParameter("@TripAdjYN", fleetLoadEntryModel.TripAdjYN ),
-                            new SqlParameter("@TripId", fleetLoadEntryModel.TripId ),
+                           // new SqlParameter("@TripAdjYN", fleetLoadEntryModel.TripAdjYN ),
+                           // new SqlParameter("@TripId", fleetLoadEntryModel.TripId ),
                             new SqlParameter("@LoggedInUser", fleetLoadEntryModel.LoggedInUser ),
 
                         };

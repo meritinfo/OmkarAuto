@@ -141,8 +141,8 @@ ngOnInit(): void {
     advAmt: new FormControl('',),
     remarks: new FormControl('',),
     attachMemocopy: new FormControl('',),
-    tripAdjYN: new FormControl('',),
-    tripId: new FormControl('',),
+   // tripAdjYN: new FormControl('',),
+  //  tripId: new FormControl('',),
   });
   setTimeout(() => {
   if (this.selectedFleetLoadEntryDetails.loadId != '') {
@@ -153,6 +153,7 @@ ngOnInit(): void {
     loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
     loadingTo: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingTo),
     vehicleMasterId: this.vehicleList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.vehicleMasterId),
+    //loadFor: this.creditAcList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadFor),
   });
   this.editMode = true;
 }    
@@ -297,8 +298,8 @@ submitFleetLoadEntryForm(): void {
   this.fleetLoadEntryModel.advAmt = selectedDataVal.advAmt;
   this.fleetLoadEntryModel.remarks = selectedDataVal.remarks;
   this.fleetLoadEntryModel.attachMemocopy = selectedDataVal.attachMemocopy;
-  this.fleetLoadEntryModel.tripAdjYN = selectedDataVal.tripAdjYN;
-  this.fleetLoadEntryModel.tripId = selectedDataVal.tripId;
+ // this.fleetLoadEntryModel.tripAdjYN = selectedDataVal.tripAdjYN;
+ // this.fleetLoadEntryModel.tripId = selectedDataVal.tripId;
   this.fleetLoadEntryModel.loggedInUser   = this.loggedInUserID;
   let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);
