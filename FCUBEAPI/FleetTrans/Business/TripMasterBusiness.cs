@@ -83,9 +83,9 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.OtherTripOpenDelete(request);
         }
-        public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
+        public async Task<ResponseModel> GetNextTripNo(RequestModel request)
         {
-            return await tripMasterRepository.GetNextTripNo(tripNoFilter);
+            return await tripMasterRepository.GetNextTripNo(request);
         }
         public async Task<UserTripRightsModel> GetUserDetails(RequestModel request)
         {

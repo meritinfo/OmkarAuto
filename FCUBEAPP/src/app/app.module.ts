@@ -6,7 +6,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './module/login/login.component';
-import {Maintanencemastermodel } from './models/maintanencemastermodel';
+import { Maintanencemastermodel } from './models/maintanencemastermodel';
 import { DashboardComponent } from './module/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Loginmodel } from './models/loginmodel';
@@ -89,7 +89,6 @@ import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripshe
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
 import { UppercaseonlyDirective } from './directives/uppercaseonly.directive';
 import { Tripsheetmodel } from './models/tripsheetmodel';
-import { Getkmsmodel } from './models/getkmsmodel';
 import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
 import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import { AddbankcashcontraComponent } from './module/bankcashcontra/addbankcashcontra/addbankcashcontra.component';
@@ -101,7 +100,6 @@ import { DieselstatementaddComponent } from './module/dieselstatement/dieselstat
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
 import { Dieselstatementmodel } from './models/dieselstatementmodel';
 import { Dieselstatementlistmodel } from './models/dieselstatementlistmodel';
-import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
 import { Distancemastertripmodel } from './models/distancemastertripmodel';
 import { DistancemastertripaddComponent } from './module/distancemastertrip/distancemastertripadd/distancemastertripadd.component';
 import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
@@ -110,7 +108,6 @@ import { AddratesmasterComponent } from './module/ratesmaster/addratesmaster/add
 import { RatesmasterlistComponent } from './module/ratesmaster/ratesmasterlist/ratesmasterlist.component';
 import { Ratesmastermodel } from './models/ratesmastermodel';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
-import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { billstatementmodel } from './models/billstatementmodel';
 import { Billstatementsearchmodel } from './models/billstatementsearchmodel';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
@@ -126,8 +123,6 @@ import { Billstypemodel } from './models/billstypemastermodel';
 import { Requestmodel } from './models/requestmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
-import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
-import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
@@ -286,7 +281,6 @@ import { LrbillupdateComponent } from './module/lrbillupdate/lrbillupdate/lrbill
 import { VehicleinstpmtaddComponent } from './module/vehicleinstpmt/vehicleinstpmtadd/vehicleinstpmtadd.component';
 import { VehicleinstpmtlistComponent } from './module/vehicleinstpmt/vehicleinstpmtlist/vehicleinstpmtlist.component';
 import { CompanyinfoaddComponent } from './module/companyinfo/companyinfoadd/companyinfoadd.component';
-import { BalanacerptComponent } from './module/balanacerpt/balanacerpt.component';
 import { Companyinfomodel } from './models/companyinfomodel';
 import { MraddComponent } from './module/moneyreceipt/mradd/mradd.component';
 import { MrlistComponent } from './module/moneyreceipt/mrlist/mrlist.component';
@@ -380,12 +374,10 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     AddbankcashcontraComponent,BankcashcontralistComponent,
     JournalentrylistComponent,AddjournalentryComponent,
     DieselstatementaddComponent,DieselstatementlistComponent,
-    BillstatementaddComponent,BillstatementlistComponent,
     AddratesmasterComponent,RatesmasterlistComponent,
     DriversalarystatementaddComponent,DriversalarystatementlistComponent,
     FingroupaddComponent,FingrouplistComponent,
     FinaccountsmasterlistComponent,FinaccountsmasteraddComponent,
-    AddothertripopenComponent,OthertripopenlistComponent,
     FinopenbalancelistComponent,FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,FleetcardmasterlistComponent,
     BankreconcilationComponent,
@@ -435,7 +427,7 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     TyremodeladdComponent, TyremodellistComponent,
     MaintanencemasteraddComponent,  MaintanencemasterlistComponent,
     VehicleinstschedulelistComponent,VehicleinstscheduleaddComponent, 
-    BalanacerptComponent,LrbillupdateComponent,
+    LrbillupdateComponent,
     VehicleinstpmtaddComponent, VehicleinstpmtlistComponent,
     CompanyinfoaddComponent, MraddComponent, MrlistComponent, 
     TyrepurchasemasteraddComponent, TyrepurchasemasterlistComponent,   
@@ -454,7 +446,6 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     TyrepurchaserptComponent, TyrestockrptComponent,
     TyrehistoryrptComponent, TyreactiverptComponent,
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
-    TyreregroupissrptComponent, TyreregrouprcvdrptComponent, VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,

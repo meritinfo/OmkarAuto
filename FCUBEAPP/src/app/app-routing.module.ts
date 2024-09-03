@@ -55,8 +55,6 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
-import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
-import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
 import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
 import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
@@ -67,8 +65,6 @@ import { JournalentrylistComponent } from './module/journalentry/journalentrylis
 import { AddjournalentryComponent } from './module/journalentry/addjournalentry/addjournalentry.component';
 import { DieselstatementaddComponent } from './module/dieselstatement/dieselstatementadd/dieselstatementadd.component';
 import { DieselstatementlistComponent } from './module/dieselstatement/dieselstatementlist/dieselstatementlist.component';
-import { BillstatementaddComponent } from './module/billstatement/billstatementadd/billstatementadd.component';
-import { BillstatementlistComponent } from './module/billstatement/billstatementlist/billstatementlist.component';
 import { DriversalarystatementaddComponent } from './module/driversalarystatement/driversalarystatementadd/driversalarystatementadd.component';
 import { DriversalarystatementlistComponent } from './module/driversalarystatement/driversalarystatementlist/driversalarystatementlist.component';
 import { FingrouplistComponent } from './module/fingroup/fingrouplist/fingrouplist.component';
@@ -293,9 +289,6 @@ const routes: Routes = [
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
   { path: 'tripsheetedit', component: TripsheetaddComponent },
-  { path: 'othertripopenlist', component: OthertripopenlistComponent },
-  { path: 'othertripopenadd', component: AddothertripopenComponent },
-  { path: 'othertripopenedit', component: AddothertripopenComponent },
   { path: 'bankcashcontralist', component:  BankcashcontralistComponent },
   { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
   { path: 'bankcashcontraedit', component:  AddbankcashcontraComponent },
@@ -485,9 +478,7 @@ const routes: Routes = [
   { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  
   { path: 'vehicleadvbalreceiptadd', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
-  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },  
-   
-   
+  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },       
   
 ];
 
