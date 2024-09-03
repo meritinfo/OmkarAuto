@@ -16,61 +16,55 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">Basic Details</h4>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Branch</label>
-                                                <select class="form-control" formControlName="tripBranch" [ngClass]="">
+                                                <label for="formrow-inputCity">Branch</label><span style="color: red">*</span>    
+                                                <select class="form-control" formControlName="tripBranch" 
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripBranch'].invalid) }" >
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Last Trip Close(Bhatta From )</label>
-                                                <input type="date" class="form-control"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['lastTripCloseDate'].invalid) }"  (change)="getIdleDays()"
-                                                    placeholder="" formControlName="lastTripCloseDate">
+                                                <label for="formrow-inputState">Stmt Date</label><span style="color: red">*</span>    
+                                                <input type="date" class="form-control" formControlName="stmtDate"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['stmtDate'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputState">New Trip Date</label>
-                                                <input type="date" class="form-control" formControlName="newTripDate" (change)="getIdleDays()"
-                                                    placeholder="newTripDate">
+                                                <label for="formrow-inputState">Dept Date</label><span style="color: red">*</span>    
+                                                <input type="date" class="form-control" formControlName="deptDate"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['deptDate'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
-                                                <label for="formrow-inputZip">Time</label>
-                                                <input type="time" autoclose="false" placeholder=""
-                                                    formControlName="tripTime" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputZip">Idle Bhatta Days</label>
-                                                <input bsdatepicker="" autoclose="false" placeholder=""
-                                                    formControlName="idleDays" class="form-control">
+                                                <label for="formrow-inputState">End Date</label><span style="color: red">*</span>    
+                                                <input type="date" class="form-control" formControlName="endDate"
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['endDate'].invalid) }" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputCity">Vehicle No</label>
+                                                <label for="formrow-inputCity">Vehicle No</label><span style="color: red">*</span>    
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        formControlName="vehicleMasterID" [initialValue]=""
-                                                        (selected)='selectEvent($event)'
+                                                        [searchKeyword]="keywordLocation" 
+                                                        formControlName="vehicleMasterID" 
+                                                        (selected)='selectNewEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
+                                                        (inputFocused)='onFocused($event)' 
+                                                        [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter">
+                                                        [customFilter]="startWithFilter"
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }" >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -85,25 +79,25 @@
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Trip No</label>
-                                                <input class="form-control" placeholder="" formControlName="tripNo">
+                                                <label for="formrow-inputState">Trip No</label><span style="color: red">*</span>    
+                                                <input class="form-control" formControlName="tripNo"
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripNo'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="mb-4">
-                                                <label for="formrow-inputState">Driver</label>
-
-
+                                                <label for="formrow-inputState">Driver</label><span style="color: red">*</span>    
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="driverList"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        formControlName="driverMasterID" [initialValue]=""
-                                                        (selected)='selectNewEvent($event)'
+                                                        [searchKeyword]="keywordLocation" 
+                                                        formControlName="driverMasterID"
+                                                        (selected)='selectEvent($event)'
                                                         (inputChanged)='onChangeSearch($event)'
                                                         (inputFocused)='onFocused($event)' 
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMasterID'].invalid) }">
+                                                        [customFilter]="startWithFilter" 
+                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -118,17 +112,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
-                                            <div class="mb-3">
-                                                <img [src]="driverPhotoPreview" height="120" width="120">
-                                            </div>  
-                                        </div>
-                                    </div>
-                                    <div class ="row">
-                                        <div class="col-lg-3">
-                                            <label style="color: red"> Licence No:  {{ licenceNo}}  </label><span ></span>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <label style="color: red"> Licence Validity : {{ validUpto}} </label>                                 
+                                            <div class="mt-3">
+                                                <button class="btn btn-primary" *ngIf="!editMode"
+                                                (click)="getDetails()"><span>Get Details</span></button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -141,556 +128,91 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">LR Details</h4>
+                                    <h4 class="card-title mb-4" style="color: red;">Driver Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">GC Note No</label></th>
-                                            <th><label for="formrow-inputCity">Consignee</label></th>
-                                            <th><label for="formrow-inputCity">Destination</label></th>
-                                            <th><label for="formrow-inputZip">Invoice No</label></th>
-                                            <th><label for="formrow-inputZip">EWay Bill No</label></th>
-                                            <th><label for="formrow-inputZip">EWay Bill Date</label></th>
-                                            <th><label for="formrow-inputZip">EWay Bill Exp Date</label></th>
+                                            <th><label for="formrow-inputCity">Pmt Branch</label></th>
+                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
+                                            <th><label for="formrow-inputZip">Pmt Type</label></th>
+                                            <th><label for="formrow-inputZip">Amount Paid</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
-                                        <tr formArrayName="lrDetailsList"
-                                            *ngFor="let lrData of tripsheetinnergridmodel.lrDetailsList">
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.gcNoteNo}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.cneeCode}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.cnDest}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-121">
-                                                    <div class="mb-3">
-                                                        {{lrData.cnorInvNo}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.ewayBillNo}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.ewayBillDate}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{lrData.ewayBillExpDate}}
-                                                    </div>
-                                                </div>
-                                            </td>
+                                        <tr formArrayName="driverList"
+                                            *ngFor="let drv of formDriverArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">                                             
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="pmtBranch">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="pmtId">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="pmtDate">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="pmtType">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="amountPaid">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="remarks">
+                                                </td>
+                                            </div>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="form-check mb-3">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios1" value="C"
-                                                    class="form-check-input" formControlName="compNonCompStatus" />
-                                                <label for="formRadios1" class="form-check-label"> Company
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-check">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios2" value="N"
-                                                    class="form-check-input" formControlName="compNonCompStatus" />
-                                                <label for="formRadios2" class="form-check-label"> Non Company
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="form-check">
-                                                <input type="radio" name="compNonCompStatus" id="formRadios3" value="R"
-                                                    class="form-check-input" formControlName="compNonCompStatus" />
-                                                <label for="formRadios3" class="form-check-label"> RCM
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">Load Type</label>
-                                                <select id="formrow-inputState" class="form-control"
-                                                    formControlName="loadType" [ngClass]="">
-                                                    <option selected="">Choose...</option>
-                                                    <option value="L">Loaded</option>
-                                                    <option value="E">Empty</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Opening Balance</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="opBalDriver" (change)="totalCalculation()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Opening Bal. Dsl</label>
-                                             <!--   <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="updateDslOp()">-->
-                                             <input class="form-control" placeholder="" formControlName="opBalDsl" (change)="totalCalculation() ;actualDieselTobe()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Opening Bal. Adblue</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="opBalAdblue" (change)="totalCalculation()">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState"> RCM Challan No.</label>
-                                                <input class="form-control" placeholder="" formControlName="challanNo">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">From Point</label>
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="loadingFrom"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='changeFromPlace($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedFromPlace($event)">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">To Point</label>
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList" formControlName="destination"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='changeToPlace($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedDestination($event)">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity"  [hidden]="true">Destination 2</label>
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList"
-                                                        formControlName="destination2" [searchKeyword]="keywordLocation"
-                                                        placeholder="" (selected)='changeDestination2($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedDestination2($event)"  [hidden]="true">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState"  [hidden]="true">Destination 3</label>
-
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList"
-                                                        formControlName="destination3" [searchKeyword]="keywordLocation"
-                                                        placeholder="" (selected)='changeDestination3($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedDestination3($event)"  [hidden]="true">
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Expected Rpt</label>
-                                                <input type="date" class="form-control"
-                                                    formControlName="expectedReportingDt"
-                                                    placeholder="expectedReportingDt">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState">Expected Rpt Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="expectedReportingDays">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Dsl To Be</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="ltsDslToBe_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">AdBlue Tobe</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="ltsAdblueToBe_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputCity">Travel Adv Payable</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="advPayable_1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label for="formrow-inputState"  [hidden]="true">KMs</label>
-                                                <input class="form-control" placeholder="" [hidden]="true"
-                                                    formControlName="distanceTripKM_1">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity"> Actual Reported Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    (change)="checkDays()" formControlName="reportingDt_1"  >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Actual(bhatta) Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="actualDays_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Advance Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="advanceDays_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Delay Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="delayedDays_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Grace Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="graceDays_1">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Delivery Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    (change)="checkDays2()" formControlName="deliveryDate">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Deten Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="detentionDays">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Next Reporting At</label>
-                                                <div class="ng-autocomplete">
-                                                    <ng-autocomplete [data]="locationList"
-                                                        formControlName="nextReportingBranch"
-                                                        [searchKeyword]="keywordLocation" placeholder=""
-                                                        (selected)='changeFromPlace2($event)'
-                                                        (inputChanged)='onChangeSearch($event)'
-                                                        (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate"
-                                                        [notFoundTemplate]="notFoundTemplate"
-                                                        [customFilter]="startWithFilter" [ngClass]=""
-                                                        (inputCleared)="onClearedFromPlace2($event)">>
-                                                    </ng-autocomplete>
-
-                                                    <ng-template #itemTemplate let-item>
-                                                        <a [innerHTML]="item.dataName"></a>
-                                                    </ng-template>
-
-                                                    <ng-template #notFoundTemplate let-notFound>
-                                                        <div [innerHTML]="notFound"></div>
-                                                    </ng-template>
-                                                </div>
-                                            </div>
-                                        </div>
-                                      
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity"> Next Exp Reported Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    formControlName="nextExpectedReportingDt" >
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity"> Next Exp No Of Days</label>
-                                                <input class="form-control" placeholder="" (change)="totalCal()"
-                                                    formControlName="nextExpectedReportingDays">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">AdBlue to be</label>
-                                                <input class="form-control" placeholder="" (change)="totalCal()"
-                                                    formControlName="ltsAdblueToBe_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Dsl To Be</label>
-                                                <input class="form-control" placeholder="" (change)="totalCal()"
-                                                    formControlName="ltsDslToBe_2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                      
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Travel Adv Payable</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="advPayable_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity"> Next Reporting Date</label>
-                                                <input type="date" class="form-control" placeholder=""
-                                                    (change)="checkDaysNew()" formControlName="reportingDt_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Actual (bhatta)Days </label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="actualDays_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">AdvanceDays </label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="advanceDays_2">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Delay Days</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="delayedDays_2">
-                                            </div>
-                                        </div>  
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity" [hidden]="true">KMs</label>
-                                                <input class="form-control" placeholder=""
-                                                    formControlName="distanceTripKM_2" [hidden]="true">
-                                            </div>
-                                        </div>  
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="ng-untouched ng-pristine ng-valid">
-                    <div class="row">
-                        <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title mb-4" style="color: red;">Diesel Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th><label for="formrow-inputCity">Pmt Date</label> </th>
-                                            <th><label for="formrow-inputCity">Dsl Ltrs</label></th>
-                                            <th><label for="formrow-inputZip">Vendor Name</label></th>
+                                            <th><label for="formrow-inputCity">Account</label></th>
+                                            <th><label for="formrow-inputCity">Trans Date</label></th>
+                                            <th><label for="formrow-inputZip">Dsl Qty</label></th>
+                                            <th><label for="formrow-inputZip">Dsl Rate</label></th>
+                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
-                                        <tr *ngFor="let dieselData of tripsheetinnergridmodel.dieselDetailsList;">
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{dieselData.pmtDate}}
-                                                       <span style="color:green">{{dieselData.adj}}</span> 
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{dieselData.qtyLtrs}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-121">
-                                                    <div class="mb-3">
-                                                        {{dieselData.vendorName}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">Repair/Misc Details</h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        <tr>
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Exp Type</h6>
-                                                    </label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Amount</h6>
-                                                    </label>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Narration</h6>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </tr>
-                                        <tr formArrayName="miscDetailsList"
-                                            *ngFor="let miscData of formMiscArray.controls; let k = index">
-                                            <div [formGroupName]="k">
-                                                <td class="col-lg-4">
-                                                    <select id="role" class="form-select" formControlName="expType" 
-                                                    style="font-size: small;"
-                                                        (change)="changeMisc(k, $event)">
-                                                        <!-- <option value="">Choose...</option> -->
-                                                        <option value="R">REPAIR</option>
-                                                        <option value="P">PARKING</option>
-                                                        <option value="M">M.CHALLAN</option>
-                                                        <option value="W">WEIGHMENT </option>
-                                                        <option value="A">ACCIDENT </option>
-                                                        <option value="T">Toll</option>
-                                                        <option value="O">OTHER</option>
-                                                    </select>
+                                        <tr formArrayName="dieselList"
+                                            *ngFor="let drv of formDieselArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="accountName">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="detailID">
                                                 </td>
                                                 <td>
-                                                    <input class="form-control"  decimalonly placeholder="" style="font-size: small;"
-                                                        formControlName="miscAmount" (change)="updateMisc(k, $event)">
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="transDate">
                                                 </td>
                                                 <td>
-                                                    <input autoclose="false" type="text" placeholder="" style="font-size: small;"
-                                                        class="form-control" formControlName="narration">
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="dslQty">
                                                 </td>
                                                 <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addMiscItem(k)">Add</button>
-                                                        <button *ngIf="formMiscArray.controls.length > 1"
-                                                            (click)="removeMiscItem(k)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="dslRate">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="amount">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="remarks">
                                                 </td>
                                             </div>
                                         </tr>
@@ -699,95 +221,80 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>                      
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">Driver Advance</h4>
+                                    <h4 class="card-title mb-4" style="color: red;">Route Details</h4>
                                     <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                         <tr>
-                                            <th> <label for="formrow-inputCity">Pmt Type</label> </th>
-                                            <th><label for="formrow-inputCity">Pmt Date</label></th>
-                                            <th><label for="formrow-inputZip">Amount</label></th>
+                                            <th><label for="formrow-inputZip">Load Branch</label></th>
+                                            <th><label for="formrow-inputZip">Load Date</label></th>
+                                            <th><label for="formrow-inputZip">Load Type</label></th>
+                                            <th><label for="formrow-inputZip">Load For</label></th>
+                                            <th><label for="formrow-inputZip">Load Memo No</label></th>
+                                            <th><label for="formrow-inputZip">Loading From</label></th>
+                                            <th><label for="formrow-inputZip">Consignor Name</label></th>
+                                            <th><label for="formrow-inputZip">Loading To</label></th>
+                                            <th><label for="formrow-inputZip">Consignee Name</label></th>
+                                            <th><label for="formrow-inputZip">Hire Amt</label></th>
+                                            <th><label for="formrow-inputZip">Adv Amt</label></th>
+                                            <th><label for="formrow-inputZip">Remarks</label></th>
                                         </tr>
-                                        <tr *ngFor="let driverData of tripsheetinnergridmodel.driverAdvanceList;">
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{driverData.ptype}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{driverData.pmtDate}}
-                                                        <span style="color:green">{{driverData.adj2}}</span> 
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="col-lg-12">
-                                                    <div class="mb-3">
-                                                        {{driverData.amountPaid}}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title mb-4" style="color: red;">AdBlue Details</h4>
-                                    <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
-                                        <tr>
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <label for="formrow-inputZip">
-                                                        <h5>Filling Branch</h5>
-                                                    </label>
-                                                </div>
-                                                <div class="col-lg-3">
-                                                    <label for="formrow-inputZip">
-                                                        <h5>Adblue Ltrs</h5>
-                                                    </label>
-                                                </div>
-                                               
-                                            </div>
-                                        </tr>
-                                        <tr formArrayName="adblueDetailsList"
-                                            *ngFor="let adblueData of formAdblueArray.controls; let m = index">
-                                            <div [formGroupName]="m">
-                                                <td >
-                                                    <select class="form-control" formControlName="adbluefillingStation"
-                                                        [ngClass]="" (change)="changeAdBlue(m, $event)">
-                                                        <option *ngFor="let branch of branchList"
-                                                            value={{branch.dataId}}>
-
-                                                            {{branch.dataName}}
-                                                        </option>
-                                                    </select>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <input autoclose="false" type="text" placeholder=""
-                                                        class="form-control" decimalonly
-                                                        formControlName="adbluedieselLiter"
-                                                        (change)="updateAdBlue(m, $event)">
-                                                </td>
-                                                
+                                        <tr formArrayName="routeList"
+                                            *ngFor="let drv of formRouteArray.controls; let k = index">
+                                            <div [formGroupName]="k" class="grid-table">   
                                                 <td>
-                                                    <div class="col-lg-12 details-button">
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="addAdblueItem(m)">Add</button>
-                                                        <button *ngIf="formAdblueArray.controls.length > 1"
-                                                            (click)="removeAdblueItem(m)"
-                                                            class="btn btn-danger">Delete</button>
-                                                    </div>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadBranch">
+                                                    <input type="hidden" class="form-control" 
+                                                    formControlName="loadId">
+                                                </td>
+                                                <td>
+                                                    <input type="date" class="form-control" 
+                                                    formControlName="loadDate">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadType">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadFor">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadMemoNo">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadingFrom">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="consignorName">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="loadingTo">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="consigneeName">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="hireAmt">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="advAmt">
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" 
+                                                    formControlName="remarks">
                                                 </td>
                                             </div>
                                         </tr>
@@ -796,296 +303,229 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>    
                 <div class="ng-untouched ng-pristine ng-valid">
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title mb-4" style="color: red;">Trip Summary</h4>
-                            </div>
-                            <!-- <div class ="row">
-                                <div class="col-lg-3">
-                                    <label style="color: red" class="card-title mb-4"> Actual Dsl To be:  {{ actualdslnew}}  </label><span ></span>
-                                </div>
-                            </div> -->
                             <div class="row">
-                                <!--<div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Grace Days</label>
-                                        <input class="form-control" placeholder=""
-                                            formControlName="graceDays_2">
-                                    </div>
-                                </div>-->
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Total Dsl To be</label>
-                                        <input class="form-control" placeholder="" formControlName="totaldsl">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-2">
-                                    <div class="mb-2">
-                                        <label for="formrow-inputCity">Total Adblue to Be</label>
-                                        <input class="form-control" placeholder=""
-                                            formControlName="totalAdblue">
+                                        <label for="formrow-inputCity">Defined Mileage</label>
+                                        <input class="form-control" decimalonly formControlName="definedMileage">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Total Travel Adv Payable</label>
-                                        <input class="form-control" placeholder=""
-                                            formControlName="totalpayable">
+                                        <label for="formrow-inputCity">Closing KMR</label>
+                                        <input class="form-control" decimalonly formControlName="closingKMR">
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label style="color: red" class="card-title mb-4"> Actual Dsl To be:  {{ actualdslnew}}  </label><span ></span>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Opening KMR</label>
+                                        <input class="form-control" decimalonly formControlName="openingKMR">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Distance Trip KM</label>
+                                        <input class="form-control" decimalonly formControlName="distanceTripKM">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity"> Lts Dsl To Be</label>
+                                        <input class="form-control" decimalonly formControlName="ltsDslToBe">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Open Bal Dsl</label>
+                                        <input class="form-control" decimalonly formControlName="opBalDsl">
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="mb-2">
-                                        <label for="formrow-inputCity">Dsl/Ltr Issued</label>
-                                        <input class="form-control" placeholder="" 
-                                        formControlName="issuedDslLtrs"
-                                              decimalonly>
+                                        <label for="formrow-inputCity">Issued Dsl Ltrs</label>
+                                        <input class="form-control" decimalonly formControlName="issuedDslLtrs">
                                     </div>
                                 </div>
                                 <div class="col-lg-2">
-                                     <div class="mb-2">
-                                         <label for="formrow-inputCity"> AdBlue Issued</label>
-                                         <input class="form-control" placeholder=""
-                                             formControlName="issuedAdblueLtrs" decimalonly>
-                                     </div>
-                                  </div>
-                                  <div class="col-lg-2">
-                                      <div class="mb-2">
-                                          <label for="formrow-inputCity">Advance Paid</label>
-                                          <input class="form-control" placeholder=""
-                                              formControlName="paidDriverAdvance" decimalonly>
-                                      </div>
-                                  </div>
-                                  <div class="col-lg-2">
-                                      <div class="mb-2">
-                                          <label for="formrow-inputCity">Repairs</label>
-                                          <input class="form-control" placeholder="" 
-                                          formControlName="repairsByDriver"
-                                              decimalonly>
-                                      </div>
-                                  </div>
-                                  <div class="col-lg-2">
-                                      <div class="mb-2">
-                                          <label for="formrow-inputCity">Parking</label>
-                                          <input class="form-control" placeholder="" 
-                                          formControlName="parkingByDriver"
-                                              decimalonly>
-                                      </div>
-                                  </div>
-                                  <div class="col-lg-2">
-                                      <div class="mb-2">
-                                          <label for="formrow-inputCity">Accident</label>
-                                          <input class="form-control" placeholder=""
-                                              formControlName="accidentByDriver" decimalonly>
-                                      </div>
-                                  </div>
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Issued Dsl Amt</label>
+                                        <input class="form-control" decimalonly formControlName="issuedDslAmt">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Diesel Passed Ltrs</label>
+                                        <input class="form-control" decimalonly formControlName="dieselPassedLtrs">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Diesel Passed Amt</label>
+                                        <input class="form-control" decimalonly formControlName="dieselPassedAmt">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Diesel Variance Amt</label>
+                                        <input class="form-control" decimalonly formControlName="dieselVarianceAmt">
+                                    </div>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Close Bal Dsl</label>
+                                        <input class="form-control" decimalonly formControlName="clBalDsl">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Open Bal Driver</label>
+                                        <input class="form-control" decimalonly formControlName="opBalDriver">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Paid Driver Advance</label>
+                                        <input class="form-control" decimalonly formControlName="paidDriverAdvance">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Freight Coll By Driver</label>
+                                        <input class="form-control" decimalonly formControlName="freightCollByDriver">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Expenses By Driver</label>
+                                        <input class="form-control" decimalonly formControlName="expensesByDriver">
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Total Bhatta Days</label>
+                                        <input class="form-control" numbersonly formControlName="totalBhattaDays">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Bhatta Rate</label>
+                                        <input class="form-control" decimalonly formControlName="bhattaRate">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Bhatta Amt</label>
+                                        <input class="form-control" decimalonly formControlName="bhattaAmt">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">On-Time Incentive Amt</label>
+                                        <input class="form-control" decimalonly formControlName="onTimeIncentiveAmt">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Multi Del Incentive Amt</label>
+                                        <input class="form-control" decimalonly formControlName="multiDelIncentiveAmt">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Penalty Charged To Driver</label>
+                                        <input class="form-control" decimalonly formControlName="penaltyChargedToDr">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Penalty Remarks</label>
+                                        <input uppercaseonly class="form-control" formControlName="penaltyRemarks">
+                                    </div>
+                                </div>
+                            </div>                      
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Total Driver Ac</label>
+                                        <input class="form-control" decimalonly formControlName="totalDriverAc">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Trip Balance</label>
+                                        <input class="form-control" decimalonly formControlName="tripBalance">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Recd From Driver</label>
+                                        <input class="form-control" decimalonly formControlName="recdFromDriver">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Net Trip Balance</label>
+                                        <input class="form-control" decimalonly formControlName="netTripBalance">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Fastag Amount</label>
+                                        <input class="form-control" decimalonly formControlName="fastagAmount">
+                                    </div>
+                                </div>
+                            </div>                   
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Trip Total Freight</label>
+                                        <input class="form-control" decimalonly formControlName="tripTotalFreight">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="mb-2">
+                                        <label for="formrow-inputCity">Trip Total Advance</label>
+                                        <input class="form-control" decimalonly formControlName="tripTotalAdvance">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="row">
-
                                     <div class="col-lg-2">
                                         <div class="mb-2">
-                                            <label for="formrow-inputCity">Weighment</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="weighmentByDriver" decimalonly>
+                                            <input type="checkbox" name="tripStatus" formControlName="tripStatus"  
+                                            (change)="changeTripClose($event)" 
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tripStatus'].invalid) }"
+                                                class="form-check-input" />
+                                            <label for="tripStatus">Trip Close</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="mb-2">
-                                            <label for="formrow-inputCity">Mchallan</label>
-                                            <input class="form-control" placeholder="" 
-                                            formControlName="challanByDriver" decimalonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Other Exp By Driver</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="otherExpByDriver">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Toll</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="tollExpByDriver">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity"> Bhatta Days</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="totalBhattaDays">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Driver Bhatta Amt</label>
-                                            <input class="form-control" placeholder="" formControlName="allowedBhatta">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Cash Dsl Place</label>
-                                            <select class="form-control" formControlName="cashDslPlace" 
-                                            [ngClass]="">
-                                                <option *ngFor="let branch of branchList" value={{branch.dataId}}>
-                                                    {{branch.dataName}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Cash Dsl Ltrs</label>
-                                          <!--  <input class="form-control"  placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation();validationForDslPlace();"  decimalonly   [ngClass]="{ 'is-invalid': userSubmitted && (f['cashDslLtrs'].invalid) }">-->
-                                          <input class="form-control"  placeholder="" formControlName="cashDslLtrs" (change)="totalCalculation();"  decimalonly  >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Cash DslAmt</label>
-                                            <input class="form-control" placeholder="" formControlName="cashDslAmt" (change)="totalCalculation()"  decimalonly>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">OnTime Incentive Amt </label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="onTimeIncentiveAmt">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Multi DelIncentive Amt </label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="multiDelIncentiveAmt">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Penalty Charged ToDr</label>
-                                            <input class="form-control" placeholder=""
-                                                formControlName="penaltyChargedToDr">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Extra Penalty</label>
-                                            <input class="form-control" placeholder="" formControlName="penaltyExtra"  decimalonly (change)="totalCalculation()" >
-                                        </div>
-                                    </div>
-                                   <!-- <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Pool AcAmt</label>
-                                            <input class="form-control" placeholder="" formControlName="poolAcAmt"  decimalonly>
-                                        </div>
-                                    </div>-->
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Total Driver Exp Ac</label>
-                                            <input class="form-control" placeholder="" formControlName="totalDriverAc">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Trip Balance </label>
-                                            <input class="form-control" placeholder="" formControlName="tripBalance">
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">RecdFromDriver </label>
-                                            <input class="form-control" placeholder="" formControlName="recdFromDriver" (change)="totalCalculation()"  decimalonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Net Trip Balance </label>
-                                            <input class="form-control" placeholder="" formControlName="netTripBalance">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Cl Bal Dsl </label>
-                                            <input class="form-control" placeholder="" formControlName="clBalDsl" >
+                                            <label for="formrow-inputCity">Trip Close Date </label>
+                                            <input type="date" class="form-control" placeholder="" 
+                                                formControlName="tripCloseDt">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Cl Bal AdBlue</label>
-                                            <input class="form-control" placeholder="" formControlName="clBalAdBlue">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Ticl Status</label>
-
-                                            <select id="role" class="form-select" formControlName="ticlStatus"
-                                                (change)="getIncentiveRate($event)">
-                                                <option value="0">Choose...</option>
-                                                <option value="OK">OK </option>
-                                                <option value="MD">Minor Damage </option>
-                                                <option value="JD">Major Damage</option>
-                                                <option value="PS">Paint Scratch </option>
-                                                <option value="SH">Shortage</option>
-                                                <option value="DL">Delay</option>
-                                                <option value="DD">Delay+Damage</option>
-                                                <option value="O">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-2">
-                                            <label for="formrow-inputCity">Ticl Remark</label>
-                                            <input  uppercaseonly class="form-control" placeholder="" formControlName="ticlRemarks">
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <input type="checkbox" name="tripStatus" formControlName="tripStatus"  (change)="changeTripCloseValue($event)" [ngClass]="{ 'is-invalid': userSubmitted && (f['tripStatus'].invalid) }"
-                                                    class="form-check-input" />
-                                                <label for="tripStatus">Trip Close</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <div class="mb-2">
-                                                <label for="formrow-inputCity">Trip Close Date </label>
-                                                <input type="date" class="form-control" placeholder="" 
-                                                    formControlName="tripCloseDt">
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-4">
-                                        <input type="checkbox" name="tripLinkYN" formControlName="tripLinkYN"                                     
-                                            class="form-check-input" (change)="onTripLink($event)" />
-                                        <label for="formrow-inputCity">TripLinkYN</label>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-4">
+                                    <input type="checkbox" name="tripLinkYN" formControlName="tripLinkYN"                                     
+                                        class="form-check-input" />
+                                    <label for="formrow-inputCity">Trip Link YN</label>
                                 </div>
                             </div>
                         </div>
@@ -1094,16 +534,14 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button  (click)="submitTripSheetForm()" *ngIf="editMode && editStatus"
+                            <button  (click)="submitTripSheetForm()" *ngIf="(!editMode && createStatus) || (editMode && editStatus)"
                                 class="btn btn-primary w-md">Save</button>  
                             <button  class="btn btn-secondary w-md m-2"
                                 (click)="exit()">Exit</button>
                         </div>
                     </div>
                 </div>
-
             </form>
-            <!-- end row -->
             <!-- end row -->
         </div>
         <!-- container-fluid -->

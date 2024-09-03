@@ -287,6 +287,11 @@ export class DprplacevehicleComponent {
         var vehInsValidDate = this.selectedDprDetails.vehInsValidDate;
         var vehFitValidDate = this.selectedDprDetails.vehFitValidDate;
         var vehPermitValidDate = this.selectedDprDetails.vehPermitValidDate;
+        
+        vehInsValidDate     = vehInsValidDate    =="NA"? "": vehInsValidDate  ; 
+        vehFitValidDate     = vehFitValidDate    =="NA"? "": vehFitValidDate   ;
+        vehPermitValidDate  = vehPermitValidDate =="NA"? "": vehPermitValidDate;
+        
         if(vehInsValidDate!=""){
           vehInsValidDate = this.commonService.formatDate(vehInsValidDate);
         }
@@ -468,7 +473,11 @@ export class DprplacevehicleComponent {
     var chkDuplicate = true;
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
-      if((selectedDataVal.arrayList[i].gcNoteNo?selectedDataVal.arrayList[i].gcNoteNo:"")==''){
+      if(!selectedDataVal.arrayList[i].gcNoteNo){
+        this.toasterService.warning("GcNote No Should Not be Empty");
+        return;
+      }
+      if(selectedDataVal.arrayList[i].gcNoteNo==''){
         this.toasterService.warning("GcNote No Should Not be Empty");
         return;
       }

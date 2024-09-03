@@ -23,46 +23,6 @@ namespace FleetTrans.Business
             return await tripMasterRepository.TripMasterSave(tripMasterModel);
         }
 
-        public async Task<ResponseModel> GetOpeningBal(OpBalModel request)
-        {
-            return await tripMasterRepository.GetOpeningBal(request);
-        }
-        public async Task<ResponseModel> GetLastTripDriver(OpBalModel request)
-        {
-            return await tripMasterRepository.GetLastTripDriver(request);
-        }
-        public async Task<ResponseModel> GetDslOpeningBal(OpBalModel request)
-        {
-            return await tripMasterRepository.GetDslOpeningBal(request);
-        }
-        public async Task<ResponseModel> GetDslOpeningBalforPmt(OpBalModel request)
-        {
-            return await tripMasterRepository.GetDslOpeningBalforPmt(request);
-        }
-        public async Task<ResponseModel> GetAdblueOpeningBal(OpBalModel request)
-        {
-            return await tripMasterRepository.GetAdblueOpeningBal(request);
-        }
-        public async Task<ResponseModel> GetIncentiveRate(IncentiveRateModel request)
-        {
-            return await tripMasterRepository.GetIncentiveRate(request);
-        }
-        public async Task<ResponseModel> GetPenaltyRate(PenaltyRateModel request)
-        {
-            return await tripMasterRepository.GetPenaltyRate(request);
-        }
-        public async Task<PenaltyModel> GetPenaltyRateNew(PenaltyRateModel request)
-        {
-            return await tripMasterRepository.GetPenaltyRateNew(request);
-        }
-        public async Task<ResponseModel> GetBhattaRate(BhattaRateModel request)
-        {
-            return await tripMasterRepository.GetBhattaRate(request);
-        }
-        public async Task<DriverDetailModel> GetDriverDetail(RequestModel request)
-        {
-            return await tripMasterRepository.GetDriverDetail(request);
-        }
         public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
         {
             return await tripMasterRepository.GetTripSheetList(request);
@@ -71,35 +31,21 @@ namespace FleetTrans.Business
         {
             return await tripMasterRepository.GetDriverList();
         }
-        public async Task<TripSheetList> GetOtherTripOpenList(ReportRequestModel request)
-        {
-            return await tripMasterRepository.GetOtherTripOpenList(request);
-        }
-        public async Task<ResponseModel> OtherTripOpenSave(TripMasterModel tripMasterModel)
-        {
-            return await tripMasterRepository.OtherTripOpenSave(tripMasterModel);
-        }
-        public async Task<ResponseModel> OtherTripOpenDelete(RequestModel request)
-        {
-            return await tripMasterRepository.OtherTripOpenDelete(request);
-        }
-        public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
-        {
-            return await tripMasterRepository.GetNextTripNo(tripNoFilter);
-        }
-        public async Task<UserTripRightsModel> GetUserDetails(RequestModel request)
-        {
-            return await tripMasterRepository.GetUserDetails(request);
-        }
         public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
         {
             return await tripMasterRepository.TripMasterDelete(requestModel);
         }
-        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        public async Task<ResponseModel> GetNextTripNo(RequestModel request)
+        {
+            return await tripMasterRepository.GetNextTripNo(request);
+        }
+        public async Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request)
+        {
+            return await tripMasterRepository.GetTripSheetInnerSearchList(request);
+        }
+        public async Task<TripMasterModel> GetTripSheetInnerGridList(RequestModel request)
         {
             return await tripMasterRepository.GetTripSheetInnerGridList(request);
         }
-
-
     }
 }

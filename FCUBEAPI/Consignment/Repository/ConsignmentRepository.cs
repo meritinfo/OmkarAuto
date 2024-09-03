@@ -739,38 +739,6 @@ namespace Consignment.Repository
             }
             return responseModel;
         }
-        public async Task<ResponseModel> GetKms(KmsModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@TransDate", request.TransDate),
-                            new SqlParameter("@FromLocation", request.FromLocation),
-                            new SqlParameter("@ToLocation", request.ToLocation)
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "sp_GetFrtKms", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                responseModel.Status = false;
-            }
-            return responseModel;
-        }
         public async Task<List<DropDownListModel>> GetContentList()
         {
             List<DropDownListModel> contentList = new();

@@ -14,13 +14,11 @@ namespace Consignment.Repository
         Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<ResponseModel> CheckVehicleNo(RequestModel request);
-        Task<ResponseModel> GetKms(KmsModel request);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();
         Task<List<DropDownListModel>> GetVehicleNoList();
         Task<List<DropDownListModel>> GetVehicleIdList();
-        // Task<List<DropDownListModel>> GetVehicleGroupTypeList();
         Task<List<DropDownListModel>> GetClassList();
         Task<ResponseModel> GetBillSeries(RequestModel request);
         Task<ConsignmentModel> GetConsignmentUpdateDetails(RequestModel req);

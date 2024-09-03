@@ -103,7 +103,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetCreditAcList2")]
-        public async Task<IActionResult> GetCreditAcList2(AcModel request)
+        public async Task<IActionResult> GetCreditAcList2(RequestModel request)
         {
             if (request == null)
             {
@@ -112,25 +112,6 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tripPaymentsBusiness.GetCreditAcList2(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetTripSheetInnerGridList")]
-        public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
 
                 return Ok(result);
             }
@@ -336,6 +317,64 @@ namespace FCUBEAPI.Controllers
             }
         }
 
+
+        [HttpPost("GetNextTripNo")]
+        public async Task<IActionResult> GetNextTripNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetNextTripNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTripSheetInnerGridList")]
+        public async Task<IActionResult> GetTripSheetInnerGridList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTripSheetInnerSearchList")]
+        public async Task<IActionResult> GetTripSheetInnerSearchList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.GetTripSheetInnerSearchList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetDriverList")]
         public async Task<IActionResult> GetDriverList()
         {
@@ -350,188 +389,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("GetOpeningBal")]
-        public async Task<IActionResult> GetOpeningBal(OpBalModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetOpeningBal(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetDslOpeningBal")]
-        public async Task<IActionResult> GetDslOpeningBal(OpBalModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetDslOpeningBal(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetLastTripDriver")]
-        public async Task<IActionResult> GetLastTripDriver(OpBalModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetLastTripDriver(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetDslOpeningBalforPmt")]
-        public async Task<IActionResult> GetDslOpeningBalforPmt(OpBalModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetDslOpeningBalforPmt(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetAdblueOpeningBal")]
-        public async Task<IActionResult> GetAdblueOpeningBal(OpBalModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetAdblueOpeningBal(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetIncentiveRate")]
-        public async Task<IActionResult> GetIncentiveRate(IncentiveRateModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetIncentiveRate(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetPenaltyRate")]
-        public async Task<IActionResult> GetPenaltyRate(PenaltyRateModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetPenaltyRate(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetPenaltyRateNew")]
-        public async Task<IActionResult> GetPenaltyRateNew(PenaltyRateModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetPenaltyRateNew(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetBhattaRate")]
-        public async Task<IActionResult> GetBhattaRate(BhattaRateModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetBhattaRate(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("GetDriverDetail")]
-        public async Task<IActionResult> GetDriverDetail(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetDriverDetail(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
 
         [HttpPost("TripMasterSave")]
         public async Task<IActionResult> TripMasterSave(TripMasterModel tripMasterModel)
@@ -551,43 +408,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[HttpPost("TripMasterDelete")]
-        //public async Task<IActionResult> TripMasterDelete(RequestModel req)
-        //{
-        //    if (req == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await tripMasterBusiness.TripMasterDelete(req);
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        [HttpPost("TripMasterDelete")]
+        public async Task<IActionResult> TripMasterDelete(RequestModel req)
+        {
+            if (req == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tripMasterBusiness.TripMasterDelete(req);
 
-        //[HttpPost("GetTripSheetInnerGridList")]
-        //public async Task<IActionResult> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
-        //{
-        //    if (request == null)
-        //    {
-        //        return BadRequest("Invalid request data");
-        //    }
-        //    try
-        //    {
-        //        var result = await tripMasterBusiness.GetTripSheetInnerGridList(request);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
-        //        return Ok(result);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
 
 
         [HttpPost("GetDieselStatementInnerGridList")]
@@ -1047,98 +887,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("GetUserDetails")]
-        public async Task<IActionResult> GetUserDetails(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetUserDetails(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetNextTripNo")]
-        public async Task<IActionResult> GetNextTripNo(OpBalModel tripNoFilter)
-        {
-            if (tripNoFilter == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.GetNextTripNo(tripNoFilter);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost("GetOtherTripOpenList")]
-        public async Task<IActionResult> GetOtherTripOpenList(ReportRequestModel request)
-        {
-            try
-            {
-                var result = await tripMasterBusiness.GetOtherTripOpenList(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-
-        [HttpPost("OtherTripOpenSave")]
-        public async Task<IActionResult> OtherTripOpenSave(TripMasterModel tripMasterModel)
-        {
-            if (tripMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.OtherTripOpenSave(tripMasterModel);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-        [HttpPost("OtherTripOpenDelete")]
-        public async Task<IActionResult> OtherTripOpenDelete(RequestModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await tripMasterBusiness.OtherTripOpenDelete(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
 
         [HttpPost("DocRenewalEntryDetailsDelete")]
         public async Task<IActionResult> DocRenewalEntryDetailsDelete(RequestModel request)

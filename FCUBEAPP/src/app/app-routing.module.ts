@@ -55,8 +55,6 @@ import { AddbankreceiptentryComponent } from './module/bankreceiptentry/addbankr
 import { IntermediatescreenComponent } from './module/intermediatescreen/intermediatescreen.component';
 import { TripsheetlistComponent } from './module/tripsheet/tripsheetlist/tripsheetlist.component';
 import { TripsheetaddComponent } from './module/tripsheet/tripsheetadd/tripsheetadd.component';
-import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
-import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
 import { DistancemasterfreightlistComponent } from './module/distancemasterfreight/distancemasterfreightlist/distancemasterfreightlist.component';
 import { DistancemasterfreightaddComponent } from './module/distancemasterfreight/distancemasterfreightadd/distancemasterfreightadd.component';
 import { DistancemastertriplistComponent } from './module/distancemastertrip/distancemastertriplist/distancemastertriplist.component';
@@ -293,9 +291,6 @@ const routes: Routes = [
   { path: 'tripsheetlist', component: TripsheetlistComponent },
   { path: 'tripsheetadd', component: TripsheetaddComponent },
   { path: 'tripsheetedit', component: TripsheetaddComponent },
-  { path: 'othertripopenlist', component: OthertripopenlistComponent },
-  { path: 'othertripopenadd', component: AddothertripopenComponent },
-  { path: 'othertripopenedit', component: AddothertripopenComponent },
   { path: 'bankcashcontralist', component:  BankcashcontralistComponent },
   { path: 'addbankcashcontra', component: AddbankcashcontraComponent },
   { path: 'bankcashcontraedit', component:  AddbankcashcontraComponent },

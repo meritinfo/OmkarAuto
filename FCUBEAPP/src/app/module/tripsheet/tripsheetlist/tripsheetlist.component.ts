@@ -173,30 +173,29 @@ getTripMaster(){
       // Set column title and data field
       columns: [
         {
+          title: 'Trip Branch',
+          data: 'tripBr',
+        },
+        {
           title: 'Vehicle No',
           data: 'vehicleNo',
         },
 
         {
-          title: 'Trip Date',
-          data: 'newTripDate',
+          title: 'Stmt Date',
+          data: 'stmtDate',
         },
         {
           title: 'Trip No',
           data: 'tripNo',
         },
         {
-          title: 'From',
-          data: 'frPlace',
-        },
-
-        {
-          title: 'To',
-          data: 'tPlace',
+          title: 'Dept Date',
+          data: 'deptDate',
         },
         {
-          title: 'Expected UL. Dt.',
-          data: 'expectedReportingDt',
+          title: 'End Date',
+          data: 'endDate',
         },
         {
           title: 'Driver',
@@ -218,12 +217,12 @@ getTripMaster(){
     };
     this.sharedService.loading = false;
   }
-  //Open new gst purchase add screen
+  
   tripsheetAdd(): void {
     this.route.navigate(['/tripsheetadd']);
   }
 
-  //Open user details screen
+  
   gettripSheetDetails(tripsheet: Tripsheetmodel): void {
     this.tripSheetService.setTripSheetDetails(tripsheet);
 

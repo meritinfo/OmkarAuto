@@ -126,8 +126,6 @@ import { Billstypemodel } from './models/billstypemastermodel';
 import { Requestmodel } from './models/requestmodel';
 import { Driversalarydetailmodel } from './models/driversalarydetailmodel';
 import { Driversalarystatementmodel } from './models/driversalarystatementmodel';
-import { AddothertripopenComponent } from './module/othertripopen/addothertripopen/addothertripopen.component';
-import { OthertripopenlistComponent } from './module/othertripopen/othertripopenlist/othertripopenlist.component';
 import { NegdecimalonlyDirective } from './directives/negdecimalonly.directive';
 import { Gstpurchaselistmodel } from './models/gstpurchaselistmodel';
 import { Gstpurchasemodel } from './models/gstpurchasemodel';
@@ -385,7 +383,6 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     DriversalarystatementaddComponent,DriversalarystatementlistComponent,
     FingroupaddComponent,FingrouplistComponent,
     FinaccountsmasterlistComponent,FinaccountsmasteraddComponent,
-    AddothertripopenComponent,OthertripopenlistComponent,
     FinopenbalancelistComponent,FinopenbalanceaddComponent,
     AddfleetcardmasterComponent,FleetcardmasterlistComponent,
     BankreconcilationComponent,

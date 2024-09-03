@@ -16,7 +16,6 @@ namespace Consignment.Business
         Task<ResponseModel> CheckEwaybillExits(RequestModel req);
         Task<ResponseModel> CheckDuplicateLr(RequestModel request);
         Task<ResponseModel> CheckVehicleNo(RequestModel request);
-        Task<ResponseModel> GetKms(KmsModel request);
         Task<List<DropDownListModel>> GetRateList();
         Task<List<DropDownListModel>> GetLocationList();
         Task<List<DropDownListModel>> GetContentList();

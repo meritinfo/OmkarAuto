@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="mt-4">
-                                <form (keydown.enter)="$event.preventDefault()"[formGroup]="formLogin">
+                                <form [formGroup]="formLogin">
                                     <div class="mb-3">
                                         <label for="username" class="form-label">Username</label>
                                         <input type="text" class="form-control" formControlName="userName"
