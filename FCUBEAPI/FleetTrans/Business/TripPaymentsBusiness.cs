@@ -63,7 +63,7 @@ namespace FleetTrans.Business
         {
             return await tripPaymentsRepository.GetCrAcListForCustWizard();
         }
-        public async Task<List<DropDownListModel>> GetCreditAcList2(AcModel request)
+        public async Task<List<DropDownListModel>> GetCreditAcList2(RequestModel request)
         {
             return await tripPaymentsRepository.GetCreditAcList2(request);
         }

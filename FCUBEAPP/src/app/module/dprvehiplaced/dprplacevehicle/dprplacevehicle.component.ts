@@ -473,7 +473,11 @@ export class DprplacevehicleComponent {
     var chkDuplicate = true;
 
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {   
-      if((selectedDataVal.arrayList[i].gcNoteNo?selectedDataVal.arrayList[i].gcNoteNo:"")==''){
+      if(!selectedDataVal.arrayList[i].gcNoteNo){
+        this.toasterService.warning("GcNote No Should Not be Empty");
+        return;
+      }
+      if(selectedDataVal.arrayList[i].gcNoteNo==''){
         this.toasterService.warning("GcNote No Should Not be Empty");
         return;
       }

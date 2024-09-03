@@ -7,20 +7,9 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
 import { TripSheetService } from 'src/app/services/tripsheet.service';
-import { kmsmodel } from 'src/app/models/kmsmodel';
-import { PenaltyModel } from 'src/app/models/penaltymodel';
 import { SharedService } from 'src/app/services/shared.service';
-import { Tripkmsmodel } from 'src/app/models/tripkmsmodel';
-import { Dslmodel } from 'src/app/models/dslmodel';
-import { BhattaRateModel } from 'src/app/models/bhattaratemodel';
-import { Opbalmodel } from 'src/app/models/opbalmodel';
-import { Driverdetailmodel } from 'src/app/models/driverdetailmodel';
-import { IncentiveRateModel } from 'src/app/models/incentiveratemodel';
-import { Adbluetobemodel } from 'src/app/models/adbluetobemodel';
 import { Requestmodel } from 'src/app/models/requestmodel';
 import { ToastrService } from 'ngx-toastr';
-import { PenaltyRateModel } from 'src/app/models/penaltyratemodel';
-import { Usertriprightsmodel } from 'src/app/models/usertriprightsmodel';
 import { Reportmodel } from 'src/app/models/reportmodel';
 
 @Component({
@@ -62,7 +51,6 @@ export class TripsheetaddComponent {
 
   }
   ngOnInit(): void {
-    this.sharedService.loading = true;
     var menuData = sessionStorage.getItem('menulist')?.toString();
     if (typeof menuData !== 'undefined' && menuData !== null && menuData !== '') {
       var privilegeData = JSON.parse(menuData);
@@ -158,10 +146,11 @@ export class TripsheetaddComponent {
 
     this.selectedTripSheetDetails = this.tripSheetService.getTripSheetDetails();
 
-    this.formTripsheet.controls['tripLinkYN'].disable();
+    this.formTripsheet.controls['tripCloseDt'].disable();
     this.formTripsheet.controls['tripNo'].disable();
 
     setTimeout(() => {
+      this.sharedService.loading = true;
       if (this.selectedTripSheetDetails.tripId != '') {
         this.formTripsheet.patchValue(this.selectedTripSheetDetails);
         this.formTripsheet.patchValue({
@@ -174,7 +163,8 @@ export class TripsheetaddComponent {
         });  
         this.editMode = true;
         this.getTripSheetInnerGridList()
-      } 
+      }       
+      this.sharedService.loading = false;
     }, 2000);  
   }
   
@@ -522,12 +512,12 @@ export class TripsheetaddComponent {
       if(selectedDataValue.driverList[i].pmtId!=''){
         this.tripsheetmodel.driverList.push({
           'pmtId': selectedDataValue.driverList[i].pmtId,
-          'pmtBranch': "",
-          'pmtDate': "",
-          'transType': "",
-          'amountPaid': "",
-          'remarks': "",
-          'pmtType': "",
+          'pmtBranch':  selectedDataValue.driverList[i].pmtBranch,
+          'pmtDate':  selectedDataValue.driverList[i].pmtDate,
+          'transType':  selectedDataValue.driverList[i].transType,
+          'amountPaid':  selectedDataValue.driverList[i].amountPaid,
+          'remarks':  selectedDataValue.driverList[i].remarks,
+          'pmtType': selectedDataValue.driverList[i].pmtType,
         })
       }
     }
@@ -536,18 +526,18 @@ export class TripsheetaddComponent {
       if(selectedDataValue.routeList[i].pmtId!=''){
         this.tripsheetmodel.routeList.push({
           'loadId': selectedDataValue.routeList[i].loadId,
-          'loadBranch': "",
-          'loadDate':  "",
-          'loadType':  "",
-          'loadFor': "",
-          'loadMemoNo':  "",
-          'loadingFrom':  "",
-          'consignorName':  "",
-          'loadingTo':  "",
-          'consigneeName':  "",
-          'hireAmt':  "",
-          'advAmt':  "",
-          'remarks':  "",
+          'loadBranch': selectedDataValue.routeList[i].loadBranch,
+          'loadDate':  selectedDataValue.routeList[i].loadDate,
+          'loadType':  selectedDataValue.routeList[i].loadType,
+          'loadFor': selectedDataValue.routeList[i].loadFor,
+          'loadMemoNo':  selectedDataValue.routeList[i].loadMemoNo,
+          'loadingFrom':  selectedDataValue.routeList[i].loadingFrom,
+          'consignorName':  selectedDataValue.routeList[i].consignorName,
+          'loadingTo':  selectedDataValue.routeList[i].loadingTo,
+          'consigneeName':  selectedDataValue.routeList[i].consigneeName,
+          'hireAmt':  selectedDataValue.routeList[i].hireAmt,
+          'advAmt':  selectedDataValue.routeList[i].advAmt,
+          'remarks':  selectedDataValue.routeList[i].remarks,
         })
       }
     }
@@ -556,12 +546,12 @@ export class TripsheetaddComponent {
       if(selectedDataValue.dieselList[i].pmtId!=''){
         this.tripsheetmodel.dieselList.push({
           'detailID': selectedDataValue.dieselList[i].detailID,
-          'accountName': "",
-          'transDate': "",
-          'dslQty':  "",
-          'dslRate':  "",
-          'amount':  "",
-          'remarks':  "",
+          'accountName': selectedDataValue.dieselList[i].accountName,
+          'transDate': selectedDataValue.dieselList[i].transDate,
+          'dslQty':  selectedDataValue.dieselList[i].dslQty,
+          'dslRate':  selectedDataValue.dieselList[i].dslRate,
+          'amount':  selectedDataValue.dieselList[i].amount,
+          'remarks': selectedDataValue.dieselList[i].remarks,
         })
       }
     }

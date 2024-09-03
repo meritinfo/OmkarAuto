@@ -10,7 +10,6 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 import { TripPaymentsService } from 'src/app/services/trippayments.service';
 import { SharedService } from 'src/app/services/shared.service';
 import { ToastrService } from 'ngx-toastr';
-import { Opbalmodel } from 'src/app/models/opbalmodel';
 
 @Component({
   selector: 'app-addtrippayments',
@@ -39,7 +38,6 @@ export class AddtrippaymentsComponent {
   seriesDoc: string = "";
 
   responseDetails = new Responsemodel();
-  OpbalDetails = new Opbalmodel();
   branchList: Dropdownmodel[] = [];
   creditacList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];

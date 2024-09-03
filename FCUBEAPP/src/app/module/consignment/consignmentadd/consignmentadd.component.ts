@@ -259,7 +259,7 @@ export class ConsignmentaddComponent implements OnInit {
           bookingDate: this.commonService.formatDate(this.selectedLrDetails.bookingDate) ,
           ewayBillDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillDate),
           ewayBillExpDate : this.commonService.formatDate(this.selectedLrDetails.ewayBillExpDate),
-          invoiceDt : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
+          invoiceDate : this.commonService.formatDate(this.selectedLrDetails.invoiceDate),   
           shipmentDt : this.commonService.formatDate(this.selectedLrDetails.shipmentDt),   
           fromPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.fromPlace),
           toPlace: this.locationList.find(e => e.dataId == this.selectedLrDetails.toPlace), 
@@ -357,8 +357,7 @@ export class ConsignmentaddComponent implements OnInit {
         this.formArray.controls[i].get("invNo")?.disable();
         this.formArray.controls[i].get("invDate")?.disable();
         this.formArray.controls[i].get("invValue")?.disable();     
-      }      
-      this.formArray.push(this.createInitialArray());      
+      }        
     });
   }
 
@@ -673,7 +672,7 @@ export class ConsignmentaddComponent implements OnInit {
               this.formUser.patchValue({
                 ewayBillDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_date),
                 ewayBillExpDate: this.commonService.formatDate(this.eWayBillDetails.result.message.eway_bill_valid_date),
-                invoiceDt: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
+                invoiceDate: this.commonService.formatDate(this.eWayBillDetails.result.message.document_date),
                 invoiceNo: this.eWayBillDetails.result.message.document_number,
                 goodsValue: this.eWayBillDetails.result.message.total_invoice_value.toString(),
                
@@ -704,10 +703,9 @@ export class ConsignmentaddComponent implements OnInit {
               this.formUser.patchValue({
                 ewayBillDate: "",
                 ewayBillExpDate:  "",
-                invoiceDt: "",
+                invoiceDate: "",
                 invoiceNo:  "",
-                goodsValue:  "",
-               
+                goodsValue:  "",               
                 cnorName:  "",
                 cneeName:  "",
                 cneeAdd1:  "",
@@ -734,10 +732,10 @@ export class ConsignmentaddComponent implements OnInit {
   fillgrid(){    
     var selectedDataValue = this.formUser.getRawValue();
     this.formArray.controls[0].get("ewayBillNo")?.setValue(selectedDataValue.ewayBillNo);
-    this.formArray.controls[0].get("ewayBillDate")?.setValue(selectedDataValue.ewayBillDate);
-    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(selectedDataValue.ewayBillExpDate);
+    this.formArray.controls[0].get("ewayBillDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillDate));
+    this.formArray.controls[0].get("ewayBillExpDate")?.setValue(this.commonService.formatDate(selectedDataValue.ewayBillExpDate));
     this.formArray.controls[0].get("invNo")?.setValue(selectedDataValue.invoiceNo);
-    this.formArray.controls[0].get("invDate")?.setValue(selectedDataValue.invoiceDate);
+    this.formArray.controls[0].get("invDate")?.setValue(this.commonService.formatDate(selectedDataValue.invoiceDate));
     this.formArray.controls[0].get("invValue")?.setValue(selectedDataValue.invoiceValue);
   }
 
@@ -788,7 +786,6 @@ export class ConsignmentaddComponent implements OnInit {
       this.formUser.controls['truckNo'].clearValidators();
       this.formUser.controls['productId'].clearValidators();
       this.formUser.controls['rateType'].clearValidators();
-     
     }
     if (selectedValue === "M" || selectedValue === "A") {
       this.formUser.controls['ewayBillNo'].setValidators([Validators.required]);

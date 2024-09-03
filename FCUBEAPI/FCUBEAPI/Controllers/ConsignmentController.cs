@@ -233,25 +233,6 @@ namespace FCUBEAPI.Controllers
             }
         }
 
-        [HttpPost("GetKms")]
-        public async Task<IActionResult> GetKms(KmsModel request)
-        {
-            if (request == null)
-            {
-                return BadRequest("Invalid request data");
-            }
-            try
-            {
-                var result = await consignmentBusiness.GetKms(request);
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         /// </summary>
         [HttpPost("GetRateList")]
         public async Task<IActionResult> GetRateList()

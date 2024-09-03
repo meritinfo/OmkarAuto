@@ -20,6 +20,6 @@ namespace FleetTrans.Repository
         Task<ResponseModel> TripPaymentsDelete(RequestModel requestModel);
         Task<List<DropDownListModel>> GetCreditAcList();
         Task<List<DropDownListModel>> GetCrAcListForCustWizard();
-        Task<List<DropDownListModel>> GetCreditAcList2(AcModel request);
+        Task<List<DropDownListModel>> GetCreditAcList2(RequestModel request);
     }
 }

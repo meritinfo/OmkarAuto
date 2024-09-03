@@ -103,7 +103,7 @@ namespace FCUBEAPI.Controllers
 
 
         [HttpPost("GetCreditAcList2")]
-        public async Task<IActionResult> GetCreditAcList2(AcModel request)
+        public async Task<IActionResult> GetCreditAcList2(RequestModel request)
         {
             if (request == null)
             {

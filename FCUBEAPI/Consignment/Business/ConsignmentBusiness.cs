@@ -45,11 +45,6 @@ namespace Consignment.Business
         {
             return await consignmentRepository.CheckVehicleNo(request);
         }
-       
-        public async Task<ResponseModel> GetKms(KmsModel request)
-        {
-            return await consignmentRepository.GetKms(request);
-        }
         public async Task<List<DropDownListModel>> GetRateList()
         {
             return await consignmentRepository.GetRateList();

@@ -6,7 +6,6 @@ import { Responsemodel } from '../models/responsemodel';
 import { Requestmodel } from '../models/requestmodel';
 import { Constants } from '../common/constants';
 import { Observable } from 'rxjs';
-import { Driverdetailmodel } from '../models/driverdetailmodel';
 import { Drivermasterlistrequestmodel } from '../models/drivermasterlistrequestmodel.model';
 
 @Injectable({
