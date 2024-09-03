@@ -4,8 +4,6 @@ using SqlHelper.Models;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Shared.Models;
-using DocumentFormat.OpenXml.VariantTypes;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace FleetTrans.Repository
 {
@@ -70,7 +68,9 @@ namespace FleetTrans.Repository
                             new SqlParameter("@FastagAmount" , tripMasterModel.FastagAmount),
                             new SqlParameter("@TripTotalFreight" , tripMasterModel.TripTotalFreight),
                             new SqlParameter("@TripTotalAdvance" , tripMasterModel.TripTotalAdvance),
+                            new SqlParameter("@TripCloseBy" , tripMasterModel.TripCloseBy),
                             new SqlParameter("@TripCloseDt" , tripMasterModel.TripCloseDt),
+                            new SqlParameter("@TripCloseUpdateDt" , tripMasterModel.TripCloseUpdateDt),
                             new SqlParameter("@TripLinkYN" , tripMasterModel.TripLinkYN),
                             new SqlParameter("@LoggedInUser" , tripMasterModel.LoggedInUser),
                         };
@@ -97,269 +97,6 @@ namespace FleetTrans.Repository
             return responseModel;
         }
       
-        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
-        {
-            TripSheetList tripSheetList = new();
-            List<TripMasterModel> tripList = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@PageNumber", request.PageNumber),
-                            new SqlParameter("@PageSize",   request.PageSize),
-                            new SqlParameter("@SortColumn", request.SortColumn),
-                            new SqlParameter("@SortOrder",  request.SortOrder),
-                            new SqlParameter("@Search",     request.Search),
-                            new SqlParameter("@FromDate",   request.FromDate),
-                            new SqlParameter("@ToDate",     request.ToDate),
-                            new SqlParameter("@Branch",     request.FilterStr),
-                            new SqlParameter("@Vehicle",    request.FilterStr1)
-                        };
-                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterList", param);
-
-                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
-                    {
-                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
-                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
-                        {
-                            tripList.Add(new TripMasterModel
-                            {
-                                TripId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripId"]),
-                                TripBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBranch"]),
-                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
-                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
-                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
-                                DeptDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeptDate"]),
-                                EndDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EndDate"]),
-                                StmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["StmtDate"]),
-                                TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
-                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
-                                DefinedMileage = Convert.ToString(dataSet.Tables[0].Rows[i]["DefinedMileage"]),
-                                ClosingKMR = Convert.ToString(dataSet.Tables[0].Rows[i]["ClosingKMR"]),
-                                OpeningKMR = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningKMR"]),
-                                DistanceTripKM = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM"]),
-                                LtsDslToBe = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe"]),
-                                OpBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDsl"]),
-                                IssuedDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslLtrs"]),
-                                IssuedDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslAmt"]),
-                                DieselPassedLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselPassedLtrs"]),
-                                DieselPassedAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselPassedAmt"]),
-                                DieselVarianceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselVarianceAmt"]),
-                                ClBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["ClBalDsl"]),
-                                OpBalDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDriver"]),
-                                PaidDriverAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidDriverAdvance"]),
-                                FreightCollByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightCollByDriver"]),
-                                ExpensesByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpensesByDriver"]),
-                                TotalBhattaDays = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBhattaDays"]),
-                                BhattaRate = Convert.ToString(dataSet.Tables[0].Rows[i]["BhattaRate"]),
-                                BhattaAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BhattaAmt"]),
-                                OnTimeIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OnTimeIncentiveAmt"]),
-                                MultiDelIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["MultiDelIncentiveAmt"]),
-                                PenaltyChargedToDr = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyChargedToDr"]),
-                                PenaltyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyRemarks"]),
-                                TotalDriverAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDriverAc"]),
-                                TripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBalance"]),
-                                RecdFromDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdFromDriver"]),
-                                NetTripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["NetTripBalance"]),
-                                FastagAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["FastagAmount"]),
-                                TripTotalFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalFreight"]),
-                                TripTotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalAdvance"]),
-                                TripCloseBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseBy"]),
-                                TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
-                                TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
-                                TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
-                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
-                                TripBr      = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
-                                VehicleNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleNo"]),
-                                DrName= Convert.ToString(dataSet.Tables[0].Rows[i]["DrName"]),
-                            });
-                        }
-
-                        tripSheetList.tripSheetList = tripList;
-
-                        tripSheetList.PageMetaData = new PaginationMetaData
-                        {
-                            TotalCount = totalRecords,
-                            CurrentPage = request.PageNumber
-                        };
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                
-            }
-            return tripSheetList;
-        }
-        public async Task<TripMasterModel> GetTripSheetInnerSearchList(ReportRequestModel request)
-        {
-            TripMasterModel tripSheetInnerGridList = new()
-            {
-                DriverList = new List<DriverDetails>(),
-                RouteList = new List<RouteDetails>(),
-                DieselList = new List<DieselDetails>(),
-            };
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@FromDate",           request.FromDate),
-                            new SqlParameter("@ToDate",             request.ToDate),
-                            new SqlParameter("@VehicleMasterId",    request.FilterStr)
-                        };
-
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripSheetInnerSearchList", param);
-
-                    //Driver Adv Details
-                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.DriverList.Add(new DriverDetails
-                            {
-                                PmtId       = Convert.ToString(resultData.Tables[0].Rows[i]["PmtId"]),
-                                PmtBranch   = Convert.ToString(resultData.Tables[0].Rows[i]["PmtBranch"]),
-                                PmtDate     = Convert.ToString(resultData.Tables[0].Rows[i]["PmtDate"]),
-                                TransType   = Convert.ToString(resultData.Tables[0].Rows[i]["TransType"]),
-                                AmountPaid  = Convert.ToString(resultData.Tables[0].Rows[i]["AmountPaid"]),
-                                Remarks     = Convert.ToString(resultData.Tables[0].Rows[i]["Remarks"]),
-                                PmtType     = Convert.ToString(resultData.Tables[0].Rows[i]["PmtType"]),
-                            });
-                        }
-                    }
-                    //Route Details
-                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.RouteList.Add(new RouteDetails
-                            {
-                                LoadId  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadId"]),
-                                LoadBranch  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadBranch"]),
-                                LoadDate  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadDate"]),
-                                LoadType = Convert.ToString(resultData.Tables[1].Rows[i]["LoadType"]),
-                                LoadFor = Convert.ToString(resultData.Tables[1].Rows[i]["LoadFor"]),
-                                LoadMemoNo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadMemoNo"]),
-                                LoadingFrom  = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingFrom"]),
-                                ConsignorName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsignorName"]),
-                                LoadingTo = Convert.ToString(resultData.Tables[1].Rows[i]["LoadingTo"]),
-                                ConsigneeName = Convert.ToString(resultData.Tables[1].Rows[i]["ConsigneeName"]),
-                                HireAmt = Convert.ToString(resultData.Tables[1].Rows[i]["HireAmt"]),
-                                AdvAmt = Convert.ToString(resultData.Tables[1].Rows[i]["AdvAmt"]),
-                                Remarks = Convert.ToString(resultData.Tables[1].Rows[i]["Remarks"]),                                
-                            });
-                        }
-                    }
-                    //Diesel Details
-                    if (resultData != null && resultData.Tables[2].Rows.Count > 0)
-                    {
-                        for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
-                        {
-                            tripSheetInnerGridList.DieselList.Add(new DieselDetails
-                            {
-                                DetailID = Convert.ToString(resultData.Tables[2].Rows[i]["DetailID"]),
-                                AccountName= Convert.ToString(resultData.Tables[2].Rows[i]["AccountName"]),
-                                TransDate = Convert.ToString(resultData.Tables[2].Rows[i]["TransDate"]),
-                                DslQty = Convert.ToString(resultData.Tables[2].Rows[i]["DslQty"]),
-                                DslRate = Convert.ToString(resultData.Tables[2].Rows[i]["DslRate"]),
-                                Amount = Convert.ToString(resultData.Tables[2].Rows[i]["Amount"]),
-                                Remarks = Convert.ToString(resultData.Tables[2].Rows[i]["Remarks"]),
-                            });
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return tripSheetInnerGridList;
-        }
-
-        public async Task<ResponseModel> GetNextTripNo(RequestModel request)
-        {
-            ResponseModel responseModel = new();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@VehicleMasterID", request.strRequest),
-                            new SqlParameter("@YearID", request.strRequest1),
-                        };
-
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTripNo", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log exception on database
-                //ExceptionModel exceptionModel = new()
-                //{
-                //    ExceptionMessage = Convert.ToString(ex.Message),
-                //    ExceptionType = Convert.ToString(ex.GetType().Name),
-                //    ExceptionSource = Convert.ToString(ex.StackTrace)
-                //};
-
-                //ExceptionRepository exception = new(dbconnection);
-                //await exception.SaveExceptionDetails(exceptionModel);
-            }
-            return responseModel;
-        }
-        public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
-        {
-            ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
-            try
-            {
-                if (dbconnection != null)
-                {
-                    SqlParameter[] param =
-                        {
-                            new SqlParameter("@TripId", requestModel.strRequest),
-                        };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterDelete", param);
-
-                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
-                    {
-                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
-                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
-            return responseModel;
-        }
-
         public async Task<ResponseModel> GetLastTripDriver(OpBalModel request)
         {
             ResponseModel responseModel = new();
@@ -443,7 +180,296 @@ namespace FleetTrans.Repository
             }
             return driverList;
         }
+        public async Task<TripSheetList> GetTripSheetList(ReportRequestModel request)
+        {
+            TripSheetList tripSheetList = new();
+            List<TripMasterModel> tripList = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@PageNumber", request.PageNumber),
+                            new SqlParameter("@PageSize",   request.PageSize),
+                            new SqlParameter("@SortColumn", request.SortColumn),
+                            new SqlParameter("@SortOrder",  request.SortOrder),
+                            new SqlParameter("@Search",     request.Search),
+                            new SqlParameter("@FromDate",   request.FromDate),
+                            new SqlParameter("@ToDate",     request.ToDate),
+                            new SqlParameter("@Branch",     request.FilterStr),
+                            new SqlParameter("@Vehicle",    request.FilterStr1)
+                        };
+                    var dataSet = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripMasterList", param);
 
+                    if (dataSet != null && dataSet.Tables[0].Rows.Count > 0)
+                    {
+                        int totalRecords = Convert.ToInt32(dataSet.Tables[0].Rows[0]["TotalRows"]);
+                        for (int i = 0; i < dataSet.Tables[0].Rows.Count; i++)
+                        {
+                            tripList.Add(new TripMasterModel
+                            {
+                                TripId = Convert.ToString(dataSet.Tables[0].Rows[i]["TripId"]),
+                                TripBranch = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBranch"]),
+                                YearId = Convert.ToString(dataSet.Tables[0].Rows[i]["YearId"]),
+                                VehicleMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleMasterID"]),
+                                TripNo = Convert.ToString(dataSet.Tables[0].Rows[i]["TripNo"]),
+                                DeptDate = Convert.ToString(dataSet.Tables[0].Rows[i]["DeptDate"]),
+                                EndDate = Convert.ToString(dataSet.Tables[0].Rows[i]["EndDate"]),
+                                StmtDate = Convert.ToString(dataSet.Tables[0].Rows[i]["StmtDate"]),
+                                TripStatus = Convert.ToString(dataSet.Tables[0].Rows[i]["TripStatus"]),
+                                DriverMasterID = Convert.ToString(dataSet.Tables[0].Rows[i]["DriverMasterID"]),
+                                DefinedMileage = Convert.ToString(dataSet.Tables[0].Rows[i]["DefinedMileage"]),
+                                ClosingKMR = Convert.ToString(dataSet.Tables[0].Rows[i]["ClosingKMR"]),
+                                OpeningKMR = Convert.ToString(dataSet.Tables[0].Rows[i]["OpeningKMR"]),
+                                DistanceTripKM = Convert.ToString(dataSet.Tables[0].Rows[i]["DistanceTripKM"]),
+                                LtsDslToBe = Convert.ToString(dataSet.Tables[0].Rows[i]["LtsDslToBe"]),
+                                OpBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDsl"]),
+                                IssuedDslLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslLtrs"]),
+                                IssuedDslAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["IssuedDslAmt"]),
+                                DieselPassedLtrs = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselPassedLtrs"]),
+                                DieselPassedAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselPassedAmt"]),
+                                DieselVarianceAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["DieselVarianceAmt"]),
+                                ClBalDsl = Convert.ToString(dataSet.Tables[0].Rows[i]["ClBalDsl"]),
+                                OpBalDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["OpBalDriver"]),
+                                PaidDriverAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["PaidDriverAdvance"]),
+                                FreightCollByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["FreightCollByDriver"]),
+                                ExpensesByDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["ExpensesByDriver"]),
+                                TotalBhattaDays = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalBhattaDays"]),
+                                BhattaRate = Convert.ToString(dataSet.Tables[0].Rows[i]["BhattaRate"]),
+                                BhattaAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["BhattaAmt"]),
+                                OnTimeIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["OnTimeIncentiveAmt"]),
+                                MultiDelIncentiveAmt = Convert.ToString(dataSet.Tables[0].Rows[i]["MultiDelIncentiveAmt"]),
+                                PenaltyChargedToDr = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyChargedToDr"]),
+                                PenaltyRemarks = Convert.ToString(dataSet.Tables[0].Rows[i]["PenaltyRemarks"]),
+                                TotalDriverAc = Convert.ToString(dataSet.Tables[0].Rows[i]["TotalDriverAc"]),
+                                TripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBalance"]),
+                                RecdFromDriver = Convert.ToString(dataSet.Tables[0].Rows[i]["RecdFromDriver"]),
+                                NetTripBalance = Convert.ToString(dataSet.Tables[0].Rows[i]["NetTripBalance"]),
+                                FastagAmount = Convert.ToString(dataSet.Tables[0].Rows[i]["FastagAmount"]),
+                                TripTotalFreight = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalFreight"]),
+                                TripTotalAdvance = Convert.ToString(dataSet.Tables[0].Rows[i]["TripTotalAdvance"]),
+                                TripCloseBy = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseBy"]),
+                                TripCloseDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseDt"]),
+                                TripCloseUpdateDt = Convert.ToString(dataSet.Tables[0].Rows[i]["TripCloseUpdateDt"]),
+                                TripLinkYN = Convert.ToString(dataSet.Tables[0].Rows[i]["TripLinkYN"]),
+                                Findocid = Convert.ToString(dataSet.Tables[0].Rows[i]["Findocid"]),
+                                TripBr      = Convert.ToString(dataSet.Tables[0].Rows[i]["TripBr"]),
+                            });
+                        }
+
+                        tripSheetList.tripSheetList = tripList;
+
+                        tripSheetList.PageMetaData = new PaginationMetaData
+                        {
+                            TotalCount = totalRecords,
+                            CurrentPage = request.PageNumber
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            return tripSheetList;
+        }
+        public async Task<TripSheetInnerGridListModel> GetTripSheetInnerGridList(TripSheetInnerGridListRequest request)
+        {
+            TripSheetInnerGridListModel tripSheetInnerGridList = new()
+            {
+                TripRouteDtlList = new List<TripRouteDtlModel>(),
+                TripDrPaymentDetailsList = new List<TripDrPaymentDetails>(),
+                TripDrExpDetailsList = new List<TripDrExpDetails>(),
+                TripDslByDriverList = new List<TripDslByDriver>(),
+                TripDslByPetroCardList = new List<TripDslByPetroCard>(),
+                TripAdblueDetailsList = new List<TripAdblueDetails>(),
+                //  MiscList = new List<MiscListModel>(),
+                //  AdblueList = new List<AdblueListmodel>(),
+            };
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", request.TripId),
+                            new SqlParameter("@VehicleMasterId", request.VehicleMasterId)
+                        };
+
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "TripSheetInnerGridList_Select", param);
+                    // tripSheetInnerGridList.Incentive = "0";
+                    //TripRouteDtlModel Details
+                    if (resultData != null && resultData.Tables[0].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[0].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripRouteDtlList.Add(new TripRouteDtlModel
+                            {
+                                TripRouteDtlId = Convert.ToString(resultData.Tables[0].Rows[i]["ConsignmentID"]),
+                                TripId = Convert.ToString(resultData.Tables[0].Rows[i]["GcNoteNo"]),
+                                VehicleMasterId = Convert.ToString(resultData.Tables[0].Rows[i]["CneeCode"]),
+                                TripNo = Convert.ToString(resultData.Tables[0].Rows[i]["CnDest"]),
+                                TripDate = Convert.ToString(resultData.Tables[0].Rows[i]["CnorInvNo"]),
+                                OwnMarket = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillNo"]),
+                                FromPlace = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillDate"]),
+                                ToPlace = Convert.ToString(resultData.Tables[0].Rows[i]["EwayBillExpDate"]),
+                                ChallanNo = Convert.ToString(resultData.Tables[0].Rows[i]["NoPackages"]),
+                                ChallanId = Convert.ToString(resultData.Tables[0].Rows[i]["productname"]),
+                                TotalHire = Convert.ToString(resultData.Tables[0].Rows[i]["BillNo"]),
+                                AdvHire = Convert.ToString(resultData.Tables[0].Rows[i]["BillNo"]),
+                                Remarks = Convert.ToString(resultData.Tables[0].Rows[i]["Remarks"]),
+                                AmtRecd = Convert.ToString(resultData.Tables[0].Rows[i]["AmtRecd"]),
+                                AmtDed = Convert.ToString(resultData.Tables[0].Rows[i]["AmtDed"]),
+                                AmtTDS = Convert.ToString(resultData.Tables[0].Rows[i]["AmtTDS"]),
+                                AmtExtra = Convert.ToString(resultData.Tables[0].Rows[i]["AmtExtra"]),
+                                YearId = Convert.ToString(resultData.Tables[0].Rows[i]["YearId"]),
+                            });
+                        }
+                    }
+                    //Diseal Details
+                    if (resultData != null && resultData.Tables[1].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[1].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripDrPaymentDetailsList.Add(new TripDrPaymentDetails
+                            {
+                                TripDtlId = Convert.ToString(resultData.Tables[1].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[1].Rows[i]["TripId"]),
+                                TripPaymentId = Convert.ToString(resultData.Tables[1].Rows[i]["TripPaymentId"]),
+                                PmtType = Convert.ToString(resultData.Tables[1].Rows[i]["PmtType"]),
+                                PmtDate = Convert.ToString(resultData.Tables[1].Rows[i]["PmtDate"]),
+                                PmtRemarks = Convert.ToString(resultData.Tables[1].Rows[i]["PmtRemarks"]),
+                            });
+                        }
+                    }
+                    //Driver Adv Details
+                    if (resultData != null && resultData.Tables[2].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[2].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripDrExpDetailsList.Add(new TripDrExpDetails
+                            {
+                                TripDtlId = Convert.ToString(resultData.Tables[2].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[2].Rows[i]["TripId"]),
+                                TripPaymentId = Convert.ToString(resultData.Tables[2].Rows[i]["TripPaymentId"]),
+                                PmtType = Convert.ToString(resultData.Tables[2].Rows[i]["PmtType"]),
+                                PmtDate = Convert.ToString(resultData.Tables[2].Rows[i]["PmtDate"]),
+                                PmtRemarks = Convert.ToString(resultData.Tables[2].Rows[i]["PmtRemarks"]),
+                                PmtAmt = Convert.ToString(resultData.Tables[2].Rows[i]["PmtAmt"]),
+                            });
+                        }
+                    }
+
+                    //Misc Details
+                    if (resultData != null && resultData.Tables[3].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[3].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripDslByDriverList.Add(new TripDslByDriver
+                            {
+                                TripDtlId = Convert.ToString(resultData.Tables[3].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[3].Rows[i]["TripId"]),
+                                PmtType = Convert.ToString(resultData.Tables[3].Rows[i]["PmtType"]),
+                                PmtDate = Convert.ToString(resultData.Tables[3].Rows[i]["PmtDate"]),
+                                PmtRemarks = Convert.ToString(resultData.Tables[3].Rows[i]["PmtRemarks"]),
+                                DslLtrs = Convert.ToString(resultData.Tables[3].Rows[i]["DslLtrs"]),
+                                DslRate = Convert.ToString(resultData.Tables[3].Rows[i]["DslRate"]),
+                                DslAmt = Convert.ToString(resultData.Tables[3].Rows[i]["DslAmt"]),
+                            });
+                        }
+                    }
+
+                    //Adblue Details 
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripDslByPetroCardList.Add(new TripDslByPetroCard
+                            {
+                                TripDtlId= Convert.ToString(resultData.Tables[4].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[4].Rows[i]["TripId"]),
+                                DfdDtlId = Convert.ToString(resultData.Tables[4].Rows[i]["DfdDtlId"]),
+                                PmtDate = Convert.ToString(resultData.Tables[4].Rows[i]["PmtDate"]),
+                                DslLtrs = Convert.ToString(resultData.Tables[4].Rows[i]["DslLtrs"]),
+                                DslRate = Convert.ToString(resultData.Tables[4].Rows[i]["DslRate"]),
+                                DslAmt = Convert.ToString(resultData.Tables[4].Rows[i]["DslAmt"]),
+                            });
+                        }
+                    }
+                    if (resultData != null && resultData.Tables[4].Rows.Count > 0)
+                    {
+                        for (int i = 0; i < resultData.Tables[4].Rows.Count; i++)
+                        {
+                            tripSheetInnerGridList.TripAdblueDetailsList.Add(new TripAdblueDetails
+                            {
+                                TripDtlId = Convert.ToString(resultData.Tables[4].Rows[i]["TripDtlId"]),
+                                TripId = Convert.ToString(resultData.Tables[4].Rows[i]["TripId"]),
+                                IssueBranch = Convert.ToString(resultData.Tables[4].Rows[i]["IssueBranch"]),
+                                IssueDate = Convert.ToString(resultData.Tables[4].Rows[i]["IssueDate"]),
+                                IssueParticulars = Convert.ToString(resultData.Tables[4].Rows[i]["IssueParticulars"]),
+                                AdblueLtrs = Convert.ToString(resultData.Tables[4].Rows[i]["AdblueLtrs"]),
+                                AdblueAmt = Convert.ToString(resultData.Tables[4].Rows[i]["AdblueAmt"]),
+                            });
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
+            }
+            return tripSheetInnerGridList;
+        }
+
+        public async Task<ResponseModel> TripMasterDelete(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@TripId", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripMasterDelete", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
         public async Task<ResponseModel> GetOpeningBal(OpBalModel request)
         {
             ResponseModel responseModel = new();
@@ -1144,6 +1170,47 @@ namespace FleetTrans.Repository
             catch (Exception ex)
             {
                 transaction.Rollback();
+            }
+            return responseModel;
+        }
+        public async Task<ResponseModel> GetNextTripNo(OpBalModel tripNoFilter)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@VehicleMasterID", tripNoFilter.VehicleMasterID),
+                            new SqlParameter("@YearID", tripNoFilter.Yearid),
+                        };
+
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_GetTripNo", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log exception on database
+                //ExceptionModel exceptionModel = new()
+                //{
+                //    ExceptionMessage = Convert.ToString(ex.Message),
+                //    ExceptionType = Convert.ToString(ex.GetType().Name),
+                //    ExceptionSource = Convert.ToString(ex.StackTrace)
+                //};
+
+                //ExceptionRepository exception = new(dbconnection);
+                //await exception.SaveExceptionDetails(exceptionModel);
             }
             return responseModel;
         }

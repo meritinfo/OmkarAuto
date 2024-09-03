@@ -1067,15 +1067,15 @@ namespace FCUBEAPI.Controllers
         }
 
         [HttpPost("GetNextTripNo")]
-        public async Task<IActionResult> GetNextTripNo(RequestModel request)
+        public async Task<IActionResult> GetNextTripNo(OpBalModel tripNoFilter)
         {
-            if (request == null)
+            if (tripNoFilter == null)
             {
                 return BadRequest("Invalid request data");
             }
             try
             {
-                var result = await tripMasterBusiness.GetNextTripNo(request);
+                var result = await tripMasterBusiness.GetNextTripNo(tripNoFilter);
 
                 return Ok(result);
             }

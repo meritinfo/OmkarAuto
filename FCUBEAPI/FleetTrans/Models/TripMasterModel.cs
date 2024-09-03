@@ -54,48 +54,24 @@ namespace FleetTrans.Models
         public string? TripLinkYN { get; set; }
         public string? Findocid { get; set; }
         public string? TripBr { get; set; }
-        public string? VehicleNo { get; set; }
-        public string? DrName { get; set; }        
         public string? LoggedInUser { get; set; }
-        public List<DriverDetails> DriverList { get; set; }
-        public List<RouteDetails> RouteList { get; set; }
-        public List<DieselDetails> DieselList { get; set; }        
+
+        public TripSheetInnerGridListModel? TripSheetInnerGridList { get; set; }
+       // public List<MiscListModel>? MiscList { get; set; }
+       // public List<AdblueListmodel>? AdblueList { get; set; }
     }
 
-    public class DriverDetails
+    public class MiscListModel
     {
-        public string? PmtId { get; set; }
-        public string? PmtBranch { get; set; }
-        public string? PmtDate { get; set; }
-        public string? TransType { get; set; }
-        public string? AmountPaid { get; set; }
-        public string? Remarks { get; set; }
-        public string? PmtType { get; set; }
+        public string? ExpType { get; set; }
+        public string? MiscAmount { get; set; }
+        public string? Narration { get; set; }
     }
-    public class RouteDetails
+
+    public class AdblueListmodel
     {
-        public string? LoadId { get; set; }
-        public string? LoadBranch { get; set; }
-        public string? LoadDate { get; set; }
-        public string? LoadType { get; set; }
-        public string? LoadFor { get; set; }
-        public string? LoadMemoNo { get; set; }
-        public string? LoadingFrom { get; set; }
-        public string? ConsignorName { get; set; }
-        public string? LoadingTo { get; set; }
-        public string? ConsigneeName { get; set; }
-        public string? HireAmt { get; set; }
-        public string? AdvAmt { get; set; }
-        public string? Remarks { get; set; }
-    }
-    public class DieselDetails
-    {
-        public string? DetailID { get; set; }
-        public string? AccountName { get; set; }
-        public string? TransDate { get; set; }
-        public string? DslQty { get; set; }
-        public string? DslRate { get; set; }
-        public string? Amount { get; set; }
-        public string? Remarks { get; set; }
+        public string? AdbluefillingStation { get; set; }
+        public string? AdbluedieselLiter { get; set; }
+        public string? AdbluedieselAmount { get; set; }
     }
 }

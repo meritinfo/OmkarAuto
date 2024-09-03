@@ -3,5 +3,5 @@ import { Tripsheetmodel } from "./tripsheetmodel";
 
 export class Tripsheetlistmodel {
   tripSheetList: Tripsheetmodel[] = [];
-  pageMetaData: Paginationmodel = new Paginationmodel;
+    pageMetaData: Paginationmodel = new Paginationmodel;
 }

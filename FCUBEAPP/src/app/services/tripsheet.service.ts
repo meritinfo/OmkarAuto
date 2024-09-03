@@ -4,8 +4,11 @@ import { Tripsheetmodel } from '../models/tripsheetmodel';
 import { Responsemodel } from '../models/responsemodel';
 import { Observable } from 'rxjs';
 import { Reportmodel } from '../models/reportmodel';
+import { Filtermodel } from '../models/filtermodel';
 import { Constants } from '../common/constants';
 import { Tripsheetlistmodel } from '../models/tripsheetlistmodel';
+import { Tripsheetinnergridmodel } from '../models/tripsheetinnergridmodel';
+import { Tripsheetinnergridrequest } from '../models/tripsheetinnergridrequest';
 import { Requestmodel } from 'src/app/models/requestmodel';
 
 @Injectable({
@@ -37,13 +40,21 @@ export class TripSheetService {
   getTripSheetList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
     return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetList', filter, this.httpOptions);
   }
-  getTripSheetInnerSearchList(request: Reportmodel): Observable<Tripsheetmodel> {
-    return this.httpClient.post<Tripsheetmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerSearchList', request, this.httpOptions);
-  } 
-  getTripSheetInnerrGridList(request: Requestmodel): Observable<Tripsheetmodel> {
-    return this.httpClient.post<Tripsheetmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
-  } 
-  getNextTripNo(payload: Requestmodel): Observable<any> {
+  getTripSheetInnerGridList(request: Tripsheetinnergridrequest): Observable<Tripsheetinnergridmodel> {
+    return this.httpClient.post<Tripsheetinnergridmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetTripSheetInnerGridList', request, this.httpOptions);
+  }
+
+  getOtherTripOpenList(filter: Reportmodel): Observable<Tripsheetlistmodel> {
+    return this.httpClient.post<Tripsheetlistmodel>(Constants.API_ENDPOINT + 'FleetTrans/GetOtherTripOpenList', filter, this.httpOptions);
+  }  
+  otherTripOpenDetailsSubmitted(user: Tripsheetmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/OtherTripOpenSave', user, this.httpOptions);
+  }
+  otherTripOpenDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetTrans/OtherTripOpenDelete', req, this.httpOptions);
+  }
+   
+  getNextTripNo(payload: any): Observable<any> {
     return this.httpClient.post<any>(Constants.API_ENDPOINT + 'FleetTrans/GetNextTripNo', payload, this.httpOptions);
   }
 }

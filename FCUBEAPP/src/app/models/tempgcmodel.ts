@@ -83,7 +83,6 @@ export class Tempgcmodel {
     extraAmt   :  string = "";   
     otherAmt   :  string = "";   
     totFreightAmt  :  string = "";
-    mainCn:  string = "";
     loggedInUser:  string = "";
     createdBy: string = "";
     createdDate: string = "";

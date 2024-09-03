@@ -11,7 +11,6 @@ using DocumentFormat.OpenXml.Office2016.Excel;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Numerics;
-using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Consignment.Repository
 {
@@ -135,7 +134,6 @@ namespace Consignment.Repository
                                 ExtraAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraAmt"]),
                                 OtherAmt            = Convert.ToString(dataSet.Tables[0].Rows[i]["OtherAmt"]),
                                 TotFreightAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["TotFreightAmt"]),
-                                MainCn              = Convert.ToString(dataSet.Tables[0].Rows[i]["MainCn"]),
                                 CreatedBy           = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedBy"]),
                                 CreatedDate         = Convert.ToString(dataSet.Tables[0].Rows[i]["CreatedDate"]),
                                 ModifiedBy          = Convert.ToString(dataSet.Tables[0].Rows[i]["ModifiedBy"]),
