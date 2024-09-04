@@ -212,7 +212,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@YearID",   tyreRegroupRecdMasterModel.YearID),
                             new SqlParameter("@LoggedInUser",   tyreRegroupRecdMasterModel.LoggedInUser)
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupIssueMasterSave", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TyreRegroupRecdMasterSave", param);
                     string RegroupRecdMasterID = "0";
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
@@ -262,7 +262,7 @@ namespace FleetTrans.Repository
                         {
                             new SqlParameter("@RegroupRecdMasterID",    tyreRegroupRecdDtlListmodel.RegroupRecdMasterID),
                             new SqlParameter("@BrandId",                tyreRegroupRecdDtlListmodel.BrandId),
-                            new SqlParameter("@BrandId",                tyreRegroupRecdDtlListmodel.BrandId),
+                       
                             new SqlParameter("@TyreId",                 tyreRegroupRecdDtlListmodel.TyreId),
                             new SqlParameter("@RegroupDoneYN",          tyreRegroupRecdDtlListmodel.RegroupDoneYN),
                             new SqlParameter("@RegroupAmount",          tyreRegroupRecdDtlListmodel.RegroupAmount),

@@ -1774,14 +1774,31 @@ namespace FCUBEAPI.Controllers
         }
         ///////////////
         [HttpPost("TyreRegroupRecdMasterSave")]
-        public async Task<IActionResult> TyreRegroupRecdMasterSave(TyreRegroupRecdMasterModel tyreRegroupRecdMasterModel)
+        public async Task<IActionResult> TyreRegroupRecdMasterSave()
         {
-            if (tyreRegroupRecdMasterModel == null)
-            {
-                return BadRequest("Invalid request data");
-            }
             try
             {
+                var attachConfirmDoc = HttpContext.Request.Form.Files["attach"];
+
+                TyreRegroupRecdMasterModel tyreRegroupRecdMasterModel = JsonConvert.DeserializeObject<TyreRegroupRecdMasterModel>(HttpContext.Request.Form["datadetails"]);
+
+                if (attachConfirmDoc != null)
+                {
+                    string imageName = new String(Path.GetFileNameWithoutExtension(attachConfirmDoc.FileName)).Replace(" ", "-");
+                    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(attachConfirmDoc.FileName);
+                    var pathToSave = Path.Combine(dbconnection.Value.UploadFolderPath, "upload/loadmemo");
+                    var filePath = System.IO.Path.Combine(pathToSave, imageName);
+                    bool exists = System.IO.Directory.Exists(pathToSave);
+                    if (!exists)
+                    {
+                        Directory.CreateDirectory(pathToSave);
+                    }
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await attachConfirmDoc.CopyToAsync(fileStream);
+                        tyreRegroupRecdMasterModel.AttatchFile = imageName;
+                    }
+                }
                 var result = await tyreRegroupRecdMasterBusiness.TyreRegroupRecdMasterSave(tyreRegroupRecdMasterModel);
 
                 return Ok(result);
@@ -1835,6 +1852,25 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await tyreRegroupRecdMasterBusiness.GetTyreRegroupRecdMasterInnerGridList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetTyreRegroupRecdMasterSearchList")]
+        public async Task<IActionResult> GetTyreRegroupRecdMasterSearchList(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await tyreRegroupRecdMasterBusiness.GetTyreRegroupRecdMasterSearchList(request);
 
                 return Ok(result);
             }

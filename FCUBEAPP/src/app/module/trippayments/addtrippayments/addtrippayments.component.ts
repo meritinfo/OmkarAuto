@@ -210,11 +210,9 @@ export class AddtrippaymentsComponent {
     });
   }
   getCreditAcList2(e: any){
-    this.ptype = e;
-    var data = {
-      'pType' : this.ptype
-    }
-    this.commonService.getCreditAcList2(data).subscribe((res) => {
+    this.requestmodel.strRequest = e;
+
+    this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
       this.creditacList = res;   
       this.formTripPayment.patchValue({
         //creditAc:this.creditacList[0].dataId
@@ -419,7 +417,7 @@ export class AddtrippaymentsComponent {
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;
     this.trippaymentsmodel.vehicleMasterID = selectedDataValue.vehicleMasterID?selectedDataValue.vehicleMasterID.dataId:"";
     this.trippaymentsmodel.amountPaid = selectedDataValue.amountPaid.toString();
-    this.trippaymentsmodel.remarks = selectedDataValue.remarks;
+    this.trippaymentsmodel.remarks = selectedDataValue.remarks.toString().toUpperCase();
     this.trippaymentsmodel.pmtType = selectedDataValue.pmtType;
     this.trippaymentsmodel.transType = selectedDataValue.transType;
     this.trippaymentsmodel.neftPmt = selectedDataValue.neftPmt?"Y":"N";
