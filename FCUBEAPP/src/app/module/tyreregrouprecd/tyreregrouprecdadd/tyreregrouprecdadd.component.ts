@@ -387,9 +387,9 @@ export class TyreregrouprecdaddComponent {
     this.tyreregrouprecdmodel.branchCode= selectedDataValue.branchCode.toString();
     this.tyreregrouprecdmodel.recdDate = selectedDataValue.purchaseDate;
     this.tyreregrouprecdmodel.vendorId = selectedDataValue.vendorId?selectedDataValue.vendorId.dataId:"";
-    this.tyreregrouprecdmodel.vendorBillNo = selectedDataValue.vendorInvNo.toString().toUpperCase();
-    this.tyreregrouprecdmodel.vendorBillDt = selectedDataValue.vendorInvDt;  
-    this.tyreregrouprecdmodel.totalAmt = selectedDataValue.totalTyresAmt.toString();
+    this.tyreregrouprecdmodel.vendorBillNo = selectedDataValue.vendorBillNo.toString().toUpperCase();
+    this.tyreregrouprecdmodel.vendorBillDt = selectedDataValue.vendorBillDt;  
+    this.tyreregrouprecdmodel.totalAmt = selectedDataValue.totalAmt.toString();
     this.tyreregrouprecdmodel.sgstPct = selectedDataValue.sgstPct.toString();
     this.tyreregrouprecdmodel.sgstAmt = selectedDataValue.sgstAmt.toString();
     this.tyreregrouprecdmodel.cgstPct = selectedDataValue.cgstPct.toString();
@@ -403,7 +403,7 @@ export class TyreregrouprecdaddComponent {
     this.tyreregrouprecdmodel.pmtType = selectedDataValue.pmtType.toString();
     this.tyreregrouprecdmodel.creditAc = selectedDataValue.creditAc.toString();
     this.tyreregrouprecdmodel.chequeNo = selectedDataValue.chequeNo.toString();
-    this.tyreregrouprecdmodel.chequeDt = selectedDataValue.chequeDate;
+    this.tyreregrouprecdmodel.chequeDt = selectedDataValue.chequeDate?selectedDataValue.chequeDate:'';
     this.tyreregrouprecdmodel.yearID = this.year;
     this.tyreregrouprecdmodel.loggedInUser = this.loggedInUserID;
     this.tyreregrouprecdmodel.tyreRegroupRecdDtlList = [];
