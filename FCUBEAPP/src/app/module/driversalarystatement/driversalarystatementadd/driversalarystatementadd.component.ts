@@ -186,14 +186,11 @@ exit(): void {
     get formArray() {
       return this.formDriverSalaryStatement.get("arrayList") as FormArray;
     }
+    
   getCreditAcList2(e:any){
-    this.ptype = e;
-    var data = {
-      'pType' : this.ptype
-    }
-  
+    this.requestmodel.strRequest = e;      
 
-    this.commonService.getCreditAcList2(data).subscribe((res) => {
+    this.commonService.getCreditAcList2(this.requestmodel).subscribe((res) => {
       this.creditacList = res;
       this.newList = this.creditacList;
     });
@@ -224,9 +221,9 @@ exit(): void {
     console.log(e.target.value);
     var selectedValue = e.target.value;
     this.ptype = e.target.value;
-    this.getCreditAcList2(this.ptype);
-  
+    this.getCreditAcList2(this.ptype);  
   }
+
   createInitialArray() {
     return this.formBuilder.group({
       vehicleNo:  ['', []],
