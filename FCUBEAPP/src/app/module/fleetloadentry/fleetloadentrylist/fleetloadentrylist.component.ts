@@ -113,36 +113,36 @@ export class FleetloadentrylistComponent {
               data: 'vehicleNo',
             },
             {
-              title: 'LoadFor',
+              title: 'Load For',
               data: 'loadFor',
             },
            
             {
-              title: 'LoadMemoNo',
+              title: 'Load MemoNo',
               data: 'loadMemoNo',
             },
             {
-              title: 'LoadingFrom',
+              title: 'Loading From',
               data: 'loadingFrom',
             },
             {
-              title: 'ConsignorName',
+              title: 'Consignor Name',
               data: 'consignorName',
             },
             {
-              title: 'ConsignorAdd',
+              title: 'Consignor Add',
               data: 'consignorAdd',
             },
             {
-              title: 'LoadingTo',
+              title: 'Loading To',
               data: 'loadingTo',
             },
             {
-              title: 'ConsigneeName',
+              title: 'Consignee Name',
               data: 'consigneeName',
             },
             {
-              title: 'ConsigneeAdd',
+              title: 'Consignee Add',
               data: 'consigneeAdd',
             },
             {
@@ -158,7 +158,7 @@ export class FleetloadentrylistComponent {
               data: 'qtyPkgs',
             },
             {
-              title: 'RatePerTon',
+              title: 'Rate PerTon',
               data: 'ratePerTon',
             },
             {
@@ -166,19 +166,14 @@ export class FleetloadentrylistComponent {
               data: 'hireAmt',
             },
             {
-              title: 'AdvAmt',
+              title: 'Advance Amt',
               data: 'advAmt',
             },
             {
               title: 'Remarks',
               data: 'remarks',
             },
-            {
-              title: 'TripAdjYN',
-              data: 'tripAdjYN',
-            },
           
-           
            
            
             {
