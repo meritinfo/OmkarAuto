@@ -170,7 +170,7 @@ export class TyredeativateaddComponent {
   }
 
   getBrandList(): void {
-    this.commonService.getBrandList().subscribe((res) => {
+    this.commonService.getTyreBrandList().subscribe((res) => {
       this.brandList = res;
     });
   }

@@ -145,15 +145,8 @@ export class VehicleadvbalreceiptaddComponent {
     arrayList: this.formBuilder.array([this.createAdvanceArray()]),
   });
   
-  // this.getBrandList();
-  // this.getVendorList();
    this.getBranchList();
-  // this.getStateList();
-  // this.getSparesList();
    this.getVehicleIdList();
-  // this.getMaintanenceList();
-  // this.getCreditAcList('M');
-
   
   this.formUser.controls["amtRecd"].disable();
    this.formUser.controls["amtDed"].disable();

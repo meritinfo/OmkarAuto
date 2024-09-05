@@ -30,8 +30,8 @@ export class CommonService {
   getScopeBranchList(req:Requestmodel): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'Login/GetScopeBranchList', req, this.httpOptions);
   }  
-  getBrandList(): Observable<Dropdownmodel[]> {
-    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetBrandList', null, this.httpOptions);
+  getTyreBrandList(): Observable<Dropdownmodel[]> {
+    return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetTyreBrandList', null, this.httpOptions);
   }
   getSparesBrandList(): Observable<Dropdownmodel[]> {
     return this.httpClient.post<Dropdownmodel[]>(Constants.API_ENDPOINT + 'FleetTrans/GetSparesBrandList', null, this.httpOptions);

@@ -1292,7 +1292,7 @@ namespace FCUBEAPI.Controllers
         {
             try
             {
-                var result = await tyrePurchaseMasterBusiness.GetBrandList();
+                var result = await tyrePurchaseMasterBusiness.GetTyreBrandList();
 
                 return Ok(result);
             }

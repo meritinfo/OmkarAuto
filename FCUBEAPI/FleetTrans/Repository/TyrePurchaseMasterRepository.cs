@@ -392,7 +392,7 @@ namespace FleetTrans.Repository
             }
             return BrandList;
         }
-        public async Task<List<DropDownListModel>> GetBrandList()
+        public async Task<List<DropDownListModel>> GetTyreBrandList()
         {
             List<DropDownListModel> BrandList = new();
             try
@@ -400,7 +400,7 @@ namespace FleetTrans.Repository
                 if (dbconnection != null)
                 {
                     SqlParameter[] param = { };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getBrandList", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTyreBrandList", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

@@ -90,7 +90,7 @@ export class VehiclemasteraddComponent {
     this.getBranchList();
     this.getVehicleNoList();
     this.getVehicleGrpList();
-    this.getVehicleTypes();
+    this.getVehicleTypeList();
     this.getVehicleMfrList();
     this.getVehicleLedgerList();
     this.getVehicleAssetList();
@@ -230,7 +230,7 @@ export class VehiclemasteraddComponent {
       this.vehicleGrpList = res;
     });
   }
-  getVehicleTypes(): void {
+  getVehicleTypeList(): void {
     this.commonService.getVehicleTypeList().subscribe((res) => {
       this.vehicleTypeList = res;
     });
