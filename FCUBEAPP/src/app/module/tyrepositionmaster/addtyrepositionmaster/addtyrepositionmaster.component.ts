@@ -144,7 +144,7 @@ submitTyrePositionMasterForm(): void {
     
 
   this.TyrePositionMasterModel.tyrePosID = this.selectedTyrePositionMasterDetails.tyrePosID != '' ? this.selectedTyrePositionMasterDetails.tyrePosID : '';
-  this.TyrePositionMasterModel.fitmentPosition= this.formUser.value.fitmentPosition;
+  this.TyrePositionMasterModel.fitmentPosition= this.formUser.value.fitmentPosition.toString().toUpperCase();
   this.TyrePositionMasterModel.activeYN= this.formUser.value.activeYN;
 
 

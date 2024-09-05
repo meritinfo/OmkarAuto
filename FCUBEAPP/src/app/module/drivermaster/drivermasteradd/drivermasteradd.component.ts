@@ -332,11 +332,11 @@ export class DrivermasteraddComponent {
     }
     var selectedDataVal = this.formDriverMaster.getRawValue()
     this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID;
-    this.driverModel.driverName = selectedDataVal.driverName;
-    this.driverModel.fatherName = selectedDataVal.fatherName;
+    this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();;
+    this.driverModel.fatherName = selectedDataVal.fatherName.toString().toUpperCase();;
     this.driverModel.dateOfBirth = selectedDataVal.dateOfBirth;
     this.driverModel.age = selectedDataVal.age.toString();
-    this.driverModel.introBy = selectedDataVal.introBy;
+    this.driverModel.introBy = selectedDataVal.introBy.toString().toUpperCase();
     this.driverModel.introByMobileNo = selectedDataVal.introByMobileNo;
     this.driverModel.dateOfAppoint = selectedDataVal.dateOfAppoint;
     this.driverModel.licenseNo = selectedDataVal.licenseNo;

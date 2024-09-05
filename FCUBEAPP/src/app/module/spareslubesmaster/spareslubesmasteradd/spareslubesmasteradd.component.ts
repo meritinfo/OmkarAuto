@@ -79,7 +79,7 @@ ngOnInit(): void {
     sch_Oth: new FormControl('',[Validators.required]),
     lifeType: new FormControl('',[Validators.required]),
     lifeExpectancy: new FormControl('',[Validators.required]),
-    isActive: new FormControl('',[Validators.required]),
+    isActive: new FormControl('Y',[Validators.required]),
   });
 
   if (this.selectedSpareslubesMasterDetails.spareLubId != '') {

@@ -279,6 +279,8 @@
                                                     formControlName="attachMemocopy"> -->
                                                     <input #attachmentInput class="form-control" type="file"
                                                     id="formAttFile" accept="image/*">
+                                                    <a *ngIf="selectedFleetLoadEntryDetails.attachMemocopy" target="_blank"
+                                                            href={{uploadedAttach}}>Download</a>
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
