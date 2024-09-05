@@ -183,7 +183,6 @@ export class ChallanmasteraddComponent {
       driverMblNo: new FormControl('',),    
       engagedBy: new FormControl('',),    
       loadedBy: new FormControl('',),
-      unLoadingBy: new FormControl('',),
       declarationYN: new FormControl('',),    
       odcLength: new FormControl('',),    
       odcWidth: new FormControl('',),   
@@ -193,24 +192,24 @@ export class ChallanmasteraddComponent {
       totActWt: new FormControl('',),    
       totChrgWt: new FormControl('',),    
       ratePerTon: new FormControl('',),    
-      lorryHire: new FormControl('',),    
+      lorryHire: new FormControl('',[Validators.required]),    
       extraHire1: new FormControl('',),    
       extraHire2: new FormControl('',),    
       extraHire3: new FormControl('',),    
       deduction1: new FormControl('',),    
       deduction2: new FormControl('',),
-      subTotal: new FormControl('',),    
+      subTotal: new FormControl('',[Validators.required]),    
       tdsPct: new FormControl('',),    
       tdsAmt: new FormControl('',),    
-      totalHire: new FormControl('',),    
+      totalHire: new FormControl('',[Validators.required]),     
       cashAdvance: new FormControl('',),    
       cardAdvance: new FormControl('',),    
       totalAdvance: new FormControl('',),    
       balance: new FormControl('',),    
-      balancePayAt: new FormControl('',),    
-      generalRemarks: new FormControl('',[Validators.required]),   
+      balancePayAt: new FormControl('',[Validators.required]),    
+      generalRemarks: new FormControl('',),   
       modifyRemarks: new FormControl('',),    
-      arrayList: this.formBuilder.array([this.createInitialArray()])  , 
+      arrayList: this.formBuilder.array([this.createInitialArray()]), 
     });
 
     this.formUser.controls["challanBranch"].disable();
@@ -333,6 +332,7 @@ export class ChallanmasteraddComponent {
       this.formUser.patchValue({
         totPkgs: pkgs,
         totActWt: wt, 
+        totChrgWt: wt, 
       })      
     });
   }
@@ -505,6 +505,7 @@ export class ChallanmasteraddComponent {
     }
     this.formUser.patchValue({
       totActWt: totActWt,
+      totChrgWt: totActWt,
     });
   }
 
@@ -596,14 +597,54 @@ export class ChallanmasteraddComponent {
   onStatusChange(e: any) {
     if (e.target.value == "I") {
       this.formUser.controls['mainChallanBranch'].setValidators([Validators.required]);
-      this.formUser.controls['mainChallanNo'].setValidators([Validators.required]);     
+      this.formUser.controls['mainChallanNo'].setValidators([Validators.required]); 
+      this.formUser.controls['lorryHire'].clearValidators();
+      this.formUser.controls['subTotal'].clearValidators();
+      this.formUser.controls['totalHire'].clearValidators();
+      this.formUser.controls['balancePayAt'].clearValidators();    
     }
     else{
       this.formUser.controls['mainChallanBranch'].clearValidators();
       this.formUser.controls['mainChallanNo'].clearValidators();
+      this.formUser.controls['lorryHire'].setValidators([Validators.required]); 
+      this.formUser.controls['subTotal'].setValidators([Validators.required]); 
+      this.formUser.controls['totalHire'].setValidators([Validators.required]); 
+      this.formUser.controls['balancePayAt'].setValidators([Validators.required]); 
+    }    
+    if (e.target.value == "C") {
+      this.formUser.controls['challanFromStn'].clearValidators();
+      this.formUser.controls['challanToStn'].clearValidators();
+      this.formUser.controls['truckNo'].clearValidators();
+      this.formUser.controls['brokerId'].clearValidators();
+      this.formUser.controls['vehicleType'].clearValidators();
+      this.formUser.controls['lorryHire'].clearValidators();
+      this.formUser.controls['subTotal'].clearValidators();
+      this.formUser.controls['totalHire'].clearValidators();
+      this.formUser.controls['balancePayAt'].clearValidators();
     }
+    else{
+      this.formUser.controls['challanFromStn'].setValidators([Validators.required]);
+      this.formUser.controls['challanToStn'].setValidators([Validators.required]);
+      this.formUser.controls['truckNo'].setValidators([Validators.required]);
+      this.formUser.controls['brokerId'].setValidators([Validators.required]);
+      this.formUser.controls['vehicleType'].setValidators([Validators.required]);
+      this.formUser.controls['lorryHire'].setValidators([Validators.required]);
+      this.formUser.controls['subTotal'].setValidators([Validators.required]);
+      this.formUser.controls['totalHire'].setValidators([Validators.required]);
+      this.formUser.controls['balancePayAt'].setValidators([Validators.required]);
+    }    
     this.formUser.controls['mainChallanBranch'].updateValueAndValidity();
     this.formUser.controls['mainChallanNo'].updateValueAndValidity();
+
+    this.formUser.controls['challanFromStn'].updateValueAndValidity();
+    this.formUser.controls['challanToStn'].updateValueAndValidity();
+    this.formUser.controls['truckNo'].updateValueAndValidity();
+    this.formUser.controls['brokerId'].updateValueAndValidity();
+    this.formUser.controls['vehicleType'].updateValueAndValidity();
+    this.formUser.controls['lorryHire'].updateValueAndValidity();
+    this.formUser.controls['subTotal'].updateValueAndValidity();
+    this.formUser.controls['totalHire'].updateValueAndValidity();
+    this.formUser.controls['balancePayAt'].updateValueAndValidity();
   }
 
   chkTruck(e: any) {
@@ -664,7 +705,7 @@ export class ChallanmasteraddComponent {
       tdsAmt = Math.round((subTotal * tdsPct)/100)
     }
 
-    totalHire = subTotal + tdsAmt;
+    totalHire = subTotal - tdsAmt;
     totalAdvance = cashAdvance + cardAdvance;
     balance = totalHire - totalAdvance;
     this.formUser.patchValue({
@@ -861,6 +902,15 @@ export class ChallanmasteraddComponent {
         return;
       }
     }
+    if(selectedDataValue.chStatus=="N"){
+      if(selectedDataValue.lorryHire?parseFloat(selectedDataValue.lorryHire):0 > 0){
+        //ignore
+      }
+      else{
+        this.toastrService.warning("Lorry Hire should be greater than Zero");
+        return;
+      }
+    }
 
 
     this.formSubmitted = true;
@@ -901,7 +951,7 @@ export class ChallanmasteraddComponent {
     this.challanmodel.driverMblNo= selectedDataValue.driverMblNo? selectedDataValue.driverMblNo : ""; 
     this.challanmodel.engagedBy= selectedDataValue.engagedBy? selectedDataValue.engagedBy : ""; 
     this.challanmodel.loadedBy= selectedDataValue.loadedBy? selectedDataValue.loadedBy : ""; 
-    this.challanmodel.unLoadingBy= selectedDataValue.unLoadingBy? selectedDataValue.unLoadingBy : ""; 
+    this.challanmodel.unLoadingBy= ""; 
     this.challanmodel.declarationYN= selectedDataValue.declarationYN?"Y":"N";
     this.challanmodel.odcLength= selectedDataValue.odcLength? selectedDataValue.odcLength.toString() : ""; 
     this.challanmodel.odcWidth= selectedDataValue.odcWidth? selectedDataValue.odcWidth.toString() : ""; 
