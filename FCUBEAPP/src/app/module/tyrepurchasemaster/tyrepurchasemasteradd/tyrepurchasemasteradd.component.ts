@@ -323,9 +323,6 @@ export class TyrepurchasemasteraddComponent {
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
       this.creditAcList = res;
-      this.formUser.patchValue({
-        creditAc: this.creditAcList[0].dataId ,
-      });
     });
     if (pmttp == 'B'){
       this.formUser.controls['neftPmt'].enable();
@@ -381,12 +378,12 @@ export class TyrepurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("cgstAmt")?.disable();  
         this.formTyreArray.controls[i].get("igstAmt")?.disable();  
 
-        if (this.selectedTyrePurchaseMasterDetail.gstType == "I") {   
+        if (this.selectedTyrePurchaseMasterDetail.gstType == "IG") {   
           this.formTyreArray.controls[i].get("sgstPct")?.disable();   
           this.formTyreArray.controls[i].get("cgstPct")?.disable();  
           this.formTyreArray.controls[i].get("igstPct")?.enable();  
         }    
-        else if (this.selectedTyrePurchaseMasterDetail.gstType == "S" || this.selectedTyrePurchaseMasterDetail.gstType == "C")  {      
+        else if (this.selectedTyrePurchaseMasterDetail.gstType == "SC")  {      
           this.formTyreArray.controls[i].get("sgstPct")?.enable();   
           this.formTyreArray.controls[i].get("cgstPct")?.enable();  
           this.formTyreArray.controls[i].get("igstPct")?.disable();  
@@ -412,12 +409,12 @@ export class TyrepurchasemasteraddComponent {
       this.formTyreArray.controls[i].get("cgstAmt")?.setValue("0");
       this.formTyreArray.controls[i].get("igstAmt")?.setValue("0"); 
 
-      if (gsttype == "I") {   
+      if (gsttype == "IG") {   
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.enable();  
       }    
-      else if (gsttype == "S" || gsttype == "C")  {      
+      else if (gsttype == "SC")  {      
         this.formTyreArray.controls[i].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
@@ -501,12 +498,12 @@ export class TyrepurchasemasteraddComponent {
       this.formTyreArray.controls[i+1].get("cgstAmt")?.disable();  
       this.formTyreArray.controls[i+1].get("igstAmt")?.disable();  
        
-      if (selectedDate.gstType == "I") {   
+      if (selectedDate.gstType == "IG") {   
         this.formTyreArray.controls[i+1].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.enable();  
       }    
-      else if (selectedDate.gstType == "S" || selectedDate.gstType == "C")  {      
+      else if (selectedDate.gstType == "SC")  {      
         this.formTyreArray.controls[i+1].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i+1].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i+1].get("igstPct")?.disable();  
