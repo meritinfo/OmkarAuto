@@ -110,7 +110,7 @@ export class VehiclemasteraddComponent {
       tankCap: new FormControl('',[Validators.required]),
       grossWt: new FormControl(''),
       unLadenWT: new FormControl(''),
-      noOfTyres: new FormControl(''),
+      noOfTyres: new FormControl('' ,[Validators.required]),
       mileageLt: new FormControl('',[Validators.required]),
       vehLength: new FormControl(''),
       vehBreadth: new FormControl(''),
@@ -138,8 +138,8 @@ export class VehiclemasteraddComponent {
       tfrDate: new FormControl(''),
       tfrVehicleNo: new FormControl(''),
       tfrVehicleId: new FormControl(''),
-      vehicleLedgerAc: new FormControl('',[Validators.required]),
-      vehicleAssetAc: new FormControl('',[Validators.required]),
+      vehicleLedgerAc: new FormControl(''),
+      vehicleAssetAc: new FormControl(''),
       attach1Desc: new FormControl(''),
       attach1Link: new FormControl(''),
       attach2Desc: new FormControl(''),
@@ -153,8 +153,8 @@ export class VehiclemasteraddComponent {
 
     });
 
-      this.formVehicleMaster.controls['vehicleLedgerAc'].clearValidators();   
-      this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
+     // this.formVehicleMaster.controls['vehicleLedgerAc'].clearValidators();   
+    //  this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
     setTimeout(() => {
       if (this.selectedVehicleMasterDetails.vehicleMasterID != '') {
         this.attach1 = Constants.UploadFolderPath + 'vehical/attachment1/' + this.selectedVehicleMasterDetails.attach1Link;
@@ -171,8 +171,8 @@ export class VehiclemasteraddComponent {
           vehicleAssetAc: this.vehicleAssetAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
         })
         this.editMode=true;      
-        this.formVehicleMaster.controls['vehicleLedgerAc'].setValidators([Validators.required]);  
-        this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
+      //  this.formVehicleMaster.controls['vehicleLedgerAc'].setValidators([Validators.required]);  
+      //  this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
 
         this.getVehicleInnerGridList();
       }
@@ -457,8 +457,10 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.tfrDate            = selectedDataValue.tfrDate;
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
-    this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId?selectedDataValue.vehicleLedgerAc:'';
-    this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId?selectedDataValue.vehicleAssetAc:'';
+    this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc?selectedDataValue.vehicleLedgerAc.dataId:'';
+  // this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
+    this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc?selectedDataValue.vehicleAssetAc.dataId:'';
+    // this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
     this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();

@@ -151,7 +151,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Gross Weight</label>
-                                                <span style="color: red">*</span>
+                                               
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="grossWt" >
                                             </div>
@@ -159,7 +159,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">UnLaden Weight</label>
-                                                <span style="color: red">*</span>
+                                        
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="unLadenWT">
                                             </div>
@@ -177,7 +177,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Length</label>
-                                                <span style="color: red">*</span>
+                                               
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehLength" >
                                             </div>
@@ -185,7 +185,7 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Height</label>
-                                                <span style="color: red">*</span>
+                                              
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehHeight" >
                                             </div>
@@ -193,14 +193,14 @@
                                         <div class="col-lg-3">
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Vehicle Breadth</label>
-                                                <span style="color: red">*</span>
+                                            
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehBreadth" >
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="mb-3">
-                                                <label for="formrow-inputState">Vehicle Volumn(CFT)</label>
+                                                <label for="formrow-inputState">Vehicle Volume(CFT)</label>
                                                 <input type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="vehVolumeCFT">
                                             </div>
@@ -418,7 +418,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Ledger Account</label>
-                                                <span style="color: red">*</span>
+                                              
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleLedgerAcList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
@@ -445,7 +445,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Vehicle Asset Account</label>
-                                                <span style="color: red">*</span>
+                                              
                                                 <div class="ng-autocomplete">
                                                     <ng-autocomplete [data]="vehicleAssetAcList"
                                                         [searchKeyword]="keywordLocation" placeholder=""
@@ -522,6 +522,8 @@
                                                 <a *ngIf="selectedVehicleMasterDetails.attach3Link" target="_blank"
                                                     href={{attach3}}>Download</a>
                                             </div>
+
+                                            
                                         </div>
                                     </div>
                                     </div>

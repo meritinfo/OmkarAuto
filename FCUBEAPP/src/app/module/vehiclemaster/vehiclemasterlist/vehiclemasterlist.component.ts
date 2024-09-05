@@ -96,7 +96,7 @@ export class VehiclemasterlistComponent {
      // Set column title and data field
       columns: [
         {
-          title: 'vehicle No',
+          title: 'Vehicle No',
           data: 'vehicleNo',
         },     
         {

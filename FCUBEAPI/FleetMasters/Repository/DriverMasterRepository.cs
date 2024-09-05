@@ -126,7 +126,7 @@ namespace FleetMasters.Repository
                         {
                             new SqlParameter("@driverMasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DriverMasterDetailsDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_DriverMasterDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

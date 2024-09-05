@@ -5,6 +5,7 @@ import { Spareslubesmasterlistmodel } from 'src/app/models/spareslubesmasterlist
 import { Spareslubesmastermodel } from 'src/app/models/sparelubesmastermodel';
 import { SparesLubesMasterService } from 'src/app/services/spareslubesmaster.service';
 import { Requestmodel } from 'src/app/models/requestmodel';
+import { Constants } from 'src/app/common/constants';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Responsemodel } from 'src/app/models/responsemodel';
 import { CommonService } from 'src/app/services/common.service';
@@ -33,6 +34,7 @@ export class FleetloadentryaddComponent {
   maxDate: string = '';
   minDate: string = '';
   branch: string = '';
+  uploadedAttach: string = "";
   responseDetails = new Responsemodel();
   classificationList: Dropdownmodel[] = [];
   locationList: Dropdownmodel[] = [];
@@ -147,8 +149,9 @@ ngOnInit(): void {
   setTimeout(() => {
   if (this.selectedFleetLoadEntryDetails.loadId != '') {
     this.formFleetLoad.patchValue(this.selectedFleetLoadEntryDetails);    
-   
+    this.uploadedAttach = Constants.UploadFolderPath + 'upload/loadmemo/' + this.selectedFleetLoadEntryDetails.attachMemocopy;
     this.formFleetLoad.patchValue({
+    
     loadDate: this.commonService.formatDate(this.selectedFleetLoadEntryDetails.loadDate),
     loadingFrom: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingFrom),
     loadingTo: this.locationList.find(e => e.dataId == this.selectedFleetLoadEntryDetails.loadingTo),
