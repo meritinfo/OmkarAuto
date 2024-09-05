@@ -117,13 +117,15 @@ namespace FleetTrans.Repository
                             {
                                 SqlParameter[] paramdr =
                                 {
-                                    new SqlParameter("@TripId", MasterID),
-                                    new SqlParameter("@ChallanId", tripMasterModel.RouteList[i].LoadId),
-                                    new SqlParameter("@ChallanNo", tripMasterModel.RouteList[i].LoadMemoNo),
-                                    new SqlParameter("@TotalHire", tripMasterModel.RouteList[i].HireAmt),
-                                    new SqlParameter("@AdvHire", tripMasterModel.RouteList[i].AdvAmt),
-                                    new SqlParameter("@Remarks", tripMasterModel.RouteList[i].Remarks),
-                                    new SqlParameter("@YearId", tripMasterModel.YearId),
+                                    new SqlParameter("@TripId",     MasterID),
+                                    new SqlParameter("@ChallanId",  tripMasterModel.RouteList[i].LoadId),
+                                    new SqlParameter("@ChallanNo",  tripMasterModel.RouteList[i].LoadMemoNo),
+                                    new SqlParameter("@FromPlace",  tripMasterModel.RouteList[i].LoadingFrom),
+                                    new SqlParameter("@ToPlace",    tripMasterModel.RouteList[i].LoadingTo),
+                                    new SqlParameter("@TotalHire",  tripMasterModel.RouteList[i].HireAmt),
+                                    new SqlParameter("@AdvHire",    tripMasterModel.RouteList[i].AdvAmt),
+                                    new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
+                                    new SqlParameter("@YearId",     tripMasterModel.YearId),
                                 };
                                 var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteSave", param);
 

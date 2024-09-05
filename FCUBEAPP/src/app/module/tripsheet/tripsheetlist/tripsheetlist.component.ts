@@ -206,7 +206,7 @@ getTripMaster(){
           data: 'tripCloseDt',
         },
         {
-          title: 'LinkYN',
+          title: 'Link YN',
           data: 'tripLinkYN',
         },
         {

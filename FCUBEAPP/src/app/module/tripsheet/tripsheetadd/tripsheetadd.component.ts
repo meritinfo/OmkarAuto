@@ -97,12 +97,12 @@ export class TripsheetaddComponent {
 
 
     this.formTripsheet = this.formBuilder.group({
-      tripBranch: new FormControl('', [Validators.required]),
+      tripBranch: new FormControl(this.branch, [Validators.required]),
       vehicleMasterID: new FormControl('', [Validators.required]),
       tripNo: new FormControl('', [Validators.required]),
       deptDate:  new FormControl('', [Validators.required]),
       endDate:  new FormControl('', [Validators.required]),
-      stmtDate:  new FormControl('', [Validators.required]),
+      stmtDate:  new FormControl(this.loginDate, [Validators.required]),
       tripStatus:  new FormControl('', [Validators.required]),
       driverMasterID:  new FormControl('', [Validators.required]),
       definedMileage: new FormControl('',),
@@ -251,7 +251,7 @@ export class TripsheetaddComponent {
 
   getDetails(){
     var selectedDataValue = this.formTripsheet.getRawValue();
-    var validvehi = this.driverList.find(e => e.dataName == selectedDataValue.vehicleMasterID.dataId) 
+    var validvehi = this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID.dataId) 
     if (typeof validvehi !== 'undefined' && validvehi !== null && validvehi.dataId!="" && validvehi.dataId!="0") {
         //ignore
     }
@@ -277,32 +277,58 @@ export class TripsheetaddComponent {
         this.formDriverArray.controls[i].get("pmtType")?.setValue(res.driverList[i].pmtType);
         this.formDriverArray.controls[i].get("amountPaid")?.setValue(res.driverList[i].amountPaid);
         this.formDriverArray.controls[i].get("remarks")?.setValue(res.driverList[i].remarks);
+        
+        this.formDriverArray.controls[i].get("pmtBranch")?.disable();
+        this.formDriverArray.controls[i].get("pmtDate")?.disable();
+        this.formDriverArray.controls[i].get("pmtType")?.disable();
+        this.formDriverArray.controls[i].get("amountPaid")?.disable();
+        this.formDriverArray.controls[i].get("remarks")?.disable();
       }
       for (var i = 0; i < res.routeList.length; i++) {
-        this.formDriverArray.push(this.createDriverArray());
-        this.formDriverArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
-        this.formDriverArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
-        this.formDriverArray.controls[i].get("loadDate")?.setValue(this.commonService.formatDate(res.routeList[i].loadDate));
-        this.formDriverArray.controls[i].get("loadType")?.setValue(res.routeList[i].loadType);
-        this.formDriverArray.controls[i].get("loadFor")?.setValue(res.routeList[i].loadFor);
-        this.formDriverArray.controls[i].get("loadMemoNo")?.setValue(res.routeList[i].loadMemoNo);
-        this.formDriverArray.controls[i].get("loadingFrom")?.setValue(res.routeList[i].loadingFrom);
-        this.formDriverArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
-        this.formDriverArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
-        this.formDriverArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
-        this.formDriverArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
-        this.formDriverArray.controls[i].get("advAmt")?.setValue(res.routeList[i].advAmt);
-        this.formDriverArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
+        this.formRouteArray.push(this.createRouteArray());
+        this.formRouteArray.controls[i].get("loadId")?.setValue(res.routeList[i].loadId);
+        this.formRouteArray.controls[i].get("loadBranch")?.setValue(res.routeList[i].loadBranch);
+        this.formRouteArray.controls[i].get("loadDate")?.setValue(this.commonService.formatDate(res.routeList[i].loadDate));
+        this.formRouteArray.controls[i].get("loadType")?.setValue(res.routeList[i].loadType);
+        this.formRouteArray.controls[i].get("loadFor")?.setValue(res.routeList[i].loadFor);
+        this.formRouteArray.controls[i].get("loadMemoNo")?.setValue(res.routeList[i].loadMemoNo);
+        this.formRouteArray.controls[i].get("loadingFrom")?.setValue(res.routeList[i].loadingFrom);
+        this.formRouteArray.controls[i].get("consignorName")?.setValue(res.routeList[i].consignorName);
+        this.formRouteArray.controls[i].get("loadingTo")?.setValue(res.routeList[i].loadingTo);
+        this.formRouteArray.controls[i].get("consigneeName")?.setValue(res.routeList[i].consigneeName);
+        this.formRouteArray.controls[i].get("hireAmt")?.setValue(res.routeList[i].hireAmt);
+        this.formRouteArray.controls[i].get("advAmt")?.setValue(res.routeList[i].advAmt);
+        this.formRouteArray.controls[i].get("remarks")?.setValue(res.routeList[i].remarks);
+
+        this.formRouteArray.controls[i].get("loadBranch")?.disable();
+        this.formRouteArray.controls[i].get("loadDate")?.disable();
+        this.formRouteArray.controls[i].get("loadType")?.disable();
+        this.formRouteArray.controls[i].get("loadFor")?.disable();
+        this.formRouteArray.controls[i].get("loadMemoNo")?.disable();
+        this.formRouteArray.controls[i].get("loadingFrom")?.disable();
+        this.formRouteArray.controls[i].get("consignorName")?.disable();
+        this.formRouteArray.controls[i].get("loadingTo")?.disable();
+        this.formRouteArray.controls[i].get("consigneeName")?.disable();
+        this.formRouteArray.controls[i].get("hireAmt")?.disable();
+        this.formRouteArray.controls[i].get("advAmt")?.disable();
+        this.formRouteArray.controls[i].get("remarks")?.disable();
       }
       for (var i = 0; i < res.dieselList.length; i++) {
-        this.formDriverArray.push(this.createDriverArray());
-        this.formDriverArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
-        this.formDriverArray.controls[i].get("accountName")?.setValue(res.dieselList[i].accountName);
-        this.formDriverArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
-        this.formDriverArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
-        this.formDriverArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
-        this.formDriverArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
-        this.formDriverArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
+        this.formDieselArray.push(this.createDieselArray());
+        this.formDieselArray.controls[i].get("detailID")?.setValue(res.dieselList[i].detailID);
+        this.formDieselArray.controls[i].get("accountName")?.setValue(res.dieselList[i].accountName);
+        this.formDieselArray.controls[i].get("transDate")?.setValue(this.commonService.formatDate(res.dieselList[i].transDate));
+        this.formDieselArray.controls[i].get("dslQty")?.setValue(res.dieselList[i].dslQty);
+        this.formDieselArray.controls[i].get("dslRate")?.setValue(res.dieselList[i].dslRate);
+        this.formDieselArray.controls[i].get("amount")?.setValue(res.dieselList[i].amount);
+        this.formDieselArray.controls[i].get("remarks")?.setValue(res.dieselList[i].remarks);
+
+        this.formDieselArray.controls[i].get("accountName")?.disable();
+        this.formDieselArray.controls[i].get("transDate")?.disable();
+        this.formDieselArray.controls[i].get("dslQty")?.disable();
+        this.formDieselArray.controls[i].get("dslRate")?.disable();
+        this.formDieselArray.controls[i].get("amount")?.disable();
+        this.formDieselArray.controls[i].get("remarks")?.disable();
       }
     });
 
@@ -355,19 +381,8 @@ export class TripsheetaddComponent {
     });
   }
 
-  selectNewEvent(item: any) {
-    // do something with selected item
-    var selectedDataValue = this.formTripsheet.getRawValue();
-    var validvehi = this.driverList.find(e => e.dataName == selectedDataValue.vehicleMasterID.dataId) 
-    if (typeof validvehi !== 'undefined' && validvehi !== null && validvehi.dataId!="" && validvehi.dataId!="0") {
-        //ignore
-    }
-    else{
-      this.toastrService.warning("Please Enter Valid  Vehicle No");          
-      return;
-    }
-
-    this.requestmodel.strRequest = selectedDataValue.vehicleMasterID.dataId;
+  selectNewEvent(item: any) {    
+    this.requestmodel.strRequest = item.dataId;
     this.requestmodel.strRequest1 = this.year;
     this.tripSheetService.getNextTripNo(this.requestmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
@@ -443,7 +458,7 @@ export class TripsheetaddComponent {
     
     var selectedDataValue = this.formTripsheet.getRawValue();
 
-    var validdriver = this.driverList.find(e => e.dataName == selectedDataValue.driverMasterID.dataId) 
+    var validdriver = this.driverList.find(e => e.dataId == selectedDataValue.driverMasterID.dataId) 
     if (typeof validdriver !== 'undefined' && validdriver !== null && validdriver.dataId!="" && validdriver.dataId!="0") {
         //ignore
     }
@@ -451,7 +466,7 @@ export class TripsheetaddComponent {
       this.toastrService.warning("Please Enter Valid  Driver Name");          
       return;
     }
-    var validvehi = this.driverList.find(e => e.dataName == selectedDataValue.vehicleMasterID.dataId) 
+    var validvehi = this.vehicleList.find(e => e.dataId == selectedDataValue.vehicleMasterID.dataId) 
     if (typeof validvehi !== 'undefined' && validvehi !== null && validvehi.dataId!="" && validvehi.dataId!="0") {
         //ignore
     }
