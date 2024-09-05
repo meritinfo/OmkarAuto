@@ -367,7 +367,7 @@
                                     <select formControlName="vehicleType"
                                         class="form-control form-select ng-pristine ng-touched"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleType'].invalid) }">
-                                        <option *ngFor="let dl of vehicalType" value={{dl.dataId}}>
+                                        <option *ngFor="let dl of vehicalList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
                                     </select>
@@ -385,21 +385,21 @@
                                 <div class="mb-4">
                                     <label for="formrow-inputZip">Vehicle Model : </label>
                                     <input uppercaseonly class="form-control" 
-                                    maxlength="10" formControlName="vehicleModel">
+                                    maxlength="50" formControlName="vehicleModel">
                                 </div>
                             </div>                            
                             <div class="col-lg-2">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Engine No : </label>
                                     <input uppercaseonly class="form-control" 
-                                    maxlength="25" formControlName="engineNo">
+                                    maxlength="50" formControlName="engineNo">
                                 </div>
                             </div>                       
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputZip">Chassis No : </label>
                                     <input uppercaseonly class="form-control" 
-                                    maxlength="25" formControlName="chassisNo">
+                                    maxlength="50" formControlName="chassisNo">
                                 </div>
                             </div>  
                         </div>
@@ -493,7 +493,7 @@
                             </div>      
                             <div class="col-lg-4">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Dr Address</label>
+                                    <label for="formrow-inputZip">Driver Address</label>
                                     <input uppercaseonly class="form-control" 
                                     maxlength="250" formControlName="driverAddress">
                                 </div>
@@ -502,14 +502,14 @@
                         <div class="row">    
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Dr LIC No</label>
+                                    <label for="formrow-inputZip">Driver LIC No</label>
                                     <input uppercaseonly class="form-control" 
                                     maxlength="25" formControlName="driverLicNo">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-4">
-                                    <label for="formrow-inputZip">Dr LIC Issued At</label>
+                                    <label for="formrow-inputZip">Driver LIC Issued At</label>
                                     <input uppercaseonly maxlength="25" 
                                         maxlength="25" class="form-control" 
                                         formControlName="driverLicIssuedAt">
@@ -517,14 +517,14 @@
                             </div>
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Dr LIC Valid</label>
+                                    <label for="formrow-inputZip">Driver LIC Valid</label>
                                     <input bsdatepicker="" type="date" autoclose="false" class="form-control"
                                         formControlName="driverLicValid" >
                                 </div>
                             </div> 
                             <div class="col-lg-2">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Dr Mobile No</label>
+                                    <label for="formrow-inputZip">Driver Mobile No</label>
                                     <input numbersonly maxlength="10" class="form-control" 
                                         formControlName="driverMblNo">
                                 </div>
@@ -759,10 +759,9 @@
                         <div class="row">  
                             <div class="col-lg-8">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Modify Remarks</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Modify Remarks</label>
                                     <input type="text" uppercaseonly class="form-control" 
-                                    maxlength="250" 
-                                        formControlName="modifyRemarks">
+                                    maxlength="250" formControlName="modifyRemarks">
                                 </div>
                             </div>
                         </div>

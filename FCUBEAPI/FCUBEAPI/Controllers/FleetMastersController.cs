@@ -712,20 +712,6 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetVehicalTypes")]
-        public async Task<IActionResult> GetVehicalTypes()
-        {
-            try
-            {
-                var result = await vehicleFltMasterBusiness.GetVehicalTypes();
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpPost("GetVehicalLedgerAccountList")]
         public async Task<IActionResult> GetVehicalLedgerAccountList()
