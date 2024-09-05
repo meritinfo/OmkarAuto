@@ -255,7 +255,7 @@ getStateList(): void {
   });
 }
 getBrandList(): void {
-  this.commonService.getBrandList().subscribe((res) => {
+  this.commonService.getSparesBrandList().subscribe((res) => {
     this.brandList = res;
   });
 }
