@@ -14,6 +14,7 @@ namespace FleetTrans.Repository
         Task<SparesPurchaseMasterModel> GetSparesPurchaseMasterInnerGridList(RequestModel request);
         Task<ResponseModel> SparesPurchaseMasterSave(SparesPurchaseMasterModel sparesPurchaseMasterModel);
         Task<ResponseModel> SparesPurchaseMasterDelete(RequestModel req);
+        Task<List<DropDownListModel>> GetSparesBrandList();
         Task<List<DropDownListModel>> GetSparesList();
 
     }
