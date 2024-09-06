@@ -1287,8 +1287,8 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("GetBrandList")]
-        public async Task<IActionResult> GetBrandList()
+        [HttpPost("GetTyreBrandList")]
+        public async Task<IActionResult> GetTyreBrandList()
         {
             try
             {

@@ -553,17 +553,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="mb-4">
-                                    <label for="formrow-inputZip">Un Loaded By</label>
-                                    <select formControlName="unLoadingBy"
-                                        class="form-control form-select ng-pristine ng-touched">
-                                        <option *ngFor="let dl of empList" value={{dl.dataId}}>
-                                            {{dl.dataName}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                         <div class="row text-right">
                             <div class="col-lg-12">
@@ -748,11 +737,9 @@
                         <div class="row">  
                             <div class="col-lg-8">
                                 <div class="mb-3">
-                                    <label for="formrow-inputZip">Remarks</label><span style="color: red">*</span>
+                                    <label for="formrow-inputZip">Remarks</label>
                                     <input type="text" uppercaseonly class="form-control" 
-                                    maxlength="250" 
-                                        formControlName="generalRemarks"
-                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['generalRemarks'].invalid) }">
+                                    maxlength="250" formControlName="generalRemarks">
                                 </div>
                             </div>
                         </div>
