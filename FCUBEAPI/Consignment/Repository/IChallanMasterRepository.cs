@@ -19,5 +19,6 @@ namespace Consignment.Repository
         Task<ChallanMasterModel> GetConsignmentId(RequestModel requestModel);
         Task<ChallanMasterModel> GetChallanDetailsFromLR(RequestModel request);
         Task<PanApiResultModel> GetPanValidDetails(RequestModel request);
+        Task<ResponseModel> CheckChallanPrepForLr(RequestModel request);
     }
 }

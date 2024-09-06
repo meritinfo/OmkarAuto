@@ -53,5 +53,9 @@ namespace Consignment.Business
         {
             return await challanRepository.GetPanValidDetails(request);
         }
+        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
+        {
+            return await challanRepository.CheckChallanPrepForLr(request);
+        }
     }
 }

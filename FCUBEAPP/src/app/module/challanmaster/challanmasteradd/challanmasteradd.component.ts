@@ -206,7 +206,7 @@ export class ChallanmasteraddComponent {
       cardAdvance: new FormControl('',),    
       totalAdvance: new FormControl('',),    
       balance: new FormControl('',),    
-      balancePayAt: new FormControl('',[Validators.required]),    
+      balancePayAt: new FormControl(this.branch,[Validators.required]),    
       generalRemarks: new FormControl('',),   
       modifyRemarks: new FormControl('',),    
       arrayList: this.formBuilder.array([this.createInitialArray()]), 
@@ -455,8 +455,23 @@ export class ChallanmasteraddComponent {
 
   onGcNoteChange(i:number,e: any) {
     var selectedData = this.formUser.getRawValue();
+    this.requestmodel.strRequest = selectedData.arrayList[i].gcNoteNo;
+
+    this.challanmasterService.checkChallanPrepForLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toastrService.warning(this.responseDetails.message);        
+        this.formArray.controls[i].get("gcNoteNo")?.setValue("");
+        return;
+      }
+    });
+
     this.requestmodel.strRequest = selectedData.bookingPlace;
-    this.requestmodel.strRequest1 = selectedData.gcNoteNo;
+    this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo;
+
     this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: Challanmastermodel) => {
       this.challanmodel = res;
       if (this.responseDetails.status) {       
@@ -561,11 +576,19 @@ export class ChallanmasteraddComponent {
             }
           }
 
+          if(ch == "P"){            
+            this.formUser.controls["declarationYN"].enable();              
+          }
+          else{            
+            this.formUser.controls["declarationYN"].disable();  
+          }
+
           this.formUser.patchValue({
             panValid: panValid,
             aadharLinked: aadharLinked,
             vehicleOwnerName: this.panDetails.result.name,
-            tdsPct: tdsPct
+            tdsPct: tdsPct,
+            declarationYN:"",
           });  
         }
         else{          
@@ -577,7 +600,7 @@ export class ChallanmasteraddComponent {
 
     setTimeout(() => {
       this.calculateTotalAmount();
-    }, 300);
+    }, 2000);
   }
 
   onDeclareChk(e: any) {
@@ -740,6 +763,7 @@ export class ChallanmasteraddComponent {
     this.selectedChallanDetails.challanBranch = selectedData.challanBranch;
     this.selectedChallanDetails.challanDateTime = selectedData.challanDateTime;
     this.selectedChallanDetails.chStatus = selectedData.chStatus;
+    this.selectedChallanDetails.balancePayAt = selectedData.balancePayAt;
 
     this.formUser.patchValue(this.selectedChallanDetails);
     this.formArray.clear();
@@ -750,12 +774,31 @@ export class ChallanmasteraddComponent {
       this.toastrService.warning("Please Enter LR No ");
       return;
     }
+     
+    var pkgs = 0;
+    var wt = 0.0;
+
+    this.challanmasterService.checkChallanPrepForLr(this.requestmodel).subscribe((res: Responsemodel) => {
+      this.responseDetails = res;
+      if (this.responseDetails.status) {
+        //ignore
+      }
+      else{
+        this.toastrService.warning(this.responseDetails.message);
+        this.formUser.patchValue({
+          lrNo: "",
+        });
+        return;
+      }
+    });
+
     this.challanmasterService.getDetails(this.requestmodel).subscribe((res: Challanmastermodel) => {    
       this.selectedChallanDetails = res
       this.selectedChallanDetails.challanNo = selectedData.challanNo;
       this.selectedChallanDetails.challanBranch = selectedData.challanBranch;
       this.selectedChallanDetails.challanDateTime = selectedData.challanDateTime;
       this.selectedChallanDetails.chStatus = selectedData.chStatus;
+      this.selectedChallanDetails.balancePayAt = selectedData.balancePayAt;
 
       this.formUser.patchValue(this.selectedChallanDetails);
       this.formUser.patchValue({
@@ -779,7 +822,7 @@ export class ChallanmasteraddComponent {
         itFiled: itFiled,
         permitValid: permitValid,
         declarationYN: declarationYN,
-      })   
+      })  
 
       if (res.challanDtls.length>0) {      
         this.formArray.controls[0].get("gcYear")?.setValue(res.challanDtls[0].gcYear);
@@ -799,19 +842,30 @@ export class ChallanmasteraddComponent {
         this.formArray.controls[0].get("fplace")?.disable();
         this.formArray.controls[0].get("tplace")?.disable();
         this.formArray.controls[0].get("bookingDate")?.disable();
-      }
+        pkgs += parseInt(res.challanDtls[0].challanPkgs);
+        wt += parseFloat(res.challanDtls[0].challanWT);
+      }  
+          
+      this.formUser.patchValue({
+        totPkgs: pkgs,
+        totActWt: wt, 
+        totChrgWt: wt, 
+      });    
+
       if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
         this.formUser.patchValue({        
           tdsPct: 20
         });  
       }
       else{
-        this.onOwnerPanChange();
+        setTimeout(() => {
+          this.onOwnerPanChange();
+        }, 2000);
       }   
 
       setTimeout(() => {
         this.calculateTotalAmount();
-      }, 300);
+      }, 2000);
     });
   }
 

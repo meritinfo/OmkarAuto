@@ -555,6 +555,24 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("CheckChallanPrepForLr")]
+        public async Task<IActionResult> CheckChallanPrepForLr(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanMasterBusiness.CheckChallanPrepForLr(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpPost("GetEWayBillExtList")]
         public async Task<IActionResult> GetEWayBillExtList(ReportRequestModel request)
