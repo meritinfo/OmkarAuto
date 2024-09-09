@@ -17,7 +17,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class DrivermasteraddComponent {
   loggedInUserID: string = '';
   formDriverMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -168,7 +168,7 @@ export class DrivermasteraddComponent {
       deleteFlag: new FormControl('',)
     });
 
-    this.formDriverMaster.controls['age'].disable();
+    this.formDriverMaster.controls['age'].disable(); 
 
     if (this.selectedDriverMasterDetails.driverMasterID != '') {
       //const objectURL = URL.createObjectURL(this.convertDataUrlToBlob('upload/driver/driverphoto/' + this.selectedDriverMasterDetails.drPhoto));
@@ -189,6 +189,7 @@ export class DrivermasteraddComponent {
         inActiveDate: this.commonService.formatDate(this.selectedDriverMasterDetails.inActiveDate),
         removedDate: this.commonService.formatDate(this.selectedDriverMasterDetails.removedDate),
       })
+      this.formDriverMaster.controls['driverName'].disable();
       this.editMode = true;
     }
   }
@@ -207,6 +208,23 @@ export class DrivermasteraddComponent {
       u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], { type: mime });
+  }
+
+  
+  chkDriverDupli(e: any) { 
+    if (this.selectedDriverMasterDetails.driverMasterID == "")
+    {      
+      this.requestmodel.strRequest = e.target.value; 
+      this.drivermasterService.chkDriverDupli(this.requestmodel).subscribe((res: Responsemodel) => {
+        this.responseDetails = res;
+        if (!this.responseDetails.status) {
+          this.toasterService.warning(this.responseDetails.message);
+          this.formDriverMaster.patchValue({
+            driverName: ''
+          });
+        }
+      });
+    }
   }
 
   onDOBChange(e: any) {
@@ -319,7 +337,6 @@ export class DrivermasteraddComponent {
   }
 
   submitDriverMasterForm() {
-    this.userSubmitted = true;
     if (this.formDriverMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formDriverMaster.controls;
@@ -330,6 +347,7 @@ export class DrivermasteraddComponent {
       }
       return;
     }
+    this.formSubmitted = true;
     var selectedDataVal = this.formDriverMaster.getRawValue()
     this.driverModel.driverMasterID = this.selectedDriverMasterDetails.driverMasterID;
     this.driverModel.driverName = selectedDataVal.driverName.toString().toUpperCase();;

@@ -31,7 +31,7 @@ export class MraddComponent {
   minDate: string = '';
   maxDate: string = '';
   keywordLocation = 'dataName';
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -953,7 +953,6 @@ export class MraddComponent {
 
   //Submit form details //
   submitMrForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -1088,6 +1087,7 @@ export class MraddComponent {
     }
 
     this.sharedService.loading=true;
+    this.formSubmitted = true;
 
     this.mrService.mrSubmitted(this.mrmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

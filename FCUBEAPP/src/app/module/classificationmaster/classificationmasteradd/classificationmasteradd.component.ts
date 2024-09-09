@@ -18,7 +18,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class ClassificationmasteraddComponent {
   loggedInUserID: string = '';
   formClassificationMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -144,9 +144,9 @@ export class ClassificationmasteraddComponent {
     }
       
     this.sharedService.loading = true;
-
+    this.formSubmitted = true;
     var selectedDataVal = this.formClassificationMaster.getRawValue();
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.classificationModel.classId = this.selectedClassificationMasterDetails.classId ;
     this.classificationModel.classDesc  = selectedDataVal.classDesc.toString().toUpperCase();
     this.classificationModel.isActive = selectedDataVal.isActive.toString().toUpperCase();

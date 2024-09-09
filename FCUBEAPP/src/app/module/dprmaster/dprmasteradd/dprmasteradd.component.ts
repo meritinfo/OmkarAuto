@@ -21,7 +21,7 @@ export class DrpmasteraddComponent {
   loggedInUserID: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -545,7 +545,7 @@ export class DrpmasteraddComponent {
       return;
     }   
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     let formData = new FormData();
     formData.append('attach', this.attachmentInput.nativeElement.files[0]);

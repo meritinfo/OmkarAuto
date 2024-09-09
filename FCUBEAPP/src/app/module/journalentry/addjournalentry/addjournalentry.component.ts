@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddjournalentryComponent{
   loggedInUserID: string = '';
   formJournalEntry!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -293,7 +293,6 @@ export class AddjournalentryComponent{
     
     //Submit user form details //
   submitJournalEntryForm(): void {
-    this.userSubmitted = true;
     if (this.formJournalEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formJournalEntry.controls;
@@ -374,6 +373,7 @@ export class AddjournalentryComponent{
       return;
     }
 
+    this.formSubmitted = true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if(this.responseDetails.status){

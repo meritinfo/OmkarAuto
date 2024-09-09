@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddbankreceiptentryComponent {
   loggedInUserID: string = '';
   formBankRecEntry!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branchname: string = '';
   year: string = '';
   loginDate: string = '';
@@ -326,7 +326,6 @@ export class AddbankreceiptentryComponent {
   
   //Submit user form details //
   submitBankReceiptPaymentsForm(): void {
-    this.userSubmitted = true;
     if (this.formBankRecEntry.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formBankRecEntry.controls;
@@ -443,7 +442,7 @@ export class AddbankreceiptentryComponent {
       return;
     }    
 
-    
+    this.formSubmitted = true;
 
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankreceiptentryModel).subscribe((res: Responsemodel) => {

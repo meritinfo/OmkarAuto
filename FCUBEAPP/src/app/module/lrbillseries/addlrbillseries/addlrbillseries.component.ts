@@ -18,7 +18,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AddlrbillseriesComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
 
 
@@ -66,7 +66,7 @@ get f() { return this.formUser.controls; }
 
 //Submit user form details //
 submitLRBIllSeriesForm(): void {
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   if (this.formUser.invalid) {
     return;
   }

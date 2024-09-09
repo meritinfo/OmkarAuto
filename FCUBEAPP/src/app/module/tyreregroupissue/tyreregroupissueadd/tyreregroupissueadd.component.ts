@@ -29,7 +29,7 @@ export class TyreregroupissueaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -239,7 +239,6 @@ export class TyreregroupissueaddComponent {
   }   
     
   submitRegroupIssueForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -299,6 +298,7 @@ export class TyreregroupissueaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyreregroupissueService.tyreregroupissueMasterSubmitted(this.tyreregroupissue).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

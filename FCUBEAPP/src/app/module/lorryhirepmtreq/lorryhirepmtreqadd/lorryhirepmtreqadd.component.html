@@ -22,7 +22,7 @@
                                                 <label for="formrow-inputZip">Req. Branch </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="reqBranch"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['reqBranch'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['reqBranch'].invalid) }"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -35,7 +35,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false" 
                                                 min="{{minDate}}" max="{{maxDate}}"   
                                                 formControlName="reqDate" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['reqDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['reqDate'].invalid) }">
                                             </div>
                                         </div>   
                                     </div>
@@ -45,7 +45,7 @@
                                                 <label for="formrow-inputZip">Challan Year </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="chYear"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['chYear'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chYear'].invalid) }"> 
                                                     <option *ngFor="let br of yearList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -57,7 +57,7 @@
                                                 <label for="formrow-inputZip">Challan Branch </label><span style="color: red">*</span>  
                                                 <select class="form-control form-select ng-pristine ng-touched"
                                                  formControlName="challanBranch"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['challanBranch'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['challanBranch'].invalid) }"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -69,7 +69,7 @@
                                                 <label for="formrow-inputZip">Challan No</label><span style="color: red">*</span>    
                                                 <input autoclose="false" (change)="getChallanDetails()"
                                                 formControlName="challanNo" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['challanNo'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                             </div>
                                         </div>   
                                     </div>
@@ -140,7 +140,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md"  
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitextrapmtreqForm()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteextrapmtreq()">Delete</button>&nbsp;

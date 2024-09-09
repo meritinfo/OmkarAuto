@@ -22,7 +22,7 @@
                                             <label >Trans Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                                 formControlName="transDate" max="{{maxDate}}"                                         
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
                                   
@@ -32,14 +32,14 @@
                                             <label>Trips UptoDate: </label><span style="color: red">*</span> 
                                             <input  type="date" class="form-control" 
                                             formControlName="tripsUptoDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tripsUptoDate'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tripsUptoDate'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>Branch : </label>
                                             <select class="form-control" formControlName="transBranch"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transBranch'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transBranch'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -272,7 +272,7 @@
                                 <label>Cheq CashAmt: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="cheqCashAmt" decimalonly
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['cheqCashAmt'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['cheqCashAmt'].invalid) }">
                             </div>
                         </div> 
                         <div class="col-sm-2">
@@ -280,7 +280,7 @@
                                 <label>Amt Recd: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="amtRecd" 
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtRecd'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['amtRecd'].invalid) }">
                             </div>
                         </div>   
                         <div class="col-sm-2">
@@ -288,7 +288,7 @@
                                 <label>AmtDed: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="amtDed" 
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtDed'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['amtDed'].invalid) }">
                             </div>
                         </div>   
                         <div class="col-sm-2">
@@ -296,7 +296,7 @@
                                 <label>AmtTDS: </label><span style="color: red">*</span> 
                                 <input numbersonly type="text" class="form-control" 
                                 formControlName="amtTDS" 
-                                [ngClass]="{ 'is-invalid': userSubmitted && (f['amtTDS'].invalid) }">
+                                [ngClass]="{ 'is-invalid': formSubmitted && (f['amtTDS'].invalid) }">
                             </div>
                         </div>   
                     </div> 
@@ -357,7 +357,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                             <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md" 
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitVehicleRepMaintMasterForm()">Save</button>&nbsp;                            
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="advancereceiptMasterDelete()">Delete</button>&nbsp;

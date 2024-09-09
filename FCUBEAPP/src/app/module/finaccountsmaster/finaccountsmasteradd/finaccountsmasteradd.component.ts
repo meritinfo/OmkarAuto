@@ -268,7 +268,6 @@ export class FinaccountsmasteraddComponent {
   
   //Submit user form details //
   submitFinAccountMasterForm(): void {
-    this.formSubmitted = true;
     if (this.formAccountMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formAccountMaster.controls;
@@ -282,6 +281,7 @@ export class FinaccountsmasteraddComponent {
     var selectedDataValue = this.formAccountMaster.getRawValue();
    
     this.sharedService.loading = true;
+    this.formSubmitted = true;
     
     this.finaccountmodel.accountId          = this.selectedFinaccountMasterDetails.accountId != '' ? this.selectedFinaccountMasterDetails.accountId : '';
     this.finaccountmodel.accountName        = selectedDataValue.accountName.toString().toUpperCase();

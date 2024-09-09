@@ -21,7 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddtransportmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -297,7 +297,6 @@ export class AddtransportmasterComponent {
   }
 
   submitTransportMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -309,6 +308,7 @@ export class AddtransportmasterComponent {
       return;
     }
     var selectedData = this.formUser.getRawValue();
+    this.formSubmitted = true;
 
     this.transportMasterModel.tptCode = this.selectedTransportMasterDetail.tptCode;
     this.transportMasterModel.tptName= selectedData.tptName.toString().toUpperCase();

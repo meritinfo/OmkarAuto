@@ -32,7 +32,7 @@ export class TyresalesaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -382,7 +382,6 @@ export class TyresalesaddComponent {
   }   
     
   submitsaleForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -467,6 +466,7 @@ export class TyresalesaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyresalesService.tyresalesMasterSubmitted(this.tyresalesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

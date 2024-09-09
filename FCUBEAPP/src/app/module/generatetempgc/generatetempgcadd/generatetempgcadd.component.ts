@@ -25,7 +25,7 @@ export class GeneratetempgcaddComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -644,7 +644,7 @@ export class GeneratetempgcaddComponent {
 
     this.sharedService.loading=true;
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);
     formData.append('vehPanDoc', this.vehPanDocInput.nativeElement.files[0]);

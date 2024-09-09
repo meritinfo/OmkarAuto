@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class CustwizardaddComponent {
   loggedInUserID: string = '';
   formCustWizard!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];

@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class ConsolidatedopenbalComponent {
   loggedInUserID: string = '';
   formBankRecEntry!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branchCode: string = '';
   year: string = '';
   loginDate: string = '';

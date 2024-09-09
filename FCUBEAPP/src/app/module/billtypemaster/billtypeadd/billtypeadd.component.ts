@@ -21,7 +21,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class BilltypeaddComponent {
   loggedInUserID: string = '';
   formBillTypeMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -159,7 +159,7 @@ submitBillTypeMasterForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formBillTypeMaster.getRawValue();
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   this.billstypemodel.billTypeId = this.selectedBillsTypeMasterDetails.billTypeId != '' ? this.selectedBillsTypeMasterDetails.billTypeId : '';
   this.billstypemodel.billTypeDesc  = selectedDataVal.billTypeDesc.toString().toUpperCase();
   this.billstypemodel.mainAc = selectedDataVal.mainAc;

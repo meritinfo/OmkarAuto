@@ -155,7 +155,6 @@ export class AdddestinationComponent {
 
   //Submit user form details //
   submitDestinationForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -168,7 +167,8 @@ export class AdddestinationComponent {
     }
 
     this.sharedService.loading=true;
-    this.destinationModel.centreid = this.selectedDestinationDetails.centreid != '' ? this.selectedDestinationDetails.centreid : '';
+    this.formSubmitted = true;
+    this.destinationModel.centreid = this.selectedDestinationDetails.centreid;
     var selectedDataValue = this.formUser.getRawValue();
     this.destinationModel.centreName      = selectedDataValue.centreName.toString().toUpperCase();
     this.destinationModel.pinCode         = selectedDataValue.pinCode.toString();

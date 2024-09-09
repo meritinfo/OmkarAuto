@@ -252,6 +252,14 @@ export class ChallanmasteraddComponent {
           challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
           brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
         })   
+        var ch = this.selectedChallanDetails.vehicleOwnerPanNo.substring(3, 4) ;
+        if(ch == "P"){            
+          this.formUser.controls["declarationYN"].enable();              
+        }
+        else{            
+          this.formUser.controls["declarationYN"].disable();  
+        }
+
         var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
         var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
         var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
@@ -560,7 +568,6 @@ export class ChallanmasteraddComponent {
           var ch = pan.substring(3, 4) ;
           if(ch == "P" || ch == "H"){
             if(panValid == "Y" && aadharLinked == "Y"){
-              this.formUser.controls["declarationYN"].enable();  
               tdsPct = 1;
             }
             else{
@@ -799,73 +806,80 @@ export class ChallanmasteraddComponent {
       this.selectedChallanDetails.challanDateTime = selectedData.challanDateTime;
       this.selectedChallanDetails.chStatus = selectedData.chStatus;
       this.selectedChallanDetails.balancePayAt = selectedData.balancePayAt;
-
       this.formUser.patchValue(this.selectedChallanDetails);
-      this.formUser.patchValue({
-        driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
-        challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
-        challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
-        brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
-      })  
- 
-      var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
-      var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
-      var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
-      var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
-      var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
-      var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
-            
-      this.formUser.patchValue({
-        ownTruckYN: ownTruckYN,
-        panValid: panValid, 
-        aadharLinked: aadharLinked, 
-        itFiled: itFiled,
-        permitValid: permitValid,
-        declarationYN: declarationYN,
-      })  
 
-      if (res.challanDtls.length>0) {      
-        this.formArray.controls[0].get("gcYear")?.setValue(res.challanDtls[0].gcYear);
-        this.formArray.controls[0].get("gcBook")?.setValue(res.challanDtls[0].gcBook);
-        this.formArray.controls[0].get("gcNoteNo")?.setValue(res.challanDtls[0].gcNoteNo);
-        this.formArray.controls[0].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
-        this.formArray.controls[0].get("fplace")?.setValue(res.challanDtls[0].fplace);
-        this.formArray.controls[0].get("tplace")?.setValue(res.challanDtls[0].tplace);
-        this.formArray.controls[0].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
-        this.formArray.controls[0].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
-        this.formArray.controls[0].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
-        
-        this.formArray.controls[0].get("gcYear")?.disable();
-        this.formArray.controls[0].get("gcBook")?.disable();
-        this.formArray.controls[0].get("gcNoteNo")?.disable();
-        this.formArray.controls[0].get("consignmentId")?.disable();
-        this.formArray.controls[0].get("fplace")?.disable();
-        this.formArray.controls[0].get("tplace")?.disable();
-        this.formArray.controls[0].get("bookingDate")?.disable();
-        pkgs += parseInt(res.challanDtls[0].challanPkgs);
-        wt += parseFloat(res.challanDtls[0].challanWT);
-      }  
-          
-      this.formUser.patchValue({
-        totPkgs: pkgs,
-        totActWt: wt, 
-        totChrgWt: wt, 
-      });    
-
-      if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
-        this.formUser.patchValue({        
-          tdsPct: 20
-        });  
+      var chln = this.selectedChallanDetails.challanFromStn;
+      if (typeof chln === 'undefined' || chln === null || chln === '') {
+        this.toastrService.warning("LR No Doesn't Exists ");
+        return;
       }
       else{
+        this.formUser.patchValue({
+          driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
+          challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
+          challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
+          brokerId : this.brokerList.find(e => e.dataId == this.selectedChallanDetails.brokerId),           
+        })  
+   
+        var ownTruckYN = this.selectedChallanDetails.ownTruckYN=="Y"?"Y":"";
+        var panValid = this.selectedChallanDetails.panValid=="Y"?"Y":"";
+        var aadharLinked = this.selectedChallanDetails.aadharLinked=="Y"?"Y":"";
+        var itFiled = this.selectedChallanDetails.itFiled=="Y"?"Y":"";
+        var permitValid = this.selectedChallanDetails.permitValid=="Y"?"Y":"";
+        var declarationYN = this.selectedChallanDetails.declarationYN=="Y"?"Y":"";
+              
+        this.formUser.patchValue({
+          ownTruckYN: ownTruckYN,
+          panValid: panValid, 
+          aadharLinked: aadharLinked, 
+          itFiled: itFiled,
+          permitValid: permitValid,
+          declarationYN: declarationYN,
+        })  
+  
+        if (res.challanDtls.length>0) {      
+          this.formArray.controls[0].get("gcYear")?.setValue(res.challanDtls[0].gcYear);
+          this.formArray.controls[0].get("gcBook")?.setValue(res.challanDtls[0].gcBook);
+          this.formArray.controls[0].get("gcNoteNo")?.setValue(res.challanDtls[0].gcNoteNo);
+          this.formArray.controls[0].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
+          this.formArray.controls[0].get("fplace")?.setValue(res.challanDtls[0].fplace);
+          this.formArray.controls[0].get("tplace")?.setValue(res.challanDtls[0].tplace);
+          this.formArray.controls[0].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
+          this.formArray.controls[0].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
+          this.formArray.controls[0].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
+          
+          this.formArray.controls[0].get("gcYear")?.disable();
+          this.formArray.controls[0].get("gcBook")?.disable();
+          this.formArray.controls[0].get("gcNoteNo")?.disable();
+          this.formArray.controls[0].get("consignmentId")?.disable();
+          this.formArray.controls[0].get("fplace")?.disable();
+          this.formArray.controls[0].get("tplace")?.disable();
+          this.formArray.controls[0].get("bookingDate")?.disable();
+          pkgs += parseInt(res.challanDtls[0].challanPkgs);
+          wt += parseFloat(res.challanDtls[0].challanWT);
+        }  
+            
+        this.formUser.patchValue({
+          totPkgs: pkgs,
+          totActWt: wt, 
+          totChrgWt: wt, 
+        });    
+  
+        if(this.selectedChallanDetails.vehicleOwnerPanNo==""){
+          this.formUser.patchValue({        
+            tdsPct: 20
+          });  
+        }
+        else{
+          setTimeout(() => {
+            this.onOwnerPanChange();
+          }, 2000);
+        }   
+  
         setTimeout(() => {
-          this.onOwnerPanChange();
+          this.calculateTotalAmount();
         }, 2000);
-      }   
-
-      setTimeout(() => {
-        this.calculateTotalAmount();
-      }, 2000);
+      }
     });
   }
 

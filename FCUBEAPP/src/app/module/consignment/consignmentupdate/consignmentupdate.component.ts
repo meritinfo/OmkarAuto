@@ -476,7 +476,6 @@ export class ConsignmentupdateComponent {
   }
 
   updateLrDetailsForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");
       const controls = this.formUser.controls;
@@ -489,7 +488,7 @@ export class ConsignmentupdateComponent {
     }
 
     var selectedDataValue = this.formUser.getRawValue();
-
+    this.formSubmitted = true;
     this.sharedService.loading = true;
     this.cnmodel.consignmentID = this.lrmodel.consignmentID;
     this.cnmodel.rateType = selectedDataValue.rateType ? selectedDataValue.rateType : "0";   

@@ -286,6 +286,7 @@ export class DistancemastertripaddComponent {
         }
       });
     }
+    this.formSubmitted = true;
     this.distanceMastertripService.distanceMastertripSubmitted(this.distancemastertripmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

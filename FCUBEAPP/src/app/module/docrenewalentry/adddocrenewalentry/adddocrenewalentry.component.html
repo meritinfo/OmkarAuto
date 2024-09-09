@@ -31,7 +31,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false" 
                                                 min="{{minDate}}" max="{{maxDate}}"
                                                 formControlName="transDate" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
                                             </div>
                                         </div>                                      
                                           <div class="col-lg-2">
@@ -40,7 +40,7 @@
                                                 <select id="formrow-inputState" class="form-control" 
                                                 formControlName="pmtType" (change)="changePmtType($event)"
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"> 
                                                     <option value="M">Cash</option>      
                                                     <option value="B">Bank</option> 
                                                     <option value="H">Happay</option>
@@ -57,7 +57,7 @@
                                                 <select id="formrow-inputState" class="form-control" 
                                                 class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="docRenewalID"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['docRenewalID'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['docRenewalID'].invalid) }"> 
                                                    <option *ngFor="let doc of docRenewalList" value={{doc.dataId}}>
                                                       {{doc.dataName}}
                                                    </option>
@@ -79,7 +79,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }" >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterID'].invalid) }" >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -98,7 +98,7 @@
                                                 <input type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy" 
                                                 formControlName="validFromDt" class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['validFromDt'].invalid) }" >
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['validFromDt'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -107,7 +107,7 @@
                                                 <input type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy"
                                                 formControlName="validToDt"  class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['validToDt'].invalid) }" >
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['validToDt'].invalid) }" >
                                                 
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Branch </label><span style="color: red">*</span>  
                                                 <select class="form-control" formControlName="branchCode"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }"> 
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }"> 
                                                     <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                         {{br.dataName}}
                                                     </option>
@@ -129,7 +129,7 @@
                                                 <label for="formrow-inputZip">Document RefNo</label><span style="color: red">*</span>                                                 
                                                 <input type="text" class="form-control"
                                                 formControlName="documentRefNo" uppercaseonly
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['documentRefNo'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['documentRefNo'].invalid) }"> 
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -155,7 +155,7 @@
                                                 <input type="text" class="form-control" decimalonly
                                                 formControlName="basicAmt" (change)="onBasic1Change($event)" 
                                                 maxlength="10"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['basicAmt'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['basicAmt'].invalid) }"> 
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -335,7 +335,7 @@
                                                 <label for="formrow-inputCity">Credit Account</label>
                                                 <select class="form-control" formControlName="creditAc"
                                                 class="form-control form-select ng-pristine ng-touched"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }"> 
                                                     <option *ngFor="let crd of creditacList" value={{crd.dataId}}>
                                                         {{crd.dataName}}
                                                     </option>
@@ -358,7 +358,7 @@
                                                 <label for="formrow-inputZip">Cheque No</label>
                                                 <input numbersonly autoclose="false" class="form-control" 
                                                 formControlName="chequeNo" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeNo'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeNo'].invalid) }"> 
                                             </div>
                                         </div>                                   
                                         <div class="col-lg-2">
@@ -367,7 +367,7 @@
                                                 <input bsdatepicker="" type="date" autoclose="false" 
                                                 placeholder="dd-mm-yyyy" formControlName="chequeDt"
                                                 class="form-control"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['chequeDt'].invalid) }"> 
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['chequeDt'].invalid) }"> 
                                             </div>
                                         </div>
                                     </div>
@@ -408,7 +408,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                     <div class="tex">
-                        <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                        <button class="btn btn-primary w-md" 
+                        *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                             (click)="submitDocRenewalEntryForm()">Save</button>&nbsp;
                         <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteDocRenewalEntryForm()">Delete</button>&nbsp;

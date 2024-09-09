@@ -173,7 +173,6 @@ export class RoleprivilegesComponent {
 
  
   submitRolePrivilegesForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -185,8 +184,8 @@ export class RoleprivilegesComponent {
       return;
     }
            
-    this.sharedService.loading=true;
     var selectedDataVal=this.formUser.getRawValue();
+    this.formSubmitted = true;
     this.roleprivilegeslistmodel.roleId = selectedDataVal.roleId ;
     
     this.roleprivilegeslistmodel.rolePrivilegesMasterList = [];

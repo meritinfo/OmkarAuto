@@ -322,7 +322,6 @@ export class AddratesmasterComponent implements OnInit {
 
   //Submit form details //
   submitRatesMasterForm(): void {
-    this.formSubmitted = true;
     if (this.formRatesMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formRatesMaster.controls;
@@ -421,6 +420,7 @@ export class AddratesmasterComponent implements OnInit {
       }
     }
 
+    this.formSubmitted = true;
     this.ratesMasterService.ratesMasterSubmitted(this.ratesmastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

@@ -17,7 +17,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class AddproductmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -139,7 +139,7 @@ export class AddproductmasterComponent {
       } 
       return;
     }
-    
+    this.formSubmitted = true;
     this.productMasterModel.productId = this.selectedProductMasterDetails.productId ;
     this.productMasterModel.productName= this.formUser.value.productName.toString().toUpperCase();
     this.productMasterModel.isActive = this.formUser.value.isActive.toString().toUpperCase();

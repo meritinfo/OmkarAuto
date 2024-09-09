@@ -534,7 +534,6 @@ export class LorryhirepmtaddComponent {
 
   //Submit form details //
   submitLorryHirePaymentForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -620,6 +619,7 @@ export class LorryhirepmtaddComponent {
       }
     }
 
+    this.formSubmitted = true;
     this.lorryhirepmtService.lorryhiremasterSubmitted(this.lorryhiremastermodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

@@ -52,7 +52,7 @@ export class TripstatusrptComponent {
 
 }
 formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -265,7 +265,7 @@ formFilter!: FormGroup;
       
     //Open user details screen
     exportExcel(): void {      
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -296,7 +296,7 @@ formFilter!: FormGroup;
     }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

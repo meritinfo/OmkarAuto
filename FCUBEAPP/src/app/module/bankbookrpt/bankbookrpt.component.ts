@@ -51,7 +51,7 @@ export class BankbookrptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -228,7 +228,7 @@ export class BankbookrptComponent {
   }
 
   exportPdf(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -271,7 +271,7 @@ export class BankbookrptComponent {
   }    
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

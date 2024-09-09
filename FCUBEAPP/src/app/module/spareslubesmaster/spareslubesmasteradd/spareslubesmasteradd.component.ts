@@ -21,7 +21,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class SpareslubesmasteraddComponent {
   loggedInUserID: string = '';
   formSparesMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -178,7 +178,7 @@ submitSparesLubesMasterForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formSparesMaster.getRawValue();
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   this.sparesLubesMasterModel.spareLubId = this.selectedSpareslubesMasterDetails.spareLubId ;
   this.sparesLubesMasterModel.spareLubName  = selectedDataVal.spareLubName.toString().toUpperCase();
   this.sparesLubesMasterModel.spareLubType = selectedDataVal.spareLubType;

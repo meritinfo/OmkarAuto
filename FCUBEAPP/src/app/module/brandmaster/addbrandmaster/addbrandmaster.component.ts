@@ -24,9 +24,8 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class AddbrandmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
-  responseDetails = new Responsemodel();
   formSubmitted = false;
+  responseDetails = new Responsemodel();
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -149,10 +148,17 @@ get f() { return this.formUser.controls; }
 
 //Submit user form details //
 submitBrandMasterForm(): void {
-  this.userSubmitted = true;
   if (this.formUser.invalid) {
+    this.toasterService.warning("Please Enter Mandatory Fields ");
+    const controls = this.formUser.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    } 
     return;
   }
+  this.formSubmitted = true;
   this.brandMasterModel.brandID = this.selectedBrandMasterDetails.brandID != '' ? this.selectedBrandMasterDetails.brandID : '';
   this.brandMasterModel.brandName= this.formUser.value.brandName.toString().toUpperCase();
   this.brandMasterModel.brandType = this.formUser.value.brandType;

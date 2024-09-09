@@ -18,7 +18,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class EwaybillextensionaddComponent {  
     loggedInUserID: string = '';
     formUser!: FormGroup;
-    userSubmitted = false;
+    formSubmitted = false;
     editMode = false;
     createStatus = false;
     editStatus = false;
@@ -197,7 +197,7 @@ export class EwaybillextensionaddComponent {
 
     //Submit user form details //
     submitDocRenewalMasterForm(): void {
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formUser.invalid) {
         this.toasterService.warning("Please Enter Mandatory Fields ");   
         const controls = this.formUser.controls;

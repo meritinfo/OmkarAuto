@@ -29,7 +29,7 @@ export class TyreativateaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -284,7 +284,6 @@ export class TyreativateaddComponent {
   }   
     
   submitTyreActivateForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -356,6 +355,7 @@ export class TyreativateaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyreactivateService.tyreactivateMasterSubmitted(this.tyreactivate).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

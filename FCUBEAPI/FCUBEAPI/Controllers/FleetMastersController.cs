@@ -283,7 +283,26 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-      
+        [HttpPost("ChkDriverDuplicate")]
+        public async Task<IActionResult> ChkDriverDuplicate(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await driverMasterBusiness.ChkDriverDuplicate(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+       
+
 
         /// <summary>
         /// Controller method for vehicle type master

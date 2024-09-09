@@ -21,7 +21,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputCity">Branch</label><span style="color: red">*</span>    
                                                 <select class="form-control" formControlName="tripBranch" 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripBranch'].invalid) }" >
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['tripBranch'].invalid) }" >
                                                     <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                         {{branch.dataName}}
                                                     </option>
@@ -32,21 +32,21 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Stmt Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="stmtDate"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['stmtDate'].invalid) }" >
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['stmtDate'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">Dept Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="deptDate"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['deptDate'].invalid) }" >
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['deptDate'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="mb-2">
                                                 <label for="formrow-inputState">End Date</label><span style="color: red">*</span>    
                                                 <input type="date" class="form-control" formControlName="endDate"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['endDate'].invalid) }" >
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['endDate'].invalid) }" >
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleMasterID'].invalid) }" >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleMasterID'].invalid) }" >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -81,7 +81,7 @@
                                             <div class="mb-3">
                                                 <label for="formrow-inputState">Trip No</label><span style="color: red">*</span>    
                                                 <input class="form-control" formControlName="tripNo"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['tripNo'].invalid) }" >
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['tripNo'].invalid) }" >
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -97,7 +97,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter" 
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMasterID'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMasterID'].invalid) }">
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -507,7 +507,7 @@
                                         <div class="mb-2">
                                             <input type="checkbox" name="tripStatus" formControlName="tripStatus"  
                                             (change)="changeTripClose($event)" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tripStatus'].invalid) }"
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tripStatus'].invalid) }"
                                                 class="form-check-input" />
                                             <label for="tripStatus">Trip Close</label>
                                         </div>

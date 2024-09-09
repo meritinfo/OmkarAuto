@@ -175,7 +175,6 @@ export class FingroupaddComponent {
 
 //Submit user form details //
   submitFinGroupMasterForm(): void {
-    this.formSubmitted = true;
     if (this.formFinGroup.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");  
       const controls = this.formFinGroup.controls;
@@ -187,6 +186,7 @@ export class FingroupaddComponent {
       return;
     }
     
+    this.formSubmitted = true;
     this.fingroupmodel.accountId = this.selectedFinGroupMasterDetails.accountId != '' ? this.selectedFinGroupMasterDetails.accountId : '';
     this.fingroupmodel.groupName= this.formFinGroup.value.groupName.toString().toUpperCase();
     this.fingroupmodel.accountType= this.formFinGroup.value.accountType.toString().toUpperCase();

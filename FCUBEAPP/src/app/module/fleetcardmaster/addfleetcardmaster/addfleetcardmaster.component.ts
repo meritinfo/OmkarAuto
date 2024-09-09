@@ -26,7 +26,7 @@ export class AddfleetcardmasterComponent {
   
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];
@@ -158,12 +158,19 @@ exit(): void {
 
 //Submit user form details //
 submitFleetCardMasterForm(): void {
-  this.userSubmitted = true;
   if (this.formUser.invalid) {
-    this.toastrService.warning("Mandatory fields is required");
+    this.toastrService.warning("Please Enter Mandatory Fields "); 
+    const controls = this.formUser.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toastrService.warning(name + " Fields is Invalid");   
+      }
+    } 
     return;
   }
-  this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId != '' ? this.selectedFleetCardMasterDetails.cardId : '';
+            
+  this.formSubmitted = true;
+  this.fleetcardMasterModel.cardId = this.selectedFleetCardMasterDetails.cardId;
   var selectedDataValue = this.formUser.getRawValue();
 
   this.fleetcardMasterModel.cardType= selectedDataValue.cardType;

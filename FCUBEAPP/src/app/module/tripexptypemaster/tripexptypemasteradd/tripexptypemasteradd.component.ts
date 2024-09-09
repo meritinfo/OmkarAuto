@@ -20,7 +20,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class TripexptypemasteraddComponent {
   loggedInUserID: string = '';
   formTripExpMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -142,7 +142,7 @@ export class TripexptypemasteraddComponent {
     this.sharedService.loading = true;
   
     var selectedDataVal = this.formTripExpMaster.getRawValue();
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.tripExpTypeMasterModel.expId = this.selectedTripExpMasterDetails.expId ;
     this.tripExpTypeMasterModel.expDesc  = selectedDataVal.expDesc.toString().toUpperCase();
     this.tripExpTypeMasterModel.loggedInUser  = this.loggedInUserID;

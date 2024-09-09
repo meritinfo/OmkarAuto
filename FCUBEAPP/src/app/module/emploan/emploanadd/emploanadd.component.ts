@@ -20,7 +20,7 @@ import { EmpmasterService } from 'src/app/services/empmaster.service';
 export class EmploanaddComponent{
   loggedInUserID: string = '';
   formEmployee!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -181,7 +181,6 @@ export class EmploanaddComponent{
   }
 
   submitEmpLoanForm() {
-    this.userSubmitted = true;
     if (this.formEmployee.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formEmployee.controls;
@@ -193,6 +192,7 @@ export class EmploanaddComponent{
       return;
     }
     var selectedDataVal = this.formEmployee.getRawValue();
+    this.formSubmitted = true;
     this.emploanmodel.loanId          = this.selectedEmploanmodelDetails.loanId.toString();             
     this.emploanmodel.empId           = selectedDataVal.empId.dataId;    
     this.emploanmodel.loanDate        = selectedDataVal.loanDate;           

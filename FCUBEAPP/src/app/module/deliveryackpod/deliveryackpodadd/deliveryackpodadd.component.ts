@@ -429,7 +429,6 @@ export class DeliveryackpodaddComponent {
   }
   
   submitDeliveryackpodSave(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -441,7 +440,8 @@ export class DeliveryackpodaddComponent {
       return;
     }
 
-    this.sharedService.loading=true;
+    this.sharedService.loading = true;
+    this.formSubmitted = true;
     var selectedDataValue = this.formUser.getRawValue();
     this.deliveryackpodmodel.ackId              = this.selectedDeliveryackpod.ackId ;
     this.deliveryackpodmodel.ackBranch          = selectedDataValue.ackBranch.toString().toUpperCase();

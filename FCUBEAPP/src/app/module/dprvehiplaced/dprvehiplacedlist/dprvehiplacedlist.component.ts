@@ -48,7 +48,7 @@ export class DprvehiplacedlistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false;
-  userSubmitted = false;
+  formSubmitted = false;
 
   vehfromDate: string = '';
   vehtoDate: string = '';
@@ -272,7 +272,7 @@ export class DprvehiplacedlistComponent {
   get f() { return this.formFilter.controls; }
 
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formFilter.controls;

@@ -24,7 +24,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AddtyrepositionmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   editMode = false;
   createStatus = false;
@@ -142,12 +142,11 @@ submitTyrePositionMasterForm(): void {
     return;
   }
     
-
+  this.formSubmitted = true;
+  
   this.TyrePositionMasterModel.tyrePosID = this.selectedTyrePositionMasterDetails.tyrePosID != '' ? this.selectedTyrePositionMasterDetails.tyrePosID : '';
   this.TyrePositionMasterModel.fitmentPosition= this.formUser.value.fitmentPosition.toString().toUpperCase();
   this.TyrePositionMasterModel.activeYN= this.formUser.value.activeYN;
-
-
 
   this.tyrepositionmasterService.tyrepositionMasterDetailsSubmitted(this.TyrePositionMasterModel).subscribe((res: Responsemodel) => {
     this.responseDetails = res;

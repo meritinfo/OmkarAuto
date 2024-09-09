@@ -347,7 +347,6 @@ export class HappaystatementaddComponent implements OnInit {
   }
 
   saveStatementDetails(): void {
-    this.formSubmitted = true;
     if (this.formDieselStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDieselStatement.controls;
@@ -374,6 +373,7 @@ export class HappaystatementaddComponent implements OnInit {
     }
           
     this.sharedService.loading=true;
+    this.formSubmitted = true;
     this.DieselStatementmodel.masterID        = this.selectedDieselStmtDetails.masterID ;
     this.DieselStatementmodel.branchCode      = selectedDataVal.statementBranch;
     this.DieselStatementmodel.billStmtNo      = "";

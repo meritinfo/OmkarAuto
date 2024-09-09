@@ -25,7 +25,7 @@ export class GeneratetempgceditComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -645,7 +645,7 @@ export class GeneratetempgceditComponent {
 
     this.sharedService.loading=true;
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     
     let formData = new FormData();
     formData.append('vehRcDoc', this.vehRcDocInput.nativeElement.files[0]);

@@ -200,7 +200,7 @@ namespace FleetMasters.Repository
                         {
                            new SqlParameter("@VehicleMasterID", req.strRequest),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltDetailsDelete", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_VehicleFltMasterDelete", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {

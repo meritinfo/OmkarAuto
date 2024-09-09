@@ -24,7 +24,7 @@ export class DprvehiplacedaddComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -531,7 +531,7 @@ export class DprvehiplacedaddComponent {
       });
     }
 
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     setTimeout(() => {     
       if(chkDuplicate){

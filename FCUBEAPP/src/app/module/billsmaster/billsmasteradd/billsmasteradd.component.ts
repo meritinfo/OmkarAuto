@@ -458,7 +458,6 @@ export class BillsmasteraddComponent implements OnInit {
   
 
   saveBillsDetails(): void {
-    this.formSubmitted = true;
     if (this.formBillsMaster.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formBillsMaster.controls;
@@ -502,6 +501,7 @@ export class BillsmasteraddComponent implements OnInit {
       return;
     }
 
+    this.formSubmitted = true;
     this.billsmastermodel.billsMasterId = this.selectedBillsmasterDetails.billsMasterId;
     this.billsmastermodel.billingStation = selectedDataValue.billingStation;
     this.billsmastermodel.billNo = selectedDataValue.billNo;

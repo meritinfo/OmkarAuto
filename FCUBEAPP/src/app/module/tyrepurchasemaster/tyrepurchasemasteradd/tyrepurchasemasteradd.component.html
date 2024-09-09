@@ -20,7 +20,7 @@
                                         <div class="mb-3">
                                             <label>Branch Code: </label>
                                             <select class="form-control" formControlName="branchCode"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -32,7 +32,7 @@
                                             <label >Purchase Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                                 formControlName="purchaseDate" max="{{maxDate}}"                                         
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['purchaseDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['purchaseDate'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -53,7 +53,7 @@
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
                                             formControlName="purchaseType"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['purchaseType'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['purchaseType'].invalid) }">
                                             <option value="N">New Tyres</option>
                                             <option value="V">Vehicle Tyres</option>   
                                             <option value="S">Stock Tyres</option>  
@@ -76,7 +76,7 @@
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
                                                     formControlName="vendorId" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
@@ -120,7 +120,7 @@
                                             <label>Vendor Gst No: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vendorGstNo" maxlength="15" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGstNo'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorGstNo'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
@@ -128,7 +128,7 @@
                                             <label>Vendor Inv No: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vendorInvNo" maxlength="20" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvNo'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-sm-2">
@@ -136,7 +136,7 @@
                                             <label>Vendor Inv Dt: </label><span style="color: red">*</span> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             formControlName="vendorInvDt"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
@@ -144,7 +144,7 @@
                                             <label>Tyre Sac Code: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="tyreSacCode" maxlength="15" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['tyreSacCode'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['tyreSacCode'].invalid) }">
                                         </div>
                                     </div>  
                                 </div>             
@@ -161,83 +161,32 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-tyre-width">
                                             <tr>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Tyre No </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Brand</h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Tyre Pattern </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Tyre Model  </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Tyre Amt </h6>
-                                                    </label>
-                                                </td>    
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>SGST Pct </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>SGST Amt  </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>CGST Pct   </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>CGST Amt    </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>IGST Pct     </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>IGST Amt      </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Net Tyre Amount      </h6>
-                                                    </label>
-                                                </td>
-                                                <td class="col-lg-2">
-                                                    <label for="formrow-inputZip">
-                                                        <h6>Est Life KM       </h6>
-                                                    </label>
-                                                </td>
+                                                <th><label for="formrow-inputZip">Tyre No</label></th>
+                                                <th><label for="formrow-inputZip">Brand</label></th>
+                                                <th><label for="formrow-inputZip">Tyre Pattern</label></th>
+                                                <th><label for="formrow-inputZip">Tyre Model</label></th>
+                                                <th><label for="formrow-inputZip">Tyre Amt</label></th>
+                                                <th><label for="formrow-inputZip">SGST Pct</label></th>
+                                                <th><label for="formrow-inputZip">SGST Amt</label></th>
+                                                <th><label for="formrow-inputZip">CGST Pct</label></th>
+                                                <th><label for="formrow-inputZip">CGST Amt</label></th>
+                                                <th><label for="formrow-inputZip">IGST Pct</label></th>
+                                                <th><label for="formrow-inputZip">IGST Amt</label></th>
+                                                <th><label for="formrow-inputZip">Net Tyre Amount</label></th>
+                                                <th><label for="formrow-inputZip">Est Life KM</label></th>
+                                                <th></th>
                                             </tr>
                                             <tr formArrayName="arrayList"
                                                     *ngFor="let arrayData of formTyreArray.controls; let i = index">
                                                 <div [formGroupName]="i" class="grid-table">
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input uppercaseonly autoclose="false" class="form-control"
                                                         formControlName="tyreNo" (change)="chkTyreNoDuplicate(i,$event)">                                                     
                                                     
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <select class="form-control" formControlName="brandID"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
@@ -246,11 +195,11 @@
                                                             </option>
                                                          </select>  
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="tyrePattern"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <select class="form-control" formControlName="tyreModel"   
                                                             class="form-control form-select ng-pristine ng-touched">
                                                             <option *ngFor="let vehi of modelList" value={{vehi.dataId}}>
@@ -258,43 +207,43 @@
                                                             </option>
                                                         </select>   
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="tyreAmount" (change)="onPctChange()" >
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="sgstPct" (change)="onPctChange()" >
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="sgstAmt">  
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="cgstPct" (change)="onPctChange()">
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="cgstAmt">  
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="igstPct" (change)="onPctChange()">
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="igstAmt"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input decimalonly autoclose="false" class="form-control"
                                                         formControlName="netTyreAmount">    
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td> 
                                                         <input numbersonly autoclose="false" class="form-control"
                                                         formControlName="estLifeKM"> 
                                                     </td>
-                                                    <td class="col-lg-4">
+                                                    <td> 
                                                         <div class="col-lg-4 details-button">
                                                             <button *ngIf="i === formTyreArray.controls.length-1" type="button"
                                                                 class="btn btn-add" (click)="addItem(i)"></button>
@@ -370,7 +319,7 @@
                                 <select id="formrow-inputState" class="form-control" 
                                 formControlName="pmtType" (change)="changePmtType($event)"
                                 class="form-control form-select ng-pristine ng-touched"
-                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['pmtType'].invalid) }"> 
                                     <option value="M">Cash</option>      
                                     <option value="B">Bank</option> 
                                     <option value="H">Happay</option>
@@ -384,7 +333,7 @@
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
                                 <select class="form-control" 
                                     formControlName="creditAc"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>
@@ -437,7 +386,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                             <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                             <button class="btn btn-primary w-md"  *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitTyrePurchaseMasterForm()">Save</button>&nbsp;                            
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="tyreMasterDelete()">Delete</button>&nbsp;

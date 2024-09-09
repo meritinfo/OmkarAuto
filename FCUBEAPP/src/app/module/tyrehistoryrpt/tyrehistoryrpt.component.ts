@@ -33,7 +33,7 @@ export class TyrehistoryrptComponent {
   allTyremgntRptlist: Tyremasterlistmodel = new Tyremasterlistmodel();
   request: Requestmodel = new Requestmodel();
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -168,7 +168,7 @@ export class TyrehistoryrptComponent {
     
   //Open user details screen
   exportExcel(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -195,7 +195,7 @@ export class TyrehistoryrptComponent {
   }
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

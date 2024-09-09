@@ -307,7 +307,6 @@ export class EmpsalaryaddComponent {
 
   //Submit form details //
   submitEmpSalaryMasterForm(): void {
-    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -378,9 +377,8 @@ export class EmpsalaryaddComponent {
       this.toasterService.warning(" Select Salary Earning/Deduction ");
       return;
     }
-   
-
-    
+       
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     this.empsalaryService.empSalarySubmitted(this.empsalarymstmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

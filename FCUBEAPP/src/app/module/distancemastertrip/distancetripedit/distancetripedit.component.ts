@@ -160,7 +160,6 @@ export class DistancetripeditComponent {
     window.location.reload();
   }
    submitDistanceFreightForm(){
-    this.formSubmitted = true;
     if (this.formDistanceTrip.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDistanceTrip.controls;
@@ -176,7 +175,7 @@ export class DistancetripeditComponent {
       this.toasterService.warning(" KMS should not be Zero");   
       return;
     }
-
+    this.formSubmitted = true;
     this.distancetripeditmodel.masterID             = this.fromMasterId;
     this.distancetripeditmodel.fromLocation         = selectedDataVal.fromLocation.dataId;
     this.distancetripeditmodel.toLocation           = selectedDataVal.toLocation.dataId;

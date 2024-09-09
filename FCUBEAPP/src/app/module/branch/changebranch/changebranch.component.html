@@ -25,7 +25,7 @@
                                     <label for="basicpill-phoneno-input"> Branch </label>
                                     <select   class="form-control form-select ng-pristine ng-touched"
                                         formControlName="userBranch"  
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                         <option *ngFor="let branch of branchList" [ngValue]="branch">
                                             {{branch.dataName}}
                                         </option>
