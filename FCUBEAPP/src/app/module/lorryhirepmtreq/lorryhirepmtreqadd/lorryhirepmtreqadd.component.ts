@@ -20,7 +20,7 @@ import { Constants } from 'src/app/common/constants';
 export class LorryhirepmtreqaddComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -241,6 +241,8 @@ export class LorryhirepmtreqaddComponent {
       this.toasterService.warning("Please Enter Extra Amount");  
       return; 
     }
+
+    this.formSubmitted = true;
 
     this.lorryhirereqmodel.id = this.selectedLorryhirereqDetails.id ;
     this.lorryhirereqmodel.reqBranch = selectedData.reqBranch;

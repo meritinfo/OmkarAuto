@@ -25,7 +25,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddbrsentryComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   cardDetails = new Cardmodel();
   ledgerAcList: Dropdownmodel[] = [];
@@ -151,7 +151,7 @@ export class AddbrsentryComponent {
   }
 
   submitBrsEntryForm(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;

@@ -612,7 +612,6 @@ export class BillstatementaddComponent implements OnInit {
   }  
 
   saveStatementDetails(): void {
-    this.formSubmitted = true;
     if (this.formBillStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formBillStatement.controls;
@@ -633,7 +632,7 @@ export class BillstatementaddComponent implements OnInit {
       this.toasterService.warning("Total Bill Amount Should Not be Zero "); 
       return;
     }
-
+    this.formSubmitted = true;
     this.billsstatementmodel.masterID = this.selectedBillstatementDetails.masterID ;
     this.billsstatementmodel.billStation = selectedDataValue.statementBillStation;
     this.billsstatementmodel.seriesCode = selectedDataValue.billSeries;

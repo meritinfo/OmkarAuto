@@ -22,9 +22,10 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Exp Desc</label>
                                                 <span style="color: red">*</span>
-                                                <input uppercaseonly type="text" class="form-control" placeholder=" "  (change)="chkTripExpMasterDuplicate()"
+                                                <input uppercaseonly type="text" class="form-control" 
+                                                (change)="chkTripExpMasterDuplicate()"
                                                 formControlName="expDesc"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['expDesc'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['expDesc'].invalid) }">
                                             </div>
                                         </div>
                                     </div> 
@@ -36,7 +37,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button class="btn btn-primary w-md" 
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                             (click)="submitMaintanenceMasterForm()" >Save</button> &nbsp;  
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                             (click)="deleteExpTypeMasterForm()">Delete</button> &nbsp;

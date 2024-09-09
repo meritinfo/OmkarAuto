@@ -19,7 +19,7 @@ import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 export class EmpmasteraddComponent {
   loggedInUserID: string = '';
   formEmployee!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -313,7 +313,6 @@ export class EmpmasteraddComponent {
   }
 
   submitEmployeeMasterForm() {
-    this.userSubmitted = true;
     if (this.formEmployee.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");
       const controls = this.formEmployee.controls;
@@ -324,6 +323,7 @@ export class EmpmasteraddComponent {
       }
       return;
     }
+    this.formSubmitted = true;
     var selectedDataVal = this.formEmployee.getRawValue();
     this.employeemodel.empId              = this.selectedEmployeemodelDetails.empId.toString() ;             
     this.employeemodel.empPrefix          = selectedDataVal.empPrefix.toString().toUpperCase()  ;    

@@ -38,6 +38,9 @@ export class DrivermasterService {
   getDriverMasterList(filter: Drivermasterlistrequestmodel): Observable<Drivermasterlistmodel> {
     return this.httpClient.post<Drivermasterlistmodel>(Constants.API_ENDPOINT + 'FleetMasters/GetDriverMasterList', filter, this.httpOptions);
   }
+  chkDriverDupli(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/ChkDriverDuplicate', req, this.httpOptions);
+  }
 
   driverMasterDetailsDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/DriverMasterDetailsDelete', req, this.httpOptions);

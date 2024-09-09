@@ -26,7 +26,7 @@
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="fromDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -35,7 +35,7 @@
                                     <span style="color: red">*</span>    
                                     <input type="date" class="form-control" 
                                     formControlName="toDate" min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>   
                             

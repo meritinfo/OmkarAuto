@@ -20,7 +20,7 @@ import { UserService } from 'src/app/services/user.service';
 export class AddproductgroupmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
 
 
@@ -63,7 +63,7 @@ ngOnInit(): void {
 
   //Submit user form details //
   submitProductGroupMasterForm(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formUser.invalid) {
       return;
     }

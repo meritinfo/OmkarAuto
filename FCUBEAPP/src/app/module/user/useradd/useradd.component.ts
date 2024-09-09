@@ -19,7 +19,7 @@ export class UseraddComponent implements OnInit {
 
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   moduleList: Dropdownmodel[] = [];
@@ -211,7 +211,6 @@ export class UseraddComponent implements OnInit {
   
 
   submitUserForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formUser.controls;
@@ -222,6 +221,7 @@ export class UseraddComponent implements OnInit {
       } 
       return;
     }
+    this.formSubmitted = true;
     var selecteddata = this.formUser.getRawValue();
     this.userModel.userId = this.selectedUserDetails.userId != '' ? this.selectedUserDetails.userId : '';
     this.userModel.userName = selecteddata.userName;

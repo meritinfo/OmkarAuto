@@ -21,7 +21,7 @@
                                             <label>Booked At: </label><span style="color: red">*</span> 
                                             <select id="scope" class="form-select" formControlName="dprBranch"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['dprBranch'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['dprBranch'].invalid) }">
                                                 <option *ngFor="let br of branchList" value={{br.dataId}}>
                                                     {{br.dataName}}
                                                 </option>
@@ -33,7 +33,7 @@
                                             <label >DPR Date: </label><span style="color: red">*</span>  
                                             <input type="date" class="form-control" 
                                             min="{{minDate}}" max="{{maxDate}}" formControlName="dprDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['dprDate'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['dprDate'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
@@ -46,7 +46,7 @@
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['payParty'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['payParty'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
@@ -65,7 +65,7 @@
                                             <select id="formrow-inputState" 
                                             class="form-control form-select ng-pristine ng-touched"
                                                 formControlName="bookStatus"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['bookStatus'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['bookStatus'].invalid) }">
                                                 <option selected="">Choose...</option>
                                                 <option value="TBB">TBB</option>
                                                 <option value="TP">To Pay</option>
@@ -86,7 +86,7 @@
                                                     [itemTemplate]="itemTemplate" 
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
-                                                    [ngClass]="{'is-invalid': userSubmitted && (f['origin'].invalid)}" >
+                                                    [ngClass]="{'is-invalid': formSubmitted && (f['origin'].invalid)}" >
                                                 </ng-autocomplete>
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
@@ -107,7 +107,7 @@
                                                     [itemTemplate]="itemTemplate" 
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
-                                                    [ngClass]="{'is-invalid': userSubmitted && (f['destination'].invalid)}" >
+                                                    [ngClass]="{'is-invalid': formSubmitted && (f['destination'].invalid)}" >
                                                 </ng-autocomplete>
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
@@ -123,7 +123,7 @@
                                             <label>Vehical Type: </label><span style="color: red">*</span>  
                                             <select id="scope" class="form-select" formControlName="vehicleTypeId"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleTypeId'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeId'].invalid) }">
                                                 <option *ngFor="let veh of vehicalTypeList" value={{veh.dataId}}>
                                                     {{veh.dataName}}
                                                 </option>
@@ -143,7 +143,7 @@
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate" 
                                                     [customFilter]="startWithFilter"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['businessBy'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['businessBy'].invalid) }">
                                                 </ng-autocomplete>
                                                 <ng-template #itemTemplate let-item>
                                                     <a [innerHTML]="item.dataName"></a>
@@ -176,7 +176,7 @@
                                             <label>Rate Type: </label><span style="color: red">*</span>  
                                             <select id="scope" class="form-select" formControlName="rateType"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['rateType'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['rateType'].invalid) }">
                                                 <option *ngFor="let rate of rateTypeList" value={{rate.dataId}}>
                                                     {{rate.dataName}}
                                                 </option>
@@ -222,7 +222,7 @@
                                             <label>Hamali Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
                                             maxlength="200" formControlName="hamaliDesc" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['hamaliDesc'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['hamaliDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -240,7 +240,7 @@
                                             <label>LD Detain Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
                                             maxlength="200" formControlName="ldDetenDesc" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['ldDetenDesc'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['ldDetenDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -258,7 +258,7 @@
                                             <label>Extra Chrgs Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
                                             maxlength="200" formControlName="extraDesc" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['extraDesc'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['extraDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -276,7 +276,7 @@
                                             <label>Other Chrgs Desc: </label>
                                             <input uppercaseonly type="text" class="form-control" 
                                             maxlength="200" formControlName="otherDesc" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['otherDesc'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['otherDesc'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -286,7 +286,7 @@
                                             <label>Tot Freight: </label>
                                             <input decimalonly type="text" class="form-control" 
                                             formControlName="totFreightAmt" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['totFreightAmt'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['totFreightAmt'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-lg-4">
@@ -415,7 +415,7 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button class="btn btn-primary w-md" 
-                                *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !this.userSubmitted"
+                                *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !this.formSubmitted"
                                 (click)="submitDprDetails()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteDprDetailsForm()">Delete</button>&nbsp;

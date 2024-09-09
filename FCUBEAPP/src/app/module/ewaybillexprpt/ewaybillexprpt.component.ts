@@ -47,7 +47,7 @@ export class EwaybillexprptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   toDate: string = '';

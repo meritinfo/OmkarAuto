@@ -17,7 +17,7 @@ import { CommonService } from 'src/app/services/common.service';
   styleUrls: ['./deliveryackpodlist.component.css']
 })
 export class DeliveryackpodlistComponent {
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;

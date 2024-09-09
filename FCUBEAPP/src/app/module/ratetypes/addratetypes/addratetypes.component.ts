@@ -21,7 +21,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class AddratetypesComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   
 
   responseDetails = new Responsemodel();
@@ -113,7 +113,7 @@ get f() { return this.formUser.controls; }
 
 //Submit user form details //
 submitRateTypesForm(): void {
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   if (this.formUser.invalid) {
     return;
   }

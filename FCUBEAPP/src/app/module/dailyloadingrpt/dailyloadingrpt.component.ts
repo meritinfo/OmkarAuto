@@ -51,7 +51,7 @@ export class DailyloadingrptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -241,7 +241,7 @@ export class DailyloadingrptComponent {
     }
       
     exportExcel(): void {      
-      this.userSubmitted = true;
+      this.formSubmitted = true;
       if (this.formFilter.invalid) {
         this.toastrService.warning("Please Enter Mandatory Fields");   
         const controls = this.formFilter.controls;
@@ -273,7 +273,7 @@ export class DailyloadingrptComponent {
     }
   
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

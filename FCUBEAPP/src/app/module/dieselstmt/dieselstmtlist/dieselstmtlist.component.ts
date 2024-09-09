@@ -18,7 +18,7 @@ import { CashReceiptEntryService } from 'src/app/services/cashreceiptentry.servi
   styleUrls: ['./dieselstmtlist.component.css']
 })
 export class DieselstmtlistComponent {
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;

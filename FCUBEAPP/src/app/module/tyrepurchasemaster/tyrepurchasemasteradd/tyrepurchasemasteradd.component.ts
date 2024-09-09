@@ -30,7 +30,7 @@ export class TyrepurchasemasteraddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -220,6 +220,7 @@ export class TyrepurchasemasteraddComponent {
           })
         }   
         this.getTyrePurchaseMasterInnerGridList();
+        this.formUser.controls['purchaseType'].disable();         
         this.editMode =true;
       }, 2000);  
     }
@@ -572,7 +573,6 @@ export class TyrepurchasemasteraddComponent {
   }   
     
   submitTyrePurchaseMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -668,6 +668,7 @@ export class TyrepurchasemasteraddComponent {
       return;
     }
 
+    this.formSubmitted = true;
     let formData = new FormData();
     formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.tyrepurchasemastermodel));  

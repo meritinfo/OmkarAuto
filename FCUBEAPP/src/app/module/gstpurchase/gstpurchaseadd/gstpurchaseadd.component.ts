@@ -30,7 +30,7 @@ export class GstpurchaseaddComponent {
   minDate: string = '';
   maxDate: string = '';
   keywordLocation = 'dataName';
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -889,7 +889,6 @@ export class GstpurchaseaddComponent {
 
   //Submit form details //
   submitGstPurchageForm(): void {
-    this.userSubmitted = true;
     if (this.formGSTPurchase.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formGSTPurchase.controls;
@@ -985,6 +984,7 @@ export class GstpurchaseaddComponent {
     }
 
     let formData = new FormData();
+    this.formSubmitted = true;
     formData.append('attatchFile1', this.attach1Input.nativeElement.files[0]);
     formData.append('attatchFile2', this.attach2Input.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.gstpurchasemodel));

@@ -181,7 +181,7 @@
                                                 <label for="formrow-inputZip">Reason For Extension</label><span style="color: red">*</span>    
                                                 <select class="form-control" formControlName="reason"
                                                     class="form-control form-select ng-pristine ng-touched" 
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['reason'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['reason'].invalid) }">
                                                         <option value="Natural Calamity">Natural Calamity</option>
                                                         <option value="Law & Order">Law & Order</option>
                                                         <option value="Transshipment">Transshipment</option>
@@ -195,7 +195,7 @@
                                                 <label for="formrow-inputZip">Remarks</label><span style="color: red">*</span>    
                                                 <input type="text" uppercaseonly class="form-control" placeholder=""
                                                     formControlName="remarks"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['remarks'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['remarks'].invalid) }">
                                             </div>
                                         </div>
                                     </div>                                    
@@ -219,7 +219,7 @@
                                                 <span style="color: red">*</span> 
                                                 <input type="text" uppercaseonly class="form-control" placeholder=" "
                                                     formControlName="currentPlace"  
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['currentPlace'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['currentPlace'].invalid) }">
                                             </div>
                                         </div>                                        
                                         <div class="col-lg-3">
@@ -227,7 +227,7 @@
                                                 <label for="formrow-inputZip">Current State</label>
                                                 <span style="color: red">*</span> 
                                                 <select class="form-control" formControlName="state"      
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['state'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['state'].invalid) }">
                                                     <option *ngFor="let state of stateList" 
                                                         value={{state.dataName}}>
                                                        {{state.dataName}}
@@ -257,7 +257,7 @@
                                                 <label for="formrow-inputZip">Consignment Is</label><span style="color: red">*</span> 
                                                 <select class="form-control" formControlName="consignmentStatus"
                                                     class="form-control form-select ng-pristine ng-touched" 
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['consignmentStatus'].invalid) }">
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['consignmentStatus'].invalid) }">
                                                         <option value="T">In Transit</option>
                                                         <option value="M">In Movement</option>
                                                 </select>
@@ -268,7 +268,7 @@
                                                 <label for="formrow-inputZip">Mode</label>
                                                 <select class="form-control" formControlName="mode"
                                                 class="form-control form-select ng-pristine ng-touched" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mode'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mode'].invalid) }">
                                                     <option value="1">Road</option>
                                                     <option value="2">Rail</option>
                                                     <option value="3">Air</option>

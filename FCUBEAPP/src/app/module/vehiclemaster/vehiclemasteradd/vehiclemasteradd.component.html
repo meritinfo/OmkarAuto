@@ -25,7 +25,7 @@
                                                 <input uppercaseonly type="text" class="form-control"
                                                     placeholder="" formControlName="vehicleNo"  
                                                     (change)="onVehicalNoChange($event)" maxlength="20"                                                 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -34,7 +34,7 @@
                                                 <span style="color: red">*</span>                                               
                                                 <input type="date" class="form-control" formControlName="regnDate"
                                                     placeholder= "dd/MM/yyyy"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['regnDate'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['regnDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-5">
@@ -43,7 +43,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly autoclose="false" class="form-control"
                                                     formControlName="regdOwner" placeholder=""                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['regdOwner'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['regdOwner'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" class="form-control"
                                                     formControlName="chasisNo"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['chasisNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['chasisNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -63,7 +63,7 @@
                                                 <span style="color: red">*</span>
                                                 <input type="text" uppercaseonly class="form-control"
                                                     formControlName="engineNo"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['engineNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['engineNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -72,7 +72,7 @@
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="vehicleTypeGroupId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleTypeGroupId'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleTypeGroupId'].invalid) }">
                                                     <option *ngFor="let vehi of vehicleTypeList" value={{vehi.dataId}}>
                                                        {{vehi.dataName}}
                                                     </option>
@@ -86,7 +86,7 @@
                                                 <span style="color: red">*</span>
                                                 <select class="form-control" formControlName="vehMfrId"   
                                                 class="form-control form-select ng-pristine ng-touched"   
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['vehMfrId'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['vehMfrId'].invalid) }">
                                                     <option *ngFor="let mfr of vehicleMfrList" value={{mfr.dataId}}>
                                                        {{mfr.dataName}}
                                                     </option>
@@ -99,7 +99,7 @@
                                                 <span style="color: red">*</span>
                                                 <input  uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="mfrModelName" placeholder=""                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mfrModelName'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mfrModelName'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -107,7 +107,7 @@
                                                 <label for="formrow-inputZip">Year</label>
                                                 <span style="color: red">*</span>
                                                 <input numbersonly maxlength="4" autoclose="false" placeholder=""                                                 
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['makeYear'].invalid) }"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['makeYear'].invalid) }"
                                                     formControlName="makeYear" class="form-control">
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                                 <span style="color: red">*</span>
                                                 <select id="formrow-inputState" class="form-select"  formControlName="fuelType"    
                                                 class="form-control form-select ng-pristine ng-touched"                                            
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['fuelType'].invalid) }"
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['fuelType'].invalid) }"
                                                     formControlName="fuelType">
                                                     <option value="">Choose...</option>
                                                     <option value="D">Diesel</option>
@@ -134,7 +134,7 @@
                                                 <span style="color: red">*</span>
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="tankCap" placeholder=""                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tankCap'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tankCap'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -143,7 +143,7 @@
                                                 <span style="color: red">*</span>
                                                 <input decimalonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="mileageLt" placeholder=""                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['mileageLt'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['mileageLt'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -213,7 +213,7 @@
                                                 <select class="form-control" formControlName="fastTagYN" 
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onFastTagChange($event)"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagYN'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fastTagYN'].invalid) }">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
                                                 </select>
@@ -225,7 +225,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="fastTagCo" placeholder=""                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagCo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fastTagCo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -234,7 +234,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly autoclose="false" placeholder=""
                                                     formControlName="fastTagNo" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fastTagNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fastTagNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -246,7 +246,7 @@
                                                 <select class="form-control" formControlName="petroCardYN"    
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onPetroCardChange($event)"                                                    
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardYN'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['petroCardYN'].invalid) }">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
                                                 </select>
@@ -258,7 +258,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="petroCo" placeholder=""                                                  
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['petroCo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -267,7 +267,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly  autoclose="false" placeholder=""
                                                     formControlName="petroCardNo" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['petroCardNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -276,7 +276,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly autoclose="false" placeholder=""
                                                     formControlName="petroCardPin" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['petroCardPin'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['petroCardPin'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -287,7 +287,7 @@
                                                 <select class="form-control" formControlName="happayCardYN"  
                                                     class="form-control form-select ng-pristine ng-touched"  
                                                     (change)="onHappayCardChange($event)"                                                                       
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardYN'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['happayCardYN'].invalid) }">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
                                                 </select>
@@ -299,7 +299,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly  autoclose="false" placeholder=""
                                                     formControlName="happayCardNo" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['happayCardNo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -308,7 +308,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly  autoclose="false" placeholder=""
                                                     formControlName="happayCardPin" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['happayCardPin'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['happayCardPin'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@
                                                 <select class="form-control" formControlName="fipYN"      
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onFipChange($event)"                                                                      
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fipYN'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fipYN'].invalid) }">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
                                                 </select>
@@ -331,7 +331,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="fipNo" placeholder=""                                                  
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fipNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fipNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -343,7 +343,7 @@
                                                 <select class="form-control"     
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onSoldChange($event)"                                                                        
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldYN'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['soldYN'].invalid) }"
                                                         formControlName="soldYN">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
@@ -356,7 +356,7 @@
                                                 <span style="color: red">*</span>
                                                 <input uppercaseonly type="text" id="formrow-inputCity" class="form-control"
                                                     formControlName="soldTo" placeholder=""                                                  
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldTo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['soldTo'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -366,7 +366,7 @@
                                                 <input autoclose="false" type="date" 
                                                     placeholder="dd-mm-yyyy" class="form-control"
                                                     formControlName="soldDate"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldDate'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['soldDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -375,7 +375,7 @@
                                                 <span style="color: red">*</span>
                                                 <input decimalonly bsdatepicker="" autoclose="false" placeholder=""
                                                     formControlName="soldValue" class="form-control"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['soldValue'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['soldValue'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -386,7 +386,7 @@
                                                 <select class="form-control" 
                                                     class="form-control form-select ng-pristine ng-touched"
                                                     (change)="onTransferChange($event)"                                                       
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrYN'].invalid) }"
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tfrYN'].invalid) }"
                                                         formControlName="tfrYN">
                                                         <option value="Y">Yes</option>
                                                         <option value="N">No</option>
@@ -400,7 +400,7 @@
                                                 <input autoclose="false" type="date"
                                                     placeholder="dd-mm-yyyy" class="form-control"
                                                     formControlName="tfrDate"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrDate'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tfrDate'].invalid) }">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -410,7 +410,7 @@
                                                 <input uppercaseonly autoclose="false"
                                                     placeholder="" class="form-control"
                                                     formControlName="tfrVehicleNo"                                                 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['tfrVehicleNo'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['tfrVehicleNo'].invalid) }">
                                             </div>
                                         </div>
                                     </div>
@@ -429,7 +429,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleLedgerAc'].invalid) }" >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleLedgerAc'].invalid) }" >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -456,7 +456,7 @@
                                                         [itemTemplate]="itemTemplate"
                                                         [notFoundTemplate]="notFoundTemplate"
                                                         [customFilter]="startWithFilter"
-                                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleAssetAc'].invalid) }" >
+                                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleAssetAc'].invalid) }" >
                                                     </ng-autocomplete>
 
                                                     <ng-template #itemTemplate let-item>
@@ -609,7 +609,8 @@
                     <div class="row text-right">
                         <div class="col-lg-12">
                             <div class="tex">
-                                <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                                <button class="btn btn-primary w-md"  
+                                *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"                                      
                                     (click)="submitVehicleMasterForm()">Save</button>&nbsp;
                                 <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                     (click)="deleteVehicleMasterForm()">Delete</button>&nbsp;

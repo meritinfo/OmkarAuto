@@ -29,7 +29,7 @@ export class TyredeativateaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];  
@@ -280,7 +280,6 @@ export class TyredeativateaddComponent {
   }   
     
   submitTyreDeActivateForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -351,6 +350,7 @@ export class TyredeativateaddComponent {
       return;
     }
           
+    this.formSubmitted = true;
     this.tyredeactivateService.tyredeactivateMasterSubmitted(this.tyredeactivate).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

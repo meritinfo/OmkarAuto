@@ -22,7 +22,7 @@ import { Requestmodel } from 'src/app/models/requestmodel';
 export class VehicleinstpmtaddComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   keywordLocation = 'dataName';
   stateList: Dropdownmodel[] = [];
@@ -228,7 +228,6 @@ vehicleInstPmtDelete(): void {
 
 //Submit user form details //
 submitVehicleInstPmtForm(): void {
-  this.userSubmitted = true;
   if (this.formUser.invalid) {
     this.toastrService.warning("Please Enter Mandatory Fields ");   
     const controls = this.formUser.controls;
@@ -240,6 +239,7 @@ submitVehicleInstPmtForm(): void {
     return;
   }
   var selectedDataValue = this.formUser.getRawValue();
+  this.formSubmitted = true;
 
   this.vehicleinstpmtmodel.pmtId = this.selectedVehicleInstPmtDetail.pmtId != '' ? this.selectedVehicleInstPmtDetail.pmtId : '';
   this.vehicleinstpmtmodel.pmtDate = selectedDataValue.pmtDate;

@@ -23,7 +23,7 @@ export class DprplacevehicleComponent {
   dprid: string = '';
   branch: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -515,7 +515,7 @@ export class DprplacevehicleComponent {
     this.sharedService.loading=true;
     setTimeout(() => {     
       if(chkDuplicate){        
-        this.userSubmitted = true;
+        this.formSubmitted = true;
         this.dprvehiplacedService.dprVehiPlacedSubmitted(this.dprvehiplacedmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if(this.responseDetails.status){

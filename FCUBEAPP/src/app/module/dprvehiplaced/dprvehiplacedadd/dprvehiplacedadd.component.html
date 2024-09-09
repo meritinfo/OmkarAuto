@@ -21,7 +21,7 @@
                                             <label >DPR Date: </label><span style="color: red">*</span>  
                                             <input type="date" class="form-control" 
                                             min="{{minDate}}" max="{{maxDate}}" formControlName="dprDate" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['dprDate'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['dprDate'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
@@ -52,7 +52,7 @@
                                             <label for="formrow-inputZip">Vehicle No</label><span style="color: red">*</span>  
                                             <input uppercaseonly type="text" (change)="onVehicalChange($event)"
                                             class="form-control" formControlName="vehicleNo"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehicleNo'].invalid) }" >                                           
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vehicleNo'].invalid) }" >                                           
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -60,7 +60,7 @@
                                             <label>Owner Name : </label><span style="color: red">*</span>  
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vehOwnerName" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vehOwnerName'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vehOwnerName'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -83,7 +83,7 @@
                                                     [itemTemplate]="itemTemplate"
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['brokerId'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['brokerId'].invalid) }">
                                                 </ng-autocomplete>
         
                                                 <ng-template #itemTemplate let-item>
@@ -149,7 +149,7 @@
                                             <label>Paid Chrg Wt: </label><span style="color: red">*</span>
                                             <input decimalonly type="text" class="form-control" 
                                             formControlName="challanChrgWt" (change)="onLorryHireChange()"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['challanChrgWt'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['challanChrgWt'].invalid) }">
                                         </div>
                                     </div>       
                                     <div class="col-sm-2">
@@ -157,7 +157,7 @@
                                             <label>Rate / Ton: </label><span style="color: red">*</span>
                                             <input decimalonly type="text" class="form-control" 
                                             formControlName="ratePerTon" 
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['ratePerTon'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['ratePerTon'].invalid) }">
                                         </div>
                                     </div>        
                                     <div class="col-sm-2">
@@ -165,7 +165,7 @@
                                             <label>Lorry Hire: </label><span style="color: red">*</span>
                                             <input decimalonly type="text" class="form-control" 
                                             formControlName="lorryHire" (change)="onLorryHireChange()"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['lorryHire'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['lorryHire'].invalid) }">
                                         </div>
                                     </div>  
                                 </div> 
@@ -223,7 +223,7 @@
                                             <label>Driver Mob: </label><span style="color: red">*</span>
                                             <input numbersonly type="text" class="form-control" 
                                             formControlName="driverMob1" maxlength="10"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['driverMob1'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['driverMob1'].invalid) }">
                                         </div>
                                     </div> 
                                 </div> 
@@ -233,7 +233,7 @@
                                             <label>Assign To: </label><span style="color: red">*</span>
                                             <select id="scope" class="form-select" formControlName="assignToStaff"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['assignToStaff'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['assignToStaff'].invalid) }">
                                                 <option *ngFor="let emp of empList" value={{emp.dataId}}>
                                                     {{emp.dataName}}
                                                 </option>
@@ -348,7 +348,7 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) && !this.userSubmitted"
+                            <button class="btn btn-primary w-md" *ngIf="(editMode && editStatus) && !this.formSubmitted"
                                 (click)="submitDprVehiDetails()">Save</button>&nbsp;
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="deleteDprVehiDetailsForm()">Delete</button>&nbsp;

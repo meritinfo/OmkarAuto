@@ -20,7 +20,7 @@
                                         <div class="mb-3">
                                             <label>Branch Code : </label><span style="color: red">*</span> 
                                             <select class="form-control" formControlName="branchCode"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['branchCode'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['branchCode'].invalid) }">
                                                 <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                                     {{branch.dataName}}
                                                 </option>
@@ -32,7 +32,7 @@
                                             <label >Issue Date : </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                                 formControlName="regroupIssDate" max="{{maxDate}}"                                         
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['regroupIssDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['regroupIssDate'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-3">
@@ -48,7 +48,7 @@
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
                                                     formControlName="vendorId" 
-                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
@@ -172,7 +172,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                             <button class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                             <button class="btn btn-primary w-md"  
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitRegroupIssueForm()">Save</button>&nbsp;                            
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="tyreRegroupIssueDelete()">Delete</button>&nbsp;

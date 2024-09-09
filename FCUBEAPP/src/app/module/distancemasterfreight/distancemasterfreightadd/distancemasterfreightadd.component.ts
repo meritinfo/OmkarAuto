@@ -210,7 +210,6 @@ export class DistancemasterfreightaddComponent implements OnInit {
 
   //Submit form details //
   submitDistanceMasterFreightForm(): void {
-    this.formSubmitted = true;
     if (this.formDistanceMasterFreight.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDistanceMasterFreight.controls;
@@ -272,6 +271,7 @@ export class DistancemasterfreightaddComponent implements OnInit {
         }
       });
     }
+    this.formSubmitted = true;
     this.distanceMasterFreightService.distanceMasterFreightSubmitted(this.distancemasterfreightmodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;
       if (this.responseDetails.status) {

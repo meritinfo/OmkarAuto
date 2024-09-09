@@ -40,7 +40,7 @@ export class VehiclerepmaintaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -545,7 +545,6 @@ onPctChange(){
   });
 }
 submitVehicleRepMaintMasterForm(): void {
-  this.userSubmitted = true;
   if (this.formUser.invalid) {
     this.toastrService.warning("Please Enter Mandatory Fields ");   
     const controls = this.formUser.controls;
@@ -574,6 +573,7 @@ submitVehicleRepMaintMasterForm(): void {
       return;
     }
   }
+  
 this.vehiclerepmaintMaster.vrmTransId = this.selectedvehiclerepmaintMasterDetail.vrmTransId ;
 this.vehiclerepmaintMaster.transDate= selectedDataValue.transDate;
 this.vehiclerepmaintMaster.stockType = selectedDataValue.stockType
@@ -646,6 +646,7 @@ this.vehiclerepmaintMaster.vehicleRepMaintDtlList = [];
   }
 
   let formData = new FormData();
+  this.formSubmitted = true;
   formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
   formData.append('datadetails', JSON.stringify(this.vehiclerepmaintMaster));  
 

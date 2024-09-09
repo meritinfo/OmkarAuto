@@ -50,7 +50,7 @@ export class GeneratetempgclistComponent {
   createmode= true;
   deleteStatus = false;
   viewStatus = false;
-  userSubmitted = false;
+  formSubmitted = false;
   loggedInUserID: string = '';
 
   gcfromDate: string = '';
@@ -454,7 +454,7 @@ export class GeneratetempgclistComponent {
   get f() { return this.formFilter.controls; }
 
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formFilter.controls;

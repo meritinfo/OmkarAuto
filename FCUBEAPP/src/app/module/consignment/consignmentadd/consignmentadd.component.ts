@@ -175,7 +175,7 @@ export class ConsignmentaddComponent implements OnInit {
       cneeAdd2 : new FormControl('',),    
       cneeAdd3 : new FormControl('',),    
       cneePin : new FormControl('',),    
-      cneeGst : new FormControl('', [Validators.required]),
+      cneeGst : new FormControl('',),
       cneeMobile : new FormControl('', [Validators.required]),
       cneeEmail : new FormControl('',),    
       shipmentNo : new FormControl('',),    

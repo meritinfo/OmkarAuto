@@ -38,7 +38,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="cashAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['cashAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cashAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -51,7 +51,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="frtIncomeAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['frtIncomeAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['frtIncomeAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -64,7 +64,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="sgstOutputAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['sgstOutputAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['sgstOutputAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -77,7 +77,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="cgstOutputAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['cgstOutputAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cgstOutputAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -90,7 +90,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="igstOutputAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['igstOutputAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['igstOutputAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -105,7 +105,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="sgstInputAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['sgstInputAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['sgstInputAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>
@@ -118,7 +118,7 @@
                                     <span style="color: red">*</span>
                                     <select formControlName="cgstInputAc"
                                         class="form-control form-select ng-pristine ng-touched"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['cgstInputAc'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['cgstInputAc'].invalid) }">
                                         <option *ngFor="let dl of creditacList" value={{dl.dataId}}>
                                             {{dl.dataName}}
                                         </option>

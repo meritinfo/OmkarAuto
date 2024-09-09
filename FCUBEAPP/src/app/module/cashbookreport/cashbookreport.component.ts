@@ -31,7 +31,7 @@ export class CashbookreportComponent {
   keywordLocation = 'dataName';
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';

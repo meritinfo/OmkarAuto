@@ -27,7 +27,7 @@ export class AddtrippaymentsComponent {
   ptype: string = '';
   trip: string = '';
   formTripPayment!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   editMode = false;
   createStatus = false;
@@ -369,7 +369,6 @@ export class AddtrippaymentsComponent {
   }
    
   submitTripPaymentsForm(): void {  
-    this.userSubmitted = true;
     if (this.formTripPayment.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formTripPayment.controls;
@@ -412,6 +411,8 @@ export class AddtrippaymentsComponent {
     if (selectedDataValue.pmtType=="B"){
       chqDt = selectedDataValue.chequeDate == '' ? this.loginDate:selectedDataValue.chequeDate;
     }
+    
+    this.formSubmitted = true; 
     this.trippaymentsmodel.pmtId = this.selectedTripPaymentsDetails.pmtId ;
     this.trippaymentsmodel.pmtBranch = selectedDataValue.pmtBranch;
     this.trippaymentsmodel.pmtDate = selectedDataValue.pmtDate;

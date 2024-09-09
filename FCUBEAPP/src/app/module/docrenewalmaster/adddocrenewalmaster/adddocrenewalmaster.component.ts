@@ -18,7 +18,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AdddocrenewalmasterComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -156,7 +156,6 @@ export class AdddocrenewalmasterComponent {
 
   //Submit user form details //
   submitDocRenewalMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -169,6 +168,7 @@ export class AdddocrenewalmasterComponent {
     }
     this.sharedService.loading=true;
     var selectedDataVal =this.formUser.getRawValue();
+    this.formSubmitted = true;
     this.docRenewalMasterModel.docRenewalID = this.selectedDocRenewalMasterDetails.docRenewalID != '' ? this.selectedDocRenewalMasterDetails.docRenewalID : '';
     this.docRenewalMasterModel.docCode = selectedDataVal.docCode.toUpperCase();
     this.docRenewalMasterModel.docDescription = selectedDataVal.docDescription.toUpperCase();

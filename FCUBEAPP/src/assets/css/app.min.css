@@ -5905,3 +5905,10 @@ background-color: #fbff00 !important
     width: 175px;
 }
 
+
+.full-tyre-width{
+    width: 2000px !important;
+}
+.full-tyre-width tr td {
+    width: fit-content;
+}

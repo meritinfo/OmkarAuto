@@ -66,4 +66,7 @@ export class ChallanmasterService {
   getDetails(req: Requestmodel): Observable<Challanmastermodel> {
     return this.httpClient.post<Challanmastermodel>(Constants.API_ENDPOINT + 'Consignment/GetChallanDetailsFromLR', req, this.httpOptions);
   }
+  checkChallanPrepForLr(req: Requestmodel): Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/CheckChallanPrepForLr', req, this.httpOptions);
+  }
 }

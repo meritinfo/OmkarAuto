@@ -31,7 +31,7 @@
                                             <input type="text" class="form-control" 
                                                 formControlName="userName" (keypress)="alphaNumberOnly($event)"
                                                 maxlength="50" (change)="chkUsername($event)"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userName'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['userName'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -41,7 +41,7 @@
                                             <span style="color: red">*</span>
                                             <input type="password" class="form-control" 
                                                 formControlName="userPassword" maxlength="15"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userPassword'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['userPassword'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -75,7 +75,7 @@
                                             <span style="color: red">*</span>
                                             <input type="text" class="form-control" 
                                                 formControlName="userDescription" maxlength="50" uppercaseonly
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userDescription'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['userDescription'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
@@ -84,7 +84,7 @@
                                             <span style="color: red">*</span>
                                             <input type="text" class="form-control" placeholder="Enter mobile"
                                                 formControlName="userMobile" maxlength="10" numbersonly
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userMobile'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['userMobile'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -93,7 +93,7 @@
                                             <span style="color: red">*</span>
                                             <input type="text" class="form-control" placeholder="Enter email"
                                                 formControlName="userEmail" maxlength="75"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['userEmail'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['userEmail'].invalid) }">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">                                       
@@ -102,7 +102,7 @@
                                             <span style="color: red">*</span>
                                             <select id="role"   class="form-control form-select ng-pristine ng-touched"
                                              formControlName="role"
-                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['role'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['role'].invalid) }">
                                                 <option value="">Choose...</option>
                                                 <option *ngFor="let roleType of roleTypeList" value={{roleType.dataId}}>
                                                     {{roleType.dataName}}
@@ -118,7 +118,7 @@
                                             <span style="color: red">*</span>
                                             <select id="active"  class="form-control form-select ng-pristine ng-touched"
                                              formControlName="activeYN"
-                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['activeYN'].invalid) }"> 
+                                             [ngClass]="{ 'is-invalid': formSubmitted && (f['activeYN'].invalid) }"> 
                                                 <option value="Y">Yes</option>
                                                 <option value="N">No</option>
                                             </select>
@@ -147,7 +147,7 @@
                                 <h4 class="card-title">Branch</h4>
                                 <div class="mb-3">
                                     <select class="form-control" multiple="multiple" formControlName="userBranch"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['userBranch'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['userBranch'].invalid) }">
                                         <option *ngFor="let branch of branchList" value={{branch.dataId}}>
                                             {{branch.dataName}}
                                         </option>
@@ -162,7 +162,7 @@
                                 <h4 class="card-title">Module</h4>
                                 <div class="mb-3">
                                     <select class="form-control" multiple="multiple" formControlName="userModule"
-                                        [ngClass]="{ 'is-invalid': userSubmitted && (f['userModule'].invalid) }">
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['userModule'].invalid) }">
                                         <option *ngFor="let module of moduleList" value={{module.dataId}}>
                                             {{module.dataName}}
                                         </option>
@@ -175,7 +175,8 @@
                 <div class="row text-right">
                     <div class="col-lg-12">
                         <div class="tex">
-                            <button  class="btn btn-primary w-md"  *ngIf="(editMode && editStatus) || (!editMode && createStatus)"
+                            <button  class="btn btn-primary w-md"  
+                            *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
                                 (click)="submitUserForm()">Save</button>
                                 <button class="btn btn-secondary w-md m-2" (click)="exit()">Exit</button>                                
                         </div>

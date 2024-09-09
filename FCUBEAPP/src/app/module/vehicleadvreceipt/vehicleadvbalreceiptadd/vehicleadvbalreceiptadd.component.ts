@@ -40,7 +40,7 @@ export class VehicleadvbalreceiptaddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  userSubmitted = false;
+  formSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -423,7 +423,6 @@ getVehicleadvbalreceiptInnerGridList(): void {
     });
   }
   submitVehicleRepMaintMasterForm(): void {
-    this.userSubmitted = true;
     if (this.formUser.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields ");   
       const controls = this.formUser.controls;
@@ -506,7 +505,8 @@ getVehicleadvbalreceiptInnerGridList(): void {
   
     let formData = new FormData();
    // formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
-    formData.append('datadetails', JSON.stringify(this.vehicleadvbalreceiptModel));  
+    formData.append('datadetails', JSON.stringify(this.vehicleadvbalreceiptModel));
+    this.formSubmitted = true;  
   
    // this.vehiclerepmaintMasterService.VehicleadvbalreceiptSubmitted(formData).subscribe((res: Responsemodel) => {
       this.vehiclerepmaintMasterService.VehicleadvbalreceiptSubmitted(this.vehicleadvbalreceiptModel).subscribe((res: Responsemodel) => {

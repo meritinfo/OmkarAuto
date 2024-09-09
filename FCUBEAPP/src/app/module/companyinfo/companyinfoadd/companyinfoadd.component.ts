@@ -29,7 +29,7 @@ export class CompanyinfoaddComponent {
   minDate: string = '';
   maxDate: string = '';
   loginDate: string = '';
-  userSubmitted = false;
+  formSubmitted = false;
   createMode = false;
   editMode = false;
   createStatus = false;
@@ -253,7 +253,6 @@ upload(): void {
 
 //Submit user form details //
 submitConpanyInfoForm(): void {
-  this.userSubmitted = true;
   if (this.formDocEntry.invalid) {
     this.toasterService.warning("Please Enter Mandatory Fields ");   
     const controls = this.formDocEntry.controls;
@@ -264,6 +263,7 @@ submitConpanyInfoForm(): void {
     }
     return;
   }
+  this.formSubmitted = true;
   var selectedDataVal=this.formDocEntry.getRawValue();  
   
   //this.companyinfoModel.companyID   = selectedDataVal.companyID;

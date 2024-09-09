@@ -258,7 +258,8 @@ namespace Consignment.Repository
                                 VehicleOwnerAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd1"]),
                                 VehicleOwnerAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd2"]),
                                 VehicleOwnerPanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerPanNo"]),
-                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
+                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["PanValid"]),
+                                AadharLinked = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
                                 ItFiled = Convert.ToString(dataSet.Tables[0].Rows[i]["ItFiled"]),
                                 VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerMblNo"]),
                                 VehicleInsDetails = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleInsDetails"]),
@@ -508,7 +509,7 @@ namespace Consignment.Repository
                     {
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {
-                            ChallanId = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanId"]),
+                            ChallanId ="",
                             GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
                             GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
                             GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
@@ -572,6 +573,8 @@ namespace Consignment.Repository
                         challanModel.VehicleModel       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleModel"]);
                         challanModel.EngineNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
                         challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
+                        challanModel.EngagedBy          = Convert.ToString(dataSet.Tables[0].Rows[0]["EngagedBy"]);
+                        challanModel.LoadedBy           = Convert.ToString(dataSet.Tables[0].Rows[0]["LoadedBy"]);
 
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {
@@ -718,7 +721,46 @@ namespace Consignment.Repository
             return responseModel;
         }
 
-       
+        public async Task<ResponseModel> CheckChallanPrepForLr(RequestModel request)
+        {
+            ResponseModel responseModel = new();
+
+            var connection = new SqlConnection(dbconnection.Value.DBConnection);
+            connection.Open();
+            SqlTransaction transaction;
+            transaction = connection.BeginTransaction();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                           new SqlParameter("@GCNoteNo",   request.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_ChkChallanPrepForLr", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+                        if (responseModel.Status) { transaction.Commit(); }
+                        else { transaction.Rollback(); }
+                    }
+                    else
+                    {
+                        responseModel.Status = false;
+                        transaction.Rollback();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+            return responseModel;
+        }
+        
+
 
 
 

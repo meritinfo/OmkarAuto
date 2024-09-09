@@ -153,7 +153,6 @@ export class DistancefreighteditComponent {
   }
 
   submitDistanceFreightForm(){
-    this.formSubmitted = true;
     if (this.formDistanceFreight.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDistanceFreight.controls;
@@ -170,7 +169,7 @@ export class DistancefreighteditComponent {
       this.toasterService.warning(" KMS should not be Zero");   
       return;
     }
-
+    this.formSubmitted = true;
     this.distancefreighteditmodel.masterID      = this.fromMasterId;
     this.distancefreighteditmodel.fromLocation  = selectedDataVal.fromLocation.dataId;
     this.distancefreighteditmodel.toLocation    = selectedDataVal.toLocation.dataId;

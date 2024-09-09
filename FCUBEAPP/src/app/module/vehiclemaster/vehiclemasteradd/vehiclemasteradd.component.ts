@@ -19,7 +19,7 @@ import { Constants } from 'src/app/common/constants';
 export class VehiclemasteraddComponent {
   loggedInUserID: string = '';
   formVehicleMaster!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -128,7 +128,7 @@ export class VehiclemasteraddComponent {
       happayCardYN: new FormControl('',[Validators.required]),
       happayCardNo: new FormControl(''),
       happayCardPin: new FormControl(''),
-      fipYN: new FormControl('',[Validators.required]),
+      fipYN: new FormControl('N',[Validators.required]),
       fipNo: new FormControl(''),
       soldYN: new FormControl('N',[Validators.required]),
       soldTo: new FormControl(''),
@@ -153,6 +153,23 @@ export class VehiclemasteraddComponent {
 
     });
 
+    this.formVehicleMaster.controls['fipNo'].disable();    
+    this.formVehicleMaster.controls['soldYN'].disable();   
+    this.formVehicleMaster.controls['soldValue'].disable();       
+    this.formVehicleMaster.controls['soldTo'].disable();
+    this.formVehicleMaster.controls['soldDate'].disable();
+    this.formVehicleMaster.controls['soldValue'].disable();  
+    this.formVehicleMaster.controls['tfrYN'].disable();   
+    this.formVehicleMaster.controls['tfrDate'].disable();
+    this.formVehicleMaster.controls['tfrVehicleNo'].disable(); 
+    this.formVehicleMaster.controls['fastTagCo'].disable();
+    this.formVehicleMaster.controls['fastTagNo'].disable();
+    this.formVehicleMaster.controls['petroCo'].disable();
+    this.formVehicleMaster.controls['petroCardNo'].disable();
+    this.formVehicleMaster.controls['petroCardPin'].disable();
+    this.formVehicleMaster.controls['happayCardNo'].disable();
+    this.formVehicleMaster.controls['happayCardPin'].disable();
+
      // this.formVehicleMaster.controls['vehicleLedgerAc'].clearValidators();   
     //  this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
     setTimeout(() => {
@@ -170,7 +187,37 @@ export class VehiclemasteraddComponent {
           vehicleLedgerAc: this.vehicleLedgerAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleLedgerAc),
           vehicleAssetAc: this.vehicleAssetAcList.find(e => e.dataId == this.selectedVehicleMasterDetails.vehicleAssetAc),
         })
-        this.editMode=true;      
+        this.editMode=true;     
+        this.formVehicleMaster.controls['soldYN'].enable();  
+        this.formVehicleMaster.controls['tfrYN'].enable();  
+
+        if(this.selectedVehicleMasterDetails.soldYN=='Y' ) {                 
+          this.formVehicleMaster.controls['soldTo'].enable();
+          this.formVehicleMaster.controls['soldDate'].enable();
+          this.formVehicleMaster.controls['soldValue'].enable();   
+        }
+        if(this.selectedVehicleMasterDetails.fipYN=='Y' ) {  
+          this.formVehicleMaster.controls['fipNo'].enable();   
+        }
+        if(this.selectedVehicleMasterDetails.tfrYN=='Y' ) {  
+          this.formVehicleMaster.controls['tfrDate'].enable();
+          this.formVehicleMaster.controls['tfrVehicleNo'].enable();   
+        }
+        if(this.selectedVehicleMasterDetails.fastTagYN=='Y' ) {  
+          this.formVehicleMaster.controls['fastTagCo'].enable();
+          this.formVehicleMaster.controls['fastTagNo'].enable();   
+        }
+        if(this.selectedVehicleMasterDetails.petroCardYN=='Y' ) {  
+          this.formVehicleMaster.controls['petroCo'].enable();
+          this.formVehicleMaster.controls['petroCardNo'].enable();  
+          this.formVehicleMaster.controls['petroCardPin'].enable();   
+        }
+        if(this.selectedVehicleMasterDetails.happayCardYN=='Y' ) {  
+          this.formVehicleMaster.controls['happayCardNo'].enable();
+          this.formVehicleMaster.controls['happayCardPin'].enable();   
+        }
+
+        
       //  this.formVehicleMaster.controls['vehicleLedgerAc'].setValidators([Validators.required]);  
       //  this.formVehicleMaster.controls['vehicleLedgerAc'].updateValueAndValidity();
 
@@ -181,6 +228,7 @@ export class VehiclemasteraddComponent {
   }
   // convenience getter for easy access to contact form fields
   get f() { return this.formVehicleMaster.controls; }
+
   get formArray() {
     return this.formVehicleMaster.get("arrayList") as FormArray;
   }
@@ -277,10 +325,14 @@ export class VehiclemasteraddComponent {
     if(selectedValue=="Y"){ 
       this.formVehicleMaster.controls['fastTagCo'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['fastTagNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['fastTagCo'].enable();
+      this.formVehicleMaster.controls['fastTagNo'].enable();
     }
     else {
       this.formVehicleMaster.controls['fastTagCo'].clearValidators();
       this.formVehicleMaster.controls['fastTagNo'].clearValidators();
+      this.formVehicleMaster.controls['fastTagCo'].disable();
+      this.formVehicleMaster.controls['fastTagNo'].disable();
       
     }
     this.formVehicleMaster.controls['fastTagCo'].updateValueAndValidity();
@@ -294,11 +346,17 @@ export class VehiclemasteraddComponent {
       this.formVehicleMaster.controls['petroCo'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['petroCardNo'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['petroCardPin'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['petroCo'].enable();
+      this.formVehicleMaster.controls['petroCardNo'].enable();
+      this.formVehicleMaster.controls['petroCardPin'].enable();
     }
     else {
       this.formVehicleMaster.controls['petroCo'].clearValidators();
       this.formVehicleMaster.controls['petroCardNo'].clearValidators();
       this.formVehicleMaster.controls['petroCardPin'].clearValidators();
+      this.formVehicleMaster.controls['petroCo'].disable();
+      this.formVehicleMaster.controls['petroCardNo'].disable();
+      this.formVehicleMaster.controls['petroCardPin'].disable();
       
     }
     this.formVehicleMaster.controls['petroCo'].updateValueAndValidity();
@@ -312,10 +370,14 @@ export class VehiclemasteraddComponent {
     if(selectedValue=="Y"){ 
       this.formVehicleMaster.controls['happayCardNo'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['happayCardPin'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['happayCardNo'].enable();
+      this.formVehicleMaster.controls['happayCardPin'].enable();
     }
     else {
       this.formVehicleMaster.controls['happayCardNo'].clearValidators();
       this.formVehicleMaster.controls['happayCardPin'].clearValidators();
+      this.formVehicleMaster.controls['happayCardNo'].disable();
+      this.formVehicleMaster.controls['happayCardPin'].disable();
       
     }
     this.formVehicleMaster.controls['happayCardNo'].updateValueAndValidity();
@@ -327,9 +389,11 @@ export class VehiclemasteraddComponent {
     var selectedValue = e.target.value;
     if(selectedValue=="Y"){ 
       this.formVehicleMaster.controls['fipNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['fipNo'].enable();
     }
     else {
       this.formVehicleMaster.controls['fipNo'].clearValidators();
+      this.formVehicleMaster.controls['fipNo'].disable();
       
     }
     this.formVehicleMaster.controls['fipNo'].updateValueAndValidity();
@@ -340,18 +404,22 @@ export class VehiclemasteraddComponent {
     if(selectedValue=="Y"){ 
       this.formVehicleMaster.controls['soldTo'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['soldDate'].setValidators([Validators.required]);
-      this.formVehicleMaster.controls['soldValue'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['soldValue'].setValidators([Validators.required]);      
+      this.formVehicleMaster.controls['soldTo'].enable();
+      this.formVehicleMaster.controls['soldDate'].enable();
+      this.formVehicleMaster.controls['soldValue'].enable();
     }
     else {
       this.formVehicleMaster.controls['soldTo'].clearValidators();
       this.formVehicleMaster.controls['soldDate'].clearValidators();
-      this.formVehicleMaster.controls['soldValue'].clearValidators();
-      
+      this.formVehicleMaster.controls['soldValue'].clearValidators();        
+      this.formVehicleMaster.controls['soldTo'].disable();
+      this.formVehicleMaster.controls['soldDate'].disable();
+      this.formVehicleMaster.controls['soldValue'].disable();    
     }
     this.formVehicleMaster.controls['soldTo'].updateValueAndValidity();
     this.formVehicleMaster.controls['soldDate'].updateValueAndValidity();
     this.formVehicleMaster.controls['soldValue'].updateValueAndValidity();
-
   }
 
   
@@ -360,10 +428,14 @@ export class VehiclemasteraddComponent {
     if(selectedValue=="Y"){ 
       this.formVehicleMaster.controls['tfrDate'].setValidators([Validators.required]);
       this.formVehicleMaster.controls['tfrVehicleNo'].setValidators([Validators.required]);
+      this.formVehicleMaster.controls['tfrDate'].enable();
+      this.formVehicleMaster.controls['tfrVehicleNo'].enable();
     }
     else {
       this.formVehicleMaster.controls['tfrDate'].clearValidators();
       this.formVehicleMaster.controls['tfrVehicleNo'].clearValidators();
+      this.formVehicleMaster.controls['tfrDate'].disable();
+      this.formVehicleMaster.controls['tfrVehicleNo'].disable();
       
     }
     this.formVehicleMaster.controls['tfrDate'].updateValueAndValidity();
@@ -398,7 +470,6 @@ export class VehiclemasteraddComponent {
 
   //Submit user form details //
   submitVehicleMasterForm(): void {
-    this.userSubmitted = true;
     var selectedDataValue = this.formVehicleMaster.getRawValue();
     if (this.formVehicleMaster.invalid) {      
       this.toasterService.warning("Please Enter Mandatory Fields ");
@@ -490,6 +561,8 @@ export class VehiclemasteraddComponent {
         })
       }      
     }
+    
+    this.formSubmitted = true;
     let formData = new FormData();
     formData.append('attach1Link', this.attachment1Input.nativeElement.files[0]);
     formData.append('attach2Link', this.attachment2Input.nativeElement.files[0]);

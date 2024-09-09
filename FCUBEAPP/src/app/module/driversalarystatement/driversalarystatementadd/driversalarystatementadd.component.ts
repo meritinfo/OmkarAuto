@@ -288,10 +288,21 @@ exit(): void {
 
 
 saveStatementDetails(): void {
+  if (this.formDriverSalaryStatement.invalid) {
+    this.toasterService.warning("Please Enter Mandatory Fields ");
+    const controls = this.formDriverSalaryStatement.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");
+      }
+    }
+    return;
+  }
+  this.formSubmitted = true;
   var selectedDataValue = this.formDriverSalaryStatement.getRawValue();
-  this.driversalarystatementmodel.masterId = this.selectedDriverSalaryStatementDetails.masterId != '' ? this.selectedDriverSalaryStatementDetails.masterId : '';
+  this.driversalarystatementmodel.masterId = this.selectedDriverSalaryStatementDetails.masterId;
   this.driversalarystatementmodel.transDt = selectedDataValue.transDt;
- this.driversalarystatementmodel.fromDt = selectedDataValue.fromDt;
+  this.driversalarystatementmodel.fromDt = selectedDataValue.fromDt;
   this.driversalarystatementmodel.toDt = selectedDataValue.toDt;
   this.driversalarystatementmodel.remarks = selectedDataValue.remarks;
   this.driversalarystatementmodel.totalSalaryAmt = selectedDataValue.totalSalaryAmt;

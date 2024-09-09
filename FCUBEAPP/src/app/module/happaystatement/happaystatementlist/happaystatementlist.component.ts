@@ -18,7 +18,7 @@ import { SharedService } from 'src/app/services/shared.service';
   styleUrls: ['./happaystatementlist.component.css']
 })
 export class HappaystatementlistComponent {
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;

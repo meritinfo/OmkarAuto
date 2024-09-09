@@ -46,7 +46,7 @@ export class TyreregrouprcvdrptComponent {
 }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -182,7 +182,7 @@ export class TyreregrouprcvdrptComponent {
     
   //Open user details screen
   exportExcel(): void {      
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;
@@ -211,7 +211,7 @@ export class TyreregrouprcvdrptComponent {
   }
     
   search(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formFilter.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields");   
       const controls = this.formFilter.controls;

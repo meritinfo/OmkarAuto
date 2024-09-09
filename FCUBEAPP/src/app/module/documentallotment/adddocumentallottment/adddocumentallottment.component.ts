@@ -21,7 +21,7 @@ import { Schedulemodel } from 'src/app/models/schedulemodel';
 export class AdddocumentallottmentComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   branch : string = '';
   loginDate: string = '';
   year: string = '';
@@ -269,6 +269,7 @@ export class AdddocumentallottmentComponent {
       return;
     }
     var selectedDataVal = this.formUser.getRawValue();
+    this.formSubmitted = true;
     this.documentallotmentmodel.docAllotId = this.selectedDocumentallotmentDetails.docAllotId ;
     this.documentallotmentmodel.branchCode= selectedDataVal.branchCode;
     this.documentallotmentmodel.docType = selectedDataVal.docType.toString();

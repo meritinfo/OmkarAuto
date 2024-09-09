@@ -19,7 +19,7 @@ import { SharedService } from 'src/app/services/shared.service';
 export class AddcashreceiptentryComponent {
   loggedInUserID: string = '';
   formCashRRecEntry!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -306,21 +306,20 @@ export class AddcashreceiptentryComponent {
 
   //Submit user form details //
   submitCashReceiptPaymentsForm(): void {
-      this.userSubmitted = true;
-      if (this.formCashRRecEntry.invalid) {
-        this.toasterService.warning("Please Enter Mandatory Fields ");  
-        const controls = this.formCashRRecEntry.controls;
-        for (const name in controls) {
-          if (controls[name].invalid) {
-            this.toasterService.warning(name + " Fields is Invalid");   
-          }
-        }     
-        return;
-      }
-      if (this.formArray.value.length == 0){
-        this.toasterService.warning("Grid Should Not be Empty");
-        return;
-      }
+    if (this.formCashRRecEntry.invalid) {
+      this.toasterService.warning("Please Enter Mandatory Fields ");  
+      const controls = this.formCashRRecEntry.controls;
+      for (const name in controls) {
+        if (controls[name].invalid) {
+          this.toasterService.warning(name + " Fields is Invalid");   
+        }
+      }     
+      return;
+    }
+    if (this.formArray.value.length == 0){
+      this.toasterService.warning("Grid Should Not be Empty");
+      return;
+    }
 
     var selectedDataValue=  this.formCashRRecEntry.getRawValue();
     
@@ -418,7 +417,7 @@ export class AddcashreceiptentryComponent {
       this.sharedService.loading=false;
       return;
     }
-    
+    this.formSubmitted = true;
     this.sharedService.loading=true;
     this.cashreceiptentryService.cashReceiptEntryDetailsSubmitted(this.bankrecEntrymodel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

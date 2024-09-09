@@ -19,7 +19,7 @@ import { Constants } from 'src/app/common/constants';
 export class LorryhirepmtaprvaddComponent {
   loggedInUserID: string = '';
   formUser!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   createStatus = false;
   editStatus = false;
   deleteStatus = false;
@@ -204,6 +204,7 @@ export class LorryhirepmtaprvaddComponent {
     }
 
     var selectedData = this.formUser.getRawValue();
+    this.formSubmitted = true;
     var totext = 0;
     if(selectedData.extraHamaliApp!=""){
       totext = totext + parseFloat(selectedData.extraHamaliApp)

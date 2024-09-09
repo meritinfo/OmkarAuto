@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Filtermodel } from 'src/app/models/filtermodel';
 import { Roletypelistmodel  } from 'src/app/models/roletypelistmodel';
 import { Usermodel } from 'src/app/models/usermodel';
@@ -18,7 +18,7 @@ import { RoleTypeService } from 'src/app/services/roletype.service';
 export class AddroletypeComponent {
   loggedInUserID: string = '';
   formRoleType!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   editMode = false;
   createmode  = true;
@@ -30,7 +30,9 @@ export class AddroletypeComponent {
 
   selectedRoleTypesDetails = new Roletypemodel();
 
-  constructor(private route: Router, private formBuilder: FormBuilder, private roletypemodel: Roletypemodel, private roleTypeService: RoleTypeService, private commonService: CommonService) {
+  constructor(private route: Router, private formBuilder: FormBuilder, 
+    private roletypemodel: Roletypemodel, private roleTypeService: RoleTypeService, 
+    private commonService: CommonService,private toasterService: ToastrService) {
     this.roletypemodel = new Roletypemodel();
 
 }
@@ -90,10 +92,17 @@ get f() { return this.formRoleType.controls; }
 
 //Submit user form details //
 submitRoleTypesForm(): void {
-  this.userSubmitted = true;
   if (this.formRoleType.invalid) {
+    this.toasterService.warning("Please Enter Mandatory Fields "); 
+    const controls = this.formRoleType.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        this.toasterService.warning(name + " Fields is Invalid");   
+      }
+    } 
     return;
   }
+  this.formSubmitted = true;
   this.roletypemodel.roleId = this.selectedRoleTypesDetails.roleId;
   this.roletypemodel.roleName= this.formRoleType.value.roleName.toString().toUpperCase();
   this.roletypemodel.roleDesc = this.formRoleType.value.roleDesc.toString().toUpperCase();

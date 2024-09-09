@@ -355,7 +355,6 @@ export class DieselstmtaddComponent {
 
  
   saveStatementDetails(): void {
-    this.formSubmitted = true;
     if (this.formDieselStatement.invalid) {
       this.toasterService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formDieselStatement.controls;
@@ -369,7 +368,8 @@ export class DieselstmtaddComponent {
 
     var selectedDataVal=this.formDieselStatement.getRawValue();
 
-    this.sharedService.loading=true;
+    this.sharedService.loading = true;
+    this.formSubmitted = true;
     this.dieselStatementmodel.dfMasterID      = this.selectedDieselStmtDetails.dfMasterID ;
     this.dieselStatementmodel.branchCode      = selectedDataVal.branchCode;
     this.dieselStatementmodel.stmtDate        = selectedDataVal.stmtDate;

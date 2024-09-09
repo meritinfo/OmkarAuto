@@ -8,5 +8,6 @@ namespace FleetMasters.Business
         Task<ResponseModel> DriverMasterSave(DriverMasterModel DriverMasterModel);
         Task<ResponseModel> DriverMasterDetailsDelete(RequestModel requestModel);
         Task<DriverMasterList> GetDriverMasterList(DriverMasterListRequest request);
+        Task<ResponseModel> ChkDriverDuplicate(RequestModel req);
     }
 }

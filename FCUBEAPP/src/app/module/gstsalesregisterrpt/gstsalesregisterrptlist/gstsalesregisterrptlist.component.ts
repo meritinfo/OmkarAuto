@@ -53,7 +53,7 @@ export class GstsalesregisterrptlistComponent {
 
 }
 formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';
@@ -253,7 +253,7 @@ expGstSales(){
   };
 }
 exportExcel(): void {      
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   if (this.formFilter.invalid) {
     this.toastrService.warning("Please Enter Mandatory Fields");   
     const controls = this.formFilter.controls;
@@ -286,7 +286,7 @@ exportExcel(): void {
 }
 
 search(): void {
-this.userSubmitted = true;
+this.formSubmitted = true;
 if (this.formFilter.invalid) {
   this.toastrService.warning("Please Enter Mandatory Fields");   
   const controls = this.formFilter.controls;

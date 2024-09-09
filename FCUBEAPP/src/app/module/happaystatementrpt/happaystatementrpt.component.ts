@@ -48,7 +48,7 @@ export class HappaystatementrptComponent {
   }
 
   formFilter!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   year: string = '';
   loginDate: string = '';
   fromDate: string = '';

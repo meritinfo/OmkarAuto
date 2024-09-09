@@ -25,7 +25,7 @@
                                     <label for="formrow-inputState">From Date</label>
                                     <input type="date" class="form-control" formControlName="fromDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['fromDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['fromDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -33,7 +33,7 @@
                                     <label for="formrow-inputState">To Date</label>
                                     <input type="date" class="form-control" formControlName="toDate" 
                                     min="{{minDate}}" max="{{maxDate}}"
-                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -64,7 +64,7 @@
                                     <select id="scope" class="form-select" 
                                             formControlName="type"
                                             class="form-control form-select ng-pristine ng-touched"
-                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['type'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['type'].invalid) }">
                                         <option value="">All</option>
                                         <option value="P">Veh Placed</option>
                                         <option value="N">Veh Not Placed</option>

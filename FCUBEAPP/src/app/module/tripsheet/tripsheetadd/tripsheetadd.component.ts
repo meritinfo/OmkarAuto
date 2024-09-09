@@ -31,7 +31,7 @@ export class TripsheetaddComponent {
   editMode = false;
 
   formTripsheet!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   responseDetails = new Responsemodel();
   branchList: Dropdownmodel[] = [];
   vehicleList: Dropdownmodel[] = [];
@@ -444,7 +444,7 @@ export class TripsheetaddComponent {
 
   //Submit user form details //
   submitTripSheetForm(): void {
-    this.userSubmitted = true;
+    this.formSubmitted = true;
     if (this.formTripsheet.invalid) {
       this.toastrService.warning("Please Enter Mandatory Fields "); 
       const controls = this.formTripsheet.controls;

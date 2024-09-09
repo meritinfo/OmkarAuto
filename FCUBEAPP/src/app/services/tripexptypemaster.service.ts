@@ -30,14 +30,15 @@ export class TripExpTypeMasterService {
   getTripExpTypeMasterDetails() {
     return this.selectedTripExpTypeMaster;
   }
+  clearCheckTripExpMasterDetails() {
+    this.selectedTripExpTypeMaster = new TripexptypemasterModel();
+  }
+  
   tripExpTypeMasterDelete(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TripExpTypeMasterDelete', req, this.httpOptions);
   }
   checkExpTypeMaster(req: Requestmodel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/CheckDuplicateTripExpType', req, this.httpOptions);
-  }
-  clearCheckTripExpMasterDetails() {
-    this.selectedTripExpTypeMaster = new TripexptypemasterModel();
   }
   checkTripExpTypeMasterSubmitted(user:TripexptypemasterModel): Observable<Responsemodel> {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'FleetMasters/TripExpTypeMasterSave', user, this.httpOptions);

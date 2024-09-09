@@ -23,7 +23,7 @@ import { Fleetloadentrymodel } from 'src/app/models/fleetloadentrymodel';
 export class FleetloadentryaddComponent {
   loggedInUserID: string = '';
   formFleetLoad!: FormGroup;
-  userSubmitted = false;
+  formSubmitted = false;
   editMode = false;
   createStatus = false;
   editStatus = false;
@@ -278,7 +278,7 @@ submitFleetLoadEntryForm(): void {
   this.sharedService.loading = true;
 
   var selectedDataVal = this.formFleetLoad.getRawValue();
-  this.userSubmitted = true;
+  this.formSubmitted = true;
   this.fleetLoadEntryModel.loadId = this.selectedFleetLoadEntryDetails.loadId ;
   //this.fleetLoadEntryModel.spareLubName  = selectedDataVal.spareLubName.toString().toUpperCase();
   this.fleetLoadEntryModel.loadBranch = selectedDataVal.loadBranch;
