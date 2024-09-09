@@ -6,7 +6,7 @@ export class Challanmastermodel {
     challanNo : string = "";
     challanDateTime : string = "";
     chStatus : string = "";
-        chSuppYN : string = "";
+    chSuppYN : string = "";
     challanFromStn : string = "";
     challanToStn : string = ""; 
     distanceKms: string = "";

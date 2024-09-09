@@ -386,11 +386,11 @@ export class ChallanmasteraddComponent {
 
   onBranchChange() {
     var selectedData = this.formUser.getRawValue();
-    if (selectedData.bookingPlace==""){
+    if (selectedData.challanBranch==""){
       this.requestmodel.strRequest = this.branch;
     }
     else{
-      this.requestmodel.strRequest = selectedData.bookingPlace;
+      this.requestmodel.strRequest = selectedData.challanBranch;
     }
 
     this.challanmasterService.getChallanNo(this.requestmodel).subscribe((res: Responsemodel) => {
@@ -477,26 +477,34 @@ export class ChallanmasteraddComponent {
       }
     });
 
-    this.requestmodel.strRequest = selectedData.bookingPlace;
+    this.requestmodel.strRequest = selectedData.challanBranch;
     this.requestmodel.strRequest1 = selectedData.arrayList[i].gcNoteNo;
 
     this.challanmasterService.getConsignmentId(this.requestmodel).subscribe((res: Challanmastermodel) => {
       this.challanmodel = res;
-      if (this.responseDetails.status) {       
-        this.formArray.controls[i].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
-        this.formArray.controls[i].get("fplace")?.setValue(res.challanDtls[0].fplace);
-        this.formArray.controls[i].get("tplace")?.setValue(res.challanDtls[0].tplace);
-        this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
-        this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
-        this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
-        
-        this.formArray.controls[i].get("gcYear")?.disable();
-        this.formArray.controls[i].get("gcBook")?.disable();
-        this.formArray.controls[i].get("gcNoteNo")?.disable();
-        this.formArray.controls[i].get("consignmentId")?.disable();
-        this.formArray.controls[i].get("fplace")?.disable();
-        this.formArray.controls[i].get("tplace")?.disable();
-        this.formArray.controls[i].get("bookingDate")?.disable();
+      if (this.responseDetails.status) { 
+        var cn= res.challanDtls[0].consignmentId;     
+        if (typeof cn === 'undefined' || cn === null || cn === '') {
+          this.toastrService.warning("LR No Doesn't Exists ");
+          this.formArray.controls[i].get("gcNoteNo")?.setValue("");
+          return;
+        } 
+        else{
+          this.formArray.controls[i].get("consignmentId")?.setValue(res.challanDtls[0].consignmentId);
+          this.formArray.controls[i].get("fplace")?.setValue(res.challanDtls[0].fplace);
+          this.formArray.controls[i].get("tplace")?.setValue(res.challanDtls[0].tplace);
+          this.formArray.controls[i].get("bookingDate")?.setValue(this.commonService.formatDate(res.challanDtls[0].bookingDate));
+          this.formArray.controls[i].get("challanPkgs")?.setValue(res.challanDtls[0].challanPkgs);
+          this.formArray.controls[i].get("challanWT")?.setValue(res.challanDtls[0].challanWT);
+          
+          this.formArray.controls[i].get("gcYear")?.disable();
+          this.formArray.controls[i].get("gcBook")?.disable();
+          this.formArray.controls[i].get("gcNoteNo")?.disable();
+          this.formArray.controls[i].get("consignmentId")?.disable();
+          this.formArray.controls[i].get("fplace")?.disable();
+          this.formArray.controls[i].get("tplace")?.disable();
+          this.formArray.controls[i].get("bookingDate")?.disable();
+        }        
       }
       else{
         this.formArray.controls[i].get("gcNoteNo")?.setValue("");
@@ -811,6 +819,9 @@ export class ChallanmasteraddComponent {
       var chln = this.selectedChallanDetails.challanFromStn;
       if (typeof chln === 'undefined' || chln === null || chln === '') {
         this.toastrService.warning("LR No Doesn't Exists ");
+        this.formUser.patchValue({
+          lrNo: "",
+        });
         return;
       }
       else{
@@ -887,7 +898,11 @@ export class ChallanmasteraddComponent {
   addItem(index: number): void {
     if (this.formArray.value[index].consignmentId != "" && this.formArray.value[index].challanPkgs != "" 
       && this.formArray.value[index].challanWT != "") {
-      this.formArray.push(this.createInitialArray()); 
+      this.formArray.push(this.createInitialArray());     
+      this.formArray.controls[index + 1].get("consignmentId")?.disable();
+      this.formArray.controls[index + 1].get("fplace")?.disable();
+      this.formArray.controls[index + 1].get("tplace")?.disable();
+      this.formArray.controls[index + 1].get("bookingDate")?.disable();
     }
     else {
       this.toastrService.warning("Please select Required Fields ");
@@ -962,7 +977,7 @@ export class ChallanmasteraddComponent {
       return;
     }
     if(selectedDataValue.declarationYN){
-      if(this.photo1Input.nativeElement.files[0]){
+      if(this.photo1Input.nativeElement.files[0]|| this.selectedChallanDetails.photo1!=""){
         //ignore
       }
       else{
@@ -993,27 +1008,27 @@ export class ChallanmasteraddComponent {
     this.challanmodel.distanceKms= selectedDataValue.distanceKms? selectedDataValue.distanceKms : ""; 
     this.challanmodel.mainChallanBranch= selectedDataValue.mainChallanBranch? selectedDataValue.mainChallanBranch : ""; 
     this.challanmodel.mainChallanNo= selectedDataValue.mainChallanNo? selectedDataValue.mainChallanNo : ""; 
-    this.challanmodel.truckNo= selectedDataValue.truckNo? selectedDataValue.truckNo : ""; 
+    this.challanmodel.truckNo= selectedDataValue.truckNo? selectedDataValue.truckNo.toString().toUpperCase() : ""; 
     this.challanmodel.ownTruckYN= selectedDataValue.ownTruckYN?"Y":"N";
     this.challanmodel.brokerId= selectedDataValue.brokerId?selectedDataValue.brokerId.dataId:"";
     this.challanmodel.brokerMblNo= selectedDataValue.brokerMblNo? selectedDataValue.brokerMblNo : ""; 
-    this.challanmodel.vehicleType= selectedDataValue.vehicleType? selectedDataValue.vehicleType : ""; 
-    this.challanmodel.vehicleMake= selectedDataValue.vehicleMake? selectedDataValue.vehicleMake : ""; 
-    this.challanmodel.vehicleModel= selectedDataValue.vehicleModel? selectedDataValue.vehicleModel : ""; 
-    this.challanmodel.engineNo= selectedDataValue.engineNo? selectedDataValue.engineNo : ""; 
-    this.challanmodel.chassisNo= selectedDataValue.chassisNo? selectedDataValue.chassisNo : ""; 
-    this.challanmodel.vehicleOwnerName= selectedDataValue.vehicleOwnerName? selectedDataValue.vehicleOwnerName : ""; 
-    this.challanmodel.vehicleOwnerAdd1= selectedDataValue.vehicleOwnerAdd1? selectedDataValue.vehicleOwnerAdd1 : ""; 
-    this.challanmodel.vehicleOwnerAdd2= selectedDataValue.vehicleOwnerAdd2? selectedDataValue.vehicleOwnerAdd2 : ""; 
-    this.challanmodel.vehicleOwnerPanNo= selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo : ""; 
+    this.challanmodel.vehicleType= selectedDataValue.vehicleType? selectedDataValue.vehicleType.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleMake= selectedDataValue.vehicleMake? selectedDataValue.vehicleMake.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleModel= selectedDataValue.vehicleModel? selectedDataValue.vehicleModel.toString().toUpperCase() : ""; 
+    this.challanmodel.engineNo= selectedDataValue.engineNo? selectedDataValue.engineNo.toString().toUpperCase() : ""; 
+    this.challanmodel.chassisNo= selectedDataValue.chassisNo? selectedDataValue.chassisNo.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerName= selectedDataValue.vehicleOwnerName? selectedDataValue.vehicleOwnerName.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerAdd1= selectedDataValue.vehicleOwnerAdd1? selectedDataValue.vehicleOwnerAdd1.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerAdd2= selectedDataValue.vehicleOwnerAdd2? selectedDataValue.vehicleOwnerAdd2.toString().toUpperCase() : ""; 
+    this.challanmodel.vehicleOwnerPanNo= selectedDataValue.vehicleOwnerPanNo? selectedDataValue.vehicleOwnerPanNo.toString().toUpperCase() : ""; 
     this.challanmodel.vehicleOwnerMblNo= selectedDataValue.vehicleOwnerMblNo? selectedDataValue.vehicleOwnerMblNo : ""; 
     this.challanmodel.vehicleInsDetails= selectedDataValue.vehicleInsDetails? selectedDataValue.vehicleInsDetails : ""; 
     this.challanmodel.panValid= selectedDataValue.panValid?"Y":"N";
     this.challanmodel.aadharLinked= selectedDataValue.aadharLinked?"Y":"N";
     this.challanmodel.itFiled= selectedDataValue.itFiled?"Y":"N";
     this.challanmodel.permitValid= selectedDataValue.permitValid?"Y":"N";
-    this.challanmodel.driverAddress= selectedDataValue.driverAddress? selectedDataValue.driverAddress : ""; 
-    this.challanmodel.driverLicNo= selectedDataValue.driverLicNo? selectedDataValue.driverLicNo : ""; 
+    this.challanmodel.driverAddress= selectedDataValue.driverAddress? selectedDataValue.driverAddress.toString().toUpperCase() : ""; 
+    this.challanmodel.driverLicNo= selectedDataValue.driverLicNo? selectedDataValue.driverLicNo.toString().toUpperCase() : ""; 
     this.challanmodel.driverLicIssuedAt= selectedDataValue.driverLicIssuedAt? selectedDataValue.driverLicIssuedAt : ""; 
     this.challanmodel.driverLicValid= selectedDataValue.driverLicValid? selectedDataValue.driverLicValid : ""; 
     this.challanmodel.driverMblNo= selectedDataValue.driverMblNo? selectedDataValue.driverMblNo : ""; 

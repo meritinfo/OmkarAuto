@@ -258,7 +258,8 @@ namespace Consignment.Repository
                                 VehicleOwnerAdd1 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd1"]),
                                 VehicleOwnerAdd2 = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerAdd2"]),
                                 VehicleOwnerPanNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerPanNo"]),
-                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
+                                PanValid = Convert.ToString(dataSet.Tables[0].Rows[i]["PanValid"]),
+                                AadharLinked = Convert.ToString(dataSet.Tables[0].Rows[i]["AadharLinked"]),
                                 ItFiled = Convert.ToString(dataSet.Tables[0].Rows[i]["ItFiled"]),
                                 VehicleOwnerMblNo = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleOwnerMblNo"]),
                                 VehicleInsDetails = Convert.ToString(dataSet.Tables[0].Rows[i]["VehicleInsDetails"]),
@@ -508,7 +509,7 @@ namespace Consignment.Repository
                     {
                         challanModel.ChallanDtls.Add(new ChallanDetailModel
                         {
-                            ChallanId = Convert.ToString(dataSet.Tables[0].Rows[0]["ChallanId"]),
+                            ChallanId ="",
                             GcYear = Convert.ToString(dataSet.Tables[0].Rows[0]["GcYear"]),
                             GcBook = Convert.ToString(dataSet.Tables[0].Rows[0]["GcBook"]),
                             GcNoteNo = Convert.ToString(dataSet.Tables[0].Rows[0]["GcNoteNo"]),
