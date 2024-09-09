@@ -1,5 +1,6 @@
 ﻿using FinTrans.Models;
 using FinTrans.Repository;
+using Org.BouncyCastle.Asn1.Ocsp;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FinTrans.Business
 {
-    public class CustWizardBusiness: ICustWizardBusiness
+    public class CustWizardBusiness : ICustWizardBusiness
     {
         readonly ICustWizardRepository custWizardRepository;
         public CustWizardBusiness(ICustWizardRepository _custWizardRepository)
@@ -25,6 +26,11 @@ namespace FinTrans.Business
         {
             return await custWizardRepository.GetCustWizardList(request);
         }
+        public async Task<CustWizardModel> GetCustWizardDetail()
+        {
+            return await custWizardRepository.GetCustWizardDetail();
 
+
+        }
     }
 }

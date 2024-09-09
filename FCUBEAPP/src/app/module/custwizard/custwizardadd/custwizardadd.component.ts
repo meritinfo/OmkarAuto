@@ -93,29 +93,55 @@ export class CustwizardaddComponent {
       sgstInputAc: new FormControl('',),
       cgstInputAc: new FormControl('',),
       igstInputAc: new FormControl('',),
-      tripMChallanAc: new FormControl('',[]),
-      tripWeighmentAc: new FormControl('',[]),
-      tripAccidentAc: new FormControl('',[]),
-      tripTollAc: new FormControl('',),
-      tripOthersMiscAc: new FormControl('',[]),
-      tripDrAlAc: new FormControl('',[]),
-      delayDamageAc: new FormControl('',[]),
-      fastagTollAc: new FormControl('',[]),
-      happayAc: new FormControl('',[]),
-      driverPoolAc: new FormControl('',[]),
-      driverSalAc: new FormControl('',[]),
-      frtIncAc: new FormControl('',[]),
-      tripTravelAlAc: new FormControl('',[]),
-      tripIncentiveAc: new FormControl('',[]),
-      tripRecdDrAc: new FormControl('',[]),
-      dslDiscAc: new FormControl('',[]),
-      dslTdsAc: new FormControl('',[]),
-      roundOffAc: new FormControl('',[]),    
+      
+      lH_LorryHireAc: new FormControl('',[]),
+      lH_LorryHirePayableAc: new FormControl('',[]),
+      lH_TdsOnLorryHireAc: new FormControl('',[]),
+      lhP_HamaliAc: new FormControl('',),
+      lhP_DetentionAc: new FormControl('',[]),
+      lhP_OtherChargesAc: new FormControl('',[]),
+      lhP_LhpmAc: new FormControl('',[]),
+      lhP_RecoveryAc: new FormControl('',[]),
+      lhP_OthDedAc: new FormControl('',[]),
+
+      mR_FrtDeductionAc: new FormControl('',[]),
+      mR_ClaimsByPartyAc: new FormControl('',[]),
+      mR_BadDebtsAc: new FormControl('',[]),
+      mR_MiscDedAc: new FormControl('',[]),
+      mR_BankChargesAc: new FormControl('',[]),
+      mR_CashDiscAc: new FormControl('',[]),
+      mR_ExcessRecdAc: new FormControl('',[]),
+      mR_TdsDedAc: new FormControl('',[]),
+      mR_OthDedAc: new FormControl('',[]),    
+
+      flt_TyreStockAc: new FormControl('',[]),   
+      flt_TyreExpAc: new FormControl('',[]),   
+      //Flt_TyreExpAc : new FormControl('',[]),   
+      flt_TyreSalesAc: new FormControl('',[]),   
+      flt_SparesStockAc: new FormControl('',[]),  
+      flt_LubesStockAc: new FormControl('',[]),  
+      flt_VehMaintExpAc: new FormControl('',[]),  
+     // Flt_VehMaintExpAc: new FormControl('',[]),  
+      flt_TripDrAdvanceAc: new FormControl('',[]),  
+      flt_TripFrtIncomeAc: new FormControl('',[]),  
+      flt_FltFrtReceivableAc: new FormControl('',[]), 
+      flt_TripExpensesAc: new FormControl('',[]), 
+      flt_DslPetroCardAc: new FormControl('',[]), 
+      flt_HappayCardAc: new FormControl('',[]), 
+      flt_TripDslExpAc: new FormControl('',[]), 
+      flt_TripAdblueExpAc: new FormControl('',[]), 
+      flt_DriverSalaryAc: new FormControl('',[]), 
+      flt_TripSuspenseAc: new FormControl('',[]), 
+      flt_ExtraChargesAc: new FormControl('',[]), 
+      flt_FrtDedAc: new FormControl('',[]), 
+      flt_TdsDedAc: new FormControl('',[]), 
+      flt_OthDedAc: new FormControl('',[]), 
     });
     this.getCrAcListForCustWizard();
+    this.getCustWizardDetails();
 
     setTimeout(() => {
-    if (this.selectedCustWizardDetails.custwizid != '') {      
+    if (this.selectedCustWizardDetails.custwizId != '') {      
       this.sharedService.loading = true;
       this.formCustWizard.patchValue(this.selectedCustWizardDetails);  
       this.editMode = true;
@@ -134,6 +160,62 @@ export class CustwizardaddComponent {
       this.debitAcList = res;
     });
   }
+  getCustWizardDetails() {
+    //this.tripVehicleDetails.vehicleMasterId =  e;
+    this.commonService.getCustWizardDetails(this.selectedCustWizardDetails).subscribe((res: Custwizardmodel) => {
+      this.selectedCustWizardDetails = res;
+      this.formCustWizard.patchValue({
+     custwizId:  this.selectedCustWizardDetails.custwizId,
+    cashAc:  this.selectedCustWizardDetails.cashAc,
+    frtIncomeAc:  this.selectedCustWizardDetails.frtIncomeAc,
+    sgstOutputAc:  this.selectedCustWizardDetails.sgstOutputAc,
+    cgstOutputAc:  this.selectedCustWizardDetails.cgstOutputAc,
+    igstOutputAc:  this.selectedCustWizardDetails.igstOutputAc,
+    sgstInputAc:  this.selectedCustWizardDetails.sgstInputAc,
+    cgstInputAc:  this.selectedCustWizardDetails.cgstInputAc,
+    igstInputAc:  this.selectedCustWizardDetails.igstInputAc,
+    lH_LorryHireAc:  this.selectedCustWizardDetails.lH_LorryHireAc,
+    lH_LorryHirePayableAc:  this.selectedCustWizardDetails.lH_LorryHirePayableAc,
+    lH_TdsOnLorryHireAc:  this.selectedCustWizardDetails.lH_TdsOnLorryHireAc,
+    lhP_HamaliAc:  this.selectedCustWizardDetails.lhP_HamaliAc,
+    lhP_DetentionAc:  this.selectedCustWizardDetails.lhP_DetentionAc,
+    lhP_OtherChargesAc:  this.selectedCustWizardDetails.lhP_OtherChargesAc,
+    lhP_LhpmAc:  this.selectedCustWizardDetails.lhP_LhpmAc,
+    lhP_RecoveryAc:  this.selectedCustWizardDetails.lhP_RecoveryAc,
+    lhP_OthDedAc:  this.selectedCustWizardDetails.lhP_OthDedAc,
+    mR_FrtDeductionAc:  this.selectedCustWizardDetails.mR_FrtDeductionAc,
+    mR_ClaimsByPartyAc:  this.selectedCustWizardDetails.mR_ClaimsByPartyAc,
+    mR_BadDebtsAc:  this.selectedCustWizardDetails.mR_BadDebtsAc,
+    mR_MiscDedAc:  this.selectedCustWizardDetails.mR_MiscDedAc,
+    mR_BankChargesAc:  this.selectedCustWizardDetails.mR_BankChargesAc,
+    mR_CashDiscAc:  this.selectedCustWizardDetails.mR_CashDiscAc,
+    mR_ExcessRecdAc:  this.selectedCustWizardDetails.mR_ExcessRecdAc,
+    mR_TdsDedAc:  this.selectedCustWizardDetails.mR_TdsDedAc,
+    mR_OthDedAc:  this.selectedCustWizardDetails.mR_OthDedAc,
+    flt_TyreStockAc:  this.selectedCustWizardDetails.flt_TyreStockAc,
+    flt_TyreExpAc:  this.selectedCustWizardDetails.flt_TyreExpAc,
+    flt_TyreSalesAc:  this.selectedCustWizardDetails.flt_TyreSalesAc,
+    flt_SparesStockAc:  this.selectedCustWizardDetails.flt_SparesStockAc,
+    flt_LubesStockAc:  this.selectedCustWizardDetails.flt_LubesStockAc,
+    flt_VehMaintExpAc:  this.selectedCustWizardDetails.flt_VehMaintExpAc,
+    flt_TripDrAdvanceAc:  this.selectedCustWizardDetails.flt_TripDrAdvanceAc,
+    flt_TripFrtIncomeAc:  this.selectedCustWizardDetails.flt_TripFrtIncomeAc,
+    flt_FltFrtReceivableAc:  this.selectedCustWizardDetails.flt_FltFrtReceivableAc,
+    flt_TripExpensesAc:  this.selectedCustWizardDetails.flt_TripExpensesAc,
+    flt_DslPetroCardAc:  this.selectedCustWizardDetails.flt_DslPetroCardAc,
+    flt_HappayCardAc:  this.selectedCustWizardDetails.flt_HappayCardAc,
+    flt_TripDslExpAc:  this.selectedCustWizardDetails.flt_TripDslExpAc,
+    flt_TripAdblueExpAc:  this.selectedCustWizardDetails.flt_TripAdblueExpAc,
+    flt_DriverSalaryAc:  this.selectedCustWizardDetails.flt_DriverSalaryAc,
+    flt_TripSuspenseAc:  this.selectedCustWizardDetails.flt_TripSuspenseAc,
+    flt_ExtraChargesAc:  this.selectedCustWizardDetails.flt_ExtraChargesAc,
+    flt_FrtDedAc:  this.selectedCustWizardDetails.flt_FrtDedAc,
+    flt_TdsDedAc:  this.selectedCustWizardDetails.flt_TdsDedAc,
+    flt_OthDedAc: this.selectedCustWizardDetails.flt_OthDedAc,
+               
+      });
+    });    
+  }
   getCrAcListForCustWizard(){
     this.commonService.GetCrAcListForCustWizard().subscribe((res) => {
       this.creditacList = res;    
@@ -147,29 +229,38 @@ export class CustwizardaddComponent {
       this.step1Active = true;
       this.step2Active = false;
       this.step3Active = false;
+      this.step4Active = false;
     }
     if (index === 2) {
       this.step1Active = false;
       this.step2Active = true;
       this.step3Active = false;
+      this.step4Active = false;
     }
     if (index === 3) {
       this.step1Active = false;
       this.step2Active = false;
       this.step3Active = true;
+      this.step4Active = false;
+    }
+    if (index === 4) {
+      this.step1Active = false;
+      this.step2Active = false;
+      this.step3Active = false;
+      this.step4Active = true;
     }
   }
   
   custWizardDelete(): void {
-    if(this.selectedCustWizardDetails.custwizid!= '' ){
-     this.requestmodel.strRequest =this.selectedCustWizardDetails.custwizid
+    if(this.selectedCustWizardDetails.custwizId!= '' ){
+     this.requestmodel.strRequest =this.selectedCustWizardDetails.custwizId
       if (confirm("Are you sure, you want to delete this?")) {
         this.CustWizardService.custWizardDelete(this.requestmodel).subscribe((res: Responsemodel) => {
           this.responseDetails = res;
           if (res.status) {
             this.toastrService.success(this.responseDetails.message);
             this.formCustWizard.reset();
-            this.route.navigate(['/custwizardlist']);
+            this.route.navigate(['/customwizard']);
           }
           else {
             this.toastrService.warning(this.responseDetails.message);
@@ -180,7 +271,7 @@ export class CustwizardaddComponent {
   }
 
   exit(): void {
-    this.route.navigate(['/custwizardlist']);
+    this.route.navigate(['/dashboard']);
   }
   
   //Submit user form details //
@@ -198,34 +289,55 @@ export class CustwizardaddComponent {
 
     var selectedDataValue = this.formCustWizard.getRawValue();
 
-    this.custWizardModel.custwizid = this.selectedCustWizardDetails.custwizid ;    
-    this.custWizardModel.cashAc= selectedDataValue.cashAc;
-    this.custWizardModel.hsdAc = selectedDataValue.hsdAc;
-    this.custWizardModel.tripRoutExpAc =selectedDataValue.tripRoutExpAc;
-    this.custWizardModel.tripRepairsAc = selectedDataValue.tripRepairsAc;
-    this.custWizardModel.tripParkingAc = selectedDataValue.tripParkingAc;
-    this.custWizardModel.tripMChallanAc = selectedDataValue.tripMChallanAc;
-    this.custWizardModel.tripWeighmentAc =selectedDataValue.tripWeighmentAc;
-    this.custWizardModel.tripAccidentAc = selectedDataValue.tripAccidentAc;
-    this.custWizardModel.tripTollAc = selectedDataValue.tripTollAc;
-    this.custWizardModel.tripOthersMiscAc = selectedDataValue.tripOthersMiscAc;
-    this.custWizardModel.tripDrAlAc = selectedDataValue.tripDrAlAc;
-    this.custWizardModel.delayDamageAc = selectedDataValue.delayDamageAc;
-    this.custWizardModel.sgstInputAc = selectedDataValue.sgstInputAc;
-    this.custWizardModel.cgstInputAc = selectedDataValue.cgstInputAc;
-    this.custWizardModel.igstInputAc = selectedDataValue.igstInputAc;
-    this.custWizardModel.fastagTollAc = selectedDataValue.fastagTollAc;
-    this.custWizardModel.happayAc = selectedDataValue.happayAc;
-    this.custWizardModel.driverPoolAc = selectedDataValue.driverPoolAc;
-    this.custWizardModel.driverSalAc = selectedDataValue.driverSalAc;
-    this.custWizardModel.frtIncAc = selectedDataValue.frtIncAc;
-    this.custWizardModel.tripTravelAlAc = selectedDataValue.tripTravelAlAc;
-    this.custWizardModel.tripTravelAlAc = selectedDataValue.tripTravelAlAc;
-    this.custWizardModel.tripIncentiveAc = selectedDataValue.tripIncentiveAc;
-    this.custWizardModel.tripRecdDrAc = selectedDataValue.tripRecdDrAc;
-    this.custWizardModel.dslDiscAc = selectedDataValue.dslDiscAc;
-    this.custWizardModel.dslTdsAc = selectedDataValue.dslTdsAc;
-    this.custWizardModel.roundOffAc = selectedDataValue.roundOffAc;
+    this.custWizardModel.custwizId = this.selectedCustWizardDetails.custwizId ;    
+   
+  
+    this.custWizardModel.cashAc = selectedDataValue.cashAc ;    
+    this.custWizardModel.frtIncomeAc = selectedDataValue.frtIncomeAc ;    
+    this.custWizardModel.sgstOutputAc = selectedDataValue.sgstOutputAc ;    
+    this.custWizardModel.cgstOutputAc = selectedDataValue.cgstOutputAc ;    
+    this.custWizardModel.igstOutputAc = selectedDataValue.igstOutputAc ;    
+    this.custWizardModel.sgstInputAc = selectedDataValue.sgstInputAc ;    
+    this.custWizardModel.cgstInputAc = selectedDataValue.cgstInputAc ;    
+    this.custWizardModel.igstInputAc = selectedDataValue.igstInputAc ;    
+    this.custWizardModel.lH_LorryHireAc = selectedDataValue.lH_LorryHireAc ;    
+    this.custWizardModel.lH_LorryHirePayableAc = selectedDataValue.lH_LorryHirePayableAc ;    
+    this.custWizardModel.lH_TdsOnLorryHireAc = selectedDataValue.lH_TdsOnLorryHireAc ;    
+    this.custWizardModel.lhP_HamaliAc = selectedDataValue.lhP_HamaliAc ;    
+    this.custWizardModel.lhP_DetentionAc = selectedDataValue.lhP_DetentionAc ;    
+    this.custWizardModel.lhP_OtherChargesAc = selectedDataValue.lhP_OtherChargesAc ;    
+    this.custWizardModel.lhP_LhpmAc = selectedDataValue.lhP_LhpmAc ;    
+    this.custWizardModel.lhP_RecoveryAc = selectedDataValue.lhP_RecoveryAc ;    
+    this.custWizardModel.lhP_OthDedAc = selectedDataValue.lhP_OthDedAc ;    
+    this.custWizardModel.mR_FrtDeductionAc = selectedDataValue.mR_FrtDeductionAc ;    
+    this.custWizardModel.mR_ClaimsByPartyAc = selectedDataValue.mR_ClaimsByPartyAc ;    
+    this.custWizardModel.mR_BadDebtsAc = selectedDataValue.mR_BadDebtsAc ;    
+    this.custWizardModel.mR_MiscDedAc = selectedDataValue.mR_MiscDedAc ;    
+    this.custWizardModel.mR_BankChargesAc = selectedDataValue.mR_BankChargesAc ;    
+    this.custWizardModel.mR_CashDiscAc = selectedDataValue.mR_CashDiscAc ;    
+    this.custWizardModel.mR_ExcessRecdAc = selectedDataValue.mR_ExcessRecdAc ;    
+    this.custWizardModel.mR_TdsDedAc = selectedDataValue.mR_TdsDedAc ;    
+    this.custWizardModel.mR_OthDedAc = selectedDataValue.mR_OthDedAc ;    
+    this.custWizardModel.flt_TyreStockAc = selectedDataValue.flt_TyreStockAc ;    
+    this.custWizardModel.flt_TyreExpAc = selectedDataValue.flt_TyreExpAc ;    
+    this.custWizardModel.flt_TyreSalesAc = selectedDataValue.flt_TyreSalesAc ;    
+    this.custWizardModel.flt_SparesStockAc = selectedDataValue.flt_SparesStockAc ;    
+    this.custWizardModel.flt_LubesStockAc = selectedDataValue.flt_LubesStockAc ;    
+    this.custWizardModel.flt_VehMaintExpAc = selectedDataValue.flt_VehMaintExpAc ;    
+    this.custWizardModel.flt_TripDrAdvanceAc = selectedDataValue.flt_TripDrAdvanceAc ;    
+    this.custWizardModel.flt_TripFrtIncomeAc = selectedDataValue.flt_TripFrtIncomeAc ;    
+    this.custWizardModel.flt_FltFrtReceivableAc = selectedDataValue.flt_FltFrtReceivableAc ;    
+    this.custWizardModel.flt_TripExpensesAc = selectedDataValue.flt_TripExpensesAc ;    
+    this.custWizardModel.flt_DslPetroCardAc = selectedDataValue.flt_DslPetroCardAc ;    
+    this.custWizardModel.flt_HappayCardAc = selectedDataValue.flt_HappayCardAc ;    
+    this.custWizardModel.flt_TripDslExpAc = selectedDataValue.flt_TripDslExpAc ;    
+    this.custWizardModel.flt_TripAdblueExpAc = selectedDataValue.flt_TripAdblueExpAc ;    
+    this.custWizardModel.flt_DriverSalaryAc = selectedDataValue.flt_DriverSalaryAc ;    
+    this.custWizardModel.flt_TripSuspenseAc = selectedDataValue.flt_TripSuspenseAc ;    
+    this.custWizardModel.flt_ExtraChargesAc = selectedDataValue.flt_ExtraChargesAc ;    
+    this.custWizardModel.flt_FrtDedAc = selectedDataValue.flt_FrtDedAc ;    
+    this.custWizardModel.flt_TdsDedAc = selectedDataValue.flt_TdsDedAc ;    
+    this.custWizardModel.flt_OthDedAc= selectedDataValue.flt_OthDedAc;
   
     this.CustWizardService.custWizardDetailsSubmitted(this.custWizardModel).subscribe((res: Responsemodel) => {
       this.responseDetails = res;

@@ -25,6 +25,14 @@
                                                 [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
+                                    <div class="col-sm-3">                                    
+                                        <div class="mb-3">      
+                                            <input type="checkbox" formControlName="nonVendor" 
+                                            class="form-check-input"   (change)="onNoVendor($event)">
+                                            <label for="nonVendor" class="form-check-label" > NoVendor
+                                            </label>  
+                                        </div>                                    
+                                    </div>  
                                     <!-- <div class="col-sm-2">
                                         <div class="mb-2">
                                             <label>Gst Type </label><span style="color: red">*</span>                                           
@@ -67,14 +75,7 @@
                                             </div>
                                         </div>
                                     </div>   -->
-                                    <div class="col-sm-3">                                    
-                                        <div class="mb-3">      
-                                            <input type="checkbox" formControlName="nonVendor" 
-                                            class="form-check-input"   (change)="onNoVendor($event)">
-                                            <label for="nonVendor" class="form-check-label" > NoVendor
-                                            </label>  
-                                        </div>                                    
-                                    </div>  
+                                  
                                 </div> 
                                 <div class="row">
                                    
@@ -130,7 +131,7 @@
                                         <div class="mb-3">
                                             <label>Vendor Name: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
-                                            formControlName="vendorName" maxlength="15" 
+                                            formControlName="vendorName" maxlength="100" 
                                             [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorName'].invalid) }">
                                         </div>
                                     </div>  
@@ -188,7 +189,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title mb-4"></h4>
                                     <div class="overflow-x">
-                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table full-grid-width">
+                                        <table class="table table-bordered dt-responsive nowrap w-100 no-border-table">
                                             <tr>
                                                 <td class="col-lg-2">
                                                     <label for="formrow-inputZip">
@@ -200,7 +201,7 @@
                                                         <h6>Brand Id</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Item Qty </h6>
                                                     </label>
@@ -215,22 +216,22 @@
                                                         <h6>Item Amount</h6>
                                                     </label>
                                                 </td>    
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Sgst Pct </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Sgst Amt </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Cgst Pct  </h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-1">
                                                     <label for="formrow-inputZip">
                                                         <h6>Cgst Amt   </h6>
                                                     </label>
@@ -252,7 +253,7 @@
                                                         <h6>Net Amount</h6>
                                                     </label>
                                                 </td>
-                                                <td class="col-lg-2">
+                                                <td class="col-lg-4">
                                                     <label for="formrow-inputZip">
                                                         <h6>Remarks</h6>
                                                     </label>
@@ -277,7 +278,7 @@
                                                          </select>                                                     
                                                     
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td class="col-lg-3"> 
                                                         <select class="form-control" formControlName="brandId"   
                                                             class="form-control form-select ng-pristine ng-touched"   
                                                             [ngClass]="">
@@ -326,7 +327,7 @@
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="netAmount" (change)="onPctChange()"> 
                                                     </td>
-                                                    <td class="col-lg-2"> 
+                                                    <td class="col-lg-4"> 
                                                         <input autoclose="false" class="form-control"
                                                         formControlName="remarks"> 
                                                     </td>
@@ -416,9 +417,10 @@
                             <div class="mb-2">
                                 <label for="formrow-inputCity">Pmt Type</label><span style="color: red">*</span>    
                                 <select id="formrow-inputState" class="form-control" 
-                                formControlName="pmtType" 
+                                formControlName="pmtType" (change)="changePmtType($event)"
                                 class="form-control form-select ng-pristine ng-touched"
                                  [ngClass]="{ 'is-invalid': userSubmitted && (f['pmtType'].invalid) }"> 
+                                 
                                     <option value="M">Cash</option>      
                                     <option value="B">Bank</option> 
                                     <option value="H">Happay</option>
@@ -433,6 +435,7 @@
                                 <select class="form-control" 
                                     formControlName="creditAc"
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
+                                        
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>
@@ -457,7 +460,7 @@
                                 formControlName="remarks" >
                             </div>
                         </div>     
-                        <div class="col-sm-3">
+                        <!-- <div class="col-sm-3">
                             <div class="mb-3">
                                 <label>Branch Code: </label>
                                 <select class="form-control" formControlName="branchCode"
@@ -467,7 +470,7 @@
                                     </option>
                                 </select>
                             </div>
-                        </div>                               
+                        </div>                                -->
                         <div class="col-sm-4">
                             <div class="mb-3">
                                 <label>Ref Doc Attachment : </label>

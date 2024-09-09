@@ -213,7 +213,7 @@ import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsal
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
 import { Custwizardlistmodel } from './models/custwizardlistmodel';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
-import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
+
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
@@ -407,7 +407,7 @@ import { GeneratetempgceditComponent } from './module/generatetempgc/generatetem
     HappaystatementlistComponent,  HappaystatementaddComponent,
     EmppaygenerationlistComponent, EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
-    CustwizardaddComponent,  CustwizardlistComponent,
+    CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     HappaystatementrptComponent,

@@ -12,5 +12,6 @@ namespace FinTrans.Repository
     {
         Task<ResponseModel> CustWizardSave(CustWizardModel custWizardModel);
         Task<CustWizardList> GetCustWizardList(PageRequest request);
+        Task<CustWizardModel> GetCustWizardDetail();
     }
 }
