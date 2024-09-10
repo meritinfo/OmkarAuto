@@ -344,8 +344,8 @@ import { VehicleadvbalreceiptModel } from 'src/app/models/vehicleadvbalreceiptmo
 import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle/dprplacevehicle.component';
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
-// import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
-// import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
+ import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
+ import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 
 
 @NgModule({
@@ -459,7 +459,7 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
     VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
     DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent,
-    //ChallanregisterrptComponent,
+    ChallanregisterrptComponent,
   ],
   imports: [
     BrowserModule,
@@ -516,7 +516,7 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    //Challanregisterrptmodel,
+    Challanregisterrptmodel,
   ],
   bootstrap: [AppComponent]
 })
