@@ -288,11 +288,9 @@ export class SparespurchasemasteraddComponent {
   getCreditAcList(pmttp:string): void {
     this.requestmodel.strRequest= pmttp;
     this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
-      this.creditAcList = res;
-      this.formUser.patchValue({
-        creditAc: this.creditAcList[0].dataId ,
-      });
+      this.creditAcList = res;      
     });
+    
     if (pmttp == 'B'){
       this.formUser.controls['chequeDate'].enable();
     }
