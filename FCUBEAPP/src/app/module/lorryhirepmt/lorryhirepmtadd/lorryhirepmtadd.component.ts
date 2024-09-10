@@ -108,7 +108,7 @@ export class LorryhirepmtaddComponent {
     }   
     
     this.formUser = this.formBuilder.group({
-      pmtStation: new FormControl('', [Validators.required]),
+      pmtStation: new FormControl(this.branch, [Validators.required]),
       pmtNo: new FormControl('', [Validators.required]),
       pmtDate : new FormControl(this.loginDate, [Validators.required]),
       pmtType: new FormControl('', [Validators.required]),
@@ -145,6 +145,8 @@ export class LorryhirepmtaddComponent {
     this.getPaymentCreditAcList("M");
     this.selectedLorryhiremaster = this.lorryhirepmtService.getLorryhiremasterDetails(); 
 
+    this.formUser.controls['pmtStation'].disable();
+    this.formUser.controls['pmtNo'].disable();
     this.formUser.controls['onAcBranch'].disable();
     this.formUser.controls['neftPmt'].disable();
     this.formUser.controls['totalHireAmt'].disable();
@@ -173,16 +175,29 @@ export class LorryhirepmtaddComponent {
     setTimeout(() => {
       if (this.selectedLorryhiremaster.masterId != '') {    
         this.formUser.patchValue(this.selectedLorryhiremaster);
+        var onAcBranchYN = this.selectedLorryhiremaster.onAcBranchYN=="Y"?"Y":"";
+        var neftPmt = this.selectedLorryhiremaster.neftPmt=="Y"?"Y":"";
         this.formUser.patchValue({
           pmtDate: this.commonService.formatDate(this.selectedLorryhiremaster.pmtDate),
           chequeDt: this.commonService.formatDate(this.selectedLorryhiremaster.chequeDt), 
+          onAcBranchYN:onAcBranchYN,
+          neftPmt:neftPmt,
         });
+        if(this.selectedLorryhiremaster.pmtType=="B" && this.selectedLorryhiremaster.neftPmt=="N"){
+          this.formUser.controls['chequeNo'].enable();
+          this.formUser.controls['chequeDt'].enable();
+        }
+        else{
+          this.formUser.controls['chequeNo'].disable();
+          this.formUser.controls['chequeDt'].disable();
+        }
         this.editMode = true;
-        this.formUser.controls['pmtStation'].disable();
-        this.formUser.controls['pmtNo'].disable();
         this.formUser.controls['pmtDate'].disable();
         this.formUser.controls['modifyRemarks'].enable();
         this.getLorryHirePmtInnerGridList();        
+      }
+      else{
+        this.getPmtNo();
       }
     }, 2000);
     this.sharedService.loading=false;
@@ -283,6 +298,19 @@ export class LorryhirepmtaddComponent {
     });
   }  
 
+
+  getPmtNo(): void {    
+    this.requestmodel.strRequest = this.branch;
+    this.requestmodel.strRequest1 = this.year; 
+    this.lorryhirepmtService.getLhpmPmtNo(this.requestmodel).subscribe((res:Responsemodel) => {
+      this.responseDetails = res;
+      if(this.responseDetails.status){
+        this.formUser.patchValue({
+          pmtNo: this.responseDetails.message
+        });
+      }
+    });
+  }  
 
   // convenience getter for easy access to contact form fields
   get f() { return this.formUser.controls; }

@@ -1,5 +1,6 @@
 ﻿using Consignment.Models;
 using Consignment.Repository;
+using DocumentFormat.OpenXml.Office2016.Excel;
 using Shared.Models;
 
 namespace Consignment.Business
@@ -31,6 +32,10 @@ namespace Consignment.Business
         public async Task<LorryHireMasterModel> GetChallanLorryhireDetails(ReportRequestModel request)
         {
             return await lorryHireRepository.GetChallanLorryhireDetails(request);
+        }
+        public async Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel)
+        {
+            return await lorryHireRepository.GetLorryHirePmtNo(requestModel);
         }
     }
 }

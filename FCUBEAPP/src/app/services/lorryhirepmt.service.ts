@@ -55,5 +55,8 @@ export class LorryhirepmtService {
     return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/LorryHireMasterDelete', request, this.httpOptions);
   }
 
+  getLhpmPmtNo(request: Requestmodel ):  Observable<Responsemodel> {
+    return this.httpClient.post<Responsemodel>(Constants.API_ENDPOINT + 'Consignment/GetLorryHirePmtNo', request, this.httpOptions);
+  }
   
 }
