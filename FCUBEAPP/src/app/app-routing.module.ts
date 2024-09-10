@@ -200,7 +200,7 @@ import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerep
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
-
+//import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 
 
 const routes: Routes = [
@@ -480,7 +480,8 @@ const routes: Routes = [
   { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  
   { path: 'vehicleadvbalreceiptadd', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
-  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },  
+  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },
+ // { path: 'challanreg	', component: ChallanregisterrptComponent },  
    
    
   
