@@ -22,7 +22,7 @@
                                             <label >Trans Date: </label><span style="color: red">*</span>  
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                                 formControlName="transDate" max="{{maxDate}}"                                         
-                                                [ngClass]="{ 'is-invalid': formSubmitted && (f['transDate'].invalid) }">
+                                                [ngClass]="{ 'is-invalid': userSubmitted && (f['transDate'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-3">                                    
@@ -93,7 +93,7 @@
                                                     [notFoundTemplate]="notFoundTemplate"
                                                     [customFilter]="startWithFilter"
                                                     formControlName="vendorId" 
-                                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorId'].invalid) }">
+                                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorId'].invalid) }">
                                                 </ng-autocomplete>
 
                                                 <ng-template #itemTemplate let-item>
@@ -111,7 +111,7 @@
                                             <label>Vendor Inv No: </label><span style="color: red">*</span> 
                                             <input numbersonly type="text" class="form-control" 
                                             formControlName="vendorInvNo" 
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvNo'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvNo'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -119,7 +119,7 @@
                                             <label>Vendor Inv Dt: </label><span style="color: red">*</span> 
                                             <input type="date"  autofocus="autofocus" class="form-control"
                                             formControlName="vendorInvDt"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorInvDt'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorInvDt'].invalid) }">
                                         </div>
                                     </div>   
                                 </div> 
@@ -140,14 +140,14 @@
                                             <label>Vendor Address: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vendorAddress" 
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorAddress'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorAddress'].invalid) }">
                                         </div>
                                     </div>  
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label>VendorState: </label><span style="color: red">*</span> 
                                             <select class="form-control" formControlName="vendorState"      
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorState'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorState'].invalid) }">
                                                 <option *ngFor="let state of stateList" value={{state.dataId}}>
                                                    {{state.dataName}}
                                                 </option>
@@ -159,7 +159,7 @@
                                             <label>Vendor GstNo: </label><span style="color: red">*</span> 
                                             <input uppercaseonly type="text" class="form-control" 
                                             formControlName="vendorGstNo"
-                                            [ngClass]="{ 'is-invalid': formSubmitted && (f['vendorGstNo'].invalid) }">
+                                            [ngClass]="{ 'is-invalid': userSubmitted && (f['vendorGstNo'].invalid) }">
                                         </div>
                                     </div> 
                                     <div class="col-sm-2">
@@ -434,7 +434,7 @@
                                 <label for="formrow-inputCity">Credit Ac</label><span style="color: red"> * </span>
                                 <select class="form-control" 
                                     formControlName="creditAc"
-                                    [ngClass]="{ 'is-invalid': formSubmitted && (f['creditAc'].invalid) }">
+                                    [ngClass]="{ 'is-invalid': userSubmitted && (f['creditAc'].invalid) }">
                                     <option *ngFor="let ac of creditAcList" value={{ac.dataId}}>
                                         {{ac.dataName}}
                                     </option>
@@ -485,7 +485,7 @@
                     <div class="col-lg-12">
                         <div class="tex">
                             <button class="btn btn-primary w-md" 
-                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !formSubmitted"
+                             *ngIf="((editMode && editStatus) || (!editMode && createStatus)) && !userSubmitted"
                                 (click)="submitSparesPurchaseMasterForm()">Save</button>&nbsp;                            
                             <button class="btn btn-danger w-md m-2" *ngIf="editMode && deleteStatus"
                                 (click)="sparesMasterDelete()">Delete</button>&nbsp;

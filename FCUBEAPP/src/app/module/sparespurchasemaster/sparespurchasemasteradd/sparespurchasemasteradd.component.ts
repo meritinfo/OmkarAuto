@@ -31,7 +31,7 @@ export class SparespurchasemasteraddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  formSubmitted = false;
+  userSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -632,7 +632,7 @@ export class SparespurchasemasteraddComponent {
     }
 
     let formData = new FormData();
-    this.formSubmitted = true;
+    this.userSubmitted = true;
     formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.sparespurchasemastermodel));  
 
