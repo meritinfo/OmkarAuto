@@ -173,6 +173,21 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("GetCustWizardDetail")]
+        public async Task<IActionResult> GetCustWizardDetail()
+        {
+
+            try
+            {
+                var result = await custWizardBusiness.GetCustWizardDetail();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpPost("CashReceiptPaymentsDelete")]
         public async Task<IActionResult> CashReceiptPaymentsDelete(RequestModel req)
         {

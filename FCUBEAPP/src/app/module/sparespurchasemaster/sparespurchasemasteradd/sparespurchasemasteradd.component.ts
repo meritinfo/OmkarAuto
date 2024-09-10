@@ -31,7 +31,7 @@ export class SparespurchasemasteraddComponent {
   deleteStatus = false;
   viewStatus = false;
   editMode= false;
-  formSubmitted = false;
+  userSubmitted = false;
   keywordLocation = 'dataName';
   responseDetails = new Responsemodel();
   stateList: Dropdownmodel[] = [];
@@ -137,7 +137,7 @@ export class SparespurchasemasteraddComponent {
       // auditedYN : new FormControl('',),
       // auditDate : new FormControl('',),
       refDocAttachedImage : new FormControl('',),
-      branchCode : new FormControl('',),   
+      //branchCode : new FormControl('',),   
 
       arrayList: this.formBuilder.array([this.createSparesArray()]),
     }); 
@@ -147,7 +147,7 @@ export class SparespurchasemasteraddComponent {
     this.getBranchList();
     this.getStateList();
     this.getSparesList();
-    this.getCreditAcList('M');
+    this.getCreditAcList('');
 
     this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
     this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -233,6 +233,17 @@ export class SparespurchasemasteraddComponent {
     this.commonService.getStateList().subscribe((res) => {
       this.stateList = res;
     });
+  }
+  changePmtType(e: any) {
+    console.log(e.target.value);
+    var selectedValue = e.target.value;
+    this.formUser.patchValue({
+      neftPmt : "",
+      chequeNo: "",
+      chequeDate: this.loginDate,
+    });
+    
+    this.getCreditAcList(selectedValue);
   }
   getBrandList(): void {
     this.commonService.getSparesBrandList().subscribe((res) => {
@@ -559,9 +570,9 @@ export class SparespurchasemasteraddComponent {
   this.sparespurchasemastermodel.vendorInvDt= selectedDataValue.vendorInvDt;
   this.sparespurchasemastermodel.vendorInvNo= selectedDataValue.vendorInvNo;
   this.sparespurchasemastermodel.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
-  this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress;
+  this.sparespurchasemastermodel.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase(),
   this.sparespurchasemastermodel.vendorState= selectedDataValue.vendorState;
-  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo;
+  this.sparespurchasemastermodel.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
   this.sparespurchasemastermodel.gstType= selectedDataValue.gstType;
   this.sparespurchasemastermodel.totItemAmount= selectedDataValue.totItemAmount.toString();;
   this.sparespurchasemastermodel.totSgstAmt= selectedDataValue.totSgstAmt.toString();;
@@ -576,7 +587,9 @@ export class SparespurchasemasteraddComponent {
   this.sparespurchasemastermodel.creditAc= selectedDataValue.creditAc;
   this.sparespurchasemastermodel.chequeDate= selectedDataValue.chequeDate;
   this.sparespurchasemastermodel.refDocAttachedImage= selectedDataValue.refDocAttachedImage;
-  this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
+  //
+  //this.sparespurchasemastermodel.branchCode= selectedDataValue.branchCode;
+  this.sparespurchasemastermodel.branchCode= this.branch ;
   this.sparespurchasemastermodel.yearID= this.year;
   this.sparespurchasemastermodel.loggedInUser=  this.loggedInUserID;
 
@@ -619,7 +632,7 @@ export class SparespurchasemasteraddComponent {
     }
 
     let formData = new FormData();
-    this.formSubmitted = true;
+    this.userSubmitted = true;
     formData.append('refDocAttachedImage', this.attachmentInput.nativeElement.files[0]);
     formData.append('datadetails', JSON.stringify(this.sparespurchasemastermodel));  
 
