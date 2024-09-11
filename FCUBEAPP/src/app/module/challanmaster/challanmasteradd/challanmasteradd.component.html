@@ -143,7 +143,16 @@
                                     <input type="text" numbersonly maxlength="8" class="form-control" 
                                         formControlName="distanceKms">
                                 </div>
-                            </div>
+                            </div>                            
+                            <div class="col-lg-2">
+                                <div class="mb-3">
+                                    <label for="formrow-inputZip">Exp Arrival Date : </label><span
+                                        style="color: red">*</span>
+                                    <input bsdatepicker="" type="date" autoclose="false" class="form-control"
+                                        formControlName="expArrivalDate" min="{{minDate}}"
+                                        [ngClass]="{ 'is-invalid': formSubmitted && (f['expArrivalDate'].invalid) }">
+                                </div>
+                            </div>  
                         </div>  
                         <div class="row">
                             <div class="col-lg-2">   

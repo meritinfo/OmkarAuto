@@ -22,6 +22,7 @@
         public string? OthDedAmt { get; set; }
         public string? Oth2DedAmt { get; set; }
         public string? TdsAmt { get; set; }
+        public string? TotPaid { get; set; }        
         public string? ExtraRemarks { get; set; }
         public string? DeductRemarks { get; set; }
 

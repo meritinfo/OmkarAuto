@@ -37,5 +37,9 @@ namespace Consignment.Business
         {
             return await lorryHireRepository.GetLorryHirePmtNo(requestModel);
         }
+        public async Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel)
+        {
+            return await lorryHireRepository.CheckChallanNoExists(requestModel);
+        }
     }
 }

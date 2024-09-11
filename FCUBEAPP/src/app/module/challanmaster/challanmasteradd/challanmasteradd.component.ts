@@ -154,6 +154,7 @@ export class ChallanmasteraddComponent {
       challanFromStn: new FormControl('', [Validators.required]),
       challanToStn: new FormControl('', [Validators.required]),
       distanceKms: new FormControl('',),
+      expArrivalDate: new FormControl('',[Validators.required]),
       mainChallanBranch: new FormControl('', [Validators.required]),
       mainChallanNo: new FormControl('', [Validators.required]),
       truckNo: new FormControl('', [Validators.required]),
@@ -247,6 +248,7 @@ export class ChallanmasteraddComponent {
         this.formUser.patchValue(this.selectedChallanDetails);
         this.formUser.patchValue({
           challanDateTime: this.commonService.formatDate(this.selectedChallanDetails.challanDateTime) ,
+          expArrivalDate: this.commonService.formatDate(this.selectedChallanDetails.expArrivalDate) ,
           driverLicValid : this.commonService.formatDate(this.selectedChallanDetails.driverLicValid),
           challanFromStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanFromStn),
           challanToStn: this.locationList.find(e => e.dataId == this.selectedChallanDetails.challanToStn), 
@@ -1006,6 +1008,7 @@ export class ChallanmasteraddComponent {
     this.challanmodel.challanFromStn= selectedDataValue.challanFromStn?selectedDataValue.challanFromStn.dataId:"";
     this.challanmodel.challanToStn= selectedDataValue.challanToStn?selectedDataValue.challanToStn.dataId:"";
     this.challanmodel.distanceKms= selectedDataValue.distanceKms? selectedDataValue.distanceKms : ""; 
+    this.challanmodel.expArrivalDate= selectedDataValue.expArrivalDate;
     this.challanmodel.mainChallanBranch= selectedDataValue.mainChallanBranch? selectedDataValue.mainChallanBranch : ""; 
     this.challanmodel.mainChallanNo= selectedDataValue.mainChallanNo? selectedDataValue.mainChallanNo : ""; 
     this.challanmodel.truckNo= selectedDataValue.truckNo? selectedDataValue.truckNo.toString().toUpperCase() : ""; 

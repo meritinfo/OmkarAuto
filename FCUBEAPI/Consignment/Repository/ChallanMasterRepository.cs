@@ -570,6 +570,8 @@ namespace Consignment.Repository
                         challanModel.RatePerTon         = Convert.ToString(dataSet.Tables[0].Rows[0]["RatePerTon"]);
                         challanModel.LorryHire          = Convert.ToString(dataSet.Tables[0].Rows[0]["LorryHire"]);
                         challanModel.SubTotal           = Convert.ToString(dataSet.Tables[0].Rows[0]["SubTotal"]);
+                        challanModel.CashAdvance        = Convert.ToString(dataSet.Tables[0].Rows[0]["cashAdvance"]);
+                        challanModel.Balance            = Convert.ToString(dataSet.Tables[0].Rows[0]["Balance"]);
                         challanModel.VehicleModel       = Convert.ToString(dataSet.Tables[0].Rows[0]["VehicleModel"]);
                         challanModel.EngineNo           = Convert.ToString(dataSet.Tables[0].Rows[0]["EngineNo"]);
                         challanModel.ChassisNo          = Convert.ToString(dataSet.Tables[0].Rows[0]["ChassisNo"]);
