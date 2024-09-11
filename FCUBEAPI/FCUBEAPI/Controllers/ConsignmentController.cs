@@ -1376,7 +1376,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lorryHireBusiness.GetLorryHirePmtNo(requestModel);
+                var result = await lorryHireBusiness.CheckChallanNoExists(requestModel);
 
                 return Ok(result);
             }

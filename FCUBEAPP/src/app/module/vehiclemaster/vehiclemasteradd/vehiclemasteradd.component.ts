@@ -529,15 +529,10 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
     this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc?selectedDataValue.vehicleLedgerAc.dataId:'';
-  // this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
     this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc?selectedDataValue.vehicleAssetAc.dataId:'';
-    // this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach2Link        = selectedDataValue.attach2Link;
     this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach3Link        = selectedDataValue.attach3Link;
     this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
 
     this.vehiclefltmastermodel.vehiclefltDetailList = [];
