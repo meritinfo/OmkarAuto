@@ -166,7 +166,7 @@ export class VehiclerepmaintaddComponent {
   this.getSparesList();
   this.getVehicleIdList();
   this.getMaintanenceList();
-  this.getCreditAcList('M');
+  this.getCreditAcList('');
 
   this.formTyreArray.controls[0].get("sgstAmt")?.disable();   
   this.formTyreArray.controls[0].get("cgstAmt")?.disable();  
@@ -274,6 +274,17 @@ getBranchList(): void {
     this.branchList = res;
   });
 }
+changePmtType(e: any) {
+  console.log(e.target.value);
+  var selectedValue = e.target.value;
+  this.formUser.patchValue({
+    neftPmt : "",
+    chequeNo: "",
+    chequeDate: this.loginDate,
+  });
+  
+  this.getCreditAcList(selectedValue);
+}
 onNoVendor(e: any) {
   if (e.target.checked){     
     this.formUser.controls['vendorId'].disable(); 
@@ -303,9 +314,9 @@ getCreditAcList(pmttp:string): void {
   this.requestmodel.strRequest= pmttp;
   this.commonService.getPaymentCreditAcList(this.requestmodel).subscribe((res) => {
     this.creditAcList = res;
-    this.formUser.patchValue({
-      creditAc: this.creditAcList[0].dataId ,
-    });
+    // this.formUser.patchValue({
+    //   creditAc: this.creditAcList[0].dataId ,
+    // });
   });
   if (pmttp == 'B'){
     this.formUser.controls['chequeDate'].enable();
@@ -586,9 +597,9 @@ this.vehiclerepmaintMaster.vendorId= selectedDataValue.vendorId.dataId?selectedD
 this.vehiclerepmaintMaster.vendorInvDt= selectedDataValue.vendorInvDt;
 this.vehiclerepmaintMaster.vendorInvNo= selectedDataValue.vendorInvNo;
 this.vehiclerepmaintMaster.vendorName= selectedDataValue.vendorName.toString()==""?selectedDataValue.vendorId.dataName:selectedDataValue.vendorName.toString().toUpperCase();
-this.vehiclerepmaintMaster.vendorAddress= selectedDataValue.vendorAddress;
+this.vehiclerepmaintMaster.vendorAddress= selectedDataValue.vendorAddress.toString().toUpperCase();
 this.vehiclerepmaintMaster.vendorState= selectedDataValue.vendorState;
-this.vehiclerepmaintMaster.vendorGstNo= selectedDataValue.vendorGstNo;
+this.vehiclerepmaintMaster.vendorGstNo= selectedDataValue.vendorGstNo.toString().toUpperCase();
 this.vehiclerepmaintMaster.gstType= selectedDataValue.gstType;
 this.vehiclerepmaintMaster.totItemAmount= selectedDataValue.totItemAmount.toString();;
 this.vehiclerepmaintMaster.totSgstAmt= selectedDataValue.totSgstAmt.toString();;
@@ -603,7 +614,8 @@ this.vehiclerepmaintMaster.pmtType= selectedDataValue.pmtType;
 this.vehiclerepmaintMaster.creditAc= selectedDataValue.creditAc;
 this.vehiclerepmaintMaster.chequeDate= selectedDataValue.chequeDate;
 this.vehiclerepmaintMaster.refDocAttachedImage = selectedDataValue.refDocAttachedImage;
-this.vehiclerepmaintMaster.branchCode = selectedDataValue.branchCode;
+//this.vehiclerepmaintMaster.branchCode = selectedDataValue.branchCode;
+this.vehiclerepmaintMaster.branchCode = this.branch;
 this.vehiclerepmaintMaster.yearID= this.year;
 this.vehiclerepmaintMaster.loggedInUser=  this.loggedInUserID;
 
