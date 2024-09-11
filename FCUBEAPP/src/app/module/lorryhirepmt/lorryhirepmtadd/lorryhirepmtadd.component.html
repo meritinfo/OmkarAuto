@@ -200,38 +200,41 @@
                                             </select>
                                         </td>                                            
                                         <td>
-                                            <input autoclose="false" class="form-control" (change)="getChallanDtls(i)"
+                                            <input autoclose="false" numbersonly class="form-control" 
+                                                (change)="getChallanDtls(i)"
                                                 formControlName="challanNo">
                                             <input autoclose="false" class="form-control" type="hidden"
                                                 formControlName="challanId">
                                         </td>                                           
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="dueAmt">
+                                                formControlName="dueAmt">                                                
+                                            <input autoclose="false" class="form-control" type="hidden"
+                                            formControlName="totPaid">
                                         </td>                                            
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="hireAmt" (change)="calTotal()">
+                                                formControlName="hireAmt" (change)="calTotal(i,'hireAmt')">
                                         </td>                                          
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="hamaliAmt" (change)="calTotal()">
+                                                formControlName="hamaliAmt" (change)="calTotal(i,'hamaliAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="detenAmt" (change)="calTotal()">
+                                                formControlName="detenAmt" (change)="calTotal(i,'detenAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="otherAmt" (change)="calTotal()">
+                                                formControlName="otherAmt" (change)="calTotal(i,'otherAmt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="other2Amt" (change)="calTotal()">
+                                                formControlName="other2Amt" (change)="calTotal(i,'other2Amt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="other3Amt" (change)="calTotal()">
+                                                formControlName="other3Amt" (change)="calTotal(i,'other3Amt')">
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
@@ -239,23 +242,23 @@
                                         </td>                                         
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="recoveryAmt" (change)="calTotal()">
+                                                formControlName="recoveryAmt" (change)="calTotal(i,'recoveryAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="lhpmAmt" (change)="calTotal()">
+                                                formControlName="lhpmAmt" (change)="calTotal(i,'lhpmAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="othDedAmt" (change)="calTotal()">
+                                                formControlName="othDedAmt" (change)="calTotal(i,'othDedAmt')">
                                         </td>                                        
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="oth2DedAmt" (change)="calTotal()">
+                                                formControlName="oth2DedAmt" (change)="calTotal(i,'oth2DedAmt')">
                                         </td>                                       
                                         <td>
                                             <input decimalonly autoclose="false" class="form-control" 
-                                                formControlName="tdsAmt" (change)="calTotal()">
+                                                formControlName="tdsAmt" (change)="calTotal(i,'tdsAmt')">
                                         </td>                                       
                                         <td>
                                             <input uppercaseonly autoclose="false" class="form-control" 

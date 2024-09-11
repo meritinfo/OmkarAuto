@@ -1366,7 +1366,27 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-       
+
+        [HttpPost("CheckChallanNoExists")]
+        public async Task<IActionResult> CheckChallanNoExists(RequestModel requestModel)
+        {
+            if (requestModel == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await lorryHireBusiness.GetLorryHirePmtNo(requestModel);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
 
         [HttpPost("GetLorryHireReqList")]
         public async Task<IActionResult> GetLorryHireReqList(ReportRequestModel request)

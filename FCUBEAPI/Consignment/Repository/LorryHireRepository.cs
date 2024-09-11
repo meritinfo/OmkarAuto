@@ -6,6 +6,7 @@ using Shared.Models;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml.VariantTypes;
+using System.Data.Common;
 
 namespace Consignment.Repository
 {
@@ -93,7 +94,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                
+
             }
             return lorryHire;
         }
@@ -129,6 +130,7 @@ namespace Consignment.Repository
                                 ChallanBranch   = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanBranch"]),
                                 ChallanNo       = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanNo"]),
                                 ChallanId       = Convert.ToString(dataSet.Tables[0].Rows[i]["ChallanId"]),
+                                DueAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["DueAmt"]),
                                 HireAmt         = Convert.ToString(dataSet.Tables[0].Rows[i]["HireAmt"]),
                                 HamaliAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["HamaliAmt"]),
                                 DetenAmt        = Convert.ToString(dataSet.Tables[0].Rows[i]["DetenAmt"]),
@@ -141,6 +143,7 @@ namespace Consignment.Repository
                                 OthDedAmt       = Convert.ToString(dataSet.Tables[0].Rows[i]["OthDedAmt"]),
                                 Oth2DedAmt      = Convert.ToString(dataSet.Tables[0].Rows[i]["Oth2DedAmt"]),
                                 TdsAmt          = Convert.ToString(dataSet.Tables[0].Rows[i]["TdsAmt"]),
+                                TotPaid         = Convert.ToString(dataSet.Tables[0].Rows[i]["TotPaid"]),
                                 ExtraRemarks    = Convert.ToString(dataSet.Tables[0].Rows[i]["ExtraRemarks"]),
                                 DeductRemarks   = Convert.ToString(dataSet.Tables[0].Rows[i]["DeductRemarks"]),
                             });
@@ -150,7 +153,7 @@ namespace Consignment.Repository
             }
             catch (Exception ex)
             {
-                
+
             }
             return lorryHire;
         }
@@ -248,7 +251,7 @@ namespace Consignment.Repository
                             new SqlParameter("@TotalRecoveryAmt                    ",          lorryHire.TotalRecoveryAmt   ),
                             new SqlParameter("@TotalLhpmAmt                        ",          lorryHire.TotalLhpmAmt       ),
                             new SqlParameter("@TotalOthDedAmt                      ",          lorryHire.TotalOthDedAmt     ),
-                            new SqlParameter("@TotalOth2DedAmt                     ",          lorryHire.TotalOth2DedAmt    ),                                                                   
+                            new SqlParameter("@TotalOth2DedAmt                     ",          lorryHire.TotalOth2DedAmt    ),
                             new SqlParameter("@TotalTdsAmt                         ",          lorryHire.TotalTdsAmt        ),
                             new SqlParameter("@CreditAc                            ",          lorryHire.CreditAc           ),
                             new SqlParameter("@ChequeNo                            ",          lorryHire.ChequeNo           ),
@@ -257,7 +260,7 @@ namespace Consignment.Repository
                             new SqlParameter("@Remarks                             ",          lorryHire.Remarks            ),
                             new SqlParameter("@YearId                              ",          lorryHire.YearId             ),
                             new SqlParameter("@ModifyRemarks                       ",          lorryHire.ModifyRemarks      ),
-                            new SqlParameter("@LoggedInUserID                      ",          lorryHire.LoggedInUserID     ), 
+                            new SqlParameter("@LoggedInUserID                      ",          lorryHire.LoggedInUserID     ),
                         };
                     var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_LorryHireMasterSave", param);
                     var MasterId = "0";
@@ -268,7 +271,8 @@ namespace Consignment.Repository
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
                         MasterId = responseModel.Message;
 
-                        if (responseModel.Status) {
+                        if (responseModel.Status)
+                        {
                             for (int i = 0; i < lorryHire.LhpmDetails.Count; i++)
                             {
                                 lorryHire.LhpmDetails[i].MasterId= MasterId.ToString();
@@ -395,11 +399,6 @@ namespace Consignment.Repository
         public async Task<ResponseModel> GetLorryHirePmtNo(RequestModel requestModel)
         {
             ResponseModel responseModel = new();
-
-            var connection = new SqlConnection(dbconnection.Value.DBConnection);
-            connection.Open();
-            SqlTransaction transaction;
-            transaction = connection.BeginTransaction();
             try
             {
                 if (dbconnection != null)
@@ -409,29 +408,52 @@ namespace Consignment.Repository
                             new SqlParameter("@Branch", requestModel.strRequest),
                             new SqlParameter("@Year", requestModel.strRequest1),
                         };
-                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_getLorryHirePmtNo", param);
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getLorryHirePmtNo", param);
 
                     if (statusData != null && statusData.Tables[0].Rows.Count > 0)
                     {
                         responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
                         responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
-                        if (responseModel.Status) { transaction.Commit(); }
-                        else { transaction.Rollback(); }
-                    }
-                    else
-                    {
-                        responseModel.Status = false;
-                        transaction.Rollback();
+
                     }
                 }
             }
             catch (Exception ex)
             {
-                transaction.Rollback();
+
             }
             return responseModel;
         }
 
+
+        public async Task<ResponseModel> CheckChallanNoExists(RequestModel requestModel)
+        {
+            ResponseModel responseModel = new();
+            try
+            {
+                if (dbconnection != null)
+                {
+                    SqlParameter[] param =
+                        {
+                            new SqlParameter("@ChallanNo", requestModel.strRequest),
+                        };
+                    var statusData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_CheckChallanNoExists", param);
+
+                    if (statusData != null && statusData.Tables[0].Rows.Count > 0)
+                    {
+                        responseModel.Status = Convert.ToBoolean(statusData.Tables[0].Rows[0]["Status"]);
+                        responseModel.Message = Convert.ToString(statusData.Tables[0].Rows[0]["Message"]);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseModel;
+        }
     }
 
 }
+
