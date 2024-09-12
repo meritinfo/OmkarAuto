@@ -60,6 +60,8 @@ namespace FCUBEAPI.Controllers
             ILRWithOutChallanRptBusiness _lRWithOutChallanRptBusiness,
             IUnBilledRptBusiness _unBilledRptBusiness,
             IChallanRegisterRptBusiness _challanRegisterRptBusiness)
+              IChallanRegisterRptBusiness _challanRegisterRptBusiness,
+            IUnBilledRptBusiness _unBilledRptBusiness)
         {
             branchMastersBusiness = _branchMastersBusiness;
             freightMastersBusiness = _freightMastersBusiness;
@@ -1595,6 +1597,43 @@ namespace FCUBEAPI.Controllers
             try
             {
                 var result = await unBilledRptBusiness.GetUnBilledRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("GetChallanRegisterRptList")]
+        public async Task<IActionResult> GetChallanRegisterRptList(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanRegisterRptBusiness.GetChallanRegisterRptList(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("GetChallanRegisterRptExcel")]
+        public async Task<IActionResult> GetChallanRegisterRptExcel(ReportRequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await challanRegisterRptBusiness.GetChallanRegisterRptExcel(request);
 
                 return Ok(result);
             }

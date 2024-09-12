@@ -106,7 +106,7 @@ import { HappaystatementlistComponent } from './module/happaystatement/happaysta
 import { HappaystatementaddComponent } from './module/happaystatement/happaystatementadd/happaystatementadd.component';
 import { EmpsalcalculationlistComponent } from './module/empsalcalculation/empsalcalculationlist/empsalcalculationlist.component';
 import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsalcalculationadd/empsalcalculationadd.component';
-import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
+
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
@@ -200,6 +200,7 @@ import { VehiclerepmaintaddComponent } from './module/vehiclerepmaint/vehiclerep
 import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclerepmaintlist/vehiclerepmaintlist.component';
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
+import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
 
@@ -354,9 +355,9 @@ const routes: Routes = [
   { path: 'salcalclist', component:  EmpsalcalculationlistComponent },
   { path: 'salcalcadd', component: EmpsalcalculationaddComponent },  
   { path: 'salcalcedd', component:  EmpsalcalculationaddComponent },
-  { path: 'custwizardadd', component: CustwizardaddComponent },  
+  { path: 'customwizard', component: CustwizardaddComponent },  
   { path: 'custwizardedit', component: CustwizardaddComponent },  
-  { path: 'custwizardlist', component:  CustwizardlistComponent },
+
   { path: 'dailyloadrpt', component:  DailyloadingrptComponent },
   { path: 'acledgerrpt', component:  LedgerrptComponent },  
   { path: 'bankbookrpt', component:  BankbookrptComponent },  
@@ -482,9 +483,9 @@ const routes: Routes = [
   { path: 'vehiclerepairslist', component: VehiclerepmaintlistComponent },  
   { path: 'vehicleadvbalreceiptadd', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
-  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },  
-  { path: 'challanreg', component: ChallanregisterrptComponent },
-  { path: 'sparepurchrpt', component: SparespurchaserptComponent },
+  { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },
+ // { path: 'challanreg	', component: ChallanregisterrptComponent },  
+   
    
   
 ];

@@ -213,7 +213,7 @@ import { EmpsalcalculationaddComponent } from './module/empsalcalculation/empsal
 import { Emppaycallistmodel } from './models/emppaycallistmodel';
 import { Custwizardlistmodel } from './models/custwizardlistmodel';
 import { CustwizardaddComponent } from './module/custwizard/custwizardadd/custwizardadd.component';
-import { CustwizardlistComponent } from './module/custwizard/custwizardlist/custwizardlist.component';
+
 import { DailyloadingrptComponent } from './module/dailyloadingrpt/dailyloadingrpt.component';
 import { LedgerrptComponent } from './module/ledgerrpt/ledgerrpt.component';
 import { BankbookrptComponent } from './module/bankbookrpt/bankbookrpt.component';
@@ -345,9 +345,8 @@ import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
-import { Sparespurchaserptmodel } from './models/sparespurchaserptmodel';
-// import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
-// import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
+ import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
+ import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 
 
 @NgModule({
@@ -412,7 +411,7 @@ import { Sparespurchaserptmodel } from './models/sparespurchaserptmodel';
     HappaystatementlistComponent,  HappaystatementaddComponent,
     EmppaygenerationlistComponent, EmppaygenerationaddComponent,
     EmpsalcalculationlistComponent,EmpsalcalculationaddComponent,
-    CustwizardaddComponent,  CustwizardlistComponent,
+    CustwizardaddComponent, 
     DailyloadingrptComponent,TripsummaryrptComponent,
     LedgerrptComponent, BankbookrptComponent,ConsolidatedopenbalComponent,
     HappaystatementrptComponent,
@@ -458,9 +457,8 @@ import { Sparespurchaserptmodel } from './models/sparespurchaserptmodel';
     TyreactivatedrptComponent, TyredeactivatedrptComponent,
     TyreregroupissrptComponent, TyreregrouprcvdrptComponent, 
     VehiclerepmaintaddComponent, VehiclerepmaintlistComponent, 
-    VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,  
-    DprplacevehicleComponent, GeneratetempgceditComponent, ChallanregisterrptComponent,
-    SparespurchaserptComponent,
+    VehicleadvbalreceiptaddComponent, VehicleadvbalreceiptlistComponent,
+    DprplacevehicleComponent, GeneratetempgceditComponent, SparespurchaserptComponent,
     //ChallanregisterrptComponent,
   ],
   imports: [
@@ -518,7 +516,6 @@ import { Sparespurchaserptmodel } from './models/sparespurchaserptmodel';
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
-    Sparespurchaserptmodel,
     //Challanregisterrptmodel,
   ],
   bootstrap: [AppComponent]
