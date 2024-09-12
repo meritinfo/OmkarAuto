@@ -297,6 +297,14 @@ export class DrpmasterlistComponent {
   }  
 
   dprAdd(): void {
+    var selecteddata = this.formFilter.getRawValue();
+    sessionStorage.setItem("dprfromDate", selecteddata.fromDate);
+    sessionStorage.setItem("dprtoDate", selecteddata.toDate);
+    sessionStorage.setItem("dprpayParty", selecteddata.payParty?selecteddata.payParty.dataId:"");
+    sessionStorage.setItem("dprtype", selecteddata.type);
+    sessionStorage.setItem("dprorigin", selecteddata.origin?selecteddata.origin.dataId:"");
+    sessionStorage.setItem("dprdestination", selecteddata.destination?selecteddata.destination.dataId:"");
+
     this.route.navigate(['/dprindentadd']);
   }
 

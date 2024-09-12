@@ -1218,6 +1218,45 @@ namespace FCUBEAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("GetAckSlNo")]
+        public async Task<IActionResult> GetAckSlNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.GetAckSlNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("CheckDeliveryAckDoneForLrNo")]
+        public async Task<IActionResult> CheckDeliveryAckDoneForLrNo(RequestModel request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Invalid request data");
+            }
+            try
+            {
+                var result = await deliveryAckPodBusiness.CheckDeliveryAckDoneForLrNo(request);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("GetConsignmentUpdateDetails")]
         public async Task<IActionResult> GetConsignmentUpdateDetails(RequestModel request)
         {
@@ -1376,7 +1415,7 @@ namespace FCUBEAPI.Controllers
             }
             try
             {
-                var result = await lorryHireBusiness.GetLorryHirePmtNo(requestModel);
+                var result = await lorryHireBusiness.CheckChallanNoExists(requestModel);
 
                 return Ok(result);
             }

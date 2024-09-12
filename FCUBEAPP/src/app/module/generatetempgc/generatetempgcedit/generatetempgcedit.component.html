@@ -34,6 +34,7 @@
                                             <label for="formrow-inputCity">CN NO: </label>
                                             <span style="color: red">*</span>  
                                             <input uppercaseonly type="text" class="form-control" 
+                                            numbersonly maxlength="15" 
                                             formControlName="gcNoteNo" >
                                         </div>
                                     </div>
@@ -701,7 +702,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Rc Doc</label>
                                                         <input #vehRcDocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehRcDoc" target="_blank"
                                                             href={{uploadedVehRcDoc}}>Download</a>
                                                     </div>
@@ -710,7 +711,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Loading Slip Doc</label>
                                                         <input #loadingSlipDocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.loadingSlipDoc" target="_blank"
                                                             href={{uploadedLoadingSlipDoc}}>Download</a>
                                                     </div>
@@ -721,7 +722,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Pan Doc</label>
                                                         <input #vehPanDocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehPanDoc" target="_blank"
                                                             href={{uploadedVehPanDoc}}>Download</a>
                                                     </div>
@@ -730,7 +731,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Photo1 Doc</label>
                                                         <input #vehPhoto1DocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehPhoto1Doc" target="_blank"
                                                             href={{uploadedVehPhoto1Doc}}>Download</a>
                                                     </div>
@@ -741,7 +742,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Dec Doc</label>
                                                         <input #vehDecDocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehDecDoc" target="_blank"
                                                             href={{uploadedVehDecDoc}}>Download</a>
                                                     </div>
@@ -750,7 +751,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Photo2 Doc</label>
                                                         <input #vehPhoto2DocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehPhoto2Doc" target="_blank"
                                                             href={{uploadedVehPhoto2Doc}}>Download</a>
                                                     </div>
@@ -761,7 +762,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Party Inv Doc</label>
                                                         <input #partyInvDocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.partyInvDoc" target="_blank"
                                                             href={{uploadedPartyInvDoc}}>Download</a>
                                                     </div>
@@ -770,7 +771,7 @@
                                                     <div class="mt-3">
                                                         <label for="formDLFile" class="form-label">Veh Photo3 Doc</label>
                                                         <input #vehPhoto3DocInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedTempgcDetails.vehPhoto3Doc" target="_blank"
                                                             href={{uploadedVehPhoto3Doc}}>Download</a>
                                                     </div>

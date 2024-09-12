@@ -47,7 +47,8 @@
                                     <label for="formrow-inputState">GC Note No.</label>
                                     <span style="color: red">*</span>
                                     <input numbersonly type="text" id="formrow-inputCity" class="form-control" 
-                                        formControlName="gcNoteNo" maxlength="15" (change)="chkLrDuplicate()"
+                                        numbersonly maxlength="15" 
+                                        formControlName="gcNoteNo" (change)="chkLrDuplicate()"
                                         [ngClass]="{ 'is-invalid': formSubmitted && (f['gcNoteNo'].invalid) }">
                                 </div>
                             </div>
@@ -939,8 +940,7 @@
                             <div class="col-lg-4">
                                 <div class="mb-2">
                                     <label for="formrow-inputZip">Attach File </label>                          
-                                    <input #attachInput class="form-control" type="file" id="formAttach1File"
-                                    accept="image/*">
+                                    <input #attachInput class="form-control" type="file" id="formAttach1File">
                                     <a *ngIf="selectedLrDetails.attachedfile" target="_blank"
                                                 href={{attach1}}>Download</a>
                                 </div>

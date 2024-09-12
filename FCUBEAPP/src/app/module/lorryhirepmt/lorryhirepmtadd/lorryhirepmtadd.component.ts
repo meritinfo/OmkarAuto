@@ -167,6 +167,10 @@ export class LorryhirepmtaddComponent {
     this.formArray.controls[0].get("dueAmt")?.disable();
     this.formArray.controls[0].get("netAmt")?.disable();
 
+    if (this.selectedLorryhiremaster.masterId != '') {  
+      this.getPaymentCreditAcList(this.selectedLorryhiremaster.pmtType);
+    }
+
     setTimeout(() => {
       if (this.selectedLorryhiremaster.masterId != '') {    
         this.formUser.patchValue(this.selectedLorryhiremaster);
@@ -257,11 +261,22 @@ export class LorryhirepmtaddComponent {
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
+        this.formArray.controls[i].get("abType")?.disable();
         this.formArray.controls[i].get("challanNo")?.disable();
         this.formArray.controls[i].get("challanId")?.disable();
-        this.formArray.controls[i].get("abType")?.disable(); 
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
+
+        if(res.lhpmDetails[i].abType=='O'){
+          this.formArray.controls[i].get("totPaid")?.disable();
+          this.formArray.controls[i].get("dueAmt")?.disable();
+          this.formArray.controls[i].get("hireAmt")?.disable();
+          this.formArray.controls[i].get("recoveryAmt")?.disable();
+          this.formArray.controls[i].get("lhpmAmt")?.disable();
+          this.formArray.controls[i].get("othDedAmt")?.disable();
+          this.formArray.controls[i].get("oth2DedAmt")?.disable();
+          this.formArray.controls[i].get("tdsAmt")?.disable();
+        }
       }
     });
   }
@@ -443,7 +458,7 @@ export class LorryhirepmtaddComponent {
     
     this.lorryhirepmtService.getChallanLorryhireDetails(this.challanInputDtls).subscribe((res) => {
       this.lorryhiremaster = res;
-      var chln = res.lhpmDetails[0].challanId;
+      var chln = res.lhpmDetails.length>0?res.lhpmDetails[0].challanId:'';
       if (typeof chln === 'undefined' || chln === null || chln === '') {
         this.toasterService.warning("No Due Amount For this challan");
         this.formArray.controls[i].get("challanNo")?.setValue("");
@@ -470,10 +485,22 @@ export class LorryhirepmtaddComponent {
 
         this.formArray.controls[i].get("chYear")?.disable();
         this.formArray.controls[i].get("challanBranch")?.disable();
+        this.formArray.controls[i].get("abType")?.disable();
         this.formArray.controls[i].get("challanNo")?.disable();
         this.formArray.controls[i].get("challanId")?.disable();
         this.formArray.controls[i].get("dueAmt")?.disable();
         this.formArray.controls[i].get("netAmt")?.disable();
+
+        if(selectedData.arrayList[i].abType=='O'){
+          this.formArray.controls[i].get("totPaid")?.disable();
+          this.formArray.controls[i].get("dueAmt")?.disable();
+          this.formArray.controls[i].get("hireAmt")?.disable();
+          this.formArray.controls[i].get("recoveryAmt")?.disable();
+          this.formArray.controls[i].get("lhpmAmt")?.disable();
+          this.formArray.controls[i].get("othDedAmt")?.disable();
+          this.formArray.controls[i].get("oth2DedAmt")?.disable();
+          this.formArray.controls[i].get("tdsAmt")?.disable();
+        }
       }
     });
 
@@ -632,9 +659,7 @@ export class LorryhirepmtaddComponent {
     this.lorryhiremastermodel.pmtType= selectedDataVal.pmtType;
     this.lorryhiremastermodel.onAcBranchYN= selectedDataVal.onAcBranchYN?'Y':'N';
     this.lorryhiremastermodel.onAcBranch= selectedDataVal.onAcBranch;
-    //this.lorryhiremastermodel.cardId= selectedDataVal.cardId;
     this.lorryhiremastermodel.chequePayeeName= selectedDataVal.chequePayeeName.toString().toUpperCase();
-    //this.lorryhiremastermodel.benId = selectedDataVal.benId;
     this.lorryhiremastermodel.totalHireAmt = selectedDataVal.totalHireAmt.toString();
     this.lorryhiremastermodel.totalHamaliAmt= selectedDataVal.totalHamaliAmt.toString();
     this.lorryhiremastermodel.totalDetenAmt= selectedDataVal.totalDetenAmt.toString();
@@ -657,14 +682,65 @@ export class LorryhirepmtaddComponent {
     this.lorryhiremastermodel.loggedInUserID = this.loggedInUserID; 
 
     this.lorryhiremastermodel.lhpmDetails = [];
-    if(selectedDataVal.arrayList.length==0){
-      this.toasterService.warning("Provide atleast one detail record");
-      this.sharedService.loading=false;
-      return;
-    }
-
+   
     for (var i = 0; i < selectedDataVal.arrayList.length; i++) {
-      if(selectedDataVal.arrayList[i].challanId!='' || selectedDataVal.arrayList[i].hireAmt !=''){
+      if(selectedDataVal.arrayList[i].challanId!=''){
+        if(selectedDataVal.arrayList[i].abType == "O"){
+          var totExtra = 0;
+          if(selectedDataVal.arrayList[i].hamaliAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].hamaliAmt);
+          }    
+          if(selectedDataVal.arrayList[i].detenAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].detenAmt);
+          } 
+          if(selectedDataVal.arrayList[i].otherAmt!=''){
+            totExtra = totExtra + parseFloat(selectedDataVal.arrayList[i].otherAmt);
+          }
+          if(selectedDataVal.arrayList[i].other2Amt!=''){
+            totPaid = totExtra + parseFloat(selectedDataVal.arrayList[i].other2Amt);
+          }
+          if(selectedDataVal.arrayList[i].other3Amt!=''){
+            totPaid = totExtra + parseFloat(selectedDataVal.arrayList[i].other3Amt);
+          }
+          if(totExtra>0){
+            //ignore
+          }
+          else{
+            this.toasterService.warning("Extra Amt Should not be Zero");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        else{
+          var totPaid = 0;
+          if(selectedDataVal.arrayList[i].hireAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].hireAmt);
+          }    
+          if(selectedDataVal.arrayList[i].tdsAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].tdsAmt);
+          } 
+          if(selectedDataVal.arrayList[i].recoveryAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].recoveryAmt);
+          }
+          if(selectedDataVal.arrayList[i].lhpmAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].lhpmAmt);
+          }
+          if(selectedDataVal.arrayList[i].othDedAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].othDedAmt);
+          }
+          if(selectedDataVal.arrayList[i].oth2DedAmt!=''){
+            totPaid = totPaid + parseFloat(selectedDataVal.arrayList[i].oth2DedAmt);
+          }
+          if(totPaid>0){
+            //ignore
+          }
+          else{
+            this.toasterService.warning("Paid Amt Should not be Zero");
+            this.sharedService.loading=false;
+            return;
+          }
+        }
+        
         this.lorryhiremastermodel.lhpmDetails.push({
           'masterId': '',
           'pmtDate': '',
@@ -691,6 +767,18 @@ export class LorryhirepmtaddComponent {
           'deductRemarks': selectedDataVal.arrayList[i].deductRemarks.toString().toUpperCase(),
         });
       }
+    }
+
+    if(this.lorryhiremastermodel.lhpmDetails.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
+    }
+
+    if(this.lorryhiremastermodel.lhpmDetails.length==0){
+      this.toasterService.warning("Provide atleast one detail record");
+      this.sharedService.loading=false;
+      return;
     }
 
     this.formSubmitted = true;

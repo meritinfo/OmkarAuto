@@ -21,9 +21,12 @@ export class Deliveryackpodmodel {
     shExPkgs:       string = "";
     shExpActWt:       string = "";
     expectedRptdate :       string = "";
+    expectedRptTime :       string = "";
     reportingDate:       string = "";
+    reportingTime:       string = "";
     delayDays:       string = "";
     deliveryDate:       string = "";
+    deliveryTime:       string = "";
     detnDays:       string = "";
     podRecdYN:       string = "";
     podRecdDate :       string = "";

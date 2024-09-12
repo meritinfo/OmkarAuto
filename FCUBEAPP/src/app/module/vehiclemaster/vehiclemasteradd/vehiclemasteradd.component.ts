@@ -118,14 +118,14 @@ export class VehiclemasteraddComponent {
       vehVolumeCFT: new FormControl(''),
       remarks: new FormControl(''),
       ownershipType: new FormControl(''),
-      fastTagYN: new FormControl('',[Validators.required]),
+      fastTagYN: new FormControl('N',[Validators.required]),
       fastTagCo: new FormControl(''),
       fastTagNo: new FormControl(''),
-      petroCardYN: new FormControl('',[Validators.required]),
+      petroCardYN: new FormControl('N',[Validators.required]),
       petroCo: new FormControl(''),
       petroCardNo: new FormControl(''),
       petroCardPin: new FormControl(''),
-      happayCardYN: new FormControl('',[Validators.required]),
+      happayCardYN: new FormControl('N',[Validators.required]),
       happayCardNo: new FormControl(''),
       happayCardPin: new FormControl(''),
       fipYN: new FormControl('N',[Validators.required]),
@@ -529,15 +529,10 @@ export class VehiclemasteraddComponent {
     this.vehiclefltmastermodel.tfrVehicleNo       = selectedDataValue.tfrVehicleNo;
     this.vehiclefltmastermodel.tfrVehicleId       = selectedDataValue.tfrVehicleId;
     this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc?selectedDataValue.vehicleLedgerAc.dataId:'';
-  // this.vehiclefltmastermodel.vehicleLedgerAc    = selectedDataValue.vehicleLedgerAc.dataId;
     this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc?selectedDataValue.vehicleAssetAc.dataId:'';
-    // this.vehiclefltmastermodel.vehicleAssetAc     = selectedDataValue.vehicleAssetAc.dataId;
     this.vehiclefltmastermodel.attach1Desc        = selectedDataValue.attach1Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach1Link        = selectedDataValue.attach1Link;
     this.vehiclefltmastermodel.attach2Desc        = selectedDataValue.attach2Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach2Link        = selectedDataValue.attach2Link;
     this.vehiclefltmastermodel.attach3Desc        = selectedDataValue.attach3Desc.toString().toUpperCase();
-    this.vehiclefltmastermodel.attach3Link        = selectedDataValue.attach3Link;
     this.vehiclefltmastermodel.loggedInUser       = this.loggedInUserID;   
 
     this.vehiclefltmastermodel.vehiclefltDetailList = [];
@@ -555,9 +550,9 @@ export class VehiclemasteraddComponent {
           'vehicleMasterID': '',
           'validFrom': selectedDataValue.arrayList[i].validFrom,
           'validTo': selectedDataValue.arrayList[i].validTo,
-          'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad,
-          'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty,
-          'adBlue': selectedDataValue.arrayList[i].adBlue,
+          'vehicleAvgLoad': selectedDataValue.arrayList[i].vehicleAvgLoad.toString(),
+          'vehicleAvgEmpty': selectedDataValue.arrayList[i].vehicleAvgEmpty.toString(),
+          'adBlue': selectedDataValue.arrayList[i].adBlue.toString(),
         })
       }      
     }

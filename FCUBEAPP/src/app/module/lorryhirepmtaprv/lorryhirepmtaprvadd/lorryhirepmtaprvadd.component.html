@@ -68,6 +68,7 @@
                                             <div class="mb-2">
                                                 <label for="formrow-inputZip">Challan No</label><span style="color: red">*</span>    
                                                 <input autoclose="false" 
+                                                maxlength="15" numbersonly
                                                 formControlName="challanNo" class="form-control"
                                                 [ngClass]="{ 'is-invalid': formSubmitted && (f['challanNo'].invalid) }">
                                             </div>

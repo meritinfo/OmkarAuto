@@ -288,7 +288,7 @@
                                             <div class="mb-3">
                                                 <label>Driver Photo</label><span style="color: red">*</span>
                                                 <input #driverPhotoInput class="form-control" type="file"
-                                                    formControlName="drPhoto" id="formDriverPhoto" accept="image/*"
+                                                    formControlName="drPhoto" id="formDriverPhoto"  accept="image/*"
                                                     (change)="onSelectDrivePhoto($event)"
                                                     [ngClass]="{ 'is-invalid': formSubmitted && (f['drPhoto'].invalid) }">
                                             </div>
@@ -428,7 +428,7 @@
                                                         <label for="formDLFile" class="form-label">Driving
                                                             License</label>
                                                         <input #drivingLicenseInput class="form-control" type="file"
-                                                            id="formDLFile" accept="image/*">
+                                                            id="formDLFile"  >
                                                         <a *ngIf="selectedDriverMasterDetails.attachDrLic" target="_blank"
                                                             href={{uploadedDrLic}}>Download</a>
                                                     </div>
@@ -437,7 +437,7 @@
                                                     <div class="mt-3">
                                                         <label for="formLicFile" class="form-label">Haz License</label>
                                                         <input #hazdrivingLicenseInput class="form-control" type="file"
-                                                            id="formLicFile" accept="image/*">
+                                                            id="formLicFile"  >
                                                         <a *ngIf="selectedDriverMasterDetails.attachDrHazLic" target="_blank"
                                                             href={{uploadedDrHazLic}}>Download</a>
                                                     </div>
@@ -447,7 +447,7 @@
                                                         <label for="formTempAddFile" class="form-label">Temporary
                                                             Address Prove</label>
                                                         <input #tempAddressProveInput class="form-control" type="file"
-                                                            id="formTempAddFile" accept="image/*">
+                                                            id="formTempAddFile"  >
                                                             <a *ngIf="selectedDriverMasterDetails.attachDrTempAddProof" target="_blank"
                                                             href={{uploadedDrTempAddProof}}>Download</a>
                                                     </div>
@@ -459,7 +459,7 @@
                                                         <label for="formPerAddFile" class="form-label">Permanent
                                                             Address Prove</label>
                                                         <input #perAddressProveInput class="form-control" type="file"
-                                                            id="formPerAddFile" accept="image/*">
+                                                            id="formPerAddFile"  >
                                                             <a *ngIf="selectedDriverMasterDetails.attachDrPermAddProof" target="_blank"
                                                             href={{uploadedDrPermAddProof}}>Download</a>
                                                     </div>
@@ -469,7 +469,7 @@
                                                         <label for="formAadharFile" class="form-label">Aadhar
                                                             Card</label>
                                                         <input #aadharCardInput class="form-control" type="file"
-                                                            id="formAadharFile" accept="image/*">
+                                                            id="formAadharFile"  >
                                                             <a *ngIf="selectedDriverMasterDetails.attachDrAadhar" target="_blank"
                                                             href={{uploadedDrAadhar}}>Download</a>
                                                     </div>
@@ -479,7 +479,7 @@
                                                         <label for="formPassbookFile" class="form-label">Bank
                                                             Passbook</label>
                                                         <input #bankPassbookInput class="form-control" type="file"
-                                                            id="formPassbookFile" accept="image/*">
+                                                            id="formPassbookFile"  >
                                                             <a *ngIf="selectedDriverMasterDetails.attachDrBankPassBook" target="_blank"
                                                             href={{uploadedDrBankPassBook}}>Download</a>
                                                     </div>
