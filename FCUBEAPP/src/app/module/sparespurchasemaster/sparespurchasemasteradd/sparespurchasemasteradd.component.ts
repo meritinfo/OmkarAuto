@@ -113,12 +113,12 @@ export class SparespurchasemasteraddComponent {
       transDate : new FormControl(this.loginDate,[Validators.required]),
       nonVendor : new FormControl('',),  
       vendorId : new FormControl('',),
-      vendorInvDt : new FormControl('',),
+      vendorInvDt : new FormControl(this.loginDate,),
       vendorInvNo : new FormControl('',),
       vendorName : new FormControl('',),
       vendorAddress : new FormControl('',[Validators.required]),
       vendorState : new FormControl('',[Validators.required]),
-      vendorGstNo : new FormControl('',[Validators.required]),
+      vendorGstNo : new FormControl('',),
       gstType : new FormControl('NA',),
       totItemAmount : new FormControl('',[Validators.required]),
       totSgstAmt : new FormControl('',),
@@ -442,17 +442,23 @@ export class SparespurchasemasteraddComponent {
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
         this.formTyreArray.controls[i].get("igstPct")?.enable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }    
       else if (gsttype == "S" || gsttype == "C")  {      
         this.formTyreArray.controls[i].get("sgstPct")?.enable();   
         this.formTyreArray.controls[i].get("cgstPct")?.enable();  
         this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formUser.controls['vendorGstNo'].setValidators([Validators.required]);
       }
       else{              
         this.formTyreArray.controls[i].get("sgstPct")?.disable();   
         this.formTyreArray.controls[i].get("cgstPct")?.disable();  
-        this.formTyreArray.controls[i].get("igstPct")?.disable();  
+        this.formTyreArray.controls[i].get("igstPct")?.disable(); 
+        this.formUser.controls['vendorGstNo'].clearValidators();  
+       
+
       } 
+      this.formUser.controls['vendorGstNo'].updateValueAndValidity(); 
     }    
     this.onPctChange()
   }
@@ -598,8 +604,8 @@ export class SparespurchasemasteraddComponent {
     }
       
     for (var i = 0; i < selectedDataValue.arrayList.length; i++) {
-      if (selectedDataValue.arrayList[i].brandID == "" || selectedDataValue.arrayList[i].tyreAmount=="" ) {
-        this.toastrService.warning("Please Enter Details Properly");
+      if (selectedDataValue.arrayList[i].spareLubId == "" || selectedDataValue.arrayList[i].brandId=="" ) {
+        this.toastrService.warning("Please Enter Spare And Brand In Detail");
         return;
       } 
       else{

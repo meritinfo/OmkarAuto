@@ -97,7 +97,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@PmtRemarks", tripMasterModel.DriverList[i].Remarks),
                                     new SqlParameter("@PmtAmt", tripMasterModel.DriverList[i].AmountPaid),
                                 };
-                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrPaymentSave", param);
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDrPaymentSave", paramdr);
 
                                 if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
                                 {
@@ -127,7 +127,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@Remarks",    tripMasterModel.RouteList[i].Remarks),
                                     new SqlParameter("@YearId",     tripMasterModel.YearId),
                                 };
-                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteSave", param);
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripRouteSave", paramdr);
 
                                 if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
                                 {
@@ -155,7 +155,7 @@ namespace FleetTrans.Repository
                                     new SqlParameter("@DslRate", tripMasterModel.DieselList[i].DslRate),
                                     new SqlParameter("@DslAmt", tripMasterModel.DieselList[i].Amount),
                                 };
-                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDslSave", param);
+                                var statusDatadr = await SqlHelper.SqlHelper.ExecuteDatasetAsync(transaction, "usp_TripDslSave", paramdr);
 
                                 if (statusDatadr != null && statusDatadr.Tables[0].Rows.Count > 0)
                                 {
@@ -390,7 +390,7 @@ namespace FleetTrans.Repository
                             new SqlParameter("@TripId",   request.strRequest),
                         };
 
-                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripSheetInnerSearchGridList", param);
+                    var resultData = await SqlHelper.SqlHelper.ExecuteDatasetAsync(dbconnection.Value.DBConnection, "usp_getTripSheetInnerGridList", param);
 
                     //Driver Adv Details
                     if (resultData != null && resultData.Tables[0].Rows.Count > 0)
