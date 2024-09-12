@@ -201,6 +201,7 @@ import { VehiclerepmaintlistComponent } from './module/vehiclerepmaint/vehiclere
 import { VehicleadvbalreceiptaddComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptadd/vehicleadvbalreceiptadd.component';
 import { VehicleadvbalreceiptlistComponent } from './module/vehicleadvreceipt/vehicleadvbalreceiptlist/vehicleadvbalreceiptlist.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
+import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
 
 
 
@@ -483,6 +484,7 @@ const routes: Routes = [
   { path: 'Vehicleadvbalreceiptedit', component: VehicleadvbalreceiptaddComponent }, 
   { path: 'vehicleadvballist', component: VehicleadvbalreceiptlistComponent },  
   { path: 'challanreg', component: ChallanregisterrptComponent },
+  { path: 'sparepurchrpt', component: SparespurchaserptComponent },
    
   
 ];

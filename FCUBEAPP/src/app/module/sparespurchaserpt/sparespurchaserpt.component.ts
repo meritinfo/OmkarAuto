@@ -7,7 +7,7 @@ import { SharedService } from 'src/app/services/shared.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Dropdownmodel } from 'src/app/models/dropdownmodel';
 import { Sparespurchaserptlistmodel} from 'src/app/models/sparespurchaserptlistmodel';
-import { Challanregisterrptmodel } from 'src/app/models/challanregisterrptmodel';
+import { Sparespurchaserptmodel } from 'src/app/models/sparespurchaserptmodel';
 import { SparespurchaserptService } from 'src/app/services/sparespurchaserpt.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Responsemodel } from 'src/app/models/responsemodel';
@@ -72,7 +72,7 @@ export class SparespurchaserptComponent {
         var privilegeData = JSON.parse(menuData);
         var menuTypeList = privilegeData.flatMap((item: { menuTypeList: any; }) => item.menuTypeList);
         var privilegeStatus = menuTypeList.flatMap((item: { menuList: any; }) => item.menuList)
-        .find((aa: { menuName: string; }) => aa.menuName === "Challan Register");
+        .find((aa: { menuName: string; }) => aa.menuName === "Spares Purchase Report");
         if (privilegeStatus) {
           this.createStatus = privilegeStatus.createYN.toLowerCase() === "y" ? true : false;
           this.editStatus = privilegeStatus.editYN.toLowerCase() === "y" ? true : false;
@@ -263,7 +263,7 @@ export class SparespurchaserptComponent {
       var selectedDataVal=this.formFilter.getRawValue();
       this.filter.fromDate    = selectedDataVal.fromDate;
       this.filter.toDate      = selectedDataVal.toDate;       
-      this.filter.filterStr  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
+    //  this.filter.filterStr  = selectedDataVal.origin?selectedDataVal.origin.dataId:"";
       
       this.sparespurchaserptService.getSparespurchaserptExcel(this.filter).subscribe(resp => {
       

@@ -30,7 +30,7 @@
                                     [ngClass]="{ 'is-invalid': userSubmitted && (f['toDate'].invalid) }">
                                 </div>
                             </div>
-                            <!-- <div class="col-md-3">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label for="formrow-inputState">Branch </label>
                                     <select class="form-control" formControlName="branch">
@@ -41,7 +41,7 @@
                                     </option>
                                 </select>
                                 </div>
-                            </div>  -->
+                            </div> 
                             <!-- <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Party </label>  
@@ -69,7 +69,7 @@
                             </div>  -->
                         </div>
                         <div class="row">
-                            <!-- <div class="col-md-3">
+                            <div class="col-md-3">
                                 <div class="mb-3">                                    
                                     <label for="formrow-inputCity">Origin </label>  
                                     <div class="ng-autocomplete">
@@ -118,7 +118,7 @@
                                         </ng-template>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="col-lg-1">
                                 <div class="mt-3">
                                     <button class="btn btn-primary" type="submit" 
@@ -151,8 +151,8 @@
                                 <th>totBillAmt</th>                                                              
                             </tr>
                         </thead>
-                        <tbody *ngIf="allSparespurchaserptlist.sparespurchaseRptList?.length != 0">
-                            <tr *ngFor="let eta of allSparespurchaserptlist.sparespurchaseRptList">
+                        <tbody *ngIf="allSparespurchaserptlist.sparesPurchaseRptList?.length != 0">
+                            <tr *ngFor="let eta of allSparespurchaserptlist.sparesPurchaseRptList">
                                 <td>{{ eta.branchName }}</td>
                                 <td>{{ eta.transDate }}</td> 
                                 <td>{{ eta.vendorName }}</td> 
@@ -163,7 +163,7 @@
                                 <td>{{ eta.totBillAmt }}</td>                                                                                 
                             </tr>
                         </tbody>
-                        <tbody *ngIf="allSparespurchaserptlist.sparespurchaseRptList?.length == 0">
+                        <tbody *ngIf="allSparespurchaserptlist.sparesPurchaseRptList?.length == 0">
                             <tr>
                                 <td colspan="3" class="no-data-available">No data!</td>
                             </tr>

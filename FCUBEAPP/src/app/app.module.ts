@@ -345,6 +345,7 @@ import { DprplacevehicleComponent } from './module/dprvehiplaced/dprplacevehicle
 import { GeneratetempgceditComponent } from './module/generatetempgc/generatetempgcedit/generatetempgcedit.component';
 import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespurchaserpt.component';
+import { Sparespurchaserptmodel } from './models/sparespurchaserptmodel';
 // import { ChallanregisterrptComponent } from './module/challanregisterrpt/challanregisterrpt.component';
 // import { Challanregisterrptmodel } from './models/challanregisterrptmodel';
 
@@ -517,6 +518,7 @@ import { SparespurchaserptComponent } from './module/sparespurchaserpt/sparespur
     Dieselstmtmodel,Fleetloadentrymodel,Lhpmslabmastermodel,
     Finaccountsmastergstmodel,TripexptypemasterModel,
     Sparespurchasemastermodel,VehiclerepmaintMaster,VehicleadvbalreceiptModel,
+    Sparespurchaserptmodel,
     //Challanregisterrptmodel,
   ],
   bootstrap: [AppComponent]
